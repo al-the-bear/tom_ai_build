@@ -38,9 +38,10 @@ import 'experience_and_interface_design.dart'
   'information-for-use, training).',
 )
 @SectionId('REQS')
-class Requirements {
+class Requirements extends DocSpecsSection {
   @ContentType('description', 'Summarize the functional and non-functional '
       'requirement landscape; seeds the Requirements Specification (RSP).')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -72,9 +73,10 @@ class Requirements {
   'formatting, RTL, pluralization, and translation needs.',
 )
 @SectionId('LCTR')
-class LocalizationTranslationRequirements {
+class LocalizationTranslationRequirements extends DocSpecsSection {
   @ContentType('description', 'Localization and translation requirements: '
       'supported locales, i18n framework, formatting, RTL, pluralization.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -106,9 +108,10 @@ class LocalizationTranslationRequirements {
   'platforms, versioning, and documentation localization.',
 )
 @SectionId('IFUR')
-class InformationForUseRequirements {
+class InformationForUseRequirements extends DocSpecsSection {
   @ContentType('description', 'User documentation requirements: deliverables, '
       'formats, platforms, versioning, and documentation localization.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -132,7 +135,7 @@ class InformationForUseRequirements {
   'The requirements for training and enabling users to adopt the solution.',
 )
 @SectionId('TREQ')
-class TrainingEnablementRequirements {
+class TrainingEnablementRequirements extends DocSpecsSection {
   /// Training & enablement requirement form.
   @Form([
     Field('targetAudiences', String, 'Target Audiences',
@@ -143,6 +146,7 @@ class TrainingEnablementRequirements {
     Field('ongoingEnablement', String, 'Ongoing Enablement',
         hint: 'Refresher and continuous-enablement expectations'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 

@@ -11,12 +11,13 @@ import 'enums.dart';
 /// A leaf [SpecNode]: only the scalar [content] field, so snapshots share an
 /// unchanged instance by identity.
 @SectionId('SCMTA')
-class SectionMeta with SpecNode {
+class SectionMeta extends DocSpecsSection with SpecNode {
   @Form([
     Field('sectionId', String, 'Section Id'),
     Field('type', SectionType, 'Type'),
     Field('seeds', String, 'Seeds'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 

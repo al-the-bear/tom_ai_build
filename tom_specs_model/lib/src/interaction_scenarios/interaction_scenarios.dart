@@ -29,8 +29,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('ISC')
-class D05InteractionScenarios {
+class D05InteractionScenarios extends DocSpecsSection {
   @ContentHelp('Executive overview of the use-case model and its coverage.')
+  @override
   @SerializationOrder(0)
   String? content;
 

@@ -32,8 +32,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('ATS')
-class D06ArchitectureTechnologySpecification {
+class D06ArchitectureTechnologySpecification extends DocSpecsSection {
   @ContentHelp('Executive overview of the technical-requirements set.')
+  @override
   @SerializationOrder(0)
   String? content;
 

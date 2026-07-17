@@ -26,9 +26,10 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('RSP')
-class D04RequirementsSpecification {
+class D04RequirementsSpecification extends DocSpecsSection {
   @ContentHelp('Executive overview of the requirements catalog and its '
       'traceability model.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -62,7 +63,7 @@ class D04RequirementsSpecification {
   @ContentType('description', 'Summary of traceability matrix showing '
       'connections between requirements, goals, use cases, and tests.')
   @SerializationOrder(6)
-  String? traceabilityMatrix;
+  DocSpecsSection? traceabilityMatrix;
 
   /// Requirement relationships.
   @SectionId('RERE-REQU-LST')

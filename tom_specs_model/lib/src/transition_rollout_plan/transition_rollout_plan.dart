@@ -32,8 +32,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('TRP')
-class D12TransitionRolloutPlan {
+class D12TransitionRolloutPlan extends DocSpecsSection {
   @ContentHelp('Executive overview of the rollout approach.')
+  @override
   @SerializationOrder(0)
   String? content;
 

@@ -28,7 +28,7 @@ import 'delivery_scope_and_acceptance.dart';
 @SectionId('SYQG')
 @Comment('Seeds → QAP')
 @MapsTo(D10QualityAcceptancePlan)
-class SystemQualityGoals {
+class SystemQualityGoals extends DocSpecsSection {
   @SectionId('SYQG-GOVE')
   @Form([
     Field(
@@ -51,7 +51,7 @@ class SystemQualityGoals {
     ),
   ])
   @SerializationOrder(0)
-  String? governanceContent;
+  DocSpecsSection? governanceContent;
 
   /// Governance board and escalation details.
   @SectionId('SQGGV')
@@ -79,7 +79,7 @@ class SystemQualityGoals {
     ),
   ])
   @SerializationOrder(1)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Baseline and target settings.
   @SectionId('SQGBS')
@@ -116,7 +116,7 @@ class SystemQualityGoals {
     ),
   ])
   @SerializationOrder(2)
-  String? baseline;
+  DocSpecsSection? baseline;
 
   /// Measurement and reporting approach.
   @SectionId('SQGMS')
@@ -156,7 +156,7 @@ class SystemQualityGoals {
     ),
   ])
   @SerializationOrder(3)
-  String? measurement;
+  DocSpecsSection? measurement;
 
   /// Quality resources and enablement.
   @SectionId('SQGRS')
@@ -193,7 +193,7 @@ class SystemQualityGoals {
     ),
   ])
   @SerializationOrder(4)
-  String? resources;
+  DocSpecsSection? resources;
 
   /// Executive summary of quality goals and approach.
   @ContentHelp(
@@ -230,7 +230,7 @@ class SystemQualityGoals {
   @SectionIdPattern('ATTRI-ATTR-xxx')
   @ContentHelp('Add one entry per quality attribute interdependency.')
   @SerializationOrder(8)
-  List<String> attributeInterdependencies = [];
+  List<DocSpecsSection> attributeInterdependencies = [];
 
   /// Quality attribute priority radar.
   @ContentHelp('Visual showing relative importance of quality attributes.')
@@ -314,7 +314,7 @@ class SystemQualityGoals {
 @SectionId('QLFWK')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FRA')
-class QualityFramework {
+class QualityFramework extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
   // ─────────────────────────────────────────────────────────────────────────
@@ -341,7 +341,7 @@ class QualityFramework {
     ),
   ])
   @SerializationOrder(0)
-  String? frameworkContent;
+  DocSpecsSection? frameworkContent;
 
   /// Quality objective structure and alignment.
   @SectionId('QFOBJ')
@@ -369,7 +369,7 @@ class QualityFramework {
     ),
   ])
   @SerializationOrder(1)
-  String? objectives;
+  DocSpecsSection? objectives;
 
   /// Trade-off priorities and decision authority.
   @SectionId('QFTRD')
@@ -406,7 +406,7 @@ class QualityFramework {
     ),
   ])
   @SerializationOrder(2)
-  String? tradeOffs;
+  DocSpecsSection? tradeOffs;
 
   /// Verification and defect handling approach.
   @SectionId('QFVER')
@@ -444,7 +444,7 @@ class QualityFramework {
     ),
   ])
   @SerializationOrder(3)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// 11.1.1. Quality Objectives Overview.
   @ContentHelp(
@@ -486,7 +486,7 @@ class QualityFramework {
   @SectionIdPattern('CATEG-CATE-xxx')
   @ContentHelp('Add one entry per category dependency.')
   @SerializationOrder(7)
-  List<String> categoryDependencies = [];
+  List<DocSpecsSection> categoryDependencies = [];
 }
 
 /// A quality category entry (form).
@@ -500,7 +500,7 @@ class QualityFramework {
   'Captures a single quality category with its attributes, weight, and relationships.',
 )
 @SectionId('QCATE')
-class QualityCategoryEntry {
+class QualityCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
       'categoryId',
@@ -522,6 +522,7 @@ class QualityCategoryEntry {
       hint: 'Relative importance in overall quality',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -560,7 +561,7 @@ class QualityCategoryEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? definition;
+  DocSpecsSection? definition;
 
   /// Category relationships.
   @SectionId('QCARL')
@@ -591,7 +592,7 @@ class QualityCategoryEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? relationships;
+  DocSpecsSection? relationships;
 
   /// Governance ownership.
   @SectionId('QCAGV')
@@ -622,7 +623,7 @@ class QualityCategoryEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Measurement targets.
   @SectionId('QCAMT')
@@ -659,7 +660,7 @@ class QualityCategoryEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? metrics;
+  DocSpecsSection? metrics;
 
   /// Detailed category definition.
   @ContentHelp(
@@ -684,7 +685,7 @@ class QualityCategoryEntry {
 @SectionId('FNSU')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FSU')
-class FunctionalSuitabilityCharacteristic {
+class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Functional Suitability Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -710,7 +711,7 @@ class FunctionalSuitabilityCharacteristic {
     ),
   ])
   @SerializationOrder(0)
-  String? functionalSuitabilityContent;
+  DocSpecsSection? functionalSuitabilityContent;
 
   /// Functional suitability overview.
   @ContentHelp(
@@ -744,7 +745,7 @@ class FunctionalSuitabilityCharacteristic {
 @SectionId('INCP')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ICP')
-class InteractionCapabilityCharacteristic {
+class InteractionCapabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Interaction Capability Overview (migrated from the former user bucket)
   // ─────────────────────────────────────────────────────────────────────────
@@ -788,7 +789,7 @@ class InteractionCapabilityCharacteristic {
     ),
   ])
   @SerializationOrder(0)
-  String? interactionCapabilityContent;
+  DocSpecsSection? interactionCapabilityContent;
 
   /// Interaction capability overview.
   @ContentHelp(
@@ -808,7 +809,7 @@ class InteractionCapabilityCharacteristic {
   'ISO/IEC 25010:2023 — interaction capability includes appropriateness recognizability, learnability, operability, user error protection, and user engagement',
 ], 'This section captures the usability quality group of the solution.')
 @SectionId('USAQL')
-class Usability {
+class Usability extends DocSpecsSection {
   @Form([
     Field(
       'operabilityTarget',
@@ -829,6 +830,7 @@ class Usability {
       hint: 'Time to proficiency: <1 hour, <1 day',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -861,7 +863,7 @@ class Usability {
     ),
   ])
   @SerializationOrder(1)
-  String? operability;
+  DocSpecsSection? operability;
 
   /// Learnability and onboarding expectations.
   @SectionId('USALN')
@@ -886,7 +888,7 @@ class Usability {
     ),
   ])
   @SerializationOrder(2)
-  String? learnability;
+  DocSpecsSection? learnability;
 
   /// Clarity and complexity constraints.
   @SectionId('USACL')
@@ -923,7 +925,7 @@ class Usability {
     ),
   ])
   @SerializationOrder(3)
-  String? clarity;
+  DocSpecsSection? clarity;
 
   /// Interaction control settings.
   @SectionId('USAIN')
@@ -948,7 +950,7 @@ class Usability {
     ),
   ])
   @SerializationOrder(4)
-  String? interaction;
+  DocSpecsSection? interaction;
 
   /// Perceived and measured responsiveness targets.
   @SectionId('USAPR')
@@ -985,7 +987,7 @@ class Usability {
     ),
   ])
   @SerializationOrder(5)
-  String? performance;
+  DocSpecsSection? performance;
 
   /// Detailed usability requirements narrative.
   @SerializationOrder(6)
@@ -997,7 +999,7 @@ class Usability {
   'ISO/IEC 25010:2023 — functional completeness is the degree to which the set of functions covers all the specified tasks and intended user objectives',
 ], 'This section captures the functional completeness quality of the solution.')
 @SectionId('FNCOQ')
-class FunctionalCompleteness {
+class FunctionalCompleteness extends DocSpecsSection {
   @Form([
     // Coverage
     Field(
@@ -1057,6 +1059,7 @@ class FunctionalCompleteness {
       hint: 'Sprint, release, milestone',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1073,7 +1076,7 @@ class FunctionalCompleteness {
   'This section captures the functional correctness quality group of the solution.',
 )
 @SectionId('COQU')
-class Correctness {
+class Correctness extends DocSpecsSection {
   @Form([
     Field(
       'defectDensityTarget',
@@ -1094,6 +1097,7 @@ class Correctness {
       hint: 'Defects found post-release',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1126,7 +1130,7 @@ class Correctness {
     ),
   ])
   @SerializationOrder(1)
-  String? integrity;
+  DocSpecsSection? integrity;
 
   /// Accuracy and auditability requirements.
   @SectionId('COQUAC')
@@ -1157,7 +1161,7 @@ class Correctness {
     ),
   ])
   @SerializationOrder(2)
-  String? accuracy;
+  DocSpecsSection? accuracy;
 
   /// Verification and regression approach.
   @SectionId('COQUVE')
@@ -1188,7 +1192,7 @@ class Correctness {
     ),
   ])
   @SerializationOrder(3)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Detailed correctness requirements narrative.
   @SerializationOrder(4)
@@ -1210,7 +1214,7 @@ class Correctness {
 @SectionId('PEEF')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PEF')
-class PerformanceEfficiencyCharacteristic {
+class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Performance Efficiency Overview (migrated from the former technical bucket)
   // ─────────────────────────────────────────────────────────────────────────
@@ -1248,7 +1252,7 @@ class PerformanceEfficiencyCharacteristic {
     ),
   ])
   @SerializationOrder(0)
-  String? performanceEfficiencyContent;
+  DocSpecsSection? performanceEfficiencyContent;
 
   /// Performance efficiency overview.
   @ContentHelp(
@@ -1278,7 +1282,7 @@ class PerformanceEfficiencyCharacteristic {
 @SectionId('CMPT')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CMP')
-class CompatibilityCharacteristic {
+class CompatibilityCharacteristic extends DocSpecsSection {
   @SectionId('CMPT-COMP')
   @Form([
     Field(
@@ -1295,7 +1299,7 @@ class CompatibilityCharacteristic {
     ),
   ])
   @SerializationOrder(0)
-  String? compatibilityContent;
+  DocSpecsSection? compatibilityContent;
 
   /// Compatibility overview.
   @ContentHelp('Executive summary of co-existence and interoperability goals.')
@@ -1318,7 +1322,7 @@ class CompatibilityCharacteristic {
 @SectionId('FLXC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FLX')
-class FlexibilityCharacteristic {
+class FlexibilityCharacteristic extends DocSpecsSection {
   @SectionId('FLXC-FLEX')
   @Form([
     Field(
@@ -1335,7 +1339,7 @@ class FlexibilityCharacteristic {
     ),
   ])
   @SerializationOrder(0)
-  String? flexibilityContent;
+  DocSpecsSection? flexibilityContent;
 
   /// Flexibility overview.
   @ContentHelp(
@@ -1368,7 +1372,7 @@ class FlexibilityCharacteristic {
 @SectionId('SECC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SEC')
-class SecurityCharacteristic {
+class SecurityCharacteristic extends DocSpecsSection {
   @SectionId('SECC-SECU')
   @Form([
     Field(
@@ -1385,7 +1389,7 @@ class SecurityCharacteristic {
     ),
   ])
   @SerializationOrder(0)
-  String? securityContent;
+  DocSpecsSection? securityContent;
 
   /// Security overview.
   @ContentHelp(
@@ -1418,7 +1422,7 @@ class SecurityCharacteristic {
 @SectionId('MNTC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-MNT')
-class MaintainabilityCharacteristic {
+class MaintainabilityCharacteristic extends DocSpecsSection {
   @SectionId('MNTC-MAIN')
   @Form([
     Field(
@@ -1435,7 +1439,7 @@ class MaintainabilityCharacteristic {
     ),
   ])
   @SerializationOrder(0)
-  String? maintainabilityContent;
+  DocSpecsSection? maintainabilityContent;
 
   /// Maintainability overview.
   @ContentHelp('Executive summary of maintainability goals and standards.')
@@ -1455,7 +1459,7 @@ class MaintainabilityCharacteristic {
   'This section captures efficiency quality including response time, throughput, and resource targets.',
 )
 @SectionId('EFQU')
-class Efficiency {
+class Efficiency extends DocSpecsSection {
   @Form([
     // Response time
     Field(
@@ -1477,6 +1481,7 @@ class Efficiency {
       hint: '99th percentile (e.g., <1s)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1507,7 +1512,7 @@ class Efficiency {
     ),
   ])
   @SerializationOrder(1)
-  String? throughput;
+  DocSpecsSection? throughput;
 
   /// Resource utilization constraints.
   @SectionId('EFQURE')
@@ -1544,7 +1549,7 @@ class Efficiency {
     ),
   ])
   @SerializationOrder(2)
-  String? resources;
+  DocSpecsSection? resources;
 
   /// Performance validation and SLA commitments.
   @SectionId('EFQUVE')
@@ -1581,7 +1586,7 @@ class Efficiency {
     ),
   ])
   @SerializationOrder(3)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Detailed efficiency requirements narrative.
   @SerializationOrder(4)
@@ -1596,7 +1601,7 @@ class Efficiency {
   'This section captures portability quality across platforms and environments.',
 )
 @SectionId('POQU')
-class Portability {
+class Portability extends DocSpecsSection {
   @Form([
     // Platform support
     Field(
@@ -1663,6 +1668,7 @@ class Portability {
       hint: 'Cross-platform testing, compatibility matrix',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1679,7 +1685,7 @@ class Portability {
   'This section captures flexibility quality including component architecture and adaptability.',
 )
 @SectionId('FLQU')
-class Flexibility {
+class Flexibility extends DocSpecsSection {
   @Form([
     Field(
       'componentArchitecture',
@@ -1700,6 +1706,7 @@ class Flexibility {
       hint: 'Hot-swap, restart required',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1732,7 +1739,7 @@ class Flexibility {
     ),
   ])
   @SerializationOrder(1)
-  String? modularity;
+  DocSpecsSection? modularity;
 
   /// Distribution and configurability model.
   @SectionId('FLQUDE')
@@ -1763,7 +1770,7 @@ class Flexibility {
     ),
   ])
   @SerializationOrder(2)
-  String? deployment;
+  DocSpecsSection? deployment;
 
   /// Extensibility and verification expectations.
   @SectionId('FLQUEX')
@@ -1794,7 +1801,7 @@ class Flexibility {
     ),
   ])
   @SerializationOrder(3)
-  String? extensibility;
+  DocSpecsSection? extensibility;
 
   /// Detailed flexibility requirements narrative.
   @SerializationOrder(4)
@@ -1809,7 +1816,7 @@ class Flexibility {
   'This section captures the core security quality expectations of the solution.',
 )
 @SectionId('SEQU')
-class Security {
+class Security extends DocSpecsSection {
   @Form([
     Field(
       'encryptionAtRest',
@@ -1830,6 +1837,7 @@ class Security {
       hint: 'HSM, KMS, key rotation policy',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1865,7 +1873,7 @@ class Security {
     ),
   ])
   @SerializationOrder(1)
-  String? authentication;
+  DocSpecsSection? authentication;
 
   /// Authorization controls.
   @SectionId('SEQUA1')
@@ -1896,7 +1904,7 @@ class Security {
     ),
   ])
   @SerializationOrder(2)
-  String? authorization;
+  DocSpecsSection? authorization;
 
   /// Vulnerability management expectations.
   @SectionId('SEQUVU')
@@ -1927,7 +1935,7 @@ class Security {
     ),
   ])
   @SerializationOrder(3)
-  String? vulnerability;
+  DocSpecsSection? vulnerability;
 
   /// Compliance and verification settings.
   @SectionId('SEQUCO')
@@ -1965,7 +1973,7 @@ class Security {
     ),
   ])
   @SerializationOrder(4)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Detailed security requirements narrative.
   @SerializationOrder(5)
@@ -1980,7 +1988,7 @@ class Security {
   'This section captures the core maintainability quality expectations of the solution.',
 )
 @SectionId('MAQU')
-class Maintainability {
+class Maintainability extends DocSpecsSection {
   @Form([
     Field(
       'adaptabilityTarget',
@@ -1995,6 +2003,7 @@ class Maintainability {
       hint: 'Max components affected by change',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2024,7 +2033,7 @@ class Maintainability {
     ),
   ])
   @SerializationOrder(1)
-  String? analyzability;
+  DocSpecsSection? analyzability;
 
   /// Changeability requirements.
   @SectionId('MAQUCH')
@@ -2058,7 +2067,7 @@ class Maintainability {
     ),
   ])
   @SerializationOrder(2)
-  String? changeability;
+  DocSpecsSection? changeability;
 
   /// Testability requirements.
   @SectionId('MAQUTE')
@@ -2086,7 +2095,7 @@ class Maintainability {
     ),
   ])
   @SerializationOrder(3)
-  String? testability;
+  DocSpecsSection? testability;
 
   /// Extensibility and verification requirements.
   @SectionId('MAQUGO')
@@ -2123,7 +2132,7 @@ class Maintainability {
     ),
   ])
   @SerializationOrder(4)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Detailed maintainability requirements narrative.
   @SerializationOrder(5)
@@ -2138,7 +2147,7 @@ class Maintainability {
   'This section captures the core reliability quality expectations of the solution.',
 )
 @SectionId('REQU')
-class Reliability {
+class Reliability extends DocSpecsSection {
   @Form([
     Field(
       'uptimeTarget',
@@ -2159,6 +2168,7 @@ class Reliability {
       hint: 'Graceful degradation approach',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2179,7 +2189,7 @@ class Reliability {
     Field('rpoTarget', String, 'RPO Target', hint: 'Recovery point objective'),
   ])
   @SerializationOrder(1)
-  String? recovery;
+  DocSpecsSection? recovery;
 
   /// Failover requirements.
   @SectionId('REQUFA')
@@ -2207,7 +2217,7 @@ class Reliability {
     ),
   ])
   @SerializationOrder(2)
-  String? failover;
+  DocSpecsSection? failover;
 
   /// Data durability requirements.
   @SectionId('REQUDU')
@@ -2241,7 +2251,7 @@ class Reliability {
     ),
   ])
   @SerializationOrder(3)
-  String? durability;
+  DocSpecsSection? durability;
 
   /// Verification and learning.
   @SectionId('REQUVE')
@@ -2266,7 +2276,7 @@ class Reliability {
     ),
   ])
   @SerializationOrder(4)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Detailed reliability requirements narrative.
   @SerializationOrder(5)
@@ -2287,7 +2297,7 @@ class Reliability {
 @SectionId('RELC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-REL')
-class ReliabilityCharacteristic {
+class ReliabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Reliability Overview (migrated from the former operations bucket)
   // ─────────────────────────────────────────────────────────────────────────
@@ -2331,7 +2341,7 @@ class ReliabilityCharacteristic {
     ),
   ])
   @SerializationOrder(0)
-  String? reliabilityContent;
+  DocSpecsSection? reliabilityContent;
 
   /// Reliability overview narrative.
   @ContentHelp(
@@ -2363,7 +2373,7 @@ class ReliabilityCharacteristic {
   'ISO/IEC 25010:2023 — availability is the degree to which a system is operational and accessible when required for use',
 ], 'This section describes the availability quality of the solution.')
 @SectionId('AVQU')
-class Availability {
+class Availability extends DocSpecsSection {
   @Form([
     Field(
       'uptimeTargetPercentage',
@@ -2384,6 +2394,7 @@ class Availability {
       hint: 'Monthly, quarterly, annually',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2413,7 +2424,7 @@ class Availability {
     ),
   ])
   @SerializationOrder(1)
-  String? operatingHoursDetails;
+  DocSpecsSection? operatingHoursDetails;
 
   /// Maintenance window policy.
   @SectionId('AVQUMA')
@@ -2450,7 +2461,7 @@ class Availability {
     ),
   ])
   @SerializationOrder(2)
-  String? maintenance;
+  DocSpecsSection? maintenance;
 
   /// Degraded-mode behavior.
   @SectionId('AQDM')
@@ -2481,7 +2492,7 @@ class Availability {
     ),
   ])
   @SerializationOrder(3)
-  String? degradedMode;
+  DocSpecsSection? degradedMode;
 
   /// Monitoring and reporting.
   @SectionId('AVQUVE')
@@ -2506,7 +2517,7 @@ class Availability {
     ),
   ])
   @SerializationOrder(4)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Detailed availability requirements narrative.
   @SerializationOrder(5)
@@ -2518,7 +2529,7 @@ class Availability {
   'ISO/IEC 20000-1:2018 — agreed service levels define the service targets that the provider commits to deliver',
 ], 'This section describes the service level quality of the solution.')
 @SectionId('SELEQU')
-class ServiceLevel {
+class ServiceLevel extends DocSpecsSection {
   @Form([
     Field(
       'supportTierStructure',
@@ -2539,6 +2550,7 @@ class ServiceLevel {
       hint: 'Response time for P2 issues',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2565,7 +2577,7 @@ class ServiceLevel {
     ),
   ])
   @SerializationOrder(1)
-  String? response;
+  DocSpecsSection? response;
 
   /// Resolution targets.
   @SectionId('SLQR1')
@@ -2602,7 +2614,7 @@ class ServiceLevel {
     ),
   ])
   @SerializationOrder(2)
-  String? resolution;
+  DocSpecsSection? resolution;
 
   /// Escalation rules.
   @SectionId('SLQE')
@@ -2630,7 +2642,7 @@ class ServiceLevel {
     ),
   ])
   @SerializationOrder(3)
-  String? escalation;
+  DocSpecsSection? escalation;
 
   /// On-call support expectations.
   @SectionId('SLQOC')
@@ -2658,7 +2670,7 @@ class ServiceLevel {
     ),
   ])
   @SerializationOrder(4)
-  String? onCall;
+  DocSpecsSection? onCall;
 
   /// Restoration and communication priorities.
   @SectionId('SLQR2')
@@ -2683,7 +2695,7 @@ class ServiceLevel {
     ),
   ])
   @SerializationOrder(5)
-  String? restoration;
+  DocSpecsSection? restoration;
 
   /// Detailed service level requirements narrative.
   @SerializationOrder(6)
@@ -2705,7 +2717,7 @@ class ServiceLevel {
   'ISO/IEC 20000-1:2018 — each service level agreement entry records an agreed target and how it is measured',
 ], 'This section describes a single service level agreement entry.')
 @SectionId('SLAE')
-class ServiceLevelAgreementEntry {
+class ServiceLevelAgreementEntry extends DocSpecsSection {
   @Form([
     Field('slaId', String, 'SLA ID', hint: 'SLA-001, unique identifier'),
     Field(
@@ -2743,6 +2755,7 @@ class ServiceLevelAgreementEntry {
       hint: 'What is excluded from SLA',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2752,7 +2765,7 @@ class ServiceLevelAgreementEntry {
   'ISO/IEC 25010:2023 — availability and reliability in operation are sustained through monitoring of the running system',
 ], 'This section describes operational monitoring quality of the solution.')
 @SectionId('MOQU')
-class OperationalMonitoring {
+class OperationalMonitoring extends DocSpecsSection {
   @Form([
     Field(
       'scalabilityMonitoringApproach',
@@ -2773,6 +2786,7 @@ class OperationalMonitoring {
       hint: 'Expected growth rate',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2811,7 +2825,7 @@ class OperationalMonitoring {
     ),
   ])
   @SerializationOrder(1)
-  String? coverage;
+  DocSpecsSection? coverage;
 
   /// Alert automation capabilities.
   @SectionId('MOQUAU')
@@ -2842,7 +2856,7 @@ class OperationalMonitoring {
     ),
   ])
   @SerializationOrder(2)
-  String? automation;
+  DocSpecsSection? automation;
 
   /// Alerting strategy and channels.
   @SectionId('MOQUAL')
@@ -2879,7 +2893,7 @@ class OperationalMonitoring {
     ),
   ])
   @SerializationOrder(3)
-  String? alerting;
+  DocSpecsSection? alerting;
 
   /// Planning and observability settings.
   @SectionId('MOQUOP')
@@ -2922,7 +2936,7 @@ class OperationalMonitoring {
     ),
   ])
   @SerializationOrder(4)
-  String? operations;
+  DocSpecsSection? operations;
 
   /// Detailed monitoring requirements narrative.
   @SerializationOrder(5)
@@ -2935,7 +2949,7 @@ class OperationalMonitoring {
   'ISO/IEC 25010:2023 — the security and reliability of a product in operation depend on disciplined security operations',
 ], 'This section describes the IT security operations quality of the solution.')
 @SectionId('ISOQ')
-class ItSecurityOperations {
+class ItSecurityOperations extends DocSpecsSection {
   @Form([
     Field(
       'accessControlModel',
@@ -2956,6 +2970,7 @@ class ItSecurityOperations {
       hint: 'NIST, custom',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2985,7 +3000,7 @@ class ItSecurityOperations {
     ),
   ])
   @SerializationOrder(1)
-  String? access;
+  DocSpecsSection? access;
 
   /// Disaster recovery planning details.
   @SectionId('ISOQR')
@@ -3020,7 +3035,7 @@ class ItSecurityOperations {
     ),
   ])
   @SerializationOrder(2)
-  String? recovery;
+  DocSpecsSection? recovery;
 
   /// Penetration testing and remediation.
   @SectionId('ISOQT')
@@ -3054,7 +3069,7 @@ class ItSecurityOperations {
     ),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Incident handling and reporting.
   @SectionId('ISOQI')
@@ -3088,7 +3103,7 @@ class ItSecurityOperations {
     ),
   ])
   @SerializationOrder(4)
-  String? incident;
+  DocSpecsSection? incident;
 
   /// Detailed IT security operations narrative.
   @SerializationOrder(5)
@@ -3114,7 +3129,7 @@ class ItSecurityOperations {
 @SectionId('DOQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DOC')
-class DocumentationQualityCriteria {
+class DocumentationQualityCriteria extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -3158,7 +3173,7 @@ class DocumentationQualityCriteria {
     ),
   ])
   @SerializationOrder(0)
-  String? documentationOverviewContent;
+  DocSpecsSection? documentationOverviewContent;
 
   /// Documentation quality overview narrative.
   @ContentHelp(
@@ -3190,7 +3205,7 @@ class DocumentationQualityCriteria {
   'ISO/IEC 26514:2008 — information for users is written so that it can be read and understood by the intended audience',
 ], 'Captures readability requirements for user documentation.')
 @SectionId('REQU1')
-class Readability {
+class Readability extends DocSpecsSection {
   @Form([
     Field(
       'terminologyStandard',
@@ -3211,6 +3226,7 @@ class Readability {
       hint: 'Define all terms, minimize jargon',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3243,7 +3259,7 @@ class Readability {
     ),
   ])
   @SerializationOrder(1)
-  String? navigation;
+  DocSpecsSection? navigation;
 
   /// Comprehensibility requirements.
   @SectionId('REQUCO')
@@ -3274,7 +3290,7 @@ class Readability {
     ),
   ])
   @SerializationOrder(2)
-  String? comprehensibility;
+  DocSpecsSection? comprehensibility;
 
   /// Document structure rules.
   @SectionId('REQUST')
@@ -3305,7 +3321,7 @@ class Readability {
     ),
   ])
   @SerializationOrder(3)
-  String? structure;
+  DocSpecsSection? structure;
 
   /// Style guide alignment.
   @SectionId('REQUS1')
@@ -3333,7 +3349,7 @@ class Readability {
     ),
   ])
   @SerializationOrder(4)
-  String? style;
+  DocSpecsSection? style;
 
   /// Detailed readability requirements narrative.
   @SerializationOrder(5)
@@ -3345,7 +3361,7 @@ class Readability {
   'ISO/IEC 26514:2008 — the information covers all tasks and topics that the intended users need to use the product',
 ], 'Captures whether documentation covers all tasks and topics users need.')
 @SectionId('DOCOQU')
-class DocCompleteness {
+class DocCompleteness extends DocSpecsSection {
   @Form([
     // Topic coverage
     Field(
@@ -3412,6 +3428,7 @@ class DocCompleteness {
       hint: 'User feedback, coverage reports',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3425,7 +3442,7 @@ class DocCompleteness {
   'ISO/IEC 26514:2008 — information for users is technically accurate and free of errors when verified against the product',
 ], 'Captures correctness of documentation as verified against the product.')
 @SectionId('DOCOQ1')
-class DocCorrectness {
+class DocCorrectness extends DocSpecsSection {
   @Form([
     // Error-freedom
     Field(
@@ -3454,6 +3471,7 @@ class DocCorrectness {
       hint: 'Glossary enforcement',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3498,7 +3516,7 @@ class DocCorrectness {
     ),
   ])
   @SerializationOrder(1)
-  String? alignment;
+  DocSpecsSection? alignment;
 
   /// Verification and feedback handling.
   @SectionId('DCQV')
@@ -3520,7 +3538,7 @@ class DocCorrectness {
     ),
   ])
   @SerializationOrder(2)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Detailed correctness requirements narrative.
   @SerializationOrder(3)
@@ -3535,7 +3553,7 @@ class DocCorrectness {
   'Captures how documentation is kept current as the product changes over time.',
 )
 @SectionId('DOCHQU')
-class DocChangeability {
+class DocChangeability extends DocSpecsSection {
   @Form([
     Field(
       'versioningStrategy',
@@ -3556,6 +3574,7 @@ class DocChangeability {
       hint: 'Multiple product versions documented',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3588,7 +3607,7 @@ class DocChangeability {
     ),
   ])
   @SerializationOrder(1)
-  String? extensibility;
+  DocSpecsSection? extensibility;
 
   /// Sizing and structural consistency rules.
   @SectionId('DCQS')
@@ -3625,7 +3644,7 @@ class DocChangeability {
     ),
   ])
   @SerializationOrder(2)
-  String? structure;
+  DocSpecsSection? structure;
 
   /// Review and retirement maintenance process.
   @SectionId('DCQM')
@@ -3650,7 +3669,7 @@ class DocChangeability {
     ),
   ])
   @SerializationOrder(3)
-  String? maintenance;
+  DocSpecsSection? maintenance;
 
   /// Detailed changeability requirements narrative.
   @SerializationOrder(4)
@@ -3671,7 +3690,7 @@ class DocChangeability {
 @SectionId('QUPR')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRI')
-class QualityPrioritization {
+class QualityPrioritization extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
   // ─────────────────────────────────────────────────────────────────────────
@@ -3715,7 +3734,7 @@ class QualityPrioritization {
     ),
   ])
   @SerializationOrder(0)
-  String? prioritizationFrameworkContent;
+  DocSpecsSection? prioritizationFrameworkContent;
 
   /// Prioritization approach overview.
   @ContentHelp(
@@ -3742,7 +3761,7 @@ class QualityPrioritization {
   'Captures the weighted quality matrix that reflects the relative importance of quality requirements to stakeholders.',
 )
 @SectionId('WEQUMA')
-class WeightedQualityMatrix {
+class WeightedQualityMatrix extends DocSpecsSection {
   @SectionId('WEQUMA-MATR')
   @Form([
     Field(
@@ -3777,7 +3796,7 @@ class WeightedQualityMatrix {
     ),
   ])
   @SerializationOrder(0)
-  String? matrixConfigContent;
+  DocSpecsSection? matrixConfigContent;
 
   /// Weighted quality matrix narrative.
   @ContentHelp(
@@ -3814,7 +3833,7 @@ class WeightedQualityMatrix {
   'Captures the relative weight expressing the importance of one quality attribute when attributes compete.',
 )
 @SectionId('QLWGT')
-class QualityWeightEntry {
+class QualityWeightEntry extends DocSpecsSection {
   @Form([
     Field('qualityAttribute', String, 'Quality Attribute', required: true),
     Field(
@@ -3844,6 +3863,7 @@ class QualityWeightEntry {
       hint: 'What this priority means for other attributes',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3858,7 +3878,7 @@ class QualityWeightEntry {
   'Captures explicit trade-off decisions made when improving one quality attribute degrades another.',
 )
 @SectionId('TROFDE')
-class TradeOffDecisions {
+class TradeOffDecisions extends DocSpecsSection {
   @SectionId('TROFDE-TRAD')
   @Form([
     Field(
@@ -3887,7 +3907,7 @@ class TradeOffDecisions {
     ),
   ])
   @SerializationOrder(0)
-  String? tradeOffGovernanceContent;
+  DocSpecsSection? tradeOffGovernanceContent;
 
   /// Trade-off decisions overview.
   @ContentHelp(
@@ -3919,7 +3939,7 @@ class TradeOffDecisions {
   'Captures a single trade-off decision with the qualities in conflict and its rationale.',
 )
 @SectionId('TODE')
-class TradeOffDecisionEntry {
+class TradeOffDecisionEntry extends DocSpecsSection {
   @Form([
     Field(
       'decisionId',
@@ -3935,6 +3955,7 @@ class TradeOffDecisionEntry {
       hint: 'Proposed, approved, implemented, reversed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3969,7 +3990,7 @@ class TradeOffDecisionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? qualities;
+  DocSpecsSection? qualities;
 
   /// Rationale for trade-off.
   @SectionId('TODER')
@@ -4006,7 +4027,7 @@ class TradeOffDecisionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? rationale;
+  DocSpecsSection? rationale;
 
   /// Impact assessment.
   @SectionId('TODEI')
@@ -4044,7 +4065,7 @@ class TradeOffDecisionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? impact;
+  DocSpecsSection? impact;
 
   /// Mitigation measures.
   @SectionId('TODEM')
@@ -4075,7 +4096,7 @@ class TradeOffDecisionEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? mitigation;
+  DocSpecsSection? mitigation;
 
   /// Approval and governance.
   @SectionId('TODEA')
@@ -4112,7 +4133,7 @@ class TradeOffDecisionEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? approval;
+  DocSpecsSection? approval;
 
   /// Detailed trade-off analysis.
   @ContentHelp(
@@ -4142,7 +4163,7 @@ class TradeOffDecisionEntry {
 @SectionId('ACCRSU')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ACC')
-class AcceptanceCriteriaSummary {
+class AcceptanceCriteriaSummary extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework
   // ─────────────────────────────────────────────────────────────────────────
@@ -4192,7 +4213,7 @@ class AcceptanceCriteriaSummary {
     ),
   ])
   @SerializationOrder(0)
-  String? acceptanceFrameworkContent;
+  DocSpecsSection? acceptanceFrameworkContent;
 
   /// Acceptance criteria overview.
   @ContentHelp(
@@ -4234,7 +4255,7 @@ class AcceptanceCriteriaSummary {
   'Captures the must-pass criteria that must be satisfied for the product to be accepted.',
 )
 @SectionId('MUPACR')
-class MustPassCriteria {
+class MustPassCriteria extends DocSpecsSection {
   @SectionId('MUPACR-MUST')
   @Form([
     Field(
@@ -4269,7 +4290,7 @@ class MustPassCriteria {
     ),
   ])
   @SerializationOrder(0)
-  String? mustPassOverviewContent;
+  DocSpecsSection? mustPassOverviewContent;
 
   /// Must-pass criteria overview.
   @ContentHelp(
@@ -4301,7 +4322,7 @@ class MustPassCriteria {
   'Captures a single must-pass criterion including the condition to be met and the method used to verify it.',
 )
 @SectionId('MSTPCR')
-class MustPassCriterionEntry {
+class MustPassCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
       'criterionId',
@@ -4318,6 +4339,7 @@ class MustPassCriterionEntry {
       hint: 'Test, demonstration, analysis, inspection',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4350,7 +4372,7 @@ class MustPassCriterionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? definition;
+  DocSpecsSection? definition;
 
   /// Verification and threshold details.
   @SectionId('MPCEV')
@@ -4394,7 +4416,7 @@ class MustPassCriterionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Responsibility and dependency information.
   @SectionId('MPCEG')
@@ -4437,7 +4459,7 @@ class MustPassCriterionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Execution status and defects.
   @SectionId('MPCES')
@@ -4469,7 +4491,7 @@ class MustPassCriterionEntry {
     Field('defectIds', String, 'Defect IDs', hint: 'Defects blocking pass'),
   ])
   @SerializationOrder(4)
-  String? status;
+  DocSpecsSection? status;
 
   /// Additional criterion details.
   @ContentHelp(
@@ -4491,7 +4513,7 @@ class MustPassCriterionEntry {
   'Captures the quality gate checklist used to assess the product during acceptance.',
 )
 @SectionId('QUGACH')
-class QualityGateChecklist {
+class QualityGateChecklist extends DocSpecsSection {
   @SectionId('QUGACH-CHEC')
   @Form([
     Field(
@@ -4526,7 +4548,7 @@ class QualityGateChecklist {
     ),
   ])
   @SerializationOrder(0)
-  String? checklistOverviewContent;
+  DocSpecsSection? checklistOverviewContent;
 
   /// Quality gate checklist overview.
   @ContentHelp('Overview of quality gate process and checklist usage.')
@@ -4552,7 +4574,7 @@ class QualityGateChecklist {
   'ISO/IEC/IEEE 29119 — each check defines the item being verified and the method used to verify it',
 ], 'Defines the item being verified and the method used to verify it.')
 @SectionId('QGCHK')
-class QualityGateCheckEntry {
+class QualityGateCheckEntry extends DocSpecsSection {
   @Form([
     Field(
       'checkId',
@@ -4575,6 +4597,7 @@ class QualityGateCheckEntry {
       hint: 'How check is verified',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4599,7 +4622,7 @@ class QualityGateCheckEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? definition;
+  DocSpecsSection? definition;
 
   /// Verification criteria and evidence.
   @SectionId('QGCEV')
@@ -4627,7 +4650,7 @@ class QualityGateCheckEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Responsibility and timing.
   @SectionId('QGCEE')
@@ -4668,7 +4691,7 @@ class QualityGateCheckEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Status and observations.
   @SectionId('QGCES')
@@ -4697,7 +4720,7 @@ class QualityGateCheckEntry {
     Field('checkNotes', String, 'Notes', hint: 'Additional observations'),
   ])
   @SerializationOrder(4)
-  String? status;
+  DocSpecsSection? status;
 
   /// Blocking behavior.
   @SectionId('QGCEB')
@@ -4719,7 +4742,7 @@ class QualityGateCheckEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? blocking;
+  DocSpecsSection? blocking;
 }
 
 // ---------------------------------------------------------------------------
@@ -4736,7 +4759,7 @@ class QualityGateCheckEntry {
 @SectionId('TEST')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-TST')
-class TestStrategy {
+class TestStrategy extends DocSpecsSection {
   @ContentHelp('''
 High-level strategy for verifying quality across the system. Distinct
 from the acceptance plan and from the per-quality-attribute
@@ -4753,6 +4776,7 @@ quality-goal sections; this section integrates them.
 - Traceability from requirements to tests
 - Risk-based test prioritization
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }

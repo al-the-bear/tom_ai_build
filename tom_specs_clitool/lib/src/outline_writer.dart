@@ -279,7 +279,9 @@ class OutlineWriter {
     Set<String> ancestors,
   ) {
     final indent = _indent(depth + 1);
-    final innerType = field.listElementTypeName ?? 'Unknown';
+    // YRD5: `List<DocSpecsSection>` renders as the pre-YRD5 `String` inline
+    // content list so outlines stay byte-identical.
+    final innerType = field.metaListElementTypeName ?? 'Unknown';
 
     // Field-level schema annotations (§4.14)
     if (showSchemaAnnotations) {

@@ -32,8 +32,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('QAP')
-class D10QualityAcceptancePlan {
+class D10QualityAcceptancePlan extends DocSpecsSection {
   @ContentHelp('Executive overview of the business quality plan.')
+  @override
   @SerializationOrder(0)
   String? content;
 

@@ -18,8 +18,9 @@ import 'business_process_model.dart';
   'processes will work once the solution is in place.',
 )
 @SectionId('TOMC')
-class TargetOperatingModel {
+class TargetOperatingModel extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 

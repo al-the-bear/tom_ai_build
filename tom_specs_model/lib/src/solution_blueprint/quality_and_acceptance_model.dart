@@ -19,8 +19,9 @@ import 'quality_model.dart';
   'the scope and criteria for accepting delivery.',
 )
 @SectionId('QACM')
-class QualityAndAcceptanceModel {
+class QualityAndAcceptanceModel extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -52,11 +53,12 @@ class QualityAndAcceptanceModel {
   '25010:2023 product-quality characteristics.',
 )
 @SectionId('I25CV')
-class Iso25010Coverage {
+class Iso25010Coverage extends DocSpecsSection {
   @ContentType('description', 'Summarize how the quality goals cover the '
       'eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned '
       'by the SystemQualityGoals characteristic spine; this is a derived '
       'coverage view, not a second copy of the taxonomy.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -78,7 +80,7 @@ class Iso25010Coverage {
   'is addressed.',
 )
 @SectionId('I25CE')
-class Iso25010CoverageEntry {
+class Iso25010CoverageEntry extends DocSpecsSection {
   @Form([
     Field('characteristic', Iso25010Characteristic,
         'ISO/IEC 25010:2023 Characteristic',
@@ -86,6 +88,7 @@ class Iso25010CoverageEntry {
     Field('addressedBy', String, 'Addressed By (which quality goals / NFRs)'),
     Field('targetMetric', String, 'Target Metric'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

@@ -18,7 +18,7 @@ import '../document_stubs.dart';
 @SectionId('INDM')
 @Comment('Seeds → IFM')
 @MapsTo(D03InformationModel)
-class InformationAndDataModel {
+class InformationAndDataModel extends DocSpecsSection {
   @ContentHelp('''
 Conceptual overview of the business data the system manages. This chapter
 establishes the foundation for all data-related specifications and seeds the
@@ -36,6 +36,7 @@ IFM (Information Model) document.
 - Document CRUD access patterns in function-to-data matrix
 - Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -67,7 +68,7 @@ IFM (Information Model) document.
 )
 @SectionId('DATMD')
 @MapsTo(D03InformationModel)
-class DataModel {
+class DataModel extends DocSpecsSection {
   @ContentHelp('''
 Conceptual data model from a business perspective. Defines the entities,
 attributes, relationships, and constraints that represent core business data.
@@ -87,6 +88,7 @@ attributes, relationships, and constraints that represent core business data.
 - Relationships Summary (parent, child, referenced, cross-domain)
 - Technical Characteristics (indexing, caching, consistency, scaling)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -146,7 +148,7 @@ attributes, relationships, and constraints that represent core business data.
   'A single data entity with its identity, classification, volume, lifecycle, compliance, and technical characteristics.',
 )
 @SectionId('DAENT')
-class DataEntityEntry {
+class DataEntityEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -186,7 +188,7 @@ class DataEntityEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identity;
+  DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
   // Classification (6 fields)
@@ -232,7 +234,7 @@ class DataEntityEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   // ---------------------------------------------------------------------------
   // Volume and Growth (6 fields)
@@ -309,7 +311,7 @@ class DataEntityEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? lifecyclePolicy;
+  DocSpecsSection? lifecyclePolicy;
 
   // ---------------------------------------------------------------------------
   // Compliance and Security (6 fields)
@@ -358,7 +360,7 @@ class DataEntityEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? relationshipSummary;
+  DocSpecsSection? relationshipSummary;
 
   // ---------------------------------------------------------------------------
   // Technical Characteristics (6 fields)
@@ -450,7 +452,7 @@ class DataEntityEntry {
   'A single data attribute with its data type, constraints, derivation, security classification, lineage, and display properties.',
 )
 @SectionId('DAATT')
-class DataAttributeEntry {
+class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -489,7 +491,7 @@ class DataAttributeEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identity;
+  DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
   // Data Type Specification (8 fields)
@@ -542,7 +544,7 @@ class DataAttributeEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? dataTypeSpec;
+  DocSpecsSection? dataTypeSpec;
 
   // ---------------------------------------------------------------------------
   // Constraints and Validation (8 fields)
@@ -588,7 +590,7 @@ class DataAttributeEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? derivation;
+  DocSpecsSection? derivation;
 
   // ---------------------------------------------------------------------------
   // Classification and Security (5 fields)
@@ -627,7 +629,7 @@ class DataAttributeEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? securityClassification;
+  DocSpecsSection? securityClassification;
 
   // ---------------------------------------------------------------------------
   // Migration and Lineage (5 fields)
@@ -666,7 +668,7 @@ class DataAttributeEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? migrationLineage;
+  DocSpecsSection? migrationLineage;
 
   // ---------------------------------------------------------------------------
   // UI and Display (4 fields)
@@ -693,7 +695,7 @@ class DataAttributeEntry {
   'A single key attribute defining a primary, foreign, alternate, or composite key with its generation, reference, and governance settings.',
 )
 @SectionId('KEATT')
-class KeyAttributeEntry {
+class KeyAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
       'keyName',
@@ -721,6 +723,7 @@ class KeyAttributeEntry {
       hint: 'Purpose and usage of this key',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -754,7 +757,7 @@ class KeyAttributeEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? generation;
+  DocSpecsSection? generation;
 
   /// Foreign-key reference and cascade behavior.
   @SectionId('KEARF')
@@ -792,7 +795,7 @@ class KeyAttributeEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? reference;
+  DocSpecsSection? reference;
 
   /// Constraint semantics and business meaning.
   @SectionId('KEAGV')
@@ -809,12 +812,12 @@ class KeyAttributeEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 
   @SectionId('KEATT-REFE-REF')
   @Reference('referencedEntity')
   @SerializationOrder(4)
-  String? referencedEntityRef;
+  DocSpecsSection? referencedEntityRef;
 }
 
 /// An entity index entry (form).
@@ -828,7 +831,7 @@ class KeyAttributeEntry {
   'A single database index specification (type, columns, uniqueness, clustering) for query optimization.',
 )
 @SectionId('ENIDX')
-class EntityIndexEntry {
+class EntityIndexEntry extends DocSpecsSection {
   @Form([
     Field(
       'indexName',
@@ -887,6 +890,7 @@ class EntityIndexEntry {
       hint: 'Expected index size',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -899,7 +903,7 @@ class EntityIndexEntry {
   'A single entity constraint (check, unique, exclusion) with its expression, enforcement level, and business rule reference.',
 )
 @SectionId('ENCNS')
-class EntityConstraintEntry {
+class EntityConstraintEntry extends DocSpecsSection {
   @Form([
     Field(
       'constraintName',
@@ -945,6 +949,7 @@ class EntityConstraintEntry {
       hint: 'Related business rule ID',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -960,7 +965,7 @@ class EntityConstraintEntry {
   'A single source-to-target mapping (with transformation and validation rules) for planning data migration.',
 )
 @SectionId('MIGME')
-class MigrationMappingEntry {
+class MigrationMappingEntry extends DocSpecsSection {
   @Form([
     Field(
       'sourceSystem',
@@ -1024,6 +1029,7 @@ class MigrationMappingEntry {
       hint: 'Additional migration considerations',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1039,7 +1045,7 @@ class MigrationMappingEntry {
 @SectionId('ENREL')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-REL')
-class EntityRelationships {
+class EntityRelationships extends DocSpecsSection {
   @ContentHelp('''
 Relationship specifications between data entities. Captures cardinality,
 referential integrity rules, and navigation patterns.
@@ -1058,6 +1064,7 @@ referential integrity rules, and navigation patterns.
 - Composition — "owns-a" with dependent lifecycle
 - Generalization — inheritance/specialization
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1088,7 +1095,7 @@ referential integrity rules, and navigation patterns.
   'A single entity relationship with its participants, cardinality, referential integrity, navigation, and relationship attributes.',
 )
 @SectionId('ENRLE')
-class EntityRelationshipEntry {
+class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Relationship Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -1129,7 +1136,7 @@ class EntityRelationshipEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identity;
+  DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
   // Participating Entities (4 fields)
@@ -1187,7 +1194,7 @@ class EntityRelationshipEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? cardinality;
+  DocSpecsSection? cardinality;
 
   // ---------------------------------------------------------------------------
   // Referential Integrity (6 fields)
@@ -1232,7 +1239,7 @@ class EntityRelationshipEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? referentialIntegrity;
+  DocSpecsSection? referentialIntegrity;
 
   // ---------------------------------------------------------------------------
   // Navigation and Implementation (5 fields)
@@ -1271,7 +1278,7 @@ class EntityRelationshipEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? navigation;
+  DocSpecsSection? navigation;
 
   // ---------------------------------------------------------------------------
   // Relationship Attributes (3 fields) — for relationships with properties
@@ -1292,12 +1299,12 @@ class EntityRelationshipEntry {
   @SectionId('ENRLE-SOUR-REF')
   @Reference('sourceEntityName')
   @SerializationOrder(6)
-  String? sourceEntityRef;
+  DocSpecsSection? sourceEntityRef;
 
   @SectionId('ENRLE-TARG-REF')
   @Reference('targetEntityName')
   @SerializationOrder(7)
-  String? targetEntityRef;
+  DocSpecsSection? targetEntityRef;
 }
 
 /// 7.1.4. Data Classification.
@@ -1311,7 +1318,7 @@ class EntityRelationshipEntry {
 @SectionId('DATCL')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-CLA')
-class DataClassification {
+class DataClassification extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
   // ---------------------------------------------------------------------------
@@ -1344,7 +1351,7 @@ class DataClassification {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× DataClassificationEntry.
   @StandardReferences(
@@ -1372,7 +1379,7 @@ class DataClassification {
   'A single data-classification level with its storage, access control, retention, compliance, handling, and access-restriction rules.',
 )
 @SectionId('DCLSE')
-class DataClassificationEntry {
+class DataClassificationEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -1413,7 +1420,7 @@ class DataClassificationEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identity;
+  DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
   // Storage and Transmission (5 fields)
@@ -1453,7 +1460,7 @@ class DataClassificationEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? storageTransmission;
+  DocSpecsSection? storageTransmission;
 
   // ---------------------------------------------------------------------------
   // Access Control (5 fields)
@@ -1494,7 +1501,7 @@ class DataClassificationEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? accessControl;
+  DocSpecsSection? accessControl;
 
   // ---------------------------------------------------------------------------
   // Retention and Disposal (5 fields)
@@ -1533,7 +1540,7 @@ class DataClassificationEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? retentionDisposal;
+  DocSpecsSection? retentionDisposal;
 
   // ---------------------------------------------------------------------------
   // Compliance (4 fields)
@@ -1566,7 +1573,7 @@ class DataClassificationEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Contains 0+× HandlingRequirement.
   @StandardReferences([
@@ -1602,7 +1609,7 @@ class DataClassificationEntry {
   'A single handling requirement (processing, storage, transmission, display, disposal) with its rationale and enforcement.',
 )
 @SectionId('HNDRE')
-class HandlingRequirementEntry {
+class HandlingRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'requirementId',
@@ -1648,6 +1655,7 @@ class HandlingRequirementEntry {
       hint: 'How exceptions are handled',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1663,7 +1671,7 @@ class HandlingRequirementEntry {
   'A single access restriction (role, geographic, temporal, contextual) with its scope, enforcement, and override policy.',
 )
 @SectionId('ACRSE')
-class AccessRestrictionEntry {
+class AccessRestrictionEntry extends DocSpecsSection {
   @Form([
     Field(
       'restrictionId',
@@ -1704,6 +1712,7 @@ class AccessRestrictionEntry {
       hint: 'How overrides are handled: None | BreakGlass | ApprovalRequired',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1722,7 +1731,7 @@ class AccessRestrictionEntry {
 )
 @SectionId('BJOMD')
 @MapsTo(D03InformationModel)
-class BusinessObjectModel {
+class BusinessObjectModel extends DocSpecsSection {
   @ContentHelp('''
 Key business objects, their properties, states, and behaviors. Following
 Domain-Driven Design patterns for rich domain modeling.
@@ -1743,6 +1752,7 @@ Domain-Driven Design patterns for rich domain modeling.
 - Operations — domain operations with pre/post conditions (13 fields each)
 - Invariants — conditions that must always hold (7 fields each)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1776,7 +1786,7 @@ Domain-Driven Design patterns for rich domain modeling.
   'A single business object in the domain model, with its identity, attributes, states, rules and operations.',
 )
 @SectionId('BJOEN')
-class BusinessObjectEntry {
+class BusinessObjectEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (6 fields)
   // ---------------------------------------------------------------------------
@@ -1823,7 +1833,7 @@ class BusinessObjectEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identity;
+  DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
   // Domain Context (5 fields)
@@ -1862,7 +1872,7 @@ class BusinessObjectEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? domainContext;
+  DocSpecsSection? domainContext;
 
   // ---------------------------------------------------------------------------
   // Lifecycle Summary (5 fields)
@@ -1902,7 +1912,7 @@ class BusinessObjectEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? lifecycleSummary;
+  DocSpecsSection? lifecycleSummary;
 
   // ---------------------------------------------------------------------------
   // Behavior and Rules (5 fields)
@@ -1955,7 +1965,7 @@ class BusinessObjectEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   // ---------------------------------------------------------------------------
   // Integration Points (4 fields)
@@ -2048,7 +2058,7 @@ class BusinessObjectEntry {
   'A single business-level attribute of an object, describing its meaning, type and rules.',
 )
 @SectionId('BIOBAT')
-class BusinessObjectAttributeEntry {
+class BusinessObjectAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
       'attributeName',
@@ -2071,6 +2081,7 @@ class BusinessObjectAttributeEntry {
           'Business type: Text | Number | Money | Date | DateTime | Boolean | Enum | Reference',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2101,7 +2112,7 @@ class BusinessObjectAttributeEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? definition;
+  DocSpecsSection? definition;
 
   /// Validation and derivation rules.
   @SectionId('BOAEV')
@@ -2139,7 +2150,7 @@ class BusinessObjectAttributeEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? validation;
+  DocSpecsSection? validation;
 
   /// Sensitivity and presentation guidance.
   @SectionId('BOAEG')
@@ -2165,7 +2176,7 @@ class BusinessObjectAttributeEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// An object state entry (form).
@@ -2176,7 +2187,7 @@ class BusinessObjectAttributeEntry {
   'A single lifecycle state of a business object, with its entry/exit conditions and allowed operations.',
 )
 @SectionId('OBST')
-class ObjectStateEntry {
+class ObjectStateEntry extends DocSpecsSection {
   @Form([
     Field(
       'stateName',
@@ -2240,6 +2251,7 @@ class ObjectStateEntry {
       hint: 'Events that trigger notifications in this state',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2252,7 +2264,7 @@ class ObjectStateEntry {
   'A reference to a business rule that governs this object, including its trigger and consequence on violation.',
 )
 @SectionId('BIRURE')
-class BusinessRuleReferenceEntry {
+class BusinessRuleReferenceEntry extends DocSpecsSection {
   @Form([
     Field(
       'ruleId',
@@ -2304,13 +2316,14 @@ class BusinessRuleReferenceEntry {
       hint: 'What happens when rule is violated',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
   @SectionId('BIRURE-RULE-REF')
   @Reference('ruleId')
   @SerializationOrder(1)
-  String? ruleRef;
+  DocSpecsSection? ruleRef;
 }
 
 /// A lifecycle transition entry (form).
@@ -2321,7 +2334,7 @@ class BusinessRuleReferenceEntry {
   'A single state transition in an object lifecycle, from a source state to a target state.',
 )
 @SectionId('LFTRS')
-class LifecycleTransitionEntry {
+class LifecycleTransitionEntry extends DocSpecsSection {
   @Form([
     Field(
       'transitionId',
@@ -2344,6 +2357,7 @@ class LifecycleTransitionEntry {
     ),
     Field('toState', String, 'To State', required: true, hint: 'Target state'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2362,7 +2376,7 @@ class LifecycleTransitionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? trigger;
+  DocSpecsSection? trigger;
 
   /// Transition conditions and guarantees.
   @SectionId('LTEC')
@@ -2394,7 +2408,7 @@ class LifecycleTransitionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? conditions;
+  DocSpecsSection? conditions;
 
   /// Actions, actors, and rollback handling.
   @SectionId('LTEE')
@@ -2432,7 +2446,7 @@ class LifecycleTransitionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? execution;
+  DocSpecsSection? execution;
 }
 
 /// An object operation entry (form).
@@ -2446,7 +2460,7 @@ class LifecycleTransitionEntry {
   'A single domain operation that can be performed on the object, as a command, query or event.',
 )
 @SectionId('OBOP')
-class ObjectOperationEntry {
+class ObjectOperationEntry extends DocSpecsSection {
   @Form([
     Field(
       'operationName',
@@ -2468,6 +2482,7 @@ class ObjectOperationEntry {
       hint: 'Command | Query | Event',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2507,7 +2522,7 @@ class ObjectOperationEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// State and event lifecycle details.
   @SectionId('OOEL')
@@ -2539,7 +2554,7 @@ class ObjectOperationEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Authorization and usage boundaries.
   @SectionId('OOEG')
@@ -2571,7 +2586,7 @@ class ObjectOperationEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// An object invariant entry (form).
@@ -2585,7 +2600,7 @@ class ObjectOperationEntry {
   'A single business invariant that must always hold true, with its expression, scope and violation action.',
 )
 @SectionId('OBINV')
-class ObjectInvariantEntry {
+class ObjectInvariantEntry extends DocSpecsSection {
   @Form([
     Field(
       'invariantName',
@@ -2631,6 +2646,7 @@ class ObjectInvariantEntry {
       hint: 'Why this invariant exists',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2652,7 +2668,7 @@ class ObjectInvariantEntry {
 )
 @SectionId('FUMO')
 @MapsTo(D03InformationModel)
-class FunctionModel {
+class FunctionModel extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Function Decomposition Overview (4 fields)
   // ---------------------------------------------------------------------------
@@ -2686,7 +2702,7 @@ class FunctionModel {
     ),
   ])
   @SerializationOrder(0)
-  String? decompositionOverview;
+  DocSpecsSection? decompositionOverview;
 
   // ---------------------------------------------------------------------------
   // Function-to-Data Matrix Overview (4 fields)
@@ -2719,7 +2735,7 @@ class FunctionModel {
     ),
   ])
   @SerializationOrder(1)
-  String? matrixOverview;
+  DocSpecsSection? matrixOverview;
 
   /// 7.3.1. Function Decomposition — contains 0+× Function.
   @StandardReferences([
@@ -2767,7 +2783,7 @@ class FunctionModel {
   'A single business function, described by name, purpose, and its place in the hierarchy.',
 )
 @SectionId('FUNCT')
-class FunctionEntry {
+class FunctionEntry extends DocSpecsSection {
   @Form([
     Field(
       'functionId',
@@ -2795,6 +2811,7 @@ class FunctionEntry {
       hint: 'Parent function in hierarchy',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2819,7 +2836,7 @@ class FunctionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Execution profile and criticality.
   @SectionId('FUENOP')
@@ -2847,7 +2864,7 @@ class FunctionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? operations;
+  DocSpecsSection? operations;
 
   /// Automation and data handling summary.
   @SectionId('FUENIM')
@@ -2870,7 +2887,7 @@ class FunctionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? implementation;
+  DocSpecsSection? implementation;
 
   /// Sub-functions — contains 0+× SubFunction.
   @StandardReferences([
@@ -2890,7 +2907,7 @@ class FunctionEntry {
   'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
 ], 'A lower-level sub-function within the functional decomposition.')
 @SectionId('SUFN')
-class SubFunctionEntry {
+class SubFunctionEntry extends DocSpecsSection {
   @Form([
     Field(
       'subFunctionName',
@@ -2918,6 +2935,7 @@ class SubFunctionEntry {
       hint: 'Systems that support this function',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2930,7 +2948,7 @@ class SubFunctionEntry {
   'A single cell of the CRUD matrix, recording how one function accesses one data entity.',
 )
 @SectionId('FNDMX')
-class FunctionDataMatrixEntry {
+class FunctionDataMatrixEntry extends DocSpecsSection {
   @Form([
     Field(
       'functionName',
@@ -2971,6 +2989,7 @@ class FunctionDataMatrixEntry {
       hint: 'Why this function needs this access',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2986,7 +3005,7 @@ class FunctionDataMatrixEntry {
   'A single business rule with its logic, enforcement, exceptions, and governance.',
 )
 @SectionId('BIRU')
-class BusinessRuleEntry {
+class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Rule Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -3026,7 +3045,7 @@ class BusinessRuleEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identity;
+  DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
   // Classification (5 fields)
@@ -3067,7 +3086,7 @@ class BusinessRuleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   // ---------------------------------------------------------------------------
   // Rule Logic (5 fields)
@@ -3106,7 +3125,7 @@ class BusinessRuleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? ruleLogic;
+  DocSpecsSection? ruleLogic;
 
   // ---------------------------------------------------------------------------
   // Implementation (5 fields)
@@ -3148,7 +3167,7 @@ class BusinessRuleEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? implementation;
+  DocSpecsSection? implementation;
 
   // ---------------------------------------------------------------------------
   // Exception Handling (4 fields)
@@ -3181,7 +3200,7 @@ class BusinessRuleEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? exceptionHandling;
+  DocSpecsSection? exceptionHandling;
 
   // ---------------------------------------------------------------------------
   // Governance (4 fields)
@@ -3214,7 +3233,7 @@ class BusinessRuleEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Contains 0+× AffectedObject.
   @StandardReferences([
@@ -3255,7 +3274,7 @@ class BusinessRuleEntry {
   'SBVR — business rule statements',
 ], 'A business object affected by a rule, and how it is impacted.')
 @SectionId('AFOB')
-class AffectedObjectEntry {
+class AffectedObjectEntry extends DocSpecsSection {
   @Form([
     Field(
       'objectName',
@@ -3279,13 +3298,14 @@ class AffectedObjectEntry {
     ),
     Field('accessType', String, 'Access Type', hint: 'Read | Write | Both'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
   @SectionId('AFOB-OBJE-REF')
   @Reference('objectName')
   @SerializationOrder(1)
-  String? objectRef;
+  DocSpecsSection? objectRef;
 }
 
 /// An affected function reference entry (form).
@@ -3296,7 +3316,7 @@ class AffectedObjectEntry {
   'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
 ], 'A function where a rule applies, with its trigger point and impact.')
 @SectionId('AFFN')
-class AffectedFunctionEntry {
+class AffectedFunctionEntry extends DocSpecsSection {
   @Form([
     Field(
       'functionName',
@@ -3319,13 +3339,14 @@ class AffectedFunctionEntry {
       hint: 'Whether check is required in this function: Yes | No',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
   @SectionId('AFFN-FUNC-REF')
   @Reference('functionName')
   @SerializationOrder(1)
-  String? functionRef;
+  DocSpecsSection? functionRef;
 }
 
 /// A rule example entry (form).
@@ -3335,7 +3356,7 @@ class AffectedFunctionEntry {
   'SBVR — business rule statements',
 ], 'A worked example illustrating how a rule evaluates for given inputs.')
 @SectionId('RULEXM')
-class RuleExampleEntry {
+class RuleExampleEntry extends DocSpecsSection {
   @Form([
     Field(
       'exampleName',
@@ -3364,6 +3385,7 @@ class RuleExampleEntry {
       hint: 'Positive | Negative | EdgeCase | BoundaryCondition',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3386,7 +3408,7 @@ class RuleExampleEntry {
 @SectionId('DADI')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-DIC')
-class DataDictionary {
+class DataDictionary extends DocSpecsSection {
   @ContentHelp('''
 Single authoritative registry for data attributes across the system.
 
@@ -3399,6 +3421,7 @@ Single authoritative registry for data attributes across the system.
 - Default value and required-ness
 - Cross-references to validation constraints
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3419,7 +3442,7 @@ Single authoritative registry for data attributes across the system.
 @SectionId('VACO')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-VAL')
-class ValidationConstraints {
+class ValidationConstraints extends DocSpecsSection {
   @ContentHelp('''
 Business-level validation rules enforced on data. Distinct from schema
 constraints (which are database-level) and from per-field form hints
@@ -3433,6 +3456,7 @@ constraints (which are database-level) and from per-field form hints
 - Validation trigger points (on entry, on save, on batch, on publish)
 - Error-message catalog for each rule
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3451,7 +3475,7 @@ constraints (which are database-level) and from per-field form hints
 @SectionId('INCO')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-CON')
-class IntegrityConstraints {
+class IntegrityConstraints extends DocSpecsSection {
   @ContentHelp('''
 Integrity rules that preserve invariants across the data model.
 Stronger guarantees than validation (which is typically user-facing);
@@ -3465,6 +3489,7 @@ integrity constraints must hold in every persistent state.
 - Temporal constraints (effective-from ≤ effective-to)
 - Conservation rules (sums / counts that must balance)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3478,7 +3503,7 @@ integrity constraints must hold in every persistent state.
   'The business rules, invariants, key operations, and derived properties that govern a domain object\'s behavior.',
 )
 @SectionId('BEHAV')
-class BehaviorRuleEntry {
+class BehaviorRuleEntry extends DocSpecsSection {
   @Form([
     Field(
       'keyBusinessRules',
@@ -3511,6 +3536,7 @@ class BehaviorRuleEntry {
       hint: 'Derived/calculated attributes (e.g., orderTotal, age)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3521,7 +3547,7 @@ class BehaviorRuleEntry {
   'How a domain object connects to the outside world: the APIs that expose it, events it publishes or subscribes to, and external-system mappings.',
 )
 @SectionId('INTEG')
-class IntegrationPointEntry {
+class IntegrationPointEntry extends DocSpecsSection {
   @Form([
     Field(
       'exposedInApis',
@@ -3548,6 +3574,7 @@ class IntegrationPointEntry {
       hint: 'How this maps to external systems',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3561,7 +3588,7 @@ class IntegrationPointEntry {
   'The constraints on a single data attribute: nullability, uniqueness, defaults, allowed values, and validation expressions.',
 )
 @SectionId('DATAA')
-class DataAttributeConstraintEntry {
+class DataAttributeConstraintEntry extends DocSpecsSection {
   @Form([
     Field(
       'mandatory',
@@ -3613,6 +3640,7 @@ class DataAttributeConstraintEntry {
       hint: r'Regex for validation (e.g., ^[A-Z]{2}-\d{6}$ for order IDs)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3623,7 +3651,7 @@ class DataAttributeConstraintEntry {
   'How an attribute is presented in the UI: its label, ordering, grouping, and help text.',
 )
 @SectionId('DISPL')
-class DisplayPropertyEntry {
+class DisplayPropertyEntry extends DocSpecsSection {
   @Form([
     Field(
       'displayLabel',
@@ -3650,6 +3678,7 @@ class DisplayPropertyEntry {
       hint: 'User assistance text for forms',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3660,7 +3689,7 @@ class DisplayPropertyEntry {
   'The expected data volumes for an entity: record counts, growth rate, peak transaction volume, and storage estimates for capacity planning.',
 )
 @SectionId('VOLUM')
-class VolumeMetricEntry {
+class VolumeMetricEntry extends DocSpecsSection {
   @Form([
     Field(
       'estimatedRecordCount',
@@ -3699,6 +3728,7 @@ class VolumeMetricEntry {
       hint: 'How data should be partitioned: ByDate | ByRange | ByHash | None',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3712,7 +3742,7 @@ class VolumeMetricEntry {
   'The compliance profile of an entity: its sensitivity level, PII/PHI content, applicable frameworks, and encryption and access requirements.',
 )
 @SectionId('CRE')
-class ComplianceRequirementEntry {
+class ComplianceRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'sensitivityLevel',
@@ -3753,6 +3783,7 @@ class ComplianceRequirementEntry {
           'Who can access: AllUsers | AuthenticatedUsers | RoleRestricted | SystemOnly',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3763,7 +3794,7 @@ class ComplianceRequirementEntry {
   'The technical implementation traits of an entity: indexing, caching, consistency, replication, backup, and scaling strategies.',
 )
 @SectionId('TECHN')
-class TechnicalCharacteristicEntry {
+class TechnicalCharacteristicEntry extends DocSpecsSection {
   @Form([
     Field(
       'indexingStrategy',
@@ -3802,6 +3833,7 @@ class TechnicalCharacteristicEntry {
       hint: 'How entity scales: Vertical | Horizontal | Sharding',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3815,7 +3847,7 @@ class TechnicalCharacteristicEntry {
   'The two ends of a relationship: the source and target entities and the role each plays.',
 )
 @SectionId('PARTI')
-class ParticipantEntry {
+class ParticipantEntry extends DocSpecsSection {
   @Form([
     Field(
       'sourceEntityName',
@@ -3844,6 +3876,7 @@ class ParticipantEntry {
           'Role name on the target end (e.g., "placed" in Customer places Order)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3857,7 +3890,7 @@ class ParticipantEntry {
   'Attributes carried by the relationship itself (as on an association class), including any temporal or versioning aspects.',
 )
 @SectionId('RELAT')
-class RelationshipAttributeEntry {
+class RelationshipAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
       'hasRelationshipAttributes',
@@ -3879,6 +3912,7 @@ class RelationshipAttributeEntry {
       hint: 'Effective dates, versioning: None | EffectiveDates | FullHistory',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

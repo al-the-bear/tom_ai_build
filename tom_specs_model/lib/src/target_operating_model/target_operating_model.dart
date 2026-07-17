@@ -29,8 +29,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('TOM')
-class D02TargetOperatingModel {
+class D02TargetOperatingModel extends DocSpecsSection {
   @ContentHelp('Executive overview of the target business process model.')
+  @override
   @SerializationOrder(0)
   String? content;
 

@@ -16,7 +16,7 @@ import 'enums.dart';
   'The base requirement shared across documents, capturing id, title, description, priority, source, rationale, acceptance criteria, and status.',
 )
 @SectionId('REQ')
-class Requirement {
+class Requirement extends DocSpecsSection {
   @Form([
     Field('requirementId', String, 'Requirement ID (REQ-NNN; NFR-NNN '
         'for non-functional)', required: true),
@@ -28,6 +28,7 @@ class Requirement {
     Field('acceptanceCriteria', String, 'Acceptance Criteria'),
     Field('status', Status, 'Current status'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

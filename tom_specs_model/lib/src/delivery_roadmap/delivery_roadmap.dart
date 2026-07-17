@@ -32,8 +32,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('DRM')
-class D11DeliveryRoadmap {
+class D11DeliveryRoadmap extends DocSpecsSection {
   @ContentHelp('Executive overview of the phase plan and its gate model.')
+  @override
   @SerializationOrder(0)
   String? content;
 

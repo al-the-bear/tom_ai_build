@@ -4,6 +4,7 @@ library;
 export 'code_section.dart';
 export 'dart_code_section.dart';
 export 'ddl_code_section.dart';
+export 'docspecs_section.dart';
 export 'diagram_section.dart';
 export 'er_diagram_section.dart';
 export 'flow_diagram_section.dart';

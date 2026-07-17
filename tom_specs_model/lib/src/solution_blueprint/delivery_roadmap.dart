@@ -18,7 +18,7 @@ import '../document_stubs.dart';
 @SectionId('SSPL')
 @Comment('Seeds → DRM')
 @MapsTo(D11DeliveryRoadmap)
-class SystemStagePlan {
+class SystemStagePlan extends DocSpecsSection {
   @Form([
     // --- Strategic Overview ---
     Field(
@@ -45,6 +45,7 @@ class SystemStagePlan {
           'whether stages can overlap in execution',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -79,7 +80,7 @@ class SystemStagePlan {
     ),
   ])
   @SerializationOrder(1)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Dependencies, risks, and compliance constraints across stages.
   @SectionId('SSPCO')
@@ -108,7 +109,7 @@ class SystemStagePlan {
     ),
   ])
   @SerializationOrder(2)
-  String? coordination;
+  DocSpecsSection? coordination;
 
   /// Organizational capacity and plan confidence.
   @SectionId('SSPRD')
@@ -145,7 +146,7 @@ class SystemStagePlan {
     ),
   ])
   @SerializationOrder(3)
-  String? readiness;
+  DocSpecsSection? readiness;
 
   /// 13.1. Staging Strategy.
   @SerializationOrder(4)
@@ -201,7 +202,7 @@ class SystemStagePlan {
 @SectionId('STAGST')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-STR')
-class StagingStrategy {
+class StagingStrategy extends DocSpecsSection {
   @Form([
     Field(
       'stagingApproachType',
@@ -224,6 +225,7 @@ class StagingStrategy {
       hint: 'Low / Medium / High / Critical',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -257,7 +259,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(1)
-  String? approachSelection;
+  DocSpecsSection? approachSelection;
 
   /// Rationale and justification.
   @SectionId('STAGRT')
@@ -294,7 +296,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(2)
-  String? rationale;
+  DocSpecsSection? rationale;
 
   /// Key drivers and constraints.
   @StandardReferences([
@@ -348,7 +350,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(4)
-  String? riskAssessment;
+  DocSpecsSection? riskAssessment;
 
   /// Complexity assessment.
   @SectionId('STAGCX')
@@ -391,7 +393,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(5)
-  String? complexity;
+  DocSpecsSection? complexity;
 
   /// Readiness and resources.
   @SectionId('STAGRD')
@@ -441,7 +443,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(6)
-  String? readiness;
+  DocSpecsSection? readiness;
 
   /// Rollback and cutover strategy.
   @SectionId('STAGCO')
@@ -509,7 +511,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(7)
-  String? cutover;
+  DocSpecsSection? cutover;
 
   /// Success criteria and metrics.
   @SectionId('STAGSC')
@@ -553,7 +555,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(8)
-  String? successCriteria;
+  DocSpecsSection? successCriteria;
 
   /// Communication and change management.
   @SectionId('STAGCM')
@@ -603,7 +605,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(9)
-  String? communication;
+  DocSpecsSection? communication;
 
   /// Framework alignment.
   @SectionId('STAGFA')
@@ -647,7 +649,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(10)
-  String? frameworkAlignment;
+  DocSpecsSection? frameworkAlignment;
 
   /// Dependencies and prerequisites.
   @StandardReferences([
@@ -695,7 +697,7 @@ class StagingStrategy {
     ),
   ])
   @SerializationOrder(12)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// 13.1.1. Staging Approach.
   @ContentHelp(
@@ -725,7 +727,7 @@ class StagingStrategy {
   @SectionIdPattern('KEYAS-KEYA-xxx')
   @ContentHelp('Add one entry per key assumption.')
   @SerializationOrder(15)
-  List<String> keyAssumptions = [];
+  List<DocSpecsSection> keyAssumptions = [];
 
   /// 13.1.4. Constraints.
   @StandardReferences([
@@ -735,7 +737,7 @@ class StagingStrategy {
   @SectionIdPattern('STAGI-CONS-xxx')
   @ContentHelp('Add one entry per staging constraint.')
   @SerializationOrder(16)
-  List<String> constraints = [];
+  List<DocSpecsSection> constraints = [];
 }
 
 /// Key drivers for staging strategy.
@@ -747,7 +749,7 @@ class StagingStrategy {
   'Captures the primary drivers and the business, technical, regulatory, geographic, and seasonal constraints on the staging approach.',
 )
 @SectionId('STAGDR')
-class StagingDrivers {
+class StagingDrivers extends DocSpecsSection {
   @Form([
     Field(
       'primaryDrivers',
@@ -786,6 +788,7 @@ class StagingDrivers {
       hint: 'Seasonal business factors',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -799,7 +802,7 @@ class StagingDrivers {
   'Captures critical prerequisites and external and internal dependencies that gate staged deployment.',
 )
 @SectionId('STAGDP')
-class StagingDependencies {
+class StagingDependencies extends DocSpecsSection {
   @Form([
     Field(
       'criticalPrerequisites',
@@ -826,6 +829,7 @@ class StagingDependencies {
       hint: 'Risks associated with dependencies',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -848,7 +852,7 @@ class StagingDependencies {
 @SectionId('STAGOV')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-STA')
-class StageOverview {
+class StageOverview extends DocSpecsSection {
   @Form([
     Field(
       'numberOfStages',
@@ -874,6 +878,7 @@ class StageOverview {
           'contingency, e.g. EUR 2.4M',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -939,7 +944,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(1)
-  String? metrics;
+  DocSpecsSection? metrics;
 
   /// Planning baseline and revision history.
   @SectionId('SGOVBS')
@@ -1001,7 +1006,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(2)
-  String? baseline;
+  DocSpecsSection? baseline;
 
   /// Cross-stage dependencies and critical path.
   @SectionId('SGOVDP')
@@ -1060,7 +1065,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Resource allocation patterns.
   @SectionId('SGOVRS')
@@ -1122,7 +1127,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(4)
-  String? resources;
+  DocSpecsSection? resources;
 
   /// Budget distribution across stages.
   @SectionId('SGOVBD')
@@ -1179,7 +1184,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(5)
-  String? budget;
+  DocSpecsSection? budget;
 
   /// Schedule analytics and float.
   @SectionId('SGOVSC')
@@ -1230,7 +1235,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(6)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Quality and compliance targets.
   @SectionId('STOVQU')
@@ -1274,7 +1279,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(7)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Risk profile summary.
   @SectionId('STOVRI')
@@ -1330,7 +1335,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(8)
-  String? risk;
+  DocSpecsSection? risk;
 
   /// Plan status and health indicators.
   @SectionId('STOVST')
@@ -1395,7 +1400,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(9)
-  String? status;
+  DocSpecsSection? status;
 
   /// Stakeholder communication approach.
   @SectionId('STOVCO')
@@ -1433,7 +1438,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(10)
-  String? communication;
+  DocSpecsSection? communication;
 
   /// Assumptions and constraints.
   @SectionId('STOVC1')
@@ -1477,7 +1482,7 @@ class StageOverview {
     ),
   ])
   @SerializationOrder(11)
-  String? constraints;
+  DocSpecsSection? constraints;
 
   /// 13.2.1. Stage Summary — contains 1+× Stage
   /// Summary Entry.
@@ -1553,7 +1558,7 @@ class StageOverview {
 /// information is captured in the individual StageEntry classes under
 /// section 13.3.
 @SectionId('STAGSE')
-class StageSummaryEntry {
+class StageSummaryEntry extends DocSpecsSection {
   @Form([
     Field(
       'stageNumber',
@@ -1577,6 +1582,7 @@ class StageSummaryEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1597,7 +1603,7 @@ class StageSummaryEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Timeline.
   @SectionId('STSUTI')
@@ -1636,7 +1642,7 @@ class StageSummaryEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Scope.
   @SectionId('STSUSC')
@@ -1673,7 +1679,7 @@ class StageSummaryEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Resources and budget.
   @SectionId('STSURE-RESO-LST')
@@ -1710,7 +1716,7 @@ class StageSummaryEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Status.
   @SectionId('STSUST')
@@ -1741,12 +1747,12 @@ class StageSummaryEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// Resources for stage summary.
 @SectionId('STSURE')
-class StageSummaryResources {
+class StageSummaryResources extends DocSpecsSection {
   @Form([
     Field(
       'teamSize',
@@ -1779,13 +1785,14 @@ class StageSummaryResources {
       hint: 'Percentage going to external vendors',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
 
 /// Dependencies for stage summary.
 @SectionId('STSUDE')
-class StageSummaryDependencies {
+class StageSummaryDependencies extends DocSpecsSection {
   @Form([
     Field(
       'predecessorStages',
@@ -1818,6 +1825,7 @@ class StageSummaryDependencies {
       hint: 'Low / Medium / High / Critical',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1830,7 +1838,7 @@ class StageSummaryDependencies {
 /// deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 /// planning, and PRINCE2 stage boundary management.
 @SectionId('STAGE')
-class StageEntry {
+class StageEntry extends DocSpecsSection {
   @Form([
     Field(
       'stageNumber',
@@ -1853,6 +1861,7 @@ class StageEntry {
       hint: 'Planned / Active / Completed / OnHold / Cancelled',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1885,7 +1894,7 @@ class StageEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Timeline and schedule.
   @SectionId('STTI')
@@ -1937,7 +1946,7 @@ class StageEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Scope and features.
   @SectionId('STSC')
@@ -1992,7 +2001,7 @@ class StageEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Dependencies.
   @SectionId('STDE-DEPE-LST')
@@ -2047,7 +2056,7 @@ class StageEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Deployment and rollout.
   @SectionId('SD')
@@ -2096,7 +2105,7 @@ class StageEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? deployment;
+  DocSpecsSection? deployment;
 
   /// Stakeholders and communication.
   @SectionId('STST-STAK-LST')
@@ -2133,7 +2142,7 @@ class StageEntry {
     ),
   ])
   @SerializationOrder(9)
-  String? risk;
+  DocSpecsSection? risk;
 
   /// Status and metrics.
   @SectionId('STME')
@@ -2170,7 +2179,7 @@ class StageEntry {
     ),
   ])
   @SerializationOrder(10)
-  String? metrics;
+  DocSpecsSection? metrics;
 
   /// Feature Scope narrative.
   @ContentHelp(
@@ -2216,7 +2225,7 @@ class StageEntry {
 
 /// Dependencies for a stage entry.
 @SectionId('STDE')
-class StageDependencies {
+class StageDependencies extends DocSpecsSection {
   @Form([
     Field(
       'prerequisiteStages',
@@ -2243,13 +2252,14 @@ class StageDependencies {
       hint: 'Risks that could block stage start or completion',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
 
 /// Resources and budget for a stage entry.
 @SectionId('STRE')
-class StageResources {
+class StageResources extends DocSpecsSection {
   @Form([
     Field(
       'teamSize',
@@ -2282,13 +2292,14 @@ class StageResources {
       hint: 'Software licenses or third-party services needed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
 
 /// Stakeholders and communication for a stage entry.
 @SectionId('STST')
-class StageStakeholders {
+class StageStakeholders extends DocSpecsSection {
   @Form([
     Field(
       'stageOwner',
@@ -2334,6 +2345,7 @@ class StageStakeholders {
       hint: 'User guides, runbooks, SOPs requiring updates',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2344,7 +2356,7 @@ class StageStakeholders {
 /// candidate, pilot, GA — or a key milestone. Sub-stages provide finer
 /// scheduling granularity and quality gates within a stage.
 @SectionId('SUSST')
-class SubStageEntry {
+class SubStageEntry extends DocSpecsSection {
   @Form([
     Field(
       'name',
@@ -2368,6 +2380,7 @@ class SubStageEntry {
       hint: 'Order within the parent stage — 1, 2, 3…',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2388,7 +2401,7 @@ class SubStageEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Timeline and sequencing.
   @SectionId('SSET')
@@ -2413,7 +2426,7 @@ class SubStageEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Scope and deliverables.
   @SectionId('SSES')
@@ -2442,7 +2455,7 @@ class SubStageEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Resources and quality focus.
   @SectionId('SSEE')
@@ -2479,7 +2492,7 @@ class SubStageEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Current status.
   @SectionId('SUSTENST')
@@ -2500,7 +2513,7 @@ class SubStageEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// A success criterion entry (form).
@@ -2509,7 +2522,7 @@ class SubStageEntry {
 /// achieved its objectives. Each criterion has a target metric,
 /// measurement method, threshold, and verification process.
 @SectionId('STGSUC')
-class StageSuccessCriterionEntry {
+class StageSuccessCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
       'criterionId',
@@ -2541,6 +2554,7 @@ class StageSuccessCriterionEntry {
           'stage sign-off',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2588,7 +2602,7 @@ class StageSuccessCriterionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? measurement;
+  DocSpecsSection? measurement;
 
   /// Verification planning.
   @SectionId('SSCEV')
@@ -2613,7 +2627,7 @@ class StageSuccessCriterionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Current status and results.
   @SectionId('SSCES')
@@ -2632,7 +2646,7 @@ class StageSuccessCriterionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// 13.4. Feature Prioritization.
@@ -2652,7 +2666,7 @@ class StageSuccessCriterionEntry {
 @SectionId('FEPR')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-FEA')
-class FeaturePrioritization {
+class FeaturePrioritization extends DocSpecsSection {
   @Form([
     Field(
       'prioritizationMethodology',
@@ -2676,6 +2690,7 @@ class FeaturePrioritization {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2715,7 +2730,7 @@ class FeaturePrioritization {
     ),
   ])
   @SerializationOrder(1)
-  String? methodology;
+  DocSpecsSection? methodology;
 
   /// Stakeholder involvement.
   @SectionId('FEPRST')
@@ -2747,7 +2762,7 @@ class FeaturePrioritization {
     ),
   ])
   @SerializationOrder(2)
-  String? stakeholder;
+  DocSpecsSection? stakeholder;
 
   /// Cadence and triggers.
   @SectionId('FEPRCA')
@@ -2779,7 +2794,7 @@ class FeaturePrioritization {
     ),
   ])
   @SerializationOrder(3)
-  String? cadence;
+  DocSpecsSection? cadence;
 
   /// Capacity constraints.
   @SectionId('FEPRC1')
@@ -2817,7 +2832,7 @@ class FeaturePrioritization {
     ),
   ])
   @SerializationOrder(4)
-  String? capacity;
+  DocSpecsSection? capacity;
 
   /// Backlog health.
   @SectionId('FEPRBA')
@@ -2861,7 +2876,7 @@ class FeaturePrioritization {
     ),
   ])
   @SerializationOrder(5)
-  String? backlog;
+  DocSpecsSection? backlog;
 
   /// Traceability.
   @SectionId('FEPRTR')
@@ -2887,7 +2902,7 @@ class FeaturePrioritization {
     ),
   ])
   @SerializationOrder(6)
-  String? traceability;
+  DocSpecsSection? traceability;
 
   /// Prioritization rationale narrative.
   @ContentHelp(
@@ -2928,7 +2943,7 @@ class FeaturePrioritization {
   'Classifies every feature using the MoSCoW method and maps each to its target delivery stage.',
 )
 @SectionId('MOAN')
-class MoscowAnalysis {
+class MoscowAnalysis extends DocSpecsSection {
   @Form([
     // --- Summary Statistics ---
     Field(
@@ -2990,6 +3005,7 @@ class MoscowAnalysis {
       hint: 'Person or body who approved the classification',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3027,7 +3043,7 @@ class MoscowAnalysis {
   'Maps a single feature or feature group to its MoSCoW category and target delivery stage with justification and cross-references.',
 )
 @SectionId('ME')
-class MoscowEntry {
+class MoscowEntry extends DocSpecsSection {
   @Form([
     Field(
       'featureId',
@@ -3054,6 +3070,7 @@ class MoscowEntry {
           'Payments, User Management',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3091,7 +3108,7 @@ class MoscowEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Value and effort estimates.
   @SectionId('MOENVA')
@@ -3125,7 +3142,7 @@ class MoscowEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? value;
+  DocSpecsSection? value;
 
   /// Stage assignment.
   @SectionId('MESA')
@@ -3152,7 +3169,7 @@ class MoscowEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? stageAssignment;
+  DocSpecsSection? stageAssignment;
 
   /// Traceability and notes.
   @SectionId('MOENTR')
@@ -3185,7 +3202,7 @@ class MoscowEntry {
     Field('notes', String, 'Notes', hint: 'Additional notes or caveats'),
   ])
   @SerializationOrder(4)
-  String? traceability;
+  DocSpecsSection? traceability;
 }
 
 /// 13.4.2. Feature-Stage Matrix.
@@ -3200,7 +3217,7 @@ class MoscowEntry {
   'Maps every feature or feature group to its delivery stage, tracking readiness, confidence, dependencies, and acceptance criteria.',
 )
 @SectionId('FESTMA')
-class FeatureStageMatrix {
+class FeatureStageMatrix extends DocSpecsSection {
   @Form([
     // --- Matrix Summary ---
     Field(
@@ -3242,6 +3259,7 @@ class FeatureStageMatrix {
       hint: 'Person or body who approved the current matrix',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3282,7 +3300,7 @@ class FeatureStageMatrix {
   'Maps a single feature or feature group to its delivery stage with readiness, confidence, and dependency information.',
 )
 @SectionId('FSM')
-class FeatureStageMapping {
+class FeatureStageMapping extends DocSpecsSection {
   @Form([
     Field(
       'featureId',
@@ -3307,6 +3325,7 @@ class FeatureStageMapping {
       hint: 'Logical grouping for this feature',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3341,7 +3360,7 @@ class FeatureStageMapping {
     ),
   ])
   @SerializationOrder(1)
-  String? assignment;
+  DocSpecsSection? assignment;
 
   /// Readiness and confidence.
   @SectionId('FSMR')
@@ -3377,7 +3396,7 @@ class FeatureStageMapping {
     ),
   ])
   @SerializationOrder(2)
-  String? readiness;
+  DocSpecsSection? readiness;
 
   /// Dependencies.
   @SectionId('FSMD')
@@ -3410,7 +3429,7 @@ class FeatureStageMapping {
     ),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Acceptance and notes.
   @SectionId('FESTMAAC')
@@ -3438,7 +3457,7 @@ class FeatureStageMapping {
     Field('notes', String, 'Notes', hint: 'Additional context or caveats'),
   ])
   @SerializationOrder(4)
-  String? acceptance;
+  DocSpecsSection? acceptance;
 }
 
 /// 13.4.3. Feature Priority Register.
@@ -3454,7 +3473,7 @@ class FeatureStageMapping {
   'The master register of all features with priority scoring, business value, effort, stakeholder ownership, and traceability.',
 )
 @SectionId('FEPRRE')
-class FeaturePriorityRegister {
+class FeaturePriorityRegister extends DocSpecsSection {
   @Form([
     Field(
       'totalRegisteredFeatures',
@@ -3477,6 +3496,7 @@ class FeaturePriorityRegister {
           'typically Product Owner',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3506,7 +3526,7 @@ class FeaturePriorityRegister {
   'A comprehensive per-feature record covering identity, business value, effort, priority scoring, staging, dependencies, stakeholders, traceability, and status.',
 )
 @SectionId('FPE')
-class FeaturePriorityEntry {
+class FeaturePriorityEntry extends DocSpecsSection {
   @Form([
     Field(
       'featureId',
@@ -3530,6 +3550,7 @@ class FeaturePriorityEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3577,7 +3598,7 @@ class FeaturePriorityEntry {
     Field('epicLink', String, 'Epic Link', hint: 'Parent epic or theme'),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Business value.
   @SectionId('FEBUVA')
@@ -3665,7 +3686,7 @@ class FeaturePriorityEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? businessValue;
+  DocSpecsSection? businessValue;
 
   /// Effort and complexity.
   @SectionId('FEEF')
@@ -3724,7 +3745,7 @@ class FeaturePriorityEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? effort;
+  DocSpecsSection? effort;
 
   /// Priority scoring.
   @SectionId('FEPRSC')
@@ -3770,7 +3791,7 @@ class FeaturePriorityEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? priorityScoring;
+  DocSpecsSection? priorityScoring;
 
   /// Stage assignment.
   @SectionId('FESTAS')
@@ -3809,7 +3830,7 @@ class FeaturePriorityEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? stageAssignment;
+  DocSpecsSection? stageAssignment;
 
   /// Dependencies.
   @SectionId('FEDEIN')
@@ -3847,7 +3868,7 @@ class FeaturePriorityEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Stakeholders.
   @StandardReferences([
@@ -3897,7 +3918,7 @@ class FeaturePriorityEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? traceability;
+  DocSpecsSection? traceability;
 
   /// Status.
   @SectionId('FS')
@@ -3942,7 +3963,7 @@ class FeaturePriorityEntry {
     ),
   ])
   @SerializationOrder(9)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// Stakeholders for a feature priority entry.
@@ -3954,7 +3975,7 @@ class FeaturePriorityEntry {
   'Records who requested, owns, and approved a feature priority entry along with its approval status.',
 )
 @SectionId('FEST')
-class FeatureStakeholders {
+class FeatureStakeholders extends DocSpecsSection {
   @Form([
     Field(
       'requestedBy',
@@ -4000,6 +4021,7 @@ class FeatureStakeholders {
       hint: 'When approval was granted',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4016,7 +4038,7 @@ class FeatureStakeholders {
   'Captures cross-feature dependencies affecting staging order, critical-path analysis, and delivery sequencing.',
 )
 @SectionId('FEDE')
-class FeatureDependencies {
+class FeatureDependencies extends DocSpecsSection {
   @Form([
     Field(
       'totalDependencyCount',
@@ -4055,6 +4077,7 @@ class FeatureDependencies {
       hint: 'When the dependency map was last analyzed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4095,7 +4118,7 @@ class FeatureDependencies {
   'Describes a single directional dependency between two features, including its type, strength, impact, and resolution strategy.',
 )
 @SectionId('FDE')
-class FeatureDependencyEntry {
+class FeatureDependencyEntry extends DocSpecsSection {
   @Form([
     // --- Dependency Relationship ---
     Field(
@@ -4175,6 +4198,7 @@ class FeatureDependencyEntry {
     ),
     Field('notes', String, 'Notes', hint: 'Additional context or constraints'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4196,7 +4220,7 @@ class FeatureDependencyEntry {
 @SectionId('DAMIST')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-MIG')
-class DataMigrationStrategy {
+class DataMigrationStrategy extends DocSpecsSection {
   @Form([
     Field(
       'migrationApproach',
@@ -4220,6 +4244,7 @@ class DataMigrationStrategy {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4248,7 +4273,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(1)
-  String? approach;
+  DocSpecsSection? approach;
 
   /// Scope and data landscape.
   @SectionId('MISC')
@@ -4299,7 +4324,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(2)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Source and target system details.
   @StandardReferences(
@@ -4357,7 +4382,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(4)
-  String? dataQuality;
+  DocSpecsSection? dataQuality;
 
   /// Tooling and technology stack.
   @SectionId('MITO')
@@ -4407,7 +4432,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(5)
-  String? tooling;
+  DocSpecsSection? tooling;
 
   /// Environment strategy.
   @StandardReferences(
@@ -4479,7 +4504,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(7)
-  String? cutover;
+  DocSpecsSection? cutover;
 
   /// Rollback and recovery strategy.
   @SectionId('MIRO')
@@ -4524,7 +4549,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(8)
-  String? rollback;
+  DocSpecsSection? rollback;
 
   /// Compliance and governance.
   @SectionId('MICO')
@@ -4575,7 +4600,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(9)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Success metrics.
   @SectionId('MIME')
@@ -4620,7 +4645,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(10)
-  String? metrics;
+  DocSpecsSection? metrics;
 
   /// Stakeholder communication.
   @StandardReferences(
@@ -4692,7 +4717,7 @@ class DataMigrationStrategy {
     ),
   ])
   @SerializationOrder(13)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Migration strategy narrative.
   @ContentHelp(
@@ -4721,7 +4746,7 @@ class DataMigrationStrategy {
   'Captures the source system inventory, target platform description, schema transformation complexity, and data model changes.',
 )
 @SectionId('MISY')
-class MigrationSystems {
+class MigrationSystems extends DocSpecsSection {
   @Form([
     Field(
       'sourceSystemInventory',
@@ -4749,6 +4774,7 @@ class MigrationSystems {
       hint: 'Key structural changes — table splits/merges, normalization',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4762,7 +4788,7 @@ class MigrationSystems {
   'Captures the migration environment strategy including data subsetting, production-like readiness, and refresh cadence.',
 )
 @SectionId('MIEN')
-class MigrationEnvironments {
+class MigrationEnvironments extends DocSpecsSection {
   @Form([
     Field(
       'migrationEnvironments',
@@ -4790,6 +4816,7 @@ class MigrationEnvironments {
       hint: 'How often test environments are refreshed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4803,7 +4830,7 @@ class MigrationEnvironments {
   'Captures stakeholder sign-off requirements, communication planning, and training for the migration team.',
 )
 @SectionId('MIST')
-class MigrationStakeholders {
+class MigrationStakeholders extends DocSpecsSection {
   @Form([
     Field(
       'dataOwnerSignoffRequired',
@@ -4830,6 +4857,7 @@ class MigrationStakeholders {
       hint: 'Training needed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4843,7 +4871,7 @@ class MigrationStakeholders {
   'Captures the migration budget, team composition, and external vendor support arrangements.',
 )
 @SectionId('STMIRE')
-class StageMigrationResources {
+class StageMigrationResources extends DocSpecsSection {
   @Form([
     Field(
       'migrationBudget',
@@ -4859,6 +4887,7 @@ class StageMigrationResources {
       hint: 'Third-party support',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4877,7 +4906,7 @@ class StageMigrationResources {
   'Captures the overall staged migration plan and its execution model across all migration phases.',
 )
 @SectionId('MIPH')
-class MigrationPhases {
+class MigrationPhases extends DocSpecsSection {
   @Form([
     // --- Phase Summary ---
     Field(
@@ -4950,6 +4979,7 @@ class MigrationPhases {
           'incremental buildup, production-equivalent',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4994,7 +5024,7 @@ class MigrationPhases {
   'Captures a single migration phase covering its scope, method, transformation, schedule, validation, acceptance, and rollback.',
 )
 @SectionId('MGPHS')
-class MigrationPhaseEntry {
+class MigrationPhaseEntry extends DocSpecsSection {
   @Form([
     Field(
       'phaseNumber',
@@ -5019,6 +5049,7 @@ class MigrationPhaseEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5052,7 +5083,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Data scope.
   @SectionId('MPDS')
@@ -5125,7 +5156,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? dataScope;
+  DocSpecsSection? dataScope;
 
   /// Migration method.
   @SectionId('MIPHME')
@@ -5170,7 +5201,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? method;
+  DocSpecsSection? method;
 
   /// Transformation and mapping.
   @SectionId('MIPHTR')
@@ -5233,7 +5264,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? transformation;
+  DocSpecsSection? transformation;
 
   /// Schedule and dependencies.
   @SectionId('MIPHSC')
@@ -5303,7 +5334,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Dry runs.
   @StandardReferences([
@@ -5383,7 +5414,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? validation;
+  DocSpecsSection? validation;
 
   /// Acceptance criteria.
   @SectionId('MIPHAC')
@@ -5416,7 +5447,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? acceptance;
+  DocSpecsSection? acceptance;
 
   /// Rollback.
   @SectionId('MIPHRO')
@@ -5442,7 +5473,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(9)
-  String? rollback;
+  DocSpecsSection? rollback;
 
   /// Resources.
   @StandardReferences([
@@ -5485,7 +5516,7 @@ class MigrationPhaseEntry {
     ),
   ])
   @SerializationOrder(11)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// Dry runs for migration phase.
@@ -5497,7 +5528,7 @@ class MigrationPhaseEntry {
   'Captures the dry run rehearsals, results, and issues discovered for an individual migration phase.',
 )
 @SectionId('MPDR')
-class MigrationPhaseDryRuns {
+class MigrationPhaseDryRuns extends DocSpecsSection {
   @Form([
     Field(
       'dryRunsPlanned',
@@ -5542,6 +5573,7 @@ class MigrationPhaseDryRuns {
       hint: 'How many issues were fixed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5555,7 +5587,7 @@ class MigrationPhaseDryRuns {
   'Captures the team members and effort assigned to an individual migration phase.',
 )
 @SectionId('MIPHRE')
-class MigrationPhaseResources {
+class MigrationPhaseResources extends DocSpecsSection {
   @Form([
     Field(
       'assignedTeamMembers',
@@ -5570,6 +5602,7 @@ class MigrationPhaseResources {
       hint: 'Person-days of effort',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5587,7 +5620,7 @@ class MigrationPhaseResources {
   'Captures the migration-specific risk register summary including totals, methodology, tolerance policy, review cadence, and overall risk rating.',
 )
 @SectionId('STMIRI')
-class StageMigrationRisks {
+class StageMigrationRisks extends DocSpecsSection {
   @Form([
     // --- Risk Summary ---
     Field(
@@ -5665,6 +5698,7 @@ class StageMigrationRisks {
           'assessment for the entire migration',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5708,7 +5742,7 @@ class StageMigrationRisks {
   'Captures a single entry in the data migration risk register spanning identity, scoring, mitigation, contingency, monitoring, ownership, residual, and status.',
 )
 @SectionId('STGMRS')
-class StageMigrationRiskEntry {
+class StageMigrationRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'riskId',
@@ -5732,6 +5766,7 @@ class StageMigrationRiskEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5753,7 +5788,7 @@ class StageMigrationRiskEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Probability and impact assessment.
   @SectionId('SMRPI')
@@ -5799,7 +5834,7 @@ class StageMigrationRiskEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? probabilityImpact;
+  DocSpecsSection? probabilityImpact;
 
   /// Mitigation planning.
   @SectionId('SMRM')
@@ -5837,7 +5872,7 @@ class StageMigrationRiskEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? mitigation;
+  DocSpecsSection? mitigation;
 
   /// Contingency actions.
   @SectionId('SMRC')
@@ -5870,7 +5905,7 @@ class StageMigrationRiskEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? contingency;
+  DocSpecsSection? contingency;
 
   /// Monitoring and detection.
   @SectionId('STMIRIMO')
@@ -5907,7 +5942,7 @@ class StageMigrationRiskEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// Ownership and accountability.
   @SectionId('SMRO')
@@ -5931,7 +5966,7 @@ class StageMigrationRiskEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   /// Residual risk assessment.
   @SectionId('SMRR')
@@ -5962,7 +5997,7 @@ class StageMigrationRiskEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? residual;
+  DocSpecsSection? residual;
 
   /// Status and review.
   @SectionId('SMRS')
@@ -5993,7 +6028,7 @@ class StageMigrationRiskEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// 13.6. Governance.
@@ -6013,7 +6048,7 @@ class StageMigrationRiskEntry {
 )
 @SectionId('STGO')
 @MapsTo(D11DeliveryRoadmap)
-class StageGovernance {
+class StageGovernance extends DocSpecsSection {
   @Form([
     Field(
       'governanceModel',
@@ -6037,6 +6072,7 @@ class StageGovernance {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6058,7 +6094,7 @@ class StageGovernance {
     ),
   ])
   @SerializationOrder(1)
-  String? model;
+  DocSpecsSection? model;
 
   /// Authority and oversight.
   @SectionId('STGOAU')
@@ -6102,7 +6138,7 @@ class StageGovernance {
     ),
   ])
   @SerializationOrder(2)
-  String? authority;
+  DocSpecsSection? authority;
 
   /// Escalation paths and triggers.
   @SectionId('STGOES')
@@ -6134,7 +6170,7 @@ class StageGovernance {
     ),
   ])
   @SerializationOrder(3)
-  String? escalation;
+  DocSpecsSection? escalation;
 
   /// Meeting cadence and process.
   @SectionId('STGOCA')
@@ -6179,7 +6215,7 @@ class StageGovernance {
     ),
   ])
   @SerializationOrder(4)
-  String? cadence;
+  DocSpecsSection? cadence;
 
   /// Compliance and audit requirements.
   @SectionId('STGOCO')
@@ -6218,7 +6254,7 @@ class StageGovernance {
     ),
   ])
   @SerializationOrder(5)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Metrics and reporting.
   @SectionId('STGOME')
@@ -6250,7 +6286,7 @@ class StageGovernance {
     ),
   ])
   @SerializationOrder(6)
-  String? metrics;
+  DocSpecsSection? metrics;
 
   /// Stage transition rules.
   @SectionId('STGOTR')
@@ -6289,7 +6325,7 @@ class StageGovernance {
     ),
   ])
   @SerializationOrder(7)
-  String? transition;
+  DocSpecsSection? transition;
 
   /// Governance narrative and rationale.
   @ContentHelp(
@@ -6325,7 +6361,7 @@ class StageGovernance {
 @SectionId('PHGARE')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-GAT')
-class PhaseGateReviews {
+class PhaseGateReviews extends DocSpecsSection {
   @Form([
     Field(
       'gateNamingConvention',
@@ -6358,6 +6394,7 @@ class PhaseGateReviews {
           'DocumentReview / Mixed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6406,7 +6443,7 @@ class PhaseGateReviews {
     ),
   ])
   @SerializationOrder(1)
-  String? preparation;
+  DocSpecsSection? preparation;
 
   /// Gate decision outcomes and follow-up rules.
   @SectionId('PGRO')
@@ -6453,7 +6490,7 @@ class PhaseGateReviews {
     ),
   ])
   @SerializationOrder(2)
-  String? outcomes;
+  DocSpecsSection? outcomes;
 
   /// Phase gate review process narrative.
   @ContentHelp(
@@ -6492,7 +6529,7 @@ class PhaseGateReviews {
   'Defines a single phase gate with its identity, authority, schedule, entry and exit conditions, evidence, and review criteria.',
 )
 @SectionId('PHGAREEN')
-class PhaseGateReviewEntry {
+class PhaseGateReviewEntry extends DocSpecsSection {
   @Form([
     Field(
       'gateName',
@@ -6515,6 +6552,7 @@ class PhaseGateReviewEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6542,7 +6580,7 @@ class PhaseGateReviewEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Authority and participants.
   @SectionId('PHGAAU')
@@ -6581,7 +6619,7 @@ class PhaseGateReviewEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? authority;
+  DocSpecsSection? authority;
 
   /// Schedule.
   @SectionId('PHGASC')
@@ -6613,7 +6651,7 @@ class PhaseGateReviewEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Entry conditions.
   @SectionId('PHGAEN')
@@ -6639,7 +6677,7 @@ class PhaseGateReviewEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? entry;
+  DocSpecsSection? entry;
 
   /// Evidence.
   @SectionId('PHGAEV')
@@ -6671,7 +6709,7 @@ class PhaseGateReviewEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? evidence;
+  DocSpecsSection? evidence;
 
   /// Exit conditions and outcome.
   @SectionId('PHGAEX')
@@ -6728,7 +6766,7 @@ class PhaseGateReviewEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? exit;
+  DocSpecsSection? exit;
 
   /// Gate-specific narrative and context.
   @ContentHelp(
@@ -6766,7 +6804,7 @@ class PhaseGateReviewEntry {
   'Defines a single criterion evaluated at a phase gate together with its category, weight, evidence linkage, and result.',
 )
 @SectionId('RVCRI')
-class ReviewCriterionEntry {
+class ReviewCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
       'criterion',
@@ -6798,6 +6836,7 @@ class ReviewCriterionEntry {
           'Completeness / Business / Operational',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6853,7 +6892,7 @@ class ReviewCriterionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? assessment;
+  DocSpecsSection? assessment;
 
   /// Post-review result and remediation status.
   @SectionId('RCER')
@@ -6889,7 +6928,7 @@ class ReviewCriterionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? result;
+  DocSpecsSection? result;
 }
 
 /// 13.6.2. Decision Points.
@@ -6908,7 +6947,7 @@ class ReviewCriterionEntry {
 @SectionId('DEPO')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-DEC')
-class DecisionPoints {
+class DecisionPoints extends DocSpecsSection {
   @Form([
     // --- Decision Framework ---
     Field(
@@ -6960,6 +6999,7 @@ class DecisionPoints {
           'OnDemand',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7001,7 +7041,7 @@ class DecisionPoints {
   'Represents a single formal decision point with its identity, category, context, stakeholders, criteria, and resolution.',
 )
 @SectionId('DPE')
-class DecisionPointEntry {
+class DecisionPointEntry extends DocSpecsSection {
   @Form([
     Field(
       'decisionId',
@@ -7030,6 +7070,7 @@ class DecisionPointEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7078,7 +7119,7 @@ class DecisionPointEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? context;
+  DocSpecsSection? context;
 
   /// Stakeholder assignments.
   @SectionId('DPES')
@@ -7125,7 +7166,7 @@ class DecisionPointEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? stakeholders;
+  DocSpecsSection? stakeholders;
 
   /// Criteria and required inputs.
   @SectionId('DEPOENCR')
@@ -7173,7 +7214,7 @@ class DecisionPointEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? criteria;
+  DocSpecsSection? criteria;
 
   /// Resolution details (filled when decided).
   @SerializationOrder(4)
@@ -7189,7 +7230,7 @@ class DecisionPointEntry {
   'Records the outcome of a decision point including the selected option, rationale, decision record reference, and revisit date.',
 )
 @SectionId('DPER')
-class DecisionPointEntryResolution {
+class DecisionPointEntryResolution extends DocSpecsSection {
   @Form([
     Field(
       'selectedOption',
@@ -7238,6 +7279,7 @@ class DecisionPointEntryResolution {
           'budget, schedule',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7278,7 +7320,7 @@ class DecisionPointEntryResolution {
   'Represents a single available option for a decision point together with its selection flags, impact, feasibility, and trade-offs.',
 )
 @SectionId('DOE')
-class DecisionOptionEntry {
+class DecisionOptionEntry extends DocSpecsSection {
   @Form([
     Field(
       'optionId',
@@ -7303,6 +7345,7 @@ class DecisionOptionEntry {
       hint: 'Detailed description of what this option entails',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7334,7 +7377,7 @@ class DecisionOptionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? selection;
+  DocSpecsSection? selection;
 
   /// Impact analysis.
   @SectionId('DOEI')
@@ -7394,7 +7437,7 @@ class DecisionOptionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? impact;
+  DocSpecsSection? impact;
 
   /// Feasibility assessment.
   @SectionId('DOEF')
@@ -7432,7 +7475,7 @@ class DecisionOptionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? feasibility;
+  DocSpecsSection? feasibility;
 
   /// Trade-offs and reversibility.
   @SectionId('DOETO')
@@ -7482,7 +7525,7 @@ class DecisionOptionEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? tradeOffs;
+  DocSpecsSection? tradeOffs;
 }
 
 // ---------------------------------------------------------------------------
@@ -7504,7 +7547,7 @@ class DecisionOptionEntry {
 @SectionId('INDEFL')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-IDV')
-class InitialDevelopmentFlow {
+class InitialDevelopmentFlow extends DocSpecsSection {
   @ContentHelp('''
 Describes how the initial-development phases hand off to each other:
 dependencies, parallel work streams, and synchronization points.
@@ -7517,6 +7560,7 @@ dependencies, parallel work streams, and synchronization points.
 - Team coordination model during the initial build
 - Transition criteria to post-development (where DRM-UPG takes over)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -7539,7 +7583,7 @@ dependencies, parallel work streams, and synchronization points.
 @SectionId('UPCYFR')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-UPG')
-class UpgradeCycleFramework {
+class UpgradeCycleFramework extends DocSpecsSection {
   @ContentHelp('''
 Framework that governs the upgrade cycle once initial development
 finishes. Provides the project-specific bridge to the static
@@ -7554,6 +7598,7 @@ finishes. Provides the project-specific bridge to the static
 - Rollout strategy differences for upgrades vs. initial launch
 - Version and numbering scheme
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }

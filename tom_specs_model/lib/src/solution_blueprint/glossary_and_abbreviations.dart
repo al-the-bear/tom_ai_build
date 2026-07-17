@@ -14,12 +14,13 @@ import 'package:tom_specs_core/tom_specs_core.dart';
   'consistently throughout the specification.',
 )
 @SectionId('GLAB')
-class GlossaryAndAbbreviations {
+class GlossaryAndAbbreviations extends DocSpecsSection {
   @ContentType(
     'description',
     'Introduce the glossary: scope, conventions, '
         'and how terms are maintained.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -39,13 +40,14 @@ class GlossaryAndAbbreviations {
   'ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations',
 ], 'A single defined term or acronym with its definition and related terms.')
 @SectionId('GLENT')
-class GlossaryEntry {
+class GlossaryEntry extends DocSpecsSection {
   @Form([
     Field('term', String, 'Term', required: true),
     Field('definition', String, 'Definition', required: true),
     Field('acronym', String, 'Acronym / Abbreviation'),
     Field('seeAlso', String, 'See Also (related terms)'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

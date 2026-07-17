@@ -18,8 +18,9 @@ import 'components_and_dependencies.dart';
   'technology and components the solution is built from.',
 )
 @SectionId('SOAT')
-class SolutionArchitectureAndTechnology {
+class SolutionArchitectureAndTechnology extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 

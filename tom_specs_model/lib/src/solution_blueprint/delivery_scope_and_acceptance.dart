@@ -16,7 +16,7 @@ import '../document_stubs.dart';
   'Captures the delivery scope and acceptance agreements defining what is delivered and how it is accepted.',
 )
 @SectionId('DLVA')
-class DeliveryScopeAndAcceptance {
+class DeliveryScopeAndAcceptance extends DocSpecsSection {
   @ContentHelp('''
 Chapter overview: defines agreements regarding delivery scope and acceptance
 for the system. Covers two major subsections:
@@ -29,6 +29,7 @@ Seeds the QAP (Quality & Acceptance Plan) document for full quality planning.
 All deliverable and acceptance definitions should be objectively verifiable
 and contractually precise.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -51,7 +52,7 @@ and contractually precise.
   'Captures the overall delivery and service scope that enumerates what will be delivered and under what conditions.',
 )
 @SectionId('DLVSC')
-class DeliveryScope {
+class DeliveryScope extends DocSpecsSection {
   @ContentHelp('''
 Defines what is delivered as part of this project across four categories:
 - Software deliverables (application components, libraries, configurations)
@@ -63,6 +64,7 @@ Each deliverable entry specifies format, delivery mechanism, acceptance
 criteria, and responsible party. Deliverables are contractually binding
 commitments.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -93,7 +95,7 @@ commitments.
   'Captures the software deliverables covering application components, libraries, and deployment artifacts.',
 )
 @SectionId('SWDLV')
-class SoftwareDeliverables {
+class SoftwareDeliverables extends DocSpecsSection {
   @ContentHelp('''
 Software deliverables: application components, libraries, tools, scripts,
 configuration files, deployment artifacts. Define for each:
@@ -103,6 +105,7 @@ configuration files, deployment artifacts. Define for each:
 - Licensing terms applicable to the deliverable
 - Environment-specific variants (production, staging, development)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -129,13 +132,14 @@ configuration files, deployment artifacts. Define for each:
   'Captures the documentation deliverables covering user, technical, and operations documents.',
 )
 @SectionId('DCDLV')
-class DocumentationDeliverables {
+class DocumentationDeliverables extends DocSpecsSection {
   @ContentHelp('''
 Documentation deliverables: user guides, technical documentation,
 operations runbooks, API documentation, architecture decision records,
 release notes Template. Define format (PDF, HTML, Markdown, wiki),
 delivery channel, language(s), and maintenance responsibility post-delivery.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -162,13 +166,14 @@ delivery channel, language(s), and maintenance responsibility post-delivery.
   'Captures the training deliverables covering sessions, materials, and train-the-trainer programs.',
 )
 @SectionId('TRDLV')
-class TrainingDeliverables {
+class TrainingDeliverables extends DocSpecsSection {
   @ContentHelp('''
 Training deliverables: instructor-led sessions, e-learning modules,
 train-the-trainer programs, quick reference cards, video tutorials,
 sandbox environments. Define target audience, duration, prerequisites,
 assessment criteria, and ongoing refresh schedule.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -196,13 +201,14 @@ assessment criteria, and ongoing refresh schedule.
   'Captures the support deliverables covering transition support, warranty, and ongoing support commitments.',
 )
 @SectionId('SPDLV')
-class SupportDeliverables {
+class SupportDeliverables extends DocSpecsSection {
   @ContentHelp('''
 Support deliverables: transition support during go-live, warranty support
 post-acceptance, knowledge transfer sessions, escalation contacts,
 SLA definitions, support tooling and access. Define support hours,
 response times, coverage period, and handover criteria.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -234,7 +240,7 @@ response times, coverage period, and handover criteria.
   'Represents a single deliverable item with its identification, logistics, quality, ownership, and acceptance linkage.',
 )
 @SectionId('DLVEN')
-class DeliverableEntry {
+class DeliverableEntry extends DocSpecsSection {
   @Form([
     Field(
       'deliverableId',
@@ -257,6 +263,7 @@ class DeliverableEntry {
       hint: 'Critical / High / Medium / Low',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -281,7 +288,7 @@ class DeliverableEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Delivery logistics.
   @SectionId('DLVLOG')
@@ -331,7 +338,7 @@ class DeliverableEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? logistics;
+  DocSpecsSection? logistics;
 
   /// Version and compatibility.
   @SectionId('DLVVR')
@@ -363,7 +370,7 @@ class DeliverableEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? version;
+  DocSpecsSection? version;
 
   /// Quality and acceptance.
   @SectionId('DLVQL')
@@ -401,7 +408,7 @@ class DeliverableEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Ownership and responsibility.
   @SectionId('DLVOW')
@@ -439,7 +446,7 @@ class DeliverableEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   /// Dependencies.
   @StandardReferences(
@@ -485,7 +492,7 @@ class DeliverableEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? legal;
+  DocSpecsSection? legal;
 
   /// Documentation.
   @SectionId('DLVDC')
@@ -517,7 +524,7 @@ class DeliverableEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? documentation;
+  DocSpecsSection? documentation;
 }
 
 /// Dependencies for deliverable.
@@ -529,7 +536,7 @@ class DeliverableEntry {
   'Captures the dependencies and prerequisites that condition when a deliverable can be delivered.',
 )
 @SectionId('DLVDP')
-class DeliverableDependencies {
+class DeliverableDependencies extends DocSpecsSection {
   @Form([
     Field(
       'dependsOn',
@@ -544,6 +551,7 @@ class DeliverableDependencies {
       hint: 'Conditions that must be met before delivery',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -559,7 +567,7 @@ class DeliverableDependencies {
 @SectionId('ACPLN')
 @Comment('Seeds → QAP')
 @MapsTo(D10QualityAcceptancePlan)
-class AcceptancePlan {
+class AcceptancePlan extends DocSpecsSection {
   @ContentHelp('''
 Acceptance plan overview: defines how the project deliverables will be
 formally accepted by the client/business. Covers:
@@ -573,6 +581,7 @@ formally accepted by the client/business. Covers:
 Seeds the QAP (Quality & Acceptance Plan) for comprehensive quality planning.
 All criteria must be objectively measurable and verifiable.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -612,7 +621,7 @@ All criteria must be objectively measurable and verifiable.
 @SectionId('ACRITL')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CRI')
-class AcceptanceCriteriaList {
+class AcceptanceCriteriaList extends DocSpecsSection {
   @ContentHelp('''
 Formal acceptance criteria that must be met for project sign-off.
 Covers functional, non-functional, documentation, and training criteria.
@@ -622,6 +631,7 @@ Each criterion must be:
 - Assigned a verification method and responsible verifier
 - Categorized by type and priority
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -653,7 +663,7 @@ Each criterion must be:
   'Captures a single acceptance criterion that delivered work must satisfy for formal acceptance.',
 )
 @SectionId('DACEN')
-class DeliveryAcceptanceCriterionEntry {
+class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
       'criterionId',
@@ -678,6 +688,7 @@ class DeliveryAcceptanceCriterionEntry {
           'Documentation / Training / Operational / Compliance',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -705,7 +716,7 @@ class DeliveryAcceptanceCriterionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? definition;
+  DocSpecsSection? definition;
 
   /// Verification method and evidence.
   @SectionId('DACEV')
@@ -751,7 +762,7 @@ class DeliveryAcceptanceCriterionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Traceability links.
   @SectionId('DACET')
@@ -783,7 +794,7 @@ class DeliveryAcceptanceCriterionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? traceability;
+  DocSpecsSection? traceability;
 
   /// Responsibility assignments.
   @SectionId('DACEOW')
@@ -809,7 +820,7 @@ class DeliveryAcceptanceCriterionEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   /// Current status and notes.
   @SectionId('DACES')
@@ -835,7 +846,7 @@ class DeliveryAcceptanceCriterionEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// 14.2.2. Acceptance Process.
@@ -853,7 +864,7 @@ class DeliveryAcceptanceCriterionEntry {
 @SectionId('ACPR1')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRO')
-class AcceptanceProcess {
+class AcceptanceProcess extends DocSpecsSection {
   @Form([
     Field(
       'processName',
@@ -874,6 +885,7 @@ class AcceptanceProcess {
       hint: 'Formal / Informal / Staged / Conditional',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -895,7 +907,7 @@ class AcceptanceProcess {
     ),
   ])
   @SerializationOrder(1)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Participants and governance.
   @SectionId('ACPRPA')
@@ -939,7 +951,7 @@ class AcceptanceProcess {
     ),
   ])
   @SerializationOrder(2)
-  String? participants;
+  DocSpecsSection? participants;
 
   /// Timeline and schedule.
   @SectionId('ACPRTI')
@@ -977,7 +989,7 @@ class AcceptanceProcess {
     ),
   ])
   @SerializationOrder(3)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Decision framework.
   @SectionId('ACPRDE')
@@ -1015,7 +1027,7 @@ class AcceptanceProcess {
     ),
   ])
   @SerializationOrder(4)
-  String? decision;
+  DocSpecsSection? decision;
 
   /// Escalation.
   @SectionId('ACPRES')
@@ -1047,7 +1059,7 @@ class AcceptanceProcess {
     ),
   ])
   @SerializationOrder(5)
-  String? escalation;
+  DocSpecsSection? escalation;
 
   /// Documentation.
   @SectionId('ACPRDO')
@@ -1079,7 +1091,7 @@ class AcceptanceProcess {
     ),
   ])
   @SerializationOrder(6)
-  String? documentation;
+  DocSpecsSection? documentation;
 
   /// Acceptance process narrative description.
   @ContentHelp(
@@ -1117,7 +1129,7 @@ class AcceptanceProcess {
   'Captures a single step in the formal acceptance workflow with its responsible role and description.',
 )
 @SectionId('ACST')
-class AcceptanceStepEntry {
+class AcceptanceStepEntry extends DocSpecsSection {
   @Form([
     Field(
       'stepNumber',
@@ -1146,6 +1158,7 @@ class AcceptanceStepEntry {
       hint: 'Who performs or leads this step',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1185,7 +1198,7 @@ class AcceptanceStepEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? flow;
+  DocSpecsSection? flow;
 
   /// Exit outcomes and timing.
   @SectionId('ASEO')
@@ -1219,7 +1232,7 @@ class AcceptanceStepEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? outcome;
+  DocSpecsSection? outcome;
 }
 
 /// 14.2.3. User Acceptance Testing.
@@ -1238,7 +1251,7 @@ class AcceptanceStepEntry {
 @SectionId('USACTE')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-UAT')
-class UserAcceptanceTesting {
+class UserAcceptanceTesting extends DocSpecsSection {
   @Form([
     Field(
       'uatObjective',
@@ -1259,6 +1272,7 @@ class UserAcceptanceTesting {
       hint: 'Name and role of the person coordinating UAT',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1292,7 +1306,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Environment.
   @SectionId('UAEN')
@@ -1336,7 +1350,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(2)
-  String? environment;
+  DocSpecsSection? environment;
 
   /// Test data.
   @SectionId('UATEDA')
@@ -1374,7 +1388,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(3)
-  String? testData;
+  DocSpecsSection? testData;
 
   /// Participants and governance.
   @SectionId('UAGO')
@@ -1424,7 +1438,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(4)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Schedule and cycles.
   @SectionId('UASC1')
@@ -1468,7 +1482,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(5)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Entry, exit, and suspension criteria.
   @SectionId('UACR')
@@ -1506,7 +1520,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(6)
-  String? criteria;
+  DocSpecsSection? criteria;
 
   /// Defect management.
   @SectionId('UADEMA')
@@ -1556,7 +1570,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(7)
-  String? defectManagement;
+  DocSpecsSection? defectManagement;
 
   /// Reporting.
   @SectionId('UARE')
@@ -1594,7 +1608,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(8)
-  String? reporting;
+  DocSpecsSection? reporting;
 
   /// Non-functional acceptance.
   @SectionId('UANOFU')
@@ -1632,7 +1646,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(9)
-  String? nonFunctional;
+  DocSpecsSection? nonFunctional;
 
   /// Sign-off.
   @SectionId('UASIOF')
@@ -1664,7 +1678,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(10)
-  String? signOff;
+  DocSpecsSection? signOff;
 
   /// Training and readiness.
   @SectionId('UATR')
@@ -1690,7 +1704,7 @@ class UserAcceptanceTesting {
     ),
   ])
   @SerializationOrder(11)
-  String? training;
+  DocSpecsSection? training;
 
   /// Narrative overview of the UAT approach and philosophy.
   @ContentHelp(
@@ -1734,7 +1748,7 @@ class UserAcceptanceTesting {
   'Captures a distinct acceptance test execution round with its objective, dates, scope, and staffing.',
 )
 @SectionId('UATCY')
-class UatTestCycleEntry {
+class UatTestCycleEntry extends DocSpecsSection {
   @Form([
     Field(
       'cycleName',
@@ -1762,6 +1776,7 @@ class UatTestCycleEntry {
       hint: 'End date for this cycle',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1807,7 +1822,7 @@ class UatTestCycleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Staffing and risk context.
   @SectionId('UTCEE')
@@ -1833,7 +1848,7 @@ class UatTestCycleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 }
 
 /// A test scenario entry (form).
@@ -1850,7 +1865,7 @@ class UatTestCycleEntry {
   'Captures a business-level acceptance test scenario covering a user journey with traceability, setup, execution, and results.',
 )
 @SectionId('TSSC')
-class TestScenarioEntry {
+class TestScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
       'scenarioId',
@@ -1873,6 +1888,7 @@ class TestScenarioEntry {
       hint: 'Critical / High / Medium / Low',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1906,7 +1922,7 @@ class TestScenarioEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identification;
+  DocSpecsSection? identification;
 
   /// Business context.
   @SectionId('TESCBU')
@@ -1944,7 +1960,7 @@ class TestScenarioEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? business;
+  DocSpecsSection? business;
 
   /// Traceability.
   @SectionId('TESCTR')
@@ -1982,7 +1998,7 @@ class TestScenarioEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? traceability;
+  DocSpecsSection? traceability;
 
   /// Preconditions and setup.
   @SectionId('TESCSE')
@@ -2020,7 +2036,7 @@ class TestScenarioEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? setup;
+  DocSpecsSection? setup;
 
   /// Execution.
   @SectionId('TESCEX')
@@ -2064,7 +2080,7 @@ class TestScenarioEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Post-execution.
   @SectionId('TSPE')
@@ -2096,7 +2112,7 @@ class TestScenarioEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? postExecution;
+  DocSpecsSection? postExecution;
 
   /// Notes.
   @StandardReferences(
@@ -2130,7 +2146,7 @@ class TestScenarioEntry {
   'Records assumptions, risks, and clarifying notes attached to an acceptance test scenario.',
 )
 @SectionId('TESCNO')
-class TestScenarioNotes {
+class TestScenarioNotes extends DocSpecsSection {
   @Form([
     Field(
       'assumptions',
@@ -2146,6 +2162,7 @@ class TestScenarioNotes {
     ),
     Field('notes', String, 'Notes', hint: 'Additional context or known issues'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2163,7 +2180,7 @@ class TestScenarioNotes {
   'Captures a single fine-grained test step within an acceptance test scenario, including action, input data, and pass criteria.',
 )
 @SectionId('UATSST')
-class UatTestStepEntry {
+class UatTestStepEntry extends DocSpecsSection {
   @Form([
     Field(
       'stepNumber',
@@ -2211,6 +2228,7 @@ class UatTestStepEntry {
       hint: 'Clarification, timing notes, or alternative paths',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2234,7 +2252,7 @@ class UatTestStepEntry {
 @SectionId('DERE')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DEF')
-class DefectResolution {
+class DefectResolution extends DocSpecsSection {
   @Form([
     Field(
       'severityScheme',
@@ -2260,6 +2278,7 @@ class DefectResolution {
           'Who decides severity/priority — UAT lead, business owner, or joint',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2314,7 +2333,7 @@ class DefectResolution {
     ),
   ])
   @SerializationOrder(1)
-  String? sla;
+  DocSpecsSection? sla;
 
   /// Acceptance thresholds and deferral rules.
   @SectionId('DERETH')
@@ -2352,7 +2371,7 @@ class DefectResolution {
     ),
   ])
   @SerializationOrder(2)
-  String? thresholds;
+  DocSpecsSection? thresholds;
 
   /// Triage, retest, and escalation process.
   @SectionId('DEREPR')
@@ -2400,7 +2419,7 @@ class DefectResolution {
     ),
   ])
   @SerializationOrder(3)
-  String? process;
+  DocSpecsSection? process;
 
   /// Reporting and closure rules.
   @SectionId('DERERE')
@@ -2436,7 +2455,7 @@ class DefectResolution {
     ),
   ])
   @SerializationOrder(4)
-  String? reporting;
+  DocSpecsSection? reporting;
 
   /// Defect management narrative.
   @ContentHelp(
@@ -2467,7 +2486,7 @@ class DefectResolution {
 @SectionId('SIOFPR')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SIG')
-class SignOffProcess {
+class SignOffProcess extends DocSpecsSection {
   @Form([
     Field(
       'signOffAuthority',
@@ -2495,6 +2514,7 @@ class SignOffProcess {
           'e.g. Business Owner, Product Owner',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2524,7 +2544,7 @@ class SignOffProcess {
     ),
   ])
   @SerializationOrder(1)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Evidence and checklist requirements.
   @SectionId('SOPE')
@@ -2566,7 +2586,7 @@ class SignOffProcess {
     ),
   ])
   @SerializationOrder(2)
-  String? evidence;
+  DocSpecsSection? evidence;
 
   /// Conditional or partial acceptance policies.
   @SectionId('SOPA')
@@ -2604,7 +2624,7 @@ class SignOffProcess {
     ),
   ])
   @SerializationOrder(3)
-  String? acceptance;
+  DocSpecsSection? acceptance;
 
   /// Legal and contractual consequences.
   @SectionId('SOPC')
@@ -2648,7 +2668,7 @@ class SignOffProcess {
     ),
   ])
   @SerializationOrder(4)
-  String? contractual;
+  DocSpecsSection? contractual;
 
   /// Review timeline.
   @SectionId('SOPT')
@@ -2684,7 +2704,7 @@ class SignOffProcess {
     ),
   ])
   @SerializationOrder(5)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Sign-off process narrative.
   @ContentHelp(
@@ -2714,7 +2734,7 @@ class SignOffProcess {
 @SectionId('WATE')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-WAR')
-class WarrantyTerms {
+class WarrantyTerms extends DocSpecsSection {
   @Form([
     Field(
       'warrantyDuration',
@@ -2737,6 +2757,7 @@ class WarrantyTerms {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2764,7 +2785,7 @@ class WarrantyTerms {
     ),
   ])
   @SerializationOrder(1)
-  String? duration;
+  DocSpecsSection? duration;
 
   /// Scope of coverage.
   @SectionId('WACO')
@@ -2796,7 +2817,7 @@ class WarrantyTerms {
     ),
   ])
   @SerializationOrder(2)
-  String? coverage;
+  DocSpecsSection? coverage;
 
   /// Service levels.
   @StandardReferences([
@@ -2844,7 +2865,7 @@ class WarrantyTerms {
     ),
   ])
   @SerializationOrder(4)
-  String? process;
+  DocSpecsSection? process;
 
   /// Transition to support.
   @SectionId('WATR')
@@ -2876,7 +2897,7 @@ class WarrantyTerms {
     ),
   ])
   @SerializationOrder(5)
-  String? transition;
+  DocSpecsSection? transition;
 
   /// Financial terms.
   @SectionId('WAFI')
@@ -2908,7 +2929,7 @@ class WarrantyTerms {
     ),
   ])
   @SerializationOrder(6)
-  String? financial;
+  DocSpecsSection? financial;
 
   /// Warranty terms narrative.
   @ContentHelp(
@@ -2930,7 +2951,7 @@ class WarrantyTerms {
   'Captures the warranty service-level commitments including support hours, response times, resolution times, and escalation contacts.',
 )
 @SectionId('WASELE')
-class WarrantyServiceLevels {
+class WarrantyServiceLevels extends DocSpecsSection {
   @Form([
     Field(
       'supportHours',
@@ -2969,6 +2990,7 @@ class WarrantyServiceLevels {
       hint: 'Named contacts or roles for escalation',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

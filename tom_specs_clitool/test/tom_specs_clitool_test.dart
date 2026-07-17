@@ -1704,4 +1704,190 @@ void main() {
       expect(collapsible, isEmpty, reason: collapsible.join('\n'));
     });
   });
+
+  group('unit: YRD5 DocSpecsSection base type', () {
+    ModelField sectionField(String name,
+            [List<AnnotationData> annotations = const []]) =>
+        ModelField(
+          name: name,
+          typeName: 'DocSpecsSection?',
+          isNullable: true,
+          isContentSection: true,
+          annotations: annotations,
+        );
+
+    ModelField sectionListField(String name,
+            [List<AnnotationData> annotations = const []]) =>
+        ModelField(
+          name: name,
+          typeName: 'List<DocSpecsSection>',
+          isList: true,
+          listElementTypeName: 'DocSpecsSection',
+          listElementIsComplex: false,
+          listElementIsContentSection: true,
+          annotations: annotations,
+        );
+
+    test('classifyField treats DocSpecsSection members as content', () {
+      expect(MetaTreeBuilder.classifyField(sectionField('summary')),
+          MetaNodeKind.content);
+      expect(MetaTreeBuilder.classifyField(sectionListField('notes')),
+          MetaNodeKind.list);
+    });
+
+    test('metaTypeName normalizes to the pre-YRD5 String shapes', () {
+      final single = sectionField('summary');
+      expect(single.metaTypeName, 'String?');
+      expect(single.isContentLike, isTrue);
+      expect(single.isLeaf, isTrue);
+      expect(single.isComplex, isFalse);
+      final list = sectionListField('notes');
+      expect(list.metaTypeName, 'List<String>');
+      expect(list.metaListElementTypeName, 'String');
+    });
+
+    test('ModelJsonExporter exports DocSpecsSection members byte-compatibly',
+        () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [
+          AnnotationData('SectionId', {'id': 'DC00'}),
+        ], [
+          sectionField('summary', [
+            AnnotationData('SectionId', {'id': 'DC00-SUM'}),
+          ]),
+          sectionListField('notes', [
+            AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
+            AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
+          ]),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final doc = (json['classes'] as Map)['Doc'] as Map;
+      final fields = (doc['fields'] as List).cast<Map>();
+      final byName = {for (final f in fields) f['name'] as String: f};
+      expect(byName['summary']!['kind'], 'content');
+      expect(byName['summary']!.containsKey('type'), isFalse,
+          reason: 'content fields must not leak the DocSpecsSection type name');
+      expect(byName['notes']!['kind'], 'list');
+      expect(byName['notes']!['elementType'], 'String');
+      expect(byName['notes']!['elementIsComplex'], false);
+    });
+
+    test('§6.1: a non-"content" DocSpecsSection member requires @SectionId',
+        () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [
+          AnnotationData('SectionId', {'id': 'DC00'}),
+        ], [
+          sectionField('summary'), // deliberately missing @SectionId
+        ]),
+      };
+      final result = validateModel(classes, 'Doc');
+      expect(
+        result.errors.any((e) =>
+            e.contains('§6.1 field-shape') && e.contains('Doc.summary')),
+        isTrue,
+        reason: result.errors.join('\n'),
+      );
+    });
+
+    test('§6.1: List<DocSpecsSection> is the inline content list shape', () {
+      ModelClass docWith(ModelField field) => _cls('Doc', [
+            AnnotationData('SectionId', {'id': 'DC00'}),
+          ], [
+            field
+          ]);
+      // Without the annotated pair → error (same rule as List<String>).
+      final bare = validateModel(
+          {'Doc': docWith(sectionListField('notes'))}, 'Doc');
+      expect(
+        bare.errors.any(
+            (e) => e.contains('Doc.notes') && e.contains('not allowed')),
+        isTrue,
+        reason: bare.errors.join('\n'),
+      );
+      // With @SectionId + @SectionIdPattern → accepted.
+      final annotated = validateModel({
+        'Doc': docWith(sectionListField('notes', [
+          AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
+          AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
+        ])),
+      }, 'Doc');
+      expect(
+        annotated.errors
+            .where((e) => e.contains('Doc.notes') && e.contains('not allowed')),
+        isEmpty,
+        reason: annotated.errors.join('\n'),
+      );
+    });
+
+    test('YRD5 extends-invariant activates once any class extends the base',
+        () {
+      ModelClass cls(String name, String id, List<ModelField> fields,
+              {bool extendsBase = false}) =>
+          ModelClass(
+            name: name,
+            annotations: [
+              AnnotationData('SectionId', {'id': id})
+            ],
+            fields: fields,
+            extendsDocSpecsSection: extendsBase,
+          );
+
+      // Inactive: no class extends DocSpecsSection → no YRD5 errors.
+      final legacy = validateModel({
+        'Doc': cls('Doc', 'DC00', [_field('child', 'Child')]),
+        'Child': cls('Child', 'DC00-CHD', const []),
+      }, 'Doc');
+      expect(legacy.errors.where((e) => e.contains('YRD5')), isEmpty);
+
+      // Active: one class extends, the other does not → error for the other.
+      final mixed = validateModel({
+        'Doc':
+            cls('Doc', 'DC00', [_field('child', 'Child')], extendsBase: true),
+        'Child': cls('Child', 'DC00-CHD', const []),
+      }, 'Doc');
+      expect(
+        mixed.errors.any(
+            (e) => e.contains('YRD5') && e.contains('Child')),
+        isTrue,
+        reason: mixed.errors.join('\n'),
+      );
+
+      // Fully adopted → no YRD5 errors.
+      final adopted = validateModel({
+        'Doc':
+            cls('Doc', 'DC00', [_field('child', 'Child')], extendsBase: true),
+        'Child': cls('Child', 'DC00-CHD', const [], extendsBase: true),
+      }, 'Doc');
+      expect(adopted.errors.where((e) => e.contains('YRD5')), isEmpty);
+    });
+
+    test('SpecOpsGenerator slots DocSpecsSection members as child nodes', () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [
+          AnnotationData('SectionId', {'id': 'DC00'}),
+        ], [
+          ModelField(name: 'content', typeName: 'String?', isNullable: true),
+          sectionField('summary', [
+            AnnotationData('SectionId', {'id': 'DC00-SUM'}),
+          ]),
+          sectionListField('notes', [
+            AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
+            AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
+          ]),
+        ]),
+      };
+      final code = SpecOpsGenerator(classes).generate();
+      // The base type itself is registered as a content leaf.
+      expect(code, contains('SpecRegistry.register(DocSpecsSection,'));
+      // Single member → SpecSlot.node with the real Dart cast.
+      expect(code,
+          contains('n.summary = v as DocSpecsSection?'));
+      // List member → SpecSlot.list with the real element cast.
+      expect(code, contains('n.notes = v.cast<DocSpecsSection>()'));
+      // The canonical content String stays the yaml scalar.
+      expect(code, contains('yamlScalar: (o) => (o as Doc).content'));
+    });
+  });
 }

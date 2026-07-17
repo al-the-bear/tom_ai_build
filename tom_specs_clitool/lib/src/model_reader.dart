@@ -57,6 +57,19 @@ class ModelField {
   /// Whether this field's type is a known section type (TextSection, etc.).
   final bool isSectionType;
 
+  /// Whether this field's declared type is `DocSpecsSection` (YRD5): the
+  /// universal simple-section base type from `tom_specs_core` that replaced
+  /// the former `String` section members of the model. Such members are
+  /// classified as **content** nodes — the runtime representation of a simple
+  /// section is its String content (headline/id are stored per node by the
+  /// YRD3 runtime) — so the exported meta tree stays identical to the
+  /// pre-YRD5 String-member model (see [metaTypeName]).
+  final bool isContentSection;
+
+  /// Whether the inner type of a list is `DocSpecsSection` (the YRD5
+  /// replacement of `List<String>` inline content lists).
+  final bool listElementIsContentSection;
+
   /// The content type marker for section types (e.g., 'text', 'mermaid-er').
   final String? sectionContentType;
 
@@ -77,6 +90,8 @@ class ModelField {
     this.listElementTypeName,
     this.listElementIsComplex = false,
     this.isSectionType = false,
+    this.isContentSection = false,
+    this.listElementIsContentSection = false,
     this.sectionContentType,
     this.formFields = const [],
     this.docComment = '',
@@ -87,14 +102,34 @@ class ModelField {
 
   bool get isLeaf =>
       !isList &&
-      !_isComplexType(typeName) &&
-      (typeName == 'String' ||
-       typeName == 'String?' ||
-       isEnum);
+      (isContentSection ||
+          (!_isComplexType(typeName) &&
+              (typeName == 'String' || typeName == 'String?' || isEnum)));
 
   /// Whether this is a String or String? field (not enum).
   bool get isString =>
       (typeName == 'String' || typeName == 'String?') && !isEnum;
+
+  /// Whether this member is a content node: a plain `String` member (legacy
+  /// shape) or a `DocSpecsSection` member (YRD5 shape). Classification,
+  /// validation and export treat the two identically.
+  bool get isContentLike => isString || isContentSection;
+
+  /// The type name this member contributes to the exported meta tree.
+  ///
+  /// `DocSpecsSection` members report `String`/`String?` — the meta contract
+  /// (DR1 §3.1) models a simple section by its String content, and the YRD5
+  /// refactor must keep the exported tree byte-identical. All other members
+  /// report their declared [typeName].
+  String get metaTypeName => isContentSection
+      ? (isNullable ? 'String?' : 'String')
+      : (listElementIsContentSection ? 'List<String>' : typeName);
+
+  /// The list-element type name contributed to the exported meta tree:
+  /// `String` for `List<DocSpecsSection>` (see [metaTypeName]), else the
+  /// declared [listElementTypeName].
+  String? get metaListElementTypeName =>
+      listElementIsContentSection ? 'String' : listElementTypeName;
 
   AnnotationData? getAnnotation(String name) {
     for (final a in annotations) {
@@ -134,12 +169,19 @@ class ModelClass {
   /// lives on [ModelField.formFields].
   final List<FormFieldInfo> formFields;
 
+  /// Whether this class (directly or transitively) extends the
+  /// `DocSpecsSection` base type from `tom_specs_core` (YRD5). Every model
+  /// class must; the structural validator enforces it once any class in the
+  /// model has adopted the base.
+  final bool extendsDocSpecsSection;
+
   ModelClass({
     required this.name,
     this.fields = const [],
     this.annotations = const [],
     this.docComment = '',
     this.formFields = const [],
+    this.extendsDocSpecsSection = false,
   });
 
   AnnotationData? getAnnotation(String name) {
@@ -311,7 +353,20 @@ class ModelReader {
       formFields: classAnnotations.any((a) => a.name == 'Form')
           ? _extractFormFields(element.metadata)
           : const <FormFieldInfo>[],
+      extendsDocSpecsSection: _extendsDocSpecsSection(element),
     );
+  }
+
+  /// Whether [element] extends `DocSpecsSection` anywhere in its superclass
+  /// chain (YRD5). The base type lives in `tom_specs_core`, outside the
+  /// scanned package, so the walk is over resolved supertypes.
+  static bool _extendsDocSpecsSection(ClassElement element) {
+    var supertype = element.supertype;
+    while (supertype != null) {
+      if (supertype.element.name == _contentSectionType) return true;
+      supertype = supertype.element.supertype;
+    }
+    return false;
   }
 
   /// Strips `///` / `/** */` markers from a raw doc comment, returning the
@@ -370,7 +425,9 @@ class ModelReader {
         final innerType = typeArgs.first;
         final innerTypeName = _typeDisplayName(innerType);
         final innerIsEnum = _isEnumType(innerType);
+        final innerIsContentSection = innerTypeName == _contentSectionType;
         final innerIsComplex = !innerIsEnum &&
+            !innerIsContentSection &&
             innerTypeName != 'String' &&
             innerType is InterfaceType &&
             innerType.element is ClassElement;
@@ -382,6 +439,7 @@ class ModelReader {
           isNullable: isNullable,
           listElementTypeName: innerTypeName,
           listElementIsComplex: innerIsComplex,
+          listElementIsContentSection: innerIsContentSection,
           annotations: annotations,
           docComment: docComment,
         );
@@ -409,18 +467,22 @@ class ModelReader {
         : displayName;
     final sectionType = _sectionTypes[baseName];
 
-    // Scalar or complex
+    // Scalar, content section (YRD5) or complex
     return ModelField(
       name: name,
       typeName: displayName,
       isNullable: isNullable,
       annotations: annotations,
       isSectionType: sectionType != null,
+      isContentSection: baseName == _contentSectionType,
       sectionContentType: sectionType,
       formFields: formFields,
       docComment: docComment,
     );
   }
+
+  /// The universal simple-section base type (YRD5, `tom_specs_core`).
+  static const _contentSectionType = 'DocSpecsSection';
 
   String _typeDisplayName(DartType type) {
     if (type is InterfaceType) {

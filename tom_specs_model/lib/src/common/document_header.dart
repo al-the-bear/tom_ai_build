@@ -13,7 +13,7 @@ import '../snapshot/spec_node.dart';
   'The standard document control header identifying the document, its project, version, date, author, and status.',
 )
 @SectionId('DOCHD')
-class DocumentHeader with SpecNode {
+class DocumentHeader extends DocSpecsSection with SpecNode {
   @Form([
     Field('documentId', String, 'Document Id'),
     Field('project', String, 'Project'),
@@ -22,6 +22,7 @@ class DocumentHeader with SpecNode {
     Field('author', String, 'Author'),
     Field('status', String, 'Current status'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 

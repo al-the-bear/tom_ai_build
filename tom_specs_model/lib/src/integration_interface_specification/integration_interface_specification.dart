@@ -26,9 +26,10 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('IIS')
-class D07IntegrationInterfaceSpecification {
+class D07IntegrationInterfaceSpecification extends DocSpecsSection {
   @ContentHelp('Executive overview of the system-boundary interaction '
       'specification.')
+  @override
   @SerializationOrder(0)
   String? content;
 

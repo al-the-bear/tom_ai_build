@@ -31,8 +31,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('XDS')
-class D09ExperienceDesignSpecification {
+class D09ExperienceDesignSpecification extends DocSpecsSection {
   @ContentHelp('Executive overview of the UI prototype and design system.')
+  @override
   @SerializationOrder(0)
   String? content;
 

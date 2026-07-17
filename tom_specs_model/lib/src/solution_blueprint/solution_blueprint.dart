@@ -69,8 +69,9 @@ import 'target_operating_model.dart';
       'quality & acceptance, and delivery / transition planning.',
 )
 @SectionId('SBP')
-class D00SolutionBlueprint {
+class D00SolutionBlueprint extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 

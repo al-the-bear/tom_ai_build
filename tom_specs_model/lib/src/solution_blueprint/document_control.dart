@@ -26,8 +26,9 @@ import '../common/document_header.dart';
   'This section governs the document — not the system it describes.',
 )
 @SectionId('DOCTL')
-class DocumentControl {
+class DocumentControl extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -77,7 +78,7 @@ class DocumentControl {
   'what changed.',
 )
 @SectionId('RVENT')
-class RevisionEntry {
+class RevisionEntry extends DocSpecsSection {
   @Form([
     Field(
       'version',
@@ -107,6 +108,7 @@ class RevisionEntry {
       hint: 'One or two sentences on what changed and why.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -118,7 +120,7 @@ class RevisionEntry {
   'what role, when, and with what status.',
 )
 @SectionId('APREC')
-class ApprovalRecord {
+class ApprovalRecord extends DocSpecsSection {
   @Form([
     Field(
       'role',
@@ -147,6 +149,7 @@ class ApprovalRecord {
       hint: 'Current sign-off state: Pending, Approved, or Rejected.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -173,12 +176,13 @@ class ApprovalRecord {
   'and related project specifications.',
 )
 @SectionId('RD')
-class ReferenceDocuments {
+class ReferenceDocuments extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of reference document categories and '
         'their relevance to the project.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -207,7 +211,7 @@ class ReferenceDocuments {
   'lifecycle, relevant sections, and relationships.',
 )
 @SectionId('RFDOC')
-class ReferenceDocumentEntry {
+class ReferenceDocumentEntry extends DocSpecsSection {
   @Form([
     Field(
       'documentTitle',
@@ -229,6 +233,7 @@ class ReferenceDocumentEntry {
       hint: 'Version or edition of the referenced document.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -272,7 +277,7 @@ class ReferenceDocumentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? metadata;
+  DocSpecsSection? metadata;
 
   /// Governance and applicability information.
   @SectionId('RDEG')
@@ -320,7 +325,7 @@ class ReferenceDocumentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Lifecycle and usage details.
   @SectionId('RDEL')
@@ -362,7 +367,7 @@ class ReferenceDocumentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Key sections or chapters within the document relevant to this project.
   @SerializationOrder(4)
@@ -380,7 +385,7 @@ class ReferenceDocumentEntry {
   'this project.',
 )
 @SectionId('DORESE')
-class DocumentRelevantSections {
+class DocumentRelevantSections extends DocSpecsSection {
   @Form([
     Field(
       'sectionReference',
@@ -409,6 +414,7 @@ class DocumentRelevantSections {
       hint: 'Brief summary or key extract of the applicable content.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -433,7 +439,7 @@ class DocumentRelevantSections {
   'relevance, extract, and compliance flag.',
 )
 @SectionId('RESEEN')
-class RelevantSectionEntry {
+class RelevantSectionEntry extends DocSpecsSection {
   @Form([
     Field(
       'sectionReference',
@@ -468,6 +474,7 @@ class RelevantSectionEntry {
       hint: 'True if the project must comply with this section.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -482,12 +489,13 @@ class RelevantSectionEntry {
   'follow the dependency web between references.',
 )
 @SectionId('DORE')
-class DocumentRelationships {
+class DocumentRelationships extends DocSpecsSection {
   @ContentType(
     'description',
     'Describe how this document relates to '
         'other reference documents in the catalog.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -514,7 +522,7 @@ class DocumentRelationships {
   'and the nature of the link.',
 )
 @SectionId('REDOEN')
-class RelatedDocumentEntry {
+class RelatedDocumentEntry extends DocSpecsSection {
   @Form([
     Field(
       'relatedDocumentId',
@@ -543,6 +551,7 @@ class RelatedDocumentEntry {
       hint: 'Explain the connection between the two documents.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

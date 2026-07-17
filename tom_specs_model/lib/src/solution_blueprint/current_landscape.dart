@@ -20,13 +20,14 @@ import '../document_stubs.dart';
 )
 @SectionId('CULA')
 @MapsTo(D01CurrentLandscapeAssessment)
-class CurrentLandscape {
+class CurrentLandscape extends DocSpecsSection {
   @ContentHelp('''
 Executive summary of the current state: existing systems landscape, business
 processes today, known pain points, current data landscape, operational
 metrics, and risks tied to the current state or to replacement. Seeds the CS
 document alongside the systems-to-replace inventory.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -93,12 +94,13 @@ document alongside the systems-to-replace inventory.
 @SectionId('ESLAN')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-SYS')
-class ExistingSystemsLandscape {
+class ExistingSystemsLandscape extends DocSpecsSection {
   @ContentType(
     'description',
     'High-level overview of the existing systems '
         'landscape. Include a context diagram showing how systems interact.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -131,12 +133,13 @@ class ExistingSystemsLandscape {
   'inclusion criteria so the boundary of the AS-IS landscape is clear.',
 )
 @SectionId('SYINV')
-class SystemInventory {
+class SystemInventory extends DocSpecsSection {
   @ContentType(
     'description',
     'Introduction to the system inventory. '
         'Describe the criteria for including systems and the overall landscape.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -169,7 +172,8 @@ class SystemInventory {
   'and shared services that describe how today\'s systems fit together.',
 )
 @SectionId('CARCH')
-class CurrentArchitecture {
+class CurrentArchitecture extends DocSpecsSection {
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -185,7 +189,7 @@ class CurrentArchitecture {
     'Include all major systems, their connections, and data flow directions.',
   )
   @SerializationOrder(1)
-  String? architectureDiagram;
+  DocSpecsSection? architectureDiagram;
 
   /// Deployment topology description.
   @SectionId('CARCH-DEPL')
@@ -195,7 +199,7 @@ class CurrentArchitecture {
         'across infrastructure',
   )
   @SerializationOrder(2)
-  String? deploymentTopology;
+  DocSpecsSection? deploymentTopology;
 
   /// Integration patterns used.
   @StandardReferences(
@@ -211,7 +215,7 @@ class CurrentArchitecture {
     'pattern is applied and why.',
   )
   @SerializationOrder(3)
-  List<String> integrationPatterns = [];
+  List<DocSpecsSection> integrationPatterns = [];
 
   /// Shared services inventory.
   @StandardReferences(
@@ -227,7 +231,7 @@ class CurrentArchitecture {
     'consume it.',
   )
   @SerializationOrder(4)
-  List<String> sharedServices = [];
+  List<DocSpecsSection> sharedServices = [];
 }
 
 /// An existing system entry (form).
@@ -241,7 +245,7 @@ class CurrentArchitecture {
   'limitations, and quality/risk posture.',
 )
 @SectionId('ESENT')
-class ExistingSystemEntry {
+class ExistingSystemEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
   // System Identity
   // -------------------------------------------------------------------------
@@ -287,6 +291,7 @@ class ExistingSystemEntry {
       hint: 'Licensing model: Enterprise, Per-User, Subscription, Open Source.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -341,7 +346,7 @@ class ExistingSystemEntry {
   ])
   @Comment('Technology stack')
   @SerializationOrder(1)
-  String? technology;
+  DocSpecsSection? technology;
 
   // -------------------------------------------------------------------------
   // Business Context
@@ -400,7 +405,7 @@ class ExistingSystemEntry {
   ])
   @Comment('Business context')
   @SerializationOrder(2)
-  String? businessContext;
+  DocSpecsSection? businessContext;
 
   // -------------------------------------------------------------------------
   // Usage Metrics
@@ -460,7 +465,7 @@ class ExistingSystemEntry {
   ])
   @Comment('Usage metrics')
   @SerializationOrder(3)
-  String? usage;
+  DocSpecsSection? usage;
 
   // -------------------------------------------------------------------------
   // Lifecycle Information
@@ -521,7 +526,7 @@ class ExistingSystemEntry {
   ])
   @Comment('Lifecycle information')
   @SerializationOrder(4)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   // -------------------------------------------------------------------------
   // Integration Profile
@@ -582,7 +587,7 @@ class ExistingSystemEntry {
   ])
   @Comment('Integration profile')
   @SerializationOrder(5)
-  String? integrationProfile;
+  DocSpecsSection? integrationProfile;
 
   // -------------------------------------------------------------------------
   // Infrastructure
@@ -640,7 +645,7 @@ class ExistingSystemEntry {
   ])
   @Comment('Infrastructure')
   @SerializationOrder(6)
-  String? infrastructure;
+  DocSpecsSection? infrastructure;
 
   // -------------------------------------------------------------------------
   // Quality & Risk
@@ -728,7 +733,7 @@ class ExistingSystemEntry {
   ])
   @Comment('Quality and risk')
   @SerializationOrder(8)
-  String? quality;
+  DocSpecsSection? quality;
 }
 
 /// A known limitation of an existing system (form).
@@ -738,7 +743,7 @@ class ExistingSystemEntry {
   'operations.',
 )
 @SectionId('LIMET')
-class LimitationEntry {
+class LimitationEntry extends DocSpecsSection {
   @Form([
     Field(
       'limitation',
@@ -754,6 +759,7 @@ class LimitationEntry {
       hint: 'Effect on operations and any workaround in place.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -770,7 +776,8 @@ class LimitationEntry {
   'active integrations and their overall health.',
 )
 @SectionId('DEPNT')
-class DependenciesAndIntegrations {
+class DependenciesAndIntegrations extends DocSpecsSection {
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -787,7 +794,7 @@ class DependenciesAndIntegrations {
     'tight coupling, dashed for loose coupling. Add labels for data types.',
   )
   @SerializationOrder(1)
-  String? dependencyDiagram;
+  DocSpecsSection? dependencyDiagram;
 
   /// 1.1.3.1. Internal Dependencies.
   @Comment('Dependencies between internal systems')
@@ -826,13 +833,14 @@ class DependenciesAndIntegrations {
   'internally.',
 )
 @SectionId('INTDP')
-class InternalDependencies {
+class InternalDependencies extends DocSpecsSection {
   @ContentType('description', 'Overview of internal system dependencies.')
   @ContentHelp(
     'Describe the overall pattern of internal dependencies. '
     'Identify clusters of tightly coupled systems and potential cascading '
     'failure risks.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -860,7 +868,7 @@ class InternalDependencies {
   'and cloud services outside direct organizational control.',
 )
 @SectionId('EXTDP')
-class ExternalServiceDependencies {
+class ExternalServiceDependencies extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of external service dependencies '
@@ -870,6 +878,7 @@ class ExternalServiceDependencies {
     'Describe reliance on external services. Include vendor risk '
     'assessment, contract status, and contingency planning.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -899,7 +908,7 @@ class ExternalServiceDependencies {
   'provider, relationship, operations, risk, and fallback.',
 )
 @SectionId('EXSDE')
-class ExternalServiceDependencyEntry {
+class ExternalServiceDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
       'serviceName',
@@ -922,6 +931,7 @@ class ExternalServiceDependencyEntry {
           'SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -961,7 +971,7 @@ class ExternalServiceDependencyEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? relationship;
+  DocSpecsSection? relationship;
 
   /// Availability and data handling details.
   @SectionId('EXSOP')
@@ -1003,7 +1013,7 @@ class ExternalServiceDependencyEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? operations;
+  DocSpecsSection? operations;
 
   /// Risk and fallback considerations.
   @SectionId('EXSRK')
@@ -1051,7 +1061,7 @@ class ExternalServiceDependencyEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? risk;
+  DocSpecsSection? risk;
 
   @SectionId('EXSDE-PRIM-REF')
   @Reference('Primary Dependent System')
@@ -1068,7 +1078,7 @@ class ExternalServiceDependencyEntry {
   'rely on — the cross-cutting single points of failure in the AS-IS estate.',
 )
 @SectionId('SHDEP')
-class SharedInfrastructureDependencies {
+class SharedInfrastructureDependencies extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of shared infrastructure and '
@@ -1079,6 +1089,7 @@ class SharedInfrastructureDependencies {
     'databases, messaging systems, identity providers) that multiple '
     'systems depend on. Identify single points of failure.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1108,7 +1119,7 @@ class SharedInfrastructureDependencies {
   'resilience, capacity, and ownership.',
 )
 @SectionId('SHIEN')
-class SharedInfrastructureEntry {
+class SharedInfrastructureEntry extends DocSpecsSection {
   @Form([
     Field(
       'componentName',
@@ -1139,6 +1150,7 @@ class SharedInfrastructureEntry {
       hint: 'Names of the systems that depend on this component.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1177,7 +1189,7 @@ class SharedInfrastructureEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? resilience;
+  DocSpecsSection? resilience;
 
   /// Capacity constraints.
   @SectionId('SIEC')
@@ -1201,7 +1213,7 @@ class SharedInfrastructureEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? capacity;
+  DocSpecsSection? capacity;
 
   /// Ownership and maintenance.
   @SectionId('SIEO')
@@ -1231,7 +1243,7 @@ class SharedInfrastructureEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// 1.1.3.5. Integration Health Summary.
@@ -1243,7 +1255,7 @@ class SharedInfrastructureEntry {
   'counts, risk areas, technical debt, and impact on this project.',
 )
 @SectionId('INHESU')
-class IntegrationHealthSummary {
+class IntegrationHealthSummary extends DocSpecsSection {
   @Form([
     Field(
       'overallHealthRating',
@@ -1275,6 +1287,7 @@ class IntegrationHealthSummary {
       hint: 'How current integration state affects project planning',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1292,7 +1305,7 @@ class IntegrationHealthSummary {
     'that threaten operations or the new system implementation.',
   )
   @SerializationOrder(1)
-  List<String> fragilePoints = [];
+  List<DocSpecsSection> fragilePoints = [];
 }
 
 /// 1.1.3.4. System Integrations.
@@ -1305,7 +1318,7 @@ class IntegrationHealthSummary {
   'protocols, data exchange, error handling, and monitoring.',
 )
 @SectionId('INTEGR')
-class Integrations {
+class Integrations extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of system integrations and '
@@ -1315,6 +1328,7 @@ class Integrations {
     'Describe the integration patterns in use. Identify '
     'standards vs custom integrations, and areas of complexity.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1343,7 +1357,7 @@ class Integrations {
   'data exchange, reliability, and operational ownership.',
 )
 @SectionId('SYDE')
-class SystemDependencyEntry {
+class SystemDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
       'dependencyName',
@@ -1365,6 +1379,7 @@ class SystemDependencyEntry {
       hint: 'Upstream / Downstream / Bidirectional',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1397,7 +1412,7 @@ class SystemDependencyEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? mechanism;
+  DocSpecsSection? mechanism;
 
   /// Data exchange characteristics.
   @SectionId('SDEDE')
@@ -1427,7 +1442,7 @@ class SystemDependencyEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? dataExchange;
+  DocSpecsSection? dataExchange;
 
   /// Reliability and SLA.
   @SectionId('SDER')
@@ -1477,7 +1492,7 @@ class SystemDependencyEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? reliability;
+  DocSpecsSection? reliability;
 
   /// Operations and documentation.
   @SectionId('SDEO')
@@ -1526,7 +1541,7 @@ class SystemDependencyEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? operations;
+  DocSpecsSection? operations;
 
   @SectionId('SYDE-SOUR-REF')
   @Reference('Source System')
@@ -1551,7 +1566,7 @@ class SystemDependencyEntry {
   'and ownership.',
 )
 @SectionId('SYIN')
-class SystemIntegrationEntry {
+class SystemIntegrationEntry extends DocSpecsSection {
   @Form([
     Field(
       'integrationName',
@@ -1573,6 +1588,7 @@ class SystemIntegrationEntry {
       hint: 'PointToPoint / HubSpoke / PubSub / ESB / ApiGateway',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1616,7 +1632,7 @@ class SystemIntegrationEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? protocol;
+  DocSpecsSection? protocol;
 
   /// Data exchange configuration.
   @SectionId('SIDE')
@@ -1658,7 +1674,7 @@ class SystemIntegrationEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? dataExchange;
+  DocSpecsSection? dataExchange;
 
   /// Error handling and retry.
   @SectionId('SIEH')
@@ -1680,7 +1696,7 @@ class SystemIntegrationEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? errorHandling;
+  DocSpecsSection? errorHandling;
 
   /// Throughput and capacity.
   @SectionId('SYINTH')
@@ -1710,7 +1726,7 @@ class SystemIntegrationEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? throughput;
+  DocSpecsSection? throughput;
 
   /// Monitoring and failover.
   @SectionId('SYINMO')
@@ -1734,7 +1750,7 @@ class SystemIntegrationEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// Ownership and documentation.
   @SectionId('SYINOW')
@@ -1782,7 +1798,7 @@ class SystemIntegrationEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   @SectionId('SYIN-SOUR-REF')
   @Reference('Source System')
@@ -1813,7 +1829,8 @@ class SystemIntegrationEntry {
 @SectionId('CUBUPR')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PRO')
-class CurrentBusinessProcesses {
+class CurrentBusinessProcesses extends DocSpecsSection {
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1830,7 +1847,7 @@ class CurrentBusinessProcesses {
     'Show handoffs and data flows between processes.',
   )
   @SerializationOrder(1)
-  String? processLandscapeDiagram;
+  DocSpecsSection? processLandscapeDiagram;
 
   /// Process scope summary.
   @Comment('Defines which processes are in/out of scope')
@@ -1876,7 +1893,7 @@ class CurrentBusinessProcesses {
   'processes deferred to later phases.',
 )
 @SectionId('PRSCSU')
-class ProcessScopeSummary {
+class ProcessScopeSummary extends DocSpecsSection {
   @Form([
     Field('totalProcessesIdentified', int, 'Total Processes Identified'),
     Field('processesInScope', int, 'Processes In Scope'),
@@ -1894,6 +1911,7 @@ class ProcessScopeSummary {
       hint: 'Processes to be addressed in future phases',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1931,7 +1949,7 @@ class ProcessScopeSummary {
   'and the reasoning behind that decision.',
 )
 @SectionId('PRSCEN')
-class ProcessScopeEntry {
+class ProcessScopeEntry extends DocSpecsSection {
   @Form([
     Field('processName', String, 'Process Name', required: true),
     Field(
@@ -1944,6 +1962,7 @@ class ProcessScopeEntry {
     Field('impactIfExcluded', String, 'Impact If Excluded'),
     Field('phase', String, 'Target Phase if deferred'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1960,7 +1979,8 @@ class ProcessScopeEntry {
   'overall picture and the entries for each pairwise dependency.',
 )
 @SectionId('PRINMA')
-class ProcessInterdependencyMatrix {
+class ProcessInterdependencyMatrix extends DocSpecsSection {
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1972,7 +1992,7 @@ class ProcessInterdependencyMatrix {
     'Use edge labels to describe the data/artifact exchanged.',
   )
   @SerializationOrder(1)
-  String? dependencyDiagram;
+  DocSpecsSection? dependencyDiagram;
 
   /// Individual process dependencies.
   @StandardReferences([
@@ -1995,7 +2015,7 @@ class ProcessInterdependencyMatrix {
   'them, how tightly they are coupled, and the impact if it fails.',
 )
 @SectionId('PRDEEN')
-class ProcessDependencyEntry {
+class ProcessDependencyEntry extends DocSpecsSection {
   @Form([
     Field('sourceProcess', String, 'Source Process', required: true),
     Field('targetProcess', String, 'Target Process', required: true),
@@ -2031,6 +2051,7 @@ class ProcessDependencyEntry {
     ),
     Field('failureImpact', String, 'Impact if Dependency Fails'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2047,7 +2068,7 @@ class ProcessDependencyEntry {
   'estimated cost of inefficiency.',
 )
 @SectionId('PRPESU')
-class ProcessPerformanceSummary {
+class ProcessPerformanceSummary extends DocSpecsSection {
   @Form([
     Field(
       'overallMaturity',
@@ -2078,6 +2099,7 @@ class ProcessPerformanceSummary {
       hint: 'Cost of inefficiencies in time or money',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2113,7 +2135,7 @@ class ProcessPerformanceSummary {
   'quantitative metrics. Identify manual steps and error-prone areas.',
 )
 @SectionId('CUBIPR')
-class CurrentBusinessProcess {
+class CurrentBusinessProcess extends DocSpecsSection {
   @Form([
     Field('processName', String, 'Process Name', required: true),
     Field('processOwner', String, 'Process Owner'),
@@ -2129,6 +2151,7 @@ class CurrentBusinessProcess {
       'Maturity Level (e.g., Ad-hoc, Defined, Managed, Optimized)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2168,7 +2191,7 @@ class CurrentBusinessProcess {
     ),
   ])
   @SerializationOrder(1)
-  String? processContext;
+  DocSpecsSection? processContext;
 
   /// 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
   @SerializationOrder(2)
@@ -2196,12 +2219,13 @@ class CurrentBusinessProcess {
   'this process — what works poorly today and where it could be better.',
 )
 @SectionId('PRPAPO')
-class ProcessPainPoints {
+class ProcessPainPoints extends DocSpecsSection {
   @ContentType(
     'description',
     'Known issues, inefficiencies, and improvement '
         'opportunities specific to this process.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2226,7 +2250,7 @@ class ProcessPainPoints {
   'current and desired state and the value of closing it.',
 )
 @SectionId('CPIE')
-class CurrentProcessImprovementEntry {
+class CurrentProcessImprovementEntry extends DocSpecsSection {
   @Form([
     Field('improvementArea', String, 'Improvement Area', required: true),
     Field('currentState', String, 'Current State'),
@@ -2239,6 +2263,7 @@ class CurrentProcessImprovementEntry {
     ),
     Field('priority', String, 'Priority (Must-have/Should-have/Nice-to-have)'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2264,7 +2289,8 @@ class CurrentProcessImprovementEntry {
   'individual workflow below.',
 )
 @SectionId('WODE')
-class WorkflowDescriptions {
+class WorkflowDescriptions extends DocSpecsSection {
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2281,7 +2307,7 @@ class WorkflowDescriptions {
     'Include decision points and actor swim-lanes if helpful.',
   )
   @SerializationOrder(1)
-  String? workflowOverviewDiagram;
+  DocSpecsSection? workflowOverviewDiagram;
 
   /// Workflow summary table.
   @Comment('Quick reference summary of all workflows')
@@ -2314,7 +2340,7 @@ class WorkflowDescriptions {
   'time, and automation potential — then add one summary row per workflow.',
 )
 @SectionId('WOSUTA')
-class WorkflowSummaryTable {
+class WorkflowSummaryTable extends DocSpecsSection {
   @Form([
     Field('totalWorkflows', int, 'Total Workflows in Process'),
     Field('primaryWorkflows', int, 'Primary/Happy-Path Workflows'),
@@ -2327,6 +2353,7 @@ class WorkflowSummaryTable {
       hint: 'Low / Medium / High / Full',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2351,7 +2378,7 @@ class WorkflowSummaryTable {
   'step and actor counts, and automation potential.',
 )
 @SectionId('WOSUEN')
-class WorkflowSummaryEntry {
+class WorkflowSummaryEntry extends DocSpecsSection {
   @Form([
     Field('workflowName', String, 'Workflow Name', required: true),
     Field('workflowType', String, 'Type'),
@@ -2363,6 +2390,7 @@ class WorkflowSummaryEntry {
     Field('primaryActors', String, 'Primary Actors'),
     Field('automationPotential', String, 'Automation Potential'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2385,7 +2413,7 @@ class WorkflowSummaryEntry {
   'diagrams for complex workflows with multiple actors.',
 )
 @SectionId('CUWF')
-class CurrentWorkflowEntry {
+class CurrentWorkflowEntry extends DocSpecsSection {
   @Form([
     Field('workflowName', String, 'Workflow Name', required: true),
     Field('workflowId', String, 'Workflow ID (internal identifier)'),
@@ -2398,6 +2426,7 @@ class CurrentWorkflowEntry {
     Field('averageVolume', String, 'Average Volume per period'),
     Field('criticality', String, 'Business Criticality'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2414,7 +2443,7 @@ class CurrentWorkflowEntry {
     'For multi-actor workflows, use swim-lanes (subgraphs) per actor.',
   )
   @SerializationOrder(1)
-  String? workflowDiagram;
+  DocSpecsSection? workflowDiagram;
 
   /// Workflow triggers and initiation.
   @SerializationOrder(2)
@@ -2541,7 +2570,7 @@ class CurrentWorkflowEntry {
     Field('bottlenecks', String, 'Bottlenecks (steps causing delays)'),
   ])
   @SerializationOrder(11)
-  String? timing;
+  DocSpecsSection? timing;
 
   /// Workflow exceptions and error handling.
   @SerializationOrder(12)
@@ -2557,8 +2586,9 @@ class CurrentWorkflowEntry {
   'trigger with its type, source, and conditions.',
 )
 @SectionId('WOTR')
-class WorkflowTriggers {
+class WorkflowTriggers extends DocSpecsSection {
   @ContentType('description', 'Conditions that initiate this workflow.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2583,7 +2613,7 @@ class WorkflowTriggers {
   'condition, and frequency.',
 )
 @SectionId('WOTREN')
-class WorkflowTriggerEntry {
+class WorkflowTriggerEntry extends DocSpecsSection {
   @Form([
     Field('triggerName', String, 'Trigger Name', required: true),
     Field(
@@ -2599,6 +2629,7 @@ class WorkflowTriggerEntry {
     ),
     Field('frequency', String, 'Frequency'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2608,11 +2639,11 @@ class WorkflowTriggerEntry {
   'BABOK v3 §10 — current-state analysis (system used in workflow step)',
 ], 'A single system that a workflow step relies on to do its work.')
 @SectionId('WOSTSY')
-class WorkflowStepSystem {
+class WorkflowStepSystem extends DocSpecsSection {
   @SectionId('WOSTSY-NAME')
   @ContentHelp('Name of the system used in this workflow step.')
   @SerializationOrder(0)
-  String? name;
+  DocSpecsSection? name;
 }
 
 /// A workflow step entry (form).
@@ -2631,7 +2662,7 @@ class WorkflowStepSystem {
   'system design. Include responsible actors, inputs, outputs, and timing.',
 )
 @SectionId('WSE')
-class WorkflowStepEntry {
+class WorkflowStepEntry extends DocSpecsSection {
   @Form([
     Field('stepName', String, 'Step Name', required: true),
     Field('stepNumber', int, 'Step Number (sequence order)'),
@@ -2646,6 +2677,7 @@ class WorkflowStepEntry {
     Field('isAutomatable', bool, 'Is Automatable'),
     Field('averageDuration', String, 'Average Duration'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2719,7 +2751,7 @@ class WorkflowStepEntry {
   'business impact, and any workaround in use.',
 )
 @SectionId('WOSTIS')
-class WorkflowStepIssue {
+class WorkflowStepIssue extends DocSpecsSection {
   @Form([
     Field('issueName', String, 'Issue Name', required: true),
     Field('issueDescription', String, 'Description'),
@@ -2727,6 +2759,7 @@ class WorkflowStepIssue {
     Field('impact', String, 'Business Impact'),
     Field('currentWorkaround', String, 'Current Workaround'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2744,7 +2777,7 @@ class WorkflowStepIssue {
   'authorization levels, and involvement pattern.',
 )
 @SectionId('WAE')
-class WorkflowActorEntry {
+class WorkflowActorEntry extends DocSpecsSection {
   @Form([
     Field('actorName', String, 'Actor Name', required: true),
     Field(
@@ -2759,6 +2792,7 @@ class WorkflowActorEntry {
     Field('skillRequirements', String, 'Skill Requirements'),
     Field('headcount', int, 'Headcount (number of people in this role)'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2776,7 +2810,7 @@ class WorkflowActorEntry {
   'and validation rules.',
 )
 @SectionId('WOINEN')
-class WorkflowInputEntry {
+class WorkflowInputEntry extends DocSpecsSection {
   @Form([
     Field('inputName', String, 'Input Name', required: true),
     Field('inputType', String, 'Type (data type or document type)'),
@@ -2785,6 +2819,7 @@ class WorkflowInputEntry {
     Field('isRequired', bool, 'Is Required'),
     Field('validationRules', String, 'Validation Rules'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2796,7 +2831,7 @@ class WorkflowInputEntry {
   'format, and retention requirements.',
 )
 @SectionId('WOOUEN')
-class WorkflowOutputEntry {
+class WorkflowOutputEntry extends DocSpecsSection {
   @Form([
     Field('outputName', String, 'Output Name', required: true),
     Field('outputType', String, 'Type (data type or document type)'),
@@ -2804,6 +2839,7 @@ class WorkflowOutputEntry {
     Field('format', String, 'Format'),
     Field('retentionRequirements', String, 'Retention Requirements'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2818,7 +2854,7 @@ class WorkflowOutputEntry {
   'possible outcomes, and the escalation path.',
 )
 @SectionId('WODEPO')
-class WorkflowDecisionPoint {
+class WorkflowDecisionPoint extends DocSpecsSection {
   @Form([
     Field('decisionName', String, 'Decision Name', required: true),
     Field('decisionCriteria', String, 'Decision Criteria'),
@@ -2827,6 +2863,7 @@ class WorkflowDecisionPoint {
     Field('escalationPath', String, 'Escalation Path'),
     Field('slaForDecision', String, 'SLA for Decision'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2838,7 +2875,7 @@ class WorkflowDecisionPoint {
   'source, and the cases where it does not apply.',
 )
 @SectionId('WOBURU')
-class WorkflowBusinessRule {
+class WorkflowBusinessRule extends DocSpecsSection {
   @Form([
     Field('ruleName', String, 'Rule Name', required: true),
     Field('ruleDescription', String, 'Description'),
@@ -2846,6 +2883,7 @@ class WorkflowBusinessRule {
     Field('ruleSource', String, 'Source (e.g., Policy, Regulation, SOP)'),
     Field('exceptions', String, 'Exceptions - when this rule does not apply'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2859,8 +2897,9 @@ class WorkflowBusinessRule {
   'each distinct exception type with its handling and escalation.',
 )
 @SectionId('WOEX')
-class WorkflowExceptions {
+class WorkflowExceptions extends DocSpecsSection {
   @ContentType('description', 'How exceptions are handled in this workflow.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2885,7 +2924,7 @@ class WorkflowExceptions {
   'handling procedure, escalation path, and recovery time.',
 )
 @SectionId('WOEXEN')
-class WorkflowExceptionEntry {
+class WorkflowExceptionEntry extends DocSpecsSection {
   @Form([
     Field('exceptionName', String, 'Exception Name', required: true),
     Field('exceptionType', String, 'Type (e.g., Validation, System, Business)'),
@@ -2894,6 +2933,7 @@ class WorkflowExceptionEntry {
     Field('escalationPath', String, 'Escalation Path'),
     Field('recoveryTime', String, 'Recovery Time'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2913,7 +2953,7 @@ class WorkflowExceptionEntry {
   'These become the baseline against which improvements are measured.',
 )
 @SectionId('PM')
-class ProcessMetrics {
+class ProcessMetrics extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of process metrics and measurement approach.',
@@ -2922,6 +2962,7 @@ class ProcessMetrics {
     'Describe the overall approach to measuring process performance. '
     'Include data collection methods, measurement periods, and data quality notes.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3024,7 +3065,7 @@ class ProcessMetrics {
   'measurement period, data quality, and the headline performance figures.',
 )
 @SectionId('MEDASU')
-class MetricsDashboardSummary {
+class MetricsDashboardSummary extends DocSpecsSection {
   @Form([
     Field(
       'measurementPeriod',
@@ -3087,6 +3128,7 @@ class MetricsDashboardSummary {
       hint: 'Improving / Stable / Declining',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3098,7 +3140,7 @@ class MetricsDashboardSummary {
   'measured, with their current and target values.',
 )
 @SectionId('MEBATA')
-class MetricsBaselineTable {
+class MetricsBaselineTable extends DocSpecsSection {
   @ContentType(
     'description',
     'Baseline tracking approach and comparison periods.',
@@ -3107,6 +3149,7 @@ class MetricsBaselineTable {
     'Document how baseline metrics will be used to measure improvement. '
     'Include comparison periods and target improvement percentages.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3131,7 +3174,7 @@ class MetricsBaselineTable {
   'improvement expected.',
 )
 @SectionId('MEBAEN')
-class MetricsBaselineEntry {
+class MetricsBaselineEntry extends DocSpecsSection {
   @Form([
     Field('metricName', String, 'Metric Name', required: true),
     Field('baselineValue', String, 'Baseline Value (current state)'),
@@ -3151,6 +3194,7 @@ class MetricsBaselineEntry {
       hint: 'How often this metric will be re-measured',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3166,8 +3210,9 @@ class MetricsBaselineEntry {
   'metric it contains.',
 )
 @SectionId('PRMECA')
-class ProcessMetricCategory {
+class ProcessMetricCategory extends DocSpecsSection {
   @ContentType('description', 'Category-level summary of metrics.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3198,7 +3243,7 @@ class ProcessMetricCategory {
   'measurement methodology, and target values if known.',
 )
 @SectionId('PME')
-class ProcessMetricEntry {
+class ProcessMetricEntry extends DocSpecsSection {
   @Form([
     Field('metricName', String, 'Metric Name', required: true),
     Field('metricId', String, 'Metric ID'),
@@ -3210,6 +3255,7 @@ class ProcessMetricEntry {
     Field('currentValue', String, 'Current Value'),
     Field('unit', String, 'Unit'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3230,7 +3276,7 @@ class ProcessMetricEntry {
     Field('frequency', String, 'Measurement Frequency'),
   ])
   @SerializationOrder(1)
-  String? measurement;
+  DocSpecsSection? measurement;
 
   /// Target setting and benchmarking context.
   @SectionId('PMET')
@@ -3249,7 +3295,7 @@ class ProcessMetricEntry {
     Field('benchmark', String, 'Industry Benchmark'),
   ])
   @SerializationOrder(2)
-  String? targets;
+  DocSpecsSection? targets;
 
   @SectionId('PME-PROC-REF')
   @Reference('Process Reference')
@@ -3276,12 +3322,13 @@ class ProcessMetricEntry {
 @SectionId('PPAG')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PAI')
-class PainPointsAndGaps {
+class PainPointsAndGaps extends DocSpecsSection {
   @ContentHelp('''
 Executive overview of pain points and gaps in the current state.
 Summarize the most critical issues affecting operations, business outcomes,
 and technical capabilities. Highlight interdependencies between pain points.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3294,7 +3341,7 @@ and technical capabilities. Highlight interdependencies between pain points.
         'and technical pain points',
   )
   @SerializationOrder(1)
-  String? painPointsOverviewDiagram;
+  DocSpecsSection? painPointsOverviewDiagram;
 
   /// Pain points priority matrix (urgency vs impact).
   @SectionId('PPAG-PAINP')
@@ -3304,7 +3351,7 @@ and technical capabilities. Highlight interdependencies between pain points.
         'impact dimensions to guide prioritization decisions',
   )
   @SerializationOrder(2)
-  String? painPointsPriorityMatrix;
+  DocSpecsSection? painPointsPriorityMatrix;
 
   /// Summary statistics for all pain points.
   @SectionId('PAPOSU')
@@ -3384,7 +3431,7 @@ and technical capabilities. Highlight interdependencies between pain points.
     ),
   ])
   @SerializationOrder(3)
-  String? painPointsSummary;
+  DocSpecsSection? painPointsSummary;
 
   /// 1.3.1. Operational Pain Points.
   @SerializationOrder(4)
@@ -3429,12 +3476,13 @@ and technical capabilities. Highlight interdependencies between pain points.
   'workarounds, and data inconsistencies that disrupt routine work.',
 )
 @SectionId('OPPAPO')
-class OperationalPainPoints {
+class OperationalPainPoints extends DocSpecsSection {
   @ContentHelp('''
 Overview of operational pain points affecting day-to-day activities.
 Include patterns of recurring issues, seasonal variations, and dependencies
 on specific systems or personnel.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3484,7 +3532,7 @@ on specific systems or personnel.
     ),
   ])
   @SerializationOrder(1)
-  String? categorySummary;
+  DocSpecsSection? categorySummary;
 
   /// Contains 0+× PainPoint.
   @StandardReferences([
@@ -3511,12 +3559,13 @@ on specific systems or personnel.
   'compliance exposure, customer dissatisfaction, and missed opportunities.',
 )
 @SectionId('BUPAPO')
-class BusinessPainPoints {
+class BusinessPainPoints extends DocSpecsSection {
   @ContentHelp('''
 Overview of business pain points affecting strategic outcomes and growth.
 Include revenue impact, compliance exposure, customer retention effects,
 and competitive positioning concerns.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3571,7 +3620,7 @@ and competitive positioning concerns.
     ),
   ])
   @SerializationOrder(1)
-  String? categorySummary;
+  DocSpecsSection? categorySummary;
 
   /// Contains 0+× PainPoint.
   @StandardReferences([
@@ -3602,12 +3651,13 @@ and competitive positioning concerns.
   'aging technology, security vulnerabilities, technical debt, and lock-in.',
 )
 @SectionId('TEPAPO')
-class TechnicalPainPoints {
+class TechnicalPainPoints extends DocSpecsSection {
   @ContentHelp('''
 Overview of technical pain points affecting system development, maintenance,
 and evolution. Include technology obsolescence risks, security posture,
 integration complexity, and team capability constraints.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3669,7 +3719,7 @@ integration complexity, and team capability constraints.
     ),
   ])
   @SerializationOrder(1)
-  String? categorySummary;
+  DocSpecsSection? categorySummary;
 
   /// Contains 0+× PainPoint.
   @StandardReferences([
@@ -3697,7 +3747,7 @@ integration complexity, and team capability constraints.
   'evidence, workaround, and proposed resolution.',
 )
 @SectionId('PAPE')
-class PainPointEntry {
+class PainPointEntry extends DocSpecsSection {
   @Form([
     Field(
       'painPointId',
@@ -3720,6 +3770,7 @@ class PainPointEntry {
       hint: 'Critical / High / Medium / Low',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3765,7 +3816,7 @@ class PainPointEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Root cause analysis.
   @SectionId('PPRC')
@@ -3795,7 +3846,7 @@ class PainPointEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? rootCause;
+  DocSpecsSection? rootCause;
 
   /// Impact assessment.
   @SectionId('PAPOIM')
@@ -3857,7 +3908,7 @@ class PainPointEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? impact;
+  DocSpecsSection? impact;
 
   /// Evidence and validation.
   @SectionId('PAPOEV')
@@ -3901,7 +3952,7 @@ class PainPointEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? evidence;
+  DocSpecsSection? evidence;
 
   /// Current state and workarounds.
   @SectionId('PAPOWO')
@@ -3939,7 +3990,7 @@ class PainPointEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? workaround;
+  DocSpecsSection? workaround;
 
   /// Resolution planning.
   @SectionId('PAPORE')
@@ -3981,7 +4032,7 @@ class PainPointEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? resolution;
+  DocSpecsSection? resolution;
 
   /// Relationships.
   @StandardReferences(
@@ -4006,7 +4057,7 @@ class PainPointEntry {
   'dependency that must be resolved first.',
 )
 @SectionId('PAPOR1')
-class PainPointRelationships {
+class PainPointRelationships extends DocSpecsSection {
   @Form([
     Field(
       'relatedPainPoints',
@@ -4027,6 +4078,7 @@ class PainPointRelationships {
       hint: 'Other pain points that must be resolved first',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4038,12 +4090,13 @@ class PainPointRelationships {
   'which gaps cause which pains and where unstated gaps may lurk.',
 )
 @SectionId('PPGC')
-class PainPointGapCorrelation {
+class PainPointGapCorrelation extends DocSpecsSection {
   @ContentHelp('''
 Analysis of relationships between documented pain points and capability gaps.
 Shows which gaps cause which pain points, and which pain points indicate
 underlying gaps that may not be explicitly documented.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4055,7 +4108,7 @@ underlying gaps that may not be explicitly documented.
         'between capability gaps and resulting pain points',
   )
   @SerializationOrder(1)
-  String? correlationDiagram;
+  DocSpecsSection? correlationDiagram;
 
   /// Tabular correlation data.
   @StandardReferences([
@@ -4080,7 +4133,7 @@ underlying gaps that may not be explicitly documented.
   'correlation type and strength.',
 )
 @SectionId('PPGCE')
-class PainPointGapCorrelationEntry {
+class PainPointGapCorrelationEntry extends DocSpecsSection {
   @Form([
     Field(
       'painPointId',
@@ -4115,6 +4168,7 @@ class PainPointGapCorrelationEntry {
       hint: 'Additional context on the relationship',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4130,7 +4184,7 @@ class PainPointGapCorrelationEntry {
   'discovery, workaround, and proposed resolution.',
 )
 @SectionId('GAPE')
-class GapEntry {
+class GapEntry extends DocSpecsSection {
   @Form([
     Field(
       'gapName',
@@ -4153,6 +4207,7 @@ class GapEntry {
       hint: 'Critical / High / Medium / Low',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4203,7 +4258,7 @@ class GapEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// Discovery and validation.
   @SectionId('GAENDI')
@@ -4247,7 +4302,7 @@ class GapEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? discovery;
+  DocSpecsSection? discovery;
 
   /// Current workarounds.
   @SectionId('GAENWO')
@@ -4278,7 +4333,7 @@ class GapEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? workaround;
+  DocSpecsSection? workaround;
 
   /// Resolution planning.
   @SectionId('GAENRE')
@@ -4314,7 +4369,7 @@ class GapEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? resolution;
+  DocSpecsSection? resolution;
 }
 
 // ---------------------------------------------------------------------------
@@ -4338,12 +4393,13 @@ class GapEntry {
 @SectionId('CUDALA')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-DAT')
-class CurrentDataLandscape {
+class CurrentDataLandscape extends DocSpecsSection {
   @ContentHelp('''
 Executive overview of the current data landscape. Summarize the overall data
 situation, key data assets, major challenges, and strategic importance of data
 to the organization. Highlight critical data dependencies and risks.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4355,7 +4411,7 @@ to the organization. Highlight critical data dependencies and risks.
         'major data stores, data flows, and integration points',
   )
   @SerializationOrder(1)
-  String? dataLandscapeOverviewDiagram;
+  DocSpecsSection? dataLandscapeOverviewDiagram;
 
   /// Data architecture summary diagram.
   @SectionId('CUDALA-DATA')
@@ -4365,7 +4421,7 @@ to the organization. Highlight critical data dependencies and risks.
         'relationships between major data entities and systems',
   )
   @SerializationOrder(2)
-  String? dataArchitectureDiagram;
+  DocSpecsSection? dataArchitectureDiagram;
 
   /// Summary statistics and health indicators.
   @SectionId('DALASU')
@@ -4437,7 +4493,7 @@ to the organization. Highlight critical data dependencies and risks.
     ),
   ])
   @SerializationOrder(3)
-  String? dataLandscapeSummary;
+  DocSpecsSection? dataLandscapeSummary;
 
   /// 1.4.1. Data Source Inventory.
   @SerializationOrder(4)
@@ -4493,11 +4549,12 @@ to the organization. Highlight critical data dependencies and risks.
   'environment, with its technology, volume, quality, ownership, and access.',
 )
 @SectionId('DASOIN')
-class DataSourceInventory {
+class DataSourceInventory extends DocSpecsSection {
   @ContentHelp('''
 Overview of the data source inventory. Describe the methodology used to
 catalog data sources, coverage of the inventory, and any known gaps.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4509,7 +4566,7 @@ catalog data sources, coverage of the inventory, and any known gaps.
         'business domain or technical category',
   )
   @SerializationOrder(1)
-  String? dataSourceMapDiagram;
+  DocSpecsSection? dataSourceMapDiagram;
 
   /// Contains 0+× DataSource.
   @StandardReferences([
@@ -4536,7 +4593,7 @@ catalog data sources, coverage of the inventory, and any known gaps.
   'volume, quality, ownership, integration, lifecycle, and key entities.',
 )
 @SectionId('DASR')
-class DataSourceEntry {
+class DataSourceEntry extends DocSpecsSection {
   @Form([
     Field(
       'dataSourceId',
@@ -4559,6 +4616,7 @@ class DataSourceEntry {
       hint: 'Critical / High / Medium / Low',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4590,7 +4648,7 @@ class DataSourceEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Technical details.
   @SectionId('DASOTE')
@@ -4627,7 +4685,7 @@ class DataSourceEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? technical;
+  DocSpecsSection? technical;
 
   /// Volume and performance.
   @SectionId('DASOVO')
@@ -4669,7 +4727,7 @@ class DataSourceEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? volume;
+  DocSpecsSection? volume;
 
   /// Quality and reliability.
   @SectionId('DASOQU')
@@ -4708,7 +4766,7 @@ class DataSourceEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Ownership and governance.
   @SectionId('DASOOW')
@@ -4753,7 +4811,7 @@ class DataSourceEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   /// Integration.
   @SectionId('DASOI1')
@@ -4783,7 +4841,7 @@ class DataSourceEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Lifecycle.
   @SectionId('DASOLI')
@@ -4825,7 +4883,7 @@ class DataSourceEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Retention Policy for this data source.
   @SectionId('DSRP')
@@ -4870,7 +4928,7 @@ class DataSourceEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? retentionPolicy;
+  DocSpecsSection? retentionPolicy;
 
   /// Key data entities in this source.
   @StandardReferences([
@@ -4895,7 +4953,7 @@ class DataSourceEntry {
   'key, relationships, and sensitive fields.',
 )
 @SectionId('DSEE')
-class DataSourceEntityEntry {
+class DataSourceEntityEntry extends DocSpecsSection {
   @Form([
     Field(
       'entityName',
@@ -4935,6 +4993,7 @@ class DataSourceEntityEntry {
       hint: 'Fields containing sensitive data',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4952,11 +5011,12 @@ class DataSourceEntityEntry {
   'the inventory of quality issues, and improvement initiatives under way.',
 )
 @SectionId('DAQUAS')
-class DataQualityAssessment {
+class DataQualityAssessment extends DocSpecsSection {
   @ContentHelp('''
 Overview of data quality across the organization. Describe the assessment
 methodology, scope, key findings, and overall data quality posture.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5034,7 +5094,7 @@ methodology, scope, key findings, and overall data quality posture.
     ),
   ])
   @SerializationOrder(1)
-  String? dimensionsSummary;
+  DocSpecsSection? dimensionsSummary;
 
   /// Quality issues by severity.
   @SectionId('DAQUAS-QUAL')
@@ -5044,7 +5104,7 @@ methodology, scope, key findings, and overall data quality posture.
         'by severity level',
   )
   @SerializationOrder(2)
-  String? qualityIssuesSeverityChart;
+  DocSpecsSection? qualityIssuesSeverityChart;
 
   /// Data quality issues inventory.
   @StandardReferences([
@@ -5088,7 +5148,7 @@ methodology, scope, key findings, and overall data quality posture.
   'classification and severity, business impact, and resolution plan.',
 )
 @SectionId('DAQLIS')
-class DataQualityIssueEntry {
+class DataQualityIssueEntry extends DocSpecsSection {
   @Form([
     Field(
       'issueId',
@@ -5117,6 +5177,7 @@ class DataQualityIssueEntry {
       hint: 'Which data source(s) are impacted',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5151,7 +5212,7 @@ class DataQualityIssueEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Business impact and diagnostics.
   @SectionId('DQIEI')
@@ -5193,7 +5254,7 @@ class DataQualityIssueEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? impact;
+  DocSpecsSection? impact;
 
   /// Resolution planning.
   @SectionId('DQIER')
@@ -5223,7 +5284,7 @@ class DataQualityIssueEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? resolution;
+  DocSpecsSection? resolution;
 }
 
 /// Data quality improvement initiative entry.
@@ -5236,7 +5297,7 @@ class DataQualityIssueEntry {
   'expected completion, and the improvement it aims to deliver.',
 )
 @SectionId('DQIE')
-class DataQualityInitiativeEntry {
+class DataQualityInitiativeEntry extends DocSpecsSection {
   @Form([
     Field('initiativeId', String, 'Initiative ID', hint: 'Unique identifier'),
     Field(
@@ -5277,6 +5338,7 @@ class DataQualityInitiativeEntry {
       hint: 'Quantified improvement target',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5294,11 +5356,12 @@ class DataQualityInitiativeEntry {
   'picture and each individual duplication instance with its sync challenges.',
 )
 @SectionId('DADUAN')
-class DataDuplicationAnalysis {
+class DataDuplicationAnalysis extends DocSpecsSection {
   @ContentHelp('''
 Overview of data duplication across the organization. Describe the extent
 of duplication, its causes, impacts, and any ongoing deduplication efforts.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5360,7 +5423,7 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
     ),
   ])
   @SerializationOrder(1)
-  String? duplicationSummary;
+  DocSpecsSection? duplicationSummary;
 
   /// Visual representation of data redundancy.
   @SectionId('DADUAN-DUPL')
@@ -5370,7 +5433,7 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
         'duplicate data flows',
   )
   @SerializationOrder(2)
-  String? duplicationDiagram;
+  DocSpecsSection? duplicationDiagram;
 
   /// Individual duplication instances.
   @StandardReferences([
@@ -5394,7 +5457,7 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
   'synchronization arrangement, and its business impact and resolution.',
 )
 @SectionId('DADU')
-class DataDuplicationEntry {
+class DataDuplicationEntry extends DocSpecsSection {
   @Form([
     Field(
       'duplicationId',
@@ -5416,6 +5479,7 @@ class DataDuplicationEntry {
       hint: 'What data is duplicated',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5447,7 +5511,7 @@ class DataDuplicationEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? sources;
+  DocSpecsSection? sources;
 
   /// Synchronization and consistency details.
   @SectionId('DADUENSY')
@@ -5477,7 +5541,7 @@ class DataDuplicationEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? synchronization;
+  DocSpecsSection? synchronization;
 
   /// Business impact and resolution guidance.
   @SectionId('DDEG')
@@ -5513,7 +5577,7 @@ class DataDuplicationEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// 1.4.4. Data Ownership and Stewardship.
@@ -5529,11 +5593,12 @@ class DataDuplicationEntry {
   'approach, accountable roles per domain, and gaps in accountability.',
 )
 @SectionId('DAOW')
-class DataOwnership {
+class DataOwnership extends DocSpecsSection {
   @ContentHelp('''
 Overview of data ownership and stewardship across the organization. Describe
 the ownership model, roles and responsibilities, and any gaps in accountability.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5598,7 +5663,7 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
     ),
   ])
   @SerializationOrder(1)
-  String? ownershipSummary;
+  DocSpecsSection? ownershipSummary;
 
   /// Data ownership matrix visualization.
   @SectionId('DAOW-OWNE')
@@ -5608,7 +5673,7 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
         'their owners/stewards',
   )
   @SerializationOrder(2)
-  String? ownershipMatrixDiagram;
+  DocSpecsSection? ownershipMatrixDiagram;
 
   /// Data ownership assignments by domain.
   @StandardReferences([
@@ -5633,7 +5698,7 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
   'owner, and the stewardship and access-governance arrangements.',
 )
 @SectionId('DAOWEN')
-class DataOwnershipEntry {
+class DataOwnershipEntry extends DocSpecsSection {
   @Form([
     Field(
       'dataDomain',
@@ -5661,6 +5726,7 @@ class DataOwnershipEntry {
       hint: 'Job title/role of the business owner',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5701,7 +5767,7 @@ class DataOwnershipEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? stewardship;
+  DocSpecsSection? stewardship;
 
   /// Access and coverage governance.
   @SectionId('DOEG')
@@ -5734,7 +5800,7 @@ class DataOwnershipEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// 1.4.5. Data Volumes and Growth.
@@ -5747,12 +5813,13 @@ class DataOwnershipEntry {
   'forward projections that drive future capacity planning.',
 )
 @SectionId('DVAG')
-class DataVolumesAndGrowth {
+class DataVolumesAndGrowth extends DocSpecsSection {
   @ContentHelp('''
 Overview of data volumes and growth patterns across the organization.
 Describe current total volumes, growth trends, capacity constraints,
 and forecasting methodology.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5768,7 +5835,7 @@ and forecasting methodology.
         'projected future volumes',
   )
   @SerializationOrder(2)
-  String? growthTrendChart;
+  DocSpecsSection? growthTrendChart;
 
   /// Volume details by data source.
   @StandardReferences([
@@ -5793,7 +5860,7 @@ and forecasting methodology.
   'with growth, projection, and capacity sub-sections.',
 )
 @SectionId('DAVOSU')
-class DataVolumeSummary {
+class DataVolumeSummary extends DocSpecsSection {
   @Form([
     Field(
       'totalCurrentVolume',
@@ -5814,6 +5881,7 @@ class DataVolumeSummary {
       hint: 'Volume of unstructured data',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5845,7 +5913,7 @@ class DataVolumeSummary {
     ),
   ])
   @SerializationOrder(1)
-  String? growth;
+  DocSpecsSection? growth;
 
   /// Forward-looking forecasts and utilization.
   @SectionId('DVSP')
@@ -5875,7 +5943,7 @@ class DataVolumeSummary {
     ),
   ])
   @SerializationOrder(2)
-  String? projection;
+  DocSpecsSection? projection;
 
   /// Capacity pressure and cost impact.
   @SectionId('DVSC')
@@ -5905,7 +5973,7 @@ class DataVolumeSummary {
     ),
   ])
   @SerializationOrder(3)
-  String? capacity;
+  DocSpecsSection? capacity;
 }
 
 /// Volume details for a specific data source.
@@ -5915,7 +5983,7 @@ class DataVolumeSummary {
   'average size, historical and projected growth, drivers, and archival/purge.',
 )
 @SectionId('DAVOEN')
-class DataVolumeEntry {
+class DataVolumeEntry extends DocSpecsSection {
   @Form([
     Field(
       'dataSource',
@@ -5973,6 +6041,7 @@ class DataVolumeEntry {
       hint: 'How much data is deleted periodically',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5990,11 +6059,12 @@ class DataVolumeEntry {
   'drivers, archival and deletion practices, and per-category retention rules.',
 )
 @SectionId('DAREPO')
-class DataRetentionPolicies {
+class DataRetentionPolicies extends DocSpecsSection {
   @ContentHelp('''
 Overview of data retention policies and lifecycle management. Describe the
 policy framework, regulatory drivers, implementation status, and any gaps.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6063,7 +6133,7 @@ policy framework, regulatory drivers, implementation status, and any gaps.
     ),
   ])
   @SerializationOrder(1)
-  String? policySummary;
+  DocSpecsSection? policySummary;
 
   /// Retention policies by data category.
   @StandardReferences([
@@ -6088,7 +6158,7 @@ policy framework, regulatory drivers, implementation status, and any gaps.
   'basis, archival and deletion lifecycle, and compliance status.',
 )
 @SectionId('REPOL')
-class RetentionPolicyEntry {
+class RetentionPolicyEntry extends DocSpecsSection {
   @Form([
     Field(
       'policyId',
@@ -6111,6 +6181,7 @@ class RetentionPolicyEntry {
       hint: 'Specific data sources or entities',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6142,7 +6213,7 @@ class RetentionPolicyEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Archival and deletion lifecycle handling.
   @SectionId('RPEL')
@@ -6173,7 +6244,7 @@ class RetentionPolicyEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Compliance and accountability status.
   @SectionId('RPEG')
@@ -6203,7 +6274,7 @@ class RetentionPolicyEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// 1.4.7. Data Governance.
@@ -6218,11 +6289,12 @@ class RetentionPolicyEntry {
   'and the catalogue of governance policies in force.',
 )
 @SectionId('DAGO')
-class DataGovernance {
+class DataGovernance extends DocSpecsSection {
   @ContentHelp('''
 Overview of data governance in the organization. Describe the governance
 framework, organizational structure, policies, and current maturity level.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6299,7 +6371,7 @@ framework, organizational structure, policies, and current maturity level.
     ),
   ])
   @SerializationOrder(1)
-  String? governanceMaturity;
+  DocSpecsSection? governanceMaturity;
 
   /// Governance organization structure.
   @SectionId('DAGO-GOVE')
@@ -6309,7 +6381,7 @@ framework, organizational structure, policies, and current maturity level.
         'roles and reporting structure',
   )
   @SerializationOrder(2)
-  String? governanceOrgChart;
+  DocSpecsSection? governanceOrgChart;
 
   /// Data governance policies.
   @StandardReferences([
@@ -6338,7 +6410,7 @@ framework, organizational structure, policies, and current maturity level.
   'applicability, and its ownership, enforcement, and compliance status.',
 )
 @SectionId('DGPE')
-class DataGovernancePolicyEntry {
+class DataGovernancePolicyEntry extends DocSpecsSection {
   @Form([
     Field('policyId', String, 'Policy ID', hint: 'Unique identifier'),
     Field(
@@ -6361,6 +6433,7 @@ class DataGovernancePolicyEntry {
       hint: 'Brief description of the policy',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6393,7 +6466,7 @@ class DataGovernancePolicyEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Ownership, enforcement, and compliance status.
   @SectionId('DGPEG')
@@ -6421,7 +6494,7 @@ class DataGovernancePolicyEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// 1.4.8. Data Classification.
@@ -6437,12 +6510,13 @@ class DataGovernancePolicyEntry {
   'defined, and how far data assets have actually been classified.',
 )
 @SectionId('CUDACL')
-class CurrentDataClassification {
+class CurrentDataClassification extends DocSpecsSection {
   @ContentHelp('''
 Overview of data classification in the organization. Describe the classification
 framework, sensitivity levels, handling requirements, and current classification
 coverage.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6513,7 +6587,7 @@ coverage.
     ),
   ])
   @SerializationOrder(1)
-  String? classificationSummary;
+  DocSpecsSection? classificationSummary;
 
   /// Classification levels defined.
   @StandardReferences([
@@ -6556,7 +6630,7 @@ coverage.
   'handling, access, storage, transmission, disposal, and incident rules.',
 )
 @SectionId('DCLE')
-class DataClassificationLevelEntry {
+class DataClassificationLevelEntry extends DocSpecsSection {
   @Form([
     Field(
       'levelName',
@@ -6615,6 +6689,7 @@ class DataClassificationLevelEntry {
       hint: 'Response level if breached',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -6626,7 +6701,7 @@ class DataClassificationLevelEntry {
   'highest sensitivity present, owner, and last review.',
 )
 @SectionId('DCSE')
-class DataClassificationStatusEntry {
+class DataClassificationStatusEntry extends DocSpecsSection {
   @Form([
     Field(
       'dataDomain',
@@ -6666,6 +6741,7 @@ class DataClassificationStatusEntry {
       hint: 'When classification was last reviewed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -6683,11 +6759,12 @@ class DataClassificationStatusEntry {
   'data flows, and the inventory of integration points between systems.',
 )
 @SectionId('DAINPO')
-class DataIntegrationPoints {
+class DataIntegrationPoints extends DocSpecsSection {
   @ContentHelp('''
 Overview of data integration across the organization. Describe the integration
 architecture, major data flows, technologies used, and integration challenges.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6761,7 +6838,7 @@ architecture, major data flows, technologies used, and integration challenges.
     ),
   ])
   @SerializationOrder(1)
-  String? integrationSummary;
+  DocSpecsSection? integrationSummary;
 
   /// Data flow diagram.
   @SectionId('DAINPO-DATA')
@@ -6771,7 +6848,7 @@ architecture, major data flows, technologies used, and integration challenges.
         'and integration points between systems',
   )
   @SerializationOrder(2)
-  String? dataFlowDiagram;
+  DocSpecsSection? dataFlowDiagram;
 
   /// Data integration points inventory.
   @StandardReferences([
@@ -6796,7 +6873,7 @@ architecture, major data flows, technologies used, and integration challenges.
   'volume and transport, reliability and monitoring, and ownership.',
 )
 @SectionId('DAIN')
-class DataIntegrationEntry {
+class DataIntegrationEntry extends DocSpecsSection {
   @Form([
     Field(
       'integrationId',
@@ -6819,6 +6896,7 @@ class DataIntegrationEntry {
       hint: 'What data is exchanged and why',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6850,7 +6928,7 @@ class DataIntegrationEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? endpoints;
+  DocSpecsSection? endpoints;
 
   /// Volume and transport.
   @SectionId('DIET')
@@ -6892,7 +6970,7 @@ class DataIntegrationEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? transport;
+  DocSpecsSection? transport;
 
   /// Reliability and monitoring.
   @SectionId('DIER')
@@ -6929,7 +7007,7 @@ class DataIntegrationEntry {
     Field('sla', String, 'SLA', hint: 'Service level agreement if defined'),
   ])
   @SerializationOrder(3)
-  String? reliabilityInfo;
+  DocSpecsSection? reliabilityInfo;
 
   /// Ownership and issues.
   @SectionId('DIEO')
@@ -6965,7 +7043,7 @@ class DataIntegrationEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? ownership;
+  DocSpecsSection? ownership;
 }
 
 /// 1.4.10. Master Data Management.
@@ -6981,12 +7059,13 @@ class DataIntegrationEntry {
   'master data domains, their golden-record sources, and synchronization.',
 )
 @SectionId('MADAMA')
-class MasterDataManagement {
+class MasterDataManagement extends DocSpecsSection {
   @ContentHelp('''
 Overview of master data management in the organization. Describe the MDM
 strategy, master data domains, golden record sources, and synchronization
 approach.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7063,7 +7142,7 @@ approach.
     ),
   ])
   @SerializationOrder(1)
-  String? mdmSummary;
+  DocSpecsSection? mdmSummary;
 
   /// Master data domains.
   @StandardReferences([
@@ -7092,7 +7171,7 @@ approach.
   'downstream usage and cadence, and ownership and improvement planning.',
 )
 @SectionId('MSDDO')
-class MasterDataDomainEntry {
+class MasterDataDomainEntry extends DocSpecsSection {
   @Form([
     Field(
       'domainName',
@@ -7114,6 +7193,7 @@ class MasterDataDomainEntry {
       hint: 'Authoritative system for this master data',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7148,7 +7228,7 @@ class MasterDataDomainEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Downstream usage and cadence.
   @SectionId('MDDEU')
@@ -7178,7 +7258,7 @@ class MasterDataDomainEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? usage;
+  DocSpecsSection? usage;
 
   /// Ownership and improvement planning.
   @SectionId('MDDEG')
@@ -7217,7 +7297,7 @@ class MasterDataDomainEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 // ---------------------------------------------------------------------------
@@ -7238,7 +7318,7 @@ class MasterDataDomainEntry {
 @SectionId('CUOPME')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MET')
-class CurrentOperationalMetric {
+class CurrentOperationalMetric extends DocSpecsSection {
   @ContentHelp('''
 Captures measurable operational characteristics of the current systems
 landscape. Feeds requirement derivation (target throughput, peak-load
@@ -7254,6 +7334,7 @@ replacement underperforms the baseline).
 - Storage growth rates and retention sizing
 - Integration volumes (messages, API calls per interval)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -7277,7 +7358,7 @@ replacement underperforms the baseline).
 @SectionId('CUSTRIAS')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-RIS')
-class CurrentStateRiskAssessment {
+class CurrentStateRiskAssessment extends DocSpecsSection {
   @ContentHelp('''
 Risks that originate from the current systems landscape or from the act of
 replacing them. Not to be confused with target-state risks.
@@ -7291,6 +7372,7 @@ replacing them. Not to be confused with target-state risks.
 - Compliance risks of keeping legacy systems in operation
 - Replacement-specific risks (scope creep, timeline, migration failures)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }

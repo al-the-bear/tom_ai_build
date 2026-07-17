@@ -34,12 +34,13 @@ import 'package:tom_specs_core/tom_specs_core.dart';
   'arrangements, and the steering committee that oversees it.',
 )
 @SectionId('PRJOG')
-class ProjectOrganization {
+class ProjectOrganization extends DocSpecsSection {
   @ContentHelp('''
 Overview of project organization structure including reporting lines,
 steering committee composition, and governance arrangements.
 Describe the organizational model and key decision-making paths.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -62,7 +63,7 @@ Describe the organizational model and key decision-making paths.
   'rights, and escalation paths.',
 )
 @SectionId('ORGST')
-class OrganizationStructure {
+class OrganizationStructure extends DocSpecsSection {
   @ContentType(
     'description',
     'Project organization chart with reporting '
@@ -73,6 +74,7 @@ class OrganizationStructure {
     'Describe the governance model: who decides what, escalation paths, '
     'meeting cadence.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -95,7 +97,7 @@ class OrganizationStructure {
   'escalated, meeting cadence, and reporting frequency.',
 )
 @SectionId('GOVMD')
-class GovernanceModel {
+class GovernanceModel extends DocSpecsSection {
   @Form([
     Field(
       'decisionFramework',
@@ -122,6 +124,7 @@ class GovernanceModel {
       hint: 'How often status is reported to governance',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -154,7 +157,7 @@ class GovernanceModel {
   'to, and the expected response time.',
 )
 @SectionId('DCAUT')
-class DecisionAuthorityEntry {
+class DecisionAuthorityEntry extends DocSpecsSection {
   @Form([
     Field(
       'decisionArea',
@@ -188,6 +191,7 @@ class DecisionAuthorityEntry {
       hint: 'Target turnaround for reaching this decision',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -208,12 +212,13 @@ class DecisionAuthorityEntry {
   'responsibilities, and decision authorities.',
 )
 @SectionId('STCOM')
-class SteeringCommittee {
+class SteeringCommittee extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of steering committee composition '
         'and responsibilities.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -247,7 +252,7 @@ class SteeringCommittee {
   'voting rules, and how minutes are distributed.',
 )
 @SectionId('COMCH')
-class CommitteeCharter {
+class CommitteeCharter extends DocSpecsSection {
   @Form([
     Field(
       'purpose',
@@ -280,6 +285,7 @@ class CommitteeCharter {
       hint: 'Who receives the meeting minutes and how',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -300,7 +306,7 @@ class CommitteeCharter {
   'committee responsibilities, and decision authority.',
 )
 @SectionId('CME')
-class CommitteeMemberEntry {
+class CommitteeMemberEntry extends DocSpecsSection {
   @Form([
     Field(
       'name',
@@ -358,6 +364,7 @@ class CommitteeMemberEntry {
       hint: 'Designated stand-in when unavailable',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -385,7 +392,7 @@ class CommitteeMemberEntry {
   'ISO 21500 — project management (governance, roles & responsibilities)',
 ], 'A single committee responsibility: its area, scope, and escalation target.')
 @SectionId('COMRS')
-class CommitteeResponsibilityEntry {
+class CommitteeResponsibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'area',
@@ -402,6 +409,7 @@ class CommitteeResponsibilityEntry {
       hint: 'Who issues in this area escalate to',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -427,12 +435,13 @@ class CommitteeResponsibilityEntry {
   'roles, allocation percentages, and reporting relationships.',
 )
 @SectionId('PRJTS')
-class ProjectTeamStaffing {
+class ProjectTeamStaffing extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of team structure, staffing approach, '
         'and resource planning considerations.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -480,7 +489,7 @@ class ProjectTeamStaffing {
   'model, working hours, and reporting structure.',
 )
 @SectionId('TMSOV')
-class TeamStructureOverview {
+class TeamStructureOverview extends DocSpecsSection {
   @Form([
     Field(
       'teamSize',
@@ -519,6 +528,7 @@ class TeamStructureOverview {
       hint: 'How team members report within the project',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -537,7 +547,7 @@ class TeamStructureOverview {
   'experience, allocation, target date, priority, and recruitment status.',
 )
 @SectionId('RREQE')
-class ResourceRequirementEntry {
+class ResourceRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'roleName',
@@ -583,6 +593,7 @@ class ResourceRequirementEntry {
       hint: 'Current recruitment progress for this position',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -604,7 +615,7 @@ class ResourceRequirementEntry {
   'and availability. Include contact information and backup arrangements.',
 )
 @SectionId('TMMBE')
-class TeamMemberEntry {
+class TeamMemberEntry extends DocSpecsSection {
   @Form([
     Field(
       'name',
@@ -628,6 +639,7 @@ class TeamMemberEntry {
     ),
     Field('jobTitle', String, 'Job Title', hint: 'Their substantive job title'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -657,7 +669,7 @@ class TeamMemberEntry {
     Field('endDate', String, 'End Date', hint: 'When their assignment ends'),
   ])
   @SerializationOrder(1)
-  String? allocationDetails;
+  DocSpecsSection? allocationDetails;
 
   /// Work location and contact details.
   @SectionId('TMMCO')
@@ -687,7 +699,7 @@ class TeamMemberEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? contact;
+  DocSpecsSection? contact;
 
   /// Reporting and backup structure.
   @SectionId('TMMGV')
@@ -710,7 +722,7 @@ class TeamMemberEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Special skills and certifications.
   @SerializationOrder(4)
@@ -765,7 +777,7 @@ class TeamMemberEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? availability;
+  DocSpecsSection? availability;
 
   /// Role-specific responsibilities.
   @StandardReferences([
@@ -793,7 +805,7 @@ class TeamMemberEntry {
   'certifications, domain expertise, and years of experience.',
 )
 @SectionId('TMMSK')
-class TeamMemberSkills {
+class TeamMemberSkills extends DocSpecsSection {
   @Form([
     Field(
       'primarySkills',
@@ -826,6 +838,7 @@ class TeamMemberSkills {
       hint: 'Total years of professional experience',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -853,7 +866,7 @@ class TeamMemberSkills {
   'A single skill: its name, proficiency level, years used, and last-used date.',
 )
 @SectionId('TMSKE')
-class TeamMemberSkillEntry {
+class TeamMemberSkillEntry extends DocSpecsSection {
   @Form([
     Field(
       'skillName',
@@ -881,6 +894,7 @@ class TeamMemberSkillEntry {
       hint: 'When the skill was most recently applied',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -895,7 +909,7 @@ class TeamMemberSkillEntry {
   'deliverables, and decision authority.',
 )
 @SectionId('TMMRP')
-class TeamMemberResponsibilityEntry {
+class TeamMemberResponsibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'area',
@@ -923,6 +937,7 @@ class TeamMemberResponsibilityEntry {
       hint: 'Decisions this member can make in this area',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -945,13 +960,14 @@ class TeamMemberResponsibilityEntry {
   'including the communication matrix and stakeholder distribution groups.',
 )
 @SectionId('DSTLS')
-class DistributionList {
+class DistributionList extends DocSpecsSection {
   @ContentHelp('''
 Overview of project communication and distribution approach.
 Describe the different stakeholder groups, their information needs,
 and how documents and updates are distributed. Define the communication
 channels and frequency for different types of information.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -995,7 +1011,7 @@ channels and frequency for different types of information.
   'patterns between stakeholder groups.',
 )
 @SectionId('COMA')
-class CommunicationMatrix {
+class CommunicationMatrix extends DocSpecsSection {
   @Form([
     Field(
       'defaultCommunicationChannel',
@@ -1041,6 +1057,7 @@ class CommunicationMatrix {
       hint: 'How documents are translated for non-primary speakers',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1052,7 +1069,7 @@ class CommunicationMatrix {
         'stakeholder groups and information types',
   )
   @SerializationOrder(1)
-  String? communicationFlowDiagram;
+  DocSpecsSection? communicationFlowDiagram;
 
   /// Communication types and their distribution rules.
   @StandardReferences(
@@ -1077,7 +1094,7 @@ class CommunicationMatrix {
   'scope, and approval rules.',
 )
 @SectionId('COTY')
-class CommunicationTypeEntry {
+class CommunicationTypeEntry extends DocSpecsSection {
   @Form([
     Field(
       'communicationType',
@@ -1136,6 +1153,7 @@ class CommunicationTypeEntry {
       hint: 'Public / Internal / Confidential / Restricted',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1149,7 +1167,7 @@ class CommunicationTypeEntry {
   'channel, and member list.',
 )
 @SectionId('CSDSGR')
-class CustomDistributionGroup {
+class CustomDistributionGroup extends DocSpecsSection {
   @Form([
     Field(
       'groupName',
@@ -1178,6 +1196,7 @@ class CustomDistributionGroup {
       hint: 'Main distribution channel for this group',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1206,12 +1225,13 @@ class CustomDistributionGroup {
   'documentation and all communications.',
 )
 @SectionId('FUDI')
-class FullDistribution {
+class FullDistribution extends DocSpecsSection {
   @ContentHelp('''
 List of stakeholders who receive complete project documentation.
 These are typically core team members and key stakeholders who need
 full visibility into all project activities and decisions.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1244,12 +1264,13 @@ full visibility into all project activities and decisions.
   'high-level summaries and milestone reports.',
 )
 @SectionId('EXSUDI')
-class ExecutiveSummaryDistribution {
+class ExecutiveSummaryDistribution extends DocSpecsSection {
   @ContentHelp('''
 List of stakeholders who receive executive summaries only.
 These are typically senior executives and sponsors who need
 high-level progress updates without operational details.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1280,7 +1301,7 @@ high-level progress updates without operational details.
   'language, and default frequency.',
 )
 @SectionId('DIGRSU')
-class DistributionGroupSummary {
+class DistributionGroupSummary extends DocSpecsSection {
   @Form([
     Field(
       'recipientCount',
@@ -1313,6 +1334,7 @@ class DistributionGroupSummary {
       hint: 'Default frequency for this group',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1329,7 +1351,7 @@ class DistributionGroupSummary {
   'access scope, subscription period, and backup arrangements.',
 )
 @SectionId('DSRC')
-class DistributionRecipientEntry {
+class DistributionRecipientEntry extends DocSpecsSection {
   @Form([
     Field(
       'name',
@@ -1346,6 +1368,7 @@ class DistributionRecipientEntry {
       hint: 'Department or company',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1386,7 +1409,7 @@ class DistributionRecipientEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? contact;
+  DocSpecsSection? contact;
 
   /// Distribution preferences.
   @StandardReferences([
@@ -1443,7 +1466,7 @@ class DistributionRecipientEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? access;
+  DocSpecsSection? access;
 
   /// Subscription period.
   @SectionId('DIRESU')
@@ -1475,7 +1498,7 @@ class DistributionRecipientEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? subscription;
+  DocSpecsSection? subscription;
 
   /// Backup and delegation.
   @SectionId('DIREBA')
@@ -1513,7 +1536,7 @@ class DistributionRecipientEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? backup;
+  DocSpecsSection? backup;
 }
 
 /// Distribution preferences.
@@ -1525,7 +1548,7 @@ class DistributionRecipientEntry {
   'and notification settings.',
 )
 @SectionId('DIREPR')
-class DistributionRecipientPreferences {
+class DistributionRecipientPreferences extends DocSpecsSection {
   @Form([
     Field(
       'distributionMethod',
@@ -1558,6 +1581,7 @@ class DistributionRecipientPreferences {
       hint: 'Immediate / Batched / Manual Check',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1582,12 +1606,13 @@ class DistributionRecipientPreferences {
   'control board, and categorised.',
 )
 @SectionId('CHPR')
-class ChangeProcedure {
+class ChangeProcedure extends DocSpecsSection {
   @ContentHelp('''
 Overview of the change management process for project documents.
 Describe the philosophy for change control, when formal change requests
 are required, and how the process balances agility with governance needs.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1638,7 +1663,7 @@ are required, and how the process balances agility with governance needs.
     ),
   ])
   @SerializationOrder(1)
-  String? summary;
+  DocSpecsSection? summary;
 
   /// 3.4.1. Change Process.
   @SerializationOrder(2)
@@ -1681,7 +1706,7 @@ are required, and how the process balances agility with governance needs.
   'criteria, and notification rules from submission through closure.',
 )
 @SectionId('CP')
-class ChangeProcess {
+class ChangeProcess extends DocSpecsSection {
   @ContentHelp('''
 Detailed description of the change request workflow.
 Describe each step from submission through closure, including
@@ -1731,6 +1756,7 @@ decision points, parallel activities, and notification triggers.
       hint: 'Documentation requirements for audit trail',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1822,7 +1848,7 @@ decision points, parallel activities, and notification triggers.
     ),
   ])
   @SerializationOrder(4)
-  String? decisionCriteria;
+  DocSpecsSection? decisionCriteria;
 
   /// Notification rules during change process.
   @StandardReferences([
@@ -1846,7 +1872,7 @@ decision points, parallel activities, and notification triggers.
   'escalation.',
 )
 @SectionId('CHNORU')
-class ChangeNotificationRules {
+class ChangeNotificationRules extends DocSpecsSection {
   @Form([
     Field(
       'submissionNotification',
@@ -1885,6 +1911,7 @@ class ChangeNotificationRules {
       hint: 'Who is notified on escalation',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1896,7 +1923,7 @@ class ChangeNotificationRules {
   'required competencies, assignment, and backup.',
 )
 @SectionId('CHRO')
-class ChangeRoleEntry {
+class ChangeRoleEntry extends DocSpecsSection {
   @Form([
     Field(
       'roleName',
@@ -1937,6 +1964,7 @@ class ChangeRoleEntry {
       hint: 'Response time expectation',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1950,7 +1978,7 @@ class ChangeRoleEntry {
   'and output artifacts, entry/exit criteria, and decision paths.',
 )
 @SectionId('CHST')
-class ChangeStepEntry {
+class ChangeStepEntry extends DocSpecsSection {
   @Form([
     Field(
       'stepNumber',
@@ -1973,6 +2001,7 @@ class ChangeStepEntry {
       hint: 'Detailed description of what happens in this step',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2010,7 +2039,7 @@ class ChangeStepEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? responsibility;
+  DocSpecsSection? responsibility;
 
   /// Inputs and outputs.
   @SectionId('CSEA')
@@ -2039,7 +2068,7 @@ class ChangeStepEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? artifacts;
+  DocSpecsSection? artifacts;
 
   /// Criteria and timing.
   @SectionId('CSEC')
@@ -2081,7 +2110,7 @@ class ChangeStepEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? criteria;
+  DocSpecsSection? criteria;
 
   /// Decision paths.
   @SectionId('CSED')
@@ -2126,7 +2155,7 @@ class ChangeStepEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? decision;
+  DocSpecsSection? decision;
 
   /// Subflow diagram for this step (e.g. Mermaid or image reference).
   @SerializationOrder(5)
@@ -2146,12 +2175,13 @@ class ChangeStepEntry {
   'major, or critical, driving its approval path and stakeholder involvement.',
 )
 @SectionId('CHIMC1')
-class ChangeImpactCriteria {
+class ChangeImpactCriteria extends DocSpecsSection {
   @ContentHelp('''
 Criteria for assessing change impact across different dimensions.
 Define thresholds that determine whether a change is minor, moderate,
 major, or critical, and the corresponding approval requirements.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2196,7 +2226,7 @@ major, or critical, and the corresponding approval requirements.
   'and critical changes to their meaning and approval authority.',
 )
 @SectionId('IMLEDE')
-class ImpactLevelDefinitions {
+class ImpactLevelDefinitions extends DocSpecsSection {
   @Form([
     Field(
       'minorDefinition',
@@ -2247,6 +2277,7 @@ class ImpactLevelDefinitions {
       hint: 'Who approves critical changes',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2260,7 +2291,7 @@ class ImpactLevelDefinitions {
   'measurement, approval rules, and weighting.',
 )
 @SectionId('CHIMCR')
-class ChangeImpactCriterionEntry {
+class ChangeImpactCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
       'criterionId',
@@ -2283,6 +2314,7 @@ class ChangeImpactCriterionEntry {
       hint: 'Scope / Schedule / Budget / Quality / Risk / Resource',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2326,7 +2358,7 @@ class ChangeImpactCriterionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? thresholds;
+  DocSpecsSection? thresholds;
 
   /// Measurement configuration.
   @SectionId('CICEM')
@@ -2356,7 +2388,7 @@ class ChangeImpactCriterionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? measurement;
+  DocSpecsSection? measurement;
 
   /// Approval path rules.
   @SectionId('CICEA')
@@ -2389,7 +2421,7 @@ class ChangeImpactCriterionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? approval;
+  DocSpecsSection? approval;
 
   /// Weighting and supporting notes.
   @SectionId('CICEG')
@@ -2425,7 +2457,7 @@ class ChangeImpactCriterionEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// 3.4.3. Change Control Board.
@@ -2440,7 +2472,7 @@ class ChangeImpactCriterionEntry {
   'meeting cadence, voting rules, records, and membership.',
 )
 @SectionId('CHCOBO')
-class ChangeControlBoard {
+class ChangeControlBoard extends DocSpecsSection {
   @ContentHelp('''
 Description of the Change Control Board composition, authority,
 and operating procedures. Define meeting schedule, quorum requirements,
@@ -2466,6 +2498,7 @@ and decision-making rules.
       hint: 'How often the board meets — Weekly / Bi-weekly / Monthly',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2492,7 +2525,7 @@ and decision-making rules.
     ),
   ])
   @SerializationOrder(1)
-  String? meetings;
+  DocSpecsSection? meetings;
 
   /// Decision-making and emergency governance.
   @SectionId('CCBG')
@@ -2522,7 +2555,7 @@ and decision-making rules.
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Decision record distribution.
   @SectionId('CCBR')
@@ -2546,7 +2579,7 @@ and decision-making rules.
     ),
   ])
   @SerializationOrder(3)
-  String? records;
+  DocSpecsSection? records;
 
   /// CCB members — contains 1+× CCB Member.
   @StandardReferences([
@@ -2570,7 +2603,7 @@ and decision-making rules.
   'represented area, substitute, and quorum requirement.',
 )
 @SectionId('CCME')
-class CcbMemberEntry {
+class CcbMemberEntry extends DocSpecsSection {
   @Form([
     Field(
       'name',
@@ -2611,6 +2644,7 @@ class CcbMemberEntry {
       hint: 'Yes / No — whether this member is required for quorum',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2624,7 +2658,7 @@ class CcbMemberEntry {
   'handling and approval path, and documentation requirements.',
 )
 @SectionId('CHCA')
-class ChangeCategoryEntry {
+class ChangeCategoryEntry extends DocSpecsSection {
   @Form([
     // Identification
     Field(
@@ -2648,6 +2682,7 @@ class ChangeCategoryEntry {
       hint: 'What types of changes fall into this category',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2674,7 +2709,7 @@ class ChangeCategoryEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scopeDetails;
+  DocSpecsSection? scopeDetails;
 
   /// Default handling and approval path.
   @SectionId('CCEH')
@@ -2719,7 +2754,7 @@ class ChangeCategoryEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? handling;
+  DocSpecsSection? handling;
 
   /// Documentation and special considerations.
   @SectionId('CCEG')
@@ -2749,7 +2784,7 @@ class ChangeCategoryEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 // ---------------------------------------------------------------------------
@@ -2784,12 +2819,13 @@ class ChangeCategoryEntry {
   'organizational constraints that affect project execution.',
 )
 @SectionId('LCR')
-class LegalAndContractualRequirements {
+class LegalAndContractualRequirements extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of additional administrative '
         'requirements and their impact on the project.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2851,7 +2887,7 @@ class LegalAndContractualRequirements {
   'licensing terms, and any pre-existing IP that will be incorporated.',
 )
 @SectionId('IPR')
-class IntellectualPropertyRequirements {
+class IntellectualPropertyRequirements extends DocSpecsSection {
   @Form([
     Field(
       'ownershipModel',
@@ -2879,6 +2915,7 @@ class IntellectualPropertyRequirements {
       hint: 'Conditions under which IP ownership transfers',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2911,7 +2948,7 @@ class IntellectualPropertyRequirements {
   'and restrictions that apply to it.',
 )
 @SectionId('IPOWN')
-class IpOwnershipEntry {
+class IpOwnershipEntry extends DocSpecsSection {
   @Form([
     Field(
       'assetType',
@@ -2935,6 +2972,7 @@ class IpOwnershipEntry {
       hint: 'Limits on use of the asset',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2955,7 +2993,7 @@ class IpOwnershipEntry {
   'what information is confidential, duration, and handling procedures.',
 )
 @SectionId('CR')
-class ConfidentialityRequirements {
+class ConfidentialityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'ndaType',
@@ -2982,6 +3020,7 @@ class ConfidentialityRequirements {
       hint: 'Jurisdiction governing the agreement',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3041,7 +3080,7 @@ class ConfidentialityRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? dataHandling;
+  DocSpecsSection? dataHandling;
 }
 
 /// A confidential information category.
@@ -3054,7 +3093,7 @@ class ConfidentialityRequirements {
   'handling instructions, and who is authorized to access it.',
 )
 @SectionId('COINCA')
-class ConfidentialInfoCategoryEntry {
+class ConfidentialInfoCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
       'categoryName',
@@ -3088,6 +3127,7 @@ class ConfidentialInfoCategoryEntry {
       hint: 'Who may access this category of information',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3108,12 +3148,13 @@ class ConfidentialInfoCategoryEntry {
   'including deadlines, evidence requirements, and responsible parties.',
 )
 @SectionId('RCR')
-class RegulatoryComplianceRequirements {
+class RegulatoryComplianceRequirements extends DocSpecsSection {
   @ContentType(
     'description',
     'Overview of regulatory landscape and '
         'compliance approach.',
   )
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3165,7 +3206,7 @@ class RegulatoryComplianceRequirements {
   'jurisdiction, applicability, deadline, required evidence, and penalties.',
 )
 @SectionId('REGRQ')
-class RegulatoryRequirementEntry {
+class RegulatoryRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'regulationName',
@@ -3217,6 +3258,7 @@ class RegulatoryRequirementEntry {
       hint: 'Consequences of failing to comply',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3231,7 +3273,7 @@ class RegulatoryRequirementEntry {
   'deliverables, verification method, and current status.',
 )
 @SectionId('CPML')
-class ComplianceMilestoneEntry {
+class ComplianceMilestoneEntry extends DocSpecsSection {
   @Form([
     Field(
       'milestoneName',
@@ -3266,6 +3308,7 @@ class ComplianceMilestoneEntry {
     ),
     Field('status', String, 'Status', hint: 'Current state of the milestone'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3283,8 +3326,9 @@ class ComplianceMilestoneEntry {
   'auditor selection, and deliverable requirements.',
 )
 @SectionId('AR')
-class AuditRequirements {
+class AuditRequirements extends DocSpecsSection {
   @ContentType('description', 'Overview of audit requirements and approach.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3315,7 +3359,7 @@ class AuditRequirements {
   'the standards it audits against.',
 )
 @SectionId('AUD')
-class AuditEntry {
+class AuditEntry extends DocSpecsSection {
   @Form([
     Field(
       'auditName',
@@ -3351,6 +3395,7 @@ class AuditEntry {
       hint: 'Standards the audit assesses compliance against',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3362,7 +3407,7 @@ class AuditEntry {
   'periods, traceability, sign-off, and the types of evidence to be produced.',
 )
 @SectionId('AUEVRE')
-class AuditEvidenceRequirements {
+class AuditEvidenceRequirements extends DocSpecsSection {
   @Form([
     Field(
       'documentationStandards',
@@ -3389,6 +3434,7 @@ class AuditEvidenceRequirements {
       hint: 'Who must sign off on audit evidence',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3415,7 +3461,7 @@ class AuditEvidenceRequirements {
   'the role responsible for producing it.',
 )
 @SectionId('AUEVTY')
-class AuditEvidenceTypeEntry {
+class AuditEvidenceTypeEntry extends DocSpecsSection {
   @Form([
     Field(
       'evidenceType',
@@ -3443,6 +3489,7 @@ class AuditEvidenceTypeEntry {
       hint: 'Role accountable for producing this evidence',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3460,8 +3507,9 @@ class AuditEvidenceTypeEntry {
   'applicable to the project.',
 )
 @SectionId('ILR')
-class InsuranceLiabilityRequirements {
+class InsuranceLiabilityRequirements extends DocSpecsSection {
   @ContentType('description', 'Overview of insurance and liability framework.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3505,7 +3553,7 @@ class InsuranceLiabilityRequirements {
   'policy holder, validity, and whether a certificate is required.',
 )
 @SectionId('INSURE')
-class InsuranceEntry {
+class InsuranceEntry extends DocSpecsSection {
   @Form([
     Field(
       'insuranceType',
@@ -3545,6 +3593,7 @@ class InsuranceEntry {
       hint: 'Whether a certificate of insurance must be provided',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3556,7 +3605,7 @@ class InsuranceEntry {
   'indemnification clauses, and limitation of damages agreed.',
 )
 @SectionId('LILI')
-class LiabilityLimitations {
+class LiabilityLimitations extends DocSpecsSection {
   @Form([
     Field(
       'maxLiability',
@@ -3583,6 +3632,7 @@ class LiabilityLimitations {
       hint: 'Limits on the types or amounts of recoverable damages',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3597,7 +3647,7 @@ class LiabilityLimitations {
   'key terms, obligations, and where the document is stored.',
 )
 @SectionId('OTAGR')
-class OtherAgreementEntry {
+class OtherAgreementEntry extends DocSpecsSection {
   @Form([
     Field(
       'agreementTitle',
@@ -3644,6 +3694,7 @@ class OtherAgreementEntry {
       hint: 'Where the signed agreement is stored',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

@@ -41,10 +41,13 @@ import 'model_reader.dart';
       // bare primitive list and remains an error.
       if (field.isList) {
         final inner = field.listElementTypeName ?? '';
-        if (_isPrimitive(inner)) {
-          final isInlineContentList = inner == 'String' &&
-              field.getAnnotation('SectionId') != null &&
-              field.getAnnotation('SectionIdPattern') != null;
+        // YRD5: `List<DocSpecsSection>` replaces `List<String>` as the inline
+        // content sub-section list shape — same annotated-pair requirement.
+        if (_isPrimitive(inner) || field.listElementIsContentSection) {
+          final isInlineContentList =
+              (inner == 'String' || field.listElementIsContentSection) &&
+                  field.getAnnotation('SectionId') != null &&
+                  field.getAnnotation('SectionIdPattern') != null;
           if (!isInlineContentList) {
             errors.add(
               '$className.${field.name}: List<$inner> not allowed — '
@@ -83,10 +86,13 @@ import 'model_reader.dart';
             'from the class',
           );
         }
-      } else if (field.isString && field.getAnnotation('SectionId') == null) {
+      } else if (field.isContentLike &&
+          field.getAnnotation('SectionId') == null) {
+        // YRD5: inline sub-sections are `DocSpecsSection?` members (formerly
+        // `String?`); both shapes must carry the field-level @SectionId.
         errors.add(
-          '§6.1 field-shape: $className.${field.name} — a non-"content" String '
-          'field must carry a field-level @SectionId (it is an inline '
+          '§6.1 field-shape: $className.${field.name} — a non-"content" '
+          'section field must carry a field-level @SectionId (it is an inline '
           'sub-section), or be named "content" if it is the section\'s own '
           'content',
         );
@@ -110,6 +116,23 @@ import 'model_reader.dart';
             'fields, but found: $names',
           );
         }
+      }
+    }
+  }
+
+  // YRD5 — once the model has adopted the DocSpecsSection base class, EVERY
+  // model class must extend it (docspecs_section_model_decisions.md §4). The
+  // check only activates when at least one class extends the base, so
+  // synthetic test fixtures that predate YRD5 keep validating.
+  if (classes.values.any((c) => c.extendsDocSpecsSection)) {
+    for (final className in reachable) {
+      final cls = classes[className];
+      if (cls == null) continue;
+      if (!cls.extendsDocSpecsSection) {
+        errors.add(
+          'YRD5: $className must extend DocSpecsSection — every model class '
+          'is a section (docspecs_section_model_decisions.md §4)',
+        );
       }
     }
   }

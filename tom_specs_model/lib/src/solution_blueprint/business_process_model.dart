@@ -21,7 +21,7 @@ import '../document_stubs.dart';
 )
 @SectionId('TBPM')
 @Comment('Seeds → TOM, ISC')
-class TargetBusinessProcessModel {
+class TargetBusinessProcessModel extends DocSpecsSection {
   @ContentHelp('''
 Overview of target business processes the system will support. This section
 establishes the process vision, documents key processes with their triggers,
@@ -42,6 +42,7 @@ interactions that seed use case development.
 - Define RACI for all process roles
 - Include performance KPIs and SLAs for each process
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -78,7 +79,7 @@ interactions that seed use case development.
 @SectionId('BPDSC')
 @Comment('Seeds → TOM')
 @MapsTo(D02TargetOperatingModel)
-class BusinessProcessDescriptions {
+class BusinessProcessDescriptions extends DocSpecsSection {
   @ContentHelp('''
 Target business processes at a high level. Each process will be expanded with
 detailed workflows, triggers, decision points, and exception handling in the
@@ -93,6 +94,7 @@ TOM (Target Operating Model) document.
 
 **Seeds:** TOM (Target Operating Model) document
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -170,7 +172,7 @@ TOM (Target Operating Model) document.
 @SectionId('PRVIZ')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-VIS')
-class ProcessVision {
+class ProcessVision extends DocSpecsSection {
   /// Process vision overview.
   @SectionId('PVOVW')
   @StandardReferences(
@@ -229,7 +231,7 @@ class ProcessVision {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Vision narrative describing the target state.
   @SerializationOrder(1)
@@ -308,7 +310,7 @@ class ProcessVision {
     ),
   ])
   @SerializationOrder(3)
-  String? successCriteria;
+  DocSpecsSection? successCriteria;
 }
 
 /// Expected improvements from process transformation.
@@ -318,7 +320,7 @@ class ProcessVision {
   'experience dimensions.',
 )
 @SectionId('EXIPR')
-class ExpectedImprovements {
+class ExpectedImprovements extends DocSpecsSection {
   @Form([
     Field(
       'efficiencyGains',
@@ -381,6 +383,7 @@ class ExpectedImprovements {
       hint: 'Expected integration or data-flow benefits',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -399,7 +402,7 @@ class ExpectedImprovements {
 @SectionId('PDPRI')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-PRI')
-class ProcessDesignPrinciples {
+class ProcessDesignPrinciples extends DocSpecsSection {
   /// Design principles overview.
   @SectionId('DPOVW')
   @StandardReferences(
@@ -434,7 +437,7 @@ class ProcessDesignPrinciples {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× Design Principle.
   @StandardReferences(
@@ -456,7 +459,7 @@ class ProcessDesignPrinciples {
   'and trade-offs.',
 )
 @SectionId('PDPEN')
-class ProcessDesignPrincipleEntry {
+class ProcessDesignPrincipleEntry extends DocSpecsSection {
   @Form([
     Field(
       'principleId',
@@ -521,6 +524,7 @@ class ProcessDesignPrincipleEntry {
       hint: 'Which processes the principle applies to',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -539,7 +543,7 @@ class ProcessDesignPrincipleEntry {
 @SectionId('PRCAT')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-CAT')
-class ProcessCatalog {
+class ProcessCatalog extends DocSpecsSection {
   /// Process catalog overview.
   @SectionId('PCOVW')
   @StandardReferences(
@@ -598,7 +602,7 @@ class ProcessCatalog {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Process classification scheme.
   @SectionId('PRCCL')
@@ -661,7 +665,7 @@ class ProcessCatalog {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Contains 1+× Business Process.
   @StandardReferences([
@@ -687,7 +691,7 @@ class ProcessCatalog {
   'triggers, inputs/outputs, roles, performance and controls.',
 )
 @SectionId('BPREN')
-class BusinessProcessEntry {
+class BusinessProcessEntry extends DocSpecsSection {
   /// Process identification.
   @SerializationOrder(0)
   ProcessIdentification identification = ProcessIdentification();
@@ -736,7 +740,7 @@ class BusinessProcessEntry {
   'classification, definition and governance metadata.',
 )
 @SectionId('PRIDN')
-class ProcessIdentification {
+class ProcessIdentification extends DocSpecsSection {
   @Form([
     Field(
       'processId',
@@ -759,6 +763,7 @@ class ProcessIdentification {
       hint: 'Level in the process hierarchy',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -788,7 +793,7 @@ class ProcessIdentification {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Narrative description, purpose, and scope.
   @SectionId('PIDEF')
@@ -818,7 +823,7 @@ class ProcessIdentification {
     ),
   ])
   @SerializationOrder(2)
-  String? definition;
+  DocSpecsSection? definition;
 
   /// Ownership and lifecycle metadata.
   @SectionId('PIGOV')
@@ -860,7 +865,7 @@ class ProcessIdentification {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// Process characteristics.
@@ -870,7 +875,7 @@ class ProcessIdentification {
   'frequency, duration and variability.',
 )
 @SectionId('PRCHR')
-class ProcessCharacteristics {
+class ProcessCharacteristics extends DocSpecsSection {
   @Form([
     Field(
       'complexity',
@@ -897,6 +902,7 @@ class ProcessCharacteristics {
       hint: 'How much the process differs case to case',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -937,7 +943,7 @@ class ProcessCharacteristics {
     ),
   ])
   @SerializationOrder(1)
-  String? operations;
+  DocSpecsSection? operations;
 
   /// Demand and business value profile.
   @SectionId('PCBIZ')
@@ -973,7 +979,7 @@ class ProcessCharacteristics {
     ),
   ])
   @SerializationOrder(2)
-  String? business;
+  DocSpecsSection? business;
 }
 
 /// Process triggers and events.
@@ -983,7 +989,7 @@ class ProcessCharacteristics {
   'events) and end events (outcomes).',
 )
 @SectionId('PRTRG')
-class ProcessTriggers {
+class ProcessTriggers extends DocSpecsSection {
   /// Main trigger overview.
   @SectionId('TGOVW')
   @StandardReferences(
@@ -1024,7 +1030,7 @@ class ProcessTriggers {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× process trigger.
   @StandardReferences(
@@ -1058,7 +1064,7 @@ class ProcessTriggers {
   'its type, source and conditions.',
 )
 @SectionId('PTREN')
-class ProcessTriggerEntry {
+class ProcessTriggerEntry extends DocSpecsSection {
   @Form([
     Field(
       'triggerId',
@@ -1117,6 +1123,7 @@ class ProcessTriggerEntry {
       hint: 'Expected occurrence rate of the trigger',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1128,7 +1135,7 @@ class ProcessTriggerEntry {
   'its type, post-condition and follow-on action.',
 )
 @SectionId('PEEVT')
-class ProcessEndEventEntry {
+class ProcessEndEventEntry extends DocSpecsSection {
   @Form([
     Field(
       'endEventId',
@@ -1181,6 +1188,7 @@ class ProcessEndEventEntry {
       hint: 'What happens after this end event',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1192,7 +1200,7 @@ class ProcessEndEventEntry {
   'outputs as data objects.',
 )
 @SectionId('PRINOU')
-class ProcessInputsOutputs {
+class ProcessInputsOutputs extends DocSpecsSection {
   /// Inputs overview.
   @SectionId('INOUOV')
   @StandardReferences(
@@ -1221,7 +1229,7 @@ class ProcessInputsOutputs {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× process input.
   @StandardReferences([
@@ -1251,7 +1259,7 @@ class ProcessInputsOutputs {
   'format and validation.',
 )
 @SectionId('PCINP')
-class ProcessInputEntry {
+class ProcessInputEntry extends DocSpecsSection {
   @Form([
     Field(
       'inputId',
@@ -1316,6 +1324,7 @@ class ProcessInputEntry {
       hint: 'Sensitivity level of the input',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1327,7 +1336,7 @@ class ProcessInputEntry {
   'destination, quality and retention.',
 )
 @SectionId('PCOUT')
-class ProcessOutputEntry {
+class ProcessOutputEntry extends DocSpecsSection {
   @Form([
     Field(
       'outputId',
@@ -1392,6 +1401,7 @@ class ProcessOutputEntry {
       hint: 'Processes that consume this output',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1406,7 +1416,7 @@ class ProcessOutputEntry {
   'assigned across them.',
 )
 @SectionId('PRRO')
-class ProcessRoles {
+class ProcessRoles extends DocSpecsSection {
   /// Roles overview.
   @SectionId('PRROOV')
   @StandardReferences(
@@ -1447,7 +1457,7 @@ class ProcessRoles {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× process role.
   @StandardReferences(
@@ -1469,7 +1479,7 @@ class ProcessRoles {
   'responsibilities, execution and coordination detail.',
 )
 @SectionId('PCROL')
-class ProcessRoleEntry {
+class ProcessRoleEntry extends DocSpecsSection {
   @Form([
     Field(
       'roleId',
@@ -1498,6 +1508,7 @@ class ProcessRoleEntry {
       hint: 'What this role is responsible for',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1538,7 +1549,7 @@ class ProcessRoleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Access, coverage, and handoff expectations.
   @SectionId('PREC')
@@ -1577,7 +1588,7 @@ class ProcessRoleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? coordination;
+  DocSpecsSection? coordination;
 }
 
 /// Process performance metrics.
@@ -1587,7 +1598,7 @@ class ProcessRoleEntry {
   'measure how well this process performs.',
 )
 @SectionId('PP')
-class ProcessPerformance {
+class ProcessPerformance extends DocSpecsSection {
   /// Performance overview.
   @SectionId('PRPEOV')
   @StandardReferences(
@@ -1649,7 +1660,7 @@ class ProcessPerformance {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× performance metric.
   @StandardReferences([
@@ -1680,7 +1691,7 @@ class ProcessPerformance {
   'process meets its targets.',
 )
 @SectionId('PCKPI')
-class ProcessKpiEntry {
+class ProcessKpiEntry extends DocSpecsSection {
   @Form([
     Field(
       'kpiId',
@@ -1709,6 +1720,7 @@ class ProcessKpiEntry {
       hint: 'Describe the calculation formula',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1746,7 +1758,7 @@ class ProcessKpiEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? measurement;
+  DocSpecsSection? measurement;
 
   /// Reporting ownership and improvement use.
   @SectionId('PKEO')
@@ -1785,7 +1797,7 @@ class ProcessKpiEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// A process SLA entry.
@@ -1798,7 +1810,7 @@ class ProcessKpiEntry {
   'breach consequences for the process.',
 )
 @SectionId('PCSLA')
-class ProcessSlaEntry {
+class ProcessSlaEntry extends DocSpecsSection {
   @Form([
     Field(
       'slaId',
@@ -1863,6 +1875,7 @@ class ProcessSlaEntry {
       hint: 'State how often the SLA is reviewed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1877,7 +1890,7 @@ class ProcessSlaEntry {
   'compliant and manage its risks.',
 )
 @SectionId('PRCO')
-class ProcessControls {
+class ProcessControls extends DocSpecsSection {
   /// Controls overview.
   @SectionId('PRCOOV')
   @StandardReferences(
@@ -1939,7 +1952,7 @@ class ProcessControls {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× process control.
   @StandardReferences([
@@ -1962,7 +1975,7 @@ class ProcessControls {
   'and category.',
 )
 @SectionId('PCCTL')
-class ProcessControlEntry {
+class ProcessControlEntry extends DocSpecsSection {
   @Form([
     Field(
       'controlId',
@@ -1991,6 +2004,7 @@ class ProcessControlEntry {
       hint: 'Classify the control category',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2036,7 +2050,7 @@ class ProcessControlEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? operation;
+  DocSpecsSection? operation;
 
   /// Evidence, testing, and failure handling.
   @SectionId('PCEV')
@@ -2069,7 +2083,7 @@ class ProcessControlEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? verification;
+  DocSpecsSection? verification;
 }
 
 /// Process technology support.
@@ -2082,7 +2096,7 @@ class ProcessControlEntry {
   'the execution of this process.',
 )
 @SectionId('PRTE')
-class ProcessTechnology {
+class ProcessTechnology extends DocSpecsSection {
   @Form([
     Field(
       'primarySystem',
@@ -2109,6 +2123,7 @@ class ProcessTechnology {
       hint: 'List automation tools used',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2146,7 +2161,7 @@ class ProcessTechnology {
     ),
   ])
   @SerializationOrder(1)
-  String? information;
+  DocSpecsSection? information;
 
   /// Access channel and analytics capabilities.
   @SectionId('PRTEEX')
@@ -2179,7 +2194,7 @@ class ProcessTechnology {
     ),
   ])
   @SerializationOrder(2)
-  String? experience;
+  DocSpecsSection? experience;
 }
 
 /// Process exceptions and error handling.
@@ -2192,7 +2207,7 @@ class ProcessTechnology {
   'scenarios that can occur during the process.',
 )
 @SectionId('PREX')
-class ProcessExceptions {
+class ProcessExceptions extends DocSpecsSection {
   /// Exceptions overview.
   @SectionId('PREXOV')
   @StandardReferences(
@@ -2248,7 +2263,7 @@ class ProcessExceptions {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× exception scenario.
   @StandardReferences([
@@ -2268,7 +2283,7 @@ class ProcessExceptions {
   'triggers it.',
 )
 @SectionId('PCEXC')
-class ProcessExceptionEntry {
+class ProcessExceptionEntry extends DocSpecsSection {
   @Form([
     Field(
       'exceptionId',
@@ -2297,6 +2312,7 @@ class ProcessExceptionEntry {
       hint: 'Describe what triggers the exception',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2326,7 +2342,7 @@ class ProcessExceptionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? assessment;
+  DocSpecsSection? assessment;
 
   /// Resolution and prevention approach.
   @SectionId('PEER')
@@ -2368,7 +2384,7 @@ class ProcessExceptionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? response;
+  DocSpecsSection? response;
 }
 
 /// 6.1.4. Process Overview Diagram.
@@ -2385,7 +2401,7 @@ class ProcessExceptionEntry {
 @SectionId('PROVDI')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-FLO')
-class ProcessOverviewDiagram {
+class ProcessOverviewDiagram extends DocSpecsSection {
   /// Diagram overview.
   @SectionId('PRDIOV')
   @StandardReferences(
@@ -2426,7 +2442,7 @@ class ProcessOverviewDiagram {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Main process landscape diagram.
   @SerializationOrder(1)
@@ -2455,7 +2471,7 @@ class ProcessOverviewDiagram {
 @SectionId('PRIMSU')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-IMP')
-class ProcessImprovementSummary {
+class ProcessImprovementSummary extends DocSpecsSection {
   /// Improvement overview.
   @SectionId('IMOV')
   @StandardReferences(
@@ -2496,7 +2512,7 @@ class ProcessImprovementSummary {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 0+× improvement item.
   @StandardReferences([
@@ -2563,7 +2579,7 @@ class ProcessImprovementSummary {
     ),
   ])
   @SerializationOrder(2)
-  String? businessCase;
+  DocSpecsSection? businessCase;
 }
 
 /// A process improvement entry.
@@ -2573,7 +2589,7 @@ class ProcessImprovementSummary {
   'baseline it improves upon.',
 )
 @SectionId('PCIMV')
-class ProcessImprovementEntry {
+class ProcessImprovementEntry extends DocSpecsSection {
   @Form([
     Field(
       'improvementId',
@@ -2602,6 +2618,7 @@ class ProcessImprovementEntry {
       hint: 'Give the current-state baseline',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2639,7 +2656,7 @@ class ProcessImprovementEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? benefits;
+  DocSpecsSection? benefits;
 
   /// Enablers, dependencies, and verification.
   @SectionId('PIED')
@@ -2675,7 +2692,7 @@ class ProcessImprovementEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? delivery;
+  DocSpecsSection? delivery;
 }
 
 /// Process relationships and dependencies (supplementary section).
@@ -2687,7 +2704,7 @@ class ProcessImprovementEntry {
 @SectionId('PR')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-REL')
-class ProcessRelationships {
+class ProcessRelationships extends DocSpecsSection {
   @ContentHelp('''
 Process relationships map dependencies, data flows, and sequencing between
 processes. Understanding these relationships is critical for integration
@@ -2705,6 +2722,7 @@ design and identifying optimization opportunities.
 - Document API/integration points between processes
 - Highlight bottleneck relationships for optimization
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2727,7 +2745,7 @@ design and identifying optimization opportunities.
   'exchanged, and timing dependency.',
 )
 @SectionId('PCRLT')
-class ProcessRelationshipEntry {
+class ProcessRelationshipEntry extends DocSpecsSection {
   @Form([
     Field(
       'relationshipId',
@@ -2778,6 +2796,7 @@ class ProcessRelationshipEntry {
       hint: 'State how critical the relationship is',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2803,7 +2822,7 @@ class ProcessRelationshipEntry {
 @SectionId('PSAAI')
 @Comment('Seeds → ISC')
 @MapsTo(D05InteractionScenarios)
-class ProcessStepsAndActorInteractions {
+class ProcessStepsAndActorInteractions extends DocSpecsSection {
   @ContentHelp('''
 Key process steps with their actor interactions. Each interaction will be
 expanded into a full use case with alternate paths, preconditions, and
@@ -2822,6 +2841,7 @@ postconditions in the ISC (Interaction Scenarios) document.
 
 **Seeds:** ISC (Interaction Scenarios) document
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2878,7 +2898,7 @@ postconditions in the ISC (Interaction Scenarios) document.
 @SectionId('PRSTOV')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-OVE')
-class ProcessStepsOverview {
+class ProcessStepsOverview extends DocSpecsSection {
   @Form([
     Field(
       'useCaseScope',
@@ -2929,6 +2949,7 @@ class ProcessStepsOverview {
       hint: 'Name the use-case notation standard followed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2945,7 +2966,7 @@ class ProcessStepsOverview {
 @SectionId('ACREDI')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-DIA')
-class ActorRelationshipDiagram {
+class ActorRelationshipDiagram extends DocSpecsSection {
   /// Diagram overview.
   @SectionId('ACDIOV')
   @StandardReferences(
@@ -2983,7 +3004,7 @@ class ActorRelationshipDiagram {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Actor hierarchy diagram (generalization relationships).
   @SerializationOrder(1)
@@ -3009,7 +3030,7 @@ class ActorRelationshipDiagram {
 @SectionId('DEPRWO')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-DET')
-class DetailedProcessWorkflow {
+class DetailedProcessWorkflow extends DocSpecsSection {
   @ContentHelp('''
 Step-level detail for each process in the catalog: activity sequence,
 decision points, handoffs, swim lanes, timing, and system-actor vs human
@@ -3023,6 +3044,7 @@ actor responsibility.
 - Error and exception branches
 - BPMN-style diagram per process
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3045,7 +3067,7 @@ actor responsibility.
 @SectionId('CRPRAN')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-CRO')
-class CrossProcessAnalysis {
+class CrossProcessAnalysis extends DocSpecsSection {
   @ContentHelp('''
 Cross-cutting view of how processes interact: shared entities, data
 exchanged, synchronization points, and conflicts.
@@ -3057,6 +3079,7 @@ exchanged, synchronization points, and conflicts.
 - Event flows between processes
 - Matrix view of processes x shared artifacts
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3079,7 +3102,7 @@ exchanged, synchronization points, and conflicts.
 @SectionId('PREXHA')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-EXC')
-class ProcessExceptionHandling {
+class ProcessExceptionHandling extends DocSpecsSection {
   @ContentHelp('''
 Handling of exceptions that interrupt a normal process flow. Distinct
 from UI-level error handling — this is about business
@@ -3093,6 +3116,7 @@ process recovery.
 - Manual-intervention procedures
 - Audit requirements for handled exceptions
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3116,7 +3140,7 @@ process recovery.
 @SectionId('ETETS')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-E2E')
-class EndToEndTestScenario {
+class EndToEndTestScenario extends DocSpecsSection {
   @ContentHelp('''
 End-to-end test scenarios derived from use cases and key user journeys.
 Feeds BQP test strategy and the Phase 5 test derivation step.
@@ -3129,6 +3153,7 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 - Exit criteria for each scenario
 - Cross-reference to use cases and requirements
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3153,7 +3178,7 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 @SectionId('ACOV')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-ACT')
-class ActorOverview {
+class ActorOverview extends DocSpecsSection {
   @ContentHelp('''
 Actors represent roles that interact with the system. Following UML actor
 modeling conventions with Cockburn-style goal and scope annotations.
@@ -3172,6 +3197,7 @@ modeling conventions with Cockburn-style goal and scope annotations.
 - Permissions (security clearance, RBAC roles, approval limits)
 - Technology profile (channels, devices, authentication methods)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3230,7 +3256,7 @@ modeling conventions with Cockburn-style goal and scope annotations.
     ),
   ])
   @SerializationOrder(1)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 1+× Actor.
   @StandardReferences(
@@ -3290,7 +3316,7 @@ modeling conventions with Cockburn-style goal and scope annotations.
     ),
   ])
   @SerializationOrder(3)
-  String? categorization;
+  DocSpecsSection? categorization;
 }
 
 /// An actor entry.
@@ -3307,7 +3333,7 @@ modeling conventions with Cockburn-style goal and scope annotations.
   'characteristics, goals, permissions, technology and interactions.',
 )
 @SectionId('ACEN')
-class ActorEntry {
+class ActorEntry extends DocSpecsSection {
   /// Actor identification.
   @SectionId('ACID')
   @StandardReferences(
@@ -3377,7 +3403,7 @@ class ActorEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identification;
+  DocSpecsSection? identification;
 
   /// Actor characteristics.
   @SerializationOrder(1)
@@ -3472,7 +3498,7 @@ class ActorEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? technology;
+  DocSpecsSection? technology;
 
   /// Actor interactions summary.
   @SectionId('ACINSU')
@@ -3530,7 +3556,7 @@ class ActorEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? interactions;
+  DocSpecsSection? interactions;
 }
 
 /// Actor characteristics.
@@ -3543,7 +3569,7 @@ class ActorEntry {
   'engage with the system.',
 )
 @SectionId('ACTCHA')
-class ActorCharacteristics {
+class ActorCharacteristics extends DocSpecsSection {
   @Form([
     Field(
       'domainKnowledge',
@@ -3570,6 +3596,7 @@ class ActorCharacteristics {
       hint: 'State how often the actor uses the system',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3610,7 +3637,7 @@ class ActorCharacteristics {
     ),
   ])
   @SerializationOrder(1)
-  String? usage;
+  DocSpecsSection? usage;
 
   /// Communication and accessibility profile.
   @SectionId('ACCHSU')
@@ -3649,7 +3676,7 @@ class ActorCharacteristics {
     ),
   ])
   @SerializationOrder(2)
-  String? support;
+  DocSpecsSection? support;
 }
 
 /// Actor goals (Cockburn-style goal hierarchy).
@@ -3663,7 +3690,7 @@ class ActorCharacteristics {
   'their success measures and motivations.',
 )
 @SectionId('ACGO')
-class ActorGoals {
+class ActorGoals extends DocSpecsSection {
   @Form([
     Field(
       'summaryGoals',
@@ -3714,6 +3741,7 @@ class ActorGoals {
       hint: 'State improvements the actor would like to see',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3728,7 +3756,7 @@ class ActorGoals {
   'along with audit requirements.',
 )
 @SectionId('ACPE')
-class ActorPermissions {
+class ActorPermissions extends DocSpecsSection {
   @Form([
     Field(
       'securityClearance',
@@ -3779,6 +3807,7 @@ class ActorPermissions {
       hint: 'List the actor actions that must be logged for audit',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3803,7 +3832,7 @@ class ActorPermissions {
 @SectionId('INCA')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-INT')
-class InteractionCatalog {
+class InteractionCatalog extends DocSpecsSection {
   @ContentHelp('''
 Container for key interaction descriptions. Each interaction seeds a use case
 following Cockburn's fully dressed use case template.
@@ -3826,6 +3855,7 @@ following Cockburn's fully dressed use case template.
 - Could Have — nice to have
 - Won't Have — explicitly out of scope
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3890,7 +3920,7 @@ following Cockburn's fully dressed use case template.
     ),
   ])
   @SerializationOrder(1)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 1+× Interaction.
   @StandardReferences([
@@ -3958,7 +3988,7 @@ following Cockburn's fully dressed use case template.
     ),
   ])
   @SerializationOrder(3)
-  String? prioritization;
+  DocSpecsSection? prioritization;
 }
 
 /// An interaction entry.
@@ -3975,7 +4005,7 @@ following Cockburn's fully dressed use case template.
   'case — identity, scope, stakeholders, pre/postconditions, flows and rules.',
 )
 @SectionId('INEN')
-class InteractionEntry {
+class InteractionEntry extends DocSpecsSection {
   /// Interaction identification (use case header).
   @SectionId('INID')
   @StandardReferences(
@@ -4045,7 +4075,7 @@ class InteractionEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identification;
+  DocSpecsSection? identification;
 
   /// Use case scope and context (Cockburn style).
   @SectionId('UCSC')
@@ -4108,7 +4138,7 @@ class InteractionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scopeContext;
+  DocSpecsSection? scopeContext;
 
   /// Stakeholders and interests.
   @StandardReferences(
@@ -4237,7 +4267,7 @@ class InteractionEntry {
     ),
   ])
   @SerializationOrder(9)
-  String? performance;
+  DocSpecsSection? performance;
 
   /// Security and authorization.
   @SectionId('INSE')
@@ -4294,7 +4324,7 @@ class InteractionEntry {
     ),
   ])
   @SerializationOrder(10)
-  String? security;
+  DocSpecsSection? security;
 
   /// Business rules triggered.
   @StandardReferences([
@@ -4368,7 +4398,7 @@ class InteractionEntry {
     ),
   ])
   @SerializationOrder(12)
-  String? traceability;
+  DocSpecsSection? traceability;
 }
 
 /// Stakeholders and interests.
@@ -4381,7 +4411,7 @@ class InteractionEntry {
   'system to protect.',
 )
 @SectionId('STANIN')
-class StakeholdersAndInterests {
+class StakeholdersAndInterests extends DocSpecsSection {
   @Form([
     Field(
       'primaryActorInterest',
@@ -4420,6 +4450,7 @@ class StakeholdersAndInterests {
       hint: 'Any further parties and their interests',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4434,7 +4465,7 @@ class StakeholdersAndInterests {
   'in motion.',
 )
 @SectionId('PRANTR')
-class PreconditionsAndTriggers {
+class PreconditionsAndTriggers extends DocSpecsSection {
   @Form([
     Field(
       'precondition',
@@ -4479,6 +4510,7 @@ class PreconditionsAndTriggers {
       hint: 'Guard checks performed before the main flow',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4493,7 +4525,7 @@ class PreconditionsAndTriggers {
   'system and data state after the interaction.',
 )
 @SectionId('POANGU')
-class PostconditionsAndGuarantees {
+class PostconditionsAndGuarantees extends DocSpecsSection {
   @Form([
     Field(
       'minimalGuarantees',
@@ -4538,6 +4570,7 @@ class PostconditionsAndGuarantees {
       hint: 'Audit records written for this interaction',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4552,7 +4585,7 @@ class PostconditionsAndGuarantees {
   'reaches its goal without deviation.',
 )
 @SectionId('MASUSC')
-class MainSuccessScenario {
+class MainSuccessScenario extends DocSpecsSection {
   @Form([
     Field(
       'scenarioSummary',
@@ -4573,6 +4606,7 @@ class MainSuccessScenario {
       hint: 'How many numbered steps the flow has',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4598,7 +4632,7 @@ class MainSuccessScenario {
   'response, with the data, rules and UI involved.',
 )
 @SectionId('MNSST')
-class MainScenarioStepEntry {
+class MainScenarioStepEntry extends DocSpecsSection {
   @Form([
     Field(
       'stepNumber',
@@ -4650,6 +4684,7 @@ class MainScenarioStepEntry {
       hint: 'Expected time to complete this step',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4664,7 +4699,7 @@ class MainScenarioStepEntry {
   'success scenario.',
 )
 @SectionId('USCAEX')
-class UseCaseExtensions {
+class UseCaseExtensions extends DocSpecsSection {
   @Form([
     Field(
       'extensionSummary',
@@ -4679,6 +4714,7 @@ class UseCaseExtensions {
       hint: 'How many extensions are documented',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4703,7 +4739,7 @@ class UseCaseExtensions {
   'alternative or exception path.',
 )
 @SectionId('EXTEN')
-class ExtensionEntry {
+class ExtensionEntry extends DocSpecsSection {
   @Form([
     Field(
       'extensionId',
@@ -4761,6 +4797,7 @@ class ExtensionEntry {
       hint: 'Impact level for exception/error branches',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4785,7 +4822,7 @@ class ExtensionEntry {
   'response.',
 )
 @SectionId('EXTST')
-class ExtensionStepEntry {
+class ExtensionStepEntry extends DocSpecsSection {
   @Form([
     Field(
       'stepNumber',
@@ -4806,6 +4843,7 @@ class ExtensionStepEntry {
       hint: 'How the system responds in this step',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4820,7 +4858,7 @@ class ExtensionStepEntry {
   'which the same interaction may run.',
 )
 @SectionId('TEDAVA')
-class TechnologyDataVariations {
+class TechnologyDataVariations extends DocSpecsSection {
   @Form([
     Field(
       'dataVariations',
@@ -4859,6 +4897,7 @@ class TechnologyDataVariations {
       hint: 'How the interaction behaves while offline',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4873,7 +4912,7 @@ class TechnologyDataVariations {
   'feedback and layout — ahead of full UI design.',
 )
 @SectionId('UIRP')
-class UIRequirementsPreview {
+class UIRequirementsPreview extends DocSpecsSection {
   @Form([
     Field(
       'primaryScreen',
@@ -4924,6 +4963,7 @@ class UIRequirementsPreview {
       hint: 'Gesture or interaction patterns used',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4939,7 +4979,7 @@ class UIRequirementsPreview {
   'notification and integration — invoked by this interaction.',
 )
 @SectionId('INBURU')
-class InteractionBusinessRules {
+class InteractionBusinessRules extends DocSpecsSection {
   @Form([
     Field(
       'validationRules',
@@ -4978,6 +5018,7 @@ class InteractionBusinessRules {
       hint: 'BR-xxx rules governing external integrations',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5001,7 +5042,7 @@ class InteractionBusinessRules {
 @SectionId('KESC')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-SCE')
-class KeyScenarios {
+class KeyScenarios extends DocSpecsSection {
   @ContentHelp('''
 End-to-end scenario descriptions showing how users achieve business goals
 through sequences of interactions. Scenarios bridge the gap between individual
@@ -5025,6 +5066,7 @@ interactions and complete user journeys.
 "A new customer discovers the service, registers, completes verification,
 and places their first order."
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5070,7 +5112,7 @@ and places their first order."
     ),
   ])
   @SerializationOrder(1)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Contains 1+× Scenario.
   @StandardReferences(
@@ -5099,7 +5141,7 @@ and places their first order."
   'A comprehensive definition of one end-to-end scenario, bundling its identity, context, steps, alternative flows, data, timing, and validation.',
 )
 @SectionId('SCNRY')
-class ScenarioEntry {
+class ScenarioEntry extends DocSpecsSection {
   /// Scenario identification.
   @SectionId('SCID')
   @StandardReferences([
@@ -5165,7 +5207,7 @@ class ScenarioEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identification;
+  DocSpecsSection? identification;
 
   /// Scenario context.
   @SectionId('SCCO')
@@ -5221,7 +5263,7 @@ class ScenarioEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? context;
+  DocSpecsSection? context;
 
   /// Contains 1+× Scenario Step.
   @StandardReferences(
@@ -5299,7 +5341,7 @@ class ScenarioEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? scenarioData;
+  DocSpecsSection? scenarioData;
 
   /// Scenario timing.
   @SectionId('SCTI')
@@ -5349,7 +5391,7 @@ class ScenarioEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? timing;
+  DocSpecsSection? timing;
 
   /// Scenario validation.
   @SectionId('SCVA')
@@ -5399,7 +5441,7 @@ class ScenarioEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? validation;
+  DocSpecsSection? validation;
 }
 
 /// A scenario step entry.
@@ -5411,7 +5453,7 @@ class ScenarioEntry {
   'A single numbered step of the main flow, pairing an actor action with the resulting system response.',
 )
 @SectionId('SCNST')
-class ScenarioStepEntry {
+class ScenarioStepEntry extends DocSpecsSection {
   @Form([
     Field(
       'stepNumber',
@@ -5439,6 +5481,7 @@ class ScenarioStepEntry {
       hint: 'How the system responds to the action',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5478,7 +5521,7 @@ class ScenarioStepEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? context;
+  DocSpecsSection? context;
 
   /// Branching, timing, and notes.
   @SectionId('SCSTENEX')
@@ -5510,7 +5553,7 @@ class ScenarioStepEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 }
 
 /// An alternative flow entry.
@@ -5522,7 +5565,7 @@ class ScenarioStepEntry {
   'Defines a single alternative, exception, or error flow that branches from the main scenario path.',
 )
 @SectionId('ALFL')
-class AlternativeFlowEntry {
+class AlternativeFlowEntry extends DocSpecsSection {
   @Form([
     Field(
       'flowId',
@@ -5587,6 +5630,7 @@ class AlternativeFlowEntry {
       hint: 'Business consequence of this flow',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5615,7 +5659,7 @@ class AlternativeFlowEntry {
   'A single step within an alternative flow, pairing an action with its system response and expected result.',
 )
 @SectionId('ALST')
-class AlternativeStepEntry {
+class AlternativeStepEntry extends DocSpecsSection {
   @Form([
     Field(
       'stepNumber',
@@ -5637,6 +5681,7 @@ class AlternativeStepEntry {
       hint: 'The observable outcome after the step',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5658,7 +5703,7 @@ class AlternativeStepEntry {
 @SectionId('PMAK')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-MET')
-class ProcessMetric {
+class ProcessMetric extends DocSpecsSection {
   @ContentHelp('''
 How each business process is measured for success once in production.
 
@@ -5670,6 +5715,7 @@ How each business process is measured for success once in production.
 - Thresholds for corrective action
 - Baseline values for comparison
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5691,7 +5737,7 @@ How each business process is measured for success once in production.
 @SectionId('USCATR')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-TRC')
-class UseCaseTraceability {
+class UseCaseTraceability extends DocSpecsSection {
   @ContentHelp('''
 Traceability matrix linking use cases to requirements, processes, and
 tests. Ensures every use case is justified and covered.
@@ -5703,6 +5749,7 @@ tests. Ensures every use case is justified and covered.
 - Orphan detection (UCs without requirements or tests)
 - Change-impact helper (navigate from a changed UC to affected artifacts)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }

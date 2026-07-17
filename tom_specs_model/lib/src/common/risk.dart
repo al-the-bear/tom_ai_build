@@ -9,7 +9,7 @@ import 'enums.dart';
   'A single risk entry with its probability, impact, mitigation, owner, and review frequency.',
 )
 @SectionId('RISK')
-class Risk {
+class Risk extends DocSpecsSection {
   @Form([
     Field('riskId', String, 'Risk ID (RISK-NNN)', required: true),
     Field('name', String, 'Name', required: true),
@@ -20,6 +20,7 @@ class Risk {
     Field('riskOwner', String, 'Risk Owner'),
     Field('reviewFrequency', String, 'Review Frequency'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

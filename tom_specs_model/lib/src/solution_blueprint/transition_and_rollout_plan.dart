@@ -25,13 +25,14 @@ import '../document_stubs.dart';
 @SectionId('ROLC')
 @Comment('Seeds → TRP')
 @MapsTo(D12TransitionRolloutPlan)
-class SystemRollout {
+class SystemRollout extends DocSpecsSection {
   @ContentHelp('''
 Executive summary of the rollout approach: from pilot through phased
 rollout, migration, user enablement, cutover, knowledge transfer, and
 post-go-live support. Seeds the TRP document (Phase 3) together with the
 localization, translation, and documentation subtrees.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -97,7 +98,7 @@ localization, translation, and documentation subtrees.
 @SectionId('RLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-PLN')
-class RolloutPlan {
+class RolloutPlan extends DocSpecsSection {
   @ContentHelp('''
 Rollout plan: sequencing, waves, and criteria for moving each cohort from
 pre-go-live to production.
@@ -110,6 +111,7 @@ pre-go-live to production.
 - Communication plan per wave
 - Dependencies between waves (data migration, integration readiness)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -138,7 +140,7 @@ pre-go-live to production.
 @SectionId('MIGPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-MIG')
-class MigrationPlan {
+class MigrationPlan extends DocSpecsSection {
   @ContentHelp('''
 System migration plan distinct from the per-data-entity migration
 mapping. Focuses on the execution plan.
@@ -152,6 +154,7 @@ mapping. Focuses on the execution plan.
 - Fallback / rollback procedure and triggers
 - Roles and responsibilities during migration
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -179,7 +182,7 @@ mapping. Focuses on the execution plan.
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
-class UserManual {
+class UserManual extends DocSpecsSection {
   @ContentHelp('''
 User manual deliverables: what documents are produced, for which user
 categories, in which languages, on what delivery channel (in-app help,
@@ -194,6 +197,7 @@ the help-concept section).
 - Distribution channels
 - Versioning and maintenance approach post-go-live
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -221,7 +225,7 @@ the help-concept section).
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
-class RolloutTrainingMaterial {
+class RolloutTrainingMaterial extends DocSpecsSection {
   @ContentHelp('''
 Training plan and materials: courses, content packages, trainers, and
 delivery mechanism. Complements the training-module catalogue which
@@ -235,6 +239,7 @@ captures the catalog of training modules.
 - Certification / proficiency-check criteria
 - Post-go-live refresher / onboarding approach
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -256,7 +261,7 @@ captures the catalog of training modules.
 @SectionId('PLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-PIL')
-class PilotPlan {
+class PilotPlan extends DocSpecsSection {
   @ContentHelp('''
 Pilot definition: who participates, what is in/out of pilot scope, how
 success is measured, and the decision gate that authorizes rollout.
@@ -270,6 +275,7 @@ success is measured, and the decision gate that authorizes rollout.
 - Exit decision rules (proceed / extend / abort)
 - Risk and rollback plan
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -292,7 +298,7 @@ success is measured, and the decision gate that authorizes rollout.
 @SectionId('CUTPRC')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-CUT')
-class CutoverProcedure {
+class CutoverProcedure extends DocSpecsSection {
   @ContentHelp('''
 Cutover runbook: the operational plan that executes the go-live moment.
 Deliberately more tactical than the Rollout Plan — which sets cohorts and
@@ -307,6 +313,7 @@ waves — and than the Migration Plan — which covers data execution.
 - Command center / war-room setup
 - Post-cutover verification checks
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -329,7 +336,7 @@ waves — and than the Migration Plan — which covers data execution.
 @SectionId('KNTFR')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-KNO')
-class KnowledgeTransfer {
+class KnowledgeTransfer extends DocSpecsSection {
   @ContentHelp('''
 Formal handover of system knowledge to operations and support teams.
 
@@ -341,6 +348,7 @@ Formal handover of system knowledge to operations and support teams.
 - Reference contacts for escalation post-handover
 - Artifact storage location and access model
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -363,7 +371,7 @@ Formal handover of system knowledge to operations and support teams.
 @SectionId('WRTSP')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-WAR')
-class WarrantyAndSupport {
+class WarrantyAndSupport extends DocSpecsSection {
   @ContentHelp('''
 Terms governing the warranty window that follows acceptance. Distinct
 from the long-term operations SLA (the acceptance-plan warranty section
@@ -377,6 +385,7 @@ covers acceptance-time warranty; this entry captures the execution plan).
 - Transition from warranty to BAU support
 - Exit criteria for warranty closure
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }

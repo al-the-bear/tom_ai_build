@@ -32,8 +32,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('IFM')
-class D03InformationModel {
+class D03InformationModel extends DocSpecsSection {
   @ContentHelp('Executive overview of the business data model.')
+  @override
   @SerializationOrder(0)
   String? content;
 

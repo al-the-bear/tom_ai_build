@@ -15,9 +15,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
   'must operate within, and external dependencies.',
 )
 @SectionId('ACDP')
-class AssumptionsConstraintsDependencies {
+class AssumptionsConstraintsDependencies extends DocSpecsSection {
   @ContentType('description', 'Summarize the key assumptions the solution '
       'relies on and the constraints it must operate within.')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -32,8 +33,9 @@ class AssumptionsConstraintsDependencies {
   'The consolidated register of assumptions, constraints, and dependencies.',
 )
 @SectionId('ACRG')
-class AssumptionConstraintDependencyRegister {
+class AssumptionConstraintDependencyRegister extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -70,7 +72,7 @@ class AssumptionConstraintDependencyRegister {
   'approach.',
 )
 @SectionId('ASMRE')
-class AssumptionRegisterEntry {
+class AssumptionRegisterEntry extends DocSpecsSection {
   @Form([
     Field('assumptionId', String, 'Assumption ID (ASM-NNN)', required: true),
     Field('description', String, 'Description', required: true),
@@ -78,6 +80,7 @@ class AssumptionRegisterEntry {
     Field('validation', String, 'Validation approach'),
     Field('status', String, 'Status (Open, Confirmed, Invalidated)'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -92,7 +95,7 @@ class AssumptionRegisterEntry {
   'source.',
 )
 @SectionId('CONRE')
-class ConstraintRegisterEntry {
+class ConstraintRegisterEntry extends DocSpecsSection {
   @Form([
     Field('constraintId', String, 'Constraint ID (CON-NNN)', required: true),
     Field('description', String, 'Description', required: true),
@@ -100,6 +103,7 @@ class ConstraintRegisterEntry {
     Field('source', String, 'Source'),
     Field('impact', String, 'Impact on the solution'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -117,7 +121,7 @@ class ConstraintRegisterEntry {
   'criticality.',
 )
 @SectionId('DEPRE')
-class DependencyRegisterEntry {
+class DependencyRegisterEntry extends DocSpecsSection {
   @Form([
     Field('dependencyId', String, 'Dependency ID (DEP-NNN)', required: true),
     Field('description', String, 'Description', required: true),
@@ -126,6 +130,7 @@ class DependencyRegisterEntry {
     Field('criticality', String, 'Criticality (Low, Medium, High, Blocking)'),
     Field('status', String, 'Status (Open, Confirmed, Resolved, At risk)'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

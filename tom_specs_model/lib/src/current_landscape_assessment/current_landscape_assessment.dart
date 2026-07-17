@@ -30,9 +30,10 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('CLA')
-class D01CurrentLandscapeAssessment {
+class D01CurrentLandscapeAssessment extends DocSpecsSection {
   @ContentHelp('Executive overview of the current-state analysis that '
       'motivates the project.')
+  @override
   @SerializationOrder(0)
   String? content;
 

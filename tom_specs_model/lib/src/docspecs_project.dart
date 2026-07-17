@@ -43,7 +43,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// (Solution-Blueprint-only, §15.1) and the projection connect pass (N11) are
 /// added in a later step; here the container simply wires the thirteen roots
 /// onto one tree.
-class DocSpecsProject {
+class DocSpecsProject extends DocSpecsSection {
   /// Constructs the container and ensures the generated snapshot/serialization
   /// ops are registered (idempotent), so [toYaml] / [toYamlForRoot] and the
   /// snapshot engine can drive the model classes without `dart:mirrors` (OE-2).

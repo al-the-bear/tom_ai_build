@@ -64,6 +64,10 @@ class SpecOpsGenerator {
       ..sort();
 
     buffer.writeln('  // --- Section content leaves (tom_specs_core) ---');
+    // YRD5: the universal section base type itself is a content leaf — model
+    // members typed `DocSpecsSection?` / `List<DocSpecsSection>` hold plain
+    // instances of it unless a subclass was assigned.
+    _writeContentLeaf(buffer, 'DocSpecsSection');
     for (final type in _sectionLeafTypes) {
       _writeContentLeaf(buffer, type);
     }
@@ -106,9 +110,18 @@ class SpecOpsGenerator {
   }
 
   void _writeContentLeaf(StringBuffer b, String type) {
+    // YRD5: section leaves extend DocSpecsSection, so the shallow clone copies
+    // the full stored state — headline, id, content and the parsed form.
     b.writeln('  SpecRegistry.register($type, SpecClassOps(');
     b.writeln('    slots: (o) => const [],');
-    b.writeln('    cloneShallow: (o) => $type()..content = (o as $type).content,');
+    b.writeln('    cloneShallow: (o) {');
+    b.writeln('      final n = o as $type;');
+    b.writeln('      return $type()');
+    b.writeln('        ..headline = n.headline');
+    b.writeln('        ..id = n.id');
+    b.writeln('        ..content = n.content');
+    b.writeln('        ..form = n.form;');
+    b.writeln('    },');
     b.writeln('    yamlScalar: (o) => (o as $type).content,');
     b.writeln('  ));');
   }
@@ -158,7 +171,7 @@ class SpecOpsGenerator {
   }
 
   String _slotExpr(ModelField f) {
-    if (f.isList && f.listElementIsComplex) {
+    if (f.isList && (f.listElementIsComplex || f.listElementIsContentSection)) {
       final elem = f.listElementTypeName;
       return 'SpecSlot.list(() => n.${f.name}, '
           "(v) => n.${f.name} = v.cast<$elem>(), label: '${f.name}'),";
@@ -170,8 +183,11 @@ class SpecOpsGenerator {
   }
 
   bool _isChildNode(ModelField f) {
-    if (f.isList) return f.listElementIsComplex;
-    return f.isSectionType || f.isComplex;
+    // YRD5: `DocSpecsSection` members are child nodes of the object tree (the
+    // engine recurses into them), even though the *meta* tree renders them as
+    // content leaves.
+    if (f.isList) return f.listElementIsComplex || f.listElementIsContentSection;
+    return f.isSectionType || f.isComplex || f.isContentSection;
   }
 
   /// The String field used for [yamlScalar]: the canonical `content`, or the

@@ -428,13 +428,16 @@ class MetaTreeBuilder {
     }
 
     return MetaNode(
-      className: _baseTypeName(
-          field.isList ? (field.listElementTypeName ?? 'Object') : field.typeName),
+      // metaTypeName keeps `DocSpecsSection` members byte-identical to the
+      // former `String` members in the exported tree (YRD5).
+      className: _baseTypeName(field.isList
+          ? (field.metaListElementTypeName ?? 'Object')
+          : field.metaTypeName),
       memberName: field.name,
       sectionId: slots.sectionId,
       sectionIdPattern: slots.sectionIdPattern,
       kind: kind,
-      typeName: field.typeName,
+      typeName: field.metaTypeName,
       serializationOrder: slots.serializationOrder,
       min: slots.min,
       unused: slots.unused,
@@ -456,7 +459,9 @@ class MetaTreeBuilder {
   /// The element subtree of a list field: the element class expanded (with
   /// cycle detection), or a leaf node for non-class element types.
   MetaNode? _listElementNode(ModelField field, {required Set<String> stack}) {
-    final elementTypeName = field.listElementTypeName;
+    // metaListElementTypeName maps `List<DocSpecsSection>` elements to the
+    // `String` content leaf they replaced (YRD5).
+    final elementTypeName = field.metaListElementTypeName;
     if (elementTypeName == null) return null;
     final target = classes[elementTypeName];
     if (target != null) {
@@ -489,7 +494,13 @@ class MetaTreeBuilder {
     if (f.formFields.isNotEmpty) return MetaNodeKind.form;
     if (f.isSectionType) return MetaNodeKind.section;
     if (f.isEnum) return MetaNodeKind.enumValue;
-    if (f.isString) return MetaNodeKind.content;
+    // Content nodes: plain `String` members and `DocSpecsSection` members
+    // (YRD5) — a DocSpecsSection member IS a simple content section, so it
+    // lands exactly where the former String member landed. DocSpecsSection
+    // *subclasses* stay on the expandable class path below: they are the
+    // sections with subsections, which this tree has always represented via
+    // [MetaNodeKind.complex] class expansion.
+    if (f.isContentLike) return MetaNodeKind.content;
     if (_isPrimitive(f.typeName)) return MetaNodeKind.scalar;
     if (f.isComplex) return MetaNodeKind.complex;
     return MetaNodeKind.scalar;

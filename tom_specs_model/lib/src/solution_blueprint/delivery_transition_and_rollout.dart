@@ -23,8 +23,9 @@ import 'transition_and_rollout_plan.dart';
   'in stages.',
 )
 @SectionId('DTRO')
-class DeliveryTransitionAndRollout {
+class DeliveryTransitionAndRollout extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -76,7 +77,7 @@ class DeliveryTransitionAndRollout {
     ),
   ])
   @SerializationOrder(4)
-  String? localeRolloutPlan;
+  DocSpecsSection? localeRolloutPlan;
 }
 
 /// Localization & Translation execution processes.
@@ -90,8 +91,9 @@ class DeliveryTransitionAndRollout {
   'internationalization requirements into practice.',
 )
 @SectionId('LCTP')
-class LocalizationTranslationProcess {
+class LocalizationTranslationProcess extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 

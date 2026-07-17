@@ -30,8 +30,9 @@ import '../solution_blueprint/solution_blueprint.dart';
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('SAS')
-class D08SecurityAccessSpecification {
+class D08SecurityAccessSpecification extends DocSpecsSection {
   @ContentHelp('Executive overview of the access and authorization concept.')
+  @override
   @SerializationOrder(0)
   String? content;
 

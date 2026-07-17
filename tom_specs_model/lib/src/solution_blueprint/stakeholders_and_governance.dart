@@ -22,13 +22,14 @@ import 'project_process_adjustments.dart';
   'communication, change control, and legal/contractual framing.',
 )
 @SectionId('STKG')
-class StakeholdersAndGovernance {
+class StakeholdersAndGovernance extends DocSpecsSection {
   @ContentHelp('''
 Executive summary of the project's stakeholder and governance arrangements.
 Describe the overall governance model, communication approach, and key
 administrative agreements that govern this project. Highlight any deviations
 from standard organizational project governance procedures.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -106,7 +107,7 @@ from standard organizational project governance procedures.
     ),
   ])
   @SerializationOrder(1)
-  String? summary;
+  DocSpecsSection? summary;
 
   /// Governance, steering committee, RACI, process deviations.
   @SerializationOrder(2)
@@ -158,7 +159,7 @@ from standard organizational project governance procedures.
   'and engagement strategy.',
 )
 @SectionId('STKRE')
-class StakeholderRegisterEntry {
+class StakeholderRegisterEntry extends DocSpecsSection {
   @Form([
     Field('stakeholderId', String, 'Stakeholder ID (STK-NNN)', required: true),
     Field('name', String, 'Name or Group', required: true),
@@ -168,6 +169,7 @@ class StakeholderRegisterEntry {
     Field('concerns', String, 'Concerns'),
     Field('engagementStrategy', String, 'Engagement Strategy'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

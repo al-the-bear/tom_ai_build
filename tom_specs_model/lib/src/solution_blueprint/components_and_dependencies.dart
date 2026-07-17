@@ -25,7 +25,7 @@ import '../document_stubs.dart';
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-COM')
-class ComponentsAndDependencies {
+class ComponentsAndDependencies extends DocSpecsSection {
   @ContentHelp('''
 ## Components and Dependencies (Chapter 12)
 
@@ -51,6 +51,7 @@ Each component should specify:
 - Support model
 - Risk profile
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -102,7 +103,7 @@ Each component should specify:
   'Captures the component strategy governing build-versus-buy philosophy, technology alignment, governance, portfolio, policies, and planning.',
 )
 @SectionId('CMSTR')
-class ComponentStrategy {
+class ComponentStrategy extends DocSpecsSection {
   @Form([
     Field(
       'buildVsBuyPhilosophy',
@@ -125,6 +126,7 @@ class ComponentStrategy {
       hint: 'Target stack, e.g. Dart/Flutter, PostgreSQL, Redis, Kubernetes',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -157,7 +159,7 @@ class ComponentStrategy {
     ),
   ])
   @SerializationOrder(1)
-  String? vendors;
+  DocSpecsSection? vendors;
 
   /// Governance and evaluation process.
   @SectionId('CSGOV')
@@ -190,7 +192,7 @@ class ComponentStrategy {
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Portfolio management settings.
   @SectionId('CSPRT')
@@ -229,7 +231,7 @@ class ComponentStrategy {
     ),
   ])
   @SerializationOrder(3)
-  String? portfolio;
+  DocSpecsSection? portfolio;
 
   /// Policy and baseline requirements.
   @SectionId('CSPOL')
@@ -273,7 +275,7 @@ class ComponentStrategy {
     ),
   ])
   @SerializationOrder(4)
-  String? policies;
+  DocSpecsSection? policies;
 
   /// Budget and pilot planning.
   @SectionId('CSPLN')
@@ -298,7 +300,7 @@ class ComponentStrategy {
     ),
   ])
   @SerializationOrder(5)
-  String? planning;
+  DocSpecsSection? planning;
 
   /// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
   @StandardReferences([
@@ -326,7 +328,7 @@ class ComponentStrategy {
   'Defines a single reuse goal covering what to reuse, why, at what percentage, how to measure, and who owns it.',
 )
 @SectionId('RGUSE')
-class ReuseGoalEntry {
+class ReuseGoalEntry extends DocSpecsSection {
   @Form([
     Field('goalId', String, 'Goal ID', hint: 'Unique identifier, e.g. RG-001'),
     Field(
@@ -350,6 +352,7 @@ class ReuseGoalEntry {
       hint: 'UIComponents / DataLayer / Authentication / Infrastructure / APIs',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -395,7 +398,7 @@ class ReuseGoalEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? measurement;
+  DocSpecsSection? measurement;
 
   /// Governance and ownership.
   @SectionId('RGUGV')
@@ -426,7 +429,7 @@ class ReuseGoalEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Delivery support and assets.
   @SectionId('RGENB')
@@ -457,7 +460,7 @@ class ReuseGoalEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? enablement;
+  DocSpecsSection? enablement;
 }
 
 /// 12.1.2. Evaluation Criteria.
@@ -471,7 +474,7 @@ class ReuseGoalEntry {
   'Container for the component evaluation criteria used when assessing candidate components for adoption.',
 )
 @SectionId('EVCRI')
-class EvaluationCriteria {
+class EvaluationCriteria extends DocSpecsSection {
   @ContentHelp('''
 ## Evaluation Criteria (12.1.2)
 
@@ -493,6 +496,7 @@ Each criterion includes:
 - Evidence requirements
 - Evaluation method
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -518,7 +522,7 @@ Each criterion includes:
   'Defines a single evaluation criterion used when assessing candidate components for adoption.',
 )
 @SectionId('EVCEN')
-class EvaluationCriterionEntry {
+class EvaluationCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
       'criterionId',
@@ -546,6 +550,7 @@ class EvaluationCriterionEntry {
       hint: 'Technical / Commercial / Operational / Strategic / Compliance',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -584,7 +589,7 @@ class EvaluationCriterionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scoring;
+  DocSpecsSection? scoring;
 
   /// Evaluation process.
   @SectionId('EVCEP')
@@ -621,7 +626,7 @@ class EvaluationCriterionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? process;
+  DocSpecsSection? process;
 
   /// Scoring guidelines and scope.
   @SectionId('EVCEG')
@@ -658,7 +663,7 @@ class EvaluationCriterionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? guidelines;
+  DocSpecsSection? guidelines;
 }
 
 // ---------------------------------------------------------------------------
@@ -677,7 +682,7 @@ class EvaluationCriterionEntry {
   'Captures the catalog entry describing one component including identity, vendor, and support profile.',
 )
 @SectionId('CMPNT')
-class ComponentEntry {
+class ComponentEntry extends DocSpecsSection {
   @Form([
     Field(
       'componentId',
@@ -699,6 +704,7 @@ class ComponentEntry {
       hint: 'Database / Framework / Library / Service / Middleware',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -737,7 +743,7 @@ class ComponentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? vendor;
+  DocSpecsSection? vendor;
 
   /// Maturity and community.
   @SectionId('CMPMT')
@@ -768,7 +774,7 @@ class ComponentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? maturity;
+  DocSpecsSection? maturity;
 
   /// Support.
   @SectionId('CMPSP')
@@ -799,7 +805,7 @@ class ComponentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? support;
+  DocSpecsSection? support;
 
   /// Security and performance.
   @SectionId('CMPPF')
@@ -824,7 +830,7 @@ class ComponentEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? performance;
+  DocSpecsSection? performance;
 
   /// Deployment.
   @SectionId('CMPDP')
@@ -846,7 +852,7 @@ class ComponentEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? deployment;
+  DocSpecsSection? deployment;
 
   /// Cost.
   @SectionId('COCO')
@@ -871,7 +877,7 @@ class ComponentEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? cost;
+  DocSpecsSection? cost;
 
   /// Compliance and training.
   @SectionId('CC')
@@ -896,7 +902,7 @@ class ComponentEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Risk assessment.
   @SectionId('CORI')
@@ -927,7 +933,7 @@ class ComponentEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? risk;
+  DocSpecsSection? risk;
 
   /// Documentation.
   @StandardReferences([
@@ -976,7 +982,7 @@ class ComponentEntry {
   'Captures the documentation quality, links, and approval status recorded for a component.',
 )
 @SectionId('CODO')
-class ComponentDocs {
+class ComponentDocs extends DocSpecsSection {
   @Form([
     Field(
       'documentationQuality',
@@ -1003,6 +1009,7 @@ class ComponentDocs {
       hint: 'Name/role of person who approved this component',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1019,7 +1026,7 @@ class ComponentDocs {
   'Captures one interface exposed or consumed by a component covering protocol, authentication, data format, rate limits, versioning, SLA, and monitoring.',
 )
 @SectionId('CMIF')
-class ComponentInterfaceEntry {
+class ComponentInterfaceEntry extends DocSpecsSection {
   @Form([
     Field(
       'interfaceName',
@@ -1041,6 +1048,7 @@ class ComponentInterfaceEntry {
       hint: 'HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1073,7 +1081,7 @@ class ComponentInterfaceEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? network;
+  DocSpecsSection? network;
 
   /// Security settings.
   @SectionId('CIES')
@@ -1104,7 +1112,7 @@ class ComponentInterfaceEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? security;
+  DocSpecsSection? security;
 
   /// Data format configuration.
   @SectionId('CIED')
@@ -1148,7 +1156,7 @@ class ComponentInterfaceEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? data;
+  DocSpecsSection? data;
 
   /// SLA and monitoring.
   @SectionId('COINENSL')
@@ -1186,7 +1194,7 @@ class ComponentInterfaceEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? sla;
+  DocSpecsSection? sla;
 
   /// Operations and documentation.
   @SectionId('CIEO')
@@ -1217,7 +1225,7 @@ class ComponentInterfaceEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Component licensing sub-entry (form).
@@ -1232,7 +1240,7 @@ class ComponentInterfaceEntry {
   'Captures the component licensing model covering license model, name, contract term, costs, usage rights, compliance restrictions, capacity rules, and termination terms.',
 )
 @SectionId('COLIEN')
-class ComponentLicensingEntry {
+class ComponentLicensingEntry extends DocSpecsSection {
   @Form([
     Field(
       'licenseModel',
@@ -1254,6 +1262,7 @@ class ComponentLicensingEntry {
       hint: 'Duration of the agreement, e.g. 3 years',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1287,7 +1296,7 @@ class ComponentLicensingEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? costs;
+  DocSpecsSection? costs;
 
   /// Usage rights and obligations.
   @SectionId('CLER')
@@ -1325,7 +1334,7 @@ class ComponentLicensingEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? rights;
+  DocSpecsSection? rights;
 
   /// Compliance restrictions.
   @SectionId('COLIENCO')
@@ -1356,7 +1365,7 @@ class ComponentLicensingEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Metering and capacity rules.
   @SectionId('COLIENCA')
@@ -1388,7 +1397,7 @@ class ComponentLicensingEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? capacity;
+  DocSpecsSection? capacity;
 
   /// Contract termination terms.
   @SectionId('COMLICENTCON')
@@ -1407,7 +1416,7 @@ class ComponentLicensingEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? contract;
+  DocSpecsSection? contract;
 }
 
 /// Component responsibilities sub-entry (form).
@@ -1421,7 +1430,7 @@ class ComponentLicensingEntry {
   'Captures component responsibilities covering primary and backup ownership, escalation path, vendor support, SLA targets, security operations, and governance.',
 )
 @SectionId('COREEN')
-class ComponentResponsibilitiesEntry {
+class ComponentResponsibilitiesEntry extends DocSpecsSection {
   @Form([
     Field(
       'primaryOwner',
@@ -1442,6 +1451,7 @@ class ComponentResponsibilitiesEntry {
       hint: 'Ordered escalation chain with roles and timeframes',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1468,7 +1478,7 @@ class ComponentResponsibilitiesEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? support;
+  DocSpecsSection? support;
 
   /// SLA commitments.
   @SectionId('COREENSL')
@@ -1499,7 +1509,7 @@ class ComponentResponsibilitiesEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? sla;
+  DocSpecsSection? sla;
 
   /// Security and update operations.
   @SectionId('CREO')
@@ -1548,7 +1558,7 @@ class ComponentResponsibilitiesEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? operations;
+  DocSpecsSection? operations;
 
   /// Governance and planning.
   @SectionId('CREG')
@@ -1586,7 +1596,7 @@ class ComponentResponsibilitiesEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 // ---------------------------------------------------------------------------
@@ -1605,7 +1615,7 @@ class ComponentResponsibilitiesEntry {
   'Captures the runtime dependency graph governing required services, startup order, health checks, failover behavior, and version constraints.',
 )
 @SectionId('RUDE')
-class RuntimeDependencies {
+class RuntimeDependencies extends DocSpecsSection {
   @ContentHelp('''
 ## Runtime Dependencies (12.4)
 
@@ -1627,6 +1637,7 @@ Runtime dependencies between components.
 For each dependency, document latency tolerance, caching
 strategy, and fallback alternatives.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1656,7 +1667,7 @@ strategy, and fallback alternatives.
   'Captures the maintenance dependency graph governing the version compatibility matrix, coordinated update sequences, and breaking-change handling.',
 )
 @SectionId('MADE')
-class MaintenanceDependencies {
+class MaintenanceDependencies extends DocSpecsSection {
   @ContentHelp('''
 ## Maintenance Dependencies (12.5)
 
@@ -1677,6 +1688,7 @@ Maintenance relationships and update coordination.
 - Migration planning
 - Deprecation handling
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1706,7 +1718,7 @@ Maintenance relationships and update coordination.
   'Documents one runtime dependency covering startup order, health checks, failover, data flow, latency tolerance, and caching strategy.',
 )
 @SectionId('RNDEP')
-class RuntimeDependencyEntry {
+class RuntimeDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
       'dependencyId',
@@ -1734,6 +1746,7 @@ class RuntimeDependencyEntry {
       hint: 'Runtime / Optional / Peer / Conditional',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1761,7 +1774,7 @@ class RuntimeDependencyEntry {
     Field('purpose', String, 'Purpose', hint: 'Why this dependency exists'),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Startup and health behavior.
   @SectionId('RDES')
@@ -1798,7 +1811,7 @@ class RuntimeDependencyEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? startup;
+  DocSpecsSection? startup;
 
   /// Resilience behavior.
   @SectionId('RDER')
@@ -1829,7 +1842,7 @@ class RuntimeDependencyEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? resilience;
+  DocSpecsSection? resilience;
 
   /// Data flow and network characteristics.
   @SectionId('RDEI')
@@ -1860,7 +1873,7 @@ class RuntimeDependencyEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Compatibility and transitive risk notes.
   @SectionId('RUDEENRI')
@@ -1885,7 +1898,7 @@ class RuntimeDependencyEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? risk;
+  DocSpecsSection? risk;
 }
 
 /// A maintenance dependency entry (form).
@@ -1900,7 +1913,7 @@ class RuntimeDependencyEntry {
   'Documents one maintenance dependency covering coordinated update sequences, version compatibility, and breaking-change handling.',
 )
 @SectionId('MNDEP')
-class MaintenanceDependencyEntry {
+class MaintenanceDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
       'dependencyId',
@@ -1928,6 +1941,7 @@ class MaintenanceDependencyEntry {
       hint: 'Acceptable version range, e.g. >=3.2 <4.0',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1960,7 +1974,7 @@ class MaintenanceDependencyEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Update coordination.
   @SectionId('MDEU')
@@ -1997,7 +2011,7 @@ class MaintenanceDependencyEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? update;
+  DocSpecsSection? update;
 
   /// Risk and fallback planning.
   @SectionId('MDER')
@@ -2034,7 +2048,7 @@ class MaintenanceDependencyEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? risk;
+  DocSpecsSection? risk;
 }
 
 // ---------------------------------------------------------------------------
@@ -2053,7 +2067,7 @@ class MaintenanceDependencyEntry {
   'Captures the component-level risk assessment governing risk identification, monitoring, mitigation, and contingency planning.',
 )
 @SectionId('CORIAS')
-class ComponentRiskAssessment {
+class ComponentRiskAssessment extends DocSpecsSection {
   @ContentHelp('''
 ## Risk Assessment (12.6)
 
@@ -2076,6 +2090,7 @@ Each risk includes:
 - **12.6.1 Component Risks** — Individual risk entries
 - **12.6.2 Contingency Plans** — Response plans for critical risks
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2104,7 +2119,7 @@ Each risk includes:
   'Contains the contingency plans that respond to critical component risk events.',
 )
 @SectionId('CONPLA')
-class ContingencyPlans {
+class ContingencyPlans extends DocSpecsSection {
   @ContentHelp('''
 ## Contingency Plans (12.6.2)
 
@@ -2125,6 +2140,7 @@ Plans for responding to component risk events.
 ### Dependencies
 Document tools, access, and backups required to execute.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2151,7 +2167,7 @@ Document tools, access, and backups required to execute.
   'Describes a single contingency plan entry for a component risk, spanning references, actions, responsibility, communication, and testing.',
 )
 @SectionId('COPL')
-class ContingencyPlanEntry {
+class ContingencyPlanEntry extends DocSpecsSection {
   @Form([
     Field(
       'contingencyId',
@@ -2173,6 +2189,7 @@ class ContingencyPlanEntry {
       hint: 'Specific event or threshold that activates this plan',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2199,7 +2216,7 @@ class ContingencyPlanEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? references;
+  DocSpecsSection? references;
 
   /// Action steps: trigger detection, immediate, and recovery.
   @SectionId('CPEA')
@@ -2230,7 +2247,7 @@ class ContingencyPlanEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? actions;
+  DocSpecsSection? actions;
 
   /// Responsibility and recovery targets.
   @SectionId('COPLENRE')
@@ -2267,7 +2284,7 @@ class ContingencyPlanEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? responsibility;
+  DocSpecsSection? responsibility;
 
   /// Communication plans.
   @SectionId('CPEC')
@@ -2292,7 +2309,7 @@ class ContingencyPlanEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? communication;
+  DocSpecsSection? communication;
 
   /// Testing and resources.
   @SectionId('CPET')
@@ -2353,7 +2370,7 @@ class ContingencyPlanEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? testing;
+  DocSpecsSection? testing;
 }
 
 /// A component risk entry (form).
@@ -2368,7 +2385,7 @@ class ContingencyPlanEntry {
   'Documents a single component risk entry spanning description, assessment, detection, mitigation, and governance.',
 )
 @SectionId('CMRS')
-class ComponentRiskEntry {
+class ComponentRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'riskId',
@@ -2385,6 +2402,7 @@ class ComponentRiskEntry {
     ),
     Field('riskTitle', String, 'Risk Title', hint: 'Short descriptive name'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2412,7 +2430,7 @@ class ComponentRiskEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// Risk assessment.
   @SectionId('CREA')
@@ -2449,7 +2467,7 @@ class ComponentRiskEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? assessment;
+  DocSpecsSection? assessment;
 
   /// Detection and monitoring.
   @SectionId('CORIENDE')
@@ -2480,7 +2498,7 @@ class ComponentRiskEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? detection;
+  DocSpecsSection? detection;
 
   /// Mitigation strategy.
   @SectionId('CREM')
@@ -2525,7 +2543,7 @@ class ComponentRiskEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? mitigation;
+  DocSpecsSection? mitigation;
 
   /// Governance and ownership.
   @SectionId('CORIENGO')
@@ -2562,5 +2580,5 @@ class ComponentRiskEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? governance;
+  DocSpecsSection? governance;
 }

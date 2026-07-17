@@ -13,7 +13,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// organizational design best practices (McKinsey 7-S, Galbraith Star Model)
 /// and HR management standards (SHRM, CIPD).
 @SectionId('ORGF')
-class OrganizationalFramework {
+class OrganizationalFramework extends DocSpecsSection {
   /// Overview of organizational changes required for the new system.
   @ContentHelp(
     'Provide executive summary of organizational impact: '
@@ -65,7 +65,7 @@ class OrganizationalFramework {
   'future state.',
 )
 @SectionId('NORGS')
-class NewOrganizationStructure {
+class NewOrganizationStructure extends DocSpecsSection {
   /// Overview of the target organization structure.
   @ContentHelp(
     'Describe the vision for the new organization structure: '
@@ -98,7 +98,7 @@ class NewOrganizationStructure {
   'providing current-to-future-state traceability.',
 )
 @SectionId('OCCHG')
-class ChangesFromCurrentStructure {
+class ChangesFromCurrentStructure extends DocSpecsSection {
   // -------------------------------------------------------------------------
   // Change Overview
   // -------------------------------------------------------------------------
@@ -154,7 +154,7 @@ class ChangesFromCurrentStructure {
     ),
   ])
   @SerializationOrder(0)
-  String? overviewContent;
+  DocSpecsSection? overviewContent;
 
   /// Detailed description of structural changes.
   @ContentHelp(
@@ -203,7 +203,7 @@ class ChangesFromCurrentStructure {
   'organizational transformation.',
 )
 @SectionId('ORGCE')
-class OrganizationalChangeEntry {
+class OrganizationalChangeEntry extends DocSpecsSection {
   @Form([
     Field(
       'changeId',
@@ -226,6 +226,7 @@ class OrganizationalChangeEntry {
       hint: 'Restructure, Merge, Split, Create, Eliminate, Relocate',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -246,7 +247,7 @@ class OrganizationalChangeEntry {
     Field('priority', String, 'Priority', hint: 'Critical, High, Medium, Low'),
   ])
   @SerializationOrder(1)
-  String? identification;
+  DocSpecsSection? identification;
 
   /// Scope of the change.
   @SectionId('OCSCP')
@@ -297,7 +298,7 @@ class OrganizationalChangeEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Rationale for the change.
   @SectionId('OCRAT')
@@ -336,7 +337,7 @@ class OrganizationalChangeEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? rationale;
+  DocSpecsSection? rationale;
 
   /// Impact assessment.
   @SectionId('OCIMP')
@@ -393,7 +394,7 @@ class OrganizationalChangeEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? impact;
+  DocSpecsSection? impact;
 
   /// Transition planning.
   @SectionId('OCTRS')
@@ -447,7 +448,7 @@ class OrganizationalChangeEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? transition;
+  DocSpecsSection? transition;
 
   /// Risks and mitigations.
   @StandardReferences(
@@ -501,7 +502,7 @@ class OrganizationalChangeEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// Risks for organizational change.
@@ -511,7 +512,7 @@ class OrganizationalChangeEntry {
   'dependencies.',
 )
 @SectionId('OCRSK')
-class OrgChangeRisks {
+class OrgChangeRisks extends DocSpecsSection {
   @Form([
     Field('risks', String, 'Risks', hint: 'Potential risks from this change'),
     Field(
@@ -527,6 +528,7 @@ class OrgChangeRisks {
       hint: 'Other changes this depends on or enables',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -550,7 +552,7 @@ class OrgChangeRisks {
   'managed, and the phasing, milestones, and risks that govern cutover.',
 )
 @SectionId('OTTML')
-class OrganizationalTransitionTimeline {
+class OrganizationalTransitionTimeline extends DocSpecsSection {
   /// Overview of the transition approach and guiding principles.
   @SerializationOrder(0)
   TransitionOverview overview = TransitionOverview();
@@ -624,7 +626,7 @@ class OrganizationalTransitionTimeline {
   'and the high-level start and completion dates for the transition.',
 )
 @SectionId('TROVW')
-class TransitionOverview {
+class TransitionOverview extends DocSpecsSection {
   @Form([
     Field(
       'transitionApproach',
@@ -657,6 +659,7 @@ class TransitionOverview {
           'complete',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -702,7 +705,7 @@ class TransitionOverview {
     ),
   ])
   @SerializationOrder(1)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Governance and change ownership.
   @SectionId('TROGV')
@@ -738,7 +741,7 @@ class TransitionOverview {
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// A transition phase entry (form).
@@ -750,7 +753,7 @@ class TransitionOverview {
   'with its identification, activities, stakeholders, and exit criteria.',
 )
 @SectionId('TRPHE')
-class TransitionPhaseEntry {
+class TransitionPhaseEntry extends DocSpecsSection {
   /// Phase identification and timeline.
   @SerializationOrder(0)
   TransitionPhaseIdentification identification =
@@ -830,7 +833,7 @@ class TransitionPhaseEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? exitCriteria;
+  DocSpecsSection? exitCriteria;
 }
 
 /// Phase identification and timeline.
@@ -840,7 +843,7 @@ class TransitionPhaseEntry {
   'for its timeline and scope.',
 )
 @SectionId('TPIDN')
-class TransitionPhaseIdentification {
+class TransitionPhaseIdentification extends DocSpecsSection {
   @Form([
     Field(
       'phaseId',
@@ -871,6 +874,7 @@ class TransitionPhaseIdentification {
       hint: 'The person or role accountable for delivering this phase',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -914,7 +918,7 @@ class TransitionPhaseIdentification {
     ),
   ])
   @SerializationOrder(1)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Scope of organizational impact.
   @SectionId('TPISC')
@@ -948,7 +952,7 @@ class TransitionPhaseIdentification {
     ),
   ])
   @SerializationOrder(2)
-  String? scope;
+  DocSpecsSection? scope;
 }
 
 /// Activities and deliverables for a transition phase.
@@ -959,7 +963,7 @@ class TransitionPhaseIdentification {
   'phase.',
 )
 @SectionId('TPACT')
-class TransitionPhaseActivities {
+class TransitionPhaseActivities extends DocSpecsSection {
   @Form([
     Field(
       'keyActivities',
@@ -1016,6 +1020,7 @@ class TransitionPhaseActivities {
       hint: 'Any consultants or vendors needed to support this phase',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1027,7 +1032,7 @@ class TransitionPhaseActivities {
   'involved, how feedback flows, and how issues escalate.',
 )
 @SectionId('TPSTK')
-class TransitionPhaseStakeholders {
+class TransitionPhaseStakeholders extends DocSpecsSection {
   @Form([
     Field(
       'primaryStakeholders',
@@ -1062,6 +1067,7 @@ class TransitionPhaseStakeholders {
       hint: 'The executive sponsor actions needed to support this phase',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1073,7 +1079,7 @@ class TransitionPhaseStakeholders {
   'target/actual dates, and status.',
 )
 @SectionId('TRMIL')
-class TransitionMilestoneEntry {
+class TransitionMilestoneEntry extends DocSpecsSection {
   @Form([
     Field(
       'milestoneId',
@@ -1124,6 +1130,7 @@ class TransitionMilestoneEntry {
       hint: 'A short description of what the milestone represents',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1161,7 +1168,7 @@ class TransitionMilestoneEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Dependencies and criticality.
   @SectionId('TMED')
@@ -1197,7 +1204,7 @@ class TransitionMilestoneEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Recognition activities.
   @SectionId('TMER')
@@ -1217,7 +1224,7 @@ class TransitionMilestoneEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? recognition;
+  DocSpecsSection? recognition;
 }
 
 /// Change readiness assessment approach.
@@ -1230,7 +1237,7 @@ class TransitionMilestoneEntry {
   'to adopt the change before the transition proceeds.',
 )
 @SectionId('CHREAS')
-class ChangeReadinessAssessment {
+class ChangeReadinessAssessment extends DocSpecsSection {
   /// Overview of readiness assessment approach.
   @SectionId('CHREOV')
   @StandardReferences(
@@ -1300,7 +1307,7 @@ class ChangeReadinessAssessment {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Readiness criteria per stakeholder group.
   @StandardReferences(
@@ -1331,7 +1338,7 @@ class ChangeReadinessAssessment {
   'dimensions together with resistance factors and mitigation actions.',
 )
 @SectionId('RDRCE')
-class ReadinessCriteriaEntry {
+class ReadinessCriteriaEntry extends DocSpecsSection {
   @Form([
     Field(
       'stakeholderGroup',
@@ -1413,6 +1420,7 @@ class ReadinessCriteriaEntry {
       hint: 'The date on which this group\'s readiness was last assessed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1424,7 +1432,7 @@ class ReadinessCriteriaEntry {
   'the specific events, and the channels through which messages flow.',
 )
 @SectionId('TRCOPL')
-class TransitionCommunicationPlan {
+class TransitionCommunicationPlan extends DocSpecsSection {
   /// Communication strategy overview.
   @SectionId('TRCOST')
   @StandardReferences(
@@ -1502,7 +1510,7 @@ class TransitionCommunicationPlan {
     ),
   ])
   @SerializationOrder(0)
-  String? strategy;
+  DocSpecsSection? strategy;
 
   /// Specific communication events/activities.
   @StandardReferences(
@@ -1548,7 +1556,7 @@ class TransitionCommunicationPlan {
   'timing, and the messages it delivers.',
 )
 @SectionId('COEV')
-class CommunicationEventEntry {
+class CommunicationEventEntry extends DocSpecsSection {
   @Form([
     Field(
       'eventId',
@@ -1603,6 +1611,7 @@ class CommunicationEventEntry {
           'convey',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1651,7 +1660,7 @@ class CommunicationEventEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? delivery;
+  DocSpecsSection? delivery;
 
   /// Follow-up and measurement.
   @SectionId('CEEO')
@@ -1687,7 +1696,7 @@ class CommunicationEventEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? outcome;
+  DocSpecsSection? outcome;
 }
 
 /// Communication channels definition.
@@ -1697,7 +1706,7 @@ class CommunicationEventEntry {
   'urgency, ownership, and who can access it.',
 )
 @SectionId('TRCOCH')
-class TransitionCommunicationChannels {
+class TransitionCommunicationChannels extends DocSpecsSection {
   @Form([
     Field(
       'primaryChannels',
@@ -1746,6 +1755,7 @@ class TransitionCommunicationChannels {
           'restrictions that apply',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1760,7 +1770,7 @@ class TransitionCommunicationChannels {
   'its model, the resources provided, and how issues escalate.',
 )
 @SectionId('TRSUST')
-class TransitionSupportStructure {
+class TransitionSupportStructure extends DocSpecsSection {
   /// Support organization overview.
   @SectionId('TRSUOV')
   @StandardReferences(
@@ -1838,7 +1848,7 @@ class TransitionSupportStructure {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Support resources available.
   @StandardReferences(
@@ -1887,7 +1897,7 @@ class TransitionSupportStructure {
   'type, coverage, capacity, skills, and ownership.',
 )
 @SectionId('TRSPRE')
-class TransitionSupportResourceEntry {
+class TransitionSupportResourceEntry extends DocSpecsSection {
   @Form([
     Field(
       'resourceType',
@@ -1951,6 +1961,7 @@ class TransitionSupportResourceEntry {
           'allocated',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1965,7 +1976,7 @@ class TransitionSupportResourceEntry {
   'and response-time targets for each.',
 )
 @SectionId('TRESPA')
-class TransitionEscalationPaths {
+class TransitionEscalationPaths extends DocSpecsSection {
   @Form([
     Field(
       'level1',
@@ -2024,6 +2035,7 @@ class TransitionEscalationPaths {
           'to management',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2035,7 +2047,7 @@ class TransitionEscalationPaths {
   'measurement approach and the specific metrics tracked.',
 )
 @SectionId('TRSUME')
-class TransitionSuccessMetrics {
+class TransitionSuccessMetrics extends DocSpecsSection {
   /// Metrics overview.
   @SectionId('TRMEOV')
   @StandardReferences(
@@ -2098,7 +2110,7 @@ class TransitionSuccessMetrics {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Specific success metrics.
   @StandardReferences(
@@ -2123,7 +2135,7 @@ class TransitionSuccessMetrics {
   'method, baseline, and target value.',
 )
 @SectionId('TRME')
-class TransitionMetricEntry {
+class TransitionMetricEntry extends DocSpecsSection {
   @Form([
     Field(
       'metricId',
@@ -2176,6 +2188,7 @@ class TransitionMetricEntry {
       hint: 'The target value this metric should reach to indicate success',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2227,7 +2240,7 @@ class TransitionMetricEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? operations;
+  DocSpecsSection? operations;
 
   /// Current status.
   @SectionId('TMES')
@@ -2254,7 +2267,7 @@ class TransitionMetricEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? statusSection;
+  DocSpecsSection? statusSection;
 }
 
 /// Transition risk entry (form).
@@ -2264,7 +2277,7 @@ class TransitionMetricEntry {
   'header for its assessment and response details.',
 )
 @SectionId('TRRS')
-class TransitionRiskEntry {
+class TransitionRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'riskId',
@@ -2297,6 +2310,7 @@ class TransitionRiskEntry {
           'its potential consequences',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2342,7 +2356,7 @@ class TransitionRiskEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? assessment;
+  DocSpecsSection? assessment;
 
   /// Mitigation ownership and monitoring.
   @SectionId('TRER')
@@ -2386,7 +2400,7 @@ class TransitionRiskEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? response;
+  DocSpecsSection? response;
 }
 
 // ---------------------------------------------------------------------------
@@ -2409,7 +2423,7 @@ class TransitionRiskEntry {
   'to fill them.',
 )
 @SectionId('JDAS')
-class JobDescriptionsAndStaffing {
+class JobDescriptionsAndStaffing extends DocSpecsSection {
   /// Overview of the job architecture and role design approach.
   @SectionId('JODEOV')
   @StandardReferences(
@@ -2478,7 +2492,7 @@ class JobDescriptionsAndStaffing {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// 5.2.1. New Roles — contains 0+× New Role.
   @StandardReferences(
@@ -2535,7 +2549,7 @@ class JobDescriptionsAndStaffing {
   'budget, individual position entries, and recruitment timeline.',
 )
 @SectionId('STPL')
-class StaffingPlan {
+class StaffingPlan extends DocSpecsSection {
   /// Staffing plan overview.
   @SectionId('STPLOV')
   @StandardReferences(
@@ -2611,7 +2625,7 @@ class StaffingPlan {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Budget details.
   @SerializationOrder(1)
@@ -2686,7 +2700,7 @@ class StaffingPlan {
     ),
   ])
   @SerializationOrder(3)
-  String? recruitmentTimeline;
+  DocSpecsSection? recruitmentTimeline;
 }
 
 /// Staffing budget details.
@@ -2696,7 +2710,7 @@ class StaffingPlan {
   'salary and benefits costs, and the currency in which they are expressed.',
 )
 @SectionId('STBU')
-class StaffingBudget {
+class StaffingBudget extends DocSpecsSection {
   @Form([
     Field(
       'totalBudget',
@@ -2723,6 +2737,7 @@ class StaffingBudget {
       hint: 'Insurance, retirement, perks',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2760,7 +2775,7 @@ class StaffingBudget {
     ),
   ])
   @SerializationOrder(1)
-  String? allocations;
+  DocSpecsSection? allocations;
 
   /// Budget ownership and approval controls.
   @SectionId('STBUGO')
@@ -2790,7 +2805,7 @@ class StaffingBudget {
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// A staffing entry (form).
@@ -2806,7 +2821,7 @@ class StaffingBudget {
   'organization, capacity, recruitment workflow, and ownership.',
 )
 @SectionId('STFE')
-class StaffingEntry {
+class StaffingEntry extends DocSpecsSection {
   @Form([
     Field(
       'roleTitle',
@@ -2828,6 +2843,7 @@ class StaffingEntry {
       hint: 'Grade or level — e.g. Senior, L5, Manager',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2854,7 +2870,7 @@ class StaffingEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? organization;
+  DocSpecsSection? organization;
 
   /// Capacity and competency requirements.
   @SectionId('STENCA')
@@ -2890,7 +2906,7 @@ class StaffingEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? capacity;
+  DocSpecsSection? capacity;
 
   /// Recruitment workflow and urgency.
   @SectionId('STENRE')
@@ -2927,7 +2943,7 @@ class StaffingEntry {
     Field('urgency', String, 'Urgency', hint: 'Critical / High / Medium / Low'),
   ])
   @SerializationOrder(3)
-  String? recruitment;
+  DocSpecsSection? recruitment;
 
   /// Ownership and compensation details.
   @SectionId('STENOW')
@@ -2961,7 +2977,7 @@ class StaffingEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? ownership;
+  DocSpecsSection? ownership;
 }
 
 /// 5.2.5. Competency Framework.
@@ -2972,7 +2988,7 @@ class StaffingEntry {
   'requires.',
 )
 @SectionId('COFR')
-class CompetencyFramework {
+class CompetencyFramework extends DocSpecsSection {
   /// Framework overview.
   @SectionId('COFROV')
   @StandardReferences(
@@ -3014,7 +3030,7 @@ class CompetencyFramework {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Core competencies required across all roles.
   @StandardReferences(
@@ -3061,7 +3077,7 @@ class CompetencyFramework {
   'developed and assessed.',
 )
 @SectionId('COMPE')
-class CompetencyEntry {
+class CompetencyEntry extends DocSpecsSection {
   @Form([
     Field(
       'competencyId',
@@ -3126,6 +3142,7 @@ class CompetencyEntry {
       hint: 'Tests, interviews, or simulations used to assess it',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3143,7 +3160,7 @@ class CompetencyEntry {
   'responsibilities, qualifications, access, performance and onboarding.',
 )
 @SectionId('NRE')
-class NewRoleEntry {
+class NewRoleEntry extends DocSpecsSection {
   /// Role identification and overview.
   @SectionId('NEROID')
   @StandardReferences(
@@ -3207,7 +3224,7 @@ class NewRoleEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identification;
+  DocSpecsSection? identification;
 
   /// Role positioning in organization.
   @SectionId('NEROOR')
@@ -3282,7 +3299,7 @@ class NewRoleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? organization;
+  DocSpecsSection? organization;
 
   /// Responsibilities breakdown.
   @SerializationOrder(2)
@@ -3365,7 +3382,7 @@ class NewRoleEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? systemAccess;
+  DocSpecsSection? systemAccess;
 
   /// Performance and success metrics.
   @SectionId('NEROPE')
@@ -3428,7 +3445,7 @@ class NewRoleEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? performance;
+  DocSpecsSection? performance;
 
   /// Onboarding and development.
   @SectionId('NEROON')
@@ -3494,7 +3511,7 @@ class NewRoleEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? onboarding;
+  DocSpecsSection? onboarding;
 }
 
 /// New role responsibilities.
@@ -3507,7 +3524,7 @@ class NewRoleEntry {
   'the decision-making authority that comes with it.',
 )
 @SectionId('NERORE')
-class NewRoleResponsibilities {
+class NewRoleResponsibilities extends DocSpecsSection {
   /// Primary responsibilities (key accountabilities).
   @StandardReferences(
     ['O*NET — task statements (core duties)'],
@@ -3585,7 +3602,7 @@ class NewRoleResponsibilities {
     ),
   ])
   @SerializationOrder(2)
-  String? decisionAuthority;
+  DocSpecsSection? decisionAuthority;
 }
 
 /// Detailed responsibility entry (form).
@@ -3598,7 +3615,7 @@ class NewRoleResponsibilities {
   'allocation, frequency and quality standards.',
 )
 @SectionId('RSPDT')
-class ResponsibilityDetailEntry {
+class ResponsibilityDetailEntry extends DocSpecsSection {
   @Form([
     Field(
       'responsibilityId',
@@ -3656,6 +3673,7 @@ class ResponsibilityDetailEntry {
       hint: 'Systems or applications used',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3670,7 +3688,7 @@ class ResponsibilityDetailEntry {
   'credentials, screening and the required competencies.',
 )
 @SectionId('NEROQU')
-class NewRoleQualifications {
+class NewRoleQualifications extends DocSpecsSection {
   @Form([
     Field(
       'education',
@@ -3697,6 +3715,7 @@ class NewRoleQualifications {
       hint: 'Ideal but non-mandatory experience',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3737,7 +3756,7 @@ class NewRoleQualifications {
     ),
   ])
   @SerializationOrder(1)
-  String? credentials;
+  DocSpecsSection? credentials;
 
   /// Screening and clearance requirements.
   @SectionId('NRQS')
@@ -3770,7 +3789,7 @@ class NewRoleQualifications {
     ),
   ])
   @SerializationOrder(2)
-  String? screening;
+  DocSpecsSection? screening;
 
   /// Contains 0+× required competency.
   @StandardReferences(
@@ -3798,7 +3817,7 @@ class NewRoleQualifications {
   'preferred proficiency, and how it is assessed.',
 )
 @SectionId('ROLCP')
-class RoleCompetencyEntry {
+class RoleCompetencyEntry extends DocSpecsSection {
   @Form([
     Field(
       'competencyId',
@@ -3844,6 +3863,7 @@ class RoleCompetencyEntry {
       hint: 'Priority for developing this if a gap exists',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3863,7 +3883,7 @@ class RoleCompetencyEntry {
   'are transitioned.',
 )
 @SectionId('CHAROL')
-class ChangedRoleEntry {
+class ChangedRoleEntry extends DocSpecsSection {
   /// Changed role identification.
   @SerializationOrder(0)
   ChangedRoleIdentification identification = ChangedRoleIdentification();
@@ -3931,7 +3951,7 @@ class ChangedRoleEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? systemAccess;
+  DocSpecsSection? systemAccess;
 
   /// Impact on incumbents.
   @SectionId('CRII')
@@ -4006,7 +4026,7 @@ class ChangedRoleEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? incumbentImpact;
+  DocSpecsSection? incumbentImpact;
 
   /// Transition planning.
   @SerializationOrder(5)
@@ -4023,7 +4043,7 @@ class ChangedRoleEntry {
   'including any title or placement adjustment.',
 )
 @SectionId('CHROID')
-class ChangedRoleIdentification {
+class ChangedRoleIdentification extends DocSpecsSection {
   @Form([
     Field(
       'roleId',
@@ -4052,6 +4072,7 @@ class ChangedRoleIdentification {
       hint: 'The business reason driving this role change',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4092,7 +4113,7 @@ class ChangedRoleIdentification {
     ),
   ])
   @SerializationOrder(1)
-  String? structure;
+  DocSpecsSection? structure;
 
   /// Change implementation state and affected population.
   @SectionId('CRIT')
@@ -4131,7 +4152,7 @@ class ChangedRoleIdentification {
     ),
   ])
   @SerializationOrder(2)
-  String? transition;
+  DocSpecsSection? transition;
 }
 
 /// Changed role responsibilities.
@@ -4144,7 +4165,7 @@ class ChangedRoleIdentification {
   'modified — plus a net-impact summary.',
 )
 @SectionId('CHRORE')
-class ChangedRoleResponsibilities {
+class ChangedRoleResponsibilities extends DocSpecsSection {
   /// Responsibilities being added.
   @StandardReferences([
     'O*NET — task statements',
@@ -4224,7 +4245,7 @@ class ChangedRoleResponsibilities {
     ),
   ])
   @SerializationOrder(3)
-  String? impactSummary;
+  DocSpecsSection? impactSummary;
 }
 
 /// Responsibility change entry (form).
@@ -4237,7 +4258,7 @@ class ChangedRoleResponsibilities {
   'current/future state, impact, and how it is transitioned.',
 )
 @SectionId('RSPCH')
-class ResponsibilityChangeEntry {
+class ResponsibilityChangeEntry extends DocSpecsSection {
   @Form([
     Field(
       'responsibility',
@@ -4295,6 +4316,7 @@ class ResponsibilityChangeEntry {
       hint: 'How the responsibility is transferred or phased in',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4309,7 +4331,7 @@ class ResponsibilityChangeEntry {
   'newly required, no longer required, or shifted in proficiency level.',
 )
 @SectionId('CHROCO')
-class ChangedRoleCompetencies {
+class ChangedRoleCompetencies extends DocSpecsSection {
   /// New competencies required.
   @StandardReferences([
     'CIPD — competency frameworks and people management',
@@ -4382,7 +4404,7 @@ class ChangedRoleCompetencies {
     ),
   ])
   @SerializationOrder(3)
-  String? gapAssessment;
+  DocSpecsSection? gapAssessment;
 }
 
 /// Competency level change entry.
@@ -4395,7 +4417,7 @@ class ChangedRoleCompetencies {
   'reason, development path, and timeframe to reach the new level.',
 )
 @SectionId('COLVCH')
-class CompetencyLevelChangeEntry {
+class CompetencyLevelChangeEntry extends DocSpecsSection {
   @Form([
     Field(
       'competencyName',
@@ -4435,6 +4457,7 @@ class CompetencyLevelChangeEntry {
       hint: 'When the new proficiency level must be reached',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4449,7 +4472,7 @@ class CompetencyLevelChangeEntry {
   'parallel period, and links to training and support plans.',
 )
 @SectionId('CHROTR')
-class ChangedRoleTransition {
+class ChangedRoleTransition extends DocSpecsSection {
   @Form([
     Field(
       'transitionStart',
@@ -4470,6 +4493,7 @@ class ChangedRoleTransition {
       hint: 'Period where old and new ways of working overlap',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4510,7 +4534,7 @@ class ChangedRoleTransition {
     ),
   ])
   @SerializationOrder(1)
-  String? training;
+  DocSpecsSection? training;
 
   /// Support expectations and success checkpoints.
   @SectionId('CRTS')
@@ -4549,7 +4573,7 @@ class ChangedRoleTransition {
     ),
   ])
   @SerializationOrder(2)
-  String? support;
+  DocSpecsSection? support;
 }
 
 /// A removed role entry (form).
@@ -4564,7 +4588,7 @@ class ChangedRoleTransition {
   'population — plus transition, governance, and continuity planning.',
 )
 @SectionId('REMROL')
-class RemovedRoleEntry {
+class RemovedRoleEntry extends DocSpecsSection {
   @Form([
     Field(
       'roleId',
@@ -4605,6 +4629,7 @@ class RemovedRoleEntry {
       hint: 'Number of people currently in the role being removed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4645,7 +4670,7 @@ class RemovedRoleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? transition;
+  DocSpecsSection? transition;
 
   /// Legal and communication considerations.
   @SectionId('RREG')
@@ -4673,7 +4698,7 @@ class RemovedRoleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Work continuity.
   @SectionId('RREC')
@@ -4700,7 +4725,7 @@ class RemovedRoleEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? continuity;
+  DocSpecsSection? continuity;
 }
 
 /// A responsibility entry (form).
@@ -4713,7 +4738,7 @@ class RemovedRoleEntry {
   'entails.',
 )
 @SectionId('ROREEN')
-class RoleResponsibilityEntry {
+class RoleResponsibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'responsibility',
@@ -4728,6 +4753,7 @@ class RoleResponsibilityEntry {
       hint: 'A brief description of the responsibility',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4742,7 +4768,7 @@ class RoleResponsibilityEntry {
   'expected.',
 )
 @SectionId('SKEN')
-class SkillEntry {
+class SkillEntry extends DocSpecsSection {
   @Form([
     Field(
       'skillName',
@@ -4757,6 +4783,7 @@ class SkillEntry {
       hint: 'The proficiency level expected for this skill',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4772,7 +4799,7 @@ class SkillEntry {
 /// technical, and training aspects per user category.
 @Comment('per user category')
 @SectionId('WPDE')
-class WorkplaceDescriptionEntry {
+class WorkplaceDescriptionEntry extends DocSpecsSection {
   /// User category identification.
   @SectionId('WOUSCA')
   @Form([
@@ -4808,7 +4835,7 @@ class WorkplaceDescriptionEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? userCategory;
+  DocSpecsSection? userCategory;
 
   /// Physical workplace layout and environment.
   @SerializationOrder(1)
@@ -4834,7 +4861,7 @@ class WorkplaceDescriptionEntry {
 
 /// Physical workplace layout and environment requirements.
 @SectionId('PHWORE')
-class PhysicalWorkplaceRequirements {
+class PhysicalWorkplaceRequirements extends DocSpecsSection {
   @Form([
     Field(
       'workplaceType',
@@ -4857,6 +4884,7 @@ class PhysicalWorkplaceRequirements {
       'Ergonomic Standards — chair, desk height, monitor position',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4881,7 +4909,7 @@ class PhysicalWorkplaceRequirements {
     Field('ventilation', String, 'Ventilation — air quality requirements'),
   ])
   @SerializationOrder(1)
-  String? environment;
+  DocSpecsSection? environment;
 
   /// Accessibility, privacy, and shared-space needs.
   @SectionId('PWRU')
@@ -4908,14 +4936,14 @@ class PhysicalWorkplaceRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? usage;
+  DocSpecsSection? usage;
 }
 
 /// 5.3.1. Equipment Requirements.
 ///
 /// Hardware and peripheral requirements per workplace type.
 @SectionId('EQRE')
-class EquipmentRequirements {
+class EquipmentRequirements extends DocSpecsSection {
   /// Equipment overview.
   @SectionId('EQOV')
   @Form([
@@ -4948,7 +4976,7 @@ class EquipmentRequirements {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Primary computing equipment.
   @SectionId('COEQ-PRIM-LST')
@@ -4989,7 +5017,7 @@ class EquipmentRequirements {
 
 /// Computing equipment entry (form).
 @SectionId('COEQ')
-class ComputingEquipmentEntry {
+class ComputingEquipmentEntry extends DocSpecsSection {
   @Form([
     Field('equipmentId', String, 'Equipment ID'),
     Field(
@@ -5000,6 +5028,7 @@ class ComputingEquipmentEntry {
     Field('brand', String, 'Brand — manufacturer preference'),
     Field('modelSpecification', String, 'Model/Specification — exact model'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5012,7 +5041,7 @@ class ComputingEquipmentEntry {
     Field('graphicsCard', String, 'Graphics Card — if required'),
   ])
   @SerializationOrder(1)
-  String? hardware;
+  DocSpecsSection? hardware;
 
   /// Platform and security requirements.
   @SectionId('CEEP')
@@ -5035,7 +5064,7 @@ class ComputingEquipmentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? platform;
+  DocSpecsSection? platform;
 
   /// Deployment and justification.
   @SectionId('COEQENPL')
@@ -5049,12 +5078,12 @@ class ComputingEquipmentEntry {
     Field('justification', String, 'Justification — why this specification'),
   ])
   @SerializationOrder(3)
-  String? planning;
+  DocSpecsSection? planning;
 }
 
 /// Display equipment entry (form).
 @SectionId('DSEQ')
-class DisplayEquipmentEntry {
+class DisplayEquipmentEntry extends DocSpecsSection {
   @Form([
     Field('displayId', String, 'Display ID'),
     Field(
@@ -5065,6 +5094,7 @@ class DisplayEquipmentEntry {
     Field('screenSize', String, 'Screen Size — diagonal inches'),
     Field('resolution', String, 'Resolution — HD, FHD, QHD, 4K'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5081,7 +5111,7 @@ class DisplayEquipmentEntry {
     Field('connectivity', String, 'Connectivity — HDMI, DisplayPort, USB-C'),
   ])
   @SerializationOrder(1)
-  String? visual;
+  DocSpecsSection? visual;
 
   /// Ergonomic and placement considerations.
   @SectionId('DEEE')
@@ -5099,7 +5129,7 @@ class DisplayEquipmentEntry {
     Field('mounting', String, 'Mounting — stand, arm, wall mount'),
   ])
   @SerializationOrder(2)
-  String? ergonomics;
+  DocSpecsSection? ergonomics;
 
   /// Quantity planning and justification.
   @SectionId('DIEQENPL')
@@ -5108,12 +5138,12 @@ class DisplayEquipmentEntry {
     Field('justification', String, 'Justification'),
   ])
   @SerializationOrder(3)
-  String? planning;
+  DocSpecsSection? planning;
 }
 
 /// Input device entry (form).
 @SectionId('IDE')
-class InputDeviceEntry {
+class InputDeviceEntry extends DocSpecsSection {
   @Form([
     Field('deviceId', String, 'Device ID'),
     Field(
@@ -5140,13 +5170,14 @@ class InputDeviceEntry {
     Field('quantityPerUser', int, 'Quantity Per User'),
     Field('justification', String, 'Justification'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
 
 /// Peripheral equipment entry (form).
 @SectionId('PEREQ')
-class PeripheralEquipmentEntry {
+class PeripheralEquipmentEntry extends DocSpecsSection {
   @Form([
     Field('peripheralId', String, 'Peripheral ID'),
     Field(
@@ -5167,13 +5198,14 @@ class PeripheralEquipmentEntry {
     Field('quantityNeeded', int, 'Quantity Needed'),
     Field('justification', String, 'Justification'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
 
 /// Mobile device entry (form).
 @SectionId('MOBDE')
-class MobileDeviceEntry {
+class MobileDeviceEntry extends DocSpecsSection {
   @Form([
     Field('deviceId', String, 'Device ID'),
     Field(
@@ -5184,6 +5216,7 @@ class MobileDeviceEntry {
     Field('operatingSystem', String, 'Operating System — iOS, Android'),
     Field('screenSize', String, 'Screen Size'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5208,7 +5241,7 @@ class MobileDeviceEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? capabilities;
+  DocSpecsSection? capabilities;
 
   /// Deployment planning and supporting accessories.
   @SectionId('MDEP')
@@ -5223,12 +5256,12 @@ class MobileDeviceEntry {
     Field('justification', String, 'Justification'),
   ])
   @SerializationOrder(2)
-  String? planning;
+  DocSpecsSection? planning;
 }
 
 /// Specialized equipment entry (form).
 @SectionId('SPEQ')
-class SpecializedEquipmentEntry {
+class SpecializedEquipmentEntry extends DocSpecsSection {
   @Form([
     Field('equipmentId', String, 'Equipment ID'),
     Field(
@@ -5240,6 +5273,7 @@ class SpecializedEquipmentEntry {
     Field('model', String, 'Model'),
     Field('purpose', String, 'Purpose — business function supported'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5252,7 +5286,7 @@ class SpecializedEquipmentEntry {
     Field('certifications', String, 'Certifications — PCI, EMV, etc.'),
   ])
   @SerializationOrder(1)
-  String? technical;
+  DocSpecsSection? technical;
 
   /// Quantity and business justification.
   @SectionId('SEEP')
@@ -5261,12 +5295,12 @@ class SpecializedEquipmentEntry {
     Field('justification', String, 'Justification'),
   ])
   @SerializationOrder(2)
-  String? planning;
+  DocSpecsSection? planning;
 }
 
 /// Technical infrastructure requirements.
 @SectionId('TEIN')
-class TechnicalInfrastructure {
+class TechnicalInfrastructure extends DocSpecsSection {
   /// Network connectivity requirements.
   @SectionId('NECO')
   @Form([
@@ -5306,7 +5340,7 @@ class TechnicalInfrastructure {
     Field('guestNetworkAccess', String, 'Guest Network Access — if needed'),
   ])
   @SerializationOrder(0)
-  String? networkConnectivity;
+  DocSpecsSection? networkConnectivity;
 
   /// Software requirements.
   @SerializationOrder(1)
@@ -5360,7 +5394,7 @@ class TechnicalInfrastructure {
     ),
   ])
   @SerializationOrder(2)
-  String? remoteAccess;
+  DocSpecsSection? remoteAccess;
 
   /// Communication tools.
   @SectionId('COTORE-COMM-LST')
@@ -5371,7 +5405,7 @@ class TechnicalInfrastructure {
 
 /// Workplace software requirements.
 @SectionId('WOSORE')
-class WorkplaceSoftwareRequirements {
+class WorkplaceSoftwareRequirements extends DocSpecsSection {
   @Form([
     Field('operatingSystem', String, 'Operating System — version, edition'),
     Field(
@@ -5382,6 +5416,7 @@ class WorkplaceSoftwareRequirements {
     Field('browser', String, 'Browser — Chrome, Edge, Firefox'),
     Field('emailClient', String, 'Email Client — Outlook, web-based'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5410,7 +5445,7 @@ class WorkplaceSoftwareRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? platform;
+  DocSpecsSection? platform;
 
   /// Business application set and deployment model.
   @SectionId('WSRD')
@@ -5433,12 +5468,12 @@ class WorkplaceSoftwareRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? delivery;
+  DocSpecsSection? delivery;
 }
 
 /// Communication tools requirements.
 @SectionId('COTORE')
-class CommunicationToolsRequirements {
+class CommunicationToolsRequirements extends DocSpecsSection {
   @Form([
     Field(
       'unifiedComms',
@@ -5487,6 +5522,7 @@ class CommunicationToolsRequirements {
       'Emergency Contact — emergency calling, E911',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5496,7 +5532,7 @@ class CommunicationToolsRequirements {
 /// Comprehensive training program requirements following adult learning
 /// principles (ADDIE, Kirkpatrick evaluation model).
 @SectionId('TRRE')
-class TrainingRequirements {
+class TrainingRequirements extends DocSpecsSection {
   /// Training overview and strategy.
   @SectionId('TROV')
   @Form([
@@ -5548,7 +5584,7 @@ class TrainingRequirements {
     ),
   ])
   @SerializationOrder(0)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Initial/onboarding training.
   @SectionId('INITR-INIT-LST')
@@ -5585,12 +5621,13 @@ class TrainingRequirements {
 
 /// Initial training entry (form).
 @SectionId('ITE')
-class InitialTrainingEntry {
+class InitialTrainingEntry extends DocSpecsSection {
   @Form([
     Field('trainingId', String, 'Training ID', required: true),
     Field('trainingName', String, 'Training Name', required: true),
     Field('description', String, 'Description'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5610,7 +5647,7 @@ class InitialTrainingEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? audience;
+  DocSpecsSection? audience;
 
   /// Learning content.
   @SectionId('INTRCO')
@@ -5628,7 +5665,7 @@ class InitialTrainingEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? learningContent;
+  DocSpecsSection? learningContent;
 
   /// Delivery details.
   @SectionId('INTRDE')
@@ -5646,7 +5683,7 @@ class InitialTrainingEntry {
     Field('mandatory', String, 'Mandatory — required or optional'),
   ])
   @SerializationOrder(3)
-  String? delivery;
+  DocSpecsSection? delivery;
 
   /// Schedule information.
   @SectionId('INTRSC')
@@ -5655,7 +5692,7 @@ class InitialTrainingEntry {
     Field('frequency', String, 'Frequency — one-time, recurring schedule'),
   ])
   @SerializationOrder(4)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Assessment and certification.
   @SectionId('INTRAS')
@@ -5680,18 +5717,19 @@ class InitialTrainingEntry {
     Field('costPerParticipant', String, 'Cost Per Participant — training cost'),
   ])
   @SerializationOrder(5)
-  String? assessment;
+  DocSpecsSection? assessment;
 }
 
 /// Ongoing training entry (form).
 @SectionId('ONGTR')
-class OngoingTrainingEntry {
+class OngoingTrainingEntry extends DocSpecsSection {
   @Form([
     Field('trainingId', String, 'Training ID', required: true),
     Field('trainingName', String, 'Training Name', required: true),
     Field('description', String, 'Description'),
     Field('targetAudience', String, 'Target Audience'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5713,7 +5751,7 @@ class OngoingTrainingEntry {
     Field('duration', String, 'Duration'),
   ])
   @SerializationOrder(1)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Content maintenance.
   @SectionId('OTEC')
@@ -5726,7 +5764,7 @@ class OngoingTrainingEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? contentManagement;
+  DocSpecsSection? contentManagement;
 
   /// Tracking and compliance.
   @SectionId('ONTRENCO')
@@ -5754,12 +5792,12 @@ class OngoingTrainingEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? compliance;
+  DocSpecsSection? compliance;
 }
 
 /// System training entry (form).
 @SectionId('SYTR')
-class SystemTrainingEntry {
+class SystemTrainingEntry extends DocSpecsSection {
   @Form([
     Field('trainingId', String, 'Training ID', required: true),
     Field('systemName', String, 'System Name', required: true),
@@ -5770,6 +5808,7 @@ class SystemTrainingEntry {
     ),
     Field('userRoleFocus', String, 'User Role Focus — specific role training'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5795,7 +5834,7 @@ class SystemTrainingEntry {
     Field('workflowTraining', String, 'Workflow Training — business workflows'),
   ])
   @SerializationOrder(1)
-  String? functional;
+  DocSpecsSection? functional;
 
   /// Practical exercises.
   @SectionId('STEP')
@@ -5817,7 +5856,7 @@ class SystemTrainingEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? practice;
+  DocSpecsSection? practice;
 
   /// Support and environment.
   @SectionId('STES')
@@ -5835,17 +5874,18 @@ class SystemTrainingEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? support;
+  DocSpecsSection? support;
 }
 
 /// Certification entry (form).
 @SectionId('CRT')
-class CertificationEntry {
+class CertificationEntry extends DocSpecsSection {
   @Form([
     Field('certificationId', String, 'Certification ID', required: true),
     Field('certificationName', String, 'Certification Name', required: true),
     Field('issuingBody', String, 'Issuing Body — who certifies'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5857,7 +5897,7 @@ class CertificationEntry {
     Field('mandatory', String, 'Mandatory — required or recommended'),
   ])
   @SerializationOrder(1)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Preparation requirements.
   @SectionId('CEENPR')
@@ -5866,7 +5906,7 @@ class CertificationEntry {
     Field('preparationPath', String, 'Preparation Path — how to prepare'),
   ])
   @SerializationOrder(2)
-  String? preparation;
+  DocSpecsSection? preparation;
 
   /// Exam details.
   @SectionId('CEENEX')
@@ -5882,7 +5922,7 @@ class CertificationEntry {
     Field('examLocation', String, 'Exam Location — testing center, online'),
   ])
   @SerializationOrder(3)
-  String? exam;
+  DocSpecsSection? exam;
 
   /// Validity and renewal details.
   @SectionId('CEENMA')
@@ -5891,7 +5931,7 @@ class CertificationEntry {
     Field('renewalRequirements', String, 'Renewal Requirements — CEUs, retake'),
   ])
   @SerializationOrder(4)
-  String? maintenance;
+  DocSpecsSection? maintenance;
 
   /// Sponsorship and consequences.
   @SectionId('CEENSU')
@@ -5905,12 +5945,12 @@ class CertificationEntry {
     Field('failureConsequence', String, 'Failure Consequence — impact on role'),
   ])
   @SerializationOrder(5)
-  String? support;
+  DocSpecsSection? support;
 }
 
 /// Training materials and resources.
 @SectionId('TRMA')
-class TrainingMaterials {
+class TrainingMaterials extends DocSpecsSection {
   @Form([
     Field('userGuides', String, 'User Guides — printed/digital manuals'),
     Field('quickReferenceCards', String, 'Quick Reference Cards — job aids'),
@@ -5925,6 +5965,7 @@ class TrainingMaterials {
       'E-Learning Modules — interactive online courses',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5950,7 +5991,7 @@ class TrainingMaterials {
     Field('screenRecordings', String, 'Screen Recordings — step-by-step demos'),
   ])
   @SerializationOrder(1)
-  String? practice;
+  DocSpecsSection? practice;
 
   /// Knowledge distribution.
   @SectionId('TRMAKN')
@@ -5960,7 +6001,7 @@ class TrainingMaterials {
     Field('accessMethod', String, 'Access Method — LMS, intranet, SharePoint'),
   ])
   @SerializationOrder(2)
-  String? knowledge;
+  DocSpecsSection? knowledge;
 
   /// Publishing and accessibility.
   @SectionId('TRMAOP')
@@ -5978,12 +6019,12 @@ class TrainingMaterials {
     ),
   ])
   @SerializationOrder(3)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Training assessment and evaluation.
 @SectionId('TRAS')
-class TrainingAssessment {
+class TrainingAssessment extends DocSpecsSection {
   @Form([
     Field(
       'assessmentStrategy',
@@ -5998,6 +6039,7 @@ class TrainingAssessment {
       'Practical Evaluation — hands-on demonstration',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6027,7 +6069,7 @@ class TrainingAssessment {
     Field('kirkpatrickLevel4', String, 'Level 4 (Results) — business impact'),
   ])
   @SerializationOrder(1)
-  String? effectiveness;
+  DocSpecsSection? effectiveness;
 
   /// Competency and remediation management.
   @SectionId('TRASIM')
@@ -6041,7 +6083,7 @@ class TrainingAssessment {
     Field('remediation', String, 'Remediation — addressing failed assessments'),
   ])
   @SerializationOrder(2)
-  String? improvement;
+  DocSpecsSection? improvement;
 
   /// Progress reporting.
   @SectionId('TRASRE')
@@ -6063,12 +6105,12 @@ class TrainingAssessment {
     ),
   ])
   @SerializationOrder(3)
-  String? reporting;
+  DocSpecsSection? reporting;
 }
 
 /// Support resources available to users.
 @SectionId('WOSURE')
-class WorkplaceSupportResources {
+class WorkplaceSupportResources extends DocSpecsSection {
   @Form([
     Field(
       'helpDeskAccess',
@@ -6083,6 +6125,7 @@ class WorkplaceSupportResources {
       'On-Site Support — deskside support availability',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6097,7 +6140,7 @@ class WorkplaceSupportResources {
     ),
   ])
   @SerializationOrder(1)
-  String? channels;
+  DocSpecsSection? channels;
 
   /// Self-service and feedback.
   @SectionId('WSRSS')
@@ -6120,7 +6163,7 @@ class WorkplaceSupportResources {
     ),
   ])
   @SerializationOrder(2)
-  String? selfService;
+  DocSpecsSection? selfService;
 
   /// Incident and emergency support.
   @SectionId('WSRI')
@@ -6147,5 +6190,5 @@ class WorkplaceSupportResources {
     ),
   ])
   @SerializationOrder(3)
-  String? incidents;
+  DocSpecsSection? incidents;
 }

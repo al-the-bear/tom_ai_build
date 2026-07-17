@@ -159,19 +159,19 @@ enforces these as hard errors:
 |---|-------|---------|
 | **(1)** | `String content` (plain) | The section's OWN content. The section id comes from the **class**, not the field. |
 | **(2)** | `String content` with `@Form` | The `content` value is the pre-form narrative, followed by the form's field members. |
-| **(3)** | `String <name>` with a **field-level `@SectionId`** (optionally `@Form`) | An inline sub-section whose content IS this field. A `@Reference` field is this shape (its id is required). |
+| **(3)** | `DocSpecsSection <name>` with a **field-level `@SectionId`** (optionally `@Form`) | An inline sub-section whose content IS this field (YRD5; formerly `String <name>`). A `@Reference` field is this shape (its id is required). |
 | **(4)** | `<SectionClass> field` | A sub-section class; the class owns the id (a field-level id may still override). |
 | **(5)** | `List<SectionClass>` with `@SectionId` + `@SectionIdPattern` | A list of sub-section classes; each element gets a per-instance id from the pattern. |
-| **(6)** | `List<String>` with `@SectionId` + `@SectionIdPattern` (optionally `@Form`) | An inline list of content sub-sections. |
+| **(6)** | `List<DocSpecsSection>` with `@SectionId` + `@SectionIdPattern` (optionally `@Form`) | An inline list of content sub-sections (YRD5; formerly `List<String>`). |
 
 Hard error cases:
 
 - **Non-String scalar** — any free `int`/`bool`/`double`/`num`/`DateTime`
   field. Typed scalars are legitimate only as `@Form` field members, never as
   free model fields.
-- **Non-`content` String without a field-level `@SectionId`** — every
-  descriptively-named `String`/`String?` field is an inline sub-section
-  (shape (3)) and must be addressable.
+- **Non-`content` section member without a field-level `@SectionId`** — every
+  descriptively-named `DocSpecsSection?` field (legacy `String?` in synthetic
+  fixtures) is an inline sub-section (shape (3)) and must be addressable.
 - **Misused reserved name `content`** — a field named `content` that is not a
   plain `String`/`String?` value, or a `content` field carrying a field-level
   `@SectionId`. The name `content` is reserved for the section's own content;
@@ -181,23 +181,42 @@ Enum fields are outside these rules — neither required to carry an id nor
 forbidden. Missing `content: String?` on a class is a **warning**, not an
 error.
 
-### 2.2 `DocSpecsSection` base class *(DECIDED — YRD5)*
+### 2.2 `DocSpecsSection` base class *(IMPLEMENTED — YRD5)*
 
 Per `docspecs_section_model_decisions.md` §4, the model is refactored so that:
 
-- A `DocSpecsSection` class holds **headline, id, and content** — representing
-  a simple section with no subsections.
-- All uses of `String` members in `tom_specs_model` are replaced with
-  `DocSpecsSection` (shape (3) fields become typed sections; a `@Form` or
-  `@ContentType` annotation on the member continues to define details).
-- All other model classes become **subclasses of `DocSpecsSection`**,
-  overriding the `content` member where per-subclass annotations are needed.
-- An optional **`DocSpecsForm form`** member holds the parsed form plus the
-  pre-form-field content already split off.
+- A `DocSpecsSection` class holds **headline, id, content and an optional
+  parsed `DocSpecsForm form`** — representing a simple section with no
+  subsections. `DocSpecsForm` holds the pre-form-field content (already split
+  off) plus one parsed value per `@Form` field.
+- **Home (decision):** both types live in
+  `tom_specs_core/lib/src/sections/docspecs_section.dart` — like `TextSection`
+  and the other section leaves, the base type is metamodel infrastructure and
+  must stay outside the analyzer-scanned `tom_specs_model` package.
+- All uses of `String` as section member type in `tom_specs_model` are
+  replaced with `DocSpecsSection` (shape (3) fields are typed sections; a
+  `@Form` or `@ContentType` annotation on the member continues to define
+  details). The reserved `content` member itself **stays `String?`** — it is
+  the section's own body, re-declared with `@override` on each class to carry
+  its per-class annotations.
+- All model classes (including the section leaves in `tom_specs_core` and the
+  `DocSpecsProject` container root) are **subclasses of `DocSpecsSection`**.
+  The clitool validator enforces this as a structural invariant once any
+  class in a model has adopted the base.
+- **Meta-tree stability contract:** `DocSpecsSection`-typed members classify
+  as `content` nodes and report `String`/`String?`/`List<String>` at the
+  meta/JSON/outline boundary (`ModelField.metaTypeName`), and subclasses stay
+  on the `complex` expansion path — so the exported meta tree, the DocSpecs
+  schemas, `spec_model.json`, the outlines and all nine SOM emitter outputs
+  are **byte-identical** to the pre-YRD5 String-member model. The engine
+  (`spec_ops.g.dart`) is the one consumer that sees the real types: section
+  members are `SpecSlot.node`/`SpecSlot.list` child slots, and
+  `DocSpecsSection` itself is registered as a content leaf.
 
 Consequence: `tom_specs_model` becomes an object model into which a `*.md`
-file can actually be **parsed**. Until YRD5 lands, shape-(3) members are plain
-`String?` fields as described in §2.1.
+file can actually be **parsed** (headline/id/content stored per section node;
+`@Form` content mediated by `DocSpecsForm`; typed per-field members follow in
+YRD7).
 
 ### 2.3 The three member shapes on the serialization walk
 

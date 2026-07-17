@@ -22,12 +22,13 @@ import 'package:tom_specs_core/tom_specs_core.dart';
   'governance can see and approve how this project tailors the standard.',
 )
 @SectionId('PRPO')
-class ProjectOrganizationAndProcess {
+class ProjectOrganizationAndProcess extends DocSpecsSection {
   @ContentHelp('''
 Executive summary of project-specific methodology deviations.
 Explain why this project requires deviations from standard TomSpecs practices,
 the overall impact on governance, and how deviations are tracked and approved.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -39,7 +40,7 @@ the overall impact on governance, and how deviations are tracked and approved.
         'methodology relates to standard TomSpecs, highlighting key deviations',
   )
   @SerializationOrder(1)
-  String? methodologyDeviationDiagram;
+  DocSpecsSection? methodologyDeviationDiagram;
 
   /// Summary of all methodology deviations.
   @SectionId('MEDSM')
@@ -112,7 +113,7 @@ the overall impact on governance, and how deviations are tracked and approved.
     ),
   ])
   @SerializationOrder(2)
-  String? deviationSummary;
+  DocSpecsSection? deviationSummary;
 
   /// 2.1. Role Adjustments.
   @SerializationOrder(3)
@@ -149,12 +150,13 @@ the overall impact on governance, and how deviations are tracked and approved.
   'merged, split, omitted, modified, or added — and why.',
 )
 @SectionId('RLADJ')
-class RoleAdjustments {
+class RoleAdjustments extends DocSpecsSection {
   @ContentHelp('''
 Overview of role adjustments for this project. Explain why standard role
 definitions don't fit, what stakeholder or organizational factors drove
 the changes, and how role clarity is maintained despite deviations.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -217,7 +219,7 @@ the changes, and how role clarity is maintained despite deviations.
     ),
   ])
   @SerializationOrder(1)
-  String? adjustmentSummary;
+  DocSpecsSection? adjustmentSummary;
 
   /// Visual comparison of standard vs adjusted roles.
   @SectionId('RLADJ-ROLE')
@@ -227,7 +229,7 @@ the changes, and how role clarity is maintained despite deviations.
         'with project-specific role assignments',
   )
   @SerializationOrder(2)
-  String? roleComparisonDiagram;
+  DocSpecsSection? roleComparisonDiagram;
 
   /// Contains 0+× RoleAdjustment.
   @StandardReferences([
@@ -257,7 +259,7 @@ the changes, and how role clarity is maintained despite deviations.
   'risk it introduces, and its approval status.',
 )
 @SectionId('RLAJE')
-class RoleAdjustmentEntry {
+class RoleAdjustmentEntry extends DocSpecsSection {
   @Form([
     Field(
       'adjustmentId',
@@ -280,6 +282,7 @@ class RoleAdjustmentEntry {
       hint: 'Merged / Split / Modified / Omitted / Added',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -325,7 +328,7 @@ class RoleAdjustmentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? details;
+  DocSpecsSection? details;
 
   /// Rationale for the adjustment.
   @SectionId('RLAER')
@@ -357,7 +360,7 @@ class RoleAdjustmentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? rationale;
+  DocSpecsSection? rationale;
 
   /// Coverage: assignments and RACI impact.
   @SectionId('RLAEC')
@@ -390,7 +393,7 @@ class RoleAdjustmentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? coverage;
+  DocSpecsSection? coverage;
 
   /// Risk assessment.
   @SectionId('RLAEK')
@@ -418,7 +421,7 @@ class RoleAdjustmentEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? risk;
+  DocSpecsSection? risk;
 
   /// Governance: approval and review.
   @SectionId('RLAEG')
@@ -458,7 +461,7 @@ class RoleAdjustmentEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 // ---------------------------------------------------------------------------
@@ -479,12 +482,13 @@ class RoleAdjustmentEntry {
   'gates skipped, added, deferred, relaxed, or with modified criteria — and why.',
 )
 @SectionId('QGADJ')
-class QualityGateAdjustments {
+class QualityGateAdjustments extends DocSpecsSection {
   @ContentHelp('''
 Overview of quality gate adjustments for this project. Explain why standard
 gates are modified, what project characteristics drove the changes, and
 how quality assurance is maintained despite deviations.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -546,7 +550,7 @@ how quality assurance is maintained despite deviations.
     ),
   ])
   @SerializationOrder(1)
-  String? adjustmentSummary;
+  DocSpecsSection? adjustmentSummary;
 
   /// Visual representation of gate adjustments.
   @SectionId('QGADJ-GATE')
@@ -556,7 +560,7 @@ how quality assurance is maintained despite deviations.
         'adjustments highlighted',
   )
   @SerializationOrder(2)
-  String? gateFlowDiagram;
+  DocSpecsSection? gateFlowDiagram;
 
   /// Contains 0+× QualityGateAdjustment.
   @StandardReferences([
@@ -586,7 +590,7 @@ how quality assurance is maintained despite deviations.
   'assurance, and its approval status.',
 )
 @SectionId('QGAJE')
-class QualityGateAdjustmentEntry {
+class QualityGateAdjustmentEntry extends DocSpecsSection {
   @Form([
     Field(
       'adjustmentId',
@@ -609,6 +613,7 @@ class QualityGateAdjustmentEntry {
       hint: 'Skipped / Added / Modified / Deferred / Relaxed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -661,7 +666,7 @@ class QualityGateAdjustmentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? rationale;
+  DocSpecsSection? rationale;
 
   /// Impact assessment.
   @SectionId('QGAEI')
@@ -701,7 +706,7 @@ class QualityGateAdjustmentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? impact;
+  DocSpecsSection? impact;
 
   /// Governance.
   @SectionId('QGAEG')
@@ -749,7 +754,7 @@ class QualityGateAdjustmentEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// Gate details.
@@ -759,7 +764,7 @@ class QualityGateAdjustmentEntry {
   'and threshold shift.',
 )
 @SectionId('QGAED')
-class QualityGateAdjustmentDetails {
+class QualityGateAdjustmentDetails extends DocSpecsSection {
   @Form([
     Field(
       'gatePhase',
@@ -792,6 +797,7 @@ class QualityGateAdjustmentDetails {
       hint: 'How thresholds were modified',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -815,12 +821,13 @@ class QualityGateAdjustmentDetails {
   'split, or added — and why.',
 )
 @SectionId('PCADJ')
-class ProcessAdjustments {
+class ProcessAdjustments extends DocSpecsSection {
   @ContentHelp('''
 Overview of process adjustments for this project. Explain why standard
 process steps are modified, what project constraints drove the changes,
 and how process integrity is maintained despite deviations.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -894,7 +901,7 @@ and how process integrity is maintained despite deviations.
     ),
   ])
   @SerializationOrder(1)
-  String? adjustmentSummary;
+  DocSpecsSection? adjustmentSummary;
 
   /// Visual representation of process adjustments.
   @SectionId('PCADJ-PROC')
@@ -905,7 +912,7 @@ and how process integrity is maintained despite deviations.
         'reordered steps with arrows, added steps in different color',
   )
   @SerializationOrder(2)
-  String? processFlowDiagram;
+  DocSpecsSection? processFlowDiagram;
 
   /// Contains 0+× ProcessAdjustment.
   @StandardReferences([
@@ -936,7 +943,7 @@ and how process integrity is maintained despite deviations.
   'implemented, the risk it carries, and its approval status.',
 )
 @SectionId('PCAJE')
-class ProcessAdjustmentEntry {
+class ProcessAdjustmentEntry extends DocSpecsSection {
   @Form([
     Field(
       'adjustmentId',
@@ -959,6 +966,7 @@ class ProcessAdjustmentEntry {
       hint: 'Skipped / Modified / Reordered / Parallelized / Added',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -984,7 +992,7 @@ class ProcessAdjustmentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Adjustment details.
   @StandardReferences([
@@ -1039,7 +1047,7 @@ class ProcessAdjustmentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? rationale;
+  DocSpecsSection? rationale;
 
   /// Implementation.
   @SectionId('PCAEI')
@@ -1078,7 +1086,7 @@ class ProcessAdjustmentEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? implementation;
+  DocSpecsSection? implementation;
 
   /// Risk and impact.
   @SectionId('PCAEK')
@@ -1126,7 +1134,7 @@ class ProcessAdjustmentEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? risk;
+  DocSpecsSection? risk;
 
   /// Governance.
   @SectionId('PCAEG')
@@ -1160,7 +1168,7 @@ class ProcessAdjustmentEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// Details for process adjustment.
@@ -1170,7 +1178,7 @@ class ProcessAdjustmentEntry {
   'parallelization, merge, or split.',
 )
 @SectionId('PCAED')
-class ProcessAdjustmentDetails {
+class ProcessAdjustmentDetails extends DocSpecsSection {
   @Form([
     Field(
       'adjustmentDescription',
@@ -1203,6 +1211,7 @@ class ProcessAdjustmentDetails {
       hint: 'If split, names of the resulting sub-steps',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -1226,8 +1235,9 @@ class ProcessAdjustmentDetails {
   'This wrapper itself carries no content.',
 )
 @SectionId('TOENV')
-class ToolingAndEnvironments {
+class ToolingAndEnvironments extends DocSpecsSection {
   @Unused()
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1255,7 +1265,7 @@ class ToolingAndEnvironments {
   'inventory of individual tools it relies on.',
 )
 @SectionId('TOOLI')
-class Tooling {
+class Tooling extends DocSpecsSection {
   @Form([
     Field(
       'toolStrategyOverview',
@@ -1288,6 +1298,7 @@ class Tooling {
       hint: 'Workflow for requesting, evaluating, and approving new tools',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1337,7 +1348,7 @@ class Tooling {
     ),
   ])
   @SerializationOrder(1)
-  String? stack;
+  DocSpecsSection? stack;
 
   /// Lifecycle and governance processes.
   @SectionId('TOLLC')
@@ -1365,7 +1376,7 @@ class Tooling {
     ),
   ])
   @SerializationOrder(2)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Review, catalog, and notes.
   @SectionId('TOLGV')
@@ -1398,7 +1409,7 @@ class Tooling {
     Field('notes', String, 'Notes', hint: 'Additional tooling strategy notes'),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Tool strategy narrative.
   @ContentType(
@@ -1440,7 +1451,7 @@ class Tooling {
   'infrastructure, lifecycle, cost, configuration, documentation, and approval.',
 )
 @SectionId('TOLEN')
-class ToolEntry {
+class ToolEntry extends DocSpecsSection {
   @Form([
     Field(
       'toolId',
@@ -1463,6 +1474,7 @@ class ToolEntry {
       hint: 'Additional notes, caveats, or context',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1554,7 +1566,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Licensing terms and compliance.
   @SectionId('TOLLN')
@@ -1640,7 +1652,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? licensing;
+  DocSpecsSection? licensing;
 
   /// Version management and upgrade policies.
   @SectionId('TOLVS')
@@ -1722,7 +1734,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? versioning;
+  DocSpecsSection? versioning;
 
   /// Access control and provisioning.
   @SectionId('TOLAC')
@@ -1820,7 +1832,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? access;
+  DocSpecsSection? access;
 
   /// Integration with other tools and systems.
   @SectionId('TOLIG')
@@ -1900,7 +1912,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Vendor and internal support details.
   @SectionId('TOLSP')
@@ -1962,7 +1974,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? support;
+  DocSpecsSection? support;
 
   /// Security and compliance requirements.
   @SectionId('TOLSC')
@@ -2064,7 +2076,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? security;
+  DocSpecsSection? security;
 
   /// Usage patterns and adoption metrics.
   @SectionId('TOLUS')
@@ -2146,7 +2158,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? usage;
+  DocSpecsSection? usage;
 
   /// Infrastructure and hosting details.
   @SectionId('TOLINF')
@@ -2232,7 +2244,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(9)
-  String? infrastructure;
+  DocSpecsSection? infrastructure;
 
   /// Lifecycle management and roadmap.
   @SectionId('TOLLYC')
@@ -2306,7 +2318,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(10)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Cost structure and budget.
   @SectionId('TOLCST')
@@ -2364,7 +2376,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(11)
-  String? cost;
+  DocSpecsSection? cost;
 
   /// Configuration standards and policies.
   @SectionId('TOLCFG')
@@ -2424,7 +2436,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(12)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Documentation resources.
   @SectionId('TOLDOC')
@@ -2470,7 +2482,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(13)
-  String? documentation;
+  DocSpecsSection? documentation;
 
   /// Approval status and ownership.
   @SectionId('TOLAPR')
@@ -2512,7 +2524,7 @@ class ToolEntry {
     ),
   ])
   @SerializationOrder(14)
-  String? approval;
+  DocSpecsSection? approval;
 
   /// Integration details narrative.
   @SerializationOrder(15)
@@ -2534,7 +2546,7 @@ class ToolEntry {
   'topology, naming, and the inventory of individual environment instances.',
 )
 @SectionId('ENVRS')
-class Environments {
+class Environments extends DocSpecsSection {
   @Form([
     Field(
       'promotionPath',
@@ -2579,6 +2591,7 @@ class Environments {
       hint: 'Additional environment overview notes',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2614,7 +2627,7 @@ class Environments {
   'connectivity, monitoring, lifecycle, ownership, cost, and compliance.',
 )
 @SectionId('ENVEN')
-class EnvironmentEntry {
+class EnvironmentEntry extends DocSpecsSection {
   @Form([
     Field(
       'environmentName',
@@ -2636,6 +2649,7 @@ class EnvironmentEntry {
       hint: 'Development / Testing / QA / UAT / Staging / Production / DR',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2669,7 +2683,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Infrastructure configuration.
   @SectionId('ENVIN')
@@ -2731,7 +2745,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? infrastructure;
+  DocSpecsSection? infrastructure;
 
   /// Access and security configuration.
   @SectionId('ENVSC')
@@ -2793,7 +2807,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? security;
+  DocSpecsSection? security;
 
   /// Data management policies.
   @SectionId('ENVDM')
@@ -2843,7 +2857,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? dataManagement;
+  DocSpecsSection? dataManagement;
 
   /// Configuration and versions.
   @SectionId('ENVCF')
@@ -2893,7 +2907,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Availability and SLA targets.
   @SectionId('ENVAV')
@@ -2943,7 +2957,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? availability;
+  DocSpecsSection? availability;
 
   /// Connectivity and network configuration.
   @SectionId('ENVCO')
@@ -2993,7 +3007,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? connectivity;
+  DocSpecsSection? connectivity;
 
   /// Monitoring and observability.
   @SectionId('ENVMN')
@@ -3037,7 +3051,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// Lifecycle and provisioning.
   @SectionId('ENVLC')
@@ -3087,7 +3101,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(9)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Ownership and support contacts.
   @SectionId('ENVOW')
@@ -3123,7 +3137,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(10)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   /// Cost and billing.
   @SectionId('ENVCS')
@@ -3159,7 +3173,7 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(11)
-  String? cost;
+  DocSpecsSection? cost;
 
   /// Compliance and audit requirements.
   @SectionId('ENVCP')
@@ -3197,5 +3211,5 @@ class EnvironmentEntry {
     ),
   ])
   @SerializationOrder(12)
-  String? compliance;
+  DocSpecsSection? compliance;
 }

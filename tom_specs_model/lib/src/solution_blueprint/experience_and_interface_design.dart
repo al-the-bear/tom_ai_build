@@ -18,7 +18,7 @@ import '../document_stubs.dart';
 )
 @SectionId('XID')
 @Comment('Seeds → XDS')
-class ExperienceAndInterfaceDesign {
+class ExperienceAndInterfaceDesign extends DocSpecsSection {
   @ContentHelp('''
 Provide an executive overview of the User Interface Design, establishing the
 foundation for all visual and interactive aspects of the application.
@@ -64,6 +64,7 @@ to pixel-perfect designs with exact typography and spacing.
 - Business Processes (section 6) → user task flows
 - Requirements (section 4) → functional requirements for each screen
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -146,7 +147,7 @@ to pixel-perfect designs with exact typography and spacing.
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-VIS')
-class DesignVision {
+class DesignVision extends DocSpecsSection {
   @ContentHelp('''
 ## Design Vision (10.1)
 
@@ -168,6 +169,7 @@ Design vision informs:
 Document the visual language and interaction vocabulary — how the Tom UI component 
 library will be configured and extended to express this vision.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -200,7 +202,7 @@ library will be configured and extended to express this vision.
   'The prioritized set of measurable usability objectives the interface must achieve.',
 )
 @SectionId('DEGOL')
-class DesignGoals {
+class DesignGoals extends DocSpecsSection {
   @ContentHelp('''
 ## Design Goals (10.1.1)
 
@@ -223,6 +225,7 @@ Prioritized UI objectives the system must achieve.
 Goals drive widget configuration — e.g., performance goals → lazy loading, 
 accessibility goals → semantic labels and focus management.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -250,7 +253,7 @@ accessibility goals → semantic labels and focus management.
   'ISO 9241-210:2019 — human-centred design sets measurable usability goals',
 ], 'A single measurable UI objective with success criteria and a target metric.')
 @SectionId('DGOEN')
-class DesignGoalEntry {
+class DesignGoalEntry extends DocSpecsSection {
   @Form([
     Field(
       'goalName',
@@ -291,6 +294,7 @@ class DesignGoalEntry {
       hint: 'Design principles that support this goal',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -311,7 +315,7 @@ class DesignGoalEntry {
   'The guiding interaction principles that govern all UI decisions across the interface.',
 )
 @SectionId('DEPRI')
-class DesignPrinciples {
+class DesignPrinciples extends DocSpecsSection {
   @ContentHelp('''
 ## Design Principles (10.1.2)
 
@@ -337,6 +341,7 @@ Principles configure shared behaviors:
 - Spacing/rhythm via `TomSpacing`
 - Typography scale via `TomTypography`
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -367,7 +372,7 @@ Principles configure shared behaviors:
   'A single guiding interaction principle that shapes UI decisions with rationale and examples.',
 )
 @SectionId('DPEN')
-class DesignPrincipleEntry {
+class DesignPrincipleEntry extends DocSpecsSection {
   @Form([
     Field(
       'principleName',
@@ -414,6 +419,7 @@ class DesignPrincipleEntry {
       hint: 'Design goals this principle supports',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -431,7 +437,7 @@ class DesignPrincipleEntry {
   'ISO 9241-11:2018 — context of use comprises users goals and operating environment',
 ], 'The set of distinct user archetypes the interface is designed to serve.')
 @SectionId('USPER')
-class UserPersonas {
+class UserPersonas extends DocSpecsSection {
   @ContentHelp('''
 ## User Personas (10.1.3)
 
@@ -458,6 +464,7 @@ Personas inform:
 - Help topic prioritization
 - Responsive breakpoint priorities
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -489,7 +496,7 @@ Personas inform:
   'A single distinct user archetype with the detailed context that guides interface design.',
 )
 @SectionId('PEREN')
-class PersonaEntry {
+class PersonaEntry extends DocSpecsSection {
   @Form([
     Field(
       'personaName',
@@ -501,6 +508,7 @@ class PersonaEntry {
     Field('age', String, 'Age', hint: 'Age or age range'),
     Field('role', String, 'Role', hint: 'Job title and responsibilities'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -529,7 +537,7 @@ class PersonaEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? profile;
+  DocSpecsSection? profile;
 
   /// Usage environment and device context.
   @SectionId('PECTX')
@@ -567,7 +575,7 @@ class PersonaEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? context;
+  DocSpecsSection? context;
 
   /// Motivations, frustrations, and success markers.
   @SectionId('PENDS')
@@ -605,7 +613,7 @@ class PersonaEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? needs;
+  DocSpecsSection? needs;
 
   /// 10.1.3.n.1. Persona Goals.
   @SerializationOrder(4)
@@ -629,7 +637,7 @@ class PersonaEntry {
   'The set of specific goals a persona pursues that drive feature requirements.',
 )
 @SectionId('PERGL')
-class PersonaGoals {
+class PersonaGoals extends DocSpecsSection {
   @ContentHelp('''
 ## Persona Goals (10.1.3.n.1)
 
@@ -645,6 +653,7 @@ Specific goals for this persona that drive feature requirements.
 Goals link to screens via requiredScreens in PersonaScenarios.
 High-priority goals drive primary screen actions and dashboard widgets.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -669,7 +678,7 @@ High-priority goals drive primary screen actions and dashboard widgets.
   'A single objective a persona wants to achieve that shapes feature requirements.',
 )
 @SectionId('PGOEN')
-class PersonaGoalEntry {
+class PersonaGoalEntry extends DocSpecsSection {
   @Form([
     Field(
       'goal',
@@ -693,6 +702,7 @@ class PersonaGoalEntry {
       hint: 'What success looks like',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -706,7 +716,7 @@ class PersonaGoalEntry {
   'The set of frustrations and obstacles a persona faces that the design should address.',
 )
 @SectionId('PEPPT')
-class PersonaPainPoints {
+class PersonaPainPoints extends DocSpecsSection {
   @ContentHelp('''
 ## Persona Pain Points (10.1.3.n.2)
 
@@ -726,6 +736,7 @@ High-severity pain points become design priorities:
 - Streamlined workflows
 - Contextual help placement
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -750,7 +761,7 @@ High-severity pain points become design priorities:
   'A single frustration or obstacle a persona faces that the interface should help relieve.',
 )
 @SectionId('PPPEN')
-class PersonaPainPointEntry {
+class PersonaPainPointEntry extends DocSpecsSection {
   @Form([
     Field(
       'painPoint',
@@ -780,6 +791,7 @@ class PersonaPainPointEntry {
       hint: 'What would help',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -795,7 +807,7 @@ class PersonaPainPointEntry {
   'The set of key usage scenarios that connect a persona to the screens and flows they need.',
 )
 @SectionId('PERSC')
-class PersonaScenarios {
+class PersonaScenarios extends DocSpecsSection {
   @ContentHelp('''
 ## Persona Scenarios (10.1.3.n.3)
 
@@ -815,6 +827,7 @@ Scenarios link to:
 - Screen Flow (SCF) via navigation paths
 - Use Cases (ISC-xxx) via related requirements
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -839,7 +852,7 @@ Scenarios link to:
   'A single key usage scenario capturing how one persona accomplishes a task with the system.',
 )
 @SectionId('PSCEN')
-class PersonaScenarioEntry {
+class PersonaScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
       'scenarioName',
@@ -880,6 +893,7 @@ class PersonaScenarioEntry {
       hint: 'How we measure scenario success',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -900,7 +914,7 @@ class PersonaScenarioEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-SCR')
-class ScreenDescriptions {
+class ScreenDescriptions extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Descriptions (10.2)
 
@@ -925,6 +939,7 @@ Each screen should have enough detail to generate:
 - State holder classes
 - Authorization checks
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -953,7 +968,7 @@ Each screen should have enough detail to generate:
   'The complete catalogue of application screens with each screen fully described.',
 )
 @SectionId('SCRINV')
-class ScreenInventory {
+class ScreenInventory extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Inventory (10.2.1)
 
@@ -985,6 +1000,7 @@ Screens generate TomScaffold configurations with:
 - Body layout
 - FAB/action buttons
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1017,7 +1033,7 @@ Screens generate TomScaffold configurations with:
   'A single application screen with its identity, purpose, layout, and behavior fully specified.',
 )
 @SectionId('SCREN')
-class ScreenEntry {
+class ScreenEntry extends DocSpecsSection {
   @Form([
     Field(
       'screenId',
@@ -1040,6 +1056,7 @@ class ScreenEntry {
       hint: 'Business purpose — what the user accomplishes here',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1073,7 +1090,7 @@ class ScreenEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Access control settings.
   @SectionId('SCEAC')
@@ -1111,7 +1128,7 @@ class ScreenEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? access;
+  DocSpecsSection? access;
 
   /// Traceability metadata.
   @SectionId('SCETR')
@@ -1155,7 +1172,7 @@ class ScreenEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? traceability;
+  DocSpecsSection? traceability;
 
   /// Presentation metadata.
   @SectionId('SCENPR')
@@ -1194,7 +1211,7 @@ class ScreenEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? presentation;
+  DocSpecsSection? presentation;
 
   /// Screen design rationale and notes.
   @SerializationOrder(5)
@@ -1270,7 +1287,7 @@ class ScreenEntry {
   'The container that holds the logical zones grouping related elements within a screen.',
 )
 @SectionId('SCSE')
-class ScreenSections {
+class ScreenSections extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Sections (10.2.1.n.1)
 
@@ -1297,6 +1314,7 @@ Sections map to Flutter layout widgets:
 - GridView for structured grids
 - Visibility for collapsible sections
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1326,7 +1344,7 @@ Sections map to Flutter layout widgets:
   'A single logical zone within a screen that groups related elements together.',
 )
 @SectionId('SCRSC')
-class ScreenSectionEntry {
+class ScreenSectionEntry extends DocSpecsSection {
   @Form([
     Field(
       'sectionId',
@@ -1351,6 +1369,7 @@ class ScreenSectionEntry {
           'Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1390,7 +1409,7 @@ class ScreenSectionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? layout;
+  DocSpecsSection? layout;
 
   /// Visibility and collapse behavior.
   @SectionId('SSEB')
@@ -1422,7 +1441,7 @@ class ScreenSectionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Contains 0+× ScreenElement within this section.
   @StandardReferences(
@@ -1451,7 +1470,7 @@ class ScreenSectionEntry {
   'A single interactive or display element within a screen section together with its type and behavior.',
 )
 @SectionId('SCREL')
-class ScreenElementEntry {
+class ScreenElementEntry extends DocSpecsSection {
   @Form([
     Field(
       'elementId',
@@ -1478,6 +1497,7 @@ class ScreenElementEntry {
           'Icon/Label/Link/Image/Divider/Spacer/Tab-Bar/Badge',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1523,7 +1543,7 @@ class ScreenElementEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? resources;
+  DocSpecsSection? resources;
 
   /// Placement and layout settings.
   @SectionId('SCELENLA')
@@ -1550,7 +1570,7 @@ class ScreenElementEntry {
     Field('alignment', String, 'Alignment', hint: 'Start/Center/End/Stretch'),
   ])
   @SerializationOrder(2)
-  String? layout;
+  DocSpecsSection? layout;
 
   /// Visibility and permission rules.
   @SectionId('SEEB')
@@ -1594,7 +1614,7 @@ class ScreenElementEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Styling and data binding.
   @SectionId('SCELENPR')
@@ -1638,7 +1658,7 @@ class ScreenElementEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? presentation;
+  DocSpecsSection? presentation;
 
   /// 10.2.1.n.m.k.1. Element Action.
   @SerializationOrder(5)
@@ -1678,7 +1698,7 @@ class ScreenElementEntry {
   'The specification of button or link behavior for an action-type element including its reference and effect.',
 )
 @SectionId('SCELAC')
-class ScreenElementAction {
+class ScreenElementAction extends DocSpecsSection {
   @Form([
     Field(
       'actionId',
@@ -1719,6 +1739,7 @@ class ScreenElementAction {
       hint: 'Shortcut binding, e.g., Ctrl+S',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1764,7 +1785,7 @@ class ScreenElementAction {
     ),
   ])
   @SerializationOrder(1)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Post-action navigation rules.
   @SectionId('SEAN')
@@ -1796,7 +1817,7 @@ class ScreenElementAction {
     ),
   ])
   @SerializationOrder(2)
-  String? navigation;
+  DocSpecsSection? navigation;
 }
 
 /// Field specification for an input-type element (form).
@@ -1810,7 +1831,7 @@ class ScreenElementAction {
   'The specification of input behavior for an input-type element including data type and constraints.',
 )
 @SectionId('SEFS')
-class ScreenElementFieldSpec {
+class ScreenElementFieldSpec extends DocSpecsSection {
   @Form([
     Field(
       'fieldName',
@@ -1833,6 +1854,7 @@ class ScreenElementFieldSpec {
       hint: 'Resource key for placeholder text',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1867,7 +1889,7 @@ class ScreenElementFieldSpec {
     ),
   ])
   @SerializationOrder(1)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Length and value constraints.
   @SectionId('SEFSC')
@@ -1901,7 +1923,7 @@ class ScreenElementFieldSpec {
     ),
   ])
   @SerializationOrder(2)
-  String? constraints;
+  DocSpecsSection? constraints;
 
   /// Validation behavior.
   @SectionId('SEFSV')
@@ -1940,7 +1962,7 @@ class ScreenElementFieldSpec {
     ),
   ])
   @SerializationOrder(3)
-  String? validation;
+  DocSpecsSection? validation;
 
   /// Selection and input assistance.
   @SectionId('SEFSS')
@@ -1975,7 +1997,7 @@ class ScreenElementFieldSpec {
     ),
   ])
   @SerializationOrder(4)
-  String? selection;
+  DocSpecsSection? selection;
 }
 
 /// Data display specification for display-type elements (form).
@@ -1989,7 +2011,7 @@ class ScreenElementFieldSpec {
   'The specification of how data is presented for a display-type element including format and empty state.',
 )
 @SectionId('SEDD')
-class ScreenElementDataDisplay {
+class ScreenElementDataDisplay extends DocSpecsSection {
   @Form([
     Field(
       'dataSource',
@@ -2016,6 +2038,7 @@ class ScreenElementDataDisplay {
       hint: 'Resource key for icon when no data',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2043,7 +2066,7 @@ class ScreenElementDataDisplay {
     ),
   ])
   @SerializationOrder(1)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Table/list interaction controls.
   @SectionId('SEDDO')
@@ -2077,7 +2100,7 @@ class ScreenElementDataDisplay {
     ),
   ])
   @SerializationOrder(2)
-  String? options;
+  DocSpecsSection? options;
 }
 
 /// A validation rule entry (form).
@@ -2089,7 +2112,7 @@ class ScreenElementDataDisplay {
   'A single validation rule describing how one input constraint is checked and reported.',
 )
 @SectionId('ELVARUEN')
-class ElementValidationRuleEntry {
+class ElementValidationRuleEntry extends DocSpecsSection {
   @Form([
     Field(
       'ruleType',
@@ -2120,6 +2143,7 @@ class ElementValidationRuleEntry {
       hint: 'On-Change/On-Blur/On-Submit',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2139,7 +2163,7 @@ class ElementValidationRuleEntry {
   'The set of top-level actions available on the screen through the toolbar, app bar, or FAB.',
 )
 @SectionId('SCAC')
-class ScreenActions {
+class ScreenActions extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Actions (10.2.1.n.2)
 
@@ -2159,6 +2183,7 @@ Actions integrate with `TomAction` system:
 - Keyboard shortcuts via keyboardShortcut
 - Success/error feedback via message resources
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2185,7 +2210,7 @@ Actions integrate with `TomAction` system:
   'A single top-level screen action available via toolbar, app bar, or floating action button.',
 )
 @SectionId('SCRAC')
-class ScreenActionEntry {
+class ScreenActionEntry extends DocSpecsSection {
   @Form([
     Field(
       'actionId',
@@ -2208,6 +2233,7 @@ class ScreenActionEntry {
       hint: 'Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2247,7 +2273,7 @@ class ScreenActionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? visual;
+  DocSpecsSection? visual;
 
   /// Visibility, enablement, and permission rules.
   @SectionId('SAEC')
@@ -2279,7 +2305,7 @@ class ScreenActionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? conditions;
+  DocSpecsSection? conditions;
 
   /// Confirmation, navigation, and feedback behavior.
   @SectionId('SAEB')
@@ -2323,7 +2349,7 @@ class ScreenActionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? behavior;
+  DocSpecsSection? behavior;
 }
 
 // ---------------------------------------------------------------------------
@@ -2338,7 +2364,7 @@ class ScreenActionEntry {
   'ISO 9241-161:2016 — visual user-interface elements and their states',
 ], 'The set of visual and behavioral states the screen can present to the user.')
 @SectionId('SCST')
-class ScreenStates {
+class ScreenStates extends DocSpecsSection {
   @ContentHelp('''
 ## Screen States (10.2.1.n.3)
 
@@ -2364,6 +2390,7 @@ Each state specifies:
 States map to `TomStateWidget` with standardized skeletons,
 empty states, and error displays.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2390,7 +2417,7 @@ empty states, and error displays.
   'A single screen state describing one visual or behavioral condition the screen can be in.',
 )
 @SectionId('SCRST')
-class ScreenStateEntry {
+class ScreenStateEntry extends DocSpecsSection {
   @Form([
     Field(
       'stateName',
@@ -2437,6 +2464,7 @@ class ScreenStateEntry {
       hint: 'Resource key for alternative action',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2450,7 +2478,7 @@ class ScreenStateEntry {
   'A single user category describing how screen content varies for one class of users.',
 )
 @SectionId('SUCE')
-class ScreenUserCategoryEntry {
+class ScreenUserCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
       'categoryName',
@@ -2472,6 +2500,7 @@ class ScreenUserCategoryEntry {
       hint: 'How screen content differs for this category',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2485,7 +2514,7 @@ class ScreenUserCategoryEntry {
   'A single entry point describing where a user comes from when reaching this screen.',
 )
 @SectionId('EPNT')
-class EntryPointEntry {
+class EntryPointEntry extends DocSpecsSection {
   @Form([
     Field(
       'entryPoint',
@@ -2507,6 +2536,7 @@ class EntryPointEntry {
       hint: 'Data or parameters passed from source',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2522,7 +2552,7 @@ class EntryPointEntry {
   'A single responsive-adaptation rule describing how the screen changes at a given breakpoint.',
 )
 @SectionId('SCRERUEN')
-class ScreenResponsiveRuleEntry {
+class ScreenResponsiveRuleEntry extends DocSpecsSection {
   @Form([
     Field(
       'breakpoint',
@@ -2556,6 +2586,7 @@ class ScreenResponsiveRuleEntry {
       hint: 'Sidebar/Bottom-Nav/Drawer/Hamburger',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -2577,7 +2608,7 @@ class ScreenResponsiveRuleEntry {
   'The overall organization of content and navigation that relates screens to one another across the application.',
 )
 @SectionId('IA')
-class InformationArchitecture {
+class InformationArchitecture extends DocSpecsSection {
   @ContentHelp('''
 ## Information Architecture (10.2.2)
 
@@ -2596,6 +2627,7 @@ Overall content organization and navigation structure.
 - Consistent mental model
 - Graceful degradation for authorization
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2623,7 +2655,7 @@ Overall content organization and navigation structure.
   @SectionIdPattern('GLOBA-GLOB-xxx')
   @ContentHelp('Add one entry per global entry point.')
   @SerializationOrder(4)
-  List<String> globalEntryPoints = [];
+  List<DocSpecsSection> globalEntryPoints = [];
 
   /// 10.2.2.5. Information Architecture Diagram.
   @SerializationOrder(5)
@@ -2646,7 +2678,7 @@ Overall content organization and navigation structure.
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-SCF')
-class ScreenFlowStructure {
+class ScreenFlowStructure extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Flow Structure (10.3)
 
@@ -2663,6 +2695,7 @@ Screen flow drives:
 - Navigation stack management
 - Deep link handling
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2691,7 +2724,7 @@ Screen flow drives:
   'The comprehensive navigation structure covering primary, secondary, utility, and contextual navigation, deep linking, and guards.',
 )
 @SectionId('NAMO')
-class NavigationModel {
+class NavigationModel extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Model (10.3.1)
 
@@ -2713,6 +2746,7 @@ Navigation model generates:
 - `TomShell` scaffold setup
 - Route guards and redirects
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2764,7 +2798,7 @@ Navigation model generates:
   'The overall navigation strategy, routing approach, and landing-screen decisions.',
 )
 @SectionId('NAOV')
-class NavigationOverview {
+class NavigationOverview extends DocSpecsSection {
   @Form([
     Field(
       'navigationStrategy',
@@ -2809,6 +2843,7 @@ class NavigationOverview {
       hint: 'System-back/In-app-back/Both',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2833,7 +2868,7 @@ class NavigationOverview {
   'The full navigation tree of groups and items forming the application navigation structure.',
 )
 @SectionId('NAHI')
-class NavigationHierarchy {
+class NavigationHierarchy extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Hierarchy (10.3.1.2)
 
@@ -2856,6 +2891,7 @@ Full navigation tree: groups and items.
 - Badges (count, dot, text)
 - Keyboard shortcuts
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2883,7 +2919,7 @@ Full navigation tree: groups and items.
   'ISO 9241-14:1997 — a menu group collects related options under a common heading',
 ], 'A logical grouping of related navigation items.')
 @SectionId('NAVGRP')
-class NavigationGroupEntry {
+class NavigationGroupEntry extends DocSpecsSection {
   @Form([
     Field(
       'groupId',
@@ -2912,6 +2948,7 @@ class NavigationGroupEntry {
       hint: 'Resource key for tooltip/subtitle',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2948,7 +2985,7 @@ class NavigationGroupEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? display;
+  DocSpecsSection? display;
 
   /// Access-control settings.
   @SectionId('NGEA')
@@ -2980,7 +3017,7 @@ class NavigationGroupEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? access;
+  DocSpecsSection? access;
 
   /// Badge and hierarchy settings.
   @SectionId('NGES')
@@ -3024,7 +3061,7 @@ class NavigationGroupEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? structure;
+  DocSpecsSection? structure;
 
   /// Contains 0+× NavigationItem.
   @StandardReferences([
@@ -3046,7 +3083,7 @@ class NavigationGroupEntry {
   'ISO 9241-14:1997 — menu options correspond to discrete, selectable destinations',
 ], 'A single navigable destination within a navigation group.')
 @SectionId('NAVIIT')
-class NavigationItemEntry {
+class NavigationItemEntry extends DocSpecsSection {
   @Form([
     Field(
       'itemId',
@@ -3069,6 +3106,7 @@ class NavigationItemEntry {
       hint: 'Route path, e.g., /customers',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3103,7 +3141,7 @@ class NavigationItemEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? display;
+  DocSpecsSection? display;
 
   /// Routing configuration.
   @SectionId('NIER')
@@ -3141,7 +3179,7 @@ class NavigationItemEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? routing;
+  DocSpecsSection? routing;
 
   /// Access control settings.
   @SectionId('NIEA')
@@ -3185,7 +3223,7 @@ class NavigationItemEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? access;
+  DocSpecsSection? access;
 
   /// Badge configuration.
   @SectionId('NIEB')
@@ -3212,7 +3250,7 @@ class NavigationItemEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? badge;
+  DocSpecsSection? badge;
 
   /// Interaction settings.
   @SectionId('NIEI')
@@ -3250,7 +3288,7 @@ class NavigationItemEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? interaction;
+  DocSpecsSection? interaction;
 }
 
 // ---------------------------------------------------------------------------
@@ -3268,7 +3306,7 @@ class NavigationItemEntry {
   'The primary-navigation configuration defining the top-level entry points across platforms.',
 )
 @SectionId('PRNA')
-class PrimaryNavigation {
+class PrimaryNavigation extends DocSpecsSection {
   @Form([
     Field(
       'mobilePattern',
@@ -3289,6 +3327,7 @@ class PrimaryNavigation {
       hint: 'Sidebar/Sidebar-Collapsible/Top-Nav+Sidebar',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3328,7 +3367,7 @@ class PrimaryNavigation {
     ),
   ])
   @SerializationOrder(1)
-  String? drawer;
+  DocSpecsSection? drawer;
 
   /// Bottom navigation rules.
   @SectionId('PNBN')
@@ -3360,7 +3399,7 @@ class PrimaryNavigation {
     ),
   ])
   @SerializationOrder(2)
-  String? bottomNav;
+  DocSpecsSection? bottomNav;
 
   /// Sidebar sizing and selection behavior.
   @SectionId('PRNASI')
@@ -3395,7 +3434,7 @@ class PrimaryNavigation {
     ),
   ])
   @SerializationOrder(3)
-  String? sidebar;
+  DocSpecsSection? sidebar;
 
   /// Design notes and tradeoffs.
   @SerializationOrder(4)
@@ -3417,7 +3456,7 @@ class PrimaryNavigation {
   'The secondary-navigation configuration providing in-page tab bars and segmented controls.',
 )
 @SectionId('SENA')
-class SecondaryNavigation {
+class SecondaryNavigation extends DocSpecsSection {
   @ContentHelp('''
 ## Secondary Navigation (10.3.1.4)
 
@@ -3441,6 +3480,7 @@ Tab bars map to `TomTabBar` with:
 - Lazy content loading
 - Permission-aware tab visibility
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3470,7 +3510,7 @@ Tab bars map to `TomTabBar` with:
   'ISO 9241-151:2008 — in-page navigation structures link the user to related content',
 ], 'A tab bar or segmented control definition bound to a specific host screen.')
 @SectionId('TABADEEN')
-class TabBarDefinitionEntry {
+class TabBarDefinitionEntry extends DocSpecsSection {
   @Form([
     Field(
       'tabBarId',
@@ -3499,6 +3539,7 @@ class TabBarDefinitionEntry {
       hint: 'Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3530,7 +3571,7 @@ class TabBarDefinitionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Visibility and loading profile.
   @SectionId('TBDEL')
@@ -3562,7 +3603,7 @@ class TabBarDefinitionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? loading;
+  DocSpecsSection? loading;
 
   /// Contains 1+× TabItem.
   @StandardReferences([
@@ -3585,7 +3626,7 @@ class TabBarDefinitionEntry {
   'A single tab item defining its label, icon, target content, and visibility rules.',
 )
 @SectionId('TIE')
-class TabItemEntry {
+class TabItemEntry extends DocSpecsSection {
   @Form([
     Field(
       'tabId',
@@ -3630,6 +3671,7 @@ class TabItemEntry {
     Field('badgeType', String, 'Badge Type', hint: 'None/Count/Dot'),
     Field('badgeSource', String, 'Badge Source', hint: 'Data source for badge'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -3649,7 +3691,7 @@ class TabItemEntry {
   'The utility-navigation configuration for always-visible entry points such as help, settings, and the user menu.',
 )
 @SectionId('UTNA')
-class UtilityNavigation {
+class UtilityNavigation extends DocSpecsSection {
   @ContentHelp('''
 ## Utility Navigation (10.3.1.5)
 
@@ -3673,6 +3715,7 @@ Dropdown/popup menus have nested items with:
 - Action type (Navigate/Action/External)
 - Danger styling and confirmation
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3703,7 +3746,7 @@ Dropdown/popup menus have nested items with:
   'A single persistent utility element in the app bar, such as the user avatar or notifications bell.',
 )
 @SectionId('UTNAITEN')
-class UtilityNavigationItemEntry {
+class UtilityNavigationItemEntry extends DocSpecsSection {
   @Form([
     Field(
       'utilityId',
@@ -3732,6 +3775,7 @@ class UtilityNavigationItemEntry {
       hint: 'AppBar-Leading/AppBar-Trailing/Drawer-Footer',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3761,7 +3805,7 @@ class UtilityNavigationItemEntry {
     Field('requiredRoles', String, 'Required Roles', hint: 'Access control'),
   ])
   @SerializationOrder(1)
-  String? display;
+  DocSpecsSection? display;
 
   /// Badge and interaction behavior.
   @SectionId('UNIEB')
@@ -3794,7 +3838,7 @@ class UtilityNavigationItemEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Contains 0+× UtilityMenuItem.
   @StandardReferences(
@@ -3821,7 +3865,7 @@ class UtilityNavigationItemEntry {
   'A single entry within a utility popup or dropdown menu, such as a user-menu option.',
 )
 @SectionId('UTMEITEN')
-class UtilityMenuItemEntry {
+class UtilityMenuItemEntry extends DocSpecsSection {
   @Form([
     Field(
       'menuItemId',
@@ -3840,6 +3884,7 @@ class UtilityMenuItemEntry {
     Field('icon', String, 'Icon Resource', hint: 'Leading icon'),
     Field('displayOrder', int, 'Display Order', hint: 'Position in menu'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3868,7 +3913,7 @@ class UtilityMenuItemEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? action;
+  DocSpecsSection? action;
 
   /// Visibility and confirmation behavior.
   @SectionId('UMIEB')
@@ -3906,7 +3951,7 @@ class UtilityMenuItemEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? behavior;
+  DocSpecsSection? behavior;
 }
 
 // ---------------------------------------------------------------------------
@@ -3924,7 +3969,7 @@ class UtilityMenuItemEntry {
   'The contextual-navigation configuration for breadcrumbs, back navigation, and related links.',
 )
 @SectionId('CONA')
-class ContextualNavigation {
+class ContextualNavigation extends DocSpecsSection {
   @ContentHelp('''
 ## Contextual Navigation (10.3.1.6)
 
@@ -3945,6 +3990,7 @@ Breadcrumbs, back navigation, related links.
 - "See also" navigation
 - Cross-entity links
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4020,7 +4066,7 @@ Breadcrumbs, back navigation, related links.
     ),
   ])
   @SerializationOrder(1)
-  String? breadcrumbs;
+  DocSpecsSection? breadcrumbs;
 
   /// Back navigation behavior.
   @SerializationOrder(2)
@@ -4046,7 +4092,7 @@ Breadcrumbs, back navigation, related links.
   'The deep-linking configuration for external entry points, URL patterns, and shareable links.',
 )
 @SectionId('DELI')
-class DeepLinking {
+class DeepLinking extends DocSpecsSection {
   @ContentHelp('''
 ## Deep Linking (10.3.1.7)
 
@@ -4066,6 +4112,7 @@ External entry points and shareable URLs.
 - External system integrations
 - Bookmarkable pages
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4097,7 +4144,7 @@ External entry points and shareable URLs.
   'A single deep-link pattern mapping an external URL to a target screen with its access rules.',
 )
 @SectionId('DELNPT')
-class DeepLinkPatternEntry {
+class DeepLinkPatternEntry extends DocSpecsSection {
   @Form([
     Field(
       'patternId',
@@ -4145,6 +4192,7 @@ class DeepLinkPatternEntry {
       hint: 'Yes/No — can users share this link',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -4164,7 +4212,7 @@ class DeepLinkPatternEntry {
   'The navigation-guard configuration that protects routes for unsaved changes, authentication, and permissions.',
 )
 @SectionId('NAGU')
-class NavigationGuards {
+class NavigationGuards extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Guards (10.3.1.8)
 
@@ -4188,6 +4236,7 @@ Route protection for unsaved changes, auth, permissions.
 ### Tom UI Mapping
 Guards integrate with `TomRouter` middleware.
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4219,7 +4268,7 @@ Guards integrate with `TomRouter` middleware.
   'A single route-guard rule that intercepts navigation for authentication, permission, or unsaved-change checks.',
 )
 @SectionId('NAVGRD')
-class NavigationGuardEntry {
+class NavigationGuardEntry extends DocSpecsSection {
   @Form([
     Field(
       'guardId',
@@ -4250,6 +4299,7 @@ class NavigationGuardEntry {
       hint: 'When this guard activates, e.g., form.isDirty',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4295,7 +4345,7 @@ class NavigationGuardEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? dialog;
+  DocSpecsSection? dialog;
 
   /// Redirect routing and evaluation priority.
   @SectionId('NGER')
@@ -4321,7 +4371,7 @@ class NavigationGuardEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? routing;
+  DocSpecsSection? routing;
 }
 
 // ---------------------------------------------------------------------------
@@ -4341,7 +4391,7 @@ class NavigationGuardEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-PRI')
-class PrintAndExportLayout {
+class PrintAndExportLayout extends DocSpecsSection {
   @Form([
     Field(
       'printStrategy',
@@ -4362,6 +4412,7 @@ class PrintAndExportLayout {
       hint: 'Portrait / Landscape',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4401,7 +4452,7 @@ class PrintAndExportLayout {
     ),
   ])
   @SerializationOrder(1)
-  String? pageSetup;
+  DocSpecsSection? pageSetup;
 
   /// Branding configuration.
   @SectionId('PRLABR')
@@ -4445,7 +4496,7 @@ class PrintAndExportLayout {
     ),
   ])
   @SerializationOrder(2)
-  String? branding;
+  DocSpecsSection? branding;
 
   /// Watermark and confidentiality.
   @SectionId('PRLAWA')
@@ -4489,7 +4540,7 @@ class PrintAndExportLayout {
     ),
   ])
   @SerializationOrder(3)
-  String? watermark;
+  DocSpecsSection? watermark;
 
   /// Header and footer settings.
   @SectionId('PLHF')
@@ -4545,7 +4596,7 @@ class PrintAndExportLayout {
     ),
   ])
   @SerializationOrder(4)
-  String? headerFooter;
+  DocSpecsSection? headerFooter;
 
   /// Archive and batch settings.
   @SectionId('PRLAAR')
@@ -4583,7 +4634,7 @@ class PrintAndExportLayout {
     ),
   ])
   @SerializationOrder(5)
-  String? archive;
+  DocSpecsSection? archive;
 
   /// 10.4.1. Reports — contains 0+× Report.
   @StandardReferences([
@@ -4639,7 +4690,7 @@ class PrintAndExportLayout {
   'A single report definition describing its data source layout sections and output.',
 )
 @SectionId('REPENT')
-class ReportEntry {
+class ReportEntry extends DocSpecsSection {
   @Form([
     Field(
       'reportId',
@@ -4662,6 +4713,7 @@ class ReportEntry {
       hint: 'Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4707,7 +4759,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Data source configuration.
   @SectionId('REDASO')
@@ -4745,7 +4797,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? dataSource;
+  DocSpecsSection? dataSource;
 
   /// Output format options.
   @SectionId('REFO')
@@ -4783,7 +4835,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? format;
+  DocSpecsSection? format;
 
   /// Page layout settings.
   @SectionId('RELA')
@@ -4806,7 +4858,7 @@ class ReportEntry {
     Field('marginRight', String, 'Margin Right', hint: 'Override right margin'),
   ])
   @SerializationOrder(4)
-  String? layout;
+  DocSpecsSection? layout;
 
   /// Header and footer templates.
   @SectionId('REHEFO')
@@ -4847,7 +4899,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? headerFooter;
+  DocSpecsSection? headerFooter;
 
   /// Sorting and grouping.
   @SectionId('REGR')
@@ -4891,7 +4943,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? grouping;
+  DocSpecsSection? grouping;
 
   /// Conditional formatting.
   @SectionId('RF')
@@ -4914,7 +4966,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Interactivity and parameters.
   @SectionId('REIN')
@@ -4952,7 +5004,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(8)
-  String? interactivity;
+  DocSpecsSection? interactivity;
 
   /// Pagination settings.
   @SectionId('REPA')
@@ -4984,7 +5036,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(9)
-  String? pagination;
+  DocSpecsSection? pagination;
 
   /// Security and access.
   @SectionId('RESE')
@@ -5028,7 +5080,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(10)
-  String? security;
+  DocSpecsSection? security;
 
   /// Lifecycle and archiving.
   @SectionId('RELI')
@@ -5066,7 +5118,7 @@ class ReportEntry {
     ),
   ])
   @SerializationOrder(11)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Contains 0+× Report Section.
   @StandardReferences(
@@ -5139,7 +5191,7 @@ class ReportEntry {
   'A single section within a report describing its data layout sorting and content.',
 )
 @SectionId('RSE')
-class ReportSectionEntry {
+class ReportSectionEntry extends DocSpecsSection {
   @Form([
     Field(
       'sectionId',
@@ -5162,6 +5214,7 @@ class ReportSectionEntry {
       hint: 'Table / Chart / Summary / Text / KPI-Card / Mixed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5194,7 +5247,7 @@ class ReportSectionEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(1)
-  String? data;
+  DocSpecsSection? data;
 
   /// Layout and page settings.
   @SectionId('RESELA')
@@ -5255,7 +5308,7 @@ class ReportSectionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? layout;
+  DocSpecsSection? layout;
 
   /// Sorting and grouping.
   @SectionId('RESESO')
@@ -5293,7 +5346,7 @@ class ReportSectionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? sorting;
+  DocSpecsSection? sorting;
 
   /// Aggregation and limits.
   @SectionId('RESEAG')
@@ -5331,7 +5384,7 @@ class ReportSectionEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? aggregation;
+  DocSpecsSection? aggregation;
 
   /// Contains 0+× Report Column.
   @StandardReferences(
@@ -5364,7 +5417,7 @@ class ReportSectionEntry {
   'ISO 9241-13:1998 — user guidance covers column header labels',
 ], 'A single column definition within a tabular report section.')
 @SectionId('REPCOLENT')
-class ReportColumnEntry {
+class ReportColumnEntry extends DocSpecsSection {
   @Form([
     Field(
       'columnId',
@@ -5388,6 +5441,7 @@ class ReportColumnEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5412,7 +5466,7 @@ class ReportColumnEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? dataSource;
+  DocSpecsSection? dataSource;
 
   /// Display formatting.
   @SectionId('RECOFO')
@@ -5475,7 +5529,7 @@ class ReportColumnEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Aggregation settings.
   @SectionId('RECOAG')
@@ -5513,7 +5567,7 @@ class ReportColumnEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? aggregation;
+  DocSpecsSection? aggregation;
 
   /// Interaction options.
   @SectionId('RECOIN')
@@ -5538,7 +5592,7 @@ class ReportColumnEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? interaction;
+  DocSpecsSection? interaction;
 
   /// Visibility and layout.
   @SectionId('RECOLA')
@@ -5566,7 +5620,7 @@ class ReportColumnEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(5)
-  String? layout;
+  DocSpecsSection? layout;
 }
 
 /// A chart/visualization in a report
@@ -5576,7 +5630,7 @@ class ReportColumnEntry {
   'ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of charts',
 ], 'A single chart definition describing how report data is visualised.')
 @SectionId('REPCHAENT')
-class ReportChartEntry {
+class ReportChartEntry extends DocSpecsSection {
   @Form([
     Field(
       'chartId',
@@ -5593,6 +5647,7 @@ class ReportChartEntry {
       hint: 'Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5642,7 +5697,7 @@ class ReportChartEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? series;
+  DocSpecsSection? series;
 
   /// Display options.
   @SectionId('RECHDI')
@@ -5692,7 +5747,7 @@ class ReportChartEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? display;
+  DocSpecsSection? display;
 
   /// Interaction.
   @SectionId('RECHIN')
@@ -5716,7 +5771,7 @@ class ReportChartEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(4)
-  String? interaction;
+  DocSpecsSection? interaction;
 
   /// Layout.
   @SectionId('RECHLA')
@@ -5733,7 +5788,7 @@ class ReportChartEntry {
     Field('height', String, 'Height', hint: 'Chart height, e.g. 300px / Auto'),
   ])
   @SerializationOrder(5)
-  String? layout;
+  DocSpecsSection? layout;
 }
 
 /// Axes for report chart.
@@ -5745,7 +5800,7 @@ class ReportChartEntry {
   'Axis configuration mapping data fields to chart X-axis and Y-axis dimensions.',
 )
 @SectionId('RECHAX')
-class ReportChartAxes {
+class ReportChartAxes extends DocSpecsSection {
   @Form([
     Field(
       'dataSource',
@@ -5804,6 +5859,7 @@ class ReportChartAxes {
       hint: 'Label for secondary axis',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -5821,7 +5877,7 @@ class ReportChartAxes {
   'A single report-filter entry defining one parameter by which report content is filtered.',
 )
 @SectionId('RFE')
-class ReportFilterEntry {
+class ReportFilterEntry extends DocSpecsSection {
   @Form([
     Field(
       'filterId',
@@ -5845,6 +5901,7 @@ class ReportFilterEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5906,7 +5963,7 @@ class ReportFilterEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? input;
+  DocSpecsSection? input;
 
   /// Scope and validation behavior.
   @SectionId('RFEB')
@@ -5956,7 +6013,7 @@ class ReportFilterEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Presentation options.
   @SectionId('RFEP')
@@ -5989,7 +6046,7 @@ class ReportFilterEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(3)
-  String? presentation;
+  DocSpecsSection? presentation;
 }
 
 /// Scheduling rules for report generation
@@ -6002,7 +6059,7 @@ class ReportFilterEntry {
   'A single report-schedule entry defining when and how often a report is generated.',
 )
 @SectionId('REPSCHENT')
-class ReportScheduleEntry {
+class ReportScheduleEntry extends DocSpecsSection {
   @Form([
     Field(
       'scheduleId',
@@ -6026,6 +6083,7 @@ class ReportScheduleEntry {
           'Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6078,7 +6136,7 @@ class ReportScheduleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? timing;
+  DocSpecsSection? timing;
 
   /// Retry configuration.
   @SectionId('RSER')
@@ -6099,7 +6157,7 @@ class ReportScheduleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? retry;
+  DocSpecsSection? retry;
 
   /// Notification settings.
   @SectionId('RSEN')
@@ -6138,7 +6196,7 @@ class ReportScheduleEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? notifications;
+  DocSpecsSection? notifications;
 
   /// Output configuration.
   @SectionId('RSEO')
@@ -6184,7 +6242,7 @@ class ReportScheduleEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(4)
-  String? output;
+  DocSpecsSection? output;
 }
 
 /// Distribution channel configuration (form).
@@ -6196,7 +6254,7 @@ class ReportScheduleEntry {
   'A single distribution-channel entry defining how a report is delivered over one channel.',
 )
 @SectionId('RDE')
-class ReportDistributionEntry {
+class ReportDistributionEntry extends DocSpecsSection {
   @Form([
     Field(
       'distributionId',
@@ -6220,6 +6278,7 @@ class ReportDistributionEntry {
       hint: 'Purpose of this distribution channel',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6260,7 +6319,7 @@ class ReportDistributionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? recipients;
+  DocSpecsSection? recipients;
 
   /// Message and attachment content.
   @SectionId('REDIENCO')
@@ -6298,7 +6357,7 @@ class ReportDistributionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? contentSettings;
+  DocSpecsSection? contentSettings;
 
   /// Delivery conditions and lifecycle settings.
   @SectionId('RDED')
@@ -6363,7 +6422,7 @@ class ReportDistributionEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(3)
-  String? delivery;
+  DocSpecsSection? delivery;
 }
 
 /// A recipient entry (form).
@@ -6376,7 +6435,7 @@ class ReportDistributionEntry {
   'A single report-recipient entry identifying who receives a report and how they are referenced.',
 )
 @SectionId('RRE')
-class ReportRecipientEntry {
+class ReportRecipientEntry extends DocSpecsSection {
   @Form([
     Field(
       'recipientId',
@@ -6406,6 +6465,7 @@ class ReportRecipientEntry {
       hint: 'User ID, role name, group name, or email address',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6433,7 +6493,7 @@ class ReportRecipientEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? context;
+  DocSpecsSection? context;
 
   /// Delivery preferences.
   @SectionId('RRED')
@@ -6478,7 +6538,7 @@ class ReportRecipientEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? delivery;
+  DocSpecsSection? delivery;
 
   /// Lifecycle settings.
   @SectionId('RREL')
@@ -6511,7 +6571,7 @@ class ReportRecipientEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(3)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 }
 
 // ---------------------------------------------------------------------------
@@ -6528,7 +6588,7 @@ class ReportRecipientEntry {
   'A single export-format definition describing how report output is rendered, delimited, sized, and secured.',
 )
 @SectionId('EFE')
-class ExportFormatEntry {
+class ExportFormatEntry extends DocSpecsSection {
   @Form([
     Field(
       'exportId',
@@ -6551,6 +6611,7 @@ class ExportFormatEntry {
       hint: 'CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6585,7 +6646,7 @@ class ExportFormatEntry {
     Field('dataScope', String, 'Data Scope', hint: 'Scope of exported data'),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// File format settings.
   @SectionId('EXFIFO')
@@ -6612,7 +6673,7 @@ class ExportFormatEntry {
     Field('lineEnding', String, 'Line Ending', hint: 'CRLF / LF / CR'),
   ])
   @SerializationOrder(2)
-  String? fileFormat;
+  DocSpecsSection? fileFormat;
 
   /// Delimiter and quoting.
   @SectionId('EXDE')
@@ -6650,7 +6711,7 @@ class ExportFormatEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? delimiter;
+  DocSpecsSection? delimiter;
 
   /// Data formatting.
   @SectionId('EXDAFO')
@@ -6701,7 +6762,7 @@ class ExportFormatEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? dataFormat;
+  DocSpecsSection? dataFormat;
 
   /// Size and splitting.
   @StandardReferences(
@@ -6742,7 +6803,7 @@ class ExportFormatEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? security;
+  DocSpecsSection? security;
 
   /// Output and scheduling.
   @SectionId('EXOU')
@@ -6780,7 +6841,7 @@ class ExportFormatEntry {
     ),
   ])
   @SerializationOrder(7)
-  String? output;
+  DocSpecsSection? output;
 
   /// Access and audit.
   @SectionId('EXAC')
@@ -6819,7 +6880,7 @@ class ExportFormatEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(8)
-  String? access;
+  DocSpecsSection? access;
 
   /// Contains 0+× Export Field Mapping.
   @StandardReferences(
@@ -6845,7 +6906,7 @@ class ExportFormatEntry {
   'Row limits and file-splitting settings that bound the size of generated export files.',
 )
 @SectionId('EXSISE')
-class ExportSizeSettings {
+class ExportSizeSettings extends DocSpecsSection {
   @Form([
     Field('maxRows', int, 'Maximum Rows', hint: 'Row limit; 0 = unlimited'),
     Field(
@@ -6861,6 +6922,7 @@ class ExportSizeSettings {
       hint: 'Split point, e.g. 100000 rows or 50MB',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -6874,7 +6936,7 @@ class ExportSizeSettings {
   'A single mapping that binds one source data field to one target field in the export output.',
 )
 @SectionId('EXFIMAEN')
-class ExportFieldMappingEntry {
+class ExportFieldMappingEntry extends DocSpecsSection {
   @Form([
     Field(
       'mappingId',
@@ -6898,6 +6960,7 @@ class ExportFieldMappingEntry {
       required: true,
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6931,7 +6994,7 @@ class ExportFieldMappingEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Transformation rules.
   @SectionId('EFMET')
@@ -6964,7 +7027,7 @@ class ExportFieldMappingEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? transformation;
+  DocSpecsSection? transformation;
 
   /// Inclusion and defaults.
   @SectionId('EFMEI')
@@ -7002,7 +7065,7 @@ class ExportFieldMappingEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? inclusion;
+  DocSpecsSection? inclusion;
 
   /// Fixed-width and quoting rules.
   @SectionId('EFMEL')
@@ -7041,7 +7104,7 @@ class ExportFieldMappingEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(4)
-  String? layout;
+  DocSpecsSection? layout;
 }
 
 // ---------------------------------------------------------------------------
@@ -7057,7 +7120,7 @@ class ExportFieldMappingEntry {
   'A reusable export template that bundles format, field, layout, and access settings for repeated exports.',
 )
 @SectionId('ETE')
-class ExportTemplateEntry {
+class ExportTemplateEntry extends DocSpecsSection {
   @Form([
     Field(
       'templateId',
@@ -7080,6 +7143,7 @@ class ExportTemplateEntry {
       hint: 'CSV / Excel / PDF / JSON / XML / HTML',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7116,7 +7180,7 @@ class ExportTemplateEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? format;
+  DocSpecsSection? format;
 
   /// Field and filter settings.
   @SectionId('EXTEENFI')
@@ -7154,7 +7218,7 @@ class ExportTemplateEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? fields;
+  DocSpecsSection? fields;
 
   /// Layout configuration.
   @SectionId('ETEL')
@@ -7193,7 +7257,7 @@ class ExportTemplateEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? layout;
+  DocSpecsSection? layout;
 
   /// Access and metadata.
   @SectionId('ETEA')
@@ -7227,7 +7291,7 @@ class ExportTemplateEntry {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(4)
-  String? access;
+  DocSpecsSection? access;
 }
 
 // ---------------------------------------------------------------------------
@@ -7251,7 +7315,7 @@ class ExportTemplateEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-ERR')
-class ErrorHandling {
+class ErrorHandling extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
   // ─────────────────────────────────────────────────────────────────────────
@@ -7284,7 +7348,7 @@ class ErrorHandling {
     ),
   ])
   @SerializationOrder(0)
-  String? errorPhilosophyContent;
+  DocSpecsSection? errorPhilosophyContent;
 
   /// Error categorization and display priority.
   @SectionId('EHCC')
@@ -7316,7 +7380,7 @@ class ErrorHandling {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Accessibility and inclusive error cues.
   @SectionId('EHCA')
@@ -7348,7 +7412,7 @@ class ErrorHandling {
     ),
   ])
   @SerializationOrder(2)
-  String? accessibility;
+  DocSpecsSection? accessibility;
 
   /// Localization and analytics behavior.
   @SectionId('EHCO')
@@ -7386,7 +7450,7 @@ class ErrorHandling {
     ),
   ])
   @SerializationOrder(3)
-  String? operations;
+  DocSpecsSection? operations;
 
   /// Error handling overview and strategy.
   @ContentHelp(
@@ -7436,7 +7500,7 @@ class ErrorHandling {
   'The validation-feedback configuration governing how input errors are surfaced.',
 )
 @SectionId('VAFE')
-class ValidationFeedback {
+class ValidationFeedback extends DocSpecsSection {
   @SectionId('VAFE-VALI')
   @Form([
     Field(
@@ -7459,7 +7523,7 @@ class ValidationFeedback {
     ),
   ])
   @SerializationOrder(0)
-  String? validationDisplayContent;
+  DocSpecsSection? validationDisplayContent;
 
   /// Display placement details.
   @SectionId('VAFEPL')
@@ -7503,7 +7567,7 @@ class ValidationFeedback {
     ),
   ])
   @SerializationOrder(1)
-  String? placement;
+  DocSpecsSection? placement;
 
   /// Message formatting details.
   @SectionId('VAFEME')
@@ -7541,7 +7605,7 @@ class ValidationFeedback {
     ),
   ])
   @SerializationOrder(2)
-  String? messages;
+  DocSpecsSection? messages;
 
   /// Guidance settings.
   @SectionId('VAFEGU')
@@ -7573,7 +7637,7 @@ class ValidationFeedback {
     ),
   ])
   @SerializationOrder(3)
-  String? guidance;
+  DocSpecsSection? guidance;
 
   /// Animation and focus behavior.
   @SectionId('VAFEBE')
@@ -7611,7 +7675,7 @@ class ValidationFeedback {
     ),
   ])
   @SerializationOrder(4)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Validation feedback narrative.
   @ContentHelp(
@@ -7640,7 +7704,7 @@ class ValidationFeedback {
   @SectionIdPattern('FIELD-FIEL-xxx')
   @ContentHelp('Add one entry per field validation rule.')
   @SerializationOrder(7)
-  List<String> fieldValidationRules = [];
+  List<DocSpecsSection> fieldValidationRules = [];
 }
 
 /// A validation message template.
@@ -7652,7 +7716,7 @@ class ValidationFeedback {
   'The validation-message template configuration defining reusable error message content.',
 )
 @SectionId('VMT')
-class ValidationMessageTemplate {
+class ValidationMessageTemplate extends DocSpecsSection {
   @Form([
     Field(
       'messageId',
@@ -7713,6 +7777,7 @@ class ValidationMessageTemplate {
       hint: 'i18n key for translation',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -7730,7 +7795,7 @@ class ValidationMessageTemplate {
   'The system-error display configuration governing how errors are shown to users.',
 )
 @SectionId('SYERDI')
-class SystemErrorDisplay {
+class SystemErrorDisplay extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // System Error Handling
   // ─────────────────────────────────────────────────────────────────────────
@@ -7756,7 +7821,7 @@ class SystemErrorDisplay {
     ),
   ])
   @SerializationOrder(0)
-  String? systemErrorContent;
+  DocSpecsSection? systemErrorContent;
 
   /// Error type handling configuration.
   @SectionId('SEDET')
@@ -7800,7 +7865,7 @@ class SystemErrorDisplay {
     ),
   ])
   @SerializationOrder(1)
-  String? errorTypes;
+  DocSpecsSection? errorTypes;
 
   /// Display method settings.
   @SectionId('SEDM')
@@ -7844,7 +7909,7 @@ class SystemErrorDisplay {
     ),
   ])
   @SerializationOrder(2)
-  String? displayMethods;
+  DocSpecsSection? displayMethods;
 
   /// Content options.
   @SectionId('SEDC')
@@ -7888,7 +7953,7 @@ class SystemErrorDisplay {
     ),
   ])
   @SerializationOrder(3)
-  String? displayContent;
+  DocSpecsSection? displayContent;
 
   /// Fallback behavior.
   @SectionId('SEDF')
@@ -7926,7 +7991,7 @@ class SystemErrorDisplay {
     ),
   ])
   @SerializationOrder(4)
-  String? fallback;
+  DocSpecsSection? fallback;
 
   /// System error display narrative.
   @ContentHelp(
@@ -7945,7 +8010,7 @@ class SystemErrorDisplay {
   @SectionIdPattern('EPDE-ERRO-xxx')
   @ContentHelp('Add one entry per error page design.')
   @SerializationOrder(6)
-  List<String> errorPageDesigns = [];
+  List<DocSpecsSection> errorPageDesigns = [];
 
   /// Error codes catalog.
   @StandardReferences([
@@ -7965,7 +8030,7 @@ class SystemErrorDisplay {
   'ISO 9241-13:1998 — user guidance maps each error to a clear and specific user message',
 ], 'A single catalogued system error code with its user message and handling.')
 @SectionId('SYERCOEN')
-class SystemErrorCodeEntry {
+class SystemErrorCodeEntry extends DocSpecsSection {
   @Form([
     Field(
       'errorCode',
@@ -7994,6 +8059,7 @@ class SystemErrorCodeEntry {
       hint: 'User-friendly error message',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -8036,7 +8102,7 @@ class SystemErrorCodeEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? handling;
+  DocSpecsSection? handling;
 
   /// Operational support and logging controls.
   @SectionId('SECEO')
@@ -8054,7 +8120,7 @@ class SystemErrorCodeEntry {
     Field('logLevel', String, 'Log Level', hint: 'Error, warning, info'),
   ])
   @SerializationOrder(2)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// 10.7.3. Error Recovery.
@@ -8069,7 +8135,7 @@ class SystemErrorCodeEntry {
   'The error-recovery configuration covering data preservation, retry, and guided recovery.',
 )
 @SectionId('ERRE')
-class ErrorRecovery {
+class ErrorRecovery extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Recovery Mechanisms
   // ─────────────────────────────────────────────────────────────────────────
@@ -8095,7 +8161,7 @@ class ErrorRecovery {
     ),
   ])
   @SerializationOrder(0)
-  String? recoveryMechanismsContent;
+  DocSpecsSection? recoveryMechanismsContent;
 
   /// Data preservation: draft auto-save settings.
   @SectionId('ERDP')
@@ -8139,7 +8205,7 @@ class ErrorRecovery {
     ),
   ])
   @SerializationOrder(1)
-  String? dataPreservation;
+  DocSpecsSection? dataPreservation;
 
   /// Retry mechanisms configuration.
   @SectionId('ERRM')
@@ -8189,7 +8255,7 @@ class ErrorRecovery {
     ),
   ])
   @SerializationOrder(2)
-  String? retryMechanisms;
+  DocSpecsSection? retryMechanisms;
 
   /// Guided recovery options.
   @SectionId('ERGR')
@@ -8227,7 +8293,7 @@ class ErrorRecovery {
     ),
   ])
   @SerializationOrder(3)
-  String? guidedRecovery;
+  DocSpecsSection? guidedRecovery;
 
   /// Support contact details.
   @SectionId('ERSC')
@@ -8259,7 +8325,7 @@ class ErrorRecovery {
     ),
   ])
   @SerializationOrder(4)
-  String? supportContact;
+  DocSpecsSection? supportContact;
 
   /// Session handling configuration.
   @SectionId('ERSH')
@@ -8285,7 +8351,7 @@ class ErrorRecovery {
     ),
   ])
   @SerializationOrder(5)
-  String? sessionHandling;
+  DocSpecsSection? sessionHandling;
 
   /// Error recovery narrative.
   @ContentHelp(
@@ -8304,7 +8370,7 @@ class ErrorRecovery {
   @SectionIdPattern('RECOV-RECO-xxx')
   @ContentHelp('Add one entry per recovery flow.')
   @SerializationOrder(7)
-  List<String> recoveryFlows = [];
+  List<DocSpecsSection> recoveryFlows = [];
 
   /// Common recovery scenarios.
   @StandardReferences([
@@ -8327,7 +8393,7 @@ class ErrorRecovery {
   'The configuration for a single recovery scenario describing its trigger, impact, and recovery steps.',
 )
 @SectionId('RCVSCN')
-class RecoveryScenarioEntry {
+class RecoveryScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
       'scenarioId',
@@ -8381,6 +8447,7 @@ class RecoveryScenarioEntry {
       hint: 'When to escalate to support',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -8407,7 +8474,7 @@ class RecoveryScenarioEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-HLP')
-class UserAssistance {
+class UserAssistance extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -8441,7 +8508,7 @@ class UserAssistance {
     ),
   ])
   @SerializationOrder(0)
-  String? helpOverviewContent;
+  DocSpecsSection? helpOverviewContent;
 
   /// Content stewardship and help affordances.
   @SectionId('USASDE')
@@ -8485,7 +8552,7 @@ class UserAssistance {
     ),
   ])
   @SerializationOrder(1)
-  String? delivery;
+  DocSpecsSection? delivery;
 
   /// Analytics and improvement feedback.
   @SectionId('USASIN')
@@ -8511,7 +8578,7 @@ class UserAssistance {
     ),
   ])
   @SerializationOrder(2)
-  String? insights;
+  DocSpecsSection? insights;
 
   /// Help system overview narrative.
   @ContentHelp(
@@ -8549,7 +8616,7 @@ class UserAssistance {
   'The contextual-help configuration providing on-screen assistance in context.',
 )
 @SectionId('COHE')
-class ContextualHelp {
+class ContextualHelp extends DocSpecsSection {
   @SectionId('COHE-CONT')
   @Form([
     Field(
@@ -8584,7 +8651,7 @@ class ContextualHelp {
     ),
   ])
   @SerializationOrder(0)
-  String? contextualHelpContent;
+  DocSpecsSection? contextualHelpContent;
 
   /// Inline help behavior.
   @SectionId('COHEIN')
@@ -8616,7 +8683,7 @@ class ContextualHelp {
     ),
   ])
   @SerializationOrder(1)
-  String? inline;
+  DocSpecsSection? inline;
 
   /// Help panel behavior.
   @SectionId('COHEPA')
@@ -8648,7 +8715,7 @@ class ContextualHelp {
     ),
   ])
   @SerializationOrder(2)
-  String? panels;
+  DocSpecsSection? panels;
 
   /// What's-this mode settings.
   @SectionId('CHWT')
@@ -8674,7 +8741,7 @@ class ContextualHelp {
     ),
   ])
   @SerializationOrder(3)
-  String? whatsThis;
+  DocSpecsSection? whatsThis;
 
   /// Rich help media settings.
   @SectionId('COHERI')
@@ -8701,7 +8768,7 @@ class ContextualHelp {
     ),
   ])
   @SerializationOrder(4)
-  String? rich;
+  DocSpecsSection? rich;
 
   /// Contextual help narrative.
   @SerializationOrder(5)
@@ -8728,7 +8795,7 @@ class ContextualHelp {
   'ISO 9241-13:1998 — user guidance offers field-level help for input elements',
 ], 'A single field-help entry describing the assistance for one input field.')
 @SectionId('FLDHP')
-class FieldHelpEntry {
+class FieldHelpEntry extends DocSpecsSection {
   @Form([
     Field(
       'fieldId',
@@ -8776,6 +8843,7 @@ class FieldHelpEntry {
       hint: 'Frequently made errors',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -8789,7 +8857,7 @@ class FieldHelpEntry {
   'A single onboarding-help configuration guiding new users through the interface.',
 )
 @SectionId('ONHE')
-class OnboardingHelp {
+class OnboardingHelp extends DocSpecsSection {
   @SectionId('ONHE-ONBO')
   @Form([
     Field(
@@ -8818,7 +8886,7 @@ class OnboardingHelp {
     ),
   ])
   @SerializationOrder(0)
-  String? onboardingContent;
+  DocSpecsSection? onboardingContent;
 
   /// Feature tour settings.
   @SectionId('ONHETO')
@@ -8856,7 +8924,7 @@ class OnboardingHelp {
     ),
   ])
   @SerializationOrder(1)
-  String? tours;
+  DocSpecsSection? tours;
 
   /// Sample data settings.
   @SectionId('OHSD')
@@ -8888,7 +8956,7 @@ class OnboardingHelp {
     ),
   ])
   @SerializationOrder(2)
-  String? sampleData;
+  DocSpecsSection? sampleData;
 
   /// Getting started checklist configuration.
   @SectionId('ONHECH')
@@ -8926,7 +8994,7 @@ class OnboardingHelp {
     ),
   ])
   @SerializationOrder(3)
-  String? checklist;
+  DocSpecsSection? checklist;
 
   /// Progressive disclosure configuration.
   @SectionId('ONHEDI')
@@ -8952,7 +9020,7 @@ class OnboardingHelp {
     ),
   ])
   @SerializationOrder(4)
-  String? disclosure;
+  DocSpecsSection? disclosure;
 
   /// Returning user experience.
   @SectionId('ONHERE')
@@ -8978,7 +9046,7 @@ class OnboardingHelp {
     ),
   ])
   @SerializationOrder(5)
-  String? reengagement;
+  DocSpecsSection? reengagement;
 
   /// Onboarding narrative.
   @SerializationOrder(6)
@@ -9001,7 +9069,7 @@ class OnboardingHelp {
   'ISO/IEC 25010:2023 — supports learnability so users can learn to operate the feature with ease',
 ], 'A single feature-tour definition, including audience, trigger, and steps.')
 @SectionId('FTRTUR')
-class FeatureTourEntry {
+class FeatureTourEntry extends DocSpecsSection {
   @Form([
     Field(
       'tourId',
@@ -9055,6 +9123,7 @@ class FeatureTourEntry {
       hint: 'Once only, on request, periodic',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -9078,7 +9147,7 @@ class FeatureTourEntry {
   'A single step within a guided feature tour, targeting one interface element.',
 )
 @SectionId('TURST')
-class TourStepEntry {
+class TourStepEntry extends DocSpecsSection {
   @Form([
     Field(
       'stepOrder',
@@ -9120,6 +9189,7 @@ class TourStepEntry {
       hint: 'Circle, rectangle, custom',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -9133,7 +9203,7 @@ class TourStepEntry {
   'The overall support-access configuration spanning help centre, live support, tickets, contacts, and self-service.',
 )
 @SectionId('SUAC')
-class SupportAccess {
+class SupportAccess extends DocSpecsSection {
   @SectionId('SUAC-SUPP')
   @Form([
     Field(
@@ -9156,7 +9226,7 @@ class SupportAccess {
     ),
   ])
   @SerializationOrder(0)
-  String? supportAccessContent;
+  DocSpecsSection? supportAccessContent;
 
   /// Help center configuration.
   @SectionId('SAHC')
@@ -9188,7 +9258,7 @@ class SupportAccess {
     ),
   ])
   @SerializationOrder(1)
-  String? helpCenter;
+  DocSpecsSection? helpCenter;
 
   /// Live support settings.
   @SectionId('SALS')
@@ -9217,7 +9287,7 @@ class SupportAccess {
     ),
   ])
   @SerializationOrder(2)
-  String? liveSupport;
+  DocSpecsSection? liveSupport;
 
   /// Ticket system configuration.
   @SectionId('SUACTI')
@@ -9248,7 +9318,7 @@ class SupportAccess {
     ),
   ])
   @SerializationOrder(3)
-  String? tickets;
+  DocSpecsSection? tickets;
 
   /// Contact methods.
   @SectionId('SACM')
@@ -9283,7 +9353,7 @@ class SupportAccess {
     ),
   ])
   @SerializationOrder(4)
-  String? contactMethods;
+  DocSpecsSection? contactMethods;
 
   /// Self-service and feedback options.
   @SectionId('SASS')
@@ -9331,7 +9401,7 @@ class SupportAccess {
     Field('bugReporting', bool, 'Bug Reporting', hint: 'Report bugs from app'),
   ])
   @SerializationOrder(5)
-  String? selfService;
+  DocSpecsSection? selfService;
 
   /// Support access narrative.
   @SerializationOrder(6)
@@ -9357,7 +9427,7 @@ class SupportAccess {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-ACC')
-class Accessibility {
+class Accessibility extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -9384,7 +9454,7 @@ class Accessibility {
     ),
   ])
   @SerializationOrder(0)
-  String? accessibilityOverviewContent;
+  DocSpecsSection? accessibilityOverviewContent;
 
   /// Ownership and inclusive design philosophy.
   @SectionId('ACSTGY')
@@ -9416,7 +9486,7 @@ class Accessibility {
     ),
   ])
   @SerializationOrder(1)
-  String? strategy;
+  DocSpecsSection? strategy;
 
   /// Accessibility testing approach.
   @SectionId('ACTE')
@@ -9454,7 +9524,7 @@ class Accessibility {
     ),
   ])
   @SerializationOrder(2)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Supported assistive technologies and platform features.
   @SectionId('ACSU')
@@ -9480,7 +9550,7 @@ class Accessibility {
     ),
   ])
   @SerializationOrder(3)
-  String? support;
+  DocSpecsSection? support;
 
   /// Accessibility overview narrative.
   @ContentHelp(
@@ -9532,7 +9602,7 @@ class Accessibility {
   'The overall WCAG conformance level and the mapping of success criteria for the interface.',
 )
 @SectionId('WCCO')
-class WcagCompliance {
+class WcagCompliance extends DocSpecsSection {
   @SectionId('WCCO-WCAG')
   @Form([
     Field(
@@ -9561,7 +9631,7 @@ class WcagCompliance {
     ),
   ])
   @SerializationOrder(0)
-  String? wcagComplianceContent;
+  DocSpecsSection? wcagComplianceContent;
 
   /// Operable principles.
   @SectionId('WCCOOP')
@@ -9605,7 +9675,7 @@ class WcagCompliance {
     ),
   ])
   @SerializationOrder(1)
-  String? operable;
+  DocSpecsSection? operable;
 
   /// Understandable principles.
   @SectionId('WCCOUN')
@@ -9637,7 +9707,7 @@ class WcagCompliance {
     ),
   ])
   @SerializationOrder(2)
-  String? understandable;
+  DocSpecsSection? understandable;
 
   /// Robustness requirements.
   @SectionId('WCCORO')
@@ -9657,7 +9727,7 @@ class WcagCompliance {
     ),
   ])
   @SerializationOrder(3)
-  String? robust;
+  DocSpecsSection? robust;
 
   /// WCAG compliance narrative.
   @SerializationOrder(4)
@@ -9684,7 +9754,7 @@ class WcagCompliance {
   'A single WCAG success criterion with its level, applicability, and conformance status.',
 )
 @SectionId('WCSUCREN')
-class WcagSuccessCriterionEntry {
+class WcagSuccessCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
       'criterionId',
@@ -9732,6 +9802,7 @@ class WcagSuccessCriterionEntry {
       hint: 'Any documented exceptions',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -9744,7 +9815,7 @@ class WcagSuccessCriterionEntry {
   'EN 301 549 — accessibility verification follows the applicable European ICT requirements',
 ], 'The comprehensive checklist used to verify accessibility conformance.')
 @SectionId('ACCHLS')
-class AccessibilityChecklist {
+class AccessibilityChecklist extends DocSpecsSection {
   @SectionId('ACCHLS-CHEC')
   @Form([
     Field(
@@ -9797,7 +9868,7 @@ class AccessibilityChecklist {
     ),
   ])
   @SerializationOrder(0)
-  String? checklistOverviewContent;
+  DocSpecsSection? checklistOverviewContent;
 
   /// Accessibility checklist overview.
   @SerializationOrder(1)
@@ -9821,7 +9892,7 @@ class AccessibilityChecklist {
   'EN 301 549 — the product is checked against the applicable accessibility requirements',
 ], 'A single accessibility checklist entry describing what is verified and how.')
 @SectionId('ACCH')
-class AccessibilityCheckEntry {
+class AccessibilityCheckEntry extends DocSpecsSection {
   @Form([
     Field(
       'checkId',
@@ -9851,6 +9922,7 @@ class AccessibilityCheckEntry {
       hint: 'Automated, manual, user testing',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -9879,7 +9951,7 @@ class AccessibilityCheckEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Testing execution ownership and status.
   @SectionId('ACEE')
@@ -9915,7 +9987,7 @@ class AccessibilityCheckEntry {
     Field('testedBy', String, 'Tested By', hint: 'Name or role of the tester'),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Issue tracking and remediation details.
   @SectionId('ACER')
@@ -9941,7 +10013,7 @@ class AccessibilityCheckEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? remediation;
+  DocSpecsSection? remediation;
 }
 
 // ---------------------------------------------------------------------------
@@ -9964,7 +10036,7 @@ class AccessibilityCheckEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-RES')
-class ResponsiveDesign {
+class ResponsiveDesign extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -10023,7 +10095,7 @@ class ResponsiveDesign {
     ),
   ])
   @SerializationOrder(0)
-  String? responsiveOverview;
+  DocSpecsSection? responsiveOverview;
 
   /// Responsive design narrative.
   @ContentHelp(
@@ -10053,7 +10125,7 @@ class ResponsiveDesign {
   'The configuration of viewport breakpoints, their units, and density handling for responsive layouts.',
 )
 @SectionId('BC')
-class BreakpointConfiguration {
+class BreakpointConfiguration extends DocSpecsSection {
   @SectionId('BC-BREA')
   @Form([
     // Standard breakpoints
@@ -10121,7 +10193,7 @@ class BreakpointConfiguration {
     ),
   ])
   @SerializationOrder(0)
-  String? breakpointOverview;
+  DocSpecsSection? breakpointOverview;
 
   /// Breakpoint entries.
   @StandardReferences([
@@ -10143,7 +10215,7 @@ class BreakpointConfiguration {
   'A single breakpoint entry defining a viewport width range and its associated layout and scaling rules.',
 )
 @SectionId('BE')
-class BreakpointEntry {
+class BreakpointEntry extends DocSpecsSection {
   @Form([
     Field(
       'breakpointId',
@@ -10172,6 +10244,7 @@ class BreakpointEntry {
       hint: 'Maximum width in logical pixels',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -10201,7 +10274,7 @@ class BreakpointEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? layout;
+  DocSpecsSection? layout;
 
   /// Navigation and visual scaling rules.
   @SectionId('BRENSC')
@@ -10229,7 +10302,7 @@ class BreakpointEntry {
     Field('iconScale', String, 'Icon Scale', hint: 'Icon size scaling factor'),
   ])
   @SerializationOrder(2)
-  String? scaling;
+  DocSpecsSection? scaling;
 }
 
 /// 10.10.2. Responsive Behavior.
@@ -10244,7 +10317,7 @@ class BreakpointEntry {
   'The specification of how the interface adapts its layout, navigation, visibility, touch, and content across breakpoints.',
 )
 @SectionId('REBE')
-class ResponsiveBehavior {
+class ResponsiveBehavior extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Layout Adaptation
   // ─────────────────────────────────────────────────────────────────────────
@@ -10270,7 +10343,7 @@ class ResponsiveBehavior {
     ),
   ])
   @SerializationOrder(0)
-  String? layoutAdaptation;
+  DocSpecsSection? layoutAdaptation;
 
   /// Navigation patterns per device class.
   @SectionId('REBENA')
@@ -10302,7 +10375,7 @@ class ResponsiveBehavior {
     ),
   ])
   @SerializationOrder(1)
-  String? navigation;
+  DocSpecsSection? navigation;
 
   /// Visibility rules.
   @SectionId('REBEVI')
@@ -10334,7 +10407,7 @@ class ResponsiveBehavior {
     ),
   ])
   @SerializationOrder(2)
-  String? visibility;
+  DocSpecsSection? visibility;
 
   /// Touch and interaction optimizations.
   @SectionId('REBETO')
@@ -10366,7 +10439,7 @@ class ResponsiveBehavior {
     ),
   ])
   @SerializationOrder(3)
-  String? touch;
+  DocSpecsSection? touch;
 
   /// Content reflow rules.
   @SerializationOrder(4)
@@ -10400,7 +10473,7 @@ class ResponsiveBehavior {
   'The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.',
 )
 @SectionId('REBECO')
-class ResponsiveBehaviorContent {
+class ResponsiveBehaviorContent extends DocSpecsSection {
   @Form([
     Field(
       'contentReflowStrategy',
@@ -10427,6 +10500,7 @@ class ResponsiveBehaviorContent {
       hint: 'How forms adapt: single column, multi-column',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -10440,7 +10514,7 @@ class ResponsiveBehaviorContent {
   'A single screen-specific responsive rule describing how one screen adapts across mobile, tablet, and desktop layouts.',
 )
 @SectionId('RESPSR')
-class ResponsiveScreenRuleEntry {
+class ResponsiveScreenRuleEntry extends DocSpecsSection {
   @Form([
     Field(
       'screenId',
@@ -10481,6 +10555,7 @@ class ResponsiveScreenRuleEntry {
       hint: 'Any screen-specific responsive notes or exceptions',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -10506,7 +10581,7 @@ class ResponsiveScreenRuleEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-COM')
-class UiComponents {
+class UiComponents extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -10538,7 +10613,7 @@ class UiComponents {
     ),
   ])
   @SerializationOrder(0)
-  String? componentLibraryOverview;
+  DocSpecsSection? componentLibraryOverview;
 
   /// Visual language and brand alignment.
   @SectionId('UCVL')
@@ -10571,7 +10646,7 @@ class UiComponents {
     ),
   ])
   @SerializationOrder(1)
-  String? visualLanguage;
+  DocSpecsSection? visualLanguage;
 
   /// Component naming and documentation approach.
   @SectionId('UCCA')
@@ -10604,7 +10679,7 @@ class UiComponents {
     ),
   ])
   @SerializationOrder(2)
-  String? componentApproach;
+  DocSpecsSection? componentApproach;
 
   /// Extension and theming boundaries.
   @SectionId('UICOCU')
@@ -10637,7 +10712,7 @@ class UiComponents {
     ),
   ])
   @SerializationOrder(3)
-  String? customization;
+  DocSpecsSection? customization;
 
   /// 10.11.1. Component Library.
   @SerializationOrder(4)
@@ -10681,7 +10756,7 @@ class UiComponents {
   'The component-library configuration describing the design system and its shared foundations.',
 )
 @SectionId('COLI')
-class ComponentLibrary {
+class ComponentLibrary extends DocSpecsSection {
   @StandardReferences(
     [
       'Material Design — design tokens capture reusable values for the design system',
@@ -10757,7 +10832,7 @@ class ComponentLibrary {
     ),
   ])
   @SerializationOrder(1)
-  String? colors;
+  DocSpecsSection? colors;
 
   /// Typography system.
   @SectionId('COLITY')
@@ -10796,7 +10871,7 @@ class ComponentLibrary {
     ),
   ])
   @SerializationOrder(2)
-  String? typography;
+  DocSpecsSection? typography;
 
   /// Spacing and elevation.
   @SectionId('COLISP')
@@ -10825,7 +10900,7 @@ class ComponentLibrary {
     ),
   ])
   @SerializationOrder(3)
-  String? spacing;
+  DocSpecsSection? spacing;
 
   /// Borders and corners.
   @SectionId('COLIBO')
@@ -10852,7 +10927,7 @@ class ComponentLibrary {
     ),
   ])
   @SerializationOrder(4)
-  String? borders;
+  DocSpecsSection? borders;
 
   /// Icons and animation.
   @SectionId('COLIVI')
@@ -10891,7 +10966,7 @@ class ComponentLibrary {
     ),
   ])
   @SerializationOrder(5)
-  String? visuals;
+  DocSpecsSection? visuals;
 
   /// Design system narrative.
   @ContentHelp(
@@ -10943,7 +11018,7 @@ class ComponentLibrary {
   'A colour palette describing the colour set, variants, and contrast guidance used across the interface.',
 )
 @SectionId('COPA')
-class ColorPaletteEntry {
+class ColorPaletteEntry extends DocSpecsSection {
   @Form([
     Field(
       'paletteName',
@@ -10991,6 +11066,7 @@ class ColorPaletteEntry {
       hint: 'When and where to apply this palette',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -11005,7 +11081,7 @@ class ColorPaletteEntry {
   'A single typography style describing font, size, weight, and spacing for a text role.',
 )
 @SectionId('TYST')
-class TypographyStyleEntry {
+class TypographyStyleEntry extends DocSpecsSection {
   @Form([
     Field(
       'styleName',
@@ -11037,6 +11113,7 @@ class TypographyStyleEntry {
     ),
     Field('useCase', String, 'Use Case', hint: 'Where this style is used'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -11053,7 +11130,7 @@ class TypographyStyleEntry {
   'A grouping of related interface components that share function, patterns, and consistency rules.',
 )
 @SectionId('CMFA')
-class ComponentFamilyEntry {
+class ComponentFamilyEntry extends DocSpecsSection {
   @Form([
     Field(
       'familyId',
@@ -11094,6 +11171,7 @@ class ComponentFamilyEntry {
       hint: 'Rules for family consistency',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11119,7 +11197,7 @@ class ComponentFamilyEntry {
   'ISO/IEC 25010:2023 — grouping related components as a family supports modularity and reuse',
 ], 'A reference identifying one component that belongs to a component family.')
 @SectionId('FAMREF')
-class FamilyComponentRef {
+class FamilyComponentRef extends DocSpecsSection {
   @Form([
     Field(
       'componentId',
@@ -11148,6 +11226,7 @@ class FamilyComponentRef {
       hint: 'How it relates to other family members',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -11166,7 +11245,7 @@ class FamilyComponentRef {
   'The complete specification of a single user-interface component covering identity, visual design, behaviour, accessibility, authorization, and data binding.',
 )
 @SectionId('UICOMENT')
-class UiComponentEntry {
+class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Identity
   // ─────────────────────────────────────────────────────────────────────────
@@ -11201,7 +11280,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(0)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Wrapper mapping and business purpose.
   @SectionId('UCEP')
@@ -11240,7 +11319,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? purposeProfile;
+  DocSpecsSection? purposeProfile;
 
   /// Classification details.
   @SectionId('UCEC')
@@ -11272,7 +11351,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? classification;
+  DocSpecsSection? classification;
 
   // ─────────────────────────────────────────────────────────────────────────
   // Visual Design
@@ -11300,7 +11379,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? visualDesign;
+  DocSpecsSection? visualDesign;
 
   /// Visual dimensions.
   @SectionId('UCED')
@@ -11339,7 +11418,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? dimensions;
+  DocSpecsSection? dimensions;
 
   /// Spacing rules.
   @SectionId('UCES')
@@ -11372,7 +11451,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? spacing;
+  DocSpecsSection? spacing;
 
   /// Surface treatment.
   @SectionId('UICOENSU')
@@ -11406,7 +11485,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(6)
-  String? surface;
+  DocSpecsSection? surface;
 
   /// Visual design diagram.
   @ContentHelp('Visual diagram or mockup of the component.')
@@ -11451,7 +11530,7 @@ class UiComponentEntry {
     Field('hoverBehavior', String, 'Hover Behavior'),
   ])
   @SerializationOrder(8)
-  String? interactiveBehavior;
+  DocSpecsSection? interactiveBehavior;
 
   /// Focus and keyboard behavior.
   @SectionId('UCEIB')
@@ -11484,7 +11563,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(9)
-  String? inputBehavior;
+  DocSpecsSection? inputBehavior;
 
   /// Animation behavior.
   @SectionId('UCEA')
@@ -11523,7 +11602,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(10)
-  String? animation;
+  DocSpecsSection? animation;
 
   /// Scrolling behavior.
   @SectionId('UICOENSC')
@@ -11549,7 +11628,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(11)
-  String? scroll;
+  DocSpecsSection? scroll;
 
   // ─────────────────────────────────────────────────────────────────────────
   // Responsiveness
@@ -11600,7 +11679,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(12)
-  String? responsiveness;
+  DocSpecsSection? responsiveness;
 
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility
@@ -11652,7 +11731,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(13)
-  String? accessibility;
+  DocSpecsSection? accessibility;
 
   // ─────────────────────────────────────────────────────────────────────────
   // Authorization Integration
@@ -11703,7 +11782,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(14)
-  String? authorization;
+  DocSpecsSection? authorization;
 
   // ─────────────────────────────────────────────────────────────────────────
   // Resource Integration
@@ -11766,7 +11845,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(15)
-  String? resourceIntegration;
+  DocSpecsSection? resourceIntegration;
 
   // ─────────────────────────────────────────────────────────────────────────
   // Data Binding
@@ -11817,7 +11896,7 @@ class UiComponentEntry {
     ),
   ])
   @SerializationOrder(16)
-  String? dataBinding;
+  DocSpecsSection? dataBinding;
 
   /// Component behavior narrative.
   @ContentHelp(
@@ -11910,7 +11989,7 @@ class UiComponentEntry {
   'The component state definition describing a distinct visual and functional state of a UI component.',
 )
 @SectionId('COMSTAENT')
-class ComponentStateEntry {
+class ComponentStateEntry extends DocSpecsSection {
   @Form([
     Field(
       'stateId',
@@ -11933,6 +12012,7 @@ class ComponentStateEntry {
       hint: 'What this state represents',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11979,7 +12059,7 @@ class ComponentStateEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? visual;
+  DocSpecsSection? visual;
 
   /// Behavior and accessibility changes in this state.
   @SectionId('CSEB')
@@ -12006,7 +12086,7 @@ class ComponentStateEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Entry and exit transition rules.
   @SectionId('CSET')
@@ -12039,7 +12119,7 @@ class ComponentStateEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? transitions;
+  DocSpecsSection? transitions;
 
   /// State visual mockup.
   @SerializationOrder(4)
@@ -12058,7 +12138,7 @@ class ComponentStateEntry {
   'The component variant definition describing an alternative appearance or behavior of a component.',
 )
 @SectionId('CVE')
-class ComponentVariantEntry {
+class ComponentVariantEntry extends DocSpecsSection {
   @Form([
     Field(
       'variantId',
@@ -12088,6 +12168,7 @@ class ComponentVariantEntry {
       hint: 'How variant looks different',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -12122,7 +12203,7 @@ class ComponentVariantEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? visual;
+  DocSpecsSection? visual;
 
   /// Behavioral and implementation notes.
   @SectionId('CVEB')
@@ -12161,7 +12242,7 @@ class ComponentVariantEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Variant visual mockup.
   @SerializationOrder(3)
@@ -12180,7 +12261,7 @@ class ComponentVariantEntry {
   'The component action definition describing an operation that a user can trigger from a component.',
 )
 @SectionId('CMAC')
-class ComponentActionEntry {
+class ComponentActionEntry extends DocSpecsSection {
   @Form([
     Field('actionId', String, 'Action ID', required: true),
     Field(
@@ -12203,6 +12284,7 @@ class ComponentActionEntry {
       hint: 'Data passed with action',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -12244,7 +12326,7 @@ class ComponentActionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Async execution and feedback behavior.
   @SectionId('CAEE')
@@ -12277,7 +12359,7 @@ class ComponentActionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 }
 
 /// A component slot entry.
@@ -12291,7 +12373,7 @@ class ComponentActionEntry {
   'The component slot definition describing a placeholder where child content can be inserted.',
 )
 @SectionId('CMSL')
-class ComponentSlotEntry {
+class ComponentSlotEntry extends DocSpecsSection {
   @Form([
     Field(
       'slotId',
@@ -12344,6 +12426,7 @@ class ComponentSlotEntry {
       hint: 'Resource for slot content',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -12360,7 +12443,7 @@ class ComponentSlotEntry {
   'The configurable property definition describing a settable attribute of a UI component.',
 )
 @SectionId('CMPR')
-class ComponentPropertyEntry {
+class ComponentPropertyEntry extends DocSpecsSection {
   @Form([
     Field(
       'propertyId',
@@ -12425,6 +12508,7 @@ class ComponentPropertyEntry {
       hint: 'Controlled by authorization',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -12449,7 +12533,7 @@ class ComponentPropertyEntry {
   'The multi-language support architecture covering supported languages, primary language, and locale handling.',
 )
 @SectionId('MLAR')
-class MultiLanguageSupport {
+class MultiLanguageSupport extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Multi-language Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -12483,7 +12567,7 @@ class MultiLanguageSupport {
     // Locale handling
   ])
   @SerializationOrder(0)
-  String? multiLanguageOverview;
+  DocSpecsSection? multiLanguageOverview;
 
   /// Multi-language overview narrative.
   @ContentHelp(
@@ -12521,7 +12605,7 @@ class MultiLanguageSupport {
   'The locale format, country variants, detection, and fallback-chain behavior.',
 )
 @SectionId('MLARLH')
-class LocaleHandlingRequirements {
+class LocaleHandlingRequirements extends DocSpecsSection {
   @Form([
     Field(
       'localeFormat',
@@ -12548,6 +12632,7 @@ class LocaleHandlingRequirements {
       hint: 'Fallback order when locale not available',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -12567,7 +12652,7 @@ class LocaleHandlingRequirements {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-LOC')
-class LocalizationProcess {
+class LocalizationProcess extends DocSpecsSection {
   @SectionId('LOPR-LOCA')
   @Form([
     Field(
@@ -12596,7 +12681,7 @@ class LocalizationProcess {
     ),
   ])
   @SerializationOrder(0)
-  String? localizationProcessContent;
+  DocSpecsSection? localizationProcessContent;
 
   /// Review process.
   @SectionId('LOPRR1')
@@ -12628,7 +12713,7 @@ class LocalizationProcess {
     ),
   ])
   @SerializationOrder(1)
-  String? review;
+  DocSpecsSection? review;
 
   /// Formatting rules.
   @SectionId('LOPRFO')
@@ -12673,7 +12758,7 @@ class LocalizationProcess {
     ),
   ])
   @SerializationOrder(2)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Deployment settings.
   @SectionId('LOPRDE')
@@ -12705,7 +12790,7 @@ class LocalizationProcess {
     ),
   ])
   @SerializationOrder(3)
-  String? deployment;
+  DocSpecsSection? deployment;
 
   /// Localization process narrative.
   @SerializationOrder(4)
@@ -12730,7 +12815,7 @@ class LocalizationProcess {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRA')
-class TranslationProcess {
+class TranslationProcess extends DocSpecsSection {
   @SectionId('TRPR-TRAN')
   @Form([
     Field(
@@ -12759,7 +12844,7 @@ class TranslationProcess {
     ),
   ])
   @SerializationOrder(0)
-  String? translationProcessContent;
+  DocSpecsSection? translationProcessContent;
 
   /// Translation workflow.
   @SectionId('TRPRWO')
@@ -12797,7 +12882,7 @@ class TranslationProcess {
     ),
   ])
   @SerializationOrder(1)
-  String? workflow;
+  DocSpecsSection? workflow;
 
   /// Quality assurance.
   @SectionId('TRPRQU')
@@ -12829,7 +12914,7 @@ class TranslationProcess {
     ),
   ])
   @SerializationOrder(2)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Terminology and voice management.
   @SectionId('TRPRTE')
@@ -12857,7 +12942,7 @@ class TranslationProcess {
     ),
   ])
   @SerializationOrder(3)
-  String? terminology;
+  DocSpecsSection? terminology;
 
   /// Ongoing localization operations.
   @SectionId('TRPRON')
@@ -12883,7 +12968,7 @@ class TranslationProcess {
     ),
   ])
   @SerializationOrder(4)
-  String? ongoing;
+  DocSpecsSection? ongoing;
 
   /// Translation process narrative.
   @SerializationOrder(5)
@@ -12910,7 +12995,7 @@ class TranslationProcess {
   'A single translation-vendor entry describing its type, languages, specializations, and quality.',
 )
 @SectionId('TVE')
-class TranslationVendorEntry {
+class TranslationVendorEntry extends DocSpecsSection {
   @Form([
     Field(
       'vendorName',
@@ -12956,6 +13041,7 @@ class TranslationVendorEntry {
       hint: 'Primary contact name, email, or phone',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -12979,7 +13065,7 @@ class TranslationVendorEntry {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
-class UserDocumentationRequirements {
+class UserDocumentationRequirements extends DocSpecsSection {
   @SectionId('DOANTR-DOCU')
   @Form([
     Field(
@@ -13002,7 +13088,7 @@ class UserDocumentationRequirements {
     ),
   ])
   @SerializationOrder(0)
-  String? documentationContent;
+  DocSpecsSection? documentationContent;
 
   /// Documentation deliverables provided to users.
   @SectionId('DATD')
@@ -13055,7 +13141,7 @@ class UserDocumentationRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? deliverables;
+  DocSpecsSection? deliverables;
 
   /// Documentation localization approach.
   @SectionId('DATL')
@@ -13082,7 +13168,7 @@ class UserDocumentationRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? localization;
+  DocSpecsSection? localization;
 
   /// Documentation narrative.
   @SerializationOrder(3)
@@ -13109,7 +13195,7 @@ class UserDocumentationRequirements {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
-class TrainingDeliverableRequirements {
+class TrainingDeliverableRequirements extends DocSpecsSection {
   @SectionId('TRMAT-TRAI')
   @Form([
     // Training materials
@@ -13171,7 +13257,7 @@ class TrainingDeliverableRequirements {
     ),
   ])
   @SerializationOrder(0)
-  String? trainingContent;
+  DocSpecsSection? trainingContent;
 
   /// Training narrative.
   @SerializationOrder(1)
@@ -13198,7 +13284,7 @@ class TrainingDeliverableRequirements {
   'A single training module describing its audience, duration, delivery method, and assessment.',
 )
 @SectionId('TME')
-class TrainingModuleEntry {
+class TrainingModuleEntry extends DocSpecsSection {
   @Form([
     Field(
       'moduleId',
@@ -13251,6 +13337,7 @@ class TrainingModuleEntry {
       hint: 'Quiz, exercise, certification',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -13270,7 +13357,7 @@ class TrainingModuleEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-LCS')
-class LanguageCountrySelection {
+class LanguageCountrySelection extends DocSpecsSection {
   @SectionId('LACOSE-LANG')
   @Form([
     Field(
@@ -13305,7 +13392,7 @@ class LanguageCountrySelection {
     ),
   ])
   @SerializationOrder(0)
-  String? languageSelectionContent;
+  DocSpecsSection? languageSelectionContent;
 
   /// Default locale behavior.
   @SectionId('LCSD')
@@ -13337,7 +13424,7 @@ class LanguageCountrySelection {
     ),
   ])
   @SerializationOrder(1)
-  String? defaults;
+  DocSpecsSection? defaults;
 
   /// Persistence rules.
   @SectionId('LCSP')
@@ -13369,7 +13456,7 @@ class LanguageCountrySelection {
     ),
   ])
   @SerializationOrder(2)
-  String? persistence;
+  DocSpecsSection? persistence;
 
   /// Fallback behavior.
   @SectionId('LCSF')
@@ -13401,7 +13488,7 @@ class LanguageCountrySelection {
     ),
   ])
   @SerializationOrder(3)
-  String? fallback;
+  DocSpecsSection? fallback;
 
   /// Switching UX behavior.
   @SectionId('LCSU')
@@ -13433,7 +13520,7 @@ class LanguageCountrySelection {
     ),
   ])
   @SerializationOrder(4)
-  String? ux;
+  DocSpecsSection? ux;
 
   /// Language selection narrative.
   @SerializationOrder(5)
@@ -13459,7 +13546,7 @@ class LanguageCountrySelection {
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-REQ')
-class TranslationRequirements {
+class TranslationRequirements extends DocSpecsSection {
   @SectionId('TRAREQ-TRAN')
   @Form([
     Field(
@@ -13482,7 +13569,7 @@ class TranslationRequirements {
     ),
   ])
   @SerializationOrder(0)
-  String? translationRequirementsContent;
+  DocSpecsSection? translationRequirementsContent;
 
   /// RTL and bidirectional support.
   @SectionId('TRRERT')
@@ -13520,7 +13607,7 @@ class TranslationRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? rtl;
+  DocSpecsSection? rtl;
 
   /// Locale-specific formatting rules.
   @SectionId('TRREFO')
@@ -13559,7 +13646,7 @@ class TranslationRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Pluralization and variants.
   @SectionId('TRREVA')
@@ -13591,7 +13678,7 @@ class TranslationRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? variants;
+  DocSpecsSection? variants;
 
   /// Technical text and font support.
   @SectionId('TRRETE')
@@ -13629,7 +13716,7 @@ class TranslationRequirements {
     ),
   ])
   @SerializationOrder(4)
-  String? technical;
+  DocSpecsSection? technical;
 
   /// Translation requirements narrative.
   @SerializationOrder(5)
@@ -13646,7 +13733,7 @@ class TranslationRequirements {
   'A single locale the product supports, named by its language tag, language name, and region.',
 )
 @SectionId('SUPLOCENT')
-class SupportedLocaleEntry {
+class SupportedLocaleEntry extends DocSpecsSection {
   @Form([
     Field(
       'localeCode',
@@ -13670,6 +13757,7 @@ class SupportedLocaleEntry {
     ),
     Field('countryRegion', String, 'Country/Region', hint: 'Country or region'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -13695,7 +13783,7 @@ class SupportedLocaleEntry {
     Field('currency', String, 'Currency', hint: 'Default currency for locale'),
   ])
   @SerializationOrder(1)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Launch readiness and locale ownership.
   @SectionId('SULOENRO')
@@ -13727,7 +13815,7 @@ class SupportedLocaleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? rollout;
+  DocSpecsSection? rollout;
 }
 
 // ---------------------------------------------------------------------------
@@ -13749,7 +13837,7 @@ class SupportedLocaleEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-PRO')
-class Prototype {
+class Prototype extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -13781,7 +13869,7 @@ class Prototype {
     ),
   ])
   @SerializationOrder(0)
-  String? prototypeOverview;
+  DocSpecsSection? prototypeOverview;
 
   /// Prototype timing commitments.
   @SectionId('PRTI')
@@ -13809,7 +13897,7 @@ class Prototype {
     ),
   ])
   @SerializationOrder(1)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Prototype staffing and environment.
   @SectionId('PRORES')
@@ -13840,7 +13928,7 @@ class Prototype {
     ),
   ])
   @SerializationOrder(2)
-  String? resources;
+  DocSpecsSection? resources;
 
   /// Approval and progression criteria.
   @SectionId('PRGO')
@@ -13865,7 +13953,7 @@ class Prototype {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Prototype overview narrative.
   @ContentHelp(
@@ -13901,7 +13989,7 @@ class Prototype {
   'ISO 9241-11:2018 — goals frame usability outcomes to be confirmed through evaluation',
 ], 'The goals the prototype is intended to validate.')
 @SectionId('PG')
-class PrototypeGoals {
+class PrototypeGoals extends DocSpecsSection {
   @SectionId('PG-GOAL')
   @Form([
     // Validation goals
@@ -13937,7 +14025,7 @@ class PrototypeGoals {
     ),
   ])
   @SerializationOrder(0)
-  String? goalsContent;
+  DocSpecsSection? goalsContent;
 
   /// Risk reduction and assumption testing.
   @SectionId('PRGORI')
@@ -13965,7 +14053,7 @@ class PrototypeGoals {
     ),
   ])
   @SerializationOrder(1)
-  String? riskProfile;
+  DocSpecsSection? riskProfile;
 
   /// User feedback objectives and intake.
   @SectionId('PRGOFE')
@@ -13996,7 +14084,7 @@ class PrototypeGoals {
     ),
   ])
   @SerializationOrder(2)
-  String? feedbackProfile;
+  DocSpecsSection? feedbackProfile;
 
   /// Prototype goals narrative.
   @SerializationOrder(3)
@@ -14021,7 +14109,7 @@ class PrototypeGoals {
   'A single prototype-goal entry with its category, validation method, and success metric.',
 )
 @SectionId('PGE')
-class PrototypeGoalEntry {
+class PrototypeGoalEntry extends DocSpecsSection {
   @Form([
     Field(
       'goalId',
@@ -14074,6 +14162,7 @@ class PrototypeGoalEntry {
       hint: 'Stakeholders interested in this goal',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -14085,7 +14174,7 @@ class PrototypeGoalEntry {
   'ISO 9241-210:2019 — a representative subset of features is prototyped so the riskiest and most valuable parts are evaluated first',
 ], 'The set of features selected for inclusion in the prototype.')
 @SectionId('PRFESU')
-class PrototypeFeatureSubset {
+class PrototypeFeatureSubset extends DocSpecsSection {
   @SectionId('PRFESU-FEAT')
   @Form([
     // Selection criteria
@@ -14115,7 +14204,7 @@ class PrototypeFeatureSubset {
     ),
   ])
   @SerializationOrder(0)
-  String? featureSubsetContent;
+  DocSpecsSection? featureSubsetContent;
 
   /// Included and excluded feature scope.
   @SectionId('PFSS')
@@ -14146,7 +14235,7 @@ class PrototypeFeatureSubset {
     ),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Fidelity expectations for the prototype.
   @SectionId('PFSF')
@@ -14178,7 +14267,7 @@ class PrototypeFeatureSubset {
     ),
   ])
   @SerializationOrder(2)
-  String? fidelity;
+  DocSpecsSection? fidelity;
 
   /// Feature subset narrative.
   @SerializationOrder(3)
@@ -14200,7 +14289,7 @@ class PrototypeFeatureSubset {
   'ISO 9241-210:2019 — each prototyped feature is described with its inclusion reason, fidelity, and completeness',
 ], 'A single prototype-feature entry with fidelity and completeness details.')
 @SectionId('PFE')
-class PrototypeFeatureEntry {
+class PrototypeFeatureEntry extends DocSpecsSection {
   @Form([
     Field(
       'featureId',
@@ -14248,6 +14337,7 @@ class PrototypeFeatureEntry {
       hint: 'Known limitations of the prototyped feature',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -14259,7 +14349,7 @@ class PrototypeFeatureEntry {
   'ISO 9241-210:2019 — the prototype type is classified so its cost, quality, and reuse implications are made explicit',
 ], 'The classification of the prototype and the implications of that choice.')
 @SectionId('PRTYSE')
-class PrototypeType {
+class PrototypeType extends DocSpecsSection {
   @SectionId('PRTYSE-PROT')
   @Form([
     Field(
@@ -14301,7 +14391,7 @@ class PrototypeType {
     ),
   ])
   @SerializationOrder(0)
-  String? prototypeTypeOverview;
+  DocSpecsSection? prototypeTypeOverview;
 
   /// 10.13.3.1. Reusable Prototype.
   @SerializationOrder(1)
@@ -14324,7 +14414,7 @@ class PrototypeType {
   'ISO/IEC 25010:2023 — reusable prototype code is expected to support maintainability through quality and testability',
 ], 'A reusable prototype that becomes part of the final product.')
 @SectionId('REUPRO')
-class ReusablePrototype {
+class ReusablePrototype extends DocSpecsSection {
   @SectionId('REUPRO-REUS')
   @Form([
     Field(
@@ -14353,7 +14443,7 @@ class ReusablePrototype {
     ),
   ])
   @SerializationOrder(0)
-  String? reusableContent;
+  DocSpecsSection? reusableContent;
 
   /// Architecture alignment and refactoring expectations.
   @SectionId('REPRAR')
@@ -14384,7 +14474,7 @@ class ReusablePrototype {
     ),
   ])
   @SerializationOrder(1)
-  String? architecture;
+  DocSpecsSection? architecture;
 
   /// Integration and merge strategy.
   @SectionId('REPRIN')
@@ -14415,7 +14505,7 @@ class ReusablePrototype {
     ),
   ])
   @SerializationOrder(2)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Transition and handoff planning.
   @SectionId('REPRTR')
@@ -14437,7 +14527,7 @@ class ReusablePrototype {
     ),
   ])
   @SerializationOrder(3)
-  String? transition;
+  DocSpecsSection? transition;
 
   /// Reusable prototype narrative.
   @SerializationOrder(4)
@@ -14451,7 +14541,7 @@ class ReusablePrototype {
   'ISO 9241-210:2019 — a learning-oriented prototype preserves design decisions and lessons even when its code is not reused',
 ], 'A training prototype whose concepts, not code, are carried forward.')
 @SectionId('TP')
-class TrainingPrototype {
+class TrainingPrototype extends DocSpecsSection {
   @SectionId('TP-TRAI')
   @Form([
     // Knowledge transfer
@@ -14475,7 +14565,7 @@ class TrainingPrototype {
     ),
   ])
   @SerializationOrder(0)
-  String? trainingContent;
+  DocSpecsSection? trainingContent;
 
   /// Code disposition and reimplementation planning.
   @SectionId('TRPRDI')
@@ -14506,7 +14596,7 @@ class TrainingPrototype {
     ),
   ])
   @SerializationOrder(1)
-  String? disposition;
+  DocSpecsSection? disposition;
 
   /// Documentation outputs and team learning.
   @SectionId('TRPROU')
@@ -14549,7 +14639,7 @@ class TrainingPrototype {
     ),
   ])
   @SerializationOrder(2)
-  String? outputs;
+  DocSpecsSection? outputs;
 
   /// Training prototype narrative.
   @SerializationOrder(3)
@@ -14563,7 +14653,7 @@ class TrainingPrototype {
   'ISO 9241-210:2019 — a throwaway prototype supports formative evaluation and is discarded once its questions are answered',
 ], 'A throwaway prototype that is evaluated and then discarded.')
 @SectionId('THPR')
-class ThrowawayPrototype {
+class ThrowawayPrototype extends DocSpecsSection {
   @SectionId('THPR-THRO')
   @Form([
     Field(
@@ -14592,7 +14682,7 @@ class ThrowawayPrototype {
     ),
   ])
   @SerializationOrder(0)
-  String? throwawayContent;
+  DocSpecsSection? throwawayContent;
 
   /// Findings and decisions captured from evaluation.
   @SectionId('THPRFI')
@@ -14623,7 +14713,7 @@ class ThrowawayPrototype {
     ),
   ])
   @SerializationOrder(1)
-  String? findings;
+  DocSpecsSection? findings;
 
   /// Disposal and follow-up handling.
   @SectionId('THPRDI')
@@ -14651,7 +14741,7 @@ class ThrowawayPrototype {
     ),
   ])
   @SerializationOrder(2)
-  String? disposition;
+  DocSpecsSection? disposition;
 
   /// Long-term value retained from the prototype.
   @SectionId('THPRVA')
@@ -14673,7 +14763,7 @@ class ThrowawayPrototype {
     ),
   ])
   @SerializationOrder(3)
-  String? value;
+  DocSpecsSection? value;
 
   /// Throwaway prototype narrative.
   @SerializationOrder(4)
@@ -14699,7 +14789,7 @@ class ThrowawayPrototype {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-WIR')
-class WireframesAndMockups {
+class WireframesAndMockups extends DocSpecsSection {
   @ContentHelp('''
 Catalog of wireframes and mockups across the UI. Complements the
 per-screen content in the screen-design section with cross-cutting,
@@ -14713,6 +14803,7 @@ comparison, and narrative-flow views.
 - Storyboard / user-journey visuals
 - Review and sign-off status per artifact
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -14726,7 +14817,7 @@ comparison, and narrative-flow views.
   'A single design-foundation entry recording a colour, font, and spacing choice for the interface.',
 )
 @SectionId('DESIG')
-class DesignFoundationEntry {
+class DesignFoundationEntry extends DocSpecsSection {
   @Form([
     Field(
       'primaryColor',
@@ -14747,6 +14838,7 @@ class DesignFoundationEntry {
       hint: '4px base, 8px base, custom scale',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }

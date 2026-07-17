@@ -142,7 +142,9 @@ class ModelJsonExporter {
 
     switch (out['kind']) {
       case 'list':
-        out['elementType'] = f.listElementTypeName;
+        // metaListElementTypeName maps `List<DocSpecsSection>` back to the
+        // pre-YRD5 `String` element so the exported JSON stays byte-identical.
+        out['elementType'] = f.metaListElementTypeName;
         out['elementIsComplex'] = f.listElementIsComplex;
         final min = f.getAnnotation('Min')?.arguments['count'];
         if (min != null) out['min'] = min;
@@ -195,7 +197,7 @@ class ModelJsonExporter {
     if (f.formFields.isNotEmpty) return 'form';
     if (f.isSectionType) return 'section';
     if (f.isEnum) return 'enum';
-    if (f.isString) return 'content';
+    if (f.isContentLike) return 'content';
     if (_isPrimitive(f.typeName)) return 'scalar';
     if (f.isComplex) return 'complex';
     return 'scalar';

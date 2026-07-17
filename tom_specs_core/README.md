@@ -39,19 +39,31 @@ every section base type (`sections/sections.dart`).
 
 ## Section base types
 
-Each section base type is a class with a single `content` field that carries a
-class-baked `@ContentType`. Model fields use the typed section instead of a bare
-`String?`, so the content format is fixed by the field's declared type and the
-authoring guidance comes from the doc-comment on the field that holds it.
+**`DocSpecsSection`** (YRD5) is the universal section base type of the TomSpecs
+object model: it stores a section's `headline`, `id`, body `content`, and an
+optional parsed **`DocSpecsForm form`** (pre-form-field content plus one parsed
+value per `@Form` field). Every `tom_specs_model` class extends it, and model
+members formerly typed `String?` / `List<String>` are now
+`DocSpecsSection?` / `List<DocSpecsSection>` — so a `*.md` document can be
+parsed into the model with full headline/id fidelity. See
+`tom_specs_model/doc/som_mapping.md` §2.2 for the mapping contract (the
+exported meta tree still renders these members as `String` content nodes).
+
+Each *content-typed* section base type below extends `DocSpecsSection` with a
+class-baked `@ContentType` on `content`. Model fields use the typed section
+instead of a bare content member, so the content format is fixed by the field's
+declared type and the authoring guidance comes from the doc-comment on the
+field that holds it.
 
 | Class | `@ContentType` | Extends | Meaning |
 | --- | --- | --- | --- |
-| `TextSection` | `text` | — | Free narrative text (may embed diagrams/references). |
-| `CodeSection` | `code` | — | Language-agnostic code block. |
+| `DocSpecsSection` | *(none)* | — | Universal base: stored headline, id, content, parsed form. |
+| `TextSection` | `text` | `DocSpecsSection` | Free narrative text (may embed diagrams/references). |
+| `CodeSection` | `code` | `DocSpecsSection` | Language-agnostic code block. |
 | `DartCodeSection` | `code-dart` | `CodeSection` | Dart code block. |
 | `SqlCodeSection` | `code-sql` | `CodeSection` | SQL code block. |
 | `DdlCodeSection` | `code-ddl` | `CodeSection` | DDL code block. |
-| `DiagramSection` | `mermaid` | — | Generic Mermaid diagram. |
+| `DiagramSection` | `mermaid` | `DocSpecsSection` | Generic Mermaid diagram. |
 | `ErDiagramSection` | `mermaid-er` | `DiagramSection` | Mermaid ER diagram. |
 | `FlowDiagramSection` | `mermaid-flow` | `DiagramSection` | Mermaid flowchart. |
 | `SequenceDiagramSection` | `mermaid-sequence` | `DiagramSection` | Mermaid sequence diagram. |

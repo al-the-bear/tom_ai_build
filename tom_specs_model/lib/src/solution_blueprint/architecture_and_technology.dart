@@ -43,7 +43,7 @@ the security and access model.
   'Captures the technical framework: platform, language, architecture style and design patterns that found and constrain the target system.',
 )
 @SectionId('TECH')
-class TechnicalFrameworkConcept {
+class TechnicalFrameworkConcept extends DocSpecsSection {
   @ContentHelp('''
 Provide an executive summary of the technical framework approach.
 
@@ -61,6 +61,7 @@ Provide an executive summary of the technical framework approach.
 - Cross-reference with business drivers from project overview
 - Plan for technology obsolescence and migration paths
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -136,7 +137,7 @@ OWASP guidelines, IEEE 1471 architectural description.
   'Defines the foundational technical requirements — platform and language, architecture style, and design patterns and standards — that govern all development.',
 )
 @SectionId('BTREQ')
-class BasicTechnicalRequirements {
+class BasicTechnicalRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of basic technical requirements and key decisions.
 
@@ -154,6 +155,7 @@ Provide an overview of basic technical requirements and key decisions.
 - Plan technical debt management strategy
 - Establish technology evaluation criteria
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -214,7 +216,7 @@ foundation and constrain future development options.
   'Specifies the platform targets, programming languages, frameworks, build toolchain and deployment configurations that form the technical foundation.',
 )
 @SectionId('PLLNG')
-class PlatformAndLanguage {
+class PlatformAndLanguage extends DocSpecsSection {
   @ContentHelp('''
 Provide a strategic overview of platform and technology selections.
 
@@ -232,6 +234,7 @@ Provide a strategic overview of platform and technology selections.
 - Consider developer experience and productivity
 - Evaluate total cost of ownership (licensing, training, tooling)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -327,7 +330,7 @@ Provide a strategic overview of platform and technology selections.
   'A single target platform — operating system, runtime or container — with its version, architecture, requirements and lifecycle.',
 )
 @SectionId('TGPLT')
-class TargetPlatformEntry {
+class TargetPlatformEntry extends DocSpecsSection {
   @Form([
     Field(
       'platformName',
@@ -345,6 +348,7 @@ class TargetPlatformEntry {
     ),
     Field('platformType', String, 'Type', hint: 'Server, Desktop, Mobile, IoT'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -376,7 +380,7 @@ class TargetPlatformEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? version;
+  DocSpecsSection? version;
 
   /// Architecture details.
   @SectionId('TPEAR')
@@ -393,7 +397,7 @@ class TargetPlatformEntry {
     Field('bitness', String, 'Bitness', hint: '32-bit, 64-bit, Both'),
   ])
   @SerializationOrder(2)
-  String? architecture;
+  DocSpecsSection? architecture;
 
   /// Requirements and constraints.
   @SectionId('TPERQ')
@@ -422,7 +426,7 @@ class TargetPlatformEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Lifecycle and compliance.
   @SectionId('TPELC')
@@ -461,7 +465,7 @@ class TargetPlatformEntry {
     Field('notes', String, 'Notes', hint: 'Additional platform-specific notes'),
   ])
   @SerializationOrder(4)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 }
 
 /// Programming language requirement entry.
@@ -473,7 +477,7 @@ class TargetPlatformEntry {
   'A single programming language with its variant, version, SDK, usage context, quality settings and justification.',
 )
 @SectionId('PLGEN')
-class ProgrammingLanguageEntry {
+class ProgrammingLanguageEntry extends DocSpecsSection {
   @Form([
     Field(
       'languageName',
@@ -496,6 +500,7 @@ class ProgrammingLanguageEntry {
       hint: 'Earliest supported language version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -520,7 +525,7 @@ class ProgrammingLanguageEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? version;
+  DocSpecsSection? version;
 
   /// SDK configuration.
   @SectionId('PLGSK')
@@ -547,7 +552,7 @@ class ProgrammingLanguageEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? sdk;
+  DocSpecsSection? sdk;
 
   /// Usage context.
   @SectionId('PLGUS')
@@ -597,7 +602,7 @@ class ProgrammingLanguageEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? usage;
+  DocSpecsSection? usage;
 
   /// Quality settings.
   @SectionId('PLGQU')
@@ -629,7 +634,7 @@ class ProgrammingLanguageEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Justification and notes.
   @SectionId('PLGJT')
@@ -663,7 +668,7 @@ class ProgrammingLanguageEntry {
     Field('notes', String, 'Notes', hint: 'Additional language notes'),
   ])
   @SerializationOrder(5)
-  String? justification;
+  DocSpecsSection? justification;
 }
 
 /// Framework or library requirement entry.
@@ -675,7 +680,7 @@ class ProgrammingLanguageEntry {
   'A single framework or library with its identity, version, scope, compatibility, support status and justification.',
 )
 @SectionId('FRREEN')
-class FrameworkRequirementEntry {
+class FrameworkRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'frameworkName',
@@ -698,6 +703,7 @@ class FrameworkRequirementEntry {
       hint: 'What problem this framework solves',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -716,7 +722,7 @@ class FrameworkRequirementEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? identity;
+  DocSpecsSection? identity;
 
   /// Version requirements.
   @SectionId('FWRVR')
@@ -752,7 +758,7 @@ class FrameworkRequirementEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? version;
+  DocSpecsSection? version;
 
   /// Scope and plugins.
   @SectionId('FWRSC')
@@ -796,7 +802,7 @@ class FrameworkRequirementEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Compatibility.
   @SectionId('FWRCP')
@@ -825,7 +831,7 @@ class FrameworkRequirementEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? compatibility;
+  DocSpecsSection? compatibility;
 
   /// Support status.
   @SectionId('FWRSP')
@@ -854,7 +860,7 @@ class FrameworkRequirementEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? support;
+  DocSpecsSection? support;
 
   /// Justification.
   @SectionId('FWRJT')
@@ -888,7 +894,7 @@ class FrameworkRequirementEntry {
     Field('notes', String, 'Notes', hint: 'Additional framework notes'),
   ])
   @SerializationOrder(6)
-  String? justification;
+  DocSpecsSection? justification;
 }
 
 /// Build toolchain requirement entry.
@@ -900,7 +906,7 @@ class FrameworkRequirementEntry {
   'A single build-toolchain tool with its versions, configuration, build profiles, integrations, outputs and operations.',
 )
 @SectionId('BTCEN')
-class BuildToolchainEntry {
+class BuildToolchainEntry extends DocSpecsSection {
   @Form([
     Field(
       'toolName',
@@ -923,6 +929,7 @@ class BuildToolchainEntry {
       hint: 'Which platform(s) this tool is used for',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -947,7 +954,7 @@ class BuildToolchainEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? versions;
+  DocSpecsSection? versions;
 
   /// Configuration and plugins.
   @SectionId('BTCCF')
@@ -976,7 +983,7 @@ class BuildToolchainEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Build profile settings.
   @SectionId('BTEP')
@@ -999,7 +1006,7 @@ class BuildToolchainEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? profiles;
+  DocSpecsSection? profiles;
 
   /// Integration touchpoints.
   @SectionId('BTEI')
@@ -1022,7 +1029,7 @@ class BuildToolchainEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Output artifact settings.
   @SectionId('BTEO')
@@ -1045,7 +1052,7 @@ class BuildToolchainEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? outputs;
+  DocSpecsSection? outputs;
 
   /// Performance and rationale.
   @SectionId('BUTOENOP')
@@ -1078,7 +1085,7 @@ class BuildToolchainEntry {
     Field('notes', String, 'Notes', hint: 'Additional toolchain notes'),
   ])
   @SerializationOrder(6)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Deployment target specification entry.
@@ -1090,7 +1097,7 @@ class BuildToolchainEntry {
   'A single deployment target with its platform, build output, requirements, process and compliance details.',
 )
 @SectionId('DEPTARENT')
-class DeploymentTargetEntry {
+class DeploymentTargetEntry extends DocSpecsSection {
   @Form([
     Field(
       'targetName',
@@ -1112,6 +1119,7 @@ class DeploymentTargetEntry {
       hint: 'Development, Staging, Production',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1135,7 +1143,7 @@ class DeploymentTargetEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? platform;
+  DocSpecsSection? platform;
 
   /// Build output configuration.
   @SectionId('DTEBO')
@@ -1171,7 +1179,7 @@ class DeploymentTargetEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? buildOutput;
+  DocSpecsSection? buildOutput;
 
   /// Platform requirements.
   @SectionId('DTER')
@@ -1206,7 +1214,7 @@ class DeploymentTargetEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Deployment process configuration.
   @SectionId('DETAENPR')
@@ -1238,7 +1246,7 @@ class DeploymentTargetEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? process;
+  DocSpecsSection? process;
 
   /// Compliance and notes.
   @SectionId('DTEC')
@@ -1269,7 +1277,7 @@ class DeploymentTargetEntry {
     Field('notes', String, 'Notes', hint: 'Additional deployment notes'),
   ])
   @SerializationOrder(5)
-  String? compliance;
+  DocSpecsSection? compliance;
 }
 
 /// Dependency management configuration.
@@ -1281,7 +1289,7 @@ class DeploymentTargetEntry {
   'The dependency management strategy: package managers, registries, versioning, security, internal packages and operations.',
 )
 @SectionId('DEMA')
-class DependencyManagement {
+class DependencyManagement extends DocSpecsSection {
   @Form([
     // Package manager
     Field(
@@ -1303,6 +1311,7 @@ class DependencyManagement {
       hint: 'Package registry URLs (public and private)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1332,7 +1341,7 @@ class DependencyManagement {
     ),
   ])
   @SerializationOrder(1)
-  String? versioning;
+  DocSpecsSection? versioning;
 
   /// Security and trust controls.
   @SectionId('DEMASE')
@@ -1364,7 +1373,7 @@ class DependencyManagement {
     ),
   ])
   @SerializationOrder(2)
-  String? security;
+  DocSpecsSection? security;
 
   /// Internal package and workspace strategy.
   @SectionId('DEMAIN')
@@ -1390,7 +1399,7 @@ class DependencyManagement {
     ),
   ])
   @SerializationOrder(3)
-  String? internal;
+  DocSpecsSection? internal;
 
   /// Caching and offline behavior.
   @SectionId('DEMAOP')
@@ -1418,7 +1427,7 @@ class DependencyManagement {
     ),
   ])
   @SerializationOrder(4)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Runtime environment constraints.
@@ -1430,7 +1439,7 @@ class DependencyManagement {
   'The runtime environment constraints: memory, CPU, storage, network, environment variables, dependencies and scaling.',
 )
 @SectionId('RUEN')
-class RuntimeEnvironment {
+class RuntimeEnvironment extends DocSpecsSection {
   @Form([
     Field(
       'minimumMemory',
@@ -1457,6 +1466,7 @@ class RuntimeEnvironment {
       hint: 'Minimum disk space for installation',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1474,7 +1484,7 @@ class RuntimeEnvironment {
     ),
   ])
   @SerializationOrder(1)
-  String? memory;
+  DocSpecsSection? memory;
 
   /// CPU and graphics requirements.
   @SectionId('RUENCP')
@@ -1497,7 +1507,7 @@ class RuntimeEnvironment {
     ),
   ])
   @SerializationOrder(2)
-  String? cpu;
+  DocSpecsSection? cpu;
 
   /// Storage requirements.
   @SectionId('RUENST')
@@ -1520,7 +1530,7 @@ class RuntimeEnvironment {
     ),
   ])
   @SerializationOrder(3)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Network requirements.
   @SectionId('RUENNE')
@@ -1549,7 +1559,7 @@ class RuntimeEnvironment {
     ),
   ])
   @SerializationOrder(4)
-  String? network;
+  DocSpecsSection? network;
 
   /// Environment variables.
   @SectionId('RUENVA')
@@ -1572,7 +1582,7 @@ class RuntimeEnvironment {
     ),
   ])
   @SerializationOrder(5)
-  String? variables;
+  DocSpecsSection? variables;
 
   /// Runtime dependencies.
   @SectionId('RUENDE')
@@ -1598,7 +1608,7 @@ class RuntimeEnvironment {
     ),
   ])
   @SerializationOrder(6)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Scaling characteristics.
   @SectionId('RUENSC')
@@ -1630,7 +1640,7 @@ class RuntimeEnvironment {
     ),
   ])
   @SerializationOrder(7)
-  String? scaling;
+  DocSpecsSection? scaling;
 
   /// Additional notes.
   @SectionId('RUENNO')
@@ -1646,7 +1656,7 @@ class RuntimeEnvironment {
     ),
   ])
   @SerializationOrder(8)
-  String? runtimeNotes;
+  DocSpecsSection? runtimeNotes;
 }
 
 // =============================================================================
@@ -1694,7 +1704,7 @@ scalability, team structure, and operational complexity.
   'The overall architecture style and structural organization chosen for the system.',
 )
 @SectionId('AS')
-class ArchitectureStyle {
+class ArchitectureStyle extends DocSpecsSection {
   @ContentHelp('''
 Provide the architectural vision and primary style selection rationale.
 
@@ -1712,6 +1722,7 @@ Provide the architectural vision and primary style selection rationale.
 - Plan for architectural fitness functions
 - Establish architectural governance process
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1788,7 +1799,7 @@ Provide the architectural vision and primary style selection rationale.
   'The high-level overview of the primary architecture style and its selection.',
 )
 @SectionId('AROV')
-class ArchitectureOverview {
+class ArchitectureOverview extends DocSpecsSection {
   @Form([
     Field(
       'primaryStyle',
@@ -1811,6 +1822,7 @@ class ArchitectureOverview {
       hint: 'Brief description of the chosen architecture',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1842,7 +1854,7 @@ class ArchitectureOverview {
     ),
   ])
   @SerializationOrder(1)
-  String? drivers;
+  DocSpecsSection? drivers;
 
   /// Trade-offs and alternatives.
   @SectionId('AOTO')
@@ -1883,7 +1895,7 @@ class ArchitectureOverview {
     ),
   ])
   @SerializationOrder(2)
-  String? tradeOffs;
+  DocSpecsSection? tradeOffs;
 
   /// Evolution planning.
   @SectionId('AROVEV')
@@ -1906,7 +1918,7 @@ class ArchitectureOverview {
     ),
   ])
   @SerializationOrder(3)
-  String? evolution;
+  DocSpecsSection? evolution;
 
   /// Compliance considerations.
   @SectionId('AROVCO')
@@ -1933,7 +1945,7 @@ class ArchitectureOverview {
     Field('notes', String, 'Notes', hint: 'Additional architecture notes'),
   ])
   @SerializationOrder(4)
-  String? compliance;
+  DocSpecsSection? compliance;
 }
 
 /// Architecture principle entry.
@@ -1942,7 +1954,7 @@ class ArchitectureOverview {
   'ISO/IEC 25010 — architectural quality attributes',
 ], 'A single architecture principle guiding design decisions.')
 @SectionId('ARPR')
-class ArchitecturePrincipleEntry {
+class ArchitecturePrincipleEntry extends DocSpecsSection {
   @Form([
     Field(
       'principleName',
@@ -1965,6 +1977,7 @@ class ArchitecturePrincipleEntry {
       hint: 'Clear statement of the principle',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -1993,7 +2006,7 @@ class ArchitecturePrincipleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? guidance;
+  DocSpecsSection? guidance;
 
   /// Enforcement and applicability context.
   @SectionId('ARPRENGO')
@@ -2038,7 +2051,7 @@ class ArchitecturePrincipleEntry {
     Field('notes', String, 'Notes', hint: 'Additional principle notes'),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// Component organization and boundaries.
@@ -2048,7 +2061,7 @@ class ArchitecturePrincipleEntry {
   'C4 model — software architecture diagrams',
 ], 'How system components are organized and how their boundaries are defined.')
 @SectionId('COOR')
-class ComponentOrganization {
+class ComponentOrganization extends DocSpecsSection {
   @Form([
     Field(
       'organizationStrategy',
@@ -2069,6 +2082,7 @@ class ComponentOrganization {
       hint: 'How modules/components are structured',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2100,7 +2114,7 @@ class ComponentOrganization {
     ),
   ])
   @SerializationOrder(1)
-  String? layering;
+  DocSpecsSection? layering;
 
   /// Domain boundaries.
   @SectionId('COORDO')
@@ -2132,7 +2146,7 @@ class ComponentOrganization {
     ),
   ])
   @SerializationOrder(2)
-  String? domain;
+  DocSpecsSection? domain;
 
   /// Coupling guidance.
   @SectionId('COORCO')
@@ -2158,7 +2172,7 @@ class ComponentOrganization {
     ),
   ])
   @SerializationOrder(3)
-  String? coupling;
+  DocSpecsSection? coupling;
 
   /// Dependency management rules.
   @SectionId('COORDE')
@@ -2191,7 +2205,7 @@ class ComponentOrganization {
     Field('notes', String, 'Notes', hint: 'Additional organization notes'),
   ])
   @SerializationOrder(4)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 }
 
 /// Architecture component/service entry.
@@ -2204,7 +2218,7 @@ class ComponentOrganization {
   'A single component or service in the architecture and its defining attributes.',
 )
 @SectionId('ARCM')
-class ArchitectureComponentEntry {
+class ArchitectureComponentEntry extends DocSpecsSection {
   @Form([
     Field(
       'componentName',
@@ -2222,6 +2236,7 @@ class ArchitectureComponentEntry {
     ),
     Field('domain', String, 'Domain', hint: 'Business domain this belongs to'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2256,7 +2271,7 @@ class ArchitectureComponentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? purpose;
+  DocSpecsSection? purpose;
 
   /// Public and private boundaries.
   @SectionId('ACEB')
@@ -2288,7 +2303,7 @@ class ArchitectureComponentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? boundaries;
+  DocSpecsSection? boundaries;
 
   /// Dependency relationships.
   @SectionId('ACED')
@@ -2320,7 +2335,7 @@ class ArchitectureComponentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Technical delivery characteristics.
   @SectionId('ACET')
@@ -2352,7 +2367,7 @@ class ArchitectureComponentEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? technical;
+  DocSpecsSection? technical;
 
   /// Team ownership and service expectations.
   @SectionId('ACEO')
@@ -2376,7 +2391,7 @@ class ArchitectureComponentEntry {
     Field('notes', String, 'Notes', hint: 'Additional component notes'),
   ])
   @SerializationOrder(5)
-  String? ownership;
+  DocSpecsSection? ownership;
 }
 
 /// Communication patterns between components.
@@ -2385,7 +2400,7 @@ class ArchitectureComponentEntry {
   'ISO/IEC/IEEE 42010 — architecture description',
 ], 'The communication patterns and protocols used between components.')
 @SectionId('COMPAT')
-class CommunicationPatterns {
+class CommunicationPatterns extends DocSpecsSection {
   @Form([
     Field(
       'primaryPattern',
@@ -2406,6 +2421,7 @@ class CommunicationPatterns {
       hint: 'REST, gRPC, GraphQL, SOAP',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2430,7 +2446,7 @@ class CommunicationPatterns {
     ),
   ])
   @SerializationOrder(1)
-  String? synchronous;
+  DocSpecsSection? synchronous;
 
   /// Asynchronous communication details.
   @SectionId('COPAAS')
@@ -2462,7 +2478,7 @@ class CommunicationPatterns {
     ),
   ])
   @SerializationOrder(2)
-  String? asynchronous;
+  DocSpecsSection? asynchronous;
 
   /// Data exchange contracts.
   @SectionId('CPDE')
@@ -2494,7 +2510,7 @@ class CommunicationPatterns {
     ),
   ])
   @SerializationOrder(3)
-  String? dataExchange;
+  DocSpecsSection? dataExchange;
 
   /// Reliability controls.
   @SectionId('COPARE')
@@ -2522,7 +2538,7 @@ class CommunicationPatterns {
     Field('idempotency', String, 'Idempotency', hint: 'Idempotency guarantees'),
   ])
   @SerializationOrder(4)
-  String? reliability;
+  DocSpecsSection? reliability;
 
   /// Observability settings.
   @SectionId('COPAOB')
@@ -2540,7 +2556,7 @@ class CommunicationPatterns {
     Field('notes', String, 'Notes', hint: 'Additional communication notes'),
   ])
   @SerializationOrder(5)
-  String? observability;
+  DocSpecsSection? observability;
 }
 
 /// Data architecture decisions.
@@ -2552,7 +2568,7 @@ class CommunicationPatterns {
   'The data strategy, ownership model, and governance that shape the data architecture.',
 )
 @SectionId('DAAR')
-class DataArchitecture {
+class DataArchitecture extends DocSpecsSection {
   @Form([
     Field(
       'dataStrategy',
@@ -2573,6 +2589,7 @@ class DataArchitecture {
       hint: 'Governance policies',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2603,7 +2620,7 @@ class DataArchitecture {
     ),
   ])
   @SerializationOrder(1)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Data access patterns.
   @SectionId('DAARAC')
@@ -2630,7 +2647,7 @@ class DataArchitecture {
     Field('caching', String, 'Caching Strategy', hint: 'Caching approach'),
   ])
   @SerializationOrder(2)
-  String? access;
+  DocSpecsSection? access;
 
   /// Consistency model and transactions.
   @SectionId('DAARCO')
@@ -2662,7 +2679,7 @@ class DataArchitecture {
     ),
   ])
   @SerializationOrder(3)
-  String? consistency;
+  DocSpecsSection? consistency;
 
   /// Lifecycle controls.
   @SectionId('DAARLI')
@@ -2694,7 +2711,7 @@ class DataArchitecture {
     ),
   ])
   @SerializationOrder(4)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Privacy and security controls.
   @SectionId('DAARSE')
@@ -2727,7 +2744,7 @@ class DataArchitecture {
     Field('notes', String, 'Notes', hint: 'Additional data architecture notes'),
   ])
   @SerializationOrder(5)
-  String? security;
+  DocSpecsSection? security;
 }
 
 /// Scalability and performance architecture.
@@ -2739,7 +2756,7 @@ class DataArchitecture {
   'The scalability model, elasticity approach, and scaling triggers of the architecture.',
 )
 @SectionId('SCAR')
-class ScalabilityArchitecture {
+class ScalabilityArchitecture extends DocSpecsSection {
   @Form([
     Field(
       'scalabilityModel',
@@ -2760,6 +2777,7 @@ class ScalabilityArchitecture {
       hint: 'What triggers scaling actions',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2788,7 +2806,7 @@ class ScalabilityArchitecture {
     ),
   ])
   @SerializationOrder(1)
-  String? capacity;
+  DocSpecsSection? capacity;
 
   /// Performance targets.
   @SectionId('SCARTA')
@@ -2820,7 +2838,7 @@ class ScalabilityArchitecture {
     ),
   ])
   @SerializationOrder(2)
-  String? targets;
+  DocSpecsSection? targets;
 
   /// Performance patterns.
   @SectionId('SCARPA')
@@ -2852,7 +2870,7 @@ class ScalabilityArchitecture {
     ),
   ])
   @SerializationOrder(3)
-  String? patterns;
+  DocSpecsSection? patterns;
 
   /// Resource optimization controls.
   @SectionId('SCAROP')
@@ -2884,7 +2902,7 @@ class ScalabilityArchitecture {
     ),
   ])
   @SerializationOrder(4)
-  String? optimization;
+  DocSpecsSection? optimization;
 
   /// Testing and benchmarks.
   @SectionId('SCARTE')
@@ -2917,7 +2935,7 @@ class ScalabilityArchitecture {
     ),
   ])
   @SerializationOrder(5)
-  String? testing;
+  DocSpecsSection? testing;
 }
 
 /// Integration architecture with external systems.
@@ -2929,7 +2947,7 @@ class ScalabilityArchitecture {
   'The integration strategy, patterns, and API management for external systems.',
 )
 @SectionId('INAR')
-class IntegrationArchitecture {
+class IntegrationArchitecture extends DocSpecsSection {
   @Form([
     Field(
       'integrationStrategy',
@@ -2950,6 +2968,7 @@ class IntegrationArchitecture {
       hint: 'How APIs are managed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -2983,7 +3002,7 @@ class IntegrationArchitecture {
     ),
   ])
   @SerializationOrder(1)
-  String? systems;
+  DocSpecsSection? systems;
 
   /// Data exchange approach.
   @SectionId('INARDA')
@@ -3015,7 +3034,7 @@ class IntegrationArchitecture {
     ),
   ])
   @SerializationOrder(2)
-  String? data;
+  DocSpecsSection? data;
 
   /// Security model for integrations.
   @SectionId('INARSE')
@@ -3047,7 +3066,7 @@ class IntegrationArchitecture {
     ),
   ])
   @SerializationOrder(3)
-  String? security;
+  DocSpecsSection? security;
 
   /// Reliability controls.
   @SectionId('INARRE')
@@ -3079,7 +3098,7 @@ class IntegrationArchitecture {
     ),
   ])
   @SerializationOrder(4)
-  String? reliability;
+  DocSpecsSection? reliability;
 
   /// Monitoring and SLA management.
   @SectionId('INAROP')
@@ -3103,7 +3122,7 @@ class IntegrationArchitecture {
     ),
   ])
   @SerializationOrder(5)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Deployment topology and infrastructure.
@@ -3115,7 +3134,7 @@ class IntegrationArchitecture {
   'The deployment topology, deployment model, and cloud providers for the system.',
 )
 @SectionId('DETO')
-class DeploymentTopology {
+class DeploymentTopology extends DocSpecsSection {
   @Form([
     Field(
       'topologyType',
@@ -3136,6 +3155,7 @@ class DeploymentTopology {
       hint: 'Cloud providers used',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3166,7 +3186,7 @@ class DeploymentTopology {
     ),
   ])
   @SerializationOrder(1)
-  String? infrastructure;
+  DocSpecsSection? infrastructure;
 
   /// Environment layout.
   @SectionId('DETOEN')
@@ -3198,7 +3218,7 @@ class DeploymentTopology {
     ),
   ])
   @SerializationOrder(2)
-  String? environmentsConfig;
+  DocSpecsSection? environmentsConfig;
 
   /// High-availability settings.
   @SectionId('DETOAV')
@@ -3230,7 +3250,7 @@ class DeploymentTopology {
     ),
   ])
   @SerializationOrder(3)
-  String? availability;
+  DocSpecsSection? availability;
 
   /// Geographic distribution.
   @SectionId('DETOGE')
@@ -3262,7 +3282,7 @@ class DeploymentTopology {
     ),
   ])
   @SerializationOrder(4)
-  String? geography;
+  DocSpecsSection? geography;
 
   /// Infrastructure-as-code strategy.
   @SectionId('DTIAC')
@@ -3300,7 +3320,7 @@ class DeploymentTopology {
     ),
   ])
   @SerializationOrder(5)
-  String? infrastructureAsCode;
+  DocSpecsSection? infrastructureAsCode;
 }
 
 /// Architecture Decision Record (ADR) entry.
@@ -3312,7 +3332,7 @@ class DeploymentTopology {
   'A single architecture decision record capturing a decision, its status, and identity.',
 )
 @SectionId('ARDE')
-class ArchitectureDecisionRecord {
+class ArchitectureDecisionRecord extends DocSpecsSection {
   @Form([
     Field(
       'decisionId',
@@ -3343,6 +3363,7 @@ class ArchitectureDecisionRecord {
       hint: 'Proposed, Accepted, Deprecated, Superseded',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3377,7 +3398,7 @@ class ArchitectureDecisionRecord {
     ),
   ])
   @SerializationOrder(1)
-  String? contextDetails;
+  DocSpecsSection? contextDetails;
 
   /// Decision outcome and rationale.
   @SectionId('ADRO')
@@ -3417,7 +3438,7 @@ class ArchitectureDecisionRecord {
     ),
   ])
   @SerializationOrder(2)
-  String? outcome;
+  DocSpecsSection? outcome;
 
   /// Consequences and review.
   @SectionId('ARDERECO')
@@ -3456,7 +3477,7 @@ class ArchitectureDecisionRecord {
     Field('notes', String, 'Notes', hint: 'Additional decision notes'),
   ])
   @SerializationOrder(3)
-  String? consequences;
+  DocSpecsSection? consequences;
 
   /// Related decision links.
   @SectionId('ADRR')
@@ -3488,7 +3509,7 @@ class ArchitectureDecisionRecord {
     ),
   ])
   @SerializationOrder(4)
-  String? relations;
+  DocSpecsSection? relations;
 }
 
 // =============================================================================
@@ -3536,7 +3557,7 @@ quality, maintainability, and team productivity.
   'Defines the design patterns, coding standards, development conventions, and industry standards the implementation must follow.',
 )
 @SectionId('DPAS')
-class DesignPatternsAndStandards {
+class DesignPatternsAndStandards extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the design patterns and standards approach.
 
@@ -3554,6 +3575,7 @@ Provide an overview of the design patterns and standards approach.
 - Plan regular pattern and standards reviews
 - Establish technical debt tracking for standards violations
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3630,7 +3652,7 @@ Provide an overview of the design patterns and standards approach.
   'Domain-Driven Design — tactical patterns (entities/aggregates/repositories)',
 ], 'A single design pattern the implementation is expected to apply.')
 @SectionId('DSPT')
-class DesignPatternEntry {
+class DesignPatternEntry extends DocSpecsSection {
   @Form([
     Field(
       'patternName',
@@ -3660,6 +3682,7 @@ class DesignPatternEntry {
       hint: 'What problem this pattern solves',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3684,7 +3707,7 @@ class DesignPatternEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? applicability;
+  DocSpecsSection? applicability;
 
   /// Structural composition.
   @SectionId('DEPAENST')
@@ -3716,7 +3739,7 @@ class DesignPatternEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? structure;
+  DocSpecsSection? structure;
 
   /// Implementation guidance.
   @SectionId('DPEI')
@@ -3745,7 +3768,7 @@ class DesignPatternEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? implementation;
+  DocSpecsSection? implementation;
 
   /// Architectural context.
   @SectionId('DEPAENCO')
@@ -3771,7 +3794,7 @@ class DesignPatternEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? context;
+  DocSpecsSection? context;
 
   /// Enforcement and notes.
   @SectionId('DPEE')
@@ -3795,7 +3818,7 @@ class DesignPatternEntry {
     Field('notes', String, 'Notes', hint: 'Additional pattern notes'),
   ])
   @SerializationOrder(5)
-  String? enforcement;
+  DocSpecsSection? enforcement;
 }
 
 /// Coding standard entry — a coding style or convention requirement.
@@ -3804,7 +3827,7 @@ class DesignPatternEntry {
   'SOLID principles — object-oriented design',
 ], 'A single coding style or convention requirement the code must satisfy.')
 @SectionId('CSE')
-class CodingStandardEntry {
+class CodingStandardEntry extends DocSpecsSection {
   @Form([
     Field(
       'standardName',
@@ -3827,6 +3850,7 @@ class CodingStandardEntry {
       hint: 'Which programming language(s) this applies to',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3848,7 +3872,7 @@ class CodingStandardEntry {
     Field('examples', String, 'Examples', hint: 'Good and bad code examples'),
   ])
   @SerializationOrder(1)
-  String? ruleDetails;
+  DocSpecsSection? ruleDetails;
 
   /// Naming requirements.
   @SectionId('CSEN')
@@ -3871,7 +3895,7 @@ class CodingStandardEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? naming;
+  DocSpecsSection? naming;
 
   /// Formatting requirements.
   @SectionId('CSEF')
@@ -3898,7 +3922,7 @@ class CodingStandardEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Enforcement details.
   @SectionId('CSEE')
@@ -3932,7 +3956,7 @@ class CodingStandardEntry {
     Field('notes', String, 'Notes', hint: 'Additional standard notes'),
   ])
   @SerializationOrder(4)
-  String? enforcement;
+  DocSpecsSection? enforcement;
 }
 
 /// Development convention entry — a development practice or workflow convention.
@@ -3941,7 +3965,7 @@ class CodingStandardEntry {
   'SOLID principles — object-oriented design',
 ], 'A single development practice or workflow convention the team must follow.')
 @SectionId('DCE')
-class DevelopmentConventionEntry {
+class DevelopmentConventionEntry extends DocSpecsSection {
   @Form([
     Field(
       'conventionName',
@@ -3966,6 +3990,7 @@ class DevelopmentConventionEntry {
       hint: 'What the convention requires',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -3993,7 +4018,7 @@ class DevelopmentConventionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? overview;
+  DocSpecsSection? overview;
 
   /// Version control requirements.
   @SectionId('DCEVC')
@@ -4026,7 +4051,7 @@ class DevelopmentConventionEntry {
     Field('prProcess', String, 'PR Process', hint: 'Pull request requirements'),
   ])
   @SerializationOrder(2)
-  String? versionControl;
+  DocSpecsSection? versionControl;
 
   /// Code review expectations.
   @SectionId('DCER')
@@ -4049,7 +4074,7 @@ class DevelopmentConventionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? review;
+  DocSpecsSection? review;
 
   /// Automation integration.
   @SectionId('DCEA')
@@ -4075,7 +4100,7 @@ class DevelopmentConventionEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? automation;
+  DocSpecsSection? automation;
 
   /// Enforcement and exceptions.
   @SectionId('DCEE')
@@ -4108,7 +4133,7 @@ class DevelopmentConventionEntry {
     Field('notes', String, 'Notes', hint: 'Additional convention notes'),
   ])
   @SerializationOrder(5)
-  String? enforcement;
+  DocSpecsSection? enforcement;
 }
 
 /// Industry standard entry — compliance with industry standards.
@@ -4117,7 +4142,7 @@ class DevelopmentConventionEntry {
   'ISO/IEC 25010 — maintainability quality attributes',
 ], 'A single industry standard the system is required to comply with.')
 @SectionId('ISE')
-class IndustryStandardEntry {
+class IndustryStandardEntry extends DocSpecsSection {
   @Form([
     Field(
       'standardName',
@@ -4154,6 +4179,7 @@ class IndustryStandardEntry {
       hint: 'Full, Partial, Certified, In Progress',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4172,7 +4198,7 @@ class IndustryStandardEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Requirement applicability.
   @SectionId('ISEC')
@@ -4198,7 +4224,7 @@ class IndustryStandardEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Certification details.
   @SectionId('INSTENCE')
@@ -4236,7 +4262,7 @@ class IndustryStandardEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? certification;
+  DocSpecsSection? certification;
 
   /// Verification settings.
   @SectionId('ISEV')
@@ -4268,7 +4294,7 @@ class IndustryStandardEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? verification;
+  DocSpecsSection? verification;
 
   /// Reference metadata.
   @SectionId('ISER')
@@ -4286,7 +4312,7 @@ class IndustryStandardEntry {
     Field('notes', String, 'Notes', hint: 'Additional compliance notes'),
   ])
   @SerializationOrder(5)
-  String? reference;
+  DocSpecsSection? reference;
 }
 
 /// Code quality metrics and thresholds.
@@ -4295,7 +4321,7 @@ class IndustryStandardEntry {
   'coding standards (e.g. Effective Dart / language style guide)',
 ], 'Defines the code-quality metrics and thresholds the codebase must meet.')
 @SectionId('COQUME')
-class CodeQualityMetrics {
+class CodeQualityMetrics extends DocSpecsSection {
   @Form([
     Field(
       'testCoverageMinimum',
@@ -4316,6 +4342,7 @@ class CodeQualityMetrics {
       hint: 'Minimum mutation testing score',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4352,7 +4379,7 @@ class CodeQualityMetrics {
     ),
   ])
   @SerializationOrder(1)
-  String? complexity;
+  DocSpecsSection? complexity;
 
   /// Coupling metrics.
   @SectionId('COQUMECO')
@@ -4381,7 +4408,7 @@ class CodeQualityMetrics {
     ),
   ])
   @SerializationOrder(2)
-  String? coupling;
+  DocSpecsSection? coupling;
 
   /// Duplication thresholds.
   @SectionId('CQMD')
@@ -4407,7 +4434,7 @@ class CodeQualityMetrics {
     ),
   ])
   @SerializationOrder(3)
-  String? duplication;
+  DocSpecsSection? duplication;
 
   /// Static analysis thresholds.
   @SectionId('CQMSA')
@@ -4439,7 +4466,7 @@ class CodeQualityMetrics {
     ),
   ])
   @SerializationOrder(4)
-  String? staticAnalysis;
+  DocSpecsSection? staticAnalysis;
 
   /// Tooling and reporting.
   @SectionId('CQMT')
@@ -4472,7 +4499,7 @@ class CodeQualityMetrics {
     Field('notes', String, 'Notes', hint: 'Additional quality metrics notes'),
   ])
   @SerializationOrder(5)
-  String? tooling;
+  DocSpecsSection? tooling;
 }
 
 /// Documentation standards and requirements.
@@ -4484,7 +4511,7 @@ class CodeQualityMetrics {
   'Defines the documentation standards and requirements the codebase must follow.',
 )
 @SectionId('DOST')
-class DocumentationStandards {
+class DocumentationStandards extends DocSpecsSection {
   @Form([
     Field(
       'publicApiDocRequired',
@@ -4505,6 +4532,7 @@ class DocumentationStandards {
       hint: 'Parameters must be documented',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4529,7 +4557,7 @@ class DocumentationStandards {
     ),
   ])
   @SerializationOrder(1)
-  String? codeDocs;
+  DocSpecsSection? codeDocs;
 
   /// Content requirements.
   @SectionId('DOSTCO')
@@ -4561,7 +4589,7 @@ class DocumentationStandards {
     ),
   ])
   @SerializationOrder(2)
-  String? contentRequirements;
+  DocSpecsSection? contentRequirements;
 
   /// Architecture documentation requirements.
   @SectionId('DOSTAR')
@@ -4590,7 +4618,7 @@ class DocumentationStandards {
     ),
   ])
   @SerializationOrder(3)
-  String? architecture;
+  DocSpecsSection? architecture;
 
   /// Changelog and versioning requirements.
   @SectionId('DOSTVE')
@@ -4622,7 +4650,7 @@ class DocumentationStandards {
     ),
   ])
   @SerializationOrder(4)
-  String? versioning;
+  DocSpecsSection? versioning;
 
   /// Review and publication settings.
   @SectionId('DOSTPR')
@@ -4666,7 +4694,7 @@ class DocumentationStandards {
     ),
   ])
   @SerializationOrder(5)
-  String? process;
+  DocSpecsSection? process;
 }
 
 /// Error handling and exception patterns.
@@ -4678,7 +4706,7 @@ class DocumentationStandards {
   'Defines the error-handling philosophy, fail-fast approach, and graceful-degradation standards.',
 )
 @SectionId('ERHAST')
-class ErrorHandlingStandards {
+class ErrorHandlingStandards extends DocSpecsSection {
   @Form([
     Field(
       'errorPhilosophy',
@@ -4699,6 +4727,7 @@ class ErrorHandlingStandards {
       hint: 'How to degrade gracefully',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4732,7 +4761,7 @@ class ErrorHandlingStandards {
     ),
   ])
   @SerializationOrder(1)
-  String? exceptions;
+  DocSpecsSection? exceptions;
 
   /// Handling pattern defaults.
   @SectionId('EHSP')
@@ -4764,7 +4793,7 @@ class ErrorHandlingStandards {
     ),
   ])
   @SerializationOrder(2)
-  String? patterns;
+  DocSpecsSection? patterns;
 
   /// Reporting standards.
   @SectionId('EHSR')
@@ -4796,7 +4825,7 @@ class ErrorHandlingStandards {
     ),
   ])
   @SerializationOrder(3)
-  String? reporting;
+  DocSpecsSection? reporting;
 
   /// User-facing communication rules.
   @SectionId('EHSUC')
@@ -4828,7 +4857,7 @@ class ErrorHandlingStandards {
     ),
   ])
   @SerializationOrder(4)
-  String? userCommunication;
+  DocSpecsSection? userCommunication;
 
   /// Recovery guidance.
   @SectionId('ERHASTRE')
@@ -4855,7 +4884,7 @@ class ErrorHandlingStandards {
     Field('notes', String, 'Notes', hint: 'Additional error handling notes'),
   ])
   @SerializationOrder(5)
-  String? recovery;
+  DocSpecsSection? recovery;
 }
 
 /// Testing standards and requirements.
@@ -4867,7 +4896,7 @@ class ErrorHandlingStandards {
   'Defines the testing standards and required test types for the implementation.',
 )
 @SectionId('TS')
-class TestingStandards {
+class TestingStandards extends DocSpecsSection {
   @Form([
     Field(
       'unitTestRequired',
@@ -4888,6 +4917,7 @@ class TestingStandards {
       hint: 'End-to-end tests required',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -4927,7 +4957,7 @@ class TestingStandards {
     ),
   ])
   @SerializationOrder(1)
-  String? organization;
+  DocSpecsSection? organization;
 
   /// Preferred testing patterns.
   @SectionId('TESTPA')
@@ -4965,7 +4995,7 @@ class TestingStandards {
     ),
   ])
   @SerializationOrder(2)
-  String? patterns;
+  DocSpecsSection? patterns;
 
   /// Quality requirements for tests.
   @SectionId('TESTQU')
@@ -4997,7 +5027,7 @@ class TestingStandards {
     ),
   ])
   @SerializationOrder(3)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Testing tools and CI integration.
   @SectionId('TESTTO')
@@ -5048,7 +5078,7 @@ class TestingStandards {
     Field('notes', String, 'Notes', hint: 'Additional testing standards notes'),
   ])
   @SerializationOrder(4)
-  String? tooling;
+  DocSpecsSection? tooling;
 }
 
 /// 8.2. Software Design Requirements.
@@ -5086,7 +5116,7 @@ SOLID principles, Twelve-Factor App methodology.
   'Defines the software architecture, development environment, and component-reuse requirements.',
 )
 @SectionId('SDR')
-class SoftwareDesignRequirements {
+class SoftwareDesignRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of software design approach and key decisions.
 
@@ -5104,6 +5134,7 @@ Provide an overview of software design approach and key decisions.
 - Plan for refactoring and architecture evolution
 - Create architecture fitness functions
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5166,7 +5197,7 @@ enable independent development and testing.
   'Captures the overall software layering approach and module structure of the system.',
 )
 @SectionId('LAMS')
-class LayeringAndModuleStructure {
+class LayeringAndModuleStructure extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the layering and modularization strategy.
 
@@ -5184,6 +5215,7 @@ Provide an overview of the layering and modularization strategy.
 - Document exception cases and technical debt
 - Plan for module extraction and scaling
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5280,7 +5312,7 @@ Provide an overview of the layering and modularization strategy.
   'Describes a single horizontal software layer such as presentation, domain, or infrastructure.',
 )
 @SectionId('SLE')
-class SoftwareLayerEntry {
+class SoftwareLayerEntry extends DocSpecsSection {
   @Form([
     Field(
       'layerName',
@@ -5303,6 +5335,7 @@ class SoftwareLayerEntry {
       hint: 'E.g., Clean Architecture, Onion, Hexagonal, N-Tier',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5337,7 +5370,7 @@ class SoftwareLayerEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? responsibilities;
+  DocSpecsSection? responsibilities;
 
   /// Typical components and organization.
   @SectionId('SLEC')
@@ -5369,7 +5402,7 @@ class SoftwareLayerEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? components;
+  DocSpecsSection? components;
 
   /// Dependency rules.
   @SectionId('SLED')
@@ -5401,7 +5434,7 @@ class SoftwareLayerEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Technology and testing notes.
   @SectionId('SLET')
@@ -5434,7 +5467,7 @@ class SoftwareLayerEntry {
     Field('notes', String, 'Notes', hint: 'Additional layer notes'),
   ])
   @SerializationOrder(4)
-  String? technology;
+  DocSpecsSection? technology;
 }
 
 /// Layer communication rules and constraints.
@@ -5446,7 +5479,7 @@ class SoftwareLayerEntry {
   'Defines the direction, dependency rules, and abstraction principles that govern communication between layers.',
 )
 @SectionId('LACORU')
-class LayerCommunicationRules {
+class LayerCommunicationRules extends DocSpecsSection {
   @Form([
     Field(
       'communicationDirection',
@@ -5467,6 +5500,7 @@ class LayerCommunicationRules {
       hint: 'Dependency inversion, interface segregation',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5500,7 +5534,7 @@ class LayerCommunicationRules {
     ),
   ])
   @SerializationOrder(1)
-  String? interfaces;
+  DocSpecsSection? interfaces;
 
   /// Cross-layer event and exception flow.
   @SectionId('LCRF')
@@ -5532,7 +5566,7 @@ class LayerCommunicationRules {
     ),
   ])
   @SerializationOrder(2)
-  String? flow;
+  DocSpecsSection? flow;
 
   /// Boundary enforcement and validation rules.
   @SectionId('LCRG')
@@ -5570,7 +5604,7 @@ class LayerCommunicationRules {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// Bounded context entry — a DDD bounded context.
@@ -5579,7 +5613,7 @@ class LayerCommunicationRules {
   'SOLID principles — object-oriented design',
 ], 'Describes a single DDD bounded context, its domain area, and owning team.')
 @SectionId('BCE')
-class BoundedContextEntry {
+class BoundedContextEntry extends DocSpecsSection {
   @Form([
     Field(
       'contextName',
@@ -5602,6 +5636,7 @@ class BoundedContextEntry {
       hint: 'Team responsible for this context',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5636,7 +5671,7 @@ class BoundedContextEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Boundary relationships.
   @SectionId('BCEB')
@@ -5674,7 +5709,7 @@ class BoundedContextEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? boundaries;
+  DocSpecsSection? boundaries;
 
   /// Implementation footprint.
   @SectionId('BCEI')
@@ -5712,7 +5747,7 @@ class BoundedContextEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? implementation;
+  DocSpecsSection? implementation;
 
   /// Integration and notes.
   @SectionId('BOCOENIN')
@@ -5739,7 +5774,7 @@ class BoundedContextEntry {
     Field('notes', String, 'Notes', hint: 'Additional context notes'),
   ])
   @SerializationOrder(4)
-  String? integration;
+  DocSpecsSection? integration;
 }
 
 /// Package organization and naming structure.
@@ -5751,7 +5786,7 @@ class BoundedContextEntry {
   'Describes the overall package organization, naming, and structure conventions.',
 )
 @SectionId('PAOR')
-class PackageOrganization {
+class PackageOrganization extends DocSpecsSection {
   @Form([
     Field(
       'namingConvention',
@@ -5772,6 +5807,7 @@ class PackageOrganization {
       hint: 'Standard suffixes (_core, _ui, _api, etc.)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5802,7 +5838,7 @@ class PackageOrganization {
     ),
   ])
   @SerializationOrder(1)
-  String? structure;
+  DocSpecsSection? structure;
 
   /// Package categorization.
   @SectionId('PAORTY')
@@ -5837,7 +5873,7 @@ class PackageOrganization {
     ),
   ])
   @SerializationOrder(2)
-  String? types;
+  DocSpecsSection? types;
 
   /// Dependency management rules.
   @SectionId('PAORDE')
@@ -5875,7 +5911,7 @@ class PackageOrganization {
     ),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Documentation expectations.
   @SectionId('PAORDO')
@@ -5902,7 +5938,7 @@ class PackageOrganization {
     Field('notes', String, 'Notes', hint: 'Additional organization notes'),
   ])
   @SerializationOrder(4)
-  String? documentation;
+  DocSpecsSection? documentation;
 }
 
 /// Module entry — a discrete module or component.
@@ -5911,7 +5947,7 @@ class PackageOrganization {
   'SOLID principles — object-oriented design',
 ], 'Describes a single discrete module or component in the module catalog.')
 @SectionId('MODENT')
-class ModuleEntry {
+class ModuleEntry extends DocSpecsSection {
   @Form([
     Field(
       'moduleName',
@@ -5928,6 +5964,7 @@ class ModuleEntry {
     ),
     Field('version', String, 'Version', hint: 'Current module version'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -5968,7 +6005,7 @@ class ModuleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// Dependency information.
   @SectionId('MOEND1')
@@ -6006,7 +6043,7 @@ class ModuleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Ownership information.
   @SectionId('MOENOW')
@@ -6030,7 +6067,7 @@ class ModuleEntry {
     Field('maintainer', String, 'Maintainer', hint: 'Primary maintainer'),
   ])
   @SerializationOrder(3)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   /// Configuration settings.
   @SectionId('MOENCO')
@@ -6062,7 +6099,7 @@ class ModuleEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Testing and notes.
   @SectionId('MOENTE')
@@ -6089,7 +6126,7 @@ class ModuleEntry {
     Field('notes', String, 'Notes', hint: 'Additional module notes'),
   ])
   @SerializationOrder(5)
-  String? testing;
+  DocSpecsSection? testing;
 }
 
 /// Shared library entry — a reusable library or utility.
@@ -6101,7 +6138,7 @@ class ModuleEntry {
   'Describes a single reusable shared library or utility available across the software.',
 )
 @SectionId('SHLIEN')
-class SharedLibraryEntry {
+class SharedLibraryEntry extends DocSpecsSection {
   @Form([
     Field(
       'libraryName',
@@ -6118,6 +6155,7 @@ class SharedLibraryEntry {
     ),
     Field('version', String, 'Version', hint: 'Current version'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6152,7 +6190,7 @@ class SharedLibraryEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// API details.
   @SectionId('SLEA')
@@ -6184,7 +6222,7 @@ class SharedLibraryEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? api;
+  DocSpecsSection? api;
 
   /// Constraints and lifecycle.
   @SectionId('SLEL')
@@ -6229,7 +6267,7 @@ class SharedLibraryEntry {
     Field('notes', String, 'Notes', hint: 'Additional library notes'),
   ])
   @SerializationOrder(3)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 }
 
 /// Dependency injection structure and configuration.
@@ -6241,7 +6279,7 @@ class SharedLibraryEntry {
   'Describes the overall dependency-injection approach, framework, and scope management for the software.',
 )
 @SectionId('DEINST')
-class DependencyInjectionStructure {
+class DependencyInjectionStructure extends DocSpecsSection {
   @Form([
     Field(
       'diFramework',
@@ -6262,6 +6300,7 @@ class DependencyInjectionStructure {
       hint: 'Singleton, factory, scoped, lazy',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6295,7 +6334,7 @@ class DependencyInjectionStructure {
     ),
   ])
   @SerializationOrder(1)
-  String? registration;
+  DocSpecsSection? registration;
 
   /// Interface binding rules.
   @SectionId('DISB')
@@ -6327,7 +6366,7 @@ class DependencyInjectionStructure {
     ),
   ])
   @SerializationOrder(2)
-  String? binding;
+  DocSpecsSection? binding;
 
   /// Environment-specific configuration.
   @SectionId('DISC')
@@ -6359,7 +6398,7 @@ class DependencyInjectionStructure {
     ),
   ])
   @SerializationOrder(3)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Troubleshooting support.
   @SectionId('DIST')
@@ -6381,7 +6420,7 @@ class DependencyInjectionStructure {
     Field('notes', String, 'Notes', hint: 'Additional DI notes'),
   ])
   @SerializationOrder(4)
-  String? troubleshooting;
+  DocSpecsSection? troubleshooting;
 }
 
 /// Cross-cutting concerns organization.
@@ -6393,7 +6432,7 @@ class DependencyInjectionStructure {
   'Organizes the cross-cutting concerns such as logging that span all layers of the software.',
 )
 @SectionId('CRCUCO')
-class CrossCuttingConcerns {
+class CrossCuttingConcerns extends DocSpecsSection {
   @Form([
     Field(
       'loggingStrategy',
@@ -6409,6 +6448,7 @@ class CrossCuttingConcerns {
     ),
     Field('logFormat', String, 'Log Format', hint: 'Log message format'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6442,7 +6482,7 @@ class CrossCuttingConcerns {
     ),
   ])
   @SerializationOrder(1)
-  String? errors;
+  DocSpecsSection? errors;
 
   /// Security concerns.
   @SectionId('CCCS')
@@ -6474,7 +6514,7 @@ class CrossCuttingConcerns {
     ),
   ])
   @SerializationOrder(2)
-  String? security;
+  DocSpecsSection? security;
 
   /// Caching approach.
   @SectionId('CCCC')
@@ -6506,7 +6546,7 @@ class CrossCuttingConcerns {
     ),
   ])
   @SerializationOrder(3)
-  String? caching;
+  DocSpecsSection? caching;
 
   /// Observability capabilities.
   @SectionId('CCCO')
@@ -6533,7 +6573,7 @@ class CrossCuttingConcerns {
     ),
   ])
   @SerializationOrder(4)
-  String? observability;
+  DocSpecsSection? observability;
 
   /// Other shared capabilities.
   @SectionId('CRCUCOSH')
@@ -6555,7 +6595,7 @@ class CrossCuttingConcerns {
     Field('notes', String, 'Notes', hint: 'Additional cross-cutting notes'),
   ])
   @SerializationOrder(5)
-  String? shared;
+  DocSpecsSection? shared;
 }
 
 /// Feature module entry — a vertical slice feature.
@@ -6567,7 +6607,7 @@ class CrossCuttingConcerns {
   'Describes a single feature module as a self-contained vertical slice of the application.',
 )
 @SectionId('FTRMOD')
-class FeatureModuleEntry {
+class FeatureModuleEntry extends DocSpecsSection {
   @Form([
     Field(
       'featureName',
@@ -6589,6 +6629,7 @@ class FeatureModuleEntry {
       hint: 'Owning bounded context',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6617,7 +6658,7 @@ class FeatureModuleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// Structural scope.
   @SectionId('FMES')
@@ -6650,7 +6691,7 @@ class FeatureModuleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? structure;
+  DocSpecsSection? structure;
 
   /// Dependencies.
   @SectionId('FEMOENDE')
@@ -6682,7 +6723,7 @@ class FeatureModuleEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Feature configuration.
   @SectionId('FMEC')
@@ -6714,7 +6755,7 @@ class FeatureModuleEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Navigation and notes.
   @SectionId('FMEN')
@@ -6741,7 +6782,7 @@ class FeatureModuleEntry {
     Field('notes', String, 'Notes', hint: 'Additional feature notes'),
   ])
   @SerializationOrder(5)
-  String? navigation;
+  DocSpecsSection? navigation;
 }
 
 /// Module versioning and compatibility strategy.
@@ -6753,7 +6794,7 @@ class FeatureModuleEntry {
   'Describes the overall strategy for versioning modules and keeping them compatible.',
 )
 @SectionId('MOVEST')
-class ModuleVersioningStrategy {
+class ModuleVersioningStrategy extends DocSpecsSection {
   @Form([
     Field(
       'versioningScheme',
@@ -6780,6 +6821,7 @@ class ModuleVersioningStrategy {
       hint: 'When to bump patch version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -6813,7 +6855,7 @@ class ModuleVersioningStrategy {
     ),
   ])
   @SerializationOrder(1)
-  String? compatibility;
+  DocSpecsSection? compatibility;
 
   /// Release management process.
   @SectionId('MVSRM')
@@ -6842,7 +6884,7 @@ class ModuleVersioningStrategy {
     ),
   ])
   @SerializationOrder(2)
-  String? releaseManagement;
+  DocSpecsSection? releaseManagement;
 
   /// Dependency versioning rules.
   @SectionId('MVSD')
@@ -6874,7 +6916,7 @@ class ModuleVersioningStrategy {
     ),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Cross-module coordination.
   @SectionId('MOVESTCO')
@@ -6901,7 +6943,7 @@ class ModuleVersioningStrategy {
     Field('notes', String, 'Notes', hint: 'Additional versioning notes'),
   ])
   @SerializationOrder(4)
-  String? coordination;
+  DocSpecsSection? coordination;
 }
 
 // =============================================================================
@@ -6955,7 +6997,7 @@ ensures consistent quality across the team.
   'Describes the development environment including required IDEs, build tools, version control, CI/CD, and workflow.',
 )
 @SectionId('DEEN')
-class DevelopmentEnvironment {
+class DevelopmentEnvironment extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the development environment philosophy.
 
@@ -6973,6 +7015,7 @@ Provide an overview of the development environment philosophy.
 - Establish development environment SLAs
 - Regular tooling retrospectives and updates
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7036,7 +7079,7 @@ Provide an overview of the development environment philosophy.
   'Describes a single required IDE or editor including its name, version requirements, and platform.',
 )
 @SectionId('IRE')
-class IdeRequirementEntry {
+class IdeRequirementEntry extends DocSpecsSection {
   @Form([
     // Identity
     Field(
@@ -7054,6 +7097,7 @@ class IdeRequirementEntry {
     ),
     Field('platform', String, 'Platform', hint: 'Windows, macOS, Linux, Web'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7093,7 +7137,7 @@ class IdeRequirementEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Debugger, linting, and formatting integration.
   @SectionId('IREI')
@@ -7131,7 +7175,7 @@ class IdeRequirementEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Shared team standardization settings.
   @SectionId('IRES')
@@ -7158,7 +7202,7 @@ class IdeRequirementEntry {
     Field('notes', String, 'Notes', hint: 'Additional IDE notes'),
   ])
   @SerializationOrder(3)
-  String? standardization;
+  DocSpecsSection? standardization;
 }
 
 /// Build tools configuration.
@@ -7170,7 +7214,7 @@ class IdeRequirementEntry {
   'Describes build tools configuration including package manager, versions, and lockfile management.',
 )
 @SectionId('BUTOCO')
-class BuildToolsConfiguration {
+class BuildToolsConfiguration extends DocSpecsSection {
   @Form([
     Field(
       'packageManager',
@@ -7191,6 +7235,7 @@ class BuildToolsConfiguration {
       hint: 'Lockfile policies',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7224,7 +7269,7 @@ class BuildToolsConfiguration {
     ),
   ])
   @SerializationOrder(1)
-  String? buildSystemSettings;
+  DocSpecsSection? buildSystemSettings;
 
   /// Compilation settings.
   @SectionId('BTCC')
@@ -7256,7 +7301,7 @@ class BuildToolsConfiguration {
     ),
   ])
   @SerializationOrder(2)
-  String? compilation;
+  DocSpecsSection? compilation;
 
   /// Script integration.
   @SectionId('BTCS')
@@ -7288,7 +7333,7 @@ class BuildToolsConfiguration {
     ),
   ])
   @SerializationOrder(3)
-  String? scripts;
+  DocSpecsSection? scripts;
 
   /// Artifact management.
   @SectionId('BTCA')
@@ -7321,7 +7366,7 @@ class BuildToolsConfiguration {
     Field('notes', String, 'Notes', hint: 'Additional build tool notes'),
   ])
   @SerializationOrder(4)
-  String? artifacts;
+  DocSpecsSection? artifacts;
 }
 
 /// Version control configuration.
@@ -7333,7 +7378,7 @@ class BuildToolsConfiguration {
   'Describes version control configuration including the VCS system, version, and hosting platform.',
 )
 @SectionId('VECOCO')
-class VersionControlConfiguration {
+class VersionControlConfiguration extends DocSpecsSection {
   @Form([
     Field('vcsSystem', String, 'VCS System', hint: 'Git, Mercurial, SVN'),
     Field(
@@ -7349,6 +7394,7 @@ class VersionControlConfiguration {
       hint: 'GitHub, GitLab, Bitbucket, Azure DevOps',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7377,7 +7423,7 @@ class VersionControlConfiguration {
     Field('lfsUsage', String, 'LFS Usage', hint: 'Git LFS for large files'),
   ])
   @SerializationOrder(1)
-  String? repository;
+  DocSpecsSection? repository;
 
   /// Branching policy.
   @SectionId('VCCB')
@@ -7421,7 +7467,7 @@ class VersionControlConfiguration {
     ),
   ])
   @SerializationOrder(2)
-  String? branching;
+  DocSpecsSection? branching;
 
   /// Commit and merge policy.
   @SectionId('VCCC')
@@ -7453,7 +7499,7 @@ class VersionControlConfiguration {
     ),
   ])
   @SerializationOrder(3)
-  String? commits;
+  DocSpecsSection? commits;
 
   /// Tagging and file attribute settings.
   @SectionId('VCCM')
@@ -7492,7 +7538,7 @@ class VersionControlConfiguration {
     Field('notes', String, 'Notes', hint: 'Additional VCS notes'),
   ])
   @SerializationOrder(4)
-  String? metadata;
+  DocSpecsSection? metadata;
 }
 
 /// CI/CD pipeline configuration.
@@ -7504,7 +7550,7 @@ class VersionControlConfiguration {
   'Describes the CI/CD pipeline configuration including platform, config location, and secrets management.',
 )
 @SectionId('CCPC')
-class CiCdPipelineConfiguration {
+class CiCdPipelineConfiguration extends DocSpecsSection {
   @Form([
     // Platform
     Field(
@@ -7526,6 +7572,7 @@ class CiCdPipelineConfiguration {
       hint: 'How secrets are stored and accessed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7566,7 +7613,7 @@ class CiCdPipelineConfiguration {
   'Twelve-Factor App — cloud-native methodology',
 ], 'Describes a single pipeline stage including its name, order, and purpose.')
 @SectionId('PSE')
-class PipelineStageEntry {
+class PipelineStageEntry extends DocSpecsSection {
   @Form([
     // Identity
     Field(
@@ -7579,6 +7626,7 @@ class PipelineStageEntry {
     Field('stageOrder', String, 'Order', hint: 'Execution order'),
     Field('description', String, 'Description', hint: 'What this stage does'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7609,7 +7657,7 @@ class PipelineStageEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? trigger;
+  DocSpecsSection? trigger;
 
   /// Execution environment and job strategy.
   @SectionId('PSEE')
@@ -7641,7 +7689,7 @@ class PipelineStageEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Artifact flow between stages.
   @SectionId('PSEA')
@@ -7667,7 +7715,7 @@ class PipelineStageEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? artifacts;
+  DocSpecsSection? artifacts;
 
   /// Failure handling and retry behavior.
   @SectionId('PSEF')
@@ -7691,7 +7739,7 @@ class PipelineStageEntry {
     Field('notes', String, 'Notes', hint: 'Additional stage notes'),
   ])
   @SerializationOrder(4)
-  String? failure;
+  DocSpecsSection? failure;
 }
 
 /// Pipeline job entry.
@@ -7703,7 +7751,7 @@ class PipelineStageEntry {
   'Describes a single pipeline job including its name, parent stage, and purpose.',
 )
 @SectionId('PJE')
-class PipelineJobEntry {
+class PipelineJobEntry extends DocSpecsSection {
   @Form([
     Field(
       'jobName',
@@ -7720,6 +7768,7 @@ class PipelineJobEntry {
     ),
     Field('description', String, 'Description', hint: 'What this job does'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7753,7 +7802,7 @@ class PipelineJobEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? environment;
+  DocSpecsSection? environment;
 
   /// Job steps.
   @SectionId('PJES')
@@ -7772,7 +7821,7 @@ class PipelineJobEntry {
     Field('cleanupSteps', String, 'Cleanup Steps', hint: 'Cleanup after job'),
   ])
   @SerializationOrder(2)
-  String? steps;
+  DocSpecsSection? steps;
 
   /// Job dependencies.
   @SectionId('PJED')
@@ -7799,7 +7848,7 @@ class PipelineJobEntry {
     Field('caching', String, 'Caching', hint: 'Cache configuration'),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Outputs and notes.
   @SectionId('PJEO')
@@ -7822,7 +7871,7 @@ class PipelineJobEntry {
     Field('notes', String, 'Notes', hint: 'Additional job notes'),
   ])
   @SerializationOrder(4)
-  String? outputs;
+  DocSpecsSection? outputs;
 }
 
 /// Deployment environment entry.
@@ -7834,7 +7883,7 @@ class PipelineJobEntry {
   'Describes a single deployment environment including its name, type, and URL.',
 )
 @SectionId('DEE')
-class DeploymentEnvironmentEntry {
+class DeploymentEnvironmentEntry extends DocSpecsSection {
   @Form([
     // Identity
     Field(
@@ -7852,6 +7901,7 @@ class DeploymentEnvironmentEntry {
     ),
     Field('url', String, 'URL', hint: 'Environment URL'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -7885,7 +7935,7 @@ class DeploymentEnvironmentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? deployment;
+  DocSpecsSection? deployment;
 
   /// Approval and protection rules.
   @SectionId('DEEP')
@@ -7917,7 +7967,7 @@ class DeploymentEnvironmentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? protection;
+  DocSpecsSection? protection;
 
   /// Configuration and secrets sourcing.
   @SectionId('DEEC')
@@ -7940,7 +7990,7 @@ class DeploymentEnvironmentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Health verification and environment notes.
   @SectionId('DEEM')
@@ -7967,7 +8017,7 @@ class DeploymentEnvironmentEntry {
     Field('notes', String, 'Notes', hint: 'Additional environment notes'),
   ])
   @SerializationOrder(4)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 }
 
 /// Code review process configuration.
@@ -7979,7 +8029,7 @@ class DeploymentEnvironmentEntry {
   'Describes the code review process including PR requirements, templates, naming conventions, and draft PRs.',
 )
 @SectionId('COREPR')
-class CodeReviewProcess {
+class CodeReviewProcess extends DocSpecsSection {
   @Form([
     Field('prRequired', bool, 'PR Required', hint: 'All changes via PR'),
     Field('prTemplate', String, 'PR Template', hint: 'Pull request template'),
@@ -7991,6 +8041,7 @@ class CodeReviewProcess {
     ),
     Field('draftPrSupport', bool, 'Draft PR Support', hint: 'Use draft PRs'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -8019,7 +8070,7 @@ class CodeReviewProcess {
     ),
   ])
   @SerializationOrder(1)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Review workflow.
   @SectionId('CRPW')
@@ -8057,7 +8108,7 @@ class CodeReviewProcess {
     ),
   ])
   @SerializationOrder(2)
-  String? workflow;
+  DocSpecsSection? workflow;
 
   /// Automation requirements.
   @SectionId('CRPA')
@@ -8090,7 +8141,7 @@ class CodeReviewProcess {
     ),
   ])
   @SerializationOrder(3)
-  String? automation;
+  DocSpecsSection? automation;
 
   /// Merge policy.
   @SectionId('CRPM')
@@ -8123,7 +8174,7 @@ class CodeReviewProcess {
     Field('notes', String, 'Notes', hint: 'Additional review process notes'),
   ])
   @SerializationOrder(4)
-  String? merge;
+  DocSpecsSection? merge;
 }
 
 /// Local development setup configuration.
@@ -8135,7 +8186,7 @@ class CodeReviewProcess {
   'Describes the local development setup including system requirements, prerequisite software, and SDK versions.',
 )
 @SectionId('LODESE')
-class LocalDevelopmentSetup {
+class LocalDevelopmentSetup extends DocSpecsSection {
   @Form([
     Field(
       'systemRequirements',
@@ -8151,6 +8202,7 @@ class LocalDevelopmentSetup {
     ),
     Field('sdkVersions', String, 'SDK Versions', hint: 'Required SDK versions'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -8190,7 +8242,7 @@ class LocalDevelopmentSetup {
     ),
   ])
   @SerializationOrder(1)
-  String? workflow;
+  DocSpecsSection? workflow;
 
   /// Dependencies and local services.
   @SectionId('LDSD')
@@ -8222,7 +8274,7 @@ class LocalDevelopmentSetup {
     ),
   ])
   @SerializationOrder(2)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Running configuration.
   @SectionId('LDSR')
@@ -8254,7 +8306,7 @@ class LocalDevelopmentSetup {
     ),
   ])
   @SerializationOrder(3)
-  String? running;
+  DocSpecsSection? running;
 
   /// Test setup.
   @SectionId('LDST')
@@ -8286,7 +8338,7 @@ class LocalDevelopmentSetup {
     ),
   ])
   @SerializationOrder(4)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Troubleshooting details.
   @SectionId('LODESETR')
@@ -8313,7 +8365,7 @@ class LocalDevelopmentSetup {
     Field('notes', String, 'Notes', hint: 'Additional setup notes'),
   ])
   @SerializationOrder(5)
-  String? troubleshooting;
+  DocSpecsSection? troubleshooting;
 }
 
 /// Debugging configuration.
@@ -8325,7 +8377,7 @@ class LocalDevelopmentSetup {
   'Describes the debugging configuration including debugger tooling, launch configurations, and remote debugging.',
 )
 @SectionId('DECO')
-class DebuggingConfiguration {
+class DebuggingConfiguration extends DocSpecsSection {
   @Form([
     Field(
       'debuggerTool',
@@ -8346,6 +8398,7 @@ class DebuggingConfiguration {
       hint: 'Remote debugging setup',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -8374,7 +8427,7 @@ class DebuggingConfiguration {
     ),
   ])
   @SerializationOrder(1)
-  String? breakpoints;
+  DocSpecsSection? breakpoints;
 
   /// Logging setup for debugging.
   @SectionId('DECOLO')
@@ -8401,7 +8454,7 @@ class DebuggingConfiguration {
     ),
   ])
   @SerializationOrder(2)
-  String? logging;
+  DocSpecsSection? logging;
 
   /// State and runtime inspection.
   @SectionId('DECOIN')
@@ -8433,7 +8486,7 @@ class DebuggingConfiguration {
     ),
   ])
   @SerializationOrder(3)
-  String? inspection;
+  DocSpecsSection? inspection;
 
   /// Flutter-specific tooling.
   @SectionId('DECOFL')
@@ -8465,7 +8518,7 @@ class DebuggingConfiguration {
     ),
   ])
   @SerializationOrder(4)
-  String? flutter;
+  DocSpecsSection? flutter;
 
   /// Error tracking details.
   @SectionId('DECOER')
@@ -8492,7 +8545,7 @@ class DebuggingConfiguration {
     Field('notes', String, 'Notes', hint: 'Additional debugging notes'),
   ])
   @SerializationOrder(5)
-  String? errors;
+  DocSpecsSection? errors;
 }
 
 /// Environment management configuration.
@@ -8504,7 +8557,7 @@ class DebuggingConfiguration {
   'Describes environment management including environment types, naming, and per-environment purposes.',
 )
 @SectionId('ENMA')
-class EnvironmentManagement {
+class EnvironmentManagement extends DocSpecsSection {
   @Form([
     Field(
       'environmentTypes',
@@ -8525,6 +8578,7 @@ class EnvironmentManagement {
       hint: 'Purpose of each environment',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -8558,7 +8612,7 @@ class EnvironmentManagement {
     ),
   ])
   @SerializationOrder(1)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Secrets handling.
   @SectionId('ENMASE')
@@ -8590,7 +8644,7 @@ class EnvironmentManagement {
     ),
   ])
   @SerializationOrder(2)
-  String? secrets;
+  DocSpecsSection? secrets;
 
   /// Environment switching.
   @SectionId('ENMASW')
@@ -8622,7 +8676,7 @@ class EnvironmentManagement {
     ),
   ])
   @SerializationOrder(3)
-  String? switching;
+  DocSpecsSection? switching;
 
   /// Parity and notes.
   @SectionId('ENMAPA')
@@ -8660,7 +8714,7 @@ class EnvironmentManagement {
     ),
   ])
   @SerializationOrder(4)
-  String? parity;
+  DocSpecsSection? parity;
 }
 
 /// Developer onboarding requirements.
@@ -8672,7 +8726,7 @@ class EnvironmentManagement {
   'Describes developer onboarding requirements including guides, architecture overviews, and coding standards references.',
 )
 @SectionId('DEON')
-class DeveloperOnboarding {
+class DeveloperOnboarding extends DocSpecsSection {
   @Form([
     Field(
       'onboardingGuide',
@@ -8693,6 +8747,7 @@ class DeveloperOnboarding {
       hint: 'Where to find coding standards',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -8726,7 +8781,7 @@ class DeveloperOnboarding {
     ),
   ])
   @SerializationOrder(1)
-  String? setup;
+  DocSpecsSection? setup;
 
   /// Access provisioning.
   @SectionId('DEONAC')
@@ -8753,7 +8808,7 @@ class DeveloperOnboarding {
     Field('vpnSetup', String, 'VPN Setup', hint: 'VPN configuration if needed'),
   ])
   @SerializationOrder(2)
-  String? access;
+  DocSpecsSection? access;
 
   /// Learning support.
   @SectionId('DEONLE')
@@ -8785,7 +8840,7 @@ class DeveloperOnboarding {
     ),
   ])
   @SerializationOrder(3)
-  String? learning;
+  DocSpecsSection? learning;
 
   /// Early task expectations.
   @SectionId('DOFT')
@@ -8812,7 +8867,7 @@ class DeveloperOnboarding {
     ),
   ])
   @SerializationOrder(4)
-  String? firstTasks;
+  DocSpecsSection? firstTasks;
 
   /// Completion verification.
   @SectionId('DEONVE')
@@ -8839,7 +8894,7 @@ class DeveloperOnboarding {
     Field('notes', String, 'Notes', hint: 'Additional onboarding notes'),
   ])
   @SerializationOrder(5)
-  String? verification;
+  DocSpecsSection? verification;
 }
 
 /// Development quality gates and metrics.
@@ -8851,7 +8906,7 @@ class DeveloperOnboarding {
   'Describes the development quality gates and metrics enforced across static analysis, linting, and formatting.',
 )
 @SectionId('DEQUGA')
-class DevelopmentQualityGates {
+class DevelopmentQualityGates extends DocSpecsSection {
   @Form([
     Field(
       'staticAnalysis',
@@ -8872,6 +8927,7 @@ class DevelopmentQualityGates {
       hint: 'Code formatter settings',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -8905,7 +8961,7 @@ class DevelopmentQualityGates {
     ),
   ])
   @SerializationOrder(1)
-  String? coverage;
+  DocSpecsSection? coverage;
 
   /// Complexity thresholds.
   @SectionId('DEQUGACO')
@@ -8937,7 +8993,7 @@ class DevelopmentQualityGates {
     ),
   ])
   @SerializationOrder(2)
-  String? complexity;
+  DocSpecsSection? complexity;
 
   /// Security checks.
   @SectionId('DQGS')
@@ -8969,7 +9025,7 @@ class DevelopmentQualityGates {
     ),
   ])
   @SerializationOrder(3)
-  String? security;
+  DocSpecsSection? security;
 
   /// Documentation requirements.
   @SectionId('DQGD')
@@ -9001,7 +9057,7 @@ class DevelopmentQualityGates {
     ),
   ])
   @SerializationOrder(4)
-  String? documentation;
+  DocSpecsSection? documentation;
 
   /// Performance checks.
   @SectionId('DQGP')
@@ -9034,7 +9090,7 @@ class DevelopmentQualityGates {
     Field('notes', String, 'Notes', hint: 'Additional quality gate notes'),
   ])
   @SerializationOrder(5)
-  String? performance;
+  DocSpecsSection? performance;
 }
 
 // =============================================================================
@@ -9085,7 +9141,7 @@ consistency, and accelerates development.
   'Captures the overall strategy for creating, cataloguing, and governing reusable components across the system.',
 )
 @SectionId('RCS')
-class ReusableComponentsSection {
+class ReusableComponentsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the reusability strategy and component library.
 
@@ -9103,6 +9159,7 @@ Provide an overview of the reusability strategy and component library.
 - Track component usage and dependencies
 - Plan for breaking change management
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -9187,7 +9244,7 @@ Provide an overview of the reusability strategy and component library.
   'Captures the guiding principles and guidelines governing how reusable components are designed.',
 )
 @SectionId('REPR')
-class ReusabilityPrinciples {
+class ReusabilityPrinciples extends DocSpecsSection {
   @Form([
     Field(
       'reuseFirstPolicy',
@@ -9208,6 +9265,7 @@ class ReusabilityPrinciples {
       hint: 'Right size for reusable components',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -9241,7 +9299,7 @@ class ReusabilityPrinciples {
     ),
   ])
   @SerializationOrder(1)
-  String? abstraction;
+  DocSpecsSection? abstraction;
 
   /// Quality expectations.
   @SectionId('REPRQU')
@@ -9273,7 +9331,7 @@ class ReusabilityPrinciples {
     ),
   ])
   @SerializationOrder(2)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Versioning policy.
   @SectionId('REPRVE')
@@ -9305,7 +9363,7 @@ class ReusabilityPrinciples {
     ),
   ])
   @SerializationOrder(3)
-  String? versioning;
+  DocSpecsSection? versioning;
 
   /// Ownership and contribution.
   @SectionId('REPROW')
@@ -9332,7 +9390,7 @@ class ReusabilityPrinciples {
     Field('notes', String, 'Notes', hint: 'Additional principles notes'),
   ])
   @SerializationOrder(4)
-  String? ownership;
+  DocSpecsSection? ownership;
 }
 
 /// Shared library component entry.
@@ -9345,7 +9403,7 @@ class ReusabilityPrinciples {
   'Captures a shared library reused across the system, its type, and its version.',
 )
 @SectionId('SHLCP')
-class SharedLibraryComponentEntry {
+class SharedLibraryComponentEntry extends DocSpecsSection {
   @Form([
     Field(
       'componentName',
@@ -9362,6 +9420,7 @@ class SharedLibraryComponentEntry {
     ),
     Field('version', String, 'Version', hint: 'Current version'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -9403,7 +9462,7 @@ class SharedLibraryComponentEntry {
     Field('useCases', String, 'Use Cases', hint: 'Example use cases'),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// Technical API details.
   @SectionId('SLCET')
@@ -9441,7 +9500,7 @@ class SharedLibraryComponentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? technical;
+  DocSpecsSection? technical;
 
   /// Quality and documentation.
   @SectionId('SLCEQ')
@@ -9468,7 +9527,7 @@ class SharedLibraryComponentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Ownership and lifecycle.
   @SectionId('SLCEO')
@@ -9498,7 +9557,7 @@ class SharedLibraryComponentEntry {
     Field('notes', String, 'Notes', hint: 'Additional component notes'),
   ])
   @SerializationOrder(4)
-  String? ownership;
+  DocSpecsSection? ownership;
 }
 
 /// UI component entry — a reusable UI widget or pattern.
@@ -9510,7 +9569,7 @@ class SharedLibraryComponentEntry {
   'Captures a reusable UI widget or pattern, its category, and its purpose within the design system.',
 )
 @SectionId('RUCE')
-class ReusableUiComponentEntry {
+class ReusableUiComponentEntry extends DocSpecsSection {
   @Form([
     Field(
       'componentName',
@@ -9527,6 +9586,7 @@ class ReusableUiComponentEntry {
     ),
     Field('purpose', String, 'Purpose', hint: 'What this component does'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -9556,7 +9616,7 @@ class ReusableUiComponentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// Design specifications.
   @SectionId('REUICOENDE')
@@ -9594,7 +9654,7 @@ class ReusableUiComponentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? design;
+  DocSpecsSection? design;
 
   /// Interaction and accessibility.
   @SectionId('RUCEI')
@@ -9621,7 +9681,7 @@ class ReusableUiComponentEntry {
     Field('animations', String, 'Animations', hint: 'Animation specifications'),
   ])
   @SerializationOrder(3)
-  String? interaction;
+  DocSpecsSection? interaction;
 
   /// Component API.
   @SectionId('RUCEA')
@@ -9649,7 +9709,7 @@ class ReusableUiComponentEntry {
     Field('slots', String, 'Slots/Children', hint: 'Child content areas'),
   ])
   @SerializationOrder(4)
-  String? api;
+  DocSpecsSection? api;
 
   /// Implementation details.
   @SectionId('REUICOENIM')
@@ -9682,7 +9742,7 @@ class ReusableUiComponentEntry {
     Field('notes', String, 'Notes', hint: 'Additional UI component notes'),
   ])
   @SerializationOrder(5)
-  String? implementation;
+  DocSpecsSection? implementation;
 }
 
 /// Business logic component entry.
@@ -9694,7 +9754,7 @@ class ReusableUiComponentEntry {
   'Captures a reusable business logic component such as a service, repository, use case, or validator.',
 )
 @SectionId('BUSCOMENT')
-class BusinessComponentEntry {
+class BusinessComponentEntry extends DocSpecsSection {
   @Form([
     Field(
       'componentName',
@@ -9716,6 +9776,7 @@ class BusinessComponentEntry {
       hint: 'Domain area this belongs to',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -9744,7 +9805,7 @@ class BusinessComponentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// Public interface details.
   @SectionId('BUCOENIN')
@@ -9772,7 +9833,7 @@ class BusinessComponentEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? interface;
+  DocSpecsSection? interface;
 
   /// Dependency mapping.
   @SectionId('BUCOENDE')
@@ -9799,7 +9860,7 @@ class BusinessComponentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? dependencies;
+  DocSpecsSection? dependencies;
 
   /// Testing details.
   @SectionId('BCET')
@@ -9826,7 +9887,7 @@ class BusinessComponentEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Reuse and customization notes.
   @SectionId('BCER')
@@ -9858,7 +9919,7 @@ class BusinessComponentEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? reuse;
+  DocSpecsSection? reuse;
 }
 
 /// Infrastructure component entry.
@@ -9870,7 +9931,7 @@ class BusinessComponentEntry {
   'Captures a reusable infrastructure component such as logging, caching, messaging, or storage.',
 )
 @SectionId('INFCOMENT')
-class InfrastructureComponentEntry {
+class InfrastructureComponentEntry extends DocSpecsSection {
   @Form([
     Field(
       'componentName',
@@ -9887,6 +9948,7 @@ class InfrastructureComponentEntry {
     ),
     Field('layer', String, 'Layer', hint: 'Infrastructure layer'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -9920,7 +9982,7 @@ class InfrastructureComponentEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? description;
+  DocSpecsSection? description;
 
   /// Configuration requirements.
   @SectionId('ICEC')
@@ -9947,7 +10009,7 @@ class InfrastructureComponentEntry {
     Field('secrets', String, 'Secrets', hint: 'Required secrets'),
   ])
   @SerializationOrder(2)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Integration lifecycle.
   @SectionId('ICEI')
@@ -9979,7 +10041,7 @@ class InfrastructureComponentEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Operational behavior.
   @SectionId('ICEO')
@@ -10006,7 +10068,7 @@ class InfrastructureComponentEntry {
     Field('scalability', String, 'Scalability', hint: 'Scaling considerations'),
   ])
   @SerializationOrder(4)
-  String? operations;
+  DocSpecsSection? operations;
 
   /// Resiliency behavior.
   @SectionId('ICER')
@@ -10034,7 +10096,7 @@ class InfrastructureComponentEntry {
     Field('notes', String, 'Notes', hint: 'Additional infrastructure notes'),
   ])
   @SerializationOrder(5)
-  String? resiliency;
+  DocSpecsSection? resiliency;
 }
 
 /// Third-party library entry.
@@ -10046,7 +10108,7 @@ class InfrastructureComponentEntry {
   'Captures a third-party framework or library, its source, version, and evaluation for reuse.',
 )
 @SectionId('THPALI')
-class ThirdPartyLibraryEntry {
+class ThirdPartyLibraryEntry extends DocSpecsSection {
   @Form([
     Field(
       'libraryName',
@@ -10069,6 +10131,7 @@ class ThirdPartyLibraryEntry {
       hint: 'Version constraint',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -10098,7 +10161,7 @@ class ThirdPartyLibraryEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? evaluation;
+  DocSpecsSection? evaluation;
 
   /// Licensing details.
   @SectionId('TPLEL')
@@ -10131,7 +10194,7 @@ class ThirdPartyLibraryEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? licenseInfo;
+  DocSpecsSection? licenseInfo;
 
   /// Risk profile.
   @SectionId('TPLER')
@@ -10169,7 +10232,7 @@ class ThirdPartyLibraryEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? risk;
+  DocSpecsSection? risk;
 
   /// Usage and upgrade strategy.
   @SectionId('TPLEU')
@@ -10201,7 +10264,7 @@ class ThirdPartyLibraryEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? usage;
+  DocSpecsSection? usage;
 
   /// Monitoring and notes.
   @SectionId('TPLEM')
@@ -10228,7 +10291,7 @@ class ThirdPartyLibraryEntry {
     Field('notes', String, 'Notes', hint: 'Additional library notes'),
   ])
   @SerializationOrder(5)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 }
 
 /// Component governance and maintenance policies.
@@ -10240,7 +10303,7 @@ class ThirdPartyLibraryEntry {
   'Captures the ownership model and governance policies for maintaining the shared component library.',
 )
 @SectionId('COGO')
-class ComponentGovernance {
+class ComponentGovernance extends DocSpecsSection {
   @Form([
     Field(
       'ownershipModel',
@@ -10261,6 +10324,7 @@ class ComponentGovernance {
       hint: 'How issues are escalated',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -10294,7 +10358,7 @@ class ComponentGovernance {
     ),
   ])
   @SerializationOrder(1)
-  String? contribution;
+  DocSpecsSection? contribution;
 
   /// Quality expectations.
   @SectionId('COGOQU')
@@ -10326,7 +10390,7 @@ class ComponentGovernance {
     ),
   ])
   @SerializationOrder(2)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Lifecycle policies.
   @SectionId('COGOLI')
@@ -10358,7 +10422,7 @@ class ComponentGovernance {
     ),
   ])
   @SerializationOrder(3)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Metrics and notes.
   @SectionId('COGOME')
@@ -10391,7 +10455,7 @@ class ComponentGovernance {
     Field('notes', String, 'Notes', hint: 'Additional governance notes'),
   ])
   @SerializationOrder(4)
-  String? metrics;
+  DocSpecsSection? metrics;
 }
 
 /// Component discovery and registry configuration.
@@ -10403,7 +10467,7 @@ class ComponentGovernance {
   'Captures the registry infrastructure enabling discovery, cataloguing, and reuse of shared components.',
 )
 @SectionId('CORE')
-class ComponentRegistry {
+class ComponentRegistry extends DocSpecsSection {
   @Form([
     Field(
       'registryType',
@@ -10424,6 +10488,7 @@ class ComponentRegistry {
       hint: 'How to search for components',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -10457,7 +10522,7 @@ class ComponentRegistry {
     ),
   ])
   @SerializationOrder(1)
-  String? metadata;
+  DocSpecsSection? metadata;
 
   /// Discovery workflow.
   @SectionId('COREDI')
@@ -10489,7 +10554,7 @@ class ComponentRegistry {
     ),
   ])
   @SerializationOrder(2)
-  String? discovery;
+  DocSpecsSection? discovery;
 
   /// Documentation requirements.
   @SectionId('COREDO')
@@ -10521,7 +10586,7 @@ class ComponentRegistry {
     ),
   ])
   @SerializationOrder(3)
-  String? documentation;
+  DocSpecsSection? documentation;
 
   /// Update communication.
   @SectionId('COREUP')
@@ -10554,7 +10619,7 @@ class ComponentRegistry {
     Field('notes', String, 'Notes', hint: 'Additional registry notes'),
   ])
   @SerializationOrder(4)
-  String? updates;
+  DocSpecsSection? updates;
 }
 
 /// 8.3. Standard Application Software Requirements.
@@ -10595,7 +10660,7 @@ often requires alignment with established platforms and protocols.
   'Captures requirements for standard, third-party, and commercial software and their compatibility with existing infrastructure.',
 )
 @SectionId('SSR')
-class StandardSoftwareRequirements {
+class StandardSoftwareRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of standard software requirements approach.
 
@@ -10613,6 +10678,7 @@ Provide an overview of standard software requirements approach.
 - Maintain compatibility testing matrix
 - Establish proof-of-concept requirements
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -10670,7 +10736,7 @@ avoids costly surprises during deployment.
   'Captures the compatibility requirements with existing OS, browsers, databases, enterprise and legacy systems, and third-party software.',
 )
 @SectionId('CRS')
-class CompatibilityRequirementsSection {
+class CompatibilityRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of compatibility requirements and testing strategy.
 
@@ -10688,6 +10754,7 @@ Provide an overview of compatibility requirements and testing strategy.
 - Plan for mobile OS release cycles
 - Document workarounds for known issues
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -10807,7 +10874,7 @@ Provide an overview of compatibility requirements and testing strategy.
   'Describes an operating system and version range the system must remain compatible with.',
 )
 @SectionId('OCE')
-class OsCompatibilityEntry {
+class OsCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'osName',
@@ -10831,6 +10898,7 @@ class OsCompatibilityEntry {
       hint: 'Maximum tested version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -10864,7 +10932,7 @@ class OsCompatibilityEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? support;
+  DocSpecsSection? support;
 
   /// Platform requirements.
   @SectionId('OCER')
@@ -10892,7 +10960,7 @@ class OsCompatibilityEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Testing expectations.
   @SectionId('OCET')
@@ -10919,7 +10987,7 @@ class OsCompatibilityEntry {
     Field('knownIssues', String, 'Known Issues', hint: 'OS-specific issues'),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Lifecycle notes.
   @SectionId('OCEL')
@@ -10946,7 +11014,7 @@ class OsCompatibilityEntry {
     Field('notes', String, 'Notes', hint: 'Additional OS compatibility notes'),
   ])
   @SerializationOrder(4)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 }
 
 /// Browser compatibility entry.
@@ -10958,7 +11026,7 @@ class OsCompatibilityEntry {
   'Describes a browser and version range the system must remain compatible with.',
 )
 @SectionId('BROCOMENT')
-class BrowserCompatibilityEntry {
+class BrowserCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'browserName',
@@ -10987,6 +11055,7 @@ class BrowserCompatibilityEntry {
       hint: 'Maximum tested version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11020,7 +11089,7 @@ class BrowserCompatibilityEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? support;
+  DocSpecsSection? support;
 
   /// Feature support requirements.
   @SectionId('BCEF')
@@ -11047,7 +11116,7 @@ class BrowserCompatibilityEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? features;
+  DocSpecsSection? features;
 
   /// Mobile and PWA support.
   @SectionId('BCEM')
@@ -11074,7 +11143,7 @@ class BrowserCompatibilityEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? mobile;
+  DocSpecsSection? mobile;
 
   /// Testing notes.
   @SectionId('BRCOENTE')
@@ -11112,7 +11181,7 @@ class BrowserCompatibilityEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? testing;
+  DocSpecsSection? testing;
 }
 
 /// Database compatibility entry.
@@ -11124,7 +11193,7 @@ class BrowserCompatibilityEntry {
   'Describes a database engine and version range the system must remain compatible with.',
 )
 @SectionId('DATCOMENT')
-class DatabaseCompatibilityEntry {
+class DatabaseCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'databaseName',
@@ -11153,6 +11222,7 @@ class DatabaseCompatibilityEntry {
       hint: 'Maximum tested version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11177,7 +11247,7 @@ class DatabaseCompatibilityEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? support;
+  DocSpecsSection? support;
 
   /// Feature requirements.
   @SectionId('DCEF')
@@ -11209,7 +11279,7 @@ class DatabaseCompatibilityEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? features;
+  DocSpecsSection? features;
 
   /// Connection requirements.
   @SectionId('DCEC')
@@ -11236,7 +11306,7 @@ class DatabaseCompatibilityEntry {
     Field('ssl', String, 'SSL Requirements', hint: 'SSL/TLS requirements'),
   ])
   @SerializationOrder(3)
-  String? connection;
+  DocSpecsSection? connection;
 
   /// Performance and notes.
   @SectionId('DCEP')
@@ -11274,7 +11344,7 @@ class DatabaseCompatibilityEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? performance;
+  DocSpecsSection? performance;
 }
 
 /// Enterprise system compatibility entry.
@@ -11286,7 +11356,7 @@ class DatabaseCompatibilityEntry {
   'Describes an enterprise system (ERP, CRM, etc.) the solution must integrate and remain compatible with.',
 )
 @SectionId('ENSYCOEN')
-class EnterpriseSystemCompatibilityEntry {
+class EnterpriseSystemCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'systemName',
@@ -11304,6 +11374,7 @@ class EnterpriseSystemCompatibilityEntry {
     Field('vendor', String, 'Vendor', hint: 'System vendor'),
     Field('version', String, 'Version', hint: 'Supported versions'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11343,7 +11414,7 @@ class EnterpriseSystemCompatibilityEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Authentication and access.
   @SectionId('ESCES')
@@ -11370,7 +11441,7 @@ class EnterpriseSystemCompatibilityEntry {
     Field('sso', String, 'SSO Integration', hint: 'Single sign-on support'),
   ])
   @SerializationOrder(2)
-  String? security;
+  DocSpecsSection? security;
 
   /// Setup requirements.
   @SectionId('ESCER')
@@ -11402,7 +11473,7 @@ class EnterpriseSystemCompatibilityEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Testing and notes.
   @SectionId('ESCET')
@@ -11434,7 +11505,7 @@ class EnterpriseSystemCompatibilityEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? testing;
+  DocSpecsSection? testing;
 }
 
 /// API and protocol compatibility entry.
@@ -11446,7 +11517,7 @@ class EnterpriseSystemCompatibilityEntry {
   'Describes an API or protocol and version range the system must remain compatible with.',
 )
 @SectionId('APCP')
-class ApiCompatibilityEntry {
+class ApiCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'apiName',
@@ -11469,6 +11540,7 @@ class ApiCompatibilityEntry {
       hint: 'Supported API versions',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11502,7 +11574,7 @@ class ApiCompatibilityEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? policy;
+  DocSpecsSection? policy;
 
   /// Data-format requirements.
   @SectionId('ACEF')
@@ -11519,7 +11591,7 @@ class ApiCompatibilityEntry {
     Field('compression', String, 'Compression', hint: 'gzip, deflate support'),
   ])
   @SerializationOrder(2)
-  String? format;
+  DocSpecsSection? format;
 
   /// Transport requirements.
   @SectionId('APCOENTR')
@@ -11541,7 +11613,7 @@ class ApiCompatibilityEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? transportDetails;
+  DocSpecsSection? transportDetails;
 
   /// Specification references.
   @SectionId('ACES')
@@ -11574,7 +11646,7 @@ class ApiCompatibilityEntry {
     Field('notes', String, 'Notes', hint: 'Additional API compatibility notes'),
   ])
   @SerializationOrder(4)
-  String? specification;
+  DocSpecsSection? specification;
 }
 
 /// Legacy system compatibility entry.
@@ -11586,7 +11658,7 @@ class ApiCompatibilityEntry {
   'Describes a legacy system the solution must remain compatible with, including its age and technology.',
 )
 @SectionId('LCE')
-class LegacyCompatibilityEntry {
+class LegacyCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'systemName',
@@ -11598,6 +11670,7 @@ class LegacyCompatibilityEntry {
     Field('systemAge', String, 'System Age', hint: 'How old the system is'),
     Field('technology', String, 'Technology', hint: 'COBOL, mainframe, etc.'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11626,7 +11699,7 @@ class LegacyCompatibilityEntry {
     Field('bidirectional', bool, 'Bidirectional', hint: 'Two-way data flow'),
   ])
   @SerializationOrder(1)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Constraints and limitations.
   @SectionId('LCEC')
@@ -11658,7 +11731,7 @@ class LegacyCompatibilityEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? constraintsSection;
+  DocSpecsSection? constraintsSection;
 
   /// Migration planning.
   @SectionId('LCEM')
@@ -11690,7 +11763,7 @@ class LegacyCompatibilityEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? migration;
+  DocSpecsSection? migration;
 
   /// Risk management.
   @SectionId('LCER')
@@ -11722,7 +11795,7 @@ class LegacyCompatibilityEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? risk;
+  DocSpecsSection? risk;
 }
 
 /// Mobile device compatibility entry.
@@ -11734,7 +11807,7 @@ class LegacyCompatibilityEntry {
   'Describes a mobile platform and OS-version range the system must remain compatible with.',
 )
 @SectionId('MOBCOMENT')
-class MobileCompatibilityEntry {
+class MobileCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'platform',
@@ -11757,6 +11830,7 @@ class MobileCompatibilityEntry {
       hint: 'Maximum tested version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11790,7 +11864,7 @@ class MobileCompatibilityEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? devices;
+  DocSpecsSection? devices;
 
   /// Hardware requirements.
   @SectionId('MCEH')
@@ -11817,7 +11891,7 @@ class MobileCompatibilityEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? hardware;
+  DocSpecsSection? hardware;
 
   /// Platform capabilities.
   @SectionId('MCEC')
@@ -11855,7 +11929,7 @@ class MobileCompatibilityEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? capabilities;
+  DocSpecsSection? capabilities;
 
   /// Distribution details.
   @SectionId('MOCOENDI')
@@ -11882,7 +11956,7 @@ class MobileCompatibilityEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? distribution;
+  DocSpecsSection? distribution;
 }
 
 /// Third-party software compatibility entry.
@@ -11894,7 +11968,7 @@ class MobileCompatibilityEntry {
   'Describes a third-party product the system must co-exist with, such as antivirus, firewall, or MDM software.',
 )
 @SectionId('THPACOEN')
-class ThirdPartyCompatibilityEntry {
+class ThirdPartyCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
       'softwareName',
@@ -11912,6 +11986,7 @@ class ThirdPartyCompatibilityEntry {
     ),
     Field('version', String, 'Version', hint: 'Supported versions'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -11940,7 +12015,7 @@ class ThirdPartyCompatibilityEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? compatibility;
+  DocSpecsSection? compatibility;
 
   /// Integration characteristics.
   @SectionId('TPCEI')
@@ -11972,7 +12047,7 @@ class ThirdPartyCompatibilityEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? integration;
+  DocSpecsSection? integration;
 
   /// Testing and certification details.
   @SectionId('TPCET')
@@ -11994,7 +12069,7 @@ class ThirdPartyCompatibilityEntry {
     Field('testFrequency', String, 'Test Frequency', hint: 'How often tested'),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Support and escalation.
   @SectionId('TPCES')
@@ -12026,7 +12101,7 @@ class ThirdPartyCompatibilityEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? support;
+  DocSpecsSection? support;
 }
 
 /// Data format and encoding compatibility.
@@ -12038,7 +12113,7 @@ class ThirdPartyCompatibilityEntry {
   'Captures the character encodings and data formats the system must accept and produce for interoperability.',
 )
 @SectionId('DAFOCO')
-class DataFormatCompatibility {
+class DataFormatCompatibility extends DocSpecsSection {
   @Form([
     Field(
       'defaultEncoding',
@@ -12059,6 +12134,7 @@ class DataFormatCompatibility {
       hint: 'How encoding conversion handled',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -12092,7 +12168,7 @@ class DataFormatCompatibility {
     ),
   ])
   @SerializationOrder(1)
-  String? formats;
+  DocSpecsSection? formats;
 
   /// Date and time formatting.
   @SectionId('DFCDT')
@@ -12124,7 +12200,7 @@ class DataFormatCompatibility {
     ),
   ])
   @SerializationOrder(2)
-  String? dateTime;
+  DocSpecsSection? dateTime;
 
   /// Numeric formatting.
   @SectionId('DFCN')
@@ -12156,7 +12232,7 @@ class DataFormatCompatibility {
     ),
   ])
   @SerializationOrder(3)
-  String? numbers;
+  DocSpecsSection? numbers;
 
   /// Locale settings.
   @SectionId('DFCL')
@@ -12179,7 +12255,7 @@ class DataFormatCompatibility {
     Field('notes', String, 'Notes', hint: 'Additional data format notes'),
   ])
   @SerializationOrder(4)
-  String? locale;
+  DocSpecsSection? locale;
 }
 
 /// Backwards compatibility requirements.
@@ -12191,7 +12267,7 @@ class DataFormatCompatibility {
   'Captures the policy for supporting older versions, breaking changes, and deprecation timelines.',
 )
 @SectionId('BACORE')
-class BackwardsCompatibilityRequirements {
+class BackwardsCompatibilityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'compatibilityPolicy',
@@ -12212,6 +12288,7 @@ class BackwardsCompatibilityRequirements {
       hint: 'Deprecation notice period',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -12245,7 +12322,7 @@ class BackwardsCompatibilityRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? data;
+  DocSpecsSection? data;
 
   /// API compatibility requirements.
   @SectionId('BCRA')
@@ -12277,7 +12354,7 @@ class BackwardsCompatibilityRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? api;
+  DocSpecsSection? api;
 
   /// Database compatibility requirements.
   @SectionId('BACOREDA')
@@ -12309,7 +12386,7 @@ class BackwardsCompatibilityRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? database;
+  DocSpecsSection? database;
 
   /// Communication and support requirements.
   @SectionId('BCRC')
@@ -12347,7 +12424,7 @@ class BackwardsCompatibilityRequirements {
     ),
   ])
   @SerializationOrder(4)
-  String? communication;
+  DocSpecsSection? communication;
 }
 
 /// System interoperability requirements.
@@ -12359,7 +12436,7 @@ class BackwardsCompatibilityRequirements {
   'Captures the overall interoperability strategy, integration patterns, and communication protocols with other systems.',
 )
 @SectionId('INRE')
-class InteroperabilityRequirements {
+class InteroperabilityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'interopStrategy',
@@ -12380,6 +12457,7 @@ class InteroperabilityRequirements {
       hint: 'Supported protocols',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -12413,7 +12491,7 @@ class InteroperabilityRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? dataExchange;
+  DocSpecsSection? dataExchange;
 
   /// Standards and certifications.
   @SectionId('INREST')
@@ -12445,7 +12523,7 @@ class InteroperabilityRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? standards;
+  DocSpecsSection? standards;
 
   /// Interoperability testing.
   @SectionId('INRETE')
@@ -12477,7 +12555,7 @@ class InteroperabilityRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Governance and fallback behavior.
   @SectionId('INREGO')
@@ -12510,7 +12588,7 @@ class InteroperabilityRequirements {
     Field('notes', String, 'Notes', hint: 'Additional interoperability notes'),
   ])
   @SerializationOrder(4)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 // =============================================================================
@@ -12557,7 +12635,7 @@ is often mandatory for enterprise and regulated industries.
   'Describes the IT, industry, regulatory, security, accessibility, and quality standards the system must comply with.',
 )
 @SectionId('STCOSE')
-class StandardsComplianceSection {
+class StandardsComplianceSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of standards compliance strategy and roadmap.
 
@@ -12575,6 +12653,7 @@ Provide an overview of standards compliance strategy and roadmap.
 - Train team on compliance requirements
 - Engage compliance consultants for audits
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -12684,7 +12763,7 @@ Provide an overview of standards compliance strategy and roadmap.
   'ISO/IEC/IEEE 42010 — architecture description',
 ], 'Describes a single IT standard the system must comply with.')
 @SectionId('ITSTCOEN')
-class ItStandardComplianceEntry {
+class ItStandardComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
       'standardName',
@@ -12708,6 +12787,7 @@ class ItStandardComplianceEntry {
     ),
     Field('version', String, 'Version', hint: 'Standard version'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -12733,7 +12813,7 @@ class ItStandardComplianceEntry {
     Field('priority', String, 'Priority', hint: 'Critical, High, Medium, Low'),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Control requirements.
   @SectionId('ISCER')
@@ -12757,7 +12837,7 @@ class ItStandardComplianceEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Compliance timeline.
   @SectionId('ISCET')
@@ -12786,7 +12866,7 @@ class ItStandardComplianceEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Ownership and support.
   @SectionId('ISCEO')
@@ -12809,7 +12889,7 @@ class ItStandardComplianceEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? ownership;
+  DocSpecsSection? ownership;
 
   /// Evidence and notes.
   @SectionId('ISCEE')
@@ -12827,7 +12907,7 @@ class ItStandardComplianceEntry {
     Field('notes', String, 'Notes', hint: 'Additional IT standard notes'),
   ])
   @SerializationOrder(5)
-  String? evidence;
+  DocSpecsSection? evidence;
 }
 
 /// Industry protocol compliance entry.
@@ -12836,7 +12916,7 @@ class ItStandardComplianceEntry {
   'ISO 9001 — quality management systems',
 ], 'Describes a single industry protocol the system complies with.')
 @SectionId('INPRCOEN')
-class IndustryProtocolComplianceEntry {
+class IndustryProtocolComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
       'protocolName',
@@ -12865,6 +12945,7 @@ class IndustryProtocolComplianceEntry {
       hint: 'Link to official specification',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -12901,7 +12982,7 @@ class IndustryProtocolComplianceEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Implementation details.
   @SectionId('IPCEI')
@@ -12933,7 +13014,7 @@ class IndustryProtocolComplianceEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? implementation;
+  DocSpecsSection? implementation;
 
   /// Testing details.
   @SectionId('IPCET')
@@ -12962,7 +13043,7 @@ class IndustryProtocolComplianceEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Interoperability notes.
   @SectionId('INPRCOENIN')
@@ -12991,7 +13072,7 @@ class IndustryProtocolComplianceEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? interoperability;
+  DocSpecsSection? interoperability;
 }
 
 /// Interface specification entry (REST, GraphQL, gRPC, SOAP).
@@ -13000,7 +13081,7 @@ class IndustryProtocolComplianceEntry {
   'ISO/IEC/IEEE 42010 — architecture description',
 ], 'Describes a single interface specification the system implements.')
 @SectionId('INTSPEENT')
-class InterfaceSpecificationEntry {
+class InterfaceSpecificationEntry extends DocSpecsSection {
   @Form([
     Field(
       'specificationName',
@@ -13022,6 +13103,7 @@ class InterfaceSpecificationEntry {
       hint: 'IETF, W3C, OASIS, etc.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -13052,7 +13134,7 @@ class InterfaceSpecificationEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? definition;
+  DocSpecsSection? definition;
 
   /// Interface conventions.
   @SectionId('INSPENCO')
@@ -13085,7 +13167,7 @@ class InterfaceSpecificationEntry {
     Field('pagination', String, 'Pagination', hint: 'Pagination approach'),
   ])
   @SerializationOrder(2)
-  String? conventions;
+  DocSpecsSection? conventions;
 
   /// Documentation expectations.
   @SectionId('INSPENDO')
@@ -13114,7 +13196,7 @@ class InterfaceSpecificationEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? documentation;
+  DocSpecsSection? documentation;
 
   /// Tooling and notes.
   @SectionId('ISET')
@@ -13139,7 +13221,7 @@ class InterfaceSpecificationEntry {
     Field('notes', String, 'Notes', hint: 'Additional interface spec notes'),
   ])
   @SerializationOrder(4)
-  String? tooling;
+  DocSpecsSection? tooling;
 }
 
 /// Regulatory compliance entry (GDPR, HIPAA, PCI-DSS, SOX).
@@ -13149,7 +13231,7 @@ class InterfaceSpecificationEntry {
   'ISO/IEC 27001 — information security management',
 ], 'Describes a single regulation the system must comply with.')
 @SectionId('RCE')
-class RegulatoryComplianceEntry {
+class RegulatoryComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
       'regulationName',
@@ -13178,6 +13260,7 @@ class RegulatoryComplianceEntry {
       hint: 'When regulation took effect',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -13209,7 +13292,7 @@ class RegulatoryComplianceEntry {
     Field('userRights', String, 'User Rights', hint: 'Rights granted to users'),
   ])
   @SerializationOrder(1)
-  String? applicability;
+  DocSpecsSection? applicability;
 
   /// Compliance requirements.
   @SectionId('RECOENRE')
@@ -13244,7 +13327,7 @@ class RegulatoryComplianceEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Penalties and reporting.
   @SectionId('RCEP')
@@ -13270,7 +13353,7 @@ class RegulatoryComplianceEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? penalties;
+  DocSpecsSection? penalties;
 
   /// Ownership and review.
   @SectionId('RCEO')
@@ -13289,7 +13372,7 @@ class RegulatoryComplianceEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? ownership;
+  DocSpecsSection? ownership;
 }
 
 /// Security standard compliance entry (SOC2, ISO 27001, CIS).
@@ -13298,7 +13381,7 @@ class RegulatoryComplianceEntry {
   'ISO/IEC 27002 — information security controls',
 ], 'Describes a single security standard the system must comply with.')
 @SectionId('SESTCOEN')
-class SecurityStandardComplianceEntry {
+class SecurityStandardComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
       'standardName',
@@ -13321,6 +13404,7 @@ class SecurityStandardComplianceEntry {
       hint: 'For SOC 2: Security, Availability, etc.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -13346,7 +13430,7 @@ class SecurityStandardComplianceEntry {
     Field('exclusions', String, 'Exclusions', hint: 'What is excluded'),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Control definitions.
   @SectionId('SSCEC')
@@ -13381,7 +13465,7 @@ class SecurityStandardComplianceEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? controls;
+  DocSpecsSection? controls;
 
   /// Assessment schedule.
   @SectionId('SSCEA')
@@ -13411,7 +13495,7 @@ class SecurityStandardComplianceEntry {
     Field('auditor', String, 'Auditor', hint: 'External auditor'),
   ])
   @SerializationOrder(3)
-  String? assessment;
+  DocSpecsSection? assessment;
 
   /// Overall status.
   @SectionId('SESTCOENST')
@@ -13429,7 +13513,7 @@ class SecurityStandardComplianceEntry {
     Field('notes', String, 'Notes', hint: 'Additional security standard notes'),
   ])
   @SerializationOrder(4)
-  String? status;
+  DocSpecsSection? status;
 }
 
 /// Accessibility standard entry (WCAG, Section 508, ADA).
@@ -13437,7 +13521,7 @@ class SecurityStandardComplianceEntry {
   'WCAG 2.2 — web content accessibility',
 ], 'Describes a single accessibility standard the system must conform to.')
 @SectionId('ACCSTD')
-class AccessibilityStandardEntry {
+class AccessibilityStandardEntry extends DocSpecsSection {
   @Form([
     Field(
       'standardName',
@@ -13461,6 +13545,7 @@ class AccessibilityStandardEntry {
       hint: 'Legal requirement region',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -13491,7 +13576,7 @@ class AccessibilityStandardEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Conformance requirements.
   @SectionId('ASER')
@@ -13526,7 +13611,7 @@ class AccessibilityStandardEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Testing approach.
   @SectionId('ASET')
@@ -13554,7 +13639,7 @@ class AccessibilityStandardEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Documentation artifacts.
   @SectionId('ASED')
@@ -13572,7 +13657,7 @@ class AccessibilityStandardEntry {
     Field('notes', String, 'Notes', hint: 'Additional accessibility notes'),
   ])
   @SerializationOrder(4)
-  String? documentation;
+  DocSpecsSection? documentation;
 }
 
 /// Quality standard entry (CMMI, ISO 9001).
@@ -13581,7 +13666,7 @@ class AccessibilityStandardEntry {
   'ISO/IEC 25010 — product quality model',
 ], 'Describes a single quality standard the system must comply with.')
 @SectionId('QLSTD')
-class QualityStandardEntry {
+class QualityStandardEntry extends DocSpecsSection {
   @Form([
     Field(
       'standardName',
@@ -13604,6 +13689,7 @@ class QualityStandardEntry {
       hint: 'Organization-wide or project-specific',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -13632,7 +13718,7 @@ class QualityStandardEntry {
     Field('kpis', String, 'KPIs', hint: 'Key performance indicators'),
   ])
   @SerializationOrder(1)
-  String? processes;
+  DocSpecsSection? processes;
 
   /// Improvement implementation.
   @SectionId('QSEI')
@@ -13655,7 +13741,7 @@ class QualityStandardEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? implementation;
+  DocSpecsSection? implementation;
 
   /// Certification status.
   @SectionId('QSEC')
@@ -13684,7 +13770,7 @@ class QualityStandardEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? certification;
+  DocSpecsSection? certification;
 
   /// Maintenance expectations.
   @SectionId('QSEM')
@@ -13711,7 +13797,7 @@ class QualityStandardEntry {
     Field('notes', String, 'Notes', hint: 'Additional quality standard notes'),
   ])
   @SerializationOrder(4)
-  String? maintenance;
+  DocSpecsSection? maintenance;
 }
 
 /// Documentation standards section.
@@ -13720,7 +13806,7 @@ class QualityStandardEntry {
   'ISO/IEC 25010 — product quality model',
 ], 'Describes the documentation standards the project must follow.')
 @SectionId('DOSTSE')
-class DocumentationStandardsSection {
+class DocumentationStandardsSection extends DocSpecsSection {
   @Form([
     Field(
       'documentationPolicy',
@@ -13742,6 +13828,7 @@ class DocumentationStandardsSection {
       hint: 'Standard terminology/glossary',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -13778,7 +13865,7 @@ class DocumentationStandardsSection {
     ),
   ])
   @SerializationOrder(1)
-  String? technical;
+  DocSpecsSection? technical;
 
   /// User documentation standards.
   @SectionId('DSSU')
@@ -13807,7 +13894,7 @@ class DocumentationStandardsSection {
     ),
   ])
   @SerializationOrder(2)
-  String? user;
+  DocSpecsSection? user;
 
   /// Documentation process rules.
   @SectionId('DSSP')
@@ -13836,7 +13923,7 @@ class DocumentationStandardsSection {
     ),
   ])
   @SerializationOrder(3)
-  String? process;
+  DocSpecsSection? process;
 
   /// Documentation quality rules.
   @SectionId('DSSQ')
@@ -13865,7 +13952,7 @@ class DocumentationStandardsSection {
     ),
   ])
   @SerializationOrder(4)
-  String? quality;
+  DocSpecsSection? quality;
 }
 
 /// Coding standards section.
@@ -13874,7 +13961,7 @@ class DocumentationStandardsSection {
   'ISO/IEC 25010 — product quality model',
 ], 'Describes the coding standards and conventions the codebase must follow.')
 @SectionId('COSTSE')
-class CodingStandardsSection {
+class CodingStandardsSection extends DocSpecsSection {
   @Form([
     Field(
       'primaryLanguages',
@@ -13885,6 +13972,7 @@ class CodingStandardsSection {
     Field('styleGuide', String, 'Style Guide', hint: 'Official style guide'),
     Field('linterTool', String, 'Linter Tool', hint: 'Required linter'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -13900,7 +13988,7 @@ class CodingStandardsSection {
     Field('formatterTool', String, 'Formatter Tool', hint: 'Code formatter'),
   ])
   @SerializationOrder(1)
-  String? formatting;
+  DocSpecsSection? formatting;
 
   /// Naming and structure rules.
   @SectionId('CSSN')
@@ -13924,7 +14012,7 @@ class CodingStandardsSection {
     ),
   ])
   @SerializationOrder(2)
-  String? naming;
+  DocSpecsSection? naming;
 
   /// Static quality checks.
   @SectionId('CSSQ')
@@ -13947,7 +14035,7 @@ class CodingStandardsSection {
     ),
   ])
   @SerializationOrder(3)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Development practices.
   @SectionId('CSSP')
@@ -13985,7 +14073,7 @@ class CodingStandardsSection {
     ),
   ])
   @SerializationOrder(4)
-  String? practices;
+  DocSpecsSection? practices;
 
   /// Review expectations.
   @SectionId('CSSR')
@@ -14009,7 +14097,7 @@ class CodingStandardsSection {
     Field('notes', String, 'Notes', hint: 'Additional coding standard notes'),
   ])
   @SerializationOrder(5)
-  String? review;
+  DocSpecsSection? review;
 }
 
 /// Certification requirements section.
@@ -14018,7 +14106,7 @@ class CodingStandardsSection {
   'ISO/IEC 27001 — information security management',
 ], 'Describes the certifications the system must obtain and maintain.')
 @SectionId('CERESE')
-class CertificationRequirementsSection {
+class CertificationRequirementsSection extends DocSpecsSection {
   @Form([
     Field(
       'requiredCertifications',
@@ -14039,6 +14127,7 @@ class CertificationRequirementsSection {
       hint: 'Industry-required certs',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -14070,7 +14159,7 @@ class CertificationRequirementsSection {
     ),
   ])
   @SerializationOrder(1)
-  String? process;
+  DocSpecsSection? process;
 
   /// Timeline requirements.
   @SectionId('CRST')
@@ -14099,7 +14188,7 @@ class CertificationRequirementsSection {
     ),
   ])
   @SerializationOrder(2)
-  String? timeline;
+  DocSpecsSection? timeline;
 
   /// Cost requirements.
   @SectionId('CRSC')
@@ -14123,7 +14212,7 @@ class CertificationRequirementsSection {
     ),
   ])
   @SerializationOrder(3)
-  String? costs;
+  DocSpecsSection? costs;
 
   /// Marketing and notes.
   @SectionId('CRSM')
@@ -14145,7 +14234,7 @@ class CertificationRequirementsSection {
     Field('notes', String, 'Notes', hint: 'Additional certification notes'),
   ])
   @SerializationOrder(4)
-  String? marketing;
+  DocSpecsSection? marketing;
 }
 
 /// Compliance verification section.
@@ -14157,7 +14246,7 @@ class CertificationRequirementsSection {
   'Describes how compliance is verified through review, auditing, and reporting.',
 )
 @SectionId('COVESE')
-class ComplianceVerificationSection {
+class ComplianceVerificationSection extends DocSpecsSection {
   @Form([
     Field(
       'verificationStrategy',
@@ -14178,6 +14267,7 @@ class ComplianceVerificationSection {
       hint: 'Automated compliance checks',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -14196,7 +14286,7 @@ class ComplianceVerificationSection {
     ),
   ])
   @SerializationOrder(1)
-  String? review;
+  DocSpecsSection? review;
 
   /// Tooling and dashboards.
   @SectionId('CVST')
@@ -14220,7 +14310,7 @@ class ComplianceVerificationSection {
     Field('alerting', String, 'Alerting', hint: 'Compliance alert mechanism'),
   ])
   @SerializationOrder(2)
-  String? tools;
+  DocSpecsSection? tools;
 
   /// Audit procedures.
   @SectionId('CVSA')
@@ -14258,7 +14348,7 @@ class ComplianceVerificationSection {
     ),
   ])
   @SerializationOrder(3)
-  String? auditing;
+  DocSpecsSection? auditing;
 
   /// Reporting requirements.
   @SectionId('COVESERE')
@@ -14287,7 +14377,7 @@ class ComplianceVerificationSection {
     ),
   ])
   @SerializationOrder(4)
-  String? reporting;
+  DocSpecsSection? reporting;
 
   /// Continuous monitoring and improvement.
   @SectionId('CVSC')
@@ -14316,7 +14406,7 @@ class ComplianceVerificationSection {
     ),
   ])
   @SerializationOrder(5)
-  String? continuous;
+  DocSpecsSection? continuous;
 }
 
 /// 8.4. Hardware Concept Requirements.
@@ -14357,7 +14447,7 @@ and operational complexity.
   'Captures the hardware infrastructure requirements for servers, clients, and network.',
 )
 @SectionId('HR')
-class HardwareRequirements {
+class HardwareRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of hardware strategy and infrastructure approach.
 
@@ -14375,6 +14465,7 @@ Provide an overview of hardware strategy and infrastructure approach.
 - Document hardware assumptions and risks
 - Regular capacity reviews and forecasting
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -14441,7 +14532,7 @@ performance, cost, and reliability.
   'Captures the overall server infrastructure requirements: compute, storage, scaling, and high availability.',
 )
 @SectionId('SRS')
-class ServerRequirementsSection {
+class ServerRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of server infrastructure strategy.
 
@@ -14459,6 +14550,7 @@ Provide an overview of server infrastructure strategy.
 - Plan for zone and region redundancy
 - Document capacity planning assumptions
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -14529,7 +14621,7 @@ Provide an overview of server infrastructure strategy.
   'Captures a single server environment tier and its location, scale, and lifecycle.',
 )
 @SectionId('SEE')
-class ServerEnvironmentEntry {
+class ServerEnvironmentEntry extends DocSpecsSection {
   @Form([
     Field(
       'environmentName',
@@ -14557,6 +14649,7 @@ class ServerEnvironmentEntry {
       hint: 'Primary purpose of this environment',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -14581,7 +14674,7 @@ class ServerEnvironmentEntry {
     Field('cloudRegion', String, 'Cloud Region', hint: 'Cloud provider region'),
   ])
   @SerializationOrder(1)
-  String? location;
+  DocSpecsSection? location;
 
   /// Scale expectations.
   @SectionId('SEES')
@@ -14605,7 +14698,7 @@ class ServerEnvironmentEntry {
     Field('expectedLoad', String, 'Expected Load', hint: 'Requests per second'),
   ])
   @SerializationOrder(2)
-  String? scale;
+  DocSpecsSection? scale;
 
   /// Access rules.
   @SectionId('SEEA')
@@ -14629,7 +14722,7 @@ class ServerEnvironmentEntry {
     Field('vpnRequired', bool, 'VPN Required', hint: 'VPN access required'),
   ])
   @SerializationOrder(3)
-  String? access;
+  DocSpecsSection? access;
 
   /// Lifecycle rules.
   @SectionId('SEENENLI')
@@ -14656,7 +14749,7 @@ class ServerEnvironmentEntry {
     Field('notes', String, 'Notes', hint: 'Additional environment notes'),
   ])
   @SerializationOrder(4)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 }
 
 /// Server role entry (application server, database server, web server).
@@ -14668,7 +14761,7 @@ class ServerEnvironmentEntry {
   'Captures a single server role definition and its associated capacity and networking.',
 )
 @SectionId('SRE')
-class ServerRoleEntry {
+class ServerRoleEntry extends DocSpecsSection {
   @Form([
     Field(
       'roleName',
@@ -14690,6 +14783,7 @@ class ServerRoleEntry {
       hint: 'Short code for role',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -14720,7 +14814,7 @@ class ServerRoleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? software;
+  DocSpecsSection? software;
 
   /// Capacity requirements.
   @SectionId('SREC')
@@ -14738,7 +14832,7 @@ class ServerRoleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? capacity;
+  DocSpecsSection? capacity;
 
   /// Storage requirements.
   @SectionId('SEROENST')
@@ -14762,7 +14856,7 @@ class ServerRoleEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Networking requirements.
   @SectionId('SREN')
@@ -14786,7 +14880,7 @@ class ServerRoleEntry {
     Field('notes', String, 'Notes', hint: 'Additional server role notes'),
   ])
   @SerializationOrder(4)
-  String? networking;
+  DocSpecsSection? networking;
 }
 
 /// Compute resource requirements.
@@ -14795,7 +14889,7 @@ class ServerRoleEntry {
   'Captures the CPU core, architecture, and benchmark requirements for server compute.',
 )
 @SectionId('CORERE')
-class ComputeResourceRequirements {
+class ComputeResourceRequirements extends DocSpecsSection {
   @Form([
     Field(
       'minCpuCores',
@@ -14828,6 +14922,7 @@ class ComputeResourceRequirements {
       hint: 'Minimum SPECint score',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -14853,7 +14948,7 @@ class ComputeResourceRequirements {
     Field('eccRequired', bool, 'ECC Required', hint: 'Error-correcting memory'),
   ])
   @SerializationOrder(1)
-  String? memory;
+  DocSpecsSection? memory;
 
   /// GPU requirements.
   @SectionId('CRRG')
@@ -14868,7 +14963,7 @@ class ComputeResourceRequirements {
     Field('gpuCount', int, 'GPU Count', hint: 'Number of GPUs'),
   ])
   @SerializationOrder(2)
-  String? gpu;
+  DocSpecsSection? gpu;
 
   /// Special hardware requirements.
   @SectionId('CRRS')
@@ -14890,7 +14985,7 @@ class ComputeResourceRequirements {
     Field('notes', String, 'Notes', hint: 'Additional compute notes'),
   ])
   @SerializationOrder(3)
-  String? special;
+  DocSpecsSection? special;
 }
 
 /// Server storage requirements.
@@ -14902,7 +14997,7 @@ class ComputeResourceRequirements {
   'Captures the primary server storage type, capacity, IOPS, and read/write profile.',
 )
 @SectionId('SESTRE')
-class ServerStorageRequirements {
+class ServerStorageRequirements extends DocSpecsSection {
   @Form([
     Field(
       'primaryStorageType',
@@ -14924,6 +15019,7 @@ class ServerStorageRequirements {
       hint: 'Expected R/W ratio',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -14949,7 +15045,7 @@ class ServerStorageRequirements {
     Field('databaseIops', String, 'Database IOPS', hint: 'Database IOPS'),
   ])
   @SerializationOrder(1)
-  String? database;
+  DocSpecsSection? database;
 
   /// File storage requirements.
   @SectionId('SSRFS')
@@ -14981,7 +15077,7 @@ class ServerStorageRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? fileStorage;
+  DocSpecsSection? fileStorage;
 
   /// Backup storage requirements.
   @SectionId('SSRB')
@@ -15013,7 +15109,7 @@ class ServerStorageRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? backup;
+  DocSpecsSection? backup;
 
   /// Performance requirements and notes.
   @SectionId('SSRP')
@@ -15036,7 +15132,7 @@ class ServerStorageRequirements {
     Field('notes', String, 'Notes', hint: 'Additional storage notes'),
   ])
   @SerializationOrder(4)
-  String? performance;
+  DocSpecsSection? performance;
 }
 
 /// Load profile requirements.
@@ -15044,7 +15140,7 @@ class ServerStorageRequirements {
   'ISO/IEC 25010 — performance efficiency / resource utilization',
 ], 'Captures the user and load profile that sizes the server capacity plan.')
 @SectionId('LOPRRE')
-class LoadProfileRequirements {
+class LoadProfileRequirements extends DocSpecsSection {
   @Form([
     Field(
       'peakConcurrentUsers',
@@ -15071,6 +15167,7 @@ class LoadProfileRequirements {
       hint: 'Expected growth %/year',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -15107,7 +15204,7 @@ class LoadProfileRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? requestLoad;
+  DocSpecsSection? requestLoad;
 
   /// Temporal and seasonal patterns.
   @SectionId('LPRP')
@@ -15132,7 +15229,7 @@ class LoadProfileRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? patterns;
+  DocSpecsSection? patterns;
 
   /// Performance target metrics.
   @SectionId('LPRPT')
@@ -15162,7 +15259,7 @@ class LoadProfileRequirements {
     Field('notes', String, 'Notes', hint: 'Additional load profile notes'),
   ])
   @SerializationOrder(3)
-  String? performanceTargets;
+  DocSpecsSection? performanceTargets;
 }
 
 /// Scaling requirements.
@@ -15174,7 +15271,7 @@ class LoadProfileRequirements {
   'Captures the overall scaling strategy, approach, and triggers for the server tier.',
 )
 @SectionId('SCRE')
-class ScalingRequirements {
+class ScalingRequirements extends DocSpecsSection {
   @Form([
     Field(
       'scalingStrategy',
@@ -15195,6 +15292,7 @@ class ScalingRequirements {
       hint: 'What triggers scaling',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -15234,7 +15332,7 @@ class ScalingRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? horizontal;
+  DocSpecsSection? horizontal;
 
   /// Vertical scaling configuration.
   @SectionId('SCREVE')
@@ -15253,7 +15351,7 @@ class ScalingRequirements {
     Field('maxMemoryGb', int, 'Max Memory (GB)', hint: 'Maximum RAM'),
   ])
   @SerializationOrder(2)
-  String? vertical;
+  DocSpecsSection? vertical;
 
   /// Auto-scaling thresholds.
   @SectionId('SRAS')
@@ -15288,7 +15386,7 @@ class ScalingRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? autoScaling;
+  DocSpecsSection? autoScaling;
 
   /// Budget and timing constraints.
   @SectionId('SCRECO')
@@ -15312,7 +15410,7 @@ class ScalingRequirements {
     Field('notes', String, 'Notes', hint: 'Additional scaling notes'),
   ])
   @SerializationOrder(4)
-  String? constraints;
+  DocSpecsSection? constraints;
 }
 
 /// High availability requirements.
@@ -15324,7 +15422,7 @@ class ScalingRequirements {
   'Captures the overall availability target, downtime budget, and maintenance windows.',
 )
 @SectionId('HIAVRE')
-class HighAvailabilityRequirements {
+class HighAvailabilityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'availabilityTarget',
@@ -15345,6 +15443,7 @@ class HighAvailabilityRequirements {
       hint: 'When maintenance allowed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -15379,7 +15478,7 @@ class HighAvailabilityRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? redundancy;
+  DocSpecsSection? redundancy;
 
   /// Failover behavior.
   @SectionId('HARF')
@@ -15412,7 +15511,7 @@ class HighAvailabilityRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? failover;
+  DocSpecsSection? failover;
 
   /// Load balancing behavior.
   @SectionId('HARLB')
@@ -15444,7 +15543,7 @@ class HighAvailabilityRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? loadBalancing;
+  DocSpecsSection? loadBalancing;
 
   /// Disaster recovery alignment.
   @SectionId('HARDR')
@@ -15466,7 +15565,7 @@ class HighAvailabilityRequirements {
     Field('notes', String, 'Notes', hint: 'Additional HA notes'),
   ])
   @SerializationOrder(4)
-  String? disasterRecovery;
+  DocSpecsSection? disasterRecovery;
 }
 
 /// Virtualization and containerization requirements.
@@ -15478,7 +15577,7 @@ class HighAvailabilityRequirements {
   'Captures the deployment model and virtualization/containerization platform choices.',
 )
 @SectionId('VIRE')
-class VirtualizationRequirements {
+class VirtualizationRequirements extends DocSpecsSection {
   @Form([
     Field(
       'deploymentModel',
@@ -15499,6 +15598,7 @@ class VirtualizationRequirements {
       hint: 'Kubernetes, ECS, etc.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -15527,7 +15627,7 @@ class VirtualizationRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? vm;
+  DocSpecsSection? vm;
 
   /// Container requirements.
   @SectionId('VIRECO')
@@ -15555,7 +15655,7 @@ class VirtualizationRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? container;
+  DocSpecsSection? container;
 
   /// Kubernetes requirements.
   @SectionId('VIREKU')
@@ -15593,7 +15693,7 @@ class VirtualizationRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? kubernetes;
+  DocSpecsSection? kubernetes;
 
   /// Networking requirements.
   @SectionId('VIRENE')
@@ -15615,7 +15715,7 @@ class VirtualizationRequirements {
     Field('notes', String, 'Notes', hint: 'Additional virtualization notes'),
   ])
   @SerializationOrder(4)
-  String? networking;
+  DocSpecsSection? networking;
 }
 
 /// Cloud provider requirements.
@@ -15627,7 +15727,7 @@ class VirtualizationRequirements {
   'Captures the cloud provider selection and multi-cloud strategy for hosting the system.',
 )
 @SectionId('CLPRRE')
-class CloudProviderRequirements {
+class CloudProviderRequirements extends DocSpecsSection {
   @Form([
     Field(
       'primaryProvider',
@@ -15648,6 +15748,7 @@ class CloudProviderRequirements {
       hint: 'Hybrid, Multi-cloud',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -15681,7 +15782,7 @@ class CloudProviderRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? accounts;
+  DocSpecsSection? accounts;
 
   /// Service requirements.
   @SectionId('CPRS')
@@ -15714,7 +15815,7 @@ class CloudProviderRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? services;
+  DocSpecsSection? services;
 
   /// Compliance requirements.
   @SectionId('CPRC')
@@ -15746,7 +15847,7 @@ class CloudProviderRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? compliance;
+  DocSpecsSection? compliance;
 
   /// Governance requirements.
   @SectionId('CPRG')
@@ -15773,7 +15874,7 @@ class CloudProviderRequirements {
     Field('notes', String, 'Notes', hint: 'Additional cloud provider notes'),
   ])
   @SerializationOrder(4)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// Server operating system requirements.
@@ -15785,7 +15886,7 @@ class CloudProviderRequirements {
   'Captures the server operating-system requirements including distribution, version, and support level.',
 )
 @SectionId('SEOSRE')
-class ServerOsRequirements {
+class ServerOsRequirements extends DocSpecsSection {
   @Form([
     Field(
       'primaryOs',
@@ -15803,6 +15904,7 @@ class ServerOsRequirements {
     Field('osVersion', String, 'OS Version', hint: 'Specific version'),
     Field('supportLevel', String, 'Support Level', hint: 'LTS, Standard'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -15836,7 +15938,7 @@ class ServerOsRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? hardening;
+  DocSpecsSection? hardening;
 
   /// Security controls.
   @SectionId('SORS')
@@ -15874,7 +15976,7 @@ class ServerOsRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? security;
+  DocSpecsSection? security;
 
   /// Monitoring setup.
   @SectionId('SORM')
@@ -15906,7 +16008,7 @@ class ServerOsRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// Licensing details.
   @SectionId('SORL')
@@ -15928,7 +16030,7 @@ class ServerOsRequirements {
     Field('notes', String, 'Notes', hint: 'Additional OS notes'),
   ])
   @SerializationOrder(4)
-  String? licensing;
+  DocSpecsSection? licensing;
 }
 
 // =============================================================================
@@ -15982,7 +16084,7 @@ define the user experience boundary conditions.
   'Describes the end-user client requirements across browsers, desktop, mobile, display, network, hardware, accessibility, and security.',
 )
 @SectionId('CLRESE')
-class ClientRequirementsSection {
+class ClientRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of client requirements and support strategy.
 
@@ -16000,6 +16102,7 @@ Provide an overview of client requirements and support strategy.
 - Document graceful degradation strategy
 - Regular accessibility audits
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -16078,7 +16181,7 @@ Provide an overview of client requirements and support strategy.
   'Describes a single browser requirement entry across support, features, testing, and known issues.',
 )
 @SectionId('BROREQENT')
-class BrowserRequirementEntry {
+class BrowserRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'browserName',
@@ -16107,6 +16210,7 @@ class BrowserRequirementEntry {
       hint: 'Recommended version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -16137,7 +16241,7 @@ class BrowserRequirementEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? support;
+  DocSpecsSection? support;
 
   /// Required and optional features.
   @SectionId('BREF')
@@ -16167,7 +16271,7 @@ class BrowserRequirementEntry {
     Field('cssSupport', String, 'CSS Support', hint: 'CSS features required'),
   ])
   @SerializationOrder(2)
-  String? features;
+  DocSpecsSection? features;
 
   /// Testing strategy.
   @SectionId('BRET')
@@ -16199,7 +16303,7 @@ class BrowserRequirementEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Known issues and workarounds.
   @SectionId('BREI')
@@ -16223,7 +16327,7 @@ class BrowserRequirementEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? issues;
+  DocSpecsSection? issues;
 }
 
 /// Desktop operating system requirement entry.
@@ -16235,7 +16339,7 @@ class BrowserRequirementEntry {
   'Describes a single desktop operating-system requirement entry across support, hardware, software, and testing.',
 )
 @SectionId('DEOSREEN')
-class DesktopOsRequirementEntry {
+class DesktopOsRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'osName',
@@ -16259,6 +16363,7 @@ class DesktopOsRequirementEntry {
       hint: 'Recommended version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -16284,7 +16389,7 @@ class DesktopOsRequirementEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? support;
+  DocSpecsSection? support;
 
   /// Hardware and display requirements.
   @SectionId('DORER')
@@ -16309,7 +16414,7 @@ class DesktopOsRequirementEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? requirements;
+  DocSpecsSection? requirements;
 
   /// Software prerequisites.
   @SectionId('DEOSREENSO')
@@ -16332,7 +16437,7 @@ class DesktopOsRequirementEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? software;
+  DocSpecsSection? software;
 
   /// Testing and known issues.
   @SectionId('DORET')
@@ -16357,7 +16462,7 @@ class DesktopOsRequirementEntry {
     Field('notes', String, 'Notes', hint: 'Additional desktop OS notes'),
   ])
   @SerializationOrder(4)
-  String? testing;
+  DocSpecsSection? testing;
 }
 
 /// Mobile device requirement entry.
@@ -16369,7 +16474,7 @@ class DesktopOsRequirementEntry {
   'Describes a single mobile-platform requirement entry across support, device coverage, hardware, and capabilities.',
 )
 @SectionId('MODEREEN')
-class MobileDeviceRequirementEntry {
+class MobileDeviceRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'platform',
@@ -16392,6 +16497,7 @@ class MobileDeviceRequirementEntry {
       hint: 'Recommended OS version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -16417,7 +16523,7 @@ class MobileDeviceRequirementEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? support;
+  DocSpecsSection? support;
 
   /// Device coverage.
   @SectionId('MDRED')
@@ -16446,7 +16552,7 @@ class MobileDeviceRequirementEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? devices;
+  DocSpecsSection? devices;
 
   /// Hardware expectations.
   @SectionId('MDREH')
@@ -16474,7 +16580,7 @@ class MobileDeviceRequirementEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? hardware;
+  DocSpecsSection? hardware;
 
   /// Capability requirements.
   @SectionId('MDREC')
@@ -16504,7 +16610,7 @@ class MobileDeviceRequirementEntry {
     Field('notes', String, 'Notes', hint: 'Additional mobile device notes'),
   ])
   @SerializationOrder(4)
-  String? capabilities;
+  DocSpecsSection? capabilities;
 }
 
 /// Display and screen requirements.
@@ -16516,7 +16622,7 @@ class MobileDeviceRequirementEntry {
   'Describes the client display and screen requirements across resolution, layout, scaling, color, and multi-display support.',
 )
 @SectionId('DIRE')
-class DisplayRequirements {
+class DisplayRequirements extends DocSpecsSection {
   @Form([
     Field(
       'minResolution',
@@ -16537,6 +16643,7 @@ class DisplayRequirements {
       hint: 'Maximum tested resolution',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -16562,7 +16669,7 @@ class DisplayRequirements {
     Field('fluidLayout', bool, 'Fluid Layout', hint: 'Supports fluid layouts'),
   ])
   @SerializationOrder(1)
-  String? layout;
+  DocSpecsSection? layout;
 
   /// DPI and scaling support.
   @SectionId('DIRESC')
@@ -16587,7 +16694,7 @@ class DisplayRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? scaling;
+  DocSpecsSection? scaling;
 
   /// Color and contrast support.
   @SectionId('DIREC1')
@@ -16620,7 +16727,7 @@ class DisplayRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? color;
+  DocSpecsSection? color;
 
   /// Multi-display support.
   @SectionId('DRMD')
@@ -16644,7 +16751,7 @@ class DisplayRequirements {
     Field('notes', String, 'Notes', hint: 'Additional display notes'),
   ])
   @SerializationOrder(4)
-  String? multiDisplay;
+  DocSpecsSection? multiDisplay;
 }
 
 /// Client network requirements.
@@ -16656,7 +16763,7 @@ class DisplayRequirements {
   'Describes the client-side network requirements across bandwidth, latency, connection type, protocols, and proxy/firewall.',
 )
 @SectionId('CLNERE')
-class ClientNetworkRequirements {
+class ClientNetworkRequirements extends DocSpecsSection {
   @Form([
     Field(
       'minDownloadSpeed',
@@ -16683,6 +16790,7 @@ class ClientNetworkRequirements {
       hint: 'Maximum bandwidth consumed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -16713,7 +16821,7 @@ class ClientNetworkRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? latency;
+  DocSpecsSection? latency;
 
   /// Connection-type requirements.
   @SectionId('CNRC')
@@ -16742,7 +16850,7 @@ class ClientNetworkRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? connection;
+  DocSpecsSection? connection;
 
   /// Protocol requirements.
   @SectionId('CNRP')
@@ -16769,7 +16877,7 @@ class ClientNetworkRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? protocols;
+  DocSpecsSection? protocols;
 
   /// Proxy and firewall requirements.
   @SectionId('CLNEREPR')
@@ -16793,7 +16901,7 @@ class ClientNetworkRequirements {
     Field('notes', String, 'Notes', hint: 'Additional network notes'),
   ])
   @SerializationOrder(4)
-  String? proxy;
+  DocSpecsSection? proxy;
 }
 
 /// Client hardware requirements.
@@ -16805,7 +16913,7 @@ class ClientNetworkRequirements {
   'Describes the minimum client hardware requirements across CPU, memory, storage, graphics, and peripherals.',
 )
 @SectionId('CLHARE')
-class ClientHardwareRequirements {
+class ClientHardwareRequirements extends DocSpecsSection {
   @Form([
     Field(
       'minCpuCores',
@@ -16832,6 +16940,7 @@ class ClientHardwareRequirements {
       hint: 'Minimum clock speed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -16852,7 +16961,7 @@ class ClientHardwareRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? memory;
+  DocSpecsSection? memory;
 
   /// Storage requirements.
   @SectionId('CHRS')
@@ -16877,7 +16986,7 @@ class ClientHardwareRequirements {
     Field('storageType', String, 'Storage Type', hint: 'SSD recommended'),
   ])
   @SerializationOrder(2)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Graphics requirements.
   @SectionId('CHRG')
@@ -16901,7 +17010,7 @@ class ClientHardwareRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? graphics;
+  DocSpecsSection? graphics;
 
   /// Peripheral requirements.
   @SectionId('CHRP')
@@ -16928,7 +17037,7 @@ class ClientHardwareRequirements {
     Field('notes', String, 'Notes', hint: 'Additional hardware notes'),
   ])
   @SerializationOrder(4)
-  String? peripherals;
+  DocSpecsSection? peripherals;
 }
 
 /// Client accessibility requirements.
@@ -16940,7 +17049,7 @@ class ClientHardwareRequirements {
   'Describes the accessibility requirements the end-user client must satisfy across visual, motor, cognitive support, and conformance standards.',
 )
 @SectionId('CLACRE')
-class ClientAccessibilityRequirements {
+class ClientAccessibilityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'screenReaderSupport',
@@ -16961,6 +17070,7 @@ class ClientAccessibilityRequirements {
       hint: 'Proper semantic structure',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -16990,7 +17100,7 @@ class ClientAccessibilityRequirements {
     Field('fontScaling', String, 'Font Scaling', hint: 'Dynamic font scaling'),
   ])
   @SerializationOrder(1)
-  String? visual;
+  DocSpecsSection? visual;
 
   /// Motor accessibility support.
   @SectionId('CARM')
@@ -17023,7 +17133,7 @@ class ClientAccessibilityRequirements {
     Field('voiceControl', String, 'Voice Control', hint: 'Voice input support'),
   ])
   @SerializationOrder(2)
-  String? motor;
+  DocSpecsSection? motor;
 
   /// Cognitive accessibility support.
   @SectionId('CARC')
@@ -17055,7 +17165,7 @@ class ClientAccessibilityRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? cognitive;
+  DocSpecsSection? cognitive;
 
   /// Standards and notes.
   @SectionId('CARS')
@@ -17074,7 +17184,7 @@ class ClientAccessibilityRequirements {
     Field('notes', String, 'Notes', hint: 'Additional accessibility notes'),
   ])
   @SerializationOrder(4)
-  String? standards;
+  DocSpecsSection? standards;
 }
 
 /// Progressive Web App (PWA) requirements.
@@ -17086,7 +17196,7 @@ class ClientAccessibilityRequirements {
   'Describes the Progressive Web App requirements the browser client must satisfy across manifest, icons, installation, offline, and updates.',
 )
 @SectionId('PWRE')
-class PwaRequirements {
+class PwaRequirements extends DocSpecsSection {
   @Form([
     Field('pwaEnabled', bool, 'PWA Enabled', hint: 'PWA functionality enabled'),
     Field('appName', String, 'App Name', hint: 'PWA display name'),
@@ -17099,6 +17209,7 @@ class PwaRequirements {
       hint: 'Splash background color',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -17119,7 +17230,7 @@ class PwaRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? icons;
+  DocSpecsSection? icons;
 
   /// Installation behavior.
   @SectionId('PWREIN')
@@ -17143,7 +17254,7 @@ class PwaRequirements {
     Field('startUrl', String, 'Start URL', hint: 'PWA start URL'),
   ])
   @SerializationOrder(2)
-  String? installation;
+  DocSpecsSection? installation;
 
   /// Offline support.
   @SectionId('PWREOF')
@@ -17172,7 +17283,7 @@ class PwaRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? offline;
+  DocSpecsSection? offline;
 
   /// Update handling.
   @SectionId('PWREUP')
@@ -17196,7 +17307,7 @@ class PwaRequirements {
     Field('notes', String, 'Notes', hint: 'Additional PWA notes'),
   ])
   @SerializationOrder(4)
-  String? updates;
+  DocSpecsSection? updates;
 }
 
 /// Native app requirements.
@@ -17208,7 +17319,7 @@ class PwaRequirements {
   'Describes the native mobile app requirements the client must satisfy across distribution, stores, SDK versions, performance, and deep-linking.',
 )
 @SectionId('NAAPRE')
-class NativeAppRequirements {
+class NativeAppRequirements extends DocSpecsSection {
   @Form([
     Field(
       'appStoreDistribution',
@@ -17224,6 +17335,7 @@ class NativeAppRequirements {
     ),
     Field('sideloading', bool, 'Sideloading', hint: 'Direct installation'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -17249,7 +17361,7 @@ class NativeAppRequirements {
     Field('otherStores', String, 'Other Stores', hint: 'Amazon, Samsung, etc.'),
   ])
   @SerializationOrder(1)
-  String? stores;
+  DocSpecsSection? stores;
 
   /// SDK and version requirements.
   @SectionId('NARV')
@@ -17278,7 +17390,7 @@ class NativeAppRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? versions;
+  DocSpecsSection? versions;
 
   /// Size and performance requirements.
   @SectionId('NARP')
@@ -17300,7 +17412,7 @@ class NativeAppRequirements {
     Field('memoryLimit', String, 'Memory Limit', hint: 'Max memory usage'),
   ])
   @SerializationOrder(3)
-  String? performance;
+  DocSpecsSection? performance;
 
   /// Deep-linking support.
   @SectionId('NARL')
@@ -17320,7 +17432,7 @@ class NativeAppRequirements {
     Field('notes', String, 'Notes', hint: 'Additional native app notes'),
   ])
   @SerializationOrder(4)
-  String? linking;
+  DocSpecsSection? linking;
 }
 
 /// Client security requirements.
@@ -17332,7 +17444,7 @@ class NativeAppRequirements {
   'Describes the security requirements the end-user client must satisfy across storage, authentication, device, network, and code protection.',
 )
 @SectionId('CLSERE')
-class ClientSecurityRequirements {
+class ClientSecurityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'localDataEncryption',
@@ -17353,6 +17465,7 @@ class ClientSecurityRequirements {
       hint: 'Sensitive data clearing',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -17392,7 +17505,7 @@ class ClientSecurityRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? authentication;
+  DocSpecsSection? authentication;
 
   /// Device security controls.
   @SectionId('CSRD')
@@ -17420,7 +17533,7 @@ class ClientSecurityRequirements {
     Field('vpnDetection', String, 'VPN Detection', hint: 'VPN/proxy detection'),
   ])
   @SerializationOrder(2)
-  String? device;
+  DocSpecsSection? device;
 
   /// Network security controls.
   @SectionId('CSRN')
@@ -17447,7 +17560,7 @@ class ClientSecurityRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? network;
+  DocSpecsSection? network;
 
   /// Code protection controls.
   @SectionId('CSRCP')
@@ -17471,7 +17584,7 @@ class ClientSecurityRequirements {
     Field('notes', String, 'Notes', hint: 'Additional client security notes'),
   ])
   @SerializationOrder(4)
-  String? codeProtection;
+  DocSpecsSection? codeProtection;
 }
 
 // =============================================================================
@@ -17526,7 +17639,7 @@ underpins system performance and reliability.
   'Captures the network infrastructure requirements: architecture, bandwidth, latency, availability, and security.',
 )
 @SectionId('NRS')
-class NetworkRequirementsSection {
+class NetworkRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of network strategy and architecture.
 
@@ -17544,6 +17657,7 @@ Provide an overview of network strategy and architecture.
 - Monitor network performance continuously
 - Plan for network capacity growth
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -17615,7 +17729,7 @@ Provide an overview of network strategy and architecture.
   'Internal network requirements covering topology, VPC/VLAN structure, subnets, and CIDR ranges.',
 )
 @SectionId('INNERE')
-class InternalNetworkRequirements {
+class InternalNetworkRequirements extends DocSpecsSection {
   @Form([
     Field(
       'networkTopology',
@@ -17637,6 +17751,7 @@ class InternalNetworkRequirements {
     ),
     Field('cidrRanges', String, 'CIDR Ranges', hint: 'IP address ranges'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -17667,7 +17782,7 @@ class InternalNetworkRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? segmentation;
+  DocSpecsSection? segmentation;
 
   /// Routing and service discovery.
   @SectionId('INRR')
@@ -17699,7 +17814,7 @@ class InternalNetworkRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? routing;
+  DocSpecsSection? routing;
 
   /// Inter-service communication controls.
   @SectionId('INRIS')
@@ -17731,7 +17846,7 @@ class InternalNetworkRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? interService;
+  DocSpecsSection? interService;
 
   /// Monitoring and notes.
   @SectionId('INRM')
@@ -17750,7 +17865,7 @@ class InternalNetworkRequirements {
     Field('notes', String, 'Notes', hint: 'Additional internal network notes'),
   ])
   @SerializationOrder(4)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 }
 
 /// External network requirements.
@@ -17762,7 +17877,7 @@ class InternalNetworkRequirements {
   'External network requirements covering internet access, ISP redundancy, dedicated lines, and peering.',
 )
 @SectionId('EXNERE')
-class ExternalNetworkRequirements {
+class ExternalNetworkRequirements extends DocSpecsSection {
   @Form([
     Field(
       'internetAccess',
@@ -17789,6 +17904,7 @@ class ExternalNetworkRequirements {
       hint: 'Direct peering arrangements',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -17823,7 +17939,7 @@ class ExternalNetworkRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? publicEndpointsConfig;
+  DocSpecsSection? publicEndpointsConfig;
 
   /// Third-party connectivity.
   @SectionId('EXNEREPA')
@@ -17850,7 +17966,7 @@ class ExternalNetworkRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? partners;
+  DocSpecsSection? partners;
 
   /// Cloud connectivity.
   @SectionId('ENRC')
@@ -17876,7 +17992,7 @@ class ExternalNetworkRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? cloud;
+  DocSpecsSection? cloud;
 
   /// Security controls.
   @SectionId('ENRS')
@@ -17890,7 +18006,7 @@ class ExternalNetworkRequirements {
     Field('notes', String, 'Notes', hint: 'Additional external network notes'),
   ])
   @SerializationOrder(4)
-  String? security;
+  DocSpecsSection? security;
 }
 
 /// Bandwidth requirements.
@@ -17898,7 +18014,7 @@ class ExternalNetworkRequirements {
   'ISO/IEC 25010 — performance efficiency (network throughput / latency)',
 ], 'Bandwidth requirements covering total, peak, average, and burst capacity.')
 @SectionId('BARE')
-class BandwidthRequirements {
+class BandwidthRequirements extends DocSpecsSection {
   @Form([
     Field(
       'totalBandwidth',
@@ -17925,6 +18041,7 @@ class BandwidthRequirements {
       hint: 'Burst handling capability',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -17955,7 +18072,7 @@ class BandwidthRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? direction;
+  DocSpecsSection? direction;
 
   /// Per-connection bandwidth requirements.
   @SectionId('BARECO')
@@ -17984,7 +18101,7 @@ class BandwidthRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? connection;
+  DocSpecsSection? connection;
 
   /// Traffic-pattern requirements.
   @SectionId('BARETR')
@@ -18013,7 +18130,7 @@ class BandwidthRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? traffic;
+  DocSpecsSection? traffic;
 
   /// QoS requirements.
   @SectionId('BAREQO')
@@ -18037,7 +18154,7 @@ class BandwidthRequirements {
     Field('notes', String, 'Notes', hint: 'Additional bandwidth notes'),
   ])
   @SerializationOrder(4)
-  String? qos;
+  DocSpecsSection? qos;
 }
 
 /// Network latency requirements.
@@ -18046,7 +18163,7 @@ class BandwidthRequirements {
   'Network latency requirements covering maximum, target, and percentile latency budgets.',
 )
 @SectionId('NELARE')
-class NetworkLatencyRequirements {
+class NetworkLatencyRequirements extends DocSpecsSection {
   @Form([
     Field(
       'maxLatency',
@@ -18063,6 +18180,7 @@ class NetworkLatencyRequirements {
     Field('p95Latency', String, 'P95 Latency', hint: '95th percentile target'),
     Field('p99Latency', String, 'P99 Latency', hint: '99th percentile target'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -18099,7 +18217,7 @@ class NetworkLatencyRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? segments;
+  DocSpecsSection? segments;
 
   /// Geographic latency budgets.
   @SectionId('NLRG')
@@ -18128,7 +18246,7 @@ class NetworkLatencyRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? geographic;
+  DocSpecsSection? geographic;
 
   /// Stability tolerances.
   @SectionId('NELAREST')
@@ -18157,7 +18275,7 @@ class NetworkLatencyRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? stability;
+  DocSpecsSection? stability;
 
   /// Optimization strategies.
   @SectionId('NLRO')
@@ -18174,7 +18292,7 @@ class NetworkLatencyRequirements {
     Field('notes', String, 'Notes', hint: 'Additional latency notes'),
   ])
   @SerializationOrder(4)
-  String? optimization;
+  DocSpecsSection? optimization;
 }
 
 /// Network availability requirements.
@@ -18186,7 +18304,7 @@ class NetworkLatencyRequirements {
   'Network availability requirements covering uptime targets, downtime budgets, and maintenance windows.',
 )
 @SectionId('NEAVRE')
-class NetworkAvailabilityRequirements {
+class NetworkAvailabilityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'availabilityTarget',
@@ -18207,6 +18325,7 @@ class NetworkAvailabilityRequirements {
       hint: 'Scheduled maintenance',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -18232,7 +18351,7 @@ class NetworkAvailabilityRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? redundancy;
+  DocSpecsSection? redundancy;
 
   /// Failover configuration.
   @SectionId('NARF')
@@ -18267,7 +18386,7 @@ class NetworkAvailabilityRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? failover;
+  DocSpecsSection? failover;
 
   /// Recovery objectives.
   @SectionId('NEAVRERE')
@@ -18290,7 +18409,7 @@ class NetworkAvailabilityRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? recovery;
+  DocSpecsSection? recovery;
 
   /// Testing and notes.
   @SectionId('NART')
@@ -18307,7 +18426,7 @@ class NetworkAvailabilityRequirements {
     Field('notes', String, 'Notes', hint: 'Additional availability notes'),
   ])
   @SerializationOrder(4)
-  String? testing;
+  DocSpecsSection? testing;
 }
 
 /// VPN requirement entry.
@@ -18316,7 +18435,7 @@ class NetworkAvailabilityRequirements {
   'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
 ], 'A single VPN requirement entry covering its name, type, and purpose.')
 @SectionId('VRE')
-class VpnRequirementEntry {
+class VpnRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'vpnName',
@@ -18328,6 +18447,7 @@ class VpnRequirementEntry {
     Field('vpnType', String, 'VPN Type', hint: 'Site-to-Site, Client, SSL'),
     Field('purpose', String, 'Purpose', hint: 'Purpose of this VPN'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -18358,7 +18478,7 @@ class VpnRequirementEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? endpoints;
+  DocSpecsSection? endpoints;
 
   /// Protocol and cryptography.
   @SectionId('VREP')
@@ -18391,7 +18511,7 @@ class VpnRequirementEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? protocolDetails;
+  DocSpecsSection? protocolDetails;
 
   /// Performance expectations.
   @SectionId('VPREENPE')
@@ -18415,7 +18535,7 @@ class VpnRequirementEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? performance;
+  DocSpecsSection? performance;
 
   /// Availability and notes.
   @SectionId('VREA')
@@ -18434,7 +18554,7 @@ class VpnRequirementEntry {
     Field('notes', String, 'Notes', hint: 'Additional VPN notes'),
   ])
   @SerializationOrder(4)
-  String? availabilityDetails;
+  DocSpecsSection? availabilityDetails;
 }
 
 /// Firewall requirements.
@@ -18446,7 +18566,7 @@ class VpnRequirementEntry {
   'Firewall requirements covering architecture, vendor/product, and management model.',
 )
 @SectionId('FIRE')
-class FirewallRequirements {
+class FirewallRequirements extends DocSpecsSection {
   @Form([
     Field(
       'firewallArchitecture',
@@ -18467,6 +18587,7 @@ class FirewallRequirements {
       hint: 'Centralized, distributed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -18503,7 +18624,7 @@ class FirewallRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? rules;
+  DocSpecsSection? rules;
 
   /// Port requirements.
   @SectionId('FIREPO')
@@ -18527,7 +18648,7 @@ class FirewallRequirements {
     Field('portRanges', String, 'Port Ranges', hint: 'Dynamic port ranges'),
   ])
   @SerializationOrder(2)
-  String? ports;
+  DocSpecsSection? ports;
 
   /// Advanced inspection features.
   @SectionId('FIREAD')
@@ -18562,7 +18683,7 @@ class FirewallRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? advanced;
+  DocSpecsSection? advanced;
 
   /// Logging and alerts.
   @SectionId('FIRELO')
@@ -18580,7 +18701,7 @@ class FirewallRequirements {
     Field('notes', String, 'Notes', hint: 'Additional firewall notes'),
   ])
   @SerializationOrder(4)
-  String? logging;
+  DocSpecsSection? logging;
 }
 
 /// Geographic distribution requirements.
@@ -18592,7 +18713,7 @@ class FirewallRequirements {
   'Geographic distribution requirements covering regions, edge locations, and data residency.',
 )
 @SectionId('GEDIRE')
-class GeographicDistributionRequirements {
+class GeographicDistributionRequirements extends DocSpecsSection {
   @Form([
     Field(
       'primaryRegion',
@@ -18619,6 +18740,7 @@ class GeographicDistributionRequirements {
       hint: 'Data residency requirements',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -18656,7 +18778,7 @@ class GeographicDistributionRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? cdn;
+  DocSpecsSection? cdn;
 
   /// Traffic routing requirements.
   @SectionId('GDRR')
@@ -18685,7 +18807,7 @@ class GeographicDistributionRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? routing;
+  DocSpecsSection? routing;
 
   /// Anycast and global load balancing.
   @SectionId('GDRA')
@@ -18703,7 +18825,7 @@ class GeographicDistributionRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? anycast;
+  DocSpecsSection? anycast;
 
   /// Performance considerations.
   @SectionId('GDRP')
@@ -18720,7 +18842,7 @@ class GeographicDistributionRequirements {
     ),
   ])
   @SerializationOrder(4)
-  String? performance;
+  DocSpecsSection? performance;
 }
 
 /// DNS requirements.
@@ -18729,7 +18851,7 @@ class GeographicDistributionRequirements {
   'TCP/IP — internet protocol suite',
 ], 'DNS requirements covering provider, hosting model, and DNSSEC.')
 @SectionId('DNRE')
-class DnsRequirements {
+class DnsRequirements extends DocSpecsSection {
   @Form([
     Field(
       'dnsProvider',
@@ -18745,6 +18867,7 @@ class DnsRequirements {
       hint: 'DNS security extensions',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -18765,7 +18888,7 @@ class DnsRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? zones;
+  DocSpecsSection? zones;
 
   /// Record requirements.
   @SectionId('DNRERE')
@@ -18779,7 +18902,7 @@ class DnsRequirements {
     Field('dynamicDns', bool, 'Dynamic DNS', hint: 'Dynamic DNS updates'),
   ])
   @SerializationOrder(2)
-  String? records;
+  DocSpecsSection? records;
 
   /// Availability requirements.
   @SectionId('DNREAV')
@@ -18793,7 +18916,7 @@ class DnsRequirements {
     Field('failoverDns', String, 'Failover DNS', hint: 'DNS-based failover'),
   ])
   @SerializationOrder(3)
-  String? availability;
+  DocSpecsSection? availability;
 
   /// Health-check settings.
   @SectionId('DRHC')
@@ -18818,7 +18941,7 @@ class DnsRequirements {
     Field('notes', String, 'Notes', hint: 'Additional DNS notes'),
   ])
   @SerializationOrder(4)
-  String? healthChecks;
+  DocSpecsSection? healthChecks;
 }
 
 /// Network load balancing requirements.
@@ -18830,7 +18953,7 @@ class DnsRequirements {
   'Network load balancing requirements covering load balancer type, product, and deployment model.',
 )
 @SectionId('NLBR')
-class NetworkLoadBalancingRequirements {
+class NetworkLoadBalancingRequirements extends DocSpecsSection {
   @Form([
     Field(
       'loadBalancerType',
@@ -18851,6 +18974,7 @@ class NetworkLoadBalancingRequirements {
       hint: 'Cloud, on-premises, hybrid',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -18881,7 +19005,7 @@ class NetworkLoadBalancingRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? routing;
+  DocSpecsSection? routing;
 
   /// Health-check behavior.
   @SectionId('NLBRHC')
@@ -18922,7 +19046,7 @@ class NetworkLoadBalancingRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? healthChecks;
+  DocSpecsSection? healthChecks;
 
   /// TLS settings.
   @SectionId('NLBRT')
@@ -18946,7 +19070,7 @@ class NetworkLoadBalancingRequirements {
     Field('http2Support', bool, 'HTTP/2 Support', hint: 'HTTP/2 enabled'),
   ])
   @SerializationOrder(3)
-  String? tls;
+  DocSpecsSection? tls;
 
   /// Availability settings.
   @SectionId('NLBRA')
@@ -18965,7 +19089,7 @@ class NetworkLoadBalancingRequirements {
     Field('notes', String, 'Notes', hint: 'Additional load balancing notes'),
   ])
   @SerializationOrder(4)
-  String? availability;
+  DocSpecsSection? availability;
 }
 
 /// Network security requirements.
@@ -18977,7 +19101,7 @@ class NetworkLoadBalancingRequirements {
   'Network security requirements including encryption in transit, TLS versions, and certificate authorities.',
 )
 @SectionId('NESERE')
-class NetworkSecurityRequirements {
+class NetworkSecurityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'encryptionInTransit',
@@ -19004,6 +19128,7 @@ class NetworkSecurityRequirements {
       hint: 'CA for certificates',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -19034,7 +19159,7 @@ class NetworkSecurityRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? access;
+  DocSpecsSection? access;
 
   /// Monitoring controls.
   @SectionId('NSRM')
@@ -19063,7 +19188,7 @@ class NetworkSecurityRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// DDoS protection controls.
   @SectionId('NSRD')
@@ -19082,7 +19207,7 @@ class NetworkSecurityRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? ddos;
+  DocSpecsSection? ddos;
 
   /// Compliance settings.
   @SectionId('NSRC')
@@ -19106,7 +19231,7 @@ class NetworkSecurityRequirements {
     Field('notes', String, 'Notes', hint: 'Additional network security notes'),
   ])
   @SerializationOrder(4)
-  String? compliance;
+  DocSpecsSection? compliance;
 }
 
 /// 8.5. Operations Requirements.
@@ -19159,7 +19284,7 @@ restate it here.
   'Captures the operational requirements for running and maintaining the system in production.',
 )
 @SectionId('OPRE')
-class OperationsRequirements {
+class OperationsRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of operational philosophy and key requirements.
 
@@ -19177,6 +19302,7 @@ Provide an overview of operational philosophy and key requirements.
 - Regular disaster recovery testing
 - Continuous operational improvement
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -19248,7 +19374,7 @@ protection is critical for business continuity and compliance.
   'Describes the overall backup, recovery, and disaster recovery strategy for the system.',
 )
 @SectionId('BARS')
-class BackupAndRecoverySection {
+class BackupAndRecoverySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of backup and recovery strategy.
 
@@ -19266,6 +19392,7 @@ Provide an overview of backup and recovery strategy.
 - Cross-train team on recovery operations
 - Review and update DR plan annually
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -19322,7 +19449,7 @@ Provide an overview of backup and recovery strategy.
   'Classifies data by criticality to drive backup priority and protection levels.',
 )
 @SectionId('BADACL')
-class BackupDataClassification {
+class BackupDataClassification extends DocSpecsSection {
   @Form([
     Field(
       'criticalData',
@@ -19349,6 +19476,7 @@ class BackupDataClassification {
       hint: 'Non-essential data',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -19389,7 +19517,7 @@ class BackupDataClassification {
     ),
   ])
   @SerializationOrder(1)
-  String? categories;
+  DocSpecsSection? categories;
 
   /// Exclusions and regeneration rules.
   @SectionId('BDCE')
@@ -19422,7 +19550,7 @@ class BackupDataClassification {
     Field('notes', String, 'Notes', hint: 'Additional classification notes'),
   ])
   @SerializationOrder(2)
-  String? exclusions;
+  DocSpecsSection? exclusions;
 }
 
 /// Backup policy entry.
@@ -19434,7 +19562,7 @@ class BackupDataClassification {
   'Defines a single backup policy covering type, schedule, retention, and storage for a data scope.',
 )
 @SectionId('BPE')
-class BackupPolicyEntry {
+class BackupPolicyEntry extends DocSpecsSection {
   @Form([
     Field(
       'policyName',
@@ -19446,6 +19574,7 @@ class BackupPolicyEntry {
     Field('dataScope', String, 'Data Scope', hint: 'What this policy covers'),
     Field('priority', String, 'Priority', hint: 'Critical, High, Medium, Low'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -19485,7 +19614,7 @@ class BackupPolicyEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? backupType;
+  DocSpecsSection? backupType;
 
   /// Schedule settings.
   @SectionId('BPES')
@@ -19507,7 +19636,7 @@ class BackupPolicyEntry {
     Field('timezone', String, 'Timezone', hint: 'Backup schedule timezone'),
   ])
   @SerializationOrder(2)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Retention policies.
   @SectionId('BPER')
@@ -19551,7 +19680,7 @@ class BackupPolicyEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? retention;
+  DocSpecsSection? retention;
 
   /// Storage configuration.
   @SectionId('BAPOENST')
@@ -19596,7 +19725,7 @@ class BackupPolicyEntry {
     Field('notes', String, 'Notes', hint: 'Additional policy notes'),
   ])
   @SerializationOrder(4)
-  String? storage;
+  DocSpecsSection? storage;
 }
 
 /// RPO and RTO requirements.
@@ -19608,7 +19737,7 @@ class BackupPolicyEntry {
   'Captures the overall recovery point and recovery time objectives for the system.',
 )
 @SectionId('RPRTRE')
-class RpoRtoRequirements {
+class RpoRtoRequirements extends DocSpecsSection {
   @Form([
     Field(
       'overallRpo',
@@ -19623,6 +19752,7 @@ class RpoRtoRequirements {
       hint: 'Maximum acceptable downtime',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -19673,7 +19803,7 @@ class RpoRtoRequirements {
     Field('lowRto', String, 'Low Priority RTO', hint: 'RTO for low priority'),
   ])
   @SerializationOrder(1)
-  String? byTier;
+  DocSpecsSection? byTier;
 
   /// System-specific recovery targets.
   @SectionId('RRRS')
@@ -19703,7 +19833,7 @@ class RpoRtoRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? systems;
+  DocSpecsSection? systems;
 
   /// Degraded-mode guidance.
   @SectionId('RRRD')
@@ -19730,7 +19860,7 @@ class RpoRtoRequirements {
     Field('notes', String, 'Notes', hint: 'Additional RPO/RTO notes'),
   ])
   @SerializationOrder(3)
-  String? degraded;
+  DocSpecsSection? degraded;
 }
 
 /// Backup infrastructure requirements.
@@ -19742,7 +19872,7 @@ class RpoRtoRequirements {
   'Captures the primary backup storage, type, and capacity required by the system.',
 )
 @SectionId('BAIN')
-class BackupInfrastructure {
+class BackupInfrastructure extends DocSpecsSection {
   @Form([
     Field(
       'primaryStorage',
@@ -19758,6 +19888,7 @@ class BackupInfrastructure {
       hint: 'Required capacity',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -19803,7 +19934,7 @@ class BackupInfrastructure {
     ),
   ])
   @SerializationOrder(1)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Backup software configuration.
   @SectionId('BAINSO')
@@ -19831,7 +19962,7 @@ class BackupInfrastructure {
     Field('deduplication', bool, 'Deduplication', hint: 'Enable deduplication'),
   ])
   @SerializationOrder(2)
-  String? software;
+  DocSpecsSection? software;
 
   /// Network requirements.
   @SectionId('BAINNE')
@@ -19863,7 +19994,7 @@ class BackupInfrastructure {
     ),
   ])
   @SerializationOrder(3)
-  String? network;
+  DocSpecsSection? network;
 
   /// Security controls.
   @SectionId('BAINSE')
@@ -19902,7 +20033,7 @@ class BackupInfrastructure {
     Field('notes', String, 'Notes', hint: 'Additional infrastructure notes'),
   ])
   @SerializationOrder(4)
-  String? security;
+  DocSpecsSection? security;
 }
 
 /// Recovery procedures.
@@ -19914,7 +20045,7 @@ class BackupInfrastructure {
   'Describes the granular, volume, system, and bare-metal recovery procedures.',
 )
 @SectionId('RP')
-class RecoveryProcedures {
+class RecoveryProcedures extends DocSpecsSection {
   @Form([
     Field(
       'granularRecovery',
@@ -19941,6 +20072,7 @@ class RecoveryProcedures {
       hint: 'Hardware replacement',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -19974,7 +20106,7 @@ class RecoveryProcedures {
     ),
   ])
   @SerializationOrder(1)
-  String? database;
+  DocSpecsSection? database;
 
   /// Application recovery behavior.
   @SectionId('REPRAP')
@@ -20006,7 +20138,7 @@ class RecoveryProcedures {
     ),
   ])
   @SerializationOrder(2)
-  String? application;
+  DocSpecsSection? application;
 
   /// Recovery automation.
   @SectionId('REPRAU')
@@ -20038,7 +20170,7 @@ class RecoveryProcedures {
     ),
   ])
   @SerializationOrder(3)
-  String? automation;
+  DocSpecsSection? automation;
 
   /// Validation after recovery.
   @SectionId('REPRVA')
@@ -20071,7 +20203,7 @@ class RecoveryProcedures {
     Field('notes', String, 'Notes', hint: 'Additional recovery notes'),
   ])
   @SerializationOrder(4)
-  String? validation;
+  DocSpecsSection? validation;
 }
 
 /// Disaster recovery requirements.
@@ -20083,12 +20215,13 @@ class RecoveryProcedures {
   'Captures the overall disaster recovery strategy, site, and provider for the system.',
 )
 @SectionId('DIRERE')
-class DisasterRecoveryRequirements {
+class DisasterRecoveryRequirements extends DocSpecsSection {
   @Form([
     Field('drStrategy', String, 'DR Strategy', hint: 'Hot, Warm, Cold standby'),
     Field('drSite', String, 'DR Site Location', hint: 'DR site location'),
     Field('drProvider', String, 'DR Provider', hint: 'DR service provider'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -20122,7 +20255,7 @@ class DisasterRecoveryRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? failover;
+  DocSpecsSection? failover;
 
   /// Failback procedure.
   @SectionId('DIREREFA')
@@ -20154,7 +20287,7 @@ class DisasterRecoveryRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? failback;
+  DocSpecsSection? failback;
 
   /// Replication requirements.
   @SectionId('DRRR')
@@ -20181,7 +20314,7 @@ class DisasterRecoveryRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? replication;
+  DocSpecsSection? replication;
 
   /// Continuity and coordination.
   @SectionId('DRRC')
@@ -20210,7 +20343,7 @@ class DisasterRecoveryRequirements {
     Field('notes', String, 'Notes', hint: 'Additional DR notes'),
   ])
   @SerializationOrder(4)
-  String? continuity;
+  DocSpecsSection? continuity;
 }
 
 /// Backup verification and testing.
@@ -20222,7 +20355,7 @@ class DisasterRecoveryRequirements {
   'Describes how backup integrity is verified and recoverability is regularly tested.',
 )
 @SectionId('BAVE')
-class BackupVerification {
+class BackupVerification extends DocSpecsSection {
   @Form([
     Field(
       'verificationFrequency',
@@ -20249,6 +20382,7 @@ class BackupVerification {
       hint: 'Notify on verification failure',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -20283,7 +20417,7 @@ class BackupVerification {
     Field('drTest', String, 'DR Test', hint: 'Disaster recovery drill'),
   ])
   @SerializationOrder(1)
-  String? recovery;
+  DocSpecsSection? recovery;
 
   /// Test environment constraints.
   @SectionId('BAVEEN')
@@ -20315,7 +20449,7 @@ class BackupVerification {
     ),
   ])
   @SerializationOrder(2)
-  String? environment;
+  DocSpecsSection? environment;
 
   /// Documentation and follow-up.
   @SectionId('BAVEDO')
@@ -20343,7 +20477,7 @@ class BackupVerification {
     Field('notes', String, 'Notes', hint: 'Additional verification notes'),
   ])
   @SerializationOrder(3)
-  String? documentation;
+  DocSpecsSection? documentation;
 }
 
 /// Backup compliance requirements.
@@ -20355,7 +20489,7 @@ class BackupVerification {
   'Captures regulatory, retention, and data-residency compliance requirements for backups.',
 )
 @SectionId('BACO')
-class BackupCompliance {
+class BackupCompliance extends DocSpecsSection {
   @Form([
     Field(
       'regulatoryRequirements',
@@ -20382,6 +20516,7 @@ class BackupCompliance {
       hint: 'International data transfer',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -20411,7 +20546,7 @@ class BackupCompliance {
     ),
   ])
   @SerializationOrder(1)
-  String? audit;
+  DocSpecsSection? audit;
 
   /// Reporting obligations.
   @SectionId('BACOR1')
@@ -20443,7 +20578,7 @@ class BackupCompliance {
     ),
   ])
   @SerializationOrder(2)
-  String? reporting;
+  DocSpecsSection? reporting;
 
   /// Legal hold support.
   @SectionId('BCLH')
@@ -20476,7 +20611,7 @@ class BackupCompliance {
     Field('notes', String, 'Notes', hint: 'Additional compliance notes'),
   ])
   @SerializationOrder(3)
-  String? legalHold;
+  DocSpecsSection? legalHold;
 }
 
 // =============================================================================
@@ -20531,7 +20666,7 @@ procedures. Reliable deployments enable fast iteration and reduce risk.
   'Describes the overall deployment strategy for releasing the system, including pipeline, release strategy, and rollback.',
 )
 @SectionId('DSS')
-class DeploymentStrategySection {
+class DeploymentStrategySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of deployment strategy and pipeline.
 
@@ -20549,6 +20684,7 @@ Provide an overview of deployment strategy and pipeline.
 - Monitor deployments with automated rollback
 - Document deployment runbooks
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -20598,7 +20734,7 @@ Provide an overview of deployment strategy and pipeline.
   'Describes the deployment model — containerized, VM-based, or serverless — and its orchestration platform.',
 )
 @SectionId('DEMORE')
-class DeploymentModelRequirements {
+class DeploymentModelRequirements extends DocSpecsSection {
   @Form([
     Field(
       'deploymentModel',
@@ -20625,6 +20761,7 @@ class DeploymentModelRequirements {
       hint: 'AWS Lambda, Azure Functions, Cloud Run',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -20664,7 +20801,7 @@ class DeploymentModelRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? container;
+  DocSpecsSection? container;
 
   /// Resource allocation.
   @SectionId('DMRR')
@@ -20696,7 +20833,7 @@ class DeploymentModelRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? resources;
+  DocSpecsSection? resources;
 
   /// Networking configuration.
   @SectionId('DMRN')
@@ -20728,7 +20865,7 @@ class DeploymentModelRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? networking;
+  DocSpecsSection? networking;
 
   /// Storage configuration.
   @SectionId('DMRS')
@@ -20755,7 +20892,7 @@ class DeploymentModelRequirements {
     Field('notes', String, 'Notes', hint: 'Additional deployment model notes'),
   ])
   @SerializationOrder(4)
-  String? storage;
+  DocSpecsSection? storage;
 }
 
 /// Environment strategy.
@@ -20767,7 +20904,7 @@ class DeploymentModelRequirements {
   'Describes the environment tiers, their parity with production, and their isolation.',
 )
 @SectionId('ENST')
-class EnvironmentStrategy {
+class EnvironmentStrategy extends DocSpecsSection {
   @Form([
     Field(
       'environmentTiers',
@@ -20788,6 +20925,7 @@ class EnvironmentStrategy {
       hint: 'Network, account, cluster isolation',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -20821,7 +20959,7 @@ class EnvironmentStrategy {
     ),
   ])
   @SerializationOrder(1)
-  String? development;
+  DocSpecsSection? development;
 
   /// Test environment setup.
   @SectionId('ENSTTE')
@@ -20853,7 +20991,7 @@ class EnvironmentStrategy {
     ),
   ])
   @SerializationOrder(2)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Staging configuration.
   @SectionId('ENSTST')
@@ -20885,7 +21023,7 @@ class EnvironmentStrategy {
     ),
   ])
   @SerializationOrder(3)
-  String? staging;
+  DocSpecsSection? staging;
 
   /// Production configuration.
   @SectionId('ENSTPR')
@@ -20912,7 +21050,7 @@ class EnvironmentStrategy {
     ),
   ])
   @SerializationOrder(4)
-  String? production;
+  DocSpecsSection? production;
 
   /// Ephemeral environment strategy.
   @SectionId('ENSTEP')
@@ -20939,7 +21077,7 @@ class EnvironmentStrategy {
     Field('notes', String, 'Notes', hint: 'Additional environment notes'),
   ])
   @SerializationOrder(5)
-  String? ephemeral;
+  DocSpecsSection? ephemeral;
 }
 
 /// CI/CD pipeline requirements.
@@ -20951,7 +21089,7 @@ class EnvironmentStrategy {
   'Describes the CI/CD pipeline platform and pipeline-as-code approach that automates build, test, and deployment.',
 )
 @SectionId('CCPR')
-class CiCdPipelineRequirements {
+class CiCdPipelineRequirements extends DocSpecsSection {
   @Form([
     Field(
       'cicdPlatform',
@@ -20972,6 +21110,7 @@ class CiCdPipelineRequirements {
       hint: 'Where pipeline files are stored',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -21011,7 +21150,7 @@ class CiCdPipelineRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? build;
+  DocSpecsSection? build;
 
   /// Quality gate settings.
   @SectionId('CCPRQ')
@@ -21049,7 +21188,7 @@ class CiCdPipelineRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Deployment stage settings.
   @SectionId('CCPRD')
@@ -21087,7 +21226,7 @@ class CiCdPipelineRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? deployment;
+  DocSpecsSection? deployment;
 
   /// Notification and escalation settings.
   @SectionId('CCPRN')
@@ -21114,7 +21253,7 @@ class CiCdPipelineRequirements {
     Field('notes', String, 'Notes', hint: 'Additional CI/CD notes'),
   ])
   @SerializationOrder(4)
-  String? notifications;
+  DocSpecsSection? notifications;
 }
 
 /// Release strategy.
@@ -21126,7 +21265,7 @@ class CiCdPipelineRequirements {
   'Describes the release methodology, frequency, and schedule for delivering new versions to production.',
 )
 @SectionId('REST')
-class ReleaseStrategy {
+class ReleaseStrategy extends DocSpecsSection {
   @Form([
     Field(
       'releaseMethodology',
@@ -21147,6 +21286,7 @@ class ReleaseStrategy {
       hint: 'When releases occur',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -21192,7 +21332,7 @@ class ReleaseStrategy {
     ),
   ])
   @SerializationOrder(1)
-  String? blueGreen;
+  DocSpecsSection? blueGreen;
 
   /// Canary deployment configuration.
   @SectionId('RESTCA')
@@ -21242,7 +21382,7 @@ class ReleaseStrategy {
     ),
   ])
   @SerializationOrder(2)
-  String? canary;
+  DocSpecsSection? canary;
 
   /// Feature flags configuration.
   @SectionId('RSFF')
@@ -21274,7 +21414,7 @@ class ReleaseStrategy {
     ),
   ])
   @SerializationOrder(3)
-  String? featureFlags;
+  DocSpecsSection? featureFlags;
 
   /// Release management.
   @SectionId('RESTMA')
@@ -21304,7 +21444,7 @@ class ReleaseStrategy {
     Field('notes', String, 'Notes', hint: 'Additional release notes'),
   ])
   @SerializationOrder(4)
-  String? management;
+  DocSpecsSection? management;
 }
 
 /// Rollback strategy.
@@ -21316,7 +21456,7 @@ class ReleaseStrategy {
   'Describes the overall rollback strategy for reverting a failed deployment safely.',
 )
 @SectionId('ROST')
-class RollbackStrategy {
+class RollbackStrategy extends DocSpecsSection {
   @Form([
     Field(
       'rollbackMethod',
@@ -21331,6 +21471,7 @@ class RollbackStrategy {
       hint: 'Automatic rollback on failure',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -21358,7 +21499,7 @@ class RollbackStrategy {
     ),
   ])
   @SerializationOrder(1)
-  String? triggers;
+  DocSpecsSection? triggers;
 
   /// Health-based rollback thresholds.
   @SectionId('ROSTHE')
@@ -21396,7 +21537,7 @@ class RollbackStrategy {
     ),
   ])
   @SerializationOrder(2)
-  String? health;
+  DocSpecsSection? health;
 
   /// Rollback target and artifact retention.
   @SectionId('ROSTTA')
@@ -21428,7 +21569,7 @@ class RollbackStrategy {
     ),
   ])
   @SerializationOrder(3)
-  String? targets;
+  DocSpecsSection? targets;
 
   /// Data rollback safeguards.
   @SectionId('ROSTDA')
@@ -21460,7 +21601,7 @@ class RollbackStrategy {
     ),
   ])
   @SerializationOrder(4)
-  String? data;
+  DocSpecsSection? data;
 
   /// Manual procedure and follow-up.
   @SectionId('ROSTOP')
@@ -21493,7 +21634,7 @@ class RollbackStrategy {
     Field('notes', String, 'Notes', hint: 'Additional rollback notes'),
   ])
   @SerializationOrder(5)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Configuration management.
@@ -21505,7 +21646,7 @@ class RollbackStrategy {
   'Describes how application configuration and secrets are stored, versioned, and audited across environments.',
 )
 @SectionId('CM')
-class ConfigurationManagement {
+class ConfigurationManagement extends DocSpecsSection {
   @Form([
     Field(
       'configStorage',
@@ -21527,6 +21668,7 @@ class ConfigurationManagement {
     ),
     Field('configAudit', bool, 'Config Audit', hint: 'Audit config changes'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -21560,7 +21702,7 @@ class ConfigurationManagement {
     ),
   ])
   @SerializationOrder(1)
-  String? environment;
+  DocSpecsSection? environment;
 
   /// Configuration injection rules.
   @SectionId('COMAIN')
@@ -21592,7 +21734,7 @@ class ConfigurationManagement {
     ),
   ])
   @SerializationOrder(2)
-  String? injection;
+  DocSpecsSection? injection;
 
   /// Feature-configuration rules.
   @SectionId('COMAFE')
@@ -21624,7 +21766,7 @@ class ConfigurationManagement {
     ),
   ])
   @SerializationOrder(3)
-  String? features;
+  DocSpecsSection? features;
 
   /// Security controls.
   @SectionId('COMASE')
@@ -21651,7 +21793,7 @@ class ConfigurationManagement {
     Field('notes', String, 'Notes', hint: 'Additional config notes'),
   ])
   @SerializationOrder(4)
-  String? security;
+  DocSpecsSection? security;
 }
 
 /// Infrastructure as Code requirements.
@@ -21663,7 +21805,7 @@ class ConfigurationManagement {
   'Describes the Infrastructure-as-Code tooling, repository, and reusable-module strategy for provisioning environments.',
 )
 @SectionId('INASCO')
-class InfrastructureAsCode {
+class InfrastructureAsCode extends DocSpecsSection {
   @Form([
     Field(
       'iacTool',
@@ -21690,6 +21832,7 @@ class InfrastructureAsCode {
       hint: 'Private module registry',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -21718,7 +21861,7 @@ class InfrastructureAsCode {
     ),
   ])
   @SerializationOrder(1)
-  String? state;
+  DocSpecsSection? state;
 
   /// Execution governance.
   @SectionId('IACE')
@@ -21742,7 +21885,7 @@ class InfrastructureAsCode {
     ),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Drift detection settings.
   @SectionId('IACD')
@@ -21774,7 +21917,7 @@ class InfrastructureAsCode {
     ),
   ])
   @SerializationOrder(3)
-  String? drift;
+  DocSpecsSection? drift;
 
   /// Security and policy controls.
   @SectionId('INASCOSE')
@@ -21807,7 +21950,7 @@ class InfrastructureAsCode {
     Field('notes', String, 'Notes', hint: 'Additional IaC notes'),
   ])
   @SerializationOrder(4)
-  String? security;
+  DocSpecsSection? security;
 }
 
 /// Deployment security requirements.
@@ -21819,7 +21962,7 @@ class InfrastructureAsCode {
   'Describes the security requirements applied to the deployment pipeline and its runtime.',
 )
 @SectionId('DESE')
-class DeploymentSecurity {
+class DeploymentSecurity extends DocSpecsSection {
   @Form([
     Field(
       'pipelineSecrets',
@@ -21841,6 +21984,7 @@ class DeploymentSecurity {
       hint: 'Minimum required permissions',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -21875,7 +22019,7 @@ class DeploymentSecurity {
     ),
   ])
   @SerializationOrder(1)
-  String? supplyChain;
+  DocSpecsSection? supplyChain;
 
   /// Runtime security.
   @SectionId('DESERU')
@@ -21913,7 +22057,7 @@ class DeploymentSecurity {
     ),
   ])
   @SerializationOrder(2)
-  String? runtime;
+  DocSpecsSection? runtime;
 
   /// Access control and audit.
   @SectionId('DESEAC')
@@ -21946,7 +22090,7 @@ class DeploymentSecurity {
     ),
   ])
   @SerializationOrder(3)
-  String? access;
+  DocSpecsSection? access;
 }
 
 // =============================================================================
@@ -22005,7 +22149,7 @@ Effective monitoring enables rapid issue detection and resolution.
   'Describes the monitoring, alerting, logging, and observability requirements for the system.',
 )
 @SectionId('MAAS')
-class MonitoringAndAlertingSection {
+class MonitoringAndAlertingSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of monitoring and observability strategy.
 
@@ -22023,6 +22167,7 @@ Provide an overview of monitoring and observability strategy.
 - Create actionable runbooks for alerts
 - Regular monitoring coverage reviews
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -22088,7 +22233,7 @@ Provide an overview of monitoring and observability strategy.
   'Describes the monitoring infrastructure platform and its metrics, logging, and tracing backends.',
 )
 @SectionId('MOIN')
-class MonitoringInfrastructure {
+class MonitoringInfrastructure extends DocSpecsSection {
   @Form([
     Field(
       'monitoringPlatform',
@@ -22115,6 +22260,7 @@ class MonitoringInfrastructure {
       hint: 'Jaeger, Zipkin, X-Ray',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -22154,7 +22300,7 @@ class MonitoringInfrastructure {
     ),
   ])
   @SerializationOrder(1)
-  String? deployment;
+  DocSpecsSection? deployment;
 
   /// Collection model.
   @SectionId('MOINCO')
@@ -22186,7 +22332,7 @@ class MonitoringInfrastructure {
     ),
   ])
   @SerializationOrder(2)
-  String? collection;
+  DocSpecsSection? collection;
 
   /// Access and privacy controls.
   @SectionId('MOINAC')
@@ -22219,7 +22365,7 @@ class MonitoringInfrastructure {
     Field('notes', String, 'Notes', hint: 'Additional infrastructure notes'),
   ])
   @SerializationOrder(3)
-  String? access;
+  DocSpecsSection? access;
 }
 
 /// Metrics collection requirements.
@@ -22231,7 +22377,7 @@ class MonitoringInfrastructure {
   'Describes metrics collection requirements for CPU, memory, disk, and network.',
 )
 @SectionId('MECORE')
-class MetricsCollectionRequirements {
+class MetricsCollectionRequirements extends DocSpecsSection {
   @Form([
     Field('cpuMetrics', bool, 'CPU Metrics', hint: 'CPU utilization, load'),
     Field('memoryMetrics', bool, 'Memory Metrics', hint: 'Memory usage, swap'),
@@ -22243,6 +22389,7 @@ class MetricsCollectionRequirements {
       hint: 'Network I/O, connections',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -22269,7 +22416,7 @@ class MetricsCollectionRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? container;
+  DocSpecsSection? container;
 
   /// Application metrics.
   @SectionId('MCRA')
@@ -22296,7 +22443,7 @@ class MetricsCollectionRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? application;
+  DocSpecsSection? application;
 
   /// Business metrics.
   @SectionId('MCRB')
@@ -22328,7 +22475,7 @@ class MetricsCollectionRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? business;
+  DocSpecsSection? business;
 
   /// Custom metrics settings.
   @SectionId('MECORECU')
@@ -22355,7 +22502,7 @@ class MetricsCollectionRequirements {
     Field('notes', String, 'Notes', hint: 'Additional metrics notes'),
   ])
   @SerializationOrder(4)
-  String? custom;
+  DocSpecsSection? custom;
 }
 
 /// Application performance monitoring.
@@ -22367,7 +22514,7 @@ class MetricsCollectionRequirements {
   'Describes the application performance monitoring platform, instrumentation, and sampling.',
 )
 @SectionId('APPEMO')
-class ApplicationPerformanceMonitoring {
+class ApplicationPerformanceMonitoring extends DocSpecsSection {
   @Form([
     Field(
       'apmPlatform',
@@ -22388,6 +22535,7 @@ class ApplicationPerformanceMonitoring {
       hint: 'Trace sampling percentage',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -22422,7 +22570,7 @@ class ApplicationPerformanceMonitoring {
     ),
   ])
   @SerializationOrder(1)
-  String? tracing;
+  DocSpecsSection? tracing;
 
   /// Profiling settings.
   @SectionId('APMP')
@@ -22460,7 +22608,7 @@ class ApplicationPerformanceMonitoring {
     ),
   ])
   @SerializationOrder(2)
-  String? profiling;
+  DocSpecsSection? profiling;
 
   /// Error tracking settings.
   @SectionId('APME')
@@ -22493,7 +22641,7 @@ class ApplicationPerformanceMonitoring {
     ),
   ])
   @SerializationOrder(3)
-  String? errors;
+  DocSpecsSection? errors;
 
   /// User and synthetic monitoring settings.
   @SectionId('APMUS')
@@ -22517,7 +22665,7 @@ class ApplicationPerformanceMonitoring {
     Field('notes', String, 'Notes', hint: 'Additional APM notes'),
   ])
   @SerializationOrder(4)
-  String? userSignals;
+  DocSpecsSection? userSignals;
 }
 
 /// Log management requirements.
@@ -22529,7 +22677,7 @@ class ApplicationPerformanceMonitoring {
   'Describes log management requirements: sources, format, levels, and required fields.',
 )
 @SectionId('LOMARE')
-class LogManagementRequirements {
+class LogManagementRequirements extends DocSpecsSection {
   @Form([
     Field(
       'logSources',
@@ -22551,6 +22699,7 @@ class LogManagementRequirements {
       hint: 'timestamp, correlation_id',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -22584,7 +22733,7 @@ class LogManagementRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? collection;
+  DocSpecsSection? collection;
 
   /// Storage settings.
   @SectionId('LMRS')
@@ -22611,7 +22760,7 @@ class LogManagementRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Search and analysis.
   @SectionId('LMRA')
@@ -22640,7 +22789,7 @@ class LogManagementRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? analysis;
+  DocSpecsSection? analysis;
 
   /// Compliance settings.
   @SectionId('LOMARECO')
@@ -22668,7 +22817,7 @@ class LogManagementRequirements {
     Field('notes', String, 'Notes', hint: 'Additional logging notes'),
   ])
   @SerializationOrder(4)
-  String? compliance;
+  DocSpecsSection? compliance;
 }
 
 /// Alerting requirements.
@@ -22680,7 +22829,7 @@ class LogManagementRequirements {
   'Describes alerting requirements including channels, routing, and response automation.',
 )
 @SectionId('ALRE')
-class AlertingRequirements {
+class AlertingRequirements extends DocSpecsSection {
   @Form([
     Field(
       'alertChannels',
@@ -22701,6 +22850,7 @@ class AlertingRequirements {
       hint: 'Fallback channel',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -22732,7 +22882,7 @@ class AlertingRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? routing;
+  DocSpecsSection? routing;
 
   /// De-duplication behavior.
   @SectionId('ALREDE')
@@ -22764,7 +22914,7 @@ class AlertingRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? deduplication;
+  DocSpecsSection? deduplication;
 
   /// Suppression rules.
   @SectionId('ALRESU')
@@ -22796,7 +22946,7 @@ class AlertingRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? suppression;
+  DocSpecsSection? suppression;
 
   /// Response automation.
   @SectionId('ALRERE')
@@ -22829,7 +22979,7 @@ class AlertingRequirements {
     Field('notes', String, 'Notes', hint: 'Additional alerting notes'),
   ])
   @SerializationOrder(4)
-  String? response;
+  DocSpecsSection? response;
 }
 
 /// Alert definition entry.
@@ -22841,7 +22991,7 @@ class AlertingRequirements {
   'Describes a single alert definition including its name, severity, and priority.',
 )
 @SectionId('ALEDEFENT')
-class AlertDefinitionEntry {
+class AlertDefinitionEntry extends DocSpecsSection {
   @Form([
     Field(
       'alertName',
@@ -22859,6 +23009,7 @@ class AlertDefinitionEntry {
     Field('severity', String, 'Severity', hint: 'Critical, Warning, Info'),
     Field('priority', String, 'Priority', hint: 'P1, P2, P3, P4, P5'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -22884,7 +23035,7 @@ class AlertDefinitionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? condition;
+  DocSpecsSection? condition;
 
   /// Recovery conditions.
   @SectionId('ADER')
@@ -22911,7 +23062,7 @@ class AlertDefinitionEntry {
     Field('autoResolve', bool, 'Auto-Resolve', hint: 'Auto-resolve enabled'),
   ])
   @SerializationOrder(2)
-  String? recovery;
+  DocSpecsSection? recovery;
 
   /// Notification details.
   @SectionId('ADEN')
@@ -22939,7 +23090,7 @@ class AlertDefinitionEntry {
     Field('notes', String, 'Notes', hint: 'Additional alert notes'),
   ])
   @SerializationOrder(3)
-  String? notification;
+  DocSpecsSection? notification;
 }
 
 /// Dashboard requirements.
@@ -22951,7 +23102,7 @@ class AlertDefinitionEntry {
   'Describes the dashboard platform, dashboards-as-code approach, and storage location.',
 )
 @SectionId('DARE')
-class DashboardRequirements {
+class DashboardRequirements extends DocSpecsSection {
   @Form([
     Field(
       'dashboardPlatform',
@@ -22972,6 +23123,7 @@ class DashboardRequirements {
       hint: 'Where dashboards are stored',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -23011,7 +23163,7 @@ class DashboardRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? standard;
+  DocSpecsSection? standard;
 
   /// Access controls.
   @SectionId('DAREAC')
@@ -23043,7 +23195,7 @@ class DashboardRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? access;
+  DocSpecsSection? access;
 
   /// Feature requirements.
   @SectionId('DAREFE')
@@ -23071,7 +23223,7 @@ class DashboardRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? features;
+  DocSpecsSection? features;
 
   /// Mobile support and notes.
   @SectionId('DAREMO')
@@ -23089,7 +23241,7 @@ class DashboardRequirements {
     Field('notes', String, 'Notes', hint: 'Additional dashboard notes'),
   ])
   @SerializationOrder(4)
-  String? mobile;
+  DocSpecsSection? mobile;
 }
 
 /// On-call procedures.
@@ -23099,7 +23251,7 @@ class DashboardRequirements {
   'Google SRE — site reliability engineering',
 ], 'Describes on-call tooling, rotation, coverage, and escalation procedures.')
 @SectionId('ONCAPR')
-class OnCallProcedures {
+class OnCallProcedures extends DocSpecsSection {
   @Form([
     Field(
       'onCallTool',
@@ -23126,6 +23278,7 @@ class OnCallProcedures {
       hint: 'Primary and backup on-call',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -23159,7 +23312,7 @@ class OnCallProcedures {
     ),
   ])
   @SerializationOrder(1)
-  String? teams;
+  DocSpecsSection? teams;
 
   /// Response SLAs.
   @SectionId('OCPS')
@@ -23181,7 +23334,7 @@ class OnCallProcedures {
     Field('resolutionSla', String, 'Resolution SLA', hint: 'Time to resolve'),
   ])
   @SerializationOrder(2)
-  String? slas;
+  DocSpecsSection? slas;
 
   /// Escalation rules.
   @SectionId('OCPE')
@@ -23213,7 +23366,7 @@ class OnCallProcedures {
     ),
   ])
   @SerializationOrder(3)
-  String? escalation;
+  DocSpecsSection? escalation;
 
   /// Documentation requirements.
   @SectionId('OCPD')
@@ -23241,7 +23394,7 @@ class OnCallProcedures {
     Field('notes', String, 'Notes', hint: 'Additional on-call notes'),
   ])
   @SerializationOrder(4)
-  String? documentation;
+  DocSpecsSection? documentation;
 }
 
 /// Incident management requirements.
@@ -23254,7 +23407,7 @@ class OnCallProcedures {
   'Describes the incident management process, severity definitions, and commander role.',
 )
 @SectionId('INMARE')
-class IncidentManagementRequirements {
+class IncidentManagementRequirements extends DocSpecsSection {
   @Form([
     Field(
       'incidentProcess',
@@ -23275,6 +23428,7 @@ class IncidentManagementRequirements {
       hint: 'IC role and selection',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -23314,7 +23468,7 @@ class IncidentManagementRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? communication;
+  DocSpecsSection? communication;
 
   /// War room setup.
   @SectionId('IMRWR')
@@ -23328,7 +23482,7 @@ class IncidentManagementRequirements {
     Field('chatChannel', String, 'Chat Channel', hint: 'Incident chat channel'),
   ])
   @SerializationOrder(2)
-  String? warRoom;
+  DocSpecsSection? warRoom;
 
   /// Post-incident expectations.
   @SectionId('IMRPI')
@@ -23366,7 +23520,7 @@ class IncidentManagementRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? postIncident;
+  DocSpecsSection? postIncident;
 
   /// Metrics and notes.
   @SectionId('IMRM')
@@ -23380,7 +23534,7 @@ class IncidentManagementRequirements {
     Field('notes', String, 'Notes', hint: 'Additional incident notes'),
   ])
   @SerializationOrder(4)
-  String? metrics;
+  DocSpecsSection? metrics;
 }
 
 /// SLA monitoring requirements.
@@ -23392,12 +23546,13 @@ class IncidentManagementRequirements {
   'Describes SLA monitoring for availability, performance, and error rate targets.',
 )
 @SectionId('SLMORE')
-class SlaMonitoringRequirements {
+class SlaMonitoringRequirements extends DocSpecsSection {
   @Form([
     Field('availabilitySla', String, 'Availability SLA', hint: '99.9%, 99.99%'),
     Field('performanceSla', String, 'Performance SLA', hint: 'Latency SLA'),
     Field('errorRateSla', String, 'Error Rate SLA', hint: 'Maximum error rate'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -23432,7 +23587,7 @@ class SlaMonitoringRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// Error-budget policy.
   @SectionId('SMREB')
@@ -23461,7 +23616,7 @@ class SlaMonitoringRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? errorBudget;
+  DocSpecsSection? errorBudget;
 
   /// Customer-specific SLA rules.
   @SectionId('SLMORECU')
@@ -23485,7 +23640,7 @@ class SlaMonitoringRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? customer;
+  DocSpecsSection? customer;
 
   /// Reporting and review.
   @SectionId('SLMORERE')
@@ -23509,7 +23664,7 @@ class SlaMonitoringRequirements {
     Field('notes', String, 'Notes', hint: 'Additional SLA notes'),
   ])
   @SerializationOrder(4)
-  String? reporting;
+  DocSpecsSection? reporting;
 }
 
 // =============================================================================
@@ -23563,7 +23718,7 @@ disruption while enabling necessary system updates.
   'Describes the maintenance window requirements for the system, including scheduling, communication, and change management.',
 )
 @SectionId('MWS')
-class MaintenanceWindowsSection {
+class MaintenanceWindowsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of maintenance strategy and policies.
 
@@ -23581,6 +23736,7 @@ Provide an overview of maintenance strategy and policies.
 - Communicate early and often
 - Track maintenance metrics and trends
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -23630,7 +23786,7 @@ Provide an overview of maintenance strategy and policies.
   'Defines the overall policy governing scheduled maintenance, including its scheduling, duration, notice, and approval.',
 )
 @SectionId('SCMAPO')
-class ScheduledMaintenancePolicy {
+class ScheduledMaintenancePolicy extends DocSpecsSection {
   @Form([
     Field(
       'maintenancePolicy',
@@ -23651,6 +23807,7 @@ class ScheduledMaintenancePolicy {
       hint: 'SLA for maintenance windows',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -23691,7 +23848,7 @@ class ScheduledMaintenancePolicy {
     ),
   ])
   @SerializationOrder(1)
-  String? scheduling;
+  DocSpecsSection? scheduling;
 
   /// Duration constraints.
   @SectionId('SMPD')
@@ -23723,7 +23880,7 @@ class ScheduledMaintenancePolicy {
     ),
   ])
   @SerializationOrder(2)
-  String? duration;
+  DocSpecsSection? duration;
 
   /// Notice requirements.
   @SectionId('SMPN')
@@ -23755,7 +23912,7 @@ class ScheduledMaintenancePolicy {
     ),
   ])
   @SerializationOrder(3)
-  String? notice;
+  DocSpecsSection? notice;
 
   /// Approval requirements.
   @SectionId('SMPA')
@@ -23782,7 +23939,7 @@ class ScheduledMaintenancePolicy {
     Field('notes', String, 'Notes', hint: 'Additional policy notes'),
   ])
   @SerializationOrder(4)
-  String? approval;
+  DocSpecsSection? approval;
 }
 
 /// Maintenance window entry.
@@ -23794,7 +23951,7 @@ class ScheduledMaintenancePolicy {
   'Defines a single scheduled maintenance window with its schedule, scope, impact, and rollback.',
 )
 @SectionId('MWE')
-class MaintenanceWindowEntry {
+class MaintenanceWindowEntry extends DocSpecsSection {
   @Form([
     Field(
       'windowName',
@@ -23817,6 +23974,7 @@ class MaintenanceWindowEntry {
       hint: 'What maintenance is performed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -23834,7 +23992,7 @@ class MaintenanceWindowEntry {
     Field('duration', String, 'Duration', hint: 'Expected duration'),
   ])
   @SerializationOrder(1)
-  String? schedule;
+  DocSpecsSection? schedule;
 
   /// Scope details.
   @SectionId('MAWIENSC')
@@ -23866,7 +24024,7 @@ class MaintenanceWindowEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Impact details.
   @SectionId('MWEI')
@@ -23896,7 +24054,7 @@ class MaintenanceWindowEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? impact;
+  DocSpecsSection? impact;
 
   /// Rollback details.
   @SectionId('MWER')
@@ -23920,7 +24078,7 @@ class MaintenanceWindowEntry {
     Field('notes', String, 'Notes', hint: 'Additional window notes'),
   ])
   @SerializationOrder(4)
-  String? rollback;
+  DocSpecsSection? rollback;
 }
 
 /// Emergency maintenance procedures.
@@ -23932,7 +24090,7 @@ class MaintenanceWindowEntry {
   'Defines the procedures for unplanned emergency maintenance such as urgent security patches.',
 )
 @SectionId('EMMAPR')
-class EmergencyMaintenanceProcedures {
+class EmergencyMaintenanceProcedures extends DocSpecsSection {
   @Form([
     Field(
       'emergencyTriggers',
@@ -23953,6 +24111,7 @@ class EmergencyMaintenanceProcedures {
       hint: 'What severity warrants emergency',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -23986,7 +24145,7 @@ class EmergencyMaintenanceProcedures {
     ),
   ])
   @SerializationOrder(1)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Notification and stakeholder handling.
   @SectionId('EMPC')
@@ -24018,7 +24177,7 @@ class EmergencyMaintenanceProcedures {
     ),
   ])
   @SerializationOrder(2)
-  String? communication;
+  DocSpecsSection? communication;
 
   /// Execution and follow-up details.
   @SectionId('EMPE')
@@ -24048,7 +24207,7 @@ class EmergencyMaintenanceProcedures {
     Field('notes', String, 'Notes', hint: 'Additional emergency notes'),
   ])
   @SerializationOrder(3)
-  String? execution;
+  DocSpecsSection? execution;
 }
 
 /// Change management for maintenance.
@@ -24057,7 +24216,7 @@ class EmergencyMaintenanceProcedures {
   'ISO/IEC 20000 — IT service management system',
 ], 'Defines the change management process governing maintenance changes.')
 @SectionId('MACHMA')
-class MaintenanceChangeManagement {
+class MaintenanceChangeManagement extends DocSpecsSection {
   @Form([
     // Change process
     Field(
@@ -24079,6 +24238,7 @@ class MaintenanceChangeManagement {
       hint: 'CAB composition',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -24100,7 +24260,7 @@ class MaintenanceChangeManagement {
     ),
   ])
   @SerializationOrder(1)
-  String? governance;
+  DocSpecsSection? governance;
 
   /// Required assessments and rollback planning.
   @SectionId('MCMD')
@@ -24138,7 +24298,7 @@ class MaintenanceChangeManagement {
     ),
   ])
   @SerializationOrder(2)
-  String? documentation;
+  DocSpecsSection? documentation;
 
   /// Testing and sign-off requirements.
   @SectionId('MCMT')
@@ -24170,7 +24330,7 @@ class MaintenanceChangeManagement {
     ),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Logging and audit trail expectations.
   @SectionId('MCMA')
@@ -24189,7 +24349,7 @@ class MaintenanceChangeManagement {
     Field('notes', String, 'Notes', hint: 'Additional change management notes'),
   ])
   @SerializationOrder(4)
-  String? audit;
+  DocSpecsSection? audit;
 }
 
 /// User impact and communication.
@@ -24201,7 +24361,7 @@ class MaintenanceChangeManagement {
   'Describes how maintenance affects users and how it is communicated to them.',
 )
 @SectionId('MAUSIM')
-class MaintenanceUserImpact {
+class MaintenanceUserImpact extends DocSpecsSection {
   @Form([
     Field(
       'advanceNotification',
@@ -24234,6 +24394,7 @@ class MaintenanceUserImpact {
       hint: 'Post on social media',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -24273,7 +24434,7 @@ class MaintenanceUserImpact {
     ),
   ])
   @SerializationOrder(1)
-  String? during;
+  DocSpecsSection? during;
 
   /// Graceful-degradation strategy.
   @SectionId('MUIGD')
@@ -24305,7 +24466,7 @@ class MaintenanceUserImpact {
     ),
   ])
   @SerializationOrder(2)
-  String? gracefulDegradation;
+  DocSpecsSection? gracefulDegradation;
 
   /// Post-maintenance communication.
   @SectionId('MUIP')
@@ -24338,7 +24499,7 @@ class MaintenanceUserImpact {
     Field('notes', String, 'Notes', hint: 'Additional user impact notes'),
   ])
   @SerializationOrder(3)
-  String? post;
+  DocSpecsSection? post;
 }
 
 /// Post-maintenance validation.
@@ -24347,7 +24508,7 @@ class MaintenanceUserImpact {
   'Defines the validation performed after maintenance to confirm the system is fully functional.',
 )
 @SectionId('POMAVA')
-class PostMaintenanceValidation {
+class PostMaintenanceValidation extends DocSpecsSection {
   @Form([
     Field('smokeTests', bool, 'Smoke Tests', hint: 'Run smoke tests after'),
     Field(
@@ -24369,6 +24530,7 @@ class PostMaintenanceValidation {
       hint: 'Verify all health checks',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -24405,7 +24567,7 @@ class PostMaintenanceValidation {
     ),
   ])
   @SerializationOrder(1)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// Sign-off and reporting expectations.
   @SectionId('PMVC')
@@ -24438,7 +24600,7 @@ class PostMaintenanceValidation {
     Field('notes', String, 'Notes', hint: 'Additional validation notes'),
   ])
   @SerializationOrder(2)
-  String? closure;
+  DocSpecsSection? closure;
 }
 
 /// 8.6. Communication Requirements.
@@ -24482,7 +24644,7 @@ security, and integration capabilities.
 - Idempotency and retry handling
 ''')
 @SectionId('COMREQ')
-class CommunicationRequirements {
+class CommunicationRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of communication architecture and strategy.
 
@@ -24500,6 +24662,7 @@ Provide an overview of communication architecture and strategy.
 - Version APIs for backward compatibility
 - Monitor communication health
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -24557,7 +24720,7 @@ Standardized protocols ensure interoperability and security.
   'Specifies the communication protocols, security standards, and API conventions the system uses.',
 )
 @SectionId('PASS')
-class ProtocolsAndStandardsSection {
+class ProtocolsAndStandardsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of protocol and standards approach.
 
@@ -24575,6 +24738,7 @@ Provide an overview of protocol and standards approach.
 - Document protocol requirements clearly
 - Monitor protocol compliance
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -24623,7 +24787,7 @@ Provide an overview of protocol and standards approach.
   'Describes a single communication protocol entry with its version and transport layer.',
 )
 @SectionId('PE')
-class ProtocolEntry {
+class ProtocolEntry extends DocSpecsSection {
   @Form([
     Field(
       'protocolName',
@@ -24653,6 +24817,7 @@ class ProtocolEntry {
     ),
     Field('notes', String, 'Notes', hint: 'Additional protocol notes'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -24666,7 +24831,7 @@ class ProtocolEntry {
   'Defines the protocol authentication method, authorization scheme, and message serialization.',
 )
 @SectionId('PRAUSE')
-class ProtocolAuthSerialization {
+class ProtocolAuthSerialization extends DocSpecsSection {
   @Form([
     Field(
       'authenticationMethod',
@@ -24694,6 +24859,7 @@ class ProtocolAuthSerialization {
       hint: 'gzip, brotli, none',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -24704,7 +24870,7 @@ class ProtocolAuthSerialization {
   'Defines protocol performance settings such as message size, pooling, and timeouts.',
 )
 @SectionId('PRPE')
-class ProtocolPerformance {
+class ProtocolPerformance extends DocSpecsSection {
   @Form([
     Field(
       'maxMessageSize',
@@ -24737,6 +24903,7 @@ class ProtocolPerformance {
       hint: 'Individual request timeout',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -24747,7 +24914,7 @@ class ProtocolPerformance {
   'Defines retry policy, idempotency, and delivery guarantees for the protocol.',
 )
 @SectionId('PRRE')
-class ProtocolReliability {
+class ProtocolReliability extends DocSpecsSection {
   @Form([
     Field(
       'retryPolicy',
@@ -24768,6 +24935,7 @@ class ProtocolReliability {
       hint: 'At-most-once, at-least-once, exactly-once',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -24777,7 +24945,7 @@ class ProtocolReliability {
   'IETF RFC 9110 — HTTP semantics',
 ], 'Describes which components use the protocol and its directionality.')
 @SectionId('PRUS')
-class ProtocolUsage {
+class ProtocolUsage extends DocSpecsSection {
   @Form([
     Field(
       'usedBy',
@@ -24793,6 +24961,7 @@ class ProtocolUsage {
     ),
     Field('notes', String, 'Notes', hint: 'Additional protocol notes'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -24803,7 +24972,7 @@ class ProtocolUsage {
   'Defines the minimum, preferred, and disabled TLS versions for transport security.',
 )
 @SectionId('TLRE')
-class TlsRequirements {
+class TlsRequirements extends DocSpecsSection {
   @Form([
     Field(
       'minimumTlsVersion',
@@ -24825,6 +24994,7 @@ class TlsRequirements {
       hint: 'SSLv3, TLS 1.0, TLS 1.1',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -24854,7 +25024,7 @@ class TlsRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? cipherSuites;
+  DocSpecsSection? cipherSuites;
 
   /// Certificate validation rules.
   @SectionId('TRCV')
@@ -24883,7 +25053,7 @@ class TlsRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? certificateValidation;
+  DocSpecsSection? certificateValidation;
 
   /// Termination and internal encryption.
   @SectionId('TLRETE')
@@ -24906,7 +25076,7 @@ class TlsRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? termination;
+  DocSpecsSection? termination;
 
   /// Compliance and HSTS settings.
   @SectionId('TLRECO')
@@ -24942,7 +25112,7 @@ class TlsRequirements {
     Field('notes', String, 'Notes', hint: 'Additional TLS requirements'),
   ])
   @SerializationOrder(4)
-  String? compliance;
+  DocSpecsSection? compliance;
 }
 
 /// Certificate management.
@@ -24951,7 +25121,7 @@ class TlsRequirements {
   'Defines the certificate authority, type, and overall certificate management approach.',
 )
 @SectionId('CEMA')
-class CertificateManagement {
+class CertificateManagement extends DocSpecsSection {
   @Form([
     Field(
       'certificateAuthority',
@@ -24966,6 +25136,7 @@ class CertificateManagement {
       hint: 'DV, OV, EV, Wildcard',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -24991,7 +25162,7 @@ class CertificateManagement {
     ),
   ])
   @SerializationOrder(1)
-  String? keys;
+  DocSpecsSection? keys;
 
   /// Lifecycle management.
   @SectionId('CEMALI')
@@ -25032,7 +25203,7 @@ class CertificateManagement {
     ),
   ])
   @SerializationOrder(2)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Storage and access controls.
   @SectionId('CEMAST')
@@ -25061,7 +25232,7 @@ class CertificateManagement {
     ),
   ])
   @SerializationOrder(3)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Monitoring rules.
   @SectionId('CEMAMO')
@@ -25089,7 +25260,7 @@ class CertificateManagement {
     ),
   ])
   @SerializationOrder(4)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 }
 
 /// API versioning strategy.
@@ -25098,7 +25269,7 @@ class CertificateManagement {
   'OpenAPI Specification — REST API description',
 ], 'Defines the overall API versioning scheme, format, and current version.')
 @SectionId('APVEST')
-class ApiVersioningStrategy {
+class ApiVersioningStrategy extends DocSpecsSection {
   @Form([
     // Scheme
     Field(
@@ -25121,6 +25292,7 @@ class ApiVersioningStrategy {
       hint: 'Current active API version',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -25157,7 +25329,7 @@ class ApiVersioningStrategy {
     ),
   ])
   @SerializationOrder(1)
-  String? support;
+  DocSpecsSection? support;
 
   /// Compatibility guarantees and migration expectations.
   @SectionId('AVSC')
@@ -25189,7 +25361,7 @@ class ApiVersioningStrategy {
     ),
   ])
   @SerializationOrder(2)
-  String? compatibility;
+  DocSpecsSection? compatibility;
 
   /// Documentation and client generation practices.
   @SectionId('AVSD')
@@ -25219,7 +25391,7 @@ class ApiVersioningStrategy {
     Field('notes', String, 'Notes', hint: 'Additional versioning notes'),
   ])
   @SerializationOrder(3)
-  String? documentation;
+  DocSpecsSection? documentation;
 }
 
 /// Message format standards.
@@ -25228,7 +25400,7 @@ class ApiVersioningStrategy {
   'Protocol Buffers — binary serialization',
 ], 'Defines the message serialization formats the system uses on the wire.')
 @SectionId('MEFOST')
-class MessageFormatStandards {
+class MessageFormatStandards extends DocSpecsSection {
   @Form([
     Field(
       'primaryFormat',
@@ -25244,6 +25416,7 @@ class MessageFormatStandards {
       hint: 'Additional supported formats',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -25283,7 +25456,7 @@ class MessageFormatStandards {
     ),
   ])
   @SerializationOrder(1)
-  String? schema;
+  DocSpecsSection? schema;
 
   /// Field conventions.
   @SectionId('MFSC')
@@ -25324,7 +25497,7 @@ class MessageFormatStandards {
     ),
   ])
   @SerializationOrder(2)
-  String? conventions;
+  DocSpecsSection? conventions;
 
   /// Pagination and error envelopes.
   @SectionId('MFSR')
@@ -25356,7 +25529,7 @@ class MessageFormatStandards {
     ),
   ])
   @SerializationOrder(3)
-  String? responses;
+  DocSpecsSection? responses;
 
   /// Compression and negotiation.
   @SectionId('MFST')
@@ -25380,7 +25553,7 @@ class MessageFormatStandards {
     Field('notes', String, 'Notes', hint: 'Additional message format notes'),
   ])
   @SerializationOrder(4)
-  String? transport;
+  DocSpecsSection? transport;
 }
 
 /// Rate limiting and throttling.
@@ -25388,7 +25561,7 @@ class MessageFormatStandards {
   'IETF RFC 9110 — HTTP semantics',
 ], 'Defines the rate limiting and throttling policy for API traffic.')
 @SectionId('RALIPO')
-class RateLimitingPolicy {
+class RateLimitingPolicy extends DocSpecsSection {
   @Form([
     Field(
       'rateLimitingStrategy',
@@ -25404,6 +25577,7 @@ class RateLimitingPolicy {
       hint: 'Global, per-client, per-endpoint, per-tenant',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -25439,7 +25613,7 @@ class RateLimitingPolicy {
     ),
   ])
   @SerializationOrder(1)
-  String? limits;
+  DocSpecsSection? limits;
 
   /// Runtime response behavior when limits are exceeded.
   @SectionId('RLPB')
@@ -25468,7 +25642,7 @@ class RateLimitingPolicy {
     ),
   ])
   @SerializationOrder(2)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Quota management and exceptions.
   @SectionId('RLPQ')
@@ -25498,7 +25672,7 @@ class RateLimitingPolicy {
     Field('notes', String, 'Notes', hint: 'Additional rate limiting notes'),
   ])
   @SerializationOrder(3)
-  String? quotas;
+  DocSpecsSection? quotas;
 }
 
 /// Protocol compliance requirements.
@@ -25510,7 +25684,7 @@ class RateLimitingPolicy {
   'Defines protocol-level compliance requirements such as CORS, CSP, and security headers.',
 )
 @SectionId('PRCORE')
-class ProtocolComplianceRequirements {
+class ProtocolComplianceRequirements extends DocSpecsSection {
   @Form([
     Field(
       'corsPolicy',
@@ -25537,6 +25711,7 @@ class ProtocolComplianceRequirements {
       hint: 'SameSite, Secure, HttpOnly attributes',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -25560,7 +25735,7 @@ class ProtocolComplianceRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? caching;
+  DocSpecsSection? caching;
 
   /// Request logging and trace propagation rules.
   @SectionId('PCRO')
@@ -25588,7 +25763,7 @@ class ProtocolComplianceRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? observability;
+  DocSpecsSection? observability;
 
   /// Webhook, event, and health endpoint standards.
   @SectionId('PCRE')
@@ -25621,7 +25796,7 @@ class ProtocolComplianceRequirements {
     Field('notes', String, 'Notes', hint: 'Additional compliance notes'),
   ])
   @SerializationOrder(3)
-  String? events;
+  DocSpecsSection? events;
 }
 
 /// 8.6.2. External Connectivity.
@@ -25671,7 +25846,7 @@ require careful security and reliability considerations.
   'Describes the external connectivity the system integrates with, including partners, cloud services, and third-party APIs.',
 )
 @SectionId('ECS')
-class ExternalConnectivitySection {
+class ExternalConnectivitySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of external connectivity landscape.
 
@@ -25689,6 +25864,7 @@ Provide an overview of external connectivity landscape.
 - Have fallback strategies for critical integrations
 - Regular vendor review and risk assessment
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -25734,7 +25910,7 @@ Provide an overview of external connectivity landscape.
   'OpenAPI Specification — REST API description',
 ], 'Describes a single external partner integration the system connects to.')
 @SectionId('EXPACOEN')
-class ExternalPartnerConnectionEntry {
+class ExternalPartnerConnectionEntry extends DocSpecsSection {
   @Form([
     Field(
       'partnerName',
@@ -25756,6 +25932,7 @@ class ExternalPartnerConnectionEntry {
       hint: 'Business purpose of this integration',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -25785,7 +25962,7 @@ class ExternalPartnerConnectionEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? protocol;
+  DocSpecsSection? protocol;
 
   /// Authentication settings.
   @SectionId('EXPAAU')
@@ -25817,7 +25994,7 @@ class ExternalPartnerConnectionEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? authentication;
+  DocSpecsSection? authentication;
 
   /// Network configuration.
   @SectionId('EXPANE')
@@ -25852,7 +26029,7 @@ class ExternalPartnerConnectionEntry {
     ),
   ])
   @SerializationOrder(3)
-  String? network;
+  DocSpecsSection? network;
 
   /// Reliability and SLA.
   @SectionId('EXPARE')
@@ -25897,7 +26074,7 @@ class ExternalPartnerConnectionEntry {
     ),
   ])
   @SerializationOrder(4)
-  String? reliability;
+  DocSpecsSection? reliability;
 
   /// Data handling.
   @SectionId('EPDH')
@@ -25929,7 +26106,7 @@ class ExternalPartnerConnectionEntry {
     ),
   ])
   @SerializationOrder(5)
-  String? dataHandling;
+  DocSpecsSection? dataHandling;
 
   /// Operations and contacts.
   @StandardReferences([
@@ -25948,7 +26125,7 @@ class ExternalPartnerConnectionEntry {
   'Captures operational contacts and escalation processes for the partner integration.',
 )
 @SectionId('EXPAOP')
-class ExternalPartnerOperations {
+class ExternalPartnerOperations extends DocSpecsSection {
   @Form([
     Field(
       'contactPerson',
@@ -25970,6 +26147,7 @@ class ExternalPartnerOperations {
     ),
     Field('notes', String, 'Notes', hint: 'Additional connection notes'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -25980,7 +26158,7 @@ class ExternalPartnerOperations {
   'ISO/IEC 27001 — information security controls',
 ], 'Describes the cloud provider services the system integrates with.')
 @SectionId('CLSEIN')
-class CloudServiceIntegrations {
+class CloudServiceIntegrations extends DocSpecsSection {
   @Form([
     Field(
       'primaryCloudProvider',
@@ -25995,6 +26173,7 @@ class CloudServiceIntegrations {
       hint: 'Additional cloud providers',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -26052,7 +26231,7 @@ class CloudServiceIntegrations {
     ),
   ])
   @SerializationOrder(1)
-  String? services;
+  DocSpecsSection? services;
 
   /// Network connectivity.
   @SectionId('CSIN')
@@ -26081,7 +26260,7 @@ class CloudServiceIntegrations {
     ),
   ])
   @SerializationOrder(2)
-  String? networking;
+  DocSpecsSection? networking;
 
   /// Compliance and notes.
   @SectionId('CSIC')
@@ -26105,7 +26284,7 @@ class CloudServiceIntegrations {
     Field('notes', String, 'Notes', hint: 'Additional cloud integration notes'),
   ])
   @SerializationOrder(3)
-  String? compliance;
+  DocSpecsSection? compliance;
 }
 
 /// Third-party API integrations.
@@ -26118,7 +26297,7 @@ class CloudServiceIntegrations {
   'Describes third-party API integrations the system consumes, including payment providers.',
 )
 @SectionId('TPAI')
-class ThirdPartyApiIntegrations {
+class ThirdPartyApiIntegrations extends DocSpecsSection {
   @Form([
     Field(
       'paymentGateways',
@@ -26133,6 +26312,7 @@ class ThirdPartyApiIntegrations {
       hint: 'PCI DSS level, tokenization',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -26160,7 +26340,7 @@ class ThirdPartyApiIntegrations {
     ),
   ])
   @SerializationOrder(1)
-  String? analytics;
+  DocSpecsSection? analytics;
 
   /// Communication providers.
   @SectionId('TPAIC')
@@ -26192,7 +26372,7 @@ class ThirdPartyApiIntegrations {
     ),
   ])
   @SerializationOrder(2)
-  String? communication;
+  DocSpecsSection? communication;
 
   /// Mapping and location providers.
   @SectionId('TPAIL')
@@ -26218,7 +26398,7 @@ class ThirdPartyApiIntegrations {
     ),
   ])
   @SerializationOrder(3)
-  String? location;
+  DocSpecsSection? location;
 
   /// Document and media providers.
   @SectionId('TPAIM')
@@ -26250,7 +26430,7 @@ class ThirdPartyApiIntegrations {
     ),
   ])
   @SerializationOrder(4)
-  String? media;
+  DocSpecsSection? media;
 
   /// AI and translation providers.
   @SectionId('THPAAPINAI')
@@ -26276,7 +26456,7 @@ class ThirdPartyApiIntegrations {
     ),
   ])
   @SerializationOrder(5)
-  String? ai;
+  DocSpecsSection? ai;
 
   /// Compliance and fallback controls.
   @SectionId('TPAIO')
@@ -26314,7 +26494,7 @@ class ThirdPartyApiIntegrations {
     ),
   ])
   @SerializationOrder(6)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Network security and access control.
@@ -26326,7 +26506,7 @@ class ThirdPartyApiIntegrations {
   'Defines network security policy and access control for external connectivity.',
 )
 @SectionId('NESEPO')
-class NetworkSecurityPolicy {
+class NetworkSecurityPolicy extends DocSpecsSection {
   @Form([
     Field(
       'firewallType',
@@ -26347,6 +26527,7 @@ class NetworkSecurityPolicy {
       hint: 'Deny all except explicit allow',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -26370,7 +26551,7 @@ class NetworkSecurityPolicy {
     ),
   ])
   @SerializationOrder(1)
-  String? firewall;
+  DocSpecsSection? firewall;
 
   /// IP management controls.
   @SectionId('NSPIM')
@@ -26405,7 +26586,7 @@ class NetworkSecurityPolicy {
     ),
   ])
   @SerializationOrder(2)
-  String? ipManagement;
+  DocSpecsSection? ipManagement;
 
   /// VPN configuration.
   @SectionId('NSPV')
@@ -26443,7 +26624,7 @@ class NetworkSecurityPolicy {
     ),
   ])
   @SerializationOrder(3)
-  String? vpn;
+  DocSpecsSection? vpn;
 
   /// DDoS protections.
   @SectionId('NSPD')
@@ -26469,7 +26650,7 @@ class NetworkSecurityPolicy {
     ),
   ])
   @SerializationOrder(4)
-  String? ddos;
+  DocSpecsSection? ddos;
 
   /// DNS controls and notes.
   @SectionId('NESEPODN')
@@ -26494,7 +26675,7 @@ class NetworkSecurityPolicy {
     Field('notes', String, 'Notes', hint: 'Additional network security notes'),
   ])
   @SerializationOrder(5)
-  String? dns;
+  DocSpecsSection? dns;
 }
 
 /// Service mesh and API gateway.
@@ -26507,7 +26688,7 @@ class NetworkSecurityPolicy {
   'Defines the API gateway and service mesh used for edge routing and traffic management.',
 )
 @SectionId('SMAG')
-class ServiceMeshAndGateway {
+class ServiceMeshAndGateway extends DocSpecsSection {
   @Form([
     Field(
       'apiGateway',
@@ -26534,6 +26715,7 @@ class ServiceMeshAndGateway {
       hint: 'Developer portal, key provisioning',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -26573,7 +26755,7 @@ class ServiceMeshAndGateway {
     ),
   ])
   @SerializationOrder(1)
-  String? mesh;
+  DocSpecsSection? mesh;
 
   /// Load balancing and termination rules.
   @SectionId('SMAGLB')
@@ -26612,7 +26794,7 @@ class ServiceMeshAndGateway {
     Field('notes', String, 'Notes', hint: 'Additional gateway/mesh notes'),
   ])
   @SerializationOrder(2)
-  String? loadBalancing;
+  DocSpecsSection? loadBalancing;
 }
 
 /// Connectivity resilience requirements.
@@ -26624,7 +26806,7 @@ class ServiceMeshAndGateway {
   'Captures failover, redundancy, and resilience requirements for external connectivity.',
 )
 @SectionId('CONRES')
-class ConnectivityResilience {
+class ConnectivityResilience extends DocSpecsSection {
   @Form([
     Field(
       'failoverStrategy',
@@ -26645,6 +26827,7 @@ class ConnectivityResilience {
       hint: 'Multi-region connectivity',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -26675,7 +26858,7 @@ class ConnectivityResilience {
     ),
   ])
   @SerializationOrder(1)
-  String? protection;
+  DocSpecsSection? protection;
 
   /// Offline and reconnection behavior.
   @SectionId('COREOF')
@@ -26707,7 +26890,7 @@ class ConnectivityResilience {
     ),
   ])
   @SerializationOrder(2)
-  String? offline;
+  DocSpecsSection? offline;
 
   /// Monitoring and alerting expectations.
   @SectionId('COREOP')
@@ -26734,7 +26917,7 @@ class ConnectivityResilience {
     Field('notes', String, 'Notes', hint: 'Additional resilience notes'),
   ])
   @SerializationOrder(3)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// 8.7. System Operation and Monitoring.
@@ -26782,7 +26965,7 @@ observability is owned by SBP.8.5 `OperationsRequirements`.
 Google SRE practices, Azure operational best practices.
 ''')
 @SectionId('SOAM')
-class SystemOperationAndMonitoring {
+class SystemOperationAndMonitoring extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of operational approach and responsibilities.
 
@@ -26800,6 +26983,7 @@ Provide an overview of operational approach and responsibilities.
 - Practice incident response
 - Regular operational reviews
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -26858,7 +27042,7 @@ improve system reliability.
   'System operation covers the day-to-day administration, maintenance, and user management the running system requires.',
 )
 @SectionId('SO')
-class SystemOperation {
+class SystemOperation extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of system operation approach.
 
@@ -26876,6 +27060,7 @@ Provide an overview of system operation approach.
 - Review and update procedures regularly
 - Track operational metrics
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -26892,7 +27077,7 @@ Provide an overview of system operation approach.
   @SectionIdPattern('MAINT-MAIN-xxx')
   @ContentHelp('Add one entry per maintenance procedure.')
   @SerializationOrder(2)
-  List<String> maintenanceProcedures = [];
+  List<DocSpecsSection> maintenanceProcedures = [];
 }
 
 /// 8.7.1.1. Administration Requirements.
@@ -26943,7 +27128,7 @@ tools reduce operational burden and error rates.
   'Administration requirements define the admin interfaces, configuration management, and user provisioning the system needs.',
 )
 @SectionId('ARS')
-class AdministrationRequirementsSection {
+class AdministrationRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of administration requirements.
 
@@ -26961,6 +27146,7 @@ Provide an overview of administration requirements.
 - Provide self-service where safe
 - Regular admin access reviews
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -27062,7 +27248,7 @@ Provide an overview of administration requirements.
     ),
   ])
   @SerializationOrder(6)
-  String? environmentManagement;
+  DocSpecsSection? environmentManagement;
 
   /// System diagnostic tools.
   @SerializationOrder(7)
@@ -27078,7 +27264,7 @@ Provide an overview of administration requirements.
   'Admin interface requirements describe the portal through which operators manage the system.',
 )
 @SectionId('ADINRE')
-class AdminInterfaceRequirements {
+class AdminInterfaceRequirements extends DocSpecsSection {
   @Form([
     Field(
       'adminPortalType',
@@ -27106,6 +27292,7 @@ class AdminInterfaceRequirements {
       hint: 'SSO, LDAP, local credentials',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -27151,7 +27338,7 @@ class AdminInterfaceRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? dashboard;
+  DocSpecsSection? dashboard;
 
   /// Data management tooling.
   @SectionId('ADINREDA')
@@ -27189,7 +27376,7 @@ class AdminInterfaceRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? data;
+  DocSpecsSection? data;
 
   /// Operational controls.
   @SectionId('AIRO')
@@ -27222,7 +27409,7 @@ class AdminInterfaceRequirements {
     Field('notes', String, 'Notes', hint: 'Additional admin interface notes'),
   ])
   @SerializationOrder(3)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// System configuration management.
@@ -27234,7 +27421,7 @@ class AdminInterfaceRequirements {
   'System configuration management specifies how the system stores and controls its configuration.',
 )
 @SectionId('SYCOMA')
-class SystemConfigurationManagement {
+class SystemConfigurationManagement extends DocSpecsSection {
   @Form([
     // Configuration sources
     Field(
@@ -27257,6 +27444,7 @@ class SystemConfigurationManagement {
       hint: 'Consul, Spring Cloud Config, AWS AppConfig',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -27296,7 +27484,7 @@ class SystemConfigurationManagement {
     ),
   ])
   @SerializationOrder(1)
-  String? dynamic;
+  DocSpecsSection? dynamic;
 
   /// Environment overrides and secrets handling.
   @SectionId('SCME')
@@ -27328,7 +27516,7 @@ class SystemConfigurationManagement {
     ),
   ])
   @SerializationOrder(2)
-  String? environment;
+  DocSpecsSection? environment;
 
   /// Validation, diffing, and audit controls.
   @SectionId('SCMG')
@@ -27366,7 +27554,7 @@ class SystemConfigurationManagement {
     ),
   ])
   @SerializationOrder(3)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// User provisioning and management tools.
@@ -27378,7 +27566,7 @@ class SystemConfigurationManagement {
   'User provisioning and management tools cover how user accounts are created and managed across their lifecycle.',
 )
 @SectionId('USPRTO')
-class UserProvisioningTools {
+class UserProvisioningTools extends DocSpecsSection {
   @Form([
     Field(
       'provisioningMethod',
@@ -27406,6 +27594,7 @@ class UserProvisioningTools {
       hint: 'Invite users via email',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -27451,7 +27640,7 @@ class UserProvisioningTools {
     ),
   ])
   @SerializationOrder(1)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Role management and reviews.
   @SectionId('UPTRM')
@@ -27483,7 +27672,7 @@ class UserProvisioningTools {
     ),
   ])
   @SerializationOrder(2)
-  String? roleManagement;
+  DocSpecsSection? roleManagement;
 
   /// Directory integration settings.
   @SectionId('UPTDI')
@@ -27516,7 +27705,7 @@ class UserProvisioningTools {
     Field('notes', String, 'Notes', hint: 'Additional user provisioning notes'),
   ])
   @SerializationOrder(3)
-  String? directoryIntegration;
+  DocSpecsSection? directoryIntegration;
 }
 
 /// Batch job management.
@@ -27528,7 +27717,7 @@ class UserProvisioningTools {
   'Batch job management specifies how scheduled and background jobs are defined and operated.',
 )
 @SectionId('BAJOMA')
-class BatchJobManagement {
+class BatchJobManagement extends DocSpecsSection {
   @Form([
     Field(
       'schedulingEngine',
@@ -27550,6 +27739,7 @@ class BatchJobManagement {
       hint: 'UTC, local, configurable per job',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -27595,7 +27785,7 @@ class BatchJobManagement {
     ),
   ])
   @SerializationOrder(1)
-  String? jobTypes;
+  DocSpecsSection? jobTypes;
 
   /// Execution controls.
   @SectionId('BJME')
@@ -27634,7 +27824,7 @@ class BatchJobManagement {
     Field('timeout', String, 'Timeout', hint: 'Maximum job execution time'),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Monitoring and manual controls.
   @SectionId('BJMM')
@@ -27679,7 +27869,7 @@ class BatchJobManagement {
     Field('notes', String, 'Notes', hint: 'Additional batch job notes'),
   ])
   @SerializationOrder(3)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 }
 
 /// System diagnostic tools.
@@ -27691,7 +27881,7 @@ class BatchJobManagement {
   'System diagnostic tools give operators the means to inspect and troubleshoot the running system.',
 )
 @SectionId('SYDITO')
-class SystemDiagnosticTools {
+class SystemDiagnosticTools extends DocSpecsSection {
   @Form([
     Field(
       'remoteDebugging',
@@ -27718,6 +27908,7 @@ class SystemDiagnosticTools {
       hint: 'Capture memory heap dumps',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -27751,7 +27942,7 @@ class SystemDiagnosticTools {
     ),
   ])
   @SerializationOrder(1)
-  String? tracing;
+  DocSpecsSection? tracing;
 
   /// Log analysis capabilities.
   @SectionId('SDTL')
@@ -27783,7 +27974,7 @@ class SystemDiagnosticTools {
     ),
   ])
   @SerializationOrder(2)
-  String? logs;
+  DocSpecsSection? logs;
 
   /// Self-service diagnostic entry points.
   @SectionId('SDTSS')
@@ -27810,7 +28001,7 @@ class SystemDiagnosticTools {
     Field('notes', String, 'Notes', hint: 'Additional diagnostic tool notes'),
   ])
   @SerializationOrder(3)
-  String? selfService;
+  DocSpecsSection? selfService;
 }
 
 /// 8.7.2. Monitoring.
@@ -27826,7 +28017,7 @@ class SystemDiagnosticTools {
   'The overall monitoring approach spanning health, alerting, and observability.',
 )
 @SectionId('MONITO')
-class Monitoring {
+class Monitoring extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Monitoring Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -27897,7 +28088,7 @@ class Monitoring {
     ),
   ])
   @SerializationOrder(0)
-  String? monitoringOverview;
+  DocSpecsSection? monitoringOverview;
 
   /// Monitoring strategy narrative.
   @ContentHelp(
@@ -27943,7 +28134,7 @@ class Monitoring {
   'Google SRE — being on-call and incident response',
 ], 'The full alerting configuration covering rules, channels, and escalation.')
 @SectionId('ALCO')
-class AlertingConfiguration {
+class AlertingConfiguration extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Alerting Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -28008,7 +28199,7 @@ class AlertingConfiguration {
     ),
   ])
   @SerializationOrder(0)
-  String? alertingOverview;
+  DocSpecsSection? alertingOverview;
 
   /// Alerting overview narrative.
   @SerializationOrder(1)
@@ -28053,7 +28244,7 @@ class AlertingConfiguration {
   'Google SRE — being on-call and incident response',
 ], 'The channels through which alerts reach responders.')
 @SectionId('ALNOCH')
-class AlertNotificationChannels {
+class AlertNotificationChannels extends DocSpecsSection {
   @Form([
     // Primary channels
     Field(
@@ -28075,6 +28266,7 @@ class AlertNotificationChannels {
       hint: 'Microsoft Teams channel integration',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -28105,7 +28297,7 @@ class AlertNotificationChannels {
     ),
   ])
   @SerializationOrder(1)
-  String? delivery;
+  DocSpecsSection? delivery;
 
   /// Severity-based channel routing.
   @SectionId('ANCR')
@@ -28134,7 +28326,7 @@ class AlertNotificationChannels {
     ),
   ])
   @SerializationOrder(2)
-  String? routing;
+  DocSpecsSection? routing;
 
   /// Message templates, enrichment, and grouping rules.
   @SectionId('ANCF')
@@ -28170,7 +28362,7 @@ class AlertNotificationChannels {
     Field('notes', String, 'Notes', hint: 'Additional formatting notes'),
   ])
   @SerializationOrder(3)
-  String? formatting;
+  DocSpecsSection? formatting;
 }
 
 /// An alert rule entry.
@@ -28179,7 +28371,7 @@ class AlertNotificationChannels {
   'Prometheus — Alertmanager (routing, grouping, silencing)',
 ], 'A single alert rule defining when and how the system pages responders.')
 @SectionId('ALERULENT')
-class AlertRuleEntry {
+class AlertRuleEntry extends DocSpecsSection {
   @Form([
     Field(
       'alertId',
@@ -28209,6 +28401,7 @@ class AlertRuleEntry {
       hint: 'Infrastructure, Application, Business, Security',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -28245,7 +28438,7 @@ class AlertRuleEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? trigger;
+  DocSpecsSection? trigger;
 
   /// Response actions.
   @SectionId('ARER')
@@ -28283,7 +28476,7 @@ class AlertRuleEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? response;
+  DocSpecsSection? response;
 
   /// Ownership details.
   @SectionId('AREO')
@@ -28307,7 +28500,7 @@ class AlertRuleEntry {
     Field('notes', String, 'Notes', hint: 'Additional ownership notes'),
   ])
   @SerializationOrder(3)
-  String? ownership;
+  DocSpecsSection? ownership;
 }
 
 /// Alert escalation policies.
@@ -28316,7 +28509,7 @@ class AlertRuleEntry {
   'Google SRE — being on-call and incident response',
 ], 'How unacknowledged alerts escalate through responder levels.')
 @SectionId('ALESPO')
-class AlertEscalationPolicies {
+class AlertEscalationPolicies extends DocSpecsSection {
   @Form([
     // Escalation levels
     Field(
@@ -28338,6 +28531,7 @@ class AlertEscalationPolicies {
       hint: 'Senior engineer/architect escalation',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -28374,7 +28568,7 @@ class AlertEscalationPolicies {
     ),
   ])
   @SerializationOrder(1)
-  String? timing;
+  DocSpecsSection? timing;
 
   /// Escalation control behavior.
   @SectionId('AEPB')
@@ -28403,7 +28597,7 @@ class AlertEscalationPolicies {
     ),
   ])
   @SerializationOrder(2)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Schedule-specific policy variants.
   @SectionId('AEPS')
@@ -28438,7 +28632,7 @@ class AlertEscalationPolicies {
     ),
   ])
   @SerializationOrder(3)
-  String? schedules;
+  DocSpecsSection? schedules;
 }
 
 /// Alert suppression and maintenance windows.
@@ -28447,7 +28641,7 @@ class AlertEscalationPolicies {
   'Google SRE — monitoring and alerting (the four golden signals)',
 ], 'How alerts are silenced or inhibited during maintenance windows.')
 @SectionId('ALSURU')
-class AlertSuppressionRules {
+class AlertSuppressionRules extends DocSpecsSection {
   @Form([
     // Maintenance windows
     Field(
@@ -28508,6 +28702,7 @@ class AlertSuppressionRules {
     ),
     Field('notes', String, 'Notes', hint: 'Additional suppression notes'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -28518,7 +28713,7 @@ class AlertSuppressionRules {
   'PagerDuty / on-call — escalation policy design',
 ], 'How on-call rotations and duties are configured for the team.')
 @SectionId('OCSC')
-class OnCallScheduleConfig {
+class OnCallScheduleConfig extends DocSpecsSection {
   @Form([
     Field(
       'rotationSchedule',
@@ -28545,6 +28740,7 @@ class OnCallScheduleConfig {
       hint: 'Backup on-call responsibilities',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -28575,7 +28771,7 @@ class OnCallScheduleConfig {
     ),
   ])
   @SerializationOrder(1)
-  String? coverage;
+  DocSpecsSection? coverage;
 
   /// Compensation and tooling support.
   @SectionId('OCSCO')
@@ -28616,7 +28812,7 @@ class OnCallScheduleConfig {
     ),
   ])
   @SerializationOrder(2)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 // ---------------------------------------------------------------------------
@@ -28633,7 +28829,7 @@ class OnCallScheduleConfig {
   'The Twelve-Factor App — logs as event streams',
 ], 'The overall metrics, tracing, and observability strategy for the system.')
 @SectionId('MEANOB')
-class MetricsAndObservability {
+class MetricsAndObservability extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Metrics Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -28699,7 +28895,7 @@ class MetricsAndObservability {
     ),
   ])
   @SerializationOrder(0)
-  String? metricsOverview;
+  DocSpecsSection? metricsOverview;
 
   /// Observability overview narrative.
   @SerializationOrder(1)
@@ -28738,7 +28934,7 @@ class MetricsAndObservability {
   'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
 ], 'Metrics that describe application request rate, errors, and duration.')
 @SectionId('APMESP')
-class ApplicationMetricsSpec {
+class ApplicationMetricsSpec extends DocSpecsSection {
   @Form([
     Field('requestRate', bool, 'Request Rate', hint: 'Requests per second'),
     Field('errorRate', bool, 'Error Rate', hint: 'Error percentage'),
@@ -28749,6 +28945,7 @@ class ApplicationMetricsSpec {
       hint: 'Latency histograms (p50, p95, p99)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -28779,7 +28976,7 @@ class ApplicationMetricsSpec {
     ),
   ])
   @SerializationOrder(1)
-  String? resources;
+  DocSpecsSection? resources;
 
   /// Application-specific metrics.
   @SectionId('AMSA')
@@ -28818,7 +29015,7 @@ class ApplicationMetricsSpec {
     ),
   ])
   @SerializationOrder(2)
-  String? application;
+  DocSpecsSection? application;
 
   /// Labeling guidance.
   @SectionId('AMSL')
@@ -28851,7 +29048,7 @@ class ApplicationMetricsSpec {
     Field('notes', String, 'Notes', hint: 'Additional labeling notes'),
   ])
   @SerializationOrder(3)
-  String? labels;
+  DocSpecsSection? labels;
 }
 
 /// Infrastructure metrics specification.
@@ -28860,7 +29057,7 @@ class ApplicationMetricsSpec {
   'Prometheus — metric types and exposition format',
 ], 'Metrics for compute, memory, disk, and network infrastructure resources.')
 @SectionId('INMESP')
-class InfrastructureMetricsSpec {
+class InfrastructureMetricsSpec extends DocSpecsSection {
   @Form([
     // Compute
     Field(
@@ -28888,6 +29085,7 @@ class InfrastructureMetricsSpec {
       hint: 'Bytes in/out, packets, errors',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -28924,7 +29122,7 @@ class InfrastructureMetricsSpec {
     ),
   ])
   @SerializationOrder(1)
-  String? kubernetes;
+  DocSpecsSection? kubernetes;
 
   /// Cloud-managed services and edge metrics.
   @SectionId('IMSC')
@@ -28959,7 +29157,7 @@ class InfrastructureMetricsSpec {
     ),
   ])
   @SerializationOrder(2)
-  String? cloud;
+  DocSpecsSection? cloud;
 
   /// Cost attribution and notes.
   @SectionId('INMESPCO')
@@ -28977,7 +29175,7 @@ class InfrastructureMetricsSpec {
     Field('notes', String, 'Notes', hint: 'Additional cost attribution notes'),
   ])
   @SerializationOrder(3)
-  String? cost;
+  DocSpecsSection? cost;
 }
 
 /// Business metrics specification.
@@ -28986,7 +29184,7 @@ class InfrastructureMetricsSpec {
   'ISO/IEC 25010 — performance efficiency',
 ], 'Metrics that measure business outcomes such as user activity and revenue.')
 @SectionId('BUMESP')
-class BusinessMetricsSpec {
+class BusinessMetricsSpec extends DocSpecsSection {
   @Form([
     // User activity
     Field('activeUsers', bool, 'Active Users', hint: 'DAU, WAU, MAU'),
@@ -29003,6 +29201,7 @@ class BusinessMetricsSpec {
       hint: 'Funnel completion, drop-off',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -29033,7 +29232,7 @@ class BusinessMetricsSpec {
     ),
   ])
   @SerializationOrder(1)
-  String? transactions;
+  DocSpecsSection? transactions;
 
   /// Feature adoption and engagement metrics.
   @SectionId('BMSFU')
@@ -29056,7 +29255,7 @@ class BusinessMetricsSpec {
     ),
   ])
   @SerializationOrder(2)
-  String? featureUsage;
+  DocSpecsSection? featureUsage;
 
   /// KPI and customer outcome metrics.
   @SectionId('BMSK')
@@ -29091,7 +29290,7 @@ class BusinessMetricsSpec {
     ),
   ])
   @SerializationOrder(3)
-  String? kpis;
+  DocSpecsSection? kpis;
 
   /// Real-time dashboard and notes.
   @SectionId('BMSO')
@@ -29114,7 +29313,7 @@ class BusinessMetricsSpec {
     ),
   ])
   @SerializationOrder(4)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Distributed tracing specification.
@@ -29123,7 +29322,7 @@ class BusinessMetricsSpec {
   'OpenTelemetry — metrics, traces, and logs',
 ], 'How requests are traced end to end across distributed services.')
 @SectionId('DITRSP')
-class DistributedTracingSpec {
+class DistributedTracingSpec extends DocSpecsSection {
   @Form([
     Field(
       'tracingBackend',
@@ -29144,6 +29343,7 @@ class DistributedTracingSpec {
       hint: 'W3C Trace Context, B3, custom',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -29183,7 +29383,7 @@ class DistributedTracingSpec {
     ),
   ])
   @SerializationOrder(1)
-  String? sampling;
+  DocSpecsSection? sampling;
 
   /// Span metadata.
   @SectionId('DITRSPSP')
@@ -29212,7 +29412,7 @@ class DistributedTracingSpec {
     ),
   ])
   @SerializationOrder(2)
-  String? spans;
+  DocSpecsSection? spans;
 
   /// Correlation and retention.
   @SectionId('DTSO')
@@ -29256,7 +29456,7 @@ class DistributedTracingSpec {
     ),
   ])
   @SerializationOrder(3)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// A custom metric entry.
@@ -29265,7 +29465,7 @@ class DistributedTracingSpec {
   'OpenTelemetry — metrics, traces, and logs',
 ], 'A single custom application metric with its type, unit, and labels.')
 @SectionId('CUSMETENT')
-class CustomMetricEntry {
+class CustomMetricEntry extends DocSpecsSection {
   @Form([
     Field(
       'metricName',
@@ -29308,6 +29508,7 @@ class CustomMetricEntry {
       hint: 'Additional notes for this custom metric',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -29327,7 +29528,7 @@ class CustomMetricEntry {
   'Operational dashboards used to visualize and monitor the health of the system.',
 )
 @SectionId('MODA')
-class MonitoringDashboards {
+class MonitoringDashboards extends DocSpecsSection {
   @SectionId('MODA-DASH')
   @Form([
     // Platform
@@ -29395,7 +29596,7 @@ class MonitoringDashboards {
     ),
   ])
   @SerializationOrder(0)
-  String? dashboardOverview;
+  DocSpecsSection? dashboardOverview;
 
   /// Dashboard overview narrative.
   @SerializationOrder(1)
@@ -29431,7 +29632,7 @@ class MonitoringDashboards {
   'A single monitoring dashboard entry describing its identity, category and audience.',
 )
 @SectionId('DASENT')
-class DashboardEntry {
+class DashboardEntry extends DocSpecsSection {
   @Form([
     Field(
       'dashboardId',
@@ -29460,6 +29661,7 @@ class DashboardEntry {
       hint: 'Who uses this dashboard',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -29499,7 +29701,7 @@ class DashboardEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Alert ownership and notes.
   @SectionId('DAENOP')
@@ -29526,7 +29728,7 @@ class DashboardEntry {
     Field('notes', String, 'Notes', hint: 'Additional operational notes'),
   ])
   @SerializationOrder(2)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Dashboard templates specification.
@@ -29538,7 +29740,7 @@ class DashboardEntry {
   'Reusable dashboard templates that standardize layouts across services and infrastructure.',
 )
 @SectionId('DATE')
-class DashboardTemplates {
+class DashboardTemplates extends DocSpecsSection {
   @Form([
     // Service template
     Field(
@@ -29589,6 +29791,7 @@ class DashboardTemplates {
     ),
     Field('notes', String, 'Notes', hint: 'Additional template notes'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 }
@@ -29609,7 +29812,7 @@ class DashboardTemplates {
   'Tracks service level agreements and objectives together with their reporting.',
 )
 @SectionId('SASM')
-class SlaAndSloMonitoring {
+class SlaAndSloMonitoring extends DocSpecsSection {
   @SectionId('SASM-SLAO')
   @Form([
     // SLI/SLO framework
@@ -29666,7 +29869,7 @@ class SlaAndSloMonitoring {
     ),
   ])
   @SerializationOrder(0)
-  String? slaOverview;
+  DocSpecsSection? slaOverview;
 
   /// SLA/SLO overview narrative.
   @SerializationOrder(1)
@@ -29700,7 +29903,7 @@ class SlaAndSloMonitoring {
   'The measurable service level indicators that drive the service level objectives.',
 )
 @SectionId('SELEIN')
-class ServiceLevelIndicators {
+class ServiceLevelIndicators extends DocSpecsSection {
   @Form([
     Field(
       'availabilitySli',
@@ -29715,6 +29918,7 @@ class ServiceLevelIndicators {
       hint: 'What is excluded from availability',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -29745,7 +29949,7 @@ class ServiceLevelIndicators {
     ),
   ])
   @SerializationOrder(1)
-  String? performance;
+  DocSpecsSection? performance;
 
   /// Error, correctness, and freshness indicators.
   @SectionId('SLIQ')
@@ -29783,7 +29987,7 @@ class ServiceLevelIndicators {
     ),
   ])
   @SerializationOrder(2)
-  String? quality;
+  DocSpecsSection? quality;
 
   /// Measurement method and location.
   @SectionId('SLIM')
@@ -29807,7 +30011,7 @@ class ServiceLevelIndicators {
     Field('notes', String, 'Notes', hint: 'Free-form measurement notes'),
   ])
   @SerializationOrder(3)
-  String? measurement;
+  DocSpecsSection? measurement;
 }
 
 /// An SLO entry.
@@ -29815,7 +30019,7 @@ class ServiceLevelIndicators {
   'Google SRE — service level objectives (SLOs and SLIs)',
 ], 'A single service level objective the system commits to meeting.')
 @SectionId('SE')
-class SloEntry {
+class SloEntry extends DocSpecsSection {
   @Form([
     Field(
       'sloId',
@@ -29844,6 +30048,7 @@ class SloEntry {
       hint: 'Service the SLO applies to',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -29873,7 +30078,7 @@ class SloEntry {
     Field('errorBudget', String, 'Error Budget', hint: 'Derived error budget'),
   ])
   @SerializationOrder(1)
-  String? target;
+  DocSpecsSection? target;
 
   /// Alerting and ownership rules.
   @SectionId('SLENOP')
@@ -29901,7 +30106,7 @@ class SloEntry {
     Field('notes', String, 'Notes', hint: 'Free-form operational notes'),
   ])
   @SerializationOrder(2)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Error budget tracking.
@@ -29910,7 +30115,7 @@ class SloEntry {
   'Google SRE — service level objectives (SLOs and SLIs)',
 ], 'Tracks the error budget derived from the service level objectives.')
 @SectionId('ERBUTR')
-class ErrorBudgetTracking {
+class ErrorBudgetTracking extends DocSpecsSection {
   @Form([
     // Budget calculation
     Field(
@@ -29939,6 +30144,7 @@ class ErrorBudgetTracking {
       hint: 'Dashboard showing burn rate',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -29963,7 +30169,7 @@ class ErrorBudgetTracking {
     ),
   ])
   @SerializationOrder(1)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// Recovery policy and attribution rules.
   @SectionId('EBTG')
@@ -29999,7 +30205,7 @@ class ErrorBudgetTracking {
     Field('notes', String, 'Notes', hint: 'Free-form governance notes'),
   ])
   @SerializationOrder(2)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// 8.7.2.1. Health Checks and Diagnostics.
@@ -30049,7 +30255,7 @@ Health checks enable rapid problem detection and automated remediation.
 - Alerting and escalation
 ''')
 @SectionId('HCADS')
-class HealthChecksAndDiagnosticsSection {
+class HealthChecksAndDiagnosticsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of health check and diagnostics strategy.
 
@@ -30067,6 +30273,7 @@ Provide an overview of health check and diagnostics strategy.
 - Correlate logs and traces
 - Document troubleshooting procedures
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -30105,7 +30312,7 @@ Provide an overview of health check and diagnostics strategy.
   'Defines the liveness, readiness, startup, and deep-health endpoints the system exposes so orchestrators can probe its state.',
 )
 @SectionId('HECHEN')
-class HealthCheckEndpoints {
+class HealthCheckEndpoints extends DocSpecsSection {
   @Form([
     Field(
       'livenessEndpoint',
@@ -30135,6 +30342,7 @@ class HealthCheckEndpoints {
     ),
     Field('healthCheckProtocol', String, 'Protocol', hint: 'HTTP, gRPC, TCP'),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -30169,7 +30377,7 @@ class HealthCheckEndpoints {
     ),
   ])
   @SerializationOrder(1)
-  String? configuration;
+  DocSpecsSection? configuration;
 
   /// Timing thresholds.
   @SectionId('HCET')
@@ -30207,7 +30415,7 @@ class HealthCheckEndpoints {
     ),
   ])
   @SerializationOrder(2)
-  String? timing;
+  DocSpecsSection? timing;
 
   /// Response content settings.
   @SectionId('HECHENCO')
@@ -30252,7 +30460,7 @@ class HealthCheckEndpoints {
     Field('notes', String, 'Notes', hint: 'Additional health endpoint notes'),
   ])
   @SerializationOrder(3)
-  String? contentSettings;
+  DocSpecsSection? contentSettings;
 }
 
 /// Application diagnostics.
@@ -30264,7 +30472,7 @@ class HealthCheckEndpoints {
   'Defines the diagnostic endpoints (info, metrics, environment) and runtime introspection the application exposes for troubleshooting.',
 )
 @SectionId('APDI')
-class ApplicationDiagnostics {
+class ApplicationDiagnostics extends DocSpecsSection {
   @Form([
     // Runtime information
     Field(
@@ -30286,6 +30494,7 @@ class ApplicationDiagnostics {
       hint: '/env — configuration (redacted)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -30325,7 +30534,7 @@ class ApplicationDiagnostics {
     ),
   ])
   @SerializationOrder(1)
-  String? performance;
+  DocSpecsSection? performance;
 
   /// Runtime queue and pool inspection.
   @SectionId('APDIRU')
@@ -30357,7 +30566,7 @@ class ApplicationDiagnostics {
     ),
   ])
   @SerializationOrder(2)
-  String? runtime;
+  DocSpecsSection? runtime;
 
   /// Feature and resilience status indicators.
   @SectionId('ADFS')
@@ -30390,7 +30599,7 @@ class ApplicationDiagnostics {
     Field('notes', String, 'Notes', hint: 'Additional diagnostics notes'),
   ])
   @SerializationOrder(3)
-  String? featureStatus;
+  DocSpecsSection? featureStatus;
 }
 
 /// Log aggregation and analysis requirements.
@@ -30402,7 +30611,7 @@ class ApplicationDiagnostics {
   'Defines the log aggregation platform, format, levels, and analysis requirements for centralized logging.',
 )
 @SectionId('LOAGRE')
-class LogAggregationRequirements {
+class LogAggregationRequirements extends DocSpecsSection {
   @Form([
     Field(
       'logPlatform',
@@ -30430,6 +30639,7 @@ class LogAggregationRequirements {
       hint: 'Production default level (e.g. INFO)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -30475,7 +30685,7 @@ class LogAggregationRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? collection;
+  DocSpecsSection? collection;
 
   /// Retention and archival settings.
   @SectionId('LARR')
@@ -30507,7 +30717,7 @@ class LogAggregationRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? retention;
+  DocSpecsSection? retention;
 
   /// Search and analysis capabilities.
   @SectionId('LARA')
@@ -30552,7 +30762,7 @@ class LogAggregationRequirements {
     Field('notes', String, 'Notes', hint: 'Additional log aggregation notes'),
   ])
   @SerializationOrder(3)
-  String? analysis;
+  DocSpecsSection? analysis;
 }
 
 /// Troubleshooting capabilities.
@@ -30564,7 +30774,7 @@ class LogAggregationRequirements {
   'Defines the debugging, diagnostic-dump, and request-replay capabilities used to troubleshoot the running system.',
 )
 @SectionId('TRCA')
-class TroubleshootingCapabilities {
+class TroubleshootingCapabilities extends DocSpecsSection {
   @Form([
     Field(
       'debugMode',
@@ -30585,6 +30795,7 @@ class TroubleshootingCapabilities {
       hint: 'Replay failed requests for analysis',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -30618,7 +30829,7 @@ class TroubleshootingCapabilities {
     ),
   ])
   @SerializationOrder(1)
-  String? runbooks;
+  DocSpecsSection? runbooks;
 
   /// Break-glass and diagnostic access controls.
   @SectionId('TRCAAC')
@@ -30650,7 +30861,7 @@ class TroubleshootingCapabilities {
     ),
   ])
   @SerializationOrder(2)
-  String? access;
+  DocSpecsSection? access;
 
   /// Incident communication and retrospective support.
   @SectionId('TRCACO')
@@ -30683,7 +30894,7 @@ class TroubleshootingCapabilities {
     Field('notes', String, 'Notes', hint: 'Additional troubleshooting notes'),
   ])
   @SerializationOrder(3)
-  String? communication;
+  DocSpecsSection? communication;
 }
 
 /// Dependency health monitoring.
@@ -30696,7 +30907,7 @@ class TroubleshootingCapabilities {
   'Specifies how the system verifies the health of its downstream dependencies such as databases, caches, queues, and external services.',
 )
 @SectionId('DEHEMO')
-class DependencyHealthMonitoring {
+class DependencyHealthMonitoring extends DocSpecsSection {
   @Form([
     // Database
     Field(
@@ -30718,6 +30929,7 @@ class DependencyHealthMonitoring {
       hint: 'Monitor pool exhaustion',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -30745,7 +30957,7 @@ class DependencyHealthMonitoring {
     ),
   ])
   @SerializationOrder(1)
-  String? cache;
+  DocSpecsSection? cache;
 
   /// Queue and dead-letter monitoring.
   @SectionId('DHMQ')
@@ -30771,7 +30983,7 @@ class DependencyHealthMonitoring {
     ),
   ])
   @SerializationOrder(2)
-  String? queue;
+  DocSpecsSection? queue;
 
   /// External service and certificate checks.
   @SectionId('DHME')
@@ -30803,7 +31015,7 @@ class DependencyHealthMonitoring {
     ),
   ])
   @SerializationOrder(3)
-  String? external;
+  DocSpecsSection? external;
 
   /// Thresholds and cascade protection settings.
   @SectionId('DHMT')
@@ -30836,7 +31048,7 @@ class DependencyHealthMonitoring {
     Field('notes', String, 'Notes', hint: 'Additional dependency health notes'),
   ])
   @SerializationOrder(4)
-  String? thresholds;
+  DocSpecsSection? thresholds;
 }
 
 /// 8.7.3. Capacity Planning.
@@ -30889,7 +31101,7 @@ prevents performance degradation and outages.
 - Stakeholder reporting
 ''')
 @SectionId('CPS')
-class CapacityPlanningSection {
+class CapacityPlanningSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of capacity planning approach.
 
@@ -30907,6 +31119,7 @@ Provide an overview of capacity planning approach.
 - Regular capacity reviews
 - Budget for growth in advance
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -30948,7 +31161,7 @@ Provide an overview of capacity planning approach.
   'Establishes current user counts and growth projections that drive downstream capacity forecasts.',
 )
 @SectionId('USGRPR')
-class UserGrowthProjections {
+class UserGrowthProjections extends DocSpecsSection {
   @Form([
     // Current state
     Field(
@@ -30971,6 +31184,7 @@ class UserGrowthProjections {
       hint: 'Peak concurrent user count',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -31017,7 +31231,7 @@ class UserGrowthProjections {
     ),
   ])
   @SerializationOrder(1)
-  String? forecast;
+  DocSpecsSection? forecast;
 
   /// User segmentation and geographic patterns.
   @SectionId('UGPS')
@@ -31049,7 +31263,7 @@ class UserGrowthProjections {
     ),
   ])
   @SerializationOrder(2)
-  String? segmentation;
+  DocSpecsSection? segmentation;
 
   /// Capacity thresholds and planning notes.
   @SectionId('UGPT')
@@ -31076,7 +31290,7 @@ class UserGrowthProjections {
     Field('notes', String, 'Notes', hint: 'Additional user growth notes'),
   ])
   @SerializationOrder(3)
-  String? thresholds;
+  DocSpecsSection? thresholds;
 }
 
 /// Data growth projections.
@@ -31088,7 +31302,7 @@ class UserGrowthProjections {
   'Projects data, database, and file-storage growth to drive storage capacity planning.',
 )
 @SectionId('DAGRPR')
-class DataGrowthProjections {
+class DataGrowthProjections extends DocSpecsSection {
   @Form([
     Field(
       'currentDataVolume',
@@ -31110,6 +31324,7 @@ class DataGrowthProjections {
       hint: 'File/blob storage usage',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -31144,7 +31359,7 @@ class DataGrowthProjections {
     ),
   ])
   @SerializationOrder(1)
-  String? growth;
+  DocSpecsSection? growth;
 
   /// Volume projections.
   @SectionId('DGPP')
@@ -31176,7 +31391,7 @@ class DataGrowthProjections {
     ),
   ])
   @SerializationOrder(2)
-  String? projections;
+  DocSpecsSection? projections;
 
   /// Data lifecycle strategy.
   @SectionId('DGPL')
@@ -31214,7 +31429,7 @@ class DataGrowthProjections {
     ),
   ])
   @SerializationOrder(3)
-  String? lifecycle;
+  DocSpecsSection? lifecycle;
 
   /// Thresholds and notes.
   @SectionId('DGPT')
@@ -31241,7 +31456,7 @@ class DataGrowthProjections {
     Field('notes', String, 'Notes', hint: 'Additional data growth notes'),
   ])
   @SerializationOrder(4)
-  String? thresholds;
+  DocSpecsSection? thresholds;
 }
 
 /// Peak load patterns.
@@ -31253,7 +31468,7 @@ class DataGrowthProjections {
   'Describes daily, weekly, monthly, and yearly peak-load patterns that drive capacity provisioning.',
 )
 @SectionId('PELOPA')
-class PeakLoadPatterns {
+class PeakLoadPatterns extends DocSpecsSection {
   @Form([
     Field(
       'dailyPeakHours',
@@ -31281,6 +31496,7 @@ class PeakLoadPatterns {
       hint: 'Black Friday, tax season, renewals',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -31320,7 +31536,7 @@ class PeakLoadPatterns {
     ),
   ])
   @SerializationOrder(1)
-  String? metrics;
+  DocSpecsSection? metrics;
 
   /// Load multipliers.
   @SectionId('PLPC')
@@ -31352,7 +31568,7 @@ class PeakLoadPatterns {
     ),
   ])
   @SerializationOrder(2)
-  String? capacity;
+  DocSpecsSection? capacity;
 
   /// Testing regime.
   @SectionId('PLPT')
@@ -31385,7 +31601,7 @@ class PeakLoadPatterns {
     Field('notes', String, 'Notes', hint: 'Additional peak load notes'),
   ])
   @SerializationOrder(3)
-  String? testing;
+  DocSpecsSection? testing;
 }
 
 /// Scaling triggers and thresholds.
@@ -31397,7 +31613,7 @@ class PeakLoadPatterns {
   'Defines the CPU thresholds and aggregate signals that trigger horizontal or vertical scaling of the system.',
 )
 @SectionId('STAT')
-class ScalingTriggersAndThresholds {
+class ScalingTriggersAndThresholds extends DocSpecsSection {
   @Form([
     Field(
       'cpuScaleUpThreshold',
@@ -31413,6 +31629,7 @@ class ScalingTriggersAndThresholds {
       hint: 'CPU % triggering scale-down (e.g. 30%)',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -31440,7 +31657,7 @@ class ScalingTriggersAndThresholds {
     ),
   ])
   @SerializationOrder(1)
-  String? memory;
+  DocSpecsSection? memory;
 
   /// Request-based thresholds.
   @SectionId('STATR')
@@ -31472,7 +31689,7 @@ class ScalingTriggersAndThresholds {
     ),
   ])
   @SerializationOrder(2)
-  String? request;
+  DocSpecsSection? request;
 
   /// Scaling behavior.
   @SectionId('STATB')
@@ -31510,7 +31727,7 @@ class ScalingTriggersAndThresholds {
     ),
   ])
   @SerializationOrder(3)
-  String? behavior;
+  DocSpecsSection? behavior;
 
   /// Scaling types and providers.
   @SectionId('STATT')
@@ -31549,7 +31766,7 @@ class ScalingTriggersAndThresholds {
     Field('notes', String, 'Notes', hint: 'Additional scaling trigger notes'),
   ])
   @SerializationOrder(4)
-  String? type;
+  DocSpecsSection? type;
 }
 
 /// Resource capacity baselines.
@@ -31561,7 +31778,7 @@ class ScalingTriggersAndThresholds {
   'Establishes normal CPU, memory, and instance-count baselines against which growth and scaling are measured.',
 )
 @SectionId('RECABA')
-class ResourceCapacityBaselines {
+class ResourceCapacityBaselines extends DocSpecsSection {
   @Form([
     // Compute
     Field(
@@ -31584,6 +31801,7 @@ class ResourceCapacityBaselines {
       hint: 'Normal number of running instances',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -31611,7 +31829,7 @@ class ResourceCapacityBaselines {
     ),
   ])
   @SerializationOrder(1)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Network baselines.
   @SectionId('RCBN')
@@ -31637,7 +31855,7 @@ class ResourceCapacityBaselines {
     ),
   ])
   @SerializationOrder(2)
-  String? network;
+  DocSpecsSection? network;
 
   /// Database baselines.
   @SectionId('RCBD')
@@ -31669,7 +31887,7 @@ class ResourceCapacityBaselines {
     ),
   ])
   @SerializationOrder(3)
-  String? database;
+  DocSpecsSection? database;
 
   /// Cost baselines and notes.
   @SectionId('RCBC')
@@ -31702,7 +31920,7 @@ class ResourceCapacityBaselines {
     Field('notes', String, 'Notes', hint: 'Additional resource baseline notes'),
   ])
   @SerializationOrder(4)
-  String? cost;
+  DocSpecsSection? cost;
 }
 
 /// Capacity review process.
@@ -31714,7 +31932,7 @@ class ResourceCapacityBaselines {
   'Defines the recurring review cadence, participants, and checklist that govern ongoing capacity management.',
 )
 @SectionId('CAREPR')
-class CapacityReviewProcess {
+class CapacityReviewProcess extends DocSpecsSection {
   @Form([
     Field(
       'reviewFrequency',
@@ -31736,6 +31954,7 @@ class CapacityReviewProcess {
       hint: 'Standard items reviewed each cycle',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -31769,7 +31988,7 @@ class CapacityReviewProcess {
     ),
   ])
   @SerializationOrder(1)
-  String? monitoring;
+  DocSpecsSection? monitoring;
 
   /// Escalation and emergency scaling decisions.
   @SectionId('CRPE')
@@ -31801,7 +32020,7 @@ class CapacityReviewProcess {
     ),
   ])
   @SerializationOrder(2)
-  String? escalation;
+  DocSpecsSection? escalation;
 
   /// Budgeting and rightsizing planning.
   @SectionId('CRPP')
@@ -31834,7 +32053,7 @@ class CapacityReviewProcess {
     Field('notes', String, 'Notes', hint: 'Additional capacity review notes'),
   ])
   @SerializationOrder(3)
-  String? planning;
+  DocSpecsSection? planning;
 }
 
 /// 8.8. Security Requirements.
@@ -31883,7 +32102,7 @@ requirements and standards*. The identity and access-control **model**
 CIS Controls, OWASP ASVS, SOC 2 Trust Criteria.
 ''')
 @SectionId('TSR')
-class TechnicalSecurityRequirements {
+class TechnicalSecurityRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of security approach and governance.
 
@@ -31901,6 +32120,7 @@ Provide an overview of security approach and governance.
 - Threat modeling for new features
 - Continuous security improvement
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -31969,7 +32189,7 @@ Following established standards reduces security risk systematically.
 - Postmortem process
 ''')
 @SectionId('ISSS')
-class ItSecurityStandardsSection {
+class ItSecurityStandardsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of IT security standards approach.
 
@@ -31987,6 +32207,7 @@ Provide an overview of IT security standards approach.
 - Track security metrics and trends
 - Continuous security improvement
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -32038,7 +32259,7 @@ Provide an overview of IT security standards approach.
   'A single security standard or framework the system conforms to, with its name, version, and issuing body.',
 )
 @SectionId('SSE')
-class SecurityStandardEntry {
+class SecurityStandardEntry extends DocSpecsSection {
   @Form([
     Field(
       'standardName',
@@ -32066,6 +32287,7 @@ class SecurityStandardEntry {
       hint: 'Organization that publishes the standard',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -32099,7 +32321,7 @@ class SecurityStandardEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scope;
+  DocSpecsSection? scope;
 
   /// Implementation status and planning.
   @SectionId('SSEI')
@@ -32137,7 +32359,7 @@ class SecurityStandardEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? implementation;
+  DocSpecsSection? implementation;
 
   /// Verification and ownership.
   @SectionId('SSEV')
@@ -32176,7 +32398,7 @@ class SecurityStandardEntry {
     Field('notes', String, 'Notes', hint: 'Additional security standard notes'),
   ])
   @SerializationOrder(3)
-  String? verification;
+  DocSpecsSection? verification;
 }
 
 /// Application security requirements (OWASP-based).
@@ -32185,7 +32407,7 @@ class SecurityStandardEntry {
   'OWASP ASVS — application security verification standard',
 ], 'The application-level security requirements derived from OWASP standards.')
 @SectionId('APSERE')
-class ApplicationSecurityRequirements {
+class ApplicationSecurityRequirements extends DocSpecsSection {
   @Form([
     Field(
       'owaspTop10Compliance',
@@ -32207,6 +32429,7 @@ class ApplicationSecurityRequirements {
       hint: 'Broken authentication prevention',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -32252,7 +32475,7 @@ class ApplicationSecurityRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? controls;
+  DocSpecsSection? controls;
 
   /// Input and output validation.
   @SectionId('ASRV')
@@ -32284,7 +32507,7 @@ class ApplicationSecurityRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? validation;
+  DocSpecsSection? validation;
 
   /// API and browser-facing protections.
   @SectionId('ASRA')
@@ -32322,7 +32545,7 @@ class ApplicationSecurityRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? api;
+  DocSpecsSection? api;
 }
 
 /// Infrastructure security hardening.
@@ -32334,7 +32557,7 @@ class ApplicationSecurityRequirements {
   'The baseline hardening of operating systems, networks, and access for the infrastructure.',
 )
 @SectionId('INSEHA')
-class InfrastructureSecurityHardening {
+class InfrastructureSecurityHardening extends DocSpecsSection {
   @Form([
     Field(
       'osHardeningBaseline',
@@ -32362,6 +32585,7 @@ class InfrastructureSecurityHardening {
       hint: 'Default deny, explicit allow rules',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -32401,7 +32625,7 @@ class InfrastructureSecurityHardening {
     ),
   ])
   @SerializationOrder(1)
-  String? container;
+  DocSpecsSection? container;
 
   /// Network hardening.
   @SectionId('ISHN')
@@ -32433,7 +32657,7 @@ class InfrastructureSecurityHardening {
     ),
   ])
   @SerializationOrder(2)
-  String? network;
+  DocSpecsSection? network;
 
   /// Access hardening.
   @SectionId('ISHA')
@@ -32471,7 +32695,7 @@ class InfrastructureSecurityHardening {
     ),
   ])
   @SerializationOrder(3)
-  String? access;
+  DocSpecsSection? access;
 }
 
 /// Security development lifecycle.
@@ -32483,7 +32707,7 @@ class InfrastructureSecurityHardening {
   'The integration of threat modeling and security controls across the software development lifecycle.',
 )
 @SectionId('SEDELI')
-class SecurityDevelopmentLifecycle {
+class SecurityDevelopmentLifecycle extends DocSpecsSection {
   @Form([
     Field(
       'threatModeling',
@@ -32511,6 +32735,7 @@ class SecurityDevelopmentLifecycle {
       hint: 'How security requirements are gathered',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -32556,7 +32781,7 @@ class SecurityDevelopmentLifecycle {
     ),
   ])
   @SerializationOrder(1)
-  String? development;
+  DocSpecsSection? development;
 
   /// Testing-phase controls.
   @SectionId('SDLT')
@@ -32594,7 +32819,7 @@ class SecurityDevelopmentLifecycle {
     ),
   ])
   @SerializationOrder(2)
-  String? testing;
+  DocSpecsSection? testing;
 
   /// Release-phase controls.
   @SectionId('SDLR')
@@ -32626,7 +32851,7 @@ class SecurityDevelopmentLifecycle {
     ),
   ])
   @SerializationOrder(3)
-  String? release;
+  DocSpecsSection? release;
 }
 
 /// Vulnerability management policy.
@@ -32638,7 +32863,7 @@ class SecurityDevelopmentLifecycle {
   'The program for scanning, classifying, and remediating security vulnerabilities across systems.',
 )
 @SectionId('VUMAPO')
-class VulnerabilityManagementPolicy {
+class VulnerabilityManagementPolicy extends DocSpecsSection {
   @Form([
     Field(
       'vulnerabilityScanningTool',
@@ -32660,6 +32885,7 @@ class VulnerabilityManagementPolicy {
       hint: 'Infrastructure, applications, containers, dependencies',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -32705,7 +32931,7 @@ class VulnerabilityManagementPolicy {
     ),
   ])
   @SerializationOrder(1)
-  String? classification;
+  DocSpecsSection? classification;
 
   /// Remediation process.
   @SectionId('VMPP')
@@ -32743,7 +32969,7 @@ class VulnerabilityManagementPolicy {
     ),
   ])
   @SerializationOrder(2)
-  String? process;
+  DocSpecsSection? process;
 
   /// Reporting and disclosure.
   @SectionId('VMPR')
@@ -32775,7 +33001,7 @@ class VulnerabilityManagementPolicy {
     ),
   ])
   @SerializationOrder(3)
-  String? reporting;
+  DocSpecsSection? reporting;
 }
 
 /// Incident response plan.
@@ -32787,7 +33013,7 @@ class VulnerabilityManagementPolicy {
   'The overall plan for detecting, responding to, and recovering from security incidents.',
 )
 @SectionId('INREPL')
-class IncidentResponsePlan {
+class IncidentResponsePlan extends DocSpecsSection {
   @Form([
     Field(
       'incidentSeverityLevels',
@@ -32809,6 +33035,7 @@ class IncidentResponsePlan {
       hint: 'SIEM, IDS/IPS, anomaly detection, user reports',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -32848,7 +33075,7 @@ class IncidentResponsePlan {
     ),
   ])
   @SerializationOrder(1)
-  String? process;
+  DocSpecsSection? process;
 
   /// Communication requirements.
   @SectionId('IRPC')
@@ -32886,7 +33113,7 @@ class IncidentResponsePlan {
     ),
   ])
   @SerializationOrder(2)
-  String? communication;
+  DocSpecsSection? communication;
 
   /// Post-incident activities.
   @SectionId('IRPPI')
@@ -32919,7 +33146,7 @@ class IncidentResponsePlan {
     Field('notes', String, 'Notes', hint: 'Additional incident response notes'),
   ])
   @SerializationOrder(3)
-  String? postIncident;
+  DocSpecsSection? postIncident;
 }
 
 // ---------------------------------------------------------------------------
@@ -32980,7 +33207,7 @@ Privacy compliance is mandatory in most jurisdictions.
 - Privacy-preserving technologies
 ''')
 @SectionId('DPAPS')
-class DataProtectionAndPrivacySection {
+class DataProtectionAndPrivacySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of data protection and privacy strategy.
 
@@ -32998,6 +33225,7 @@ Provide an overview of data protection and privacy strategy.
 - Regular privacy impact assessments
 - Privacy training for all staff
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -33049,7 +33277,7 @@ Provide an overview of data protection and privacy strategy.
   'Applicable privacy regulations and the jurisdictions and authorities that govern processing.',
 )
 @SectionId('PRRECO')
-class PrivacyRegulationCompliance {
+class PrivacyRegulationCompliance extends DocSpecsSection {
   @Form([
     Field(
       'applicableRegulations',
@@ -33078,6 +33306,7 @@ class PrivacyRegulationCompliance {
       hint: 'Lead data protection authority for GDPR purposes',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -33119,7 +33348,7 @@ class PrivacyRegulationCompliance {
     ),
   ])
   @SerializationOrder(1)
-  String? gdpr;
+  DocSpecsSection? gdpr;
 
   /// Data Protection Officer details.
   @SectionId('PRCD')
@@ -33151,7 +33380,7 @@ class PrivacyRegulationCompliance {
     ),
   ])
   @SerializationOrder(2)
-  String? dpo;
+  DocSpecsSection? dpo;
 
   /// Records and documentation.
   @SectionId('PRCR')
@@ -33184,7 +33413,7 @@ class PrivacyRegulationCompliance {
     ),
   ])
   @SerializationOrder(3)
-  String? records;
+  DocSpecsSection? records;
 
   /// Cross-border transfer controls.
   @SectionId('PRCT')
@@ -33217,7 +33446,7 @@ class PrivacyRegulationCompliance {
     ),
   ])
   @SerializationOrder(4)
-  String? transfers;
+  DocSpecsSection? transfers;
 }
 
 /// Data residency and sovereignty requirements.
@@ -33229,7 +33458,7 @@ class PrivacyRegulationCompliance {
   'Geographic residency of data storage and processing across allowed and prohibited regions.',
 )
 @SectionId('DARERE')
-class DataResidencyRequirements {
+class DataResidencyRequirements extends DocSpecsSection {
   @Form([
     // Storage location
     Field(
@@ -33252,6 +33481,7 @@ class DataResidencyRequirements {
       hint: 'Regions where data must never be stored or processed',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -33292,7 +33522,7 @@ class DataResidencyRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? sovereignty;
+  DocSpecsSection? sovereignty;
 
   /// Backup, replication, and CDN placement rules.
   @SectionId('DARERERE')
@@ -33324,7 +33554,7 @@ class DataResidencyRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? replication;
+  DocSpecsSection? replication;
 
   /// Verification and transparency requirements.
   @SectionId('DRRV')
@@ -33357,7 +33587,7 @@ class DataResidencyRequirements {
     Field('notes', String, 'Notes', hint: 'Additional data residency notes'),
   ])
   @SerializationOrder(3)
-  String? verification;
+  DocSpecsSection? verification;
 }
 
 /// Consent collection, tracking and management requirements.
@@ -33370,7 +33600,7 @@ class DataResidencyRequirements {
   'End-to-end consent lifecycle covering collection, storage, withdrawal, and granularity.',
 )
 @SectionId('COMARE')
-class ConsentManagementRequirements {
+class ConsentManagementRequirements extends DocSpecsSection {
   @Form([
     Field(
       'consentCollectionMethod',
@@ -33402,6 +33632,7 @@ class ConsentManagementRequirements {
       hint: 'How users can withdraw consent — must be as easy as giving it',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -33437,7 +33668,7 @@ class ConsentManagementRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? collection;
+  DocSpecsSection? collection;
 
   /// Consent record storage rules.
   @SectionId('COMAREST')
@@ -33460,7 +33691,7 @@ class ConsentManagementRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? storage;
+  DocSpecsSection? storage;
 
   /// Preference management workflow.
   @SectionId('CMRM')
@@ -33493,7 +33724,7 @@ class ConsentManagementRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? management;
+  DocSpecsSection? management;
 
   /// Cookie and tracking rules.
   @SectionId('CMRT')
@@ -33523,7 +33754,7 @@ class ConsentManagementRequirements {
     ),
   ])
   @SerializationOrder(4)
-  String? tracking;
+  DocSpecsSection? tracking;
 
   /// Compliance evidence and reporting.
   @SectionId('COMARECO')
@@ -33555,7 +33786,7 @@ class ConsentManagementRequirements {
     ),
   ])
   @SerializationOrder(5)
-  String? compliance;
+  DocSpecsSection? compliance;
 }
 
 /// Data subject rights management.
@@ -33571,7 +33802,7 @@ class ConsentManagementRequirements {
   'Handling of data subject requests for access, erasure, portability, and objection.',
 )
 @SectionId('DSRM')
-class DataSubjectRightsManagement {
+class DataSubjectRightsManagement extends DocSpecsSection {
   @Form([
     Field(
       'rightOfAccessProcess',
@@ -33595,6 +33826,7 @@ class DataSubjectRightsManagement {
       hint: 'How requester identity is verified before disclosure',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -33628,7 +33860,7 @@ class DataSubjectRightsManagement {
     ),
   ])
   @SerializationOrder(1)
-  String? access;
+  DocSpecsSection? access;
 
   /// Erasure handling.
   @SectionId('DSRME')
@@ -33667,7 +33899,7 @@ class DataSubjectRightsManagement {
     ),
   ])
   @SerializationOrder(2)
-  String? erasure;
+  DocSpecsSection? erasure;
 
   /// Portability handling.
   @SectionId('DSRMP')
@@ -33700,7 +33932,7 @@ class DataSubjectRightsManagement {
     ),
   ])
   @SerializationOrder(3)
-  String? portability;
+  DocSpecsSection? portability;
 
   /// Restriction and objection handling.
   @SectionId('DSRMR')
@@ -33727,7 +33959,7 @@ class DataSubjectRightsManagement {
     ),
   ])
   @SerializationOrder(4)
-  String? restriction;
+  DocSpecsSection? restriction;
 
   /// Automated decision safeguards.
   @SectionId('DASURIMAAU')
@@ -33754,7 +33986,7 @@ class DataSubjectRightsManagement {
     ),
   ])
   @SerializationOrder(5)
-  String? automation;
+  DocSpecsSection? automation;
 
   /// Operational workflow and tracking.
   @SectionId('DSRMO')
@@ -33783,7 +34015,7 @@ class DataSubjectRightsManagement {
     ),
   ])
   @SerializationOrder(6)
-  String? operations;
+  DocSpecsSection? operations;
 }
 
 /// Privacy impact assessment and DPIA process.
@@ -33796,7 +34028,7 @@ class DataSubjectRightsManagement {
   'Defines DPIA thresholds, screening, and methodology for high-risk processing.',
 )
 @SectionId('PIAP')
-class PrivacyImpactAssessmentProcess {
+class PrivacyImpactAssessmentProcess extends DocSpecsSection {
   @Form([
     Field(
       'dpiaThreshold',
@@ -33827,6 +34059,7 @@ class PrivacyImpactAssessmentProcess {
       hint: 'Framework used: ICO template, CNIL PIA tool, NIST privacy',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -33862,7 +34095,7 @@ class PrivacyImpactAssessmentProcess {
     ),
   ])
   @SerializationOrder(1)
-  String? assessment;
+  DocSpecsSection? assessment;
 
   /// Mitigation measures.
   @SectionId('PIAPM')
@@ -33918,7 +34151,7 @@ class PrivacyImpactAssessmentProcess {
     ),
   ])
   @SerializationOrder(2)
-  String? mitigation;
+  DocSpecsSection? mitigation;
 
   /// Review and approval workflow.
   @SectionId('PIAPR')
@@ -33957,7 +34190,7 @@ class PrivacyImpactAssessmentProcess {
     ),
   ])
   @SerializationOrder(3)
-  String? review;
+  DocSpecsSection? review;
 }
 
 /// Data processing agreement requirements.
@@ -33970,7 +34203,7 @@ class PrivacyImpactAssessmentProcess {
   'Defines processor obligations, purpose limitation, and audit rights for data processing agreements.',
 )
 @SectionId('DPAR')
-class DataProcessingAgreementRequirements {
+class DataProcessingAgreementRequirements extends DocSpecsSection {
   @Form([
     Field(
       'dpaTemplate',
@@ -34002,6 +34235,7 @@ class DataProcessingAgreementRequirements {
       hint: 'Controller right to audit processor premises and practices',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -34029,7 +34263,7 @@ class DataProcessingAgreementRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? management;
+  DocSpecsSection? management;
 
   /// Data-handling details.
   @SectionId('DPARH')
@@ -34061,7 +34295,7 @@ class DataProcessingAgreementRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? handling;
+  DocSpecsSection? handling;
 
   /// Security and audit details.
   @SectionId('DPARS')
@@ -34094,7 +34328,7 @@ class DataProcessingAgreementRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? security;
+  DocSpecsSection? security;
 
   /// International-transfer details.
   @SectionId('DPART')
@@ -34132,7 +34366,7 @@ class DataProcessingAgreementRequirements {
     ),
   ])
   @SerializationOrder(4)
-  String? transfers;
+  DocSpecsSection? transfers;
 }
 
 /// Data protection classification and handling rules.
@@ -34148,7 +34382,7 @@ class DataProcessingAgreementRequirements {
   'Defines classification levels and personal data categories with their handling rules.',
 )
 @SectionId('DAPRCL')
-class DataProtectionClassification {
+class DataProtectionClassification extends DocSpecsSection {
   @Form([
     Field(
       'classificationLevels',
@@ -34178,6 +34412,7 @@ class DataProtectionClassification {
       hint: 'Who is responsible for classifying data',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -34219,7 +34454,7 @@ class DataProtectionClassification {
     ),
   ])
   @SerializationOrder(1)
-  String? handling;
+  DocSpecsSection? handling;
 
   /// Retention and disposal rules.
   @SectionId('DPCR')
@@ -34252,7 +34487,7 @@ class DataProtectionClassification {
     ),
   ])
   @SerializationOrder(2)
-  String? retention;
+  DocSpecsSection? retention;
 
   /// Masking and de-identification rules.
   @SectionId('DPCM')
@@ -34284,7 +34519,7 @@ class DataProtectionClassification {
     ),
   ])
   @SerializationOrder(3)
-  String? masking;
+  DocSpecsSection? masking;
 
   /// Incident handling.
   @SectionId('DPCI')
@@ -34316,7 +34551,7 @@ class DataProtectionClassification {
     ),
   ])
   @SerializationOrder(4)
-  String? incident;
+  DocSpecsSection? incident;
 }
 
 // ---------------------------------------------------------------------------
@@ -34382,7 +34617,7 @@ validates security controls and identifies weaknesses.
 - Compliance as code
 ''')
 @SectionId('SARS')
-class SecurityAuditRequirementsSection {
+class SecurityAuditRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of security audit strategy.
 
@@ -34400,6 +34635,7 @@ Provide an overview of security audit strategy.
 - Regular security review meetings
 - Continuous improvement from findings
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -34457,7 +34693,7 @@ Provide an overview of security audit strategy.
   'Penetration testing requirements covering scope, methodology, and scheduling.',
 )
 @SectionId('PETERE')
-class PenetrationTestingRequirements {
+class PenetrationTestingRequirements extends DocSpecsSection {
   @Form([
     Field(
       'pentestScope',
@@ -34487,6 +34723,7 @@ class PenetrationTestingRequirements {
       hint: 'Internal red team, external firm, or both',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -34522,7 +34759,7 @@ class PenetrationTestingRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? scheduling;
+  DocSpecsSection? scheduling;
 
   /// Execution rules.
   @SectionId('PTRE')
@@ -34560,7 +34797,7 @@ class PenetrationTestingRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Reporting and remediation.
   @SectionId('PTRR')
@@ -34605,7 +34842,7 @@ class PenetrationTestingRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? reporting;
+  DocSpecsSection? reporting;
 }
 
 /// Security-focused code review policy.
@@ -34622,7 +34859,7 @@ class PenetrationTestingRequirements {
   'Security-focused code review policy covering triggers, scope, and methodology.',
 )
 @SectionId('SCRP')
-class SecurityCodeReviewPolicy {
+class SecurityCodeReviewPolicy extends DocSpecsSection {
   @Form([
     Field(
       'securityReviewTriggers',
@@ -34646,6 +34883,7 @@ class SecurityCodeReviewPolicy {
       hint: 'OWASP Code Review Guide, CWE/SANS Top 25, manual + automated',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -34681,7 +34919,7 @@ class SecurityCodeReviewPolicy {
     ),
   ])
   @SerializationOrder(1)
-  String? reviewers;
+  DocSpecsSection? reviewers;
 
   /// Review process guidance.
   @SectionId('SCRPP')
@@ -34714,7 +34952,7 @@ class SecurityCodeReviewPolicy {
     ),
   ])
   @SerializationOrder(2)
-  String? process;
+  DocSpecsSection? process;
 
   /// Finding management and residual risk handling.
   @SectionId('SCRPF')
@@ -34752,7 +34990,7 @@ class SecurityCodeReviewPolicy {
     ),
   ])
   @SerializationOrder(3)
-  String? findings;
+  DocSpecsSection? findings;
 }
 
 /// Dependency and supply-chain scanning requirements.
@@ -34765,7 +35003,7 @@ class SecurityCodeReviewPolicy {
   'Dependency and supply-chain scanning requirements including SCA tooling and severity thresholds.',
 )
 @SectionId('DESCRE')
-class DependencyScanningRequirements {
+class DependencyScanningRequirements extends DocSpecsSection {
   @Form([
     Field(
       'scaScanningTool',
@@ -34797,6 +35035,7 @@ class DependencyScanningRequirements {
       hint: 'Build-blocking severity: Critical blocks, High warns, etc.',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -34830,7 +35069,7 @@ class DependencyScanningRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? vulnerabilities;
+  DocSpecsSection? vulnerabilities;
 
   /// SBOM requirements.
   @SectionId('DSRS')
@@ -34862,7 +35101,7 @@ class DependencyScanningRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? sbom;
+  DocSpecsSection? sbom;
 
   /// License-compliance rules.
   @SectionId('DSRL')
@@ -34886,7 +35125,7 @@ class DependencyScanningRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? licensing;
+  DocSpecsSection? licensing;
 
   /// Supply-chain security rules.
   @SectionId('DSRSC')
@@ -34924,7 +35163,7 @@ class DependencyScanningRequirements {
     ),
   ])
   @SerializationOrder(4)
-  String? supplyChain;
+  DocSpecsSection? supplyChain;
 }
 
 /// Security certification and compliance requirements.
@@ -34937,7 +35176,7 @@ class DependencyScanningRequirements {
   'Target security certifications and the compliance framework the system must satisfy.',
 )
 @SectionId('SECERE')
-class SecurityCertificationRequirements {
+class SecurityCertificationRequirements extends DocSpecsSection {
   @Form([
     Field(
       'targetCertifications',
@@ -34959,6 +35198,7 @@ class SecurityCertificationRequirements {
       hint: 'Which systems, processes, and data are in scope',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -34992,7 +35232,7 @@ class SecurityCertificationRequirements {
     ),
   ])
   @SerializationOrder(1)
-  String? iso27001;
+  DocSpecsSection? iso27001;
 
   /// SOC 2 requirements.
   @SectionId('SCRS')
@@ -35025,7 +35265,7 @@ class SecurityCertificationRequirements {
     ),
   ])
   @SerializationOrder(2)
-  String? soc2;
+  DocSpecsSection? soc2;
 
   /// Industry-specific requirements.
   @SectionId('SECEREIN')
@@ -35057,7 +35297,7 @@ class SecurityCertificationRequirements {
     ),
   ])
   @SerializationOrder(3)
-  String? industry;
+  DocSpecsSection? industry;
 
   /// Maintenance and budget.
   @SectionId('SCRM')
@@ -35095,7 +35335,7 @@ class SecurityCertificationRequirements {
     ),
   ])
   @SerializationOrder(4)
-  String? maintenance;
+  DocSpecsSection? maintenance;
 }
 
 /// Compliance audit planning and scheduling.
@@ -35108,7 +35348,7 @@ class SecurityCertificationRequirements {
   'Compliance audit planning and scheduling across internal and external audits.',
 )
 @SectionId('COAUSC')
-class ComplianceAuditSchedule {
+class ComplianceAuditSchedule extends DocSpecsSection {
   @Form([
     // Audit types
     Field(
@@ -35132,6 +35372,7 @@ class ComplianceAuditSchedule {
       hint: 'Technical audit, process audit, compliance audit, forensic audit',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -35163,7 +35404,7 @@ class ComplianceAuditSchedule {
     ),
   ])
   @SerializationOrder(1)
-  String? planning;
+  DocSpecsSection? planning;
 
   /// Audit execution and evidence collection.
   @SectionId('CASE')
@@ -35195,7 +35436,7 @@ class ComplianceAuditSchedule {
     ),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Reporting and remediation follow-up.
   @SectionId('CASR')
@@ -35239,7 +35480,7 @@ class ComplianceAuditSchedule {
     ),
   ])
   @SerializationOrder(3)
-  String? reporting;
+  DocSpecsSection? reporting;
 }
 
 /// Automated security testing integration.
@@ -35255,7 +35496,7 @@ class ComplianceAuditSchedule {
   'Automated security testing integration covering SAST, DAST, IAST, and fuzzing in the pipeline.',
 )
 @SectionId('SETEAU')
-class SecurityTestingAutomation {
+class SecurityTestingAutomation extends DocSpecsSection {
   @Form([
     Field(
       'sastTool',
@@ -35286,6 +35527,7 @@ class SecurityTestingAutomation {
           'Build-blocking criteria: no critical/high SAST findings, clean container scan',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -35320,7 +35562,7 @@ class SecurityTestingAutomation {
     ),
   ])
   @SerializationOrder(1)
-  String? dast;
+  DocSpecsSection? dast;
 
   /// Interactive analysis configuration.
   @SectionId('STAI')
@@ -35346,7 +35588,7 @@ class SecurityTestingAutomation {
     ),
   ])
   @SerializationOrder(2)
-  String? iast;
+  DocSpecsSection? iast;
 
   /// Fuzzing configuration.
   @SectionId('STAF')
@@ -35369,7 +35611,7 @@ class SecurityTestingAutomation {
     ),
   ])
   @SerializationOrder(3)
-  String? fuzzing;
+  DocSpecsSection? fuzzing;
 
   /// Container and IaC scanning.
   @SectionId('STAS')
@@ -35401,7 +35643,7 @@ class SecurityTestingAutomation {
     ),
   ])
   @SerializationOrder(4)
-  String? scanning;
+  DocSpecsSection? scanning;
 
   /// Governance and reporting.
   @SectionId('STAG')
@@ -35433,7 +35675,7 @@ class SecurityTestingAutomation {
     ),
   ])
   @SerializationOrder(5)
-  String? governance;
+  DocSpecsSection? governance;
 }
 
 /// A security audit requirement entry (form).
@@ -35445,7 +35687,7 @@ class SecurityTestingAutomation {
   'A single security audit requirement with its schedule, execution, and follow-up.',
 )
 @SectionId('SAE')
-class SecurityAuditEntry {
+class SecurityAuditEntry extends DocSpecsSection {
   @Form([
     // Audit identification
     Field(
@@ -35476,6 +35718,7 @@ class SecurityAuditEntry {
       hint: 'Annual, semi-annual, quarterly, on-demand',
     ),
   ])
+  @override
   @SerializationOrder(0)
   String? content;
 
@@ -35500,7 +35743,7 @@ class SecurityAuditEntry {
     ),
   ])
   @SerializationOrder(1)
-  String? scheduling;
+  DocSpecsSection? scheduling;
 
   /// Scope, standards, and execution model.
   @SectionId('SAEE')
@@ -35538,7 +35781,7 @@ class SecurityAuditEntry {
     ),
   ])
   @SerializationOrder(2)
-  String? execution;
+  DocSpecsSection? execution;
 
   /// Deliverables, ownership, and notes.
   @SectionId('SAEFU')
@@ -35571,7 +35814,7 @@ class SecurityAuditEntry {
     Field('notes', String, 'Notes', hint: 'Additional audit requirement notes'),
   ])
   @SerializationOrder(3)
-  String? followUp;
+  DocSpecsSection? followUp;
 }
 
 // ---------------------------------------------------------------------------
@@ -35596,7 +35839,7 @@ class SecurityAuditEntry {
 @SectionId('SYARSP')
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-ARC')
-class SystemArchitectureSpec {
+class SystemArchitectureSpec extends DocSpecsSection {
   @ContentHelp('''
 System-level architecture description: layering, package structure,
 significant design patterns, boundary definitions, and architectural
@@ -35611,6 +35854,7 @@ drivers / trade-offs.
 - Reference architecture diagrams (high-level + key views)
 - Technology-radar alignment (Adopt / Trial / Assess / Hold)
 ''')
+  @override
   @SerializationOrder(0)
   String? content;
 }
