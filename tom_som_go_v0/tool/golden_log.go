@@ -80,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t4")
+	out = append(out, "FORMAT\t5")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -181,6 +181,31 @@ func main() {
 		out = append(out, "TI\t"+leaf+"\t"+esc(elem.Content()))
 	}
 
+	// --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
+	// (`requirementId`) and title-role (`title`) fields are pure views onto the
+	// owning list item's stored section id / headline. Each typed read is
+	// asserted against the generic itemSectionId/headline read before emission,
+	// proving the view binding end-to-end in every language. ---
+	freReqs := sbp.IntroductionAndScope().Requirements().FunctionalRequirements().Requirements()
+	for i := 0; i < freReqs.Length(); i++ {
+		req := freReqs.At(i)
+		itemPath := req.Path()
+		typedID := req.Content().RequirementId()
+		typedTitle := req.Content().Title()
+		genericID := doc.ItemSectionIDOr(itemPath)
+		genericTitle := doc.HeadlineOr(itemPath)
+		if typedID != genericID {
+			die("TYPED ID-ROLE MISMATCH at " + itemPath + ": " +
+				"typed=\"" + typedID + "\" generic=\"" + genericID + "\"")
+		}
+		if typedTitle != genericTitle {
+			die("TYPED TITLE-ROLE MISMATCH at " + itemPath + ": " +
+				"typed=\"" + typedTitle + "\" generic=\"" + genericTitle + "\"")
+		}
+		out = append(out, "TR\t"+itemPath+"\trequirementId\t"+esc(typedID))
+		out = append(out, "TR\t"+itemPath+"\ttitle\t"+esc(typedTitle))
+	}
+
 	// --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
 	// path and every emitted field is model-derived, so the lines are byte-
 	// identical across all nine languages even though the accessor names and
@@ -211,6 +236,54 @@ func main() {
 	metaNode("SBP/currentLandscape/CUOPME-OPER-LST")
 	metaNode("SBP/requirements")
 	metaNode("SBP/requirements/content")
+
+	// --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+	// read through the metadata tree — one MF line per field (declaration
+	// order) with type/required/role/initial, plus one MT summary line naming
+	// the form's title-role and id-role fields via the TitleField/IdField
+	// accessors. All values are model-derived. ---
+	out = append(out, "SECTION\tmeta-form")
+	const freListPath = "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST"
+	freListNode := metaTree.ByPath(freListPath)
+	var freElement *som.SomMetaNode
+	if freListNode != nil {
+		freElement = freListNode.ElementNode
+	}
+	var freContentNode *som.SomMetaNode
+	if freElement != nil {
+		for _, child := range freElement.Children {
+			if child.MemberName == "content" {
+				freContentNode = child
+			}
+		}
+	}
+	var freForm *som.SomFormMeta
+	if freContentNode != nil {
+		freForm = freContentNode.Form
+	}
+	if freForm == nil {
+		fmt.Fprintln(os.Stderr, "META FORM MISSING at "+freListPath+" element content")
+		os.Exit(3)
+	}
+	// Element subtrees have no static document path; use an ASCII marker
+	// segment so the log path stays ASCII (mirrored verbatim per language).
+	freFormPath := freListPath + "/#element/content"
+	for _, f := range freForm.Fields {
+		required := 0
+		if f.Required {
+			required = 1
+		}
+		out = append(out, fmt.Sprintf("MF\t%s\t%s\t%s\t%d\t%s\t%s",
+			freFormPath, esc(f.Name), esc(f.TypeName), required, esc(f.Role), esc(f.Initial)))
+	}
+	titleName, idName := "", ""
+	if tf := freForm.TitleField(); tf != nil {
+		titleName = tf.Name
+	}
+	if idf := freForm.IdField(); idf != nil {
+		idName = idf.Name
+	}
+	out = append(out, "MT\t"+freFormPath+"\t"+esc(titleName)+"\t"+esc(idName))
 
 	// Dot-notation navigation: the typed nav accessors must resolve to exactly
 	// the path ByPath finds, and to the same node instance.

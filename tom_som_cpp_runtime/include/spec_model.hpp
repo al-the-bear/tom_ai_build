@@ -54,6 +54,8 @@ struct FormFieldSpec {
   std::string type;  // defaults to "String"
   std::string hint;
   bool required = false;
+  std::string role;     // structural role (YRD6): "title" | "id" | "" ordinary
+  std::string initial;  // predefined initial content (YRD6), "" when absent
 };
 
 struct SpecField {

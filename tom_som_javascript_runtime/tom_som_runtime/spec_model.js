@@ -57,12 +57,26 @@ class SpecAnnotation {
 
 /** A single form field within a `@Form` content section. */
 class FormFieldSpec {
-  constructor({ name, label, type = 'String', hint = null, required = false }) {
+  constructor({
+    name,
+    label,
+    type = 'String',
+    hint = null,
+    required = false,
+    role = null,
+    initial = null,
+  }) {
     this.name = name;
     this.label = label;
     this.type = type;
     this.hint = hint;
     this.required = required;
+    // Structural role of the field (YRD6): `'title'` (view onto the owning
+    // section's headline), `'id'` (view onto the stored section id), or
+    // `null` for an ordinary form-value field.
+    this.role = role;
+    // Predefined initial content (YRD6, meta-only editor prefill), or `null`.
+    this.initial = initial;
   }
 
   static fromJson(j) {
@@ -72,6 +86,8 @@ class FormFieldSpec {
       type: j.type || 'String',
       hint: j.hint != null ? j.hint : null,
       required: Boolean(j.required || false),
+      role: j.role != null ? j.role : null,
+      initial: j.initial != null ? j.initial : null,
     });
   }
 }

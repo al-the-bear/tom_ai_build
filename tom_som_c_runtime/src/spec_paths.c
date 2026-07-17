@@ -26,6 +26,14 @@ void spec_path_segments(const char *path, SomStrList *out) {
   }
 }
 
+char *spec_parent_path(const char *path) {
+  const char *last = strrchr(path, '/');
+  if (last == NULL) {
+    return som_strdup(path);
+  }
+  return som_strdup_n(path, (size_t)(last - path));
+}
+
 char *spec_list_item_path(const char *list_path, long long seq) {
   SomBuf b;
   som_buf_init(&b);

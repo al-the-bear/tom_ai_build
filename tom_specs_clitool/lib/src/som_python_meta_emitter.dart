@@ -302,6 +302,8 @@ class SomPythonMetaEmitter {
           'description=${_str(ff.label)}',
           if (ff.required) 'required=True',
           if (ff.hint != null) 'hint=${_str(ff.hint!)}',
+          if (ff.role != null) 'role=${_str(ff.role!)}',
+          if (ff.initial != null) 'initial=${_str(ff.initial!)}',
           'order=$i',
         ];
         fields.add('SomFormFieldMeta(${ffArgs.join(', ')})');

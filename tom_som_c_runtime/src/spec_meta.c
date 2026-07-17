@@ -42,6 +42,27 @@ const SomFormFieldMeta *som_form_meta_field_named(const SomFormMeta *f,
   return NULL;
 }
 
+static const SomFormFieldMeta *form_meta_role_field(const SomFormMeta *f,
+                                                    const char *role) {
+  if (f == NULL) {
+    return NULL;
+  }
+  for (size_t i = 0; i < f->fields_len; i++) {
+    if (strcmp(f->fields[i].role, role) == 0) {
+      return &f->fields[i];
+    }
+  }
+  return NULL;
+}
+
+const SomFormFieldMeta *som_form_meta_title_field(const SomFormMeta *f) {
+  return form_meta_role_field(f, "title");
+}
+
+const SomFormFieldMeta *som_form_meta_id_field(const SomFormMeta *f) {
+  return form_meta_role_field(f, "id");
+}
+
 /* ---- SomMetaNode --------------------------------------------------------- */
 
 SomMetaNode *som_meta_node_new(void) {
@@ -91,6 +112,8 @@ static void free_node_contents(SomMetaNode *n) {
       free(f->type_name);
       free(f->description);
       free(f->hint);
+      free(f->role);
+      free(f->initial);
     }
     free(n->form->fields);
     free(n->form);

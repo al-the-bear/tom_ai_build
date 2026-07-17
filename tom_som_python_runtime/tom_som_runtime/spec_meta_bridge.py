@@ -190,6 +190,8 @@ def _field_node(
                     description=ff.label,
                     required=ff.required,
                     hint=ff.hint,
+                    role=ff.role,
+                    initial=ff.initial,
                     order=i,
                 )
                 for i, ff in enumerate(field.form_fields)

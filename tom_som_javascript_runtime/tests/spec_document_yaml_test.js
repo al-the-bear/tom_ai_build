@@ -444,11 +444,131 @@ function testClassLevelOnlyKey() {
   _check('clskey.rt.owner', out.content('D00/control/owner') === 'the owner');
 }
 
+// --- YRD6 — title/id role form fields ---------------------------------------
+// Role fields never appear in the yaml form block — the item key IS the
+// id-role value and the `headline` key IS the title-role value. A role key
+// inside a form mapping is a format error, both ways.
+
+function _cardsTree() {
+  const model = SpecModel.fromJson({
+    roots: [{ type: 'CardDoc', title: 'Card Doc', sectionId: 'C00' }],
+    classes: {
+      CardDoc: {
+        name: 'CardDoc',
+        sectionId: 'C00',
+        annotations: [
+          { name: 'Document', arguments: { title: 'Card Doc' } },
+          { name: 'SectionId', arguments: { id: 'C00' } },
+        ],
+        fields: [
+          {
+            name: 'cards',
+            kind: 'list',
+            sectionId: 'CARD-LST',
+            sectionIdPattern: 'CARD-xxx',
+            elementType: 'Card',
+            elementIsComplex: true,
+          },
+        ],
+      },
+      Card: {
+        name: 'Card',
+        fields: [
+          {
+            name: 'content',
+            kind: 'form',
+            formFields: [
+              { name: 'cardId', label: 'Card ID', type: 'String', role: 'id' },
+              {
+                name: 'name',
+                label: 'Name',
+                type: 'String',
+                role: 'title',
+                initial: 'New Card',
+              },
+              { name: 'note', label: 'Note', type: 'String' },
+            ],
+          },
+        ],
+      },
+    },
+  });
+  return buildSomMetaTree(model);
+}
+
+function _cardsPopulated() {
+  const d = new SpecDocument();
+  const c1 = d.addListItem('C00/CARD-LST');
+  d.setItemSectionId(c1, 'CARD-ALPHA');
+  d.setHeadline(c1, 'Alpha Card');
+  d.setFormField(`${c1}/content`, 'note', 'first card');
+  return d;
+}
+
+function testRoleValuesEmitOnce() {
+  const tree = _cardsTree();
+  const yaml = yamlEncode(_cardsPopulated(), tree, null);
+  _check('yrd6.emit.itemKey', yaml.includes('CARD-ALPHA:'), yaml);
+  _check('yrd6.emit.headlineKey', yaml.includes('headline:'), yaml);
+  _check('yrd6.emit.headlineValue', yaml.includes('Alpha Card'), yaml);
+  _check('yrd6.emit.note', yaml.includes('first card'), yaml);
+  _check('yrd6.emit.noId', !yaml.includes('cardId'), yaml);
+  _check('yrd6.emit.noTitle', !yaml.includes('name:'), yaml);
+}
+
+function testRoleFieldRoundTrip() {
+  const tree = _cardsTree();
+  const yaml = yamlEncode(_cardsPopulated(), tree, null);
+  const decoded = yamlDecode(yaml, tree).document;
+  _check('yrd6.rt.id', decoded.itemSectionId('C00/CARD-LST-1') === 'CARD-ALPHA');
+  _check('yrd6.rt.headline', decoded.headline('C00/CARD-LST-1') === 'Alpha Card');
+  _check(
+    'yrd6.rt.note',
+    decoded.formField('C00/CARD-LST-1/content', 'note') === 'first card',
+  );
+  _check('yrd6.rt.byteStable', yamlEncode(decoded, tree, null) === yaml);
+}
+
+function testDecodeRejectsRoleFormEntry() {
+  const tree = _cardsTree();
+  const yaml =
+    'version: 2\n' +
+    'document:\n' +
+    '  C00 CardDoc:\n' +
+    '    CARD-LST cards:\n' +
+    '      CARD-ALPHA:\n' +
+    '        headline: Alpha Card\n' +
+    '        cardId: CARD-DUP\n' +
+    '        note: kept\n';
+  _check(
+    'yrd6.decode.rejectsRoleKey',
+    _throwsFormat(() => yamlDecode(yaml, tree)),
+  );
+}
+
+function testEncodeRejectsCorruptedFormStore() {
+  const tree = _cardsTree();
+  const d = _cardsPopulated();
+  // Corrupt the store below the public API: loadJson bypasses the facade.
+  const state = d.toJson();
+  state.forms['C00/CARD-LST-1/content'].cardId = 'CARD-DUP';
+  const corrupt = new SpecDocument();
+  corrupt.loadJson(state);
+  _check(
+    'yrd6.encode.rejectsRoleKey',
+    _throwsFormat(() => yamlEncode(corrupt, tree, null)),
+  );
+}
+
 function main() {
   testEncode();
   testRoundTrip();
   testStrictDecode();
   testClassLevelOnlyKey();
+  testRoleValuesEmitOnce();
+  testRoleFieldRoundTrip();
+  testDecodeRejectsRoleFormEntry();
+  testEncodeRejectsCorruptedFormStore();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

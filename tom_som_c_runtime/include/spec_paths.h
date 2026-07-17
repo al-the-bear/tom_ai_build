@@ -21,6 +21,16 @@ char *spec_path_join(const char *parent, const char *segment);
  * list-item sequence suffix stays attached to its segment. */
 void spec_path_segments(const char *path, SomStrList *out);
 
+/* Returns the parent path of `path` — everything before the final
+ * `/`-separated segment — or `path` itself when it has no separator (a root
+ * path). Owned result.
+ *
+ * Used by the generated facades' YRD6 role-field accessors: a transparent
+ * class-level `@Form` member is hoisted into its parent section's body, so
+ * its title/id role fields bind to the **parent** path's headline / stored
+ * section id. */
+char *spec_parent_path(const char *path);
+
 /* Returns `<list_path>-<seq>` as an owned string. */
 char *spec_list_item_path(const char *list_path, long long seq);
 

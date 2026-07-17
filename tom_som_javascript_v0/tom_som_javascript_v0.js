@@ -15,6 +15,7 @@ const {
   SpecDocument,
   checkSomModelVersion,
   somEditabilityFor,
+  specParentPath,
 } = require(_path.resolve(__dirname, _manifest.tomSom.runtimePath));
 
 // The generated metadata module (DR8/DR15): the populated SomMetaTrees plus
@@ -89893,20 +89894,26 @@ class FunctionalRequirementEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
+  // Id-role field (YRD6): a view onto the owning list item's stored section id
+  // (uniqueness validated on write; empty writes are ignored).
   get requirementId() {
-    return this.doc.formField(this.path, "requirementId") || '';
+    return this.doc.itemSectionId(specParentPath(this.path)) || '';
   }
 
   set requirementId(value) {
-    this.doc.setFormField(this.path, "requirementId", value);
+    if (!value) {
+      return;
+    }
+    this.doc.setItemSectionId(specParentPath(this.path), value);
   }
 
+  // Title-role field (YRD6): a view onto the owning section's headline.
   get title() {
-    return this.doc.formField(this.path, "title") || '';
+    return this.doc.headline(specParentPath(this.path)) || '';
   }
 
   set title(value) {
-    this.doc.setFormField(this.path, "title", value);
+    this.doc.setHeadline(specParentPath(this.path), value);
   }
 
   get status() {

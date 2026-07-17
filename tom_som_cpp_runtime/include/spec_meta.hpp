@@ -63,6 +63,14 @@ struct SomFormFieldMeta {
   bool required = false;    // whether the form marks the field as required
   std::string hint;         // authoring hint (e.g. "e.g. 1.0"), "" when absent
   long long order = 0;      // declaration order within the form
+  std::string role;         // structural role (YRD6): "title" (view onto the
+                            // owning section's headline), "id" (view onto the
+                            // stored section id), or "" for an ordinary
+                            // form-value field. Role fields are never stored in
+                            // the form-value store; serialization emits their
+                            // value once — as the heading text / id comment.
+  std::string initial;      // predefined initial content (YRD6, meta-only
+                            // editor prefill), "" when absent
 };
 
 /* The form metadata of a @Form node (DR1 §3.1 FormMeta). */
@@ -71,6 +79,12 @@ struct SomFormMeta {
 
   /* Returns the field named `name`, or nullptr when absent. */
   const SomFormFieldMeta* fieldNamed(const std::string& name) const;
+
+  /* The title-role field (YRD6), or nullptr when the form declares none. */
+  const SomFormFieldMeta* titleField() const;
+
+  /* The id-role field (YRD6), or nullptr when the form declares none. */
+  const SomFormFieldMeta* idField() const;
 };
 
 /* @Document metadata carried by a document root (DR1 §3.1 DocMeta). */

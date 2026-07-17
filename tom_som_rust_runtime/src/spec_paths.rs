@@ -28,6 +28,20 @@ pub fn spec_path_segments(path: &str) -> Vec<String> {
     path.split(SPEC_PATH_SEPARATOR).map(|s| s.to_string()).collect()
 }
 
+/// The parent path of `path` — everything before the final `/`-separated
+/// segment — or `path` itself when it has no separator (a root path).
+///
+/// Used by the generated facades' YRD6 role-field accessors: a transparent
+/// class-level `@Form` member is hoisted into its parent section's body, so
+/// its title/id role fields bind to the **parent** path's headline / stored
+/// section id.
+pub fn spec_parent_path(path: &str) -> String {
+    match path.rfind(SPEC_PATH_SEPARATOR) {
+        Some(i) => path[..i].to_string(),
+        None => path.to_string(),
+    }
+}
+
 /// Returns the path of the `seq`-th item appended to the list at `list_path`.
 pub fn list_item_path(list_path: &str, seq: i64) -> String {
     format!("{}-{}", list_path, seq)

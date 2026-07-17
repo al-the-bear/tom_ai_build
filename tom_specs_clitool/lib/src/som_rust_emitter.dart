@@ -604,8 +604,14 @@ class SomRustEmitter {
         ..writeln('\t\tself.node.doc().borrow_mut().set_content(&path, value);')
         ..writeln('\t}');
     }
+    // YRD6: role fields bind to the OWNING section — the form's own path when
+    // the member heads its own `@SectionId` section, else the parent path (a
+    // transparent/class-level form hoisted into the parent's body).
+    final ownerExpr = f.sectionId != null
+        ? 'self.node.path().to_string()'
+        : 'som::spec_parent_path(self.node.path())';
     for (final ff in f.formFields) {
-      _writeFormMember(b, usedAcc, ff);
+      _writeFormMember(b, usedAcc, ff, ownerExpr);
     }
     b.writeln('}');
     return b.toString();
@@ -613,11 +619,52 @@ class SomRustEmitter {
 
   /// Emits a single typed `@Form` member accessor pair backed by the generic
   /// form store, so the on-disk format and the generic reading are unchanged;
-  /// only the Rust return type mirrors the declared form-field type.
-  void _writeFormMember(StringBuffer b, Set<String> usedAcc, FormFieldSpec ff) {
+  /// only the Rust return type mirrors the declared form-field type. A role
+  /// field (YRD6) is instead a pure view onto the owning section's headline /
+  /// stored section id at [ownerExpr] — its value never touches the form store.
+  void _writeFormMember(
+      StringBuffer b, Set<String> usedAcc, FormFieldSpec ff, String ownerExpr) {
     final field = '"${_rustStr(ff.name)}"';
     final acc = _allocAccessor(usedAcc, ff.name);
     b.writeln();
+    if (ff.role == 'title') {
+      b
+        ..writeln("\t/// Title-role field (YRD6): a view onto the owning "
+            "section's headline.")
+        ..writeln('\tpub fn $acc(&self) -> String {')
+        ..writeln('\t\tlet owner = $ownerExpr;')
+        ..writeln('\t\tself.node.doc().borrow().headline_or(&owner)')
+        ..writeln('\t}')
+        ..writeln()
+        ..writeln('\tpub fn set_$acc(&self, value: &str) {')
+        ..writeln('\t\tlet owner = $ownerExpr;')
+        ..writeln('\t\tself.node.doc().borrow_mut().set_headline'
+            '(&owner, value);')
+        ..writeln('\t}');
+      return;
+    }
+    if (ff.role == 'id') {
+      b
+        ..writeln("\t/// Id-role field (YRD6): a view onto the owning list "
+            "item's stored section id")
+        ..writeln('\t/// (uniqueness validated on write; empty writes are '
+            'ignored).')
+        ..writeln('\tpub fn $acc(&self) -> String {')
+        ..writeln('\t\tlet owner = $ownerExpr;')
+        ..writeln('\t\tself.node.doc().borrow().item_section_id_or(&owner)')
+        ..writeln('\t}')
+        ..writeln()
+        ..writeln('\tpub fn set_$acc(&self, value: &str) '
+            '-> Result<(), som::SpecSectionIdError> {')
+        ..writeln('\t\tif value.is_empty() {')
+        ..writeln('\t\t\treturn Ok(());')
+        ..writeln('\t\t}')
+        ..writeln('\t\tlet owner = $ownerExpr;')
+        ..writeln('\t\tself.node.doc().borrow_mut().set_item_section_id'
+            '(&owner, value)')
+        ..writeln('\t}');
+      return;
+    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b

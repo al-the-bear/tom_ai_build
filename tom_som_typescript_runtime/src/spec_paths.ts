@@ -32,6 +32,20 @@ export function specPathSegments(path: string): string[] {
   return path.split(SPEC_PATH_SEPARATOR);
 }
 
+/**
+ * The parent path of `path` — everything before the final `/`-separated
+ * segment — or `path` itself when it has no separator (a root path).
+ *
+ * Used by the generated facades' YRD6 role-field accessors: a transparent
+ * class-level `@Form` member is hoisted into its parent section's body, so
+ * its title/id role fields bind to the **parent** path's headline / stored
+ * section id.
+ */
+export function specParentPath(path: string): string {
+  const i = path.lastIndexOf(SPEC_PATH_SEPARATOR);
+  return i < 0 ? path : path.slice(0, i);
+}
+
 /** The path of the `seq`-th item appended to the list at `listPath`. */
 export function listItemPath(listPath: string, seq: number): string {
   return `${listPath}-${seq}`;

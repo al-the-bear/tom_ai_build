@@ -218,6 +218,7 @@ fn meta_fixture_tree() -> SomMetaTree {
                             required: true,
                             hint: "e.g. 1.0".to_string(),
                             order: 1,
+                            ..SomFormFieldMeta::default()
                         },
                         SomFormFieldMeta {
                             name: "approvedBy".to_string(),

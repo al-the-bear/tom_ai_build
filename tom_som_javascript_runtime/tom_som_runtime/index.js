@@ -28,6 +28,7 @@ const {
   SPEC_PATH_SEPARATOR,
   specPathJoin,
   specPathSegments,
+  specParentPath,
   listItemPath,
   splitListItemSegment,
 } = require('./spec_paths');
@@ -114,6 +115,7 @@ module.exports = {
   SPEC_PATH_SEPARATOR,
   specPathJoin,
   specPathSegments,
+  specParentPath,
   listItemPath,
   splitListItemSegment,
   // model

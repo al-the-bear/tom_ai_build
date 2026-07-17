@@ -434,6 +434,8 @@ class SomGoMetaEmitter {
           'Description: ${_str(ff.label)}',
           if (ff.required) 'Required: true',
           if (ff.hint != null) 'Hint: ${_str(ff.hint!)}',
+          if (ff.role != null) 'Role: ${_str(ff.role!)}',
+          if (ff.initial != null) 'Initial: ${_str(ff.initial!)}',
           'Order: $i',
         ];
         fields.add('{${ffArgs.join(', ')}}');

@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
   out.push_back("# TomSpecs SOM golden log — canonical cross-language reading.");
   out.push_back(
       "# All nine per-language generators must emit byte-identical output.");
-  out.push_back("FORMAT\t4");
+  out.push_back("FORMAT\t5");
   out.push_back("MODELVERSION\t" + esc(doc.modelVersion));
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -202,6 +202,37 @@ int main(int argc, char** argv) {
     }
   }
 
+  // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
+  // (`requirementId`) and title-role (`title`) fields are pure views onto the
+  // owning list item's stored section id / headline. Each typed read is
+  // asserted against the generic itemSectionId/headline read before emission,
+  // proving the view binding end-to-end in every language. ---
+  {
+    som::SomList freReqs = sbp.introductionAndScope()
+                               .requirements()
+                               .functionalRequirements()
+                               .requirements();
+    for (std::size_t i = 0; i < freReqs.length(); i++) {
+      tom_som_v0::FunctionalRequirementEntry req(typedDoc,
+                                                 freReqs.itemPathAt(i));
+      const std::string itemPath = req.path();
+      const std::string typedId = req.content().requirementId();
+      const std::string typedTitle = req.content().title();
+      const std::string genericId = doc.itemSectionId(itemPath);
+      const std::string genericTitle = doc.headline(itemPath);
+      if (typedId != genericId) {
+        die("TYPED ID-ROLE MISMATCH at " + itemPath + ": typed=\"" + typedId +
+            "\" generic=\"" + genericId + "\"");
+      }
+      if (typedTitle != genericTitle) {
+        die("TYPED TITLE-ROLE MISMATCH at " + itemPath + ": typed=\"" +
+            typedTitle + "\" generic=\"" + genericTitle + "\"");
+      }
+      out.push_back("TR\t" + itemPath + "\trequirementId\t" + esc(typedId));
+      out.push_back("TR\t" + itemPath + "\ttitle\t" + esc(typedTitle));
+    }
+  }
+
   // --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
   // path and every emitted field is model-derived, so the lines are byte-
   // identical across all nine languages even though the accessor *names* and
@@ -231,6 +262,49 @@ int main(int argc, char** argv) {
   metaNode("SBP/currentLandscape/CUOPME-OPER-LST");
   metaNode("SBP/requirements");
   metaNode("SBP/requirements/content");
+
+  // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+  // read through the metadata tree — one MF line per field (declaration
+  // order) with type/required/role/initial, plus one MT summary line naming
+  // the form's title-role and id-role fields via the titleField/idField
+  // accessors. All values are model-derived. ---
+  out.push_back("SECTION\tmeta-form");
+  {
+    const std::string freListPath =
+        "SBP/introductionAndScope/requirements/functionalRequirements/"
+        "FRE-REQU-LST";
+    const som::SomMetaNode* freListNode = metaTree.byPath(freListPath);
+    const som::SomMetaNode* freElement =
+        freListNode != nullptr ? freListNode->elementNode.get() : nullptr;
+    const som::SomMetaNode* freContentNode = nullptr;
+    if (freElement != nullptr) {
+      for (const auto& child : freElement->children) {
+        if (child->memberName == "content") freContentNode = child.get();
+      }
+    }
+    const som::SomFormMeta* freForm =
+        (freContentNode != nullptr && freContentNode->form.has_value())
+            ? &*freContentNode->form
+            : nullptr;
+    if (freForm == nullptr) {
+      std::cerr << "META FORM MISSING at " << freListPath
+                << " element content\n";
+      std::exit(3);
+    }
+    // Element subtrees have no static document path; use an ASCII marker
+    // segment so the log path stays ASCII (mirrored verbatim per language).
+    const std::string freFormPath = freListPath + "/#element/content";
+    for (const som::SomFormFieldMeta& f : freForm->fields) {
+      out.push_back("MF\t" + freFormPath + "\t" + esc(f.name) + "\t" +
+                    esc(f.typeName) + "\t" + (f.required ? "1" : "0") + "\t" +
+                    esc(f.role) + "\t" + esc(f.initial));
+    }
+    const som::SomFormFieldMeta* titleField = freForm->titleField();
+    const som::SomFormFieldMeta* idField = freForm->idField();
+    out.push_back("MT\t" + freFormPath + "\t" +
+                  esc(titleField != nullptr ? titleField->name : "") + "\t" +
+                  esc(idField != nullptr ? idField->name : ""));
+  }
 
   // Dot-notation navigation: the typed nav accessors must resolve to exactly
   // the path byPath finds, and to the *same* node instance.

@@ -127,6 +127,8 @@ def _form_diff(
             or fa.description != fb.description
             or fa.required != fb.required
             or fa.hint != fb.hint
+            or fa.role != fb.role
+            or fa.initial != fb.initial
             or fa.order != fb.order
         ):
             return f"{at}: form field {fa.name} differs"

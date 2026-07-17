@@ -55,7 +55,7 @@ pub use spec_document_markdown::{
     spec_markdown_title_case, MarkdownFenceTracker, SpecDocumentMarkdown, SpecMarkdownRejection,
     SpecMarkdownResult, SPEC_MARKDOWN_REJECT_KIND_MISMATCH, SPEC_MARKDOWN_REJECT_MALFORMED_HEADING,
     SPEC_MARKDOWN_REJECT_MISSING_VALUE, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
-    SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
+    SPEC_MARKDOWN_REJECT_ROLE_FIELD_FORM_LINE, SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
 pub use spec_document_yaml::{
     decode_yaml, dedup_empty_lines, encode_yaml, js_json_string, node_key, plain_key,
@@ -74,7 +74,8 @@ pub use spec_model::{
     SpecField, SpecModel, SpecRoot,
 };
 pub use spec_paths::{
-    list_item_path, spec_path_join, spec_path_segments, split_list_item_segment, ListItemSegment,
+    list_item_path, spec_parent_path, spec_path_join, spec_path_segments, split_list_item_segment,
+    ListItemSegment,
 };
 pub use spec_reflection::{SpecReflection, SpecResolution};
 pub use spec_section_id::{

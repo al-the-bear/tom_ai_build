@@ -102,6 +102,7 @@ class SomPythonEmitter {
       ..writeln('    SpecDocument,')
       ..writeln('    check_som_model_version,')
       ..writeln('    som_editability_for,')
+      ..writeln('    spec_parent_path,')
       ..writeln(')')
       ..writeln()
       // DR8/DR12: the generated metadata module (populated SomMetaTrees + the
@@ -440,8 +441,13 @@ class SomPythonEmitter {
         ..writeln('    def content(self, value):')
         ..writeln('        self.doc.set_content(self.path, value)');
     }
+    // YRD6: role fields bind to the OWNING section — the form's own path when
+    // the member heads its own `@SectionId` section, else the parent path (a
+    // transparent/class-level form hoisted into the parent's body).
+    final ownerExpr =
+        f.sectionId != null ? 'self.path' : 'spec_parent_path(self.path)';
     for (final ff in f.formFields) {
-      _writeFormMember(b, ff);
+      _writeFormMember(b, ff, ownerExpr);
     }
     return b.toString();
   }
@@ -449,12 +455,46 @@ class SomPythonEmitter {
   /// Emits a single typed `@Form` member property. The value is stored through
   /// the generic form store, so the on-disk format and the generic reading are
   /// unchanged; only the parsed Python type mirrors the declared form-field
-  /// type.
-  void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
+  /// type. A role field (YRD6) is instead a pure view onto the owning
+  /// section's headline / stored section id at [ownerExpr] — its value never
+  /// touches the form store.
+  void _writeFormMember(StringBuffer b, FormFieldSpec ff, String ownerExpr) {
     final field = '"${_pystr(ff.name)}"';
     // The form-field key string ($field) is preserved; only the Python accessor
     // identifier is keyword-sanitised.
     final acc = _acc(ff.name);
+    if (ff.role == 'title') {
+      b
+        ..writeln()
+        ..writeln("    # Title-role field (YRD6): a view onto the owning "
+            "section's headline.")
+        ..writeln('    @property')
+        ..writeln('    def $acc(self) -> str:')
+        ..writeln('        return self.doc.headline($ownerExpr) or ""')
+        ..writeln()
+        ..writeln('    @$acc.setter')
+        ..writeln('    def $acc(self, value):')
+        ..writeln('        self.doc.set_headline($ownerExpr, value)');
+      return;
+    }
+    if (ff.role == 'id') {
+      b
+        ..writeln()
+        ..writeln("    # Id-role field (YRD6): a view onto the owning list "
+            "item's stored section id")
+        ..writeln('    # (uniqueness validated on write; empty writes are '
+            'ignored).')
+        ..writeln('    @property')
+        ..writeln('    def $acc(self) -> str:')
+        ..writeln('        return self.doc.item_section_id($ownerExpr) or ""')
+        ..writeln()
+        ..writeln('    @$acc.setter')
+        ..writeln('    def $acc(self, value):')
+        ..writeln('        if not value:')
+        ..writeln('            return')
+        ..writeln('        self.doc.set_item_section_id($ownerExpr, value)');
+      return;
+    }
     b..writeln()..writeln('    @property');
     switch (_scalarType(ff.type)) {
       case 'int':

@@ -395,6 +395,8 @@ class SomRustMetaEmitter {
             'description: ${_strLit(ff.label)}, '
             'required: ${ff.required}, '
             'hint: ${_strLit(ff.hint ?? '')}, '
+            'role: ${_strLit(ff.role ?? '')}, '
+            'initial: ${_strLit(ff.initial ?? '')}, '
             'order: $i }');
       }
       add('form',

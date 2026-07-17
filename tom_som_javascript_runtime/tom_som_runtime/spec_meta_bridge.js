@@ -204,6 +204,8 @@ function _fieldNode(model, owner, field, stack) {
             description: ff.label,
             required: ff.required,
             hint: ff.hint,
+            role: ff.role,
+            initial: ff.initial,
             order: i,
           }),
       ),

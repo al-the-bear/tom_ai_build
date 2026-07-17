@@ -56,6 +56,11 @@ inline constexpr const char* kSpecMarkdownRejectMissingValue = "missingValue";
 /* A heading line without a parseable `<!--[id]-->` headline comment. */
 inline constexpr const char* kSpecMarkdownRejectMalformedHeading =
     "malformedHeading";
+/* A `FieldName:` form line for a title/id **role field** (YRD6): the field's
+ * value is the section heading / id comment and must never be duplicated as a
+ * form line. */
+inline constexpr const char* kSpecMarkdownRejectRoleFieldFormLine =
+    "roleFieldFormLine";
 
 /* One rejected block in a Markdown import (DR1 §1.7). Reported, never silently
  * dropped: each carries the source line, the offending anchor (section path or

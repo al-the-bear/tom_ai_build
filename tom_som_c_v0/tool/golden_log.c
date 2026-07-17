@@ -197,7 +197,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t4");
+  som_strlist_push_copy(&out, "FORMAT\t5");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);
@@ -378,6 +378,51 @@ int main(int argc, char **argv) {
     current_operational_metric_free(&elem);
   }
 
+  /* --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
+   * (`requirementId`) and title-role (`title`) fields are pure views onto the
+   * owning list item's stored section id / headline. Each typed read is
+   * asserted against the generic itemSectionId/headline read before emission,
+   * proving the view binding end-to-end in every language. --- */
+  IntroductionAndScope s_intro3 = d00_solution_blueprint_introduction_and_scope(&sbp);
+  RequirementsOverview s_ro = introduction_and_scope_requirements(&s_intro3);
+  FunctionalRequirements s_fr = requirements_overview_functional_requirements(&s_ro);
+  SomList fre_reqs = functional_requirements_requirements(&s_fr);
+  for (size_t i = 0; i < som_list_length(&fre_reqs); i++) {
+    const char *item_path = som_list_item_path_at(&fre_reqs, i);
+    FunctionalRequirementEntry req;
+    functional_requirement_entry_init(&req, typed_doc, item_path);
+    FunctionalRequirementEntryContentForm cform =
+        functional_requirement_entry_content(&req);
+    char *typed_id = functional_requirement_entry_content_form_requirement_id(&cform);
+    char *typed_title = functional_requirement_entry_content_form_title(&cform);
+    const char *generic_id = spec_document_item_section_id(doc, item_path);
+    if (generic_id == NULL) generic_id = "";
+    const char *generic_title = spec_document_headline(doc, item_path);
+    if (generic_title == NULL) generic_title = "";
+    if (strcmp(typed_id, generic_id) != 0) {
+      fprintf(stderr, "TYPED ID-ROLE MISMATCH at %s: typed=\"%s\" generic=\"%s\"\n",
+              item_path, typed_id, generic_id);
+      exit(2);
+    }
+    if (strcmp(typed_title, generic_title) != 0) {
+      fprintf(stderr,
+              "TYPED TITLE-ROLE MISMATCH at %s: typed=\"%s\" generic=\"%s\"\n",
+              item_path, typed_title, generic_title);
+      exit(2);
+    }
+    char *eid = esc(typed_id);
+    char *etitle = esc(typed_title);
+    som_strlist_push(&out, fmt("TR\t%s\trequirementId\t%s", item_path, eid));
+    som_strlist_push(&out, fmt("TR\t%s\ttitle\t%s", item_path, etitle));
+    free(etitle);
+    free(eid);
+    free(typed_title);
+    free(typed_id);
+    functional_requirement_entry_content_form_free(&cform);
+    functional_requirement_entry_free(&req);
+  }
+  som_list_free(&fre_reqs);
+
   /* --- Meta (FORMAT 2): the generated metadata tree read three ways. The SBP
    * root's static tree is the one the sample is decoded against. Every emitted
    * path/field is model-derived, so the lines are byte-identical across all
@@ -395,6 +440,60 @@ int main(int argc, char **argv) {
   meta_node(meta_tree, &out, "SBP/currentLandscape/CUOPME-OPER-LST");
   meta_node(meta_tree, &out, "SBP/requirements");
   meta_node(meta_tree, &out, "SBP/requirements/content");
+
+  /* --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+   * read through the metadata tree — one MF line per field (declaration
+   * order) with type/required/role/initial, plus one MT summary line naming
+   * the form's title-role and id-role fields via the titleField/idField
+   * accessors. All values are model-derived. --- */
+  som_strlist_push_copy(&out, "SECTION\tmeta-form");
+  {
+    const char *fre_list_path =
+        "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST";
+    const SomMetaNode *fre_list_node =
+        som_meta_tree_by_path(meta_tree, fre_list_path);
+    const SomMetaNode *fre_element =
+        fre_list_node != NULL ? fre_list_node->element_node : NULL;
+    const SomMetaNode *fre_content_node = NULL;
+    if (fre_element != NULL) {
+      for (size_t i = 0; i < fre_element->children_len; i++) {
+        if (strcmp(fre_element->children[i]->member_name, "content") == 0) {
+          fre_content_node = fre_element->children[i];
+        }
+      }
+    }
+    const SomFormMeta *fre_form =
+        fre_content_node != NULL ? fre_content_node->form : NULL;
+    if (fre_form == NULL) {
+      fprintf(stderr, "META FORM MISSING at %s element content\n",
+              fre_list_path);
+      exit(3);
+    }
+    /* Element subtrees have no static document path; use an ASCII marker
+     * segment so the log path stays ASCII (mirrored verbatim per language). */
+    char *fre_form_path = fmt("%s/#element/content", fre_list_path);
+    for (size_t i = 0; i < fre_form->fields_len; i++) {
+      const SomFormFieldMeta *f = &fre_form->fields[i];
+      char *en = esc(f->name);
+      char *et = esc(f->type_name);
+      char *er = esc(f->role);
+      char *ei = esc(f->initial);
+      som_strlist_push(&out, fmt("MF\t%s\t%s\t%s\t%d\t%s\t%s", fre_form_path,
+                                 en, et, f->required ? 1 : 0, er, ei));
+      free(ei);
+      free(er);
+      free(et);
+      free(en);
+    }
+    const SomFormFieldMeta *title_field = som_form_meta_title_field(fre_form);
+    const SomFormFieldMeta *id_field = som_form_meta_id_field(fre_form);
+    char *etf = esc(title_field != NULL ? title_field->name : "");
+    char *eif = esc(id_field != NULL ? id_field->name : "");
+    som_strlist_push(&out, fmt("MT\t%s\t%s\t%s", fre_form_path, etf, eif));
+    free(eif);
+    free(etf);
+    free(fre_form_path);
+  }
 
   /* Dot-notation navigation: the typed nav accessors must resolve to exactly
    * the path byPath finds, and to the *same* node instance. */

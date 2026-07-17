@@ -420,10 +420,20 @@ class YamlEncoder {
       return true;
     }
     for (const std::string& name : names) {
-      if (!node.form.has_value() ||
-          node.form->fieldNamed(name) == nullptr) {
+      const SomFormFieldMeta* field =
+          node.form.has_value() ? node.form->fieldNamed(name) : nullptr;
+      if (field == nullptr) {
         setErr(err, "form `" + path + "` holds a field `" + name +
                         "` unknown to the model");
+        return false;
+      }
+      if (!field->role.empty()) {
+        // YRD6: role values live in the headline / item-id store; a stored
+        // form value under a role field name is a corrupt document state.
+        setErr(err, "form `" + path + "` holds a value for " + field->role +
+                        "-role field `" + name +
+                        "` — role values live in the section headline/id, "
+                        "not the form store");
         return false;
       }
     }
@@ -869,8 +879,9 @@ class YamlDecoder {
       }
       for (const auto& fv : value->map) {
         const std::string& name = fv.first;
-        if (!child.form.has_value() ||
-            child.form->fieldNamed(name) == nullptr) {
+        const SomFormFieldMeta* field =
+            child.form.has_value() ? child.form->fieldNamed(name) : nullptr;
+        if (field == nullptr) {
           if (name == "headline") {
             std::string v;
             if (!decoderScalarOf(
@@ -883,6 +894,15 @@ class YamlDecoder {
           }
           setErr(err, "form `" + path + "` has no field `" + name +
                           "` in the model");
+          return false;
+        }
+        if (!field->role.empty()) {
+          // YRD6: a role field's value is the section heading / item key —
+          // it must never appear as a form entry.
+          setErr(err, "form `" + path + "` field `" + name + "` is a " +
+                          field->role +
+                          "-role field — its value is the section "
+                          "headline/id, not a form entry");
           return false;
         }
         std::string where = path + "." + name;

@@ -15,6 +15,7 @@ import {
   DocSpecsValidator,
   SomMetaKind,
   SomMetaKindValue,
+  SomMetaNode,
   SomMetaRef,
   SpecDocument,
 } from 'tom_som_typescript_runtime';
@@ -81,7 +82,7 @@ function main(): void {
   const out: string[] = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t4');
+  out.push('FORMAT\t5');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   out.push('SECTION\tgeneric-content');
@@ -171,6 +172,34 @@ function main(): void {
     out.push('TI\t' + leaf + '\t' + esc(elem.content));
   }
 
+  // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
+  // (`requirementId`) and title-role (`title`) fields are pure views onto the
+  // owning list item's stored section id / headline. Each typed read is
+  // asserted against the generic itemSectionId/headline read before emission,
+  // proving the view binding end-to-end in every language. ---
+  const freReqs =
+    sbp.introductionAndScope.requirements.functionalRequirements.requirements;
+  for (let i = 0; i < freReqs.length; i++) {
+    const req = freReqs.at(i);
+    const itemPath = req.path;
+    const typedId = req.content.requirementId;
+    const typedTitle = req.content.title;
+    const genericId = doc.itemSectionId(itemPath) || '';
+    const genericTitle = doc.headline(itemPath) || '';
+    if (typedId !== genericId) {
+      process.stderr.write('TYPED ID-ROLE MISMATCH at ' + itemPath + ': ' +
+        'typed="' + typedId + '" generic="' + genericId + '"\n');
+      process.exit(2);
+    }
+    if (typedTitle !== genericTitle) {
+      process.stderr.write('TYPED TITLE-ROLE MISMATCH at ' + itemPath + ': ' +
+        'typed="' + typedTitle + '" generic="' + genericTitle + '"\n');
+      process.exit(2);
+    }
+    out.push('TR\t' + itemPath + '\trequirementId\t' + esc(typedId));
+    out.push('TR\t' + itemPath + '\ttitle\t' + esc(typedTitle));
+  }
+
   // --- Meta (FORMAT 2): the generated metadata tree read three ways. ---
   const metaTree = d00SolutionBlueprintMetaTree;
 
@@ -199,6 +228,40 @@ function main(): void {
   metaNode('SBP/currentLandscape/CUOPME-OPER-LST');
   metaNode('SBP/requirements');
   metaNode('SBP/requirements/content');
+
+  // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+  // read through the metadata tree — one MF line per field (declaration
+  // order) with type/required/role/initial, plus one MT summary line naming
+  // the form's title-role and id-role fields via the titleField/idField
+  // accessors. All values are model-derived. ---
+  out.push('SECTION\tmeta-form');
+  const freListPath =
+    'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST';
+  const freListNode = metaTree.byPath(freListPath);
+  const freElement = freListNode !== null ? freListNode.elementNode : null;
+  let freContentNode: SomMetaNode | null = null;
+  for (const child of freElement !== null ? freElement.children : []) {
+    if (child.memberName === 'content') {
+      freContentNode = child;
+    }
+  }
+  const freForm = freContentNode !== null ? freContentNode.form : null;
+  if (freForm === null) {
+    process.stderr.write(
+      'META FORM MISSING at ' + freListPath + ' element content\n');
+    process.exit(3);
+  }
+  // Element subtrees have no static document path; use an ASCII marker
+  // segment so the log path stays ASCII (mirrored verbatim per language).
+  const freFormPath = freListPath + '/#element/content';
+  for (const f of freForm.fields) {
+    out.push('MF\t' + freFormPath + '\t' + esc(f.name) + '\t' +
+      esc(f.typeName) + '\t' + (f.required ? 1 : 0) + '\t' +
+      esc(f.role || '') + '\t' + esc(f.initial || ''));
+  }
+  out.push('MT\t' + freFormPath + '\t' +
+    esc(freForm.titleField !== null ? freForm.titleField.name : '') + '\t' +
+    esc(freForm.idField !== null ? freForm.idField.name : ''));
 
   out.push('SECTION\tmeta-nav');
   const metaNav = (ref: SomMetaRef, expectedPath: string): void => {

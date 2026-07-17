@@ -257,6 +257,8 @@ func bridgeFieldNode(
 				Description: ff.Label,
 				Required:    ff.Required,
 				Hint:        ff.Hint,
+				Role:        ff.Role,
+				Initial:     ff.Initial,
 				Order:       i,
 			})
 		}

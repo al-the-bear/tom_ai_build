@@ -40692,8 +40692,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requirementId", "String", "Requirement ID (unique, e.g., REQ-F001)", true, "Unique requirement identifier, e.g. REQ-F001", 0),
-            new SomFormFieldMeta("title", "String", "Title (concise statement)", true, "Concise one-line statement of the requirement", 1),
+            new SomFormFieldMeta("requirementId", "String", "Requirement ID (unique, e.g., REQ-F001)", true, "Unique requirement identifier, e.g. REQ-F001", "id", null, 0),
+            new SomFormFieldMeta("title", "String", "Title (concise statement)", true, "Concise one-line statement of the requirement", "title", null, 1),
             new SomFormFieldMeta("status", "String", "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", true, "Draft, Proposed, Approved, Implemented, Verified, or Deferred", 2)));
         out.add(n);
       }

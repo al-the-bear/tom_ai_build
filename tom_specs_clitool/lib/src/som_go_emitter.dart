@@ -626,20 +626,59 @@ class SomGoEmitter {
         ..writeln('\tx.Doc().SetContent(x.Path(), value)')
         ..writeln('}');
     }
+    // YRD6: role fields bind to the OWNING section — the form's own path when
+    // the member heads its own `@SectionId` section, else the parent path (a
+    // transparent/class-level form hoisted into the parent's body).
+    final ownerExpr =
+        f.sectionId != null ? 'x.Path()' : 'som.SpecParentPath(x.Path())';
     for (final ff in f.formFields) {
-      _writeFormMember(b, name, usedAcc, ff);
+      _writeFormMember(b, name, usedAcc, ff, ownerExpr);
     }
     return b.toString();
   }
 
   /// Emits a single typed `@Form` member accessor pair backed by the generic
   /// form store, so the on-disk format and the generic reading are unchanged;
-  /// only the Go return type mirrors the declared form-field type.
-  void _writeFormMember(
-      StringBuffer b, String name, Set<String> usedAcc, FormFieldSpec ff) {
+  /// only the Go return type mirrors the declared form-field type. A role
+  /// field (YRD6) is instead a pure view onto the owning section's headline /
+  /// stored section id at [ownerExpr] — its value never touches the form
+  /// store.
+  void _writeFormMember(StringBuffer b, String name, Set<String> usedAcc,
+      FormFieldSpec ff, String ownerExpr) {
     final field = '"${_goStr(ff.name)}"';
     final acc = _allocAccessor(usedAcc, ff.name);
     b.writeln();
+    if (ff.role == 'title') {
+      b
+        ..writeln('// $acc is the title-role field (YRD6): a view onto the '
+            "owning section's headline.")
+        ..writeln('func (x *$name) $acc() string {')
+        ..writeln('\treturn x.Doc().HeadlineOr($ownerExpr)')
+        ..writeln('}')
+        ..writeln()
+        ..writeln('func (x *$name) Set$acc(value string) {')
+        ..writeln('\tx.Doc().SetHeadline($ownerExpr, value)')
+        ..writeln('}');
+      return;
+    }
+    if (ff.role == 'id') {
+      b
+        ..writeln('// $acc is the id-role field (YRD6): a view onto the '
+            "owning list item's stored")
+        ..writeln('// section id (uniqueness validated on write; empty '
+            'writes are ignored).')
+        ..writeln('func (x *$name) $acc() string {')
+        ..writeln('\treturn x.Doc().ItemSectionIDOr($ownerExpr)')
+        ..writeln('}')
+        ..writeln()
+        ..writeln('func (x *$name) Set$acc(value string) error {')
+        ..writeln('\tif value == "" {')
+        ..writeln('\t\treturn nil')
+        ..writeln('\t}')
+        ..writeln('\treturn x.Doc().SetItemSectionID($ownerExpr, value)')
+        ..writeln('}');
+      return;
+    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b

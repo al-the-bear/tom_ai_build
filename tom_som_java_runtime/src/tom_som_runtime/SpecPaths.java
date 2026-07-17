@@ -27,6 +27,21 @@ public final class SpecPaths {
     return path.split(SEPARATOR, -1);
   }
 
+  /**
+   * The parent path of {@code path} — everything before the final
+   * {@code /}-separated segment — or {@code path} itself when it has no
+   * separator (a root path).
+   *
+   * <p>Used by the generated facades' YRD6 role-field accessors: a transparent
+   * class-level {@code @Form} member is hoisted into its parent section's body,
+   * so its title/id role fields bind to the <b>parent</b> path's headline /
+   * stored section id.
+   */
+  public static String parentPath(String path) {
+    int i = path.lastIndexOf(SEPARATOR);
+    return i < 0 ? path : path.substring(0, i);
+  }
+
   /** The path of the {@code seq}-th item appended to the list at {@code listPath}. */
   public static String listItemPath(String listPath, int seq) {
     return listPath + "-" + seq;

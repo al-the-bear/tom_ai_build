@@ -21954,7 +21954,7 @@ def _mc_FunctionalRequirementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="requirementId", type_name="String", description="Requirement ID (unique, e.g., REQ-F001)", required=True, hint="Unique requirement identifier, e.g. REQ-F001", order=0), SomFormFieldMeta(name="title", type_name="String", description="Title (concise statement)", required=True, hint="Concise one-line statement of the requirement", order=1), SomFormFieldMeta(name="status", type_name="String", description="Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", required=True, hint="Draft, Proposed, Approved, Implemented, Verified, or Deferred", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="requirementId", type_name="String", description="Requirement ID (unique, e.g., REQ-F001)", required=True, hint="Unique requirement identifier, e.g. REQ-F001", role="id", order=0), SomFormFieldMeta(name="title", type_name="String", description="Title (concise statement)", required=True, hint="Concise one-line statement of the requirement", role="title", order=1), SomFormFieldMeta(name="status", type_name="String", description="Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", required=True, hint="Draft, Proposed, Approved, Implemented, Verified, or Deferred", order=2)])),
          SomMetaNode(
             class_name="FunctionalRequirementEntry",
             member_name="details",

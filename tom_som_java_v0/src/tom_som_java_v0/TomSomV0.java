@@ -7,6 +7,7 @@ import tom_som_runtime.SomList;
 import tom_som_runtime.SomNode;
 import tom_som_runtime.SomScalar;
 import tom_som_runtime.SpecDocument;
+import tom_som_runtime.SpecPaths;
 
 /** Typed object-model facade over the generic `tom_som_runtime` document. */
 public final class TomSomV0 {
@@ -97276,22 +97277,26 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
+    // Id-role field (YRD6): a view onto the owning list item's stored section id
+    // (uniqueness validated on write; empty writes are ignored).
     public String requirementId() {
-      String v = doc.formField(path, "requirementId");
+      String v = doc.itemSectionId(SpecPaths.parentPath(path));
       return v == null ? "" : v;
     }
 
     public void requirementId(String value) {
-      doc.setFormField(path, "requirementId", value);
+      if (value.isEmpty()) return;
+      doc.setItemSectionId(SpecPaths.parentPath(path), value);
     }
 
+    // Title-role field (YRD6): a view onto the owning section's headline.
     public String title() {
-      String v = doc.formField(path, "title");
+      String v = doc.headline(SpecPaths.parentPath(path));
       return v == null ? "" : v;
     }
 
     public void title(String value) {
-      doc.setFormField(path, "title", value);
+      doc.setHeadline(SpecPaths.parentPath(path), value);
     }
 
     public String status() {

@@ -20,6 +20,24 @@ const SomFormFieldMeta* SomFormMeta::fieldNamed(const std::string& name) const {
   return nullptr;
 }
 
+const SomFormFieldMeta* SomFormMeta::titleField() const {
+  for (const auto& field : fields) {
+    if (field.role == "title") {
+      return &field;
+    }
+  }
+  return nullptr;
+}
+
+const SomFormFieldMeta* SomFormMeta::idField() const {
+  for (const auto& field : fields) {
+    if (field.role == "id") {
+      return &field;
+    }
+  }
+  return nullptr;
+}
+
 /* ---- SomMetaNode --------------------------------------------------------- */
 
 void SomMetaNode::addChild(std::unique_ptr<SomMetaNode> child) {

@@ -679,6 +679,9 @@ bool formHasValues(const SpecDocument& doc, const SomMetaNode& node,
     return false;
   }
   for (const auto& f : node.form->fields) {
+    if (!f.role.empty()) {
+      continue;  // YRD6: role values live in the heading.
+    }
     if (doc.formFieldOpt(path, f.name) != nullptr) {
       return true;
     }
@@ -690,6 +693,11 @@ void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
                const std::string& path) {
   if (node.form.has_value()) {
     for (const auto& f : node.form->fields) {
+      // YRD6: a role field's value is emitted exactly once — as the owning
+      // section's heading text / id comment — never as a form line.
+      if (!f.role.empty()) {
+        continue;
+      }
       const std::string* value = doc.formFieldOpt(path, f.name);
       if (value == nullptr) {
         continue;
@@ -1040,17 +1048,17 @@ std::string restoreValue(const std::vector<std::string>& body) {
   return stripBlankLines(b);
 }
 
-/* Returns the model field name matching `label` (case-insensitive), or
+/* Returns the model form field matching `label` (case-insensitive), or
  * nullptr. */
-const std::string* formFieldNameCi(const SomMetaNode& node,
-                                   const std::string& label) {
+const SomFormFieldMeta* formFieldCi(const SomMetaNode& node,
+                                    const std::string& label) {
   if (!node.form.has_value()) {
     return nullptr;
   }
   std::string lower = lowerDup(label);
   for (const auto& f : node.form->fields) {
     if (lowerDup(f.name) == lower) {
-      return &f.name;
+      return &f;
     }
   }
   return nullptr;
@@ -1061,6 +1069,7 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
   SpecMarkdownFenceTracker fence;
   const std::string* currentField = nullptr;
   bool haveField = false;
+  bool dropping = false;
   std::vector<std::string> current;
 
   auto flush = [&](std::size_t lineNo) {
@@ -1069,7 +1078,7 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
       if (!value.empty()) {
         stagedSetForm(path, *currentField, value);
       }
-    } else {
+    } else if (!dropping) {
       for (const auto& l : current) {
         if (!trimSpace(l).empty()) {
           pushRejection(lineNo, kSpecMarkdownRejectOrphanContent,
@@ -1079,6 +1088,7 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
         }
       }
     }
+    dropping = false;
     current.clear();
   };
 
@@ -1087,11 +1097,27 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
     if (!fence.inFence()) {
       std::string label, value;
       if (matchFieldLabel(line, &label, &value)) {
-        const std::string* fieldName = formFieldNameCi(node, label);
-        if (fieldName != nullptr) {
+        const SomFormFieldMeta* field = formFieldCi(node, label);
+        if (field != nullptr) {
           flush(frame.line + i);
+          // YRD6: role fields (title/id) are represented by the section
+          // heading / id comment — a form line duplicating one is rejected,
+          // never stored (continuation lines are dropped with it).
+          if (!field->role.empty()) {
+            pushRejection(frame.line + i, kSpecMarkdownRejectRoleFieldFormLine,
+                          "form field `" + field->name +
+                              "` is a title/id role field — its value is the "
+                              "section heading, not a form line",
+                          path);
+            haveField = false;
+            currentField = nullptr;
+            dropping = true;
+            current.clear();
+            fence.feed(line);
+            continue;
+          }
           haveField = true;
-          currentField = fieldName;
+          currentField = &field->name;
           current.push_back(value);
           fence.feed(line);
           continue;
@@ -1135,6 +1161,7 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
   const std::string* currentField = nullptr;
   std::string currentFormPath;
   bool haveField = false;
+  bool dropping = false;
   std::vector<std::string> current;
   std::vector<std::string> contentLines;
   currentFormIdx_ = 0;
@@ -1145,7 +1172,7 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
       std::string label, value;
       if (matchFieldLabel(line, &label, &value)) {
         int foundIdx = -1;
-        const std::string* foundName = nullptr;
+        const SomFormFieldMeta* found = nullptr;
         std::string lower = lowerDup(label);
         for (std::size_t k = 0; k < forms.size(); k++) {
           std::size_t idx = ((std::size_t)currentFormIdx_ + k) % forms.size();
@@ -1156,7 +1183,7 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
           for (const auto& f : fn->form->fields) {
             if (lowerDup(f.name) == lower) {
               foundIdx = (int)idx;
-              foundName = &f.name;
+              found = &f;
               break;
             }
           }
@@ -1172,15 +1199,36 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
             }
           }
           current.clear();
+          // YRD6: a title/id role field's value is the owning section's
+          // heading / id comment — a form line duplicating it is rejected,
+          // never stored (continuation lines are dropped with it).
+          if (!found->role.empty()) {
+            pushRejection(frame.line + i, kSpecMarkdownRejectRoleFieldFormLine,
+                          "form field `" + found->name +
+                              "` is a title/id role field — its value is the "
+                              "section heading, not a form line",
+                          specPathJoin(frame.path, forms[foundIdx].rel));
+            haveField = false;
+            currentField = nullptr;
+            currentFormPath.clear();
+            dropping = true;
+            fence.feed(line);
+            continue;
+          }
           currentFormIdx_ = foundIdx;
           haveField = true;
-          currentField = foundName;
+          currentField = &found->name;
           currentFormPath = specPathJoin(frame.path, forms[foundIdx].rel);
           current.push_back(value);
+          dropping = false;
           fence.feed(line);
           continue;
         }
       }
+    }
+    if (dropping) {
+      fence.feed(line);
+      continue;
     }
     std::string text = line;
     if (!fence.inFence() && haveField && matchContinuationLabel(line)) {

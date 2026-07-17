@@ -19,6 +19,7 @@ export {
   SPEC_PATH_SEPARATOR,
   specPathJoin,
   specPathSegments,
+  specParentPath,
   listItemPath,
   splitListItemSegment,
 } from './spec_paths';

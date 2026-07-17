@@ -78,6 +78,15 @@ type SomFormFieldMeta struct {
 	Required bool
 	// Hint is the authoring hint (e.g. "e.g. 1.0"), "" when absent.
 	Hint string
+	// Role is the structural role of the field (YRD6): "title" (the field is
+	// a view onto the owning section's headline), "id" (view onto the stored
+	// section id), or "" for an ordinary form-value field. Role fields are
+	// never stored in the form-value store; serialization emits their value
+	// once — as the heading text / id comment.
+	Role string
+	// Initial is the predefined initial content (YRD6, meta-only editor
+	// prefill), "" when absent.
+	Initial string
 	// Order is the declaration order within the form.
 	Order int
 }
@@ -92,6 +101,28 @@ type SomFormMeta struct {
 func (f *SomFormMeta) FieldNamed(name string) *SomFormFieldMeta {
 	for _, field := range f.Fields {
 		if field.Name == name {
+			return field
+		}
+	}
+	return nil
+}
+
+// TitleField returns the title-role field (YRD6), or nil when the form
+// declares none.
+func (f *SomFormMeta) TitleField() *SomFormFieldMeta {
+	for _, field := range f.Fields {
+		if field.Role == "title" {
+			return field
+		}
+	}
+	return nil
+}
+
+// IdField returns the id-role field (YRD6), or nil when the form declares
+// none.
+func (f *SomFormMeta) IdField() *SomFormFieldMeta {
+	for _, field := range f.Fields {
+		if field.Role == "id" {
 			return field
 		}
 	}

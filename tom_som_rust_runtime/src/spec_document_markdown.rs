@@ -43,7 +43,7 @@
 //! zero-dependency promise; the message strings are byte-identical to Go.
 
 use std::cell::RefCell;
-use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::rc::Rc;
 
 use crate::spec_document::{DocumentJson, ListJson, SpecDocument};
@@ -70,6 +70,10 @@ pub const SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT: &str = "orphanContent";
 pub const SPEC_MARKDOWN_REJECT_MISSING_VALUE: &str = "missingValue";
 /// A heading line without a parseable `<!--[id]-->` headline comment.
 pub const SPEC_MARKDOWN_REJECT_MALFORMED_HEADING: &str = "malformedHeading";
+/// A `FieldName:` form line for a title/id **role field** (YRD6): the
+/// field's value is the section heading / id comment and must never be
+/// duplicated as a form line.
+pub const SPEC_MARKDOWN_REJECT_ROLE_FIELD_FORM_LINE: &str = "roleFieldFormLine";
 
 /// One rejected block in a Markdown import (DR1 §1.7). Reported, never
 /// silently dropped: each carries the source `line`, the offending `anchor`
@@ -804,9 +808,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
     fn form_has_values(&self, node: &SomMetaNode, path: &str) -> bool {
         match &node.form {
             None => false,
+            // YRD6: role values live in the heading, so role fields are
+            // skipped when deciding whether a form has values.
             Some(form) => form
                 .fields
                 .iter()
+                .filter(|f| f.role.is_empty())
                 .any(|f| self.document.form_field(path, &f.name).is_some()),
         }
     }
@@ -818,6 +825,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
             None => &empty,
         };
         for f in fields {
+            // YRD6: a role field's value is emitted exactly once — as the
+            // owning section's heading text / id comment — never as a form
+            // line.
+            if !f.role.is_empty() {
+                continue;
+            }
             let value = match self.document.form_field(path, &f.name) {
                 Some(v) => v.clone(),
                 None => continue,
@@ -1451,7 +1464,7 @@ position (under \"{}\")",
         // so repeated field names across an owner's transparent forms follow
         // emit order.
         let mut current_form_idx: usize = 0;
-        let find_field = |from_idx: usize, label: &str| -> Option<(usize, String)> {
+        let find_field = |from_idx: usize, label: &str| -> Option<(usize, SomFormFieldMeta)> {
             let lower = label.to_lowercase();
             for k in 0..form_slots.len() {
                 let idx = (from_idx + k) % form_slots.len();
@@ -1461,7 +1474,7 @@ position (under \"{}\")",
                 };
                 for f in &form.fields {
                     if f.name.to_lowercase() == lower {
-                        return Some((idx, f.name.clone()));
+                        return Some((idx, f.clone()));
                     }
                 }
             }
@@ -1472,13 +1485,14 @@ position (under \"{}\")",
         let mut current_field = String::new();
         let mut current_form_path = String::new();
         let mut have_field = false;
+        let mut dropping = false;
         let mut current_lines: Vec<String> = Vec::new();
         let mut content_lines: Vec<String> = Vec::new();
 
-        for line in &frame.body {
+        for (i, line) in frame.body.iter().enumerate() {
             if !fence.in_fence() {
                 if let Some((label, first)) = md_field_label(line) {
-                    if let Some((idx, name)) = find_field(current_form_idx, label) {
+                    if let Some((idx, field)) = find_field(current_form_idx, label) {
                         if have_field {
                             stage_form_value(
                                 &mut self.forms,
@@ -1487,16 +1501,44 @@ position (under \"{}\")",
                                 &current_lines,
                             );
                         }
+                        // YRD6: a title/id role field's value is the owning
+                        // section's heading / id comment — a form line
+                        // duplicating it is rejected, never stored
+                        // (continuation lines are dropped with it).
+                        if !field.role.is_empty() {
+                            self.rejections.push(SpecMarkdownRejection {
+                                line: frame.line + i,
+                                reason: SPEC_MARKDOWN_REJECT_ROLE_FIELD_FORM_LINE.to_string(),
+                                anchor: format!("{}/{}", frame.path, form_slots[idx].rel),
+                                message: format!(
+                                    "form field `{}` is a title/id role field — its value is \
+                                     the section heading, not a form line",
+                                    field.name
+                                ),
+                            });
+                            have_field = false;
+                            current_field = String::new();
+                            current_form_path = String::new();
+                            dropping = true;
+                            current_lines = Vec::new();
+                            fence.feed(line);
+                            continue;
+                        }
                         current_lines = Vec::new();
                         current_form_idx = idx;
                         have_field = true;
-                        current_field = name;
+                        current_field = field.name;
                         current_form_path = format!("{}/{}", frame.path, form_slots[idx].rel);
                         current_lines.push(first.to_string());
+                        dropping = false;
                         fence.feed(line);
                         continue;
                     }
                 }
+            }
+            if dropping {
+                fence.feed(line);
+                continue;
             }
             // Continuation: strip the one escape space of a label-shaped line.
             let text = if !fence.in_fence() && have_field && md_continuation_label(line) {
@@ -1527,35 +1569,67 @@ position (under \"{}\")",
 
     fn finalize_form(&mut self, frame: &MdFrame, node: &SomMetaNode, path: &str) {
         let mut fields_by_lower: HashMap<String, String> = HashMap::new();
+        // YRD6: role fields (title/id) are represented by the section heading
+        // / id comment — a form line duplicating one is rejected, never
+        // stored.
+        let mut role_fields: HashSet<String> = HashSet::new();
         if let Some(form) = &node.form {
             for f in &form.fields {
                 fields_by_lower.insert(f.name.to_lowercase(), f.name.clone());
+                if !f.role.is_empty() {
+                    role_fields.insert(f.name.clone());
+                }
             }
         }
         let mut fence = MarkdownFenceTracker::new();
         let mut current_field = String::new();
         let mut have_field = false;
+        let mut dropping = false;
         let mut current_lines: Vec<String> = Vec::new();
 
         for (i, line) in frame.body.iter().enumerate() {
             if !fence.in_fence() {
                 if let Some((label, first)) = md_field_label(line) {
                     if let Some(field_name) = fields_by_lower.get(&label.to_lowercase()) {
+                        let field_name = field_name.clone();
                         self.flush_form_lines(
                             path,
                             have_field,
                             &current_field,
                             &current_lines,
                             frame.line + i,
+                            &mut dropping,
                         );
+                        if role_fields.contains(&field_name) {
+                            self.rejections.push(SpecMarkdownRejection {
+                                line: frame.line + i,
+                                reason: SPEC_MARKDOWN_REJECT_ROLE_FIELD_FORM_LINE.to_string(),
+                                anchor: path.to_string(),
+                                message: format!(
+                                    "form field `{}` is a title/id role field — its value is \
+                                     the section heading, not a form line",
+                                    field_name
+                                ),
+                            });
+                            have_field = false;
+                            current_field = String::new();
+                            dropping = true;
+                            current_lines = Vec::new();
+                            fence.feed(line);
+                            continue;
+                        }
                         current_lines = Vec::new();
                         have_field = true;
-                        current_field = field_name.clone();
+                        current_field = field_name;
                         current_lines.push(first.to_string());
                         fence.feed(line);
                         continue;
                     }
                 }
+            }
+            if dropping {
+                fence.feed(line);
+                continue;
             }
             // Continuation: strip the one escape space of a label-shaped line.
             if !fence.in_fence() && md_continuation_label(line) {
@@ -1571,6 +1645,7 @@ position (under \"{}\")",
             &current_field,
             &current_lines,
             frame.line + frame.body.len(),
+            &mut dropping,
         );
     }
 
@@ -1581,10 +1656,11 @@ position (under \"{}\")",
         current_field: &str,
         current_lines: &[String],
         line_no: usize,
+        dropping: &mut bool,
     ) {
         if have_field {
             stage_form_value(&mut self.forms, path, current_field, current_lines);
-        } else if current_lines.iter().any(|l| !l.trim().is_empty()) {
+        } else if !*dropping && current_lines.iter().any(|l| !l.trim().is_empty()) {
             self.rejections.push(SpecMarkdownRejection {
                 line: line_no,
                 reason: SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT.to_string(),
@@ -1592,6 +1668,7 @@ position (under \"{}\")",
                 anchor: path.to_string(),
             });
         }
+        *dropping = false;
     }
 }
 

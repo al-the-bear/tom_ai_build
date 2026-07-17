@@ -21,6 +21,8 @@ import java.util.List;
 import tom_som_runtime.DocSpecsSchema;
 import tom_som_runtime.DocSpecsValidator;
 import tom_som_runtime.DocSpecsViolation;
+import tom_som_runtime.SomFormFieldMeta;
+import tom_som_runtime.SomFormMeta;
 import tom_som_runtime.SomMetaKind;
 import tom_som_runtime.SomMetaNode;
 import tom_som_runtime.SomMetaRef;
@@ -29,6 +31,7 @@ import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SomList;
 import tom_som_java_v0.TomSomV0.D00SolutionBlueprint;
 import tom_som_java_v0.TomSomV0.CurrentOperationalMetric;
+import tom_som_java_v0.TomSomV0.FunctionalRequirementEntry;
 import tom_som_java_v0.TomSomV0Meta;
 
 public final class GoldenLog {
@@ -57,7 +60,7 @@ public final class GoldenLog {
     List<String> out = new ArrayList<>();
     out.add("# TomSpecs SOM golden log — canonical cross-language reading.");
     out.add("# All nine per-language generators must emit byte-identical output.");
-    out.add("FORMAT\t4");
+    out.add("FORMAT\t5");
     out.add("MODELVERSION\t" + esc(doc.modelVersion()));
 
     // Generic: content leaves, sorted by path.
@@ -151,6 +154,34 @@ public final class GoldenLog {
       out.add("TI\t" + leaf + "\t" + esc(elem.content()));
     }
 
+    // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
+    // (`requirementId`) and title-role (`title`) fields are pure views onto the
+    // owning list item's stored section id / headline. Each typed read is
+    // asserted against the generic itemSectionId/headline read before emission,
+    // proving the view binding end-to-end in every language. ---
+    SomList<FunctionalRequirementEntry> freReqs =
+        sbp.introductionAndScope().requirements().functionalRequirements().requirements();
+    for (int i = 0; i < freReqs.length(); i++) {
+      FunctionalRequirementEntry req = freReqs.get(i);
+      String itemPath = req.path;
+      String typedId = req.content().requirementId();
+      String typedTitle = req.content().title();
+      String genericId = doc.itemSectionId(itemPath);
+      genericId = genericId == null ? "" : genericId;
+      String genericTitle = doc.headline(itemPath);
+      genericTitle = genericTitle == null ? "" : genericTitle;
+      if (!typedId.equals(genericId)) {
+        die("TYPED ID-ROLE MISMATCH at " + itemPath + ": "
+            + "typed=\"" + typedId + "\" generic=\"" + genericId + "\"");
+      }
+      if (!typedTitle.equals(genericTitle)) {
+        die("TYPED TITLE-ROLE MISMATCH at " + itemPath + ": "
+            + "typed=\"" + typedTitle + "\" generic=\"" + genericTitle + "\"");
+      }
+      out.add("TR\t" + itemPath + "\trequirementId\t" + esc(typedId));
+      out.add("TR\t" + itemPath + "\ttitle\t" + esc(typedTitle));
+    }
+
     // --- Meta (FORMAT 2): the generated metadata tree read three ways. ---
     SomMetaTree metaTree = TomSomV0Meta.D00SolutionBlueprintMetaTree;
 
@@ -165,6 +196,44 @@ public final class GoldenLog {
     metaNode(out, metaTree, "SBP/currentLandscape/CUOPME-OPER-LST");
     metaNode(out, metaTree, "SBP/requirements");
     metaNode(out, metaTree, "SBP/requirements/content");
+
+    // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+    // read through the metadata tree — one MF line per field (declaration
+    // order) with type/required/role/initial, plus one MT summary line naming
+    // the form's title-role and id-role fields via the titleField/idField
+    // accessors. All values are model-derived. ---
+    out.add("SECTION\tmeta-form");
+    final String freListPath =
+        "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST";
+    SomMetaNode freListNode = metaTree.byPath(freListPath);
+    SomMetaNode freElement = freListNode != null ? freListNode.elementNode : null;
+    SomMetaNode freContentNode = null;
+    if (freElement != null) {
+      for (SomMetaNode child : freElement.children) {
+        if ("content".equals(child.memberName)) {
+          freContentNode = child;
+        }
+      }
+    }
+    SomFormMeta freForm = freContentNode != null ? freContentNode.form : null;
+    if (freForm == null) {
+      System.err.println("META FORM MISSING at " + freListPath + " element content");
+      System.exit(3);
+      return;
+    }
+    // Element subtrees have no static document path; use an ASCII marker
+    // segment so the log path stays ASCII (mirrored verbatim per language).
+    final String freFormPath = freListPath + "/#element/content";
+    for (SomFormFieldMeta f : freForm.fields) {
+      out.add("MF\t" + freFormPath + "\t" + esc(f.name) + "\t" + esc(f.typeName) + "\t"
+          + (f.required ? 1 : 0) + "\t" + esc(f.role == null ? "" : f.role) + "\t"
+          + esc(f.initial == null ? "" : f.initial));
+    }
+    SomFormFieldMeta freTitleField = freForm.titleField();
+    SomFormFieldMeta freIdField = freForm.idField();
+    out.add("MT\t" + freFormPath + "\t"
+        + esc(freTitleField == null ? "" : freTitleField.name) + "\t"
+        + esc(freIdField == null ? "" : freIdField.name));
 
     out.add("SECTION\tmeta-nav");
     metaNav(out, metaTree, TomSomV0Meta.D00SolutionBlueprintMeta, "SBP");

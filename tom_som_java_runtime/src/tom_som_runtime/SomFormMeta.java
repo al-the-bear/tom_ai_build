@@ -24,4 +24,24 @@ public final class SomFormMeta {
     }
     return null;
   }
+
+  /** The title-role field (YRD6), or {@code null} when the form declares none. */
+  public SomFormFieldMeta titleField() {
+    for (SomFormFieldMeta field : fields) {
+      if ("title".equals(field.role)) {
+        return field;
+      }
+    }
+    return null;
+  }
+
+  /** The id-role field (YRD6), or {@code null} when the form declares none. */
+  public SomFormFieldMeta idField() {
+    for (SomFormFieldMeta field : fields) {
+      if ("id".equals(field.role)) {
+        return field;
+      }
+    }
+    return null;
+  }
 }

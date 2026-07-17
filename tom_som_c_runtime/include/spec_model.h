@@ -45,6 +45,8 @@ typedef struct {
   char *type; /* defaults to "String" */
   char *hint;
   int required;
+  char *role;    /* structural role (YRD6): "title" | "id" | "" ordinary */
+  char *initial; /* predefined initial content (YRD6), "" when absent */
 } FormFieldSpec;
 
 typedef struct {

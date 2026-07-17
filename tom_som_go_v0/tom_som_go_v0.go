@@ -105537,20 +105537,26 @@ func (x *FunctionalRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+// RequirementId is the id-role field (YRD6): a view onto the owning list item's stored
+// section id (uniqueness validated on write; empty writes are ignored).
 func (x *FunctionalRequirementEntryContentForm) RequirementId() string {
-	return x.Doc().FormFieldOr(x.Path(), "requirementId")
+	return x.Doc().ItemSectionIDOr(som.SpecParentPath(x.Path()))
 }
 
-func (x *FunctionalRequirementEntryContentForm) SetRequirementId(value string) {
-	x.Doc().SetFormField(x.Path(), "requirementId", value)
+func (x *FunctionalRequirementEntryContentForm) SetRequirementId(value string) error {
+	if value == "" {
+		return nil
+	}
+	return x.Doc().SetItemSectionID(som.SpecParentPath(x.Path()), value)
 }
 
+// Title is the title-role field (YRD6): a view onto the owning section's headline.
 func (x *FunctionalRequirementEntryContentForm) Title() string {
-	return x.Doc().FormFieldOr(x.Path(), "title")
+	return x.Doc().HeadlineOr(som.SpecParentPath(x.Path()))
 }
 
 func (x *FunctionalRequirementEntryContentForm) SetTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "title", value)
+	x.Doc().SetHeadline(som.SpecParentPath(x.Path()), value)
 }
 
 func (x *FunctionalRequirementEntryContentForm) Status() string {

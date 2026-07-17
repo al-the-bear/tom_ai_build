@@ -523,6 +523,135 @@ function testFenceShieldedHeadingsStayBody() {
   _check('fenceShield.noStatus', !('D00/D00-ST' in report.content));
 }
 
+// --- YRD6 — title/id role form fields ---------------------------------------
+// Role fields are pure views onto the YRD3 headline/id stores. Their values
+// emit exactly once — as the item heading text / id comment — never as form
+// lines; a form line duplicating one is rejected.
+
+function _cardsJson() {
+  return {
+    roots: [{ type: 'CardDoc', title: 'Card Doc', sectionId: 'C00' }],
+    classes: {
+      CardDoc: {
+        name: 'CardDoc',
+        sectionId: 'C00',
+        annotations: [
+          { name: 'Document', arguments: { title: 'Card Doc' } },
+          { name: 'SectionId', arguments: { id: 'C00' } },
+        ],
+        fields: [
+          {
+            name: 'cards',
+            kind: 'list',
+            sectionId: 'CARD-LST',
+            sectionIdPattern: 'CARD-xxx',
+            elementType: 'Card',
+            elementIsComplex: true,
+          },
+        ],
+      },
+      Card: {
+        name: 'Card',
+        fields: [
+          {
+            name: 'content',
+            kind: 'form',
+            formFields: [
+              { name: 'cardId', label: 'Card ID', type: 'String', role: 'id' },
+              {
+                name: 'name',
+                label: 'Name',
+                type: 'String',
+                role: 'title',
+                initial: 'New Card',
+              },
+              { name: 'note', label: 'Note', type: 'String' },
+            ],
+          },
+        ],
+      },
+    },
+  };
+}
+
+function _cardsModel() {
+  return SpecModel.fromJson(_cardsJson());
+}
+
+function _cardsExport(doc) {
+  const model = _cardsModel();
+  return new SpecDocumentMarkdown(model, doc).exportRoot(model.roots[0]);
+}
+
+function _cardsPopulated() {
+  const doc = new SpecDocument();
+  const c1 = doc.addListItem('C00/CARD-LST');
+  doc.setItemSectionId(c1, 'CARD-ALPHA');
+  doc.setHeadline(c1, 'Alpha Card');
+  doc.setFormField(`${c1}/content`, 'note', 'first card');
+  return doc;
+}
+
+function testRoleValuesEmitOnce() {
+  const md = _cardsExport(_cardsPopulated());
+  _check('yrd6.emit.heading', md.includes('<!--[CARD-ALPHA]--> Alpha Card'), md);
+  _check('yrd6.emit.note', md.includes('Note: first card'), md);
+  _check('yrd6.emit.noIdLabel', !md.includes('Card ID:'), md);
+  _check('yrd6.emit.noIdName', !md.includes('cardId:'), md);
+  _check('yrd6.emit.noTitleLabel', !md.includes('Name:'), md);
+}
+
+function testRoleFieldFormLineRejected() {
+  const md =
+    '# <!--[C00]--> Card Doc\n\n' +
+    '## <!--[CARD-LST]--> Cards\n\n' +
+    '### <!--[CARD-ALPHA]--> Alpha Card\n\n' +
+    'cardId: CARD-DUP\n' +
+    '  spilled continuation\n' +
+    'Note: kept note\n';
+  const report = new SpecDocumentMarkdown(_cardsModel(), new SpecDocument()).parse(md);
+  _check(
+    'yrd6.reject.reason',
+    report.rejections.some(
+      (r) => r.reason === SpecMarkdownRejectReason.ROLE_FIELD_FORM_LINE,
+    ),
+    _rejStr(report),
+  );
+  // The rejected role line and its continuation never reach the stores.
+  _check(
+    'yrd6.reject.formsKept',
+    _shallowEqual(report.forms['C00/CARD-LST-1/content'], { note: 'kept note' }),
+    JSON.stringify(report.forms),
+  );
+  // The heading still restores the YRD3 views.
+  const ids = report.lists['C00/CARD-LST'] && report.lists['C00/CARD-LST'].ids;
+  _check(
+    'yrd6.reject.ids',
+    _shallowEqual(ids, { 'C00/CARD-LST-1': 'CARD-ALPHA' }),
+    JSON.stringify(report.lists),
+  );
+}
+
+function testRoleFieldRoundTrip() {
+  const md = _cardsExport(_cardsPopulated());
+  const target = new SpecDocument();
+  const report = new SpecDocumentMarkdown(_cardsModel(), target).parse(md);
+  _check('yrd6.rt.clean', report.rejections.length === 0, _rejStr(report));
+  target.loadJson({
+    content: report.content,
+    forms: report.forms,
+    lists: report.lists,
+    headlines: report.headlines,
+  });
+  _check('yrd6.rt.id', target.itemSectionId('C00/CARD-LST-1') === 'CARD-ALPHA');
+  _check('yrd6.rt.headline', target.headline('C00/CARD-LST-1') === 'Alpha Card');
+  _check(
+    'yrd6.rt.note',
+    target.formField('C00/CARD-LST-1/content', 'note') === 'first card',
+  );
+  _check('yrd6.rt.byteStable', _cardsExport(target) === md);
+}
+
 function main() {
   testExportFormat();
   testExportStoredItemId();
@@ -541,6 +670,9 @@ function main() {
   testRejectMissingValue();
   testCaseInsensitiveLabels();
   testFenceShieldedHeadingsStayBody();
+  testRoleValuesEmitOnce();
+  testRoleFieldFormLineRejected();
+  testRoleFieldRoundTrip();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

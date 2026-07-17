@@ -196,6 +196,8 @@ static SpecField fieldFromJson(const JsonRef& f) {
     ffs_out.label = !label.empty() ? label : fname;
     ffs_out.hint = jsonStrOr(ff, "hint");
     ffs_out.required = jsonBoolOr(ff, "required");
+    ffs_out.role = jsonStrOr(ff, "role");
+    ffs_out.initial = jsonStrOr(ff, "initial");
     out.formFields.push_back(std::move(ffs_out));
   }
 

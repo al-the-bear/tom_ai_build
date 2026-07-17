@@ -406,7 +406,8 @@ static char *meta_form_diff(const char *at, const SomFormMeta *a,
         strcmp(fa->type_name, fb->type_name) != 0 ||
         strcmp(fa->description, fb->description) != 0 ||
         fa->required != fb->required || strcmp(fa->hint, fb->hint) != 0 ||
-        fa->order != fb->order) {
+        strcmp(fa->role, fb->role) != 0 ||
+        strcmp(fa->initial, fb->initial) != 0 || fa->order != fb->order) {
       SomBuf buf;
       som_buf_init(&buf);
       som_buf_puts(&buf, at);

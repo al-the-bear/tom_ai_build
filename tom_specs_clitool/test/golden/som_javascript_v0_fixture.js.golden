@@ -15,6 +15,7 @@ const {
   SpecDocument,
   checkSomModelVersion,
   somEditabilityFor,
+  specParentPath,
 } = require(_path.resolve(__dirname, _manifest.tomSom.runtimePath));
 
 // The generated metadata module (DR8/DR15): the populated SomMetaTrees plus

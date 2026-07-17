@@ -62,6 +62,13 @@ pub struct FormFieldSpec {
     pub type_: String,
     pub hint: String,
     pub required: bool,
+    /// Structural role of the field (YRD6): `"title"` (view onto the owning
+    /// section's headline), `"id"` (view onto the stored section id), or `""`
+    /// for an ordinary form-value field.
+    pub role: String,
+    /// Predefined initial content (YRD6, meta-only editor prefill), `""` when
+    /// absent.
+    pub initial: String,
 }
 
 /// A single field of a [`SpecClass`].
@@ -308,6 +315,8 @@ fn field_from_json(f: &Json) -> SpecField {
                 type_,
                 hint: ff.str_or("hint"),
                 required: ff.bool_or("required"),
+                role: ff.str_or("role"),
+                initial: ff.str_or("initial"),
             });
         }
     }

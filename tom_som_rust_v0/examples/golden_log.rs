@@ -53,7 +53,7 @@ fn main() {
     let mut out: Vec<String> = Vec::new();
     out.push("# TomSpecs SOM golden log — canonical cross-language reading.".to_string());
     out.push("# All nine per-language generators must emit byte-identical output.".to_string());
-    out.push("FORMAT\t4".to_string());
+    out.push("FORMAT\t5".to_string());
     out.push(format!("MODELVERSION\t{}", esc(&doc.model_version)));
 
     // Generic: content leaves, sorted by path.
@@ -164,6 +164,39 @@ fn main() {
         out.push(format!("TI\t{}\t{}", leaf, esc(&elem.content())));
     }
 
+    // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
+    // (`requirementId`) and title-role (`title`) fields are pure views onto the
+    // owning list item's stored section id / headline. Each typed read is
+    // asserted against the generic itemSectionId/headline read before emission,
+    // proving the view binding end-to-end in every language. ---
+    let fre_reqs = sbp
+        .introduction_and_scope()
+        .requirements()
+        .functional_requirements()
+        .requirements();
+    for i in 0..fre_reqs.length() {
+        let req = fre_reqs.at(i);
+        let item_path = req.node.path().to_string();
+        let typed_id = req.content().requirement_id();
+        let typed_title = req.content().title();
+        let generic_id = doc.item_section_id(&item_path).cloned().unwrap_or_default();
+        let generic_title = doc.headline_or(&item_path);
+        if typed_id != generic_id {
+            die(&format!(
+                "TYPED ID-ROLE MISMATCH at {}: typed=\"{}\" generic=\"{}\"",
+                item_path, typed_id, generic_id
+            ));
+        }
+        if typed_title != generic_title {
+            die(&format!(
+                "TYPED TITLE-ROLE MISMATCH at {}: typed=\"{}\" generic=\"{}\"",
+                item_path, typed_title, generic_title
+            ));
+        }
+        out.push(format!("TR\t{}\trequirementId\t{}", item_path, esc(&typed_id)));
+        out.push(format!("TR\t{}\ttitle\t{}", item_path, esc(&typed_title)));
+    }
+
     // --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
     // emitted path/field is model-derived so the lines match across languages.
     let dot = meta::d00_solution_blueprint_meta(&tree);
@@ -211,6 +244,53 @@ fn main() {
             esc(&n.headline),
         ));
     }
+
+    // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+    // read through the metadata tree — one MF line per field (declaration
+    // order) with type/required/role/initial, plus one MT summary line naming
+    // the form's title-role and id-role fields via the title_field/id_field
+    // accessors. All values are model-derived. ---
+    out.push("SECTION\tmeta-form".to_string());
+    const FRE_LIST_PATH: &str =
+        "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST";
+    let fre_element = tree
+        .by_path(FRE_LIST_PATH)
+        .and_then(|n| n.element_node.clone());
+    let mut fre_content_node: Option<std::rc::Rc<som::SomMetaNode>> = None;
+    if let Some(element) = &fre_element {
+        for child in &element.children {
+            if child.member_name == "content" {
+                fre_content_node = Some(child.clone());
+            }
+        }
+    }
+    let fre_form = match fre_content_node.as_ref().and_then(|n| n.form.clone()) {
+        Some(f) => f,
+        None => {
+            eprintln!("META FORM MISSING at {} element content", FRE_LIST_PATH);
+            exit(3);
+        }
+    };
+    // Element subtrees have no static document path; use an ASCII marker
+    // segment so the log path stays ASCII (mirrored verbatim per language).
+    let fre_form_path = format!("{}/#element/content", FRE_LIST_PATH);
+    for f in &fre_form.fields {
+        out.push(format!(
+            "MF\t{}\t{}\t{}\t{}\t{}\t{}",
+            fre_form_path,
+            esc(&f.name),
+            esc(&f.type_name),
+            if f.required { 1 } else { 0 },
+            esc(&f.role),
+            esc(&f.initial),
+        ));
+    }
+    out.push(format!(
+        "MT\t{}\t{}\t{}",
+        fre_form_path,
+        esc(fre_form.title_field().map(|f| f.name.as_str()).unwrap_or("")),
+        esc(fre_form.id_field().map(|f| f.name.as_str()).unwrap_or("")),
+    ));
 
     // Dot-notation navigation: the typed accessor must resolve to the same path
     // and the same node instance as by_path.

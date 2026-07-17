@@ -444,10 +444,20 @@ class _Encoder:
             return
         meta = node.form if node.form is not None else SomFormMeta(fields=[])
         for name in fields:
-            if meta.field_named(name) is None:
+            field = meta.field_named(name)
+            if field is None:
                 raise SpecYamlFormatException(
                     f"form `{path}` holds a field `{name}` unknown to the "
                     "model"
+                )
+            if field.role is not None:
+                # YRD6: role values live in the headline / item-id store; a
+                # stored form value under a role field name is a corrupt
+                # document state.
+                raise SpecYamlFormatException(
+                    f"form `{path}` holds a value for {field.role}-role "
+                    f"field `{name}` — role values live in the section "
+                    "headline/id, not the form store"
                 )
         if headline is not None and meta.field_named("headline") is not None:
             raise SpecYamlFormatException(
@@ -703,7 +713,8 @@ class _Decoder:
             )
             for f, v in value.items():
                 name = str(f)
-                if meta.field_named(name) is None:
+                field = meta.field_named(name)
+                if field is None:
                     if name == "headline":
                         self.doc.set_headline(
                             path, self._scalar_of(v, f"{path} (headline)")
@@ -711,6 +722,14 @@ class _Decoder:
                         continue
                     raise SpecYamlFormatException(
                         f"form `{path}` has no field `{name}` in the model"
+                    )
+                if field.role is not None:
+                    # YRD6: a role field's value is the section heading /
+                    # item key — it must never appear as a form entry.
+                    raise SpecYamlFormatException(
+                        f"form `{path}` field `{name}` is a "
+                        f"{field.role}-role field — its value is the "
+                        "section headline/id, not a form entry"
                     )
                 self.doc.set_form_field(
                     path, name, self._scalar_of(v, f"{path}.{name}")

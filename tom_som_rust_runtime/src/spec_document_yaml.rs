@@ -640,10 +640,23 @@ impl<'a> YamlEncoder<'a> {
         let empty_meta = SomFormMeta::default();
         let meta = node.form.as_ref().unwrap_or(&empty_meta);
         for name in fields.keys() {
-            if meta.field_named(name).is_none() {
+            let field = match meta.field_named(name) {
+                Some(f) => f,
+                None => {
+                    return Err(yaml_format_err(format!(
+                        "form `{}` holds a field `{}` unknown to the model",
+                        path, name
+                    )))
+                }
+            };
+            if !field.role.is_empty() {
+                // YRD6: role values live in the headline / item-id store; a
+                // stored form value under a role field name is a corrupt
+                // document state.
                 return Err(yaml_format_err(format!(
-                    "form `{}` holds a field `{}` unknown to the model",
-                    path, name
+                    "form `{}` holds a value for {}-role field `{}` — role values live in the \
+                     section headline/id, not the form store",
+                    path, field.role, name
                 )));
             }
         }
@@ -986,16 +999,28 @@ impl YamlDecoder<'_> {
                 let empty_meta = SomFormMeta::default();
                 let meta = child.form.as_ref().unwrap_or(&empty_meta);
                 for (name, raw) in fields.iter() {
-                    if meta.field_named(name).is_none() {
-                        if name == "headline" {
-                            let v =
-                                decoder_scalar_of(raw, &format!("{} (headline)", path))?;
-                            self.doc.set_headline(path, &v);
-                            continue;
+                    let field = match meta.field_named(name) {
+                        Some(f) => f,
+                        None => {
+                            if name == "headline" {
+                                let v =
+                                    decoder_scalar_of(raw, &format!("{} (headline)", path))?;
+                                self.doc.set_headline(path, &v);
+                                continue;
+                            }
+                            return Err(yaml_format_err(format!(
+                                "form `{}` has no field `{}` in the model",
+                                path, name
+                            )));
                         }
+                    };
+                    if !field.role.is_empty() {
+                        // YRD6: a role field's value is the section heading /
+                        // item key — it must never appear as a form entry.
                         return Err(yaml_format_err(format!(
-                            "form `{}` has no field `{}` in the model",
-                            path, name
+                            "form `{}` field `{}` is a {}-role field — its value is the section \
+                             headline/id, not a form entry",
+                            path, name, field.role
                         )));
                     }
                     let v = decoder_scalar_of(raw, &format!("{}.{}", path, name))?;

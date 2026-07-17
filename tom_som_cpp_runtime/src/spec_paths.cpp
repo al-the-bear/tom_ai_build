@@ -23,6 +23,11 @@ std::vector<std::string> specPathSegments(const std::string& path) {
   return out;
 }
 
+std::string specParentPath(const std::string& path) {
+  std::size_t i = path.rfind(kSpecPathSeparator);
+  return i == std::string::npos ? path : path.substr(0, i);
+}
+
 std::string specListItemPath(const std::string& listPath, long long seq) {
   return listPath + "-" + formatI64(seq);
 }

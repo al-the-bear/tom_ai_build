@@ -410,9 +410,15 @@ class SomJavaMetaEmitter {
       final fields = <String>[];
       for (var i = 0; i < f.formFields.length; i++) {
         final ff = f.formFields[i];
+        // YRD6: role/initial fields use the extended constructor; ordinary
+        // fields keep the compact one.
+        final roleArgs = ff.role != null || ff.initial != null
+            ? '${ff.role != null ? _str(ff.role!) : 'null'}, '
+                '${ff.initial != null ? _str(ff.initial!) : 'null'}, '
+            : '';
         fields.add('new SomFormFieldMeta(${_str(ff.name)}, ${_str(ff.type)}, '
             '${_str(ff.label)}, ${ff.required ? 'true' : 'false'}, '
-            '${ff.hint != null ? _str(ff.hint!) : 'null'}, $i)');
+            '${ff.hint != null ? _str(ff.hint!) : 'null'}, $roleArgs$i)');
       }
       add('form',
           'new SomFormMeta(Arrays.asList(\n'

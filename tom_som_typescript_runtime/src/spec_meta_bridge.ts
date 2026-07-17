@@ -218,6 +218,8 @@ function _fieldNode(
             description: ff.label,
             required: ff.required,
             hint: ff.hint,
+            role: ff.role,
+            initial: ff.initial,
             order: i,
           }),
       ),

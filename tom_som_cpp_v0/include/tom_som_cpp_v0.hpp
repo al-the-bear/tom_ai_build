@@ -42880,8 +42880,11 @@ class FunctionalRequirementEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  // Id-role field (YRD6): a view onto the owning list item's stored section id
+  // (uniqueness validated on write; empty writes are ignored).
   std::string requirementId() const;
   void setRequirementId(const std::string& value);
+  // Title-role field (YRD6): a view onto the owning section's headline.
   std::string title() const;
   void setTitle(const std::string& value);
   std::string status() const;
