@@ -9,7 +9,7 @@
       - content
       - items: `UserCategoryDefinition`
         - content @Form(categoryName, description, accessLevel, estimatedCount)
-    - userLifecycle: `UserLifecycleSection`
+    - `UserLifecycle`
       - content, overview @text
       - accountStates: `UserAccountStatesDefinition`
         - content, stateTransitionDiagram @mermaid
@@ -26,13 +26,7 @@
       - transitions: `UserLifecycleTransitions`
         - content, transitionRulesDescription @text, lifecycleStateDiagram @mermaid
         - items: `UserLifecycleTransitionEntry`
-          - content @Form(transitionName, fromState, toState, trigger, triggerConditions)
-          - approval: `UserLifecycleTransitionEntryApproval`
-            - content @Form(approvalRequired, approverRole, approvalSla)
-          - effects: `UserLifecycleTransitionEntryEffects`
-            - content @Form(sideEffects, notificationRecipients, notificationChannels)
-          - automation: `UserLifecycleTransitionEntryAutomation`
-            - content @Form(reversible, reverseTransitionName, automationSupported)
+          - content @Form(transitionName, fromState, toState, trigger, triggerConditions), approval, effects, automation
       - selfService: `SelfServiceAccountManagement`
         - content, selfServiceDescription @text
       - serviceAccounts: `ServiceAccountLifecycle`
@@ -46,77 +40,31 @@
     - `Identification`
       - content @Form(identityModelApproach, identityNamespace, primaryIdentifierType, uniqueIdentifierStrategy, identifierImmutability, identityLifecycleModel, identityTrustModel, maximumIdentitiesPerPerson, identityMergingPolicy, identityDataResidency)
       - identitySources: `IdentitySourceEntry`
-        - content @Form(sourceName, sourceType, sourceProduct)
-        - connection: `IdentitySourceEntryConnection`
-          - content @Form(sourceEndpoint, sourceProtocol, priority, trustLevel, authoritative)
-        - lifecycle: `IdentitySourceEntryLifecycle`
-          - content @Form(synchronizationMode, synchronizationFrequency, provisioningMethod, deprovisioningMethod, conflictResolution)
-        - mapping: `IdentitySourceEntryMapping`
-          - content @Form(attributeFilter, groupMappingEnabled)
-        - operations: `IdentitySourceEntryOperations`
-          - content @Form(failoverBehavior, enabled, description)
+        - content @Form(sourceName, sourceType, sourceProduct), connection, lifecycle, mapping, operations
       - identityVerification: `IdentityVerificationPolicy`
-        - content @Form(verificationLevel, nistIalTarget, verificationMode), verificationDetails @text
-        - documents: `IdentityVerificationPolicyDocuments`
-          - content @Form(requiredDocuments, documentVerificationMethod, biometricVerification)
-        - methods: `IdentityVerificationPolicyMethods`
-          - content @Form(emailVerification, phoneVerification, verificationServiceProvider)
-        - workflow: `IdentityVerificationPolicyWorkflow`
-          - content @Form(verificationSteps, supervisorApprovalRequired, proofingChannels)
-        - lifecycle: `IdentityVerificationPolicyLifecycle`
-          - content @Form(reverificationTriggers, reverificationPeriod, verificationRecordRetention)
-        - failure: `IdentityVerificationPolicyFailure`
-          - content @Form(failedVerificationPolicy, maxVerificationAttempts)
+        - content @Form(verificationLevel, nistIalTarget, verificationMode), documents, methods, workflow, lifecycle,
+          failure, verificationDetails @text
       - identityProviders: `IdentityProviderEntry`
-        - content @Form(providerName, providerType, enabled)
+        - content @Form(providerName, providerType, enabled), mapping, trust, security
         - details: `IdentityProviderDetails`
           - content @Form(providerProduct, protocolVersion, description)
         - endpoints: `IdentityProviderEndpoints`
           - content @Form(endpointUrl, metadataUrl, issuerIdentifier, clientId, scopes)
-        - mapping: `IdentityProviderMapping`
-          - content @Form(attributeMapping, groupClaimName, defaultRoles, justInTimeProvisioning, accountLinkingStrategy)
-        - trust: `IdentityProviderTrust`
-          - content @Form(trustLevel, federationAgreement, mfaCapability, failoverIdp)
-        - security: `IdentityProviderSecurity`
-          - content @Form(certificateManagement, tokenSigningAlgorithm, encryptionRequired)
       - singleSignOn: `SingleSignOnPolicy`
-        - content @Form(ssoEnabled, ssoScope, ssoProtocol), ssoDetails @text
-        - federation: `SingleSignOnPolicyFederation`
-          - content @Form(ssoGatewayProduct, sessionPropagationMethod, crossDomainTrustModel, identityFederationEnabled)
-        - session: `SingleSignOnPolicySession`
-          - content @Form(logoutPropagation, logoutProtocol, ssoSessionLifetime, ssoIdleTimeout)
-        - access: `SingleSignOnPolicyAccess`
-          - content @Form(accountLinkingStrategy, consentRequirements, ssoPortalUrl, ssoBypassRules)
-        - operations: `SingleSignOnPolicyOperations`
-          - content @Form(desktopSsoIntegration, mobileSsoStrategy, ssoMonitoring)
+        - content @Form(ssoEnabled, ssoScope, ssoProtocol), federation, session, access, operations, ssoDetails @text
       - selfRegistration: `SelfRegistrationPolicy`
-        - content @Form(selfRegistrationEnabled, registrationFlowType, requiredFields), registrationDetails @text
-        - fields: `SelfRegistrationPolicyFields`
-          - content @Form(optionalFields, termsAcceptanceRequired)
-        - botProtection: `SelfRegistrationPolicyBotProtection`
-          - content @Form(captchaRequired, captchaProvider)
-        - verification: `SelfRegistrationPolicyVerification`
-          - content @Form(emailVerificationRequired, emailVerificationMethod, phoneVerificationRequired, phoneVerificationMethod)
-        - approval: `SelfRegistrationPolicyApproval`
-          - content @Form(approvalRequired, approvalWorkflow, defaultRole, defaultGroup, accountActivationDelay, welcomeNotification)
-        - security: `SelfRegistrationPolicySecurity`
-          - content @Form(allowedEmailDomains, blockedEmailDomains, duplicateDetectionMethod, rateLimiting)
+        - content @Form(selfRegistrationEnabled, registrationFlowType, requiredFields), fields, botProtection,
+          verification, approval, security, registrationDetails @text
       - attributeMappings: `IdentityAttributeMappingEntry`
-        - content @Form(sourceAttribute, sourceSystem, targetAttribute, dataType)
-        - transformation: `IdentityAttributeMappingEntryTransformation`
-          - content @Form(transformationRule, transformationExpression, defaultValue, multiValueHandling)
-        - synchronization: `IdentityAttributeMappingEntrySynchronization`
-          - content @Form(mandatory, syncDirection, conflictResolution)
-        - governance: `IdentityAttributeMappingEntryGovernance`
-          - content @Form(piiClassification, description)
+        - content @Form(sourceAttribute, sourceSystem, targetAttribute, dataType), transformation, synchronization,
+          governance
     - `Authentication`
       - content
       - `AuthenticationMethods`
         - content, overview @text
         - `MfaConfiguration`
           - content
-          - mfaDetails: `MfaDetailEntry`
-            - content @text
+          - mfaDetails: `String`
         - `SsoPolicy`
           - content, ssoDetails @text
         - certificateAuthentication: `CertificateAuthenticationPolicy`
@@ -126,15 +74,7 @@
         - apiKeyManagement: `ApiKeyManagementPolicy`
           - content, apiKeyDetails @text
         - items: `AuthenticationMethodEntry`
-          - content @Form(methodName, methodType, authenticationFactor)
-          - security: `AuthenticationMethodEntrySecurity`
-            - content @Form(assuranceLevel, phishingResistant, replayResistant, hardwareRequirement, fipsValidationLevel, securityLevel)
-          - applicability: `AuthenticationMethodEntryApplicability`
-            - content @Form(applicableUserCategories, primaryOrSecondary)
-          - enrollment: `AuthenticationMethodEntryEnrollment`
-            - content @Form(enrollmentProcess, enrollmentVerification, activationRequirement, fallbackMethod)
-          - operations: `AuthenticationMethodEntryOperations`
-            - content @Form(maxFailedAttempts, lockoutPolicy, reauthenticationTimeout, description)
+          - content @Form(methodName, methodType, authenticationFactor), security, applicability, enrollment, operations
       - `AuthenticationFlow`
         - content, overview @text, authenticationFlowDiagram @mermaid-sequence
         - loginFlow: `LoginFlowConfiguration`
@@ -149,16 +89,9 @@
           - content, errorHandlingDetails @text
         - stepUpAuthentication: `StepUpAuthenticationPolicy`
           - content
-          - stepUpDetails: `StepUpDetailEntry`
-            - content @text
+          - stepUpDetails: `String`
         - loginFlowSteps: `LoginFlowStepEntry`
-          - content @Form(stepName, stepOrder, stepType, actor)
-          - validation: `LoginFlowStepEntryValidation`
-            - content @Form(inputRequired, validationAction, timeoutSeconds)
-          - behavior: `LoginFlowStepEntryBehavior`
-            - content @Form(successOutcome, failureOutcome, optional, conditionalTrigger)
-          - protocol: `LoginFlowStepEntryProtocol`
-            - content @Form(protocolMessage, description)
+          - content @Form(stepName, stepOrder, stepType, actor), validation, behavior, protocol
       - `PasswordAndCredentialPolicy`
         - content, overview @text
         - passwordRequirements: `PasswordRequirementsPolicy`
@@ -176,13 +109,7 @@
         - serviceAccountCredentials: `ServiceAccountCredentialPolicy`
           - content, serviceAccountDetails @text
         - mfaCategoryRequirements: `MfaCategoryRequirementEntry`
-          - content @Form(userCategory, mfaRequired, targetAal)
-          - authenticators: `MfaCategoryRequirementEntryAuthenticators`
-            - content @Form(allowedAuthenticatorTypes, phishingResistanceRequired)
-          - timing: `MfaCategoryRequirementEntryTiming`
-            - content @Form(mfaEnrollmentDeadline, mfaGracePeriod, rememberDeviceEnabled, rememberDeviceDuration)
-          - operations: `MfaCategoryRequirementEntryOperations`
-            - content @Form(fallbackMechanismIfUnavailable, reauthenticationTimeout, inactivityTimeout, description)
+          - content @Form(userCategory, mfaRequired, targetAal), authenticators, timing, operations
       - `SessionManagement`
         - content, overview @text
         - `SessionTimeoutPolicy`
@@ -260,15 +187,7 @@
       - containedRoles: `RoleReferenceEntry`
         - content @Form(roleName)
     - [1,] roleDefinitions: `AuthorizationRoleEntry`
-      - content @Form(roleName, description, roleCategory)
-      - structure: `AuthorizationRoleEntryStructure`
-        - content @Form(roleScope, inheritsFrom, permissionSet)
-      - governance: `AuthorizationRoleEntryGovernance`
-        - content @Form(riskLevel, maxHolders, activationType, activationDuration, approvalRequired, approver)
-      - lifecycle: `AuthorizationRoleEntryLifecycle`
-        - content @Form(provisioningMethod, reviewFrequency)
-      - status: `AuthorizationRoleEntryStatus`
-        - content @Form(dataAccessScope, isDefault, isSystem, notes)
+      - content @Form(roleName, description, roleCategory), structure, governance, lifecycle, status
       - responsibilities: `ResponsibilityReferenceEntry`
         - content @Form(responsibility, description, scope, criticalityLevel)
       - entitlementReferences: `EntitlementReferenceEntry`

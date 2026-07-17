@@ -18,13 +18,7 @@
       - displayProperties: `DisplayPropertyEntry`
         - content @Form(displayLabel, displayOrder, displayGroup, helpText)
     - keyAttributes: `KeyAttributeEntry`
-      - content @Form(keyName, keyType, keyColumns, description), referencedEntityRef
-      - generation: `KeyAttributeEntryGeneration`
-        - content @Form(generationStrategy, sequenceName, isNaturalKey)
-      - reference: `KeyAttributeEntryReference`
-        - content @Form(referencedEntity, referencedKey, onDeleteAction, onUpdateAction)
-      - governance: `KeyAttributeEntryGovernance`
-        - content @Form(deferrable)
+      - content @Form(keyName, keyType, keyColumns, description), generation, reference, governance, referencedEntityRef
     - indexes: `EntityIndexEntry`
       - content @Form(indexName, indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
     - constraints: `EntityConstraintEntry`
@@ -54,44 +48,20 @@
     - integrationPoints: `IntegrationPointEntry`
       - content @Form(exposedInApis, eventPublished, eventSubscribed, externalSystemMapping)
     - attributes: `BusinessObjectAttributeEntry`
-      - content @Form(attributeName, description, type)
-      - definition: `BusinessObjectAttributeEntryDefinition`
-        - content @Form(format, mandatory, defaultValue)
-      - validation: `BusinessObjectAttributeEntryValidation`
-        - content @Form(validationRules, allowedValues, businessRules, derivation)
-      - governance: `BusinessObjectAttributeEntryGovernance`
-        - content @Form(sensitivityLevel, displayOrder)
+      - content @Form(attributeName, description, type), definition, validation, governance
     - keyStates: `ObjectStateEntry`
       - content @Form(stateName, stateCode, description, stateType, entryConditions, exitConditions, allowedOperations, restrictedOperations, slaRequirements, notificationTriggers)
     - keyBusinessRules: `BusinessRuleReferenceEntry`
       - content @Form(ruleId, ruleName, ruleType, description, enforcement, triggerCondition, affectedAttributes, consequenceOnViolation),
         ruleRef
     - lifecycleTransitions: `LifecycleTransitionEntry`
-      - content @Form(transitionId, transitionName, fromState, toState)
-      - trigger: `LifecycleTransitionEntryTrigger`
-        - content @Form(trigger, triggerType)
-      - conditions: `LifecycleTransitionEntryConditions`
-        - content @Form(guardConditions, preConditions, postConditions)
-      - execution: `LifecycleTransitionEntryExecution`
-        - content @Form(actions, sideEffects, allowedActors, rollbackStrategy)
+      - content @Form(transitionId, transitionName, fromState, toState), trigger, conditions, execution
     - operations: `ObjectOperationEntry`
-      - content @Form(operationName, description, operationType)
-      - execution: `ObjectOperationEntryExecution`
-        - content @Form(preconditions, postconditions, inputParameters, outputResult)
-      - lifecycle: `ObjectOperationEntryLifecycle`
-        - content @Form(businessRulesApplied, stateTransitions, eventsPublished)
-      - governance: `ObjectOperationEntryGovernance`
-        - content @Form(allowedInStates, authorization, idempotent)
+      - content @Form(operationName, description, operationType), execution, lifecycle, governance
     - invariants: `ObjectInvariantEntry`
       - content @Form(invariantName, description, expression, scope, enforcementPoint, violationAction, businessJustification)
   - functionDecomposition: `FunctionEntry`
-    - content @Form(functionId, functionName, description, parentFunction)
-    - classification: `FunctionEntryClassification`
-      - content @Form(level, functionType, owningProcess)
-    - operations: `FunctionEntryOperations`
-      - content @Form(frequency, volumeEstimate, criticalityLevel)
-    - implementation: `FunctionEntryImplementation`
-      - content @Form(automationLevel, dataAccess)
+    - content @Form(functionId, functionName, description, parentFunction), classification, operations, implementation
     - subFunctions: `SubFunctionEntry`
       - content @Form(subFunctionName, description, dataAccess, systemSupport)
   - functionToDataMatrix: `FunctionDataMatrixEntry`
@@ -106,7 +76,7 @@
       - content @Form(exampleName, scenario, inputData, expectedOutcome, exampleType)
   - `DataDictionary`
     - content
-  - validationConstraints: `ValidationConstraints`
+  - `ValidationConstraints`
     - content
-  - integrityConstraints: `IntegrityConstraints`
+  - `IntegrityConstraints`
     - content

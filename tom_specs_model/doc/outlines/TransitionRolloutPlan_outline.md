@@ -4,44 +4,29 @@
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - `LocalizationProcess`
-    - localizationProcessContent, localizationNarrative @text, workflowDiagram @mermaid-flow
-    - review: `LocalizationProcessReview`
-      - content @Form(reviewWorkflow, stakeholderApproval, qualityAssurance)
-    - formatting: `LocalizationProcessFormatting`
-      - content @Form(dateFormatRules, numberFormatRules, currencyFormatRules, addressFormatRules, phoneFormatRules)
-    - deployment: `LocalizationProcessDeployment`
-      - content @Form(localeDeployment, localeToggling, perLocaleCustomization)
+    - localizationProcessContent, review, formatting, deployment, localizationNarrative @text,
+      workflowDiagram @mermaid-flow
   - `TranslationProcess`
-    - translationProcessContent, translationNarrative @text
-    - workflow: `TranslationProcessWorkflow`
-      - content @Form(translationWorkflow, reviewCycles, inCountryReview, contextualReview)
-    - quality: `TranslationProcessQuality`
-      - content @Form(qualityChecks, linguisticQA, functionalQA)
-    - terminology: `TranslationProcessTerminology`
-      - content @Form(glossaryManagement, styleGuide, brandVoice)
-    - ongoing: `TranslationProcessOngoing`
-      - content @Form(continuousLocalization, translationMemoryMaintenance)
+    - translationProcessContent, workflow, quality, terminology, ongoing, translationNarrative @text
     - vendors: `TranslationVendorEntry`
       - content @Form(vendorName, vendorType, languages, specializations, turnaroundTime, qualityRating, contactInfo)
-  - `DocumentationAndTraining`
-    - documentationContent, trainingContent, documentationNarrative @text
-    - deliverables: `DocumentationAndTrainingDeliverables`
-      - content @Form(userGuide, quickStartGuide, onlineHelp, videoTutorials, contextualHelp, faq, releaseNotes)
-    - localization: `DocumentationAndTrainingLocalization`
-      - content @Form(documentationLanguages, documentationTranslation)
+  - userDocumentation: `UserDocumentationRequirements`
+    - documentationContent, deliverables, localization, documentationNarrative @text
+  - trainingDeliverables: `TrainingDeliverableRequirements`
+    - trainingContent, trainingNarrative @text
     - trainingModules: `TrainingModuleEntry`
       - content @Form(moduleId, moduleName, targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
   - `RolloutPlan`
     - content
   - `MigrationPlan`
     - content
-  - userManuals: `UserManuals`
+  - userManuals: `UserManual`
     - content
-  - trainingMaterials: `RolloutTrainingMaterials`
+  - trainingMaterials: `RolloutTrainingMaterial`
     - content
   - `PilotPlan`
     - content
-  - cutoverProcedures: `CutoverProcedures`
+  - cutoverProcedures: `CutoverProcedure`
     - content
   - `KnowledgeTransfer`
     - content

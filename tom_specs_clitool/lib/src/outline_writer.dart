@@ -418,7 +418,12 @@ class OutlineWriter {
   }
 
   String _splitPascalCase(String name) {
-    return name.replaceAllMapped(
+    // Strip a leading document-code prefix (e.g. `D04`) so root titles read
+    // cleanly ("Requirements Specification", not "D04Requirements Specification").
+    // Document roots are named `D<nn><PascalName>`; ordinary class names never
+    // begin with `D` followed by a digit, so this only affects root headings.
+    final stripped = name.replaceFirst(RegExp(r'^D\d+'), '');
+    return stripped.replaceAllMapped(
       RegExp(r'(?<=[a-z])(?=[A-Z])'),
       (m) => ' ',
     );

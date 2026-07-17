@@ -6,37 +6,19 @@
   - `ProcessStepsOverview`
     - content @Form(useCaseScope, primaryActorFocus, interactionCoverage, scenarioCoverage, useCaseNamingConvention, traceabilityApproach, detailLevel, notationStandard)
   - `ActorOverview`
-    - content
-    - overview: `ActorOverviewNarrative`
-      - content @Form(totalActorCount, humanActorCount, systemActorCount, externalActorCount, actorIdentificationApproach, actorPrioritization, actorGoalAlignment)
+    - content, overview, categorization
     - [1,] actors: `ActorEntry`
-      - identification: `ActorIdentification`
-        - content @Form(actorId, actorName, actorType, category, description, realWorldExamples, organizationalUnit, estimatedCount, geographicDistribution)
+      - identification, technology, interactions
       - characteristics: `ActorCharacteristics`
-        - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency)
-        - usage: `ActorCharacteristicsUsage`
-          - content @Form(usageDuration, peakUsageTimes, taskComplexity, decisionAuthority)
-        - support: `ActorCharacteristicsSupport`
-          - content @Form(supervisionLevel, communicationPreference, languageRequirements, accessibilityNeeds)
+        - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
       - goals: `ActorGoals`
         - content @Form(summaryGoals, userGoals, subfunctionGoals, successMeasures, failureConcerns, motivations, painPoints, desiredImprovements)
       - permissions: `ActorPermissions`
         - content @Form(securityClearance, roleBasedPermissions, dataAccessScope, functionalPermissions, approvalLimits, delegationRights, temporaryElevation, auditRequirements)
-      - technology: `ActorTechnologyProfile`
-        - content @Form(primaryAccessChannel, secondaryAccessChannels, deviceTypes, operatingSystems, browserRequirements, networkConnectivity, bandwidthExpectations, integratedTools, authenticationMethod)
-      - interactions: `ActorInteractionsSummary`
-        - content @Form(primaryInteractions, secondaryInteractions, interactionFrequency, criticalInteractions, complexInteractions, collaborativeInteractions, handoffPoints)
-    - categorization: `ActorCategorizationSummary`
-      - content @Form(primaryActors, secondaryActors, offstageActors, systemActors, timerActors)
   - `InteractionCatalog`
-    - content
-    - overview: `InteractionCatalogOverview`
-      - content @Form(totalInteractionCount, highPriorityCount, mediumPriorityCount, lowPriorityCount, coverageStatement, identificationMethod, prioritizationCriteria, traceabilityToProcesses)
+    - content, overview, prioritization
     - [1,] interactions: `InteractionEntry`
-      - identification: `InteractionIdentification`
-        - content @Form(interactionId, useCaseName, processReference, briefDescription, fullDescription, primaryActor, supportingActors, goalLevel, designScope)
-      - scopeContext: `UseCaseScopeContext`
-        - content @Form(systemUnderDiscussion, systemBoundary, level, context, assumption, dependency, constraint, relatedUseCases)
+      - identification, scopeContext, performance, security, traceability
       - stakeholders: `StakeholdersAndInterests`
         - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
       - preconditions: `PreconditionsAndTriggers`
@@ -58,46 +40,21 @@
       - uiPreview: `UIRequirementsPreview`
         - content @Form(primaryScreen, screenFlow, keyFormFields, keyActions, keyDisplayElements, feedbackMechanisms, layoutConsiderations, interactionPatterns),
           screenMockup @mermaid-flow
-      - performance: `InteractionPerformance`
-        - content @Form(expectedFrequency, peakVolume, responseTimeTarget, throughputTarget, availabilityRequirement, concurrencyExpectation, dataVolumeHandled)
-      - security: `InteractionSecurity`
-        - content @Form(authenticationRequired, authorizationRules, dataClassification, encryptionRequirements, auditLogging, sessionRequirements, complianceRequirements)
       - businessRules: `InteractionBusinessRules`
         - content @Form(validationRules, calculationRules, authorizationRules, workflowRules, notificationRules, integrationRules)
-      - traceability: `InteractionTraceability`
-        - content @Form(relatedProcess, relatedRequirements, relatedUseCase, relatedDataEntities, relatedBusinessObjects, relatedBusinessRules, relatedIntegrations, relatedTestCases)
-    - prioritization: `InteractionPrioritization`
-      - content @Form(mustHaveInteractions, shouldHaveInteractions, couldHaveInteractions, wontHaveInteractions, phaseOneInteractions, phaseTwoInteractions, futureInteractions)
   - `KeyScenarios`
-    - content
-    - overview: `ScenarioOverview`
-      - content @Form(totalScenarioCount, scenarioCoverage, scenarioTypes, scenarioPrioritization, scenarioToTestMapping)
+    - content, overview
     - [1,] scenarios: `ScenarioEntry`
-      - identification: `ScenarioIdentification`
-        - content @Form(scenarioId, scenarioName, scenarioType, description, businessGoal, primaryActor, supportingActors, priority, complexity)
-      - context: `ScenarioContext`
-        - content @Form(preconditions, trigger, successCondition, failureCondition, assumptions, outOfScope, relatedInteractions)
+      - identification, context, scenarioData, timing, validation
       - [1,] steps: `ScenarioStepEntry`
-        - content @Form(stepNumber, actor, action, systemResponse)
-        - context: `ScenarioStepEntryContext`
-          - content @Form(expectedResult, interactionReference, dataInvolved, uiElement)
-        - execution: `ScenarioStepEntryExecution`
-          - content @Form(decisionPoint, timing, notes)
+        - content @Form(stepNumber, actor, action, systemResponse), context, execution
       - alternativeFlows: `AlternativeFlowEntry`
         - content @Form(flowId, flowName, flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
         - steps: `AlternativeStepEntry`
           - content @Form(stepNumber, action, response, expectedResult)
-      - `ScenarioData`
-        - content @Form(inputData, outputData, testDataRequirements, dataTransformations, dataValidations, sampleDataValues)
-      - timing: `ScenarioTiming`
-        - content @Form(totalDuration, userActiveTime, systemProcessingTime, waitTime, timeConstraints, timeoutHandling)
-      - validation: `ScenarioValidation`
-        - content @Form(acceptanceCriteria, testScenarios, verificationMethod, validationData, expectedMetrics, knownIssues)
   - `ActorRelationshipDiagram`
-    - actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
-    - overview: `ActorDiagramOverview`
-      - content @Form(diagramPurpose, actorCategories, systemBoundary, notation)
-  - endToEndTestScenarios: `EndToEndTestScenarios`
+    - overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
+  - endToEndTestScenarios: `EndToEndTestScenario`
     - content
   - `UseCaseTraceability`
     - content

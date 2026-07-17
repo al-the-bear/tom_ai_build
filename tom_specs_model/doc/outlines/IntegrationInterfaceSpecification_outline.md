@@ -12,81 +12,40 @@
         - dependentProcesses: `InterfaceBusinessProcessEntry`
           - content @Form(processName, processId, dependencyType, fallbackBehavior)
       - technicalSpec: `InterfaceTechnicalSpec`
-        - content @Form(protocol, transportSecurity, messageFormat, encoding)
-        - communication: `InterfaceTechnicalSpecCommunication`
-          - content @Form(direction, initiator, communicationStyle, deliveryGuarantee)
-        - endpoints: `InterfaceTechnicalSpecEndpoints`
-          - content @Form(baseEndpoint, apiVersion, documentationUrl, sandboxEndpoint)
+        - content @Form(protocol, transportSecurity, messageFormat, encoding), communication, endpoints, webhookSpec
         - operations: `InterfaceOperationEntry`
           - content @Form(operationId, operationName, httpMethod, path, purpose, idempotent, requestFormat, responseFormat, paginationSupport, filteringSupport)
-        - webhookSpec: `InterfaceWebhookSpec`
-          - content @Form(webhooksUsed, webhookEndpoint, eventTypes, signatureVerification, retryPolicy, idempotencyHandling)
       - dataSpec: `InterfaceDataSpec`
         - content @Form(dataExchangeSummary, dataDirection, dataSensitivity, dataRetentionExternal, frequency, batchSchedule, volumePerTransaction, dailyVolume, peakVolume, payloadSizeLimit)
         - dataEntities: `InterfaceDataEntityEntry`
           - content @Form(entityName, direction, fieldCount, requiredFields, sensitiveFields, internalMapping, transformationNeeded)
-        - mappingRules: `MappingRuleEntry`
-          - content @text
-        - validationRules: `ValidationRuleEntry`
-          - content @text
+        - mappingRules: `String`
+        - validationRules: `String`
       - security: `InterfaceSecurity`
-        - content @Form(authMethod, authDetails, credentialStorage, credentialRotation), securityContacts @text
-        - authorization: `InterfaceSecurityAuthorization`
-          - content @Form(authorizationModel, scopesPermissions, ipWhitelisting)
-        - encryption: `InterfaceSecurityEncryption`
-          - content @Form(encryptionInTransit, encryptionAtRest, fieldLevelEncryption)
-        - compliance: `InterfaceSecurityCompliance`
-          - content @Form(complianceRequirements, auditLogging, dataResidency)
+        - content @Form(authMethod, authDetails, credentialStorage, credentialRotation), authorization, encryption,
+          compliance, securityContacts @text
       - operational: `InterfaceOperational`
-        - content @Form(availabilitySla, scheduledDowntime, responseTimeSla, throughputSla)
-        - rateLimiting: `InterfaceOperationalRateLimiting`
-          - content @Form(rateLimits, quotaLimits, burstCapacity)
-        - monitoring: `InterfaceOperationalMonitoring`
-          - content @Form(healthCheckEndpoint, statusPageUrl, monitoringApproach, alertingThresholds)
-        - support: `InterfaceOperationalSupport`
-          - content @Form(supportHours, supportContact, incidentProcess, escalationPath)
-        - dependencies: `DependencyEntry`
-          - content @text
+        - content @Form(availabilitySla, scheduledDowntime, responseTimeSla, throughputSla), rateLimiting, monitoring,
+          support
+        - dependencies: `String`
       - errorHandling: `InterfaceErrorHandling`
-        - content @Form(errorFormat, errorCodes, retryableErrors)
-        - retry: `InterfaceErrorHandlingRetry`
-          - content @Form(fatalErrors, retryStrategy, maxRetries, retryInterval, circuitBreakerConfig)
-        - fallback: `InterfaceErrorHandlingFallback`
-          - content @Form(fallbackBehavior, degradedMode, manualRecovery)
-        - timeout: `InterfaceErrorHandlingTimeout`
-          - content @Form(connectionTimeout, readTimeout, overallTimeout)
-        - errorProcedures: `ErrorProcedureEntry`
-          - content @text
+        - content @Form(errorFormat, errorCodes, retryableErrors), retry, fallback, timeout
+        - errorProcedures: `String`
       - governance: `InterfaceGovernance`
-        - content @Form(externalOwner, internalOwner, technicalContact, businessContact), changelog @text
-        - contract: `InterfaceGovernanceContract`
-          - content @Form(contractType, contractExpiry, renewalTerms, costModel, estimatedCost)
-        - lifecycle: `InterfaceGovernanceLifecycle`
-          - content @Form(versioningStrategy, deprecationPolicy, changeNotificationLead, breakingChangePolicy)
+        - content @Form(externalOwner, internalOwner, technicalContact, businessContact), contract, lifecycle,
+          changelog @text
       - testing: `InterfaceTesting`
-        - content @Form(sandboxAvailable, sandboxUrl, testCredentials, mockAvailable)
-        - data: `InterfaceTestingData`
-          - content @Form(testDataApproach, syntheticDataSupport, productionMirror)
-        - strategy: `InterfaceTestingStrategy`
-          - content @Form(unitTestApproach, integrationTestApproach, contractTestApproach, e2eTestApproach, performanceTestApproach)
+        - content @Form(sandboxAvailable, sandboxUrl, testCredentials, mockAvailable), data, strategy
         - testScenarios: `InterfaceTestScenarioEntry`
           - content @Form(scenarioId, scenarioName, scenarioType, preconditions, testSteps, expectedResult, automated)
   - `OutOfScope`
     - scopePhilosophy @text
     - items: `OutOfScopeEntry`
-      - content @Form(itemId, item, itemType, rationale)
-      - decision: `OutOfScopeEntryDecision`
-        - content @Form(requestedBy, decisionMaker, decisionDate, futureConsideration, targetPhase)
-      - mitigation: `OutOfScopeEntryMitigation`
-        - content @Form(alternativeSolution, riskIfIncluded)
+      - content @Form(itemId, item, itemType, rationale), decision, mitigation
   - `BoundaryAssumptions`
     - assumptionApproach @text
     - items: `BoundaryAssumptionEntry`
-      - content @Form(assumptionId, assumption, category)
-      - validation: `BoundaryAssumptionEntryValidation`
-        - content @Form(rationale, owner, validationMethod, validationDate, validationStatus, confidence)
-      - risk: `BoundaryAssumptionEntryRisk`
-        - content @Form(riskIfWrong, riskImpact, contingencyPlan, relatedRiskId)
+      - content @Form(assumptionId, assumption, category), validation, risk
   - systemInventory: `SystemLandscapeInventory`
     - content
   - interactionPatterns: `BoundaryInteractionPatterns`

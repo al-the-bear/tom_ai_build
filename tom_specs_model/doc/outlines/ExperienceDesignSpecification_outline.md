@@ -11,18 +11,12 @@
         - content @Form(goalName, description, priority, category, measurementCriteria, targetMetric, relatedPrinciples)
     - `DesignPrinciples`
       - content, overview @text
-      - items: `UiDesignPrincipleEntry`
+      - items: `DesignPrincipleEntry`
         - content @Form(principleName, description, rationale, category, examples, exceptions, sourceReference, relatedGoals)
     - personas: `UserPersonas`
       - content, overview @text
       - [1,] items: `PersonaEntry`
-        - content @Form(personaName, age, role)
-        - profile: `PersonaEntryProfile`
-          - content @Form(bio, technicalProficiency, accessibilityNeeds)
-        - context: `PersonaEntryContext`
-          - content @Form(typicalUsage, primaryDevice, additionalDevices, workEnvironment)
-        - needs: `PersonaEntryNeeds`
-          - content @Form(motivations, frustrationsWithCurrent, successCriteria, quote)
+        - content @Form(personaName, age, role), profile, context, needs
         - goals: `PersonaGoals`
           - content
           - items: `PersonaGoalEntry`
@@ -40,67 +34,29 @@
     - `ScreenInventory`
       - content, overview @text
       - [1,] items: `ScreenEntry`
-        - content @Form(screenId, screenName, purpose), designNotes @text
-        - classification: `ScreenEntryClassification`
-          - content @Form(screenCategory, parentScreenId, routePattern)
-        - access: `ScreenEntryAccess`
-          - content @Form(accessLevel, requiredRoles, requiredPermissions, permissionEffect)
-        - traceability: `ScreenEntryTraceability`
-          - content @Form(relatedUseCases, relatedRequirements, relatedBusinessProcesses, dataEntities, primaryAction)
-        - presentation: `ScreenEntryPresentation`
-          - content @Form(pageTitleResource, pageIconResource, helpTopicId, layout)
+        - content @Form(screenId, screenName, purpose), classification, access, traceability, presentation,
+          designNotes @text
         - sections: `ScreenSections`
           - content
           - items: `ScreenSectionEntry`
-            - content @Form(sectionId, sectionName, purpose, sectionType)
-            - layout: `ScreenSectionEntryLayout`
-              - content @Form(layoutDirection, displayOrder, titleResource, borderStyle)
-            - behavior: `ScreenSectionEntryBehavior`
-              - content @Form(collapsible, initiallyCollapsed, visibilityCondition)
+            - content @Form(sectionId, sectionName, purpose, sectionType), layout, behavior
             - elements: `ScreenElementEntry`
-              - content @Form(elementId, elementName, elementType)
-              - resources: `ScreenElementEntryResources`
-                - content @Form(labelResource, hintResource, descriptionResource, iconResource, iconPosition)
-              - layout: `ScreenElementEntryLayout`
-                - content @Form(placementOrder, width, alignment)
-              - behavior: `ScreenElementEntryBehavior`
-                - content @Form(visibilityCondition, enabledCondition, readonlyCondition, requiredPermission, permissionEffect)
-              - presentation: `ScreenElementEntryPresentation`
-                - content @Form(styleVariant, accessibilityLabel, dataBinding, defaultValue, notes)
+              - content @Form(elementId, elementName, elementType), resources, layout, behavior, presentation
               - elementAction: `ScreenElementAction`
-                - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut)
-                - execution: `ScreenElementActionExecution`
-                  - content @Form(confirmationRequired, confirmationMessageResource, loadingLabelResource, successMessageResource, errorHandling)
-                - navigation: `ScreenElementActionNavigation`
-                  - content @Form(navigateTo, navigateParams, doubleClickPrevention)
+                - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut),
+                  execution, navigation
               - fieldSpec: `ScreenElementFieldSpec`
-                - content @Form(fieldName, dataType, placeholderResource)
-                - formatting: `ScreenElementFieldSpecFormatting`
-                  - content @Form(prefixResource, suffixResource, inputMask, displayFormat)
-                - constraints: `ScreenElementFieldSpecConstraints`
-                  - content @Form(maxLength, minLength, minValue, maxValue, decimalPlaces)
-                - validation: `ScreenElementFieldSpecValidation`
-                  - content @Form(validationTrigger, errorDisplayMode, required, requiredCondition, clearButton)
-                - selection: `ScreenElementFieldSpecSelection`
-                  - content @Form(autocompleteSource, optionsSource, selectMode, displayMode)
+                - content @Form(fieldName, dataType, placeholderResource), formatting, constraints, validation,
+                  selection
               - dataDisplay: `ScreenElementDataDisplay`
-                - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource)
-                - behavior: `ScreenElementDataDisplayBehavior`
-                  - content @Form(refreshMode, drillDownTarget)
-                - options: `ScreenElementDataDisplayOptions`
-                  - content @Form(sortable, filterable, paginated, pageSize, selectable)
+                - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
+                  behavior, options
               - validationRules: `ElementValidationRuleEntry`
                 - content @Form(ruleType, ruleExpression, errorMessageResource, severity, validateOn)
         - actions: `ScreenActions`
           - content
           - items: `ScreenActionEntry`
-            - content @Form(actionId, actionName, actionType)
-            - visual: `ScreenActionEntryVisual`
-              - content @Form(labelResource, iconResource, placement, buttonStyle)
-            - conditions: `ScreenActionEntryConditions`
-              - content @Form(visibilityCondition, enabledCondition, requiredPermission)
-            - behavior: `ScreenActionEntryBehavior`
-              - content @Form(confirmationRequired, confirmationMessageResource, keyboardShortcut, navigateTo, successMessageResource)
+            - content @Form(actionId, actionName, actionType), visual, conditions, behavior
         - states: `ScreenStates`
           - content
           - items: `ScreenStateEntry`
@@ -113,8 +69,7 @@
           - content @Form(breakpoint, layoutChanges, hiddenElements, collapsedSections, navigationMode)
     - `InformationArchitecture`
       - content, siteMap @text, contentHierarchy @text, navigationStructure @text, architectureDiagram @mermaid-flow
-      - globalEntryPoints: `GlobalEntryPointEntry`
-        - content @text
+      - globalEntryPoints: `String`
   - screenFlow: `ScreenFlowStructure`
     - content, screenFlowDiagram @mermaid-flow
     - `NavigationModel`
@@ -125,61 +80,25 @@
       - hierarchy: `NavigationHierarchy`
         - content, overview @text
         - groups: `NavigationGroupEntry`
-          - content @Form(groupId, groupLabel, groupIcon, groupDescription)
-          - display: `NavigationGroupEntryDisplay`
-            - content @Form(displayOrder, collapsible, initiallyExpanded, visibilityCondition)
-          - access: `NavigationGroupEntryAccess`
-            - content @Form(requiredRoles, requiredPermissions, permissionBehavior)
-          - structure: `NavigationGroupEntryStructure`
-            - content @Form(badgeType, badgeSource, navigationLevel, parentGroupId, dividerBefore)
+          - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, access, structure
           - items: `NavigationItemEntry`
-            - content @Form(itemId, label, targetRoute)
-            - display: `NavigationItemEntryDisplay`
-              - content @Form(shortLabel, icon, activeIcon, description)
-            - routing: `NavigationItemEntryRouting`
-              - content @Form(targetScreenId, targetRouteParams, displayOrder, isDefault)
-            - access: `NavigationItemEntryAccess`
-              - content @Form(visibilityCondition, enabledCondition, requiredRoles, requiredPermissions, permissionBehavior)
-            - badge: `NavigationItemEntryBadge`
-              - content @Form(badgeType, badgeSource, badgeColor)
-            - interaction: `NavigationItemEntryInteraction`
-              - content @Form(keyboardShortcut, searchKeywords, openBehavior, highlightRules)
+            - content @Form(itemId, label, targetRoute), display, routing, access, badge, interaction
       - `PrimaryNavigation`
-        - content @Form(mobilePattern, tabletPattern, desktopPattern), designNotes @text
-        - drawer: `PrimaryNavigationDrawer`
-          - content @Form(drawerBehavior, drawerWidth, drawerHeaderContent, drawerFooterContent)
-        - bottomNav: `PrimaryNavigationBottomNav`
-          - content @Form(bottomNavMaxItems, bottomNavStyle, bottomNavShowLabels)
-        - sidebar: `PrimaryNavigationSidebar`
-          - content @Form(sidebarCollapsedWidth, sidebarExpandedWidth, selectedItemStyle, overflowBehavior)
+        - content @Form(mobilePattern, tabletPattern, desktopPattern), drawer, bottomNav, sidebar, designNotes @text
       - `SecondaryNavigation`
         - content, overview @text
         - tabBars: `TabBarDefinitionEntry`
-          - content @Form(tabBarId, tabBarName, hostScreenId, tabBarStyle)
-          - behavior: `TabBarDefinitionEntryBehavior`
-            - content @Form(tabBarPosition, isScrollable, defaultTabIndex, persistSelection)
-          - loading: `TabBarDefinitionEntryLoading`
-            - content @Form(swipeEnabled, lazyLoading, visibilityCondition)
+          - content @Form(tabBarId, tabBarName, hostScreenId, tabBarStyle), behavior, loading
           - [1,] tabs: `TabItemEntry`
             - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, requiredPermissions, permissionBehavior, badgeType, badgeSource)
       - `UtilityNavigation`
         - content
         - items: `UtilityNavigationItemEntry`
-          - content @Form(utilityId, label, icon, position)
-          - display: `UtilityNavigationItemEntryDisplay`
-            - content @Form(displayOrder, widgetType, visibilityCondition, requiredRoles)
-          - behavior: `UtilityNavigationItemEntryBehavior`
-            - content @Form(badgeType, badgeSource, interactionType, targetScreenId)
+          - content @Form(utilityId, label, icon, position), display, behavior
           - menuItems: `UtilityMenuItemEntry`
-            - content @Form(menuItemId, label, icon, displayOrder)
-            - action: `UtilityMenuItemEntryAction`
-              - content @Form(actionType, targetRoute, actionId)
-            - behavior: `UtilityMenuItemEntryBehavior`
-              - content @Form(visibilityCondition, requiredPermissions, isDangerous, confirmationRequired)
+            - content @Form(menuItemId, label, icon, displayOrder), action, behavior
       - `ContextualNavigation`
-        - content, backNavigation @text, relatedLinks @text
-        - breadcrumbs: `BreadcrumbConfiguration`
-          - content @Form(enabled, platformVisibility, maxVisibleItems, collapseBehavior, showHomeItem, homeLabel, homeIcon, separator, currentItemStyle, position)
+        - content, breadcrumbs, backNavigation @text, relatedLinks @text
       - `DeepLinking`
         - content, strategy @text
         - patterns: `DeepLinkPatternEntry`
@@ -187,372 +106,117 @@
       - `NavigationGuards`
         - content, overview @text
         - guards: `NavigationGuardEntry`
-          - content @Form(guardId, guardName, guardType, triggerCondition)
-          - dialog: `NavigationGuardEntryDialog`
-            - content @Form(appliesTo, dialogTitleResource, dialogMessageResource, confirmActionResource, cancelActionResource)
-          - routing: `NavigationGuardEntryRouting`
-            - content @Form(redirectTo, priority)
-  - `PrintLayout`
-    - content @Form(printStrategy, defaultPaperSize, defaultOrientation)
-    - pageSetup: `PrintLayoutPageSetup`
-      - content @Form(defaultMarginTop, defaultMarginBottom, defaultMarginLeft, defaultMarginRight)
-    - branding: `PrintLayoutBranding`
-      - content @Form(brandingLogoResource, brandingColorPrimary, brandingColorSecondary, brandingFontFamily, brandingFontSizeBase)
-    - watermark: `PrintLayoutWatermark`
-      - content @Form(watermarkText, watermarkImageResource, watermarkOpacity, confidentialityMarking, confidentialityPosition)
-    - headerFooter: `PrintLayoutHeaderFooter`
-      - content @Form(defaultHeaderContent, defaultFooterContent, defaultDateFormat, defaultNumberFormat, defaultCurrencyFormat, defaultTimezone, defaultLocale)
-    - archive: `PrintLayoutArchive`
-      - content @Form(archivePolicy, reportNamingConvention, batchGenerationSupport, maxConcurrentReports)
+          - content @Form(guardId, guardName, guardType, triggerCondition), dialog, routing
+  - printLayout: `PrintAndExportLayout`
+    - content @Form(printStrategy, defaultPaperSize, defaultOrientation), pageSetup, branding, watermark, headerFooter,
+      archive
     - reports: `ReportEntry`
-      - content @Form(reportId, reportName, reportType)
-      - identity: `ReportIdentity`
-        - content @Form(description, reportCategory, relatedUseCases, relatedBusinessProcesses, relatedDataEntities)
-      - dataSource: `ReportDataSource`
-        - content @Form(dataSource, dataScope, dataCurrency, generationTrigger)
-      - format: `ReportFormat`
-        - content @Form(format, interactivity, pageSize, orientation)
-      - layout: `ReportLayout`
-        - content @Form(marginTop, marginBottom, marginLeft, marginRight)
-      - headerFooter: `ReportHeaderFooter`
-        - content @Form(headerTemplate, footerTemplate, coverPage, coverPageTemplate, tableOfContents)
-      - grouping: `ReportGrouping`
-        - content @Form(defaultSortField, defaultSortDirection, defaultGroupBy, groupSummary, grandTotal)
-      - formatting: `ReportFormatting`
-        - content @Form(conditionalFormatting, highlightRules)
-      - interactivity: `ReportInteractivity`
-        - content @Form(drillDownTarget, drillThroughReports, parameterForm, emptyDataMessage)
-      - pagination: `ReportPagination`
-        - content @Form(maxRows, paginationStyle, rowsPerPage)
-      - security: `ReportSecurity`
-        - content @Form(localization, brandingOverride, accessLevel, requiredRoles, dataLevelSecurity)
-      - lifecycle: `ReportLifecycle`
-        - content @Form(archiveRetention, signatureRequired, approvalWorkflow, notes)
+      - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter, grouping,
+        formatting, interactivity, pagination, security, lifecycle
       - sections: `ReportSectionEntry`
-        - content @Form(sectionId, title, sectionType)
-        - data: `ReportSectionData`
-          - content @Form(purpose, dataSource, dataScope, textContent, notes)
-        - layout: `ReportSectionLayout`
-          - content @Form(displayOrder, pageBreakBefore, pageBreakAfter, repeatOnNewPage, orientation, conditionalVisibility, backgroundColor, borderStyle)
-        - sorting: `ReportSectionSorting`
-          - content @Form(sortField, sortDirection, groupByField, showGroupSubtotals)
-        - aggregation: `ReportSectionAggregation`
-          - content @Form(showSectionTotal, aggregationFields, maxRows, overflowBehavior)
+        - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
         - columns: `ReportColumnEntry`
-          - content @Form(columnId, columnName, displayLabel)
-          - dataSource: `ReportColumnDataSource`
-            - content @Form(dataSourceField, dataType)
-          - formatting: `ReportColumnFormatting`
-            - content @Form(displayOrder, width, alignment, verticalAlignment, formatPattern, currencyCode, nullDisplay, booleanTrueDisplay, booleanFalseDisplay)
-          - aggregation: `ReportColumnAggregation`
-            - content @Form(aggregation, aggregationLabel, conditionalFormattingRules, hyperlinkTarget)
-          - interaction: `ReportColumnInteraction`
-            - content @Form(sortable, filterable)
-          - layout: `ReportColumnLayout`
-            - content @Form(visible, visibilityCondition, wordWrap, truncateAt, notes)
+          - content @Form(columnId, columnName, displayLabel), dataSource, formatting, aggregation, interaction, layout
         - charts: `ReportChartEntry`
-          - content @Form(chartId, title, chartType)
+          - content @Form(chartId, title, chartType), series, display, interaction, layout
           - axes: `ReportChartAxes`
             - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
-          - series: `ReportChartSeries`
-            - content @Form(seriesField, seriesColors, colorScheme, legendPosition)
-          - display: `ReportChartDisplay`
-            - content @Form(showDataLabels, dataLabelFormat, thresholdLines, trendLine, goalValue, emptyDataMessage)
-          - interaction: `ReportChartInteraction`
-            - content @Form(interactive, drillDownTarget, notes)
-          - layout: `ReportChartLayout`
-            - content @Form(width, height)
       - filters: `ReportFilterEntry`
-        - content @Form(filterId, filterName, displayLabel)
-        - input: `ReportFilterEntryInput`
-          - content @Form(dataType, inputType, defaultValue, availableValuesSource, staticValues, cascadeParent, multiSelect)
-        - behavior: `ReportFilterEntryBehavior`
-          - content @Form(required, appliedScope, displayOrder, groupName, validationRule, dependsOn)
-        - presentation: `ReportFilterEntryPresentation`
-          - content @Form(hiddenFilter, quickFilterBar, rememberLastValue, notes)
+        - content @Form(filterId, filterName, displayLabel), input, behavior, presentation
       - schedules: `ReportScheduleEntry`
-        - content @Form(scheduleId, scheduleName, frequency)
-        - timing: `ReportScheduleEntryTiming`
-          - content @Form(scheduleExpression, timezone, startDate, endDate, generationWindow, generationTimeout)
-        - retry: `ReportScheduleEntryRetry`
-          - content @Form(retryOnFailure, maxRetries, retryDelay)
-        - notifications: `ReportScheduleEntryNotifications`
-          - content @Form(notifyOnCompletion, completionRecipients, notifyOnFailure, failureRecipients)
-        - output: `ReportScheduleEntryOutput`
-          - content @Form(filterOverrides, outputFormat, outputDestination, priority, enabled, notes)
+        - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
       - distributions: `ReportDistributionEntry`
-        - content @Form(distributionId, channel, description)
-        - recipients: `ReportDistributionEntryRecipients`
-          - content @Form(formatPerChannel, recipientSource, recipientList, recipientRoles)
-        - contentSettings: `ReportDistributionEntryContent`
-          - content @Form(subjectTemplate, bodyTemplate, attachmentOption, attachmentFileNamePattern)
-        - delivery: `ReportDistributionEntryDelivery`
-          - content @Form(compressionEnabled, passwordProtect, conditionalDistribution, suppressIfEmpty, fileSharePath, retainCopy, sendTime, enabled, notes)
+        - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
       - recipients: `ReportRecipientEntry`
-        - content @Form(recipientId, recipientName, recipientType, recipientReference)
-        - context: `ReportRecipientEntryContext`
-          - content @Form(role, dataScopeRestriction)
-        - delivery: `ReportRecipientEntryDelivery`
-          - content @Form(deliveryPreference, formatPreference, localePreference, scheduleOverride, notifyOnReady)
-        - lifecycle: `ReportRecipientEntryLifecycle`
-          - content @Form(active, effectiveFrom, effectiveTo, notes)
+        - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
     - exportFormats: `ExportFormatEntry`
-      - content @Form(exportId, formatName, formatType)
-      - identity: `ExportIdentity`
-        - content @Form(description, relatedDataEntities, dataSource, dataScope)
-      - fileFormat: `ExportFileFormat`
-        - content @Form(fileNamingPattern, encoding, lineEnding)
-      - delimiter: `ExportDelimiter`
-        - content @Form(delimiter, quoteCharacter, headerRow, headerStyle)
-      - dataFormat: `ExportDataFormat`
-        - content @Form(dateFormat, numberFormat, decimalSeparator, currencyFormat, booleanTrueValue, booleanFalseValue, nullHandling)
+      - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security, output,
+        access
       - sizeSettings: `ExportSizeSettings`
         - content @Form(maxRows, splitLargeFiles, splitThreshold)
-      - security: `ExportSecurity`
-        - content @Form(compressionFormat, encryptionEnabled, encryptionMethod)
-      - output: `ExportOutput`
-        - content @Form(outputDestination, outputPath, schedulingEnabled, schedulingExpression)
-      - access: `ExportAccess`
-        - content @Form(accessLevel, requiredRoles, auditLogging, previewAvailable, notes)
       - fieldMappings: `ExportFieldMappingEntry`
-        - content @Form(mappingId, sourceField, targetFieldName)
-        - formatting: `ExportFieldMappingEntryFormatting`
-          - content @Form(displayOrder, dataType, formatPattern)
-        - transformation: `ExportFieldMappingEntryTransformation`
-          - content @Form(transformationRule, transformationExpression, valueMapping)
-        - inclusion: `ExportFieldMappingEntryInclusion`
-          - content @Form(defaultValue, includeInExport, inclusionCondition, maxLength)
-        - layout: `ExportFieldMappingEntryLayout`
-          - content @Form(paddingChar, paddingDirection, fixedWidth, quoteAlways, notes)
+        - content @Form(mappingId, sourceField, targetFieldName), formatting, transformation, inclusion, layout
     - exportTemplates: `ExportTemplateEntry`
-      - content @Form(templateId, templateName, baseFormatType)
-      - format: `ExportTemplateEntryFormat`
-        - content @Form(description, encoding, delimiter, headerRow, dateFormat, numberFormat)
-      - fields: `ExportTemplateEntryFields`
-        - content @Form(fieldSet, defaultFilters, defaultSortField, defaultSortDirection)
-      - layout: `ExportTemplateEntryLayout`
-        - content @Form(headerConfig, footerConfig, brandingOverride, compressionFormat)
-      - access: `ExportTemplateEntryAccess`
-        - content @Form(accessLevel, requiredRoles, reusableAcrossReports, version, notes)
-  - errorHandling: `ErrorHandlingConcept`
-    - errorPhilosophyContent, errorHandlingOverview @text, errorMessageCatalog @text, errorVisualDesign @text
-    - classification: `ErrorHandlingConceptClassification`
-      - content @Form(errorCategories, errorSeverityLevels, errorPriorityDisplay)
-    - accessibility: `ErrorHandlingConceptAccessibility`
-      - content @Form(errorAccessibility, colorContrastCompliance, nonColorIndicators)
-    - operations: `ErrorHandlingConceptOperations`
-      - content @Form(errorLocalization, dynamicContentHandling, errorTrackingApproach, userFrustrationDetection)
+      - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
+  - `ErrorHandling`
+    - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
+      errorMessageCatalog @text, errorVisualDesign @text
     - `ValidationFeedback`
-      - validationDisplayContent, validationNarrative @text
-      - placement: `ValidationFeedbackPlacement`
-        - content @Form(errorMessagePlacement, summaryPosition, fieldHighlighting, fieldErrorIcon, fieldErrorIconPosition)
-      - messages: `ValidationFeedbackMessages`
-        - content @Form(messageFormat, maxMessageLength, multipleErrorsDisplay, errorPersistence)
-      - guidance: `ValidationFeedbackGuidance`
-        - content @Form(showRequirements, showSuggestions, showExamples)
-      - behavior: `ValidationFeedbackBehavior`
-        - content @Form(errorAnimation, clearAnimation, scrollToError, focusOnError)
+      - validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
       - messageTemplates: `ValidationMessageTemplate`
         - content @Form(messageId, validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
-      - fieldValidationRules: `FieldValidationRuleEntry`
-        - content @text
+      - fieldValidationRules: `String`
     - `SystemErrorDisplay`
-      - systemErrorContent, systemErrorNarrative @text
-      - errorTypes: `SystemErrorDisplayErrorTypes`
-        - content @Form(serverErrorHandling, timeoutHandling, authenticationErrorHandling, permissionErrorHandling, maintenanceModeHandling)
-      - displayMethods: `SystemErrorDisplayMethods`
-        - content @Form(errorModalStyle, snackbarPosition, snackbarDuration, bannerPosition, fullPageErrorTemplate)
-      - displayContent: `SystemErrorDisplayContent`
-        - content @Form(showTechnicalDetails, showRetryOption, showContactSupport, showStatusPageLink, offlineModeMessage)
-      - fallback: `SystemErrorDisplayFallback`
-        - content @Form(cachedDataFallback, retryStrategy, maxRetryAttempts, retryDelaySeconds)
-      - errorPageDesigns: `ErrorPageDesignEntry`
-        - content @text
+      - systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
+      - errorPageDesigns: `String`
       - errorCodes: `SystemErrorCodeEntry`
-        - content @Form(errorCode, httpStatus, errorCategory, userMessage)
-        - handling: `SystemErrorCodeEntryHandling`
-          - content @Form(technicalDescription, suggestedAction, retryable, autoRetry, displayMethod)
-        - operations: `SystemErrorCodeEntryOperations`
-          - content @Form(notifySupport, logLevel)
+        - content @Form(errorCode, httpStatus, errorCategory, userMessage), handling, operations
     - `ErrorRecovery`
-      - recoveryMechanismsContent, recoveryNarrative @text
-      - dataPreservation: `ErrorRecoveryDataPreservation`
-        - content @Form(draftAutoSave, draftSaveInterval, draftStorageMethod, draftRetentionPeriod, draftRecoveryPrompt)
-      - retryMechanisms: `ErrorRecoveryRetryMechanisms`
-        - content @Form(automaticRetryEnabled, retryBackoffStrategy, maxAutomaticRetries, manualRetryButton, retryButtonLabel, retryFeedback)
-      - guidedRecovery: `ErrorRecoveryGuidedRecovery`
-        - content @Form(stepByStepRecovery, alternativeActions, skipOption, cancelOption)
-      - supportContact: `ErrorRecoverySupportContact`
-        - content @Form(supportAvailability, errorReportSubmission, includeDebugInfo)
-      - sessionHandling: `ErrorRecoverySessionHandling`
-        - content @Form(reauthenticationFlow, preserveContextOnReauth)
-      - recoveryFlows: `RecoveryFlowEntry`
-        - content @text
+      - recoveryMechanismsContent, dataPreservation, retryMechanisms, guidedRecovery, supportContact, sessionHandling,
+        recoveryNarrative @text
+      - recoveryFlows: `String`
       - recoveryScenarios: `RecoveryScenarioEntry`
         - content @Form(scenarioId, scenarioName, triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
           detailedFlow @text
-  - `HelpConcept`
-    - helpOverviewContent, helpOverview @text, helpContentInventory @text
-    - delivery: `HelpConceptDelivery`
-      - content @Form(helpContentOwnership, helpUpdateProcess, helpIconStandard, helpIconPlacement, helpTooltipStyle)
-    - insights: `HelpConceptInsights`
-      - content @Form(helpAnalytics, helpFeedback)
+  - `UserAssistance`
+    - helpOverviewContent, delivery, insights, helpOverview @text, helpContentInventory @text
     - `ContextualHelp`
-      - contextualHelpContent, contextualHelpNarrative @text
-      - inline: `ContextualHelpInline`
-        - content @Form(inlineHelpPlacement, inlineHelpVisibility, inlineHelpLength)
-      - panels: `ContextualHelpPanels`
-        - content @Form(helpPanelAvailable, helpPanelPosition, helpPanelContent)
-      - whatsThis: `ContextualHelpWhatsThis`
-        - content @Form(whatsThisMode, whatsThisActivation)
-      - rich: `ContextualHelpRich`
-        - content @Form(helpScreenshots, helpVideos, helpAnimations)
+      - contextualHelpContent, inline, panels, whatsThis, rich, contextualHelpNarrative @text
       - fieldHelpCatalog: `FieldHelpEntry`
         - content @Form(fieldId, fieldLabel, tooltipText, inlineHelpText, extendedHelp, relatedArticles, exampleValues, commonMistakes)
     - onboarding: `OnboardingHelp`
-      - onboardingContent, onboardingNarrative @text
-      - tours: `OnboardingHelpTours`
-        - content @Form(featureToursEnabled, featureTourStyle, featureTourTrigger, featureTourProgress)
-      - sampleData: `OnboardingHelpSampleData`
-        - content @Form(sampleDataAvailable, sampleDataScope, sampleDataClear)
-      - checklist: `OnboardingHelpChecklist`
-        - content @Form(gettingStartedChecklist, checklistItems, checklistProgress, checklistRewards)
-      - disclosure: `OnboardingHelpDisclosure`
-        - content @Form(progressiveDisclosure, skillLevelAdaptation)
-      - reengagement: `OnboardingHelpReengagement`
-        - content @Form(returnUserWelcome, whatsNewFeature)
+      - onboardingContent, tours, sampleData, checklist, disclosure, reengagement, onboardingNarrative @text
       - featureTours: `FeatureTourEntry`
         - content @Form(tourId, tourName, tourDescription, targetAudience, triggerCondition, stepCount, estimatedDuration, skippable, repeatPolicy)
         - steps: `TourStepEntry`
           - content @Form(stepOrder, targetElement, stepTitle, stepContent, placement, actionRequired, spotlightShape)
     - `SupportAccess`
-      - supportAccessContent, supportAccessNarrative @text
-      - helpCenter: `SupportAccessHelpCenter`
-        - content @Form(helpCenterLocation, helpCenterSearch, helpArticleCategories)
-      - liveSupport: `SupportAccessLiveSupport`
-        - content @Form(liveChatHours, chatbotFirstLine, chatbotCapabilities)
-      - tickets: `SupportAccessTickets`
-        - content @Form(ticketFormFields, ticketAttachments, ticketResponseSla)
-      - contactMethods: `SupportAccessContactMethods`
-        - content @Form(emailSupport, phoneSupport, phoneNumber, communityForum)
-      - selfService: `SupportAccessSelfService`
-        - content @Form(faqSection, troubleshootingGuides, videoTutorials, releaseNotes, feedbackButton, featureRequests, bugReporting)
+      - supportAccessContent, helpCenter, liveSupport, tickets, contactMethods, selfService,
+        supportAccessNarrative @text
   - `Accessibility`
-    - accessibilityOverviewContent, accessibilityOverview @text, keyboardNavigation @text, screenReaderSupport @text,
-      colorAndContrast @text
-    - strategy: `AccessibilityStrategy`
-      - content @Form(accessibilityPhilosophy, accessibilityOwnership, accessibilityTraining)
-    - testing: `AccessibilityTesting`
-      - content @Form(automatedTestingTools, manualTestingProcess, assistiveTechTesting, userTestingWithDisabilities)
-    - support: `AccessibilitySupport`
-      - content @Form(targetScreenReaders, targetBrowserAccessibility)
+    - accessibilityOverviewContent, strategy, testing, support, accessibilityOverview @text, keyboardNavigation @text,
+      screenReaderSupport @text, colorAndContrast @text
     - wcagComplianceLevel: `WcagCompliance`
-      - wcagComplianceContent, wcagNarrative @text
-      - operable: `WcagComplianceOperable`
-        - content @Form(keyboardAccessible, enoughTime, seizureSafe, navigable, inputModalities)
-      - understandable: `WcagComplianceUnderstandable`
-        - content @Form(readable, predictable, inputAssistance)
-      - robust: `WcagComplianceRobust`
-        - content @Form(compatible)
+      - wcagComplianceContent, operable, understandable, robust, wcagNarrative @text
       - successCriteria: `WcagSuccessCriterionEntry`
         - content @Form(criterionId, criterionName, level, applicability, implementation, testingMethod, status, exceptions)
     - `AccessibilityChecklist`
       - checklistOverviewContent, checklistOverview @text
       - items: `AccessibilityCheckEntry`
-        - content @Form(checkId, checkItem, checkDescription, verificationMethod)
-        - compliance: `AccessibilityCheckEntryCompliance`
-          - content @Form(wcagCriterion, complianceLevel, checkCategory)
-        - execution: `AccessibilityCheckEntryExecution`
-          - content @Form(testingTool, responsibleParty, checkStatus, testDate, testedBy)
-        - remediation: `AccessibilityCheckEntryRemediation`
-          - content @Form(issuesFound, remediationPlan)
+        - content @Form(checkId, checkItem, checkDescription, verificationMethod), compliance, execution, remediation
   - `ResponsiveDesign`
     - responsiveOverview, responsiveNarrative @text
     - breakpointConfig: `BreakpointConfiguration`
       - breakpointOverview
       - breakpoints: `BreakpointEntry`
-        - content @Form(breakpointId, breakpointName, minWidth, maxWidth)
-        - layout: `BreakpointEntryLayout`
-          - content @Form(columns, gutterWidth, marginWidth, layoutBehavior)
-        - scaling: `BreakpointEntryScaling`
-          - content @Form(navigationPattern, typographyScale, spacingScale, iconScale)
+        - content @Form(breakpointId, breakpointName, minWidth, maxWidth), layout, scaling
     - `ResponsiveBehavior`
-      - layoutAdaptation, behaviorNarrative @text
-      - navigation: `ResponsiveBehaviorNavigation`
-        - content @Form(mobileNavigation, tabletNavigation, desktopNavigation)
-      - visibility: `ResponsiveBehaviorVisibility`
-        - content @Form(mobileHiddenElements, tabletHiddenElements, desktopOnlyElements)
-      - touch: `ResponsiveBehaviorTouch`
-        - content @Form(touchTargetMinSize, hoverEffects, gesturePriority)
-      - content: `ResponsiveBehaviorContent`
+      - layoutAdaptation, navigation, visibility, touch, behaviorNarrative @text
+      - contentReflow: `ResponsiveBehaviorContent`
         - content @Form(contentReflowStrategy, imageScaling, tableResponsiveness, formLayout)
       - screenRules: `ResponsiveScreenRuleEntry`
         - content @Form(screenId, screenName, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
   - `UiComponents`
-    - componentLibraryOverview
-    - visualLanguage: `UiComponentsVisualLanguage`
-      - content @Form(visualLanguage, brandAlignment, motionPrinciples)
-    - componentApproach: `UiComponentsComponentApproach`
-      - content @Form(componentGranularity, componentNaming, componentDocumentation)
-    - customization: `UiComponentsCustomization`
-      - content @Form(extensionModel, themingApproach, customizationBoundaries)
+    - componentLibraryOverview, visualLanguage, componentApproach, customization
     - `ComponentLibrary`
-      - designSystemNarrative @text, designTokenCatalog @text
+      - colors, typography, spacing, borders, visuals, designSystemNarrative @text, designTokenCatalog @text
       - designFoundations: `DesignFoundationEntry`
         - content @Form(primaryColor, fontFamilyPrimary, spacingScale)
-      - colors: `ComponentLibraryColors`
-        - content @Form(secondaryColor, tertiaryColor, errorColor, warningColor, successColor, infoColor, surfaceColors, colorTokenFormat)
-      - typography: `ComponentLibraryTypography`
-        - content @Form(fontFamilySecondary, fontFamilyMonospace, typographyScale, fontSizeUnit)
-      - spacing: `ComponentLibrarySpacing`
-        - content @Form(spacingTokens, elevationLevels, elevationImplementation)
-      - borders: `ComponentLibraryBorders`
-        - content @Form(cornerRadiusScale, borderStyleDefaults)
-      - visuals: `ComponentLibraryVisuals`
-        - content @Form(iconLibrary, iconSizeScale, animationDurations, animationCurves)
       - colorPalettes: `ColorPaletteEntry`
         - content @Form(paletteName, paletteRole, colorCount, baseColor, lightVariants, darkVariants, onColorDefault, wcagCompliance, usageGuidelines)
       - typographyStyles: `TypographyStyleEntry`
         - content @Form(styleName, fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textDecoration, useCase)
     - componentSpecs: `UiComponentEntry`
-      - identity, visualDesign, visualDiagram @mermaid, interactiveBehavior, responsiveness, accessibility,
-        authorization, resourceIntegration, dataBinding, behaviorNarrative @text
-      - purposeProfile: `UiComponentEntryPurpose`
-        - content @Form(tomWrapperClass, purpose, businessContext, userGoals)
-      - classification: `UiComponentEntryClassification`
-        - content @Form(atomicLevel, complexity, reusability)
-      - dimensions: `UiComponentEntryDimensions`
-        - content @Form(defaultWidth, defaultHeight, minDimensions, maxDimensions)
-      - spacing: `UiComponentEntrySpacing`
-        - content @Form(internalPadding, externalMargin, contentSpacing)
-      - surface: `UiComponentEntrySurface`
-        - content @Form(borderStyle, cornerRadius, elevation, shadowStyle)
-      - inputBehavior: `UiComponentEntryInputBehavior`
-        - content @Form(focusBehavior, keyboardNavigation, keyboardShortcuts)
-      - animation: `UiComponentEntryAnimation`
-        - content @Form(entryAnimation, exitAnimation, stateTransitions, feedbackAnimations)
-      - scroll: `UiComponentEntryScroll`
-        - content @Form(scrollBehavior, stickyBehavior)
+      - identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface, visualDiagram @mermaid,
+        interactiveBehavior, inputBehavior, animation, scroll, responsiveness, accessibility, authorization,
+        resourceIntegration, dataBinding, behaviorNarrative @text
       - states: `ComponentStateEntry`
-        - content @Form(stateId, stateName, stateDescription), stateMockup @mermaid
-        - visual: `ComponentStateEntryVisual`
-          - content @Form(visualChanges, colorOverrides, opacityChange, iconChange, textChange)
-        - behavior: `ComponentStateEntryBehavior`
-          - content @Form(interactionChanges, accessibilityState)
-        - transitions: `ComponentStateEntryTransitions`
-          - content @Form(entryTrigger, exitTrigger, transitionAnimation)
+        - content @Form(stateId, stateName, stateDescription), visual, behavior, transitions, stateMockup @mermaid
       - variants: `ComponentVariantEntry`
-        - content @Form(variantId, variantName, variantDescription, visualDifferences), variantMockup @mermaid
-        - visual: `ComponentVariantEntryVisual`
-          - content @Form(colorSchemeVariant, borderVariant, elevationVariant)
-        - behavior: `ComponentVariantEntryBehavior`
-          - content @Form(behaviorDifferences, useCaseDifferences, implementationNote, flutterVariant)
+        - content @Form(variantId, variantName, variantDescription, visualDifferences), visual, behavior,
+          variantMockup @mermaid
       - actions: `ComponentActionEntry`
-        - content @Form(actionId, actionName, actionTrigger, actionPayload)
-        - governance: `ComponentActionEntryGovernance`
-          - content @Form(actionResult, authRequired, authPermission, confirmationRequired, confirmationMessage)
-        - execution: `ComponentActionEntryExecution`
-          - content @Form(asyncBehavior, errorHandling, successFeedback)
+        - content @Form(actionId, actionName, actionTrigger, actionPayload), governance, execution
       - slots: `ComponentSlotEntry`
         - content @Form(slotId, slotName, slotDescription, slotRequired, acceptedWidgets, defaultContent, sizingBehavior, resourceKey)
       - properties: `ComponentPropertyEntry`
@@ -563,62 +227,25 @@
       - components: `FamilyComponentRef`
         - content @Form(componentId, componentName, familyRole, relationToOthers)
   - `LanguageCountrySelection`
-    - languageSelectionContent, languageSelectionNarrative @text, languagePickerMockup @mermaid
-    - defaults: `LanguageCountrySelectionDefaults`
-      - content @Form(defaultLanguage, defaultCountry, autoDetection)
-    - persistence: `LanguageCountrySelectionPersistence`
-      - content @Form(persistenceMethod, crossDeviceSync, anonymousPersistence)
-    - fallback: `LanguageCountrySelectionFallback`
-      - content @Form(localeFallbackBehavior, partialLocalSupport, missingTranslationDisplay)
-    - ux: `LanguageCountrySelectionUx`
-      - content @Form(languageSwitchBehavior, confirmationRequired, contentRetention)
+    - languageSelectionContent, defaults, persistence, fallback, ux, languageSelectionNarrative @text,
+      languagePickerMockup @mermaid
   - `Prototype`
-    - prototypeOverview, overviewNarrative @text, prototypeSchedule @text
-    - timeline: `PrototypeTimeline`
-      - content @Form(prototypeTimeline, prototypeDeadline, evaluationPeriod)
-    - resources: `PrototypeResources`
-      - content @Form(prototypeTeam, prototypeBudget, prototypeEnvironment)
-    - governance: `PrototypeGovernance`
-      - content @Form(acceptanceCriteria, stakeholderSignoff)
+    - prototypeOverview, timeline, resources, governance, overviewNarrative @text, prototypeSchedule @text
     - `PrototypeGoals`
-      - goalsContent, goalsNarrative @text
-      - riskProfile: `PrototypeGoalsRisk`
-        - content @Form(riskMitigation, unknownsResolution, assumptionsTesting)
-      - feedbackProfile: `PrototypeGoalsFeedback`
-        - content @Form(userFeedbackGoals, usabilityTestingPlan, feedbackIntegration)
+      - goalsContent, riskProfile, feedbackProfile, goalsNarrative @text
       - goals: `PrototypeGoalEntry`
         - content @Form(goalId, goalDescription, goalCategory, validationMethod, successMetric, priority, relatedRisks, stakeholders)
     - featureSubset: `PrototypeFeatureSubset`
-      - featureSubsetContent, featureNarrative @text
-      - scope: `PrototypeFeatureSubsetScope`
-        - content @Form(includedFeatures, excludedFeatures, partialFeatures)
-      - fidelity: `PrototypeFeatureSubsetFidelity`
-        - content @Form(prototypeFidelity, interactiveFidelity, dataFidelity, visualFidelity)
+      - featureSubsetContent, scope, fidelity, featureNarrative @text
       - features: `PrototypeFeatureEntry`
         - content @Form(featureId, featureName, inclusionReason, fidelityLevel, completenessLevel, relatedGoals, implementationNotes, knownLimitations)
-    - prototypeType: `PrototypeTypeSection`
+    - `PrototypeType`
       - prototypeTypeOverview
       - `ReusablePrototype`
-        - reusableContent, reusableNarrative @text
-        - architecture: `ReusablePrototypeArchitecture`
-          - content @Form(architectureAlignment, refactoringPlan, technicalDebt)
-        - integration: `ReusablePrototypeIntegration`
-          - content @Form(integrationPlan, featureBranchStrategy, mergeCriteria)
-        - transition: `ReusablePrototypeTransition`
-          - content @Form(transitionTimeline, teamHandoff)
+        - reusableContent, architecture, integration, transition, reusableNarrative @text
       - `TrainingPrototype`
-        - trainingContent, trainingNarrative @text
-        - disposition: `TrainingPrototypeDisposition`
-          - content @Form(codeDisposition, reimplementationPlan, reimplementationEstimate)
-        - outputs: `TrainingPrototypeOutputs`
-          - content @Form(documentationProduced, designSystemOutput, componentSpecifications, teamSkillsGained, technologyInsights)
+        - trainingContent, disposition, outputs, trainingNarrative @text
       - `ThrowawayPrototype`
-        - throwawayContent, throwawayNarrative @text
-        - findings: `ThrowawayPrototypeFindings`
-          - content @Form(findingsDocumentation, recommendationsOutput, decisionsMade)
-        - disposition: `ThrowawayPrototypeDisposition`
-          - content @Form(disposalPlan, archivingApproach, nextSteps)
-        - value: `ThrowawayPrototypeValue`
-          - content @Form(insightsCaptured, futureReference)
-  - wireframesAndMockups: `WireframesAndMockups`
+        - throwawayContent, findings, disposition, value, throwawayNarrative @text
+  - `WireframesAndMockups`
     - content
