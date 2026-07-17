@@ -320,7 +320,7 @@ that all stakeholders can refer to.
     ),
     Field(
       'interfaceTypes',
-      List,
+      String,
       'Types of user and system interfaces',
       hint:
           'Web UI, Mobile App, Desktop App, REST API, GraphQL API, '

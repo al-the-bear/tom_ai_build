@@ -87499,7 +87499,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("deploymentModel", "String", "Primary deployment approach", false, "Cloud-native SaaS, Cloud-hosted PaaS, Hybrid Cloud, On-premises, Edge/Distributed, Mobile-first, Desktop, Embedded", 3),
             new SomFormFieldMeta("architectureStyle", "String", "Primary architectural pattern", false, "Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server", 4),
             new SomFormFieldMeta("primaryTechnologyStack", "String", "Main technologies and frameworks", false, "e.g., Flutter/Dart, Firebase, PostgreSQL", 5),
-            new SomFormFieldMeta("interfaceTypes", "List", "Types of user and system interfaces", false, "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware", 6),
+            new SomFormFieldMeta("interfaceTypes", "String", "Types of user and system interfaces", false, "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware", 6),
             new SomFormFieldMeta("dataCharacteristics", "String", "Key data handling characteristics", false, "e.g., Real-time processing, batch analytics, ACID transactions", 7),
             new SomFormFieldMeta("securityClassification", "String", "Overall security posture requirement", false, "Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified", 8),
             new SomFormFieldMeta("availabilityRequirement", "String", "Target availability level", false, "99.999% (Five 9s), 99.99% (Four 9s), 99.9% (Three 9s), 99%, Business Hours Only, Best Effort", 9),

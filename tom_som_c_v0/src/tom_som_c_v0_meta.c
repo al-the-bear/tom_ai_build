@@ -149291,7 +149291,7 @@ static void meta_build_system_description_description_summary(SomMetaNode *n) {
   n->form->fields[5].initial = som_strdup("");
   n->form->fields[5].order = 5;
   n->form->fields[6].name = som_strdup("interfaceTypes");
-  n->form->fields[6].type_name = som_strdup("List");
+  n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Types of user and system interfaces");
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware");

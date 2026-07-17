@@ -237475,7 +237475,7 @@
               "name": "interfaceTypes",
               "label": "Types of user and system interfaces",
               "hint": "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware",
-              "type": "List",
+              "type": "String",
               "required": false
             },
             {
