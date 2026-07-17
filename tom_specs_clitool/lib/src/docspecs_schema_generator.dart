@@ -523,13 +523,17 @@ class _SchemaBuilder {
       return FormTypeDef(
         name: formName,
         fields: [
+          // YRD6: title/id role fields never render as form lines — their
+          // value is the section heading / id comment — so they are omitted
+          // from the schema's form-type field list.
           for (final ff in node.form!.fields)
-            FormFieldDef(
-              fieldname: ff.name,
-              required: ff.required ? true : null,
-              description: ff.hint,
-              patternCheck: _patternCheckFor(byMember[ff.name]),
-            ),
+            if (ff.role == null)
+              FormFieldDef(
+                fieldname: ff.name,
+                required: ff.required ? true : null,
+                description: ff.hint,
+                patternCheck: _patternCheckFor(byMember[ff.name]),
+              ),
         ],
       );
     });

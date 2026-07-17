@@ -8374,16 +8374,18 @@ class FunctionalRequirements extends DocSpecsSection {
 @SectionId('FRE')
 class FunctionalRequirementEntry extends DocSpecsSection {
   @Form([
-    Field(
+    // YRD6: the requirement id IS the item's stored section id — one storage
+    // slot, viewed both as this form field and as the section id in md/yaml.
+    Field.id(
       'requirementId',
-      String,
       'Requirement ID (unique, e.g., REQ-F001)',
       required: true,
       hint: 'Unique requirement identifier, e.g. REQ-F001',
     ),
-    Field(
+    // YRD6: the title IS the section headline — one storage slot, viewed both
+    // as this form field and as the item's md heading text.
+    Field.title(
       'title',
-      String,
       'Title (concise statement)',
       required: true,
       hint: 'Concise one-line statement of the requirement',

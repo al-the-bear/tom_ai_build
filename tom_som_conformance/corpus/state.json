@@ -19,12 +19,28 @@
     "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks"
   },
   "forms": {
+    "DEMO/CARD-LST-1/content": {
+      "note": "first card"
+    },
+    "DEMO/CARD-LST-2/content": {
+      "note": "second card"
+    },
     "DEMO/DET": {
       "contact": "bob@example.com",
       "owner": "Bob"
     }
   },
   "lists": {
+    "DEMO/CARD-LST": {
+      "seq": 2,
+      "items": [
+        "DEMO/CARD-LST-1",
+        "DEMO/CARD-LST-2"
+      ],
+      "ids": {
+        "DEMO/CARD-LST-1": "CARD-ALPHA"
+      }
+    },
     "DEMO/META/tags": {
       "seq": 4,
       "items": [
@@ -53,6 +69,7 @@
     }
   },
   "headlines": {
+    "DEMO/CARD-LST-1": "Alpha Card",
     "DEMO/DET": "Details & Contacts",
     "DEMO/REF-LST-1": "Reference to the Spec",
     "DEMO/SUM": "Executive Summary",

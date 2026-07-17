@@ -54,6 +54,16 @@ spec §1.2
 
 DR1
 
+## <!--[CARD-LST]--> Cards
+
+### <!--[CARD-ALPHA]--> Alpha Card
+
+Note: first card
+
+### <!--[CARD-2]--> Card 2
+
+Note: second card
+
 ## <!--[META]--> Meta
 
 ### <!--[OWNR]--> Owner

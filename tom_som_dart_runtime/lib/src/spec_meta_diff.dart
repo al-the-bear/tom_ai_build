@@ -94,6 +94,8 @@ String? _formDiff(String at, SomFormMeta? a, SomFormMeta? b) {
         fa.description != fb.description ||
         fa.required != fb.required ||
         fa.hint != fb.hint ||
+        fa.role != fb.role ||
+        fa.initial != fb.initial ||
         fa.order != fb.order) {
       return '$at: form field ${fa.name} differs';
     }

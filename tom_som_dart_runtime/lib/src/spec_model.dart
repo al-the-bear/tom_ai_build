@@ -73,12 +73,22 @@ class FormFieldSpec {
   final String type;
   final bool required;
 
+  /// Structural role of the field (YRD6): `'title'` (view onto the owning
+  /// section's headline), `'id'` (view onto the stored section id), or
+  /// `null` for an ordinary form-value field.
+  final String? role;
+
+  /// Predefined initial content (YRD6, meta-only editor prefill), or `null`.
+  final String? initial;
+
   FormFieldSpec({
     required this.name,
     required this.label,
     required this.type,
     this.hint,
     this.required = false,
+    this.role,
+    this.initial,
   });
 
   factory FormFieldSpec.fromJson(Map<String, dynamic> j) => FormFieldSpec(
@@ -87,6 +97,8 @@ class FormFieldSpec {
         hint: j['hint'] as String?,
         type: j['type'] as String? ?? 'String',
         required: j['required'] as bool? ?? false,
+        role: j['role'] as String?,
+        initial: j['initial'] as String?,
       );
 }
 

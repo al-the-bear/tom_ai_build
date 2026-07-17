@@ -80,6 +80,16 @@ class SomFormFieldMeta {
   /// The authoring hint (e.g. `e.g. 1.0`), when present.
   final String? hint;
 
+  /// Structural role of the field (YRD6): `'title'` (the field is a view
+  /// onto the owning section's headline), `'id'` (view onto the stored
+  /// section id), or `null` for an ordinary form-value field. Role fields
+  /// are never stored in the form-value store; serialization emits their
+  /// value once — as the heading text / id comment.
+  final String? role;
+
+  /// Predefined initial content (YRD6, meta-only editor prefill), or `null`.
+  final String? initial;
+
   /// Declaration order within the form.
   final int order;
 
@@ -89,6 +99,8 @@ class SomFormFieldMeta {
     this.description,
     this.required = false,
     this.hint,
+    this.role,
+    this.initial,
     required this.order,
   });
 }
@@ -104,6 +116,22 @@ class SomFormMeta {
   SomFormFieldMeta? fieldNamed(String name) {
     for (final f in fields) {
       if (f.name == name) return f;
+    }
+    return null;
+  }
+
+  /// The title-role field (YRD6), or `null` when the form declares none.
+  SomFormFieldMeta? get titleField {
+    for (final f in fields) {
+      if (f.role == 'title') return f;
+    }
+    return null;
+  }
+
+  /// The id-role field (YRD6), or `null` when the form declares none.
+  SomFormFieldMeta? get idField {
+    for (final f in fields) {
+      if (f.role == 'id') return f;
     }
     return null;
   }

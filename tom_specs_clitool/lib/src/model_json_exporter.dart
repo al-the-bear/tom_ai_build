@@ -159,6 +159,8 @@ class ModelJsonExporter {
                   if (ff.hint.isNotEmpty) 'hint': ff.hint,
                   'type': ff.typeName,
                   'required': ff.required,
+                  if (ff.role.isNotEmpty) 'role': ff.role,
+                  if (ff.initial.isNotEmpty) 'initial': ff.initial,
                 })
             .toList();
         break;

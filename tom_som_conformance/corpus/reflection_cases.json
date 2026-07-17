@@ -96,6 +96,30 @@
     "isValueLeaf": true
   },
   {
+    "path": "DEMO/CARD-LST",
+    "resolves": true,
+    "kind": "list",
+    "field": "cards",
+    "targetClass": null,
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/CARD-LST-1",
+    "resolves": true,
+    "kind": "listItemComplex",
+    "field": "cards",
+    "targetClass": "Card",
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/CARD-LST-1/content",
+    "resolves": true,
+    "kind": "form",
+    "field": "content",
+    "targetClass": null,
+    "isValueLeaf": false
+  },
+  {
     "path": "DEMO/META",
     "resolves": true,
     "kind": "complex",

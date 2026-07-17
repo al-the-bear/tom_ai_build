@@ -29,12 +29,22 @@ class FormFieldInfo {
   /// Optional hint text guiding valid values/formats for this form field.
   final String hint;
 
+  /// Structural role of the field (YRD6): `'title'` (view onto the owning
+  /// section's headline), `'id'` (view onto the stored section id), or ''
+  /// for an ordinary form-value field.
+  final String role;
+
+  /// Predefined initial content (YRD6, meta-only prefill), '' when absent.
+  final String initial;
+
   FormFieldInfo({
     required this.name,
     required this.typeName,
     this.description = '',
     this.required = false,
     this.hint = '',
+    this.role = '',
+    this.initial = '',
   });
 }
 
@@ -614,6 +624,16 @@ class ModelReader {
             item.getField('description')?.toStringValue() ?? '';
         final required = item.getField('required')?.toBoolValue() ?? false;
         final hint = item.getField('hint')?.toStringValue() ?? '';
+        // YRD6: structural role (enum constant FieldRole.title/.id) and the
+        // meta-only predefined initial content.
+        final roleValue = item.getField('role');
+        var role = '';
+        if (roleValue != null && !roleValue.isNull) {
+          role = roleValue.getField('_name')?.toStringValue() ??
+              const ['title', 'id'][
+                  roleValue.getField('index')?.toIntValue() ?? 0];
+        }
+        final initial = item.getField('initial')?.toStringValue() ?? '';
 
         // Extract type name from the Type literal
         String typeName = 'String';
@@ -628,6 +648,8 @@ class ModelReader {
           description: description,
           required: required,
           hint: hint,
+          role: role,
+          initial: initial,
         ));
       }
       return result;

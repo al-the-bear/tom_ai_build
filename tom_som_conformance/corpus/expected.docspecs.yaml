@@ -40,6 +40,17 @@ document:
           Reference to the Spec
         content: spec §1.2
       refs-2: DR1
+    CARD-LST cards:
+      CARD-ALPHA:
+        headline: |2-
+          Alpha Card
+        content:
+          note: |2-
+            first card
+      cards-2:
+        content:
+          note: |2-
+            second card
     META meta:
       OWNR owner: |2-
         alice

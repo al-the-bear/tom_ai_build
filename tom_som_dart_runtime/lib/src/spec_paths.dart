@@ -37,6 +37,18 @@ String specPathJoin(String parent, String segment) =>
 /// not a separate level.
 List<String> specPathSegments(String path) => path.split(kSpecPathSeparator);
 
+/// The parent path of [path] — everything before the final `/`-separated
+/// segment — or [path] itself when it has no separator (a root path).
+///
+/// Used by the generated facades' YRD6 role-field accessors: a transparent
+/// class-level `@Form` member is hoisted into its parent section's body, so
+/// its title/id role fields bind to the **parent** path's headline / stored
+/// section id.
+String specParentPath(String path) {
+  final i = path.lastIndexOf(kSpecPathSeparator);
+  return i < 0 ? path : path.substring(0, i);
+}
+
 /// The path of the [seq]-th item appended to the list at [listPath]
 /// (`"$listPath-$seq"`), matching [SpecDocument.addListItem].
 String listItemPath(String listPath, int seq) => '$listPath-$seq';

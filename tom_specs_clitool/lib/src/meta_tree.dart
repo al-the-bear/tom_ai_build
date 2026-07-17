@@ -37,6 +37,15 @@ class MetaFormField {
   /// Optional hint text guiding valid values/formats; null when absent.
   final String? hint;
 
+  /// Structural role of the field (YRD6): `'title'` (view onto the owning
+  /// section's headline), `'id'` (view onto the stored section id), or null
+  /// for an ordinary form-value field.
+  final String? role;
+
+  /// Predefined initial content (YRD6, meta-only editor prefill); null when
+  /// absent.
+  final String? initial;
+
   /// The field's 0-based position within the `@Form` field list.
   final int order;
 
@@ -46,6 +55,8 @@ class MetaFormField {
     this.description,
     this.required = false,
     this.hint,
+    this.role,
+    this.initial,
     required this.order,
   });
 }
@@ -248,6 +259,8 @@ class MetaNode {
                       if (f.description != null) 'description': f.description,
                       if (f.required) 'required': true,
                       if (f.hint != null) 'hint': f.hint,
+                      if (f.role != null) 'role': f.role,
+                      if (f.initial != null) 'initial': f.initial,
                       'order': f.order,
                     })
                 .toList(),
@@ -632,6 +645,8 @@ class _SlotCollector {
         description: f.description.isEmpty ? null : f.description,
         required: f.required,
         hint: f.hint.isEmpty ? null : f.hint,
+        role: f.role.isEmpty ? null : f.role,
+        initial: f.initial.isEmpty ? null : f.initial,
         order: i,
       ));
     }

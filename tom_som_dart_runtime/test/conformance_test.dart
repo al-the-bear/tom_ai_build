@@ -189,6 +189,9 @@ void main() {
         () {
       // Item 1 carries the stored id `REF-SPEC` (YRD3); item 2 is anonymous.
       expectContainer('REF-LST', ['REF-SPEC', 'REF-2']);
+      // YRD6: card 1's id-role value IS its stored id (`CARD-ALPHA`); card 2
+      // falls back to the pattern (`CARD-2`). Neither appears as a form line.
+      expectContainer('CARD-LST', ['CARD-ALPHA', 'CARD-2']);
     });
 
     test('id-less lists head under the member-name container, empty-bodied', () {
@@ -491,6 +494,21 @@ Map<String, dynamic> _buildMeta() => {
               'elementIsComplex': false,
             },
             {
+              // YRD6: a `*-LST` list of complex items whose own (transparent
+              // `content`) form declares role fields — `cardId` (id role, a
+              // view onto the stored item section id) and `name` (title role
+              // with an `initial` prefill, a view onto the item headline).
+              // Role values never enter the form store, so they emit exactly
+              // once: as the item heading / id comment (md) and the item key /
+              // headline (yaml).
+              'name': 'cards',
+              'kind': 'list',
+              'sectionId': 'CARD-LST',
+              'sectionIdPattern': 'CARD-xxx',
+              'elementType': 'Card',
+              'elementIsComplex': true,
+            },
+            {
               'name': 'meta',
               'kind': 'complex',
               'sectionId': 'META',
@@ -539,6 +557,34 @@ Map<String, dynamic> _buildMeta() => {
               'sectionId': 'STS',
               'enumType': 'Status',
               'enumValues': ['open', 'done'],
+            },
+          ],
+        },
+        'Card': {
+          'name': 'Card',
+          'fields': [
+            {
+              // The section's OWN form (transparent, id-less `content`
+              // member): role fields bind against the PARENT path — the list
+              // item — per YRD6.
+              'name': 'content',
+              'kind': 'form',
+              'formFields': [
+                {
+                  'name': 'cardId',
+                  'label': 'Card ID',
+                  'type': 'String',
+                  'role': 'id',
+                },
+                {
+                  'name': 'name',
+                  'label': 'Name',
+                  'type': 'String',
+                  'role': 'title',
+                  'initial': 'New Card',
+                },
+                {'name': 'note', 'label': 'Note', 'type': 'String'},
+              ],
             },
           ],
         },
@@ -591,6 +637,18 @@ SpecDocument _buildDocument() {
   d.setHeadline('DEMO/items', 'Work Items');
   d.setItemSectionId('DEMO/REF-LST-1', 'REF-SPEC');
   d.setHeadline('DEMO/REF-LST-1', 'Reference to the Spec');
+  // YRD6 fixtures: role fields are pure views onto the YRD3 stores. Card 1
+  // gets a stored (pattern-shaped, non-numeric) item section id — what the
+  // `cardId` id-role field reads — plus a stored headline — what the `name`
+  // title-role field reads. Card 2 keeps both defaults (`CARD-2` heading id,
+  // derived item title), so its role-field views read ''. Only the ordinary
+  // `note` field ever lands in the form store.
+  final c1 = d.addListItem('DEMO/CARD-LST');
+  d.setItemSectionId(c1, 'CARD-ALPHA');
+  d.setHeadline(c1, 'Alpha Card');
+  d.setFormField('$c1/content', 'note', 'first card');
+  final c2 = d.addListItem('DEMO/CARD-LST');
+  d.setFormField('$c2/content', 'note', 'second card');
   d.setContent('DEMO/META/OWNR', 'alice');
   // Scalar list exercising the YAML 1.1-special quoting rule (DR1 §2.5, DRC6):
   // `on`/`no` are 1.1-only booleans and `1:30` is a 1.1 sexagesimal int — all
@@ -638,6 +696,11 @@ List<Map<String, dynamic>> _reflectionCases(SpecModel model) {
     // The `*-LST` container path and one of its positional items.
     'DEMO/REF-LST',
     'DEMO/REF-LST-1',
+    // YRD6: the role-field list container, one item, and its own (transparent
+    // `content`) form node.
+    'DEMO/CARD-LST',
+    'DEMO/CARD-LST-1',
+    'DEMO/CARD-LST-1/content',
     'DEMO/META',
     'DEMO/META/OWNR',
     'DEMO/META/tags',

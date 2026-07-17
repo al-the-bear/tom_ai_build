@@ -101,6 +101,14 @@
           "elementIsComplex": false
         },
         {
+          "name": "cards",
+          "kind": "list",
+          "sectionId": "CARD-LST",
+          "sectionIdPattern": "CARD-xxx",
+          "elementType": "Card",
+          "elementIsComplex": true
+        },
+        {
           "name": "meta",
           "kind": "complex",
           "sectionId": "META",
@@ -152,6 +160,35 @@
           "enumValues": [
             "open",
             "done"
+          ]
+        }
+      ]
+    },
+    "Card": {
+      "name": "Card",
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "cardId",
+              "label": "Card ID",
+              "type": "String",
+              "role": "id"
+            },
+            {
+              "name": "name",
+              "label": "Name",
+              "type": "String",
+              "role": "title",
+              "initial": "New Card"
+            },
+            {
+              "name": "note",
+              "label": "Note",
+              "type": "String"
+            }
           ]
         }
       ]
