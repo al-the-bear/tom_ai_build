@@ -24,6 +24,10 @@ high
 
 Owner: Bob
 Contact: bob@example.com
+Estimate: 8
+Weight: 2.5
+Active: true
+Priority: high
 
 ## <!--[items]--> Work Items
 

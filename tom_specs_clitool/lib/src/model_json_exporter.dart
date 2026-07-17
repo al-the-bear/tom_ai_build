@@ -161,6 +161,9 @@ class ModelJsonExporter {
                   'required': ff.required,
                   if (ff.role.isNotEmpty) 'role': ff.role,
                   if (ff.initial.isNotEmpty) 'initial': ff.initial,
+                  // YRD7: enum-typed form fields carry their constant names
+                  // so runtimes can validate/convert without the analyzer.
+                  if (ff.enumValues.isNotEmpty) 'enumValues': ff.enumValues,
                 })
             .toList();
         break;

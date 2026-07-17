@@ -49,6 +49,10 @@ class MetaFormField {
   /// The field's 0-based position within the `@Form` field list.
   final int order;
 
+  /// Enum constant names when [typeName] is a model enum (YRD7); empty for
+  /// non-enum field types.
+  final List<String> enumValues;
+
   const MetaFormField({
     required this.name,
     required this.typeName,
@@ -58,6 +62,7 @@ class MetaFormField {
     this.role,
     this.initial,
     required this.order,
+    this.enumValues = const [],
   });
 }
 
@@ -262,6 +267,7 @@ class MetaNode {
                       if (f.role != null) 'role': f.role,
                       if (f.initial != null) 'initial': f.initial,
                       'order': f.order,
+                      if (f.enumValues.isNotEmpty) 'enumValues': f.enumValues,
                     })
                 .toList(),
           },
@@ -648,6 +654,7 @@ class _SlotCollector {
         role: f.role.isEmpty ? null : f.role,
         initial: f.initial.isEmpty ? null : f.initial,
         order: i,
+        enumValues: f.enumValues,
       ));
     }
     return MetaFormInfo(fields);

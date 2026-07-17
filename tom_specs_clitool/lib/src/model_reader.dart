@@ -37,6 +37,12 @@ class FormFieldInfo {
   /// Predefined initial content (YRD6, meta-only prefill), '' when absent.
   final String initial;
 
+  /// Enum constant names when [typeName] is a model enum (YRD7); empty for
+  /// non-enum field types. Resolved at read time so every downstream consumer
+  /// (meta JSON, meta emitters, facade emitters) sees the values without
+  /// needing the analyzer.
+  final List<String> enumValues;
+
   FormFieldInfo({
     required this.name,
     required this.typeName,
@@ -45,6 +51,7 @@ class FormFieldInfo {
     this.hint = '',
     this.role = '',
     this.initial = '',
+    this.enumValues = const [],
   });
 }
 
@@ -635,11 +642,16 @@ class ModelReader {
         }
         final initial = item.getField('initial')?.toStringValue() ?? '';
 
-        // Extract type name from the Type literal
+        // Extract type name from the Type literal; resolve enum constant
+        // names right here (YRD7) so downstream consumers need no analyzer.
         String typeName = 'String';
+        var enumValues = const <String>[];
         final typeVal = item.getField('type')?.toTypeValue();
         if (typeVal is InterfaceType) {
           typeName = typeVal.element.name ?? 'String';
+          if (_isEnumType(typeVal)) {
+            enumValues = _getEnumValues(typeVal);
+          }
         }
 
         result.add(FormFieldInfo(
@@ -650,6 +662,7 @@ class ModelReader {
           hint: hint,
           role: role,
           initial: initial,
+          enumValues: enumValues,
         ));
       }
       return result;

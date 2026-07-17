@@ -1,0 +1,372 @@
+[
+  {
+    "op": "setValue",
+    "path": "DEMO/CNT",
+    "value": 3
+  },
+  {
+    "op": "value",
+    "path": "DEMO/CNT",
+    "expect": 3
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/CNT",
+    "expect": "3"
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/CNT",
+    "value": null
+  },
+  {
+    "op": "value",
+    "path": "DEMO/CNT",
+    "expect": null
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/CNT",
+    "expect": null
+  },
+  {
+    "op": "setContent",
+    "path": "DEMO/CNT",
+    "value": "abc"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/CNT",
+    "expect": null
+  },
+  {
+    "op": "setContent",
+    "path": "DEMO/CNT",
+    "value": ""
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/PRI",
+    "value": "high"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/PRI",
+    "expect": "high"
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/PRI",
+    "expect": "high"
+  },
+  {
+    "op": "setValueThrows",
+    "path": "DEMO/PRI",
+    "value": "urgent"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/PRI",
+    "expect": "high"
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/TTL",
+    "value": "Hello"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/TTL",
+    "expect": "Hello"
+  },
+  {
+    "op": "setValueThrows",
+    "path": "DEMO/ghost",
+    "value": "x"
+  },
+  {
+    "op": "setValueThrows",
+    "path": "DEMO/items",
+    "value": "x"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "owner",
+    "value": "Bob"
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "owner",
+    "expect": "Bob"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "value": 8
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "expect": 8
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "expect": "8"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "weight",
+    "value": 2.5
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "weight",
+    "expect": 2.5
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "weight",
+    "expect": "2.5"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "active",
+    "value": true
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "active",
+    "expect": true
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "active",
+    "expect": "true"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "priority",
+    "value": "high"
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "priority",
+    "expect": "high"
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "priority",
+    "expect": "high"
+  },
+  {
+    "op": "setFormValueThrows",
+    "path": "DEMO/DET",
+    "field": "priority",
+    "value": "urgent"
+  },
+  {
+    "op": "setFormValueThrows",
+    "path": "DEMO/DET",
+    "field": "bogus",
+    "value": "x"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "value": null
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "expect": null
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "expect": null
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "active",
+    "value": "not-a-bool"
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "active",
+    "expect": null
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "active",
+    "expect": "not-a-bool"
+  },
+  {
+    "op": "addListItem",
+    "listPath": "DEMO/REF-LST",
+    "month": 3,
+    "day": 4,
+    "expectPath": "DEMO/REF-LST-1",
+    "expectId": "REF-CD1"
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/REF-LST-1",
+    "value": "spec §1.2"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/REF-LST-1",
+    "expect": "spec §1.2"
+  },
+  {
+    "op": "addListItem",
+    "listPath": "DEMO/CARD-LST",
+    "month": 3,
+    "day": 4,
+    "expectPath": "DEMO/CARD-LST-1",
+    "expectId": "CARD-CD1"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/CARD-LST-1/content",
+    "field": "name",
+    "value": "Alpha Card"
+  },
+  {
+    "op": "headline",
+    "path": "DEMO/CARD-LST-1",
+    "expect": "Alpha Card"
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/CARD-LST-1/content",
+    "field": "name",
+    "expect": "Alpha Card"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/CARD-LST-1/content",
+    "field": "cardId",
+    "value": "CARD-ALPHA"
+  },
+  {
+    "op": "itemSectionId",
+    "itemPath": "DEMO/CARD-LST-1",
+    "expect": "CARD-ALPHA"
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/CARD-LST-1/content",
+    "field": "cardId",
+    "expect": "CARD-ALPHA"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/CARD-LST-1/content",
+    "field": "cardId",
+    "value": ""
+  },
+  {
+    "op": "itemSectionId",
+    "itemPath": "DEMO/CARD-LST-1",
+    "expect": "CARD-ALPHA"
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/CARD-LST-1/content",
+    "field": "cardId",
+    "expect": null
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/CARD-LST-1/content",
+    "field": "name",
+    "expect": null
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/CARD-LST-1/content",
+    "field": "note",
+    "value": "first card"
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/META/OWNR",
+    "value": "alice"
+  },
+  {
+    "op": "hasValuesUnder",
+    "prefix": "DEMO/META",
+    "expect": true
+  },
+  {
+    "op": "clearSection",
+    "path": "DEMO/META"
+  },
+  {
+    "op": "hasValuesUnder",
+    "prefix": "DEMO/META",
+    "expect": false
+  },
+  {
+    "op": "hasValuesUnder",
+    "prefix": "DEMO/CARD-LST-1",
+    "expect": true
+  },
+  {
+    "op": "removeListItem",
+    "itemPath": "DEMO/CARD-LST-1",
+    "expect": true
+  },
+  {
+    "op": "hasValuesUnder",
+    "prefix": "DEMO/CARD-LST-1",
+    "expect": false
+  },
+  {
+    "op": "removeListItem",
+    "itemPath": "DEMO/CARD-LST-9",
+    "expect": false
+  },
+  {
+    "op": "setHeadline",
+    "path": "DEMO/SUM",
+    "value": "Exec Summary"
+  },
+  {
+    "op": "headline",
+    "path": "DEMO/SUM",
+    "expect": "Exec Summary"
+  },
+  {
+    "op": "setHeadline",
+    "path": "DEMO/SUM",
+    "value": ""
+  },
+  {
+    "op": "headline",
+    "path": "DEMO/SUM",
+    "expect": null
+  }
+]

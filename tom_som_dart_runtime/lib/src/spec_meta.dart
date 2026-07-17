@@ -93,6 +93,12 @@ class SomFormFieldMeta {
   /// Declaration order within the form.
   final int order;
 
+  /// Enum constant names when [typeName] is a model enum (YRD7); empty for
+  /// non-enum field types. The complete value domain of an enum-typed form
+  /// field, so editors and the generic modification API can validate and
+  /// convert without generated code.
+  final List<String> enumValues;
+
   const SomFormFieldMeta({
     required this.name,
     required this.typeName,
@@ -102,6 +108,7 @@ class SomFormFieldMeta {
     this.role,
     this.initial,
     required this.order,
+    this.enumValues = const [],
   });
 }
 

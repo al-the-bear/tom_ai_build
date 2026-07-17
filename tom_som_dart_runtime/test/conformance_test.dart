@@ -40,6 +40,7 @@ void main() {
   final reflectionCases = _reflectionCases(model);
   final validationCases = _validationCases(model);
   final operationsCases = _operationsScript();
+  final editorCases = _editorScript();
   final sectionIdCases = _sectionIdCases();
   final serializationOrderCase = _serializationOrderCase();
 
@@ -56,6 +57,7 @@ void main() {
     write('reflection_cases.json', '${enc.convert(reflectionCases)}\n');
     write('validation_cases.json', '${enc.convert(validationCases)}\n');
     write('operations_cases.json', '${enc.convert(operationsCases)}\n');
+    write('editor_cases.json', '${enc.convert(editorCases)}\n');
     write('section_id_cases.json', '${enc.convert(sectionIdCases)}\n');
     write('serialization_order_cases.json',
         '${enc.convert(serializationOrderCase)}\n');
@@ -286,6 +288,77 @@ void main() {
     }
   });
 
+  // YRD7: the generic, meta-validated modification API (SpecEditor) — typed
+  // value/form-field round-trips through the shared boundary helpers, enum
+  // domain validation, role-field routing, and structural create/clear ops.
+  // Executed against the corpus model, so every language's generic editor
+  // replays the identical script.
+  test('editor script replays with the committed results', () {
+    final steps = jsonDecode(read('editor_cases.json')) as List;
+    final d = SpecDocument();
+    final ed = SpecEditor.forModel(d, model);
+    for (final s in steps.cast<Map<String, dynamic>>()) {
+      switch (s['op']) {
+        case 'setValue':
+          ed.setValue(s['path'] as String, s['value']);
+        case 'value':
+          expect(ed.value(s['path'] as String), s['expect'],
+              reason: 'value ${s['path']}');
+        case 'setValueThrows':
+          expect(() => ed.setValue(s['path'] as String, s['value']),
+              throwsArgumentError,
+              reason: 'setValueThrows ${s['path']}');
+        case 'setContent': // raw store write (bypasses the typed boundary)
+          d.setContent(s['path'] as String, s['value'] as String);
+        case 'rawContent':
+          expect(d.content(s['path'] as String), s['expect'],
+              reason: 'rawContent ${s['path']}');
+        case 'setFormValue':
+          ed.setFormValue(s['path'] as String, s['field'] as String, s['value']);
+        case 'formValue':
+          expect(ed.formValue(s['path'] as String, s['field'] as String),
+              s['expect'],
+              reason: 'formValue ${s['path']}#${s['field']}');
+        case 'setFormValueThrows':
+          expect(
+              () => ed.setFormValue(
+                  s['path'] as String, s['field'] as String, s['value']),
+              throwsArgumentError,
+              reason: 'setFormValueThrows ${s['path']}#${s['field']}');
+        case 'rawFormField':
+          expect(d.formField(s['path'] as String, s['field'] as String),
+              s['expect'],
+              reason: 'rawFormField ${s['path']}#${s['field']}');
+        case 'setHeadline':
+          ed.setHeadline(s['path'] as String, s['value'] as String?);
+        case 'headline':
+          expect(ed.headline(s['path'] as String), s['expect'],
+              reason: 'headline ${s['path']}');
+        case 'itemSectionId':
+          expect(d.itemSectionId(s['itemPath'] as String), s['expect'],
+              reason: 'itemSectionId ${s['itemPath']}');
+        case 'addListItem':
+          final now = DateTime(2026, s['month'] as int, s['day'] as int);
+          final p = ed.addListItem(s['listPath'] as String, now: now);
+          expect(p, s['expectPath'], reason: 'addListItem ${s['listPath']}');
+          if (s.containsKey('expectId')) {
+            expect(d.itemSectionId(p), s['expectId'],
+                reason: 'addListItem generated id ${s['listPath']}');
+          }
+        case 'removeListItem':
+          expect(ed.removeListItem(s['itemPath'] as String), s['expect'],
+              reason: 'removeListItem ${s['itemPath']}');
+        case 'clearSection':
+          ed.clearSection(s['path'] as String);
+        case 'hasValuesUnder':
+          expect(d.hasValuesUnder(s['prefix'] as String), s['expect'],
+              reason: 'hasValuesUnder ${s['prefix']}');
+        default:
+          fail('unknown editor op ${s['op']}');
+      }
+    }
+  });
+
   // AA1 criteria 3–6: two-letter-date encoding, list-item id generation
   // (within-day numbering), same-day reuse on last-item deletion, and unique-id
   // enforcement on override. Pinned as a language-agnostic corpus file so every
@@ -465,6 +538,19 @@ Map<String, dynamic> _buildMeta() => {
                   'required': true
                 },
                 {'name': 'contact', 'label': 'Contact', 'type': 'String'},
+                // YRD7: typed form fields — stored as plain text
+                // (`FieldName: value`), converted at the type boundary by the
+                // shared somParse*/somFormat* helpers, natively typed in the
+                // generic editor and the generated facades.
+                {'name': 'estimate', 'label': 'Estimate', 'type': 'int'},
+                {'name': 'weight', 'label': 'Weight', 'type': 'double'},
+                {'name': 'active', 'label': 'Active', 'type': 'bool'},
+                {
+                  'name': 'priority',
+                  'label': 'Priority',
+                  'type': 'Priority',
+                  'enumValues': ['low', 'high'],
+                },
               ],
             },
             {
@@ -613,6 +699,14 @@ SpecDocument _buildDocument() {
   d.setContent('DEMO/CNT', '3');
   d.setFormField('DEMO/DET', 'owner', 'Bob');
   d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
+  // YRD7: typed form-field values in their canonical plain-text store form —
+  // exactly the strings somFormatInt(8) / somFormatDouble(2.5) /
+  // somFormatBool(true) / somFormatEnumName('high', …) produce, so the yaml/md
+  // goldens pin the typed fields' serialization as ordinary `FieldName: value`.
+  d.setFormField('DEMO/DET', 'estimate', '8');
+  d.setFormField('DEMO/DET', 'weight', '2.5');
+  d.setFormField('DEMO/DET', 'active', 'true');
+  d.setFormField('DEMO/DET', 'priority', 'high');
   final i1 = d.addListItem('DEMO/items');
   d.setContent('$i1/label', 'First');
   d.setContent('$i1/STS', 'open');
@@ -792,6 +886,134 @@ List<Map<String, dynamic>> _operationsScript() => [
       {'op': 'headline', 'path': 'A/l-3/t', 'expect': 'Item Heading'},
       {'op': 'removeListItem', 'itemPath': 'A/l-3', 'expect': true},
       {'op': 'headline', 'path': 'A/l-3/t', 'expect': null},
+    ];
+
+/// The generic-editor corpus (YRD7): a scripted sequence of typed, meta-
+/// validated modifications executed against the corpus model by every
+/// language's generic editor. Values in `value`/`expect` are JSON-typed
+/// (number / bool / string / null), so each runtime asserts the *native*
+/// typed reading, while `rawContent`/`rawFormField` pin the underlying
+/// plain-text store form (`FieldName: value`). Enum values travel as
+/// constant-name strings at this generic layer; out-of-domain names and
+/// dangling/non-leaf paths must raise the language's argument error.
+List<Map<String, dynamic>> _editorScript() => [
+      // --- typed value leaves ------------------------------------------------
+      {'op': 'setValue', 'path': 'DEMO/CNT', 'value': 3},
+      {'op': 'value', 'path': 'DEMO/CNT', 'expect': 3},
+      {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': '3'},
+      {'op': 'setValue', 'path': 'DEMO/CNT', 'value': null},
+      {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
+      {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': null},
+      // Forgiving read: raw garbage in the store reads as null, not an error.
+      {'op': 'setContent', 'path': 'DEMO/CNT', 'value': 'abc'},
+      {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
+      {'op': 'setContent', 'path': 'DEMO/CNT', 'value': ''},
+      // Enum leaf: validated constant-name strings.
+      {'op': 'setValue', 'path': 'DEMO/PRI', 'value': 'high'},
+      {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
+      {'op': 'rawContent', 'path': 'DEMO/PRI', 'expect': 'high'},
+      {'op': 'setValueThrows', 'path': 'DEMO/PRI', 'value': 'urgent'},
+      {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
+      // Plain content leaf.
+      {'op': 'setValue', 'path': 'DEMO/TTL', 'value': 'Hello'},
+      {'op': 'value', 'path': 'DEMO/TTL', 'expect': 'Hello'},
+      // Strict resolution: dangling and non-leaf paths are rejected.
+      {'op': 'setValueThrows', 'path': 'DEMO/ghost', 'value': 'x'},
+      {'op': 'setValueThrows', 'path': 'DEMO/items', 'value': 'x'},
+      // --- typed form fields (int / double / bool / enum) --------------------
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'owner',
+        'value': 'Bob'},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'owner',
+        'expect': 'Bob'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate',
+        'value': 8},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate',
+        'expect': 8},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'estimate',
+        'expect': '8'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'weight',
+        'value': 2.5},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'weight',
+        'expect': 2.5},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'weight',
+        'expect': '2.5'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active',
+        'value': true},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active',
+        'expect': true},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'active',
+        'expect': 'true'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'priority',
+        'value': 'high'},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'priority',
+        'expect': 'high'},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'priority',
+        'expect': 'high'},
+      // Out-of-domain enum name and unknown field are rejected; null clears.
+      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'priority',
+        'value': 'urgent'},
+      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'bogus',
+        'value': 'x'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate',
+        'value': null},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate',
+        'expect': null},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'estimate',
+        'expect': null},
+      // Forgiving typed read of raw garbage in the form store.
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active',
+        'value': 'not-a-bool'},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active',
+        'expect': null},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'active',
+        'expect': 'not-a-bool'},
+      // --- structural ops: pattern id generation, role routing, clear --------
+      {'op': 'addListItem', 'listPath': 'DEMO/REF-LST', 'month': 3, 'day': 4,
+        'expectPath': 'DEMO/REF-LST-1', 'expectId': 'REF-CD1'},
+      {'op': 'setValue', 'path': 'DEMO/REF-LST-1', 'value': 'spec §1.2'},
+      {'op': 'value', 'path': 'DEMO/REF-LST-1', 'expect': 'spec §1.2'},
+      {'op': 'addListItem', 'listPath': 'DEMO/CARD-LST', 'month': 3, 'day': 4,
+        'expectPath': 'DEMO/CARD-LST-1', 'expectId': 'CARD-CD1'},
+      // Role fields route to the owning item's headline / stored id (YRD6):
+      // the Card form is the item's transparent `content` member, so the
+      // owner is the parent path — the list item itself.
+      {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
+        'field': 'name', 'value': 'Alpha Card'},
+      {'op': 'headline', 'path': 'DEMO/CARD-LST-1', 'expect': 'Alpha Card'},
+      {'op': 'formValue', 'path': 'DEMO/CARD-LST-1/content', 'field': 'name',
+        'expect': 'Alpha Card'},
+      {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
+        'field': 'cardId', 'value': 'CARD-ALPHA'},
+      {'op': 'itemSectionId', 'itemPath': 'DEMO/CARD-LST-1',
+        'expect': 'CARD-ALPHA'},
+      {'op': 'formValue', 'path': 'DEMO/CARD-LST-1/content', 'field': 'cardId',
+        'expect': 'CARD-ALPHA'},
+      // Empty id writes are ignored (YRD6); role values never enter the store.
+      {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
+        'field': 'cardId', 'value': ''},
+      {'op': 'itemSectionId', 'itemPath': 'DEMO/CARD-LST-1',
+        'expect': 'CARD-ALPHA'},
+      {'op': 'rawFormField', 'path': 'DEMO/CARD-LST-1/content',
+        'field': 'cardId', 'expect': null},
+      {'op': 'rawFormField', 'path': 'DEMO/CARD-LST-1/content',
+        'field': 'name', 'expect': null},
+      {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
+        'field': 'note', 'value': 'first card'},
+      // clearSection drops every value under a subtree; removeListItem drops
+      // one item.
+      {'op': 'setValue', 'path': 'DEMO/META/OWNR', 'value': 'alice'},
+      {'op': 'hasValuesUnder', 'prefix': 'DEMO/META', 'expect': true},
+      {'op': 'clearSection', 'path': 'DEMO/META'},
+      {'op': 'hasValuesUnder', 'prefix': 'DEMO/META', 'expect': false},
+      {'op': 'hasValuesUnder', 'prefix': 'DEMO/CARD-LST-1', 'expect': true},
+      {'op': 'removeListItem', 'itemPath': 'DEMO/CARD-LST-1', 'expect': true},
+      {'op': 'hasValuesUnder', 'prefix': 'DEMO/CARD-LST-1', 'expect': false},
+      {'op': 'removeListItem', 'itemPath': 'DEMO/CARD-LST-9', 'expect': false},
+      // Headlines through the editor (resolution-checked).
+      {'op': 'setHeadline', 'path': 'DEMO/SUM', 'value': 'Exec Summary'},
+      {'op': 'headline', 'path': 'DEMO/SUM', 'expect': 'Exec Summary'},
+      {'op': 'setHeadline', 'path': 'DEMO/SUM', 'value': ''},
+      {'op': 'headline', 'path': 'DEMO/SUM', 'expect': null},
     ];
 
 /// The section-id corpus (AA1 criteria 3–6). `twoLetterDate` and `generate` pin

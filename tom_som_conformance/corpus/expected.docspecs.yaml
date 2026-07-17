@@ -22,6 +22,11 @@ document:
         Bob
       contact: |2-
         bob@example.com
+      estimate: 8
+      weight: 2.5
+      active: true
+      priority: |2-
+        high
     items:
       headline: |2-
         Work Items

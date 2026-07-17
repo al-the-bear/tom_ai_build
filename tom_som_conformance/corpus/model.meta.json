@@ -74,6 +74,30 @@
               "name": "contact",
               "label": "Contact",
               "type": "String"
+            },
+            {
+              "name": "estimate",
+              "label": "Estimate",
+              "type": "int"
+            },
+            {
+              "name": "weight",
+              "label": "Weight",
+              "type": "double"
+            },
+            {
+              "name": "active",
+              "label": "Active",
+              "type": "bool"
+            },
+            {
+              "name": "priority",
+              "label": "Priority",
+              "type": "Priority",
+              "enumValues": [
+                "low",
+                "high"
+              ]
             }
           ]
         },

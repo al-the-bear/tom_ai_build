@@ -182,6 +182,7 @@ SomMetaNode _fieldNode(
                 role: field.formFields[i].role,
                 initial: field.formFields[i].initial,
                 order: i,
+                enumValues: field.formFields[i].enumValues,
               ),
           ])
         : null,

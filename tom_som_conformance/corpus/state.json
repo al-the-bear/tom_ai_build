@@ -26,8 +26,12 @@
       "note": "second card"
     },
     "DEMO/DET": {
+      "active": "true",
       "contact": "bob@example.com",
-      "owner": "Bob"
+      "estimate": "8",
+      "owner": "Bob",
+      "priority": "high",
+      "weight": "2.5"
     }
   },
   "lists": {

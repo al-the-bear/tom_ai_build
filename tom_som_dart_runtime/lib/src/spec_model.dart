@@ -81,6 +81,11 @@ class FormFieldSpec {
   /// Predefined initial content (YRD6, meta-only editor prefill), or `null`.
   final String? initial;
 
+  /// Enum constant names when [type] is a model enum (YRD7); empty for
+  /// non-enum field types. Lets consumers validate and convert values
+  /// without the analyzer.
+  final List<String> enumValues;
+
   FormFieldSpec({
     required this.name,
     required this.label,
@@ -89,6 +94,7 @@ class FormFieldSpec {
     this.required = false,
     this.role,
     this.initial,
+    this.enumValues = const [],
   });
 
   factory FormFieldSpec.fromJson(Map<String, dynamic> j) => FormFieldSpec(
@@ -99,6 +105,9 @@ class FormFieldSpec {
         required: j['required'] as bool? ?? false,
         role: j['role'] as String?,
         initial: j['initial'] as String?,
+        enumValues:
+            (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
+                const [],
       );
 }
 

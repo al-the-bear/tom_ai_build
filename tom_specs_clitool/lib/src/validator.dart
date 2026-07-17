@@ -163,6 +163,21 @@ import 'model_reader.dart';
     var titles = 0;
     var ids = 0;
     for (final ff in fields) {
+      // YRD7: a form field's type must be a supported scalar — a primitive
+      // (String/int/double/num/bool) or a model enum (resolved to its constant
+      // names at read time). Anything else cannot get a typed accessor or a
+      // plain-text `FieldName: value` serialization.
+      const primitives = {'String', 'int', 'double', 'num', 'bool'};
+      final base = ff.typeName.endsWith('?')
+          ? ff.typeName.substring(0, ff.typeName.length - 1)
+          : ff.typeName;
+      if (!primitives.contains(base) && ff.enumValues.isEmpty) {
+        errors.add(
+          'YRD7 form-field type: $where — field "${ff.name}" has unsupported '
+          'type "${ff.typeName}"; form fields must be String/int/double/num/'
+          'bool or a model enum',
+        );
+      }
       if (ff.role.isEmpty) continue;
       if (ff.typeName != 'String') {
         errors.add(

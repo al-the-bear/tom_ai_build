@@ -151,7 +151,9 @@ class SomDartEmitter {
     return visited;
   }
 
-  /// The distinct enum types referenced by reachable classes, with their values.
+  /// The distinct enum types referenced by reachable classes, with their
+  /// values — both `enum`-kind leaves and enum-typed `@Form` fields (YRD7,
+  /// which carry their constant names in [FormFieldSpec.enumValues]).
   List<_EnumType> _reachableEnums(Set<String> reachable) {
     final byName = <String, _EnumType>{};
     for (final name in reachable) {
@@ -161,6 +163,14 @@ class SomDartEmitter {
         if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
           byName.putIfAbsent(
               f.enumType!, () => _EnumType(f.enumType!, f.enumValues));
+        }
+        if (f.kind == SpecFieldKind.form) {
+          for (final ff in f.formFields) {
+            if (ff.enumValues.isNotEmpty) {
+              final et = _scalarBaseName(ff.type);
+              byName.putIfAbsent(et, () => _EnumType(et, ff.enumValues));
+            }
+          }
         }
       }
     }
@@ -421,31 +431,45 @@ class SomDartEmitter {
             'doc.setItemSectionId($ownerExpr, value); }');
       return;
     }
+    // YRD7: enum-typed form fields expose the generated enum natively; the
+    // stored value stays the constant name (`_parse<Enum>` / `.name`).
+    if (ff.enumValues.isNotEmpty) {
+      final et = _scalarBaseName(ff.type);
+      b
+        ..writeln('  $et? get $n => '
+            '_parse$et(doc.formField(path, \'$key\'));')
+        ..writeln('  set $n($et? value) => '
+            'doc.setFormField(path, \'$key\', value?.name ?? \'\');');
+      return;
+    }
+    // YRD7: primitive typed members convert through the SAME shared boundary
+    // helpers the generic SpecEditor uses (spec_typed_values.dart), so the
+    // facade is provably a thin layer over the generic API.
     switch (_scalarType(ff.type)) {
       case 'int':
         b
-          ..writeln('  int? get $n { final v = doc.formField(path, \'$key\'); '
-              'return v == null ? null : int.tryParse(v); }')
+          ..writeln('  int? get $n => '
+              'somParseInt(doc.formField(path, \'$key\'));')
           ..writeln('  set $n(int? value) => '
-              'doc.setFormField(path, \'$key\', value?.toString() ?? \'\');');
+              'doc.setFormField(path, \'$key\', somFormatInt(value));');
       case 'double':
         b
-          ..writeln('  double? get $n { final v = doc.formField(path, '
-              '\'$key\'); return v == null ? null : double.tryParse(v); }')
+          ..writeln('  double? get $n => '
+              'somParseDouble(doc.formField(path, \'$key\'));')
           ..writeln('  set $n(double? value) => '
-              'doc.setFormField(path, \'$key\', value?.toString() ?? \'\');');
+              'doc.setFormField(path, \'$key\', somFormatDouble(value));');
       case 'num':
         b
-          ..writeln('  num? get $n { final v = doc.formField(path, \'$key\'); '
-              'return v == null ? null : num.tryParse(v); }')
+          ..writeln('  num? get $n => '
+              'somParseNum(doc.formField(path, \'$key\'));')
           ..writeln('  set $n(num? value) => '
-              'doc.setFormField(path, \'$key\', value?.toString() ?? \'\');');
+              'doc.setFormField(path, \'$key\', somFormatNum(value));');
       case 'bool':
         b
-          ..writeln('  bool? get $n { final v = doc.formField(path, \'$key\'); '
-              'return v == null ? null : v == \'true\'; }')
+          ..writeln('  bool? get $n => '
+              'somParseBool(doc.formField(path, \'$key\'));')
           ..writeln('  set $n(bool? value) => '
-              'doc.setFormField(path, \'$key\', value?.toString() ?? \'\');');
+              'doc.setFormField(path, \'$key\', somFormatBool(value));');
       default:
         b
           ..writeln('  String get $n => '
@@ -456,12 +480,11 @@ class SomDartEmitter {
   }
 
   /// Maps a `@Form` field's declared type name to the primitive scalar kind the
-  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
-  /// unresolved types) so the generated code always compiles.
+  /// facade should expose, or `'String'` for any non-primitive (`List`,
+  /// unresolved types) so the generated code always compiles. Enum-typed form
+  /// fields are handled before this call (they carry `enumValues`).
   static String _scalarType(String typeName) {
-    final base = typeName.endsWith('?')
-        ? typeName.substring(0, typeName.length - 1)
-        : typeName;
+    final base = _scalarBaseName(typeName);
     switch (base) {
       case 'int':
       case 'double':
@@ -472,6 +495,11 @@ class SomDartEmitter {
         return 'String';
     }
   }
+
+  /// The declared type name with a trailing `?` stripped.
+  static String _scalarBaseName(String typeName) => typeName.endsWith('?')
+      ? typeName.substring(0, typeName.length - 1)
+      : typeName;
 
   void _writeDoc(StringBuffer b, String? doc, String indent) {
     if (doc == null || doc.trim().isEmpty) return;

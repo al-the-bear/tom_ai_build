@@ -20,6 +20,11 @@
 ///     ("reflection") loaded from the exported spec-model meta-data;
 ///   * [SpecReflection] — value-free enumeration and path resolution over a
 ///     [SpecModel];
+///   * [SpecEditor] — the generic, meta-validated modification API (YRD7):
+///     typed value/form-field access (via the shared `somParse*`/`somFormat*`
+///     boundary helpers), headline/id editing, list-item and clear-section
+///     operations — the layer the generated typed facades are a thin veneer
+///     over;
 ///   * [SpecQueryEngine] / [SpecQueryCursor] — the lexical/structural grep-like
 ///     query facility (find by text/regex, kind, class, id/path,
 ///     `@MapsTo`/`@DetailedIn`, state) with lazy, edit-stable cursor iteration;
@@ -45,6 +50,7 @@ export 'src/som_facade.dart';
 export 'src/spec_document.dart';
 export 'src/spec_document_markdown.dart';
 export 'src/spec_document_yaml.dart';
+export 'src/spec_editor.dart';
 export 'src/spec_meta.dart';
 export 'src/spec_meta_bridge.dart';
 export 'src/spec_meta_diff.dart';
@@ -55,4 +61,5 @@ export 'src/spec_query.dart';
 export 'src/spec_section_id.dart';
 export 'src/spec_reflection.dart';
 export 'src/spec_serialization_order.dart';
+export 'src/spec_typed_values.dart';
 export 'src/spec_validator.dart';
