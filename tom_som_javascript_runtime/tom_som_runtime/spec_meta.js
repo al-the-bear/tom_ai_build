@@ -167,6 +167,7 @@ class SomMetaNode {
     unused = false,
     contentType = null,
     contentHelp = null,
+    headline = null,
     comment = null,
     docComment = null,
     classDocComment = null,
@@ -210,6 +211,15 @@ class SomMetaNode {
     this.contentType = contentType;
     /** `@ContentHelp(guidance)`, when annotated. */
     this.contentHelp = contentHelp;
+    /**
+     * The `@Headline(text)` predefined DEFAULT headline (YRD4; field-level
+     * wins over the target class's), when annotated.
+     *
+     * Render precedence: `stored headline > this default > name derivation`.
+     * Editors prefill a new section's headline from this; a stored headline
+     * always wins and stays editable.
+     */
+    this.headline = headline;
     /** `@Comment(text)`, when annotated. */
     this.comment = comment;
     /** The cleaned `///` doc comment (member wins over class), when any. */

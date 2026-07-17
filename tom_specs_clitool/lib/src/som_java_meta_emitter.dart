@@ -63,6 +63,7 @@ const Set<String> _slottedAnnotations = {
   'Unused',
   'ContentType',
   'ContentHelp',
+  'Headline',
   'Comment',
   'Form',
   'Document',
@@ -398,6 +399,8 @@ class SomJavaMetaEmitter {
           'new SomContentTypeMeta(${_str(f.contentType!)}, ${_str(desc)})');
     }
     if (f.help != null) add('contentHelp', _str(f.help!));
+    final headline = f.headline ?? target?.headline;
+    if (headline != null) add('headline', _str(headline));
     final comment = '${f.annotation('Comment')?.argument('text') ?? ''}';
     if (comment.isNotEmpty) add('comment', _str(comment));
     final docComment = f.doc ?? target?.doc;
@@ -462,6 +465,9 @@ class SomJavaMetaEmitter {
           'SomMetaKind.COMPLEX, ${_str(element.name)});');
       if (element.sectionId != null) {
         b.writeln('$_i2${_i3}e.classSectionId = ${_str(element.sectionId!)};');
+      }
+      if (element.headline != null) {
+        b.writeln('$_i2${_i3}e.headline = ${_str(element.headline!)};');
       }
       if (element.doc != null) {
         b
@@ -531,6 +537,9 @@ class SomJavaMetaEmitter {
     }
     if (cls?.sectionId != null) {
       b.writeln('${_i2}n.classSectionId = ${_str(cls!.sectionId!)};');
+    }
+    if (cls?.headline != null) {
+      b.writeln('${_i2}n.headline = ${_str(cls!.headline!)};');
     }
     final doc = root.doc ?? cls?.doc;
     if (doc != null) b.writeln('${_i2}n.docComment = ${_str(doc)};');

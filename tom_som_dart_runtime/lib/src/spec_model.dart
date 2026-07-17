@@ -96,6 +96,10 @@ class SpecField {
   final SpecFieldKind kind;
   final String? doc;
   final String? help;
+
+  /// The `@Headline(text)` default headline (YRD4), or `null`. Render
+  /// precedence: stored headline > this default > name derivation.
+  final String? headline;
   final String? sectionId;
   final String? sectionIdPattern;
 
@@ -133,6 +137,7 @@ class SpecField {
     required this.kind,
     this.doc,
     this.help,
+    this.headline,
     this.sectionId,
     this.sectionIdPattern,
     this.serializationOrder,
@@ -154,6 +159,7 @@ class SpecField {
       kind: SpecFieldKind.parse(j['kind'] as String),
       doc: j['doc'] as String?,
       help: j['help'] as String?,
+      headline: j['headline'] as String?,
       sectionId: j['sectionId'] as String?,
       sectionIdPattern: j['sectionIdPattern'] as String?,
       serializationOrder: (j['serializationOrder'] as num?)?.toInt(),
@@ -194,6 +200,10 @@ class SpecClass {
   final String? sectionId;
   final String? doc;
   final String? help;
+
+  /// The class-level `@Headline(text)` default headline (YRD4), or `null`.
+  /// A field-level `@Headline` on the instantiating field wins over this.
+  final String? headline;
   final String? mapsTo;
   final String? detailedIn;
   final List<SpecField> fields;
@@ -206,6 +216,7 @@ class SpecClass {
     this.sectionId,
     this.doc,
     this.help,
+    this.headline,
     this.mapsTo,
     this.detailedIn,
     this.fields = const [],
@@ -217,6 +228,7 @@ class SpecClass {
         sectionId: j['sectionId'] as String?,
         doc: j['doc'] as String?,
         help: j['help'] as String?,
+        headline: j['headline'] as String?,
         mapsTo: j['mapsTo'] as String?,
         detailedIn: j['detailedIn'] as String?,
         fields: (j['fields'] as List)

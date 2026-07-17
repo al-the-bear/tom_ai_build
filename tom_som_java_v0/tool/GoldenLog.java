@@ -57,7 +57,7 @@ public final class GoldenLog {
     List<String> out = new ArrayList<>();
     out.add("# TomSpecs SOM golden log — canonical cross-language reading.");
     out.add("# All nine per-language generators must emit byte-identical output.");
-    out.add("FORMAT\t3");
+    out.add("FORMAT\t4");
     out.add("MODELVERSION\t" + esc(doc.modelVersion()));
 
     // Generic: content leaves, sorted by path.
@@ -242,7 +242,8 @@ public final class GoldenLog {
         + esc(n.sectionId == null ? "" : n.sectionId) + "\t"
         + esc(n.contentHelp == null ? "" : n.contentHelp) + "\t"
         + esc(n.comment == null ? "" : n.comment) + "\t"
-        + esc(n.docComment == null ? "" : n.docComment));
+        + esc(n.docComment == null ? "" : n.docComment) + "\t"
+        + esc(n.headline == null ? "" : n.headline));
   }
 
   static void metaNav(List<String> out, SomMetaTree metaTree, SomMetaRef ref, String expectedPath) {

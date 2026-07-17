@@ -450,7 +450,11 @@ func (c *SpecDocumentMarkdown) ExportRoot(root *SpecRoot) (string, error) {
 		c.Model.ModelVersionString() + " -->")
 	rootSeg := node.Segment()
 	// YRD3: a stored headline overrides the derived title at every heading.
+	// YRD4: the @Headline default wins over the @Document title.
 	rootTitle := c.Document.HeadlineOr(rootSeg)
+	if rootTitle == "" {
+		rootTitle = node.Headline
+	}
 	if rootTitle == "" {
 		rootTitle = root.Title
 	}
@@ -556,16 +560,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	// instead (its member name, Title-Cased like the container heading) so a
 	// populated scalar list gets meaningful per-item headings (YRC5).
 	element := node.ElementNode
-	var stem string
-	if element != nil {
-		stem = SpecMarkdownItemTitleStem(element.ClassName)
-	} else {
-		member := node.MemberName
-		if member == "" {
-			member = node.Segment()
-		}
-		stem = SpecMarkdownTitleCase(member)
-	}
+	stem := mdItemStemOf(node)
 	pattern := node.SectionIDPattern
 	if pattern == "" && element != nil {
 		pattern = element.SectionIDPattern
@@ -718,12 +713,36 @@ func (e *unterminatedFenceError) Error() string {
 		"code block; it cannot be represented in the DocSpecs markdown format"
 }
 
+// mdTitleOf is the effective DEFAULT title of node (YRD4): the `@Headline`
+// default when authored, else the name derivation. The stored headline
+// (checked by callers first) always wins over this.
 func mdTitleOf(node *SomMetaNode) string {
+	if node.Headline != "" {
+		return node.Headline
+	}
 	name := node.MemberName
 	if name == "" {
 		name = node.ClassName
 	}
 	return SpecMarkdownTitleCase(name)
+}
+
+// mdItemStemOf is the effective default item-title stem of list node (YRD4):
+// the element class's `@Headline` default when authored, else the DR1 §1.5
+// derivation (element class name with `Entry` dropped; member name for scalar
+// lists).
+func mdItemStemOf(node *SomMetaNode) string {
+	if element := node.ElementNode; element != nil {
+		if element.Headline != "" {
+			return element.Headline
+		}
+		return SpecMarkdownItemTitleStem(element.ClassName)
+	}
+	member := node.MemberName
+	if member == "" {
+		member = node.Segment()
+	}
+	return SpecMarkdownTitleCase(member)
 }
 
 // headingTitle resolves the heading title for a node at path: the document's
@@ -995,8 +1014,14 @@ func (p *mdParser) openRoot(level int, id, title string, lineNo int) {
 			if err != nil {
 				break
 			}
-			// YRD3 §8.7: stage a non-default root heading text.
-			if title != "" && title != root.Title {
+			// YRD3 §8.7: stage a non-default root heading text — "non-default"
+			// relative to the effective default (YRD4: `@Headline` default,
+			// else the `@Document` title).
+			defaultTitle := tree.Root.Headline
+			if defaultTitle == "" {
+				defaultTitle = root.Title
+			}
+			if title != "" && title != defaultTitle {
 				p.headlines[seg] = title
 			}
 			p.rootPrefixes[seg] = true
@@ -1054,17 +1079,7 @@ func (p *mdParser) openItem(
 	}
 	// YRD3 §8.7: stage a non-default item heading text against the derived
 	// `<stem> <pos>` default.
-	element := listNode.ElementNode
-	var stem string
-	if element != nil {
-		stem = SpecMarkdownItemTitleStem(element.ClassName)
-	} else {
-		member := listNode.MemberName
-		if member == "" {
-			member = listNode.Segment()
-		}
-		stem = SpecMarkdownTitleCase(member)
-	}
+	stem := mdItemStemOf(listNode)
 	if title != "" && title != stem+" "+itoa(number) {
 		p.headlines[itemPath] = title
 	}

@@ -127,25 +127,25 @@ section-types:
       mpces:
         max-count: 1
     pattern-check-id:
-      pattern: "^MSTPCR-ITEM-.+$"
+      pattern: ^MSTPCR-ITEM-.+$
       error-message: IDs of this section must match MSTPCR-ITEM-xxx
     description: Add one entry per must-pass criterion.
   tescno-note:
     prefix: TESCNO_NOTE_
     pattern-check-id:
-      pattern: "^TESCNO-NOTE-.+$"
+      pattern: ^TESCNO-NOTE-.+$
       error-message: IDs of this section must match TESCNO-NOTE-xxx
     description: Add one entry per test-scenario note.
   uatsst-test:
     prefix: UATSST_TEST_
     pattern-check-id:
-      pattern: "^UATSST-TEST-.+$"
+      pattern: ^UATSST-TEST-.+$
       error-message: IDs of this section must match UATSST-TEST-xxx
     description: Add one entry per user-acceptance test step.
   wasele-serv:
     prefix: WASELE_SERV_
     pattern-check-id:
-      pattern: "^WASELE-SERV-.+$"
+      pattern: ^WASELE-SERV-.+$
       error-message: IDs of this section must match WASELE-SERV-xxx
     description: Add one entry per warranty service element.
   accrsu-acce:
@@ -154,7 +154,7 @@ section-types:
   categ-cate:
     prefix: CATEG_CATE_
     pattern-check-id:
-      pattern: "^CATEG-CATE-.+$"
+      pattern: ^CATEG-CATE-.+$
       error-message: IDs of this section must match CATEG-CATE-xxx
     description: Add one entry per category dependency.
   dacen-item:
@@ -171,7 +171,7 @@ section-types:
       daces:
         max-count: 1
     pattern-check-id:
-      pattern: "^DACEN-ITEM-.+$"
+      pattern: ^DACEN-ITEM-.+$
       error-message: IDs of this section must match DACEN-ITEM-xxx
     description: Add one entry per acceptance criterion.
   doqucr-docu:
@@ -192,7 +192,7 @@ section-types:
       qcamt:
         max-count: 1
     pattern-check-id:
-      pattern: "^QCATE-QUAL-.+$"
+      pattern: ^QCATE-QUAL-.+$
       error-message: IDs of this section must match QCATE-QUAL-xxx
     description: Add one entry per quality category.
   qgchk-item:
@@ -209,13 +209,13 @@ section-types:
       qgceb:
         max-count: 1
     pattern-check-id:
-      pattern: "^QGCHK-ITEM-.+$"
+      pattern: ^QGCHK-ITEM-.+$
       error-message: IDs of this section must match QGCHK-ITEM-xxx
     description: Add one entry per quality gate check.
   qlwgt-weig:
     prefix: QLWGT_WEIG_
     pattern-check-id:
-      pattern: "^QLWGT-WEIG-.+$"
+      pattern: ^QLWGT-WEIG-.+$
       error-message: IDs of this section must match QLWGT-WEIG-xxx
     description: Add one entry per quality attribute weight.
   qugach-chec:
@@ -232,7 +232,7 @@ section-types:
       utcee:
         max-count: 1
     pattern-check-id:
-      pattern: "^UATCY-TEST-.+$"
+      pattern: ^UATCY-TEST-.+$
       error-message: IDs of this section must match UATCY-TEST-xxx
     description: Add one entry per user-acceptance test cycle.
   wequma-matr:
@@ -246,7 +246,7 @@ section-types:
       aseo:
         max-count: 1
     pattern-check-id:
-      pattern: "^ACST-STEP-.+$"
+      pattern: ^ACST-STEP-.+$
       error-message: IDs of this section must match ACST-STEP-xxx
     description: Add one entry per acceptance-process step.
   qlfwk-fram:
@@ -255,7 +255,7 @@ section-types:
   slae-slae:
     prefix: SLAE_SLAE_
     pattern-check-id:
-      pattern: "^SLAE-SLAE-.+$"
+      pattern: ^SLAE-SLAE-.+$
       error-message: IDs of this section must match SLAE-SLAE-xxx
     description: Add one entry per service level agreement.
   tode-item:
@@ -272,7 +272,7 @@ section-types:
       todea:
         max-count: 1
     pattern-check-id:
-      pattern: "^TODE-ITEM-.+$"
+      pattern: ^TODE-ITEM-.+$
       error-message: IDs of this section must match TODE-ITEM-xxx
     description: Add one entry per trade-off decision.
   tssc-test:
@@ -295,7 +295,7 @@ section-types:
       uatsst-test-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^TSSC-TEST-.+$"
+      pattern: ^TSSC-TEST-.+$
       error-message: IDs of this section must match TSSC-TEST-xxx
     description: Add one entry per test scenario.
   cmpt-comp:

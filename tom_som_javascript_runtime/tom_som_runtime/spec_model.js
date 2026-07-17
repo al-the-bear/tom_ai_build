@@ -83,6 +83,9 @@ class SpecField {
     this.kind = props.kind;
     this.doc = props.doc != null ? props.doc : null;
     this.help = props.help != null ? props.help : null;
+    // The `@Headline(text)` default headline (YRD4), or `null`. Render
+    // precedence: stored headline > this default > name derivation.
+    this.headline = props.headline != null ? props.headline : null;
     this.sectionId = props.sectionId != null ? props.sectionId : null;
     this.sectionIdPattern = props.sectionIdPattern != null ? props.sectionIdPattern : null;
     this.serializationOrder = props.serializationOrder != null ? props.serializationOrder : null;
@@ -104,6 +107,7 @@ class SpecField {
       kind: parseFieldKind(j.kind),
       doc: j.doc,
       help: j.help,
+      headline: j.headline,
       sectionId: j.sectionId,
       sectionIdPattern: j.sectionIdPattern,
       serializationOrder: j.serializationOrder != null ? parseInt(j.serializationOrder, 10) : null,
@@ -137,6 +141,9 @@ class SpecClass {
     this.sectionId = props.sectionId != null ? props.sectionId : null;
     this.doc = props.doc != null ? props.doc : null;
     this.help = props.help != null ? props.help : null;
+    // The class-level `@Headline(text)` default headline (YRD4), or `null`.
+    // A field-level `@Headline` on the instantiating field wins over this.
+    this.headline = props.headline != null ? props.headline : null;
     this.mapsTo = props.mapsTo != null ? props.mapsTo : null;
     this.detailedIn = props.detailedIn != null ? props.detailedIn : null;
     this.fields = props.fields || [];
@@ -149,6 +156,7 @@ class SpecClass {
       sectionId: j.sectionId,
       doc: j.doc,
       help: j.help,
+      headline: j.headline,
       mapsTo: j.mapsTo,
       detailedIn: j.detailedIn,
       fields: j.fields.map((e) => SpecField.fromJson(e)),

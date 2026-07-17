@@ -571,10 +571,29 @@ std::vector<NodeRel> effectiveChildren(MdCodec& c, const SomMetaNode& node) {
 /* Export                                                                    */
 /* ======================================================================== */
 
+/* The effective DEFAULT title of `node` (YRD4): the `@Headline` default when
+ * authored, else the name derivation. The stored headline (checked by callers
+ * first) always wins over this. */
 std::string mdTitleOf(const SomMetaNode& node) {
+  if (!node.headline.empty()) {
+    return node.headline;
+  }
   const std::string& name =
       !node.memberName.empty() ? node.memberName : node.className;
   return titleCase(name);
+}
+
+/* The effective default item-title stem of list `node` (YRD4): the element
+ * class's `@Headline` default when authored, else the DR1 §1.5 derivation
+ * (element class name with `Entry` dropped; member name for scalar lists). */
+std::string mdItemStemOf(const SomMetaNode& node) {
+  const SomMetaNode* element = node.elementNode.get();
+  if (element != nullptr) {
+    return !element->headline.empty() ? element->headline
+                                      : itemTitleStem(element->className);
+  }
+  return titleCase(!node.memberName.empty() ? node.memberName
+                                            : node.segment());
 }
 
 /* headingTitle resolves the heading title for a node at `path`: the document's
@@ -747,13 +766,10 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   // its element typeName is literally `String`, which would render "String 1",
   // "String 2". Derive the stem from the list FIELD instead (its member name,
   // Title-Cased like the container heading) so a populated scalar list gets
-  // meaningful per-item headings (YRC5).
+  // meaningful per-item headings (YRC5). An element-class @Headline default
+  // wins over both derivations (YRD4).
   const SomMetaNode* element = node.elementNode.get();
-  std::string stem =
-      element != nullptr
-          ? itemTitleStem(element->className)
-          : titleCase(!node.memberName.empty() ? node.memberName
-                                               : node.segment());
+  std::string stem = mdItemStemOf(node);
   std::string pattern = node.sectionIdPattern;
   if (pattern.empty() && element != nullptr) {
     pattern = element->sectionIdPattern;
@@ -863,10 +879,11 @@ std::string exportRootImpl(MdCodec& c, const SpecRoot& root) {
   b += version;
   b += " -->\n";
   std::string rootSeg = node->segment();
-  // YRD3: a stored headline overrides the derived title at every heading.
+  // YRD3: a stored headline overrides the derived title at every heading; the
+  // root class's @Headline default (YRD4) sits between it and the root title.
   std::string rootTitle = c.document()->headline(rootSeg);
   if (rootTitle.empty()) {
-    rootTitle = root.title;
+    rootTitle = !node->headline.empty() ? node->headline : root.title;
   }
   mdWriteHeading(b, 1, rootSeg, rootTitle);
   writeSectionBody(c, b, *node, rootSeg);
@@ -1244,14 +1261,9 @@ void MdParser::openItem(int level, const std::string& listPath,
   if (!hasN) {
     state.ids.push_back({itemPath, storedId});
   }
-  // YRD3 §8.7: stage a non-default item heading text against the derived
-  // `<stem> <pos>` default.
-  const SomMetaNode* element = listNode.elementNode.get();
-  std::string stem =
-      element != nullptr
-          ? itemTitleStem(element->className)
-          : titleCase(!listNode.memberName.empty() ? listNode.memberName
-                                                   : listNode.segment());
+  // YRD3 §8.7: stage a non-default item heading text against the effective
+  // `<stem> <pos>` default (YRD4: element-class @Headline wins in the stem).
+  std::string stem = mdItemStemOf(listNode);
   if (!title.empty() && title != stem + " " + formatI64(number)) {
     staged_.headlines[itemPath] = title;
   }
@@ -1503,8 +1515,13 @@ void MdParser::openRoot(int level, const std::string& id,
       if (tree == nullptr) {
         break;
       }
-      // YRD3 §8.7: stage a non-default root heading text.
-      if (!title.empty() && title != root.title) {
+      // YRD3 §8.7: stage a non-default root heading text — "non-default"
+      // relative to the effective default (YRD4: `@Headline` default, else
+      // the `@Document` title).
+      const std::string& rootDefault = !tree->root()->headline.empty()
+                                           ? tree->root()->headline
+                                           : root.title;
+      if (!title.empty() && title != rootDefault) {
         staged_.headlines[seg] = title;
       }
       rootPrefixes_.insert(seg);

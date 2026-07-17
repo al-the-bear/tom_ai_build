@@ -57,7 +57,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t3');
+  out.add('FORMAT\t4');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -184,7 +184,7 @@ void main(List<String> args) {
     }
     out.add('M\t$path\t${n.kind.name}\t${esc(n.sectionId ?? '')}\t'
         '${esc(n.contentHelp ?? '')}\t${esc(n.comment ?? '')}\t'
-        '${esc(n.docComment ?? '')}');
+        '${esc(n.docComment ?? '')}\t${esc(n.headline ?? '')}');
   }
 
   metaNode('SBP');

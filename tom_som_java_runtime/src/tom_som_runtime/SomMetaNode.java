@@ -70,6 +70,16 @@ public final class SomMetaNode {
   /** {@code @ContentHelp(guidance)}, {@code null} when unannotated. */
   public String contentHelp;
 
+  /**
+   * The {@code @Headline(text)} predefined DEFAULT headline (YRD4; field-level
+   * wins over the target class's), {@code null} when unannotated.
+   *
+   * <p>Render precedence: {@code stored headline > this default > name
+   * derivation}. Editors prefill a new section's headline from this; a stored
+   * headline always wins and stays editable.
+   */
+  public String headline;
+
   /** {@code @Comment(text)}, {@code null} when unannotated. */
   public String comment;
 

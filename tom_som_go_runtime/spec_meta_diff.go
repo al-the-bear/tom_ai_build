@@ -70,6 +70,7 @@ func somMetaNodeDiffAt(a, b *SomMetaNode, at string) string {
 				contentTypeField(b.ContentType, false))
 		},
 		func() string { return diff("contentHelp", a.ContentHelp, b.ContentHelp) },
+		func() string { return diff("headline", a.Headline, b.Headline) },
 		func() string { return diff("comment", a.Comment, b.Comment) },
 		func() string { return diff("docComment", a.DocComment, b.DocComment) },
 		func() string {

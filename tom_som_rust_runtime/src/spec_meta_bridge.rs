@@ -41,6 +41,7 @@ fn is_slotted_annotation(name: &str) -> bool {
             | "Unused"
             | "ContentType"
             | "ContentHelp"
+            | "Headline"
             | "Comment"
             | "Form"
             | "Document"
@@ -74,6 +75,7 @@ pub fn build_som_meta_tree(model: &SpecModel, root_type: &str) -> Result<SomMeta
     let mut class_doc = String::new();
     let mut maps_to = String::new();
     let mut detailed_in = String::new();
+    let mut root_headline = String::new();
     let mut annotations: &[SpecAnnotation] = &[];
     let mut children = Vec::new();
     if let Some(cls) = cls {
@@ -85,6 +87,7 @@ pub fn build_som_meta_tree(model: &SpecModel, root_type: &str) -> Result<SomMeta
             doc_comment = cls.doc.clone();
         }
         class_doc = cls.doc.clone();
+        root_headline = cls.headline.clone();
         maps_to = cls.maps_to.clone();
         detailed_in = cls.detailed_in.clone();
         annotations = &cls.annotations;
@@ -98,6 +101,7 @@ pub fn build_som_meta_tree(model: &SpecModel, root_type: &str) -> Result<SomMeta
         class_section_id,
         kind: SOM_META_KIND_SECTION.to_string(),
         type_name: root.type_.clone(),
+        headline: root_headline,
         doc_comment,
         class_doc_comment: class_doc,
         maps_to,
@@ -205,6 +209,7 @@ fn bridge_field_node(
                 class_section_id: element.section_id.clone(),
                 kind: SOM_META_KIND_COMPLEX.to_string(),
                 type_name: element.name.clone(),
+                headline: element.headline.clone(),
                 doc_comment: element.doc.clone(),
                 class_doc_comment: element.doc.clone(),
                 maps_to: element.maps_to.clone(),
@@ -258,6 +263,8 @@ fn bridge_field_node(
     let mut class_name = owner.name.clone();
     let mut class_section_id = String::new();
     let mut doc_comment = field.doc.clone();
+    // YRD4: the field-level `@Headline` wins over the target class's.
+    let mut headline = field.headline.clone();
     let mut class_doc = String::new();
     let mut maps_to = String::new();
     let mut detailed_in = String::new();
@@ -266,6 +273,9 @@ fn bridge_field_node(
         class_section_id = target.section_id.clone();
         if doc_comment.is_empty() {
             doc_comment = target.doc.clone();
+        }
+        if headline.is_empty() {
+            headline = target.headline.clone();
         }
         class_doc = target.doc.clone();
         maps_to = target.maps_to.clone();
@@ -295,6 +305,7 @@ fn bridge_field_node(
         unused: field.annotation("Unused").is_some(),
         content_type,
         content_help: field.help.clone(),
+        headline,
         comment: comment_text,
         doc_comment,
         class_doc_comment: class_doc,

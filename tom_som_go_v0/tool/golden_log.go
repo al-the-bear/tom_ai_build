@@ -80,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t3")
+	out = append(out, "FORMAT\t4")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -198,7 +198,8 @@ func main() {
 			os.Exit(3)
 		}
 		out = append(out, "M\t"+path+"\t"+kindName(n.Kind)+"\t"+esc(n.SectionID)+
-			"\t"+esc(n.ContentHelp)+"\t"+esc(n.Comment)+"\t"+esc(n.DocComment))
+			"\t"+esc(n.ContentHelp)+"\t"+esc(n.Comment)+"\t"+esc(n.DocComment)+
+			"\t"+esc(n.Headline))
 	}
 	metaNode("SBP")
 	metaNode("SBP/documentControl")

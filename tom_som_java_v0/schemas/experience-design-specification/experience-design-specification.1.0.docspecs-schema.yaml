@@ -537,7 +537,7 @@ section-types:
   delnpt-patt:
     prefix: DELNPT_PATT_
     pattern-check-id:
-      pattern: "^DELNPT-PATT-.+$"
+      pattern: ^DELNPT-PATT-.+$
       error-message: IDs of this section must match DELNPT-PATT-xxx
     description: Add one entry per deep-link URL pattern.
   exfoen-expo:
@@ -562,13 +562,13 @@ section-types:
       efme-fiel-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^EXFOEN-EXPO-.+$"
+      pattern: ^EXFOEN-EXPO-.+$
       error-message: IDs of this section must match EXFOEN-EXPO-xxx
     description: Add one entry per export format.
   exsise-size:
     prefix: EXSISE_SIZE_
     pattern-check-id:
-      pattern: "^EXSISE-SIZE-.+$"
+      pattern: ^EXSISE-SIZE-.+$
       error-message: IDs of this section must match EXSISE-SIZE-xxx
     description: Add one entry per size-and-splitting setting.
   exteen-expo:
@@ -583,13 +583,13 @@ section-types:
       etea:
         max-count: 1
     pattern-check-id:
-      pattern: "^EXTEEN-EXPO-.+$"
+      pattern: ^EXTEEN-EXPO-.+$
       error-message: IDs of this section must match EXTEEN-EXPO-xxx
     description: Add one entry per export template.
   famref-comp:
     prefix: FAMREF_COMP_
     pattern-check-id:
-      pattern: "^FAMREF-COMP-.+$"
+      pattern: ^FAMREF-COMP-.+$
       error-message: IDs of this section must match FAMREF-COMP-xxx
     description: Add one entry per component in the family.
   ftrtur-feat:
@@ -598,7 +598,7 @@ section-types:
       turst-step-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^FTRTUR-FEAT-.+$"
+      pattern: ^FTRTUR-FEAT-.+$
       error-message: IDs of this section must match FTRTUR-FEAT-xxx
     description: Add one entry per feature tour.
   navgrd-guar:
@@ -609,7 +609,7 @@ section-types:
       nger:
         max-count: 1
     pattern-check-id:
-      pattern: "^NAVGRD-GUAR-.+$"
+      pattern: ^NAVGRD-GUAR-.+$
       error-message: IDs of this section must match NAVGRD-GUAR-xxx
     description: Add one entry per navigation guard rule.
   navgrp-grou:
@@ -624,7 +624,7 @@ section-types:
       naviit-item-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^NAVGRP-GROU-.+$"
+      pattern: ^NAVGRP-GROU-.+$
       error-message: IDs of this section must match NAVGRP-GROU-xxx
     description: Add one entry per navigation group.
   naviit-item:
@@ -641,31 +641,31 @@ section-types:
       niei:
         max-count: 1
     pattern-check-id:
-      pattern: "^NAVIIT-ITEM-.+$"
+      pattern: ^NAVIIT-ITEM-.+$
       error-message: IDs of this section must match NAVIIT-ITEM-xxx
     description: Add one entry per navigation item in this group.
   prfeen-feat:
     prefix: PRFEEN_FEAT_
     pattern-check-id:
-      pattern: "^PRFEEN-FEAT-.+$"
+      pattern: ^PRFEEN-FEAT-.+$
       error-message: IDs of this section must match PRFEEN-FEAT-xxx
     description: Add one entry per prototype feature.
   prgoen-goal:
     prefix: PRGOEN_GOAL_
     pattern-check-id:
-      pattern: "^PRGOEN-GOAL-.+$"
+      pattern: ^PRGOEN-GOAL-.+$
       error-message: IDs of this section must match PRGOEN-GOAL-xxx
     description: Add one entry per prototype goal.
   rcvscn-reco:
     prefix: RCVSCN_RECO_
     pattern-check-id:
-      pattern: "^RCVSCN-RECO-.+$"
+      pattern: ^RCVSCN-RECO-.+$
       error-message: IDs of this section must match RCVSCN-RECO-xxx
     description: Add one entry per common recovery scenario.
   rechax-axes:
     prefix: RECHAX_AXES_
     pattern-check-id:
-      pattern: "^RECHAX-AXES-.+$"
+      pattern: ^RECHAX-AXES-.+$
       error-message: IDs of this section must match RECHAX-AXES-xxx
     description: Add one entry per chart axis configuration.
   rechen-char:
@@ -682,7 +682,7 @@ section-types:
       rechla:
         max-count: 1
     pattern-check-id:
-      pattern: "^RECHEN-CHAR-.+$"
+      pattern: ^RECHEN-CHAR-.+$
       error-message: IDs of this section must match RECHEN-CHAR-xxx
     description: Add one entry per chart shown in the section.
   recoe1-colu:
@@ -699,7 +699,7 @@ section-types:
       recola:
         max-count: 1
     pattern-check-id:
-      pattern: "^RECOE1-COLU-.+$"
+      pattern: ^RECOE1-COLU-.+$
       error-message: IDs of this section must match RECOE1-COLU-xxx
     description: Add one entry per column in the section table.
   redien-dist:
@@ -712,7 +712,7 @@ section-types:
       rded:
         max-count: 1
     pattern-check-id:
-      pattern: "^REDIEN-DIST-.+$"
+      pattern: ^REDIEN-DIST-.+$
       error-message: IDs of this section must match REDIEN-DIST-xxx
     description: Add one entry per report distribution channel.
   refien-filt:
@@ -725,7 +725,7 @@ section-types:
       rfep:
         max-count: 1
     pattern-check-id:
-      pattern: "^REFIEN-FILT-.+$"
+      pattern: ^REFIEN-FILT-.+$
       error-message: IDs of this section must match REFIEN-FILT-xxx
     description: Add one entry per report data filter.
   rereen-reci:
@@ -738,7 +738,7 @@ section-types:
       rrel:
         max-count: 1
     pattern-check-id:
-      pattern: "^REREEN-RECI-.+$"
+      pattern: ^REREEN-RECI-.+$
       error-message: IDs of this section must match REREEN-RECI-xxx
     description: Add one entry per report recipient.
   rescen-sche:
@@ -753,7 +753,7 @@ section-types:
       rseo:
         max-count: 1
     pattern-check-id:
-      pattern: "^RESCEN-SCHE-.+$"
+      pattern: ^RESCEN-SCHE-.+$
       error-message: IDs of this section must match RESCEN-SCHE-xxx
     description: Add one entry per report generation schedule.
   resee1-sect:
@@ -772,25 +772,25 @@ section-types:
       rechen-char-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^RESEE1-SECT-.+$"
+      pattern: ^RESEE1-SECT-.+$
       error-message: IDs of this section must match RESEE1-SECT-xxx
     description: Add one entry per report section.
   respsr-scre:
     prefix: RESPSR_SCRE_
     pattern-check-id:
-      pattern: "^RESPSR-SCRE-.+$"
+      pattern: ^RESPSR-SCRE-.+$
       error-message: IDs of this section must match RESPSR-SCRE-xxx
     description: Add one entry per screen with distinct responsive rules.
   scrusc-user:
     prefix: SCRUSC_USER_
     pattern-check-id:
-      pattern: "^SCRUSC-USER-.+$"
+      pattern: ^SCRUSC-USER-.+$
       error-message: IDs of this section must match SCRUSC-USER-xxx
     description: Add one entry per user category.
   taiten-tabs:
     prefix: TAITEN_TABS_
     pattern-check-id:
-      pattern: "^TAITEN-TABS-.+$"
+      pattern: ^TAITEN-TABS-.+$
       error-message: IDs of this section must match TAITEN-TABS-xxx
     description: Add one entry per tab item in the tab bar.
   uicoen-comp:
@@ -839,13 +839,13 @@ section-types:
       cmpr-prop-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^UICOEN-COMP-.+$"
+      pattern: ^UICOEN-COMP-.+$
       error-message: IDs of this section must match UICOEN-COMP-xxx
     description: Add one entry per catalog component.
   vamete-mess:
     prefix: VAMETE_MESS_
     pattern-check-id:
-      pattern: "^VAMETE-MESS-.+$"
+      pattern: ^VAMETE-MESS-.+$
       error-message: IDs of this section must match VAMETE-MESS-xxx
     description: Add one entry per validation message template.
   access-acce:
@@ -857,13 +857,13 @@ section-types:
   desig-desi:
     prefix: DESIG_DESI_
     pattern-check-id:
-      pattern: "^DESIG-DESI-.+$"
+      pattern: ^DESIG-DESI-.+$
       error-message: IDs of this section must match DESIG-DESI-xxx
     description: Add one entry per design foundation.
   dgoen-item:
     prefix: DGOEN_ITEM_
     pattern-check-id:
-      pattern: "^DGOEN-ITEM-.+$"
+      pattern: ^DGOEN-ITEM-.+$
       error-message: IDs of this section must match DGOEN-ITEM-xxx
     description: Add one entry per design goal.
   erhaco-erro:
@@ -872,19 +872,19 @@ section-types:
   field-fiel:
     prefix: FIELD_FIEL_
     pattern-check-id:
-      pattern: "^FIELD-FIEL-.+$"
+      pattern: ^FIELD-FIEL-.+$
       error-message: IDs of this section must match FIELD-FIEL-xxx
     description: Add one entry per field validation rule.
   fldhp-fiel:
     prefix: FLDHP_FIEL_
     pattern-check-id:
-      pattern: "^FLDHP-FIEL-.+$"
+      pattern: ^FLDHP-FIEL-.+$
       error-message: IDs of this section must match FLDHP-FIEL-xxx
     description: Add one entry per field that needs contextual help.
   globa-glob:
     prefix: GLOBA_GLOB_
     pattern-check-id:
-      pattern: "^GLOBA-GLOB-.+$"
+      pattern: ^GLOBA-GLOB-.+$
       error-message: IDs of this section must match GLOBA-GLOB-xxx
     description: Add one entry per global entry point.
   lacose-lang:
@@ -906,19 +906,19 @@ section-types:
       persc:
         max-count: 1
     pattern-check-id:
-      pattern: "^PEREN-ITEM-.+$"
+      pattern: ^PEREN-ITEM-.+$
       error-message: IDs of this section must match PEREN-ITEM-xxx
     description: Add one entry per user persona.
   pgoen-item:
     prefix: PGOEN_ITEM_
     pattern-check-id:
-      pattern: "^PGOEN-ITEM-.+$"
+      pattern: ^PGOEN-ITEM-.+$
       error-message: IDs of this section must match PGOEN-ITEM-xxx
     description: Add one entry per persona goal.
   pppen-item:
     prefix: PPPEN_ITEM_
     pattern-check-id:
-      pattern: "^PPPEN-ITEM-.+$"
+      pattern: ^PPPEN-ITEM-.+$
       error-message: IDs of this section must match PPPEN-ITEM-xxx
     description: Add one entry per persona pain point.
   prfesu-feat:
@@ -933,13 +933,13 @@ section-types:
   pscen-item:
     prefix: PSCEN_ITEM_
     pattern-check-id:
-      pattern: "^PSCEN-ITEM-.+$"
+      pattern: ^PSCEN-ITEM-.+$
       error-message: IDs of this section must match PSCEN-ITEM-xxx
     description: Add one entry per persona scenario.
   recov-reco:
     prefix: RECOV_RECO_
     pattern-check-id:
-      pattern: "^RECOV-RECO-.+$"
+      pattern: ^RECOV-RECO-.+$
       error-message: IDs of this section must match RECOV-RECO-xxx
     description: Add one entry per recovery flow.
   reupro-reus:
@@ -955,7 +955,7 @@ section-types:
       saeb:
         max-count: 1
     pattern-check-id:
-      pattern: "^SCRAC-ITEM-.+$"
+      pattern: ^SCRAC-ITEM-.+$
       error-message: IDs of this section must match SCRAC-ITEM-xxx
     description: Add one entry per screen action.
   screl-elem:
@@ -978,7 +978,7 @@ section-types:
       evre-vali-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^SCREL-ELEM-.+$"
+      pattern: ^SCREL-ELEM-.+$
       error-message: IDs of this section must match SCREL-ELEM-xxx
     description: Add one entry per screen element.
   scren-item:
@@ -1005,7 +1005,7 @@ section-types:
       srre-resp-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^SCREN-ITEM-.+$"
+      pattern: ^SCREN-ITEM-.+$
       error-message: IDs of this section must match SCREN-ITEM-xxx
     description: Add one entry per screen.
   scrsc-item:
@@ -1018,13 +1018,13 @@ section-types:
       screl-elem-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^SCRSC-ITEM-.+$"
+      pattern: ^SCRSC-ITEM-.+$
       error-message: IDs of this section must match SCRSC-ITEM-xxx
     description: Add one entry per screen section.
   scrst-item:
     prefix: SCRST_ITEM_
     pattern-check-id:
-      pattern: "^SCRST-ITEM-.+$"
+      pattern: ^SCRST-ITEM-.+$
       error-message: IDs of this section must match SCRST-ITEM-xxx
     description: Add one entry per screen state.
   syerdi-syst:
@@ -1033,7 +1033,7 @@ section-types:
   turst-step:
     prefix: TURST_STEP_
     pattern-check-id:
-      pattern: "^TURST-STEP-.+$"
+      pattern: ^TURST-STEP-.+$
       error-message: IDs of this section must match TURST-STEP-xxx
     description: Add one entry per guided-tour step.
   acch-item:
@@ -1046,7 +1046,7 @@ section-types:
       acer:
         max-count: 1
     pattern-check-id:
-      pattern: "^ACCH-ITEM-.+$"
+      pattern: ^ACCH-ITEM-.+$
       error-message: IDs of this section must match ACCH-ITEM-xxx
     description: Add one entry per accessibility check.
   cmac-acti:
@@ -1057,7 +1057,7 @@ section-types:
       caee:
         max-count: 1
     pattern-check-id:
-      pattern: "^CMAC-ACTI-.+$"
+      pattern: ^CMAC-ACTI-.+$
       error-message: IDs of this section must match CMAC-ACTI-xxx
     description: Add one entry per component action.
   cmfa-comp:
@@ -1066,19 +1066,19 @@ section-types:
       famref-comp-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^CMFA-COMP-.+$"
+      pattern: ^CMFA-COMP-.+$
       error-message: IDs of this section must match CMFA-COMP-xxx
     description: Add one entry per component family.
   cmpr-prop:
     prefix: CMPR_PROP_
     pattern-check-id:
-      pattern: "^CMPR-PROP-.+$"
+      pattern: ^CMPR-PROP-.+$
       error-message: IDs of this section must match CMPR-PROP-xxx
     description: Add one entry per component property.
   cmsl-slot:
     prefix: CMSL_SLOT_
     pattern-check-id:
-      pattern: "^CMSL-SLOT-.+$"
+      pattern: ^CMSL-SLOT-.+$
       error-message: IDs of this section must match CMSL-SLOT-xxx
     description: Add one entry per component slot.
   cmst-stat:
@@ -1091,7 +1091,7 @@ section-types:
       cset:
         max-count: 1
     pattern-check-id:
-      pattern: "^CMST-STAT-.+$"
+      pattern: ^CMST-STAT-.+$
       error-message: IDs of this section must match CMST-STAT-xxx
     description: Add one entry per component state.
   cmvn-vari:
@@ -1102,19 +1102,19 @@ section-types:
       cveb:
         max-count: 1
     pattern-check-id:
-      pattern: "^CMVN-VARI-.+$"
+      pattern: ^CMVN-VARI-.+$
       error-message: IDs of this section must match CMVN-VARI-xxx
     description: Add one entry per component variant.
   copa-colo:
     prefix: COPA_COLO_
     pattern-check-id:
-      pattern: "^COPA-COLO-.+$"
+      pattern: ^COPA-COLO-.+$
       error-message: IDs of this section must match COPA-COLO-xxx
     description: Add one entry per colour palette.
   dpen-item:
     prefix: DPEN_ITEM_
     pattern-check-id:
-      pattern: "^DPEN-ITEM-.+$"
+      pattern: ^DPEN-ITEM-.+$
       error-message: IDs of this section must match DPEN-ITEM-xxx
     description: Add one entry per design principle.
   efme-fiel:
@@ -1129,25 +1129,25 @@ section-types:
       efmel:
         max-count: 1
     pattern-check-id:
-      pattern: "^EFME-FIEL-.+$"
+      pattern: ^EFME-FIEL-.+$
       error-message: IDs of this section must match EFME-FIEL-xxx
     description: Add one entry per export field mapping.
   epde-erro:
     prefix: EPDE_ERRO_
     pattern-check-id:
-      pattern: "^EPDE-ERRO-.+$"
+      pattern: ^EPDE-ERRO-.+$
       error-message: IDs of this section must match EPDE-ERRO-xxx
     description: Add one entry per error page design.
   epnt-entr:
     prefix: EPNT_ENTR_
     pattern-check-id:
-      pattern: "^EPNT-ENTR-.+$"
+      pattern: ^EPNT-ENTR-.+$
       error-message: IDs of this section must match EPNT-ENTR-xxx
     description: Add one entry per entry point.
   evre-vali:
     prefix: EVRE_VALI_
     pattern-check-id:
-      pattern: "^EVRE-VALI-.+$"
+      pattern: ^EVRE-VALI-.+$
       error-message: IDs of this section must match EVRE-VALI-xxx
     description: Add one entry per validation rule.
   reen-repo:
@@ -1186,7 +1186,7 @@ section-types:
       rereen-reci-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^REEN-REPO-.+$"
+      pattern: ^REEN-REPO-.+$
       error-message: IDs of this section must match REEN-REPO-xxx
     description: Add one entry per report.
   sece-erro:
@@ -1197,13 +1197,13 @@ section-types:
       seceo:
         max-count: 1
     pattern-check-id:
-      pattern: "^SECE-ERRO-.+$"
+      pattern: ^SECE-ERRO-.+$
       error-message: IDs of this section must match SECE-ERRO-xxx
     description: Add one entry per system error code.
   srre-resp:
     prefix: SRRE_RESP_
     pattern-check-id:
-      pattern: "^SRRE-RESP-.+$"
+      pattern: ^SRRE-RESP-.+$
       error-message: IDs of this section must match SRRE-RESP-xxx
     description: Add one entry per responsive rule.
   tbde-tabb:
@@ -1217,13 +1217,13 @@ section-types:
         max-count: 1
         min-count: 1
     pattern-check-id:
-      pattern: "^TBDE-TABB-.+$"
+      pattern: ^TBDE-TABB-.+$
       error-message: IDs of this section must match TBDE-TABB-xxx
     description: Add one entry per tab bar or segmented control.
   tyst-typo:
     prefix: TYST_TYPO_
     pattern-check-id:
-      pattern: "^TYST-TYPO-.+$"
+      pattern: ^TYST-TYPO-.+$
       error-message: IDs of this section must match TYST-TYPO-xxx
     description: Add one entry per typography style.
   umie-menu:
@@ -1234,7 +1234,7 @@ section-types:
       umieb:
         max-count: 1
     pattern-check-id:
-      pattern: "^UMIE-MENU-.+$"
+      pattern: ^UMIE-MENU-.+$
       error-message: IDs of this section must match UMIE-MENU-xxx
     description: Add one entry per utility menu item.
   unie-item:
@@ -1247,13 +1247,13 @@ section-types:
       umie-menu-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^UNIE-ITEM-.+$"
+      pattern: ^UNIE-ITEM-.+$
       error-message: IDs of this section must match UNIE-ITEM-xxx
     description: Add one entry per utility navigation item.
   wsce-succ:
     prefix: WSCE_SUCC_
     pattern-check-id:
-      pattern: "^WSCE-SUCC-.+$"
+      pattern: ^WSCE-SUCC-.+$
       error-message: IDs of this section must match WSCE-SUCC-xxx
     description: Add one entry per WCAG success criterion.
   bre-brea:
@@ -1264,7 +1264,7 @@ section-types:
       brensc:
         max-count: 1
     pattern-check-id:
-      pattern: "^BRE-BREA-.+$"
+      pattern: ^BRE-BREA-.+$
       error-message: IDs of this section must match BRE-BREA-xxx
     description: Add one entry per layout breakpoint.
   cohe-cont:

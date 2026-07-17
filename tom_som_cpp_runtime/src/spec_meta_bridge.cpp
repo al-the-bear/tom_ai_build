@@ -17,9 +17,9 @@ namespace {
 const char* const kSlottedAnnotations[] = {
     "SectionId",   "SectionIdPattern", "SerializationOrder",
     "Min",         "Unused",           "ContentType",
-    "ContentHelp", "Comment",          "Form",
-    "Document",    "MapsTo",           "DetailedIn",
-    "SecondLevelSectionId",
+    "ContentHelp", "Headline",         "Comment",
+    "Form",        "Document",         "MapsTo",
+    "DetailedIn",  "SecondLevelSectionId",
 };
 
 bool isSlotted(const std::string& name) {
@@ -190,6 +190,7 @@ std::unique_ptr<SomMetaNode> bridgeFieldNode(const SpecModel& model,
       elementNode->kind = kSomMetaKindComplex;
       elementNode->className = element->name;
       elementNode->typeName = element->name;
+      elementNode->headline = element->headline;
       elementNode->docComment = element->doc;
       elementNode->classDocComment = element->doc;
       elementNode->classSectionId = element->sectionId;
@@ -271,6 +272,10 @@ std::unique_ptr<SomMetaNode> bridgeFieldNode(const SpecModel& model,
   node->min = field.min;
   node->unused = annNamed(field.annotations, "Unused") != nullptr;
   node->contentHelp = field.help;
+  // Field-level @Headline wins over the target class's (YRD4).
+  node->headline = !field.headline.empty()
+                       ? field.headline
+                       : (target != nullptr ? target->headline : "");
   bridgeSecondLevelIds(field.annotations, node.get());
   bridgeExtras(field.annotations, node.get());
   return node;
@@ -323,6 +328,7 @@ std::unique_ptr<SomMetaTree> somBuildMetaTree(const SpecModel& model,
   node->document = std::move(doc);
 
   if (cls != nullptr) {
+    node->headline = cls->headline;
     if (node->sectionId.empty()) {
       node->sectionId = cls->sectionId;
     }

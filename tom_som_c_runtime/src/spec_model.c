@@ -121,6 +121,7 @@ static void field_from_json(const SomJson *f, SpecField *out) {
   out->kind = som_strdup(spec_parse_field_kind(som_json_str_or(f, "kind")));
   out->doc = str_or_dup(f, "doc");
   out->help = str_or_dup(f, "help");
+  out->headline = str_or_dup(f, "headline");
   out->section_id = str_or_dup(f, "sectionId");
   out->section_id_pattern = str_or_dup(f, "sectionIdPattern");
   out->element_type = str_or_dup(f, "elementType");
@@ -179,6 +180,7 @@ static void class_from_json(const char *name, const SomJson *cls, SpecClass *out
   out->section_id = str_or_dup(cls, "sectionId");
   out->doc = str_or_dup(cls, "doc");
   out->help = str_or_dup(cls, "help");
+  out->headline = str_or_dup(cls, "headline");
   out->maps_to = str_or_dup(cls, "mapsTo");
   out->detailed_in = str_or_dup(cls, "detailedIn");
 
@@ -273,6 +275,7 @@ static void field_free(SpecField *f) {
   free(f->kind);
   free(f->doc);
   free(f->help);
+  free(f->headline);
   free(f->section_id);
   free(f->section_id_pattern);
   free(f->element_type);
@@ -296,6 +299,7 @@ static void class_free(SpecClass *c) {
   free(c->section_id);
   free(c->doc);
   free(c->help);
+  free(c->headline);
   free(c->maps_to);
   free(c->detailed_in);
   for (size_t i = 0; i < c->fields_len; i++) {

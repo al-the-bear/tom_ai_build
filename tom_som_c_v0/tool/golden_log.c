@@ -122,12 +122,15 @@ static void meta_node(const SomMetaTree *tree, SomStrList *out,
   char *help = esc(n->content_help);
   char *comment = esc(n->comment);
   char *doc = esc(n->doc_comment);
-  som_strlist_push(out, fmt("M\t%s\t%s\t%s\t%s\t%s\t%s", path, kind_dart(n->kind),
-                            sid, help, comment, doc));
+  char *headline = esc(n->headline);
+  som_strlist_push(out,
+                   fmt("M\t%s\t%s\t%s\t%s\t%s\t%s\t%s", path,
+                       kind_dart(n->kind), sid, help, comment, doc, headline));
   free(sid);
   free(help);
   free(comment);
   free(doc);
+  free(headline);
 }
 
 /* Emits one `N` line: asserts the nav ref resolves to `expected_path` and to
@@ -194,7 +197,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t3");
+  som_strlist_push_copy(&out, "FORMAT\t4");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);

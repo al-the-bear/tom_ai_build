@@ -145,7 +145,10 @@ class DocSpecsSchemaGenerator {
     // custom tag because DocumentStructure has no title property.
     final rootId =
         rootClass.getAnnotation('SectionId')?.arguments['id'] as String?;
-    final docName = tree.document?.name ?? _splitPascal(rootName);
+    // YRD4: a root-class @Headline default wins over the @Document name and
+    // the PascalCase-split fallback, mirroring the md exporter's H1 title.
+    final docName =
+        tree.headline ?? tree.document?.name ?? _splitPascal(rootName);
     final customTags = <String, dynamic>{
       if (rootId != null) 'title-format': '# <!--[$rootId]--> $docName',
     };

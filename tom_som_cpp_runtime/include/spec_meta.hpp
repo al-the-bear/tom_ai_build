@@ -118,6 +118,11 @@ class SomMetaNode {
   bool unused = false;                       // whether @Unused is present
   std::optional<SomContentTypeMeta> contentType;  // @ContentType
   std::string contentHelp;                   // @ContentHelp(guidance), "" none
+  std::string headline;                      // @Headline(text) DEFAULT headline
+                                             // (YRD4; field wins over class),
+                                             // "" none. Render precedence:
+                                             // stored headline > this default >
+                                             // name derivation
   std::string comment;                       // @Comment(text), "" none
   std::string docComment;                    // cleaned /// (member wins over class)
   std::string classDocComment;               // the instantiated class's own doc

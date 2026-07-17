@@ -10,6 +10,7 @@ export 'detailed_in.dart';
 export 'document.dart';
 export 'for_each.dart';
 export 'form.dart';
+export 'headline.dart';
 export 'maps_to.dart';
 export 'max.dart';
 export 'max_depth.dart';

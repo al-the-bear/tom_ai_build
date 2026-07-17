@@ -10,6 +10,13 @@ public final class SpecClass {
   public final String sectionId;
   public final String doc;
   public final String help;
+
+  /**
+   * The class-level {@code @Headline(text)} default headline (YRD4), or
+   * {@code null}. A field-level {@code @Headline} on the instantiating field
+   * wins over this.
+   */
+  public final String headline;
   public final String mapsTo;
   public final String detailedIn;
   public final List<SpecField> fields;
@@ -20,6 +27,7 @@ public final class SpecClass {
       String sectionId,
       String doc,
       String help,
+      String headline,
       String mapsTo,
       String detailedIn,
       List<SpecField> fields,
@@ -28,6 +36,7 @@ public final class SpecClass {
     this.sectionId = sectionId;
     this.doc = doc;
     this.help = help;
+    this.headline = headline;
     this.mapsTo = mapsTo;
     this.detailedIn = detailedIn;
     this.fields = fields;
@@ -48,6 +57,7 @@ public final class SpecClass {
         (String) j.get("sectionId"),
         (String) j.get("doc"),
         (String) j.get("help"),
+        (String) j.get("headline"),
         (String) j.get("mapsTo"),
         (String) j.get("detailedIn"),
         fields,

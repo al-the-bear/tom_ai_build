@@ -61,6 +61,7 @@ const Set<String> _slottedAnnotations = {
   'Unused',
   'ContentType',
   'ContentHelp',
+  'Headline',
   'Comment',
   'Form',
   'Document',
@@ -378,6 +379,8 @@ class SomRustMetaEmitter {
               'description: ${_strLit(desc)} })');
     }
     if (f.help != null) add('content_help', _strLit(f.help!));
+    final headline = f.headline ?? target?.headline;
+    if (headline != null) add('headline', _strLit(headline));
     final comment = '${f.annotation('Comment')?.argument('text') ?? ''}';
     if (comment.isNotEmpty) add('comment', _strLit(comment));
     final docComment = f.doc ?? target?.doc;
@@ -431,6 +434,8 @@ class SomRustMetaEmitter {
           'class_section_id: ${_strLit(element.sectionId!)}',
         'kind: som::SOM_META_KIND_COMPLEX.to_string()',
         'type_name: ${_strLit(element.name)}',
+        if (element.headline != null)
+          'headline: ${_strLit(element.headline!)}',
         if (element.doc != null) 'doc_comment: ${_strLit(element.doc!)}',
         if (element.doc != null) 'class_doc_comment: ${_strLit(element.doc!)}',
         if (element.mapsTo != null) 'maps_to: ${_strLit(element.mapsTo!)}',
@@ -498,6 +503,9 @@ class SomRustMetaEmitter {
     args
       ..add('kind: som::SOM_META_KIND_SECTION.to_string()')
       ..add('type_name: ${_strLit(root.type)}');
+    if (cls?.headline != null) {
+      args.add('headline: ${_strLit(cls!.headline!)}');
+    }
     final doc = root.doc ?? cls?.doc;
     if (doc != null) args.add('doc_comment: ${_strLit(doc)}');
     if (cls?.doc != null) {

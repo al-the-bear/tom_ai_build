@@ -30,6 +30,7 @@ const Set<String> _slottedAnnotations = {
   'Unused',
   'ContentType',
   'ContentHelp',
+  'Headline',
   'Comment',
   'Form',
   'Document',
@@ -56,6 +57,7 @@ SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType}) {
     classSectionId: cls?.sectionId,
     kind: SomMetaKind.section,
     typeName: root.type,
+    headline: cls?.headline,
     docComment: root.doc ?? cls?.doc,
     classDocComment: cls?.doc,
     mapsTo: cls?.mapsTo,
@@ -132,6 +134,7 @@ SomMetaNode _fieldNode(
         classSectionId: element.sectionId,
         kind: SomMetaKind.complex,
         typeName: element.name,
+        headline: element.headline,
         docComment: element.doc,
         classDocComment: element.doc,
         mapsTo: element.mapsTo,
@@ -161,6 +164,7 @@ SomMetaNode _fieldNode(
                 '${field.annotation('ContentType')?.argument('description') ?? ''}',
           ),
     contentHelp: field.help,
+    headline: field.headline ?? target?.headline,
     comment: '${field.annotation('Comment')?.argument('text') ?? ''}'.isEmpty
         ? null
         : '${field.annotation('Comment')!.argument('text')}',

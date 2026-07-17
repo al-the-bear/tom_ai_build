@@ -151,6 +151,7 @@ static SpecField fieldFromJson(const JsonRef& f) {
   out.kind = specParseFieldKind(jsonStrOr(f, "kind"));
   out.doc = jsonStrOr(f, "doc");
   out.help = jsonStrOr(f, "help");
+  out.headline = jsonStrOr(f, "headline");
   out.sectionId = jsonStrOr(f, "sectionId");
   out.sectionIdPattern = jsonStrOr(f, "sectionIdPattern");
   out.elementType = jsonStrOr(f, "elementType");
@@ -209,6 +210,7 @@ static SpecClass classFromJson(const std::string& name, const JsonRef& cls) {
   out.sectionId = jsonStrOr(cls, "sectionId");
   out.doc = jsonStrOr(cls, "doc");
   out.help = jsonStrOr(cls, "help");
+  out.headline = jsonStrOr(cls, "headline");
   out.mapsTo = jsonStrOr(cls, "mapsTo");
   out.detailedIn = jsonStrOr(cls, "detailedIn");
 

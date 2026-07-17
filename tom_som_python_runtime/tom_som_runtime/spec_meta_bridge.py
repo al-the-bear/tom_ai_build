@@ -49,6 +49,7 @@ _SLOTTED_ANNOTATIONS = {
     "Unused",
     "ContentType",
     "ContentHelp",
+    "Headline",
     "Comment",
     "Form",
     "Document",
@@ -80,6 +81,7 @@ def build_som_meta_tree(
         class_section_id=cls.section_id if cls else None,
         kind=SomMetaKind.SECTION,
         type_name=root.type,
+        headline=cls.headline if cls else None,
         doc_comment=root.doc or (cls.doc if cls else None),
         class_doc_comment=cls.doc if cls else None,
         maps_to=cls.maps_to if cls else None,
@@ -154,6 +156,7 @@ def _field_node(
                 class_section_id=element.section_id,
                 kind=SomMetaKind.COMPLEX,
                 type_name=element.name,
+                headline=element.headline,
                 doc_comment=element.doc,
                 class_doc_comment=element.doc,
                 maps_to=element.maps_to,
@@ -207,6 +210,9 @@ def _field_node(
         unused=field.annotation("Unused") is not None,
         content_type=content_type,
         content_help=field.help,
+        headline=field.headline
+        if field.headline is not None
+        else (target.headline if target else None),
         comment=comment_text if comment_text else None,
         doc_comment=field.doc or (target.doc if target else None),
         class_doc_comment=target.doc if target else None,

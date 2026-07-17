@@ -33,13 +33,15 @@
           "name": "title",
           "kind": "content",
           "sectionId": "TTL",
-          "contentType": "text"
+          "contentType": "text",
+          "headline": "Document Title"
         },
         {
           "name": "summary",
           "kind": "content",
           "sectionId": "SUM",
-          "contentType": "markdown"
+          "contentType": "markdown",
+          "headline": "Summary"
         },
         {
           "name": "priority",
@@ -136,6 +138,7 @@
     },
     "Item": {
       "name": "Item",
+      "headline": "Task",
       "fields": [
         {
           "name": "label",

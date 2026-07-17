@@ -61,6 +61,7 @@ export function somMetaNodeDiff(
         b.contentType ? b.contentType.description : null,
       ),
     () => diff('contentHelp', a.contentHelp, b.contentHelp),
+    () => diff('headline', a.headline, b.headline),
     () => diff('comment', a.comment, b.comment),
     () => diff('docComment', a.docComment, b.docComment),
     () => diff('classDocComment', a.classDocComment, b.classDocComment),

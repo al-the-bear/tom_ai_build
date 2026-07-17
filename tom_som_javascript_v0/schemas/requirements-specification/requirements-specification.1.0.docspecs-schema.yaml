@@ -143,7 +143,7 @@ section-types:
       daenre-rela-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^DAENRE-ENTI-.+$"
+      pattern: ^DAENRE-ENTI-.+$
       error-message: IDs of this section must match DAENRE-ENTI-xxx
     description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
   fre-requ-lst:
@@ -158,7 +158,7 @@ section-types:
   rqbiru-rule:
     prefix: RQBIRU_RULE_
     pattern-check-id:
-      pattern: "^RQBIRU-RULE-.+$"
+      pattern: ^RQBIRU-RULE-.+$
       error-message: IDs of this section must match RQBIRU-RULE-xxx
     description: Add one entry per business rule that constrains or guides this requirement.
   rqscac-acti:
@@ -167,19 +167,19 @@ section-types:
       acpr-para-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^RQSCAC-ACTI-.+$"
+      pattern: ^RQSCAC-ACTI-.+$
       error-message: IDs of this section must match RQSCAC-ACTI-xxx
     description: Define actions available in the UI.
   fldvl-vali:
     prefix: FLDVL_VALI_
     pattern-check-id:
-      pattern: "^FLDVL-VALI-.+$"
+      pattern: ^FLDVL-VALI-.+$
       error-message: IDs of this section must match FLDVL-VALI-xxx
     description: Add one entry per validation rule applied to this field.
   orgim-acti:
     prefix: ORGIM_ACTI_
     pattern-check-id:
-      pattern: "^ORGIM-ACTI-.+$"
+      pattern: ^ORGIM-ACTI-.+$
       error-message: IDs of this section must match ORGIM-ACTI-xxx
     description: Add one entry per implementation activity for this organizational change.
   rqdep-item:
@@ -188,7 +188,7 @@ section-types:
       rqdep-rela-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^RQDEP-ITEM-.+$"
+      pattern: ^RQDEP-ITEM-.+$
       error-message: IDs of this section must match RQDEP-ITEM-xxx
     description: Add one entry per dependency on another requirement.
   rqtsc-test:
@@ -201,13 +201,13 @@ section-types:
       rqtsc-rela-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^RQTSC-TEST-.+$"
+      pattern: ^RQTSC-TEST-.+$
       error-message: IDs of this section must match RQTSC-TEST-xxx
     description: Add one entry per test case that verifies this requirement.
   scbhv-beha:
     prefix: SCBHV_BEHA_
     pattern-check-id:
-      pattern: "^SCBHV-BEHA-.+$"
+      pattern: ^SCBHV-BEHA-.+$
       error-message: IDs of this section must match SCBHV-BEHA-xxx
     description: Define dynamic behaviors and interactions.
   scfld-fiel:
@@ -224,7 +224,7 @@ section-types:
       fldvl-vali-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^SCFLD-FIEL-.+$"
+      pattern: ^SCFLD-FIEL-.+$
       error-message: IDs of this section must match SCFLD-FIEL-xxx
     description: Define each field in the UI.
   secct-cont:
@@ -235,7 +235,7 @@ section-types:
       scev:
         max-count: 1
     pattern-check-id:
-      pattern: "^SECCT-CONT-.+$"
+      pattern: ^SECCT-CONT-.+$
       error-message: IDs of this section must match SECCT-CONT-xxx
     description: Add one entry per security control implementing this requirement.
   secrq-requ:
@@ -258,19 +258,19 @@ section-types:
       rt:
         max-count: 1
     pattern-check-id:
-      pattern: "^SECRQ-REQU-.+$"
+      pattern: ^SECRQ-REQU-.+$
       error-message: IDs of this section must match SECRQ-REQU-xxx
     description: Add one entry per security requirement.
   accr-crit:
     prefix: ACCR_CRIT_
     pattern-check-id:
-      pattern: "^ACCR-CRIT-.+$"
+      pattern: ^ACCR-CRIT-.+$
       error-message: IDs of this section must match ACCR-CRIT-xxx
     description: Add one criterion per testable condition.
   acpr-para:
     prefix: ACPR_PARA_
     pattern-check-id:
-      pattern: "^ACPR-PARA-.+$"
+      pattern: ^ACPR-PARA-.+$
       error-message: IDs of this section must match ACPR-PARA-xxx
     description: Add one entry per parameter passed to this action.
   orrq-requ:
@@ -289,13 +289,13 @@ section-types:
       reqdep:
         max-count: 1
     pattern-check-id:
-      pattern: "^ORRQ-REQU-.+$"
+      pattern: ^ORRQ-REQU-.+$
       error-message: IDs of this section must match ORRQ-REQU-xxx
     description: Add one entry per organizational requirement.
   rere-requ:
     prefix: RERE_REQU_
     pattern-check-id:
-      pattern: "^RERE-REQU-.+$"
+      pattern: ^RERE-REQU-.+$
       error-message: IDs of this section must match RERE-REQU-xxx
     description: 4.3.5. Requirement Relationships.
   terq-requ:
@@ -318,7 +318,7 @@ section-types:
       rt:
         max-count: 1
     pattern-check-id:
-      pattern: "^TERQ-REQU-.+$"
+      pattern: ^TERQ-REQU-.+$
       error-message: IDs of this section must match TERQ-REQU-xxx
     description: Add one entry per technical requirement.
   fre-requ:
@@ -351,7 +351,7 @@ section-types:
       reteca:
         max-count: 1
     pattern-check-id:
-      pattern: "^FRE-REQU-.+$"
+      pattern: ^FRE-REQU-.+$
       error-message: IDs of this section must match FRE-REQU-xxx
     description: "Add one entry per functional requirement. Group related requirements together. Each requirement should be atomic, testable, and have clear acceptance criteria."
   orip-plan:

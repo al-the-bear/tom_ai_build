@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
   out.push_back("# TomSpecs SOM golden log — canonical cross-language reading.");
   out.push_back(
       "# All nine per-language generators must emit byte-identical output.");
-  out.push_back("FORMAT\t3");
+  out.push_back("FORMAT\t4");
   out.push_back("MODELVERSION\t" + esc(doc.modelVersion));
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -217,7 +217,8 @@ int main(int argc, char** argv) {
     if (n == nullptr) die("META MISSING at " + path);
     out.push_back("M\t" + path + "\t" + dartKind(n->kind) + "\t" +
                   esc(n->sectionId) + "\t" + esc(n->contentHelp) + "\t" +
-                  esc(n->comment) + "\t" + esc(n->docComment));
+                  esc(n->comment) + "\t" + esc(n->docComment) + "\t" +
+                  esc(n->headline));
   };
 
   metaNode("SBP");

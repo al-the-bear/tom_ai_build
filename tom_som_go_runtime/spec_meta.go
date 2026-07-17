@@ -174,6 +174,13 @@ type SomMetaNode struct {
 	ContentType *SomContentTypeMeta
 	// ContentHelp is @ContentHelp(guidance), "" when unannotated.
 	ContentHelp string
+	// Headline is the @Headline(text) predefined DEFAULT headline (YRD4;
+	// field-level wins over the target class's), "" when unannotated.
+	//
+	// Render precedence: stored headline > this default > name derivation.
+	// Editors prefill a new section's headline from this; a stored headline
+	// always wins and stays editable.
+	Headline string
 	// Comment is @Comment(text), "" when unannotated.
 	Comment string
 	// DocComment is the cleaned /// doc comment (member wins over class), ""

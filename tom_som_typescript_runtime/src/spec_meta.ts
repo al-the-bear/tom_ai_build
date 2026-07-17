@@ -181,6 +181,7 @@ export interface SomMetaNodeInit {
   unused?: boolean;
   contentType?: SomContentTypeMeta | null;
   contentHelp?: string | null;
+  headline?: string | null;
   comment?: string | null;
   docComment?: string | null;
   classDocComment?: string | null;
@@ -239,6 +240,15 @@ export class SomMetaNode {
   contentType: SomContentTypeMeta | null;
   /** `@ContentHelp(guidance)`, when annotated. */
   contentHelp: string | null;
+  /**
+   * The `@Headline(text)` predefined DEFAULT headline (YRD4; field-level
+   * wins over the target class's), when annotated.
+   *
+   * Render precedence: `stored headline > this default > name derivation`.
+   * Editors prefill a new section's headline from this; a stored headline
+   * always wins and stays editable.
+   */
+  headline: string | null;
   /** `@Comment(text)`, when annotated. */
   comment: string | null;
   /** The cleaned `///` doc comment (member wins over class), when any. */
@@ -294,6 +304,7 @@ export class SomMetaNode {
     this.unused = init.unused != null ? init.unused : false;
     this.contentType = init.contentType != null ? init.contentType : null;
     this.contentHelp = init.contentHelp != null ? init.contentHelp : null;
+    this.headline = init.headline != null ? init.headline : null;
     this.comment = init.comment != null ? init.comment : null;
     this.docComment = init.docComment != null ? init.docComment : null;
     this.classDocComment =

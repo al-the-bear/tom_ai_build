@@ -10,6 +10,12 @@ public final class SpecField {
   public final SpecFieldKind kind;
   public final String doc;
   public final String help;
+
+  /**
+   * The {@code @Headline(text)} default headline (YRD4), or {@code null}.
+   * Render precedence: stored headline > this default > name derivation.
+   */
+  public final String headline;
   public final String sectionId;
   public final String sectionIdPattern;
   public final String elementType;
@@ -34,6 +40,7 @@ public final class SpecField {
       SpecFieldKind kind,
       String doc,
       String help,
+      String headline,
       String sectionId,
       String sectionIdPattern,
       String elementType,
@@ -51,6 +58,7 @@ public final class SpecField {
     this.kind = kind;
     this.doc = doc;
     this.help = help;
+    this.headline = headline;
     this.sectionId = sectionId;
     this.sectionIdPattern = sectionIdPattern;
     this.elementType = elementType;
@@ -89,6 +97,7 @@ public final class SpecField {
         SpecFieldKind.parse((String) j.get("kind")),
         (String) j.get("doc"),
         (String) j.get("help"),
+        (String) j.get("headline"),
         (String) j.get("sectionId"),
         (String) j.get("sectionIdPattern"),
         (String) j.get("elementType"),

@@ -135,7 +135,7 @@ section-types:
   deprwo-deta:
     prefix: DEPRWO_DETA_
     pattern-check-id:
-      pattern: "^DEPRWO-DETA-.+$"
+      pattern: ^DEPRWO-DETA-.+$
       error-message: IDs of this section must match DEPRWO-DETA-xxx
     description: 6.1.7. Detailed Process Workflows.
   bpren-proc:
@@ -160,13 +160,13 @@ section-types:
       prex:
         max-count: 1
     pattern-check-id:
-      pattern: "^BPREN-PROC-.+$"
+      pattern: ^BPREN-PROC-.+$
       error-message: IDs of this section must match BPREN-PROC-xxx
     description: Add one entry per business process.
   exipr-expe:
     prefix: EXIPR_EXPE_
     pattern-check-id:
-      pattern: "^EXIPR-EXPE-.+$"
+      pattern: ^EXIPR-EXPE-.+$
       error-message: IDs of this section must match EXIPR-EXPE-xxx
     description: Add one entry per expected improvement.
   pcctl-cont:
@@ -177,7 +177,7 @@ section-types:
       pcev:
         max-count: 1
     pattern-check-id:
-      pattern: "^PCCTL-CONT-.+$"
+      pattern: ^PCCTL-CONT-.+$
       error-message: IDs of this section must match PCCTL-CONT-xxx
     description: Add one entry per control applied to this process.
   pcexc-exce:
@@ -188,7 +188,7 @@ section-types:
       peer:
         max-count: 1
     pattern-check-id:
-      pattern: "^PCEXC-EXCE-.+$"
+      pattern: ^PCEXC-EXCE-.+$
       error-message: IDs of this section must match PCEXC-EXCE-xxx
     description: Add one entry per exception scenario for this process.
   pcimv-impr:
@@ -199,13 +199,13 @@ section-types:
       pied:
         max-count: 1
     pattern-check-id:
-      pattern: "^PCIMV-IMPR-.+$"
+      pattern: ^PCIMV-IMPR-.+$
       error-message: IDs of this section must match PCIMV-IMPR-xxx
     description: Add one entry per planned process improvement.
   pcinp-inpu:
     prefix: PCINP_INPU_
     pattern-check-id:
-      pattern: "^PCINP-INPU-.+$"
+      pattern: ^PCINP-INPU-.+$
       error-message: IDs of this section must match PCINP-INPU-xxx
     description: Add one entry per process input.
   pckpi-kpis:
@@ -216,19 +216,19 @@ section-types:
       pkeo:
         max-count: 1
     pattern-check-id:
-      pattern: "^PCKPI-KPIS-.+$"
+      pattern: ^PCKPI-KPIS-.+$
       error-message: IDs of this section must match PCKPI-KPIS-xxx
     description: Add one entry per KPI tracked for this process.
   pcout-outp:
     prefix: PCOUT_OUTP_
     pattern-check-id:
-      pattern: "^PCOUT-OUTP-.+$"
+      pattern: ^PCOUT-OUTP-.+$
       error-message: IDs of this section must match PCOUT-OUTP-xxx
     description: Add one entry per process output.
   pcrlt-rela:
     prefix: PCRLT_RELA_
     pattern-check-id:
-      pattern: "^PCRLT-RELA-.+$"
+      pattern: ^PCRLT-RELA-.+$
       error-message: IDs of this section must match PCRLT-RELA-xxx
     description: Add one entry per relationship to another process.
   pcrol-role:
@@ -239,37 +239,37 @@ section-types:
       prec:
         max-count: 1
     pattern-check-id:
-      pattern: "^PCROL-ROLE-.+$"
+      pattern: ^PCROL-ROLE-.+$
       error-message: IDs of this section must match PCROL-ROLE-xxx
     description: Add one entry per process role.
   pcsla-slas:
     prefix: PCSLA_SLAS_
     pattern-check-id:
-      pattern: "^PCSLA-SLAS-.+$"
+      pattern: ^PCSLA-SLAS-.+$
       error-message: IDs of this section must match PCSLA-SLAS-xxx
     description: Add one entry per service level agreement for this process.
   pdpen-prin:
     prefix: PDPEN_PRIN_
     pattern-check-id:
-      pattern: "^PDPEN-PRIN-.+$"
+      pattern: ^PDPEN-PRIN-.+$
       error-message: IDs of this section must match PDPEN-PRIN-xxx
     description: Add one entry per process design principle.
   peevt-ende:
     prefix: PEEVT_ENDE_
     pattern-check-id:
-      pattern: "^PEEVT-ENDE-.+$"
+      pattern: ^PEEVT-ENDE-.+$
       error-message: IDs of this section must match PEEVT-ENDE-xxx
     description: Add one entry per process end event.
   ptren-trig:
     prefix: PTREN_TRIG_
     pattern-check-id:
-      pattern: "^PTREN-TRIG-.+$"
+      pattern: ^PTREN-TRIG-.+$
       error-message: IDs of this section must match PTREN-TRIG-xxx
     description: Add one entry per process trigger.
   pmak-proc:
     prefix: PMAK_PROC_
     pattern-check-id:
-      pattern: "^PMAK-PROC-.+$"
+      pattern: ^PMAK-PROC-.+$
       error-message: IDs of this section must match PMAK-PROC-xxx
     description: 6.1.10. Process Metrics and KPIs.
   crpran:

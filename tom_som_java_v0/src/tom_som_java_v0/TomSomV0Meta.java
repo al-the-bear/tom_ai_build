@@ -41922,6 +41922,7 @@ public final class TomSomV0Meta {
         n.memberName = "businessGoals";
         n.classSectionId = "BG";
         n.serializationOrder = 2;
+        n.headline = "Business Goals & Value";
         n.docComment = "4.2.1. Business Goals.";
         n.classDocComment = "4.2.1. Business Goals.\n\nContainer for business goal definitions. Business goals define what the\norganization wants to achieve through this project in terms of business\noutcomes, value delivery, and strategic advancement.";
         n.recursive = r;
@@ -47147,6 +47148,7 @@ public final class TomSomV0Meta {
         n.memberName = "goals";
         n.classSectionId = "GOALS";
         n.serializationOrder = 4;
+        n.headline = "Project Goals";
         n.docComment = "4.2. Goals.";
         n.classDocComment = "4.2. Goals.\n\nContainer for project goals organized by category. Goals provide measurable\nobjectives that guide project execution and define success. This section\nsupports OKR (Objectives and Key Results) methodology while also\naccommodating traditional goal structures.";
         n.recursive = r;

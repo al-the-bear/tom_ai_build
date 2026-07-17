@@ -587,6 +587,7 @@ static char *diff_at(const SomMetaNode *a, const SomMetaNode *b,
                    content_type_field(b->content_type, 0)));
   CHECK(diff_field(at, "contentHelp", mv_str(a->content_help),
                    mv_str(b->content_help)));
+  CHECK(diff_field(at, "headline", mv_str(a->headline), mv_str(b->headline)));
   CHECK(diff_field(at, "comment", mv_str(a->comment), mv_str(b->comment)));
   CHECK(diff_field(at, "docComment", mv_str(a->doc_comment),
                    mv_str(b->doc_comment)));

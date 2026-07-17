@@ -212,6 +212,14 @@ class SomMetaNode {
   /// `@ContentHelp(guidance)`, when annotated.
   final String? contentHelp;
 
+  /// The `@Headline(text)` predefined DEFAULT headline (YRD4; field-level wins
+  /// over the target class's), when annotated.
+  ///
+  /// Render precedence: `stored headline > this default > name derivation`.
+  /// Editors prefill a new section's headline from this; a stored headline
+  /// always wins and stays editable.
+  final String? headline;
+
   /// `@Comment(text)`, when annotated.
   final String? comment;
 
@@ -267,6 +275,7 @@ class SomMetaNode {
     this.unused = false,
     this.contentType,
     this.contentHelp,
+    this.headline,
     this.comment,
     this.docComment,
     this.classDocComment,

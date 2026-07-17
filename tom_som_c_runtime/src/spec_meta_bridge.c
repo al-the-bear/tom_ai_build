@@ -10,9 +10,9 @@
 static const char *const slotted_annotations[] = {
     "SectionId",  "SectionIdPattern", "SerializationOrder",
     "Min",        "Unused",           "ContentType",
-    "ContentHelp", "Comment",          "Form",
-    "Document",   "MapsTo",           "DetailedIn",
-    "SecondLevelSectionId",
+    "ContentHelp", "Headline",         "Comment",
+    "Form",       "Document",         "MapsTo",
+    "DetailedIn", "SecondLevelSectionId",
 };
 
 static int is_slotted(const char *name) {
@@ -187,6 +187,7 @@ static SomMetaNode *bridge_field_node(const SpecModel *model,
       set_str(&element_node->class_name, element->name);
       set_str(&element_node->class_section_id, element->section_id);
       set_str(&element_node->type_name, element->name);
+      set_str(&element_node->headline, element->headline);
       set_str(&element_node->doc_comment, element->doc);
       set_str(&element_node->class_doc_comment, element->doc);
       set_str(&element_node->maps_to, element->maps_to);
@@ -269,6 +270,10 @@ static SomMetaNode *bridge_field_node(const SpecModel *model,
   node->min = field->min;
   node->unused = ann_named(&field->annotations, "Unused") != NULL;
   set_str(&node->content_help, field->help);
+  /* Field-level @Headline wins over the target class's (YRD4). */
+  set_str(&node->headline, field->headline[0] != '\0'
+                               ? field->headline
+                               : (target != NULL ? target->headline : ""));
   bridge_second_level_ids(&field->annotations, node);
   bridge_extras(&field->annotations, node);
   return node;
@@ -298,6 +303,9 @@ SomMetaTree *som_build_meta_tree(const SpecModel *model, const char *root_type,
   node->kind = SOM_META_KIND_SECTION;
   set_str(&node->class_name, root->type);
   set_str(&node->type_name, root->type);
+  if (cls != NULL) {
+    set_str(&node->headline, cls->headline);
+  }
   set_str(&node->section_id, root->section_id);
   set_str(&node->doc_comment, root->doc);
   node->document = calloc(1, sizeof(SomDocMeta));

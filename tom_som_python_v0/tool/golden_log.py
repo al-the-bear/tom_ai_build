@@ -82,7 +82,7 @@ def main() -> None:
     out: list[str] = []
     out.append("# TomSpecs SOM golden log — canonical cross-language reading.")
     out.append("# All nine per-language generators must emit byte-identical output.")
-    out.append("FORMAT\t3")
+    out.append("FORMAT\t4")
     out.append("MODELVERSION\t" + esc(doc.model_version or ""))
 
     # Generic: content leaves, sorted by path.
@@ -174,13 +174,14 @@ def main() -> None:
         if n is None:
             sys.stderr.write("META MISSING at %s\n" % path)
             sys.exit(3)
-        out.append("M\t%s\t%s\t%s\t%s\t%s\t%s" % (
+        out.append("M\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (
             path,
             _KIND_DART_NAME[n.kind],
             esc(n.section_id or ""),
             esc(n.content_help or ""),
             esc(n.comment or ""),
             esc(n.doc_comment or ""),
+            esc(n.headline or ""),
         ))
 
     meta_node("SBP")

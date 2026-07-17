@@ -101,6 +101,11 @@ export class SpecField {
   kind: SpecFieldKindValue;
   doc: string | null;
   help: string | null;
+  /**
+   * The `@Headline(text)` default headline (YRD4), or `null`. Render
+   * precedence: stored headline > this default > name derivation.
+   */
+  headline: string | null;
   sectionId: string | null;
   sectionIdPattern: string | null;
   serializationOrder: number | null;
@@ -120,6 +125,7 @@ export class SpecField {
     kind: SpecFieldKindValue;
     doc?: string | null;
     help?: string | null;
+    headline?: string | null;
     sectionId?: string | null;
     sectionIdPattern?: string | null;
     serializationOrder?: number | null;
@@ -138,6 +144,7 @@ export class SpecField {
     this.kind = props.kind;
     this.doc = props.doc != null ? props.doc : null;
     this.help = props.help != null ? props.help : null;
+    this.headline = props.headline != null ? props.headline : null;
     this.sectionId = props.sectionId != null ? props.sectionId : null;
     this.sectionIdPattern =
       props.sectionIdPattern != null ? props.sectionIdPattern : null;
@@ -161,6 +168,7 @@ export class SpecField {
       kind: parseFieldKind(j.kind),
       doc: j.doc,
       help: j.help,
+      headline: j.headline,
       sectionId: j.sectionId,
       sectionIdPattern: j.sectionIdPattern,
       serializationOrder:
@@ -198,6 +206,11 @@ export class SpecClass {
   sectionId: string | null;
   doc: string | null;
   help: string | null;
+  /**
+   * The class-level `@Headline(text)` default headline (YRD4), or `null`.
+   * A field-level `@Headline` on the instantiating field wins over this.
+   */
+  headline: string | null;
   mapsTo: string | null;
   detailedIn: string | null;
   fields: SpecField[];
@@ -208,6 +221,7 @@ export class SpecClass {
     sectionId?: string | null;
     doc?: string | null;
     help?: string | null;
+    headline?: string | null;
     mapsTo?: string | null;
     detailedIn?: string | null;
     fields?: SpecField[];
@@ -217,6 +231,7 @@ export class SpecClass {
     this.sectionId = props.sectionId != null ? props.sectionId : null;
     this.doc = props.doc != null ? props.doc : null;
     this.help = props.help != null ? props.help : null;
+    this.headline = props.headline != null ? props.headline : null;
     this.mapsTo = props.mapsTo != null ? props.mapsTo : null;
     this.detailedIn = props.detailedIn != null ? props.detailedIn : null;
     this.fields = props.fields || [];
@@ -229,6 +244,7 @@ export class SpecClass {
       sectionId: j.sectionId,
       doc: j.doc,
       help: j.help,
+      headline: j.headline,
       mapsTo: j.mapsTo,
       detailedIn: j.detailedIn,
       fields: j.fields.map((e: any) => SpecField.fromJson(e)),

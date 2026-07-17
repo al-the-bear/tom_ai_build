@@ -30,6 +30,7 @@ var slottedAnnotations = map[string]bool{
 	"Unused":               true,
 	"ContentType":          true,
 	"ContentHelp":          true,
+	"Headline":             true,
 	"Comment":              true,
 	"Form":                 true,
 	"Document":             true,
@@ -71,6 +72,7 @@ func BuildSomMetaTree(model *SpecModel, rootType string) (*SomMetaTree, error) {
 	docComment := root.Doc
 	classDoc, mapsTo, detailedIn := "", "", ""
 	classSectionID := ""
+	rootHeadline := ""
 	var annotations []*SpecAnnotation
 	var children []*SomMetaNode
 	if cls != nil {
@@ -82,6 +84,7 @@ func BuildSomMetaTree(model *SpecModel, rootType string) (*SomMetaTree, error) {
 		}
 		classDoc = cls.Doc
 		classSectionID = cls.SectionID
+		rootHeadline = cls.Headline
 		mapsTo = cls.MapsTo
 		detailedIn = cls.DetailedIn
 		annotations = cls.Annotations
@@ -93,6 +96,7 @@ func BuildSomMetaTree(model *SpecModel, rootType string) (*SomMetaTree, error) {
 		ClassSectionID:  classSectionID,
 		Kind:            SomMetaKindSection,
 		TypeName:        root.Type,
+		Headline:        rootHeadline,
 		DocComment:      docComment,
 		ClassDocComment: classDoc,
 		MapsTo:          mapsTo,
@@ -218,6 +222,7 @@ func bridgeFieldNode(
 				ClassSectionID:  element.SectionID,
 				Kind:            SomMetaKindComplex,
 				TypeName:        element.Name,
+				Headline:        element.Headline,
 				DocComment:      element.Doc,
 				ClassDocComment: element.Doc,
 				MapsTo:          element.MapsTo,
@@ -260,12 +265,17 @@ func bridgeFieldNode(
 
 	className := owner.Name
 	docComment := field.Doc
+	// YRD4: the field-level @Headline wins over the target class's.
+	headline := field.Headline
 	classDoc, mapsTo, detailedIn := "", "", ""
 	classSectionID := ""
 	if target != nil {
 		className = target.Name
 		if docComment == "" {
 			docComment = target.Doc
+		}
+		if headline == "" {
+			headline = target.Headline
 		}
 		classDoc = target.Doc
 		classSectionID = target.SectionID
@@ -296,6 +306,7 @@ func bridgeFieldNode(
 		Unused:             field.Annotation("Unused") != nil,
 		ContentType:        contentType,
 		ContentHelp:        field.Help,
+		Headline:           headline,
 		Comment:            commentText,
 		DocComment:         docComment,
 		ClassDocComment:    classDoc,

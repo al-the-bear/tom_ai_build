@@ -23776,6 +23776,7 @@
       "sectionId": "BG",
       "doc": "4.2.1. Business Goals.\n\nContainer for business goal definitions. Business goals define what the\norganization wants to achieve through this project in terms of business\noutcomes, value delivery, and strategic advancement.",
       "help": "Define business goals that are specific, measurable, achievable, relevant, and time-bound (SMART). Each goal should have clear ownership and success metrics.",
+      "headline": "Business Goals & Value",
       "standardReferences": {
         "standards": [
           "BABOK v3 §6.1 — business goals & objectives",
@@ -23798,6 +23799,12 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define business goals that are specific, measurable, achievable, relevant, and time-bound (SMART). Each goal should have clear ownership and success metrics."
+          }
+        },
+        {
+          "name": "Headline",
+          "arguments": {
+            "text": "Business Goals & Value"
           }
         },
         {
@@ -109998,6 +110005,7 @@
       "sectionId": "GOALS",
       "doc": "4.2. Goals.\n\nContainer for project goals organized by category. Goals provide measurable\nobjectives that guide project execution and define success. This section\nsupports OKR (Objectives and Key Results) methodology while also\naccommodating traditional goal structures.",
       "help": "Define clear, measurable goals that the project must achieve. Organize goals by category (business, technical) and ensure each goal has specific success metrics and target dates.",
+      "headline": "Goals & Objectives",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 29148 §6 — system purpose & goals",
@@ -110020,6 +110028,12 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define clear, measurable goals that the project must achieve. Organize goals by category (business, technical) and ensure each goal has specific success metrics and target dates."
+          }
+        },
+        {
+          "name": "Headline",
+          "arguments": {
+            "text": "Goals & Objectives"
           }
         },
         {
@@ -125421,8 +125435,15 @@
           "name": "goals",
           "kind": "complex",
           "doc": "4.2. Goals.",
+          "headline": "Project Goals",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "Headline",
+              "arguments": {
+                "text": "Project Goals"
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {

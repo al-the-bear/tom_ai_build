@@ -247,19 +247,19 @@ section-types:
   reskref-reso:
     prefix: RESKREF_RESO_
     pattern-check-id:
-      pattern: "^RESKREF-RESO-.+$"
+      pattern: ^RESKREF-RESO-.+$
       error-message: IDs of this section must match RESKREF-RESO-xxx
     description: Add one entry per resource reference.
   roldscp-data:
     prefix: ROLDSCP_DATA_
     pattern-check-id:
-      pattern: "^ROLDSCP-DATA-.+$"
+      pattern: ^ROLDSCP-DATA-.+$
       error-message: IDs of this section must match ROLDSCP-DATA-xxx
     description: Add one entry per data scope.
   rolperm-dire:
     prefix: ROLPERM_DIRE_
     pattern-check-id:
-      pattern: "^ROLPERM-DIRE-.+$"
+      pattern: ^ROLPERM-DIRE-.+$
       error-message: IDs of this section must match ROLPERM-DIRE-xxx
     description: Add one entry per direct permission.
   sevt-cust-lst:
@@ -281,19 +281,19 @@ section-types:
   cochen-comm:
     prefix: COCHEN_COMM_
     pattern-check-id:
-      pattern: "^COCHEN-COMM-.+$"
+      pattern: ^COCHEN-COMM-.+$
       error-message: IDs of this section must match COCHEN-COMM-xxx
     description: Add one entry per communication channel.
   endaca-encr:
     prefix: ENDACA_ENCR_
     pattern-check-id:
-      pattern: "^ENDACA-ENCR-.+$"
+      pattern: ^ENDACA-ENCR-.+$
       error-message: IDs of this section must match ENDACA-ENCR-xxx
     description: Add one entry per encrypted data category.
   enrefe-enti:
     prefix: ENREFE_ENTI_
     pattern-check-id:
-      pattern: "^ENREFE-ENTI-.+$"
+      pattern: ^ENREFE-ENTI-.+$
       error-message: IDs of this section must match ENREFE-ENTI-xxx
     description: Add one entry per entitlement reference.
   ent-enti-lst:
@@ -308,13 +308,13 @@ section-types:
   idprde-deta:
     prefix: IDPRDE_DETA_
     pattern-check-id:
-      pattern: "^IDPRDE-DETA-.+$"
+      pattern: ^IDPRDE-DETA-.+$
       error-message: IDs of this section must match IDPRDE-DETA-xxx
     description: Add one entry per provider-detail entry.
   idpren-endp:
     prefix: IDPREN_ENDP_
     pattern-check-id:
-      pattern: "^IDPREN-ENDP-.+$"
+      pattern: ^IDPREN-ENDP-.+$
       error-message: IDs of this section must match IDPREN-ENDP-xxx
     description: Add one entry per provider-endpoint entry.
   mfacrq-mfac:
@@ -327,43 +327,43 @@ section-types:
       mcreo:
         max-count: 1
     pattern-check-id:
-      pattern: "^MFACRQ-MFAC-.+$"
+      pattern: ^MFACRQ-MFAC-.+$
       error-message: IDs of this section must match MFACRQ-MFAC-xxx
     description: Add one entry per MFA credential requirement.
   reskey-reso:
     prefix: RESKEY_RESO_
     pattern-check-id:
-      pattern: "^RESKEY-RESO-.+$"
+      pattern: ^RESKEY-RESO-.+$
       error-message: IDs of this section must match RESKEY-RESO-xxx
     description: Add one entry per protected resource.
   rolexc-mutu:
     prefix: ROLEXC_MUTU_
     pattern-check-id:
-      pattern: "^ROLEXC-MUTU-.+$"
+      pattern: ^ROLEXC-MUTU-.+$
       error-message: IDs of this section must match ROLEXC-MUTU-xxx
     description: Add one entry per mutually exclusive role.
   rolhld-typi:
     prefix: ROLHLD_TYPI_
     pattern-check-id:
-      pattern: "^ROLHLD-TYPI-.+$"
+      pattern: ^ROLHLD-TYPI-.+$
       error-message: IDs of this section must match ROLHLD-TYPI-xxx
     description: Add one entry per typical role holder.
   rolref-cont:
     prefix: ROLREF_CONT_
     pattern-check-id:
-      pattern: "^ROLREF-CONT-.+$"
+      pattern: ^ROLREF-CONT-.+$
       error-message: IDs of this section must match ROLREF-CONT-xxx
     description: Add one entry per contained role.
   rspref-resp:
     prefix: RSPREF_RESP_
     pattern-check-id:
-      pattern: "^RSPREF-RESP-.+$"
+      pattern: ^RSPREF-RESP-.+$
       error-message: IDs of this section must match RSPREF-RESP-xxx
     description: Add one entry per responsibility reference.
   gbrlx-glob:
     prefix: GBRLX_GLOB_
     pattern-check-id:
-      pattern: "^GBRLX-GLOB-.+$"
+      pattern: ^GBRLX-GLOB-.+$
       error-message: IDs of this section must match GBRLX-GLOB-xxx
     description: Add one entry per global role exclusion.
   idtam-attr:
@@ -376,7 +376,7 @@ section-types:
       iameg:
         max-count: 1
     pattern-check-id:
-      pattern: "^IDTAM-ATTR-.+$"
+      pattern: ^IDTAM-ATTR-.+$
       error-message: IDs of this section must match IDTAM-ATTR-xxx
     description: Add one entry per identity-attribute mapping.
   idtpv-iden:
@@ -393,7 +393,7 @@ section-types:
       idprse:
         max-count: 1
     pattern-check-id:
-      pattern: "^IDTPV-IDEN-.+$"
+      pattern: ^IDTPV-IDEN-.+$
       error-message: IDs of this section must match IDTPV-IDEN-xxx
     description: Add one entry per identity-provider entry.
   idtsr-iden:
@@ -408,7 +408,7 @@ section-types:
       iseo:
         max-count: 1
     pattern-check-id:
-      pattern: "^IDTSR-IDEN-.+$"
+      pattern: ^IDTSR-IDEN-.+$
       error-message: IDs of this section must match IDTSR-IDEN-xxx
     description: Add one entry per identifier source.
   lgfls-logi:
@@ -421,38 +421,38 @@ section-types:
       lfsep:
         max-count: 1
     pattern-check-id:
-      pattern: "^LGFLS-LOGI-.+$"
+      pattern: ^LGFLS-LOGI-.+$
       error-message: IDs of this section must match LGFLS-LOGI-xxx
     description: Add one entry per login flow step.
   mfade-mfad:
     prefix: MFADE_MFAD_
     pattern-check-id:
-      pattern: "^MFADE-MFAD-.+$"
+      pattern: ^MFADE-MFAD-.+$
       error-message: IDs of this section must match MFADE-MFAD-xxx
     description: Add one entry per MFA method definition.
   rlcmb-comb:
     prefix: RLCMB_COMB_
     pattern-check-id:
-      pattern: "^RLCMB-COMB-.+$"
+      pattern: ^RLCMB-COMB-.+$
       error-message: IDs of this section must match RLCMB-COMB-xxx
     description: Add one entry per role combination rule.
   rlinh-inhe:
     prefix: RLINH_INHE_
     pattern-check-id:
-      pattern: "^RLINH-INHE-.+$"
+      pattern: ^RLINH-INHE-.+$
       error-message: IDs of this section must match RLINH-INHE-xxx
     description: Add one entry per role inheritance relationship.
   saclc-serv:
     prefix: SACLC_SERV_
     pattern-check-id:
-      pattern: "^SACLC-SERV-.+$"
+      pattern: ^SACLC-SERV-.+$
       error-message: IDs of this section must match SACLC-SERV-xxx
     format: saclc-serv-form
     description: Add one entry per service-account lifecycle entry.
   stepu-step:
     prefix: STEPU_STEP_
     pattern-check-id:
-      pattern: "^STEPU-STEP-.+$"
+      pattern: ^STEPU-STEP-.+$
       error-message: IDs of this section must match STEPU-STEP-xxx
     description: Add one entry per step-up authentication step.
   ultre-item:
@@ -465,19 +465,19 @@ section-types:
       ultau:
         max-count: 1
     pattern-check-id:
-      pattern: "^ULTRE-ITEM-.+$"
+      pattern: ^ULTRE-ITEM-.+$
       error-message: IDs of this section must match ULTRE-ITEM-xxx
     description: Add one entry per user-lifecycle transition entry.
   usate-item:
     prefix: USATE_ITEM_
     pattern-check-id:
-      pattern: "^USATE-ITEM-.+$"
+      pattern: ^USATE-ITEM-.+$
       error-message: IDs of this section must match USATE-ITEM-xxx
     description: Add one entry per user-attribute entry.
   uscdf-item:
     prefix: USCDF_ITEM_
     pattern-check-id:
-      pattern: "^USCDF-ITEM-.+$"
+      pattern: ^USCDF-ITEM-.+$
       error-message: IDs of this section must match USCDF-ITEM-xxx
     description: Add one entry per user-category definition.
   atme-item:
@@ -492,7 +492,7 @@ section-types:
       ameo:
         max-count: 1
     pattern-check-id:
-      pattern: "^ATME-ITEM-.+$"
+      pattern: ^ATME-ITEM-.+$
       error-message: IDs of this section must match ATME-ITEM-xxx
     description: Add one entry per authentication method.
   azgr-grou:
@@ -501,7 +501,7 @@ section-types:
       rolref-cont-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^AZGR-GROU-.+$"
+      pattern: ^AZGR-GROU-.+$
       error-message: IDs of this section must match AZGR-GROU-xxx
     description: Add one entry per authorization group.
   azro-role:
@@ -528,19 +528,19 @@ section-types:
       rolhld-typi-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^AZRO-ROLE-.+$"
+      pattern: ^AZRO-ROLE-.+$
       error-message: IDs of this section must match AZRO-ROLE-xxx
     description: Add one entry per authorization role.
   sevt-cust:
     prefix: SEVT_CUST_
     pattern-check-id:
-      pattern: "^SEVT-CUST-.+$"
+      pattern: ^SEVT-CUST-.+$
       error-message: IDs of this section must match SEVT-CUST-xxx
     description: Add one entry per custom security event.
   tncs-tena:
     prefix: TNCS_TENA_
     pattern-check-id:
-      pattern: "^TNCS-TENA-.+$"
+      pattern: ^TNCS-TENA-.+$
       error-message: IDs of this section must match TNCS-TENA-xxx
     description: Add one entry per tenant.
   ent-enti:
@@ -549,7 +549,7 @@ section-types:
       reskref-reso-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^ENT-ENTI-.+$"
+      pattern: ^ENT-ENTI-.+$
       error-message: IDs of this section must match ENT-ENTI-xxx
     description: Add one entry per entitlement.
   auroenst:

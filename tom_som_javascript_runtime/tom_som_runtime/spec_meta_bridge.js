@@ -46,6 +46,7 @@ const _SLOTTED_ANNOTATIONS = new Set([
   'Unused',
   'ContentType',
   'ContentHelp',
+  'Headline',
   'Comment',
   'Form',
   'Document',
@@ -92,6 +93,7 @@ function buildSomMetaTree(model, rootType = null) {
     classSectionId: cls !== null ? cls.sectionId : null,
     kind: SomMetaKind.SECTION,
     typeName: root.type,
+    headline: cls !== null ? cls.headline : null,
     docComment: root.doc != null ? root.doc : cls !== null ? cls.doc : null,
     classDocComment: cls !== null ? cls.doc : null,
     mapsTo: cls !== null ? cls.mapsTo : null,
@@ -166,6 +168,7 @@ function _fieldNode(model, owner, field, stack) {
         classSectionId: element.sectionId,
         kind: SomMetaKind.COMPLEX,
         typeName: element.name,
+        headline: element.headline,
         docComment: element.doc,
         classDocComment: element.doc,
         mapsTo: element.mapsTo,
@@ -220,6 +223,12 @@ function _fieldNode(model, owner, field, stack) {
     unused: field.annotation('Unused') !== null,
     contentType,
     contentHelp: field.help,
+    headline:
+      field.headline != null
+        ? field.headline
+        : target !== null
+          ? target.headline
+          : null,
     comment: commentText !== '' ? commentText : null,
     docComment: field.doc || (target !== null ? target.doc : null),
     classDocComment: target !== null ? target.doc : null,

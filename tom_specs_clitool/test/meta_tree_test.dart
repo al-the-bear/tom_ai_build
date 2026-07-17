@@ -347,6 +347,7 @@ Set<String> _representedAnnotationNames(MetaNode node) => {
       if (node.unused) 'Unused',
       if (node.contentType != null) 'ContentType',
       if (node.contentHelp != null) 'ContentHelp',
+      if (node.headline != null) 'Headline',
       if (node.comment != null) 'Comment',
       if (node.form != null) 'Form',
       if (node.document != null) 'Document',

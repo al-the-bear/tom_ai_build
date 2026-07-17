@@ -52,6 +52,7 @@ const Set<String> _slottedAnnotations = {
   'Unused',
   'ContentType',
   'ContentHelp',
+  'Headline',
   'Comment',
   'Form',
   'Document',
@@ -312,6 +313,8 @@ class SomTypeScriptMetaEmitter {
               '${_str(desc)})');
     }
     if (f.help != null) add('contentHelp', _str(f.help!));
+    final headline = f.headline ?? target?.headline;
+    if (headline != null) add('headline', _str(headline));
     final comment = '${f.annotation('Comment')?.argument('text') ?? ''}';
     if (comment.isNotEmpty) add('comment', _str(comment));
     final docComment = f.doc ?? target?.doc;
@@ -352,6 +355,8 @@ class SomTypeScriptMetaEmitter {
             'classSectionId: ${_str(element.sectionId!)}',
           'kind: SomMetaKind.COMPLEX',
           'typeName: ${_str(element.name)}',
+          if (element.headline != null)
+            'headline: ${_str(element.headline!)}',
           if (element.doc != null) 'docComment: ${_str(element.doc!)}',
           if (element.doc != null) 'classDocComment: ${_str(element.doc!)}',
           if (element.mapsTo != null) 'mapsTo: ${_str(element.mapsTo!)}',
@@ -417,6 +422,9 @@ class SomTypeScriptMetaEmitter {
     args
       ..add('kind: SomMetaKind.SECTION')
       ..add('typeName: ${_str(root.type)}');
+    if (cls?.headline != null) {
+      args.add('headline: ${_str(cls!.headline!)}');
+    }
     final doc = root.doc ?? cls?.doc;
     if (doc != null) args.add('docComment: ${_str(doc)}');
     if (cls?.doc != null) args.add('classDocComment: ${_str(cls!.doc!)}');

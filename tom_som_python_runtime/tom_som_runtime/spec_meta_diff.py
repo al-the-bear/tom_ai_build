@@ -61,6 +61,7 @@ def som_meta_node_diff(
             b.content_type.description if b.content_type else None,
         ),
         lambda: diff("contentHelp", a.content_help, b.content_help),
+        lambda: diff("headline", a.headline, b.headline),
         lambda: diff("comment", a.comment, b.comment),
         lambda: diff("docComment", a.doc_comment, b.doc_comment),
         lambda: diff(

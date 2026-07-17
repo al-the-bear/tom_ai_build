@@ -551,7 +551,7 @@ section-types:
   repsdep-depe:
     prefix: REPSDEP_DEPE_
     pattern-check-id:
-      pattern: "^REPSDEP-DEPE-.+$"
+      pattern: ^REPSDEP-DEPE-.+$
       error-message: IDs of this section must match REPSDEP-DEPE-xxx
     description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
   sbpe-supp-lst:
@@ -708,7 +708,7 @@ section-types:
       papor1-rela-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^BUPAPO-ITEM-.+$"
+      pattern: ^BUPAPO-ITEM-.+$
       error-message: IDs of this section must match BUPAPO-ITEM-xxx
     description: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail."
   cubipr-proc:
@@ -723,7 +723,7 @@ section-types:
       prpapo:
         max-count: 1
     pattern-check-id:
-      pattern: "^CUBIPR-PROC-.+$"
+      pattern: ^CUBIPR-PROC-.+$
       error-message: IDs of this section must match CUBIPR-PROC-xxx
     description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
   cudala-datal:
@@ -733,7 +733,7 @@ section-types:
   cuopme-oper:
     prefix: CUOPME_OPER_
     pattern-check-id:
-      pattern: "^CUOPME-OPER-.+$"
+      pattern: ^CUOPME-OPER-.+$
       error-message: IDs of this section must match CUOPME-OPER-xxx
     description: 1.5. Operational Metrics.
   daowen-owne:
@@ -744,7 +744,7 @@ section-types:
       doeg:
         max-count: 1
     pattern-check-id:
-      pattern: "^DAOWEN-OWNE-.+$"
+      pattern: ^DAOWEN-OWNE-.+$
       error-message: IDs of this section must match DAOWEN-OWNE-xxx
     description: "Add one entry per data domain or asset. Capture its business owner, data steward and technical custodian, who approves access, and the current ownership coverage status."
   daqlis-qual:
@@ -757,13 +757,13 @@ section-types:
       dqier:
         max-count: 1
     pattern-check-id:
-      pattern: "^DAQLIS-QUAL-.+$"
+      pattern: ^DAQLIS-QUAL-.+$
       error-message: IDs of this section must match DAQLIS-QUAL-xxx
     description: "Add one entry per known data quality issue. Capture its severity, affected sources/entities, business impact, root cause, and proposed resolution."
   davoen-volu:
     prefix: DAVOEN_VOLU_
     pattern-check-id:
-      pattern: "^DAVOEN-VOLU-.+$"
+      pattern: ^DAVOEN-VOLU-.+$
       error-message: IDs of this section must match DAVOEN-VOLU-xxx
     description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
   ipe-inte-lst:
@@ -785,13 +785,13 @@ section-types:
   mebaen-entr:
     prefix: MEBAEN_ENTR_
     pattern-check-id:
-      pattern: "^MEBAEN-ENTR-.+$"
+      pattern: ^MEBAEN-ENTR-.+$
       error-message: IDs of this section must match MEBAEN-ENTR-xxx
     description: "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target."
   miriin-indi:
     prefix: MIRIIN_INDI_
     pattern-check-id:
-      pattern: "^MIRIIN-INDI-.+$"
+      pattern: ^MIRIIN-INDI-.+$
       error-message: IDs of this section must match MIRIIN-INDI-xxx
     description: "Add one entry per indicator set, describing the metrics, thresholds, and monitoring frequency that signal the risk."
   oppapo-item:
@@ -812,13 +812,13 @@ section-types:
       papor1-rela-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^OPPAPO-ITEM-.+$"
+      pattern: ^OPPAPO-ITEM-.+$
       error-message: IDs of this section must match OPPAPO-ITEM-xxx
     description: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns."
   papor1-rela:
     prefix: PAPOR1_RELA_
     pattern-check-id:
-      pattern: "^PAPOR1-RELA-.+$"
+      pattern: ^PAPOR1-RELA-.+$
       error-message: IDs of this section must match PAPOR1-RELA-xxx
     description: "Add one entry per relationship this pain point has — related pain points, originating gaps, or other pain points it depends on."
   pme-item-lst:
@@ -860,7 +860,7 @@ section-types:
   prdeen-depe:
     prefix: PRDEEN_DEPE_
     pattern-check-id:
-      pattern: "^PRDEEN-DEPE-.+$"
+      pattern: ^PRDEEN-DEPE-.+$
       error-message: IDs of this section must match PRDEEN-DEPE-xxx
     description: "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact."
   prmeca-cost:
@@ -869,7 +869,7 @@ section-types:
       pme-metr-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^PRMECA-COST-.+$"
+      pattern: ^PRMECA-COST-.+$
       error-message: IDs of this section must match PRMECA-COST-xxx
     description: Group related metrics under this category and add one entry per metric it contains.
   prmeca-effi:
@@ -878,7 +878,7 @@ section-types:
       pme-metr-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^PRMECA-EFFI-.+$"
+      pattern: ^PRMECA-EFFI-.+$
       error-message: IDs of this section must match PRMECA-EFFI-xxx
     description: Group related metrics under this category and add one entry per metric it contains.
   prmeca-manu:
@@ -887,7 +887,7 @@ section-types:
       pme-metr-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^PRMECA-MANU-.+$"
+      pattern: ^PRMECA-MANU-.+$
       error-message: IDs of this section must match PRMECA-MANU-xxx
     description: Group related metrics under this category and add one entry per metric it contains.
   prmeca-qual:
@@ -896,7 +896,7 @@ section-types:
       pme-metr-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^PRMECA-QUAL-.+$"
+      pattern: ^PRMECA-QUAL-.+$
       error-message: IDs of this section must match PRMECA-QUAL-xxx
     description: Group related metrics under this category and add one entry per metric it contains.
   prmeca-volu:
@@ -905,25 +905,25 @@ section-types:
       pme-metr-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^PRMECA-VOLU-.+$"
+      pattern: ^PRMECA-VOLU-.+$
       error-message: IDs of this section must match PRMECA-VOLU-xxx
     description: Group related metrics under this category and add one entry per metric it contains.
   prscen-insc:
     prefix: PRSCEN_INSC_
     pattern-check-id:
-      pattern: "^PRSCEN-INSC-.+$"
+      pattern: ^PRSCEN-INSC-.+$
       error-message: IDs of this section must match PRSCEN-INSC-xxx
     description: "Add one entry per process that is in scope for analysis, with the rationale for its inclusion."
   prscen-outo:
     prefix: PRSCEN_OUTO_
     pattern-check-id:
-      pattern: "^PRSCEN-OUTO-.+$"
+      pattern: ^PRSCEN-OUTO-.+$
       error-message: IDs of this section must match PRSCEN-OUTO-xxx
     description: "Add one entry per process excluded from analysis, noting why and the impact of leaving it out."
   repphs-phas:
     prefix: REPPHS_PHAS_
     pattern-check-id:
-      pattern: "^REPPHS-PHAS-.+$"
+      pattern: ^REPPHS-PHAS-.+$
       error-message: IDs of this section must match REPPHS-PHAS-xxx
     description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
   sytore-syst:
@@ -954,7 +954,7 @@ section-types:
       sykntr:
         max-count: 1
     pattern-check-id:
-      pattern: "^SYTORE-SYST-.+$"
+      pattern: ^SYTORE-SYST-.+$
       error-message: IDs of this section must match SYTORE-SYST-xxx
     description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
   tepapo-item:
@@ -975,7 +975,7 @@ section-types:
       papor1-rela-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^TEPAPO-ITEM-.+$"
+      pattern: ^TEPAPO-ITEM-.+$
       error-message: IDs of this section must match TEPAPO-ITEM-xxx
     description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
   wae-part-ref:
@@ -989,37 +989,37 @@ section-types:
   woburu-busi:
     prefix: WOBURU_BUSI_
     pattern-check-id:
-      pattern: "^WOBURU-BUSI-.+$"
+      pattern: ^WOBURU-BUSI-.+$
       error-message: IDs of this section must match WOBURU-BUSI-xxx
     description: "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
   wodepo-deci:
     prefix: WODEPO_DECI_
     pattern-check-id:
-      pattern: "^WODEPO-DECI-.+$"
+      pattern: ^WODEPO-DECI-.+$
       error-message: IDs of this section must match WODEPO-DECI-xxx
     description: "Add one entry per decision point, with its criteria, decision maker, possible outcomes, and escalation path."
   woexen-exce:
     prefix: WOEXEN_EXCE_
     pattern-check-id:
-      pattern: "^WOEXEN-EXCE-.+$"
+      pattern: ^WOEXEN-EXCE-.+$
       error-message: IDs of this section must match WOEXEN-EXCE-xxx
     description: "Add one entry per exception type, with its frequency, handling procedure, escalation path, and recovery time."
   woinen-inpu:
     prefix: WOINEN_INPU_
     pattern-check-id:
-      pattern: "^WOINEN-INPU-.+$"
+      pattern: ^WOINEN-INPU-.+$
       error-message: IDs of this section must match WOINEN-INPU-xxx
     description: "Add one entry per input this step consumes, with its source, format, and validation rules."
   woouen-outp:
     prefix: WOOUEN_OUTP_
     pattern-check-id:
-      pattern: "^WOOUEN-OUTP-.+$"
+      pattern: ^WOOUEN-OUTP-.+$
       error-message: IDs of this section must match WOOUEN-OUTP-xxx
     description: "Add one entry per output this step produces, with its destination and format."
   wostis-know:
     prefix: WOSTIS_KNOW_
     pattern-check-id:
-      pattern: "^WOSTIS-KNOW-.+$"
+      pattern: ^WOSTIS-KNOW-.+$
       error-message: IDs of this section must match WOSTIS-KNOW-xxx
     description: "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround."
   wostsy-syst:
@@ -1028,19 +1028,19 @@ section-types:
       wostsy-name:
         max-count: 1
     pattern-check-id:
-      pattern: "^WOSTSY-SYST-.+$"
+      pattern: ^WOSTSY-SYST-.+$
       error-message: IDs of this section must match WOSTSY-SYST-xxx
     description: Add one entry per system the step uses.
   wosuen-entr:
     prefix: WOSUEN_ENTR_
     pattern-check-id:
-      pattern: "^WOSUEN-ENTR-.+$"
+      pattern: ^WOSUEN-ENTR-.+$
       error-message: IDs of this section must match WOSUEN-ENTR-xxx
     description: "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential."
   wotren-trig:
     prefix: WOTREN_TRIG_
     pattern-check-id:
-      pattern: "^WOTREN-TRIG-.+$"
+      pattern: ^WOTREN-TRIG-.+$
       error-message: IDs of this section must match WOTREN-TRIG-xxx
     description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
   wse-erro-lst:
@@ -1070,7 +1070,7 @@ section-types:
   criti-crit:
     prefix: CRITI_CRIT_
     pattern-check-id:
-      pattern: "^CRITI-CRIT-.+$"
+      pattern: ^CRITI-CRIT-.+$
       error-message: IDs of this section must match CRITI-CRIT-xxx
     description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
   cubupr-proc:
@@ -1100,7 +1100,7 @@ section-types:
   escal-esca:
     prefix: ESCAL_ESCA_
     pattern-check-id:
-      pattern: "^ESCAL-ESCA-.+$"
+      pattern: ^ESCAL-ESCA-.+$
       error-message: IDs of this section must match ESCAL-ESCA-xxx
     description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
   esent-syst:
@@ -1123,7 +1123,7 @@ section-types:
       esqua:
         max-count: 1
     pattern-check-id:
-      pattern: "^ESENT-SYST-.+$"
+      pattern: ^ESENT-SYST-.+$
       error-message: IDs of this section must match ESENT-SYST-xxx
     description: "Add one entry per existing system that is relevant to the project scope. Include all systems that will be replaced, integrated with, or affected by the new system."
   exsde-item:
@@ -1138,31 +1138,31 @@ section-types:
       exsde-prim-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^EXSDE-ITEM-.+$"
+      pattern: ^EXSDE-ITEM-.+$
       error-message: IDs of this section must match EXSDE-ITEM-xxx
     description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
   fragi-frag:
     prefix: FRAGI_FRAG_
     pattern-check-id:
-      pattern: "^FRAGI-FRAG-.+$"
+      pattern: ^FRAGI-FRAG-.+$
       error-message: IDs of this section must match FRAGI-FRAG-xxx
     description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
   known-know:
     prefix: KNOWN_KNOW_
     pattern-check-id:
-      pattern: "^KNOWN-KNOW-.+$"
+      pattern: ^KNOWN-KNOW-.+$
       error-message: IDs of this section must match KNOWN-KNOW-xxx
     description: Add one entry per data-quality issue to address; note severity and remediation approach.
   limet-know:
     prefix: LIMET_KNOW_
     pattern-check-id:
-      pattern: "^LIMET-KNOW-.+$"
+      pattern: ^LIMET-KNOW-.+$
       error-message: IDs of this section must match LIMET-KNOW-xxx
     description: Document each known limitation with its impact on current operations and any workarounds in place.
   mgmls-mile:
     prefix: MGMLS_MILE_
     pattern-check-id:
-      pattern: "^MGMLS-MILE-.+$"
+      pattern: ^MGMLS-MILE-.+$
       error-message: IDs of this section must match MGMLS-MILE-xxx
     description: "Add one entry per program milestone, with its target date, systems included, and the success/gate criteria that must be met."
   mgrsk-item:
@@ -1189,7 +1189,7 @@ section-types:
       mirihi:
         max-count: 1
     pattern-check-id:
-      pattern: "^MGRSK-ITEM-.+$"
+      pattern: ^MGRSK-ITEM-.+$
       error-message: IDs of this section must match MGRSK-ITEM-xxx
     description: "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution."
   migcon-stra:
@@ -1198,7 +1198,7 @@ section-types:
   monit-moni:
     prefix: MONIT_MONI_
     pattern-check-id:
-      pattern: "^MONIT-MONI-.+$"
+      pattern: ^MONIT-MONI-.+$
       error-message: IDs of this section must match MONIT-MONI-xxx
     description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
   msddo-mast:
@@ -1211,25 +1211,25 @@ section-types:
       mddeg:
         max-count: 1
     pattern-check-id:
-      pattern: "^MSDDO-MAST-.+$"
+      pattern: ^MSDDO-MAST-.+$
       error-message: IDs of this section must match MSDDO-MAST-xxx
     description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
   nonfi-nonf:
     prefix: NONFI_NONF_
     pattern-check-id:
-      pattern: "^NONFI-NONF-.+$"
+      pattern: ^NONFI-NONF-.+$
       error-message: IDs of this section must match NONFI-NONF-xxx
     description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
   ppgce-corr:
     prefix: PPGCE_CORR_
     pattern-check-id:
-      pattern: "^PPGCE-CORR-.+$"
+      pattern: ^PPGCE-CORR-.+$
       error-message: IDs of this section must match PPGCE-CORR-xxx
     description: "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is."
   prede-pred:
     prefix: PREDE_PRED_
     pattern-check-id:
-      pattern: "^PREDE-PRED-.+$"
+      pattern: ^PREDE-PRED-.+$
       error-message: IDs of this section must match PREDE-PRED-xxx
     description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
   prinma-depe:
@@ -1246,37 +1246,37 @@ section-types:
       rpeg:
         max-count: 1
     pattern-check-id:
-      pattern: "^REPOL-RETE-.+$"
+      pattern: ^REPOL-RETE-.+$
       error-message: IDs of this section must match REPOL-RETE-xxx
     description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
   respo-resp:
     prefix: RESPO_RESP_
     pattern-check-id:
-      pattern: "^RESPO-RESP-.+$"
+      pattern: ^RESPO-RESP-.+$
       error-message: IDs of this section must match RESPO-RESP-xxx
     description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
   riskb-risk:
     prefix: RISKB_RISK_
     pattern-check-id:
-      pattern: "^RISKB-RISK-.+$"
+      pattern: ^RISKB-RISK-.+$
       error-message: IDs of this section must match RISKB-RISK-xxx
     description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
   riskc-risk:
     prefix: RISKC_RISK_
     pattern-check-id:
-      pattern: "^RISKC-RISK-.+$"
+      pattern: ^RISKC-RISK-.+$
       error-message: IDs of this section must match RISKC-RISK-xxx
     description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
   secur-secu:
     prefix: SECUR_SECU_
     pattern-check-id:
-      pattern: "^SECUR-SECU-.+$"
+      pattern: ^SECUR-SECU-.+$
       error-message: IDs of this section must match SECUR-SECU-xxx
     description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
   share-shar:
     prefix: SHARE_SHAR_
     pattern-check-id:
-      pattern: "^SHARE-SHAR-.+$"
+      pattern: ^SHARE-SHAR-.+$
       error-message: IDs of this section must match SHARE-SHAR-xxx
     description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
   shien-item:
@@ -1289,7 +1289,7 @@ section-types:
       sieo:
         max-count: 1
     pattern-check-id:
-      pattern: "^SHIEN-ITEM-.+$"
+      pattern: ^SHIEN-ITEM-.+$
       error-message: IDs of this section must match SHIEN-ITEM-xxx
     description: "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
   sytore-iden:
@@ -1309,7 +1309,7 @@ section-types:
   cpie-impr:
     prefix: CPIE_IMPR_
     pattern-check-id:
-      pattern: "^CPIE-IMPR-.+$"
+      pattern: ^CPIE-IMPR-.+$
       error-message: IDs of this section must match CPIE-IMPR-xxx
     description: "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority."
   dadu-dupl:
@@ -1322,7 +1322,7 @@ section-types:
       ddeg:
         max-count: 1
     pattern-check-id:
-      pattern: "^DADU-DUPL-.+$"
+      pattern: ^DADU-DUPL-.+$
       error-message: IDs of this section must match DADU-DUPL-xxx
     description: "Add one entry per documented duplication case. Capture the data element, its primary and duplicate sources, how copies are synchronized, the business reason, and the recommended action."
   dain-inte:
@@ -1337,7 +1337,7 @@ section-types:
       dieo:
         max-count: 1
     pattern-check-id:
-      pattern: "^DAIN-INTE-.+$"
+      pattern: ^DAIN-INTE-.+$
       error-message: IDs of this section must match DAIN-INTE-xxx
     description: "Add one entry per data integration point. Capture its source and target systems, integration type, volume and transport, reliability and monitoring, and its owners."
   dasr-data:
@@ -1363,25 +1363,25 @@ section-types:
         max-count: 1
         min-count: 1
     pattern-check-id:
-      pattern: "^DASR-DATA-.+$"
+      pattern: ^DASR-DATA-.+$
       error-message: IDs of this section must match DASR-DATA-xxx
     description: "Add one entry per data source/store in the environment (databases, warehouses, lakes, file systems, SaaS, APIs). Capture each source's technology, volume, quality, ownership, and key entities."
   dcle-clas:
     prefix: DCLE_CLAS_
     pattern-check-id:
-      pattern: "^DCLE-CLAS-.+$"
+      pattern: ^DCLE-CLAS-.+$
       error-message: IDs of this section must match DCLE-CLAS-xxx
     description: "Add one entry per classification level (e.g. Public, Internal, Confidential, Restricted). Capture its order, meaning, examples, and the handling, access, storage, transmission, and disposal requirements."
   dcse-clas:
     prefix: DCSE_CLAS_
     pattern-check-id:
-      pattern: "^DCSE-CLAS-.+$"
+      pattern: ^DCSE-CLAS-.+$
       error-message: IDs of this section must match DCSE-CLAS-xxx
     description: "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed."
   deme-enti:
     prefix: DEME_ENTI_
     pattern-check-id:
-      pattern: "^DEME-ENTI-.+$"
+      pattern: ^DEME-ENTI-.+$
       error-message: IDs of this section must match DEME-ENTI-xxx
     description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
   depnt-depe:
@@ -1396,19 +1396,19 @@ section-types:
       dgpeg:
         max-count: 1
     pattern-check-id:
-      pattern: "^DGPE-GOVE-.+$"
+      pattern: ^DGPE-GOVE-.+$
       error-message: IDs of this section must match DGPE-GOVE-xxx
     description: "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level."
   dqie-impr:
     prefix: DQIE_IMPR_
     pattern-check-id:
-      pattern: "^DQIE-IMPR-.+$"
+      pattern: ^DQIE-IMPR-.+$
       error-message: IDs of this section must match DQIE-IMPR-xxx
     description: "Add one entry per active or planned data-quality improvement initiative. Capture the issues it targets, its status, expected completion, and the improvement it should deliver."
   dsee-keye:
     prefix: DSEE_KEYE_
     pattern-check-id:
-      pattern: "^DSEE-KEYE-.+$"
+      pattern: ^DSEE-KEYE-.+$
       error-message: IDs of this section must match DSEE-KEYE-xxx
     description: "Add one entry per key entity in this source. Capture its name, what it represents, record count, primary key, relationships, and any sensitive fields."
   gape-item:
@@ -1423,7 +1423,7 @@ section-types:
       gaenre:
         max-count: 1
     pattern-check-id:
-      pattern: "^GAPE-ITEM-.+$"
+      pattern: ^GAPE-ITEM-.+$
       error-message: IDs of this section must match GAPE-ITEM-xxx
     description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
   ppag-painp:
@@ -1433,19 +1433,19 @@ section-types:
   sbpe-supp:
     prefix: SBPE_SUPP_
     pattern-check-id:
-      pattern: "^SBPE-SUPP-.+$"
+      pattern: ^SBPE-SUPP-.+$
       error-message: IDs of this section must match SBPE-SUPP-xxx
     description: Add one entry per business process the system supports; note its role and execution frequency.
   sbue-busi:
     prefix: SBUE_BUSI_
     pattern-check-id:
-      pattern: "^SBUE-BUSI-.+$"
+      pattern: ^SBUE-BUSI-.+$
       error-message: IDs of this section must match SBUE-BUSI-xxx
     description: Add one entry per business unit using the system; note user count and dependency level.
   smre-risk:
     prefix: SMRE_RISK_
     pattern-check-id:
-      pattern: "^SMRE-RISK-.+$"
+      pattern: ^SMRE-RISK-.+$
       error-message: IDs of this section must match SMRE-RISK-xxx
     description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
   syde-item:
@@ -1464,7 +1464,7 @@ section-types:
       syde-targ-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^SYDE-ITEM-.+$"
+      pattern: ^SYDE-ITEM-.+$
       error-message: IDs of this section must match SYDE-ITEM-xxx
     description: "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each."
   syin-item:
@@ -1487,13 +1487,13 @@ section-types:
       syin-targ-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^SYIN-ITEM-.+$"
+      pattern: ^SYIN-ITEM-.+$
       error-message: IDs of this section must match SYIN-ITEM-xxx
     description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
   ugie-user:
     prefix: UGIE_USER_
     pattern-check-id:
-      pattern: "^UGIE-USER-.+$"
+      pattern: ^UGIE-USER-.+$
       error-message: IDs of this section must match UGIE-USER-xxx
     description: Add one entry per user group needing special handling; note impact level and special considerations.
   wfac-acto:
@@ -1502,7 +1502,7 @@ section-types:
       wae-part-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^WFAC-ACTO-.+$"
+      pattern: ^WFAC-ACTO-.+$
       error-message: IDs of this section must match WFAC-ACTO-xxx
     description: "Document all actors including their roles, responsibilities, authorization levels, and involvement pattern."
   cuwf-work:
@@ -1533,7 +1533,7 @@ section-types:
       woex:
         max-count: 1
     pattern-check-id:
-      pattern: "^CUWF-WORK-.+$"
+      pattern: ^CUWF-WORK-.+$
       error-message: IDs of this section must match CUWF-WORK-xxx
     format: mermaid-flowchart
     description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
@@ -1552,13 +1552,13 @@ section-types:
   ipe-inte:
     prefix: IPE_INTE_
     pattern-check-id:
-      pattern: "^IPE-INTE-.+$"
+      pattern: ^IPE-INTE-.+$
       error-message: IDs of this section must match IPE-INTE-xxx
     description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
   kie-know:
     prefix: KIE_KNOW_
     pattern-check-id:
-      pattern: "^KIE-KNOW-.+$"
+      pattern: ^KIE-KNOW-.+$
       error-message: IDs of this section must match KIE-KNOW-xxx
     description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
   miri-gove:
@@ -1574,7 +1574,7 @@ section-types:
       pme-proc-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^PME-ITEM-.+$"
+      pattern: ^PME-ITEM-.+$
       error-message: IDs of this section must match PME-ITEM-xxx
     description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
   pme-keym:
@@ -1587,7 +1587,7 @@ section-types:
       pme-proc-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^PME-KEYM-.+$"
+      pattern: ^PME-KEYM-.+$
       error-message: IDs of this section must match PME-KEYM-xxx
     description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
   pme-metr:
@@ -1600,7 +1600,7 @@ section-types:
       pme-proc-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^PME-METR-.+$"
+      pattern: ^PME-METR-.+$
       error-message: IDs of this section must match PME-METR-xxx
     description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
   ppag-pain:
@@ -1629,7 +1629,7 @@ section-types:
       wostis-know-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^WSE-ERRO-.+$"
+      pattern: ^WSE-ERRO-.+$
       error-message: IDs of this section must match WSE-ERRO-xxx
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
   wse-manu:
@@ -1646,7 +1646,7 @@ section-types:
       wostis-know-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^WSE-MANU-.+$"
+      pattern: ^WSE-MANU-.+$
       error-message: IDs of this section must match WSE-MANU-xxx
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
   wse-step:
@@ -1663,7 +1663,7 @@ section-types:
       wostis-know-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^WSE-STEP-.+$"
+      pattern: ^WSE-STEP-.+$
       error-message: IDs of this section must match WSE-STEP-xxx
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
   custrias:

@@ -305,7 +305,8 @@ class SpecDocumentMarkdown {
     b.writeln('<!-- docspec: ${kebabCase(root.title)}/'
         '${model.modelVersionString} -->');
     final rootSeg = node.segment;
-    _writeHeading(b, 1, rootSeg, document.headline(rootSeg) ?? root.title);
+    _writeHeading(
+        b, 1, rootSeg, document.headline(rootSeg) ?? node.headline ?? root.title);
     _writeSectionBody(b, node, rootSeg);
     _writeChildren(b, node, rootSeg, 2);
     return b.toString();
@@ -378,10 +379,7 @@ class SpecDocumentMarkdown {
     // would render "String 1", "String 2". Derive the stem from the list FIELD
     // instead (its member name, Title-Cased like the container heading) so a
     // populated scalar list gets meaningful per-item headings (YRC5).
-    final element0 = node.elementNode;
-    final stem = element0 != null
-        ? itemTitleStem(element0.className)
-        : titleCase(node.memberName ?? node.segment);
+    final stem = _itemStemOf(node);
     final pattern = node.sectionIdPattern ?? node.elementNode?.sectionIdPattern;
     for (var i = 0; i < items.length; i++) {
       final itemPath = items[i];
@@ -482,8 +480,21 @@ class SpecDocumentMarkdown {
     return out.join('\n');
   }
 
+  /// The effective DEFAULT title of [node] (YRD4): the `@Headline` default
+  /// when authored, else the name derivation. The stored headline (checked by
+  /// callers first) always wins over this.
   static String _titleOf(SomMetaNode node) =>
-      titleCase(node.memberName ?? node.className);
+      node.headline ?? titleCase(node.memberName ?? node.className);
+
+  /// The effective default item-title stem of list [node] (YRD4): the element
+  /// class's `@Headline` default when authored, else the DR1 §1.5 derivation
+  /// (element class name with `Entry` dropped; member name for scalar lists).
+  static String _itemStemOf(SomMetaNode node) {
+    final element = node.elementNode;
+    return element != null
+        ? (element.headline ?? itemTitleStem(element.className))
+        : titleCase(node.memberName ?? node.segment);
+  }
 
   // A line the emitter must escape: an optional run of backslashes followed by
   // `#` at column 0 (the escape itself must survive the round-trip).
@@ -761,8 +772,12 @@ class _Parser {
       if (seg == id) {
         final tree = codec._treeFor(root.type);
         rootPrefixes.add(seg);
-        // YRD3: stage a renamed root heading as a stored headline.
-        if (title.isNotEmpty && title != root.title) headlines[seg] = title;
+        // YRD3: stage a renamed root heading as a stored headline —
+        // "renamed" relative to the effective default (YRD4: `@Headline`
+        // default, else the `@Document` title).
+        if (title.isNotEmpty && title != (tree.root.headline ?? root.title)) {
+          headlines[seg] = title;
+        }
         _stack.add(
             _Frame(level: level, node: tree.root, path: seg, line: lineNo));
         return;
@@ -792,10 +807,7 @@ class _Parser {
     state.items.add(itemPath);
     if (storedId != null) state.ids[itemPath] = storedId;
     final element = listNode.elementNode;
-    final stem = element != null
-        ? SpecDocumentMarkdown.itemTitleStem(element.className)
-        : SpecDocumentMarkdown.titleCase(
-            listNode.memberName ?? listNode.segment);
+    final stem = SpecDocumentMarkdown._itemStemOf(listNode);
     if (title.isNotEmpty && title != '$stem $number') {
       headlines[itemPath] = title;
     }

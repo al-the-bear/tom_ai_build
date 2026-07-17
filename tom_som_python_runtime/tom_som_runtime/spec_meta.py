@@ -177,6 +177,7 @@ class SomMetaNode:
         unused: bool = False,
         content_type: Optional[SomContentTypeMeta] = None,
         content_help: Optional[str] = None,
+        headline: Optional[str] = None,
         comment: Optional[str] = None,
         doc_comment: Optional[str] = None,
         class_doc_comment: Optional[str] = None,
@@ -223,6 +224,13 @@ class SomMetaNode:
         self.content_type = content_type
         #: ``@ContentHelp(guidance)``, when annotated.
         self.content_help = content_help
+        #: The ``@Headline(text)`` predefined DEFAULT headline (YRD4;
+        #: field-level wins over the target class's), when annotated.
+        #:
+        #: Render precedence: ``stored headline > this default > name
+        #: derivation``. Editors prefill a new section's headline from this; a
+        #: stored headline always wins and stays editable.
+        self.headline = headline
         #: ``@Comment(text)``, when annotated.
         self.comment = comment
         #: The cleaned ``///`` doc comment (member wins over class), when any.

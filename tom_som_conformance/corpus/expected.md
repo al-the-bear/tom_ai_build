@@ -1,7 +1,7 @@
 <!-- docspec: demo-document/1.0 -->
 # <!--[DEMO]--> Demo Document
 
-## <!--[TTL]--> Title
+## <!--[TTL]--> Document Title
 
 Hello
 
@@ -27,7 +27,7 @@ Contact: bob@example.com
 
 ## <!--[items]--> Work Items
 
-### <!--[items-1]--> Item 1
+### <!--[items-1]--> Task 1
 
 First
 
@@ -35,7 +35,7 @@ First
 
 open
 
-### <!--[items-2]--> Item 2
+### <!--[items-2]--> Task 2
 
 Second line A
 with ```triple``` ticks

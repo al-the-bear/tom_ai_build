@@ -95,6 +95,8 @@ class ModelJsonExporter {
       if (cls.docComment.isNotEmpty) 'doc': cls.docComment,
       if (_help(cls.getAnnotation('ContentHelp')) != null)
         'help': _help(cls.getAnnotation('ContentHelp')),
+      if (cls.getAnnotation('Headline')?.arguments['text'] != null)
+        'headline': cls.getAnnotation('Headline')!.arguments['text'],
       if (cls.getAnnotation('MapsTo') != null)
         'mapsTo': cls.getAnnotation('MapsTo')!.arguments['documentClass'],
       if (cls.getAnnotation('DetailedIn') != null)
@@ -117,6 +119,9 @@ class ModelJsonExporter {
 
     final help = _help(f.getAnnotation('ContentHelp'));
     if (help != null) out['help'] = help;
+
+    final headline = f.getAnnotation('Headline')?.arguments['text'] as String?;
+    if (headline != null) out['headline'] = headline;
 
     final sectionId = f.getAnnotation('SectionId')?.arguments['id'] as String?;
     if (sectionId != null) out['sectionId'] = sectionId;

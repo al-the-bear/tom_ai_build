@@ -71,6 +71,9 @@ pub struct SpecField {
     pub kind: String,
     pub doc: String,
     pub help: String,
+    /// The `@Headline(text)` default headline (YRD4), `""` when unannotated.
+    /// Render precedence: stored headline > this default > name derivation.
+    pub headline: String,
     pub section_id: String,
     pub section_id_pattern: String,
     pub element_type: String,
@@ -108,6 +111,10 @@ pub struct SpecClass {
     pub section_id: String,
     pub doc: String,
     pub help: String,
+    /// The class-level `@Headline(text)` default headline (YRD4), `""` when
+    /// unannotated. A field-level `@Headline` on the instantiating field wins
+    /// over this.
+    pub headline: String,
     pub maps_to: String,
     pub detailed_in: String,
     pub fields: Vec<SpecField>,
@@ -266,6 +273,7 @@ fn class_from_json(name: &str, cls: &Json) -> SpecClass {
         section_id: cls.str_or("sectionId"),
         doc: cls.str_or("doc"),
         help: cls.str_or("help"),
+        headline: cls.str_or("headline"),
         maps_to: cls.str_or("mapsTo"),
         detailed_in: cls.str_or("detailedIn"),
         fields,
@@ -308,6 +316,7 @@ fn field_from_json(f: &Json) -> SpecField {
         kind: parse_field_kind(&f.str_or("kind")),
         doc: f.str_or("doc"),
         help: f.str_or("help"),
+        headline: f.str_or("headline"),
         section_id: f.str_or("sectionId"),
         section_id_pattern: f.str_or("sectionIdPattern"),
         element_type: f.str_or("elementType"),

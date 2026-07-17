@@ -415,6 +415,7 @@ std::string diffAt(const SomMetaNode& a, const SomMetaNode& b,
                   contentTypeField(b.contentType, false)));
   CHECK(diffField(at, "contentHelp", mvStr(a.contentHelp),
                   mvStr(b.contentHelp)));
+  CHECK(diffField(at, "headline", mvStr(a.headline), mvStr(b.headline)));
   CHECK(diffField(at, "comment", mvStr(a.comment), mvStr(b.comment)));
   CHECK(diffField(at, "docComment", mvStr(a.docComment), mvStr(b.docComment)));
   CHECK(diffField(at, "classDocComment", mvStr(a.classDocComment),

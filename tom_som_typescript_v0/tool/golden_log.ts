@@ -81,7 +81,7 @@ function main(): void {
   const out: string[] = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t3');
+  out.push('FORMAT\t4');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   out.push('SECTION\tgeneric-content');
@@ -184,7 +184,8 @@ function main(): void {
     out.push(
       'M\t' + nodePath + '\t' + kindName(n.kind) + '\t' +
       esc(n.sectionId || '') + '\t' + esc(n.contentHelp || '') + '\t' +
-      esc(n.comment || '') + '\t' + esc(n.docComment || ''),
+      esc(n.comment || '') + '\t' + esc(n.docComment || '') + '\t' +
+      esc(n.headline || ''),
     );
   };
 

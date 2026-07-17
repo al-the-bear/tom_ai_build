@@ -42,6 +42,7 @@ const Set<String> _slottedAnnotations = {
   'Unused',
   'ContentType',
   'ContentHelp',
+  'Headline',
   'Comment',
   'Form',
   'Document',
@@ -284,6 +285,8 @@ class SomPythonMetaEmitter {
               'description=${_str(desc)})');
     }
     if (f.help != null) add('content_help', _str(f.help!));
+    final headline = f.headline ?? target?.headline;
+    if (headline != null) add('headline', _str(headline));
     final comment = '${f.annotation('Comment')?.argument('text') ?? ''}';
     if (comment.isNotEmpty) add('comment', _str(comment));
     final docComment = f.doc ?? target?.doc;
@@ -324,6 +327,8 @@ class SomPythonMetaEmitter {
             'class_section_id=${_str(element.sectionId!)}',
           'kind=SomMetaKind.COMPLEX',
           'type_name=${_str(element.name)}',
+          if (element.headline != null)
+            'headline=${_str(element.headline!)}',
           if (element.doc != null) 'doc_comment=${_str(element.doc!)}',
           if (element.doc != null) 'class_doc_comment=${_str(element.doc!)}',
           if (element.mapsTo != null) 'maps_to=${_str(element.mapsTo!)}',
@@ -388,6 +393,7 @@ class SomPythonMetaEmitter {
     args
       ..add('kind=SomMetaKind.SECTION')
       ..add('type_name=${_str(root.type)}');
+    if (cls?.headline != null) args.add('headline=${_str(cls!.headline!)}');
     final doc = root.doc ?? cls?.doc;
     if (doc != null) args.add('doc_comment=${_str(doc)}');
     if (cls?.doc != null) args.add('class_doc_comment=${_str(cls!.doc!)}');

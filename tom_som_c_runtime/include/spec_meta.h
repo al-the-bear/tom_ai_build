@@ -138,6 +138,10 @@ struct SomMetaNode {
   int unused;        /* whether @Unused is present */
   SomContentTypeMeta *content_type; /* @ContentType, NULL when unannotated */
   char *content_help; /* @ContentHelp(guidance), "" when unannotated */
+  char *headline;     /* @Headline(text) predefined DEFAULT headline (YRD4;
+                       * field-level wins over the target class's), "" when
+                       * unannotated. Render precedence: stored headline >
+                       * this default > name derivation */
   char *comment;      /* @Comment(text), "" when unannotated */
   char *doc_comment;  /* cleaned /// doc comment (member wins over class) */
   char *class_doc_comment; /* the instantiated class's own doc comment */

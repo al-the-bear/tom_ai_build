@@ -129,6 +129,11 @@ class MetaNode {
   /// `@ContentHelp(guidance)`.
   final String? contentHelp;
 
+  /// `@Headline(text)` — the predefined DEFAULT headline (YRD4). Field-level
+  /// wins over the target class's class-level one. Render precedence is
+  /// `stored headline > this default > name derivation`.
+  final String? headline;
+
   /// `@Comment(text)`.
   final String? comment;
 
@@ -181,6 +186,7 @@ class MetaNode {
     this.unused = false,
     this.contentType,
     this.contentHelp,
+    this.headline,
     this.comment,
     this.docComment,
     this.classDocComment,
@@ -229,6 +235,7 @@ class MetaNode {
               'description': contentType!.description,
           },
         if (contentHelp != null) 'contentHelp': contentHelp,
+        if (headline != null) 'headline': headline,
         if (comment != null) 'comment': comment,
         if (docComment != null) 'docComment': docComment,
         if (classDocComment != null) 'classDocComment': classDocComment,
@@ -293,6 +300,7 @@ class MetaTreeBuilder {
     'Unused',
     'ContentType',
     'ContentHelp',
+    'Headline',
     'Comment',
     'Form',
     'Document',
@@ -373,6 +381,7 @@ class MetaTreeBuilder {
       unused: slots.unused,
       contentType: slots.contentType,
       contentHelp: slots.contentHelp,
+      headline: slots.headline,
       comment: slots.comment,
       docComment: docComment.isEmpty ? null : docComment,
       classDocComment:
@@ -431,6 +440,7 @@ class MetaTreeBuilder {
       unused: slots.unused,
       contentType: slots.contentType ?? _sectionContentType(field, kind),
       contentHelp: slots.contentHelp,
+      headline: slots.headline,
       comment: slots.comment,
       docComment: field.docComment.isEmpty ? null : field.docComment,
       form: slots.form(field.formFields),
@@ -561,6 +571,8 @@ class _SlotCollector {
 
   String? get contentHelp =>
       _first('ContentHelp')?.arguments['guidance'] as String?;
+
+  String? get headline => _first('Headline')?.arguments['text'] as String?;
 
   String? get comment => _first('Comment')?.arguments['text'] as String?;
 

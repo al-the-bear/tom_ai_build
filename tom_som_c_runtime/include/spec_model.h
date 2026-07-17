@@ -52,6 +52,7 @@ typedef struct {
   char *kind;
   char *doc;
   char *help;
+  char *headline; /* @Headline(text) default headline (YRD4), "" when unannotated */
   char *section_id;
   char *section_id_pattern;
   char *element_type;
@@ -78,6 +79,7 @@ typedef struct {
   char *section_id;
   char *doc;
   char *help;
+  char *headline; /* class-level @Headline(text) default (YRD4), "" when unannotated */
   char *maps_to;
   char *detailed_in;
   SpecField *fields;

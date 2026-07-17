@@ -54,6 +54,7 @@ const Set<String> _slottedAnnotations = {
   'Unused',
   'ContentType',
   'ContentHelp',
+  'Headline',
   'Comment',
   'Form',
   'Document',
@@ -538,6 +539,8 @@ class SomCppMetaEmitter {
           '"${_cppStr(f.contentType!)}", "${_cppStr(desc)}"};');
     }
     if (f.help != null) set('contentHelp', f.help!);
+    final headline = f.headline ?? target?.headline;
+    if (headline != null) set('headline', headline);
     final comment = '${f.annotation('Comment')?.argument('text') ?? ''}';
     if (comment.isNotEmpty) set('comment', comment);
     final docComment = f.doc ?? target?.doc;
@@ -562,6 +565,7 @@ class SomCppMetaEmitter {
     if (element.sectionId != null) set('classSectionId', element.sectionId!);
     b.writeln('$indent$recv.kind = som::kSomMetaKindComplex;');
     set('typeName', element.name);
+    if (element.headline != null) set('headline', element.headline!);
     if (element.doc != null) {
       set('docComment', element.doc!);
       set('classDocComment', element.doc!);
@@ -638,6 +642,9 @@ class SomCppMetaEmitter {
     }
     b.writeln('\t\tn->kind = som::kSomMetaKindSection;');
     b.writeln('\t\tn->typeName = "${_cppStr(root.type)}";');
+    if (cls?.headline != null) {
+      b.writeln('\t\tn->headline = "${_cppStr(cls!.headline!)}";');
+    }
     final doc = root.doc ?? cls?.doc;
     if (doc != null) {
       b.writeln('\t\tn->docComment = "${_cppStr(doc)}";');

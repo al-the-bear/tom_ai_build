@@ -61,6 +61,7 @@ struct SpecField {
   std::string kind;
   std::string doc;
   std::string help;
+  std::string headline;  // @Headline(text) default headline (YRD4), "" none
   std::string sectionId;
   std::string sectionIdPattern;
   std::string elementType;
@@ -86,6 +87,7 @@ struct SpecClass {
   std::string sectionId;
   std::string doc;
   std::string help;
+  std::string headline;  // class-level @Headline(text) default (YRD4), "" none
   std::string mapsTo;
   std::string detailedIn;
   std::vector<SpecField> fields;

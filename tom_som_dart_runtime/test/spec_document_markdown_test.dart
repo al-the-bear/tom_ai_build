@@ -656,4 +656,115 @@ document:
       );
     });
   });
+  group('YRD4 — @Headline default headlines', () {
+    // A model with @Headline defaults on a field, an element class and a
+    // list container; the precedence is stored headline > @Headline default >
+    // name derivation, symmetric between export and import staging.
+    Map<String, dynamic> headlineJson() => {
+          'roots': [
+            {
+              'type': 'HDoc',
+              'title': 'H Document',
+              'sectionId': 'H00',
+              'description': 'Headline demo.',
+            },
+          ],
+          'classes': {
+            'HDoc': {
+              'name': 'HDoc',
+              'sectionId': 'H00',
+              'fields': [
+                {
+                  'name': 'overview',
+                  'kind': 'content',
+                  'sectionId': 'H00-OVR',
+                  'headline': 'Executive Overview',
+                },
+                {
+                  'name': 'plain',
+                  'kind': 'content',
+                  'sectionId': 'H00-PLN',
+                },
+                {
+                  'name': 'items',
+                  'kind': 'list',
+                  'elementType': 'HItem',
+                  'elementIsComplex': true,
+                  'sectionId': 'H00-ITM',
+                  'headline': 'Tracked Items',
+                },
+              ],
+            },
+            'HItem': {
+              'name': 'HItem',
+              'headline': 'Work Item',
+              'fields': [
+                {'name': 'label', 'kind': 'content', 'sectionId': 'H01-LBL'},
+              ],
+            },
+          },
+        };
+
+    SpecModel model() => SpecModel.fromJson(headlineJson());
+
+    SpecDocument populated() {
+      final doc = SpecDocument()
+        ..setContent('H00/H00-OVR', 'Overview body.')
+        ..setContent('H00/H00-PLN', 'Plain body.');
+      final item = doc.addListItem('H00/H00-ITM');
+      doc.setContent('$item/H01-LBL', 'First');
+      return doc;
+    }
+
+    String export(SpecDocument doc) =>
+        SpecDocumentMarkdown(model(), doc).exportRoot(model().roots.single);
+
+    test('@Headline default renders instead of the derived member title', () {
+      final md = export(populated());
+      expect(md, contains('## <!--[H00-OVR]--> Executive Overview'));
+      // Unannotated sibling keeps the titleCase(memberName) derivation.
+      expect(md, contains('## <!--[H00-PLN]--> Plain'));
+      // List container + element-class @Headline drive container and stem.
+      expect(md, contains('## <!--[H00-ITM]--> Tracked Items'));
+      expect(md, contains('### <!--[items-1]--> Work Item 1'));
+    });
+
+    test('a stored headline wins over the @Headline default', () {
+      final doc = populated()
+        ..setHeadline('H00/H00-OVR', 'Custom Overview');
+      final md = export(doc);
+      expect(md, contains('## <!--[H00-OVR]--> Custom Overview'));
+      expect(md, isNot(contains('Executive Overview')));
+    });
+
+    test('import stages a headline only when it differs from the default',
+        () {
+      final md = export(populated());
+      final report = SpecDocumentMarkdown(model(), SpecDocument()).parse(md);
+      // Rendering the defaults must not stage stored headlines (byte
+      // stability, §8.7): the parsed titles equal the effective defaults.
+      expect(report.headlines, isEmpty, reason: report.headlines.toString());
+      // A custom title in the md IS staged as a stored headline.
+      final custom = md.replaceFirst('## <!--[H00-OVR]--> Executive Overview',
+          '## <!--[H00-OVR]--> Renamed Overview');
+      final report2 =
+          SpecDocumentMarkdown(model(), SpecDocument()).parse(custom);
+      expect(report2.headlines['H00/H00-OVR'], 'Renamed Overview');
+    });
+
+    test('stored → export → import round-trip is byte-stable', () {
+      final doc = populated()
+        ..setHeadline('H00/H00-OVR', 'Custom Overview');
+      final md = export(doc);
+      final report = SpecDocumentMarkdown(model(), SpecDocument()).parse(md);
+      final target = SpecDocument()
+        ..loadJson({
+          'content': report.content,
+          'forms': report.forms,
+          'lists': report.lists,
+          'headlines': report.headlines,
+        });
+      expect(export(target), md);
+    });
+  });
 }

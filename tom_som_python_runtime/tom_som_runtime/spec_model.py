@@ -88,6 +88,9 @@ class SpecField:
     kind: SpecFieldKind
     doc: Optional[str] = None
     help: Optional[str] = None
+    #: The ``@Headline(text)`` default headline (YRD4), or ``None``. Render
+    #: precedence: stored headline > this default > name derivation.
+    headline: Optional[str] = None
     section_id: Optional[str] = None
     section_id_pattern: Optional[str] = None
     element_type: Optional[str] = None
@@ -110,6 +113,7 @@ class SpecField:
             kind=SpecFieldKind.parse(j["kind"]),
             doc=j.get("doc"),
             help=j.get("help"),
+            headline=j.get("headline"),
             section_id=j.get("sectionId"),
             section_id_pattern=j.get("sectionIdPattern"),
             element_type=j.get("elementType"),
@@ -147,6 +151,10 @@ class SpecClass:
     section_id: Optional[str] = None
     doc: Optional[str] = None
     help: Optional[str] = None
+    #: The class-level ``@Headline(text)`` default headline (YRD4), or
+    #: ``None``. A field-level ``@Headline`` on the instantiating field wins
+    #: over this.
+    headline: Optional[str] = None
     maps_to: Optional[str] = None
     detailed_in: Optional[str] = None
     fields: list[SpecField] = field(default_factory=list)
@@ -159,6 +167,7 @@ class SpecClass:
             section_id=j.get("sectionId"),
             doc=j.get("doc"),
             help=j.get("help"),
+            headline=j.get("headline"),
             maps_to=j.get("mapsTo"),
             detailed_in=j.get("detailedIn"),
             fields=[SpecField.from_json(e) for e in j["fields"]],

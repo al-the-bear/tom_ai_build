@@ -53,7 +53,7 @@ fn main() {
     let mut out: Vec<String> = Vec::new();
     out.push("# TomSpecs SOM golden log — canonical cross-language reading.".to_string());
     out.push("# All nine per-language generators must emit byte-identical output.".to_string());
-    out.push("FORMAT\t3".to_string());
+    out.push("FORMAT\t4".to_string());
     out.push(format!("MODELVERSION\t{}", esc(&doc.model_version)));
 
     // Generic: content leaves, sorted by path.
@@ -201,13 +201,14 @@ fn main() {
             None => die(&format!("META MISSING at {}", path)),
         };
         out.push(format!(
-            "M\t{}\t{}\t{}\t{}\t{}\t{}",
+            "M\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
             path,
             kind_name(&n.kind),
             esc(&n.section_id),
             esc(&n.content_help),
             esc(&n.comment),
             esc(&n.doc_comment),
+            esc(&n.headline),
         ));
     }
 

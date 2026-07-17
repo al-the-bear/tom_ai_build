@@ -96,6 +96,7 @@ target (class `C` / member `M`).
 | `@Form` | `Form(List<Field> fields)` | M | Collapses a form class's scalar fields into a single annotation on `content`. |
 | `Field` | `Field(String name, Type type, String description, {bool required, String? hint})` | — | One form field: its name, scalar type (`String`/`int`/`double`/enum), description, requiredness, and author hint. |
 | `@ContentHelp` | `ContentHelp(String guidance)` | C, M | Actionable "how to fill this in" guidance for authors/AI. |
+| `@Headline` | `Headline(String text)` | C, M | Predefined DEFAULT headline for a fixed-meaning section: editor prefill + render fallback. Precedence: stored headline > `@Headline` default > name derivation; a member-level annotation wins over the target class's. (YRD4) |
 | `@TextRequired` | `TextRequired()` | C, M | The section's text content is the primary deliverable; empty is invalid. |
 | `@Unused` | `Unused()` | M | The `content` field is not expected (container-only class); text is ignored. |
 | `@Comment` | `Comment(String text)` | C, M | Free-form informational metadata for downstream generators (e.g. `Seeds → BP, UC`). |

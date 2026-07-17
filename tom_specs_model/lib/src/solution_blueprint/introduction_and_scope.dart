@@ -51,6 +51,10 @@ a quick understanding without reading the full specification.
   SystemDescription systemDescription = SystemDescription();
 
   /// 4.2. Goals.
+  // YRD4: field-level `@Headline` — the default heading title for this
+  // section; it wins over the target class's class-level `@Headline`, and a
+  // stored headline in a document wins over both.
+  @Headline('Project Goals')
   @SerializationOrder(4)
   Goals goals = Goals();
 
@@ -5764,6 +5768,10 @@ class JourneyStageEntry {
   'Organize goals by category (business, technical) and ensure each goal '
   'has specific success metrics and target dates.',
 )
+// YRD4: class-level `@Headline` — used when a referencing field carries no
+// field-level `@Headline` (here the `goals` field does, so the field's
+// 'Project Goals' wins; this one documents the precedence).
+@Headline('Goals & Objectives')
 @SectionId('GOALS')
 class Goals {
   @SerializationOrder(0)
@@ -5818,6 +5826,9 @@ class Goals {
   'relevant, and time-bound (SMART). Each goal should have clear ownership '
   'and success metrics.',
 )
+// YRD4: class-level `@Headline` with no competing field-level one — the
+// referencing `businessGoals` field renders this default title.
+@Headline('Business Goals & Value')
 @SectionId('BG')
 class BusinessGoals {
   @ContentType(

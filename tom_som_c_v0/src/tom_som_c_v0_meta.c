@@ -66730,6 +66730,7 @@ static void meta_build_goals_business_goals(SomMetaNode *n) {
   meta_set(&n->type_name, "BusinessGoals");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
+  meta_set(&n->headline, "Business Goals & Value");
   meta_set(&n->doc_comment, "4.2.1. Business Goals.");
   meta_set(&n->class_doc_comment, "4.2.1. Business Goals.\n\nContainer for business goal definitions. Business goals define what the\norganization wants to achieve through this project in terms of business\noutcomes, value delivery, and strategic advancement.");
 }
@@ -74379,6 +74380,7 @@ static void meta_build_introduction_and_scope_goals(SomMetaNode *n) {
   meta_set(&n->type_name, "Goals");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
+  meta_set(&n->headline, "Project Goals");
   meta_set(&n->doc_comment, "4.2. Goals.");
   meta_set(&n->class_doc_comment, "4.2. Goals.\n\nContainer for project goals organized by category. Goals provide measurable\nobjectives that guide project execution and define success. This section\nsupports OKR (Objectives and Key Results) methodology while also\naccommodating traditional goal structures.");
 }

@@ -377,7 +377,10 @@ class SpecDocumentMarkdown:
         )
         root_seg = node.segment
         self._write_heading(
-            b, 1, root_seg, self.document.headline(root_seg) or root.title
+            b,
+            1,
+            root_seg,
+            self.document.headline(root_seg) or node.headline or root.title,
         )
         self._write_section_body(b, node, root_seg)
         self._write_children(b, node, root_seg, 2)
@@ -471,12 +474,8 @@ class SpecDocumentMarkdown:
         # render "String 1", "String 2". Derive the stem from the list FIELD
         # instead (its member name, Title-Cased like the container heading) so a
         # populated scalar list gets meaningful per-item headings (YRC5).
+        stem = self._item_stem_of(node)
         element = node.element_node
-        stem = (
-            self.item_title_stem(element.class_name)
-            if element is not None
-            else self.title_case(node.member_name or node.segment)
-        )
         pattern = node.section_id_pattern or (
             element.section_id_pattern if element is not None else None
         )
@@ -590,8 +589,26 @@ class SpecDocumentMarkdown:
 
     @staticmethod
     def _title_of(node: SomMetaNode) -> str:
-        return SpecDocumentMarkdown.title_case(
+        """The effective DEFAULT title of *node* (YRD4): the ``@Headline``
+        default when authored, else the name derivation. The stored headline
+        (checked by callers first) always wins over this."""
+        return node.headline or SpecDocumentMarkdown.title_case(
             node.member_name or node.class_name
+        )
+
+    @staticmethod
+    def _item_stem_of(node: SomMetaNode) -> str:
+        """The effective default item-title stem of list *node* (YRD4): the
+        element class's ``@Headline`` default when authored, else the DR1
+        §1.5 derivation (element class name with ``Entry`` dropped; member
+        name for scalar lists)."""
+        element = node.element_node
+        if element is not None:
+            return element.headline or SpecDocumentMarkdown.item_title_stem(
+                element.class_name
+            )
+        return SpecDocumentMarkdown.title_case(
+            node.member_name or node.segment
         )
 
     # --- Import (DR1 §1.7) ----------------------------------------------------
@@ -876,8 +893,10 @@ class _Parser:
             if seg == id:
                 tree = self.codec._tree_for(root.type)
                 self.root_prefixes.add(seg)
-                # YRD3: stage a renamed root heading as a stored headline.
-                if title and title != root.title:
+                # YRD3: stage a renamed root heading as a stored headline —
+                # "renamed" relative to the effective default (YRD4:
+                # `@Headline` default, else the `@Document` title).
+                if title and title != (tree.root.headline or root.title):
                     self.headlines[seg] = title
                 self._stack.append(
                     _Frame(level=level, node=tree.root, path=seg, line=line_no)
@@ -925,14 +944,7 @@ class _Parser:
         state.items.append(item_path)
         if stored_id is not None:
             state.ids[item_path] = stored_id
-        element = list_node.element_node
-        stem = (
-            SpecDocumentMarkdown.item_title_stem(element.class_name)
-            if element is not None
-            else SpecDocumentMarkdown.title_case(
-                list_node.member_name or list_node.segment
-            )
-        )
+        stem = SpecDocumentMarkdown._item_stem_of(list_node)
         if title and title != f"{stem} {number}":
             self.headlines[item_path] = title
         self._stack.append(

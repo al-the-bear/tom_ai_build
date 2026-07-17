@@ -428,13 +428,19 @@ Map<String, dynamic> _buildMeta() => {
               'name': 'title',
               'kind': 'content',
               'sectionId': 'TTL',
-              'contentType': 'text'
+              'contentType': 'text',
+              // YRD4: field-level @Headline default — rendered because TTL
+              // has no stored headline.
+              'headline': 'Document Title',
             },
             {
               'name': 'summary',
               'kind': 'content',
               'sectionId': 'SUM',
-              'contentType': 'markdown'
+              'contentType': 'markdown',
+              // YRD4: default is shadowed by the stored 'Executive Summary'
+              // headline — stored always wins.
+              'headline': 'Summary',
             },
             {
               'name': 'priority',
@@ -521,6 +527,9 @@ Map<String, dynamic> _buildMeta() => {
         },
         'Item': {
           'name': 'Item',
+          // YRD4: class-level @Headline default — drives the item title stem
+          // ('Task 1', 'Task 2') instead of itemTitleStem('Item').
+          'headline': 'Task',
           'fields': [
             // Deliberately id-less: the transparent body-region member.
             {'name': 'label', 'kind': 'content'},

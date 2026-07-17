@@ -389,14 +389,24 @@ Per `headline_id_storage_decisions.md`:
    list-entry sections; fixed sections show their stored/default headline
    read-only.
 
-*Implementation state: headline storage (decision 1) and render precedence
-(decision 3, with the `@Headline` slot still absent) are IMPLEMENTED by YRD3
-in all nine runtimes — `SpecDocument` carries a sparse per-section headline
-store (`headline`/`setHeadline`/`headlinePaths`, in state, fingerprint, json,
-yaml, md); the md parser captures heading text and stages it as a stored
-headline only when it differs from the effective default, keeping untouched
-documents byte-stable (§8.7). `@Headline` (YRD4), `TitleField`/`IdField`
-(YRD6), and editor strict mode (YRD9) remain open.*
+*Implementation state: headline storage (decision 1) and the full render
+precedence (decision 3) are IMPLEMENTED by YRD3 + YRD4 in all nine runtimes —
+`SpecDocument` carries a sparse per-section headline store
+(`headline`/`setHeadline`/`headlinePaths`, in state, fingerprint, json, yaml,
+md), and `@Headline` (YRD4) flows model → meta-JSON (`headline` key on classes
+and fields) → `SomMetaNode.headline` (field-level wins over the target class's
+class-level annotation, like `@SectionId`) → the md codec's shared
+title/item-stem helpers. The md parser compares parsed heading text against
+the *effective default* (stored > `@Headline` > derivation) and stages a
+stored headline only on difference, keeping untouched documents byte-stable
+(§8.7). A field-level `@Headline` on a scalar list titles the container only;
+item stems stay name-derived unless the element *class* carries a class-level
+`@Headline`. The DR3 schema `title-format` doc name resolves
+`root @Headline > @Document name > split-Pascal fallback`. Authoring
+`@Headline` across the ~3000 model sections is a separate follow-up wave;
+`IntroductionAndScope.goals` / `Goals` / `BusinessGoals` carry the
+representative authored subset. `TitleField`/`IdField` (YRD6) and editor
+strict mode (YRD9) remain open.*
 
 ---
 

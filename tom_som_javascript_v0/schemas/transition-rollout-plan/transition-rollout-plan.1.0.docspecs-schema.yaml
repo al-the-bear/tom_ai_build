@@ -22,13 +22,13 @@ section-types:
   trmoen-trai:
     prefix: TRMOEN_TRAI_
     pattern-check-id:
-      pattern: "^TRMOEN-TRAI-.+$"
+      pattern: ^TRMOEN-TRAI-.+$
       error-message: IDs of this section must match TRMOEN-TRAI-xxx
     description: Add one entry per training module.
   trveen-vend:
     prefix: TRVEEN_VEND_
     pattern-check-id:
-      pattern: "^TRVEEN-VEND-.+$"
+      pattern: ^TRVEEN-VEND-.+$
       error-message: IDs of this section must match TRVEEN-VEND-xxx
     description: Add one entry per translation vendor.
   doantr-docu:

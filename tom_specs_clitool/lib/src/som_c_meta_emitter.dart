@@ -54,6 +54,7 @@ const Set<String> _slottedAnnotations = {
   'Unused',
   'ContentType',
   'ContentHelp',
+  'Headline',
   'Comment',
   'Form',
   'Document',
@@ -612,6 +613,10 @@ class SomCMetaEmitter {
     if (f.help != null) {
       b.writeln('\tmeta_set(&n->content_help, "${_cStr(f.help!)}");');
     }
+    final headline = f.headline ?? target?.headline;
+    if (headline != null) {
+      b.writeln('\tmeta_set(&n->headline, "${_cStr(headline)}");');
+    }
     final comment = '${f.annotation('Comment')?.argument('text') ?? ''}';
     if (comment.isNotEmpty) {
       b.writeln('\tmeta_set(&n->comment, "${_cStr(comment)}");');
@@ -648,6 +653,9 @@ class SomCMetaEmitter {
     }
     b.writeln('\tn->kind = SOM_META_KIND_COMPLEX;');
     b.writeln('\tmeta_set(&n->type_name, "${_cStr(element.name)}");');
+    if (element.headline != null) {
+      b.writeln('\tmeta_set(&n->headline, "${_cStr(element.headline!)}");');
+    }
     if (element.doc != null) {
       b.writeln('\tmeta_set(&n->doc_comment, "${_cStr(element.doc!)}");');
       b.writeln('\tmeta_set(&n->class_doc_comment, '
@@ -755,6 +763,9 @@ class SomCMetaEmitter {
     }
     b.writeln('\tn->kind = SOM_META_KIND_SECTION;');
     b.writeln('\tmeta_set(&n->type_name, "${_cStr(root.type)}");');
+    if (cls?.headline != null) {
+      b.writeln('\tmeta_set(&n->headline, "${_cStr(cls!.headline!)}");');
+    }
     final doc = root.doc ?? cls?.doc;
     if (doc != null) {
       b.writeln('\tmeta_set(&n->doc_comment, "${_cStr(doc)}");');

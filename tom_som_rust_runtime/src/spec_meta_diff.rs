@@ -88,6 +88,9 @@ fn som_meta_node_diff_at(a: &SomMetaNode, b: &SomMetaNode, at: &str) -> String {
     if a.content_help != b.content_help {
         return str_diff(at, "contentHelp", &a.content_help, &b.content_help);
     }
+    if a.headline != b.headline {
+        return str_diff(at, "headline", &a.headline, &b.headline);
+    }
     if a.comment != b.comment {
         return str_diff(at, "comment", &a.comment, &b.comment);
     }

@@ -44,6 +44,7 @@ public final class SomMetaBridge {
               "Unused",
               "ContentType",
               "ContentHelp",
+              "Headline",
               "Comment",
               "Form",
               "Document",
@@ -75,6 +76,7 @@ public final class SomMetaBridge {
     String docComment = root.doc;
     String classDoc = null;
     String classSectionId = null;
+    String rootHeadline = null;
     String mapsTo = null;
     String detailedIn = null;
     List<SpecAnnotation> annotations = new ArrayList<>();
@@ -88,6 +90,7 @@ public final class SomMetaBridge {
       }
       classDoc = cls.doc;
       classSectionId = cls.sectionId;
+      rootHeadline = cls.headline;
       mapsTo = cls.mapsTo;
       detailedIn = cls.detailedIn;
       annotations = cls.annotations;
@@ -98,6 +101,7 @@ public final class SomMetaBridge {
     SomMetaNode rootNode = new SomMetaNode(root.type, SomMetaKind.SECTION, root.type);
     rootNode.sectionId = sectionId;
     rootNode.classSectionId = classSectionId;
+    rootNode.headline = rootHeadline;
     rootNode.docComment = docComment;
     rootNode.classDocComment = classDoc;
     rootNode.mapsTo = mapsTo;
@@ -207,6 +211,7 @@ public final class SomMetaBridge {
         }
         elementNode = new SomMetaNode(element.name, SomMetaKind.COMPLEX, element.name);
         elementNode.classSectionId = element.sectionId;
+        elementNode.headline = element.headline;
         elementNode.docComment = element.doc;
         elementNode.classDocComment = element.doc;
         elementNode.mapsTo = element.mapsTo;
@@ -280,6 +285,8 @@ public final class SomMetaBridge {
     node.unused = field.annotation("Unused") != null;
     node.contentType = contentType;
     node.contentHelp = field.help;
+    // YRD4: the field-level @Headline wins over the target class's.
+    node.headline = field.headline != null ? field.headline : (target != null ? target.headline : null);
     node.comment = comment;
     node.docComment = docComment;
     node.classDocComment = classDoc;

@@ -296,6 +296,32 @@ void main() {
       expect(schema.customTags['title-format'], '# <!--[D00]--> Demo Doc');
     });
 
+    test('YRD4: a root-class @Headline wins the title-format doc name over '
+        '@Document name', () {
+      final model = <String, ModelClass>{
+        'HeadDoc': ModelClass(
+          name: 'HeadDoc',
+          annotations: [
+            _a('Document', {'name': 'Head Doc'}),
+            _a('SectionId', {'id': 'HD00'}),
+            _a('Headline', {'text': 'Headlined Document'}),
+          ],
+          fields: [
+            ModelField(
+              name: 'overview',
+              typeName: 'String',
+              annotations: [
+                _a('SectionId', {'id': 'HD00-OVR'}),
+              ],
+            ),
+          ],
+        ),
+      };
+      final schema = DocSpecsSchemaGenerator(model).generateFor('HeadDoc');
+      expect(schema.customTags['title-format'],
+          '# <!--[HD00]--> Headlined Document');
+    });
+
     test('§5.5: @Unused nodes are omitted from the schema entirely', () {
       final schema = gen.generateFor('DemoDoc');
       expect(schema.sectionTypes.keys, isNot(contains('d00-old')));

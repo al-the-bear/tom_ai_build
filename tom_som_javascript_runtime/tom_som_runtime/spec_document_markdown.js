@@ -431,7 +431,10 @@ class SpecDocumentMarkdown {
     );
     const rootSeg = node.segment;
     SpecDocumentMarkdown._writeHeading(
-      b, 1, rootSeg, this.document.headline(rootSeg) || root.title,
+      b,
+      1,
+      rootSeg,
+      this.document.headline(rootSeg) || node.headline || root.title,
     );
     this._writeSectionBody(b, node, rootSeg);
     this._writeChildren(b, node, rootSeg, 2);
@@ -531,10 +534,7 @@ class SpecDocumentMarkdown {
     // member name, Title-Cased like the container heading) so a populated
     // scalar list gets meaningful per-item headings (YRC5).
     const element = node.elementNode;
-    const stem =
-      element !== null && element !== undefined
-        ? SpecDocumentMarkdown.itemTitleStem(element.className)
-        : SpecDocumentMarkdown.titleCase(node.memberName || node.segment);
+    const stem = SpecDocumentMarkdown._itemStemOf(node);
     const pattern =
       node.sectionIdPattern ||
       (element !== null && element !== undefined
@@ -662,8 +662,29 @@ class SpecDocumentMarkdown {
     return out.join('\n');
   }
 
+  /**
+   * The effective DEFAULT title of `node` (YRD4): the `@Headline` default
+   * when authored, else the name derivation. The stored headline (checked by
+   * callers first) always wins over this.
+   */
   static _titleOf(node) {
-    return SpecDocumentMarkdown.titleCase(node.memberName || node.className);
+    return (
+      node.headline ||
+      SpecDocumentMarkdown.titleCase(node.memberName || node.className)
+    );
+  }
+
+  /**
+   * The effective default item-title stem of list `node` (YRD4): the element
+   * class's `@Headline` default when authored, else the DR1 §1.5 derivation
+   * (element class name with `Entry` dropped; member name for scalar lists).
+   */
+  static _itemStemOf(node) {
+    const element = node.elementNode;
+    return element !== null && element !== undefined
+      ? element.headline ||
+          SpecDocumentMarkdown.itemTitleStem(element.className)
+      : SpecDocumentMarkdown.titleCase(node.memberName || node.segment);
   }
 
   // --- Import (DR1 §1.7) ----------------------------------------------------
@@ -950,7 +971,10 @@ class _Parser {
       if (seg === id) {
         const tree = this.codec._treeFor(root.type);
         this.rootPrefixes.add(seg);
-        if (title && title !== root.title) {
+        // YRD3: stage a renamed root heading as a stored headline —
+        // "renamed" relative to the effective default (YRD4: `@Headline`
+        // default, else the `@Document` title).
+        if (title && title !== (tree.root.headline || root.title)) {
           this.headlines[seg] = title;
         }
         this._stack.push(new _Frame(level, tree.root, seg, lineNo));
@@ -989,10 +1013,7 @@ class _Parser {
     state.items.push(itemPath);
     // Stage the item heading text as a stored headline only when it differs
     // from the effective default `<stem> <n>` title (YRD3 §8.7).
-    const element = listNode.elementNode;
-    const stem = element !== null && element !== undefined
-      ? SpecDocumentMarkdown.itemTitleStem(element.className)
-      : SpecDocumentMarkdown.titleCase(listNode.memberName || listNode.segment);
+    const stem = SpecDocumentMarkdown._itemStemOf(listNode);
     if (title && title !== `${stem} ${number}`) {
       this.headlines[itemPath] = title;
     }

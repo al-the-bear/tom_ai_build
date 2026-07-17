@@ -36,6 +36,7 @@ String? somMetaNodeDiff(SomMetaNode a, SomMetaNode b, {String at = '<root>'}) {
     () => diff('contentType.description', a.contentType?.description,
         b.contentType?.description),
     () => diff('contentHelp', a.contentHelp, b.contentHelp),
+    () => diff('headline', a.headline, b.headline),
     () => diff('comment', a.comment, b.comment),
     () => diff('docComment', a.docComment, b.docComment),
     () => diff('classDocComment', a.classDocComment, b.classDocComment),

@@ -147,37 +147,37 @@ section-types:
   inburu-busi:
     prefix: INBURU_BUSI_
     pattern-check-id:
-      pattern: "^INBURU-BUSI-.+$"
+      pattern: ^INBURU-BUSI-.+$
       error-message: IDs of this section must match INBURU-BUSI-xxx
     description: Add one entry per business-rule group.
   poangu-post:
     prefix: POANGU_POST_
     pattern-check-id:
-      pattern: "^POANGU-POST-.+$"
+      pattern: ^POANGU-POST-.+$
       error-message: IDs of this section must match POANGU-POST-xxx
     description: Add one entry per postcondition/guarantee set.
   prantr-prec:
     prefix: PRANTR_PREC_
     pattern-check-id:
-      pattern: "^PRANTR-PREC-.+$"
+      pattern: ^PRANTR-PREC-.+$
       error-message: IDs of this section must match PRANTR-PREC-xxx
     description: Add one entry per precondition/trigger set.
   stanin-stak:
     prefix: STANIN_STAK_
     pattern-check-id:
-      pattern: "^STANIN-STAK-.+$"
+      pattern: ^STANIN-STAK-.+$
       error-message: IDs of this section must match STANIN-STAK-xxx
     description: Add one entry per stakeholder interest.
   tedava-vari:
     prefix: TEDAVA_VARI_
     pattern-check-id:
-      pattern: "^TEDAVA-VARI-.+$"
+      pattern: ^TEDAVA-VARI-.+$
       error-message: IDs of this section must match TEDAVA-VARI-xxx
     description: Add one entry per variation.
   etets-endt:
     prefix: ETETS_ENDT_
     pattern-check-id:
-      pattern: "^ETETS-ENDT-.+$"
+      pattern: ^ETETS-ENDT-.+$
       error-message: IDs of this section must match ETETS-ENDT-xxx
     description: 6.2.4. End-to-End Test Scenarios.
   exten-exte:
@@ -186,19 +186,19 @@ section-types:
       extst-step-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^EXTEN-EXTE-.+$"
+      pattern: ^EXTEN-EXTE-.+$
       error-message: IDs of this section must match EXTEN-EXTE-xxx
     description: Add one entry per extension flow.
   extst-step:
     prefix: EXTST_STEP_
     pattern-check-id:
-      pattern: "^EXTST-STEP-.+$"
+      pattern: ^EXTST-STEP-.+$
       error-message: IDs of this section must match EXTST-STEP-xxx
     description: Add one entry per extension step.
   mnsst-step:
     prefix: MNSST_STEP_
     pattern-check-id:
-      pattern: "^MNSST-STEP-.+$"
+      pattern: ^MNSST-STEP-.+$
       error-message: IDs of this section must match MNSST-STEP-xxx
     description: Add one entry per numbered step.
   scnry-scen:
@@ -220,7 +220,7 @@ section-types:
       scva:
         max-count: 1
     pattern-check-id:
-      pattern: "^SCNRY-SCEN-.+$"
+      pattern: ^SCNRY-SCEN-.+$
       error-message: IDs of this section must match SCNRY-SCEN-xxx
     description: Add one entry per key scenario.
   scnst-step:
@@ -231,7 +231,7 @@ section-types:
       scstenex:
         max-count: 1
     pattern-check-id:
-      pattern: "^SCNST-STEP-.+$"
+      pattern: ^SCNST-STEP-.+$
       error-message: IDs of this section must match SCNST-STEP-xxx
     description: "Add one entry per main-flow step, in order."
   acen-acto:
@@ -250,19 +250,19 @@ section-types:
       acinsu:
         max-count: 1
     pattern-check-id:
-      pattern: "^ACEN-ACTO-.+$"
+      pattern: ^ACEN-ACTO-.+$
       error-message: IDs of this section must match ACEN-ACTO-xxx
     description: Add one entry per actor.
   acgo-goal:
     prefix: ACGO_GOAL_
     pattern-check-id:
-      pattern: "^ACGO-GOAL-.+$"
+      pattern: ^ACGO-GOAL-.+$
       error-message: IDs of this section must match ACGO-GOAL-xxx
     description: Add one entry per actor goal.
   acpe-perm:
     prefix: ACPE_PERM_
     pattern-check-id:
-      pattern: "^ACPE-PERM-.+$"
+      pattern: ^ACPE-PERM-.+$
       error-message: IDs of this section must match ACPE-PERM-xxx
     description: Add one entry per actor permission set.
   alfl-alte:
@@ -271,13 +271,13 @@ section-types:
       alst-step-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^ALFL-ALTE-.+$"
+      pattern: ^ALFL-ALTE-.+$
       error-message: IDs of this section must match ALFL-ALTE-xxx
     description: Add one entry per alternative or exception flow.
   alst-step:
     prefix: ALST_STEP_
     pattern-check-id:
-      pattern: "^ALST-STEP-.+$"
+      pattern: ^ALST-STEP-.+$
       error-message: IDs of this section must match ALST-STEP-xxx
     description: "Add one entry per step of this alternative flow, in order."
   inen-inte:
@@ -310,7 +310,7 @@ section-types:
       intr:
         max-count: 1
     pattern-check-id:
-      pattern: "^INEN-INTE-.+$"
+      pattern: ^INEN-INTE-.+$
       error-message: IDs of this section must match INEN-INTE-xxx
     description: Add one entry per interaction.
   scstenex:

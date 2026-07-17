@@ -102,6 +102,10 @@ public final class SpecMetaDiff {
     if (!d.isEmpty()) {
       return d;
     }
+    d = diff(at, "headline", a.headline, b.headline);
+    if (!d.isEmpty()) {
+      return d;
+    }
     d = diff(at, "comment", a.comment, b.comment);
     if (!d.isEmpty()) {
       return d;

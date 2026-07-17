@@ -730,10 +730,34 @@ static void effective_children(MdCodec *c, const SomMetaNode *node,
 /* Export                                                                    */
 /* ======================================================================== */
 
+/* The effective DEFAULT title of `node` (YRD4): the `@Headline` default when
+   authored, else the name derivation. The stored headline (checked by callers
+   first) always wins over this. Owned result. */
 static char *md_title_of(const SomMetaNode *node) {
+  if (node->headline[0] != '\0') {
+    return som_strdup(node->headline);
+  }
   const char *name =
       node->member_name[0] != '\0' ? node->member_name : node->class_name;
   return spec_markdown_title_case(name);
+}
+
+/* The effective default item-title stem of list `node` (YRD4): the element
+   class's `@Headline` default when authored, else the DR1 §1.5 derivation
+   (element class name with `Entry` dropped; member name for scalar lists).
+   Owned result. */
+static char *md_item_stem_of(const SomMetaNode *node) {
+  const SomMetaNode *element = node->element_node;
+  if (element != NULL) {
+    if (element->headline[0] != '\0') {
+      return som_strdup(element->headline);
+    }
+    return spec_markdown_item_title_stem(element->class_name);
+  }
+  const char *member = node->member_name[0] != '\0'
+                           ? node->member_name
+                           : som_meta_node_segment(node);
+  return spec_markdown_title_case(member);
 }
 
 /* headingTitle: resolves the heading title for a node at `path` — the
@@ -943,18 +967,10 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
      its element type_name is literally `String`, which would render
      "String 1", "String 2". Derive the stem from the list FIELD instead (its
      member name, Title-Cased like the container heading) so a populated scalar
-     list gets meaningful per-item headings (YRC5). Both branches return an
-     owned buffer freed once below. */
+     list gets meaningful per-item headings (YRC5). An element-class @Headline
+     default wins over both derivations (YRD4). Owned buffer freed once below. */
   const SomMetaNode *element = node->element_node;
-  char *stem;
-  if (element != NULL) {
-    stem = spec_markdown_item_title_stem(element->class_name);
-  } else {
-    const char *stem_member = node->member_name[0] != '\0'
-                                  ? node->member_name
-                                  : som_meta_node_segment(node);
-    stem = spec_markdown_title_case(stem_member);
-  }
+  char *stem = md_item_stem_of(node);
   const char *pattern = node->section_id_pattern;
   if (pattern[0] == '\0' && element != NULL) {
     pattern = element->section_id_pattern;
@@ -1109,12 +1125,14 @@ static char *export_root_impl(MdCodec *c, const SpecRoot *root, char **err) {
   free(kebab);
   free(version);
   const char *root_seg = som_meta_node_segment(node);
-  /* YRD3: a stored headline at the root path overrides the root title. */
+  /* YRD3: a stored headline at the root path overrides the root title; the
+     root class's @Headline default (YRD4) sits between the two. */
   const char *root_headline = spec_document_headline(c->document, root_seg);
   md_write_heading(&b, 1, root_seg,
                    (root_headline != NULL && root_headline[0] != '\0')
                        ? root_headline
-                       : root->title);
+                       : (node->headline[0] != '\0' ? node->headline
+                                                    : root->title));
   if (!write_section_body(c, &b, node, root_seg, err)) {
     som_buf_free(&b);
     return NULL;
@@ -1660,16 +1678,7 @@ static void parser_open_item(MdParser *p, int level, const char *list_path,
   /* YRD3 §8.7: stage the heading title as a stored headline only when it
      differs from the effective default "<stem> <n>". */
   if (title != NULL && title[0] != '\0') {
-    const SomMetaNode *element = list_node->element_node;
-    char *stem;
-    if (element != NULL) {
-      stem = spec_markdown_item_title_stem(element->class_name);
-    } else {
-      const char *member = list_node->member_name[0] != '\0'
-                               ? list_node->member_name
-                               : som_meta_node_segment(list_node);
-      stem = spec_markdown_title_case(member);
-    }
+    char *stem = md_item_stem_of(list_node);
     char *deflt = vcat3(stem, " ", num);
     if (strcmp(title, deflt) != 0) {
       som_map_set(&p->staged.headlines, item_path, title);
@@ -1962,9 +1971,13 @@ static void parser_open_root(MdParser *p, int level, const char *id,
       }
       root_prefix_insert(p, seg);
       /* YRD3 §8.7: stage the root heading title as a stored headline only
-         when it differs from the root's declared title. */
+         when it differs from the effective default (YRD4: `@Headline`
+         default, else the root's declared title). */
+      const char *root_default = tree->root->headline[0] != '\0'
+                                     ? tree->root->headline
+                                     : root->title;
       if (title != NULL && title[0] != '\0' &&
-          strcmp(title, root->title) != 0) {
+          strcmp(title, root_default) != 0) {
         som_map_set(&p->staged.headlines, seg, title);
       }
       parser_push_frame(p, level, tree->root, som_strdup(seg), line, 0);

@@ -70,10 +70,14 @@ type FormFieldSpec struct {
 
 // SpecField is a single field of a SpecClass.
 type SpecField struct {
-	Name               string            `json:"name"`
-	Kind               string            `json:"kind"`
-	Doc                string            `json:"doc"`
-	Help               string            `json:"help"`
+	Name string `json:"name"`
+	Kind string `json:"kind"`
+	Doc  string `json:"doc"`
+	Help string `json:"help"`
+	// Headline is the `@Headline(text)` default headline (YRD4), "" when
+	// unannotated. Render precedence: stored headline > this default > name
+	// derivation.
+	Headline           string            `json:"headline"`
 	SectionID          string            `json:"sectionId"`
 	SectionIDPattern   string            `json:"sectionIdPattern"`
 	SerializationOrder *int              `json:"serializationOrder"`
@@ -106,10 +110,14 @@ func (f *SpecField) Annotation(name string) *SpecAnnotation {
 
 // SpecClass is a model class with its fields.
 type SpecClass struct {
-	Name        string            `json:"name"`
-	SectionID   string            `json:"sectionId"`
-	Doc         string            `json:"doc"`
-	Help        string            `json:"help"`
+	Name      string `json:"name"`
+	SectionID string `json:"sectionId"`
+	Doc       string `json:"doc"`
+	Help      string `json:"help"`
+	// Headline is the class-level `@Headline(text)` default headline (YRD4),
+	// "" when unannotated. A field-level `@Headline` on the instantiating
+	// field wins over this.
+	Headline    string            `json:"headline"`
 	MapsTo      string            `json:"mapsTo"`
 	DetailedIn  string            `json:"detailedIn"`
 	Fields      []*SpecField      `json:"fields"`

@@ -618,7 +618,11 @@ impl<'a> SpecDocumentMarkdown<'a> {
         ));
         let root_seg = node.segment().to_string();
         // YRD3: a stored headline overrides the derived title at every heading.
+        // YRD4: the `@Headline` default wins over the `@Document` title.
         let mut root_title = self.document.headline_or(&root_seg);
+        if root_title.is_empty() {
+            root_title = node.headline.clone();
+        }
         if root_title.is_empty() {
             root_title = root.title.clone();
         }
@@ -748,17 +752,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
         // FIELD instead (its member name, Title-Cased like the container
         // heading) so a populated scalar list gets meaningful headings (YRC5).
         let element = node.element_node.as_ref();
-        let stem = match element {
-            Some(e) => spec_markdown_item_title_stem(&e.class_name),
-            None => {
-                let member = if node.member_name.is_empty() {
-                    node.segment().to_string()
-                } else {
-                    node.member_name.clone()
-                };
-                spec_markdown_title_case(&member)
-            }
-        };
+        let stem = md_item_stem_of(node);
         let mut pattern = node.section_id_pattern.clone();
         if pattern.is_empty() {
             if let Some(e) = element {
@@ -915,13 +909,42 @@ fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str) {
     b.writeln("");
 }
 
+/// The effective DEFAULT title of `node` (YRD4): the `@Headline` default when
+/// authored, else the name derivation. The stored headline (checked by
+/// callers first) always wins over this.
 fn md_title_of(node: &SomMetaNode) -> String {
+    if !node.headline.is_empty() {
+        return node.headline.clone();
+    }
     let name = if node.member_name.is_empty() {
         &node.class_name
     } else {
         &node.member_name
     };
     spec_markdown_title_case(name)
+}
+
+/// The effective default item-title stem of list `node` (YRD4): the element
+/// class's `@Headline` default when authored, else the DR1 §1.5 derivation
+/// (element class name with `Entry` dropped; member name for scalar lists).
+fn md_item_stem_of(node: &SomMetaNode) -> String {
+    match node.element_node.as_ref() {
+        Some(e) => {
+            if !e.headline.is_empty() {
+                e.headline.clone()
+            } else {
+                spec_markdown_item_title_stem(&e.class_name)
+            }
+        }
+        None => {
+            let member = if node.member_name.is_empty() {
+                node.segment().to_string()
+            } else {
+                node.member_name.clone()
+            };
+            spec_markdown_title_case(&member)
+        }
+    }
 }
 
 // --- Naming helpers (DR1 §1.2 / §1.5) ------------------------------------------
@@ -1217,8 +1240,14 @@ position (under \"{}\")",
                     Err(_) => break,
                 };
                 // Stage a stored headline when the root title differs from
-                // the model's document title (YRD3 §8.7).
-                if !title.is_empty() && title != root.title {
+                // the effective default (YRD3 §8.7): the `@Headline` default
+                // (YRD4), else the model's document title.
+                let default_title = if tree.root.headline.is_empty() {
+                    root.title.as_str()
+                } else {
+                    tree.root.headline.as_str()
+                };
+                if !title.is_empty() && title != default_title {
                     self.headlines.insert(seg.to_string(), title.to_string());
                 }
                 self.root_prefixes.insert(seg.to_string());
@@ -1340,17 +1369,7 @@ position (under \"{}\")",
         }
         // Stage the heading title as a stored headline only when it differs
         // from the derived `<stem> <n>` default (YRD3 §8.7).
-        let stem = match list_node.element_node.as_ref() {
-            Some(e) => spec_markdown_item_title_stem(&e.class_name),
-            None => {
-                let member = if list_node.member_name.is_empty() {
-                    list_node.segment().to_string()
-                } else {
-                    list_node.member_name.clone()
-                };
-                spec_markdown_title_case(&member)
-            }
-        };
+        let stem = md_item_stem_of(&list_node);
         if !title.is_empty() && title != format!("{} {}", stem, number) {
             self.headlines.insert(item_path.clone(), title.to_string());
         }

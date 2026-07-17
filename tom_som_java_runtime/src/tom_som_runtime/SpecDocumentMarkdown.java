@@ -328,7 +328,11 @@ public final class SpecDocumentMarkdown {
         + model.modelVersionString() + " -->");
     String rootSeg = node.segment();
     // YRD3: a stored headline overrides the derived title at every heading.
+    // YRD4: the @Headline default wins over the @Document title.
     String rootTitle = document.headline(rootSeg);
+    if (rootTitle == null || rootTitle.isEmpty()) {
+      rootTitle = node.headline;
+    }
     if (rootTitle == null || rootTitle.isEmpty()) {
       rootTitle = root.title;
     }
@@ -419,16 +423,7 @@ public final class SpecDocumentMarkdown {
     // member name, Title-Cased like the container heading) so a populated
     // scalar list gets meaningful per-item headings (YRC5).
     SomMetaNode element = node.elementNode;
-    String stem;
-    if (element != null) {
-      stem = itemTitleStem(element.className);
-    } else {
-      String stemMember = node.memberName;
-      if (stemMember == null || stemMember.isEmpty()) {
-        stemMember = node.segment();
-      }
-      stem = titleCase(stemMember);
-    }
+    String stem = itemStemOf(node);
     String pattern = node.sectionIdPattern;
     if ((pattern == null || pattern.isEmpty()) && element != null) {
       pattern = element.sectionIdPattern;
@@ -577,12 +572,41 @@ public final class SpecDocumentMarkdown {
     return titleOf(node);
   }
 
+  /**
+   * The effective DEFAULT title of {@code node} (YRD4): the {@code @Headline}
+   * default when authored, else the name derivation. The stored headline
+   * (checked by callers first) always wins over this.
+   */
   private static String titleOf(SomMetaNode node) {
+    if (node.headline != null && !node.headline.isEmpty()) {
+      return node.headline;
+    }
     String name = node.memberName;
     if (name == null || name.isEmpty()) {
       name = node.className;
     }
     return titleCase(name);
+  }
+
+  /**
+   * The effective default item-title stem of list {@code node} (YRD4): the
+   * element class's {@code @Headline} default when authored, else the DR1 §1.5
+   * derivation (element class name with {@code Entry} dropped; member name for
+   * scalar lists).
+   */
+  private static String itemStemOf(SomMetaNode node) {
+    SomMetaNode element = node.elementNode;
+    if (element != null) {
+      if (element.headline != null && !element.headline.isEmpty()) {
+        return element.headline;
+      }
+      return itemTitleStem(element.className);
+    }
+    String member = node.memberName;
+    if (member == null || member.isEmpty()) {
+      member = node.segment();
+    }
+    return titleCase(member);
   }
 
   private static void writeln(StringBuilder b, String text) {
@@ -863,8 +887,12 @@ public final class SpecDocumentMarkdown {
           }
           rootPrefixes.add(seg);
           // Stage the root heading text as a stored headline when it differs
-          // from the document title (YRD3 §8.7).
-          if (!title.isEmpty() && !title.equals(root.title)) {
+          // from the effective default (YRD3 §8.7): the @Headline default
+          // (YRD4), else the document title.
+          String defaultTitle = tree.root.headline != null && !tree.root.headline.isEmpty()
+              ? tree.root.headline
+              : root.title;
+          if (!title.isEmpty() && !title.equals(defaultTitle)) {
             headlines.put(seg, title);
           }
           stack.add(new MdFrame(level, tree.root, seg, lineNo, false));
@@ -912,17 +940,7 @@ public final class SpecDocumentMarkdown {
       }
       // Stage the item heading text as a stored headline when it differs from
       // the derived `<stem> <n>` default (YRD3 §8.7).
-      SomMetaNode element = listNode.elementNode;
-      String stem;
-      if (element != null) {
-        stem = itemTitleStem(element.className);
-      } else {
-        String stemMember = listNode.memberName;
-        if (stemMember == null || stemMember.isEmpty()) {
-          stemMember = listNode.segment();
-        }
-        stem = titleCase(stemMember);
-      }
+      String stem = itemStemOf(listNode);
       if (!title.isEmpty() && !title.equals(stem + " " + number)) {
         headlines.put(itemPath, title);
       }
