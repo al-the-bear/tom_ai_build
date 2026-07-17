@@ -57,7 +57,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t4');
+  out.add('FORMAT\t5');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -164,6 +164,34 @@ void main(List<String> args) {
     out.add('TI\t$leaf\t${esc(elem.content)}');
   }
 
+  // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
+  // (`requirementId`) and title-role (`title`) fields are pure views onto the
+  // owning list item's stored section id / headline. Each typed read is
+  // asserted against the generic itemSectionId/headline read before emission,
+  // proving the view binding end-to-end in every language. ---
+  final freReqs =
+      sbp.introductionAndScope.requirements.functionalRequirements.requirements;
+  for (var i = 0; i < freReqs.length; i++) {
+    final req = freReqs[i];
+    final itemPath = req.path;
+    final typedId = req.content.requirementId;
+    final typedTitle = req.content.title;
+    final genericId = doc.itemSectionId(itemPath) ?? '';
+    final genericTitle = doc.headline(itemPath) ?? '';
+    if (typedId != genericId) {
+      stderr.writeln('TYPED ID-ROLE MISMATCH at $itemPath: '
+          'typed="$typedId" generic="$genericId"');
+      exit(2);
+    }
+    if (typedTitle != genericTitle) {
+      stderr.writeln('TYPED TITLE-ROLE MISMATCH at $itemPath: '
+          'typed="$typedTitle" generic="$genericTitle"');
+      exit(2);
+    }
+    out.add('TR\t$itemPath\trequirementId\t${esc(typedId)}');
+    out.add('TR\t$itemPath\ttitle\t${esc(typedTitle)}');
+  }
+
   // --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
   // path and every emitted field is model-derived, so the lines are byte-
   // identical across all nine languages even though the accessor *names* and
@@ -197,6 +225,35 @@ void main(List<String> args) {
   metaNode('SBP/currentLandscape/CUOPME-OPER-LST');
   metaNode('SBP/requirements');
   metaNode('SBP/requirements/content');
+
+  // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+  // read through the metadata tree — one MF line per field (declaration
+  // order) with type/required/role/initial, plus one MT summary line naming
+  // the form's title-role and id-role fields via the titleField/idField
+  // accessors. All values are model-derived. ---
+  out.add('SECTION\tmeta-form');
+  const freListPath =
+      'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST';
+  final freListNode = metaTree.byPath(freListPath);
+  final freElement = freListNode?.elementNode;
+  SomMetaNode? freContentNode;
+  for (final child in freElement?.children ?? const <SomMetaNode>[]) {
+    if (child.memberName == 'content') freContentNode = child;
+  }
+  final freForm = freContentNode?.form;
+  if (freForm == null) {
+    stderr.writeln('META FORM MISSING at $freListPath element content');
+    exit(3);
+  }
+  // Element subtrees have no static document path; use an ASCII marker
+  // segment so the log path stays ASCII (mirrored verbatim per language).
+  const freFormPath = '$freListPath/#element/content';
+  for (final f in freForm.fields) {
+    out.add('MF\t$freFormPath\t${esc(f.name)}\t${esc(f.typeName)}\t'
+        '${f.required ? 1 : 0}\t${esc(f.role ?? '')}\t${esc(f.initial ?? '')}');
+  }
+  out.add('MT\t$freFormPath\t${esc(freForm.titleField?.name ?? '')}\t'
+      '${esc(freForm.idField?.name ?? '')}');
 
   // Dot-notation navigation: the typed nav accessors must resolve to exactly
   // the path byPath finds, and to the *same* node instance. The emitted line

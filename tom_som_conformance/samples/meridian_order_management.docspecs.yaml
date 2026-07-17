@@ -83,12 +83,8 @@ document:
           FRE-REQU-LST requirements:
             FRE-REQU-ORDER-CAPTURE:
               headline: |2-
-                FR-01 — Capture Orders from EDI and REST
+                FR-01 — Capture orders from EDI and REST channels
               content:
-                requirementId: |2-
-                  FR-01
-                title: |2-
-                  Capture orders from EDI and REST channels
                 status: |2-
                   Approved
               FRED details:
@@ -163,12 +159,10 @@ document:
                         Must
                       status: |2-
                         Draft
-            FRE-REQU-2:
+            FRE-REQU-SYNC-PRICING:
+              headline: |2-
+                FR-02 — Price orders synchronously at capture time
               content:
-                requirementId: |2-
-                  FR-02
-                title: |2-
-                  Price orders synchronously at capture time
                 status: |2-
                   Approved
               FRED details:
@@ -212,12 +206,10 @@ document:
                         Must
                       status: |2-
                         Draft
-            FRE-REQU-3:
+            FRE-REQU-STOCK-RESERVATION:
+              headline: |2-
+                FR-03 — Reserve stock before confirmation
               content:
-                requirementId: |2-
-                  FR-03
-                title: |2-
-                  Reserve stock before confirmation
                 status: |2-
                   Approved
               FRED details:
@@ -278,12 +270,10 @@ document:
                         Must
                       status: |2-
                         Draft
-            FRE-REQU-4:
+            FRE-REQU-CONFIRM-SLA:
+              headline: |2-
+                FR-04 — Confirm orders within five minutes
               content:
-                requirementId: |2-
-                  FR-04
-                title: |2-
-                  Confirm orders within five minutes
                 status: |2-
                   Approved
               FRED details:
@@ -344,12 +334,10 @@ document:
                         Must
                       status: |2-
                         Draft
-            FRE-REQU-5:
+            FRE-REQU-AMEND-CANCEL:
+              headline: |2-
+                FR-05 — Amend or cancel an order before dispatch
               content:
-                requirementId: |2-
-                  FR-05
-                title: |2-
-                  Amend or cancel an order before dispatch
                 status: |2-
                   Approved
               FRED details:
@@ -410,12 +398,10 @@ document:
                         Must
                       status: |2-
                         Draft
-            FRE-REQU-6:
+            FRE-REQU-HOLD-RELEASE:
+              headline: |2-
+                FR-06 — Release a manual hold
               content:
-                requirementId: |2-
-                  FR-06
-                title: |2-
-                  Release a manual hold
                 status: |2-
                   Approved
               FRED details:

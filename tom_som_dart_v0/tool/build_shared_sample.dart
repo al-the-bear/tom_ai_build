@@ -254,16 +254,14 @@ parallel-run gate passes.''');
   // override.
   _normalizeListItemIds(doc, d00SolutionBlueprintMetaTree);
 
-  // YRD3: exercise stored headlines + stored (non-positional) item section
-  // ids in the committed sample. The first functional requirement carries a
-  // semantic stored id and a real headline; the Functional Requirements fixed
-  // section carries a renamed headline. Both must round-trip byte-identically
-  // through md and yaml in every runtime.
+  // YRD3/YRD6: stored headlines + stored item section ids in the committed
+  // sample. Since YRD6 the requirement entries' stored ids and headlines are
+  // authored through their id/title ROLE fields above (`requirementId` /
+  // `title` write straight into the YRD3 stores), so no per-item override is
+  // needed here any more. The Functional Requirements fixed section keeps its
+  // renamed headline as the fixed-section stored-headline fixture.
   final freList =
       doc.listPaths.singleWhere((p) => p.endsWith('/FRE-REQU-LST'));
-  final firstReq = doc.listItems(freList).first;
-  doc.setItemSectionId(firstReq, 'FRE-REQU-ORDER-CAPTURE');
-  doc.setHeadline(firstReq, 'FR-01 — Capture Orders from EDI and REST');
   final frSection = freList.substring(0, freList.lastIndexOf('/'));
   doc.setHeadline(frSection, 'Functional Requirements (FR)');
 
@@ -330,6 +328,14 @@ void _normalizeListItemIds(SpecDocument doc, SomMetaTree tree) {
     final node = tree.byPath(listPath);
     final pattern = node?.sectionIdPattern ?? node?.elementNode?.sectionIdPattern;
     if (pattern == null) continue;
+    // YRD6: a list whose element's own form declares an id-role field authors
+    // its stored ids THROUGH that field (e.g. `requirementId` → `FR-01`).
+    // Those ids are semantic and already deterministic — renumbering them
+    // would destroy the authored values, so such lists are exempt.
+    final element = node?.elementNode;
+    final hasIdRole = element != null &&
+        element.children.any((c) => c.form?.idField != null);
+    if (hasIdRole) continue;
     final items = doc.listItems(listPath);
     for (var i = 0; i < items.length; i++) {
       doc.setItemSectionId(items[i], pattern.replaceAll('xxx', '${i + 1}'));
@@ -356,8 +362,11 @@ every downstream artifact traces back to a requirement.''');
 
   final fr1 = fr.add();
   fr1.content
-    ..requirementId = 'FR-01'
-    ..title = 'Capture orders from EDI and REST channels'
+    // YRD6: id-role values are stored section ids and must keep the
+    // @SectionIdPattern stem (FRE-REQU-) to stay DR3-schema-valid; the human
+    // FR-nn code lives in the title (= section headline).
+    ..requirementId = 'FRE-REQU-ORDER-CAPTURE'
+    ..title = 'FR-01 — Capture orders from EDI and REST channels'
     ..status = 'Approved';
   fr1.details
     ..description = _p('''
@@ -392,8 +401,8 @@ so downstream processing is channel-agnostic.''')
 
   final fr2 = fr.add();
   fr2.content
-    ..requirementId = 'FR-02'
-    ..title = 'Price orders synchronously at capture time'
+    ..requirementId = 'FRE-REQU-SYNC-PRICING'
+    ..title = 'FR-02 — Price orders synchronously at capture time'
     ..status = 'Approved';
   fr2.details
     ..description = _p('''
@@ -417,8 +426,8 @@ making historical orders reproducible.''')
 
   final fr3 = fr.add();
   fr3.content
-    ..requirementId = 'FR-03'
-    ..title = 'Reserve stock before confirmation'
+    ..requirementId = 'FRE-REQU-STOCK-RESERVATION'
+    ..title = 'FR-03 — Reserve stock before confirmation'
     ..status = 'Approved';
   fr3.details
     ..description = _p('''
@@ -445,8 +454,8 @@ whole order.''')
 
   final fr4 = fr.add();
   fr4.content
-    ..requirementId = 'FR-04'
-    ..title = 'Confirm orders within five minutes'
+    ..requirementId = 'FRE-REQU-CONFIRM-SLA'
+    ..title = 'FR-04 — Confirm orders within five minutes'
     ..status = 'Approved';
   fr4.details
     ..description = _p('''
@@ -473,8 +482,8 @@ the operations work list and the public tracking page.''')
 
   final fr5 = fr.add();
   fr5.content
-    ..requirementId = 'FR-05'
-    ..title = 'Amend or cancel an order before dispatch'
+    ..requirementId = 'FRE-REQU-AMEND-CANCEL'
+    ..title = 'FR-05 — Amend or cancel an order before dispatch'
     ..status = 'Approved';
   fr5.details
     ..description = _p('''
@@ -501,8 +510,8 @@ for the affected lines and is fully audited.''')
 
   final fr6 = fr.add();
   fr6.content
-    ..requirementId = 'FR-06'
-    ..title = 'Release a manual hold'
+    ..requirementId = 'FRE-REQU-HOLD-RELEASE'
+    ..title = 'FR-06 — Release a manual hold'
     ..status = 'Approved';
   fr6.details
     ..description = _p('''

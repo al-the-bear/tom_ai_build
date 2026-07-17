@@ -64,7 +64,7 @@ Select an order and review its lifecycle timeline.
 
 Release holds, amend lines, or confirm as the order allows.
 
-### <!--[GOALS]--> Goals
+### <!--[GOALS]--> Project Goals
 
 Primary goals:
 
@@ -92,10 +92,8 @@ every downstream artifact traces back to a requirement.
 
 ##### <!--[FRE-REQU-LST]--> Requirements
 
-###### <!--[FRE-REQU-ORDER-CAPTURE]--> FR-01 — Capture Orders from EDI and REST
+###### <!--[FRE-REQU-ORDER-CAPTURE]--> FR-01 — Capture orders from EDI and REST channels
 
-RequirementId: FR-01
-Title: Capture orders from EDI and REST channels
 Status: Approved
 
 ####### <!--[FRED]--> Details
@@ -151,10 +149,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-###### <!--[FRE-REQU-2]--> Functional Requirement 2
+###### <!--[FRE-REQU-SYNC-PRICING]--> FR-02 — Price orders synchronously at capture time
 
-RequirementId: FR-02
-Title: Price orders synchronously at capture time
 Status: Approved
 
 ####### <!--[FRED]--> Details
@@ -190,10 +186,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-###### <!--[FRE-REQU-3]--> Functional Requirement 3
+###### <!--[FRE-REQU-STOCK-RESERVATION]--> FR-03 — Reserve stock before confirmation
 
-RequirementId: FR-03
-Title: Reserve stock before confirmation
 Status: Approved
 
 ####### <!--[FRED]--> Details
@@ -237,10 +231,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-###### <!--[FRE-REQU-4]--> Functional Requirement 4
+###### <!--[FRE-REQU-CONFIRM-SLA]--> FR-04 — Confirm orders within five minutes
 
-RequirementId: FR-04
-Title: Confirm orders within five minutes
 Status: Approved
 
 ####### <!--[FRED]--> Details
@@ -284,10 +276,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-###### <!--[FRE-REQU-5]--> Functional Requirement 5
+###### <!--[FRE-REQU-AMEND-CANCEL]--> FR-05 — Amend or cancel an order before dispatch
 
-RequirementId: FR-05
-Title: Amend or cancel an order before dispatch
 Status: Approved
 
 ####### <!--[FRED]--> Details
@@ -331,10 +321,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-###### <!--[FRE-REQU-6]--> Functional Requirement 6
+###### <!--[FRE-REQU-HOLD-RELEASE]--> FR-06 — Release a manual hold
 
-RequirementId: FR-06
-Title: Release a manual hold
 Status: Approved
 
 ####### <!--[FRED]--> Details

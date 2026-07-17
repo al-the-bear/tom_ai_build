@@ -106848,14 +106848,16 @@
               "label": "Requirement ID (unique, e.g., REQ-F001)",
               "hint": "Unique requirement identifier, e.g. REQ-F001",
               "type": "String",
-              "required": true
+              "required": true,
+              "role": "id"
             },
             {
               "name": "title",
               "label": "Title (concise statement)",
               "hint": "Concise one-line statement of the requirement",
               "type": "String",
-              "required": true
+              "required": true,
+              "role": "title"
             },
             {
               "name": "status",

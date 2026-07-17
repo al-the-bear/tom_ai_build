@@ -20610,7 +20610,7 @@ List<SomMetaNode> _mc$FunctionalRequirementEntry(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'requirementId', typeName: 'String', description: 'Requirement ID (unique, e.g., REQ-F001)', required: true, hint: 'Unique requirement identifier, e.g. REQ-F001', order: 0), SomFormFieldMeta(name: 'title', typeName: 'String', description: 'Title (concise statement)', required: true, hint: 'Concise one-line statement of the requirement', order: 1), SomFormFieldMeta(name: 'status', typeName: 'String', description: 'Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)', required: true, hint: 'Draft, Proposed, Approved, Implemented, Verified, or Deferred', order: 2)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'requirementId', typeName: 'String', description: 'Requirement ID (unique, e.g., REQ-F001)', required: true, hint: 'Unique requirement identifier, e.g. REQ-F001', role: 'id', order: 0), SomFormFieldMeta(name: 'title', typeName: 'String', description: 'Title (concise statement)', required: true, hint: 'Concise one-line statement of the requirement', role: 'title', order: 1), SomFormFieldMeta(name: 'status', typeName: 'String', description: 'Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)', required: true, hint: 'Draft, Proposed, Approved, Implemented, Verified, or Deferred', order: 2)])),
        SomMetaNode(
           className: 'FunctionalRequirementEntry',
           memberName: 'details',
