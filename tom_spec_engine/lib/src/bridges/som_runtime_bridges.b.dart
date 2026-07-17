@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-07-14T19:48:12.641297
+// Generated: 2026-07-17T06:44:00.085016
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1175,10 +1175,13 @@ BridgedClass _createSomNodeBridge() {
       'isEmpty': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').isEmpty,
       'canHaveContent': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').canHaveContent,
       '\$sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$sectionId,
+      '\$headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$headline,
     },
     setters: {
       '\$sectionId': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$sectionId = D4.extractBridgedArgOrNull<String>(value, '\$sectionId'),
+      '\$headline': (visitor, target, value) => 
+        D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$headline = D4.extractBridgedArgOrNull<String>(value, '\$headline'),
     },
     getterSignatures: {
       'doc': 'SpecDocument get doc',
@@ -1186,9 +1189,11 @@ BridgedClass _createSomNodeBridge() {
       'isEmpty': 'bool get isEmpty',
       'canHaveContent': 'bool get canHaveContent',
       '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
     },
     setterSignatures: {
       '\$sectionId': 'set \$sectionId(String? value)',
+      '\$headline': 'set \$headline(String? value)',
     },
   );
 }
@@ -1217,11 +1222,14 @@ BridgedClass _createSomScalarBridge() {
       'isEmpty': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').isEmpty,
       'canHaveContent': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').canHaveContent,
       '\$sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$sectionId,
+      '\$headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$headline,
       'value': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').value,
     },
     setters: {
       '\$sectionId': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$sectionId = D4.extractBridgedArgOrNull<String>(value, '\$sectionId'),
+      '\$headline': (visitor, target, value) => 
+        D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$headline = D4.extractBridgedArgOrNull<String>(value, '\$headline'),
       'value': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').value = D4.extractBridgedArg<String>(value, 'value'),
     },
@@ -1234,10 +1242,12 @@ BridgedClass _createSomScalarBridge() {
       'isEmpty': 'bool get isEmpty',
       'canHaveContent': 'bool get canHaveContent',
       '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
       'value': 'String get value',
     },
     setterSignatures: {
       '\$sectionId': 'set \$sectionId(String? value)',
+      '\$headline': 'set \$headline(String? value)',
       'value': 'set value(String value)',
     },
   );
@@ -1376,6 +1386,7 @@ BridgedClass _createSpecDocumentBridge() {
     },
     getters: {
       'modelVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').modelVersion,
+      'headlinePaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').headlinePaths,
       'isEmpty': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').isEmpty,
       'contentPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').contentPaths,
       'formPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').formPaths,
@@ -1411,6 +1422,20 @@ BridgedClass _createSpecDocumentBridge() {
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setContent');
         final value = D4.getRequiredArg<String>(positional, 1, 'value', 'setContent');
         t.setContent(path, value);
+        return null;
+      },
+      'headline': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument');
+        D4.requireMinArgs(positional, 1, 'headline');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'headline');
+        return t.headline(path);
+      },
+      'setHeadline': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument');
+        D4.requireMinArgs(positional, 2, 'setHeadline');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setHeadline');
+        final value = D4.getRequiredArg<String>(positional, 1, 'value', 'setHeadline');
+        t.setHeadline(path, value);
         return null;
       },
       'formField': (visitor, target, positional, named, typeArgs) {
@@ -1531,6 +1556,8 @@ BridgedClass _createSpecDocumentBridge() {
       'content': 'String? content(String path)',
       'hasContent': 'bool hasContent(String path)',
       'setContent': 'void setContent(String path, String value)',
+      'headline': 'String? headline(String path)',
+      'setHeadline': 'void setHeadline(String path, String value)',
       'formField': 'String? formField(String path, String field)',
       'setFormField': 'void setFormField(String path, String field, String value)',
       'listItems': 'List<String> listItems(String listPath)',
@@ -1549,6 +1576,7 @@ BridgedClass _createSpecDocumentBridge() {
     },
     getterSignatures: {
       'modelVersion': 'String? get modelVersion',
+      'headlinePaths': 'Iterable<String> get headlinePaths',
       'isEmpty': 'bool get isEmpty',
       'contentPaths': 'Iterable<String> get contentPaths',
       'formPaths': 'Iterable<String> get formPaths',
@@ -1679,25 +1707,30 @@ BridgedClass _createSpecMarkdownResultBridge() {
           throw ArgumentError('SpecMarkdownResult: Missing required named argument "rootPrefixes"');
         }
         final rootPrefixes = D4.coerceSet<String>(named['rootPrefixes'], 'rootPrefixes');
-        return $tom_som_dart_runtime_4.SpecMarkdownResult(content: content, forms: forms, lists: lists, rejections: rejections, rootPrefixes: rootPrefixes);
+        final headlines = named.containsKey('headlines') && named['headlines'] != null
+            ? D4.coerceMap<String, String>(named['headlines'], 'headlines')
+            : const <String, String>{};
+        return $tom_som_dart_runtime_4.SpecMarkdownResult(content: content, forms: forms, lists: lists, rejections: rejections, rootPrefixes: rootPrefixes, headlines: headlines);
       },
     },
     getters: {
       'content': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').content,
       'forms': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').forms,
       'lists': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').lists,
+      'headlines': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').headlines,
       'rejections': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').rejections,
       'rootPrefixes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').rootPrefixes,
       'isClean': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').isClean,
       'appliedCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').appliedCount,
     },
     constructorSignatures: {
-      '': 'SpecMarkdownResult({required Map<String, String> content, required Map<String, Map<String, String>> forms, required Map<String, Map<String, Object?>> lists, required List<SpecMarkdownRejection> rejections, required Set<String> rootPrefixes})',
+      '': 'SpecMarkdownResult({required Map<String, String> content, required Map<String, Map<String, String>> forms, required Map<String, Map<String, Object?>> lists, required List<SpecMarkdownRejection> rejections, required Set<String> rootPrefixes, Map<String, String> headlines = const {}})',
     },
     getterSignatures: {
       'content': 'Map<String, String> get content',
       'forms': 'Map<String, Map<String, String>> get forms',
       'lists': 'Map<String, Map<String, Object?>> get lists',
+      'headlines': 'Map<String, String> get headlines',
       'rejections': 'List<SpecMarkdownRejection> get rejections',
       'rootPrefixes': 'Set<String> get rootPrefixes',
       'isClean': 'bool get isClean',
@@ -2210,6 +2243,7 @@ BridgedClass _createSomMetaNodeBridge() {
         final className = D4.getRequiredNamedArg<String>(named, 'className', 'SomMetaNode');
         final memberName = D4.getOptionalNamedArg<String?>(named, 'memberName');
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
+        final classSectionId = D4.getOptionalNamedArg<String?>(named, 'classSectionId');
         final sectionIdPattern = D4.getOptionalNamedArg<String?>(named, 'sectionIdPattern');
         final kind = D4.getRequiredNamedArg<$tom_som_dart_runtime_6.SomMetaKind>(named, 'kind', 'SomMetaNode');
         final typeName = D4.getRequiredNamedArg<String>(named, 'typeName', 'SomMetaNode');
@@ -2236,13 +2270,14 @@ BridgedClass _createSomMetaNodeBridge() {
             ? D4.coerceList<$tom_som_dart_runtime_6.SomMetaNode>(named['children'], 'children')
             : const <$tom_som_dart_runtime_6.SomMetaNode>[];
         final elementNode = D4.getOptionalNamedArg<$tom_som_dart_runtime_6.SomMetaNode?>(named, 'elementNode');
-        return $tom_som_dart_runtime_6.SomMetaNode(className: className, memberName: memberName, sectionId: sectionId, sectionIdPattern: sectionIdPattern, kind: kind, typeName: typeName, serializationOrder: serializationOrder, min: min, unused: unused, contentType: contentType, contentHelp: contentHelp, comment: comment, docComment: docComment, classDocComment: classDocComment, form: form, document: document, mapsTo: mapsTo, detailedIn: detailedIn, secondLevelIds: secondLevelIds, extra: extra, recursive: recursive, children: children, elementNode: elementNode);
+        return $tom_som_dart_runtime_6.SomMetaNode(className: className, memberName: memberName, sectionId: sectionId, classSectionId: classSectionId, sectionIdPattern: sectionIdPattern, kind: kind, typeName: typeName, serializationOrder: serializationOrder, min: min, unused: unused, contentType: contentType, contentHelp: contentHelp, comment: comment, docComment: docComment, classDocComment: classDocComment, form: form, document: document, mapsTo: mapsTo, detailedIn: detailedIn, secondLevelIds: secondLevelIds, extra: extra, recursive: recursive, children: children, elementNode: elementNode);
       },
     },
     getters: {
       'className': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SomMetaNode>(target, 'SomMetaNode').className,
       'memberName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SomMetaNode>(target, 'SomMetaNode').memberName,
       'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SomMetaNode>(target, 'SomMetaNode').sectionId,
+      'classSectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SomMetaNode>(target, 'SomMetaNode').classSectionId,
       'sectionIdPattern': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SomMetaNode>(target, 'SomMetaNode').sectionIdPattern,
       'kind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SomMetaNode>(target, 'SomMetaNode').kind,
       'typeName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SomMetaNode>(target, 'SomMetaNode').typeName,
@@ -2290,7 +2325,7 @@ BridgedClass _createSomMetaNodeBridge() {
       },
     },
     constructorSignatures: {
-      '': 'SomMetaNode({required String className, String? memberName, String? sectionId, String? sectionIdPattern, required SomMetaKind kind, required String typeName, int? serializationOrder, int? min, bool unused = false, SomContentTypeMeta? contentType, String? contentHelp, String? comment, String? docComment, String? classDocComment, SomFormMeta? form, SomDocMeta? document, String? mapsTo, String? detailedIn, List<SomSecondLevelId> secondLevelIds = const [], List<SomMetaExtra> extra = const [], bool recursive = false, List<SomMetaNode> children = const [], SomMetaNode? elementNode})',
+      '': 'SomMetaNode({required String className, String? memberName, String? sectionId, String? classSectionId, String? sectionIdPattern, required SomMetaKind kind, required String typeName, int? serializationOrder, int? min, bool unused = false, SomContentTypeMeta? contentType, String? contentHelp, String? comment, String? docComment, String? classDocComment, SomFormMeta? form, SomDocMeta? document, String? mapsTo, String? detailedIn, List<SomSecondLevelId> secondLevelIds = const [], List<SomMetaExtra> extra = const [], bool recursive = false, List<SomMetaNode> children = const [], SomMetaNode? elementNode})',
     },
     methodSignatures: {
       'itemPath': 'String itemPath(int seq)',
@@ -2301,6 +2336,7 @@ BridgedClass _createSomMetaNodeBridge() {
       'className': 'String get className',
       'memberName': 'String? get memberName',
       'sectionId': 'String? get sectionId',
+      'classSectionId': 'String? get classSectionId',
       'sectionIdPattern': 'String? get sectionIdPattern',
       'kind': 'SomMetaKind get kind',
       'typeName': 'String get typeName',
