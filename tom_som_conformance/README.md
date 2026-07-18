@@ -70,7 +70,12 @@ committed Dart test group — `shared sample: live-document case durability
 (YRD8 / dsa7)` in `tom_som_dart_v0/test/generated_v0_test.dart` — pins those
 three guarantees (decode→encode→decode stability, clean schema validation,
 byPath/nav/id node identity) so a regression fails `dart test` without needing a
-full nine-toolchain golden run.
+full nine-toolchain golden run. **Every runtime now carries the same guard**
+(dsa8–dsa15): a `testLiveDocumentCase` (or language idiom, e.g. Go
+`TestLiveDocumentCase`, Rust `live_document_case`, C/C++/Python
+`test_live_document_case`) in each `tom_som_<lang>_v0` test suite pins the same
+three guarantees, so a per-language regression fails that language's own test
+suite — not only the aggregate golden comparison.
 
 ### Running
 
