@@ -11,7 +11,12 @@
 //   - the typed `SomList` collection maps onto the generic list store;
 //   - the generated model-version accessor / constant return `1.0`;
 //   - the instantiation-time version check (§2.2) accepts an editable stamp and
-//     rejects a newer-minor / cross-major stamp with a *som.SomVersionError.
+//     rejects a newer-minor / cross-major stamp with a *som.SomVersionError;
+//   - the live-document conformance case (YRD8 / dsa11): the shared Meridian
+//     sample round-trips (content + lists), its markdown twin validates clean
+//     under the SBP schema, and ByPath / nav / id node operations resolve to the
+//     same meta identity — the guarantees the Go golden generator emits, pinned
+//     as a committed guard because `golden/` is git-ignored.
 //
 // Run with `go test ./...`. The runtime resolves through the `replace`
 // directive in this module's go.mod, so the test is portable across checkouts.
@@ -20,6 +25,7 @@ package somv0
 import (
 	"errors"
 	"os"
+	"sort"
 	"testing"
 
 	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
@@ -456,4 +462,116 @@ func TestOneCallLoading(t *testing.T) {
 			t.Errorf("LoadYamlD00SolutionBlueprint on unstamped: %v", err)
 		}
 	})
+}
+
+// TestLiveDocumentCase is the live-document conformance case durability guard
+// (YRD8 / dsa11). The golden/ tree is git-ignored, so this committed test pins
+// the three live-document guarantees the Go golden generator emits over the
+// shared Meridian sample — a regression fails `go test`, not only a full
+// nine-toolchain golden run. Mirrors the Dart (dsa7), Python (dsa8),
+// JavaScript (dsa9) and TypeScript (dsa10) durability guards.
+func TestLiveDocumentCase(t *testing.T) {
+	const sampleMd = "../tom_som_conformance/samples/meridian_order_management.md"
+	const schemaPath = "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml"
+	tree := D00SolutionBlueprintMetaTree
+
+	// 1) Round-trip: decode → encode → decode is stable over content + lists.
+	original, err := som.FromFile(samplePath, tree)
+	if err != nil {
+		t.Fatalf("som.FromFile: %v", err)
+	}
+	reEncoded, err := som.EncodeYaml(original, tree, original.ModelVersion)
+	if err != nil {
+		t.Fatalf("som.EncodeYaml: %v", err)
+	}
+	roundTripped, err := som.FromYaml(reEncoded, tree)
+	if err != nil {
+		t.Fatalf("som.FromYaml: %v", err)
+	}
+	if roundTripped.ModelVersion != original.ModelVersion {
+		t.Errorf("roundtrip ModelVersion = %q, want %q", roundTripped.ModelVersion, original.ModelVersion)
+	}
+	origContent := original.ContentPaths()
+	rtContent := roundTripped.ContentPaths()
+	sort.Strings(origContent)
+	sort.Strings(rtContent)
+	if !sliceEqual(rtContent, origContent) {
+		t.Errorf("roundtrip content paths diverged (%d vs %d)", len(rtContent), len(origContent))
+	}
+	for _, p := range origContent {
+		if roundTripped.ContentOr(p) != original.ContentOr(p) {
+			t.Errorf("roundtrip content value diverged at %q", p)
+		}
+	}
+	origLists := original.ListPaths()
+	rtLists := roundTripped.ListPaths()
+	sort.Strings(origLists)
+	sort.Strings(rtLists)
+	if !sliceEqual(rtLists, origLists) {
+		t.Errorf("roundtrip list paths diverged (%d vs %d)", len(rtLists), len(origLists))
+	}
+	for _, p := range origLists {
+		if !sliceEqual(roundTripped.ListItems(p), original.ListItems(p)) {
+			t.Errorf("roundtrip list items diverged at %q", p)
+		}
+	}
+
+	// 2) Validation: the markdown twin is clean under the SBP schema.
+	schemaText, err := os.ReadFile(schemaPath)
+	if err != nil {
+		t.Fatalf("read schema: %v", err)
+	}
+	schema, err := som.DocSpecsSchemaFromYamlText(string(schemaText))
+	if err != nil {
+		t.Fatalf("parse schema: %v", err)
+	}
+	mdText, err := os.ReadFile(sampleMd)
+	if err != nil {
+		t.Fatalf("read sample md: %v", err)
+	}
+	violations := som.NewDocSpecsValidator(schema).ValidateMarkdown(string(mdText))
+	if schema.RootSectionID() != "SBP" {
+		t.Errorf("schema root = %q, want SBP", schema.RootSectionID())
+	}
+	if len(schema.Warnings) != 0 {
+		t.Errorf("schema warnings = %d, want 0", len(schema.Warnings))
+	}
+	if len(violations) != 0 {
+		t.Errorf("validation violations = %d, want 0", len(violations))
+	}
+
+	// 3) Node operations: ByPath / nav / id resolve to the same meta identity.
+	listByPath := tree.ByPath("SBP/currentLandscape/CUOPME-OPER-LST")
+	if listByPath == nil {
+		t.Fatal("ByPath(operationalMetrics list) = nil")
+	}
+	if listByPath.Kind != som.SomMetaKindList {
+		t.Errorf("operationalMetrics kind = %v, want list", listByPath.Kind)
+	}
+	nav := D00SolutionBlueprintMeta
+	navRef := nav.CurrentLandscape().OperationalMetrics()
+	if navRef.Path != "SBP/currentLandscape/CUOPME-OPER-LST" {
+		t.Errorf("nav path = %q, want SBP/currentLandscape/CUOPME-OPER-LST", navRef.Path)
+	}
+	navNode, err := navRef.Meta()
+	if err != nil {
+		t.Fatalf("navRef.Meta: %v", err)
+	}
+	if navNode != listByPath {
+		t.Error("nav node identity != ByPath node")
+	}
+	revs := nav.DocumentControl().RevisionHistory()
+	idItem := SBP.RVHST_REVS_LST().Item(0)
+	navItem := revs.Item(0)
+	if idItem.Path != navItem.Path {
+		t.Errorf("id path = %q, want %q", idItem.Path, navItem.Path)
+	}
+	idNode, errI := idItem.Meta()
+	navItemNode, errN := navItem.Meta()
+	if errI != nil || errN != nil {
+		t.Fatalf("item Meta: id=%v nav=%v", errI, errN)
+	}
+	if idNode != navItemNode {
+		t.Error("id item node identity != nav item node")
+	}
 }
