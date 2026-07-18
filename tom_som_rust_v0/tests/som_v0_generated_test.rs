@@ -397,3 +397,106 @@ fn unstamped_document_has_empty_model_version() {
         "load_yaml accepts an unstamped document"
     );
 }
+
+// --- live-document conformance case durability guard (YRD8 / dsa13) ---------
+
+/// The cross-language golden harness
+/// (`tom_som_conformance/tool/regenerate_golden.sh` + `compare_golden.dart`)
+/// already exercises the shared Meridian sample end to end and asserts the Rust
+/// `rust.log` is byte-identical to the Dart reference. But `golden/` is
+/// git-ignored, so this committed test pins the three live-document guarantees
+/// the Rust golden generator emits over the shared sample — a regression fails
+/// `cargo test`, not only a full nine-toolchain golden run. Mirrors the Dart
+/// (dsa7), Python (dsa8), JavaScript (dsa9), TypeScript (dsa10), Go (dsa11) and
+/// Java (dsa12) durability guards.
+#[test]
+fn live_document_case() {
+    const SAMPLE_MD: &str = "../tom_som_conformance/samples/meridian_order_management.md";
+    const SCHEMA_PATH: &str =
+        "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
+    let tree = meta::d00_solution_blueprint_meta_tree();
+
+    // 1) Round-trip: decode → encode → decode is stable over content + lists.
+    let original = som::SpecDocument::from_file(SAMPLE_PATH, &tree).expect("from_file");
+    let re_encoded =
+        som::encode_yaml(&original, &tree, &original.model_version).expect("encode_yaml");
+    let round_tripped = som::SpecDocument::from_yaml(&re_encoded, &tree).expect("from_yaml");
+
+    assert_eq!(
+        round_tripped.model_version, original.model_version,
+        "round-trip model version diverged"
+    );
+
+    let mut orig_content = original.content_paths();
+    orig_content.sort();
+    let mut rt_content = round_tripped.content_paths();
+    rt_content.sort();
+    assert_eq!(rt_content, orig_content, "content-path set changed across round-trip");
+    for p in &orig_content {
+        assert_eq!(
+            round_tripped.content_or(p),
+            original.content_or(p),
+            "content diverged at {}",
+            p
+        );
+    }
+
+    let mut orig_lists = original.list_paths();
+    orig_lists.sort();
+    let mut rt_lists = round_tripped.list_paths();
+    rt_lists.sort();
+    assert_eq!(rt_lists, orig_lists, "list-path set changed across round-trip");
+    for p in &orig_lists {
+        assert_eq!(
+            round_tripped.list_items(p),
+            original.list_items(p),
+            "list items diverged at {}",
+            p
+        );
+    }
+
+    // 2) Validation: the markdown twin is clean under the SBP schema.
+    let schema_text = std::fs::read_to_string(SCHEMA_PATH).expect("read schema");
+    let schema = som::DocSpecsSchema::from_yaml_text(&schema_text).expect("from_yaml_text");
+    let sample_md = std::fs::read_to_string(SAMPLE_MD).expect("read sample md");
+    let root_id = schema.root_section_id();
+    let warnings = schema.warnings.len();
+    let violations = som::DocSpecsValidator::new(schema).validate_markdown(&sample_md);
+    assert_eq!(root_id, "SBP", "schema root section id");
+    assert_eq!(warnings, 0, "generated schema carries warnings");
+    assert_eq!(violations.len(), 0, "sample markdown violates the generated schema");
+
+    // 3) Node operations: by_path / nav / id resolve to the same node.
+    let list_by_path = tree
+        .by_path("SBP/currentLandscape/CUOPME-OPER-LST")
+        .expect("by_path(operationalMetrics list)");
+    assert_eq!(
+        list_by_path.kind,
+        som::SOM_META_KIND_LIST,
+        "operationalMetrics kind"
+    );
+
+    let nav = meta::d00_solution_blueprint_meta(&tree);
+    let nav_ref = nav.current_landscape().operational_metrics();
+    assert_eq!(
+        nav_ref.meta_ref.path, "SBP/currentLandscape/CUOPME-OPER-LST",
+        "nav path"
+    );
+    let nav_node = nav_ref.meta_ref.meta().expect("nav meta");
+    assert!(
+        std::rc::Rc::ptr_eq(&nav_node, &list_by_path),
+        "nav node identity != by_path node"
+    );
+
+    // Hoisted-id accessor agrees with the dot-notation position.
+    let sbp_id = meta::SBP(&tree);
+    let id_item = sbp_id.RVHST_REVS_LST().item(0);
+    let nav_item = nav.document_control().revision_history().item(0);
+    assert_eq!(id_item.path(), nav_item.path(), "id item path vs nav item path");
+    let id_node = id_item.meta().expect("id item meta");
+    let nav_item_node = nav_item.meta().expect("nav item meta");
+    assert!(
+        std::rc::Rc::ptr_eq(&id_node, &nav_item_node),
+        "id item node identity != nav item node"
+    );
+}
