@@ -374,10 +374,14 @@ String _buildCollapsedField({
     if (n == 'SectionId' || n == 'SectionIdPattern') continue;
     add(a, _slice(lSource, a));
   }
-  // 3. L content-field annotations, excluding SerializationOrder (parent wins).
+  // 3. L content-field annotations, excluding SerializationOrder (parent wins)
+  //    and `override`. The leaf's `content` field carries `@override` because it
+  //    overrides `DocSpecsSection.content`; the collapsed field is renamed to the
+  //    parent field name and overrides nothing, so migrating `@override` would
+  //    emit an `override_on_non_overriding_member` warning.
   for (final a in contentField.metadata) {
     final n = _annoName(a);
-    if (n == 'SerializationOrder') continue;
+    if (n == 'SerializationOrder' || n == 'override') continue;
     add(a, _slice(lSource, a));
   }
   // 4. Parent-field annotations, excluding SerializationOrder (added last).

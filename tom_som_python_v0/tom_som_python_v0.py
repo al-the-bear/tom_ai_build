@@ -24993,7 +24993,7 @@ class ResponsiveBehavior(SomNode):
     # Content reflow rules.
     @property
     def contentReflow(self):
-        return ResponsiveBehaviorContent(self.doc, f"{self.path}/contentReflow")
+        return ResponsiveBehaviorContentReflowForm(self.doc, f"{self.path}/REBECO")
 
     # Responsive behavior narrative.
     @property
@@ -25004,15 +25004,6 @@ class ResponsiveBehavior(SomNode):
     @property
     def screenRules(self):
         return SomList(self.doc, f"{self.path}/RESPSR-SCRE-LST", lambda d, p: ResponsiveScreenRuleEntry(d, p), pattern="RESPSR-SCRE-xxx")
-
-class ResponsiveBehaviorContent(SomNode):
-    """Content reflow rules."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ResponsiveBehaviorContentContentForm(self.doc, f"{self.path}/content")
 
 class ResponsiveDesign(SomNode):
     """10.10. Responsive Design.
@@ -130721,8 +130712,8 @@ class ResponsibilitySystemsContentForm(SomNode):
     def processOwnership(self, value):
         self.doc.set_form_field(self.path, "processOwnership", value)
 
-class ResponsiveBehaviorContentContentForm(SomNode):
-    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+class ResponsiveBehaviorContentReflowForm(SomNode):
+    """Generated section facade for the `contentReflow` @Form section: its own content text followed by one typed member per form field."""
 
     def __init__(self, doc, path):
         super().__init__(doc, path)

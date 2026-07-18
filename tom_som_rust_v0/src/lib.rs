@@ -37488,8 +37488,8 @@ impl ResponsiveBehavior {
     }
 
     /// Content reflow rules.
-    pub fn content_reflow(&self) -> ResponsiveBehaviorContent {
-        ResponsiveBehaviorContent::new(self.node.doc(), format!("{}/{}", self.node.path(), "contentReflow"))
+    pub fn content_reflow(&self) -> ResponsiveBehaviorContentReflowForm {
+        ResponsiveBehaviorContentReflowForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "REBECO"))
     }
 
     // Responsive behavior narrative.
@@ -37503,29 +37503,6 @@ impl ResponsiveBehavior {
             Box::new(ResponsiveScreenRuleEntry::new),
             "RESPSR-SCRE-xxx".to_string(),
         )
-    }
-}
-
-/// Content reflow rules.
-pub struct ResponsiveBehaviorContent {
-    pub node: som::SomNode,
-}
-
-impl ResponsiveBehaviorContent {
-    /// Binds a ResponsiveBehaviorContent facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ResponsiveBehaviorContent {
-        ResponsiveBehaviorContent { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        false
-    }
-
-    pub fn content(&self) -> ResponsiveBehaviorContentContentForm {
-        ResponsiveBehaviorContentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -180142,16 +180119,16 @@ impl ResponsibilitySystemsContentForm {
     }
 }
 
-/// ResponsiveBehaviorContentContentForm is the generated section facade for the `content` @Form section: its own
+/// ResponsiveBehaviorContentReflowForm is the generated section facade for the `contentReflow` @Form section: its own
 /// content text followed by one typed member per form field.
-pub struct ResponsiveBehaviorContentContentForm {
+pub struct ResponsiveBehaviorContentReflowForm {
     pub node: som::SomNode,
 }
 
-impl ResponsiveBehaviorContentContentForm {
-    /// Binds a ResponsiveBehaviorContentContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ResponsiveBehaviorContentContentForm {
-        ResponsiveBehaviorContentContentForm { node: som::SomNode::new(doc, path) }
+impl ResponsiveBehaviorContentReflowForm {
+    /// Binds a ResponsiveBehaviorContentReflowForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ResponsiveBehaviorContentReflowForm {
+        ResponsiveBehaviorContentReflowForm { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf

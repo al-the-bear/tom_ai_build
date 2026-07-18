@@ -16598,20 +16598,13 @@ class ResponsiveBehavior extends SomNode {
   ResponsiveBehaviorTouchForm get touch => ResponsiveBehaviorTouchForm(doc, '$path/REBETO');
 
   /// Content reflow rules.
-  ResponsiveBehaviorContent get contentReflow => ResponsiveBehaviorContent(doc, '$path/contentReflow');
+  ResponsiveBehaviorContentReflowForm get contentReflow => ResponsiveBehaviorContentReflowForm(doc, '$path/REBECO');
 
   /// Responsive behavior narrative.
   // (skipped: behaviorNarrative has no target type)
 
   /// Screen-specific responsive rules.
   SomList<ResponsiveScreenRuleEntry> get screenRules => SomList<ResponsiveScreenRuleEntry>(doc, '$path/RESPSR-SCRE-LST', (d, p) => ResponsiveScreenRuleEntry(d, p), pattern: 'RESPSR-SCRE-xxx');
-}
-
-/// Content reflow rules.
-class ResponsiveBehaviorContent extends SomNode {
-  ResponsiveBehaviorContent(super.doc, super.path);
-
-  ResponsiveBehaviorContentContentForm get content => ResponsiveBehaviorContentContentForm(doc, '$path/content');
 }
 
 /// 10.10. Responsive Design.
@@ -71032,10 +71025,10 @@ class ResponsibilitySystemsContentForm extends SomNode {
   set processOwnership(String value) => doc.setFormField(path, 'processOwnership', value);
 }
 
-/// Generated section facade for the `content` `@Form` section:
+/// Generated section facade for the `contentReflow` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
-class ResponsiveBehaviorContentContentForm extends SomNode {
-  ResponsiveBehaviorContentContentForm(super.doc, super.path);
+class ResponsiveBehaviorContentReflowForm extends SomNode {
+  ResponsiveBehaviorContentReflowForm(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;

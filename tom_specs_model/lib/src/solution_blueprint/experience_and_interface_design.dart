@@ -10434,38 +10434,14 @@ class ResponsiveBehavior extends DocSpecsSection {
   DocSpecsSection? touch;
 
   /// Content reflow rules.
-  @SerializationOrder(4)
-  ResponsiveBehaviorContent contentReflow = ResponsiveBehaviorContent();
-
-  /// Responsive behavior narrative.
-  @ContentHelp(
-    'Detailed description of responsive behavior '
-    'across all breakpoints and device types.',
+  @SectionId('REBECO')
+  @StandardReferences(
+    [
+      'WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports',
+      'W3C Responsive Web Design — content adapts fluidly as the viewport changes',
+    ],
+    'The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.',
   )
-  @SerializationOrder(5)
-  TextSection behaviorNarrative = TextSection();
-
-  /// Screen-specific responsive rules.
-  @StandardReferences([
-    'ISO 9241-125:2017 — presentation of information adapts per screen to the available display area',
-  ], 'The collection of screen-specific responsive rule entries.')
-  @SectionId('RESPSR-SCRE-LST')
-  @SectionIdPattern('RESPSR-SCRE-xxx')
-  @ContentHelp('Add one entry per screen with distinct responsive rules.')
-  @SerializationOrder(6)
-  List<ResponsiveScreenRuleEntry> screenRules = [];
-}
-
-/// Content reflow rules.
-@StandardReferences(
-  [
-    'WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports',
-    'W3C Responsive Web Design — content adapts fluidly as the viewport changes',
-  ],
-  'The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.',
-)
-@SectionId('REBECO')
-class ResponsiveBehaviorContent extends DocSpecsSection {
   @Form([
     Field(
       'contentReflowStrategy',
@@ -10492,9 +10468,26 @@ class ResponsiveBehaviorContent extends DocSpecsSection {
       hint: 'How forms adapt: single column, multi-column',
     ),
   ])
-  @override
-  @SerializationOrder(0)
-  String? content;
+  @SerializationOrder(4)
+  String? contentReflow;
+
+  /// Responsive behavior narrative.
+  @ContentHelp(
+    'Detailed description of responsive behavior '
+    'across all breakpoints and device types.',
+  )
+  @SerializationOrder(5)
+  TextSection behaviorNarrative = TextSection();
+
+  /// Screen-specific responsive rules.
+  @StandardReferences([
+    'ISO 9241-125:2017 — presentation of information adapts per screen to the available display area',
+  ], 'The collection of screen-specific responsive rule entries.')
+  @SectionId('RESPSR-SCRE-LST')
+  @SectionIdPattern('RESPSR-SCRE-xxx')
+  @ContentHelp('Add one entry per screen with distinct responsive rules.')
+  @SerializationOrder(6)
+  List<ResponsiveScreenRuleEntry> screenRules = [];
 }
 
 /// A screen-specific responsive rule entry.
@@ -14825,7 +14818,3 @@ class DesignFoundationEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 }
-
-
-
-

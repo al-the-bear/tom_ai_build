@@ -33730,10 +33730,10 @@ ResponsiveBehaviorTouchForm responsive_behavior_touch(const ResponsiveBehavior *
   free(path);
   return out;
 }
-ResponsiveBehaviorContent responsive_behavior_content_reflow(const ResponsiveBehavior *self) {
-  char *path = spec_path_join(self->node.path, "contentReflow");
-  ResponsiveBehaviorContent out;
-  responsive_behavior_content_init(&out, self->node.doc, path);
+ResponsiveBehaviorContentReflowForm responsive_behavior_content_reflow(const ResponsiveBehavior *self) {
+  char *path = spec_path_join(self->node.path, "REBECO");
+  ResponsiveBehaviorContentReflowForm out;
+  responsive_behavior_content_reflow_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -33741,24 +33741,6 @@ SomList responsive_behavior_screen_rules(const ResponsiveBehavior *self) {
   char *path = spec_path_join(self->node.path, "RESPSR-SCRE-LST");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "RESPSR-SCRE-xxx");
-  free(path);
-  return out;
-}
-
-void responsive_behavior_content_init(ResponsiveBehaviorContent *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void responsive_behavior_content_free(ResponsiveBehaviorContent *self) {
-  som_node_free(&self->node);
-}
-int responsive_behavior_content_can_have_content(const ResponsiveBehaviorContent *self) {
-  (void)self;
-  return 0;
-}
-ResponsiveBehaviorContentContentForm responsive_behavior_content_content(const ResponsiveBehaviorContent *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ResponsiveBehaviorContentContentForm out;
-  responsive_behavior_content_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -128508,45 +128490,45 @@ void responsibility_systems_content_form_set_process_ownership(ResponsibilitySys
   spec_document_set_form_field(self->node.doc, self->node.path, "processOwnership", value);
 }
 
-void responsive_behavior_content_content_form_init(ResponsiveBehaviorContentContentForm *self, SpecDocument *doc, const char *path) {
+void responsive_behavior_content_reflow_form_init(ResponsiveBehaviorContentReflowForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void responsive_behavior_content_content_form_free(ResponsiveBehaviorContentContentForm *self) {
+void responsive_behavior_content_reflow_form_free(ResponsiveBehaviorContentReflowForm *self) {
   som_node_free(&self->node);
 }
-char *responsive_behavior_content_content_form_content(const ResponsiveBehaviorContentContentForm *self) {
+char *responsive_behavior_content_reflow_form_content(const ResponsiveBehaviorContentReflowForm *self) {
   const char *v = spec_document_content(self->node.doc, self->node.path);
   return som_strdup(v != NULL ? v : "");
 }
-void responsive_behavior_content_content_form_set_content(ResponsiveBehaviorContentContentForm *self, const char *value) {
+void responsive_behavior_content_reflow_form_set_content(ResponsiveBehaviorContentReflowForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *responsive_behavior_content_content_form_content_reflow_strategy(const ResponsiveBehaviorContentContentForm *self) {
+char *responsive_behavior_content_reflow_form_content_reflow_strategy(const ResponsiveBehaviorContentReflowForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "contentReflowStrategy");
   return som_strdup(v != NULL ? v : "");
 }
-void responsive_behavior_content_content_form_set_content_reflow_strategy(ResponsiveBehaviorContentContentForm *self, const char *value) {
+void responsive_behavior_content_reflow_form_set_content_reflow_strategy(ResponsiveBehaviorContentReflowForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "contentReflowStrategy", value);
 }
-char *responsive_behavior_content_content_form_image_scaling(const ResponsiveBehaviorContentContentForm *self) {
+char *responsive_behavior_content_reflow_form_image_scaling(const ResponsiveBehaviorContentReflowForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "imageScaling");
   return som_strdup(v != NULL ? v : "");
 }
-void responsive_behavior_content_content_form_set_image_scaling(ResponsiveBehaviorContentContentForm *self, const char *value) {
+void responsive_behavior_content_reflow_form_set_image_scaling(ResponsiveBehaviorContentReflowForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "imageScaling", value);
 }
-char *responsive_behavior_content_content_form_table_responsiveness(const ResponsiveBehaviorContentContentForm *self) {
+char *responsive_behavior_content_reflow_form_table_responsiveness(const ResponsiveBehaviorContentReflowForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "tableResponsiveness");
   return som_strdup(v != NULL ? v : "");
 }
-void responsive_behavior_content_content_form_set_table_responsiveness(ResponsiveBehaviorContentContentForm *self, const char *value) {
+void responsive_behavior_content_reflow_form_set_table_responsiveness(ResponsiveBehaviorContentReflowForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "tableResponsiveness", value);
 }
-char *responsive_behavior_content_content_form_form_layout(const ResponsiveBehaviorContentContentForm *self) {
+char *responsive_behavior_content_reflow_form_form_layout(const ResponsiveBehaviorContentReflowForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "formLayout");
   return som_strdup(v != NULL ? v : "");
 }
-void responsive_behavior_content_content_form_set_form_layout(ResponsiveBehaviorContentContentForm *self, const char *value) {
+void responsive_behavior_content_reflow_form_set_form_layout(ResponsiveBehaviorContentReflowForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "formLayout", value);
 }
 

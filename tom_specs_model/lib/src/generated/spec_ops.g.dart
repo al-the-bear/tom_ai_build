@@ -15725,7 +15725,6 @@ void registerSpecOps() {
         SpecSlot.node(() => n.navigation, (v) => n.navigation = v as DocSpecsSection?, label: 'navigation'),
         SpecSlot.node(() => n.visibility, (v) => n.visibility = v as DocSpecsSection?, label: 'visibility'),
         SpecSlot.node(() => n.touch, (v) => n.touch = v as DocSpecsSection?, label: 'touch'),
-        SpecSlot.node(() => n.contentReflow, (v) => n.contentReflow = v as ResponsiveBehaviorContent, label: 'contentReflow'),
         SpecSlot.node(() => n.behaviorNarrative, (v) => n.behaviorNarrative = v as TextSection, label: 'behaviorNarrative'),
         SpecSlot.list(() => n.screenRules, (v) => n.screenRules = v.cast<ResponsiveScreenRuleEntry>(), label: 'screenRules'),
       ];
@@ -15741,15 +15740,7 @@ void registerSpecOps() {
         ..behaviorNarrative = n.behaviorNarrative
         ..screenRules = n.screenRules;
     },
-  ));
-  SpecRegistry.register(ResponsiveBehaviorContent, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ResponsiveBehaviorContent;
-      return ResponsiveBehaviorContent()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ResponsiveBehaviorContent).content,
+    yamlScalar: (o) => (o as ResponsiveBehavior).contentReflow,
   ));
   SpecRegistry.register(ResponsiveDesign, SpecClassOps(
     slots: (o) {

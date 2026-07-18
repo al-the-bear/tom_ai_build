@@ -3,7 +3,7 @@
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+8.1acef99",
-  "classCount": 1218,
+  "classCount": 1217,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -195259,10 +195259,40 @@
         },
         {
           "name": "contentReflow",
-          "kind": "complex",
+          "kind": "form",
           "doc": "Content reflow rules.",
+          "sectionId": "REBECO",
+          "standardReferences": {
+            "standards": [
+              "WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports",
+              "W3C Responsive Web Design — content adapts fluidly as the viewport changes"
+            ],
+            "connotation": "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "REBECO"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports",
+                  "W3C Responsive Web Design — content adapts fluidly as the viewport changes"
+                ],
+                "connotation": "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -195270,7 +195300,36 @@
               }
             }
           ],
-          "type": "ResponsiveBehaviorContent"
+          "formFields": [
+            {
+              "name": "contentReflowStrategy",
+              "label": "Content Reflow Strategy",
+              "hint": "How content reflows across breakpoints",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "imageScaling",
+              "label": "Image Scaling",
+              "hint": "How images scale responsively",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "tableResponsiveness",
+              "label": "Table Responsiveness",
+              "hint": "Horizontal scroll, cards, hide columns",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "formLayout",
+              "label": "Form Layout",
+              "hint": "How forms adapt: single column, multi-column",
+              "type": "String",
+              "required": false
+            }
+          ]
         },
         {
           "name": "behaviorNarrative",
@@ -195346,87 +195405,6 @@
           ],
           "elementType": "ResponsiveScreenRuleEntry",
           "elementIsComplex": true
-        }
-      ]
-    },
-    "ResponsiveBehaviorContent": {
-      "name": "ResponsiveBehaviorContent",
-      "sectionId": "REBECO",
-      "doc": "Content reflow rules.",
-      "standardReferences": {
-        "standards": [
-          "WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports",
-          "W3C Responsive Web Design — content adapts fluidly as the viewport changes"
-        ],
-        "connotation": "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports",
-              "W3C Responsive Web Design — content adapts fluidly as the viewport changes"
-            ],
-            "connotation": "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "REBECO"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "contentReflowStrategy",
-              "label": "Content Reflow Strategy",
-              "hint": "How content reflows across breakpoints",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "imageScaling",
-              "label": "Image Scaling",
-              "hint": "How images scale responsively",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "tableResponsiveness",
-              "label": "Table Responsiveness",
-              "hint": "Horizontal scroll, cards, hide columns",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "formLayout",
-              "label": "Form Layout",
-              "hint": "How forms adapt: single column, multi-column",
-              "type": "String",
-              "required": false
-            }
-          ]
         }
       ]
     },

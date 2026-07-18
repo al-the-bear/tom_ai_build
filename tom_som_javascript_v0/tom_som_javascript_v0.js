@@ -26324,7 +26324,7 @@ class ResponsiveBehavior extends SomNode {
 
   // Content reflow rules.
   get contentReflow() {
-    return new ResponsiveBehaviorContent(this.doc, this.path + "/contentReflow");
+    return new ResponsiveBehaviorContentReflowForm(this.doc, this.path + "/REBECO");
   }
 
   // Responsive behavior narrative.
@@ -26335,17 +26335,6 @@ class ResponsiveBehavior extends SomNode {
   // Screen-specific responsive rules.
   get screenRules() {
     return new SomList(this.doc, this.path + "/RESPSR-SCRE-LST", (d, p) => new ResponsiveScreenRuleEntry(d, p), "RESPSR-SCRE-xxx");
-  }
-}
-
-// Content reflow rules.
-class ResponsiveBehaviorContent extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new ResponsiveBehaviorContentContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -135561,8 +135550,8 @@ class ResponsibilitySystemsContentForm extends SomNode {
   }
 }
 
-// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
-class ResponsiveBehaviorContentContentForm extends SomNode {
+// Generated section facade for the `contentReflow` @Form section: its own content text followed by one typed member per form field.
+class ResponsiveBehaviorContentReflowForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -178979,7 +178968,6 @@ module.exports = {
   ResponsibilityReferenceEntry,
   ResponsibilitySystems,
   ResponsiveBehavior,
-  ResponsiveBehaviorContent,
   ResponsiveDesign,
   ResponsiveScreenRuleEntry,
   RetentionPolicyEntry,
@@ -181194,7 +181182,7 @@ module.exports = {
   ResponsibilityFunctionDetailsContentForm,
   ResponsibilityReferenceEntryContentForm,
   ResponsibilitySystemsContentForm,
-  ResponsiveBehaviorContentContentForm,
+  ResponsiveBehaviorContentReflowForm,
   ResponsiveBehaviorLayoutAdaptationForm,
   ResponsiveBehaviorNavigationForm,
   ResponsiveBehaviorTouchForm,

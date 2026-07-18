@@ -13414,17 +13414,11 @@ ResponsiveBehaviorVisibilityForm ResponsiveBehavior::visibility() const {
 ResponsiveBehaviorTouchForm ResponsiveBehavior::touch() const {
   return ResponsiveBehaviorTouchForm(doc(), som::joinPath(path(), "REBETO"));
 }
-ResponsiveBehaviorContent ResponsiveBehavior::contentReflow() const {
-  return ResponsiveBehaviorContent(doc(), som::joinPath(path(), "contentReflow"));
+ResponsiveBehaviorContentReflowForm ResponsiveBehavior::contentReflow() const {
+  return ResponsiveBehaviorContentReflowForm(doc(), som::joinPath(path(), "REBECO"));
 }
 som::SomList ResponsiveBehavior::screenRules() const {
   return som::SomList(doc(), som::joinPath(path(), "RESPSR-SCRE-LST"), "RESPSR-SCRE-xxx");
-}
-
-ResponsiveBehaviorContent::ResponsiveBehaviorContent(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ResponsiveBehaviorContentContentForm ResponsiveBehaviorContent::content() const {
-  return ResponsiveBehaviorContentContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ResponsiveDesign::ResponsiveDesign(som::SpecDocument& doc, std::string path)
@@ -83523,36 +83517,36 @@ void ResponsibilitySystemsContentForm::setProcessOwnership(const std::string& va
   doc().setFormField(path(), "processOwnership", value);
 }
 
-ResponsiveBehaviorContentContentForm::ResponsiveBehaviorContentContentForm(som::SpecDocument& doc, std::string path)
+ResponsiveBehaviorContentReflowForm::ResponsiveBehaviorContentReflowForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ResponsiveBehaviorContentContentForm::content() const {
+std::string ResponsiveBehaviorContentReflowForm::content() const {
   return doc().content(path());
 }
-void ResponsiveBehaviorContentContentForm::setContent(const std::string& value) {
+void ResponsiveBehaviorContentReflowForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ResponsiveBehaviorContentContentForm::contentReflowStrategy() const {
+std::string ResponsiveBehaviorContentReflowForm::contentReflowStrategy() const {
   return doc().formField(path(), "contentReflowStrategy");
 }
-void ResponsiveBehaviorContentContentForm::setContentReflowStrategy(const std::string& value) {
+void ResponsiveBehaviorContentReflowForm::setContentReflowStrategy(const std::string& value) {
   doc().setFormField(path(), "contentReflowStrategy", value);
 }
-std::string ResponsiveBehaviorContentContentForm::imageScaling() const {
+std::string ResponsiveBehaviorContentReflowForm::imageScaling() const {
   return doc().formField(path(), "imageScaling");
 }
-void ResponsiveBehaviorContentContentForm::setImageScaling(const std::string& value) {
+void ResponsiveBehaviorContentReflowForm::setImageScaling(const std::string& value) {
   doc().setFormField(path(), "imageScaling", value);
 }
-std::string ResponsiveBehaviorContentContentForm::tableResponsiveness() const {
+std::string ResponsiveBehaviorContentReflowForm::tableResponsiveness() const {
   return doc().formField(path(), "tableResponsiveness");
 }
-void ResponsiveBehaviorContentContentForm::setTableResponsiveness(const std::string& value) {
+void ResponsiveBehaviorContentReflowForm::setTableResponsiveness(const std::string& value) {
   doc().setFormField(path(), "tableResponsiveness", value);
 }
-std::string ResponsiveBehaviorContentContentForm::formLayout() const {
+std::string ResponsiveBehaviorContentReflowForm::formLayout() const {
   return doc().formField(path(), "formLayout");
 }
-void ResponsiveBehaviorContentContentForm::setFormLayout(const std::string& value) {
+void ResponsiveBehaviorContentReflowForm::setFormLayout(const std::string& value) {
   doc().setFormField(path(), "formLayout", value);
 }
 

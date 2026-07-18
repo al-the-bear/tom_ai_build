@@ -891,7 +891,6 @@ typedef struct { SomNode node; } ResponsibilityFunctionDetails;
 typedef struct { SomNode node; } ResponsibilityReferenceEntry;
 typedef struct { SomNode node; } ResponsibilitySystems;
 typedef struct { SomNode node; } ResponsiveBehavior;
-typedef struct { SomNode node; } ResponsiveBehaviorContent;
 typedef struct { SomNode node; } ResponsiveDesign;
 typedef struct { SomNode node; } ResponsiveScreenRuleEntry;
 typedef struct { SomNode node; } RetentionPolicyEntry;
@@ -3106,7 +3105,7 @@ typedef struct { SomNode node; } ResponsibilityEntryRaciForm;
 typedef struct { SomNode node; } ResponsibilityFunctionDetailsContentForm;
 typedef struct { SomNode node; } ResponsibilityReferenceEntryContentForm;
 typedef struct { SomNode node; } ResponsibilitySystemsContentForm;
-typedef struct { SomNode node; } ResponsiveBehaviorContentContentForm;
+typedef struct { SomNode node; } ResponsiveBehaviorContentReflowForm;
 typedef struct { SomNode node; } ResponsiveBehaviorLayoutAdaptationForm;
 typedef struct { SomNode node; } ResponsiveBehaviorNavigationForm;
 typedef struct { SomNode node; } ResponsiveBehaviorTouchForm;
@@ -18262,20 +18261,12 @@ ResponsiveBehaviorVisibilityForm responsive_behavior_visibility(const Responsive
 // Touch and interaction optimizations.
 ResponsiveBehaviorTouchForm responsive_behavior_touch(const ResponsiveBehavior *self);
 // Content reflow rules.
-ResponsiveBehaviorContent responsive_behavior_content_reflow(const ResponsiveBehavior *self);
+ResponsiveBehaviorContentReflowForm responsive_behavior_content_reflow(const ResponsiveBehavior *self);
 // Responsive behavior narrative.
 // (skipped: behaviorNarrative has no target type)
 // Screen-specific responsive rules.
 // Returns the list view; element type: ResponsiveScreenRuleEntry (construct from item paths).
 SomList responsive_behavior_screen_rules(const ResponsiveBehavior *self);
-
-// Content reflow rules.
-// Binds a ResponsiveBehaviorContent facade to a document and a path (path copied).
-void responsive_behavior_content_init(ResponsiveBehaviorContent *self, SpecDocument *doc, const char *path);
-void responsive_behavior_content_free(ResponsiveBehaviorContent *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int responsive_behavior_content_can_have_content(const ResponsiveBehaviorContent *self);
-ResponsiveBehaviorContentContentForm responsive_behavior_content_content(const ResponsiveBehaviorContent *self);
 
 // 10.10. Responsive Design.
 //
@@ -52834,20 +52825,20 @@ void responsibility_systems_content_form_set_data_ownership(ResponsibilitySystem
 char *responsibility_systems_content_form_process_ownership(const ResponsibilitySystemsContentForm *self);
 void responsibility_systems_content_form_set_process_ownership(ResponsibilitySystemsContentForm *self, const char *value);
 
-// ResponsiveBehaviorContentContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
-void responsive_behavior_content_content_form_init(ResponsiveBehaviorContentContentForm *self, SpecDocument *doc, const char *path);
-void responsive_behavior_content_content_form_free(ResponsiveBehaviorContentContentForm *self);
+// ResponsiveBehaviorContentReflowForm is the generated section facade for the `contentReflow` @Form section: its own `content` text followed by one typed member per form field.
+void responsive_behavior_content_reflow_form_init(ResponsiveBehaviorContentReflowForm *self, SpecDocument *doc, const char *path);
+void responsive_behavior_content_reflow_form_free(ResponsiveBehaviorContentReflowForm *self);
 // The section's own free-text content, before the form fields (owned).
-char *responsive_behavior_content_content_form_content(const ResponsiveBehaviorContentContentForm *self);
-void responsive_behavior_content_content_form_set_content(ResponsiveBehaviorContentContentForm *self, const char *value);
-char *responsive_behavior_content_content_form_content_reflow_strategy(const ResponsiveBehaviorContentContentForm *self);
-void responsive_behavior_content_content_form_set_content_reflow_strategy(ResponsiveBehaviorContentContentForm *self, const char *value);
-char *responsive_behavior_content_content_form_image_scaling(const ResponsiveBehaviorContentContentForm *self);
-void responsive_behavior_content_content_form_set_image_scaling(ResponsiveBehaviorContentContentForm *self, const char *value);
-char *responsive_behavior_content_content_form_table_responsiveness(const ResponsiveBehaviorContentContentForm *self);
-void responsive_behavior_content_content_form_set_table_responsiveness(ResponsiveBehaviorContentContentForm *self, const char *value);
-char *responsive_behavior_content_content_form_form_layout(const ResponsiveBehaviorContentContentForm *self);
-void responsive_behavior_content_content_form_set_form_layout(ResponsiveBehaviorContentContentForm *self, const char *value);
+char *responsive_behavior_content_reflow_form_content(const ResponsiveBehaviorContentReflowForm *self);
+void responsive_behavior_content_reflow_form_set_content(ResponsiveBehaviorContentReflowForm *self, const char *value);
+char *responsive_behavior_content_reflow_form_content_reflow_strategy(const ResponsiveBehaviorContentReflowForm *self);
+void responsive_behavior_content_reflow_form_set_content_reflow_strategy(ResponsiveBehaviorContentReflowForm *self, const char *value);
+char *responsive_behavior_content_reflow_form_image_scaling(const ResponsiveBehaviorContentReflowForm *self);
+void responsive_behavior_content_reflow_form_set_image_scaling(ResponsiveBehaviorContentReflowForm *self, const char *value);
+char *responsive_behavior_content_reflow_form_table_responsiveness(const ResponsiveBehaviorContentReflowForm *self);
+void responsive_behavior_content_reflow_form_set_table_responsiveness(ResponsiveBehaviorContentReflowForm *self, const char *value);
+char *responsive_behavior_content_reflow_form_form_layout(const ResponsiveBehaviorContentReflowForm *self);
+void responsive_behavior_content_reflow_form_set_form_layout(ResponsiveBehaviorContentReflowForm *self, const char *value);
 
 // ResponsiveBehaviorLayoutAdaptationForm is the generated section facade for the `layoutAdaptation` @Form section: its own `content` text followed by one typed member per form field.
 void responsive_behavior_layout_adaptation_form_init(ResponsiveBehaviorLayoutAdaptationForm *self, SpecDocument *doc, const char *path);

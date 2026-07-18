@@ -12307,10 +12307,7 @@ fn meta_children_responsive_behavior(s: &mut HashSet<String>) -> Vec<Rc<som::Som
         Rc::new(som::SomMetaNode { class_name: "ResponsiveBehavior".to_string(), member_name: "navigation".to_string(), section_id: "REBENA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Navigation patterns per device class.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "mobileNavigation".to_string(), type_name: "String".to_string(), description: "Mobile Navigation".to_string(), required: false, hint: "Bottom nav bar, hamburger drawer".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "tabletNavigation".to_string(), type_name: "String".to_string(), description: "Tablet Navigation".to_string(), required: false, hint: "Navigation rail, collapsible drawer".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "desktopNavigation".to_string(), type_name: "String".to_string(), description: "Desktop Navigation".to_string(), required: false, hint: "Full sidebar, top navigation".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C Responsive Web Design — the navigation pattern adapts to the viewport size of each device class".to_string()), som::Json::Str("ISO/IEC 25010:2023 — adaptability selects a navigation form suited to the display environment".to_string())])), ("connotation".to_string(), som::Json::Str("The navigation patterns chosen for mobile, tablet, and desktop device classes.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ResponsiveBehavior".to_string(), member_name: "visibility".to_string(), section_id: "REBEVI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Visibility rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "mobileHiddenElements".to_string(), type_name: "String".to_string(), description: "Mobile Hidden Elements".to_string(), required: false, hint: "Elements hidden on mobile".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "tabletHiddenElements".to_string(), type_name: "String".to_string(), description: "Tablet Hidden Elements".to_string(), required: false, hint: "Elements hidden on tablet".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "desktopOnlyElements".to_string(), type_name: "String".to_string(), description: "Desktop Only Elements".to_string(), required: false, hint: "Elements shown only on desktop".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("WCAG 2.2 SC 1.4.10 Reflow — showing or hiding elements per viewport keeps content usable without loss of function".to_string()), som::Json::Str("ISO/IEC 25010:2023 — adaptability tailors what is presented to the capabilities of the display environment".to_string())])), ("connotation".to_string(), som::Json::Str("The rules describing which elements are shown or hidden at each device class to keep the interface usable.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ResponsiveBehavior".to_string(), member_name: "touch".to_string(), section_id: "REBETO".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Touch and interaction optimizations.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "touchTargetMinSize".to_string(), type_name: "String".to_string(), description: "Touch Target Min Size".to_string(), required: false, hint: "Minimum touch target (48dp recommended)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "hoverEffects".to_string(), type_name: "String".to_string(), description: "Hover Effects".to_string(), required: false, hint: "When to show hover effects".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "gesturePriority".to_string(), type_name: "String".to_string(), description: "Gesture Priority".to_string(), required: false, hint: "Swipe, long-press on touch devices".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use".to_string()), som::Json::Str("WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices".to_string())])), ("connotation".to_string(), som::Json::Str("The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device.".to_string()))] }], ..som::SomMetaNode::default() }),
-        meta_cx("ResponsiveBehaviorContent", s, meta_children_responsive_behavior_content, |r, c| som::SomMetaNode {
-            class_name: "ResponsiveBehaviorContent".to_string(), member_name: "contentReflow".to_string(), class_section_id: "REBECO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResponsiveBehaviorContent".to_string(), serialization_order: Some(4), doc_comment: "Content reflow rules.".to_string(), class_doc_comment: "Content reflow rules.".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
+        Rc::new(som::SomMetaNode { class_name: "ResponsiveBehavior".to_string(), member_name: "contentReflow".to_string(), section_id: "REBECO".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Content reflow rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "contentReflowStrategy".to_string(), type_name: "String".to_string(), description: "Content Reflow Strategy".to_string(), required: false, hint: "How content reflows across breakpoints".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "imageScaling".to_string(), type_name: "String".to_string(), description: "Image Scaling".to_string(), required: false, hint: "How images scale responsively".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "tableResponsiveness".to_string(), type_name: "String".to_string(), description: "Table Responsiveness".to_string(), required: false, hint: "Horizontal scroll, cards, hide columns".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "formLayout".to_string(), type_name: "String".to_string(), description: "Form Layout".to_string(), required: false, hint: "How forms adapt: single column, multi-column".to_string(), order: 3, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports".to_string()), som::Json::Str("W3C Responsive Web Design — content adapts fluidly as the viewport changes".to_string())])), ("connotation".to_string(), som::Json::Str("The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ResponsiveBehavior".to_string(), member_name: "behaviorNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Detailed description of responsive behavior across all breakpoints and device types.".to_string(), doc_comment: "Responsive behavior narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
             let mut n = som::SomMetaNode { class_name: "ResponsiveBehavior".to_string(), member_name: "screenRules".to_string(), section_id: "RESPSR-SCRE-LST".to_string(), section_id_pattern: "RESPSR-SCRE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ResponsiveScreenRuleEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per screen with distinct responsive rules.".to_string(), doc_comment: "Screen-specific responsive rules.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — presentation of information adapts per screen to the available display area".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of screen-specific responsive rule entries.".to_string()))] }], ..som::SomMetaNode::default() };
@@ -12320,12 +12317,6 @@ fn meta_children_responsive_behavior(s: &mut HashSet<String>) -> Vec<Rc<som::Som
             }));
             Rc::new(n)
         },
-    ]
-}
-
-fn meta_children_responsive_behavior_content(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "ResponsiveBehaviorContent".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "contentReflowStrategy".to_string(), type_name: "String".to_string(), description: "Content Reflow Strategy".to_string(), required: false, hint: "How content reflows across breakpoints".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "imageScaling".to_string(), type_name: "String".to_string(), description: "Image Scaling".to_string(), required: false, hint: "How images scale responsively".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "tableResponsiveness".to_string(), type_name: "String".to_string(), description: "Table Responsiveness".to_string(), required: false, hint: "Horizontal scroll, cards, hide columns".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "formLayout".to_string(), type_name: "String".to_string(), description: "Form Layout".to_string(), required: false, hint: "How forms adapt: single column, multi-column".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -54269,8 +54260,8 @@ impl<'a> ResponsiveBehaviorNav<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REBETO"))
     }
 
-    pub fn content_reflow(&self) -> ResponsiveBehaviorContentNav<'a> {
-        ResponsiveBehaviorContentNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "contentReflow"))
+    pub fn content_reflow(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REBECO"))
     }
 
     pub fn behavior_narrative(&self) -> som::SomMetaRef<'a> {
@@ -54279,37 +54270,6 @@ impl<'a> ResponsiveBehaviorNav<'a> {
 
     pub fn screen_rules(&self) -> som::SomListMetaRef<'a, ResponsiveScreenRuleEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RESPSR-SCRE-LST"), ResponsiveScreenRuleEntryNav::new)
-    }
-}
-
-/// ResponsiveBehaviorContentNav holds the dot-notation accessors of `ResponsiveBehaviorContent` (DR1 §4.1).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct ResponsiveBehaviorContentNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> ResponsiveBehaviorContentNav<'a> {
-    /// Binds a ResponsiveBehaviorContentNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ResponsiveBehaviorContentNav<'a> {
-        ResponsiveBehaviorContentNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (§4 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -77254,6 +77214,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO"))
     }
 
+    pub fn REBECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO"))
+    }
+
     pub fn RESPSR_SCRE_LST(&self) -> som::SomListMetaRef<'a, ResponsiveScreenRuleEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST"), ResponsiveScreenRuleEntryId::new)
     }
@@ -82066,6 +82030,10 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
 
     pub fn REBETO(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "responsiveDesign/responsiveBehavior/REBETO"))
+    }
+
+    pub fn REBECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "responsiveDesign/responsiveBehavior/REBECO"))
     }
 
     pub fn RESPSR_SCRE_LST(&self) -> som::SomListMetaRef<'a, ResponsiveScreenRuleEntryId<'a>> {

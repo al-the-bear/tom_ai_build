@@ -913,7 +913,6 @@ static SomMetaNode **meta_children_responsibility_function_details(SomStrList *s
 static SomMetaNode **meta_children_responsibility_reference_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsibility_systems(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsive_behavior(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_responsive_behavior_content(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsive_design(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsive_screen_rule_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_retention_policy_entry(SomStrList *stack, size_t *len);
@@ -5066,7 +5065,6 @@ static void meta_build_responsive_behavior_content_reflow(SomMetaNode *n);
 static void meta_build_responsive_behavior_behavior_narrative(SomMetaNode *n);
 static void meta_build_responsive_behavior_screen_rules(SomMetaNode *n);
 static void meta_build_responsive_behavior_screen_rules_elem(SomMetaNode *n);
-static void meta_build_responsive_behavior_content_content(SomMetaNode *n);
 static void meta_build_responsive_design_responsive_overview(SomMetaNode *n);
 static void meta_build_responsive_design_responsive_narrative(SomMetaNode *n);
 static void meta_build_responsive_design_breakpoint_config(SomMetaNode *n);
@@ -109420,15 +109418,45 @@ static void meta_build_responsive_behavior_touch(SomMetaNode *n) {
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use\",\"WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices\"],\"connotation\":\"The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device.\"}", NULL);
 }
 static void meta_build_responsive_behavior_content_reflow(SomMetaNode *n) {
-  meta_set(&n->class_name, "ResponsiveBehaviorContent");
+  meta_set(&n->class_name, "ResponsiveBehavior");
   meta_set(&n->member_name, "contentReflow");
-  meta_set(&n->class_section_id, "REBECO");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ResponsiveBehaviorContent");
+  meta_set(&n->section_id, "REBECO");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "Content reflow rules.");
-  meta_set(&n->class_doc_comment, "Content reflow rules.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("contentReflowStrategy");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Content Reflow Strategy");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("How content reflows across breakpoints");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("imageScaling");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Image Scaling");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("How images scale responsively");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("tableResponsiveness");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Table Responsiveness");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Horizontal scroll, cards, hide columns");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("formLayout");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Form Layout");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("How forms adapt: single column, multi-column");
+  n->form->fields[3].order = 3;
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports\",\"W3C Responsive Web Design — content adapts fluidly as the viewport changes\"],\"connotation\":\"The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.\"}", NULL);
 }
 static void meta_build_responsive_behavior_behavior_narrative(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveBehavior");
@@ -109466,41 +109494,6 @@ static void meta_build_responsive_behavior_screen_rules_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "ResponsiveScreenRuleEntry");
   meta_set(&n->doc_comment, "A screen-specific responsive rule entry.");
   meta_set(&n->class_doc_comment, "A screen-specific responsive rule entry.");
-}
-static void meta_build_responsive_behavior_content_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ResponsiveBehaviorContent");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_FORM;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("contentReflowStrategy");
-  n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Content Reflow Strategy");
-  n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("How content reflows across breakpoints");
-  n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("imageScaling");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Image Scaling");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("How images scale responsively");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("tableResponsiveness");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Table Responsiveness");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Horizontal scroll, cards, hide columns");
-  n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("formLayout");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Form Layout");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("How forms adapt: single column, multi-column");
-  n->form->fields[3].order = 3;
 }
 static void meta_build_responsive_design_responsive_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveDesign");
@@ -172404,7 +172397,11 @@ static SomMetaNode **meta_children_responsive_behavior(SomStrList *stack, size_t
     meta_build_responsive_behavior_touch(n);
     meta_push(&arr, len, &cap, n);
   }
-  meta_push(&arr, len, &cap, meta_cx("ResponsiveBehaviorContent", stack, meta_children_responsive_behavior_content, meta_build_responsive_behavior_content_reflow));
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_responsive_behavior_content_reflow(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_responsive_behavior_behavior_narrative(n);
@@ -172415,19 +172412,6 @@ static SomMetaNode **meta_children_responsive_behavior(SomStrList *stack, size_t
     meta_build_responsive_behavior_screen_rules(ln);
     ln->element_node = meta_cx("ResponsiveScreenRuleEntry", stack, meta_children_responsive_screen_rule_entry, meta_build_responsive_behavior_screen_rules_elem);
     meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_responsive_behavior_content(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_responsive_behavior_content_content(n);
-    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -206007,10 +205991,10 @@ SomMetaRef responsive_behavior_nav_touch(som_nav_responsive_behavior x) {
   free(path);
   return out;
 }
-som_nav_responsive_behavior_content responsive_behavior_nav_content_reflow(som_nav_responsive_behavior x) {
-  som_nav_responsive_behavior_content out;
-  char *path = spec_path_join(x.ref.path, "contentReflow");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+SomMetaRef responsive_behavior_nav_content_reflow(som_nav_responsive_behavior x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "REBECO");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -206025,13 +206009,6 @@ SomListMetaRef responsive_behavior_nav_screen_rules(som_nav_responsive_behavior 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RESPSR-SCRE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_responsive_screen_rule_entry);
-  free(path);
-  return out;
-}
-SomMetaRef responsive_behavior_content_nav_content(som_nav_responsive_behavior_content x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -225216,6 +225193,13 @@ SomMetaRef d00_solution_blueprint_id_rebeto(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_rebeco(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_respsr_scre_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST");
@@ -233227,6 +233211,13 @@ SomMetaRef d09_experience_design_specification_id_rebevi(som_id_d09_experience_d
 SomMetaRef d09_experience_design_specification_id_rebeto(som_id_d09_experience_design_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "responsiveDesign/responsiveBehavior/REBETO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_rebeco(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "responsiveDesign/responsiveBehavior/REBECO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;

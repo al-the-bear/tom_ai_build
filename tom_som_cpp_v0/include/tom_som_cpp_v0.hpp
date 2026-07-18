@@ -867,7 +867,6 @@ class ResponsibilityFunctionDetails;
 class ResponsibilityReferenceEntry;
 class ResponsibilitySystems;
 class ResponsiveBehavior;
-class ResponsiveBehaviorContent;
 class ResponsiveDesign;
 class ResponsiveScreenRuleEntry;
 class RetentionPolicyEntry;
@@ -3082,7 +3081,7 @@ class ResponsibilityEntryRaciForm;
 class ResponsibilityFunctionDetailsContentForm;
 class ResponsibilityReferenceEntryContentForm;
 class ResponsibilitySystemsContentForm;
-class ResponsiveBehaviorContentContentForm;
+class ResponsiveBehaviorContentReflowForm;
 class ResponsiveBehaviorLayoutAdaptationForm;
 class ResponsiveBehaviorNavigationForm;
 class ResponsiveBehaviorTouchForm;
@@ -18394,19 +18393,12 @@ class ResponsiveBehavior : public som::SomNode {
   // Touch and interaction optimizations.
   ResponsiveBehaviorTouchForm touch() const;
   // Content reflow rules.
-  ResponsiveBehaviorContent contentReflow() const;
+  ResponsiveBehaviorContentReflowForm contentReflow() const;
   // Responsive behavior narrative.
   // (skipped: behaviorNarrative has no target type)
   // Screen-specific responsive rules.
   // Returns the list view; element type: ResponsiveScreenRuleEntry (construct from item paths).
   som::SomList screenRules() const;
-};
-
-// Content reflow rules.
-class ResponsiveBehaviorContent : public som::SomNode {
- public:
-  ResponsiveBehaviorContent(som::SpecDocument& doc, std::string path);
-  ResponsiveBehaviorContentContentForm content() const;
 };
 
 // 10.10. Responsive Design.
@@ -58640,10 +58632,10 @@ class ResponsibilitySystemsContentForm : public som::SomNode {
   void setProcessOwnership(const std::string& value);
 };
 
-// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
-class ResponsiveBehaviorContentContentForm : public som::SomNode {
+// Generated section facade for the `contentReflow` @Form section: its own `content` text followed by one typed member per form field.
+class ResponsiveBehaviorContentReflowForm : public som::SomNode {
  public:
-  ResponsiveBehaviorContentContentForm(som::SpecDocument& doc, std::string path);
+  ResponsiveBehaviorContentReflowForm(som::SpecDocument& doc, std::string path);
   bool canHaveContent() const override { return true; }
   // The section's own free-text content, before the form fields.
   std::string content() const;

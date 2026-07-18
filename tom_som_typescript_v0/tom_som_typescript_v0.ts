@@ -25856,8 +25856,8 @@ export class ResponsiveBehavior extends SomNode {
   }
 
   // Content reflow rules.
-  get contentReflow(): ResponsiveBehaviorContent {
-    return new ResponsiveBehaviorContent(this.doc, this.path + "/contentReflow");
+  get contentReflow(): ResponsiveBehaviorContentReflowForm {
+    return new ResponsiveBehaviorContentReflowForm(this.doc, this.path + "/REBECO");
   }
 
   // Responsive behavior narrative.
@@ -25866,17 +25866,6 @@ export class ResponsiveBehavior extends SomNode {
   // Screen-specific responsive rules.
   get screenRules(): SomList<ResponsiveScreenRuleEntry> {
     return new SomList(this.doc, this.path + "/RESPSR-SCRE-LST", (d: SpecDocument, p: string) => new ResponsiveScreenRuleEntry(d, p), "RESPSR-SCRE-xxx");
-  }
-}
-
-// Content reflow rules.
-export class ResponsiveBehaviorContent extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ResponsiveBehaviorContentContentForm {
-    return new ResponsiveBehaviorContentContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -134888,8 +134877,8 @@ export class ResponsibilitySystemsContentForm extends SomNode {
   }
 }
 
-// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
-export class ResponsiveBehaviorContentContentForm extends SomNode {
+// Generated section facade for the `contentReflow` @Form section: its own content text followed by one typed member per form field.
+export class ResponsiveBehaviorContentReflowForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }

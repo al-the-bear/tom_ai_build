@@ -891,7 +891,6 @@ void buildResponsibilityFunctionDetailsChildren(som::SomMetaNode& parent, std::v
 void buildResponsibilityReferenceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsibilitySystemsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsiveBehaviorChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildResponsiveBehaviorContentChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsiveDesignChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsiveScreenRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRetentionPolicyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -62949,19 +62948,21 @@ void buildResponsiveBehaviorChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("ResponsiveBehaviorContent", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ResponsiveBehaviorContent";
-        n.memberName = "contentReflow";
-        n.classSectionId = "REBECO";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ResponsiveBehaviorContent";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
-        n.docComment = "Content reflow rules.";
-        n.classDocComment = "Content reflow rules.";
-      },
-      buildResponsiveBehaviorContentChildren);
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ResponsiveBehavior";
+    (*n).memberName = "contentReflow";
+    (*n).sectionId = "REBECO";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "Content reflow rules.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentReflowStrategy", "String", "Content Reflow Strategy", false, "How content reflows across breakpoints", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"imageScaling", "String", "Image Scaling", false, "How images scale responsively", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tableResponsiveness", "String", "Table Responsiveness", false, "Horizontal scroll, cards, hide columns", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formLayout", "String", "Form Layout", false, "How forms adapt: single column, multi-column", 3, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports\",\"W3C Responsive Web Design — content adapts fluidly as the viewport changes\"],\"connotation\":\"The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -63001,25 +63002,6 @@ void buildResponsiveBehaviorChildren(som::SomMetaNode& parent, std::vector<std::
       },
       buildResponsiveScreenRuleEntryChildren);
     parent.addChild(std::move(ln));
-  }
-}
-
-void buildResponsiveBehaviorContentChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ResponsiveBehaviorContent";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindForm;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentReflowStrategy", "String", "Content Reflow Strategy", false, "How content reflows across breakpoints", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"imageScaling", "String", "Image Scaling", false, "How images scale responsively", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"tableResponsiveness", "String", "Table Responsiveness", false, "Horizontal scroll, cards, hide columns", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"formLayout", "String", "Form Layout", false, "How forms adapt: single column, multi-column", 3, std::vector<std::string>{}});
-    parent.addChild(std::move(n));
   }
 }
 
@@ -102110,17 +102092,14 @@ som::SomMetaRef navResponsiveBehavior_visibility(NavResponsiveBehavior x) {
 som::SomMetaRef navResponsiveBehavior_touch(NavResponsiveBehavior x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REBETO"));
 }
-NavResponsiveBehaviorContent navResponsiveBehavior_contentReflow(NavResponsiveBehavior x) {
-  return NavResponsiveBehaviorContent{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "contentReflow"))};
+som::SomMetaRef navResponsiveBehavior_contentReflow(NavResponsiveBehavior x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REBECO"));
 }
 som::SomMetaRef navResponsiveBehavior_behaviorNarrative(NavResponsiveBehavior x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "behaviorNarrative"));
 }
 som::SomListMetaRef navResponsiveBehavior_screenRules(NavResponsiveBehavior x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESPSR-SCRE-LST"), metaNavFactoryResponsiveScreenRuleEntry);
-}
-som::SomMetaRef navResponsiveBehaviorContent_content(NavResponsiveBehaviorContent x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navResponsiveDesign_responsiveOverview(NavResponsiveDesign x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REDE-RESP"));
@@ -110343,6 +110322,9 @@ som::SomMetaRef idD00SolutionBlueprint_REBEVI(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_REBETO(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO"));
 }
+som::SomMetaRef idD00SolutionBlueprint_REBECO(IdD00SolutionBlueprint x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO"));
+}
 som::SomListMetaRef idD00SolutionBlueprint_RESPSR_SCRE_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST"), metaIdFactoryResponsiveScreenRuleEntry);
 }
@@ -113777,6 +113759,9 @@ som::SomMetaRef idD09ExperienceDesignSpecification_REBEVI(IdD09ExperienceDesignS
 }
 som::SomMetaRef idD09ExperienceDesignSpecification_REBETO(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "responsiveDesign/responsiveBehavior/REBETO"));
+}
+som::SomMetaRef idD09ExperienceDesignSpecification_REBECO(IdD09ExperienceDesignSpecification x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "responsiveDesign/responsiveBehavior/REBECO"));
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_RESPSR_SCRE_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST"), metaIdFactoryResponsiveScreenRuleEntry);

@@ -11302,9 +11302,7 @@ func metaChildrenResponsiveBehavior(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ResponsiveBehavior", MemberName: "navigation", SectionID: "REBENA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Navigation patterns per device class.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileNavigation", TypeName: "String", Description: "Mobile Navigation", Hint: "Bottom nav bar, hamburger drawer", Order: 0}, {Name: "tabletNavigation", TypeName: "String", Description: "Tablet Navigation", Hint: "Navigation rail, collapsible drawer", Order: 1}, {Name: "desktopNavigation", TypeName: "String", Description: "Desktop Navigation", Hint: "Full sidebar, top navigation", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C Responsive Web Design — the navigation pattern adapts to the viewport size of each device class", "ISO/IEC 25010:2023 — adaptability selects a navigation form suited to the display environment"}, "connotation": "The navigation patterns chosen for mobile, tablet, and desktop device classes."}}}},
 		{ClassName: "ResponsiveBehavior", MemberName: "visibility", SectionID: "REBEVI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Visibility rules.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileHiddenElements", TypeName: "String", Description: "Mobile Hidden Elements", Hint: "Elements hidden on mobile", Order: 0}, {Name: "tabletHiddenElements", TypeName: "String", Description: "Tablet Hidden Elements", Hint: "Elements hidden on tablet", Order: 1}, {Name: "desktopOnlyElements", TypeName: "String", Description: "Desktop Only Elements", Hint: "Elements shown only on desktop", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"WCAG 2.2 SC 1.4.10 Reflow — showing or hiding elements per viewport keeps content usable without loss of function", "ISO/IEC 25010:2023 — adaptability tailors what is presented to the capabilities of the display environment"}, "connotation": "The rules describing which elements are shown or hidden at each device class to keep the interface usable."}}}},
 		{ClassName: "ResponsiveBehavior", MemberName: "touch", SectionID: "REBETO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Touch and interaction optimizations.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "touchTargetMinSize", TypeName: "String", Description: "Touch Target Min Size", Hint: "Minimum touch target (48dp recommended)", Order: 0}, {Name: "hoverEffects", TypeName: "String", Description: "Hover Effects", Hint: "When to show hover effects", Order: 1}, {Name: "gesturePriority", TypeName: "String", Description: "Gesture Priority", Hint: "Swipe, long-press on touch devices", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use", "WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices"}, "connotation": "The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device."}}}},
-		metaCx("ResponsiveBehaviorContent", s, metaChildrenResponsiveBehaviorContent, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ResponsiveBehaviorContent", MemberName: "contentReflow", ClassSectionID: "REBECO", Kind: som.SomMetaKindComplex, TypeName: "ResponsiveBehaviorContent", SerializationOrder: metaIntPtr(4), DocComment: "Content reflow rules.", ClassDocComment: "Content reflow rules.", Recursive: r, Children: c}
-		}),
+		{ClassName: "ResponsiveBehavior", MemberName: "contentReflow", SectionID: "REBECO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Content reflow rules.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "contentReflowStrategy", TypeName: "String", Description: "Content Reflow Strategy", Hint: "How content reflows across breakpoints", Order: 0}, {Name: "imageScaling", TypeName: "String", Description: "Image Scaling", Hint: "How images scale responsively", Order: 1}, {Name: "tableResponsiveness", TypeName: "String", Description: "Table Responsiveness", Hint: "Horizontal scroll, cards, hide columns", Order: 2}, {Name: "formLayout", TypeName: "String", Description: "Form Layout", Hint: "How forms adapt: single column, multi-column", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports", "W3C Responsive Web Design — content adapts fluidly as the viewport changes"}, "connotation": "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints."}}}},
 		{ClassName: "ResponsiveBehavior", MemberName: "behaviorNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Detailed description of responsive behavior across all breakpoints and device types.", DocComment: "Responsive behavior narrative."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "ResponsiveBehavior", MemberName: "screenRules", SectionID: "RESPSR-SCRE-LST", SectionIDPattern: "RESPSR-SCRE-xxx", Kind: som.SomMetaKindList, TypeName: "ResponsiveScreenRuleEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per screen with distinct responsive rules.", DocComment: "Screen-specific responsive rules.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — presentation of information adapts per screen to the available display area"}, "connotation": "The collection of screen-specific responsive rule entries."}}}}
@@ -11313,12 +11311,6 @@ func metaChildrenResponsiveBehavior(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-	}
-}
-
-func metaChildrenResponsiveBehaviorContent(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "ResponsiveBehaviorContent", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "contentReflowStrategy", TypeName: "String", Description: "Content Reflow Strategy", Hint: "How content reflows across breakpoints", Order: 0}, {Name: "imageScaling", TypeName: "String", Description: "Image Scaling", Hint: "How images scale responsively", Order: 1}, {Name: "tableResponsiveness", TypeName: "String", Description: "Table Responsiveness", Hint: "Horizontal scroll, cards, hide columns", Order: 2}, {Name: "formLayout", TypeName: "String", Description: "Form Layout", Hint: "How forms adapt: single column, multi-column", Order: 3}}}},
 	}
 }
 
@@ -42488,8 +42480,8 @@ func (x *ResponsiveBehaviorNav) Touch() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/REBETO"}
 }
 
-func (x *ResponsiveBehaviorNav) ContentReflow() *ResponsiveBehaviorContentNav {
-	return newResponsiveBehaviorContentNav(x.Tree, x.Path+"/contentReflow")
+func (x *ResponsiveBehaviorNav) ContentReflow() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/REBECO"}
 }
 
 func (x *ResponsiveBehaviorNav) BehaviorNarrative() *som.SomMetaRef {
@@ -42500,24 +42492,6 @@ func (x *ResponsiveBehaviorNav) ScreenRules() *som.SomListMetaRef[*ResponsiveScr
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/RESPSR-SCRE-LST", func(t *som.SomMetaTree, p string) *ResponsiveScreenRuleEntryNav {
 		return newResponsiveScreenRuleEntryNav(t, p)
 	})
-}
-
-// ResponsiveBehaviorContentNav holds the dot-notation accessors of `ResponsiveBehaviorContent` (DR1 §4.1).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type ResponsiveBehaviorContentNav struct {
-	som.SomMetaRef
-}
-
-// newResponsiveBehaviorContentNav binds a ResponsiveBehaviorContentNav accessor to a tree and a path.
-func newResponsiveBehaviorContentNav(tree *som.SomMetaTree, path string) *ResponsiveBehaviorContentNav {
-	return &ResponsiveBehaviorContentNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *ResponsiveBehaviorContentNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
 // ResponsiveDesignNav holds the dot-notation accessors of `ResponsiveDesign` (DR1 §4.1).
@@ -60704,6 +60678,10 @@ func (x *D00SolutionBlueprintID) REBETO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO"}
 }
 
+func (x *D00SolutionBlueprintID) REBECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO"}
+}
+
 func (x *D00SolutionBlueprintID) RESPSR_SCRE_LST() *som.SomListMetaRef[*ResponsiveScreenRuleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", func(t *som.SomMetaTree, p string) *ResponsiveScreenRuleEntryID {
 		return newResponsiveScreenRuleEntryID(t, p)
@@ -65869,6 +65847,10 @@ func (x *D09ExperienceDesignSpecificationID) REBEVI() *som.SomMetaRef {
 
 func (x *D09ExperienceDesignSpecificationID) REBETO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/responsiveDesign/responsiveBehavior/REBETO"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) REBECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/responsiveDesign/responsiveBehavior/REBECO"}
 }
 
 func (x *D09ExperienceDesignSpecificationID) RESPSR_SCRE_LST() *som.SomListMetaRef[*ResponsiveScreenRuleEntryID] {

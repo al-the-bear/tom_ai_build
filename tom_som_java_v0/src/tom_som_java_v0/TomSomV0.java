@@ -26482,8 +26482,8 @@ public final class TomSomV0 {
     }
 
     // Content reflow rules.
-    public ResponsiveBehaviorContent contentReflow() {
-      return new ResponsiveBehaviorContent(doc, path + "/contentReflow");
+    public ResponsiveBehaviorContentReflowForm contentReflow() {
+      return new ResponsiveBehaviorContentReflowForm(doc, path + "/REBECO");
     }
 
     // Responsive behavior narrative.
@@ -26492,17 +26492,6 @@ public final class TomSomV0 {
     // Screen-specific responsive rules.
     public SomList<ResponsiveScreenRuleEntry> screenRules() {
       return new SomList<>(doc, path + "/RESPSR-SCRE-LST", (d, p) -> new ResponsiveScreenRuleEntry(d, p), "RESPSR-SCRE-xxx");
-    }
-  }
-
-  // Content reflow rules.
-  public static final class ResponsiveBehaviorContent extends SomNode {
-    public ResponsiveBehaviorContent(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ResponsiveBehaviorContentContentForm content() {
-      return new ResponsiveBehaviorContentContentForm(doc, path + "/content");
     }
   }
 
@@ -149145,10 +149134,10 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `content` @Form section: its own content
+  // Generated section facade for the `contentReflow` @Form section: its own content
   // text followed by one typed member per form field.
-  public static final class ResponsiveBehaviorContentContentForm extends SomNode {
-    public ResponsiveBehaviorContentContentForm(SpecDocument doc, String path) {
+  public static final class ResponsiveBehaviorContentReflowForm extends SomNode {
+    public ResponsiveBehaviorContentReflowForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 

@@ -72527,17 +72527,20 @@ public final class TomSomV0Meta {
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use", "WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices"), "connotation", "The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device.")));
         out.add(n);
       }
-      out.add(metaCx("ResponsiveBehaviorContent", s, ResponsiveBehaviorContentNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("ResponsiveBehaviorContent", SomMetaKind.COMPLEX, "ResponsiveBehaviorContent");
+      {
+        SomMetaNode n = new SomMetaNode("ResponsiveBehavior", SomMetaKind.FORM, "String");
         n.memberName = "contentReflow";
-        n.classSectionId = "REBECO";
+        n.sectionId = "REBECO";
         n.serializationOrder = 4;
         n.docComment = "Content reflow rules.";
-        n.classDocComment = "Content reflow rules.";
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("contentReflowStrategy", "String", "Content Reflow Strategy", false, "How content reflows across breakpoints", 0),
+            new SomFormFieldMeta("imageScaling", "String", "Image Scaling", false, "How images scale responsively", 1),
+            new SomFormFieldMeta("tableResponsiveness", "String", "Table Responsiveness", false, "Horizontal scroll, cards, hide columns", 2),
+            new SomFormFieldMeta("formLayout", "String", "Form Layout", false, "How forms adapt: single column, multi-column", 3)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports", "W3C Responsive Web Design — content adapts fluidly as the viewport changes"), "connotation", "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.")));
+        out.add(n);
+      }
       {
         SomMetaNode n = new SomMetaNode("ResponsiveBehavior", SomMetaKind.SECTION, "String");
         n.memberName = "behaviorNarrative";
@@ -72586,8 +72589,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/REBETO");
     }
 
-    public ResponsiveBehaviorContentNav contentReflow() {
-      return new ResponsiveBehaviorContentNav(tree, path + "/contentReflow");
+    public SomMetaRef contentReflow() {
+      return new SomMetaRef(tree, path + "/REBECO");
     }
 
     public SomMetaRef behaviorNarrative() {
@@ -72596,38 +72599,6 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<ResponsiveScreenRuleEntryNav> screenRules() {
       return new SomListMetaRef<>(tree, path + "/RESPSR-SCRE-LST", (t, p) -> new ResponsiveScreenRuleEntryNav(t, p));
-    }
-  }
-
-  // ResponsiveBehaviorContentNav holds the dot-notation accessors of `ResponsiveBehaviorContent` (DR1 §4.1).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class ResponsiveBehaviorContentNav extends SomMetaRef {
-    public ResponsiveBehaviorContentNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `ResponsiveBehaviorContent` (DR1 §3.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("ResponsiveBehaviorContent", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("contentReflowStrategy", "String", "Content Reflow Strategy", false, "How content reflows across breakpoints", 0),
-            new SomFormFieldMeta("imageScaling", "String", "Image Scaling", false, "How images scale responsively", 1),
-            new SomFormFieldMeta("tableResponsiveness", "String", "Table Responsiveness", false, "Horizontal scroll, cards, hide columns", 2),
-            new SomFormFieldMeta("formLayout", "String", "Form Layout", false, "How forms adapt: single column, multi-column", 3)));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
     }
   }
 
@@ -108856,6 +108827,10 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO");
     }
 
+    public SomMetaRef REBECO() {
+      return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO");
+    }
+
     public SomListMetaRef<ResponsiveScreenRuleEntryId> RESPSR_SCRE_LST() {
       return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", (t, p) -> new ResponsiveScreenRuleEntryId(t, p));
     }
@@ -113524,6 +113499,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef REBETO() {
       return new SomMetaRef(tree, path + "/responsiveDesign/responsiveBehavior/REBETO");
+    }
+
+    public SomMetaRef REBECO() {
+      return new SomMetaRef(tree, path + "/responsiveDesign/responsiveBehavior/REBECO");
     }
 
     public SomListMetaRef<ResponsiveScreenRuleEntryId> RESPSR_SCRE_LST() {

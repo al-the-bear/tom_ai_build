@@ -35836,17 +35836,16 @@ List<SomMetaNode> _mc$ResponsiveBehavior(Set<String> s) => [
           docComment: 'Touch and interaction optimizations.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'touchTargetMinSize', typeName: 'String', description: 'Touch Target Min Size', hint: 'Minimum touch target (48dp recommended)', order: 0), SomFormFieldMeta(name: 'hoverEffects', typeName: 'String', description: 'Hover Effects', hint: 'When to show hover effects', order: 1), SomFormFieldMeta(name: 'gesturePriority', typeName: 'String', description: 'Gesture Priority', hint: 'Swipe, long-press on touch devices', order: 2)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use', 'WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices'], 'connotation': 'The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device.'})]),
-       _cx('ResponsiveBehaviorContent', s, _mc$ResponsiveBehaviorContent, (r, c) => SomMetaNode(
-          className: 'ResponsiveBehaviorContent',
+       SomMetaNode(
+          className: 'ResponsiveBehavior',
           memberName: 'contentReflow',
-          classSectionId: 'REBECO',
-          kind: SomMetaKind.complex,
-          typeName: 'ResponsiveBehaviorContent',
+          sectionId: 'REBECO',
+          kind: SomMetaKind.form,
+          typeName: 'String',
           serializationOrder: 4,
           docComment: 'Content reflow rules.',
-          classDocComment: 'Content reflow rules.',
-          recursive: r,
-          children: c)),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'contentReflowStrategy', typeName: 'String', description: 'Content Reflow Strategy', hint: 'How content reflows across breakpoints', order: 0), SomFormFieldMeta(name: 'imageScaling', typeName: 'String', description: 'Image Scaling', hint: 'How images scale responsively', order: 1), SomFormFieldMeta(name: 'tableResponsiveness', typeName: 'String', description: 'Table Responsiveness', hint: 'Horizontal scroll, cards, hide columns', order: 2), SomFormFieldMeta(name: 'formLayout', typeName: 'String', description: 'Form Layout', hint: 'How forms adapt: single column, multi-column', order: 3)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports', 'W3C Responsive Web Design — content adapts fluidly as the viewport changes'], 'connotation': 'The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.'})]),
        SomMetaNode(
           className: 'ResponsiveBehavior',
           memberName: 'behaviorNarrative',
@@ -35868,16 +35867,6 @@ List<SomMetaNode> _mc$ResponsiveBehavior(Set<String> s) => [
           docComment: 'Screen-specific responsive rules.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-125:2017 — presentation of information adapts per screen to the available display area'], 'connotation': 'The collection of screen-specific responsive rule entries.'})],
           elementNode: _cx('ResponsiveScreenRuleEntry', s, _mc$ResponsiveScreenRuleEntry, (r, c) => SomMetaNode(className: 'ResponsiveScreenRuleEntry', classSectionId: 'RESPSR', kind: SomMetaKind.complex, typeName: 'ResponsiveScreenRuleEntry', docComment: 'A screen-specific responsive rule entry.', classDocComment: 'A screen-specific responsive rule entry.', recursive: r, children: c))),
-    ];
-
-List<SomMetaNode> _mc$ResponsiveBehaviorContent(Set<String> s) => [
-       SomMetaNode(
-          className: 'ResponsiveBehaviorContent',
-          memberName: 'content',
-          kind: SomMetaKind.form,
-          typeName: 'String',
-          serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'contentReflowStrategy', typeName: 'String', description: 'Content Reflow Strategy', hint: 'How content reflows across breakpoints', order: 0), SomFormFieldMeta(name: 'imageScaling', typeName: 'String', description: 'Image Scaling', hint: 'How images scale responsively', order: 1), SomFormFieldMeta(name: 'tableResponsiveness', typeName: 'String', description: 'Table Responsiveness', hint: 'Horizontal scroll, cards, hide columns', order: 2), SomFormFieldMeta(name: 'formLayout', typeName: 'String', description: 'Form Layout', hint: 'How forms adapt: single column, multi-column', order: 3)])),
     ];
 
 List<SomMetaNode> _mc$ResponsiveDesign(Set<String> s) => [
@@ -61285,18 +61274,9 @@ class ResponsiveBehavior$Nav extends SomMetaRef {
   SomMetaRef get navigation => SomMetaRef(tree, '$path/REBENA');
   SomMetaRef get visibility => SomMetaRef(tree, '$path/REBEVI');
   SomMetaRef get touch => SomMetaRef(tree, '$path/REBETO');
-  ResponsiveBehaviorContent$Nav get contentReflow => ResponsiveBehaviorContent$Nav(tree, '$path/contentReflow');
+  SomMetaRef get contentReflow => SomMetaRef(tree, '$path/REBECO');
   SomMetaRef get behaviorNarrative => SomMetaRef(tree, '$path/behaviorNarrative');
   SomListMetaRef<ResponsiveScreenRuleEntry$Nav> get screenRules => SomListMetaRef(tree, '$path/RESPSR-SCRE-LST', ResponsiveScreenRuleEntry$Nav.new);
-}
-
-/// Dot-notation accessors of `ResponsiveBehaviorContent` (DR1 §4.1). Every getter is one
-/// navigable position: `.path` is the absolute document path, `.meta` the
-/// metadata node. Past a recursive re-entry `.path` chains remain valid
-/// document positions while `.meta` throws (the metadata tree ends there).
-class ResponsiveBehaviorContent$Nav extends SomMetaRef {
-  ResponsiveBehaviorContent$Nav(super.tree, super.path);
-  SomMetaRef get content => SomMetaRef(tree, '$path/content');
 }
 
 /// Dot-notation accessors of `ResponsiveDesign` (DR1 §4.1). Every getter is one
@@ -67524,6 +67504,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get REBENA => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBENA');
   SomMetaRef get REBEVI => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBEVI');
   SomMetaRef get REBETO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO');
+  SomMetaRef get REBECO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO');
   SomListMetaRef<ResponsiveScreenRuleEntry$Id> get RESPSR_SCRE_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST', ResponsiveScreenRuleEntry$Id.new);
   SomMetaRef get UICO_COMP => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/uiComponents/UICO-COMP');
   SomMetaRef get UCVL => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/uiComponents/UCVL');
@@ -68732,6 +68713,7 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomMetaRef get REBENA => SomMetaRef(tree, '$path/responsiveDesign/responsiveBehavior/REBENA');
   SomMetaRef get REBEVI => SomMetaRef(tree, '$path/responsiveDesign/responsiveBehavior/REBEVI');
   SomMetaRef get REBETO => SomMetaRef(tree, '$path/responsiveDesign/responsiveBehavior/REBETO');
+  SomMetaRef get REBECO => SomMetaRef(tree, '$path/responsiveDesign/responsiveBehavior/REBECO');
   SomListMetaRef<ResponsiveScreenRuleEntry$Id> get RESPSR_SCRE_LST => SomListMetaRef(tree, '$path/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST', ResponsiveScreenRuleEntry$Id.new);
   SomMetaRef get UICO_COMP => SomMetaRef(tree, '$path/uiComponents/UICO-COMP');
   SomMetaRef get UCVL => SomMetaRef(tree, '$path/uiComponents/UCVL');

@@ -14679,6 +14679,7 @@ section-types:
     description: Regulatory Audit Support.
   rebeco:
     prefix: REBECO
+    format: rebeco-form
     description: Content reflow rules.
   rebena:
     prefix: REBENA
@@ -44031,6 +44032,16 @@ form-types:
         description: When to show hover effects
       - fieldname: gesturePriority
         description: "Swipe, long-press on touch devices"
+  rebeco-form:
+    fields:
+      - fieldname: contentReflowStrategy
+        description: How content reflows across breakpoints
+      - fieldname: imageScaling
+        description: How images scale responsively
+      - fieldname: tableResponsiveness
+        description: "Horizontal scroll, cards, hide columns"
+      - fieldname: formLayout
+        description: "How forms adapt: single column, multi-column"
   uico-comp-form:
     fields:
       - fieldname: designSystemName

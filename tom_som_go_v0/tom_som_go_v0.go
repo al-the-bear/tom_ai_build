@@ -29920,8 +29920,8 @@ func (x *ResponsiveBehavior) Touch() *ResponsiveBehaviorTouchForm {
 }
 
 // Content reflow rules.
-func (x *ResponsiveBehavior) ContentReflow() *ResponsiveBehaviorContent {
-	return NewResponsiveBehaviorContent(x.Doc(), x.Path()+"/contentReflow")
+func (x *ResponsiveBehavior) ContentReflow() *ResponsiveBehaviorContentReflowForm {
+	return NewResponsiveBehaviorContentReflowForm(x.Doc(), x.Path()+"/REBECO")
 }
 
 // Responsive behavior narrative.
@@ -29932,20 +29932,6 @@ func (x *ResponsiveBehavior) ScreenRules() *som.SomList[*ResponsiveScreenRuleEnt
 	return som.NewSomList(x.Doc(), x.Path()+"/RESPSR-SCRE-LST", func(d *som.SpecDocument, p string) *ResponsiveScreenRuleEntry {
 		return NewResponsiveScreenRuleEntry(d, p)
 	}, "RESPSR-SCRE-xxx")
-}
-
-// Content reflow rules.
-type ResponsiveBehaviorContent struct {
-	som.SomNode
-}
-
-// NewResponsiveBehaviorContent binds a ResponsiveBehaviorContent facade to a document and a path.
-func NewResponsiveBehaviorContent(doc *som.SpecDocument, path string) *ResponsiveBehaviorContent {
-	return &ResponsiveBehaviorContent{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ResponsiveBehaviorContent) Content() *ResponsiveBehaviorContentContentForm {
-	return NewResponsiveBehaviorContentContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // 10.10. Responsive Design.
@@ -160036,61 +160022,61 @@ func (x *ResponsibilitySystemsContentForm) SetProcessOwnership(value string) {
 	x.Doc().SetFormField(x.Path(), "processOwnership", value)
 }
 
-// ResponsiveBehaviorContentContentForm is the generated section facade for the `content` @Form section: its own
+// ResponsiveBehaviorContentReflowForm is the generated section facade for the `contentReflow` @Form section: its own
 // content text followed by one typed member per form field.
-type ResponsiveBehaviorContentContentForm struct {
+type ResponsiveBehaviorContentReflowForm struct {
 	som.SomNode
 }
 
-// NewResponsiveBehaviorContentContentForm binds a ResponsiveBehaviorContentContentForm facade to a document and a path.
-func NewResponsiveBehaviorContentContentForm(doc *som.SpecDocument, path string) *ResponsiveBehaviorContentContentForm {
-	return &ResponsiveBehaviorContentContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewResponsiveBehaviorContentReflowForm binds a ResponsiveBehaviorContentReflowForm facade to a document and a path.
+func NewResponsiveBehaviorContentReflowForm(doc *som.SpecDocument, path string) *ResponsiveBehaviorContentReflowForm {
+	return &ResponsiveBehaviorContentReflowForm{SomNode: som.NewSomNode(doc, path)}
 }
 
 // CanHaveContent reports that this @Form section holds body text before its
 // form fields (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ResponsiveBehaviorContentContentForm) CanHaveContent() bool {
+func (x *ResponsiveBehaviorContentReflowForm) CanHaveContent() bool {
 	return true
 }
 
 // Content is the section's own free-text content, before the form fields.
-func (x *ResponsiveBehaviorContentContentForm) Content() string {
+func (x *ResponsiveBehaviorContentReflowForm) Content() string {
 	return x.Doc().ContentOr(x.Path())
 }
 
-func (x *ResponsiveBehaviorContentContentForm) SetContent(value string) {
+func (x *ResponsiveBehaviorContentReflowForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ResponsiveBehaviorContentContentForm) ContentReflowStrategy() string {
+func (x *ResponsiveBehaviorContentReflowForm) ContentReflowStrategy() string {
 	return x.Doc().FormFieldOr(x.Path(), "contentReflowStrategy")
 }
 
-func (x *ResponsiveBehaviorContentContentForm) SetContentReflowStrategy(value string) {
+func (x *ResponsiveBehaviorContentReflowForm) SetContentReflowStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "contentReflowStrategy", value)
 }
 
-func (x *ResponsiveBehaviorContentContentForm) ImageScaling() string {
+func (x *ResponsiveBehaviorContentReflowForm) ImageScaling() string {
 	return x.Doc().FormFieldOr(x.Path(), "imageScaling")
 }
 
-func (x *ResponsiveBehaviorContentContentForm) SetImageScaling(value string) {
+func (x *ResponsiveBehaviorContentReflowForm) SetImageScaling(value string) {
 	x.Doc().SetFormField(x.Path(), "imageScaling", value)
 }
 
-func (x *ResponsiveBehaviorContentContentForm) TableResponsiveness() string {
+func (x *ResponsiveBehaviorContentReflowForm) TableResponsiveness() string {
 	return x.Doc().FormFieldOr(x.Path(), "tableResponsiveness")
 }
 
-func (x *ResponsiveBehaviorContentContentForm) SetTableResponsiveness(value string) {
+func (x *ResponsiveBehaviorContentReflowForm) SetTableResponsiveness(value string) {
 	x.Doc().SetFormField(x.Path(), "tableResponsiveness", value)
 }
 
-func (x *ResponsiveBehaviorContentContentForm) FormLayout() string {
+func (x *ResponsiveBehaviorContentReflowForm) FormLayout() string {
 	return x.Doc().FormFieldOr(x.Path(), "formLayout")
 }
 
-func (x *ResponsiveBehaviorContentContentForm) SetFormLayout(value string) {
+func (x *ResponsiveBehaviorContentReflowForm) SetFormLayout(value string) {
 	x.Doc().SetFormField(x.Path(), "formLayout", value)
 }
 
