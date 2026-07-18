@@ -69,11 +69,46 @@ void main() {
         final coverageWarnings = result.warnings
             .where((w) => w.contains('§8.6 @SectionId coverage'))
             .toList();
-        // ~1082 coverage gaps remain across multiple SBP files after CS-02.
-        // Bulk: technical_framework.dart (~929), user_interface_design.dart (~199),
-        // system_overview.dart (~180), system_stage_plan.dart (~131), and others.
-        // See completion_steps.tom_specs.md.
+        // CS-02 (dsa5) is complete — zero coverage gaps from the SBP root.
         expect(coverageWarnings, isEmpty, reason: coverageWarnings.join('\n'));
+      },
+    );
+
+    test(
+      '§8.6: @SectionId coverage is complete from every one of the 13 roots '
+      '(dsa5 CS-02) — including D00SolutionBlueprint and the container',
+      () {
+        // The SBP-anchored warning path only proves coverage from
+        // D00SolutionBlueprint. Assert it independently from every @Document
+        // root (D00 + D01..D12) and the canonical container, so the guarantee
+        // does not silently depend on the pure-projection invariant.
+        const roots = <String>[
+          'DocSpecsProject', // canonical container (union of all roots)
+          'D00SolutionBlueprint',
+          'D01CurrentLandscapeAssessment',
+          'D02TargetOperatingModel',
+          'D03InformationModel',
+          'D04RequirementsSpecification',
+          'D05InteractionScenarios',
+          'D06ArchitectureTechnologySpecification',
+          'D07IntegrationInterfaceSpecification',
+          'D08SecurityAccessSpecification',
+          'D09ExperienceDesignSpecification',
+          'D10QualityAcceptancePlan',
+          'D11DeliveryRoadmap',
+          'D12TransitionRolloutPlan',
+        ];
+        final gapReport = <String>[];
+        for (final root in roots) {
+          expect(classes.containsKey(root), isTrue,
+              reason: 'root type $root not found in the model');
+          final gaps = sectionIdCoverageGaps(classes, root);
+          if (gaps.isNotEmpty) {
+            gapReport.add('$root: ${gaps.length} gap(s) — '
+                '${gaps.take(10).join(', ')}');
+          }
+        }
+        expect(gapReport, isEmpty, reason: gapReport.join('\n'));
       },
     );
 
@@ -395,6 +430,57 @@ void main() {
           .where((w) => w.contains('§8.6 @SectionId coverage'))
           .toList();
       expect(coverageWarnings, isEmpty);
+    });
+  });
+
+  group('unit: sectionIdCoverageGaps (dsa5 per-root coverage helper)', () {
+    test('reports a gap for a class lacking @SectionId, from the given root', () {
+      final classes = {
+        'RootA': _cls(
+          'RootA',
+          [AnnotationData('SectionId', {'id': 'A'})],
+          [_field('leaf', 'Leaf')],
+        ),
+        'Leaf': _cls('Leaf', const []), // no @SectionId, not pattern-covered
+      };
+      expect(sectionIdCoverageGaps(classes, 'RootA'), equals(['Leaf']));
+    });
+
+    test('a class is covered from one root but a gap from another', () {
+      // Leaf is a @SectionIdPattern list element under RootA (covered), but a
+      // standalone complex section under RootB (gap) — coverage is per-root.
+      final classes = {
+        'RootA': _cls(
+          'RootA',
+          [AnnotationData('SectionId', {'id': 'A'})],
+          [
+            _listField('items', 'Leaf', [
+              AnnotationData('SectionIdPattern', {'pattern': 'A-ITEMS-xxx'}),
+            ]),
+          ],
+        ),
+        'RootB': _cls(
+          'RootB',
+          [AnnotationData('SectionId', {'id': 'B'})],
+          [_field('leaf', 'Leaf')],
+        ),
+        'Leaf': _cls('Leaf', const []),
+      };
+      expect(sectionIdCoverageGaps(classes, 'RootA'), isEmpty);
+      expect(sectionIdCoverageGaps(classes, 'RootB'), equals(['Leaf']));
+    });
+
+    test('the canonical container root is exempt (owns no @SectionId)', () {
+      final classes = {
+        'DocSpecsProject': _cls('DocSpecsProject', const [], [
+          _field('blueprint', 'D00SolutionBlueprint'),
+        ]),
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+        ),
+      };
+      expect(sectionIdCoverageGaps(classes, 'DocSpecsProject'), isEmpty);
     });
   });
 

@@ -337,6 +337,71 @@ import 'model_reader.dart';
   return (errors: errors, warnings: warnings);
 }
 
+/// Returns the §8.6 `@SectionId` coverage gaps reachable from [rootTypeName].
+///
+/// A *gap* is a class reachable from the root that carries no class-level
+/// `@SectionId` and is not covered by a `@SectionIdPattern` list field (neither
+/// as a direct list element nor anywhere in a pattern element's subtree). The
+/// canonical container root (which owns no `@SectionId` by design) is exempt.
+///
+/// The embedded `_validateStructuralInvariants` check emits the same gaps as
+/// warnings, but only from the `D00SolutionBlueprint` root. This helper is
+/// root-parametric so a caller can assert coverage from *every* `@Document`
+/// root independently (dsa5), rather than relying on the pure-projection
+/// invariant to transfer SBP coverage to the projection roots.
+List<String> sectionIdCoverageGaps(
+  Map<String, ModelClass> classes,
+  String rootTypeName,
+) {
+  final reachable = _findReachableTypes(classes, rootTypeName);
+
+  // Direct element types of @SectionIdPattern list fields, then the full
+  // subtree reachable from each — those are pattern-covered "template" types
+  // that inherit their sectioning id from the list instance.
+  final patternCovered = <String>{};
+  final toExpand = <String>[];
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    for (final field in cls.fields) {
+      if (!field.isList || !field.listElementIsComplex) continue;
+      if (field.getAnnotation('SectionIdPattern') == null) continue;
+      final element = field.listElementTypeName;
+      if (element != null) toExpand.add(element);
+    }
+  }
+  final expandVisited = <String>{};
+  while (toExpand.isNotEmpty) {
+    final current = toExpand.removeLast();
+    if (!expandVisited.add(current)) continue;
+    patternCovered.add(current);
+    final cls = classes[current];
+    if (cls == null) continue;
+    for (final field in cls.fields) {
+      String? childType;
+      if (field.isList && field.listElementIsComplex) {
+        childType = field.listElementTypeName;
+      } else if (field.isComplex) {
+        childType = field.typeName.replaceAll('?', '');
+      }
+      if (childType != null) toExpand.add(childType);
+    }
+  }
+
+  final container = findContainerRoot(classes);
+  final gaps = <String>[];
+  for (final className in reachable) {
+    if (className == container) continue;
+    final cls = classes[className];
+    if (cls == null) continue;
+    if (cls.getAnnotation('SectionId') != null) continue;
+    if (patternCovered.contains(className)) continue;
+    gaps.add(className);
+  }
+  gaps.sort();
+  return gaps;
+}
+
 // ---------------------------------------------------------------------------
 // §8.6 implementation
 // ---------------------------------------------------------------------------

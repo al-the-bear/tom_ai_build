@@ -95,7 +95,8 @@ export 'src/serialization_order.dart'
         collectModelSourceFiles,
         unstampedMembers,
         findUnstampedModelMembers;
-export 'src/validator.dart' show validateModel, validateStructuralInvariants;
+export 'src/validator.dart'
+    show validateModel, validateStructuralInvariants, sectionIdCoverageGaps;
 export 'src/packaging.dart'
     show
         ManifestFormat,
