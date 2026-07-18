@@ -160,8 +160,8 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
     c.check("model.Demo.found", demo.is_some(), "");
     if let Some(demo) = demo {
         let names: Vec<&str> = demo.fields.iter().map(|f| f.name.as_str()).collect();
-        // YRD6: `cards` is the role-field list (CARD-LST) added by the Demo
-        // corpus's Card class.
+        // `cards` is the card list (CARD-LST) added by the Demo corpus's Card
+        // class.
         let want = [
             "title", "summary", "priority", "count", "details", "items", "refs", "cards", "meta",
             "control",

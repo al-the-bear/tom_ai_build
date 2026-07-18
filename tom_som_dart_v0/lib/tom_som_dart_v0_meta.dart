@@ -14639,7 +14639,6 @@ List<SomMetaNode> _mc$DeliveryTransitionAndRollout(Set<String> s) => [
           serializationOrder: 4,
           docComment: 'Multi-language rollout sequencing by region and time (re-homed from MLAR).',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'rolloutStrategy', typeName: 'String', description: 'Rollout Strategy', hint: 'Big bang, phased, pilot', order: 0), SomFormFieldMeta(name: 'rolloutTimeline', typeName: 'String', description: 'Rollout Timeline', hint: 'High-level rollout schedule', order: 1), SomFormFieldMeta(name: 'rolloutRegions', typeName: 'String', description: 'Rollout Regions', hint: 'Geographic rollout order', order: 2)]),
-          secondLevelIds: [SomSecondLevelId(documentClass: 'D12TransitionRolloutPlan', id: 'TRP-RLP')],
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 3166 — country and region codes define the geographic rollout order', 'ISO 8601 — the standard representation for the rollout timeline and schedule'], 'connotation': 'The rollout strategy, timeline, and regional sequencing for locale availability.'})]),
     ];
 
@@ -20610,7 +20609,7 @@ List<SomMetaNode> _mc$FunctionalRequirementEntry(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'requirementId', typeName: 'String', description: 'Requirement ID (unique, e.g., REQ-F001)', required: true, hint: 'Unique requirement identifier, e.g. REQ-F001', role: 'id', order: 0), SomFormFieldMeta(name: 'title', typeName: 'String', description: 'Title (concise statement)', required: true, hint: 'Concise one-line statement of the requirement', role: 'title', order: 1), SomFormFieldMeta(name: 'status', typeName: 'String', description: 'Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)', required: true, hint: 'Draft, Proposed, Approved, Implemented, Verified, or Deferred', order: 2)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'status', typeName: 'String', description: 'Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)', required: true, hint: 'Draft, Proposed, Approved, Implemented, Verified, or Deferred', order: 0)])),
        SomMetaNode(
           className: 'FunctionalRequirementEntry',
           memberName: 'details',

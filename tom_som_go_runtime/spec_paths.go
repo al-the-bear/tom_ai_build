@@ -45,11 +45,6 @@ func SpecPathSegments(path string) []string {
 // SpecParentPath returns the parent path of path — everything before the
 // final "/"-separated segment — or path itself when it has no separator (a
 // root path).
-//
-// Used by the generated facades' YRD6 role-field accessors: a transparent
-// class-level `@Form` member is hoisted into its parent section's body, so
-// its title/id role fields bind to the **parent** path's headline / stored
-// section id.
 func SpecParentPath(path string) string {
 	i := strings.LastIndex(path, SpecPathSeparator)
 	if i < 0 {

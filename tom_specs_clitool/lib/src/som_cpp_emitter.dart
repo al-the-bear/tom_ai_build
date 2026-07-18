@@ -423,24 +423,6 @@ class SomCppEmitter {
     for (final ff in fp.field.formFields) {
       final acc = _accessor(ff.name);
       final setAcc = _setter(ff.name);
-      if (ff.role == 'title') {
-        b
-          ..writeln('  // Title-role field (YRD6): a view onto the owning '
-              'section\'s headline.')
-          ..writeln('  std::string $acc() const;')
-          ..writeln('  void $setAcc(const std::string& value);');
-        continue;
-      }
-      if (ff.role == 'id') {
-        b
-          ..writeln('  // Id-role field (YRD6): a view onto the owning list '
-              'item\'s stored section id')
-          ..writeln('  // (uniqueness validated on write; empty writes are '
-              'ignored).')
-          ..writeln('  std::string $acc() const;')
-          ..writeln('  void $setAcc(const std::string& value);');
-        continue;
-      }
       switch (_scalarType(ff.type)) {
         case 'int':
           b.writeln('  std::optional<long> $acc() const;');
@@ -654,41 +636,10 @@ class SomCppEmitter {
         ..writeln('  doc().setContent(path(), value);')
         ..writeln('}');
     }
-    // YRD6: role fields bind to the OWNING section — the form's own path when
-    // the member heads its own `@SectionId` section, else the parent path (a
-    // transparent/class-level form hoisted into the parent's body).
-    final ownerExpr = fp.field.sectionId != null
-        ? 'path()'
-        : 'som::specParentPath(path())';
     for (final ff in fp.field.formFields) {
       final acc = _accessor(ff.name);
       final setAcc = _setter(ff.name);
       final field = _cppStr(ff.name);
-      // A role field (YRD6) is a pure view onto the owning section's headline
-      // / stored section id — its value never touches the form store.
-      if (ff.role == 'title') {
-        b
-          ..writeln('std::string $t::$acc() const {')
-          ..writeln('  return doc().headline($ownerExpr);')
-          ..writeln('}')
-          ..writeln('void $t::$setAcc(const std::string& value) {')
-          ..writeln('  doc().setHeadline($ownerExpr, value);')
-          ..writeln('}');
-        continue;
-      }
-      if (ff.role == 'id') {
-        b
-          ..writeln('std::string $t::$acc() const {')
-          ..writeln('  return doc().itemSectionId($ownerExpr);')
-          ..writeln('}')
-          ..writeln('void $t::$setAcc(const std::string& value) {')
-          ..writeln('  if (value.empty()) {')
-          ..writeln('    return;')
-          ..writeln('  }')
-          ..writeln('  doc().setItemSectionId($ownerExpr, value);')
-          ..writeln('}');
-        continue;
-      }
       switch (_scalarType(ff.type)) {
         case 'int':
           b

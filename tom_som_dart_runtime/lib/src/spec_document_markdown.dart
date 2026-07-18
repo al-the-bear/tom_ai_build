@@ -65,11 +65,6 @@ enum SpecMarkdownRejectReason {
 
   /// A heading line without a parseable `<!--[id]-->` headline comment.
   malformedHeading,
-
-  /// A `FieldName:` form line for a title/id **role field** (YRD6): the
-  /// field's value is the section heading / id comment and must never be
-  /// duplicated as a form line.
-  roleFieldFormLine,
 }
 
 /// One rejected block in a Markdown import (DR1 §1.7). Reported, never silently
@@ -417,7 +412,6 @@ class SpecDocumentMarkdown {
 
   bool _formHasValues(SomMetaNode node, String path) {
     for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) {
-      if (f.role != null) continue; // YRD6: role values live in the heading.
       if (document.formField(path, f.name) != null) return true;
     }
     return false;
@@ -425,9 +419,6 @@ class SpecDocumentMarkdown {
 
   void _writeForm(StringBuffer b, SomMetaNode node, String path) {
     for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) {
-      // YRD6: a role field's value is emitted exactly once — as the owning
-      // section's heading text / id comment — never as a form line.
-      if (f.role != null) continue;
       final value = document.formField(path, f.name);
       if (value == null) continue;
       final lines = _prepareValue(value, path).split('\n');
@@ -903,7 +894,6 @@ class _Parser {
     final fence = MarkdownFenceTracker();
     String? currentField;
     String? currentFormPath;
-    var dropping = false;
     var currentLines = <String>[];
     final contentLines = <String>[];
 
@@ -928,38 +918,14 @@ class _Parser {
           final hit = findField(m.group(1)!);
           if (hit != null) {
             flush();
-            // YRD6: a title/id role field's value is the owning section's
-            // heading / id comment — a form line duplicating it is rejected,
-            // never stored (continuation lines are dropped with it).
-            if (hit.$2.role != null) {
-              rejections.add(SpecMarkdownRejection(
-                line: frame.line + i,
-                reason: SpecMarkdownRejectReason.roleFieldFormLine,
-                anchor: '${frame.path}/${formSlots[hit.$1].$2}',
-                message: 'form field `${hit.$2.name}` is a title/id role '
-                    'field — its value is the section heading, not a form '
-                    'line',
-              ));
-              currentField = null;
-              currentFormPath = null;
-              dropping = true;
-              currentLines = <String>[];
-              fence.feed(line);
-              continue;
-            }
             _currentFormIdx = hit.$1;
             currentField = hit.$2.name;
             currentFormPath = '${frame.path}/${formSlots[hit.$1].$2}';
             currentLines = [m.group(2)!];
-            dropping = false;
             fence.feed(line);
             continue;
           }
         }
-      }
-      if (dropping) {
-        fence.feed(line);
-        continue;
       }
       final target = currentField == null ? contentLines : currentLines;
       // Continuation: strip the one escape space of a label-shaped line.
@@ -985,15 +951,8 @@ class _Parser {
       for (final f in node.form?.fields ?? const <SomFormFieldMeta>[])
         f.name.toLowerCase(): f.name,
     };
-    // YRD6: role fields (title/id) are represented by the section heading /
-    // id comment — a form line duplicating one is rejected, never stored.
-    final roleFields = {
-      for (final f in node.form?.fields ?? const <SomFormFieldMeta>[])
-        if (f.role != null) f.name,
-    };
     final fence = MarkdownFenceTracker();
     String? currentField;
-    var dropping = false;
     var currentLines = <String>[];
 
     void flush(int lineNo) {
@@ -1002,7 +961,7 @@ class _Parser {
         if (value.isNotEmpty) {
           forms.putIfAbsent(path, () => {})[currentField] = value;
         }
-      } else if (!dropping && currentLines.any((l) => l.trim().isNotEmpty)) {
+      } else if (currentLines.any((l) => l.trim().isNotEmpty)) {
         rejections.add(SpecMarkdownRejection(
           line: lineNo,
           reason: SpecMarkdownRejectReason.orphanContent,
@@ -1010,7 +969,6 @@ class _Parser {
           message: 'text in a @Form section before the first field label',
         ));
       }
-      dropping = false;
       currentLines = <String>[];
     }
 
@@ -1022,20 +980,6 @@ class _Parser {
             m != null ? fieldsByLower[m.group(1)!.toLowerCase()] : null;
         if (fieldName != null) {
           flush(frame.line + i);
-          if (roleFields.contains(fieldName)) {
-            rejections.add(SpecMarkdownRejection(
-              line: frame.line + i,
-              reason: SpecMarkdownRejectReason.roleFieldFormLine,
-              anchor: path,
-              message: 'form field `$fieldName` is a title/id role field — '
-                  'its value is the section heading, not a form line',
-            ));
-            currentField = null;
-            dropping = true;
-            currentLines = <String>[];
-            fence.feed(line);
-            continue;
-          }
           currentField = fieldName;
           currentLines = [m!.group(2)!];
           fence.feed(line);

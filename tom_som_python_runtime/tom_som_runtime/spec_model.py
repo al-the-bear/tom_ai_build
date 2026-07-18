@@ -68,13 +68,6 @@ class FormFieldSpec:
     type: str = "String"
     hint: Optional[str] = None
     required: bool = False
-    #: Structural role of the field (YRD6): ``'title'`` (view onto the owning
-    #: section's headline), ``'id'`` (view onto the stored section id), or
-    #: ``None`` for an ordinary form-value field.
-    role: Optional[str] = None
-    #: Predefined initial content (YRD6, meta-only editor prefill), or
-    #: ``None``.
-    initial: Optional[str] = None
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "FormFieldSpec":
@@ -84,8 +77,6 @@ class FormFieldSpec:
             type=j.get("type") or "String",
             hint=j.get("hint"),
             required=bool(j.get("required") or False),
-            role=j.get("role"),
-            initial=j.get("initial"),
         )
 
 

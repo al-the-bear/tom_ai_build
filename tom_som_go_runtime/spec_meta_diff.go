@@ -164,8 +164,6 @@ func metaFormDiff(at string, a, b *SomFormMeta) string {
 			fa.Description != fb.Description ||
 			fa.Required != fb.Required ||
 			fa.Hint != fb.Hint ||
-			fa.Role != fb.Role ||
-			fa.Initial != fb.Initial ||
 			fa.Order != fb.Order {
 			return at + ": form field " + fa.Name + " differs"
 		}

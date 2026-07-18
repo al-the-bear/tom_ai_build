@@ -857,9 +857,6 @@ static int form_has_values(MdCodec *c, const SomMetaNode *node,
     return 0;
   }
   for (size_t i = 0; i < node->form->fields_len; i++) {
-    if (node->form->fields[i].role[0] != '\0') {
-      continue; /* YRD6: role values live in the heading. */
-    }
     if (spec_document_form_field(c->document, path,
                                  node->form->fields[i].name) != NULL) {
       return 1;
@@ -873,11 +870,6 @@ static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   size_t nfields = node->form != NULL ? node->form->fields_len : 0;
   for (size_t fi = 0; fi < nfields; fi++) {
     const SomFormFieldMeta *f = &node->form->fields[fi];
-    /* YRD6: a role field's value is emitted exactly once — as the owning
-       section's heading text / id comment — never as a form line. */
-    if (f->role[0] != '\0') {
-      continue;
-    }
     const char *value = spec_document_form_field(c->document, path, f->name);
     if (value == NULL) {
       continue;
@@ -1385,7 +1377,6 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
   spec_markdown_fence_init(&fence);
   const char *current_field = NULL;
   int have_field = 0;
-  int dropping = 0;
   LineVec current;
   lv_init(&current);
 
@@ -1398,7 +1389,7 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
         staged_set_form(p, path, current_field, value);                      \
       }                                                                       \
       free(value);                                                           \
-    } else if (!dropping) {                                                   \
+    } else {                                                                  \
       for (size_t _k = 0; _k < current.len; _k++) {                          \
         char *_ts = trim_space(current.items[_k]);                           \
         int _nonblank = _ts[0] != '\0';                                      \
@@ -1412,7 +1403,6 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
         }                                                                     \
       }                                                                       \
     }                                                                         \
-    dropping = 0;                                                             \
     lv_free(&current);                                                        \
     lv_init(&current);                                                        \
   } while (0)
@@ -1426,25 +1416,6 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
         const SomFormFieldMeta *field = form_field_ci(node, label);
         if (field != NULL) {
           FORM_FLUSH(frame->line + i);
-          /* YRD6: a title/id role field's value is the owning section's
-             heading / id comment — a form line duplicating it is rejected,
-             never stored (continuation lines are dropped with it). */
-          if (field->role[0] != '\0') {
-            char *msg = vcat3("form field `", field->name,
-                              "` is a title/id role field \xE2\x80\x94 its "
-                              "value is the section heading, not a form line");
-            parser_push_rejection(p, frame->line + i,
-                                  SPEC_MARKDOWN_REJECT_ROLE_FIELD_FORM_LINE,
-                                  msg, path);
-            free(msg);
-            have_field = 0;
-            current_field = NULL;
-            dropping = 1;
-            spec_markdown_fence_feed(&fence, line);
-            free(label);
-            free(value);
-            continue;
-          }
           have_field = 1;
           current_field = field->name;
           lv_push(&current, value);
@@ -1512,7 +1483,6 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
   const char *current_field = NULL;
   char *current_form_path = NULL;
   int have_field = 0;
-  int dropping = 0;
   LineVec current;
   LineVec content_lines;
   lv_init(&current);
@@ -1562,30 +1532,6 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
           }
           lv_free(&current);
           lv_init(&current);
-          /* YRD6: a title/id role field's value is the owning section's
-             heading / id comment — a form line duplicating it is rejected,
-             never stored (continuation lines are dropped with it). */
-          if (found_field->role[0] != '\0') {
-            char *anchor =
-                spec_path_join(frame->path, forms.items[found_idx].rel);
-            char *msg = vcat3("form field `", found_field->name,
-                              "` is a title/id role field \xE2\x80\x94 its "
-                              "value is the section heading, not a form line");
-            parser_push_rejection(p, frame->line + i,
-                                  SPEC_MARKDOWN_REJECT_ROLE_FIELD_FORM_LINE,
-                                  msg, anchor);
-            free(msg);
-            free(anchor);
-            have_field = 0;
-            current_field = NULL;
-            free(current_form_path);
-            current_form_path = NULL;
-            dropping = 1;
-            spec_markdown_fence_feed(&fence, line);
-            free(label);
-            free(value);
-            continue;
-          }
           p->current_form_idx = found_idx;
           have_field = 1;
           current_field = found_field->name;
@@ -1594,7 +1540,6 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
               spec_path_join(frame->path, forms.items[found_idx].rel);
           lv_push(&current, value);
           value = NULL;
-          dropping = 0;
           spec_markdown_fence_feed(&fence, line);
           free(label);
           continue;
@@ -1602,10 +1547,6 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
         free(label);
         free(value);
       }
-    }
-    if (dropping) {
-      spec_markdown_fence_feed(&fence, line);
-      continue;
     }
     /* continuation */
     const char *text = line;

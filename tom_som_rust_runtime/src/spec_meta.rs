@@ -74,15 +74,6 @@ pub struct SomFormFieldMeta {
     pub required: bool,
     /// The authoring hint (e.g. `"e.g. 1.0"`), `""` when absent.
     pub hint: String,
-    /// Structural role of the field (YRD6): `"title"` (the field is a view
-    /// onto the owning section's headline), `"id"` (view onto the stored
-    /// section id), or `""` for an ordinary form-value field. Role fields
-    /// are never stored in the form-value store; serialization emits their
-    /// value once — as the heading text / id comment.
-    pub role: String,
-    /// Predefined initial content (YRD6, meta-only editor prefill), `""` when
-    /// absent.
-    pub initial: String,
     /// The declaration order within the form.
     pub order: i64,
     /// Enum constant names when `type_name` is a model enum (YRD7); empty for
@@ -103,16 +94,6 @@ impl SomFormMeta {
     /// Returns the field named `name`, or `None` when absent.
     pub fn field_named(&self, name: &str) -> Option<&SomFormFieldMeta> {
         self.fields.iter().find(|f| f.name == name)
-    }
-
-    /// The title-role field (YRD6), or `None` when the form declares none.
-    pub fn title_field(&self) -> Option<&SomFormFieldMeta> {
-        self.fields.iter().find(|f| f.role == "title")
-    }
-
-    /// The id-role field (YRD6), or `None` when the form declares none.
-    pub fn id_field(&self) -> Option<&SomFormFieldMeta> {
-        self.fields.iter().find(|f| f.role == "id")
     }
 }
 

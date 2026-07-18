@@ -73,7 +73,7 @@ function main() {
   const out = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t6');
+  out.push('FORMAT\t7');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   // Generic: content leaves, sorted by path.
@@ -167,35 +167,7 @@ function main() {
     out.push('TI\t' + leaf + '\t' + esc(elem.content));
   }
 
-  // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
-  // (`requirementId`) and title-role (`title`) fields are pure views onto the
-  // owning list item's stored section id / headline. Each typed read is
-  // asserted against the generic itemSectionId/headline read before emission,
-  // proving the view binding end-to-end in every language. ---
-  const freReqs =
-    sbp.introductionAndScope.requirements.functionalRequirements.requirements;
-  for (let i = 0; i < freReqs.length; i++) {
-    const req = freReqs.at(i);
-    const itemPath = req.path;
-    const typedId = req.content.requirementId;
-    const typedTitle = req.content.title;
-    const genericId = doc.itemSectionId(itemPath) || '';
-    const genericTitle = doc.headline(itemPath) || '';
-    if (typedId !== genericId) {
-      process.stderr.write('TYPED ID-ROLE MISMATCH at ' + itemPath +
-        ': typed="' + typedId + '" generic="' + genericId + '"\n');
-      process.exit(2);
-    }
-    if (typedTitle !== genericTitle) {
-      process.stderr.write('TYPED TITLE-ROLE MISMATCH at ' + itemPath +
-        ': typed="' + typedTitle + '" generic="' + genericTitle + '"\n');
-      process.exit(2);
-    }
-    out.push('TR\t' + itemPath + '\trequirementId\t' + esc(typedId));
-    out.push('TR\t' + itemPath + '\ttitle\t' + esc(typedTitle));
-  }
-
-  // --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+  // --- Typed non-String form fields (FORMAT 7, YRD7): native int/bool/enum
   // members read through the typed facade and asserted against the generic
   // form store, canonicalised through the SAME boundary rules the facade
   // setters used to write them (int -> String, bool -> "true"/"false", enum ->
@@ -267,14 +239,12 @@ function main() {
   metaNode('SBP/requirements');
   metaNode('SBP/requirements/content');
 
-  // --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
-  // content form read through the metadata tree — one MF line per field
-  // (declaration order) with type/required/role/initial plus the FORMAT 6
-  // enumValues column (comma-joined constant names, empty for non-enum
-  // fields), plus one MT summary line naming the form's title-role and id-role
-  // fields via the titleField/idField accessors. Emitted for the FRE
-  // requirement form (role fields, no enums) and the ISO 25010 coverage form
-  // (an enum-typed field). All values are model-derived. ---
+  // --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
+  // through the metadata tree — one MF line per field (declaration order) with
+  // type/required plus the enumValues column (comma-joined constant names,
+  // empty for non-enum fields). Emitted for the FRE requirement form (no
+  // enums) and the ISO 25010 coverage form (an enum-typed field). All values
+  // are model-derived. ---
   out.push('SECTION\tmeta-form');
   function metaForm(listPath) {
     const listNode = metaTree.byPath(listPath);
@@ -297,12 +267,8 @@ function main() {
     for (const f of form.fields) {
       out.push('MF\t' + formPath + '\t' + esc(f.name) + '\t' +
         esc(f.typeName) + '\t' + (f.required ? 1 : 0) + '\t' +
-        esc(f.role || '') + '\t' + esc(f.initial || '') + '\t' +
         esc((f.enumValues || []).join(',')));
     }
-    out.push('MT\t' + formPath + '\t' +
-      esc(form.titleField != null ? form.titleField.name : '') + '\t' +
-      esc(form.idField != null ? form.idField.name : ''));
   }
 
   metaForm(

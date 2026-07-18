@@ -526,15 +526,6 @@ class _Encoder {
           `form \`${path}\` holds a field \`${name}\` unknown to the model`,
         );
       }
-      if (field.role !== null) {
-        // YRD6: role values live in the headline / item-id store; a stored
-        // form value under a role field name is a corrupt document state.
-        throw new SpecYamlFormatException(
-          `form \`${path}\` holds a value for ${field.role}-role field ` +
-            `\`${name}\` — role values live in the section headline/id, ` +
-            'not the form store',
-        );
-      }
     }
     if (hasHeadline && meta.fieldNamed('headline') !== null) {
       throw new SpecYamlFormatException(
@@ -820,14 +811,6 @@ class _Decoder {
           }
           throw new SpecYamlFormatException(
             `form \`${path}\` has no field \`${name}\` in the model`,
-          );
-        }
-        if (field.role !== null) {
-          // YRD6: a role field's value is the section heading / item key —
-          // it must never appear as a form entry.
-          throw new SpecYamlFormatException(
-            `form \`${path}\` field \`${name}\` is a ${field.role}-role ` +
-              'field — its value is the section headline/id, not a form entry',
           );
         }
         this.doc.setFormField(path, name, _Decoder._scalarOf(v, `${path}.${name}`));

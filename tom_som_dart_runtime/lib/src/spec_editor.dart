@@ -17,17 +17,10 @@
 ///   * reads are forgiving (unparsable stored text reads as `null`), writes
 ///     are strict ([ArgumentError] for a wrong type or an out-of-domain enum
 ///     name).
-///
-/// Role fields (YRD6) are honoured: reading/writing a `title`-role form field
-/// routes to the owning section's stored headline, an `id`-role field to the
-/// owning list item's stored section id — exactly the routing the generated
-/// facades emit (owner = the form's own path when the form member carries its
-/// own `@SectionId`, else the parent path).
 library;
 
 import 'spec_document.dart';
 import 'spec_model.dart';
-import 'spec_paths.dart';
 import 'spec_reflection.dart';
 import 'spec_section_id.dart';
 import 'spec_typed_values.dart';
@@ -129,15 +122,11 @@ class SpecEditor {
   /// The typed value of form [field] at the `@Form` section [path], or `null`
   /// when unset.
   ///
-  /// Role fields route per YRD6: `title` reads the owning section's headline,
-  /// `id` the owning list item's stored section id. Ordinary fields read the
-  /// form store and parse per the declared field type (enum fields return the
-  /// validated constant name). Throws [ArgumentError] for a non-form path or
-  /// an unknown field name.
+  /// Reads the form store and parses per the declared field type (enum fields
+  /// return the validated constant name). Throws [ArgumentError] for a non-form
+  /// path or an unknown field name.
   Object? formValue(String path, String field) {
-    final (r, ff) = _formField(path, field);
-    if (ff.role == 'title') return document.headline(_roleOwner(r, path));
-    if (ff.role == 'id') return document.itemSectionId(_roleOwner(r, path));
+    final (_, ff) = _formField(path, field);
     final raw = document.formField(path, field);
     if (raw == null || raw.isEmpty) return null;
     if (ff.enumValues.isNotEmpty) return somParseEnumName(raw, ff.enumValues);
@@ -158,21 +147,10 @@ class SpecEditor {
   /// Sets form [field] at the `@Form` section [path] to the typed value [v]
   /// (`null` clears), converting through the shared boundary helpers.
   ///
-  /// Role fields route per YRD6 (see [formValue]); an empty write to an
-  /// `id`-role field is ignored, matching the generated setters. Throws
-  /// [ArgumentError] for a wrong value type or an out-of-domain enum name.
+  /// Throws [ArgumentError] for a wrong value type or an out-of-domain enum
+  /// name.
   void setFormValue(String path, String field, Object? v) {
-    final (r, ff) = _formField(path, field);
-    if (ff.role == 'title') {
-      document.setHeadline(_roleOwner(r, path), _string(v, path, field));
-      return;
-    }
-    if (ff.role == 'id') {
-      final id = _string(v, path, field);
-      if (id.isEmpty) return; // empty id writes are ignored (YRD6)
-      document.setItemSectionId(_roleOwner(r, path), id);
-      return;
-    }
+    final (_, ff) = _formField(path, field);
     final String stored;
     if (ff.enumValues.isNotEmpty) {
       stored = somFormatEnumName(_stringOrNull(v, path, field), ff.enumValues);
@@ -206,11 +184,6 @@ class SpecEditor {
     throw ArgumentError.value(
         field, 'field', 'not a form field of $path');
   }
-
-  /// The owner path a role field binds to (YRD6): the form's own path when
-  /// the form member heads its own `@SectionId` section, else the parent.
-  String _roleOwner(SpecResolution r, String path) =>
-      r.field?.sectionId != null ? path : specParentPath(path);
 
   // --- structural operations -----------------------------------------------
 
@@ -294,9 +267,6 @@ class SpecEditor {
     throw ArgumentError.value(
         v, where ?? path, 'wrong value type for a ${base ?? 'String'} field');
   }
-
-  String _string(Object? v, String path, String field) =>
-      _stringOrNull(v, path, field) ?? '';
 
   String? _stringOrNull(Object? v, String path, String field) {
     if (v == null) return null;

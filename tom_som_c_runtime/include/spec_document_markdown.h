@@ -53,10 +53,6 @@
 #define SPEC_MARKDOWN_REJECT_MISSING_VALUE "missingValue"
 /* A heading line without a parseable `<!--[id]-->` headline comment. */
 #define SPEC_MARKDOWN_REJECT_MALFORMED_HEADING "malformedHeading"
-/* A `FieldName:` form line for a title/id **role field** (YRD6): the field's
- * value is the section heading / id comment and must never be duplicated as a
- * form line. */
-#define SPEC_MARKDOWN_REJECT_ROLE_FIELD_FORM_LINE "roleFieldFormLine"
 
 /* One rejected block in a Markdown import (DR1 §1.7). Reported, never
  * silently dropped: each carries the source line, the offending anchor

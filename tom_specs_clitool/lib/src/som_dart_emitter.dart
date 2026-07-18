@@ -390,13 +390,9 @@ class SomDartEmitter {
         ..writeln('  set content(String value) => '
             'doc.setContent(path, value);');
     }
-    // YRD6: role fields bind to the OWNING section — the form's own path when
-    // the member heads its own `@SectionId` section, else the parent path (a
-    // transparent/class-level form hoisted into the parent's body).
-    final ownerExpr = f.sectionId != null ? 'path' : 'specParentPath(path)';
     for (final ff in f.formFields) {
       b.writeln();
-      _writeFormMember(b, ff, ownerExpr);
+      _writeFormMember(b, ff);
     }
     b.writeln('}');
     return b.toString();
@@ -405,32 +401,10 @@ class SomDartEmitter {
   /// Emits a single typed `@Form` member accessor. The value is stored through
   /// the generic form store (`formField`/`setFormField`), so the on-disk format
   /// and the generic reading are unchanged; only the facade's static type
-  /// mirrors the declared form-field type. A role field (YRD6) is instead a
-  /// pure view onto the owning section's headline / stored section id at
-  /// [ownerExpr] — its value never touches the form store.
-  void _writeFormMember(StringBuffer b, FormFieldSpec ff, String ownerExpr) {
+  /// mirrors the declared form-field type.
+  void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
     final n = ff.name;
     final key = _escape(n);
-    if (ff.role == 'title') {
-      b
-        ..writeln('  /// Title-role field (YRD6): a view onto the owning '
-            'section\'s headline.')
-        ..writeln('  String get $n => doc.headline($ownerExpr) ?? \'\';')
-        ..writeln('  set $n(String value) => '
-            'doc.setHeadline($ownerExpr, value);');
-      return;
-    }
-    if (ff.role == 'id') {
-      b
-        ..writeln('  /// Id-role field (YRD6): a view onto the owning list '
-            'item\'s stored section id')
-        ..writeln('  /// (uniqueness validated on write; empty writes are '
-            'ignored).')
-        ..writeln('  String get $n => doc.itemSectionId($ownerExpr) ?? \'\';')
-        ..writeln('  set $n(String value) { if (value.isEmpty) return; '
-            'doc.setItemSectionId($ownerExpr, value); }');
-      return;
-    }
     // YRD7: enum-typed form fields expose the generated enum natively; the
     // stored value stays the constant name (`_parse<Enum>` / `.name`).
     if (ff.enumValues.isNotEmpty) {

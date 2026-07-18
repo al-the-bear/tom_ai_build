@@ -256,11 +256,11 @@ parallel-run gate passes.''');
   _normalizeListItemIds(doc, d00SolutionBlueprintMetaTree);
 
   // YRD3/YRD6: stored headlines + stored item section ids in the committed
-  // sample. Since YRD6 the requirement entries' stored ids and headlines are
-  // authored through their id/title ROLE fields above (`requirementId` /
-  // `title` write straight into the YRD3 stores), so no per-item override is
-  // needed here any more. The Functional Requirements fixed section keeps its
-  // renamed headline as the fixed-section stored-headline fixture.
+  // sample. Since YRD6 (reversed) the functional-requirement entries author
+  // their stored ids and headlines directly through the generic `$sectionId` /
+  // `$headline` stores above — no role form field restates either. The
+  // Functional Requirements fixed section keeps its renamed headline as the
+  // fixed-section stored-headline fixture.
   final freList =
       doc.listPaths.singleWhere((p) => p.endsWith('/FRE-REQU-LST'));
   final frSection = freList.substring(0, freList.lastIndexOf('/'));
@@ -329,14 +329,13 @@ void _normalizeListItemIds(SpecDocument doc, SomMetaTree tree) {
     final node = tree.byPath(listPath);
     final pattern = node?.sectionIdPattern ?? node?.elementNode?.sectionIdPattern;
     if (pattern == null) continue;
-    // YRD6: a list whose element's own form declares an id-role field authors
-    // its stored ids THROUGH that field (e.g. `requirementId` → `FR-01`).
-    // Those ids are semantic and already deterministic — renumbering them
-    // would destroy the authored values, so such lists are exempt.
-    final element = node?.elementNode;
-    final hasIdRole = element != null &&
-        element.children.any((c) => c.form?.idField != null);
-    if (hasIdRole) continue;
+    // The functional-requirement list authors semantic, deterministic ids
+    // (`FRE-REQU-ORDER-CAPTURE`, …) straight onto each item's `$sectionId`
+    // store, so it is exempt: renumbering would destroy those authored values.
+    // Every other patterned list carries only the AA1 date-lettered auto-ids
+    // (e.g. `USCA-USER-GR1`), which churn per build and must be renumbered to
+    // the deterministic `<stem>-<pos>` form.
+    if (listPath.endsWith('/FRE-REQU-LST')) continue;
     final items = doc.listItems(listPath);
     for (var i = 0; i < items.length; i++) {
       doc.setItemSectionId(items[i], pattern.replaceAll('xxx', '${i + 1}'));
@@ -362,13 +361,14 @@ every downstream artifact traces back to a requirement.''');
   final fr = reqs.functionalRequirements.requirements;
 
   final fr1 = fr.add();
-  fr1.content
-    // YRD6: id-role values are stored section ids and must keep the
-    // @SectionIdPattern stem (FRE-REQU-) to stay DR3-schema-valid; the human
-    // FR-nn code lives in the title (= section headline).
-    ..requirementId = 'FRE-REQU-ORDER-CAPTURE'
-    ..title = 'FR-01 — Capture orders from EDI and REST channels'
-    ..status = 'Approved';
+  // YRD6 (reversed): the entry's id is its stored section id — kept on the
+  // @SectionIdPattern `FRE-REQU-` stem so it stays DR3-schema-valid — and its
+  // human FR-nn title is the stored item headline. Neither is a form field any
+  // more (the content form carries only `status`), so both are authored through
+  // the generic `$sectionId`/`$headline` stores.
+  fr1.content.status = 'Approved';
+  fr1.$sectionId = 'FRE-REQU-ORDER-CAPTURE';
+  fr1.$headline = 'FR-01 — Capture orders from EDI and REST channels';
   fr1.details
     ..description = _p('''
 The system must accept orders from the wholesale EDI adapter and the public
@@ -401,10 +401,9 @@ so downstream processing is channel-agnostic.''')
       then: 'an Order is created in state Captured with the same shape as EDI');
 
   final fr2 = fr.add();
-  fr2.content
-    ..requirementId = 'FRE-REQU-SYNC-PRICING'
-    ..title = 'FR-02 — Price orders synchronously at capture time'
-    ..status = 'Approved';
+  fr2.content.status = 'Approved';
+  fr2.$sectionId = 'FRE-REQU-SYNC-PRICING';
+  fr2.$headline = 'FR-02 — Price orders synchronously at capture time';
   fr2.details
     ..description = _p('''
 Pricing must be computed synchronously during order processing and the resulting
@@ -426,10 +425,9 @@ making historical orders reproducible.''')
       then: 'each line stores the resolved unit price as of the pricing timestamp');
 
   final fr3 = fr.add();
-  fr3.content
-    ..requirementId = 'FRE-REQU-STOCK-RESERVATION'
-    ..title = 'FR-03 — Reserve stock before confirmation'
-    ..status = 'Approved';
+  fr3.content.status = 'Approved';
+  fr3.$sectionId = 'FRE-REQU-STOCK-RESERVATION';
+  fr3.$headline = 'FR-03 — Reserve stock before confirmation';
   fr3.details
     ..description = _p('''
 Before an order is confirmed the system must reserve stock for every line;
@@ -454,10 +452,9 @@ whole order.''')
       then: 'only the short line is placed on Hold while the remaining lines reserve normally');
 
   final fr4 = fr.add();
-  fr4.content
-    ..requirementId = 'FRE-REQU-CONFIRM-SLA'
-    ..title = 'FR-04 — Confirm orders within five minutes'
-    ..status = 'Approved';
+  fr4.content.status = 'Approved';
+  fr4.$sectionId = 'FRE-REQU-CONFIRM-SLA';
+  fr4.$headline = 'FR-04 — Confirm orders within five minutes';
   fr4.details
     ..description = _p('''
 An order that passes validation, pricing, and reservation must reach state
@@ -482,10 +479,9 @@ the operations work list and the public tracking page.''')
       then: 'the order appears as Confirmed on the operations work list and the public tracking page');
 
   final fr5 = fr.add();
-  fr5.content
-    ..requirementId = 'FRE-REQU-AMEND-CANCEL'
-    ..title = 'FR-05 — Amend or cancel an order before dispatch'
-    ..status = 'Approved';
+  fr5.content.status = 'Approved';
+  fr5.$sectionId = 'FRE-REQU-AMEND-CANCEL';
+  fr5.$headline = 'FR-05 — Amend or cancel an order before dispatch';
   fr5.details
     ..description = _p('''
 Until an order is dispatched, a clerk must be able to amend line quantities and
@@ -510,10 +506,9 @@ for the affected lines and is fully audited.''')
       then: 'the cancellation is rejected and the rejection is recorded in the audit trail');
 
   final fr6 = fr.add();
-  fr6.content
-    ..requirementId = 'FRE-REQU-HOLD-RELEASE'
-    ..title = 'FR-06 — Release a manual hold'
-    ..status = 'Approved';
+  fr6.content.status = 'Approved';
+  fr6.$sectionId = 'FRE-REQU-HOLD-RELEASE';
+  fr6.$headline = 'FR-06 — Release a manual hold';
   fr6.details
     ..description = _p('''
 An Order Supervisor must be able to review an order on Hold and release it back

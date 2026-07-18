@@ -69,14 +69,6 @@ export class FormFieldSpec {
   type: string;
   hint: string | null;
   required: boolean;
-  /**
-   * Structural role of the field (YRD6): `'title'` (view onto the owning
-   * section's headline), `'id'` (view onto the stored section id), or
-   * `null` for an ordinary form-value field.
-   */
-  role: string | null;
-  /** Predefined initial content (YRD6, meta-only editor prefill), or `null`. */
-  initial: string | null;
 
   constructor(props: {
     name: string;
@@ -84,16 +76,12 @@ export class FormFieldSpec {
     type?: string;
     hint?: string | null;
     required?: boolean;
-    role?: string | null;
-    initial?: string | null;
   }) {
     this.name = props.name;
     this.label = props.label;
     this.type = props.type != null ? props.type : 'String';
     this.hint = props.hint != null ? props.hint : null;
     this.required = Boolean(props.required || false);
-    this.role = props.role != null ? props.role : null;
-    this.initial = props.initial != null ? props.initial : null;
   }
 
   static fromJson(j: any): FormFieldSpec {
@@ -103,8 +91,6 @@ export class FormFieldSpec {
       type: j.type || 'String',
       hint: j.hint != null ? j.hint : null,
       required: Boolean(j.required || false),
-      role: j.role != null ? j.role : null,
-      initial: j.initial != null ? j.initial : null,
     });
   }
 }

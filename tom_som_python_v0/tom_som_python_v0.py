@@ -10,7 +10,6 @@ from tom_som_runtime import (
     SpecDocument,
     check_som_model_version,
     som_editability_for,
-    spec_parent_path,
 )
 
 from tom_som_python_v0_meta import *  # noqa: F401,F403
@@ -86287,27 +86286,6 @@ class FunctionalRequirementEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    # Id-role field (YRD6): a view onto the owning list item's stored section id
-    # (uniqueness validated on write; empty writes are ignored).
-    @property
-    def requirementId(self) -> str:
-        return self.doc.item_section_id(spec_parent_path(self.path)) or ""
-
-    @requirementId.setter
-    def requirementId(self, value):
-        if not value:
-            return
-        self.doc.set_item_section_id(spec_parent_path(self.path), value)
-
-    # Title-role field (YRD6): a view onto the owning section's headline.
-    @property
-    def title(self) -> str:
-        return self.doc.headline(spec_parent_path(self.path)) or ""
-
-    @title.setter
-    def title(self, value):
-        self.doc.set_headline(spec_parent_path(self.path), value)
 
     @property
     def status(self) -> str:

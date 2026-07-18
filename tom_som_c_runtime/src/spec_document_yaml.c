@@ -528,18 +528,6 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
       free(headline);
       return 0;
     }
-    if (field->role[0] != '\0') {
-      /* YRD6: role values live in the headline / item-id store; a stored
-         form value under a role field name is a corrupt document state. */
-      set_err(err, vcat("form `", path, "` holds a value for ", field->role,
-                        "-role field `", names.items[i],
-                        "` \xE2\x80\x94 role values live in the section "
-                        "headline/id, not the form store",
-                        NULL));
-      som_strlist_free(&names);
-      free(headline);
-      return 0;
-    }
   }
   som_strlist_free(&names);
   if (has_headline &&
@@ -1156,16 +1144,6 @@ static int decoder_load_child(YamlDecoder *d, const SomMetaNode *child,
         }
         set_err(err, vcat("form `", path, "` has no field `", name,
                           "` in the model", NULL));
-        return 0;
-      }
-      if (field->role[0] != '\0') {
-        /* YRD6: a role field's value is the section heading / item key —
-           it must never appear as a form entry. */
-        set_err(err, vcat("form `", path, "` field `", name, "` is a ",
-                          field->role,
-                          "-role field \xE2\x80\x94 its value is the section "
-                          "headline/id, not a form entry",
-                          NULL));
         return 0;
       }
       char *where = vcat(path, ".", name, NULL);

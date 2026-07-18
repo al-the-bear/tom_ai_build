@@ -90,7 +90,7 @@ static void typed_content(SpecDocument *doc, SomStrList *out,
   free(value);
 }
 
-/* Boundary canonicalisation for typed non-String form fields (FORMAT 6): an
+/* Boundary canonicalisation for typed non-String form fields (FORMAT 7): an
  * int renders as its decimal string, a bool as "true"/"false". Returns an owned
  * buffer the caller frees. The sample values are always present, matching the
  * Dart reference which emits the raw stored string for these fields. */
@@ -157,10 +157,10 @@ static void meta_node(const SomMetaTree *tree, SomStrList *out,
 }
 
 /* Emits the meta-form lines for any list path whose element content is a form:
- * one `MF` line per field (declaration order) with type/required/role/initial
- * and the enumValues column (FORMAT 6, YRD7 — comma-joined constant names, empty
- * for non-enum fields), plus one `MT` summary line naming the title/id roles.
- * All values are model-derived, so the lines match across every language. */
+ * one `MF` line per field (declaration order) with type/required and the
+ * enumValues column (FORMAT 7, YRD7 — comma-joined constant names, empty for
+ * non-enum fields). All values are model-derived, so the lines match across
+ * every language. */
 static void emit_meta_form(const SomMetaTree *tree, SomStrList *out,
                            const char *list_path) {
   const SomMetaNode *list_node = som_meta_tree_by_path(tree, list_path);
@@ -185,8 +185,6 @@ static void emit_meta_form(const SomMetaTree *tree, SomStrList *out,
     const SomFormFieldMeta *f = &form->fields[i];
     char *en = esc(f->name);
     char *et = esc(f->type_name);
-    char *er = esc(f->role);
-    char *ei = esc(f->initial);
     /* Join the enum constant names with commas, then escape as one field. */
     size_t joined_len = 0;
     for (size_t j = 0; j < f->enum_values_len; j++) {
@@ -199,22 +197,13 @@ static void emit_meta_form(const SomMetaTree *tree, SomStrList *out,
       strcat(joined, f->enum_values[j]);
     }
     char *ev = esc(joined);
-    som_strlist_push(out, fmt("MF\t%s\t%s\t%s\t%d\t%s\t%s\t%s", form_path, en, et,
-                              f->required ? 1 : 0, er, ei, ev));
+    som_strlist_push(out, fmt("MF\t%s\t%s\t%s\t%d\t%s", form_path, en, et,
+                              f->required ? 1 : 0, ev));
     free(ev);
     free(joined);
-    free(ei);
-    free(er);
     free(et);
     free(en);
   }
-  const SomFormFieldMeta *title_field = som_form_meta_title_field(form);
-  const SomFormFieldMeta *id_field = som_form_meta_id_field(form);
-  char *etf = esc(title_field != NULL ? title_field->name : "");
-  char *eif = esc(id_field != NULL ? id_field->name : "");
-  som_strlist_push(out, fmt("MT\t%s\t%s\t%s", form_path, etf, eif));
-  free(eif);
-  free(etf);
   free(form_path);
 }
 
@@ -282,7 +271,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t6");
+  som_strlist_push_copy(&out, "FORMAT\t7");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);
@@ -463,52 +452,7 @@ int main(int argc, char **argv) {
     current_operational_metric_free(&elem);
   }
 
-  /* --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
-   * (`requirementId`) and title-role (`title`) fields are pure views onto the
-   * owning list item's stored section id / headline. Each typed read is
-   * asserted against the generic itemSectionId/headline read before emission,
-   * proving the view binding end-to-end in every language. --- */
-  IntroductionAndScope s_intro3 = d00_solution_blueprint_introduction_and_scope(&sbp);
-  RequirementsOverview s_ro = introduction_and_scope_requirements(&s_intro3);
-  FunctionalRequirements s_fr = requirements_overview_functional_requirements(&s_ro);
-  SomList fre_reqs = functional_requirements_requirements(&s_fr);
-  for (size_t i = 0; i < som_list_length(&fre_reqs); i++) {
-    const char *item_path = som_list_item_path_at(&fre_reqs, i);
-    FunctionalRequirementEntry req;
-    functional_requirement_entry_init(&req, typed_doc, item_path);
-    FunctionalRequirementEntryContentForm cform =
-        functional_requirement_entry_content(&req);
-    char *typed_id = functional_requirement_entry_content_form_requirement_id(&cform);
-    char *typed_title = functional_requirement_entry_content_form_title(&cform);
-    const char *generic_id = spec_document_item_section_id(doc, item_path);
-    if (generic_id == NULL) generic_id = "";
-    const char *generic_title = spec_document_headline(doc, item_path);
-    if (generic_title == NULL) generic_title = "";
-    if (strcmp(typed_id, generic_id) != 0) {
-      fprintf(stderr, "TYPED ID-ROLE MISMATCH at %s: typed=\"%s\" generic=\"%s\"\n",
-              item_path, typed_id, generic_id);
-      exit(2);
-    }
-    if (strcmp(typed_title, generic_title) != 0) {
-      fprintf(stderr,
-              "TYPED TITLE-ROLE MISMATCH at %s: typed=\"%s\" generic=\"%s\"\n",
-              item_path, typed_title, generic_title);
-      exit(2);
-    }
-    char *eid = esc(typed_id);
-    char *etitle = esc(typed_title);
-    som_strlist_push(&out, fmt("TR\t%s\trequirementId\t%s", item_path, eid));
-    som_strlist_push(&out, fmt("TR\t%s\ttitle\t%s", item_path, etitle));
-    free(etitle);
-    free(eid);
-    free(typed_title);
-    free(typed_id);
-    functional_requirement_entry_content_form_free(&cform);
-    functional_requirement_entry_free(&req);
-  }
-  som_list_free(&fre_reqs);
-
-  /* --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+  /* --- Typed non-String form fields (FORMAT 7, YRD7): native int/bool/enum
    * members read through the typed facade and asserted against the generic form
    * store, canonicalised through the SAME boundary rules the facade setters used
    * to write them (int -> decimal, bool -> "true"/"false", enum -> constant
@@ -586,11 +530,10 @@ int main(int argc, char **argv) {
   meta_node(meta_tree, &out, "SBP/requirements");
   meta_node(meta_tree, &out, "SBP/requirements/content");
 
-  /* --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+  /* --- Meta form fields (FORMAT 7, YRD7): the FRE list-element content form
    * read through the metadata tree — one MF line per field (declaration
-   * order) with type/required/role/initial, plus one MT summary line naming
-   * the form's title-role and id-role fields via the titleField/idField
-   * accessors. All values are model-derived. --- */
+   * order) with type/required plus the enumValues column. All values are
+   * model-derived. --- */
   som_strlist_push_copy(&out, "SECTION\tmeta-form");
   emit_meta_form(meta_tree, &out,
                  "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");

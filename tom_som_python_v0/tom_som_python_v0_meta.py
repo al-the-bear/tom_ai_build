@@ -15600,7 +15600,6 @@ def _mc_DeliveryTransitionAndRollout(s):
             serialization_order=4,
             doc_comment="Multi-language rollout sequencing by region and time (re-homed from MLAR).",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="rolloutStrategy", type_name="String", description="Rollout Strategy", hint="Big bang, phased, pilot", order=0), SomFormFieldMeta(name="rolloutTimeline", type_name="String", description="Rollout Timeline", hint="High-level rollout schedule", order=1), SomFormFieldMeta(name="rolloutRegions", type_name="String", description="Rollout Regions", hint="Geographic rollout order", order=2)]),
-            second_level_ids=[SomSecondLevelId(document_class="D12TransitionRolloutPlan", id="TRP-RLP")],
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 3166 — country and region codes define the geographic rollout order", "ISO 8601 — the standard representation for the rollout timeline and schedule"], "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."})]),
     ]
 
@@ -21954,7 +21953,7 @@ def _mc_FunctionalRequirementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="requirementId", type_name="String", description="Requirement ID (unique, e.g., REQ-F001)", required=True, hint="Unique requirement identifier, e.g. REQ-F001", role="id", order=0), SomFormFieldMeta(name="title", type_name="String", description="Title (concise statement)", required=True, hint="Concise one-line statement of the requirement", role="title", order=1), SomFormFieldMeta(name="status", type_name="String", description="Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", required=True, hint="Draft, Proposed, Approved, Implemented, Verified, or Deferred", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="status", type_name="String", description="Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", required=True, hint="Draft, Proposed, Approved, Implemented, Verified, or Deferred", order=0)])),
          SomMetaNode(
             class_name="FunctionalRequirementEntry",
             member_name="details",

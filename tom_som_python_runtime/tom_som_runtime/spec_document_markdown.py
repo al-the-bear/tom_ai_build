@@ -72,10 +72,6 @@ class SpecMarkdownRejectReason(Enum):
     MISSING_VALUE = "missingValue"
     #: A heading line without a parseable ``<!--[id]-->`` headline comment.
     MALFORMED_HEADING = "malformedHeading"
-    #: A ``FieldName:`` form line for a title/id **role field** (YRD6): the
-    #: field's value is the section heading / id comment and must never be
-    #: duplicated as a form line.
-    ROLE_FIELD_FORM_LINE = "roleFieldFormLine"
 
 
 @dataclass
@@ -520,8 +516,6 @@ class SpecDocumentMarkdown:
     def _form_has_values(self, node: SomMetaNode, path: str) -> bool:
         fields = node.form.fields if node.form is not None else []
         for f in fields:
-            if f.role is not None:
-                continue  # YRD6: role values live in the heading.
             if self.document.form_field(path, f.name) is not None:
                 return True
         return False
@@ -529,11 +523,6 @@ class SpecDocumentMarkdown:
     def _write_form(self, b: _Buffer, node: SomMetaNode, path: str) -> None:
         fields = node.form.fields if node.form is not None else []
         for f in fields:
-            # YRD6: a role field's value is emitted exactly once — as the
-            # owning section's heading text / id comment — never as a form
-            # line.
-            if f.role is not None:
-                continue
             value = self.document.form_field(path, f.name)
             if value is None:
                 continue
@@ -1048,7 +1037,6 @@ class _Parser:
         fence = MarkdownFenceTracker()
         current_field: Optional[str] = None
         current_form_path: Optional[str] = None
-        dropping = False
         current_lines: list[str] = []
         content_lines: list[str] = []
 
@@ -1070,48 +1058,14 @@ class _Parser:
                     hit = find_field(m.group(1))
                     if hit is not None:
                         flush()
-                        # YRD6: a title/id role field's value is the owning
-                        # section's heading / id comment — a form line
-                        # duplicating it is rejected, never stored
-                        # (continuation lines are dropped with it).
-                        if hit[1].role is not None:
-                            self.rejections.append(
-                                SpecMarkdownRejection(
-                                    line=frame.line + i,
-                                    reason=(
-                                        SpecMarkdownRejectReason
-                                        .ROLE_FIELD_FORM_LINE
-                                    ),
-                                    anchor=(
-                                        f"{frame.path}/"
-                                        f"{form_slots[hit[0]][1]}"
-                                    ),
-                                    message=(
-                                        f"form field `{hit[1].name}` is a "
-                                        "title/id role field — its value is "
-                                        "the section heading, not a form "
-                                        "line"
-                                    ),
-                                )
-                            )
-                            current_field = None
-                            current_form_path = None
-                            dropping = True
-                            current_lines = []
-                            fence.feed(line)
-                            continue
                         self._current_form_idx = hit[0]
                         current_field = hit[1].name
                         current_form_path = (
                             f"{frame.path}/{form_slots[hit[0]][1]}"
                         )
                         current_lines = [m.group(2)]
-                        dropping = False
                         fence.feed(line)
                         continue
-            if dropping:
-                fence.feed(line)
-                continue
             target = content_lines if current_field is None else current_lines
             # Continuation: strip the one escape space of a label-shaped line.
             if (
@@ -1134,21 +1088,17 @@ class _Parser:
         form = node.form
         fields = form.fields if form is not None else []
         fields_by_lower = {f.name.lower(): f.name for f in fields}
-        # YRD6: role fields (title/id) are represented by the section heading /
-        # id comment — a form line duplicating one is rejected, never stored.
-        role_fields = {f.name for f in fields if f.role is not None}
         fence = MarkdownFenceTracker()
         current_field: Optional[str] = None
-        dropping = False
         current_lines: list[str] = []
 
         def flush(line_no: int) -> None:
-            nonlocal current_lines, dropping
+            nonlocal current_lines
             if current_field is not None:
                 value = self._restore_value(current_lines)
                 if value:
                     self.forms.setdefault(path, {})[current_field] = value
-            elif not dropping and any(l.strip() for l in current_lines):
+            elif any(l.strip() for l in current_lines):
                 self.rejections.append(
                     SpecMarkdownRejection(
                         line=line_no,
@@ -1160,7 +1110,6 @@ class _Parser:
                         ),
                     )
                 )
-            dropping = False
             current_lines = []
 
         for i, line in enumerate(frame.body):
@@ -1173,27 +1122,6 @@ class _Parser:
                 )
                 if field_name is not None and m is not None:
                     flush(frame.line + i)
-                    if field_name in role_fields:
-                        self.rejections.append(
-                            SpecMarkdownRejection(
-                                line=frame.line + i,
-                                reason=(
-                                    SpecMarkdownRejectReason
-                                    .ROLE_FIELD_FORM_LINE
-                                ),
-                                anchor=path,
-                                message=(
-                                    f"form field `{field_name}` is a "
-                                    "title/id role field — its value is the "
-                                    "section heading, not a form line"
-                                ),
-                            )
-                        )
-                        current_field = None
-                        dropping = True
-                        current_lines = []
-                        fence.feed(line)
-                        continue
                     current_field = field_name
                     current_lines = [m.group(2)]
                     fence.feed(line)

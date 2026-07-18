@@ -53359,21 +53359,6 @@ std::string FunctionalRequirementEntryContentForm::content() const {
 void FunctionalRequirementEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string FunctionalRequirementEntryContentForm::requirementId() const {
-  return doc().itemSectionId(som::specParentPath(path()));
-}
-void FunctionalRequirementEntryContentForm::setRequirementId(const std::string& value) {
-  if (value.empty()) {
-    return;
-  }
-  doc().setItemSectionId(som::specParentPath(path()), value);
-}
-std::string FunctionalRequirementEntryContentForm::title() const {
-  return doc().headline(som::specParentPath(path()));
-}
-void FunctionalRequirementEntryContentForm::setTitle(const std::string& value) {
-  doc().setHeadline(som::specParentPath(path()), value);
-}
 std::string FunctionalRequirementEntryContentForm::status() const {
   return doc().formField(path(), "status");
 }

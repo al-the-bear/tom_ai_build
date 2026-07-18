@@ -57,7 +57,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t6');
+  out.add('FORMAT\t7');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -164,35 +164,7 @@ void main(List<String> args) {
     out.add('TI\t$leaf\t${esc(elem.content)}');
   }
 
-  // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
-  // (`requirementId`) and title-role (`title`) fields are pure views onto the
-  // owning list item's stored section id / headline. Each typed read is
-  // asserted against the generic itemSectionId/headline read before emission,
-  // proving the view binding end-to-end in every language. ---
-  final freReqs =
-      sbp.introductionAndScope.requirements.functionalRequirements.requirements;
-  for (var i = 0; i < freReqs.length; i++) {
-    final req = freReqs[i];
-    final itemPath = req.path;
-    final typedId = req.content.requirementId;
-    final typedTitle = req.content.title;
-    final genericId = doc.itemSectionId(itemPath) ?? '';
-    final genericTitle = doc.headline(itemPath) ?? '';
-    if (typedId != genericId) {
-      stderr.writeln('TYPED ID-ROLE MISMATCH at $itemPath: '
-          'typed="$typedId" generic="$genericId"');
-      exit(2);
-    }
-    if (typedTitle != genericTitle) {
-      stderr.writeln('TYPED TITLE-ROLE MISMATCH at $itemPath: '
-          'typed="$typedTitle" generic="$genericTitle"');
-      exit(2);
-    }
-    out.add('TR\t$itemPath\trequirementId\t${esc(typedId)}');
-    out.add('TR\t$itemPath\ttitle\t${esc(typedTitle)}');
-  }
-
-  // --- Typed non-String form fields (FORMAT 6, YRD7): native `int`/`bool`/
+  // --- Typed non-String form fields (FORMAT 7, YRD7): native `int`/`bool`/
   // enum members read through the typed facade and asserted against the
   // generic form store, canonicalised through the SAME shared boundary
   // helpers (`somFormat*` / enum constant name) the facade setters used to
@@ -266,14 +238,12 @@ void main(List<String> args) {
   metaNode('SBP/requirements');
   metaNode('SBP/requirements/content');
 
-  // --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
-  // content form read through the metadata tree — one MF line per field
-  // (declaration order) with type/required/role/initial plus the FORMAT 6
-  // enumValues column (comma-joined constant names, empty for non-enum
-  // fields), plus one MT summary line naming the form's title-role and
-  // id-role fields via the titleField/idField accessors. Emitted for the FRE
-  // requirement form (role fields, no enums) and the ISO 25010 coverage form
-  // (an enum-typed field). All values are model-derived. ---
+  // --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
+  // through the metadata tree — one MF line per field (declaration order) with
+  // type/required plus the enumValues column (comma-joined constant names,
+  // empty for non-enum fields). Emitted for the FRE requirement form (no
+  // enums) and the ISO 25010 coverage form (an enum-typed field). All values
+  // are model-derived. ---
   out.add('SECTION\tmeta-form');
   // Element subtrees have no static document path; use an ASCII marker
   // segment so the log path stays ASCII (mirrored verbatim per language).
@@ -292,11 +262,8 @@ void main(List<String> args) {
     final formPath = '$listPath/#element/content';
     for (final f in form.fields) {
       out.add('MF\t$formPath\t${esc(f.name)}\t${esc(f.typeName)}\t'
-          '${f.required ? 1 : 0}\t${esc(f.role ?? '')}\t${esc(f.initial ?? '')}'
-          '\t${esc(f.enumValues.join(','))}');
+          '${f.required ? 1 : 0}\t${esc(f.enumValues.join(','))}');
     }
-    out.add('MT\t$formPath\t${esc(form.titleField?.name ?? '')}\t'
-        '${esc(form.idField?.name ?? '')}');
   }
 
   metaForm(

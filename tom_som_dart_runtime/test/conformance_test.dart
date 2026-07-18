@@ -191,8 +191,8 @@ void main() {
         () {
       // Item 1 carries the stored id `REF-SPEC` (YRD3); item 2 is anonymous.
       expectContainer('REF-LST', ['REF-SPEC', 'REF-2']);
-      // YRD6: card 1's id-role value IS its stored id (`CARD-ALPHA`); card 2
-      // falls back to the pattern (`CARD-2`). Neither appears as a form line.
+      // Card 1 carries the stored id `CARD-ALPHA` (YRD3); card 2 falls back to
+      // the pattern (`CARD-2`).
       expectContainer('CARD-LST', ['CARD-ALPHA', 'CARD-2']);
     });
 
@@ -290,7 +290,7 @@ void main() {
 
   // YRD7: the generic, meta-validated modification API (SpecEditor) — typed
   // value/form-field round-trips through the shared boundary helpers, enum
-  // domain validation, role-field routing, and structural create/clear ops.
+  // domain validation, and structural create/clear ops.
   // Executed against the corpus model, so every language's generic editor
   // replays the identical script.
   test('editor script replays with the committed results', () {
@@ -580,13 +580,10 @@ Map<String, dynamic> _buildMeta() => {
               'elementIsComplex': false,
             },
             {
-              // YRD6: a `*-LST` list of complex items whose own (transparent
-              // `content`) form declares role fields — `cardId` (id role, a
-              // view onto the stored item section id) and `name` (title role
-              // with an `initial` prefill, a view onto the item headline).
-              // Role values never enter the form store, so they emit exactly
-              // once: as the item heading / id comment (md) and the item key /
-              // headline (yaml).
+              // A `*-LST` list of complex items whose own transparent
+              // `content` form carries an ordinary `note` field. Item ids and
+              // headlines are stored directly in the YRD3 stores (card 1 sets
+              // `CARD-ALPHA` + a headline; card 2 falls back to defaults).
               'name': 'cards',
               'kind': 'list',
               'sectionId': 'CARD-LST',
@@ -650,25 +647,10 @@ Map<String, dynamic> _buildMeta() => {
           'name': 'Card',
           'fields': [
             {
-              // The section's OWN form (transparent, id-less `content`
-              // member): role fields bind against the PARENT path — the list
-              // item — per YRD6.
+              // The section's OWN form (transparent, id-less `content` member).
               'name': 'content',
               'kind': 'form',
               'formFields': [
-                {
-                  'name': 'cardId',
-                  'label': 'Card ID',
-                  'type': 'String',
-                  'role': 'id',
-                },
-                {
-                  'name': 'name',
-                  'label': 'Name',
-                  'type': 'String',
-                  'role': 'title',
-                  'initial': 'New Card',
-                },
                 {'name': 'note', 'label': 'Note', 'type': 'String'},
               ],
             },
@@ -731,12 +713,10 @@ SpecDocument _buildDocument() {
   d.setHeadline('DEMO/items', 'Work Items');
   d.setItemSectionId('DEMO/REF-LST-1', 'REF-SPEC');
   d.setHeadline('DEMO/REF-LST-1', 'Reference to the Spec');
-  // YRD6 fixtures: role fields are pure views onto the YRD3 stores. Card 1
-  // gets a stored (pattern-shaped, non-numeric) item section id — what the
-  // `cardId` id-role field reads — plus a stored headline — what the `name`
-  // title-role field reads. Card 2 keeps both defaults (`CARD-2` heading id,
-  // derived item title), so its role-field views read ''. Only the ordinary
-  // `note` field ever lands in the form store.
+  // Card 1 gets a stored (pattern-shaped, non-numeric) item section id and a
+  // stored headline (YRD3 stores). Card 2 keeps both defaults (`CARD-2`
+  // heading id, derived item title). The ordinary `note` field lands in the
+  // form store.
   final c1 = d.addListItem('DEMO/CARD-LST');
   d.setItemSectionId(c1, 'CARD-ALPHA');
   d.setHeadline(c1, 'Alpha Card');
@@ -790,7 +770,7 @@ List<Map<String, dynamic>> _reflectionCases(SpecModel model) {
     // The `*-LST` container path and one of its positional items.
     'DEMO/REF-LST',
     'DEMO/REF-LST-1',
-    // YRD6: the role-field list container, one item, and its own (transparent
+    // The card list container, one item, and its own (transparent
     // `content`) form node.
     'DEMO/CARD-LST',
     'DEMO/CARD-LST-1',
@@ -967,36 +947,13 @@ List<Map<String, dynamic>> _editorScript() => [
         'expect': null},
       {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'active',
         'expect': 'not-a-bool'},
-      // --- structural ops: pattern id generation, role routing, clear --------
+      // --- structural ops: pattern id generation, clear ---------------------
       {'op': 'addListItem', 'listPath': 'DEMO/REF-LST', 'month': 3, 'day': 4,
         'expectPath': 'DEMO/REF-LST-1', 'expectId': 'REF-CD1'},
       {'op': 'setValue', 'path': 'DEMO/REF-LST-1', 'value': 'spec §1.2'},
       {'op': 'value', 'path': 'DEMO/REF-LST-1', 'expect': 'spec §1.2'},
       {'op': 'addListItem', 'listPath': 'DEMO/CARD-LST', 'month': 3, 'day': 4,
         'expectPath': 'DEMO/CARD-LST-1', 'expectId': 'CARD-CD1'},
-      // Role fields route to the owning item's headline / stored id (YRD6):
-      // the Card form is the item's transparent `content` member, so the
-      // owner is the parent path — the list item itself.
-      {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
-        'field': 'name', 'value': 'Alpha Card'},
-      {'op': 'headline', 'path': 'DEMO/CARD-LST-1', 'expect': 'Alpha Card'},
-      {'op': 'formValue', 'path': 'DEMO/CARD-LST-1/content', 'field': 'name',
-        'expect': 'Alpha Card'},
-      {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
-        'field': 'cardId', 'value': 'CARD-ALPHA'},
-      {'op': 'itemSectionId', 'itemPath': 'DEMO/CARD-LST-1',
-        'expect': 'CARD-ALPHA'},
-      {'op': 'formValue', 'path': 'DEMO/CARD-LST-1/content', 'field': 'cardId',
-        'expect': 'CARD-ALPHA'},
-      // Empty id writes are ignored (YRD6); role values never enter the store.
-      {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
-        'field': 'cardId', 'value': ''},
-      {'op': 'itemSectionId', 'itemPath': 'DEMO/CARD-LST-1',
-        'expect': 'CARD-ALPHA'},
-      {'op': 'rawFormField', 'path': 'DEMO/CARD-LST-1/content',
-        'field': 'cardId', 'expect': null},
-      {'op': 'rawFormField', 'path': 'DEMO/CARD-LST-1/content',
-        'field': 'name', 'expect': null},
       {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
         'field': 'note', 'value': 'first card'},
       // clearSection drops every value under a subtree; removeListItem drops

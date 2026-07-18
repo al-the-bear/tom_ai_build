@@ -90795,33 +90795,6 @@ char *functional_requirement_entry_content_form_content(const FunctionalRequirem
 void functional_requirement_entry_content_form_set_content(FunctionalRequirementEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *functional_requirement_entry_content_form_requirement_id(const FunctionalRequirementEntryContentForm *self) {
-  char *owner = spec_parent_path(self->node.path);
-  const char *v = spec_document_item_section_id(self->node.doc, owner);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(owner);
-  return out;
-}
-void functional_requirement_entry_content_form_set_requirement_id(FunctionalRequirementEntryContentForm *self, const char *value) {
-  if (value == NULL || *value == '\0') {
-    return;
-  }
-  char *owner = spec_parent_path(self->node.path);
-  spec_document_set_item_section_id(self->node.doc, owner, value, NULL);
-  free(owner);
-}
-char *functional_requirement_entry_content_form_title(const FunctionalRequirementEntryContentForm *self) {
-  char *owner = spec_parent_path(self->node.path);
-  const char *v = spec_document_headline(self->node.doc, owner);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(owner);
-  return out;
-}
-void functional_requirement_entry_content_form_set_title(FunctionalRequirementEntryContentForm *self, const char *value) {
-  char *owner = spec_parent_path(self->node.path);
-  spec_document_set_headline(self->node.doc, owner, value);
-  free(owner);
-}
 char *functional_requirement_entry_content_form_status(const FunctionalRequirementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "status");
   return som_strdup(v != NULL ? v : "");

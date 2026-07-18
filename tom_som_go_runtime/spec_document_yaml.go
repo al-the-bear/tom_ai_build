@@ -554,14 +554,6 @@ func (e *yamlEncoder) writeForm(
 			return yamlFormatErr(
 				"form `" + path + "` holds a field `" + name + "` unknown to the model")
 		}
-		if field.Role != "" {
-			// YRD6: role values live in the headline / item-id store; a stored
-			// form value under a role field name is a corrupt document state.
-			return yamlFormatErr(
-				"form `" + path + "` holds a value for " + field.Role + "-role field " +
-					"`" + name + "` — role values live in the section headline/id, not the " +
-					"form store")
-		}
 	}
 	if hasHeadline && meta.FieldNamed("headline") != nil {
 		return yamlFormatErr(
@@ -894,13 +886,6 @@ func (d *yamlDecoder) loadChild(
 				}
 				return yamlFormatErr(
 					"form `" + path + "` has no field `" + name + "` in the model")
-			}
-			if field.Role != "" {
-				// YRD6: a role field's value is the section heading / item key —
-				// it must never appear as a form entry.
-				return yamlFormatErr(
-					"form `" + path + "` field `" + name + "` is a " + field.Role +
-						"-role field — its value is the section headline/id, not a form entry")
 			}
 			v, err := decoderScalarOf(fields.GetOr(name), path+"."+name)
 			if err != nil {

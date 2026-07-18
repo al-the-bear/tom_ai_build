@@ -80,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t6")
+	out = append(out, "FORMAT\t7")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -181,32 +181,7 @@ func main() {
 		out = append(out, "TI\t"+leaf+"\t"+esc(elem.Content()))
 	}
 
-	// --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
-	// (`requirementId`) and title-role (`title`) fields are pure views onto the
-	// owning list item's stored section id / headline. Each typed read is
-	// asserted against the generic itemSectionId/headline read before emission,
-	// proving the view binding end-to-end in every language. ---
-	freReqs := sbp.IntroductionAndScope().Requirements().FunctionalRequirements().Requirements()
-	for i := 0; i < freReqs.Length(); i++ {
-		req := freReqs.At(i)
-		itemPath := req.Path()
-		typedID := req.Content().RequirementId()
-		typedTitle := req.Content().Title()
-		genericID := doc.ItemSectionIDOr(itemPath)
-		genericTitle := doc.HeadlineOr(itemPath)
-		if typedID != genericID {
-			die("TYPED ID-ROLE MISMATCH at " + itemPath + ": " +
-				"typed=\"" + typedID + "\" generic=\"" + genericID + "\"")
-		}
-		if typedTitle != genericTitle {
-			die("TYPED TITLE-ROLE MISMATCH at " + itemPath + ": " +
-				"typed=\"" + typedTitle + "\" generic=\"" + genericTitle + "\"")
-		}
-		out = append(out, "TR\t"+itemPath+"\trequirementId\t"+esc(typedID))
-		out = append(out, "TR\t"+itemPath+"\ttitle\t"+esc(typedTitle))
-	}
-
-	// --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+	// --- Typed non-String form fields (FORMAT 7, YRD7): native int/bool/enum
 	// members read through the typed facade and asserted against the generic
 	// form store, canonicalised through the SAME boundary rules the facade
 	// setters used to write them (int -> decimal, bool -> "true"/"false", enum
@@ -291,14 +266,12 @@ func main() {
 	metaNode("SBP/requirements")
 	metaNode("SBP/requirements/content")
 
-	// --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
-	// content form read through the metadata tree — one MF line per field
-	// (declaration order) with type/required/role/initial plus the FORMAT 6
-	// enumValues column (comma-joined constant names, empty for non-enum
-	// fields), plus one MT summary line naming the form's title-role and
-	// id-role fields via the TitleField/IdField accessors. Emitted for the FRE
-	// requirement form (role fields, no enums) and the ISO 25010 coverage form
-	// (an enum-typed field). All values are model-derived. ---
+	// --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
+	// through the metadata tree — one MF line per field (declaration order) with
+	// type/required plus the enumValues column (comma-joined constant names,
+	// empty for non-enum fields). Emitted for the FRE requirement form (no
+	// enums) and the ISO 25010 coverage form (an enum-typed field). All values
+	// are model-derived. ---
 	out = append(out, "SECTION\tmeta-form")
 	metaForm := func(listPath string) {
 		listNode := metaTree.ByPath(listPath)
@@ -330,18 +303,10 @@ func main() {
 			if f.Required {
 				required = 1
 			}
-			out = append(out, fmt.Sprintf("MF\t%s\t%s\t%s\t%d\t%s\t%s\t%s",
-				formPath, esc(f.Name), esc(f.TypeName), required, esc(f.Role),
-				esc(f.Initial), esc(strings.Join(f.EnumValues, ","))))
+			out = append(out, fmt.Sprintf("MF\t%s\t%s\t%s\t%d\t%s",
+				formPath, esc(f.Name), esc(f.TypeName), required,
+				esc(strings.Join(f.EnumValues, ","))))
 		}
-		titleName, idName := "", ""
-		if tf := form.TitleField(); tf != nil {
-			titleName = tf.Name
-		}
-		if idf := form.IdField(); idf != nil {
-			idName = idf.Name
-		}
-		out = append(out, "MT\t"+formPath+"\t"+esc(titleName)+"\t"+esc(idName))
 	}
 
 	metaForm("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST")

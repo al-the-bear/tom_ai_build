@@ -179,8 +179,6 @@ SomMetaNode _fieldNode(
                 description: field.formFields[i].label,
                 required: field.formFields[i].required,
                 hint: field.formFields[i].hint,
-                role: field.formFields[i].role,
-                initial: field.formFields[i].initial,
                 order: i,
                 enumValues: field.formFields[i].enumValues,
               ),

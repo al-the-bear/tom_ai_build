@@ -36,11 +36,6 @@ def spec_path_segments(path: str) -> list[str]:
 def spec_parent_path(path: str) -> str:
     """The parent path of *path* — everything before the final ``/``-separated
     segment — or *path* itself when it has no separator (a root path).
-
-    Used by the generated facades' YRD6 role-field accessors: a transparent
-    class-level ``@Form`` member is hoisted into its parent section's body, so
-    its title/id role fields bind to the **parent** path's headline / stored
-    section id.
     """
     i = path.rfind(SPEC_PATH_SEPARATOR)
     return path if i < 0 else path[:i]

@@ -121307,32 +121307,6 @@ impl FunctionalRequirementEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Id-role field (YRD6): a view onto the owning list item's stored section id
-    /// (uniqueness validated on write; empty writes are ignored).
-    pub fn requirement_id(&self) -> String {
-        let owner = som::spec_parent_path(self.node.path());
-        self.node.doc().borrow().item_section_id_or(&owner)
-    }
-
-    pub fn set_requirement_id(&self, value: &str) -> Result<(), som::SpecSectionIdError> {
-        if value.is_empty() {
-            return Ok(());
-        }
-        let owner = som::spec_parent_path(self.node.path());
-        self.node.doc().borrow_mut().set_item_section_id(&owner, value)
-    }
-
-    /// Title-role field (YRD6): a view onto the owning section's headline.
-    pub fn title(&self) -> String {
-        let owner = som::spec_parent_path(self.node.path());
-        self.node.doc().borrow().headline_or(&owner)
-    }
-
-    pub fn set_title(&self, value: &str) {
-        let owner = som::spec_parent_path(self.node.path());
-        self.node.doc().borrow_mut().set_headline(&owner, value);
-    }
-
     pub fn status(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "status")
     }

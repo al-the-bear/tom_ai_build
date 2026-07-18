@@ -166,8 +166,6 @@ static void field_from_json(const SomJson *f, SpecField *out) {
       out->form_fields[i].label = som_strdup(label[0] != '\0' ? label : fname);
       out->form_fields[i].hint = str_or_dup(ff, "hint");
       out->form_fields[i].required = som_json_bool_or(ff, "required");
-      out->form_fields[i].role = str_or_dup(ff, "role");
-      out->form_fields[i].initial = str_or_dup(ff, "initial");
     }
     out->form_fields_len = fn;
   }
@@ -291,8 +289,6 @@ static void field_free(SpecField *f) {
     free(f->form_fields[i].label);
     free(f->form_fields[i].type);
     free(f->form_fields[i].hint);
-    free(f->form_fields[i].role);
-    free(f->form_fields[i].initial);
   }
   free(f->form_fields);
   annotations_free(&f->annotations);

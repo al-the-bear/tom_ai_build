@@ -134,13 +134,6 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-CRI"
-          }
         }
       ],
       "fields": [
@@ -254,13 +247,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-ACC"
           }
         }
       ],
@@ -747,13 +733,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-PRO"
           }
         }
       ],
@@ -2536,13 +2515,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-ACC"
           }
         }
       ],
@@ -5014,13 +4986,6 @@
           "arguments": {
             "documentClass": "D05InteractionScenarios"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D05InteractionScenarios",
-            "id": "ISC-ACT"
-          }
         }
       ],
       "fields": [
@@ -5426,13 +5391,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D05InteractionScenarios"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D05InteractionScenarios",
-            "id": "ISC-DIA"
           }
         }
       ],
@@ -13712,13 +13670,6 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D08SecurityAccessSpecification",
-            "id": "SAS-AUD"
-          }
         }
       ],
       "fields": [
@@ -19473,13 +19424,6 @@
           }
         },
         {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-BAS"
-          }
-        },
-        {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define the foundational technical requirements that govern all system\ndevelopment. These decisions have far-reaching implications and should\nbe made early with careful stakeholder alignment.\n\n**Subsections**:\n- **Platform and Language**: Runtime environments, programming languages,\n  frameworks, build toolchain, deployment targets\n- **Architecture Style**: Monolith, microservices, serverless, or hybrid;\n  component organization; communication patterns; scalability approach\n- **Design Patterns and Standards**: Required patterns, coding standards,\n  industry compliance (ISO, OWASP, IEEE), quality metrics\n\n**Decision Criteria**:\n- Business requirements alignment (performance, availability, cost)\n- Team capabilities and hiring market\n- Ecosystem maturity and vendor support\n- Long-term maintainability and evolution\n- Regulatory and compliance requirements\n\n**Reference Frameworks**: TOGAF, C4 Model, ISO/IEC 25010 (quality model),\nOWASP guidelines, IEEE 1471 architectural description.\n"
@@ -20323,13 +20267,6 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-ASS"
-          }
         }
       ],
       "fields": [
@@ -20428,13 +20365,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-PAT"
           }
         }
       ],
@@ -38474,13 +38404,6 @@
           }
         },
         {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-COM"
-          }
-        },
-        {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define network communication requirements including protocols, security,\nand external connectivity. Communication architecture affects performance,\nsecurity, and integration capabilities.\n\n**Subsections**:\n- **Protocols and Standards**: Communication protocols, TLS/SSL, API\n  versioning, certificate management, data formats\n- **External Connectivity**: Partner integrations, cloud services, third-\n  party APIs, service mesh, API gateway\n\n**Communication Patterns**:\n- **Synchronous**: HTTP/REST, gRPC, GraphQL (request-response)\n- **Asynchronous**: Message queues, event streaming (fire-and-forget)\n- **Real-time**: WebSocket, Server-Sent Events, WebRTC\n- **Batch**: File transfer, scheduled data exchange\n\n**Security Considerations**:\n- Transport security (TLS 1.2/1.3, certificate pinning)\n- API authentication (API keys, OAuth, mTLS)\n- Data encryption in transit and at rest\n- Rate limiting and throttling\n\n**Integration Standards**:\n- API design guidelines (REST, OpenAPI, AsyncAPI)\n- Data format standards (JSON, Protocol Buffers, Avro)\n- Error handling and response formats\n- Idempotency and retry handling\n"
@@ -38788,13 +38711,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-CMP"
           }
         }
       ],
@@ -40234,13 +40150,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D08SecurityAccessSpecification",
-            "id": "SAS-CMP"
           }
         }
       ],
@@ -46932,13 +46841,6 @@
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-COM"
-          }
         }
       ],
       "fields": [
@@ -50879,13 +50781,6 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-ERR"
-          }
         }
       ],
       "fields": [
@@ -50928,13 +50823,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-OPE"
           }
         }
       ],
@@ -51404,13 +51292,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-CRO"
           }
         }
       ],
@@ -51975,13 +51856,6 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CLA-PRO"
-          }
         }
       ],
       "fields": [
@@ -52467,13 +52341,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CLA-DAT"
           }
         }
       ],
@@ -53040,13 +52907,6 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CLA-MET"
-          }
         }
       ],
       "fields": [
@@ -53193,13 +53053,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CLA-RIS"
           }
         }
       ],
@@ -54180,13 +54033,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-CUT"
           }
         }
       ],
@@ -59450,13 +59296,6 @@
           "arguments": {
             "documentClass": "D03InformationModel"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D03InformationModel",
-            "id": "IFM-CLA"
-          }
         }
       ],
       "fields": [
@@ -60269,13 +60108,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D03InformationModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D03InformationModel",
-            "id": "IFM-DIC"
           }
         }
       ],
@@ -63825,13 +63657,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D11DeliveryRoadmap",
-            "id": "DRM-MIG"
           }
         }
       ],
@@ -71638,13 +71463,6 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D11DeliveryRoadmap",
-            "id": "DRM-DEC"
-          }
         }
       ],
       "fields": [
@@ -72055,13 +71873,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-DEF"
           }
         }
       ],
@@ -73957,13 +73768,6 @@
               "name": "DetailedIn",
               "arguments": {
                 "documentClass": "D12TransitionRolloutPlan"
-              }
-            },
-            {
-              "name": "SecondLevelSectionId",
-              "arguments": {
-                "documentClass": "D12TransitionRolloutPlan",
-                "id": "TRP-RLP"
               }
             },
             {
@@ -79159,13 +78963,6 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-VIS"
-          }
         }
       ],
       "fields": [
@@ -79618,13 +79415,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-DET"
           }
         }
       ],
@@ -85014,13 +84804,6 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-DOC"
-          }
         }
       ],
       "fields": [
@@ -88839,13 +88622,6 @@
           "arguments": {
             "documentClass": "D05InteractionScenarios"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D05InteractionScenarios",
-            "id": "ISC-E2E"
-          }
         }
       ],
       "fields": [
@@ -90155,13 +89931,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D03InformationModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D03InformationModel",
-            "id": "IFM-REL"
           }
         }
       ],
@@ -92823,13 +92592,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-ERR"
           }
         }
       ],
@@ -95717,13 +95479,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CLA-SYS"
           }
         }
       ],
@@ -98850,13 +98605,6 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-INT"
-          }
         }
       ],
       "fields": [
@@ -101594,13 +101342,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D11DeliveryRoadmap",
-            "id": "DRM-FEA"
           }
         }
       ],
@@ -105214,13 +104955,6 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-FLX"
-          }
         }
       ],
       "fields": [
@@ -106844,22 +106578,6 @@
           ],
           "formFields": [
             {
-              "name": "requirementId",
-              "label": "Requirement ID (unique, e.g., REQ-F001)",
-              "hint": "Unique requirement identifier, e.g. REQ-F001",
-              "type": "String",
-              "required": true,
-              "role": "id"
-            },
-            {
-              "name": "title",
-              "label": "Title (concise statement)",
-              "hint": "Concise one-line statement of the requirement",
-              "type": "String",
-              "required": true,
-              "role": "title"
-            },
-            {
               "name": "status",
               "label": "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)",
               "hint": "Draft, Proposed, Approved, Implemented, Verified, or Deferred",
@@ -107409,13 +107127,6 @@
           }
         },
         {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D04RequirementsSpecification",
-            "id": "RSP-FUN"
-          }
-        },
-        {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Functional requirements describe system capabilities, behaviors, and features. Use clear, testable language. Each requirement should answer: What must the system do? For whom? Under what conditions?"
@@ -107782,13 +107493,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-FSU"
           }
         }
       ],
@@ -110401,13 +110105,6 @@
           }
         },
         {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-HAR"
-          }
-        },
-        {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define hardware infrastructure requirements for servers, clients, and\nnetwork. Hardware decisions impact performance, availability, cost,\nand operational complexity.\n\n**Subsections**:\n- **Server Requirements**: Compute (CPU, memory, GPU), storage, load\n  profiles, scaling, virtualization, cloud providers\n- **Client Requirements**: Browser requirements, desktop/mobile devices,\n  display specifications, accessibility devices\n- **Network Requirements**: Bandwidth, latency, availability, geographic\n  distribution, VPN, firewall, CDN\n\n**Deployment Models**:\n- **On-Premises**: Full control, capital expenditure, data sovereignty\n- **Cloud (IaaS)**: Virtual machines, managed infrastructure, OpEx model\n- **Cloud (PaaS)**: Managed services, less control, faster development\n- **Hybrid**: Mix of on-prem and cloud for compliance/optimization\n- **Edge**: Distributed compute for latency-sensitive applications\n\n**Capacity Planning Considerations**:\n- Current and projected user load\n- Data growth rate and retention\n- Peak vs. average utilization\n- Burst capacity requirements\n- Geographic distribution needs\n"
@@ -111990,13 +111687,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D08SecurityAccessSpecification",
-            "id": "SAS-IDE"
           }
         }
       ],
@@ -116956,13 +116646,6 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D11DeliveryRoadmap",
-            "id": "DRM-IDV"
-          }
         }
       ],
       "fields": [
@@ -118788,13 +118471,6 @@
           "arguments": {
             "documentClass": "D03InformationModel"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D03InformationModel",
-            "id": "IFM-CON"
-          }
         }
       ],
       "fields": [
@@ -119090,13 +118766,6 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-ICP"
-          }
         }
       ],
       "fields": [
@@ -119245,13 +118914,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D05InteractionScenarios"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D05InteractionScenarios",
-            "id": "ISC-INT"
           }
         }
       ],
@@ -120096,13 +119758,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-DEP"
           }
         }
       ],
@@ -121454,13 +121109,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-TST"
           }
         }
       ],
@@ -128750,13 +128398,6 @@
           "arguments": {
             "documentClass": "D05InteractionScenarios"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D05InteractionScenarios",
-            "id": "ISC-SCE"
-          }
         }
       ],
       "fields": [
@@ -129075,13 +128716,6 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-KNO"
-          }
         }
       ],
       "fields": [
@@ -129150,13 +128784,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-LCS"
           }
         }
       ],
@@ -132019,13 +131646,6 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-LOC"
-          }
         }
       ],
       "fields": [
@@ -134482,13 +134102,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-MNT"
           }
         }
       ],
@@ -138420,13 +138033,6 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CLA-MIG"
-          }
         }
       ],
       "fields": [
@@ -138849,13 +138455,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-MIG"
           }
         }
       ],
@@ -140454,13 +140053,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-MIG"
           }
         }
       ],
@@ -155009,13 +154601,6 @@
           }
         },
         {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-OPE"
-          }
-        },
-        {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define operational requirements for running and maintaining the system\nin production. Operations excellence directly impacts system availability,\nuser experience, and team efficiency.\n\n**Subsections**:\n- **Backup and Recovery**: Backup frequency, retention, RPO/RTO, disaster\n  recovery, backup verification\n- **Deployment Strategy**: Deployment model, CI/CD pipeline, release\n  strategy, rollback, configuration management\n- **Monitoring and Alerting**: Release/DevOps deployment-pipeline\n  observability — build/deploy health, pipeline alerts, release gates,\n  rollback triggers\n- **Maintenance Windows**: Scheduled maintenance, emergency procedures,\n  change management, user communication\n\n**Ownership boundary**: This section owns *release/DevOps* concerns. The\n*runtime* operational monitoring (health checks, runtime metrics, SLA/SLO\ntracking, dashboards, on-call, incident management) is owned by SBP.8.7\n`SystemOperationAndMonitoring` (runtime SRE) — reference it, do not\nrestate it here.\n\n**DevOps/SRE Principles**:\n- Automation over manual processes\n- Immutable infrastructure\n- Everything as code (IaC, GitOps)\n- Blameless postmortems\n- Continuous improvement\n\n**Operational Metrics**:\n- MTTR (Mean Time To Recovery)\n- MTBF (Mean Time Between Failures)\n- Change failure rate\n- Deployment frequency\n- Lead time for changes\n\n**Reference**: Google SRE book, DORA metrics, ITIL practices.\n"
@@ -157620,13 +157205,6 @@
           }
         },
         {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D04RequirementsSpecification",
-            "id": "RSP-ORG"
-          }
-        },
-        {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Organizational requirements describe non-technical changes needed for system success: training, process changes, role changes, support structures, and communication."
@@ -158668,13 +158246,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-OUT"
           }
         }
       ],
@@ -160263,13 +159834,6 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CLA-PAI"
-          }
         }
       ],
       "fields": [
@@ -161732,13 +161296,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-PEF"
           }
         }
       ],
@@ -163895,13 +163452,6 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D11DeliveryRoadmap",
-            "id": "DRM-GAT"
-          }
         }
       ],
       "fields": [
@@ -164380,13 +163930,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-PIL"
           }
         }
       ],
@@ -166393,13 +165936,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-PRI"
           }
         }
       ],
@@ -168860,13 +168396,6 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-CAT"
-          }
         }
       ],
       "fields": [
@@ -170032,13 +169561,6 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-PRI"
-          }
         }
       ],
       "fields": [
@@ -170531,13 +170053,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-EXC"
           }
         }
       ],
@@ -171281,13 +170796,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-IMP"
           }
         }
       ],
@@ -172239,13 +171747,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-MET"
           }
         }
       ],
@@ -173240,13 +172741,6 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-FLO"
-          }
         }
       ],
       "fields": [
@@ -174033,13 +173527,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-REL"
           }
         }
       ],
@@ -175156,13 +174643,6 @@
           "arguments": {
             "documentClass": "D05InteractionScenarios"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D05InteractionScenarios",
-            "id": "ISC-OVE"
-          }
         }
       ],
       "fields": [
@@ -175825,13 +175305,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-VIS"
           }
         }
       ],
@@ -178021,13 +177494,6 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-PRO"
-          }
         }
       ],
       "fields": [
@@ -180152,13 +179618,6 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-FRA"
-          }
         }
       ],
       "fields": [
@@ -181873,13 +181332,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-PRI"
           }
         }
       ],
@@ -186337,13 +185789,6 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-REL"
-          }
         }
       ],
       "fields": [
@@ -186892,13 +186337,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CLA-INV"
           }
         }
       ],
@@ -191760,13 +191198,6 @@
           "arguments": {
             "documentClass": "D04RequirementsSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D04RequirementsSpecification",
-            "id": "RSP-COV"
-          }
         }
       ],
       "fields": [
@@ -192149,13 +191580,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D04RequirementsSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D04RequirementsSpecification",
-            "id": "RSP-REL"
           }
         }
       ],
@@ -194419,13 +193843,6 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D08SecurityAccessSpecification",
-            "id": "SAS-RES"
-          }
         }
       ],
       "fields": [
@@ -196055,13 +195472,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-RES"
           }
         }
       ],
@@ -201950,13 +201360,6 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D08SecurityAccessSpecification",
-            "id": "SAS-ROL"
-          }
         }
       ],
       "fields": [
@@ -202632,13 +202035,6 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-PLN"
-          }
         }
       ],
       "fields": [
@@ -202698,13 +202094,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-TRN"
           }
         }
       ],
@@ -207482,13 +206871,6 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-SCR"
-          }
         }
       ],
       "fields": [
@@ -209976,13 +209358,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-SCF"
           }
         }
       ],
@@ -212556,13 +211931,6 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-SEC"
-          }
         }
       ],
       "fields": [
@@ -214466,13 +213834,6 @@
           }
         },
         {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D04RequirementsSpecification",
-            "id": "RSP-SEC"
-          }
-        },
-        {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Security requirements protect confidentiality, integrity, and availability of information. Include authentication, authorization, data protection, and compliance requirements."
@@ -216244,13 +215605,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D08SecurityAccessSpecification",
-            "id": "SAS-SEN"
           }
         }
       ],
@@ -221113,13 +220467,6 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-SIG"
-          }
         }
       ],
       "fields": [
@@ -222903,13 +222250,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-SOF"
           }
         },
         {
@@ -226943,13 +226283,6 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D11DeliveryRoadmap",
-            "id": "DRM-STA"
-          }
         }
       ],
       "fields": [
@@ -229321,13 +228654,6 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D11DeliveryRoadmap",
-            "id": "DRM-STR"
-          }
         }
       ],
       "fields": [
@@ -231209,13 +230535,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-STA"
           }
         },
         {
@@ -234876,13 +234195,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-ARC"
           }
         }
       ],
@@ -239570,13 +238882,6 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "IIS-INV"
-          }
         }
       ],
       "fields": [
@@ -240187,13 +239492,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-SYS"
           }
         },
         {
@@ -246385,13 +245683,6 @@
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-TEC"
-          }
         }
       ],
       "fields": [
@@ -249288,13 +248579,6 @@
           }
         },
         {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D04RequirementsSpecification",
-            "id": "RSP-TEC"
-          }
-        },
-        {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Technical requirements describe non-functional aspects and constraints. Each should be measurable and testable. Common categories: Performance, Scalability, Availability, Security, Maintainability."
@@ -249479,13 +248763,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-SEC"
           }
         },
         {
@@ -251319,13 +250596,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-TST"
           }
         }
       ],
@@ -256742,13 +256012,6 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-TRN"
-          }
         }
       ],
       "fields": [
@@ -260688,13 +259951,6 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-TRA"
-          }
         }
       ],
       "fields": [
@@ -261134,13 +260390,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "ATS-REQ"
           }
         }
       ],
@@ -264276,13 +263525,6 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-COM"
-          }
         }
       ],
       "fields": [
@@ -264707,13 +263949,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D11DeliveryRoadmap",
-            "id": "DRM-UPG"
           }
         }
       ],
@@ -265307,13 +264542,6 @@
           "arguments": {
             "documentClass": "D05InteractionScenarios"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D05InteractionScenarios",
-            "id": "ISC-TRC"
-          }
         }
       ],
       "fields": [
@@ -265373,13 +264601,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-UAT"
           }
         }
       ],
@@ -266937,13 +266158,6 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-HLP"
-          }
         }
       ],
       "fields": [
@@ -267456,13 +266670,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D08SecurityAccessSpecification",
-            "id": "SAS-USA"
           }
         }
       ],
@@ -268502,13 +267709,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-DOC"
           }
         }
       ],
@@ -270321,13 +269521,6 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D08SecurityAccessSpecification",
-            "id": "SAS-USE"
-          }
         }
       ],
       "fields": [
@@ -270432,13 +269625,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-DOC"
           }
         }
       ],
@@ -272295,13 +271481,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D03InformationModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D03InformationModel",
-            "id": "IFM-VAL"
           }
         }
       ],
@@ -274742,13 +273921,6 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-WAR"
-          }
         }
       ],
       "fields": [
@@ -274903,13 +274075,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-WAR"
           }
         }
       ],
@@ -276067,13 +275232,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-WIR"
           }
         }
       ],

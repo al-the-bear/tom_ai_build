@@ -70,14 +70,6 @@ typedef struct {
   char *description; /* display label / description, "" when none */
   int required;      /* whether the form marks the field as required */
   char *hint;        /* authoring hint (e.g. "e.g. 1.0"), "" when absent */
-  char *role;        /* structural role of the field (YRD6): "title" (the
-                      * field is a view onto the owning section's headline),
-                      * "id" (view onto the stored section id), "" for an
-                      * ordinary form-value field. Role fields are never
-                      * stored in the form-value store; serialization emits
-                      * their value once — as the heading text / id comment */
-  char *initial;     /* predefined initial content (YRD6, meta-only editor
-                      * prefill), "" when absent */
   long long order;   /* declaration order within the form */
   char **enum_values;     /* enum constant names when type_name is a model enum
                            * (YRD7); NULL/empty for non-enum field types. The
@@ -96,12 +88,6 @@ typedef struct {
 /* Returns the field named `name`, or NULL when absent. */
 const SomFormFieldMeta *som_form_meta_field_named(const SomFormMeta *f,
                                                   const char *name);
-
-/* Returns the title-role field (YRD6), or NULL when the form declares none. */
-const SomFormFieldMeta *som_form_meta_title_field(const SomFormMeta *f);
-
-/* Returns the id-role field (YRD6), or NULL when the form declares none. */
-const SomFormFieldMeta *som_form_meta_id_field(const SomFormMeta *f);
 
 /* SomDocMeta is the @Document metadata carried by a document root (DR1 §3.1
  * DocMeta). */

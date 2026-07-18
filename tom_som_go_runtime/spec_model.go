@@ -66,13 +66,6 @@ type FormFieldSpec struct {
 	Type     string `json:"type"`
 	Hint     string `json:"hint"`
 	Required bool   `json:"required"`
-	// Role is the structural role of the field (YRD6): "title" (view onto the
-	// owning section's headline), "id" (view onto the stored section id), or
-	// "" for an ordinary form-value field.
-	Role string `json:"role"`
-	// Initial is the predefined initial content (YRD6, meta-only editor
-	// prefill), "" when absent.
-	Initial string `json:"initial"`
 }
 
 // SpecField is a single field of a SpecClass.

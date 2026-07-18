@@ -71,8 +71,6 @@ export interface SomFormFieldMetaInit {
   description?: string | null;
   required?: boolean;
   hint?: string | null;
-  role?: string | null;
-  initial?: string | null;
   enumValues?: string[] | null;
 }
 
@@ -88,16 +86,6 @@ export class SomFormFieldMeta {
   required: boolean;
   /** The authoring hint (e.g. `e.g. 1.0`), when present. */
   hint: string | null;
-  /**
-   * Structural role of the field (YRD6): `'title'` (the field is a view
-   * onto the owning section's headline), `'id'` (view onto the stored
-   * section id), or `null` for an ordinary form-value field. Role fields
-   * are never stored in the form-value store; serialization emits their
-   * value once — as the heading text / id comment.
-   */
-  role: string | null;
-  /** Predefined initial content (YRD6, meta-only editor prefill), or `null`. */
-  initial: string | null;
   /** Declaration order within the form. */
   order: number;
   /**
@@ -114,8 +102,6 @@ export class SomFormFieldMeta {
     this.description = init.description != null ? init.description : null;
     this.required = init.required != null ? init.required : false;
     this.hint = init.hint != null ? init.hint : null;
-    this.role = init.role != null ? init.role : null;
-    this.initial = init.initial != null ? init.initial : null;
     this.order = init.order;
     this.enumValues = init.enumValues != null ? init.enumValues : [];
   }
@@ -133,16 +119,6 @@ export class SomFormMeta {
   /** The field named `name`, or `null` when absent. */
   fieldNamed(name: string): SomFormFieldMeta | null {
     return this.fields.find((f) => f.name === name) || null;
-  }
-
-  /** The title-role field (YRD6), or `null` when the form declares none. */
-  get titleField(): SomFormFieldMeta | null {
-    return this.fields.find((f) => f.role === 'title') || null;
-  }
-
-  /** The id-role field (YRD6), or `null` when the form declares none. */
-  get idField(): SomFormFieldMeta | null {
-    return this.fields.find((f) => f.role === 'id') || null;
   }
 }
 

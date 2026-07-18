@@ -307,8 +307,7 @@ std::string metaFormDiff(const std::string& at,
     const SomFormFieldMeta& fb = b->fields[i];
     if (fa.name != fb.name || fa.typeName != fb.typeName ||
         fa.description != fb.description || fa.required != fb.required ||
-        fa.hint != fb.hint || fa.role != fb.role ||
-        fa.initial != fb.initial || fa.order != fb.order) {
+        fa.hint != fb.hint || fa.order != fb.order) {
       return at + ": form field " + fa.name + " differs";
     }
   }

@@ -39592,13 +39592,6 @@ void functional_requirement_entry_content_form_free(FunctionalRequirementEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *functional_requirement_entry_content_form_content(const FunctionalRequirementEntryContentForm *self);
 void functional_requirement_entry_content_form_set_content(FunctionalRequirementEntryContentForm *self, const char *value);
-// Id-role field (YRD6): a view onto the owning list item's stored section id (owned result;
-// uniqueness validated on write, empty writes are ignored).
-char *functional_requirement_entry_content_form_requirement_id(const FunctionalRequirementEntryContentForm *self);
-void functional_requirement_entry_content_form_set_requirement_id(FunctionalRequirementEntryContentForm *self, const char *value);
-// Title-role field (YRD6): a view onto the owning section's headline (owned result).
-char *functional_requirement_entry_content_form_title(const FunctionalRequirementEntryContentForm *self);
-void functional_requirement_entry_content_form_set_title(FunctionalRequirementEntryContentForm *self, const char *value);
 char *functional_requirement_entry_content_form_status(const FunctionalRequirementEntryContentForm *self);
 void functional_requirement_entry_content_form_set_status(FunctionalRequirementEntryContentForm *self, const char *value);
 

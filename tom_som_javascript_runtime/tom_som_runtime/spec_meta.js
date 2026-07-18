@@ -74,8 +74,6 @@ class SomFormFieldMeta {
     description = null,
     required = false,
     hint = null,
-    role = null,
-    initial = null,
     enumValues = null,
   }) {
     /** The exact model field name (`approvedBy`). */
@@ -88,17 +86,6 @@ class SomFormFieldMeta {
     this.required = required;
     /** The authoring hint (e.g. `e.g. 1.0`), when present. */
     this.hint = hint;
-    /**
-     * Structural role of the field (YRD6): `'title'` (the field is a view
-     * onto the owning section's headline), `'id'` (view onto the stored
-     * section id), or `null` for an ordinary form-value field. Role fields
-     * are never stored in the form-value store; serialization emits their
-     * value once — as the heading text / id comment.
-     */
-    this.role = role;
-    /** Predefined initial content (YRD6, meta-only editor prefill), or
-     *  `null`. */
-    this.initial = initial;
     /** Declaration order within the form. */
     this.order = order;
     /**
@@ -121,16 +108,6 @@ class SomFormMeta {
   /** The field named `name`, or `null` when absent. */
   fieldNamed(name) {
     return this.fields.find((f) => f.name === name) || null;
-  }
-
-  /** The title-role field (YRD6), or `null` when the form declares none. */
-  get titleField() {
-    return this.fields.find((f) => f.role === 'title') || null;
-  }
-
-  /** The id-role field (YRD6), or `null` when the form declares none. */
-  get idField() {
-    return this.fields.find((f) => f.role === 'id') || null;
   }
 }
 

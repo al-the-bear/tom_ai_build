@@ -233,8 +233,6 @@ std::unique_ptr<SomMetaNode> bridgeFieldNode(const SpecModel& model,
       out.description = ff.label;
       out.required = ff.required;
       out.hint = ff.hint;
-      out.role = ff.role;
-      out.initial = ff.initial;
       out.order = static_cast<long long>(i);
       form.fields.push_back(std::move(out));
     }

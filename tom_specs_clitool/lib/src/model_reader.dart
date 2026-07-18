@@ -29,14 +29,6 @@ class FormFieldInfo {
   /// Optional hint text guiding valid values/formats for this form field.
   final String hint;
 
-  /// Structural role of the field (YRD6): `'title'` (view onto the owning
-  /// section's headline), `'id'` (view onto the stored section id), or ''
-  /// for an ordinary form-value field.
-  final String role;
-
-  /// Predefined initial content (YRD6, meta-only prefill), '' when absent.
-  final String initial;
-
   /// Enum constant names when [typeName] is a model enum (YRD7); empty for
   /// non-enum field types. Resolved at read time so every downstream consumer
   /// (meta JSON, meta emitters, facade emitters) sees the values without
@@ -49,8 +41,6 @@ class FormFieldInfo {
     this.description = '',
     this.required = false,
     this.hint = '',
-    this.role = '',
-    this.initial = '',
     this.enumValues = const [],
   });
 }
@@ -631,16 +621,6 @@ class ModelReader {
             item.getField('description')?.toStringValue() ?? '';
         final required = item.getField('required')?.toBoolValue() ?? false;
         final hint = item.getField('hint')?.toStringValue() ?? '';
-        // YRD6: structural role (enum constant FieldRole.title/.id) and the
-        // meta-only predefined initial content.
-        final roleValue = item.getField('role');
-        var role = '';
-        if (roleValue != null && !roleValue.isNull) {
-          role = roleValue.getField('_name')?.toStringValue() ??
-              const ['title', 'id'][
-                  roleValue.getField('index')?.toIntValue() ?? 0];
-        }
-        final initial = item.getField('initial')?.toStringValue() ?? '';
 
         // Extract type name from the Type literal; resolve enum constant
         // names right here (YRD7) so downstream consumers need no analyzer.
@@ -660,8 +640,6 @@ class ModelReader {
           description: description,
           required: required,
           hint: hint,
-          role: role,
-          initial: initial,
           enumValues: enumValues,
         ));
       }

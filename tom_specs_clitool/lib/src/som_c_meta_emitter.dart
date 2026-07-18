@@ -689,10 +689,6 @@ class SomCMetaEmitter {
             '${ff.required ? 1 : 0};')
         ..writeln('\tn->form->fields[$i].hint = som_strdup('
             '"${_cStr(ff.hint ?? '')}");')
-        ..writeln('\tn->form->fields[$i].role = som_strdup('
-            '"${_cStr(ff.role ?? '')}");')
-        ..writeln('\tn->form->fields[$i].initial = som_strdup('
-            '"${_cStr(ff.initial ?? '')}");')
         ..writeln('\tn->form->fields[$i].order = $i;');
       // YRD7: enum-typed fields carry their value domain; calloc already
       // zero-inits enum_values/enum_values_len for the non-enum case.

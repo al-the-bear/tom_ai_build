@@ -49072,15 +49072,6 @@ class FunctionalRequirementEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Id-role field (YRD6): a view onto the owning list item's stored section id
-  /// (uniqueness validated on write; empty writes are ignored).
-  String get requirementId => doc.itemSectionId(specParentPath(path)) ?? '';
-  set requirementId(String value) { if (value.isEmpty) return; doc.setItemSectionId(specParentPath(path), value); }
-
-  /// Title-role field (YRD6): a view onto the owning section's headline.
-  String get title => doc.headline(specParentPath(path)) ?? '';
-  set title(String value) => doc.setHeadline(specParentPath(path), value);
-
   String get status => doc.formField(path, 'status') ?? '';
   set status(String value) => doc.setFormField(path, 'status', value);
 }

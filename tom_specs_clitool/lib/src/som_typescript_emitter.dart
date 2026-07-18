@@ -109,7 +109,6 @@ class SomTypeScriptEmitter {
       ..writeln('  SpecDocument,')
       ..writeln('  checkSomModelVersion,')
       ..writeln('  somEditabilityFor,')
-      ..writeln('  specParentPath,')
       ..writeln("} from 'tom_som_typescript_runtime';")
       ..writeln()
       ..writeln('// The generated metadata module (DR8/DR18): the populated '
@@ -447,13 +446,8 @@ class SomTypeScriptEmitter {
         ..writeln('    this.doc.setContent(this.path, value);')
         ..writeln('  }');
     }
-    // YRD6: role fields bind to the OWNING section — the form's own path when
-    // the member heads its own `@SectionId` section, else the parent path (a
-    // transparent/class-level form hoisted into the parent's body).
-    final ownerExpr =
-        f.sectionId != null ? 'this.path' : 'specParentPath(this.path)';
     for (final ff in f.formFields) {
-      _writeFormMember(b, ff, ownerExpr);
+      _writeFormMember(b, ff);
     }
     b.writeln('}');
     return b.toString();
@@ -461,47 +455,13 @@ class SomTypeScriptEmitter {
 
   /// Emits a single typed `@Form` member accessor pair backed by the generic
   /// form store, so the on-disk format and the generic reading are unchanged;
-  /// only the TypeScript type mirrors the declared form-field type. A role
-  /// field (YRD6) is instead a pure view onto the owning section's headline /
-  /// stored section id at [ownerExpr] — its value never touches the form
-  /// store.
-  void _writeFormMember(StringBuffer b, FormFieldSpec ff, String ownerExpr) {
+  /// only the TypeScript type mirrors the declared form-field type.
+  void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
     final field = '"${_jstr(ff.name)}"';
     // The form-field key string ($field) is preserved; only the TS accessor
     // identifier is keyword-sanitised.
     final acc = _acc(ff.name);
     b.writeln();
-    if (ff.role == 'title') {
-      b
-        ..writeln('  // Title-role field (YRD6): a view onto the owning '
-            "section's headline.")
-        ..writeln('  get $acc(): string {')
-        ..writeln("    return this.doc.headline($ownerExpr) || '';")
-        ..writeln('  }')
-        ..writeln()
-        ..writeln('  set $acc(value: string) {')
-        ..writeln('    this.doc.setHeadline($ownerExpr, value);')
-        ..writeln('  }');
-      return;
-    }
-    if (ff.role == 'id') {
-      b
-        ..writeln('  // Id-role field (YRD6): a view onto the owning list '
-            "item's stored section id")
-        ..writeln('  // (uniqueness validated on write; empty writes are '
-            'ignored).')
-        ..writeln('  get $acc(): string {')
-        ..writeln("    return this.doc.itemSectionId($ownerExpr) || '';")
-        ..writeln('  }')
-        ..writeln()
-        ..writeln('  set $acc(value: string) {')
-        ..writeln("    if (value === '') {")
-        ..writeln('      return;')
-        ..writeln('    }')
-        ..writeln('    this.doc.setItemSectionId($ownerExpr, value);')
-        ..writeln('  }');
-      return;
-    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b

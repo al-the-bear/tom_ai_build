@@ -219,8 +219,6 @@ fn meta_form_diff(at: &str, a: &Option<SomFormMeta>, b: &Option<SomFormMeta>) ->
             || x.description != y.description
             || x.required != y.required
             || x.hint != y.hint
-            || x.role != y.role
-            || x.initial != y.initial
             || x.order != y.order
         {
             return format!("{}: form field {} differs", at, x.name);

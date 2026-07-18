@@ -73,14 +73,6 @@ class FormFieldSpec {
   final String type;
   final bool required;
 
-  /// Structural role of the field (YRD6): `'title'` (view onto the owning
-  /// section's headline), `'id'` (view onto the stored section id), or
-  /// `null` for an ordinary form-value field.
-  final String? role;
-
-  /// Predefined initial content (YRD6, meta-only editor prefill), or `null`.
-  final String? initial;
-
   /// Enum constant names when [type] is a model enum (YRD7); empty for
   /// non-enum field types. Lets consumers validate and convert values
   /// without the analyzer.
@@ -92,8 +84,6 @@ class FormFieldSpec {
     required this.type,
     this.hint,
     this.required = false,
-    this.role,
-    this.initial,
     this.enumValues = const [],
   });
 
@@ -103,8 +93,6 @@ class FormFieldSpec {
         hint: j['hint'] as String?,
         type: j['type'] as String? ?? 'String',
         required: j['required'] as bool? ?? false,
-        role: j['role'] as String?,
-        initial: j['initial'] as String?,
         enumValues:
             (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
                 const [],

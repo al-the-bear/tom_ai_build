@@ -232,8 +232,6 @@ static SomMetaNode *bridge_field_node(const SpecModel *model,
         out->description = som_strdup(ff->label);
         out->required = ff->required;
         out->hint = som_strdup(ff->hint);
-        out->role = som_strdup(ff->role);
-        out->initial = som_strdup(ff->initial);
         out->order = (long long)i;
       }
     }

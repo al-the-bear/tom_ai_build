@@ -62,10 +62,6 @@ class SomJavaEmitter {
   /// start of every run so output stays deterministic.
   final Set<String> _usedFormNames = {};
 
-  /// Whether the emitted facade references `SpecPaths` (YRD6 role-field views
-  /// on transparent forms), so the import is only emitted when needed.
-  bool _needsSpecPaths = false;
-
   /// Returns a unique form-class name for [base], appending the smallest
   /// numeric suffix (`2`, `3`, …) that is not yet taken when [base] collides.
   String _allocFormName(String base) {
@@ -86,7 +82,6 @@ class SomJavaEmitter {
   /// Builds the complete generated `TomSomV0.java` as a single source string.
   String generateLibrary() {
     _usedFormNames.clear();
-    _needsSpecPaths = false;
     final rootTypes = _selectedRoots.map((r) => r.type).toSet();
     final reachable = _reachableClasses(rootTypes);
     final enums = _reachableEnums(reachable);
@@ -112,11 +107,6 @@ class SomJavaEmitter {
       ..writeln('import tom_som_runtime.SomNode;')
       ..writeln('import tom_som_runtime.SomScalar;')
       ..writeln('import tom_som_runtime.SpecDocument;');
-    // YRD6: only role-field views on transparent forms reach through
-    // SpecPaths.parentPath — keep the import out of role-free output.
-    if (_needsSpecPaths) {
-      buffer.writeln('import tom_som_runtime.SpecPaths;');
-    }
     buffer
       ..writeln()
       ..writeln('/** Typed object-model facade over the generic '
@@ -472,13 +462,8 @@ class SomJavaEmitter {
         ..writeln('${_i3}doc.setContent(path, value);')
         ..writeln('$_i2}');
     }
-    // YRD6: role fields bind to the OWNING section — the form's own path when
-    // the member heads its own `@SectionId` section, else the parent path (a
-    // transparent/class-level form hoisted into the parent's body).
-    final ownerExpr =
-        f.sectionId != null ? 'path' : 'SpecPaths.parentPath(path)';
     for (final ff in f.formFields) {
-      _writeFormMember(b, ff, ownerExpr);
+      _writeFormMember(b, ff);
     }
     b.writeln('$_i1}');
     return b.toString();
@@ -486,49 +471,13 @@ class SomJavaEmitter {
 
   /// Emits a single typed `@Form` member accessor pair backed by the generic
   /// form store, so the on-disk format and the generic reading are unchanged;
-  /// only the Java type mirrors the declared form-field type. A role field
-  /// (YRD6) is instead a pure view onto the owning section's headline / stored
-  /// section id at [ownerExpr] — its value never touches the form store.
-  void _writeFormMember(StringBuffer b, FormFieldSpec ff, String ownerExpr) {
+  /// only the Java type mirrors the declared form-field type.
+  void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
     final field = '"${_jstr(ff.name)}"';
     // The form-field key string ($field) is preserved; only the Java accessor
     // identifier is keyword-sanitised.
     final acc = _acc(ff.name);
     b.writeln();
-    if (ff.role != null && ownerExpr.contains('SpecPaths')) {
-      _needsSpecPaths = true;
-    }
-    if (ff.role == 'title') {
-      b
-        ..writeln('$_i2// Title-role field (YRD6): a view onto the owning '
-            "section's headline.")
-        ..writeln('${_i2}public String $acc() {')
-        ..writeln('${_i3}String v = doc.headline($ownerExpr);')
-        ..writeln('${_i3}return v == null ? "" : v;')
-        ..writeln('$_i2}')
-        ..writeln()
-        ..writeln('${_i2}public void $acc(String value) {')
-        ..writeln('${_i3}doc.setHeadline($ownerExpr, value);')
-        ..writeln('$_i2}');
-      return;
-    }
-    if (ff.role == 'id') {
-      b
-        ..writeln('$_i2// Id-role field (YRD6): a view onto the owning list '
-            "item's stored section id")
-        ..writeln('$_i2// (uniqueness validated on write; empty writes are '
-            'ignored).')
-        ..writeln('${_i2}public String $acc() {')
-        ..writeln('${_i3}String v = doc.itemSectionId($ownerExpr);')
-        ..writeln('${_i3}return v == null ? "" : v;')
-        ..writeln('$_i2}')
-        ..writeln()
-        ..writeln('${_i2}public void $acc(String value) {')
-        ..writeln('${_i3}if (value.isEmpty()) return;')
-        ..writeln('${_i3}doc.setItemSectionId($ownerExpr, value);')
-        ..writeln('$_i2}');
-      return;
-    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b

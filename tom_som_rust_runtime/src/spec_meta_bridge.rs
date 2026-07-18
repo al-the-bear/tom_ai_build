@@ -252,8 +252,6 @@ fn bridge_field_node(
                 description: ff.label.clone(),
                 required: ff.required,
                 hint: ff.hint.clone(),
-                role: ff.role.clone(),
-                initial: ff.initial.clone(),
                 enum_values: ff.enum_values.clone(),
                 order: i as i64,
             })

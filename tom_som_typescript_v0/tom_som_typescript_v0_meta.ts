@@ -15610,7 +15610,6 @@ function _mc_DeliveryTransitionAndRollout(s: Set<string>): SomMetaNode[] {
       serializationOrder: 4,
       docComment: "Multi-language rollout sequencing by region and time (re-homed from MLAR).",
       form: new SomFormMeta([new SomFormFieldMeta({name: "rolloutStrategy", typeName: "String", description: "Rollout Strategy", hint: "Big bang, phased, pilot", order: 0}), new SomFormFieldMeta({name: "rolloutTimeline", typeName: "String", description: "Rollout Timeline", hint: "High-level rollout schedule", order: 1}), new SomFormFieldMeta({name: "rolloutRegions", typeName: "String", description: "Rollout Regions", hint: "Geographic rollout order", order: 2})]),
-      secondLevelIds: [new SomSecondLevelId("D12TransitionRolloutPlan", "TRP-RLP")],
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 3166 — country and region codes define the geographic rollout order", "ISO 8601 — the standard representation for the rollout timeline and schedule"], "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."})]}),
   ];
 }
@@ -21964,7 +21963,7 @@ function _mc_FunctionalRequirementEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "requirementId", typeName: "String", description: "Requirement ID (unique, e.g., REQ-F001)", required: true, hint: "Unique requirement identifier, e.g. REQ-F001", role: "id", order: 0}), new SomFormFieldMeta({name: "title", typeName: "String", description: "Title (concise statement)", required: true, hint: "Concise one-line statement of the requirement", role: "title", order: 1}), new SomFormFieldMeta({name: "status", typeName: "String", description: "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", required: true, hint: "Draft, Proposed, Approved, Implemented, Verified, or Deferred", order: 2})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "status", typeName: "String", description: "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", required: true, hint: "Draft, Proposed, Approved, Implemented, Verified, or Deferred", order: 0})])}),
      new SomMetaNode({
       className: "FunctionalRequirementEntry",
       memberName: "details",

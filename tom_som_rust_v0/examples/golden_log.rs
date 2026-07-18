@@ -53,7 +53,7 @@ fn main() {
     let mut out: Vec<String> = Vec::new();
     out.push("# TomSpecs SOM golden log — canonical cross-language reading.".to_string());
     out.push("# All nine per-language generators must emit byte-identical output.".to_string());
-    out.push("FORMAT\t6".to_string());
+    out.push("FORMAT\t7".to_string());
     out.push(format!("MODELVERSION\t{}", esc(&doc.model_version)));
 
     // Generic: content leaves, sorted by path.
@@ -164,40 +164,7 @@ fn main() {
         out.push(format!("TI\t{}\t{}", leaf, esc(&elem.content())));
     }
 
-    // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
-    // (`requirementId`) and title-role (`title`) fields are pure views onto the
-    // owning list item's stored section id / headline. Each typed read is
-    // asserted against the generic itemSectionId/headline read before emission,
-    // proving the view binding end-to-end in every language. ---
-    let fre_reqs = sbp
-        .introduction_and_scope()
-        .requirements()
-        .functional_requirements()
-        .requirements();
-    for i in 0..fre_reqs.length() {
-        let req = fre_reqs.at(i);
-        let item_path = req.node.path().to_string();
-        let typed_id = req.content().requirement_id();
-        let typed_title = req.content().title();
-        let generic_id = doc.item_section_id(&item_path).cloned().unwrap_or_default();
-        let generic_title = doc.headline_or(&item_path);
-        if typed_id != generic_id {
-            die(&format!(
-                "TYPED ID-ROLE MISMATCH at {}: typed=\"{}\" generic=\"{}\"",
-                item_path, typed_id, generic_id
-            ));
-        }
-        if typed_title != generic_title {
-            die(&format!(
-                "TYPED TITLE-ROLE MISMATCH at {}: typed=\"{}\" generic=\"{}\"",
-                item_path, typed_title, generic_title
-            ));
-        }
-        out.push(format!("TR\t{}\trequirementId\t{}", item_path, esc(&typed_id)));
-        out.push(format!("TR\t{}\ttitle\t{}", item_path, esc(&typed_title)));
-    }
-
-    // --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+    // --- Typed non-String form fields (FORMAT 7, YRD7): native int/bool/enum
     // members read through the typed facade and asserted against the generic
     // form store, canonicalised through the SAME boundary rules the facade
     // setters used to write them (int -> decimal, bool -> "true"/"false", enum
@@ -305,16 +272,15 @@ fn main() {
         ));
     }
 
-    // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+    // --- Meta form fields (FORMAT 7, YRD7): the FRE list-element content form
     // read through the metadata tree — one MF line per field (declaration
-    // order) with type/required/role/initial, plus one MT summary line naming
-    // the form's title-role and id-role fields via the title_field/id_field
-    // accessors. All values are model-derived. ---
+    // order) with type/required plus the enumValues column. All values are
+    // model-derived. ---
     out.push("SECTION\tmeta-form".to_string());
     // Generalized over any list path whose element content is a form: emit one
-    // MF line per field (declaration order) with type/required/role/initial and
-    // the enumValues column (FORMAT 6, YRD7 — comma-joined constant names, empty
-    // for non-enum fields), plus one MT summary line naming the title/id roles.
+    // MF line per field (declaration order) with type/required and the
+    // enumValues column (FORMAT 7, YRD7 — comma-joined constant names, empty
+    // for non-enum fields).
     let mut meta_form = |list_path: &str| {
         let element = tree
             .by_path(list_path)
@@ -339,22 +305,14 @@ fn main() {
         let form_path = format!("{}/#element/content", list_path);
         for f in &form.fields {
             out.push(format!(
-                "MF\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
+                "MF\t{}\t{}\t{}\t{}\t{}",
                 form_path,
                 esc(&f.name),
                 esc(&f.type_name),
                 if f.required { 1 } else { 0 },
-                esc(&f.role),
-                esc(&f.initial),
                 esc(&f.enum_values.join(",")),
             ));
         }
-        out.push(format!(
-            "MT\t{}\t{}\t{}",
-            form_path,
-            esc(form.title_field().map(|f| f.name.as_str()).unwrap_or("")),
-            esc(form.id_field().map(|f| f.name.as_str()).unwrap_or("")),
-        ));
     };
     meta_form("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
     meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");

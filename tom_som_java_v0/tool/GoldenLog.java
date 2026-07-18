@@ -31,7 +31,6 @@ import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SomList;
 import tom_som_java_v0.TomSomV0.D00SolutionBlueprint;
 import tom_som_java_v0.TomSomV0.CurrentOperationalMetric;
-import tom_som_java_v0.TomSomV0.FunctionalRequirementEntry;
 import tom_som_java_v0.TomSomV0.ActorOverviewOverviewForm;
 import tom_som_java_v0.TomSomV0.AccessibilityAccessibilityOverviewContentForm;
 import tom_som_java_v0.TomSomV0.Iso25010CoverageEntry;
@@ -64,7 +63,7 @@ public final class GoldenLog {
     List<String> out = new ArrayList<>();
     out.add("# TomSpecs SOM golden log — canonical cross-language reading.");
     out.add("# All nine per-language generators must emit byte-identical output.");
-    out.add("FORMAT\t6");
+    out.add("FORMAT\t7");
     out.add("MODELVERSION\t" + esc(doc.modelVersion()));
 
     // Generic: content leaves, sorted by path.
@@ -158,35 +157,7 @@ public final class GoldenLog {
       out.add("TI\t" + leaf + "\t" + esc(elem.content()));
     }
 
-    // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
-    // (`requirementId`) and title-role (`title`) fields are pure views onto the
-    // owning list item's stored section id / headline. Each typed read is
-    // asserted against the generic itemSectionId/headline read before emission,
-    // proving the view binding end-to-end in every language. ---
-    SomList<FunctionalRequirementEntry> freReqs =
-        sbp.introductionAndScope().requirements().functionalRequirements().requirements();
-    for (int i = 0; i < freReqs.length(); i++) {
-      FunctionalRequirementEntry req = freReqs.get(i);
-      String itemPath = req.path;
-      String typedId = req.content().requirementId();
-      String typedTitle = req.content().title();
-      String genericId = doc.itemSectionId(itemPath);
-      genericId = genericId == null ? "" : genericId;
-      String genericTitle = doc.headline(itemPath);
-      genericTitle = genericTitle == null ? "" : genericTitle;
-      if (!typedId.equals(genericId)) {
-        die("TYPED ID-ROLE MISMATCH at " + itemPath + ": "
-            + "typed=\"" + typedId + "\" generic=\"" + genericId + "\"");
-      }
-      if (!typedTitle.equals(genericTitle)) {
-        die("TYPED TITLE-ROLE MISMATCH at " + itemPath + ": "
-            + "typed=\"" + typedTitle + "\" generic=\"" + genericTitle + "\"");
-      }
-      out.add("TR\t" + itemPath + "\trequirementId\t" + esc(typedId));
-      out.add("TR\t" + itemPath + "\ttitle\t" + esc(typedTitle));
-    }
-
-    // --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+    // --- Typed non-String form fields (FORMAT 7, YRD7): native int/bool/enum
     // members read through the typed facade and asserted against the generic
     // form store, canonicalised through the SAME boundary rules the facade
     // setters used to write them (int -> decimal, bool -> "true"/"false", enum
@@ -234,14 +205,12 @@ public final class GoldenLog {
     metaNode(out, metaTree, "SBP/requirements");
     metaNode(out, metaTree, "SBP/requirements/content");
 
-    // --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
-    // content form read through the metadata tree — one MF line per field
-    // (declaration order) with type/required/role/initial plus the FORMAT 6
-    // enumValues column (comma-joined constant names, empty for non-enum
-    // fields), plus one MT summary line naming the form's title-role and
-    // id-role fields via the titleField/idField accessors. Emitted for the FRE
-    // requirement form (role fields, no enums) and the ISO 25010 coverage form
-    // (an enum-typed field). All values are model-derived. ---
+    // --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
+    // through the metadata tree — one MF line per field (declaration order) with
+    // type/required plus the enumValues column (comma-joined constant names,
+    // empty for non-enum fields). Emitted for the FRE requirement form (no
+    // enums) and the ISO 25010 coverage form (an enum-typed field). All values
+    // are model-derived. ---
     out.add("SECTION\tmeta-form");
     metaForm(out, metaTree,
         "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
@@ -354,9 +323,9 @@ public final class GoldenLog {
   }
 
   /**
-   * Emits the MF field lines and MT summary line for a list-element content
-   * form resolved through the metadata tree, including the FORMAT 6 enumValues
-   * column (comma-joined constant names, empty for non-enum fields).
+   * Emits the MF field lines for a list-element content form resolved through
+   * the metadata tree, including the enumValues column (comma-joined constant
+   * names, empty for non-enum fields).
    */
   static void metaForm(List<String> out, SomMetaTree metaTree, String listPath) {
     SomMetaNode listNode = metaTree.byPath(listPath);
@@ -380,15 +349,9 @@ public final class GoldenLog {
     final String formPath = listPath + "/#element/content";
     for (SomFormFieldMeta f : form.fields) {
       out.add("MF\t" + formPath + "\t" + esc(f.name) + "\t" + esc(f.typeName) + "\t"
-          + (f.required ? 1 : 0) + "\t" + esc(f.role == null ? "" : f.role) + "\t"
-          + esc(f.initial == null ? "" : f.initial) + "\t"
+          + (f.required ? 1 : 0) + "\t"
           + esc(String.join(",", f.enumValues)));
     }
-    SomFormFieldMeta titleField = form.titleField();
-    SomFormFieldMeta idField = form.idField();
-    out.add("MT\t" + formPath + "\t"
-        + esc(titleField == null ? "" : titleField.name) + "\t"
-        + esc(idField == null ? "" : idField.name));
   }
 
   static void metaNav(List<String> out, SomMetaTree metaTree, SomMetaRef ref, String expectedPath) {

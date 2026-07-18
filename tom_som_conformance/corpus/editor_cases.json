@@ -250,63 +250,6 @@
   {
     "op": "setFormValue",
     "path": "DEMO/CARD-LST-1/content",
-    "field": "name",
-    "value": "Alpha Card"
-  },
-  {
-    "op": "headline",
-    "path": "DEMO/CARD-LST-1",
-    "expect": "Alpha Card"
-  },
-  {
-    "op": "formValue",
-    "path": "DEMO/CARD-LST-1/content",
-    "field": "name",
-    "expect": "Alpha Card"
-  },
-  {
-    "op": "setFormValue",
-    "path": "DEMO/CARD-LST-1/content",
-    "field": "cardId",
-    "value": "CARD-ALPHA"
-  },
-  {
-    "op": "itemSectionId",
-    "itemPath": "DEMO/CARD-LST-1",
-    "expect": "CARD-ALPHA"
-  },
-  {
-    "op": "formValue",
-    "path": "DEMO/CARD-LST-1/content",
-    "field": "cardId",
-    "expect": "CARD-ALPHA"
-  },
-  {
-    "op": "setFormValue",
-    "path": "DEMO/CARD-LST-1/content",
-    "field": "cardId",
-    "value": ""
-  },
-  {
-    "op": "itemSectionId",
-    "itemPath": "DEMO/CARD-LST-1",
-    "expect": "CARD-ALPHA"
-  },
-  {
-    "op": "rawFormField",
-    "path": "DEMO/CARD-LST-1/content",
-    "field": "cardId",
-    "expect": null
-  },
-  {
-    "op": "rawFormField",
-    "path": "DEMO/CARD-LST-1/content",
-    "field": "name",
-    "expect": null
-  },
-  {
-    "op": "setFormValue",
-    "path": "DEMO/CARD-LST-1/content",
     "field": "note",
     "value": "first card"
   },

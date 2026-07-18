@@ -66,10 +66,6 @@ const (
 	// SpecMarkdownRejectMalformedHeading — a heading line without a parseable
 	// `<!--[id]-->` headline comment.
 	SpecMarkdownRejectMalformedHeading = "malformedHeading"
-	// SpecMarkdownRejectRoleFieldFormLine — a `FieldName:` form line for a
-	// title/id **role field** (YRD6): the field's value is the section heading
-	// / id comment and must never be duplicated as a form line.
-	SpecMarkdownRejectRoleFieldFormLine = "roleFieldFormLine"
 )
 
 // SpecMarkdownRejection is one rejected block in a Markdown import (DR1 §1.7).
@@ -620,9 +616,6 @@ func (c *SpecDocumentMarkdown) formHasValues(node *SomMetaNode, path string) boo
 		return false
 	}
 	for _, f := range node.Form.Fields {
-		if f.Role != "" {
-			continue // YRD6: role values live in the heading.
-		}
 		if _, ok := c.Document.FormField(path, f.Name); ok {
 			return true
 		}
@@ -636,11 +629,6 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 		fields = node.Form.Fields
 	}
 	for _, f := range fields {
-		// YRD6: a role field's value is emitted exactly once — as the owning
-		// section's heading text / id comment — never as a form line.
-		if f.Role != "" {
-			continue
-		}
 		value, ok := c.Document.FormField(path, f.Name)
 		if !ok {
 			continue
@@ -1205,7 +1193,6 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	currentField := ""
 	currentFormPath := ""
 	haveField := false
-	dropping := false
 	var currentLines []string
 	var contentLines []string
 
@@ -1223,46 +1210,20 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	}
 
 	p.currentFormIdx = 0
-	for i, line := range frame.body {
+	for _, line := range frame.body {
 		if !fence.InFence() {
 			if m := mdFieldLabelRE.FindStringSubmatch(line); m != nil {
 				if idx, f, ok := findField(m[1]); ok {
 					flush()
-					// YRD6: a title/id role field's value is the owning
-					// section's heading / id comment — a form line duplicating
-					// it is rejected, never stored (continuation lines are
-					// dropped with it).
-					if f.Role != "" {
-						p.rejections = append(p.rejections, &SpecMarkdownRejection{
-							Line:   frame.line + i,
-							Reason: SpecMarkdownRejectRoleFieldFormLine,
-							Message: "form field `" + f.Name + "` is a title/id role " +
-								"field — its value is the section heading, not a form " +
-								"line",
-							Anchor: frame.path + "/" + formSlots[idx].rel,
-						})
-						haveField = false
-						currentField = ""
-						currentFormPath = ""
-						dropping = true
-						currentLines = nil
-						fence.Feed(line)
-						continue
-					}
 					p.currentFormIdx = idx
 					haveField = true
 					currentField = f.Name
 					currentFormPath = frame.path + "/" + formSlots[idx].rel
 					currentLines = []string{m[2]}
-					dropping = false
 					fence.Feed(line)
 					continue
 				}
 			}
-		}
-		if dropping {
-			fence.Feed(line)
-			continue
 		}
 		// Continuation: strip the one escape space of a label-shaped line.
 		text := line
@@ -1291,18 +1252,9 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 	for _, f := range fields {
 		fieldsByLower[strings.ToLower(f.Name)] = f.Name
 	}
-	// YRD6: role fields (title/id) are represented by the section heading /
-	// id comment — a form line duplicating one is rejected, never stored.
-	roleFields := map[string]bool{}
-	for _, f := range fields {
-		if f.Role != "" {
-			roleFields[f.Name] = true
-		}
-	}
 	fence := &MarkdownFenceTracker{}
 	currentField := ""
 	haveField := false
-	dropping := false
 	var currentLines []string
 
 	flush := func(lineNo int) {
@@ -1314,7 +1266,7 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 				}
 				p.forms[path][currentField] = value
 			}
-		} else if !dropping {
+		} else {
 			for _, l := range currentLines {
 				if strings.TrimSpace(l) != "" {
 					p.rejections = append(p.rejections, &SpecMarkdownRejection{
@@ -1327,7 +1279,6 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 				}
 			}
 		}
-		dropping = false
 		currentLines = nil
 	}
 
@@ -1336,21 +1287,6 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 			if m := mdFieldLabelRE.FindStringSubmatch(line); m != nil {
 				if fieldName, ok := fieldsByLower[strings.ToLower(m[1])]; ok {
 					flush(frame.line + i)
-					if roleFields[fieldName] {
-						p.rejections = append(p.rejections, &SpecMarkdownRejection{
-							Line:   frame.line + i,
-							Reason: SpecMarkdownRejectRoleFieldFormLine,
-							Message: "form field `" + fieldName + "` is a title/id role field — " +
-								"its value is the section heading, not a form line",
-							Anchor: path,
-						})
-						haveField = false
-						currentField = ""
-						dropping = true
-						currentLines = nil
-						fence.Feed(line)
-						continue
-					}
 					haveField = true
 					currentField = fieldName
 					currentLines = []string{m[2]}

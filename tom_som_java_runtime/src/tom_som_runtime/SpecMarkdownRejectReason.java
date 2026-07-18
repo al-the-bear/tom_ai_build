@@ -6,8 +6,7 @@ public enum SpecMarkdownRejectReason {
   KIND_MISMATCH("kindMismatch"),
   ORPHAN_CONTENT("orphanContent"),
   MISSING_VALUE("missingValue"),
-  MALFORMED_HEADING("malformedHeading"),
-  ROLE_FIELD_FORM_LINE("roleFieldFormLine");
+  MALFORMED_HEADING("malformedHeading");
 
   public final String value;
 

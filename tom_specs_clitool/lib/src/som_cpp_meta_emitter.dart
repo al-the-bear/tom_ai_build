@@ -588,8 +588,7 @@ class SomCppMetaEmitter {
       b.writeln('$indent$recv.form->fields.push_back(som::SomFormFieldMeta{'
           '"${_cppStr(ff.name)}", "${_cppStr(ff.type)}", '
           '"${_cppStr(ff.label)}", ${ff.required}, '
-          '"${_cppStr(ff.hint ?? '')}", $i, '
-          '"${_cppStr(ff.role ?? '')}", "${_cppStr(ff.initial ?? '')}"'
+          '"${_cppStr(ff.hint ?? '')}", $i'
           '$enumArg});');
     }
   }

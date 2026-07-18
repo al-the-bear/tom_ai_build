@@ -137,36 +137,12 @@ import 'model_reader.dart';
     }
   }
 
-  // YRD6 — role-field rules (headline_id_storage_decisions.md, decision (d)):
-  // at most one `title` and one `id` role per form; role fields are
-  // String-typed; the `id` role may only appear on the section's OWN form
-  // (a class-level `@Form` or the `@Form` on the reserved `content` field) of
-  // a list-element class reached through a `@SectionIdPattern` list (only list
-  // items have a stored section id to bind to).
-  final patternElementTypes = <String>{};
-  for (final className in reachable) {
-    final cls = classes[className];
-    if (cls == null) continue;
-    for (final field in cls.fields) {
-      if (field.isList && field.getAnnotation('SectionIdPattern') != null) {
-        final inner = field.listElementTypeName;
-        if (inner != null) patternElementTypes.add(inner);
-      }
-    }
-  }
-  void checkRoleFields(
-    String where,
-    List<FormFieldInfo> fields, {
-    required bool ownForm,
-    required String className,
-  }) {
-    var titles = 0;
-    var ids = 0;
+  // YRD7 — a form field's type must be a supported scalar: a primitive
+  // (String/int/double/num/bool) or a model enum (resolved to its constant
+  // names at read time). Anything else cannot get a typed accessor or a
+  // plain-text `FieldName: value` serialization.
+  void checkFormFieldTypes(String where, List<FormFieldInfo> fields) {
     for (final ff in fields) {
-      // YRD7: a form field's type must be a supported scalar — a primitive
-      // (String/int/double/num/bool) or a model enum (resolved to its constant
-      // names at read time). Anything else cannot get a typed accessor or a
-      // plain-text `FieldName: value` serialization.
       const primitives = {'String', 'int', 'double', 'num', 'bool'};
       final base = ff.typeName.endsWith('?')
           ? ff.typeName.substring(0, ff.typeName.length - 1)
@@ -178,45 +154,6 @@ import 'model_reader.dart';
           'bool or a model enum',
         );
       }
-      if (ff.role.isEmpty) continue;
-      if (ff.typeName != 'String') {
-        errors.add(
-          'YRD6 role-field: $where — field "${ff.name}" has role '
-          '"${ff.role}" but type "${ff.typeName}"; role fields must be '
-          'String (they view the section headline / stored section id)',
-        );
-      }
-      if (ff.role == 'title') titles++;
-      if (ff.role == 'id') {
-        ids++;
-        if (!ownForm) {
-          errors.add(
-            'YRD6 role-field: $where — field "${ff.name}" carries the id '
-            'role on a sub-section @Form; the id role is only valid on the '
-            'section\'s own @Form (class-level or on the "content" field) of '
-            'a @SectionIdPattern list-element class',
-          );
-        } else if (!patternElementTypes.contains(className)) {
-          errors.add(
-            'YRD6 role-field: $where — field "${ff.name}" carries the id '
-            'role, but $className is not the element type of any '
-            '@SectionIdPattern list; only list items have a stored section '
-            'id to bind to',
-          );
-        }
-      }
-    }
-    if (titles > 1) {
-      errors.add(
-        'YRD6 role-field: $where declares $titles title-role fields — at '
-        'most one title field per form',
-      );
-    }
-    if (ids > 1) {
-      errors.add(
-        'YRD6 role-field: $where declares $ids id-role fields — at most one '
-        'id field per form',
-      );
     }
   }
 
@@ -224,21 +161,11 @@ import 'model_reader.dart';
     final cls = classes[className];
     if (cls == null) continue;
     if (cls.formFields.isNotEmpty) {
-      checkRoleFields(
-        '$className (class-level @Form)',
-        cls.formFields,
-        ownForm: true,
-        className: className,
-      );
+      checkFormFieldTypes('$className (class-level @Form)', cls.formFields);
     }
     for (final field in cls.fields) {
       if (field.formFields.isNotEmpty) {
-        checkRoleFields(
-          '$className.${field.name}',
-          field.formFields,
-          ownForm: field.name == 'content',
-          className: className,
-        );
+        checkFormFieldTypes('$className.${field.name}', field.formFields);
       }
     }
   }

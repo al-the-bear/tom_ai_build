@@ -82,7 +82,7 @@ def main() -> None:
     out: list[str] = []
     out.append("# TomSpecs SOM golden log — canonical cross-language reading.")
     out.append("# All nine per-language generators must emit byte-identical output.")
-    out.append("FORMAT\t6")
+    out.append("FORMAT\t7")
     out.append("MODELVERSION\t" + esc(doc.model_version or ""))
 
     # Generic: content leaves, sorted by path.
@@ -164,34 +164,7 @@ def main() -> None:
             sys.exit(2)
         out.append("TI\t%s\t%s" % (leaf, esc(elem.content)))
 
-    # --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
-    # (`requirementId`) and title-role (`title`) fields are pure views onto the
-    # owning list item's stored section id / headline. Each typed read is
-    # asserted against the generic item_section_id/headline read before
-    # emission, proving the view binding end-to-end in every language. ---
-    fre_reqs = (sbp.introductionAndScope.requirements
-                .functionalRequirements.requirements)
-    for i in range(fre_reqs.length):
-        req = fre_reqs[i]
-        item_path = req.path
-        typed_id = req.content.requirementId
-        typed_title = req.content.title
-        generic_id = doc.item_section_id(item_path) or ""
-        generic_title = doc.headline(item_path) or ""
-        if typed_id != generic_id:
-            sys.stderr.write(
-                'TYPED ID-ROLE MISMATCH at %s: typed="%s" generic="%s"\n'
-                % (item_path, typed_id, generic_id))
-            sys.exit(2)
-        if typed_title != generic_title:
-            sys.stderr.write(
-                'TYPED TITLE-ROLE MISMATCH at %s: typed="%s" generic="%s"\n'
-                % (item_path, typed_title, generic_title))
-            sys.exit(2)
-        out.append("TR\t%s\trequirementId\t%s" % (item_path, esc(typed_id)))
-        out.append("TR\t%s\ttitle\t%s" % (item_path, esc(typed_title)))
-
-    # --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+    # --- Typed non-String form fields (FORMAT 7, YRD7): native int/bool/enum
     # members read through the typed facade and asserted against the generic
     # form store, canonicalised through the SAME boundary rules the facade
     # setters used to write them (int -> str, bool -> "true"/"false", enum ->
@@ -267,14 +240,12 @@ def main() -> None:
     meta_node("SBP/requirements")
     meta_node("SBP/requirements/content")
 
-    # --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
-    # content form read through the metadata tree — one MF line per field
-    # (declaration order) with type/required/role/initial plus the FORMAT 6
-    # enumValues column (comma-joined constant names, empty for non-enum
-    # fields), plus one MT summary line naming the form's title-role and
-    # id-role fields via the title_field/id_field accessors. Emitted for the
-    # FRE requirement form (role fields, no enums) and the ISO 25010 coverage
-    # form (an enum-typed field). All values are model-derived. ---
+    # --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
+    # through the metadata tree — one MF line per field (declaration order) with
+    # type/required plus the enumValues column (comma-joined constant names,
+    # empty for non-enum fields). Emitted for the FRE requirement form (no
+    # enums) and the ISO 25010 coverage form (an enum-typed field). All values
+    # are model-derived. ---
     out.append("SECTION\tmeta-form")
 
     def meta_form(list_path: str) -> None:
@@ -293,20 +264,13 @@ def main() -> None:
         # segment so the log path stays ASCII (mirrored verbatim per language).
         form_path = list_path + "/#element/content"
         for f in form.fields:
-            out.append("MF\t%s\t%s\t%s\t%d\t%s\t%s\t%s" % (
+            out.append("MF\t%s\t%s\t%s\t%d\t%s" % (
                 form_path,
                 esc(f.name),
                 esc(f.type_name),
                 1 if f.required else 0,
-                esc(f.role or ""),
-                esc(f.initial or ""),
                 esc(",".join(f.enum_values or [])),
             ))
-        out.append("MT\t%s\t%s\t%s" % (
-            form_path,
-            esc(form.title_field.name if form.title_field else ""),
-            esc(form.id_field.name if form.id_field else ""),
-        ))
 
     meta_form("SBP/introductionAndScope/requirements/"
               "functionalRequirements/FRE-REQU-LST")

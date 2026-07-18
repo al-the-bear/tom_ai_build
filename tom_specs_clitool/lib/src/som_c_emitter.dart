@@ -498,24 +498,6 @@ class SomCEmitter {
         ..writeln('void ${fp.contentSetFn}($t *self, const char *value);');
     }
     for (final ff in fp.field.formFields) {
-      // YRD6: a role field is a pure view onto the owning section's headline /
-      // stored section id — it never touches the form-value store.
-      if (ff.role == 'title') {
-        b.writeln('// Title-role field (YRD6): a view onto the owning '
-            'section\'s headline (owned result).');
-        b.writeln('char *${fp.getFn[ff.name]}(const $t *self);');
-        b.writeln('void ${fp.setFn[ff.name]}($t *self, const char *value);');
-        continue;
-      }
-      if (ff.role == 'id') {
-        b.writeln('// Id-role field (YRD6): a view onto the owning list '
-            'item\'s stored section id (owned result;');
-        b.writeln('// uniqueness validated on write, empty writes are '
-            'ignored).');
-        b.writeln('char *${fp.getFn[ff.name]}(const $t *self);');
-        b.writeln('void ${fp.setFn[ff.name]}($t *self, const char *value);');
-        continue;
-      }
       switch (_scalarType(ff.type)) {
         case 'int':
           b.writeln('long ${fp.getFn[ff.name]}(const $t *self);');
@@ -783,79 +765,10 @@ class SomCEmitter {
             'self->node.path, value);')
         ..writeln('}');
     }
-    // YRD6: role fields bind to the OWNING section — the form's own path when
-    // the member heads its own `@SectionId` section, else the parent path (a
-    // transparent/class-level form hoisted into the parent's body).
-    final ownsSection = fp.field.sectionId != null;
     for (final ff in fp.field.formFields) {
       final field = _cStr(ff.name);
       final get = fp.getFn[ff.name]!;
       final set = fp.setFn[ff.name]!;
-      if (ff.role == 'title') {
-        b.writeln('char *$get(const $t *self) {');
-        if (ownsSection) {
-          b.writeln('\tconst char *v = spec_document_headline('
-              'self->node.doc, self->node.path);');
-          b.writeln('\treturn som_strdup(v != NULL ? v : "");');
-        } else {
-          b
-            ..writeln('\tchar *owner = spec_parent_path(self->node.path);')
-            ..writeln('\tconst char *v = spec_document_headline('
-                'self->node.doc, owner);')
-            ..writeln('\tchar *out = som_strdup(v != NULL ? v : "");')
-            ..writeln('\tfree(owner);')
-            ..writeln('\treturn out;');
-        }
-        b
-          ..writeln('}')
-          ..writeln('void $set($t *self, const char *value) {');
-        if (ownsSection) {
-          b.writeln('\tspec_document_set_headline(self->node.doc, '
-              'self->node.path, value);');
-        } else {
-          b
-            ..writeln('\tchar *owner = spec_parent_path(self->node.path);')
-            ..writeln('\tspec_document_set_headline(self->node.doc, owner, '
-                'value);')
-            ..writeln('\tfree(owner);');
-        }
-        b.writeln('}');
-        continue;
-      }
-      if (ff.role == 'id') {
-        b.writeln('char *$get(const $t *self) {');
-        if (ownsSection) {
-          b.writeln('\tconst char *v = spec_document_item_section_id('
-              'self->node.doc, self->node.path);');
-          b.writeln('\treturn som_strdup(v != NULL ? v : "");');
-        } else {
-          b
-            ..writeln('\tchar *owner = spec_parent_path(self->node.path);')
-            ..writeln('\tconst char *v = spec_document_item_section_id('
-                'self->node.doc, owner);')
-            ..writeln('\tchar *out = som_strdup(v != NULL ? v : "");')
-            ..writeln('\tfree(owner);')
-            ..writeln('\treturn out;');
-        }
-        b
-          ..writeln('}')
-          ..writeln('void $set($t *self, const char *value) {')
-          ..writeln('\tif (value == NULL || *value == \'\\0\') {')
-          ..writeln('\t\treturn;')
-          ..writeln('\t}');
-        if (ownsSection) {
-          b.writeln('\tspec_document_set_item_section_id(self->node.doc, '
-              'self->node.path, value, NULL);');
-        } else {
-          b
-            ..writeln('\tchar *owner = spec_parent_path(self->node.path);')
-            ..writeln('\tspec_document_set_item_section_id(self->node.doc, '
-                'owner, value, NULL);')
-            ..writeln('\tfree(owner);');
-        }
-        b.writeln('}');
-        continue;
-      }
       switch (_scalarType(ff.type)) {
         case 'int':
           b

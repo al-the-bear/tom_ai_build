@@ -13,7 +13,6 @@ import {
   SpecDocument,
   checkSomModelVersion,
   somEditabilityFor,
-  specParentPath,
 } from 'tom_som_typescript_runtime';
 
 // The generated metadata module (DR8/DR18): the populated SomMetaTrees plus
@@ -89219,28 +89218,6 @@ export class FunctionalRequirementEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  // Id-role field (YRD6): a view onto the owning list item's stored section id
-  // (uniqueness validated on write; empty writes are ignored).
-  get requirementId(): string {
-    return this.doc.itemSectionId(specParentPath(this.path)) || '';
-  }
-
-  set requirementId(value: string) {
-    if (value === '') {
-      return;
-    }
-    this.doc.setItemSectionId(specParentPath(this.path), value);
-  }
-
-  // Title-role field (YRD6): a view onto the owning section's headline.
-  get title(): string {
-    return this.doc.headline(specParentPath(this.path)) || '';
-  }
-
-  set title(value: string) {
-    this.doc.setHeadline(specParentPath(this.path), value);
   }
 
   get status(): string {

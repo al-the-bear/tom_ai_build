@@ -1,7 +1,6 @@
 package tom_som_runtime;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -475,9 +474,6 @@ public final class SpecDocumentMarkdown {
       return false;
     }
     for (SomFormFieldMeta f : node.form.fields) {
-      if (f.role != null) {
-        continue; // YRD6: role values live in the heading.
-      }
       if (document.formField(path, f.name) != null) {
         return true;
       }
@@ -489,11 +485,6 @@ public final class SpecDocumentMarkdown {
     List<SomFormFieldMeta> fields =
         node.form != null ? node.form.fields : new ArrayList<>();
     for (SomFormFieldMeta f : fields) {
-      // YRD6: a role field's value is emitted exactly once — as the owning
-      // section's heading text / id comment — never as a form line.
-      if (f.role != null) {
-        continue;
-      }
       String value = document.formField(path, f.name);
       if (value == null) {
         continue;
@@ -1039,7 +1030,6 @@ public final class SpecDocumentMarkdown {
       String currentField = "";
       String currentFormPath = "";
       boolean haveField = false;
-      boolean dropping = false;
       List<String> currentLines = new ArrayList<>();
       List<String> contentLines = new ArrayList<>();
 
@@ -1075,40 +1065,16 @@ public final class SpecDocumentMarkdown {
                       .put(currentField, value);
                 }
               }
-              // YRD6: a title/id role field's value is the owning section's
-              // heading / id comment — a form line duplicating it is rejected,
-              // never stored (continuation lines are dropped with it).
-              if (found.role != null) {
-                rejections.add(new SpecMarkdownRejection(
-                    frame.line + i,
-                    SpecMarkdownRejectReason.ROLE_FIELD_FORM_LINE,
-                    "form field `" + found.name + "` is a title/id role "
-                        + "field — its value is the section heading, not a form "
-                        + "line",
-                    frame.path + "/" + formSlots.get(foundIdx).rel));
-                haveField = false;
-                currentField = "";
-                currentFormPath = "";
-                dropping = true;
-                currentLines = new ArrayList<>();
-                bodyFence.feed(line);
-                continue;
-              }
               currentLines = new ArrayList<>();
               currentFormIdx = foundIdx;
               haveField = true;
               currentField = found.name;
               currentFormPath = frame.path + "/" + formSlots.get(foundIdx).rel;
               currentLines.add(m.group(2));
-              dropping = false;
               bodyFence.feed(line);
               continue;
             }
           }
-        }
-        if (dropping) {
-          bodyFence.feed(line);
-          continue;
         }
         // Continuation: strip the one escape space of a label-shaped line.
         String text = line;
@@ -1142,18 +1108,9 @@ public final class SpecDocumentMarkdown {
       for (SomFormFieldMeta f : fields) {
         fieldsByLower.put(f.name.toLowerCase(), f.name);
       }
-      // YRD6: role fields (title/id) are represented by the section heading /
-      // id comment — a form line duplicating one is rejected, never stored.
-      Set<String> roleFields = new HashSet<>();
-      for (SomFormFieldMeta f : fields) {
-        if (f.role != null) {
-          roleFields.add(f.name);
-        }
-      }
       MarkdownFenceTracker bodyFence = new MarkdownFenceTracker();
       String[] currentField = {""};
       boolean[] haveField = {false};
-      boolean[] dropping = {false};
       List<String> currentLines = new ArrayList<>();
 
       for (int i = 0; i < frame.body.size(); i++) {
@@ -1163,21 +1120,7 @@ public final class SpecDocumentMarkdown {
           if (m.matches()) {
             String fieldName = fieldsByLower.get(m.group(1).toLowerCase());
             if (fieldName != null) {
-              flushForm(haveField, currentField, dropping, currentLines, path, frame.line + i);
-              if (roleFields.contains(fieldName)) {
-                rejections.add(new SpecMarkdownRejection(
-                    frame.line + i,
-                    SpecMarkdownRejectReason.ROLE_FIELD_FORM_LINE,
-                    "form field `" + fieldName + "` is a title/id role field — "
-                        + "its value is the section heading, not a form line",
-                    path));
-                haveField[0] = false;
-                currentField[0] = "";
-                dropping[0] = true;
-                currentLines.clear();
-                bodyFence.feed(line);
-                continue;
-              }
+              flushForm(haveField, currentField, currentLines, path, frame.line + i);
               haveField[0] = true;
               currentField[0] = fieldName;
               currentLines.add(m.group(2));
@@ -1194,11 +1137,11 @@ public final class SpecDocumentMarkdown {
         }
         bodyFence.feed(line);
       }
-      flushForm(haveField, currentField, dropping, currentLines, path,
+      flushForm(haveField, currentField, currentLines, path,
           frame.line + frame.body.size());
     }
 
-    private void flushForm(boolean[] haveField, String[] currentField, boolean[] dropping,
+    private void flushForm(boolean[] haveField, String[] currentField,
         List<String> currentLines, String path, int lineNo) {
       if (haveField[0]) {
         String value = restoreValue(currentLines);
@@ -1206,7 +1149,7 @@ public final class SpecDocumentMarkdown {
           forms.computeIfAbsent(path, k -> new LinkedHashMap<>())
               .put(currentField[0], value);
         }
-      } else if (!dropping[0]) {
+      } else {
         for (String l : currentLines) {
           if (!l.trim().isEmpty()) {
             rejections.add(new SpecMarkdownRejection(
@@ -1218,7 +1161,6 @@ public final class SpecDocumentMarkdown {
           }
         }
       }
-      dropping[0] = false;
       currentLines.clear();
     }
 

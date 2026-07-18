@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
   out.push_back("# TomSpecs SOM golden log — canonical cross-language reading.");
   out.push_back(
       "# All nine per-language generators must emit byte-identical output.");
-  out.push_back("FORMAT\t6");
+  out.push_back("FORMAT\t7");
   out.push_back("MODELVERSION\t" + esc(doc.modelVersion));
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -202,38 +202,7 @@ int main(int argc, char** argv) {
     }
   }
 
-  // --- Typed role fields (FORMAT 5, YRD6): the FRE content form's id-role
-  // (`requirementId`) and title-role (`title`) fields are pure views onto the
-  // owning list item's stored section id / headline. Each typed read is
-  // asserted against the generic itemSectionId/headline read before emission,
-  // proving the view binding end-to-end in every language. ---
-  {
-    som::SomList freReqs = sbp.introductionAndScope()
-                               .requirements()
-                               .functionalRequirements()
-                               .requirements();
-    for (std::size_t i = 0; i < freReqs.length(); i++) {
-      tom_som_v0::FunctionalRequirementEntry req(typedDoc,
-                                                 freReqs.itemPathAt(i));
-      const std::string itemPath = req.path();
-      const std::string typedId = req.content().requirementId();
-      const std::string typedTitle = req.content().title();
-      const std::string genericId = doc.itemSectionId(itemPath);
-      const std::string genericTitle = doc.headline(itemPath);
-      if (typedId != genericId) {
-        die("TYPED ID-ROLE MISMATCH at " + itemPath + ": typed=\"" + typedId +
-            "\" generic=\"" + genericId + "\"");
-      }
-      if (typedTitle != genericTitle) {
-        die("TYPED TITLE-ROLE MISMATCH at " + itemPath + ": typed=\"" +
-            typedTitle + "\" generic=\"" + genericTitle + "\"");
-      }
-      out.push_back("TR\t" + itemPath + "\trequirementId\t" + esc(typedId));
-      out.push_back("TR\t" + itemPath + "\ttitle\t" + esc(typedTitle));
-    }
-  }
-
-  // --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+  // --- Typed non-String form fields (FORMAT 7, YRD7): native int/bool/enum
   // members read through the typed facade and asserted against the generic form
   // store, canonicalised through the SAME boundary rules the facade setters used
   // to write them (int -> decimal, bool -> "true"/"false", enum -> constant
@@ -319,16 +288,14 @@ int main(int argc, char** argv) {
   metaNode("SBP/requirements");
   metaNode("SBP/requirements/content");
 
-  // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
+  // --- Meta form fields (FORMAT 7, YRD7): the FRE list-element content form
   // read through the metadata tree — one MF line per field (declaration
-  // order) with type/required/role/initial, plus one MT summary line naming
-  // the form's title-role and id-role fields via the titleField/idField
-  // accessors. All values are model-derived. ---
+  // order) with type/required plus the enumValues column. All values are
+  // model-derived. ---
   out.push_back("SECTION\tmeta-form");
   // Generalized over any list path whose element content is a form: emit one MF
-  // line per field (declaration order) with type/required/role/initial and the
-  // enumValues column (FORMAT 6, YRD7 — comma-joined constant names, empty for
-  // non-enum fields), plus one MT summary line naming the title/id roles.
+  // line per field (declaration order) with type/required and the enumValues
+  // column (comma-joined constant names, empty for non-enum fields).
   auto metaForm = [&](const std::string& listPath) {
     const som::SomMetaNode* listNode = metaTree.byPath(listPath);
     const som::SomMetaNode* element =
@@ -358,13 +325,8 @@ int main(int argc, char** argv) {
       }
       out.push_back("MF\t" + formPath + "\t" + esc(f.name) + "\t" +
                     esc(f.typeName) + "\t" + (f.required ? "1" : "0") + "\t" +
-                    esc(f.role) + "\t" + esc(f.initial) + "\t" + esc(joined));
+                    esc(joined));
     }
-    const som::SomFormFieldMeta* titleField = form->titleField();
-    const som::SomFormFieldMeta* idField = form->idField();
-    out.push_back("MT\t" + formPath + "\t" +
-                  esc(titleField != nullptr ? titleField->name : "") + "\t" +
-                  esc(idField != nullptr ? idField->name : ""));
   };
   metaForm("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
   metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
