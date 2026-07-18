@@ -97,7 +97,6 @@ localization, translation, and documentation subtrees.
 )
 @SectionId('RLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-PLN')
 class RolloutPlan extends DocSpecsSection {
   @ContentHelp('''
 Rollout plan: sequencing, waves, and criteria for moving each cohort from
@@ -139,7 +138,6 @@ pre-go-live to production.
 )
 @SectionId('MIGPLN')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-MIG')
 class MigrationPlan extends DocSpecsSection {
   @ContentHelp('''
 System migration plan distinct from the per-data-entity migration
@@ -181,7 +179,6 @@ mapping. Focuses on the execution plan.
 )
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
 class UserManual extends DocSpecsSection {
   @ContentHelp('''
 User manual deliverables: what documents are produced, for which user
@@ -224,7 +221,6 @@ the help-concept section).
 )
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
 class RolloutTrainingMaterial extends DocSpecsSection {
   @ContentHelp('''
 Training plan and materials: courses, content packages, trainers, and
@@ -260,7 +256,6 @@ captures the catalog of training modules.
 )
 @SectionId('PLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-PIL')
 class PilotPlan extends DocSpecsSection {
   @ContentHelp('''
 Pilot definition: who participates, what is in/out of pilot scope, how
@@ -297,7 +292,6 @@ success is measured, and the decision gate that authorizes rollout.
 )
 @SectionId('CUTPRC')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-CUT')
 class CutoverProcedure extends DocSpecsSection {
   @ContentHelp('''
 Cutover runbook: the operational plan that executes the go-live moment.
@@ -335,7 +329,6 @@ waves — and than the Migration Plan — which covers data execution.
 )
 @SectionId('KNTFR')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-KNO')
 class KnowledgeTransfer extends DocSpecsSection {
   @ContentHelp('''
 Formal handover of system knowledge to operations and support teams.
@@ -370,7 +363,6 @@ Formal handover of system knowledge to operations and support teams.
 )
 @SectionId('WRTSP')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-WAR')
 class WarrantyAndSupport extends DocSpecsSection {
   @ContentHelp('''
 Terms governing the warranty window that follows acceptance. Distinct

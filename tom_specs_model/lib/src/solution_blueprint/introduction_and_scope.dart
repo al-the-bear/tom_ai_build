@@ -8281,7 +8281,6 @@ class RequirementsOverview extends DocSpecsSection {
   'identified and traceable to goals and use cases.',
 )
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-FUN')
 @ContentHelp(
   'Functional requirements describe system capabilities, behaviors, '
   'and features. Use clear, testable language. Each requirement should '
@@ -10035,7 +10034,6 @@ class RequirementTestCaseEntry extends DocSpecsSection {
   'and standards compliance.',
 )
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-TEC')
 @ContentHelp(
   'Technical requirements describe non-functional aspects and '
   'constraints. Each should be measurable and testable. Common categories: '
@@ -10385,7 +10383,6 @@ class TechnicalRequirementEntry extends DocSpecsSection {
   'authentication, authorization, audit, and compliance needs for the system.',
 )
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-SEC')
 @ContentHelp(
   'Security requirements protect confidentiality, integrity, '
   'and availability of information. Include authentication, authorization, '
@@ -10879,7 +10876,6 @@ class SecurityControlEntry extends DocSpecsSection {
   'processes, training, or support needed for the system to succeed.',
 )
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-ORG')
 @ContentHelp(
   'Organizational requirements describe non-technical changes '
   'needed for system success: training, process changes, role changes, '
@@ -11393,7 +11389,6 @@ class SystemsToReplace extends DocSpecsSection {
 )
 @SectionId('RI')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-INV')
 class ReplacementInventory extends DocSpecsSection {
   /// Portfolio summary before listing individual systems.
   @ContentHelp(
@@ -13165,7 +13160,6 @@ class SystemKnowledgeTransfer extends DocSpecsSection {
 )
 @SectionId('MIGCON')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MIG')
 class MigrationConsiderations extends DocSpecsSection {
   @SectionId('MIGCON-STRA')
   @Form([
@@ -14496,7 +14490,6 @@ class SystemBoundaries extends DocSpecsSection {
 )
 @SectionId('EXIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-INT')
 class ExternalInterfaces extends DocSpecsSection {
   /// Summary of the integration landscape.
   @ContentHelp(
@@ -15971,7 +15964,6 @@ class InterfaceTestScenarioEntry extends DocSpecsSection {
 )
 @SectionId('OUOFSC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-OUT')
 class OutOfScope extends DocSpecsSection {
   /// Overview of scope exclusion approach.
   @ContentHelp(
@@ -16131,7 +16123,6 @@ class OutOfScopeEntry extends DocSpecsSection {
 )
 @SectionId('BOAS')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-ASS')
 class BoundaryAssumptions extends DocSpecsSection {
   /// Overview of assumption categories and validation approach.
   @ContentHelp(
@@ -17181,7 +17172,6 @@ class ResponsibilitySystems extends DocSpecsSection {
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-TEC')
 class TechnicalEnvironment extends DocSpecsSection {
   // -------------------------------------------------------------------------
   // Technical Landscape Overview
@@ -18669,7 +18659,6 @@ class RiskRelationships extends DocSpecsSection {
 /// Complete external-system inventory covering IIS-LAN-INV content.
 @SectionId('SYLAIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-INV')
 class SystemLandscapeInventory extends DocSpecsSection {
   @ContentHelp('''
 Enumerates every external system the target system interacts with, with
@@ -18701,7 +18690,6 @@ organization's landscape.
 /// existing intra-system `InteractionPatterns` class.
 @SectionId('BOINPA')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-PAT')
 class BoundaryInteractionPatterns extends DocSpecsSection {
   @ContentHelp('''
 Reusable interaction patterns applied at system boundaries. Distinct
@@ -18732,7 +18720,6 @@ within the target system.
 /// Covers IIS-TST.
 @SectionId('INTES1')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-TST')
 class InteractionTestingStrategy extends DocSpecsSection {
   @ContentHelp('''
 Strategy for testing boundary interactions specifically. Complements the
@@ -18762,7 +18749,6 @@ broader system-wide test strategy.
 /// dependencies. Covers IIS-DEP.
 @SectionId('INDEAN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-DEP')
 class InteractionDependencyAnalysis extends DocSpecsSection {
   @ContentHelp('''
 What happens when external interactions are slow or unavailable, and
@@ -18793,7 +18779,6 @@ which of them lie on the critical path of user-facing flows.
 /// Systems to Replace inventory. Covers IIS-MIG.
 @SectionId('MIIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-MIG')
 class MigrationInteractions extends DocSpecsSection {
   @ContentHelp('''
 Transitional interactions that exist only during the migration window:
@@ -18831,7 +18816,6 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 )
 @SectionId('RERE')
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-REL')
 class RequirementRelationships extends DocSpecsSection {
   @ContentHelp('''
 Explicit relationships between requirements: dependencies, conflicts,
@@ -18868,7 +18852,6 @@ FUN/TEC/SEC/ORG into a network.
 )
 @SectionId('REQCOV')
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-COV')
 class RequirementCoverage extends DocSpecsSection {
   @ContentHelp('''
 Reports coverage of requirements from multiple angles to ensure nothing
@@ -18897,7 +18880,6 @@ falls through.
 /// inside individual interface entries.
 @SectionId('CBOC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-OPE')
 class CrossBoundaryOperationalConsiderations extends DocSpecsSection {
   @ContentHelp('''
 Operational considerations that span all boundary interactions rather
@@ -18926,7 +18908,6 @@ than being specific to one partner.
 /// Distinct from per-interface error handling.
 @SectionId('CBEH')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-ERR')
 class CrossBoundaryErrorHandling extends DocSpecsSection {
   @ContentHelp('''
 Policy for how failures propagate or are contained across boundary

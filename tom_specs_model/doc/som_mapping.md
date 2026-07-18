@@ -455,7 +455,6 @@ mapping-relevant semantics:
 | `@Reference(description)` | field | Points at data owned elsewhere; renders as an ordinary content-kind inline sub-section keyed by its field-level `…-REF` id whose *value* is the referenced section id. Never followed in traversal; excluded from ownership/cycle/list coverage. |
 | `@MapsTo(Type)` | class | Seed node of a Phase 3 DocSpec in the master model — the whole subtree flows to that document. |
 | `@DetailedIn(Type)` | class | Promoted to a top-level entry of a Phase 3 DocSpec; must have a `@MapsTo` ancestor (§12). |
-| `@SecondLevelSectionId(Type, id)` | class | Document-scoped short id within a Phase 3 document; implies `@DetailedIn` (§12). |
 | `@StandardReferences(standards, connotation)` | class or field | Public-standard provenance + meaning; carried in the meta-data. |
 | `@SeedFor(Type)` | class or field | Compile-time link for a single-target `Seeds → XX`. |
 | `@Prefix`, `@PatternCheckId`, `@PatternCheck`, `@TextRequired`, `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Position`, `@ForEach`, `@AccessKey` | various | Validation/schema constraints; captured into the meta tree's generic `extra` list and mapped by the schema generator where relevant (§10). |
@@ -496,7 +495,6 @@ MetaNode
   document          DocMeta?  for the document root only
   mapsTo            String?   @MapsTo target class name
   detailedIn        String?   @DetailedIn target class name
-  secondLevelIds    [(documentClass, id)]  @SecondLevelSectionId
   extra             [(annotation, args)]   all remaining annotations
   children          [MetaNode]  in @SerializationOrder order
   elementNode       MetaNode?   for kind == list: the element class subtree
@@ -991,7 +989,6 @@ golden reference.
 - `@SectionId` coverage — every reachable class carries one (transitive
   `@SectionIdPattern` subtrees exempt).
 - `@DetailedIn` requires an ancestor `@MapsTo`.
-- `@SecondLevelSectionId` implies `@DetailedIn`.
 - Per-`@Document` detail-count budget (7–15 top-level entries).
 - §2.1 field-shape legality; `@ContentType` compatibility; cycle detection.
 

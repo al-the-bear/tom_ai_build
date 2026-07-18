@@ -1,8 +1,8 @@
 /// Phase 3 DocSpec root-class re-exports.
 ///
 /// This file bridges the annotation-time Type references on SBP classes
-/// (`@DetailedIn(<DocName>)` / `@MapsTo(<DocName>)` /
-/// `@SecondLevelSectionId(<DocName>, ...)`) to the actual target-doc root
+/// (`@DetailedIn(<DocName>)` / `@MapsTo(<DocName>)`) to the actual
+/// target-doc root
 /// classes. All 12 Phase 3 document roots live in their own folders
 /// under `lib/src/<document_name>/`; this file re-exports them so SBP
 /// source files can resolve the Type references via a single import

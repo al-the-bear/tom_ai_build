@@ -171,7 +171,6 @@ TOM (Target Operating Model) document.
 )
 @SectionId('PRVIZ')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-VIS')
 class ProcessVision extends DocSpecsSection {
   /// Process vision overview.
   @SectionId('PVOVW')
@@ -401,7 +400,6 @@ class ExpectedImprovements extends DocSpecsSection {
 )
 @SectionId('PDPRI')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-PRI')
 class ProcessDesignPrinciples extends DocSpecsSection {
   /// Design principles overview.
   @SectionId('DPOVW')
@@ -542,7 +540,6 @@ class ProcessDesignPrincipleEntry extends DocSpecsSection {
 )
 @SectionId('PRCAT')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-CAT')
 class ProcessCatalog extends DocSpecsSection {
   /// Process catalog overview.
   @SectionId('PCOVW')
@@ -2400,7 +2397,6 @@ class ProcessExceptionEntry extends DocSpecsSection {
 )
 @SectionId('PROVDI')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-FLO')
 class ProcessOverviewDiagram extends DocSpecsSection {
   /// Diagram overview.
   @SectionId('PRDIOV')
@@ -2470,7 +2466,6 @@ class ProcessOverviewDiagram extends DocSpecsSection {
 )
 @SectionId('PRIMSU')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-IMP')
 class ProcessImprovementSummary extends DocSpecsSection {
   /// Improvement overview.
   @SectionId('IMOV')
@@ -2703,7 +2698,6 @@ class ProcessImprovementEntry extends DocSpecsSection {
 )
 @SectionId('PR')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-REL')
 class ProcessRelationships extends DocSpecsSection {
   @ContentHelp('''
 Process relationships map dependencies, data flows, and sequencing between
@@ -2897,7 +2891,6 @@ postconditions in the ISC (Interaction Scenarios) document.
 )
 @SectionId('PRSTOV')
 @DetailedIn(D05InteractionScenarios)
-@SecondLevelSectionId(D05InteractionScenarios, 'ISC-OVE')
 class ProcessStepsOverview extends DocSpecsSection {
   @Form([
     Field(
@@ -2965,7 +2958,6 @@ class ProcessStepsOverview extends DocSpecsSection {
 )
 @SectionId('ACREDI')
 @DetailedIn(D05InteractionScenarios)
-@SecondLevelSectionId(D05InteractionScenarios, 'ISC-DIA')
 class ActorRelationshipDiagram extends DocSpecsSection {
   /// Diagram overview.
   @SectionId('ACDIOV')
@@ -3029,7 +3021,6 @@ class ActorRelationshipDiagram extends DocSpecsSection {
 ], 'Captures the step-by-step target workflow for a single catalogued process.')
 @SectionId('DEPRWO')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-DET')
 class DetailedProcessWorkflow extends DocSpecsSection {
   @ContentHelp('''
 Step-level detail for each process in the catalog: activity sequence,
@@ -3066,7 +3057,6 @@ actor responsibility.
 )
 @SectionId('CRPRAN')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-CRO')
 class CrossProcessAnalysis extends DocSpecsSection {
   @ContentHelp('''
 Cross-cutting view of how processes interact: shared entities, data
@@ -3101,7 +3091,6 @@ exchanged, synchronization points, and conflicts.
 )
 @SectionId('PREXHA')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-EXC')
 class ProcessExceptionHandling extends DocSpecsSection {
   @ContentHelp('''
 Handling of exceptions that interrupt a normal process flow. Distinct
@@ -3139,7 +3128,6 @@ process recovery.
 )
 @SectionId('ETETS')
 @DetailedIn(D05InteractionScenarios)
-@SecondLevelSectionId(D05InteractionScenarios, 'ISC-E2E')
 class EndToEndTestScenario extends DocSpecsSection {
   @ContentHelp('''
 End-to-end test scenarios derived from use cases and key user journeys.
@@ -3177,7 +3165,6 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 )
 @SectionId('ACOV')
 @DetailedIn(D05InteractionScenarios)
-@SecondLevelSectionId(D05InteractionScenarios, 'ISC-ACT')
 class ActorOverview extends DocSpecsSection {
   @ContentHelp('''
 Actors represent roles that interact with the system. Following UML actor
@@ -3831,7 +3818,6 @@ class ActorPermissions extends DocSpecsSection {
 )
 @SectionId('INCA')
 @DetailedIn(D05InteractionScenarios)
-@SecondLevelSectionId(D05InteractionScenarios, 'ISC-INT')
 class InteractionCatalog extends DocSpecsSection {
   @ContentHelp('''
 Container for key interaction descriptions. Each interaction seeds a use case
@@ -5041,7 +5027,6 @@ class InteractionBusinessRules extends DocSpecsSection {
 )
 @SectionId('KESC')
 @DetailedIn(D05InteractionScenarios)
-@SecondLevelSectionId(D05InteractionScenarios, 'ISC-SCE')
 class KeyScenarios extends DocSpecsSection {
   @ContentHelp('''
 End-to-end scenario descriptions showing how users achieve business goals
@@ -5702,7 +5687,6 @@ class AlternativeStepEntry extends DocSpecsSection {
 )
 @SectionId('PMAK')
 @DetailedIn(D02TargetOperatingModel)
-@SecondLevelSectionId(D02TargetOperatingModel, 'TOM-MET')
 class ProcessMetric extends DocSpecsSection {
   @ContentHelp('''
 How each business process is measured for success once in production.
@@ -5736,7 +5720,6 @@ How each business process is measured for success once in production.
 )
 @SectionId('USCATR')
 @DetailedIn(D05InteractionScenarios)
-@SecondLevelSectionId(D05InteractionScenarios, 'ISC-TRC')
 class UseCaseTraceability extends DocSpecsSection {
   @ContentHelp('''
 Traceability matrix linking use cases to requirements, processes, and

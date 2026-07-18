@@ -88,14 +88,6 @@ class MetaDocumentInfo {
   });
 }
 
-/// One `@SecondLevelSectionId(documentClass, id)` occurrence.
-class MetaSecondLevelId {
-  final String documentClass;
-  final String id;
-
-  const MetaSecondLevelId({required this.documentClass, required this.id});
-}
-
 /// A captured annotation without a dedicated slot (DR1 §3.1: `extra`), kept
 /// losslessly as its name plus the analyzer-resolved constant arguments.
 class MetaExtraAnnotation {
@@ -172,8 +164,6 @@ class MetaNode {
   /// `@DetailedIn` target class name.
   final String? detailedIn;
 
-  final List<MetaSecondLevelId> secondLevelIds;
-
   /// Enum constant names for `kind == enumValue`.
   final List<String> enumValues;
 
@@ -210,7 +200,6 @@ class MetaNode {
     this.document,
     this.mapsTo,
     this.detailedIn,
-    this.secondLevelIds = const [],
     this.enumValues = const [],
     this.extra = const [],
     this.recursive = false,
@@ -279,10 +268,6 @@ class MetaNode {
           },
         if (mapsTo != null) 'mapsTo': mapsTo,
         if (detailedIn != null) 'detailedIn': detailedIn,
-        if (secondLevelIds.isNotEmpty)
-          'secondLevelIds': secondLevelIds
-              .map((s) => {'documentClass': s.documentClass, 'id': s.id})
-              .toList(),
         if (enumValues.isNotEmpty) 'enumValues': enumValues,
         if (extra.isNotEmpty)
           'extra': extra
@@ -325,7 +310,6 @@ class MetaTreeBuilder {
     'Document',
     'MapsTo',
     'DetailedIn',
-    'SecondLevelSectionId',
   };
 
   /// Builds the tree for every `@Document`-annotated root class, keyed by
@@ -411,7 +395,6 @@ class MetaTreeBuilder {
       document: slots.document,
       mapsTo: slots.mapsTo,
       detailedIn: slots.detailedIn,
-      secondLevelIds: slots.secondLevelIds,
       extra: slots.extra,
       recursive: recursive,
       children: children,
@@ -468,7 +451,6 @@ class MetaTreeBuilder {
       form: slots.form(field.formFields),
       mapsTo: slots.mapsTo,
       detailedIn: slots.detailedIn,
-      secondLevelIds: slots.secondLevelIds,
       enumValues: kind == MetaNodeKind.enumValue ? field.enumValues : const [],
       extra: slots.extra,
       elementNode: elementNode,
@@ -623,19 +605,6 @@ class _SlotCollector {
           ? basedOn.whereType<String>().toList()
           : const [],
     );
-  }
-
-  /// All `@SecondLevelSectionId` occurrences, field-level first.
-  List<MetaSecondLevelId> get secondLevelIds {
-    final result = <MetaSecondLevelId>[];
-    for (final a in [...fieldAnnotations, ...classAnnotations]) {
-      if (a.name != 'SecondLevelSectionId') continue;
-      result.add(MetaSecondLevelId(
-        documentClass: (a.arguments['documentClass'] as String?) ?? '',
-        id: (a.arguments['id'] as String?) ?? '',
-      ));
-    }
-    return result;
   }
 
   /// `@Form` field list from the reader's parsed form fields (field-level

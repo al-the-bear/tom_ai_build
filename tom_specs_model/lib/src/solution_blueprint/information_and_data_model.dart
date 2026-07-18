@@ -1044,7 +1044,6 @@ class MigrationMappingEntry extends DocSpecsSection {
 )
 @SectionId('ENREL')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'IFM-REL')
 class EntityRelationships extends DocSpecsSection {
   @ContentHelp('''
 Relationship specifications between data entities. Captures cardinality,
@@ -1317,7 +1316,6 @@ class EntityRelationshipEntry extends DocSpecsSection {
 )
 @SectionId('DATCL')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'IFM-CLA')
 class DataClassification extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
@@ -3407,7 +3405,6 @@ class RuleExampleEntry extends DocSpecsSection {
 )
 @SectionId('DADI')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'IFM-DIC')
 class DataDictionary extends DocSpecsSection {
   @ContentHelp('''
 Single authoritative registry for data attributes across the system.
@@ -3441,7 +3438,6 @@ Single authoritative registry for data attributes across the system.
 )
 @SectionId('VACO')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'IFM-VAL')
 class ValidationConstraints extends DocSpecsSection {
   @ContentHelp('''
 Business-level validation rules enforced on data. Distinct from schema
@@ -3474,7 +3470,6 @@ constraints (which are database-level) and from per-field form hints
 )
 @SectionId('INCO')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'IFM-CON')
 class IntegrityConstraints extends DocSpecsSection {
   @ContentHelp('''
 Integrity rules that preserve invariants across the data model.

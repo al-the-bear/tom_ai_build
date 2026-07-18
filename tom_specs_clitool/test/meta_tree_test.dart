@@ -50,8 +50,6 @@ void main() {
             AnnotationData('MapsTo', {'documentClass': 'InformationModel'}),
             AnnotationData(
                 'DetailedIn', {'documentClass': 'D06InformationModel'}),
-            AnnotationData('SecondLevelSectionId',
-                {'documentClass': 'D10QualityAcceptancePlan', 'id': 'QAP-FRA'}),
             // No dedicated slot — must land in `extra`.
             AnnotationData('StandardReferences', {
               'standards': ['ISO 25010'],
@@ -106,10 +104,6 @@ void main() {
       expect(root.comment, 'Seeds → QAP');
       expect(root.mapsTo, 'InformationModel');
       expect(root.detailedIn, 'D06InformationModel');
-      expect(root.secondLevelIds, hasLength(1));
-      expect(root.secondLevelIds.single.documentClass,
-          'D10QualityAcceptancePlan');
-      expect(root.secondLevelIds.single.id, 'QAP-FRA');
       expect(root.docComment, 'Root class doc.');
       expect(root.extra.map((e) => e.name), ['StandardReferences']);
       expect(root.extra.single.arguments['standards'], ['ISO 25010']);
@@ -353,6 +347,5 @@ Set<String> _representedAnnotationNames(MetaNode node) => {
       if (node.document != null) 'Document',
       if (node.mapsTo != null) 'MapsTo',
       if (node.detailedIn != null) 'DetailedIn',
-      if (node.secondLevelIds.isNotEmpty) 'SecondLevelSectionId',
       ...node.extra.map((e) => e.name),
     };

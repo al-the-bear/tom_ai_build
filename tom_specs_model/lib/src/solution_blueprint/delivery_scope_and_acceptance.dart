@@ -620,7 +620,6 @@ All criteria must be objectively measurable and verifiable.
 )
 @SectionId('ACRITL')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CRI')
 class AcceptanceCriteriaList extends DocSpecsSection {
   @ContentHelp('''
 Formal acceptance criteria that must be met for project sign-off.
@@ -863,7 +862,6 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
 )
 @SectionId('ACPR1')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRO')
 class AcceptanceProcess extends DocSpecsSection {
   @Form([
     Field(
@@ -1250,7 +1248,6 @@ class AcceptanceStepEntry extends DocSpecsSection {
 )
 @SectionId('USACTE')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-UAT')
 class UserAcceptanceTesting extends DocSpecsSection {
   @Form([
     Field(
@@ -2251,7 +2248,6 @@ class UatTestStepEntry extends DocSpecsSection {
 )
 @SectionId('DERE')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DEF')
 class DefectResolution extends DocSpecsSection {
   @Form([
     Field(
@@ -2485,7 +2481,6 @@ class DefectResolution extends DocSpecsSection {
 )
 @SectionId('SIOFPR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SIG')
 class SignOffProcess extends DocSpecsSection {
   @Form([
     Field(
@@ -2733,7 +2728,6 @@ class SignOffProcess extends DocSpecsSection {
 )
 @SectionId('WATE')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-WAR')
 class WarrantyTerms extends DocSpecsSection {
   @Form([
     Field(

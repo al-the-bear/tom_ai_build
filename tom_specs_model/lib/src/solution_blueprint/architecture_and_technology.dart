@@ -105,7 +105,6 @@ Provide an executive summary of the technical framework approach.
 
 /// 8.1. Basic Technical Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-BAS')
 @ContentHelp('''
 Define the foundational technical requirements that govern all system
 development. These decisions have far-reaching implications and should
@@ -5083,7 +5082,6 @@ class TestingStandards extends DocSpecsSection {
 
 /// 8.2. Software Design Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-SOF')
 @ContentHelp('''
 Define software architecture, development environment, and component
 reusability requirements. These decisions shape developer experience,
@@ -10624,7 +10622,6 @@ class ComponentRegistry extends DocSpecsSection {
 
 /// 8.3. Standard Application Software Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-STA')
 @ContentHelp('''
 Define requirements for standard software, third-party components, and
 compatibility with existing IT infrastructure. Enterprise integration
@@ -14411,7 +14408,6 @@ class ComplianceVerificationSection extends DocSpecsSection {
 
 /// 8.4. Hardware Concept Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-HAR')
 @ContentHelp('''
 Define hardware infrastructure requirements for servers, clients, and
 network. Hardware decisions impact performance, availability, cost,
@@ -19236,7 +19232,6 @@ class NetworkSecurityRequirements extends DocSpecsSection {
 
 /// 8.5. Operations Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-OPE')
 @ContentHelp('''
 Define operational requirements for running and maintaining the system
 in production. Operations excellence directly impacts system availability,
@@ -24613,7 +24608,6 @@ class PostMaintenanceValidation extends DocSpecsSection {
   'Defines the network communication requirements: protocols, transport security, API conventions, and external connectivity.',
 )
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-COM')
 @ContentHelp('''
 Define network communication requirements including protocols, security,
 and external connectivity. Communication architecture affects performance,
@@ -26930,7 +26924,6 @@ class ConnectivityResilience extends DocSpecsSection {
   'Defines runtime system operation and monitoring: administration, maintenance, health checks, alerting, metrics, dashboards, SLA/SLO tracking, and capacity planning.',
 )
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-SYS')
 @ContentHelp('''
 Define system operation, monitoring, and capacity planning requirements.
 Day-to-day operations ensure the system runs reliably and efficiently.
@@ -32066,7 +32059,6 @@ class CapacityReviewProcess extends DocSpecsSection {
   'Defines the technical security requirements: IT security standards, data protection and privacy, and security audit; the access-control model itself is specified in SBP.12 Security and Access and referenced here.',
 )
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-SEC')
 @ContentHelp('''
 Define comprehensive security requirements including IT security standards,
 data protection, privacy, and security auditing. Security is foundational
@@ -35838,7 +35830,6 @@ class SecurityAuditEntry extends DocSpecsSection {
 )
 @SectionId('SYARSP')
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-ARC')
 class SystemArchitectureSpec extends DocSpecsSection {
   @ContentHelp('''
 System-level architecture description: layering, package structure,

@@ -145,7 +145,6 @@ maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
 | --- | --- | --- | --- |
 | `@MapsTo` | `MapsTo(Type documentClass)` | C | The shallowest Solution Blueprint class whose entire subtree flows to one target DocSpec — the document's "seed node". |
 | `@DetailedIn` | `DetailedIn(Type documentClass)` | C | A class promoted to a top-level entry of the target DocSpec (the "take-off" level). Either the whole seed (alongside `@MapsTo`) or each flattened child. Requires a `@MapsTo` ancestor. |
-| `@SecondLevelSectionId` | `SecondLevelSectionId(Type documentClass, String id)` | C | The document-scoped short ID a class uses as a top-level entry in a specific Phase 3 document (e.g. `QAP-FRA` for global `QLFWK`). One per target document; implies `@DetailedIn`. |
 | `@StandardReferences` | `StandardReferences(List<String> standards, String connotation)` | C, M | The public standard(s) the section derives from (ID + clause in the standard's wording) plus a short statement of what the section *means* (distinct from `@ContentHelp`/`Field.hint` authoring guidance). |
 
 ---
@@ -156,8 +155,7 @@ maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
   analyzer — no marker annotation is needed; all model classes are scanned.
 - **`validator.dart`** enforces the model-design rules (§6) and the §8.6
   structural invariants (`@SectionId` uniqueness/coverage, `@SectionIdPattern`
-  pairing, `@DetailedIn → ancestor @MapsTo`, `@SecondLevelSectionId ⇒
-  @DetailedIn`, per-`@Document` detail count).
+  pairing, `@DetailedIn → ancestor @MapsTo`, per-`@Document` detail count).
 - **`ModelJsonExporter`** serialises the resolved graph — including the lossless
   per-class / per-field `annotations` block — into `spec_model.meta.json`, which
   every `tom_som_<lang>_runtime` loads for the reflection access path.

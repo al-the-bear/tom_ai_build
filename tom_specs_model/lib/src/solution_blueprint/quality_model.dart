@@ -313,7 +313,6 @@ class SystemQualityGoals extends DocSpecsSection {
 )
 @SectionId('QLFWK')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FRA')
 class QualityFramework extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
@@ -684,7 +683,6 @@ class QualityCategoryEntry extends DocSpecsSection {
 )
 @SectionId('FNSU')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FSU')
 class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Functional Suitability Overview
@@ -744,7 +742,6 @@ class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('INCP')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ICP')
 class InteractionCapabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Interaction Capability Overview (migrated from the former user bucket)
@@ -1213,7 +1210,6 @@ class Correctness extends DocSpecsSection {
 )
 @SectionId('PEEF')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PEF')
 class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Performance Efficiency Overview (migrated from the former technical bucket)
@@ -1281,7 +1277,6 @@ class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
 )
 @SectionId('CMPT')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CMP')
 class CompatibilityCharacteristic extends DocSpecsSection {
   @SectionId('CMPT-COMP')
   @Form([
@@ -1321,7 +1316,6 @@ class CompatibilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('FLXC')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FLX')
 class FlexibilityCharacteristic extends DocSpecsSection {
   @SectionId('FLXC-FLEX')
   @Form([
@@ -1371,7 +1365,6 @@ class FlexibilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('SECC')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SEC')
 class SecurityCharacteristic extends DocSpecsSection {
   @SectionId('SECC-SECU')
   @Form([
@@ -1421,7 +1414,6 @@ class SecurityCharacteristic extends DocSpecsSection {
 )
 @SectionId('MNTC')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-MNT')
 class MaintainabilityCharacteristic extends DocSpecsSection {
   @SectionId('MNTC-MAIN')
   @Form([
@@ -2296,7 +2288,6 @@ class Reliability extends DocSpecsSection {
 ], 'This section describes the reliability characteristic of the solution.')
 @SectionId('RELC')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-REL')
 class ReliabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Reliability Overview (migrated from the former operations bucket)
@@ -3128,7 +3119,6 @@ class ItSecurityOperations extends DocSpecsSection {
 )
 @SectionId('DOQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DOC')
 class DocumentationQualityCriteria extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
@@ -3689,7 +3679,6 @@ class DocChangeability extends DocSpecsSection {
 )
 @SectionId('QUPR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRI')
 class QualityPrioritization extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
@@ -4162,7 +4151,6 @@ class TradeOffDecisionEntry extends DocSpecsSection {
 )
 @SectionId('ACCRSU')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ACC')
 class AcceptanceCriteriaSummary extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework
@@ -4758,7 +4746,6 @@ class QualityGateCheckEntry extends DocSpecsSection {
 ], 'Defines the overall testing approach, levels, and coverage for the project.')
 @SectionId('TEST')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-TST')
 class TestStrategy extends DocSpecsSection {
   @ContentHelp('''
 High-level strategy for verifying quality across the system. Distinct

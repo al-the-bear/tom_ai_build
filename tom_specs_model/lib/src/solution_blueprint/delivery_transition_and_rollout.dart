@@ -55,7 +55,6 @@ class DeliveryTransitionAndRollout extends DocSpecsSection {
   )
   @MapsTo(D12TransitionRolloutPlan)
   @DetailedIn(D12TransitionRolloutPlan)
-  @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-RLP')
   @Form([
     Field(
       'rolloutStrategy',

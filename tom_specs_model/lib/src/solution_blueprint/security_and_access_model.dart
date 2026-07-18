@@ -89,7 +89,6 @@ access and authorization concerns.
 )
 @SectionId('USMGT')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-USE')
 class UserManagement extends DocSpecsSection {
   @ContentHelp('''
 Describe how users are organized, categorized, and managed throughout their
@@ -1560,7 +1559,6 @@ class UserAttributeEntry extends DocSpecsSection {
 )
 @SectionId('IDAUT')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-IDE')
 class IdentificationAndAuthentication extends DocSpecsSection {
   @ContentHelp('''
 Define how users prove their identity to the system. Authentication is the
@@ -6526,7 +6524,6 @@ class SessionLifecycleMonitoring extends DocSpecsSection {
 )
 @SectionId('RESPRO')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-RES')
 class ResourceProtection extends DocSpecsSection {
   @ContentHelp('''
 Overview of resource protection strategies covering data, APIs, and file
@@ -9722,7 +9719,6 @@ class PermissionEvaluationBehavior extends DocSpecsSection {
 )
 @SectionId('USAU')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-USA')
 class UserAuthorization extends DocSpecsSection {
   @ContentHelp('''
 Define the complete authorization structure that controls what users can do.
@@ -11581,7 +11577,6 @@ class ResourceKeyEntry extends DocSpecsSection {
 )
 @SectionId('SEDAEN')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-SEN')
 class SensitiveDataEncryption extends DocSpecsSection {
   @ContentHelp('''
 Define encryption requirements for sensitive data both at rest and in transit.
@@ -13233,7 +13228,6 @@ class KeyCompromiseRecoveryPolicy extends DocSpecsSection {
 )
 @SectionId('AUANLO')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-AUD')
 class AuditAndLogging extends DocSpecsSection {
   @ContentHelp('''
 Define security audit and logging requirements. Comprehensive logging enables
@@ -14471,7 +14465,6 @@ class RegulatoryAuditSupport extends DocSpecsSection {
 )
 @SectionId('ROMA')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-ROL')
 class RoleMatrix extends DocSpecsSection {
   @ContentHelp('''
 Authoritative mapping of system roles to the permissions they hold.
@@ -14511,7 +14504,6 @@ authorization model; this section captures the concrete assignment.
 )
 @SectionId('CF')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-CMP')
 class ComplianceFramework extends DocSpecsSection {
   @ContentHelp('''
 Explicit mapping from the access/auth controls in this concept to the

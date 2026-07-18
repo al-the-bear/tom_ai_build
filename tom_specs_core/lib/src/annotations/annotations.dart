@@ -22,7 +22,6 @@ export 'pattern_check_id.dart';
 export 'position.dart';
 export 'prefix.dart';
 export 'reference.dart';
-export 'second_level_section_id.dart';
 export 'section_id.dart';
 export 'section_id_pattern.dart';
 export 'seed_for.dart';

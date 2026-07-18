@@ -146,7 +146,6 @@ to pixel-perfect designs with exact typography and spacing.
 @SectionId('DEVIZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-VIS')
 class DesignVision extends DocSpecsSection {
   @ContentHelp('''
 ## Design Vision (10.1)
@@ -913,7 +912,6 @@ class PersonaScenarioEntry extends DocSpecsSection {
 @SectionId('SCRDZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-SCR')
 class ScreenDescriptions extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Descriptions (10.2)
@@ -2677,7 +2675,6 @@ Overall content organization and navigation structure.
 @SectionId('SCFLST')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-SCF')
 class ScreenFlowStructure extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Flow Structure (10.3)
@@ -4390,7 +4387,6 @@ class NavigationGuardEntry extends DocSpecsSection {
 @SectionId('PRLA')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-PRI')
 class PrintAndExportLayout extends DocSpecsSection {
   @Form([
     Field(
@@ -7314,7 +7310,6 @@ class ExportTemplateEntry extends DocSpecsSection {
 @SectionId('ERHACO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-ERR')
 class ErrorHandling extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
@@ -8473,7 +8468,6 @@ class RecoveryScenarioEntry extends DocSpecsSection {
 @SectionId('USAS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-HLP')
 class UserAssistance extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
@@ -9426,7 +9420,6 @@ class SupportAccess extends DocSpecsSection {
 @SectionId('ACCESS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-ACC')
 class Accessibility extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
@@ -10035,7 +10028,6 @@ class AccessibilityCheckEntry extends DocSpecsSection {
 @SectionId('REDE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-RES')
 class ResponsiveDesign extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
@@ -10580,7 +10572,6 @@ class ResponsiveScreenRuleEntry extends DocSpecsSection {
 @SectionId('UICO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-COM')
 class UiComponents extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
@@ -12651,7 +12642,6 @@ class LocaleHandlingRequirements extends DocSpecsSection {
 @SectionId('LOPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-LOC')
 class LocalizationProcess extends DocSpecsSection {
   @SectionId('LOPR-LOCA')
   @Form([
@@ -12814,7 +12804,6 @@ class LocalizationProcess extends DocSpecsSection {
 @SectionId('TRPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRA')
 class TranslationProcess extends DocSpecsSection {
   @SectionId('TRPR-TRAN')
   @Form([
@@ -13064,7 +13053,6 @@ class TranslationVendorEntry extends DocSpecsSection {
 @SectionId('DOANTR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
 class UserDocumentationRequirements extends DocSpecsSection {
   @SectionId('DOANTR-DOCU')
   @Form([
@@ -13194,7 +13182,6 @@ class UserDocumentationRequirements extends DocSpecsSection {
 @SectionId('TRMAT')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
 class TrainingDeliverableRequirements extends DocSpecsSection {
   @SectionId('TRMAT-TRAI')
   @Form([
@@ -13356,7 +13343,6 @@ class TrainingModuleEntry extends DocSpecsSection {
 @SectionId('LACOSE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-LCS')
 class LanguageCountrySelection extends DocSpecsSection {
   @SectionId('LACOSE-LANG')
   @Form([
@@ -13545,7 +13531,6 @@ class LanguageCountrySelection extends DocSpecsSection {
 @SectionId('TRAREQ')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-REQ')
 class TranslationRequirements extends DocSpecsSection {
   @SectionId('TRAREQ-TRAN')
   @Form([
@@ -13836,7 +13821,6 @@ class SupportedLocaleEntry extends DocSpecsSection {
 @SectionId('PROTOT')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-PRO')
 class Prototype extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
@@ -14788,7 +14772,6 @@ class ThrowawayPrototype extends DocSpecsSection {
 @SectionId('WIANMO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-WIR')
 class WireframesAndMockups extends DocSpecsSection {
   @ContentHelp('''
 Catalog of wireframes and mockups across the UI. Complements the

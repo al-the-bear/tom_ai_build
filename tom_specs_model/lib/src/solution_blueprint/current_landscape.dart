@@ -93,7 +93,6 @@ document alongside the systems-to-replace inventory.
 )
 @SectionId('ESLAN')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-SYS')
 class ExistingSystemsLandscape extends DocSpecsSection {
   @ContentType(
     'description',
@@ -1828,7 +1827,6 @@ class SystemIntegrationEntry extends DocSpecsSection {
 )
 @SectionId('CUBUPR')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PRO')
 class CurrentBusinessProcesses extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -3321,7 +3319,6 @@ class ProcessMetricEntry extends DocSpecsSection {
 )
 @SectionId('PPAG')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PAI')
 class PainPointsAndGaps extends DocSpecsSection {
   @ContentHelp('''
 Executive overview of pain points and gaps in the current state.
@@ -4392,7 +4389,6 @@ class GapEntry extends DocSpecsSection {
 )
 @SectionId('CUDALA')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-DAT')
 class CurrentDataLandscape extends DocSpecsSection {
   @ContentHelp('''
 Executive overview of the current data landscape. Summarize the overall data
@@ -7317,7 +7313,6 @@ class MasterDataDomainEntry extends DocSpecsSection {
 )
 @SectionId('CUOPME')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MET')
 class CurrentOperationalMetric extends DocSpecsSection {
   @ContentHelp('''
 Captures measurable operational characteristics of the current systems
@@ -7357,7 +7352,6 @@ replacement underperforms the baseline).
 )
 @SectionId('CUSTRIAS')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-RIS')
 class CurrentStateRiskAssessment extends DocSpecsSection {
   @ContentHelp('''
 Risks that originate from the current systems landscape or from the act of

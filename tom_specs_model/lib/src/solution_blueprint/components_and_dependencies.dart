@@ -24,7 +24,6 @@ import '../document_stubs.dart';
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-COM')
 class ComponentsAndDependencies extends DocSpecsSection {
   @ContentHelp('''
 ## Components and Dependencies (Chapter 12)

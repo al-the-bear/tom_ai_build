@@ -193,7 +193,6 @@ Not all annotations appear in the outline. Annotations are categorized as **visi
 | `@Document` | No | Schema constraint only (document root metadata) |
 | `@SerializationOrder` | No | Meta-data only (member emission order) |
 | `@MapsTo`, `@DetailedIn` | No | Meta-data only (Solution Blueprint → Phase 3 traceability) |
-| `@SecondLevelSectionId` | No | Meta-data only (document-scoped short ID) |
 | `@StandardReferences` | No | Meta-data only (standard provenance + connotation) |
 
 ### 4.14 Inline Schema Annotations (`--show-schema-annotations`)
@@ -256,7 +255,7 @@ Cycles **must not exist** in the model. If a cycle is detected during tree walki
 > **Moved (2026-07-16, YRD1 consolidation).** The annotation semantics
 > (`@SectionId`, `@SectionIdPattern`, `@Document`, `@Form`, `@ContentType`,
 > `@ContentHelp`, `@Comment`, `@Unused`, `@Min`/`@Max`, `@MapsTo`,
-> `@DetailedIn`, `@SecondLevelSectionId`, `@Headline`, …) are now maintained
+> `@DetailedIn`, `@Headline`, …) are now maintained
 > in **`som_mapping.md`** §5 (annotation table) and the catalogue in
 > `tom_specs_core/README.md`. This section is kept only as an anchor for
 > older cross-references; do not extend it.
@@ -422,7 +421,7 @@ SolutionBlueprint
 
 1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
 2. **Analyzer setup**: Use `SummaryBasedDartSdk` with an embedded SDK summary bundle (no installed SDK required). The `sdk_summary.sum` file (~3 MB) is split into ~50 base64-encoded Dart source files in `lib/src/sdk_summary/`, reassembled at runtime. Model source files are analyzed directly from disk. See `tom_specs_clitool/doc/analyzer_wo_sdk.md` for full details.
-3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength`, `@SeedFor`, `@SerializationOrder`, `@MapsTo`, `@DetailedIn`, `@SecondLevelSectionId`, `@StandardReferences` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required. The full annotation catalogue and the section base types are documented in [`tom_specs_core/README.md`](../../tom_specs_core/README.md).
+3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength`, `@SeedFor`, `@SerializationOrder`, `@MapsTo`, `@DetailedIn`, `@StandardReferences` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required. The full annotation catalogue and the section base types are documented in [`tom_specs_core/README.md`](../../tom_specs_core/README.md).
 4. **Tree walk**: Start from `SolutionBlueprint`, recursively visit each field:
    - If `String` / `String?` → collect as leaf.
    - If enum → format with values inline.

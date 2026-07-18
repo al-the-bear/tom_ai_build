@@ -297,8 +297,6 @@ import 'model_reader.dart';
 ///   get per-instance section IDs), unless the field is `@Reference`. This is
 ///   the authoritative analyzer-based replacement for the heuristic
 ///   `missing_pattern_scan.py`, which suffered line-proximity false negatives.
-/// - **`@SecondLevelSectionId` implies `@DetailedIn`** — any class carrying
-///   `@SecondLevelSectionId(D, …)` must also carry `@DetailedIn(D)`.
 /// - **`@DetailedIn` → ancestor `@MapsTo` check** — for every class
 ///   `C` carrying `@DetailedIn(D)`, some class on the path from
 ///   `D00SolutionBlueprint` to `C` (inclusive) must carry `@MapsTo(D)`.
@@ -407,7 +405,6 @@ void _validateStructuralInvariants(
   final sectionIdSeen = <String, String>{}; // id → className
   final mapsToByClass = <String, Set<String>>{}; // className → {docTypeName}
   final detailedInByClass = <String, Set<String>>{}; // className → {docTypeName}
-  final secondLevelByClass = <String, Set<String>>{}; // className → {docTypeName}
 
   for (final className in reachable) {
     final cls = classes[className];
@@ -463,8 +460,6 @@ void _validateStructuralInvariants(
           (mapsToByClass[className] ??= {}).add(docType);
         case 'DetailedIn':
           (detailedInByClass[className] ??= {}).add(docType);
-        case 'SecondLevelSectionId':
-          (secondLevelByClass[className] ??= {}).add(docType);
       }
     }
   }
@@ -563,22 +558,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 3. @SecondLevelSectionId implies @DetailedIn ------------------------
-
-  for (final entry in secondLevelByClass.entries) {
-    final className = entry.key;
-    for (final docType in entry.value) {
-      if (!(detailedInByClass[className]?.contains(docType) ?? false)) {
-        errors.add(
-          '§8.6 @SecondLevelSectionId implies @DetailedIn: '
-          '$className has @SecondLevelSectionId($docType, …) '
-          'but no @DetailedIn($docType) on the same class',
-        );
-      }
-    }
-  }
-
-  // --- 4. @DetailedIn → ancestor @MapsTo check ----------------------------
+  // --- 3. @DetailedIn → ancestor @MapsTo check ----------------------------
 
   // Build a reverse-adjacency (parent) map for the SBP-reachable subgraph.
   // childType → set of parent class names that own a field of that type.
@@ -630,7 +610,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 5. Detail-count per @Document class (warn if 0) --------------------
+  // --- 4. Detail-count per @Document class (warn if 0) --------------------
 
   for (final docClassName in documentClasses) {
     if (docClassName == sbpRoot) continue; // SBP is the root, not a target
@@ -645,7 +625,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 6. Pure-projection invariant (T2, N12) ------------------------------
+  // --- 5. Pure-projection invariant (T2, N12) ------------------------------
   //
   // The twelve Phase 3 roots are `@Document(basedOn: [D00SolutionBlueprint])`
   // *projections*: they aggregate SBP00 sections and own no content of their own
@@ -673,7 +653,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 7. Collapsible-wrapper detection (§6.1c / TSMA4–TSMA5) ---------------
+  // --- 6. Collapsible-wrapper detection (§6.1c / TSMA4–TSMA5) ---------------
   //
   // The dual of the TSMA1/TSMA2 leaf collapse: a *single-subsection wrapper*
   // adds a redundant hierarchy level when its own content carries no meaning of

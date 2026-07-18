@@ -201,7 +201,6 @@ class SystemStagePlan extends DocSpecsSection {
 )
 @SectionId('STAGST')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-STR')
 class StagingStrategy extends DocSpecsSection {
   @Form([
     Field(
@@ -851,7 +850,6 @@ class StagingDependencies extends DocSpecsSection {
 )
 @SectionId('STAGOV')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-STA')
 class StageOverview extends DocSpecsSection {
   @Form([
     Field(
@@ -2665,7 +2663,6 @@ class StageSuccessCriterionEntry extends DocSpecsSection {
 )
 @SectionId('FEPR')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-FEA')
 class FeaturePrioritization extends DocSpecsSection {
   @Form([
     Field(
@@ -4219,7 +4216,6 @@ class FeatureDependencyEntry extends DocSpecsSection {
 )
 @SectionId('DAMIST')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-MIG')
 class DataMigrationStrategy extends DocSpecsSection {
   @Form([
     Field(
@@ -6360,7 +6356,6 @@ class StageGovernance extends DocSpecsSection {
 )
 @SectionId('PHGARE')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-GAT')
 class PhaseGateReviews extends DocSpecsSection {
   @Form([
     Field(
@@ -6946,7 +6941,6 @@ class ReviewCriterionEntry extends DocSpecsSection {
 )
 @SectionId('DEPO')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-DEC')
 class DecisionPoints extends DocSpecsSection {
   @Form([
     // --- Decision Framework ---
@@ -7546,7 +7540,6 @@ class DecisionOptionEntry extends DocSpecsSection {
 )
 @SectionId('INDEFL')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-IDV')
 class InitialDevelopmentFlow extends DocSpecsSection {
   @ContentHelp('''
 Describes how the initial-development phases hand off to each other:
@@ -7582,7 +7575,6 @@ dependencies, parallel work streams, and synchronization points.
 )
 @SectionId('UPCYFR')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-UPG')
 class UpgradeCycleFramework extends DocSpecsSection {
   @ContentHelp('''
 Framework that governs the upgrade cycle once initial development

@@ -93,14 +93,6 @@ void main() {
       expect(ancestorErrors, isEmpty, reason: ancestorErrors.join('\n'));
     });
 
-    test('§8.6: @SecondLevelSectionId implies @DetailedIn on the same class', () {
-      final result = validateStructuralInvariants(classes);
-      final secondLevelErrors = result.errors
-          .where((e) => e.contains('§8.6 @SecondLevelSectionId implies'))
-          .toList();
-      expect(secondLevelErrors, isEmpty, reason: secondLevelErrors.join('\n'));
-    });
-
     test('§8.6: every @Document class has at least one @DetailedIn entry in SBP tree', () {
       final result = validateStructuralInvariants(classes);
       final detailCountWarnings = result.warnings
@@ -604,48 +596,6 @@ void main() {
         isTrue,
         reason: 'Expected a pairing error for Holder.items',
       );
-    });
-  });
-
-  group('unit: @SecondLevelSectionId implies @DetailedIn', () {
-    test('errors when @SecondLevelSectionId exists without matching @DetailedIn', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('sec', 'SecClass')],
-        ),
-        'SecClass': _cls('SecClass', [
-          AnnotationData('SectionId', {'id': 'TST-SEC'}),
-          // @SecondLevelSectionId(DocA, 'DA-SEC') but no @DetailedIn(DocA)!
-          AnnotationData('SecondLevelSectionId', {'documentClass': 'DocA', 'id': 'DA-SEC'}),
-        ]),
-      };
-      final result = validateStructuralInvariants(classes);
-      expect(
-        result.errors.any((e) => e.contains('§8.6 @SecondLevelSectionId implies')),
-        isTrue,
-      );
-    });
-
-    test('passes when @SecondLevelSectionId is accompanied by @DetailedIn', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'}),
-           AnnotationData('MapsTo', {'documentClass': 'DocA'})],
-          [_field('sec', 'SecClass')],
-        ),
-        'SecClass': _cls('SecClass', [
-          AnnotationData('SectionId', {'id': 'TST-SEC'}),
-          AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
-          AnnotationData('SecondLevelSectionId', {'documentClass': 'DocA', 'id': 'DA-SEC'}),
-        ]),
-      };
-      final result = validateStructuralInvariants(classes);
-      final secondLevelErrors =
-          result.errors.where((e) => e.contains('§8.6 @SecondLevelSectionId implies')).toList();
-      expect(secondLevelErrors, isEmpty);
     });
   });
 
