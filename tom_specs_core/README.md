@@ -147,6 +147,18 @@ maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
 | `@DetailedIn` | `DetailedIn(Type documentClass)` | C | A class promoted to a top-level entry of the target DocSpec (the "take-off" level). Either the whole seed (alongside `@MapsTo`) or each flattened child. Requires a `@MapsTo` ancestor. |
 | `@StandardReferences` | `StandardReferences(List<String> standards, String connotation)` | C, M | The public standard(s) the section derives from (ID + clause in the standard's wording) plus a short statement of what the section *means* (distinct from `@ContentHelp`/`Field.hint` authoring guidance). |
 
+### DocSpecs ↔ CodeSpecs link (general, type-level)
+
+The general type-level half of the bidirectional DocSpecs↔CodeSpecs link
+(`_ai/quests/tom_specs/codespecs_mapping.md` §9.1/§9.5). It lives here because it
+annotates SOM model classes — the concrete forward `codeSpec` member is a
+`DocSpecsSection` field, and the code-side back-trace `@DocSpec`/`DocRef` lives in
+`tom_code_specs`.
+
+| Annotation | Signature | Target | Purpose |
+| --- | --- | --- | --- |
+| `@CodeSpecKind` | `CodeSpecKind(CodeSpecPart part, {String? note})` | C | Declares which CodeSpecs part *type* a section *type* is realised as. The kind enum is `CodeSpecPart` (16 values; `CE-TR`/Traceability is excluded — it is cross-cutting, not a mappable kind). Kind values are generated from the `codespecs_mapping.md` §4.1 parts catalogue so they cannot drift. |
+
 ---
 
 ## Where the annotations are consumed
