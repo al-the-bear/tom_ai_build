@@ -3,6 +3,7 @@ library;
 
 export 'access_key.dart';
 export 'allowed_tags.dart';
+export 'code_spec_kind.dart';
 export 'comment.dart';
 export 'content_help.dart';
 export 'content_type.dart';
