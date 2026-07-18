@@ -22,6 +22,8 @@
  */
 #include "tom_som_c_v0.h"
 
+#include "docspecs_validator.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -661,6 +663,171 @@ static void test_version_check(void) {
   spec_document_free(&doc);
 }
 
+/* SomStrList element-wise equality (both lists are byte-sorted by the runtime
+ * enumerators, so a positional compare is exact). */
+static int strlist_eq(const SomStrList *a, const SomStrList *b) {
+  if (a->len != b->len) return 0;
+  for (size_t i = 0; i < a->len; i++) {
+    if (strcmp(a->items[i], b->items[i]) != 0) return 0;
+  }
+  return 1;
+}
+
+/* Live-document conformance case durability guard (YRD8 / dsa14). The
+ * cross-language golden harness (tom_som_conformance/tool/regenerate_golden.sh +
+ * compare_golden.dart) already exercises the shared Meridian sample end to end
+ * and asserts c.log is byte-identical to the Dart reference, but golden/ is
+ * git-ignored. This committed test pins the three live-document guarantees the C
+ * golden generator emits — a regression fails ./run_tests.sh, not only a full
+ * nine-toolchain golden run. Mirrors the Dart (dsa7) … Rust (dsa13) guards. */
+static void test_live_document_case(void) {
+  const char *sample_path =
+      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+  const char *sample_md_path =
+      "../tom_som_conformance/samples/meridian_order_management.md";
+  const char *schema_path =
+      "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
+  const SomMetaTree *tree = d00_solution_blueprint_meta_tree();
+
+  /* 1) Round-trip: decode -> encode -> decode is stable over content + lists. */
+  char *load_err = NULL;
+  SpecDocument *original = spec_document_from_file(sample_path, tree, &load_err);
+  ok(original != NULL, "live: from_file loads the sample");
+  free(load_err);
+  if (original != NULL) {
+    char *enc_err = NULL;
+    char *re_encoded = encode_yaml(original, tree, original->model_version, &enc_err);
+    ok(re_encoded != NULL, "live: encode_yaml re-serializes");
+    free(enc_err);
+    char *dec_err = NULL;
+    SpecDocument *round =
+        re_encoded != NULL ? spec_document_from_yaml(re_encoded, tree, &dec_err) : NULL;
+    ok(round != NULL, "live: from_yaml round-trips");
+    free(dec_err);
+
+    if (round != NULL) {
+      const char *omv = original->model_version != NULL ? original->model_version : "";
+      const char *rmv = round->model_version != NULL ? round->model_version : "";
+      eq_str(rmv, omv, "live: round-trip model version stable");
+
+      SomStrList oc, rc;
+      som_strlist_init(&oc);
+      som_strlist_init(&rc);
+      spec_document_content_paths(original, &oc);
+      spec_document_content_paths(round, &rc);
+      ok(strlist_eq(&oc, &rc), "live: content-path set stable");
+      int content_vals_ok = 1;
+      for (size_t i = 0; i < oc.len && i < rc.len; i++) {
+        const char *ov = spec_document_content(original, oc.items[i]);
+        const char *rv = spec_document_content(round, oc.items[i]);
+        if (strcmp(ov != NULL ? ov : "", rv != NULL ? rv : "") != 0) {
+          content_vals_ok = 0;
+        }
+      }
+      ok(content_vals_ok, "live: content values stable");
+      som_strlist_free(&oc);
+      som_strlist_free(&rc);
+
+      SomStrList ol, rl;
+      som_strlist_init(&ol);
+      som_strlist_init(&rl);
+      spec_document_list_paths(original, &ol);
+      spec_document_list_paths(round, &rl);
+      ok(strlist_eq(&ol, &rl), "live: list-path set stable");
+      int list_items_ok = 1;
+      for (size_t i = 0; i < ol.len; i++) {
+        const SomStrList *oi = spec_document_list_items(original, ol.items[i]);
+        const SomStrList *ri = spec_document_list_items(round, ol.items[i]);
+        if (oi == NULL || ri == NULL || !strlist_eq(oi, ri)) list_items_ok = 0;
+      }
+      ok(list_items_ok, "live: list items stable");
+      som_strlist_free(&ol);
+      som_strlist_free(&rl);
+
+      spec_document_free(round);
+      free(round);
+    }
+    free(re_encoded);
+    spec_document_free(original);
+    free(original);
+  }
+
+  /* 2) Validation: the markdown twin is clean under the SBP schema. */
+  char *schema_text = read_file(schema_path);
+  char *sample_md = read_file(sample_md_path);
+  ok(schema_text != NULL && sample_md != NULL, "live: read schema + markdown");
+  if (schema_text != NULL && sample_md != NULL) {
+    DocSpecsSchema *schema = NULL;
+    char *serr = NULL;
+    ok(docspecs_schema_from_yaml_text(schema_text, &schema, &serr) != 0,
+       "live: schema parses");
+    free(serr);
+    if (schema != NULL) {
+      DocSpecsValidator val = docspecs_validator_new(schema);
+      DocSpecsViolationList violations;
+      docspecs_violation_list_init(&violations);
+      docspecs_validator_validate_markdown(&val, sample_md, &violations);
+      char *root = docspecs_schema_root_section_id(schema);
+      eq_str(root != NULL ? root : "", "SBP", "live: schema root is SBP");
+      free(root);
+      ok(schema->warnings.len == 0, "live: schema carries no warnings");
+      ok(violations.len == 0, "live: markdown validates cleanly");
+      docspecs_violation_list_free(&violations);
+      docspecs_schema_free(schema);
+    }
+  }
+  free(sample_md);
+  free(schema_text);
+
+  /* 3) Node operations: by_path / nav / id resolve to the same node instance. */
+  const SomMetaNode *list_by_path =
+      som_meta_tree_by_path(tree, "SBP/currentLandscape/CUOPME-OPER-LST");
+  ok(list_by_path != NULL, "live: by_path finds the operationalMetrics list");
+  if (list_by_path != NULL) {
+    ok(strcmp(list_by_path->kind, SOM_META_KIND_LIST) == 0,
+       "live: operationalMetrics kind is list");
+  }
+
+  som_nav_d00_solution_blueprint nroot = d00_solution_blueprint_meta(tree);
+  som_nav_current_landscape n_cl = d00_solution_blueprint_nav_current_landscape(nroot);
+  SomListMetaRef nav_metrics = current_landscape_nav_operational_metrics(n_cl);
+  eq_str(nav_metrics.ref.path, "SBP/currentLandscape/CUOPME-OPER-LST",
+         "live: nav path");
+  char *nav_err = NULL;
+  const SomMetaNode *nav_node = som_meta_ref_meta(&nav_metrics.ref, &nav_err);
+  free(nav_err);
+  ok(nav_node == list_by_path, "live: nav node identity == by_path node");
+
+  som_id_d00_solution_blueprint id_sbp = SBP(tree);
+  SomListMetaRef id_revs = d00_solution_blueprint_id_rvhst_revs_lst(id_sbp);
+  som_nav_document_control n_dc = d00_solution_blueprint_nav_document_control(nroot);
+  SomListMetaRef nav_revs = document_control_nav_revision_history(n_dc);
+  void *id_item0 = som_list_meta_ref_item(&id_revs, 0);
+  void *nav_item0 = som_list_meta_ref_item(&nav_revs, 0);
+  SomMetaRef *id_ref0 = (SomMetaRef *)id_item0;
+  SomMetaRef *nav_ref0 = (SomMetaRef *)nav_item0;
+  eq_str(id_ref0->path, nav_ref0->path, "live: id item path == nav item path");
+  char *ierr = NULL;
+  char *nerr = NULL;
+  const SomMetaNode *idn = som_meta_ref_meta(id_ref0, &ierr);
+  const SomMetaNode *navn = som_meta_ref_meta(nav_ref0, &nerr);
+  free(ierr);
+  free(nerr);
+  ok(idn == navn, "live: id item node identity == nav item node");
+
+  som_meta_ref_free((SomMetaRef *)id_item0);
+  free(id_item0);
+  som_meta_ref_free((SomMetaRef *)nav_item0);
+  free(nav_item0);
+  som_meta_ref_free(&nav_revs.ref);
+  som_meta_ref_free(&n_dc.ref);
+  som_meta_ref_free(&id_revs.ref);
+  som_meta_ref_free(&id_sbp.ref);
+  som_meta_ref_free(&nav_metrics.ref);
+  som_meta_ref_free(&n_cl.ref);
+  som_meta_ref_free(&nroot.ref);
+}
+
 int main(void) {
   test_root_and_parity();
   test_typed_list();
@@ -670,6 +837,7 @@ int main(void) {
   test_one_call_loading();
   test_model_version();
   test_version_check();
+  test_live_document_case();
 
   if (g_failed != 0) {
     fprintf(stderr, "\n%d checks FAILED (%d passed)\n", g_failed, g_passed);
