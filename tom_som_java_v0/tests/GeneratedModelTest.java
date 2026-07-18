@@ -15,7 +15,12 @@
 //     same generic store;
 //   * the generated model-version accessor returns `1.0`;
 //   * the instantiation-time version check (§2.2) accepts an editable stamp and
-//     rejects a newer-minor / cross-major stamp.
+//     rejects a newer-minor / cross-major stamp;
+//   * the live-document conformance case (YRD8 / dsa12): the shared Meridian
+//     sample round-trips (content + lists), its markdown twin validates clean
+//     under the SBP schema, and byPath / nav / id node operations resolve to the
+//     same meta identity — the guarantees the Java golden generator emits, pinned
+//     as a committed guard because `golden/` is git-ignored.
 //
 // Zero external deps: a plain `main()` that exits 0 on success (no JUnit), run
 // by `run_tests.sh`.
@@ -25,6 +30,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
+import tom_som_runtime.DocSpecsSchema;
+import tom_som_runtime.DocSpecsValidator;
+import tom_som_runtime.DocSpecsViolation;
+import tom_som_runtime.SomMetaKind;
+import tom_som_runtime.SomMetaNode;
+import tom_som_runtime.SomMetaRef;
+import tom_som_runtime.SomMetaTree;
 import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentYaml;
@@ -374,6 +386,88 @@ public final class GeneratedModelTest {
         !sbp.introductionAndScope().systemsToReplace().canHaveContent());
   }
 
+  private static String readText(String path) {
+    try {
+      return Files.readString(Path.of(path));
+    } catch (IOException e) {
+      throw new java.io.UncheckedIOException(e);
+    }
+  }
+
+  // Live-document conformance case durability (YRD8 / dsa12). The golden/ tree is
+  // git-ignored, so this committed guard pins the three live-document guarantees
+  // the Java golden generator emits over the shared Meridian sample — a
+  // regression fails `run_tests.sh`, not only a full nine-toolchain golden run.
+  // Mirrors the Dart (dsa7), Python (dsa8), JavaScript (dsa9), TypeScript (dsa10)
+  // and Go (dsa11) durability guards.
+  private static void testLiveDocumentCase() {
+    final String sampleMd = "../tom_som_conformance/samples/meridian_order_management.md";
+    final String schemaPath =
+        "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
+    SomMetaTree tree = TomSomV0Meta.D00SolutionBlueprintMetaTree;
+
+    // 1) Round-trip: decode -> encode -> decode is stable over content + lists.
+    SpecDocument original = SpecDocument.fromFile(SAMPLE_PATH, tree);
+    String reEncoded = SpecDocumentYaml.encode(original, tree, original.modelVersion());
+    SpecDocument roundTripped = SpecDocument.fromYaml(reEncoded, tree);
+    check("live.roundtrip.version",
+        java.util.Objects.equals(roundTripped.modelVersion(), original.modelVersion()),
+        String.valueOf(roundTripped.modelVersion()));
+    java.util.List<String> origContent = new java.util.ArrayList<>(original.contentPaths());
+    java.util.List<String> rtContent = new java.util.ArrayList<>(roundTripped.contentPaths());
+    java.util.Collections.sort(origContent);
+    java.util.Collections.sort(rtContent);
+    check("live.roundtrip.content-paths", origContent.equals(rtContent));
+    boolean contentOk = true;
+    for (String p : origContent) {
+      if (!java.util.Objects.equals(roundTripped.content(p), original.content(p))) {
+        contentOk = false;
+        break;
+      }
+    }
+    check("live.roundtrip.content-values", contentOk);
+    java.util.List<String> origLists = new java.util.ArrayList<>(original.listPaths());
+    java.util.List<String> rtLists = new java.util.ArrayList<>(roundTripped.listPaths());
+    java.util.Collections.sort(origLists);
+    java.util.Collections.sort(rtLists);
+    check("live.roundtrip.list-paths", origLists.equals(rtLists));
+    boolean listOk = true;
+    for (String p : origLists) {
+      if (!roundTripped.listItems(p).equals(original.listItems(p))) {
+        listOk = false;
+        break;
+      }
+    }
+    check("live.roundtrip.list-items", listOk);
+
+    // 2) Validation: the markdown twin is clean under the SBP schema.
+    DocSpecsSchema schema = DocSpecsSchema.fromYamlText(readText(schemaPath));
+    java.util.List<DocSpecsViolation> violations =
+        new DocSpecsValidator(schema).validateMarkdown(readText(sampleMd));
+    check("live.validate.root", "SBP".equals(schema.rootSectionId()),
+        String.valueOf(schema.rootSectionId()));
+    check("live.validate.no-warnings", schema.warnings.isEmpty(),
+        String.valueOf(schema.warnings.size()));
+    check("live.validate.no-violations", violations.isEmpty(),
+        String.valueOf(violations.size()));
+
+    // 3) Node operations: byPath / nav / id resolve to the same meta identity.
+    SomMetaNode listByPath = tree.byPath("SBP/currentLandscape/CUOPME-OPER-LST");
+    check("live.node.by-path", listByPath != null);
+    check("live.node.kind-list",
+        listByPath != null && SomMetaKind.LIST.equals(listByPath.kind));
+    SomMetaRef navRef =
+        TomSomV0Meta.D00SolutionBlueprintMeta.currentLandscape().operationalMetrics();
+    check("live.node.nav-path",
+        "SBP/currentLandscape/CUOPME-OPER-LST".equals(navRef.path), navRef.path);
+    check("live.node.nav-identity", navRef.meta() == listByPath);
+    SomMetaRef idRef = TomSomV0Meta.SBP.RVHST_REVS_LST().item(0);
+    SomMetaRef navItem = TomSomV0Meta.D00SolutionBlueprintMeta.documentControl()
+        .revisionHistory().item(0);
+    check("live.node.id-path", idRef.path.equals(navItem.path), idRef.path);
+    check("live.node.id-identity", idRef.meta() == navItem.meta());
+  }
+
   public static void main(String[] args) {
     testRootAndParity();
     testModelVersion();
@@ -382,6 +476,7 @@ public final class GeneratedModelTest {
     testAbsenceSemantics();
     testOneCallLoading();
     testCanHaveContent();
+    testLiveDocumentCase();
 
     int total = passed + failures.size();
     if (!failures.isEmpty()) {
