@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T05:40:57.109197Z",
+  "generatedAt": "2026-07-18T10:01:48.046063Z",
   "metaSchemaVersion": 1,
   "modelVersion": 8,
   "modelVersionLabel": "1.0.0+8.1acef99",
@@ -106843,22 +106843,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "requirementId",
-              "label": "Requirement ID (unique, e.g., REQ-F001)",
-              "hint": "Unique requirement identifier, e.g. REQ-F001",
-              "type": "String",
-              "required": true,
-              "role": "id"
-            },
-            {
-              "name": "title",
-              "label": "Title (concise statement)",
-              "hint": "Concise one-line statement of the requirement",
-              "type": "String",
-              "required": true,
-              "role": "title"
-            },
             {
               "name": "status",
               "label": "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)",
