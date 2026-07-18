@@ -23,6 +23,11 @@
  *   * one-call loading (§ item 4): `loadYaml` collapses decode → loadJson →
  *     version-threading, `loadFile` delegates to `loadYaml`, and
  *     `SpecDocument.fromYaml` retains (or nulls) the parsed model version.
+ *   * the live-document conformance case (YRD8 / dsa9): the shared Meridian
+ *     sample round-trips (content + lists), its markdown twin validates clean
+ *     under the SBP schema, and byPath / nav / id node operations resolve to the
+ *     same meta identity — the guarantees the JS golden generator emits, pinned
+ *     as a committed guard because `golden/` is git-ignored.
  *
  * Run with `node tests/som_v0_generated_test.js`; exit code 0 == all green.
  * The runtime is located by the `tomSom.runtimePath` recorded in `package.json`
@@ -42,6 +47,9 @@ const {
   SpecDocument,
   SomVersionError,
   SpecSectionIdCollision,
+  SomMetaKind,
+  DocSpecsSchema,
+  DocSpecsValidator,
   yamlEncode,
 } = require(_runtimePath);
 const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
@@ -390,6 +398,67 @@ function testCanHaveContent() {
   }
 }
 
+// Live-document conformance case durability (YRD8 / dsa9). The golden/ tree is
+// git-ignored, so this committed guard pins the three live-document guarantees
+// the JS golden generator emits over the shared Meridian sample — a regression
+// fails `node tests/som_v0_generated_test.js`, not only a full nine-toolchain
+// golden run. Mirrors the Dart (dsa7) and Python (dsa8) durability guards.
+function testLiveDocumentCase() {
+  const sample =
+    '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+  const sampleMd =
+    '../tom_som_conformance/samples/meridian_order_management.md';
+  const schemaPath =
+    'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
+  const tree = m.d00SolutionBlueprintMetaTree;
+
+  // 1) Round-trip: decode -> encode -> decode is stable over content + lists.
+  const original = SpecDocument.fromFile(sample, tree);
+  const reEncoded = yamlEncode(original, tree, original.modelVersion);
+  const roundTripped = SpecDocument.fromYaml(reEncoded, tree);
+  check(
+    'live.roundtrip.version',
+    roundTripped.modelVersion === original.modelVersion,
+    String(roundTripped.modelVersion),
+  );
+  const origContent = Array.from(original.contentPaths).sort();
+  const rtContent = Array.from(roundTripped.contentPaths).sort();
+  check('live.roundtrip.content-paths', _arraysEqual(rtContent, origContent));
+  check(
+    'live.roundtrip.content-values',
+    origContent.every((p) => roundTripped.content(p) === original.content(p)),
+  );
+  const origLists = Array.from(original.listPaths).sort();
+  const rtLists = Array.from(roundTripped.listPaths).sort();
+  check('live.roundtrip.list-paths', _arraysEqual(rtLists, origLists));
+  check(
+    'live.roundtrip.list-items',
+    origLists.every((p) =>
+      _arraysEqual(roundTripped.listItems(p), original.listItems(p))),
+  );
+
+  // 2) Validation: the markdown twin is clean under the SBP schema.
+  const schema = DocSpecsSchema.fromYamlText(fs.readFileSync(schemaPath, 'utf8'));
+  const violations = new DocSpecsValidator(schema).validateMarkdown(
+    fs.readFileSync(sampleMd, 'utf8'),
+  );
+  check('live.validate.root', schema.rootSectionId === 'SBP', String(schema.rootSectionId));
+  check('live.validate.no-warnings', schema.warnings.length === 0, String(schema.warnings.length));
+  check('live.validate.no-violations', violations.length === 0, String(violations.length));
+
+  // 3) Node operations: byPath / nav / id resolve to the same meta identity.
+  const listByPath = tree.byPath('SBP/currentLandscape/CUOPME-OPER-LST');
+  check('live.node.by-path', listByPath != null);
+  check('live.node.kind-list', listByPath != null && listByPath.kind === SomMetaKind.LIST);
+  const navRef = m.d00SolutionBlueprint.currentLandscape.operationalMetrics;
+  check('live.node.nav-path', navRef.path === 'SBP/currentLandscape/CUOPME-OPER-LST', navRef.path);
+  check('live.node.nav-identity', navRef.meta === listByPath);
+  const idRef = m.SBP.RVHST_REVS_LST.item(0);
+  const navItem = m.d00SolutionBlueprint.documentControl.revisionHistory.item(0);
+  check('live.node.id-path', idRef.path === navItem.path, idRef.path);
+  check('live.node.id-identity', idRef.meta === navItem.meta);
+}
+
 function _arraysEqual(a, b) {
   if (a.length !== b.length) {
     return false;
@@ -410,6 +479,7 @@ function main() {
   testAbsenceSemantics();
   testOneCallLoading();
   testCanHaveContent();
+  testLiveDocumentCase();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {
