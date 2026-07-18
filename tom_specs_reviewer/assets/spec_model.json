@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-18T18:07:52.022184Z",
+  "generatedAt": "2026-07-18T20:35:58.219510Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 8,
-  "modelVersionLabel": "1.0.0+8",
+  "modelVersion": 9,
+  "modelVersionLabel": "1.0.0+9",
   "classCount": 1217,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
@@ -58713,6 +58713,13 @@
           "arguments": {
             "id": "DATAA"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.validation",
+            "note": "Attribute-level constraint → CE-VA field rule (required, range, pattern, type)."
+          }
         }
       ],
       "fields": [
@@ -58823,6 +58830,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "DAATT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess",
+            "note": "A persisted attribute becomes a table column; display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry."
           }
         }
       ],
@@ -60109,6 +60123,12 @@
           "arguments": {
             "documentClass": "D03InformationModel"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess"
+          }
         }
       ],
       "fields": [
@@ -60671,6 +60691,12 @@
           "name": "SectionId",
           "arguments": {
             "id": "DAENT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess"
           }
         }
       ],
@@ -64746,6 +64772,12 @@
           "name": "MapsTo",
           "arguments": {
             "documentClass": "D03InformationModel"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess"
           }
         }
       ],
@@ -81514,6 +81546,13 @@
           "arguments": {
             "id": "DISPL"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.viewState",
+            "note": "Display/formatting properties bind an attribute to view-model state; label/help copy also feeds CE-TX."
+          }
         }
       ],
       "fields": [
@@ -89247,6 +89286,13 @@
           "arguments": {
             "id": "ENCNS"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess",
+            "note": "DB-level constraint on the table; distinct from CE-VA field rules."
+          }
         }
       ],
       "fields": [
@@ -89348,6 +89394,12 @@
           "name": "SectionId",
           "arguments": {
             "id": "ENIDX"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess"
           }
         }
       ],
@@ -89466,6 +89518,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "ENRLE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess",
+            "note": "Foreign-key / association between tables."
           }
         }
       ],
@@ -89931,6 +89990,12 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D03InformationModel"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess"
           }
         }
       ],
@@ -118471,6 +118536,12 @@
           "arguments": {
             "documentClass": "D03InformationModel"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.validation"
+          }
         }
       ],
       "fields": [
@@ -127049,6 +127120,12 @@
           "name": "SectionId",
           "arguments": {
             "id": "KEATT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess"
           }
         }
       ],
@@ -184884,6 +184961,12 @@
           "name": "SectionId",
           "arguments": {
             "id": "RELAT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.dataAccess"
           }
         }
       ],
@@ -271459,6 +271542,12 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D03InformationModel"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "part": "CodeSpecPart.validation"
           }
         }
       ],

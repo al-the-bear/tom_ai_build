@@ -584,6 +584,20 @@ class ModelReader {
       return typeVal.element.name ?? '';
     }
 
+    // Try enum constant — handles enum-valued arguments such as
+    // @CodeSpecKind(CodeSpecPart.dataAccess). Returned as the qualified
+    // `EnumType.constant` so the exported model is self-describing without an
+    // analyzer. The constant's `index` field maps into the declaration-ordered
+    // enum values.
+    final enumType = obj.type;
+    if (enumType is InterfaceType && _isEnumType(enumType)) {
+      final index = obj.getField('index')?.toIntValue();
+      final values = _getEnumValues(enumType);
+      if (index != null && index >= 0 && index < values.length) {
+        return '${enumType.element.name ?? ''}.${values[index]}';
+      }
+    }
+
     // Try list
     final listVal = obj.toListValue();
     if (listVal != null) {
