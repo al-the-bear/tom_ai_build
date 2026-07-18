@@ -101,6 +101,18 @@ void main() {
       expect(detailCountWarnings, isEmpty, reason: detailCountWarnings.join('\n'));
     });
 
+    test('§8.6: section ids resolve identically from every @Document root '
+        '(dsa4 root-independence)', () {
+      final result = validateStructuralInvariants(classes);
+      final rootIdErrors = result.errors
+          .where((e) => e.contains('§8.6 root-independent id'))
+          .toList();
+      // Every class must have a single id-resolution mode: a class-level
+      // @SectionId XOR being a @SectionIdPattern list element. A class mixing
+      // both resolves to different ids depending on the traversal root.
+      expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
+    });
+
     test(
       '§8.6: no reachable complex List<T> field lacks @SectionIdPattern '
       '(excluding @Reference)',
@@ -661,6 +673,78 @@ void main() {
       final ancestorErrors =
           result.errors.where((e) => e.contains('§8.6 @DetailedIn ancestor check')).toList();
       expect(ancestorErrors, isEmpty);
+    });
+  });
+
+  group('unit: root-independent section-id resolution (dsa4)', () {
+    test('errors when a class is reached both as a @SectionIdPattern list '
+        'element AND as a standalone complex section (mixed resolution mode)',
+        () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            // Reached as a list element → addressed by the instance pattern.
+            _listField('items', 'Item', [
+              AnnotationData('SectionId', {'id': 'ITEM-ITEMS-LST'}),
+              AnnotationData('SectionIdPattern', {'pattern': 'ITEM-ITEMS-xxx'}),
+            ]),
+            // ...and also reached as a standalone complex section → addressed
+            // by its own class-level @SectionId. The two modes resolve to
+            // different ids depending on the traversal root.
+            _field('featuredItem', 'Item'),
+          ],
+        ),
+        'Item': _cls('Item', [AnnotationData('SectionId', {'id': 'ITEM'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      expect(
+        result.errors.any((e) => e.contains('§8.6 root-independent id')),
+        isTrue,
+        reason: result.errors.join('\n'),
+      );
+    });
+
+    test('passes when a class carries @SectionId and is only ever a '
+        '@SectionIdPattern list element (the -LST prefix source is by design)',
+        () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            _listField('items', 'Item', [
+              AnnotationData('SectionId', {'id': 'ITEM-ITEMS-LST'}),
+              AnnotationData('SectionIdPattern', {'pattern': 'ITEM-ITEMS-xxx'}),
+            ]),
+          ],
+        ),
+        // Element class carries @SectionId — this is the `<E>` prefix source
+        // for the list container/pattern ids (ITEM → ITEM-ITEMS-LST/-xxx), not
+        // a conflict, because it is never reached as a standalone section.
+        'Item': _cls('Item', [AnnotationData('SectionId', {'id': 'ITEM'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      final rootIdErrors =
+          result.errors.where((e) => e.contains('§8.6 root-independent id')).toList();
+      expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
+    });
+
+    test('passes when a class with @SectionId is only ever a standalone '
+        'complex section (never a list element)', () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [_field('overview', 'Overview')],
+        ),
+        'Overview': _cls('Overview', [AnnotationData('SectionId', {'id': 'OVW'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      final rootIdErrors =
+          result.errors.where((e) => e.contains('§8.6 root-independent id')).toList();
+      expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
     });
   });
 

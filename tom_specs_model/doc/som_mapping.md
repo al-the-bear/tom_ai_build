@@ -990,6 +990,15 @@ golden reference.
   `@SectionIdPattern` subtrees exempt).
 - `@DetailedIn` requires an ancestor `@MapsTo`.
 - Per-`@Document` detail-count budget (7–15 top-level entries).
+- Root-independent section-id resolution (dsa4) — a class reachable from more
+  than one `@Document` root resolves to the same id from every root. Both id
+  mechanisms are root-independent by construction (a class-level `@SectionId`
+  is fixed; a `@SectionIdPattern` list-instance id derives from the *element*
+  class's own `@SectionId`, so an element class carrying a class-level
+  `@SectionId` — the `<E>` prefix source — is by design, not a conflict). The
+  rejected case is *structural-mode mixing*: a class reached both as the direct
+  element of a `@SectionIdPattern` list and as a standalone complex section
+  field (`@Reference` edges excluded).
 - §2.1 field-shape legality; `@ContentType` compatibility; cycle detection.
 
 ---

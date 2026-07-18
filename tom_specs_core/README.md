@@ -155,7 +155,8 @@ maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
   analyzer — no marker annotation is needed; all model classes are scanned.
 - **`validator.dart`** enforces the model-design rules (§6) and the §8.6
   structural invariants (`@SectionId` uniqueness/coverage, `@SectionIdPattern`
-  pairing, `@DetailedIn → ancestor @MapsTo`, per-`@Document` detail count).
+  pairing, `@DetailedIn → ancestor @MapsTo`, per-`@Document` detail count,
+  root-independent section-id resolution).
 - **`ModelJsonExporter`** serialises the resolved graph — including the lossless
   per-class / per-field `annotations` block — into `spec_model.meta.json`, which
   every `tom_som_<lang>_runtime` loads for the reflection access path.

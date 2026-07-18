@@ -302,6 +302,19 @@ import 'model_reader.dart';
 ///   `D00SolutionBlueprint` to `C` (inclusive) must carry `@MapsTo(D)`.
 /// - **Detail-count per `@Document` class** — warns if a `@Document`-tagged
 ///   class has zero `@DetailedIn` entries in the SBP tree (likely omission).
+/// - **Root-independent section-id resolution (dsa4)** — a class reachable
+///   from more than one `@Document` root must resolve to the same section id
+///   from every root. Both id mechanisms are root-independent by construction:
+///   a class-level `@SectionId` is a fixed property of the class, and a
+///   `@SectionIdPattern` list instance id is derived from the *element* class's
+///   own `@SectionId` (the `<E>` prefix, e.g. `STKNT` → `STKNT-PRIM-xxx`), so an
+///   element class carrying a class-level `@SectionId` is by design, not a
+///   conflict. The genuine cross-root divergence is *structural-mode mixing*: a
+///   class reached in one place as the direct element of a `@SectionIdPattern`
+///   list (→ addressed by the list instance pattern) and in another as a
+///   standalone complex section field (→ addressed by its own class-level
+///   `@SectionId`) resolves to a different id depending on the traversal root
+///   and is rejected. `@Reference` edges are excluded.
 /// - **Collapsible-wrapper detection (§6.1c / TSMA4–TSMA5)** — warns when a
 ///   *single-subsection wrapper* with vacuous content adds a redundant
 ///   hierarchy level: a class referenced by exactly one complex parent field
@@ -750,6 +763,60 @@ void _validateStructuralInvariants(
       '§6.1c collapsible-wrapper: $className is a single-subsection wrapper '
       'with vacuous content, referenced only by $where — collapse it by '
       'promoting ${sub.name} ($subKind) onto the parent field (TSMA4)',
+    );
+  }
+
+  // --- 7. Root-independent section-id resolution (dsa4) --------------------
+  //
+  // A class reachable from more than one @Document root must resolve to the
+  // SAME section id from every root. Both id mechanisms are root-independent by
+  // construction: a class-level @SectionId is a property of the class (and
+  // globally unique — check 2), while a @SectionIdPattern lives on the parent
+  // list field, so its instance id is a pure function of the field position.
+  // The field-suffixed scheme deliberately lets the same element type appear
+  // under several list fields — and the element's class-level @SectionId is the
+  // mnemonic `<E>` prefix of every such container/pattern id (e.g. `STKNT` →
+  // `STKNT-PRIM-LST` / `STKNT-PRIM-xxx`); that is NOT a conflict.
+  //
+  // The one genuine cross-root divergence is a class reached in TWO different
+  // STRUCTURAL modes: as a direct @SectionIdPattern list element (→ resolves to
+  // the field's instance pattern) AND as a direct standalone complex field
+  // (→ resolves to its own class @SectionId). Such a class resolves to a
+  // different id depending on which position/root reached it. A class must be
+  // reached in a single structural mode. @Reference fields are cross-references
+  // (not owned sub-sections) and are excluded from the standalone set.
+  //
+  // Both sets are collected across ALL roots — the SBP tree plus every
+  // @Document projection root (which may re-reference an SBP type).
+  final allRootsReachable = <String>{...reachable};
+  for (final doc in documentClasses) {
+    allRootsReachable.addAll(_findReachableTypes(classes, doc));
+  }
+  final directPatternElementsAllRoots = <String>{};
+  final standaloneComplexTypes = <String>{};
+  for (final className in allRootsReachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    for (final field in cls.fields) {
+      if (field.getAnnotation('Reference') != null) continue;
+      if (field.isList && field.listElementIsComplex) {
+        if (field.getAnnotation('SectionIdPattern') == null) continue;
+        final el = field.listElementTypeName;
+        if (el != null) directPatternElementsAllRoots.add(el);
+      } else if (field.isComplex) {
+        standaloneComplexTypes.add(field.typeName.replaceAll('?', ''));
+      }
+    }
+  }
+  for (final className in directPatternElementsAllRoots) {
+    if (!standaloneComplexTypes.contains(className)) continue;
+    errors.add(
+      '§8.6 root-independent id: $className is reached both as a direct '
+      '@SectionIdPattern list element (→ the list instance pattern) and as a '
+      'standalone complex section field (→ its own class @SectionId) — its id '
+      'resolves differently depending on the traversal root; a class must be '
+      'reached in a single structural mode (list element XOR standalone '
+      'section)',
     );
   }
 }
