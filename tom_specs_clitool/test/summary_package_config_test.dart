@@ -15,12 +15,12 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart'
 void main() {
   // Tests run with cwd == project root (tom_specs_clitool).
   final clitoolDir = Directory.current.path;
-  final codeSpecsDir = p.normalize(p.join(clitoolDir, '..', 'tom_code_specs'));
+  final modelDir = p.normalize(p.join(clitoolDir, '..', 'tom_specs_model'));
 
   final clitoolConfig =
       File(p.join(clitoolDir, '.dart_tool', 'package_config.json'));
-  final codeSpecsConfig =
-      File(p.join(codeSpecsDir, '.dart_tool', 'package_config.json'));
+  final modelConfig =
+      File(p.join(modelDir, '.dart_tool', 'package_config.json'));
 
   group('readPackageRoots', () {
     test('returns name→root map for a resolved package_config.json', () {
@@ -39,14 +39,14 @@ void main() {
 
   group('mergePackageRootsForDirs', () {
     test('unions the dependency closures of multiple package dirs', () {
-      if (!clitoolConfig.existsSync() || !codeSpecsConfig.existsSync()) {
+      if (!clitoolConfig.existsSync() || !modelConfig.existsSync()) {
         markTestSkipped('a sibling package_config.json is missing — run pub get');
         return;
       }
-      final merged = mergePackageRootsForDirs([clitoolDir, codeSpecsDir]);
-      // Packages unique to each config must both survive the union.
+      final merged = mergePackageRootsForDirs([clitoolDir, modelDir]);
+      // Packages from each config survive the union.
       expect(merged, contains('tom_specs_clitool')); // clitool closure
-      expect(merged, contains('tom_code_specs')); // code_specs closure
+      expect(merged, contains('tom_specs_model')); // model closure
     });
 
     test('throws SummaryConfigException for a dir without a resolved config',
