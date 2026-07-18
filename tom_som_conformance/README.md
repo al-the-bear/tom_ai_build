@@ -62,6 +62,16 @@ reads, the metadata-tree nav/id accessors resolve to the same nodes `byPath`
 finds, and the schema validates — so a facade/runtime divergence aborts with a
 non-zero exit instead of emitting a silently-wrong log.
 
+**Live-document durability guard (YRD8).** The shared Meridian sample *is* the
+live-document conformance case: the Dart reference golden reads it end to end —
+`generic-*` (round-trip bytes), `docspecs` (validation), and `meta-*` (node
+operations). Because `golden/` is git-ignored (regenerated on demand), a
+committed Dart test group — `shared sample: live-document case durability
+(YRD8 / dsa7)` in `tom_som_dart_v0/test/generated_v0_test.dart` — pins those
+three guarantees (decode→encode→decode stability, clean schema validation,
+byPath/nav/id node identity) so a regression fails `dart test` without needing a
+full nine-toolchain golden run.
+
 ### Running
 
 ```bash

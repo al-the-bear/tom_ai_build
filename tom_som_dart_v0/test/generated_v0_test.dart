@@ -347,4 +347,97 @@ void main() {
       expect(() => D00SolutionBlueprint.loadYaml(yaml), returnsNormally);
     });
   });
+
+  // Live-document conformance case (YRD8 / dsa7). The cross-language golden
+  // harness (`tom_som_conformance/tool/regenerate_golden.sh` +
+  // `compare_golden.dart`) already exercises the shared Meridian sample end to
+  // end and the Dart golden is the reference reading. This committed group is
+  // the *durability guard* for the three live-document guarantees the golden's
+  // `generic-*`, `docspecs`, and `meta-*` sections encode, so a regression that
+  // silently drops any of them from the Dart reference fails `dart test` — not
+  // only a full nine-toolchain golden run.
+  group('shared sample: live-document case durability (YRD8 / dsa7)', () {
+    const samplePath =
+        '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+    const sampleMdPath =
+        '../tom_som_conformance/samples/meridian_order_management.md';
+    const schemaPath =
+        'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
+
+    test('round-trip: decode → encode → decode is a stable reading', () {
+      // Mirrors the golden's `generic-content` / `generic-lists` sections: the
+      // full generic reading survives a re-serialisation round-trip byte-for-
+      // byte at the value level.
+      final original =
+          SpecDocument.fromFile(samplePath, d00SolutionBlueprintMetaTree);
+      final reEncoded = SpecDocumentYaml.encode(
+        document: original,
+        tree: d00SolutionBlueprintMetaTree,
+        modelVersion: original.modelVersion,
+      );
+      final roundTripped =
+          SpecDocument.fromYaml(reEncoded, d00SolutionBlueprintMetaTree);
+
+      expect(roundTripped.modelVersion, original.modelVersion);
+
+      final originalContent = original.contentPaths.toList()..sort();
+      final roundTripContent = roundTripped.contentPaths.toList()..sort();
+      expect(roundTripContent, originalContent,
+          reason: 'content-path set changed across round-trip');
+      for (final p in originalContent) {
+        expect(roundTripped.content(p), original.content(p),
+            reason: 'content diverged at $p');
+      }
+
+      final originalLists = original.listPaths.toList()..sort();
+      final roundTripLists = roundTripped.listPaths.toList()..sort();
+      expect(roundTripLists, originalLists,
+          reason: 'list-path set changed across round-trip');
+      for (final p in originalLists) {
+        expect(roundTripped.listItems(p), original.listItems(p),
+            reason: 'list items diverged at $p');
+      }
+    });
+
+    test('validation: sample markdown validates cleanly against the schema',
+        () {
+      // Mirrors the golden's `docspecs` section: root `SBP`, zero schema
+      // warnings, zero markdown violations.
+      final schema =
+          DocSpecsSchema.fromYamlText(File(schemaPath).readAsStringSync());
+      final sampleMd = File(sampleMdPath).readAsStringSync();
+      final violations = DocSpecsValidator(schema).validateMarkdown(sampleMd);
+
+      expect(schema.rootSectionId, 'SBP');
+      expect(schema.warnings, isEmpty,
+          reason: 'generated schema carries warnings');
+      expect(violations, isEmpty,
+          reason: 'sample markdown violates the generated schema');
+    });
+
+    test('node operations: metadata tree / nav / id resolve to the same node',
+        () {
+      // Mirrors the golden's `meta` / `meta-nav` / `meta-id` sections: a node
+      // reached by path, by dot-notation nav, and by hoisted id is one and the
+      // same node.
+      final tree = d00SolutionBlueprintMetaTree;
+
+      final listByPath = tree.byPath('SBP/currentLandscape/CUOPME-OPER-LST');
+      expect(listByPath, isNotNull);
+      expect(listByPath!.kind, SomMetaKind.list);
+
+      final navRef = d00SolutionBlueprint.currentLandscape.operationalMetrics;
+      expect(navRef.path, 'SBP/currentLandscape/CUOPME-OPER-LST');
+      expect(identical(navRef.meta, listByPath), isTrue,
+          reason: 'nav did not resolve to the byPath node');
+
+      // Hoisted-id accessor agrees with the dot-notation position.
+      final idRef = SBP.RVHST_REVS_LST.item(0);
+      final navItem =
+          d00SolutionBlueprint.documentControl.revisionHistory.item(0);
+      expect(idRef.path, navItem.path);
+      expect(identical(idRef.meta, navItem.meta), isTrue,
+          reason: 'id-tree and nav positions disagree');
+    });
+  });
 }
