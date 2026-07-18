@@ -22,6 +22,7 @@
 #include "tom_som_cpp_v0.hpp"
 #include "tom_som_cpp_v0_meta.hpp"
 
+#include "docspecs_validator.hpp"
 #include "spec_document_yaml.hpp"
 
 #include <fstream>
@@ -459,6 +460,112 @@ void testOneCallLoading() {
   }
 }
 
+// YRD8 conformance (dsa15): the shared live-document case the C++ golden
+// generator processes — the Meridian sample in tom_som_conformance/samples. The
+// golden log itself is git-ignored, so this committed test pins the three
+// live-document guarantees (round-trip stability, DocSpecs validation, node
+// operations); a regression fails ./run_tests.sh, not only a full
+// nine-toolchain golden run. Mirrors the Dart (dsa7) … C (dsa14) guards.
+void testLiveDocumentCase() {
+  namespace m = tom_som_v0_meta;
+  const std::string samplePath =
+      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+  const std::string sampleMdPath =
+      "../tom_som_conformance/samples/meridian_order_management.md";
+  const std::string schemaPath =
+      "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
+  const som::SomMetaTree& tree = m::d00SolutionBlueprintMetaTree();
+
+  // 1) Round-trip: decode -> encode -> decode is stable over content + lists.
+  std::string loadErr;
+  std::optional<som::SpecDocument> original =
+      som::SpecDocument::fromFile(samplePath, tree, &loadErr);
+  ok(original.has_value(), "live: fromFile loads the sample");
+  if (original) {
+    std::string encErr;
+    std::optional<std::string> reEncoded =
+        som::encodeYaml(*original, tree, original->modelVersion, &encErr);
+    ok(reEncoded.has_value(), "live: encodeYaml re-serializes");
+    std::string decErr;
+    std::optional<som::SpecDocument> round =
+        reEncoded ? som::SpecDocument::fromYaml(*reEncoded, tree, &decErr)
+                  : std::nullopt;
+    ok(round.has_value(), "live: fromYaml round-trips");
+
+    if (round) {
+      eqStr(round->modelVersion, original->modelVersion,
+            "live: round-trip model version stable");
+
+      const std::vector<std::string> oc = original->contentPaths();
+      const std::vector<std::string> rc = round->contentPaths();
+      ok(oc == rc, "live: content-path set stable");
+      bool contentValsOk = true;
+      for (const std::string& p : oc) {
+        if (original->content(p) != round->content(p)) contentValsOk = false;
+      }
+      ok(contentValsOk, "live: content values stable");
+
+      const std::vector<std::string> ol = original->listPaths();
+      const std::vector<std::string> rl = round->listPaths();
+      ok(ol == rl, "live: list-path set stable");
+      bool listItemsOk = true;
+      for (const std::string& p : ol) {
+        if (original->listItems(p) != round->listItems(p)) listItemsOk = false;
+      }
+      ok(listItemsOk, "live: list items stable");
+    }
+  }
+
+  // 2) Validation: the markdown twin is clean under the SBP schema.
+  std::string schemaErr;
+  std::optional<som::DocSpecsSchema> schema =
+      som::docspecsSchemaFromYamlText(readFile(schemaPath), &schemaErr);
+  ok(schema.has_value(), "live: schema parses");
+  if (schema) {
+    eqStr(schema->rootSectionId(), "SBP", "live: schema root is SBP");
+    ok(schema->warnings.empty(), "live: schema carries no warnings");
+    som::DocSpecsValidator validator(*schema);
+    std::vector<som::DocSpecsViolation> violations;
+    validator.validateMarkdown(readFile(sampleMdPath), violations);
+    ok(violations.empty(), "live: markdown validates cleanly");
+  }
+
+  // 3) Node operations: byPath / nav / id resolve to the same node instance.
+  const som::SomMetaNode* listByPath =
+      tree.byPath("SBP/currentLandscape/CUOPME-OPER-LST");
+  ok(listByPath != nullptr, "live: byPath finds the operationalMetrics list");
+  if (listByPath != nullptr) {
+    ok(listByPath->kind == som::kSomMetaKindList,
+       "live: operationalMetrics kind is list");
+  }
+
+  m::NavD00SolutionBlueprint navRoot = m::d00SolutionBlueprintMetaNav(tree);
+  m::NavCurrentLandscape navCl =
+      m::navD00SolutionBlueprint_currentLandscape(navRoot);
+  som::SomListMetaRef navMetrics = m::navCurrentLandscape_operationalMetrics(navCl);
+  eqStr(navMetrics.ref.path, "SBP/currentLandscape/CUOPME-OPER-LST",
+        "live: nav path");
+  ok(navMetrics.ref.meta() == listByPath,
+     "live: nav node identity == byPath node");
+
+  m::IdD00SolutionBlueprint idRoot = m::d00SolutionBlueprintMetaId(tree);
+  som::SomListMetaRef idRevs = m::idD00SolutionBlueprint_RVHST_REVS_LST(idRoot);
+  m::NavDocumentControl navDc =
+      m::navD00SolutionBlueprint_documentControl(navRoot);
+  som::SomListMetaRef navRevs = m::navDocumentControl_revisionHistory(navDc);
+  {
+    void* idItem0 = idRevs.item(0);
+    void* navItem0 = navRevs.item(0);
+    som::SomMetaRef* idRef0 = reinterpret_cast<som::SomMetaRef*>(idItem0);
+    som::SomMetaRef* navRef0 = reinterpret_cast<som::SomMetaRef*>(navItem0);
+    eqStr(idRef0->path, navRef0->path, "live: id item path == nav item path");
+    ok(idRef0->meta() == navRef0->meta(),
+       "live: id item node identity == nav item node");
+    delete reinterpret_cast<m::NavRevisionEntry*>(idItem0);
+    delete reinterpret_cast<m::NavRevisionEntry*>(navItem0);
+  }
+}
+
 }  // namespace
 
 int main() {
@@ -470,6 +577,7 @@ int main() {
   testAlignedAbsence();
   testCanHaveContent();
   testOneCallLoading();
+  testLiveDocumentCase();
 
   if (gFailed != 0) {
     std::cerr << "\n" << gFailed << " checks FAILED (" << gPassed << " passed)\n";
