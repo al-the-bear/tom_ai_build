@@ -36,7 +36,6 @@ const Set<String> _slottedAnnotations = {
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 };
 
 /// Builds the wired [SomMetaTree] for one document root of [model].
@@ -67,7 +66,6 @@ SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType}) {
       description: root.description ?? '',
       basedOn: _basedOn(cls),
     ),
-    secondLevelIds: _secondLevelIds(cls?.annotations ?? const []),
     extra: _extras(cls?.annotations ?? const []),
     children: cls == null
         ? const []
@@ -186,7 +184,6 @@ SomMetaNode _fieldNode(
         : null,
     mapsTo: target?.mapsTo,
     detailedIn: target?.detailedIn,
-    secondLevelIds: _secondLevelIds(field.annotations),
     extra: _extras(field.annotations),
     recursive: recursive,
     children: children,
@@ -212,15 +209,6 @@ SomMetaKind _kindOf(SpecFieldKind kind) {
       return SomMetaKind.scalar;
   }
 }
-
-List<SomSecondLevelId> _secondLevelIds(List<SpecAnnotation> annotations) => [
-      for (final a in annotations)
-        if (a.name == 'SecondLevelSectionId')
-          SomSecondLevelId(
-            documentClass: '${a.argument('documentClass') ?? ''}',
-            id: '${a.argument('id') ?? ''}',
-          ),
-    ];
 
 List<SomMetaExtra> _extras(List<SpecAnnotation> annotations) => [
       for (final a in annotations)

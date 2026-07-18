@@ -60,7 +60,6 @@ const Set<String> _slottedAnnotations = {
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 };
 
 /// Emits the C++ source of the generated metadata module (see the library doc
@@ -551,7 +550,6 @@ class SomCppMetaEmitter {
     }
     if (target?.mapsTo != null) set('mapsTo', target!.mapsTo!);
     if (target?.detailedIn != null) set('detailedIn', target!.detailedIn!);
-    _emitSecondLevel(b, f.annotations, recv: recv, indent: indent);
     _emitExtras(b, f.annotations, recv: recv, indent: indent);
   }
 
@@ -590,22 +588,6 @@ class SomCppMetaEmitter {
           '"${_cppStr(ff.label)}", ${ff.required}, '
           '"${_cppStr(ff.hint ?? '')}", $i'
           '$enumArg});');
-    }
-  }
-
-  void _emitSecondLevel(StringBuffer b, List<SpecAnnotation> annotations,
-      {required String recv, required String indent}) {
-    final entries = [
-      for (final a in annotations)
-        if (a.name == 'SecondLevelSectionId')
-          [
-            '${a.argument('documentClass') ?? ''}',
-            '${a.argument('id') ?? ''}',
-          ],
-    ];
-    for (final e in entries) {
-      b.writeln('$indent$recv.secondLevelIds.push_back(som::SomSecondLevelId{'
-          '"${_cppStr(e[0])}", "${_cppStr(e[1])}"});');
     }
   }
 
@@ -674,8 +656,6 @@ class SomCppMetaEmitter {
     for (final base in basedOn) {
       b.writeln('\t\tn->document->basedOn.push_back("${_cppStr(base)}");');
     }
-    _emitSecondLevel(b, cls?.annotations ?? const [],
-        recv: '(*n)', indent: '\t\t');
     _emitExtras(b, cls?.annotations ?? const [], recv: '(*n)', indent: '\t\t');
     if (cls != null) {
       b

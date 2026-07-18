@@ -77,7 +77,6 @@ const Set<String> _slottedAnnotations = {
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 };
 
 /// Accessor method names a generated Nav/ID struct must never emit: the
@@ -449,8 +448,6 @@ class SomGoMetaEmitter {
     if (target?.detailedIn != null) {
       add('DetailedIn', _str(target!.detailedIn!));
     }
-    final secondLevel = _secondLevelIdsExpr(f.annotations);
-    if (secondLevel != null) add('SecondLevelIds', secondLevel);
     final extra = _extrasExpr(f.annotations);
     if (extra != null) add('Extra', extra);
 
@@ -505,18 +502,6 @@ class SomGoMetaEmitter {
     b.writeln('\t\t{${args.join(', ')}},');
   }
 
-  String? _secondLevelIdsExpr(List<SpecAnnotation> annotations) {
-    final entries = [
-      for (final a in annotations)
-        if (a.name == 'SecondLevelSectionId')
-          '{DocumentClass: '
-              "${_str('${a.argument('documentClass') ?? ''}')}, "
-              "ID: ${_str('${a.argument('id') ?? ''}')}}",
-    ];
-    return entries.isEmpty
-        ? null
-        : '[]*som.SomSecondLevelId{${entries.join(', ')}}';
-  }
 
   String? _extrasExpr(List<SpecAnnotation> annotations) {
     final entries = [
@@ -559,8 +544,6 @@ class SomGoMetaEmitter {
     args.add('Document: &som.SomDocMeta{Name: ${_str(root.title)}, '
         'Description: ${_str(root.description ?? '')}'
         '${basedOn.isEmpty ? '' : ', BasedOn: []string{${basedOn.map(_str).join(', ')}}'}}');
-    final secondLevel = _secondLevelIdsExpr(cls?.annotations ?? const []);
-    if (secondLevel != null) args.add('SecondLevelIds: $secondLevel');
     final extra = _extrasExpr(cls?.annotations ?? const []);
     if (extra != null) args.add('Extra: $extra');
     if (cls != null) {

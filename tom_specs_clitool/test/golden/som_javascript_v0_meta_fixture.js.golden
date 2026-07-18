@@ -23,7 +23,6 @@ const {
   SomMetaNode,
   SomMetaRef,
   SomMetaTree,
-  SomSecondLevelId,
 } = require(_path.resolve(__dirname, _manifest.tomSom.runtimePath));
 
 // Builds a complex/section (or list-element) node with the bridge's cycle

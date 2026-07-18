@@ -20,7 +20,6 @@ import {
   SomMetaNode,
   SomMetaRef,
   SomMetaTree,
-  SomSecondLevelId,
 } from 'tom_som_typescript_runtime';
 
 // Builds a complex/section (or list-element) node with the bridge's cycle

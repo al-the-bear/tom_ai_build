@@ -8,7 +8,7 @@
 ///   * [SomMetaNode] — one node per navigable model position (§3.1), with
 ///     section id / pattern, kind, serialization order, `@Min`, content type,
 ///     help/comment/doc texts, form metadata, traceability links
-///     (`@MapsTo` / `@DetailedIn` / `@SecondLevelSectionId`) and the lossless
+///     (`@MapsTo` / `@DetailedIn`) and the lossless
 ///     `extra` annotation list;
 ///   * [SomMetaTree] — wires parent links and absolute paths (the §4 path
 ///     grammar shared with `spec_paths.dart`) and provides the two dynamic
@@ -134,17 +134,6 @@ class SomDocMeta {
   });
 }
 
-/// One `@SecondLevelSectionId(documentClass, id)` entry (DR1 §3.1).
-class SomSecondLevelId {
-  /// The document class the second-level id applies within.
-  final String documentClass;
-
-  /// The section id used in that document.
-  final String id;
-
-  const SomSecondLevelId({required this.documentClass, required this.id});
-}
-
 /// One annotation captured losslessly into the generic `extra` list —
 /// annotations the tree defines no dedicated slot for (DR1 §3.1 note),
 /// e.g. `@Max`, `@MinLength`, `@PatternCheck`, `@TextRequired`.
@@ -249,9 +238,6 @@ class SomMetaNode {
   /// `@DetailedIn` target class name, when annotated.
   final String? detailedIn;
 
-  /// `@SecondLevelSectionId` entries, when annotated.
-  final List<SomSecondLevelId> secondLevelIds;
-
   /// Annotations without a dedicated slot, captured losslessly (§3.1 note).
   final List<SomMetaExtra> extra;
 
@@ -290,7 +276,6 @@ class SomMetaNode {
     this.document,
     this.mapsTo,
     this.detailedIn,
-    this.secondLevelIds = const [],
     this.extra = const [],
     this.recursive = false,
     this.children = const [],

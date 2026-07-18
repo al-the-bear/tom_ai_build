@@ -13,7 +13,7 @@
  *   * {@link SomMetaNode} — one node per navigable model position (§3.1), with
  *     section id / pattern, kind, serialization order, `@Min`, content type,
  *     help/comment/doc texts, form metadata, traceability links
- *     (`@MapsTo` / `@DetailedIn` / `@SecondLevelSectionId`) and the lossless
+ *     (`@MapsTo` / `@DetailedIn`) and the lossless
  *     `extra` annotation list;
  *   * {@link SomMetaTree} — wires parent links and absolute paths (the §4 path
  *     grammar shared with `spec_paths`) and provides the two dynamic lookups
@@ -124,16 +124,6 @@ class SomDocMeta {
   }
 }
 
-/** One `@SecondLevelSectionId(documentClass, id)` entry (DR1 §3.1). */
-class SomSecondLevelId {
-  constructor(documentClass, id) {
-    /** The document class the second-level id applies within. */
-    this.documentClass = documentClass;
-    /** The section id used in that document. */
-    this.id = id;
-  }
-}
-
 /**
  * One annotation captured losslessly into the generic `extra` list —
  * annotations the tree defines no dedicated slot for (DR1 §3.1 note), e.g.
@@ -183,7 +173,6 @@ class SomMetaNode {
     document = null,
     mapsTo = null,
     detailedIn = null,
-    secondLevelIds = null,
     extra = null,
     recursive = false,
     children = null,
@@ -243,11 +232,6 @@ class SomMetaNode {
     this.mapsTo = mapsTo;
     /** `@DetailedIn` target class name, when annotated. */
     this.detailedIn = detailedIn;
-    /** `@SecondLevelSectionId` entries, when annotated. */
-    this.secondLevelIds =
-      secondLevelIds !== null && secondLevelIds !== undefined
-        ? secondLevelIds
-        : [];
     /** Annotations without a dedicated slot, captured losslessly. */
     this.extra = extra !== null && extra !== undefined ? extra : [];
     /** Whether this node is a recursive re-entry reference (a class already
@@ -600,7 +584,6 @@ module.exports = {
   SomFormFieldMeta,
   SomFormMeta,
   SomDocMeta,
-  SomSecondLevelId,
   SomMetaExtra,
   SomMetaNode,
   SomMetaTree,

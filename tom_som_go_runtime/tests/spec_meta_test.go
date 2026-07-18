@@ -117,9 +117,6 @@ func metaFixtureTree(t *testing.T) *som.SomMetaTree {
 				Comment:            "Keep this short.",
 				MapsTo:             "CurrentLandscape",
 				DetailedIn:         "D01RequirementsSpecification",
-				SecondLevelIds: []*som.SomSecondLevelId{
-					{DocumentClass: "D01RequirementsSpecification", ID: "RS-INSC"},
-				},
 				Children: []*som.SomMetaNode{
 					{
 						ClassName:          "IntroductionAndScope",
@@ -343,10 +340,6 @@ func metaTestMetadataSlots(c *checker, t *testing.T) {
 	c.check("slots.insc.mapsTo", insc.MapsTo == "CurrentLandscape", "")
 	c.check("slots.insc.detailedIn",
 		insc.DetailedIn == "D01RequirementsSpecification", "")
-	c.check("slots.insc.secondLevel",
-		len(insc.SecondLevelIds) == 1 &&
-			insc.SecondLevelIds[0].DocumentClass == "D01RequirementsSpecification" &&
-			insc.SecondLevelIds[0].ID == "RS-INSC", "")
 	c.check("slots.insc.order",
 		insc.SerializationOrder != nil && *insc.SerializationOrder == 1, "")
 

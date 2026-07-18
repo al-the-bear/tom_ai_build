@@ -44,7 +44,6 @@ from tom_som_runtime import (  # noqa: E402
     SomMetaKind,
     SomMetaNode,
     SomMetaTree,
-    SomSecondLevelId,
 )
 
 _passed = 0
@@ -146,12 +145,6 @@ def build_fixture_tree() -> SomMetaTree:
                 comment="Keep this short.",
                 maps_to="CurrentLandscape",
                 detailed_in="D01RequirementsSpecification",
-                second_level_ids=[
-                    SomSecondLevelId(
-                        document_class="D01RequirementsSpecification",
-                        id="RS-INSC",
-                    ),
-                ],
                 children=[
                     SomMetaNode(
                         class_name="IntroductionAndScope",
@@ -370,13 +363,6 @@ def test_metadata_slots() -> None:
     _check(
         "slots.insc.detailedIn",
         insc.detailed_in == "D01RequirementsSpecification",
-    )
-    _check(
-        "slots.insc.secondLevel",
-        len(insc.second_level_ids) == 1
-        and insc.second_level_ids[0].document_class
-        == "D01RequirementsSpecification"
-        and insc.second_level_ids[0].id == "RS-INSC",
     )
     _check("slots.insc.order", insc.serialization_order == 1)
 

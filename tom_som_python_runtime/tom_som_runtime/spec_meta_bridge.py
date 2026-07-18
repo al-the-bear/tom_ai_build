@@ -29,7 +29,6 @@ from .spec_meta import (
     SomMetaKind,
     SomMetaNode,
     SomMetaTree,
-    SomSecondLevelId,
 )
 from .spec_model import (
     SpecAnnotation,
@@ -55,7 +54,6 @@ _SLOTTED_ANNOTATIONS = {
     "Document",
     "MapsTo",
     "DetailedIn",
-    "SecondLevelSectionId",
 }
 
 
@@ -91,7 +89,6 @@ def build_som_meta_tree(
             description=root.description or "",
             based_on=_based_on(cls),
         ),
-        second_level_ids=_second_level_ids(cls.annotations if cls else []),
         extra=_extras(cls.annotations if cls else []),
         children=[] if cls is None else _child_nodes(model, cls, {root.type}),
     )
@@ -219,7 +216,6 @@ def _field_node(
         form=form,
         maps_to=target.maps_to if target else None,
         detailed_in=target.detailed_in if target else None,
-        second_level_ids=_second_level_ids(field.annotations),
         extra=_extras(field.annotations),
         recursive=recursive,
         children=children,
@@ -236,19 +232,6 @@ _KIND_OF = {
     SpecFieldKind.COMPLEX: SomMetaKind.COMPLEX,
     SpecFieldKind.SCALAR: SomMetaKind.SCALAR,
 }
-
-
-def _second_level_ids(
-    annotations: list[SpecAnnotation],
-) -> list[SomSecondLevelId]:
-    return [
-        SomSecondLevelId(
-            document_class=str(a.argument("documentClass") or ""),
-            id=str(a.argument("id") or ""),
-        )
-        for a in annotations
-        if a.name == "SecondLevelSectionId"
-    ]
 
 
 def _extras(annotations: list[SpecAnnotation]) -> list[SomMetaExtra]:

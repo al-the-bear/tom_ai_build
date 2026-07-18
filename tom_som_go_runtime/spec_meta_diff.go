@@ -81,9 +81,6 @@ func somMetaNodeDiffAt(a, b *SomMetaNode, at string) string {
 		func() string { return diff("recursive", a.Recursive, b.Recursive) },
 		func() string { return metaFormDiff(at, a.Form, b.Form) },
 		func() string { return metaDocumentDiff(at, a.Document, b.Document) },
-		func() string {
-			return metaSecondLevelDiff(at, a.SecondLevelIds, b.SecondLevelIds)
-		},
 		func() string { return metaExtraDiff(at, a.Extra, b.Extra) },
 	}
 	for _, check := range checks {
@@ -190,19 +187,6 @@ func metaDocumentDiff(at string, a, b *SomDocMeta) string {
 	if !stringListEq(a.BasedOn, b.BasedOn) {
 		return at + ": document.basedOn differs — " +
 			jsonRepr(a.BasedOn) + " != " + jsonRepr(b.BasedOn)
-	}
-	return ""
-}
-
-func metaSecondLevelDiff(at string, a, b []*SomSecondLevelId) string {
-	if len(a) != len(b) {
-		return fmt.Sprintf("%s: secondLevelIds count differs — %d != %d",
-			at, len(a), len(b))
-	}
-	for i := range a {
-		if a[i].DocumentClass != b[i].DocumentClass || a[i].ID != b[i].ID {
-			return fmt.Sprintf("%s: secondLevelIds[%d] differs", at, i)
-		}
 	}
 	return ""
 }

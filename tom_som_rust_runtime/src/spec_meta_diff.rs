@@ -21,7 +21,6 @@
 use crate::json::{encode_str, Json};
 use crate::spec_meta::{
     SomContentTypeMeta, SomDocMeta, SomFormMeta, SomMetaExtra, SomMetaNode,
-    SomSecondLevelId,
 };
 
 /// Compares the `a` and `b` subtrees field by field (annotations, names,
@@ -124,10 +123,6 @@ fn som_meta_node_diff_at(a: &SomMetaNode, b: &SomMetaNode, at: &str) -> String {
         return d;
     }
     let d = meta_document_diff(at, &a.document, &b.document);
-    if !d.is_empty() {
-        return d;
-    }
-    let d = meta_second_level_diff(at, &a.second_level_ids, &b.second_level_ids);
     if !d.is_empty() {
         return d;
     }
@@ -252,27 +247,6 @@ fn meta_document_diff(at: &str, a: &Option<SomDocMeta>, b: &Option<SomDocMeta>) 
             json_repr_strings(&da.based_on),
             json_repr_strings(&db.based_on)
         );
-    }
-    String::new()
-}
-
-fn meta_second_level_diff(
-    at: &str,
-    a: &[SomSecondLevelId],
-    b: &[SomSecondLevelId],
-) -> String {
-    if a.len() != b.len() {
-        return format!(
-            "{}: secondLevelIds count differs — {} != {}",
-            at,
-            a.len(),
-            b.len()
-        );
-    }
-    for (i, (x, y)) in a.iter().zip(b.iter()).enumerate() {
-        if x.document_class != y.document_class || x.id != y.id {
-            return format!("{}: secondLevelIds[{}] differs", at, i);
-        }
     }
     String::new()
 }

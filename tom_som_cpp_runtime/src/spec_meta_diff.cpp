@@ -340,23 +340,6 @@ std::string metaDocumentDiff(const std::string& at,
   return "";
 }
 
-std::string metaSecondLevelDiff(const std::string& at,
-                                const std::vector<SomSecondLevelId>& a,
-                                const std::vector<SomSecondLevelId>& b) {
-  if (a.size() != b.size()) {
-    return at + ": secondLevelIds count differs " + kDash + " " +
-           formatI64(static_cast<long long>(a.size())) + " != " +
-           formatI64(static_cast<long long>(b.size()));
-  }
-  for (std::size_t i = 0; i < a.size(); i++) {
-    if (a[i].documentClass != b[i].documentClass || a[i].id != b[i].id) {
-      return at + ": secondLevelIds[" + formatI64(static_cast<long long>(i)) +
-             "] differs";
-    }
-  }
-  return "";
-}
-
 std::string metaExtraDiff(const std::string& at,
                           const std::vector<SomMetaExtra>& a,
                           const std::vector<SomMetaExtra>& b) {
@@ -426,7 +409,6 @@ std::string diffAt(const SomMetaNode& a, const SomMetaNode& b,
   CHECK(diffField(at, "recursive", mvBool(a.recursive), mvBool(b.recursive)));
   CHECK(metaFormDiff(at, a.form, b.form));
   CHECK(metaDocumentDiff(at, a.document, b.document));
-  CHECK(metaSecondLevelDiff(at, a.secondLevelIds, b.secondLevelIds));
   CHECK(metaExtraDiff(at, a.extra, b.extra));
 
   if (a.children.size() != b.children.size()) {

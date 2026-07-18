@@ -9,7 +9,7 @@ document's structure:
   * :class:`SomMetaNode` — one node per navigable model position (§3.1), with
     section id / pattern, kind, serialization order, ``@Min``, content type,
     help/comment/doc texts, form metadata, traceability links
-    (``@MapsTo`` / ``@DetailedIn`` / ``@SecondLevelSectionId``) and the lossless
+    (``@MapsTo`` / ``@DetailedIn``) and the lossless
     ``extra`` annotation list;
   * :class:`SomMetaTree` — wires parent links and absolute paths (the §4 path
     grammar shared with ``spec_paths``) and provides the two dynamic lookups
@@ -133,16 +133,6 @@ class SomDocMeta:
         self.based_on = based_on if based_on is not None else []
 
 
-class SomSecondLevelId:
-    """One ``@SecondLevelSectionId(documentClass, id)`` entry (DR1 §3.1)."""
-
-    def __init__(self, document_class: str, id: str) -> None:
-        #: The document class the second-level id applies within.
-        self.document_class = document_class
-        #: The section id used in that document.
-        self.id = id
-
-
 class SomMetaExtra:
     """One annotation captured losslessly into the generic ``extra`` list —
     annotations the tree defines no dedicated slot for (DR1 §3.1 note), e.g.
@@ -191,7 +181,6 @@ class SomMetaNode:
         document: Optional[SomDocMeta] = None,
         maps_to: Optional[str] = None,
         detailed_in: Optional[str] = None,
-        second_level_ids: Optional[list[SomSecondLevelId]] = None,
         extra: Optional[list[SomMetaExtra]] = None,
         recursive: bool = False,
         children: Optional[list["SomMetaNode"]] = None,
@@ -252,10 +241,6 @@ class SomMetaNode:
         self.maps_to = maps_to
         #: ``@DetailedIn`` target class name, when annotated.
         self.detailed_in = detailed_in
-        #: ``@SecondLevelSectionId`` entries, when annotated.
-        self.second_level_ids = (
-            second_level_ids if second_level_ids is not None else []
-        )
         #: Annotations without a dedicated slot, captured losslessly.
         self.extra = extra if extra is not None else []
         #: Whether this node is a recursive re-entry reference (a class already

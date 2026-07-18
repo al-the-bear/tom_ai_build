@@ -69,7 +69,6 @@ const Set<String> _slottedAnnotations = {
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 };
 
 /// Accessor method names a generated Nav/Id class must never emit: the
@@ -159,7 +158,6 @@ class SomJavaMetaEmitter {
       ..writeln('import tom_som_runtime.SomMetaNode;')
       ..writeln('import tom_som_runtime.SomMetaRef;')
       ..writeln('import tom_som_runtime.SomMetaTree;')
-      ..writeln('import tom_som_runtime.SomSecondLevelId;')
       ..writeln()
       ..writeln('/** The generated SOM metadata module: populated metadata '
           'trees plus the dot-notation and ID-tree access surfaces. */')
@@ -431,8 +429,6 @@ class SomJavaMetaEmitter {
     if (target?.detailedIn != null) {
       add('detailedIn', _str(target!.detailedIn!));
     }
-    final secondLevel = _secondLevelIdsExpr(f.annotations);
-    if (secondLevel != null) add('secondLevelIds', secondLevel);
     final extra = _extrasExpr(f.annotations);
     if (extra != null) add('extra', extra);
 
@@ -500,17 +496,6 @@ class SomJavaMetaEmitter {
       ..writeln('$_i3}');
   }
 
-  String? _secondLevelIdsExpr(List<SpecAnnotation> annotations) {
-    final entries = [
-      for (final a in annotations)
-        if (a.name == 'SecondLevelSectionId')
-          'new SomSecondLevelId('
-              "${_str('${a.argument('documentClass') ?? ''}')}, "
-              "${_str('${a.argument('id') ?? ''}')})",
-    ];
-    return entries.isEmpty ? null : 'Arrays.asList(${entries.join(', ')})';
-  }
-
   String? _extrasExpr(List<SpecAnnotation> annotations) {
     final entries = [
       for (final a in annotations)
@@ -567,10 +552,6 @@ class SomJavaMetaEmitter {
         : 'Arrays.asList(${basedOn.map(_str).join(', ')})';
     b.writeln('${_i2}n.document = new SomDocMeta(${_str(root.title)}, '
         '${_str(root.description ?? '')}, $basedOnExpr);');
-    final secondLevel = _secondLevelIdsExpr(cls?.annotations ?? const []);
-    if (secondLevel != null) {
-      b.writeln('${_i2}n.secondLevelIds = $secondLevel;');
-    }
     final extra = _extrasExpr(cls?.annotations ?? const []);
     if (extra != null) b.writeln('${_i2}n.extra = $extra;');
     if (cls != null) {

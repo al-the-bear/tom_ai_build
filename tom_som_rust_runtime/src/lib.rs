@@ -63,7 +63,7 @@ pub use spec_document_yaml::{
 };
 pub use spec_meta::{
     SomContentTypeMeta, SomDocMeta, SomFormFieldMeta, SomFormMeta, SomListMetaRef, SomMetaExtra,
-    SomMetaNode, SomMetaRef, SomMetaTree, SomSecondLevelId, SOM_META_KIND_COMPLEX,
+    SomMetaNode, SomMetaRef, SomMetaTree, SOM_META_KIND_COMPLEX,
     SOM_META_KIND_CONTENT, SOM_META_KIND_ENUM_VALUE, SOM_META_KIND_FORM, SOM_META_KIND_LIST,
     SOM_META_KIND_SCALAR, SOM_META_KIND_SECTION,
 };

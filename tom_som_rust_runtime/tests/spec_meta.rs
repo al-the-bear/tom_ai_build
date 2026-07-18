@@ -33,7 +33,7 @@ use std::rc::Rc;
 use tom_som_rust_runtime::json::Json;
 use tom_som_rust_runtime::spec_meta::{
     SomContentTypeMeta, SomDocMeta, SomFormFieldMeta, SomFormMeta, SomMetaExtra, SomMetaNode,
-    SomMetaTree, SomSecondLevelId, SOM_META_KIND_COMPLEX, SOM_META_KIND_CONTENT,
+    SomMetaTree, SOM_META_KIND_COMPLEX, SOM_META_KIND_CONTENT,
     SOM_META_KIND_ENUM_VALUE, SOM_META_KIND_FORM, SOM_META_KIND_LIST, SOM_META_KIND_SCALAR,
     SOM_META_KIND_SECTION,
 };
@@ -156,10 +156,6 @@ fn meta_fixture_tree() -> SomMetaTree {
                 comment: "Keep this short.".to_string(),
                 maps_to: "CurrentLandscape".to_string(),
                 detailed_in: "D01RequirementsSpecification".to_string(),
-                second_level_ids: vec![SomSecondLevelId {
-                    document_class: "D01RequirementsSpecification".to_string(),
-                    id: "RS-INSC".to_string(),
-                }],
                 children: vec![
                     Rc::new(SomMetaNode {
                         class_name: "IntroductionAndScope".to_string(),
@@ -438,13 +434,6 @@ fn meta_test_metadata_slots(c: &mut Checker) {
     c.check(
         "slots.insc.detailedIn",
         insc.detailed_in == "D01RequirementsSpecification",
-        "",
-    );
-    c.check(
-        "slots.insc.secondLevel",
-        insc.second_level_ids.len() == 1
-            && insc.second_level_ids[0].document_class == "D01RequirementsSpecification"
-            && insc.second_level_ids[0].id == "RS-INSC",
         "",
     );
     c.check("slots.insc.order", insc.serialization_order == Some(1), "");

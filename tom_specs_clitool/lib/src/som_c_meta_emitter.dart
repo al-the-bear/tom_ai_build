@@ -60,7 +60,6 @@ const Set<String> _slottedAnnotations = {
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 };
 
 /// Emits the C source of the generated metadata module (see the library doc
@@ -639,7 +638,6 @@ class SomCMetaEmitter {
       b.writeln('\tmeta_set(&n->detailed_in, '
           '"${_cStr(target!.detailedIn!)}");');
     }
-    _emitSecondLevel(b, f.annotations);
     _emitExtras(b, f.annotations);
   }
 
@@ -703,28 +701,6 @@ class SomCMetaEmitter {
               '"${_cStr(ff.enumValues[j])}");');
         }
       }
-    }
-  }
-
-  void _emitSecondLevel(StringBuffer b, List<SpecAnnotation> annotations) {
-    final entries = [
-      for (final a in annotations)
-        if (a.name == 'SecondLevelSectionId')
-          [
-            '${a.argument('documentClass') ?? ''}',
-            '${a.argument('id') ?? ''}',
-          ],
-    ];
-    if (entries.isEmpty) return;
-    b.writeln('\tn->second_level_ids_len = ${entries.length};');
-    b.writeln('\tn->second_level_ids = (SomSecondLevelId *)calloc('
-        '${entries.length}, sizeof(SomSecondLevelId));');
-    for (var i = 0; i < entries.length; i++) {
-      b
-        ..writeln('\tn->second_level_ids[$i].document_class = som_strdup('
-            '"${_cStr(entries[i][0])}");')
-        ..writeln('\tn->second_level_ids[$i].id = som_strdup('
-            '"${_cStr(entries[i][1])}");');
     }
   }
 
@@ -803,7 +779,6 @@ class SomCMetaEmitter {
       b.writeln('\tsom_strlist_push_copy(&n->document->based_on, '
           '"${_cStr(base)}");');
     }
-    _emitSecondLevel(b, cls?.annotations ?? const []);
     _emitExtras(b, cls?.annotations ?? const []);
     if (cls != null) {
       b

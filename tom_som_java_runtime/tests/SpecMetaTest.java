@@ -10,7 +10,6 @@ import tom_som_runtime.SomMetaExtra;
 import tom_som_runtime.SomMetaKind;
 import tom_som_runtime.SomMetaNode;
 import tom_som_runtime.SomMetaTree;
-import tom_som_runtime.SomSecondLevelId;
 
 /**
  * DR4 metadata-core tests — a port of
@@ -123,8 +122,6 @@ public final class SpecMetaTest {
     insc.comment = "Keep this short.";
     insc.mapsTo = "CurrentLandscape";
     insc.detailedIn = "D01RequirementsSpecification";
-    insc.secondLevelIds =
-        List.of(new SomSecondLevelId("D01RequirementsSpecification", "RS-INSC"));
     insc.children = List.of(summary, goals);
 
     SomMetaNode doco =
@@ -303,12 +300,6 @@ public final class SpecMetaTest {
     check(
         "slots.insc.detailedIn",
         "D01RequirementsSpecification".equals(insc.detailedIn),
-        "");
-    check(
-        "slots.insc.secondLevel",
-        insc.secondLevelIds.size() == 1
-            && "D01RequirementsSpecification".equals(insc.secondLevelIds.get(0).documentClass)
-            && "RS-INSC".equals(insc.secondLevelIds.get(0).id),
         "");
     check(
         "slots.insc.order",

@@ -19,7 +19,6 @@ from .spec_meta import (
     SomFormMeta,
     SomMetaExtra,
     SomMetaNode,
-    SomSecondLevelId,
 )
 
 
@@ -72,7 +71,6 @@ def som_meta_node_diff(
         lambda: diff("recursive", a.recursive, b.recursive),
         lambda: _form_diff(at, a.form, b.form),
         lambda: _document_diff(at, a.document, b.document),
-        lambda: _second_level_diff(at, a.second_level_ids, b.second_level_ids),
         lambda: _extra_diff(at, a.extra, b.extra),
     ]
     for check in checks:
@@ -151,19 +149,6 @@ def _document_diff(
         return (
             f"{at}: document.basedOn differs — {a.based_on} != {b.based_on}"
         )
-    return None
-
-
-def _second_level_diff(
-    at: str, a: list[SomSecondLevelId], b: list[SomSecondLevelId]
-) -> Optional[str]:
-    if len(a) != len(b):
-        return (
-            f"{at}: secondLevelIds count differs — {len(a)} != {len(b)}"
-        )
-    for i, (ea, eb) in enumerate(zip(a, b)):
-        if ea.document_class != eb.document_class or ea.id != eb.id:
-            return f"{at}: secondLevelIds[{i}] differs"
     return None
 
 

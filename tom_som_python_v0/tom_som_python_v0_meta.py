@@ -17,7 +17,6 @@ from tom_som_runtime import (
     SomMetaNode,
     SomMetaRef,
     SomMetaTree,
-    SomSecondLevelId,
 )
 
 def _cx(cls, stack, kids, make):

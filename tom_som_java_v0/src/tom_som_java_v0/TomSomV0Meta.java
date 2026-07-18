@@ -27,7 +27,6 @@ import tom_som_runtime.SomMetaKind;
 import tom_som_runtime.SomMetaNode;
 import tom_som_runtime.SomMetaRef;
 import tom_som_runtime.SomMetaTree;
-import tom_som_runtime.SomSecondLevelId;
 
 /** The generated SOM metadata module: populated metadata trees plus the dot-notation and ID-tree access surfaces. */
 public final class TomSomV0Meta {

@@ -17,7 +17,6 @@ import {
   SomFormMeta,
   SomMetaExtra,
   SomMetaNode,
-  SomSecondLevelId,
 } from './spec_meta';
 
 /**
@@ -70,7 +69,6 @@ export function somMetaNodeDiff(
     () => diff('recursive', a.recursive, b.recursive),
     () => _formDiff(at, a.form, b.form),
     () => _documentDiff(at, a.document, b.document),
-    () => _secondLevelDiff(at, a.secondLevelIds, b.secondLevelIds),
     () => _extraDiff(at, a.extra, b.extra),
   ];
   for (const check of checks) {
@@ -175,22 +173,6 @@ function _documentDiff(
       `${at}: document.basedOn differs — ` +
       `${JSON.stringify(a.basedOn)} != ${JSON.stringify(b.basedOn)}`
     );
-  }
-  return null;
-}
-
-function _secondLevelDiff(
-  at: string,
-  a: SomSecondLevelId[],
-  b: SomSecondLevelId[],
-): string | null {
-  if (a.length !== b.length) {
-    return `${at}: secondLevelIds count differs — ${a.length} != ${b.length}`;
-  }
-  for (let i = 0; i < a.length; i++) {
-    if (a[i].documentClass !== b[i].documentClass || a[i].id !== b[i].id) {
-      return `${at}: secondLevelIds[${i}] differs`;
-    }
   }
   return null;
 }

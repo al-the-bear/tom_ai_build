@@ -138,10 +138,6 @@ public final class SpecMetaDiff {
     if (!d.isEmpty()) {
       return d;
     }
-    d = metaSecondLevelDiff(at, a.secondLevelIds, b.secondLevelIds);
-    if (!d.isEmpty()) {
-      return d;
-    }
     d = metaExtraDiff(at, a.extra, b.extra);
     if (!d.isEmpty()) {
       return d;
@@ -254,22 +250,6 @@ public final class SpecMetaDiff {
           + jsonRepr(a.basedOn)
           + " != "
           + jsonRepr(b.basedOn);
-    }
-    return "";
-  }
-
-  private static String metaSecondLevelDiff(
-      String at, List<SomSecondLevelId> a, List<SomSecondLevelId> b) {
-    List<SomSecondLevelId> al = a != null ? a : new ArrayList<>();
-    List<SomSecondLevelId> bl = b != null ? b : new ArrayList<>();
-    if (al.size() != bl.size()) {
-      return at + ": secondLevelIds count differs — " + al.size() + " != " + bl.size();
-    }
-    for (int i = 0; i < al.size(); i++) {
-      if (!Objects.equals(al.get(i).documentClass, bl.get(i).documentClass)
-          || !Objects.equals(al.get(i).id, bl.get(i).id)) {
-        return at + ": secondLevelIds[" + i + "] differs";
-      }
     }
     return "";
   }

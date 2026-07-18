@@ -52,7 +52,6 @@ const Set<String> _slottedAnnotations = {
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 };
 
 /// Getter names a generated accessor class must never emit: the instance
@@ -118,7 +117,6 @@ class SomJavaScriptMetaEmitter {
       ..writeln('  SomMetaNode,')
       ..writeln('  SomMetaRef,')
       ..writeln('  SomMetaTree,')
-      ..writeln('  SomSecondLevelId,')
       ..writeln('} = require(_path.resolve(__dirname, '
           '_manifest.tomSom.runtimePath));')
       ..writeln();
@@ -347,8 +345,6 @@ class SomJavaScriptMetaEmitter {
     if (target?.detailedIn != null) {
       add('detailedIn', _str(target!.detailedIn!));
     }
-    final secondLevel = _secondLevelIdsExpr(f.annotations);
-    if (secondLevel != null) add('secondLevelIds', secondLevel);
     final extra = _extrasExpr(f.annotations);
     if (extra != null) add('extra', extra);
 
@@ -388,17 +384,6 @@ class SomJavaScriptMetaEmitter {
           '$indent    recursive: r,\n$indent    children: c}))';
     }
     return '$indent new SomMetaNode({\n$indent  $body})';
-  }
-
-  String? _secondLevelIdsExpr(List<SpecAnnotation> annotations) {
-    final entries = [
-      for (final a in annotations)
-        if (a.name == 'SecondLevelSectionId')
-          'new SomSecondLevelId('
-              "${_str('${a.argument('documentClass') ?? ''}')}, "
-              "${_str('${a.argument('id') ?? ''}')})",
-    ];
-    return entries.isEmpty ? null : '[${entries.join(', ')}]';
   }
 
   String? _extrasExpr(List<SpecAnnotation> annotations) {
@@ -443,8 +428,6 @@ class SomJavaScriptMetaEmitter {
     args.add('document: new SomDocMeta({name: ${_str(root.title)}, '
         'description: ${_str(root.description ?? '')}'
         '${basedOn.isEmpty ? '' : ', basedOn: [${basedOn.map(_str).join(', ')}]'}})');
-    final secondLevel = _secondLevelIdsExpr(cls?.annotations ?? const []);
-    if (secondLevel != null) args.add('secondLevelIds: $secondLevel');
     final extra = _extrasExpr(cls?.annotations ?? const []);
     if (extra != null) args.add('extra: $extra');
     args.add(cls == null

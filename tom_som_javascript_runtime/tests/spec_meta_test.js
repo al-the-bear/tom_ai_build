@@ -39,7 +39,6 @@ const {
   SomMetaKind,
   SomMetaNode,
   SomMetaTree,
-  SomSecondLevelId,
 } = require('../tom_som_runtime');
 
 let _passed = 0;
@@ -141,9 +140,6 @@ function buildFixtureTree() {
         comment: 'Keep this short.',
         mapsTo: 'CurrentLandscape',
         detailedIn: 'D01RequirementsSpecification',
-        secondLevelIds: [
-          new SomSecondLevelId('D01RequirementsSpecification', 'RS-INSC'),
-        ],
         children: [
           new SomMetaNode({
             className: 'IntroductionAndScope',
@@ -354,12 +350,6 @@ function testMetadataSlots() {
   _check(
     'slots.insc.detailedIn',
     insc.detailedIn === 'D01RequirementsSpecification',
-  );
-  _check(
-    'slots.insc.secondLevel',
-    insc.secondLevelIds.length === 1 &&
-      insc.secondLevelIds[0].documentClass === 'D01RequirementsSpecification' &&
-      insc.secondLevelIds[0].id === 'RS-INSC',
   );
   _check('slots.insc.order', insc.serializationOrder === 1);
 

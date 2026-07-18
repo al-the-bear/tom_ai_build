@@ -30,7 +30,6 @@ const {
   SomMetaKind,
   SomMetaNode,
   SomMetaTree,
-  SomSecondLevelId,
 } = require('./spec_meta');
 const { SpecFieldKind } = require('./spec_model');
 
@@ -52,7 +51,6 @@ const _SLOTTED_ANNOTATIONS = new Set([
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 ]);
 
 const _KIND_OF = Object.freeze({
@@ -103,7 +101,6 @@ function buildSomMetaTree(model, rootType = null) {
       description: root.description != null ? root.description : '',
       basedOn: _basedOn(cls),
     }),
-    secondLevelIds: _secondLevelIds(cls !== null ? cls.annotations : []),
     extra: _extras(cls !== null ? cls.annotations : []),
     children: cls === null ? [] : _childNodes(model, cls, new Set([root.type])),
   });
@@ -235,24 +232,11 @@ function _fieldNode(model, owner, field, stack) {
     form,
     mapsTo: target !== null ? target.mapsTo : null,
     detailedIn: target !== null ? target.detailedIn : null,
-    secondLevelIds: _secondLevelIds(field.annotations),
     extra: _extras(field.annotations),
     recursive,
     children,
     elementNode,
   });
-}
-
-function _secondLevelIds(annotations) {
-  return annotations
-    .filter((a) => a.name === 'SecondLevelSectionId')
-    .map(
-      (a) =>
-        new SomSecondLevelId(
-          String(a.argument('documentClass') || ''),
-          String(a.argument('id') || ''),
-        ),
-    );
 }
 
 function _extras(annotations) {

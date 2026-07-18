@@ -105,7 +105,6 @@ std::unique_ptr<som::SomMetaTree> metaFixtureTree() {
   insc->comment = "Keep this short.";
   insc->mapsTo = "CurrentLandscape";
   insc->detailedIn = "D01RequirementsSpecification";
-  insc->secondLevelIds.push_back({"D01RequirementsSpecification", "RS-INSC"});
   {
     auto summary = mk("IntroductionAndScope", "summary", "", kSomMetaKindContent,
                       "String");
@@ -289,11 +288,6 @@ void metaTestMetadataSlots() {
   check("slots.insc.comment", insc->comment == "Keep this short.");
   check("slots.insc.mapsTo", insc->mapsTo == "CurrentLandscape");
   check("slots.insc.detailedIn", insc->detailedIn == "D01RequirementsSpecification");
-  check("slots.insc.secondLevel",
-        insc->secondLevelIds.size() == 1 &&
-            insc->secondLevelIds[0].documentClass ==
-                "D01RequirementsSpecification" &&
-            insc->secondLevelIds[0].id == "RS-INSC");
   check("slots.insc.order",
         insc->hasSerializationOrder && insc->serializationOrder == 1);
 

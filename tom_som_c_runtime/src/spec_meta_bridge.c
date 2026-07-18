@@ -12,7 +12,7 @@ static const char *const slotted_annotations[] = {
     "Min",        "Unused",           "ContentType",
     "ContentHelp", "Headline",         "Comment",
     "Form",       "Document",         "MapsTo",
-    "DetailedIn", "SecondLevelSectionId",
+    "DetailedIn",
 };
 
 static int is_slotted(const char *name) {
@@ -61,23 +61,6 @@ static char *bridge_str(const SomJson *v) {
     return som_strdup(v->as.boolean ? "true" : "false");
   default:
     return som_strdup("");
-  }
-}
-
-static void bridge_second_level_ids(const SpecAnnotationList *annotations,
-                                    SomMetaNode *node) {
-  for (size_t i = 0; i < annotations->len; i++) {
-    const SpecAnnotation *a = &annotations->items[i];
-    if (strcmp(a->name, "SecondLevelSectionId") != 0) {
-      continue;
-    }
-    node->second_level_ids =
-        realloc(node->second_level_ids,
-                (node->second_level_ids_len + 1) * sizeof(SomSecondLevelId));
-    SomSecondLevelId *entry = &node->second_level_ids[node->second_level_ids_len++];
-    entry->document_class =
-        bridge_str(spec_annotation_argument(a, "documentClass"));
-    entry->id = bridge_str(spec_annotation_argument(a, "id"));
   }
 }
 
@@ -274,7 +257,6 @@ static SomMetaNode *bridge_field_node(const SpecModel *model,
   set_str(&node->headline, field->headline[0] != '\0'
                                ? field->headline
                                : (target != NULL ? target->headline : ""));
-  bridge_second_level_ids(&field->annotations, node);
   bridge_extras(&field->annotations, node);
   return node;
 }
@@ -323,7 +305,6 @@ SomMetaTree *som_build_meta_tree(const SpecModel *model, const char *root_type,
     set_str(&node->class_doc_comment, cls->doc);
     set_str(&node->maps_to, cls->maps_to);
     set_str(&node->detailed_in, cls->detailed_in);
-    bridge_second_level_ids(&cls->annotations, node);
     bridge_extras(&cls->annotations, node);
     SomStrList stack;
     som_strlist_init(&stack);

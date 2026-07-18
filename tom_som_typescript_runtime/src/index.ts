@@ -84,7 +84,6 @@ export {
   SomFormFieldMeta,
   SomFormMeta,
   SomDocMeta,
-  SomSecondLevelId,
   SomMetaExtra,
   SomMetaNode,
   SomMetaTree,

@@ -10,7 +10,7 @@
  *   - SomMetaNode — one node per navigable model position (§3.1), with section
  *     id / pattern, kind, serialization order, @Min, content type,
  *     help/comment/doc texts, form metadata, traceability links
- *     (@MapsTo / @DetailedIn / @SecondLevelSectionId) and the lossless extra
+ *     (@MapsTo / @DetailedIn) and the lossless extra
  *     annotation list;
  *   - SomMetaTree — wires parent links and absolute paths (the §4 path grammar
  *     shared with spec_paths) and provides the two dynamic lookups every
@@ -97,13 +97,6 @@ typedef struct {
   SomStrList based_on; /* class names of the documents this one is based on */
 } SomDocMeta;
 
-/* SomSecondLevelId is one @SecondLevelSectionId(documentClass, id) entry
- * (DR1 §3.1). */
-typedef struct {
-  char *document_class; /* the document class the id applies within */
-  char *id;             /* the section id used in that document */
-} SomSecondLevelId;
-
 /* SomMetaExtra is one annotation captured losslessly into the generic extra
  * list — annotations the tree defines no dedicated slot for (DR1 §3.1 note),
  * e.g. @Max, @MinLength, @PatternCheck, @TextRequired. */
@@ -155,8 +148,6 @@ struct SomMetaNode {
   SomDocMeta *document; /* @Document metadata; non-NULL only on the root */
   char *maps_to;      /* @MapsTo target class name, "" when unannotated */
   char *detailed_in;  /* @DetailedIn target class name, "" when unannotated */
-  SomSecondLevelId *second_level_ids; /* @SecondLevelSectionId entries */
-  size_t second_level_ids_len;
   SomMetaExtra *extra; /* annotations without a dedicated slot */
   size_t extra_len;
   int recursive;      /* recursive re-entry reference (a class already on the

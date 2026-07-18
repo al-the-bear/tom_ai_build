@@ -140,12 +140,6 @@ static SomMetaTree *meta_fixture_tree(void) {
   set_str(&insc->comment, "Keep this short.");
   set_str(&insc->maps_to, "CurrentLandscape");
   set_str(&insc->detailed_in, "D01RequirementsSpecification");
-  insc->second_level_ids =
-      (SomSecondLevelId *)calloc(1, sizeof(SomSecondLevelId));
-  insc->second_level_ids_len = 1;
-  insc->second_level_ids[0].document_class =
-      som_strdup("D01RequirementsSpecification");
-  insc->second_level_ids[0].id = som_strdup("RS-INSC");
   {
     SomMetaNode *summary = mk("IntroductionAndScope", "summary", "",
                               SOM_META_KIND_CONTENT, "String");
@@ -392,12 +386,6 @@ static void meta_test_metadata_slots(void) {
   check("slots.insc.mapsTo", str_eq(insc->maps_to, "CurrentLandscape"), "");
   check("slots.insc.detailedIn",
         str_eq(insc->detailed_in, "D01RequirementsSpecification"), "");
-  check("slots.insc.secondLevel",
-        insc->second_level_ids_len == 1 &&
-            str_eq(insc->second_level_ids[0].document_class,
-                   "D01RequirementsSpecification") &&
-            str_eq(insc->second_level_ids[0].id, "RS-INSC"),
-        "");
   check("slots.insc.order",
         insc->has_serialization_order && insc->serialization_order == 1, "");
 

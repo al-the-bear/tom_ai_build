@@ -105,11 +105,6 @@ static void free_node_contents(SomMetaNode *n) {
     som_strlist_free(&n->document->based_on);
     free(n->document);
   }
-  for (size_t i = 0; i < n->second_level_ids_len; i++) {
-    free(n->second_level_ids[i].document_class);
-    free(n->second_level_ids[i].id);
-  }
-  free(n->second_level_ids);
   for (size_t i = 0; i < n->extra_len; i++) {
     free(n->extra[i].annotation);
   }

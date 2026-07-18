@@ -12,7 +12,7 @@ package somruntime
 //   - SomMetaNode — one node per navigable model position (§3.1), with section
 //     id / pattern, kind, serialization order, @Min, content type,
 //     help/comment/doc texts, form metadata, traceability links
-//     (@MapsTo / @DetailedIn / @SecondLevelSectionId) and the lossless Extra
+//     (@MapsTo / @DetailedIn) and the lossless Extra
 //     annotation list;
 //   - SomMetaTree — wires parent links and absolute paths (the §4 path grammar
 //     shared with spec_paths.go) and provides the two dynamic lookups every
@@ -115,15 +115,6 @@ type SomDocMeta struct {
 	BasedOn []string
 }
 
-// SomSecondLevelId is one @SecondLevelSectionId(documentClass, id) entry
-// (DR1 §3.1).
-type SomSecondLevelId struct {
-	// DocumentClass is the document class the second-level id applies within.
-	DocumentClass string
-	// ID is the section id used in that document.
-	ID string
-}
-
 // SomMetaExtra is one annotation captured losslessly into the generic Extra
 // list — annotations the tree defines no dedicated slot for (DR1 §3.1 note),
 // e.g. @Max, @MinLength, @PatternCheck, @TextRequired.
@@ -202,8 +193,6 @@ type SomMetaNode struct {
 	MapsTo string
 	// DetailedIn is the @DetailedIn target class name, "" when unannotated.
 	DetailedIn string
-	// SecondLevelIds holds @SecondLevelSectionId entries, when annotated.
-	SecondLevelIds []*SomSecondLevelId
 	// Extra holds annotations without a dedicated slot, captured losslessly.
 	Extra []*SomMetaExtra
 	// Recursive is whether this node is a recursive re-entry reference (a

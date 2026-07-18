@@ -22,7 +22,7 @@ use std::rc::Rc;
 use crate::json::Json;
 use crate::spec_meta::{
     SomContentTypeMeta, SomDocMeta, SomFormFieldMeta, SomFormMeta, SomMetaExtra, SomMetaNode,
-    SomMetaTree, SomSecondLevelId, SOM_META_KIND_COMPLEX, SOM_META_KIND_SECTION,
+    SomMetaTree, SOM_META_KIND_COMPLEX, SOM_META_KIND_SECTION,
 };
 use crate::spec_model::{
     SpecAnnotation, SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_COMPLEX,
@@ -47,7 +47,6 @@ fn is_slotted_annotation(name: &str) -> bool {
             | "Document"
             | "MapsTo"
             | "DetailedIn"
-            | "SecondLevelSectionId"
     )
 }
 
@@ -111,7 +110,6 @@ pub fn build_som_meta_tree(model: &SpecModel, root_type: &str) -> Result<SomMeta
             description: root.description.clone(),
             based_on: bridge_based_on(cls),
         }),
-        second_level_ids: bridge_second_level_ids(annotations),
         extra: bridge_extras(annotations),
         children,
         ..SomMetaNode::default()
@@ -313,24 +311,12 @@ fn bridge_field_node(
         form,
         maps_to,
         detailed_in,
-        second_level_ids: bridge_second_level_ids(&field.annotations),
         extra: bridge_extras(&field.annotations),
         recursive,
         children,
         element_node,
         ..SomMetaNode::default()
     }
-}
-
-fn bridge_second_level_ids(annotations: &[SpecAnnotation]) -> Vec<SomSecondLevelId> {
-    annotations
-        .iter()
-        .filter(|a| a.name == "SecondLevelSectionId")
-        .map(|a| SomSecondLevelId {
-            document_class: a.argument("documentClass").map(bridge_str).unwrap_or_default(),
-            id: a.argument("id").map(bridge_str).unwrap_or_default(),
-        })
-        .collect()
 }
 
 fn bridge_extras(annotations: &[SpecAnnotation]) -> Vec<SomMetaExtra> {

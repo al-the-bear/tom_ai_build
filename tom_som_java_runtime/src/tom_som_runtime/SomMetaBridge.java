@@ -49,8 +49,7 @@ public final class SomMetaBridge {
               "Form",
               "Document",
               "MapsTo",
-              "DetailedIn",
-              "SecondLevelSectionId"));
+              "DetailedIn"));
 
   /**
    * Builds the wired {@link SomMetaTree} for one document root of
@@ -109,7 +108,6 @@ public final class SomMetaBridge {
     rootNode.document =
         new SomDocMeta(
             root.title, root.description != null ? root.description : "", basedOn(cls));
-    rootNode.secondLevelIds = secondLevelIds(annotations);
     rootNode.extra = extras(annotations);
     rootNode.children = children;
     return new SomMetaTree(rootNode);
@@ -294,23 +292,11 @@ public final class SomMetaBridge {
     node.form = form;
     node.mapsTo = mapsTo;
     node.detailedIn = detailedIn;
-    node.secondLevelIds = secondLevelIds(field.annotations);
     node.extra = extras(field.annotations);
     node.recursive = recursive;
     node.children = children;
     node.elementNode = elementNode;
     return node;
-  }
-
-  private static List<SomSecondLevelId> secondLevelIds(List<SpecAnnotation> annotations) {
-    List<SomSecondLevelId> out = new ArrayList<>();
-    for (SpecAnnotation a : annotations) {
-      if (!a.name.equals("SecondLevelSectionId")) {
-        continue;
-      }
-      out.add(new SomSecondLevelId(str(a.argument("documentClass")), str(a.argument("id"))));
-    }
-    return out;
   }
 
   private static List<SomMetaExtra> extras(List<SpecAnnotation> annotations) {

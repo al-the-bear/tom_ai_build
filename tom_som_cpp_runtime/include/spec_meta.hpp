@@ -10,7 +10,7 @@
  *   - SomMetaNode — one node per navigable model position (§3.1), with section
  *     id / pattern, kind, serialization order, @Min, content type,
  *     help/comment/doc texts, form metadata, traceability links
- *     (@MapsTo / @DetailedIn / @SecondLevelSectionId) and the lossless extra
+ *     (@MapsTo / @DetailedIn) and the lossless extra
  *     annotation list;
  *   - SomMetaTree — wires parent links and absolute paths (the §4 path grammar
  *     shared with spec_paths) and provides the two dynamic lookups every runtime
@@ -86,12 +86,6 @@ struct SomDocMeta {
   std::vector<std::string> basedOn;  // class names this document is based on
 };
 
-/* One @SecondLevelSectionId(documentClass, id) entry (DR1 §3.1). */
-struct SomSecondLevelId {
-  std::string documentClass;  // the document class the id applies within
-  std::string id;             // the section id used in that document
-};
-
 /* One annotation captured losslessly into the generic extra list — annotations
  * the tree defines no dedicated slot for (e.g. @Max, @MinLength). `args` retains
  * the resolved constructor arguments (null = no arguments). */
@@ -136,7 +130,6 @@ class SomMetaNode {
   std::optional<SomDocMeta> document;        // @Document; set only on the root
   std::string mapsTo;                        // @MapsTo target class, "" none
   std::string detailedIn;                    // @DetailedIn target class, "" none
-  std::vector<SomSecondLevelId> secondLevelIds;
   std::vector<SomMetaExtra> extra;           // annotations without a slot
   bool recursive = false;                    // recursive re-entry (complex, no children)
   std::vector<std::unique_ptr<SomMetaNode>> children;  // in @SerializationOrder

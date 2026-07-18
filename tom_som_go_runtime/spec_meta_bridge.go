@@ -36,7 +36,6 @@ var slottedAnnotations = map[string]bool{
 	"Document":             true,
 	"MapsTo":               true,
 	"DetailedIn":           true,
-	"SecondLevelSectionId": true,
 }
 
 // BuildSomMetaTree builds the wired SomMetaTree for one document root of
@@ -106,9 +105,8 @@ func BuildSomMetaTree(model *SpecModel, rootType string) (*SomMetaTree, error) {
 			Description: root.Description,
 			BasedOn:     bridgeBasedOn(cls),
 		},
-		SecondLevelIds: bridgeSecondLevelIds(annotations),
-		Extra:          bridgeExtras(annotations),
-		Children:       children,
+		Extra:    bridgeExtras(annotations),
+		Children: children,
 	}
 	return NewSomMetaTree(rootNode)
 }
@@ -313,26 +311,11 @@ func bridgeFieldNode(
 		Form:               form,
 		MapsTo:             mapsTo,
 		DetailedIn:         detailedIn,
-		SecondLevelIds:     bridgeSecondLevelIds(field.Annotations),
 		Extra:              bridgeExtras(field.Annotations),
 		Recursive:          recursive,
 		Children:           children,
 		ElementNode:        elementNode,
 	}
-}
-
-func bridgeSecondLevelIds(annotations []*SpecAnnotation) []*SomSecondLevelId {
-	var out []*SomSecondLevelId
-	for _, a := range annotations {
-		if a.Name != "SecondLevelSectionId" {
-			continue
-		}
-		out = append(out, &SomSecondLevelId{
-			DocumentClass: bridgeStr(a.Argument("documentClass")),
-			ID:            bridgeStr(a.Argument("id")),
-		})
-	}
-	return out
 }
 
 func bridgeExtras(annotations []*SpecAnnotation) []*SomMetaExtra {

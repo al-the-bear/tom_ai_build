@@ -48,7 +48,6 @@ const Set<String> _slottedAnnotations = {
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 };
 
 /// Getter names a generated accessor class must never emit (instance members
@@ -104,7 +103,6 @@ class SomPythonMetaEmitter {
       ..writeln('    SomMetaNode,')
       ..writeln('    SomMetaRef,')
       ..writeln('    SomMetaTree,')
-      ..writeln('    SomSecondLevelId,')
       ..writeln(')')
       ..writeln();
 
@@ -314,8 +312,6 @@ class SomPythonMetaEmitter {
     if (target?.detailedIn != null) {
       add('detailed_in', _str(target!.detailedIn!));
     }
-    final secondLevel = _secondLevelIdsExpr(f.annotations);
-    if (secondLevel != null) add('second_level_ids', secondLevel);
     final extra = _extrasExpr(f.annotations);
     if (extra != null) add('extra', extra);
 
@@ -357,17 +353,6 @@ class SomPythonMetaEmitter {
     return '$indent SomMetaNode(\n$indent    $body)';
   }
 
-  String? _secondLevelIdsExpr(List<SpecAnnotation> annotations) {
-    final entries = [
-      for (final a in annotations)
-        if (a.name == 'SecondLevelSectionId')
-          'SomSecondLevelId(document_class='
-              "${_str('${a.argument('documentClass') ?? ''}')}, "
-              "id=${_str('${a.argument('id') ?? ''}')})",
-    ];
-    return entries.isEmpty ? null : '[${entries.join(', ')}]';
-  }
-
   String? _extrasExpr(List<SpecAnnotation> annotations) {
     final entries = [
       for (final a in annotations)
@@ -407,8 +392,6 @@ class SomPythonMetaEmitter {
     args.add('document=SomDocMeta(name=${_str(root.title)}, '
         'description=${_str(root.description ?? '')}'
         '${basedOn.isEmpty ? '' : ', based_on=[${basedOn.map(_str).join(', ')}]'})');
-    final secondLevel = _secondLevelIdsExpr(cls?.annotations ?? const []);
-    if (secondLevel != null) args.add('second_level_ids=$secondLevel');
     final extra = _extrasExpr(cls?.annotations ?? const []);
     if (extra != null) args.add('extra=$extra');
     args.add(cls == null

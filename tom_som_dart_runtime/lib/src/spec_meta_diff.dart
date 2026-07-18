@@ -45,7 +45,6 @@ String? somMetaNodeDiff(SomMetaNode a, SomMetaNode b, {String at = '<root>'}) {
     () => diff('recursive', a.recursive, b.recursive),
     () => _formDiff(at, a.form, b.form),
     () => _documentDiff(at, a.document, b.document),
-    () => _secondLevelDiff(at, a.secondLevelIds, b.secondLevelIds),
     () => _extraDiff(at, a.extra, b.extra),
   ];
   for (final check in checks) {
@@ -113,19 +112,6 @@ String? _documentDiff(String at, SomDocMeta? a, SomDocMeta? b) {
   if (a.description != b.description) return '$at: document.description differs';
   if (!_listEq(a.basedOn, b.basedOn)) {
     return '$at: document.basedOn differs — ${a.basedOn} != ${b.basedOn}';
-  }
-  return null;
-}
-
-String? _secondLevelDiff(
-    String at, List<SomSecondLevelId> a, List<SomSecondLevelId> b) {
-  if (a.length != b.length) {
-    return '$at: secondLevelIds count differs — ${a.length} != ${b.length}';
-  }
-  for (var i = 0; i < a.length; i++) {
-    if (a[i].documentClass != b[i].documentClass || a[i].id != b[i].id) {
-      return '$at: secondLevelIds[$i] differs';
-    }
   }
   return null;
 }

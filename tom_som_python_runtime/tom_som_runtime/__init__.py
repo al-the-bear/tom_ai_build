@@ -68,7 +68,6 @@ from .spec_meta import (
     SomMetaNode,
     SomMetaRef,
     SomMetaTree,
-    SomSecondLevelId,
 )
 from .spec_meta_bridge import build_som_meta_tree
 from .spec_meta_diff import som_meta_node_diff
@@ -133,7 +132,6 @@ __all__ = [
     "SomMetaTree",
     "SomNode",
     "SomScalar",
-    "SomSecondLevelId",
     "SomVersionError",
     "SpecAnnotation",
     "SpecClass",

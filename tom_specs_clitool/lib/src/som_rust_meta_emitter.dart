@@ -67,7 +67,6 @@ const Set<String> _slottedAnnotations = {
   'Document',
   'MapsTo',
   'DetailedIn',
-  'SecondLevelSectionId',
 };
 
 /// Accessor method names a generated Nav/Id impl must never emit: the emitted
@@ -405,8 +404,6 @@ class SomRustMetaEmitter {
     if (target?.detailedIn != null) {
       add('detailed_in', _strLit(target!.detailedIn!));
     }
-    final secondLevel = _secondLevelIdsExpr(f.annotations);
-    if (secondLevel != null) add('second_level_ids', secondLevel);
     final extra = _extrasExpr(f.annotations);
     if (extra != null) add('extra', extra);
 
@@ -464,17 +461,6 @@ class SomRustMetaEmitter {
         '..som::SomMetaNode::default() }),');
   }
 
-  String? _secondLevelIdsExpr(List<SpecAnnotation> annotations) {
-    final entries = [
-      for (final a in annotations)
-        if (a.name == 'SecondLevelSectionId')
-          'som::SomSecondLevelId { document_class: '
-              "${_strLit('${a.argument('documentClass') ?? ''}')}, "
-              "id: ${_strLit('${a.argument('id') ?? ''}')} }",
-    ];
-    return entries.isEmpty ? null : 'vec![${entries.join(', ')}]';
-  }
-
   String? _extrasExpr(List<SpecAnnotation> annotations) {
     final entries = [
       for (final a in annotations)
@@ -520,8 +506,6 @@ class SomRustMetaEmitter {
     args.add('document: Some(som::SomDocMeta { name: ${_strLit(root.title)}, '
         'description: ${_strLit(root.description ?? '')}, '
         'based_on: vec![${basedOn.map(_strLit).join(', ')}] })');
-    final secondLevel = _secondLevelIdsExpr(cls?.annotations ?? const []);
-    if (secondLevel != null) args.add('second_level_ids: $secondLevel');
     final extra = _extrasExpr(cls?.annotations ?? const []);
     if (extra != null) args.add('extra: $extra');
     if (cls != null) args.add('children');

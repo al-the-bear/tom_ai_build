@@ -11,7 +11,7 @@
  *   * {@link SomMetaNode} — one node per navigable model position (§3.1), with
  *     section id / pattern, kind, serialization order, `@Min`, content type,
  *     help/comment/doc texts, form metadata, traceability links
- *     (`@MapsTo` / `@DetailedIn` / `@SecondLevelSectionId`) and the lossless
+ *     (`@MapsTo` / `@DetailedIn`) and the lossless
  *     `extra` annotation list;
  *   * {@link SomMetaTree} — wires parent links and absolute paths (the §4 path
  *     grammar shared with `spec_paths`) and provides the two dynamic lookups
@@ -146,19 +146,6 @@ export class SomDocMeta {
   }
 }
 
-/** One `@SecondLevelSectionId(documentClass, id)` entry (DR1 §3.1). */
-export class SomSecondLevelId {
-  /** The document class the second-level id applies within. */
-  documentClass: string;
-  /** The section id used in that document. */
-  id: string;
-
-  constructor(documentClass: string, id: string) {
-    this.documentClass = documentClass;
-    this.id = id;
-  }
-}
-
 /**
  * One annotation captured losslessly into the generic `extra` list —
  * annotations the tree defines no dedicated slot for (DR1 §3.1 note), e.g.
@@ -198,7 +185,6 @@ export interface SomMetaNodeInit {
   document?: SomDocMeta | null;
   mapsTo?: string | null;
   detailedIn?: string | null;
-  secondLevelIds?: SomSecondLevelId[] | null;
   extra?: SomMetaExtra[] | null;
   recursive?: boolean;
   children?: SomMetaNode[] | null;
@@ -273,8 +259,6 @@ export class SomMetaNode {
   mapsTo: string | null;
   /** `@DetailedIn` target class name, when annotated. */
   detailedIn: string | null;
-  /** `@SecondLevelSectionId` entries, when annotated. */
-  secondLevelIds: SomSecondLevelId[];
   /** Annotations without a dedicated slot, captured losslessly. */
   extra: SomMetaExtra[];
   /** Whether this node is a recursive re-entry reference (a class already
@@ -322,7 +306,6 @@ export class SomMetaNode {
     this.document = init.document != null ? init.document : null;
     this.mapsTo = init.mapsTo != null ? init.mapsTo : null;
     this.detailedIn = init.detailedIn != null ? init.detailedIn : null;
-    this.secondLevelIds = init.secondLevelIds != null ? init.secondLevelIds : [];
     this.extra = init.extra != null ? init.extra : [];
     this.recursive = init.recursive != null ? init.recursive : false;
     this.children = init.children != null ? init.children : [];

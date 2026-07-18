@@ -101,9 +101,6 @@ public final class SomMetaNode {
   /** The {@code @DetailedIn} target class name, {@code null} when unannotated. */
   public String detailedIn;
 
-  /** {@code @SecondLevelSectionId} entries, when annotated. */
-  public List<SomSecondLevelId> secondLevelIds = new ArrayList<>();
-
   /** Annotations without a dedicated slot, captured losslessly. */
   public List<SomMetaExtra> extra = new ArrayList<>();
 

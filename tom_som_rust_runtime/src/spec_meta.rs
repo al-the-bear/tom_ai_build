@@ -10,7 +10,7 @@
 //!   - [`SomMetaNode`] — one node per navigable model position (§3.1), with
 //!     section id / pattern, kind, serialization order, `@Min`, content type,
 //!     help/comment/doc texts, form metadata, traceability links
-//!     (`@MapsTo` / `@DetailedIn` / `@SecondLevelSectionId`) and the lossless
+//!     (`@MapsTo` / `@DetailedIn`) and the lossless
 //!     `extra` annotation list;
 //!   - [`SomMetaTree`] — wires parent links and absolute paths (the §4 path
 //!     grammar shared with `spec_paths`) and provides the two dynamic lookups
@@ -108,15 +108,6 @@ pub struct SomDocMeta {
     pub based_on: Vec<String>,
 }
 
-/// One `@SecondLevelSectionId(documentClass, id)` entry (DR1 §3.1).
-#[derive(Debug, Clone, Default, PartialEq)]
-pub struct SomSecondLevelId {
-    /// The document class the second-level id applies within.
-    pub document_class: String,
-    /// The section id used in that document.
-    pub id: String,
-}
-
 /// One annotation captured losslessly into the generic `extra` list —
 /// annotations the tree defines no dedicated slot for (DR1 §3.1 note), e.g.
 /// `@Max`, `@MinLength`, `@PatternCheck`, `@TextRequired`.
@@ -201,8 +192,6 @@ pub struct SomMetaNode {
     pub maps_to: String,
     /// The `@DetailedIn` target class name, `""` when unannotated.
     pub detailed_in: String,
-    /// `@SecondLevelSectionId` entries, when annotated.
-    pub second_level_ids: Vec<SomSecondLevelId>,
     /// Annotations without a dedicated slot, captured losslessly.
     pub extra: Vec<SomMetaExtra>,
     /// Whether this node is a recursive re-entry reference (a class already on

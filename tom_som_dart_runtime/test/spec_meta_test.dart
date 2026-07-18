@@ -99,10 +99,6 @@ SomMetaTree buildFixtureTree() {
         comment: 'Keep this short.',
         mapsTo: 'CurrentLandscape',
         detailedIn: 'D01RequirementsSpecification',
-        secondLevelIds: const [
-          SomSecondLevelId(
-              documentClass: 'D01RequirementsSpecification', id: 'RS-INSC'),
-        ],
         children: [
           SomMetaNode(
             className: 'IntroductionAndScope',
@@ -285,9 +281,6 @@ void main() {
       expect(insc.comment, 'Keep this short.');
       expect(insc.mapsTo, 'CurrentLandscape');
       expect(insc.detailedIn, 'D01RequirementsSpecification');
-      expect(insc.secondLevelIds.single.documentClass,
-          'D01RequirementsSpecification');
-      expect(insc.secondLevelIds.single.id, 'RS-INSC');
       expect(insc.serializationOrder, 1);
     });
 

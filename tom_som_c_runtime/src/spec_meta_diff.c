@@ -466,34 +466,6 @@ static char *meta_document_diff(const char *at, const SomDocMeta *a,
   return som_strdup("");
 }
 
-static char *meta_second_level_diff(const char *at, const SomSecondLevelId *a,
-                                    size_t a_len, const SomSecondLevelId *b,
-                                    size_t b_len) {
-  if (a_len != b_len) {
-    SomBuf buf;
-    som_buf_init(&buf);
-    som_buf_puts(&buf, at);
-    som_buf_puts(&buf, ": secondLevelIds count differs \xE2\x80\x94 ");
-    som_buf_puti(&buf, (long long)a_len);
-    som_buf_puts(&buf, " != ");
-    som_buf_puti(&buf, (long long)b_len);
-    return som_buf_take(&buf);
-  }
-  for (size_t i = 0; i < a_len; i++) {
-    if (strcmp(a[i].document_class, b[i].document_class) != 0 ||
-        strcmp(a[i].id, b[i].id) != 0) {
-      SomBuf buf;
-      som_buf_init(&buf);
-      som_buf_puts(&buf, at);
-      som_buf_puts(&buf, ": secondLevelIds[");
-      som_buf_puti(&buf, (long long)i);
-      som_buf_puts(&buf, "] differs");
-      return som_buf_take(&buf);
-    }
-  }
-  return som_strdup("");
-}
-
 static char *meta_extra_diff(const char *at, const SomMetaExtra *a,
                              size_t a_len, const SomMetaExtra *b,
                              size_t b_len) {
@@ -600,8 +572,6 @@ static char *diff_at(const SomMetaNode *a, const SomMetaNode *b,
                    mv_bool(b->recursive)));
   CHECK(meta_form_diff(at, a->form, b->form));
   CHECK(meta_document_diff(at, a->document, b->document));
-  CHECK(meta_second_level_diff(at, a->second_level_ids, a->second_level_ids_len,
-                               b->second_level_ids, b->second_level_ids_len));
   CHECK(meta_extra_diff(at, a->extra, a->extra_len, b->extra, b->extra_len));
 
   if (a->children_len != b->children_len) {

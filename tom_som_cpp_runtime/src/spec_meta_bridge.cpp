@@ -19,7 +19,7 @@ const char* const kSlottedAnnotations[] = {
     "Min",         "Unused",           "ContentType",
     "ContentHelp", "Headline",         "Comment",
     "Form",        "Document",         "MapsTo",
-    "DetailedIn",  "SecondLevelSectionId",
+    "DetailedIn",
 };
 
 bool isSlotted(const std::string& name) {
@@ -61,19 +61,6 @@ std::string bridgeStr(const JsonRef& v) {
       return v->boolean ? "true" : "false";
     default:
       return "";
-  }
-}
-
-void bridgeSecondLevelIds(const std::vector<SpecAnnotation>& annotations,
-                          SomMetaNode* node) {
-  for (const auto& a : annotations) {
-    if (a.name != "SecondLevelSectionId") {
-      continue;
-    }
-    SomSecondLevelId entry;
-    entry.documentClass = bridgeStr(a.argument("documentClass"));
-    entry.id = bridgeStr(a.argument("id"));
-    node->secondLevelIds.push_back(std::move(entry));
   }
 }
 
@@ -276,7 +263,6 @@ std::unique_ptr<SomMetaNode> bridgeFieldNode(const SpecModel& model,
   node->headline = !field.headline.empty()
                        ? field.headline
                        : (target != nullptr ? target->headline : "");
-  bridgeSecondLevelIds(field.annotations, node.get());
   bridgeExtras(field.annotations, node.get());
   return node;
 }
@@ -339,7 +325,6 @@ std::unique_ptr<SomMetaTree> somBuildMetaTree(const SpecModel& model,
     node->classSectionId = cls->sectionId;
     node->mapsTo = cls->mapsTo;
     node->detailedIn = cls->detailedIn;
-    bridgeSecondLevelIds(cls->annotations, node.get());
     bridgeExtras(cls->annotations, node.get());
     std::vector<std::string> stack;
     stack.push_back(root->type);
