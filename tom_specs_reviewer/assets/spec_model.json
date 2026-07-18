@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-17T06:22:07.709789Z",
+  "generatedAt": "2026-07-18T05:40:57.109197Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 1,
+  "modelVersion": 8,
   "modelVersionLabel": "1.0.0+8.1acef99",
   "classCount": 1218,
   "rootCount": 13,
@@ -106848,14 +106848,16 @@
               "label": "Requirement ID (unique, e.g., REQ-F001)",
               "hint": "Unique requirement identifier, e.g. REQ-F001",
               "type": "String",
-              "required": true
+              "required": true,
+              "role": "id"
             },
             {
               "name": "title",
               "label": "Title (concise statement)",
               "hint": "Concise one-line statement of the requirement",
               "type": "String",
-              "required": true
+              "required": true,
+              "role": "title"
             },
             {
               "name": "status",
@@ -125775,7 +125777,17 @@
               "name": "characteristic",
               "label": "ISO/IEC 25010:2023 Characteristic",
               "type": "Iso25010Characteristic",
-              "required": true
+              "required": true,
+              "enumValues": [
+                "functionalSuitability",
+                "performanceEfficiency",
+                "compatibility",
+                "interactionCapability",
+                "reliability",
+                "security",
+                "maintainability",
+                "flexibility"
+              ]
             },
             {
               "name": "addressedBy",
@@ -191318,7 +191330,13 @@
               "name": "priority",
               "label": "Priority level",
               "type": "Priority",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "must",
+                "should",
+                "could",
+                "wontThisTime"
+              ]
             },
             {
               "name": "source",
@@ -191342,7 +191360,16 @@
               "name": "status",
               "label": "Current status",
               "type": "Status",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "draft",
+                "proposed",
+                "approved",
+                "implemented",
+                "verified",
+                "deferred",
+                "rejected"
+              ]
             }
           ]
         }
@@ -198667,13 +198694,27 @@
               "name": "probability",
               "label": "Probability",
               "type": "Probability",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ]
             },
             {
               "name": "impact",
               "label": "Impact assessment",
               "type": "Impact",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ]
             },
             {
               "name": "mitigation",
@@ -211054,7 +211095,12 @@
               "name": "type",
               "label": "Type",
               "type": "SectionType",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "description",
+                "form",
+                "code"
+              ]
             },
             {
               "name": "seeds",
@@ -237429,7 +237475,7 @@
               "name": "interfaceTypes",
               "label": "Types of user and system interfaces",
               "hint": "Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware",
-              "type": "List",
+              "type": "String",
               "required": false
             },
             {
