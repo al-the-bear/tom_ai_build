@@ -198,6 +198,45 @@ void main() {
     });
 
     test(
+      'CS-03 (dsa6): validateModel yields ZERO errors from every one of the '
+      '13 roots + the container — @ContentType / §2.1 field-shape clean',
+      () {
+        // This is exactly the gate bin/outliner.dart applies (it exit(1)s on
+        // any validateModel error). Asserting zero errors from every root —
+        // including D00SolutionBlueprint, which historically errored out on the
+        // CS-03 @ContentType violations — locks the fix in and guards the
+        // outliner's "runs with zero errors for all 13 roots" contract.
+        const roots = <String>[
+          'DocSpecsProject', // canonical container
+          'D00SolutionBlueprint',
+          'D01CurrentLandscapeAssessment',
+          'D02TargetOperatingModel',
+          'D03InformationModel',
+          'D04RequirementsSpecification',
+          'D05InteractionScenarios',
+          'D06ArchitectureTechnologySpecification',
+          'D07IntegrationInterfaceSpecification',
+          'D08SecurityAccessSpecification',
+          'D09ExperienceDesignSpecification',
+          'D10QualityAcceptancePlan',
+          'D11DeliveryRoadmap',
+          'D12TransitionRolloutPlan',
+        ];
+        final report = <String>[];
+        for (final root in roots) {
+          expect(classes.containsKey(root), isTrue,
+              reason: 'root type $root not found in the model');
+          final errors = validateModel(classes, root).errors;
+          if (errors.isNotEmpty) {
+            report.add('$root: ${errors.length} error(s)\n'
+                '  ${errors.take(10).join('\n  ')}');
+          }
+        }
+        expect(report, isEmpty, reason: report.join('\n'));
+      },
+    );
+
+    test(
       '§6.1 field-shape (YRB1/YRB5): the inline sub-section id sweep is '
       'complete — zero reachable non-"content" String fields lack a '
       'field-level @SectionId',
