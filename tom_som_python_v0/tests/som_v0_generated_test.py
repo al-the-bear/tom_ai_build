@@ -22,7 +22,12 @@ over the shared document (spec §3):
     ``.content`` answer;
   * one-call loading (§ item 4): ``load_yaml`` / ``load_file`` collapse the
     former decode → ``load_json`` → thread-version sequence and ``from_yaml``
-    retains (or nulls) the parsed model-version stamp.
+    retains (or nulls) the parsed model-version stamp;
+  * live-document conformance case (YRD8 / dsa8): the shared Meridian sample
+    survives a decode → encode → decode round-trip byte-for-byte at the value
+    level, its markdown validates cleanly against the generated schema (root
+    ``SBP``, 0 warnings / 0 violations), and the metadata tree / nav / id
+    accessors resolve to the same node — the Python parity of the Dart guard.
 
 Run with ``python3 tests/som_v0_generated_test.py``; exit code 0 == all green.
 The runtime is located by the ``runtime-path`` recorded in ``pyproject.toml`` so
@@ -60,6 +65,10 @@ from tom_som_runtime import (  # noqa: E402
     SpecDocument,
     SomVersionError,
     SomEditability,
+    SomMetaKind,
+    DocSpecsSchema,
+    DocSpecsValidator,
+    yaml_encode,
 )
 import tom_som_python_v0 as m  # noqa: E402
 
@@ -305,6 +314,76 @@ def test_one_call_loading() -> None:
         _check("load.unstamped.accepted", False, str(e))
 
 
+def test_live_document_case() -> None:
+    """Live-document conformance case durability (YRD8 / dsa8).
+
+    The cross-language golden harness already exercises the shared Meridian
+    sample end to end and asserts python.log is byte-identical to the Dart
+    reference. Because golden/ is git-ignored, this committed test is the
+    Python-side durability guard for the three live-document guarantees the
+    golden's ``generic-*`` / ``docspecs`` / ``meta-*`` sections encode — the
+    Python parity of the Dart guard added under dsa7 — so a regression fails
+    ``python3 tests/som_v0_generated_test.py`` without needing a full
+    nine-toolchain golden run.
+    """
+    sample = "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml"
+    sample_md = "../tom_som_conformance/samples/meridian_order_management.md"
+    schema_path = ("schemas/solution-blueprint/"
+                   "solution-blueprint.1.0.docspecs-schema.yaml")
+    tree = m.d00SolutionBlueprintMetaTree
+
+    # 1) Round-trip: decode -> encode -> decode is a stable reading (mirrors the
+    # golden's generic-content / generic-lists sections).
+    original = SpecDocument.from_file(sample, tree)
+    re_encoded = yaml_encode(original, tree, model_version=original.model_version)
+    round_tripped = SpecDocument.from_yaml(re_encoded, tree)
+
+    _check("live.roundtrip.version",
+           round_tripped.model_version == original.model_version)
+    _check("live.roundtrip.content-paths",
+           sorted(round_tripped.content_paths) == sorted(original.content_paths))
+    content_ok = all(
+        round_tripped.content(p) == original.content(p)
+        for p in original.content_paths)
+    _check("live.roundtrip.content-values", content_ok)
+    _check("live.roundtrip.list-paths",
+           sorted(round_tripped.list_paths) == sorted(original.list_paths))
+    list_ok = all(
+        round_tripped.list_items(p) == original.list_items(p)
+        for p in original.list_paths)
+    _check("live.roundtrip.list-items", list_ok)
+
+    # 2) Validation: sample markdown validates cleanly against the generated
+    # schema (mirrors the golden's docspecs section — root SBP, 0 / 0).
+    with open(schema_path, encoding="utf-8") as fh:
+        schema = DocSpecsSchema.from_yaml_text(fh.read())
+    with open(sample_md, encoding="utf-8") as fh:
+        violations = DocSpecsValidator(schema).validate_markdown(fh.read())
+    _check("live.validate.root", schema.root_section_id == "SBP",
+           str(schema.root_section_id))
+    _check("live.validate.no-warnings", len(schema.warnings) == 0,
+           str(len(schema.warnings)))
+    _check("live.validate.no-violations", len(violations) == 0,
+           str(len(violations)))
+
+    # 3) Node operations: metadata tree / nav / id resolve to the same node
+    # (mirrors the golden's meta / meta-nav / meta-id sections).
+    list_by_path = tree.by_path("SBP/currentLandscape/CUOPME-OPER-LST")
+    _check("live.node.by-path", list_by_path is not None)
+    _check("live.node.kind-list",
+           list_by_path is not None and list_by_path.kind == SomMetaKind.LIST)
+
+    nav_ref = m.d00SolutionBlueprint.currentLandscape.operationalMetrics
+    _check("live.node.nav-path",
+           nav_ref.path == "SBP/currentLandscape/CUOPME-OPER-LST", nav_ref.path)
+    _check("live.node.nav-identity", nav_ref.meta is list_by_path)
+
+    id_ref = m.SBP.RVHST_REVS_LST.item(0)
+    nav_item = m.d00SolutionBlueprint.documentControl.revisionHistory.item(0)
+    _check("live.node.id-path", id_ref.path == nav_item.path)
+    _check("live.node.id-identity", id_ref.meta is nav_item.meta)
+
+
 def main() -> int:
     test_root_and_parity()
     test_model_version()
@@ -313,6 +392,7 @@ def main() -> int:
     test_absence_semantics()
     test_can_have_content()
     test_one_call_loading()
+    test_live_document_case()
 
     total = _passed + len(_failed)
     if _failed:
