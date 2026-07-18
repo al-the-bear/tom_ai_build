@@ -279,9 +279,18 @@ single-subsection wrapper level can be *collapsed* — but only when safe:
   candidates remain (census tools: `tom_specs_clitool/tool/keep_class_census.dart`,
   `tool/tsma4_census.dart`).
 
-Note *(DECIDED — YRD10 audit)*: under the §1 list-as-outer-section rule, a
+Note *(DONE — YRD10 audit)*: under the §1 list-as-outer-section rule, a
 pure single-list wrapper is doubly redundant (the list already provides its
-own section level); the YRD10 audit re-checks wrappers against this rule.
+own section level). The YRD10 audit re-checked every wrapper against this rule
+via `tom_specs_clitool/tool/yrd10_list_wrapper_census.dart` (the LIST
+specialisation of the TSMA4/§6.1c single-subsection audit) and the collapse
+codemods (`tool/collapse_leaves.dart`, `tool/collapse_list_leaves.dart`): of
+the 82 pure single-list wrappers (`{content?}` + exactly one list), **zero are
+collapsible** — all are kept by a keep-a-level exemption (16 shared /
+list-element, 15 `@Form`-bearing, 51 substantive `@ContentHelp` /
+`@StandardReferences` / non-Form `@ContentType`). The model is at the steady
+state: the validator emits zero `§6.1c collapsible-wrapper` warnings and there
+are zero collapsible pure single-list wrappers.
 
 ---
 
@@ -1021,7 +1030,11 @@ Everything not listed above describes implemented behaviour (Dart reference;
 ports per the conformance harness). YRD3 (universal stored headline + id,
 full md/yaml round-trip, §1.1/§3.3/§4/§8.5–§8.7/§9.2/§9.3.6/§10) was
 implemented 2026-07-16 across all nine runtimes, including the schema
-`pattern-check-id` stem-check reconciliation.
+`pattern-check-id` stem-check reconciliation. **YRD10** (wrapper audit against
+the §1 list-as-outer-section rule, §2.6) was completed 2026-07-18: the census
+and collapse codemods confirm zero collapsible pure single-list wrappers and
+the validator emits zero `§6.1c collapsible-wrapper` warnings — the model is at
+steady state, no collapse required.
 
 ---
 
