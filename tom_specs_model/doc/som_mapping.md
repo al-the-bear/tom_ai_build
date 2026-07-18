@@ -397,13 +397,16 @@ Per `headline_id_storage_decisions.md`:
    `Introduction And Scope`), `<ElementTitle> <seq>` for list items where the
    element title is the Title-Case element class name with a trailing `Entry`
    dropped.
-4. **`TitleField` / `IdField` form-field roles** *(YRD6)* — a `@Form` `Field`
-   can be marked as the section's *title field* or *id field*: the field's
-   value **is** the section headline / section id — one storage slot, two
-   views. The marker can predefine the field's initial content. Id fields are
-   subject to the owning list's `@SectionIdPattern` validation. Serialization
-   emits the value once (as the heading / id comment), never duplicated as a
-   form line.
+4. **No title/id form fields** *(YRD6 — reversed)* — the stored section
+   headline and the `@SectionId` (or, for list entries, the owning list's
+   `@SectionIdPattern` item id) are the **sole authoritative** title and id of
+   a section. Neither is ever duplicated inside a `@Form` field, a scalar, or
+   `content`. The earlier "title/id form-field role" binding (a `@Form` `Field`
+   whose value *is* the headline / section id — the "one storage slot, two
+   views" `TitleField`/`IdField` design) is **withdrawn**: there is exactly one
+   storage slot per value (the heading text; the id comment) and exactly one
+   way to read it, so no role marker is needed. A list entry's short human code
+   belongs in its heading (e.g. `FR-01 — Capture orders`), not in a form field.
 5. **Editor strict mode** *(YRD9)* — headlines and ids editable only for
    list-entry sections; fixed sections show their stored/default headline
    read-only.
@@ -424,8 +427,9 @@ item stems stay name-derived unless the element *class* carries a class-level
 `root @Headline > @Document name > split-Pascal fallback`. Authoring
 `@Headline` across the ~3000 model sections is a separate follow-up wave;
 `IntroductionAndScope.goals` / `Goals` / `BusinessGoals` carry the
-representative authored subset. `TitleField`/`IdField` (YRD6) and editor
-strict mode (YRD9) remain open.*
+representative authored subset. The title/id form-field roles (YRD6) are
+**withdrawn** (decision 4 above) — the model no longer carries any such field;
+editor strict mode (YRD9) remains open.*
 
 ---
 
@@ -441,7 +445,7 @@ mapping-relevant semantics:
 | `@SectionId(id)` | class, `List<T>` field, or `String` field | §3.1: class id / `-LST` container id / inline sub-section id. |
 | `@SectionIdPattern(pattern)` | `List<T>` field | Per-item numbering template, mirrors the container id with `-LST` → `-xxx`; validator enforces the pairing. |
 | `@Headline(text)` | class or field | Predefined default headline (§4). *(DECIDED — YRD4)* |
-| `@Form([Field…])` | class or `content` field | Form section: scalar fields serialize as `FieldName: value` lines. `Field(name, type, hint:, required:)`; `TitleField`/`IdField` roles per §4.4. |
+| `@Form([Field…])` | class or `content` field | Form section: scalar fields serialize as `FieldName: value` lines. `Field(name, type, hint:, required:)`. No field carries the section title or id (§4.4, YRD6 reversed). |
 | `@ContentType(type, description)` | `content` field | Content medium (`markdown`, `sql`, `dart`, …). Non-`form` types forbid sibling scalar fields. |
 | `@ContentHelp(text)` | class or member | Authoring guidance → schema `description`. |
 | `@Comment(text)` | class or field | Inline human note (outliner display; `Seeds → XX` provenance). |
@@ -498,7 +502,7 @@ MetaNode
   elementNode       MetaNode?   for kind == list: the element class subtree
 
 FormMeta
-  fields: [(name, typeName, hint, order [, titleField, idField — DECIDED YRD6])]
+  fields: [(name, typeName, hint, order)]   # no titleField/idField — YRD6 reversed
 
 DocMeta
   name, description, basedOn   (@Document)
@@ -641,8 +645,9 @@ ReviewCount: 3
 4. Unpopulated fields are omitted.
 5. Enum/numeric fields serialize canonically (member name; decimal int /
    shortest round-trip double).
-6. *(DECIDED — YRD6)*: a `TitleField`/`IdField` value is emitted once — as the
-   heading text / id comment — never additionally as a form line.
+6. *(YRD6 — reversed)*: no form field carries the section title or id; the
+   heading text and the id comment are the sole storage for those values, so a
+   form line can never restate them (§4.4).
 7. Pre-form narrative content (shape (2)) precedes the first field line.
 
 ### 8.5 Lists
@@ -1001,7 +1006,7 @@ The decided-but-unimplemented parts of this document, by quest todo
 | --- | --- | --- |
 | **YRD4** | `@Headline` annotation defaults | §4.2, §5, §6.1 |
 | **YRD5** | `DocSpecsSection` base class replaces `String`; `DocSpecsForm` | §2.2 |
-| **YRD6** | `TitleField` / `IdField` form-field roles | §4.4, §6.1, §8.4.6 |
+| **YRD6** | *Reversed* — title/id form-field roles withdrawn; heading + `@SectionId` are the sole title/id, never a form field (dsa1 removed the model usage) | §4.4, §8.4.6 |
 | **YRD7** | Typed form-field members + generic meta-model modification API, 9 runtimes | §7.1, §7.2 |
 | **YRD8** | Conformance consistency pass (corpus, golden, shared sample, this doc's regeneration checks) | §9.7, §12 |
 | **YRD9** | Editor strict mode | §4.5 |
