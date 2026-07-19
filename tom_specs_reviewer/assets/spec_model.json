@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T20:35:58.219510Z",
+  "generatedAt": "2026-07-19T07:16:51.204587Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -58717,7 +58717,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.validation",
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
             "note": "Attribute-level constraint → CE-VA field rule (required, range, pattern, type)."
           }
         }
@@ -58835,7 +58837,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess",
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ],
             "note": "A persisted attribute becomes a table column; display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry."
           }
         }
@@ -60127,7 +60131,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess"
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
           }
         }
       ],
@@ -60696,7 +60702,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess"
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
           }
         }
       ],
@@ -64777,7 +64785,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess"
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
           }
         }
       ],
@@ -81550,7 +81560,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.viewState",
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ],
             "note": "Display/formatting properties bind an attribute to view-model state; label/help copy also feeds CE-TX."
           }
         }
@@ -89290,7 +89302,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess",
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ],
             "note": "DB-level constraint on the table; distinct from CE-VA field rules."
           }
         }
@@ -89399,7 +89413,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess"
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
           }
         }
       ],
@@ -89523,7 +89539,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess",
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ],
             "note": "Foreign-key / association between tables."
           }
         }
@@ -89995,7 +90013,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess"
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
           }
         }
       ],
@@ -118540,7 +118560,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.validation"
+            "kinds": [
+              "CodeSpecPart.validation"
+            ]
           }
         }
       ],
@@ -127125,7 +127147,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess"
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
           }
         }
       ],
@@ -184966,7 +184990,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.dataAccess"
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
           }
         }
       ],
@@ -271547,7 +271573,9 @@
         {
           "name": "CodeSpecKind",
           "arguments": {
-            "part": "CodeSpecPart.validation"
+            "kinds": [
+              "CodeSpecPart.validation"
+            ]
           }
         }
       ],

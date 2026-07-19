@@ -77,8 +77,8 @@ void main() {
 
   group('CSM2R1: kind vocabulary re-exported', () {
     test('CodeSpecKind and CodeSpecPart are reachable via one import', () {
-      const kind = CodeSpecKind(CodeSpecPart.form);
-      expect(kind.part, CodeSpecPart.form);
+      const kind = CodeSpecKind([CodeSpecPart.form]);
+      expect(kind.kinds, [CodeSpecPart.form]);
     });
   });
 

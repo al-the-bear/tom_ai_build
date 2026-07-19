@@ -23,25 +23,32 @@
 /// alias for this general type-level mapping concept; the annotation type itself
 /// is `@CodeSpecKind` (the one canonical symbol — csm1).
 ///
+/// A section type — or a form field — may realise **more than one** CodeSpecs
+/// kind (e.g. a field that is both a `screenElement` and a `dataAccess` column;
+/// a setting that is both `clientConfiguration` and `userSettings`), so
+/// [kinds] is a **list** (csm2r2, `codespecs_mapping.md` §9.1). A single-kind
+/// mapping is the one-element list form.
+///
 /// Example:
 /// ```dart
-/// @CodeSpecKind(CodeSpecPart.form)
+/// @CodeSpecKind([CodeSpecPart.form])
 /// class OrderForm { ... }
 ///
-/// // A section type may realise several kinds:
-/// @CodeSpecKind(CodeSpecPart.serverApi)
-/// @CodeSpecKind(CodeSpecPart.authorization, note: 'roles gate the operation')
+/// // A section type may realise several kinds — in one annotation:
+/// @CodeSpecKind([CodeSpecPart.serverApi, CodeSpecPart.authorization],
+///     note: 'roles gate the operation')
 /// class OrderSubmitOperation { ... }
 /// ```
 class CodeSpecKind {
-  /// The CodeSpecs part this section type must be realised as.
-  final CodeSpecPart part;
+  /// The CodeSpecs part(s) this section type (or form field) must be realised
+  /// as. At least one; a single-kind mapping uses a one-element list.
+  final List<CodeSpecPart> kinds;
 
   /// Optional explanation of the general influence (why/how this section type
-  /// shapes the named CodeSpecs part).
+  /// shapes the named CodeSpecs part(s)).
   final String? note;
 
-  const CodeSpecKind(this.part, {this.note});
+  const CodeSpecKind(this.kinds, {this.note});
 }
 
 /// The finalized catalogue of CodeSpecs "parts" (`codespecs_mapping.md` §4.1).
@@ -49,7 +56,7 @@ class CodeSpecKind {
 /// Each value is the camelCase form of a part's **canonical id**. The enum is
 /// the single source of the kind vocabulary shared by:
 ///
-/// 1. `@CodeSpecKind(CodeSpecPart.x)` — the type-level mapping declared here;
+/// 1. `@CodeSpecKind([CodeSpecPart.x])` — the type-level mapping declared here;
 /// 2. the `@Cs<Id>` annotation that marks a CodeSpec class as realising the part
 ///    (in `tom_code_specs`) — the framework carries **annotations only, no base
 ///    classes** (`codespecs_mapping.md` §0). A CodeSpec is an ordinary class

@@ -157,7 +157,7 @@ annotates SOM model classes — the concrete forward `codeSpec` member is a
 
 | Annotation | Signature | Target | Purpose |
 | --- | --- | --- | --- |
-| `@CodeSpecKind` | `CodeSpecKind(CodeSpecPart part, {String? note})` | C | Declares which CodeSpecs part *type* a section *type* is realised as. The kind enum is `CodeSpecPart` (16 values; `CE-TR`/Traceability is excluded — it is cross-cutting, not a mappable kind). Kind values are generated from the `codespecs_mapping.md` §4.1 parts catalogue so they cannot drift. |
+| `@CodeSpecKind` | `CodeSpecKind(List<CodeSpecPart> kinds, {String? note})` | C | Declares which CodeSpecs part *type(s)* a section *type* (or form field) is realised as. **List-valued** (csm2r2) since a section/field may map to several kinds; a single-kind mapping uses a one-element list. The kind enum is `CodeSpecPart` (16 values; `CE-TR`/Traceability is excluded — it is cross-cutting, not a mappable kind). Kind values are generated from the `codespecs_mapping.md` §4.1 parts catalogue so they cannot drift. |
 
 ---
 

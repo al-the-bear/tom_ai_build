@@ -68,7 +68,7 @@ IFM (Information Model) document.
 )
 @SectionId('DATMD')
 @MapsTo(D03InformationModel)
-@CodeSpecKind(CodeSpecPart.dataAccess)
+@CodeSpecKind([CodeSpecPart.dataAccess])
 class DataModel extends DocSpecsSection {
   @ContentHelp('''
 Conceptual data model from a business perspective. Defines the entities,
@@ -149,7 +149,7 @@ attributes, relationships, and constraints that represent core business data.
   'A single data entity with its identity, classification, volume, lifecycle, compliance, and technical characteristics.',
 )
 @SectionId('DAENT')
-@CodeSpecKind(CodeSpecPart.dataAccess)
+@CodeSpecKind([CodeSpecPart.dataAccess])
 class DataEntityEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
@@ -454,7 +454,7 @@ class DataEntityEntry extends DocSpecsSection {
   'A single data attribute with its data type, constraints, derivation, security classification, lineage, and display properties.',
 )
 @SectionId('DAATT')
-@CodeSpecKind(CodeSpecPart.dataAccess,
+@CodeSpecKind([CodeSpecPart.dataAccess],
     note: 'A persisted attribute becomes a table column; display/label detail '
         'feeds CE-TX/CE-ST via DisplayPropertyEntry.')
 class DataAttributeEntry extends DocSpecsSection {
@@ -700,7 +700,7 @@ class DataAttributeEntry extends DocSpecsSection {
   'A single key attribute defining a primary, foreign, alternate, or composite key with its generation, reference, and governance settings.',
 )
 @SectionId('KEATT')
-@CodeSpecKind(CodeSpecPart.dataAccess)
+@CodeSpecKind([CodeSpecPart.dataAccess])
 class KeyAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -837,7 +837,7 @@ class KeyAttributeEntry extends DocSpecsSection {
   'A single database index specification (type, columns, uniqueness, clustering) for query optimization.',
 )
 @SectionId('ENIDX')
-@CodeSpecKind(CodeSpecPart.dataAccess)
+@CodeSpecKind([CodeSpecPart.dataAccess])
 class EntityIndexEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -910,7 +910,7 @@ class EntityIndexEntry extends DocSpecsSection {
   'A single entity constraint (check, unique, exclusion) with its expression, enforcement level, and business rule reference.',
 )
 @SectionId('ENCNS')
-@CodeSpecKind(CodeSpecPart.dataAccess,
+@CodeSpecKind([CodeSpecPart.dataAccess],
     note: 'DB-level constraint on the table; distinct from CE-VA field rules.')
 class EntityConstraintEntry extends DocSpecsSection {
   @Form([
@@ -1053,7 +1053,7 @@ class MigrationMappingEntry extends DocSpecsSection {
 )
 @SectionId('ENREL')
 @DetailedIn(D03InformationModel)
-@CodeSpecKind(CodeSpecPart.dataAccess)
+@CodeSpecKind([CodeSpecPart.dataAccess])
 class EntityRelationships extends DocSpecsSection {
   @ContentHelp('''
 Relationship specifications between data entities. Captures cardinality,
@@ -1104,7 +1104,7 @@ referential integrity rules, and navigation patterns.
   'A single entity relationship with its participants, cardinality, referential integrity, navigation, and relationship attributes.',
 )
 @SectionId('ENRLE')
-@CodeSpecKind(CodeSpecPart.dataAccess,
+@CodeSpecKind([CodeSpecPart.dataAccess],
     note: 'Foreign-key / association between tables.')
 class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
@@ -3417,7 +3417,7 @@ class RuleExampleEntry extends DocSpecsSection {
 )
 @SectionId('DADI')
 @DetailedIn(D03InformationModel)
-@CodeSpecKind(CodeSpecPart.dataAccess)
+@CodeSpecKind([CodeSpecPart.dataAccess])
 class DataDictionary extends DocSpecsSection {
   @ContentHelp('''
 Single authoritative registry for data attributes across the system.
@@ -3451,7 +3451,7 @@ Single authoritative registry for data attributes across the system.
 )
 @SectionId('VACO')
 @DetailedIn(D03InformationModel)
-@CodeSpecKind(CodeSpecPart.validation)
+@CodeSpecKind([CodeSpecPart.validation])
 class ValidationConstraints extends DocSpecsSection {
   @ContentHelp('''
 Business-level validation rules enforced on data. Distinct from schema
@@ -3484,7 +3484,7 @@ constraints (which are database-level) and from per-field form hints
 )
 @SectionId('INCO')
 @DetailedIn(D03InformationModel)
-@CodeSpecKind(CodeSpecPart.validation)
+@CodeSpecKind([CodeSpecPart.validation])
 class IntegrityConstraints extends DocSpecsSection {
   @ContentHelp('''
 Integrity rules that preserve invariants across the data model.
@@ -3598,7 +3598,7 @@ class IntegrationPointEntry extends DocSpecsSection {
   'The constraints on a single data attribute: nullability, uniqueness, defaults, allowed values, and validation expressions.',
 )
 @SectionId('DATAA')
-@CodeSpecKind(CodeSpecPart.validation,
+@CodeSpecKind([CodeSpecPart.validation],
     note: 'Attribute-level constraint → CE-VA field rule (required, range, '
         'pattern, type).')
 class DataAttributeConstraintEntry extends DocSpecsSection {
@@ -3664,7 +3664,7 @@ class DataAttributeConstraintEntry extends DocSpecsSection {
   'How an attribute is presented in the UI: its label, ordering, grouping, and help text.',
 )
 @SectionId('DISPL')
-@CodeSpecKind(CodeSpecPart.viewState,
+@CodeSpecKind([CodeSpecPart.viewState],
     note: 'Display/formatting properties bind an attribute to view-model state; '
         'label/help copy also feeds CE-TX.')
 class DisplayPropertyEntry extends DocSpecsSection {
@@ -3906,7 +3906,7 @@ class ParticipantEntry extends DocSpecsSection {
   'Attributes carried by the relationship itself (as on an association class), including any temporal or versioning aspects.',
 )
 @SectionId('RELAT')
-@CodeSpecKind(CodeSpecPart.dataAccess)
+@CodeSpecKind([CodeSpecPart.dataAccess])
 class RelationshipAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
