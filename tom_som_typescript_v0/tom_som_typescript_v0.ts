@@ -7641,6 +7641,25 @@ export class D03InformationModel extends SomNode {
   get integrityConstraints(): IntegrityConstraints {
     return new IntegrityConstraints(this.doc, this.path + "/integrityConstraints");
   }
+
+  // Domain enum registry — the closed value sets the data model relies on
+  // (CE-EN home + closed-choice discriminator source, csmb3).
+  get domainEnumRegistry(): DomainEnumRegistry {
+    return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
+  }
+
+  // Error code registry — the shared application error-code vocabulary
+  // referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+  // (csmb5).
+  get errorCodeRegistry(): ErrorCodeRegistry {
+    return new ErrorCodeRegistry(this.doc, this.path + "/errorCodeRegistry");
+  }
+
+  // Result envelope — the canonical success-or-error §7 Result contract
+  // (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+  get resultEnvelope(): ResultEnvelope {
+    return new ResultEnvelope(this.doc, this.path + "/resultEnvelope");
+  }
 }
 
 // RSP00 Requirements Specification.
@@ -12284,6 +12303,90 @@ export class DomainBusinessRules extends SomNode {
   }
 }
 
+// A single domain enum (form + values).
+//
+// One named closed value set: its name, backing value type, default value and
+// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+// name becomes the generated enum type and each member becomes a constant —
+// and doubles as a closed-choice discriminator source (csm-7-4): the enum
+// name identifies the choice set and [values] supply the cases.
+export class DomainEnumEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): DomainEnumEntryContentForm {
+    return new DomainEnumEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.5.x. Enum Values — one entry per member of the value set.
+  get values(): SomList<DomainEnumValueEntry> {
+    return new SomList(this.doc, this.path + "/DMEVA-VALU-LST", (d: SpecDocument, p: string) => new DomainEnumValueEntry(d, p), "DMEVA-VALU-xxx");
+  }
+}
+
+// 7.5. Domain Enum Registry.
+//
+// The first-class SOM home for the system's **domain enums** — the closed
+// value sets the business data model relies on (order status, currency,
+// account type, …). Before this registry existed, closed value sets could
+// only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+// expressible home and the closed-choice mechanism had no real enum to use as
+// a discriminator.
+//
+// This registry serves **two** roles:
+//
+// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+//    type and default, and its [DomainEnumEntry.values] each carry a value id,
+//    a backing value and a copy reference into the CE-TX message registry.
+// 2. **Closed-choice discriminator source** — because each enum is *named* and
+//    exposes an *enumerable* set of value ids, a future `@OneOf`
+//    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+//    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+//    provides that source; the `@OneOf`/`@Case` annotations themselves are a
+//    separate part.
+export class DomainEnumRegistry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 7.5.1. Domain Enums — one entry per closed value set.
+  get enums(): SomList<DomainEnumEntry> {
+    return new SomList(this.doc, this.path + "/DMENE-ENUM-LST", (d: SpecDocument, p: string) => new DomainEnumEntry(d, p), "DMENE-ENUM-xxx");
+  }
+}
+
+// A single domain-enum value (form).
+//
+// One member of a [DomainEnumEntry]: a stable value id (the generated enum
+// constant and the `@Case` discriminator token), an optional backing value
+// (the persisted/serialized code), and a copy reference — a message key into
+// the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+// display label is authored once and referenced everywhere (csm5 cross-cutting
+// finding #1).
+export class DomainEnumValueEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): DomainEnumValueEntryContentForm {
+    return new DomainEnumValueEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // A domain event entry (form).
 export class DomainEventEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -13088,6 +13191,64 @@ export class ErrorBudgetTracking extends SomNode {
   // Recovery policy and attribution rules.
   get governance(): ErrorBudgetTrackingGovernanceForm {
     return new ErrorBudgetTrackingGovernanceForm(this.doc, this.path + "/EBTG");
+  }
+}
+
+// A single shared application error code (form).
+//
+// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+// a default severity, a retryable hint, an optional HTTP-status hint and a
+// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+// CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+// arm draws from.
+export class ErrorCodeEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ErrorCodeEntryContentForm {
+    return new ErrorCodeEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 7.6. Error Code Registry.
+//
+// The single, shared **application error-code vocabulary** — the spine that
+// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+// reference so they never invent divergent code strings (csm5 cross-cutting
+// finding #2; `codespecs_coverage_gaps.md` §3.1).
+//
+// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+// *system/network/display* error catalogue (HTTP status, presentation,
+// recovery). This registry is the **application-level** error vocabulary a
+// success-or-error [ResultEnvelope] carries:
+//
+// - a CE-VA field/form rule names its "error code on fail" from here rather
+//   than minting a literal;
+// - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+// - CE-TX error copy is keyed by the same code, so client message and server
+//   error share one source.
+export class ErrorCodeRegistry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 7.6.1. Error Codes — one entry per shared application error code.
+  get errorCodes(): SomList<ErrorCodeEntry> {
+    return new SomList(this.doc, this.path + "/ERCEN-CODE-LST", (d: SpecDocument, p: string) => new ErrorCodeEntry(d, p), "ERCEN-CODE-xxx");
   }
 }
 
@@ -15951,6 +16112,21 @@ export class InformationAndDataModel extends SomNode {
   // 7.4. Schema Versioning and Migration.
   get schemaVersioningAndMigration(): SchemaVersioningAndMigration {
     return new SchemaVersioningAndMigration(this.doc, this.path + "/schemaVersioningAndMigration");
+  }
+
+  // 7.5. Domain Enum Registry.
+  get domainEnumRegistry(): DomainEnumRegistry {
+    return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
+  }
+
+  // 7.6. Error Code Registry.
+  get errorCodeRegistry(): ErrorCodeRegistry {
+    return new ErrorCodeRegistry(this.doc, this.path + "/errorCodeRegistry");
+  }
+
+  // 7.7. Result Envelope.
+  get resultEnvelope(): ResultEnvelope {
+    return new ResultEnvelope(this.doc, this.path + "/resultEnvelope");
   }
 }
 
@@ -25931,6 +26107,53 @@ export class ResponsiveScreenRuleEntry extends SomNode {
 
   get content(): ResponsiveScreenRuleEntryContentForm {
     return new ResponsiveScreenRuleEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 7.7. Result Envelope.
+//
+// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+// the §7 server contract). This is the model-side counterpart of the
+// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+// every application outcome — success *or* structured error — is returned in a
+// normal (2xx-transport) body as this one envelope; only 5xx are transport
+// failures.
+//
+// The envelope has two arms, distinguished by an **is-success discriminator**:
+//
+// 1. **success** — carries a value payload;
+// 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+//    retryable/severity hint, and an optional list of field-level details
+//    ([ResultFieldDetailEntry]) for input-attributable failures.
+export class ResultEnvelope extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ResultEnvelopeContentForm {
+    return new ResultEnvelopeContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.7.1. Field-Level Details — the per-field error detail the error arm may
+  // carry (e.g. form-validation failures).
+  get fieldDetails(): SomList<ResultFieldDetailEntry> {
+    return new SomList(this.doc, this.path + "/RSFDE-FLDD-LST", (d: SpecDocument, p: string) => new ResultFieldDetailEntry(d, p), "RSFDE-FLDD-xxx");
+  }
+}
+
+// A single field-level error detail (form).
+//
+// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+// field path, an error code referencing the [ErrorCodeRegistry], and an
+// optional default message (user copy resolves from the code via CE-TX). The
+// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+export class ResultFieldDetailEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ResultFieldDetailEntryContentForm {
+    return new ResultFieldDetailEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -78613,6 +78836,108 @@ export class DomainBusinessRuleEntryGovernanceForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class DomainEnumEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get enumName(): string {
+    return this.doc.formField(this.path, "enumName") || '';
+  }
+
+  set enumName(value: string) {
+    this.doc.setFormField(this.path, "enumName", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get backingType(): string {
+    return this.doc.formField(this.path, "backingType") || '';
+  }
+
+  set backingType(value: string) {
+    this.doc.setFormField(this.path, "backingType", value);
+  }
+
+  get defaultValue(): string {
+    return this.doc.formField(this.path, "defaultValue") || '';
+  }
+
+  set defaultValue(value: string) {
+    this.doc.setFormField(this.path, "defaultValue", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class DomainEnumValueEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get valueId(): string {
+    return this.doc.formField(this.path, "valueId") || '';
+  }
+
+  set valueId(value: string) {
+    this.doc.setFormField(this.path, "valueId", value);
+  }
+
+  get backingValue(): string {
+    return this.doc.formField(this.path, "backingValue") || '';
+  }
+
+  set backingValue(value: string) {
+    this.doc.setFormField(this.path, "backingValue", value);
+  }
+
+  get copyKey(): string {
+    return this.doc.formField(this.path, "copyKey") || '';
+  }
+
+  set copyKey(value: string) {
+    this.doc.setFormField(this.path, "copyKey", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class DomainEventEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -79341,6 +79666,14 @@ export class ElementValidationRuleEntryContentForm extends SomNode {
 
   set ruleExpression(value: string) {
     this.doc.setFormField(this.path, "ruleExpression", value);
+  }
+
+  get errorCode(): string {
+    return this.doc.formField(this.path, "errorCode") || '';
+  }
+
+  set errorCode(value: string) {
+    this.doc.setFormField(this.path, "errorCode", value);
   }
 
   get errorMessageResource(): string {
@@ -82006,6 +82339,75 @@ export class ErrorBudgetTrackingMonitoringForm extends SomNode {
 
   set burnRateTimePeriods(value: string) {
     this.doc.setFormField(this.path, "burnRateTimePeriods", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ErrorCodeEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get code(): string {
+    return this.doc.formField(this.path, "code") || '';
+  }
+
+  set code(value: string) {
+    this.doc.setFormField(this.path, "code", value);
+  }
+
+  get category(): string {
+    return this.doc.formField(this.path, "category") || '';
+  }
+
+  set category(value: string) {
+    this.doc.setFormField(this.path, "category", value);
+  }
+
+  get severity(): string {
+    return this.doc.formField(this.path, "severity") || '';
+  }
+
+  set severity(value: string) {
+    this.doc.setFormField(this.path, "severity", value);
+  }
+
+  get retryable(): boolean | null {
+    const v = this.doc.formField(this.path, "retryable");
+    return v == null ? null : v === 'true';
+  }
+
+  set retryable(value: boolean | null) {
+    this.doc.setFormField(this.path, "retryable", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get httpStatusHint(): number | null {
+    const v = this.doc.formField(this.path, "httpStatusHint");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set httpStatusHint(value: number | null) {
+    this.doc.setFormField(this.path, "httpStatusHint", value == null ? '' : String(value));
+  }
+
+  get copyKey(): string {
+    return this.doc.formField(this.path, "copyKey") || '';
+  }
+
+  set copyKey(value: string) {
+    this.doc.setFormField(this.path, "copyKey", value);
   }
 }
 
@@ -88046,6 +88448,14 @@ export class FieldValidationRuleContentForm extends SomNode {
 
   set ruleExpression(value: string) {
     this.doc.setFormField(this.path, "ruleExpression", value);
+  }
+
+  get errorCode(): string {
+    return this.doc.formField(this.path, "errorCode") || '';
+  }
+
+  set errorCode(value: string) {
+    this.doc.setFormField(this.path, "errorCode", value);
   }
 
   get errorMessage(): string {
@@ -135370,6 +135780,109 @@ export class ResponsiveScreenRuleEntryContentForm extends SomNode {
 
   set specialConsiderations(value: string) {
     this.doc.setFormField(this.path, "specialConsiderations", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ResultEnvelopeContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get discriminatorField(): string {
+    return this.doc.formField(this.path, "discriminatorField") || '';
+  }
+
+  set discriminatorField(value: string) {
+    this.doc.setFormField(this.path, "discriminatorField", value);
+  }
+
+  get successArm(): string {
+    return this.doc.formField(this.path, "successArm") || '';
+  }
+
+  set successArm(value: string) {
+    this.doc.setFormField(this.path, "successArm", value);
+  }
+
+  get errorArm(): string {
+    return this.doc.formField(this.path, "errorArm") || '';
+  }
+
+  set errorArm(value: string) {
+    this.doc.setFormField(this.path, "errorArm", value);
+  }
+
+  get retryable(): boolean | null {
+    const v = this.doc.formField(this.path, "retryable");
+    return v == null ? null : v === 'true';
+  }
+
+  set retryable(value: boolean | null) {
+    this.doc.setFormField(this.path, "retryable", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get severity(): string {
+    return this.doc.formField(this.path, "severity") || '';
+  }
+
+  set severity(value: string) {
+    this.doc.setFormField(this.path, "severity", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ResultFieldDetailEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get fieldPath(): string {
+    return this.doc.formField(this.path, "fieldPath") || '';
+  }
+
+  set fieldPath(value: string) {
+    this.doc.setFormField(this.path, "fieldPath", value);
+  }
+
+  get errorCodeRef(): string {
+    return this.doc.formField(this.path, "errorCodeRef") || '';
+  }
+
+  set errorCodeRef(value: string) {
+    this.doc.setFormField(this.path, "errorCodeRef", value);
+  }
+
+  get message(): string {
+    return this.doc.formField(this.path, "message") || '';
+  }
+
+  set message(value: string) {
+    this.doc.setFormField(this.path, "message", value);
   }
 }
 

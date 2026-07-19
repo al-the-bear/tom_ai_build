@@ -11237,6 +11237,42 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
+     _cx("DomainEnumRegistry", s, _mc_DomainEnumRegistry,
+      (r, c) => new SomMetaNode({
+        className: "DomainEnumRegistry",
+        memberName: "domainEnumRegistry",
+        classSectionId: "DOMEN",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "DomainEnumRegistry",
+        serializationOrder: 14,
+        docComment: "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).",
+        classDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+        recursive: r,
+        children: c})),
+     _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
+      (r, c) => new SomMetaNode({
+        className: "ErrorCodeRegistry",
+        memberName: "errorCodeRegistry",
+        classSectionId: "ERCRG",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ErrorCodeRegistry",
+        serializationOrder: 15,
+        docComment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).",
+        classDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+        recursive: r,
+        children: c})),
+     _cx("ResultEnvelope", s, _mc_ResultEnvelope,
+      (r, c) => new SomMetaNode({
+        className: "ResultEnvelope",
+        memberName: "resultEnvelope",
+        classSectionId: "RSLTE",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ResultEnvelope",
+        serializationOrder: 16,
+        docComment: "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).",
+        classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+        recursive: r,
+        children: c})),
   ];
 }
 
@@ -18181,6 +18217,68 @@ function _mc_DomainBusinessRules(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_DomainEnumEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "DomainEnumEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "enumName", typeName: "String", description: "Enum Name", required: true, hint: "Logical enum name in PascalCase (e.g. OrderStatus, Currency)", order: 0}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "What this value set represents and where it is used", order: 1}), new SomFormFieldMeta({name: "backingType", typeName: "String", description: "Backing Type", hint: "Type of the persisted/serialized code: String | Integer", order: 2}), new SomFormFieldMeta({name: "defaultValue", typeName: "String", description: "Default Value", hint: "The value id used as the default, if any", order: 3})])}),
+     new SomMetaNode({
+      className: "DomainEnumEntry",
+      memberName: "values",
+      sectionId: "DMEVA-VALU-LST",
+      sectionIdPattern: "DMEVA-VALU-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "DomainEnumValueEntry",
+      serializationOrder: 1,
+      min: 1,
+      contentHelp: "Add one entry per enum value.",
+      docComment: "7.5.x. Enum Values — one entry per member of the value set.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 11179 — metadata registries / value-domain enumerations"], "connotation": "The member values of this domain enum, each with a stable id, backing value, and copy reference."})],
+      elementNode: _cx("DomainEnumValueEntry", s, _mc_DomainEnumValueEntry, (r, c) => new SomMetaNode({className: "DomainEnumValueEntry", classSectionId: "DMEVA", kind: SomMetaKind.COMPLEX, typeName: "DomainEnumValueEntry", docComment: "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).", classDocComment: "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_DomainEnumRegistry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "DomainEnumRegistry",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("text", ""),
+      contentHelp: "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n"}),
+     new SomMetaNode({
+      className: "DomainEnumRegistry",
+      memberName: "enums",
+      sectionId: "DMENE-ENUM-LST",
+      sectionIdPattern: "DMENE-ENUM-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "DomainEnumEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per domain enum (closed value set).",
+      docComment: "7.5.1. Domain Enums — one entry per closed value set.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 11179 — metadata registries / value-domain enumerations"], "connotation": "The catalogued domain enums, each a named closed value set."})],
+      elementNode: _cx("DomainEnumEntry", s, _mc_DomainEnumEntry, (r, c) => new SomMetaNode({className: "DomainEnumEntry", classSectionId: "DMENE", kind: SomMetaKind.COMPLEX, typeName: "DomainEnumEntry", docComment: "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", classDocComment: "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_DomainEnumValueEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "DomainEnumValueEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "valueId", typeName: "String", description: "Value Id", required: true, hint: "Stable value identifier (the enum constant / @Case token)", order: 0}), new SomFormFieldMeta({name: "backingValue", typeName: "String", description: "Backing Value", hint: "Persisted/serialized code (int or string), if distinct from the id", order: 1}), new SomFormFieldMeta({name: "copyKey", typeName: "String", description: "Copy Key", hint: "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)", order: 2}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "What this value means", order: 3})])}),
+  ];
+}
+
 function _mc_DomainEventEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -18418,7 +18516,7 @@ function _mc_ElementValidationRuleEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "ruleType", typeName: "String", description: "Rule Type", required: true, hint: "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", order: 0}), new SomFormFieldMeta({name: "ruleExpression", typeName: "String", description: "Rule Expression", hint: "Validation expression or pattern", order: 1}), new SomFormFieldMeta({name: "errorMessageResource", typeName: "String", description: "Error Message Resource", hint: "Resource key for validation error message", order: 2}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity", hint: "Error/Warning/Info", order: 3}), new SomFormFieldMeta({name: "validateOn", typeName: "String", description: "Validate On", hint: "On-Change/On-Blur/On-Submit", order: 4})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ruleType", typeName: "String", description: "Rule Type", required: true, hint: "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", order: 0}), new SomFormFieldMeta({name: "ruleExpression", typeName: "String", description: "Rule Expression", hint: "Validation expression or pattern", order: 1}), new SomFormFieldMeta({name: "errorCode", typeName: "String", description: "Error Code", hint: "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", order: 2}), new SomFormFieldMeta({name: "errorMessageResource", typeName: "String", description: "Error Message Resource", hint: "Resource key for validation error message", order: 3}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity", hint: "Error/Warning/Info", order: 4}), new SomFormFieldMeta({name: "validateOn", typeName: "String", description: "Validate On", hint: "On-Change/On-Blur/On-Submit", order: 5})])}),
   ];
 }
 
@@ -19270,6 +19368,43 @@ function _mc_ErrorBudgetTracking(s: Set<string>): SomMetaNode[] {
       docComment: "Recovery policy and attribution rules.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "budgetExhaustionActions", typeName: "String", description: "Budget Exhaustion Actions", hint: "Feature freeze, deployment freeze", order: 0}), new SomFormFieldMeta({name: "budgetRecoveryProcess", typeName: "String", description: "Budget Recovery Process", hint: "Steps to recover budget", order: 1}), new SomFormFieldMeta({name: "budgetReviewMeeting", typeName: "String", description: "Budget Review Meeting", hint: "Regular error budget review", order: 2}), new SomFormFieldMeta({name: "budgetAttribution", typeName: "String", description: "Budget Attribution", hint: "Attribute budget spend to incidents", order: 3}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Free-form governance notes", order: 4})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["Google SRE — error budgets", "ITIL 4 — service level management practice"], "connotation": "Recovery and attribution rules applied when the error budget is spent."})]}),
+  ];
+}
+
+function _mc_ErrorCodeEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ErrorCodeEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "code", typeName: "String", description: "Code", required: true, hint: "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy", order: 0}), new SomFormFieldMeta({name: "category", typeName: "String", description: "Category", hint: "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System", order: 1}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Default Severity", hint: "Default severity: Info | Warning | Error | Fatal", order: 2}), new SomFormFieldMeta({name: "retryable", typeName: "bool", description: "Retryable", hint: "Whether retrying the same operation may reasonably succeed", order: 3}), new SomFormFieldMeta({name: "httpStatusHint", typeName: "int", description: "HTTP Status Hint", hint: "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)", order: 4}), new SomFormFieldMeta({name: "copyKey", typeName: "String", description: "Copy Key", hint: "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)", order: 5})])}),
+  ];
+}
+
+function _mc_ErrorCodeRegistry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ErrorCodeRegistry",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("text", ""),
+      contentHelp: "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n"}),
+     new SomMetaNode({
+      className: "ErrorCodeRegistry",
+      memberName: "errorCodes",
+      sectionId: "ERCEN-CODE-LST",
+      sectionIdPattern: "ERCEN-CODE-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ErrorCodeEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per shared application error code.",
+      docComment: "7.6.1. Error Codes — one entry per shared application error code.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 11179 — metadata registries / value-domain enumerations"], "connotation": "The catalogued shared application error codes."})],
+      elementNode: _cx("ErrorCodeEntry", s, _mc_ErrorCodeEntry, (r, c) => new SomMetaNode({className: "ErrorCodeEntry", classSectionId: "ERCEN", kind: SomMetaKind.COMPLEX, typeName: "ErrorCodeEntry", docComment: "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.", classDocComment: "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.", recursive: r, children: c}))}),
   ];
 }
 
@@ -21400,7 +21535,7 @@ function _mc_FieldValidationRule(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "ruleType", typeName: "String", description: "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", required: true, hint: "Required, Pattern, Range, Length, Custom, or CrossField", order: 0}), new SomFormFieldMeta({name: "ruleExpression", typeName: "String", description: "Rule Expression / Formula", hint: "Expression or formula implementing the rule", order: 1}), new SomFormFieldMeta({name: "errorMessage", typeName: "String", description: "Error Message", required: true, hint: "Message shown when the rule fails", order: 2}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity (Error, Warning, Info)", hint: "Error, Warning, or Info", order: 3}), new SomFormFieldMeta({name: "triggerEvent", typeName: "String", description: "Trigger Event (OnBlur, OnChange, OnSubmit)", hint: "OnBlur, OnChange, or OnSubmit", order: 4})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ruleType", typeName: "String", description: "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", required: true, hint: "Required, Pattern, Range, Length, Custom, or CrossField", order: 0}), new SomFormFieldMeta({name: "ruleExpression", typeName: "String", description: "Rule Expression / Formula", hint: "Expression or formula implementing the rule", order: 1}), new SomFormFieldMeta({name: "errorCode", typeName: "String", description: "Error Code", hint: "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", order: 2}), new SomFormFieldMeta({name: "errorMessage", typeName: "String", description: "Error Message", required: true, hint: "Message shown when the rule fails", order: 3}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity (Error, Warning, Info)", hint: "Error, Warning, or Info", order: 4}), new SomFormFieldMeta({name: "triggerEvent", typeName: "String", description: "Trigger Event (OnBlur, OnChange, OnSubmit)", hint: "OnBlur, OnChange, or OnSubmit", order: 5})])}),
   ];
 }
 
@@ -23608,6 +23743,42 @@ function _mc_InformationAndDataModel(s: Set<string>): SomMetaNode[] {
         serializationOrder: 4,
         docComment: "7.4. Schema Versioning and Migration.",
         classDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.",
+        recursive: r,
+        children: c})),
+     _cx("DomainEnumRegistry", s, _mc_DomainEnumRegistry,
+      (r, c) => new SomMetaNode({
+        className: "DomainEnumRegistry",
+        memberName: "domainEnumRegistry",
+        classSectionId: "DOMEN",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "DomainEnumRegistry",
+        serializationOrder: 5,
+        docComment: "7.5. Domain Enum Registry.",
+        classDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+        recursive: r,
+        children: c})),
+     _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
+      (r, c) => new SomMetaNode({
+        className: "ErrorCodeRegistry",
+        memberName: "errorCodeRegistry",
+        classSectionId: "ERCRG",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ErrorCodeRegistry",
+        serializationOrder: 6,
+        docComment: "7.6. Error Code Registry.",
+        classDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+        recursive: r,
+        children: c})),
+     _cx("ResultEnvelope", s, _mc_ResultEnvelope,
+      (r, c) => new SomMetaNode({
+        className: "ResultEnvelope",
+        memberName: "resultEnvelope",
+        classSectionId: "RSLTE",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ResultEnvelope",
+        serializationOrder: 7,
+        docComment: "7.7. Result Envelope.",
+        classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
         recursive: r,
         children: c})),
   ];
@@ -38327,6 +38498,42 @@ function _mc_ResponsiveScreenRuleEntry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "screenId", typeName: "String", description: "Screen ID", required: true, hint: "Unique identifier of the screen this rule applies to", order: 0}), new SomFormFieldMeta({name: "screenName", typeName: "String", description: "Screen Name", required: true, hint: "Human-readable name of the screen", order: 1}), new SomFormFieldMeta({name: "mobileLayout", typeName: "String", description: "Mobile Layout", hint: "How this screen is laid out on mobile", order: 2}), new SomFormFieldMeta({name: "tabletLayout", typeName: "String", description: "Tablet Layout", hint: "How this screen is laid out on tablet", order: 3}), new SomFormFieldMeta({name: "desktopLayout", typeName: "String", description: "Desktop Layout", hint: "How this screen is laid out on desktop", order: 4}), new SomFormFieldMeta({name: "specialConsiderations", typeName: "String", description: "Special Considerations", hint: "Any screen-specific responsive notes or exceptions", order: 5})])}),
+  ];
+}
+
+function _mc_ResultEnvelope(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ResultEnvelope",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "discriminatorField", typeName: "String", description: "Is-Success Discriminator", required: true, hint: "The boolean field that distinguishes the arms (default: success)", order: 0}), new SomFormFieldMeta({name: "successArm", typeName: "String", description: "Success Arm", hint: "The success payload — the value type carried when success is true (may be empty for operations returning nothing)", order: 1}), new SomFormFieldMeta({name: "errorArm", typeName: "String", description: "Error Arm", hint: "The structured error carried when success is false — its code references the error-code registry (ERCRG)", order: 2}), new SomFormFieldMeta({name: "retryable", typeName: "bool", description: "Carries Retryable Flag", hint: "Whether the error arm carries a retryable flag", order: 3}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity Value Set", hint: "The error severity value set: Info | Warning | Error | Fatal", order: 4})])}),
+     new SomMetaNode({
+      className: "ResultEnvelope",
+      memberName: "fieldDetails",
+      sectionId: "RSFDE-FLDD-LST",
+      sectionIdPattern: "RSFDE-FLDD-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ResultFieldDetailEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per field-level detail the error arm may report.",
+      docComment: "7.7.1. Field-Level Details — the per-field error detail the error arm may\ncarry (e.g. form-validation failures).",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — form-based interaction and input validation"], "connotation": "The field-level error details the Result envelope error arm may carry."})],
+      elementNode: _cx("ResultFieldDetailEntry", s, _mc_ResultFieldDetailEntry, (r, c) => new SomMetaNode({className: "ResultFieldDetailEntry", classSectionId: "RSFDE", kind: SomMetaKind.COMPLEX, typeName: "ResultFieldDetailEntry", docComment: "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).", classDocComment: "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_ResultFieldDetailEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ResultFieldDetailEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "fieldPath", typeName: "String", description: "Field Path", required: true, hint: "The field (or dotted path) the error applies to (e.g. email, address.postalCode)", order: 0}), new SomFormFieldMeta({name: "errorCodeRef", typeName: "String", description: "Error Code", hint: "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code", order: 1}), new SomFormFieldMeta({name: "message", typeName: "String", description: "Default Message", hint: "Optional default message; user-facing copy resolves from the code via CE-TX", order: 2})])}),
   ];
 }
 
@@ -59520,6 +59727,18 @@ export class D03InformationModel$Nav extends SomMetaRef {
   get integrityConstraints(): IntegrityConstraints$Nav {
     return new IntegrityConstraints$Nav(this.tree, this.path + "/integrityConstraints");
   }
+
+  get domainEnumRegistry(): DomainEnumRegistry$Nav {
+    return new DomainEnumRegistry$Nav(this.tree, this.path + "/domainEnumRegistry");
+  }
+
+  get errorCodeRegistry(): ErrorCodeRegistry$Nav {
+    return new ErrorCodeRegistry$Nav(this.tree, this.path + "/errorCodeRegistry");
+  }
+
+  get resultEnvelope(): ResultEnvelope$Nav {
+    return new ResultEnvelope$Nav(this.tree, this.path + "/resultEnvelope");
+  }
 }
 
 // Dot-notation accessors of `D04RequirementsSpecification` (DR1 §4.1). Every getter is one
@@ -62734,6 +62953,44 @@ export class DomainBusinessRules$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `DomainEnumEntry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class DomainEnumEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get values(): SomListMetaRef<DomainEnumValueEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/DMEVA-VALU-LST", (t: SomMetaTree, p: string) => new DomainEnumValueEntry$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `DomainEnumRegistry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class DomainEnumRegistry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get enums(): SomListMetaRef<DomainEnumEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/DMENE-ENUM-LST", (t: SomMetaTree, p: string) => new DomainEnumEntry$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `DomainEnumValueEntry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class DomainEnumValueEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
 // Dot-notation accessors of `DomainEventEntry` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -63315,6 +63572,30 @@ export class ErrorBudgetTracking$Nav extends SomMetaRef {
 
   get governance(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/EBTG");
+  }
+}
+
+// Dot-notation accessors of `ErrorCodeEntry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ErrorCodeEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
+// Dot-notation accessors of `ErrorCodeRegistry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ErrorCodeRegistry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get errorCodes(): SomListMetaRef<ErrorCodeEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/ERCEN-CODE-LST", (t: SomMetaTree, p: string) => new ErrorCodeEntry$Nav(t, p));
   }
 }
 
@@ -65449,6 +65730,18 @@ export class InformationAndDataModel$Nav extends SomMetaRef {
 
   get schemaVersioningAndMigration(): SchemaVersioningAndMigration$Nav {
     return new SchemaVersioningAndMigration$Nav(this.tree, this.path + "/schemaVersioningAndMigration");
+  }
+
+  get domainEnumRegistry(): DomainEnumRegistry$Nav {
+    return new DomainEnumRegistry$Nav(this.tree, this.path + "/domainEnumRegistry");
+  }
+
+  get errorCodeRegistry(): ErrorCodeRegistry$Nav {
+    return new ErrorCodeRegistry$Nav(this.tree, this.path + "/errorCodeRegistry");
+  }
+
+  get resultEnvelope(): ResultEnvelope$Nav {
+    return new ResultEnvelope$Nav(this.tree, this.path + "/resultEnvelope");
   }
 }
 
@@ -72995,6 +73288,30 @@ export class ResponsiveDesign$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 export class ResponsiveScreenRuleEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
+// Dot-notation accessors of `ResultEnvelope` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ResultEnvelope$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get fieldDetails(): SomListMetaRef<ResultFieldDetailEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RSFDE-FLDD-LST", (t: SomMetaTree, p: string) => new ResultFieldDetailEntry$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `ResultFieldDetailEntry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ResultFieldDetailEntry$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -83547,6 +83864,18 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST", (t: SomMetaTree, p: string) => new SchemaMigrationStepEntry$Id(t, p));
   }
 
+  get DMENE_ENUM_LST(): SomListMetaRef<DomainEnumEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST", (t: SomMetaTree, p: string) => new DomainEnumEntry$Id(t, p));
+  }
+
+  get ERCEN_CODE_LST(): SomListMetaRef<ErrorCodeEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST", (t: SomMetaTree, p: string) => new ErrorCodeEntry$Id(t, p));
+  }
+
+  get RSFDE_FLDD_LST(): SomListMetaRef<ResultFieldDetailEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST", (t: SomMetaTree, p: string) => new ResultFieldDetailEntry$Id(t, p));
+  }
+
   get TRAREQ_TRAN(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
   }
@@ -88024,6 +88353,18 @@ export class D03InformationModel$Id extends SomMetaRef {
 
   get BIRU_BUSI_LST(): SomListMetaRef<BusinessRuleEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/BIRU-BUSI-LST", (t: SomMetaTree, p: string) => new BusinessRuleEntry$Id(t, p));
+  }
+
+  get DMENE_ENUM_LST(): SomListMetaRef<DomainEnumEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/domainEnumRegistry/DMENE-ENUM-LST", (t: SomMetaTree, p: string) => new DomainEnumEntry$Id(t, p));
+  }
+
+  get ERCEN_CODE_LST(): SomListMetaRef<ErrorCodeEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/errorCodeRegistry/ERCEN-CODE-LST", (t: SomMetaTree, p: string) => new ErrorCodeEntry$Id(t, p));
+  }
+
+  get RSFDE_FLDD_LST(): SomListMetaRef<ResultFieldDetailEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/resultEnvelope/RSFDE-FLDD-LST", (t: SomMetaTree, p: string) => new ResultFieldDetailEntry$Id(t, p));
   }
 }
 
@@ -92856,6 +93197,21 @@ export class DomainBusinessRuleEntry$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `DomainEnumEntry` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class DomainEnumEntry$Id extends SomMetaRef {
+  get DMEVA_VALU_LST(): SomListMetaRef<DomainEnumValueEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/DMEVA-VALU-LST", (t: SomMetaTree, p: string) => new DomainEnumValueEntry$Id(t, p));
+  }
+}
+
+// ID-tree accessors of `DomainEnumValueEntry` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class DomainEnumValueEntry$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `DomainEventEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -93047,6 +93403,12 @@ export class EnvironmentEntry$Id extends SomMetaRef {
   get ENVCP(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/ENVCP");
   }
+}
+
+// ID-tree accessors of `ErrorCodeEntry` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class ErrorCodeEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `EvaluationCriterionEntry` (DR1 §4.2): getters named by section id
@@ -95925,6 +96287,12 @@ export class ResponsibilitySystems$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class ResponsiveScreenRuleEntry$Id extends SomMetaRef {
+}
+
+// ID-tree accessors of `ResultFieldDetailEntry` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class ResultFieldDetailEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `RetentionPolicyEntry` (DR1 §4.2): getters named by section id
