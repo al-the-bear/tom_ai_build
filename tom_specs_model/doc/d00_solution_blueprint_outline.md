@@ -933,157 +933,157 @@
         - content @Form(dependencyId, description, type, dependsOn, criticality, status)
   - targetOperatingModelConcept: `TargetOperatingModel`
     - content
-    - `OrganizationalFramework`
-      - overview @text
-      - organizationStructure: `NewOrganizationStructure`
-        - overview @text
-        - `ChangesFromCurrentStructure`
-          - overviewContent, changeNarrative @text, orgChartComparison @mermaid
-          - items: `OrganizationalChangeEntry`
-            - content @Form(changeId, changeName, changeType), identification, scope, rationale, impact, transition,
-              status
-            - risks: `OrgChangeRisks`
-              - content @Form(risks, mitigations, dependencies)
-        - transitionTimeline: `OrganizationalTransitionTimeline`
-          - overview: `TransitionOverview`
-            - content @Form(transitionApproach, changeManagementMethodology, transitionStartDate, targetCompletionDate),
-              timeline, governance
-          - phases: `TransitionPhaseEntry`
-            - exitCriteria
-            - identification: `TransitionPhaseIdentification`
-              - content @Form(phaseId, phaseName, phaseType, phaseOwner), timeline, scope
-            - activities: `TransitionPhaseActivities`
-              - content @Form(keyActivities, trainingActivities, communicationActivities, systemActivities, processActivities, deliverables, resourceRequirements, externalSupport)
-            - stakeholders: `TransitionPhaseStakeholders`
-              - content @Form(primaryStakeholders, engagementApproach, feedbackMechanism, escalationPath, sponsorInvolvement)
-          - milestones: `TransitionMilestoneEntry`
-            - content @Form(milestoneId, milestoneName, milestoneType, targetDate, actualDate, status, description),
-              governance, dependencies, recognition
-          - changeReadiness: `ChangeReadinessAssessment`
-            - overview
-            - readinessCriteria: `ReadinessCriteriaEntry`
-              - content @Form(stakeholderGroup, awarenessLevel, desireLevel, knowledgeLevel, abilityLevel, reinforcementNeeded, resistanceFactors, mitigationActions, readinessStatus, assessmentDate)
-          - communicationPlan: `TransitionCommunicationPlan`
-            - strategy
-            - communicationEvents: `CommunicationEventEntry`
-              - content @Form(eventId, eventName, eventType, targetAudience, scheduledDate, phase, keyMessages),
-                delivery, outcome
-            - channels: `TransitionCommunicationChannels`
-              - content @Form(primaryChannels, urgentChannels, feedbackChannels, documentationRepository, channelOwnership, channelAccessibility)
-          - supportStructure: `TransitionSupportStructure`
-            - overview
-            - supportResources: `TransitionSupportResourceEntry`
-              - content @Form(resourceType, resourceName, availabilityPeriod, coverage, contactInfo, capacity, skills, owner, costCenter)
-            - escalationPaths: `TransitionEscalationPaths`
-              - content @Form(level1, level2, level3, emergencyContact, escalationCriteria, responseTimeTargets, managementEscalation)
-          - successMetrics: `TransitionSuccessMetrics`
-            - overview
-            - metrics: `TransitionMetricEntry`
-              - content @Form(metricId, metricName, category, description, measurementMethod, baseline, target),
-                operations, statusSection
-          - transitionRisks: `TransitionRiskEntry`
-            - content @Form(riskId, riskName, riskCategory, description), assessment, response
-      - jobDescriptions: `JobDescriptionsAndStaffing`
-        - overview
-        - newRoles: `NewRoleEntry`
-          - identification, organization, systemAccess, performance, onboarding
-          - responsibilities: `NewRoleResponsibilities`
-            - decisionAuthority
-            - primaryResponsibilities: `ResponsibilityDetailEntry`
-              - content @Form(responsibilityId, responsibility, description, timeAllocation, frequency, deliverables, qualityStandards, relatedProcesses, toolsUsed)
-            - secondaryResponsibilities: `ResponsibilityDetailEntry`
-              - content @Form(responsibilityId, responsibility, description, timeAllocation, frequency, deliverables, qualityStandards, relatedProcesses, toolsUsed)
-          - qualifications: `NewRoleQualifications`
-            - content @Form(education, preferredEducation, experience, preferredExperience), credentials, screening
-            - requiredCompetencies: `RoleCompetencyEntry`
-              - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
-        - changedRoles: `ChangedRoleEntry`
-          - systemAccess, incumbentImpact
-          - identification: `ChangedRoleIdentification`
-            - content @Form(roleId, roleTitle, newRoleTitle, changeRationale), structure, transition
-          - responsibilities: `ChangedRoleResponsibilities`
-            - impactSummary
-            - addedResponsibilities: `ResponsibilityChangeEntry`
-              - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
-            - removedResponsibilities: `ResponsibilityChangeEntry`
-              - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
-            - modifiedResponsibilities: `ResponsibilityChangeEntry`
-              - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
-          - competencies: `ChangedRoleCompetencies`
-            - gapAssessment
-            - newCompetencies: `RoleCompetencyEntry`
-              - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
-            - removedCompetencies: `RoleCompetencyEntry`
-              - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
-            - changedLevels: `CompetencyLevelChangeEntry`
-              - content @Form(competencyName, currentLevel, newLevel, reason, developmentPath, timeframe)
-          - transition: `ChangedRoleTransition`
-            - content @Form(transitionStart, transitionEnd, parallelPeriod), training, support
-        - removedRoles: `RemovedRoleEntry`
-          - content @Form(roleId, roleTitle, department, removalReason, effectiveDate, incumbentCount), transition,
-            governance, continuity
-        - `StaffingPlan`
-          - overview, recruitmentTimeline
-          - budget: `StaffingBudget`
-            - content @Form(totalBudget, currencyCode, salaryBudget, benefitsBudget), allocations, governance
-          - items: `StaffingEntry`
-            - content @Form(roleTitle, jobFamily, jobLevel), organization, capacity, recruitment, ownership
-        - `CompetencyFramework`
-          - overview
-          - coreCompetencies: `CompetencyEntry`
-            - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
-          - technicalCompetencies: `CompetencyEntry`
-            - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
-          - leadershipCompetencies: `CompetencyEntry`
-            - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
-      - [1,] workplaceDescriptions: `WorkplaceDescriptionEntry` ← (per user category)
-        - userCategory
-        - physicalRequirements: `PhysicalWorkplaceRequirements`
-          - content @Form(workplaceType, workstationLayout, spaceRequirements, ergonomicStandards), environment, usage
-        - `EquipmentRequirements`
-          - overview
-          - primaryComputing: `ComputingEquipmentEntry`
-            - content @Form(equipmentId, deviceType, brand, modelSpecification), hardware, platform, planning
-          - displays: `DisplayEquipmentEntry`
-            - content @Form(displayId, displayType, screenSize, resolution), visual, ergonomics, planning
-          - inputDevices: `InputDeviceEntry`
-            - content @Form(deviceId, deviceType, ergonomicDesign, connectivity, specialFeatures, accessibilityFeatures, quantityPerUser, justification)
-          - peripherals: `PeripheralEquipmentEntry`
-            - content @Form(peripheralId, peripheralType, brand, model, specifications, connectivity, sharedOrPersonal, location, quantityNeeded, justification)
-          - mobileDevices: `MobileDeviceEntry`
-            - content @Form(deviceId, deviceType, operatingSystem, screenSize), capabilities, planning
-          - specializedEquipment: `SpecializedEquipmentEntry`
-            - content @Form(equipmentId, equipmentType, brand, model, purpose), technical, planning
-        - `TechnicalInfrastructure`
-          - networkConnectivity, remoteAccess
-          - softwareRequirements: `WorkplaceSoftwareRequirements`
-            - content @Form(operatingSystem, productivitySuite, browser, emailClient), platform, delivery
-          - communicationTools: `CommunicationToolsRequirements`
-            - content @Form(unifiedComms, voiceCapability, videoConferencing, instantMessaging, presenceIndicator, screenSharing, recordingCapability, integrations, externalCommunication, emergencyContact)
-        - `TrainingRequirements`
-          - overview
-          - initialTraining: `InitialTrainingEntry`
-            - content @Form(trainingId, trainingName, description), audience, learningContent, delivery, schedule,
-              assessment
-          - ongoingTraining: `OngoingTrainingEntry`
-            - content @Form(trainingId, trainingName, description, targetAudience), schedule, contentManagement,
-              compliance
-          - systemTraining: `SystemTrainingEntry`
-            - content @Form(trainingId, systemName, modulesCovered, userRoleFocus), functional, practice, support
-          - certifications: `CertificationEntry`
-            - content @Form(certificationId, certificationName, issuingBody), overview, preparation, exam, maintenance,
-              support
-          - `TrainingMaterials`
-            - content @Form(userGuides, quickReferenceCards, videoTutorials, elearningModules), practice, knowledge,
-              operations
-          - assessment: `TrainingAssessment`
-            - content @Form(assessmentStrategy, preAssessment, postAssessment, practicalEvaluation), effectiveness,
-              improvement, reporting
-        - supportResources: `WorkplaceSupportResources`
-          - content @Form(helpDeskAccess, helpDeskHours, escalationPath, onSiteSupport), channels, selfService,
-            incidents
-    - targetBusinessProcess: `TargetBusinessProcessModel`
+    - organizationAndProcess: `OrganizationAndProcessConcept`
       - content
+      - `OrganizationalFramework`
+        - overview @text
+        - organizationStructure: `NewOrganizationStructure`
+          - overview @text
+          - `ChangesFromCurrentStructure`
+            - overviewContent, changeNarrative @text, orgChartComparison @mermaid
+            - items: `OrganizationalChangeEntry`
+              - content @Form(changeId, changeName, changeType), identification, scope, rationale, impact, transition,
+                status
+              - risks: `OrgChangeRisks`
+                - content @Form(risks, mitigations, dependencies)
+          - transitionTimeline: `OrganizationalTransitionTimeline`
+            - overview: `TransitionOverview`
+              - content @Form(transitionApproach, changeManagementMethodology, transitionStartDate, targetCompletionDate),
+                timeline, governance
+            - phases: `TransitionPhaseEntry`
+              - exitCriteria
+              - identification: `TransitionPhaseIdentification`
+                - content @Form(phaseId, phaseName, phaseType, phaseOwner), timeline, scope
+              - activities: `TransitionPhaseActivities`
+                - content @Form(keyActivities, trainingActivities, communicationActivities, systemActivities, processActivities, deliverables, resourceRequirements, externalSupport)
+              - stakeholders: `TransitionPhaseStakeholders`
+                - content @Form(primaryStakeholders, engagementApproach, feedbackMechanism, escalationPath, sponsorInvolvement)
+            - milestones: `TransitionMilestoneEntry`
+              - content @Form(milestoneId, milestoneName, milestoneType, targetDate, actualDate, status, description),
+                governance, dependencies, recognition
+            - changeReadiness: `ChangeReadinessAssessment`
+              - overview
+              - readinessCriteria: `ReadinessCriteriaEntry`
+                - content @Form(stakeholderGroup, awarenessLevel, desireLevel, knowledgeLevel, abilityLevel, reinforcementNeeded, resistanceFactors, mitigationActions, readinessStatus, assessmentDate)
+            - communicationPlan: `TransitionCommunicationPlan`
+              - strategy
+              - communicationEvents: `CommunicationEventEntry`
+                - content @Form(eventId, eventName, eventType, targetAudience, scheduledDate, phase, keyMessages),
+                  delivery, outcome
+              - channels: `TransitionCommunicationChannels`
+                - content @Form(primaryChannels, urgentChannels, feedbackChannels, documentationRepository, channelOwnership, channelAccessibility)
+            - supportStructure: `TransitionSupportStructure`
+              - overview
+              - supportResources: `TransitionSupportResourceEntry`
+                - content @Form(resourceType, resourceName, availabilityPeriod, coverage, contactInfo, capacity, skills, owner, costCenter)
+              - escalationPaths: `TransitionEscalationPaths`
+                - content @Form(level1, level2, level3, emergencyContact, escalationCriteria, responseTimeTargets, managementEscalation)
+            - successMetrics: `TransitionSuccessMetrics`
+              - overview
+              - metrics: `TransitionMetricEntry`
+                - content @Form(metricId, metricName, category, description, measurementMethod, baseline, target),
+                  operations, statusSection
+            - transitionRisks: `TransitionRiskEntry`
+              - content @Form(riskId, riskName, riskCategory, description), assessment, response
+        - jobDescriptions: `JobDescriptionsAndStaffing`
+          - overview
+          - newRoles: `NewRoleEntry`
+            - identification, organization, systemAccess, performance, onboarding
+            - responsibilities: `NewRoleResponsibilities`
+              - decisionAuthority
+              - primaryResponsibilities: `ResponsibilityDetailEntry`
+                - content @Form(responsibilityId, responsibility, description, timeAllocation, frequency, deliverables, qualityStandards, relatedProcesses, toolsUsed)
+              - secondaryResponsibilities: `ResponsibilityDetailEntry`
+                - content @Form(responsibilityId, responsibility, description, timeAllocation, frequency, deliverables, qualityStandards, relatedProcesses, toolsUsed)
+            - qualifications: `NewRoleQualifications`
+              - content @Form(education, preferredEducation, experience, preferredExperience), credentials, screening
+              - requiredCompetencies: `RoleCompetencyEntry`
+                - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
+          - changedRoles: `ChangedRoleEntry`
+            - systemAccess, incumbentImpact
+            - identification: `ChangedRoleIdentification`
+              - content @Form(roleId, roleTitle, newRoleTitle, changeRationale), structure, transition
+            - responsibilities: `ChangedRoleResponsibilities`
+              - impactSummary
+              - addedResponsibilities: `ResponsibilityChangeEntry`
+                - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
+              - removedResponsibilities: `ResponsibilityChangeEntry`
+                - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
+              - modifiedResponsibilities: `ResponsibilityChangeEntry`
+                - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
+            - competencies: `ChangedRoleCompetencies`
+              - gapAssessment
+              - newCompetencies: `RoleCompetencyEntry`
+                - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
+              - removedCompetencies: `RoleCompetencyEntry`
+                - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
+              - changedLevels: `CompetencyLevelChangeEntry`
+                - content @Form(competencyName, currentLevel, newLevel, reason, developmentPath, timeframe)
+            - transition: `ChangedRoleTransition`
+              - content @Form(transitionStart, transitionEnd, parallelPeriod), training, support
+          - removedRoles: `RemovedRoleEntry`
+            - content @Form(roleId, roleTitle, department, removalReason, effectiveDate, incumbentCount), transition,
+              governance, continuity
+          - `StaffingPlan`
+            - overview, recruitmentTimeline
+            - budget: `StaffingBudget`
+              - content @Form(totalBudget, currencyCode, salaryBudget, benefitsBudget), allocations, governance
+            - items: `StaffingEntry`
+              - content @Form(roleTitle, jobFamily, jobLevel), organization, capacity, recruitment, ownership
+          - `CompetencyFramework`
+            - overview
+            - coreCompetencies: `CompetencyEntry`
+              - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+            - technicalCompetencies: `CompetencyEntry`
+              - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+            - leadershipCompetencies: `CompetencyEntry`
+              - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+        - [1,] workplaceDescriptions: `WorkplaceDescriptionEntry` ← (per user category)
+          - userCategory
+          - physicalRequirements: `PhysicalWorkplaceRequirements`
+            - content @Form(workplaceType, workstationLayout, spaceRequirements, ergonomicStandards), environment, usage
+          - `EquipmentRequirements`
+            - overview
+            - primaryComputing: `ComputingEquipmentEntry`
+              - content @Form(equipmentId, deviceType, brand, modelSpecification), hardware, platform, planning
+            - displays: `DisplayEquipmentEntry`
+              - content @Form(displayId, displayType, screenSize, resolution), visual, ergonomics, planning
+            - inputDevices: `InputDeviceEntry`
+              - content @Form(deviceId, deviceType, ergonomicDesign, connectivity, specialFeatures, accessibilityFeatures, quantityPerUser, justification)
+            - peripherals: `PeripheralEquipmentEntry`
+              - content @Form(peripheralId, peripheralType, brand, model, specifications, connectivity, sharedOrPersonal, location, quantityNeeded, justification)
+            - mobileDevices: `MobileDeviceEntry`
+              - content @Form(deviceId, deviceType, operatingSystem, screenSize), capabilities, planning
+            - specializedEquipment: `SpecializedEquipmentEntry`
+              - content @Form(equipmentId, equipmentType, brand, model, purpose), technical, planning
+          - `TechnicalInfrastructure`
+            - networkConnectivity, remoteAccess
+            - softwareRequirements: `WorkplaceSoftwareRequirements`
+              - content @Form(operatingSystem, productivitySuite, browser, emailClient), platform, delivery
+            - communicationTools: `CommunicationToolsRequirements`
+              - content @Form(unifiedComms, voiceCapability, videoConferencing, instantMessaging, presenceIndicator, screenSharing, recordingCapability, integrations, externalCommunication, emergencyContact)
+          - `TrainingRequirements`
+            - overview
+            - initialTraining: `InitialTrainingEntry`
+              - content @Form(trainingId, trainingName, description), audience, learningContent, delivery, schedule,
+                assessment
+            - ongoingTraining: `OngoingTrainingEntry`
+              - content @Form(trainingId, trainingName, description, targetAudience), schedule, contentManagement,
+                compliance
+            - systemTraining: `SystemTrainingEntry`
+              - content @Form(trainingId, systemName, modulesCovered, userRoleFocus), functional, practice, support
+            - certifications: `CertificationEntry`
+              - content @Form(certificationId, certificationName, issuingBody), overview, preparation, exam,
+                maintenance, support
+            - `TrainingMaterials`
+              - content @Form(userGuides, quickReferenceCards, videoTutorials, elearningModules), practice, knowledge,
+                operations
+            - assessment: `TrainingAssessment`
+              - content @Form(assessmentStrategy, preAssessment, postAssessment, practicalEvaluation), effectiveness,
+                improvement, reporting
+          - supportResources: `WorkplaceSupportResources`
+            - content @Form(helpDeskAccess, helpDeskHours, escalationPath, onSiteSupport), channels, selfService,
+              incidents
       - `BusinessProcessDescriptions` ← (Seeds → TOM)
         - content
         - `ProcessVision`
@@ -1152,63 +1152,63 @@
           - content
         - processMetricsAndKpis: `ProcessMetric`
           - content
-      - `ProcessStepsAndActorInteractions` ← (Seeds → ISC)
+    - `ProcessStepsAndActorInteractions` ← (Seeds → ISC)
+      - content
+      - overview: `ProcessStepsOverview`
+        - content @Form(useCaseScope, primaryActorFocus, interactionCoverage, scenarioCoverage, useCaseNamingConvention, traceabilityApproach, detailLevel, notationStandard)
+      - `ActorOverview`
+        - content, overview, categorization
+        - [1,] actors: `ActorEntry`
+          - identification, technology, interactions
+          - characteristics: `ActorCharacteristics`
+            - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
+          - goals: `ActorGoals`
+            - content @Form(summaryGoals, userGoals, subfunctionGoals, successMeasures, failureConcerns, motivations, painPoints, desiredImprovements)
+          - permissions: `ActorPermissions`
+            - content @Form(securityClearance, roleBasedPermissions, dataAccessScope, functionalPermissions, approvalLimits, delegationRights, temporaryElevation, auditRequirements)
+      - `InteractionCatalog`
+        - content, overview, prioritization
+        - [1,] interactions: `InteractionEntry`
+          - identification, scopeContext, performance, security, traceability
+          - stakeholders: `StakeholdersAndInterests`
+            - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
+          - preconditions: `PreconditionsAndTriggers`
+            - content @Form(precondition, trigger, triggerType, triggerSource, triggerData, frequencyOfTrigger, validationBeforeStart)
+          - postconditions: `PostconditionsAndGuarantees`
+            - content @Form(minimalGuarantees, successGuarantees, primaryActorPostcondition, systemPostcondition, dataPostcondition, notificationsGenerated, auditTrail)
+          - mainScenario: `MainSuccessScenario`
+            - content @Form(scenarioSummary, estimatedDuration, stepCount)
+            - [1,] steps: `MainScenarioStepEntry`
+              - content @Form(stepNumber, actorAction, systemResponse, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
+          - extensions: `UseCaseExtensions`
+            - content @Form(extensionSummary, extensionCount)
+            - extensions: `ExtensionEntry`
+              - content @Form(extensionId, branchPoint, condition, extensionType, description, outcome, returnPoint, frequency, severity)
+              - steps: `ExtensionStepEntry`
+                - content @Form(stepNumber, action, response)
+          - variations: `TechnologyDataVariations`
+            - content @Form(dataVariations, technologyVariations, channelVariations, localizationVariations, accessibilityVariations, offlineVariations)
+          - uiPreview: `UIRequirementsPreview`
+            - content @Form(primaryScreen, screenFlow, keyFormFields, keyActions, keyDisplayElements, feedbackMechanisms, layoutConsiderations, interactionPatterns),
+              screenMockup @mermaid-flow
+          - businessRules: `InteractionBusinessRules`
+            - content @Form(validationRules, calculationRules, authorizationRules, workflowRules, notificationRules, integrationRules)
+      - `KeyScenarios`
+        - content, overview
+        - [1,] scenarios: `ScenarioEntry`
+          - identification, context, scenarioData, timing, validation
+          - [1,] steps: `ScenarioStepEntry`
+            - content @Form(stepNumber, actor, action, systemResponse), context, execution
+          - alternativeFlows: `AlternativeFlowEntry`
+            - content @Form(flowId, flowName, flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
+            - steps: `AlternativeStepEntry`
+              - content @Form(stepNumber, action, response, expectedResult)
+      - `ActorRelationshipDiagram`
+        - overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
+      - endToEndTestScenarios: `EndToEndTestScenario`
         - content
-        - overview: `ProcessStepsOverview`
-          - content @Form(useCaseScope, primaryActorFocus, interactionCoverage, scenarioCoverage, useCaseNamingConvention, traceabilityApproach, detailLevel, notationStandard)
-        - `ActorOverview`
-          - content, overview, categorization
-          - [1,] actors: `ActorEntry`
-            - identification, technology, interactions
-            - characteristics: `ActorCharacteristics`
-              - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
-            - goals: `ActorGoals`
-              - content @Form(summaryGoals, userGoals, subfunctionGoals, successMeasures, failureConcerns, motivations, painPoints, desiredImprovements)
-            - permissions: `ActorPermissions`
-              - content @Form(securityClearance, roleBasedPermissions, dataAccessScope, functionalPermissions, approvalLimits, delegationRights, temporaryElevation, auditRequirements)
-        - `InteractionCatalog`
-          - content, overview, prioritization
-          - [1,] interactions: `InteractionEntry`
-            - identification, scopeContext, performance, security, traceability
-            - stakeholders: `StakeholdersAndInterests`
-              - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
-            - preconditions: `PreconditionsAndTriggers`
-              - content @Form(precondition, trigger, triggerType, triggerSource, triggerData, frequencyOfTrigger, validationBeforeStart)
-            - postconditions: `PostconditionsAndGuarantees`
-              - content @Form(minimalGuarantees, successGuarantees, primaryActorPostcondition, systemPostcondition, dataPostcondition, notificationsGenerated, auditTrail)
-            - mainScenario: `MainSuccessScenario`
-              - content @Form(scenarioSummary, estimatedDuration, stepCount)
-              - [1,] steps: `MainScenarioStepEntry`
-                - content @Form(stepNumber, actorAction, systemResponse, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
-            - extensions: `UseCaseExtensions`
-              - content @Form(extensionSummary, extensionCount)
-              - extensions: `ExtensionEntry`
-                - content @Form(extensionId, branchPoint, condition, extensionType, description, outcome, returnPoint, frequency, severity)
-                - steps: `ExtensionStepEntry`
-                  - content @Form(stepNumber, action, response)
-            - variations: `TechnologyDataVariations`
-              - content @Form(dataVariations, technologyVariations, channelVariations, localizationVariations, accessibilityVariations, offlineVariations)
-            - uiPreview: `UIRequirementsPreview`
-              - content @Form(primaryScreen, screenFlow, keyFormFields, keyActions, keyDisplayElements, feedbackMechanisms, layoutConsiderations, interactionPatterns),
-                screenMockup @mermaid-flow
-            - businessRules: `InteractionBusinessRules`
-              - content @Form(validationRules, calculationRules, authorizationRules, workflowRules, notificationRules, integrationRules)
-        - `KeyScenarios`
-          - content, overview
-          - [1,] scenarios: `ScenarioEntry`
-            - identification, context, scenarioData, timing, validation
-            - [1,] steps: `ScenarioStepEntry`
-              - content @Form(stepNumber, actor, action, systemResponse), context, execution
-            - alternativeFlows: `AlternativeFlowEntry`
-              - content @Form(flowId, flowName, flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
-              - steps: `AlternativeStepEntry`
-                - content @Form(stepNumber, action, response, expectedResult)
-        - `ActorRelationshipDiagram`
-          - overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
-        - endToEndTestScenarios: `EndToEndTestScenario`
-          - content
-        - `UseCaseTraceability`
-          - content
+      - `UseCaseTraceability`
+        - content
   - `InformationAndDataModel`
     - content
     - `DataModel`

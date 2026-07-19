@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T17:53:33.491946Z",
+  "generatedAt": "2026-07-19T18:05:20.352246Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -157754,6 +157754,95 @@
         }
       ]
     },
+    "OrganizationAndProcessConcept": {
+      "name": "OrganizationAndProcessConcept",
+      "sectionId": "OAPC",
+      "doc": "SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.\n\nGroups the two purely-follow-up facets of the Target Operating Model into a\nsingle branch that is routed to organizational-change (ORG) and\noperational-routine (OPS) follow-up processes rather than to code\ngeneration: the target organizational structure/roles\n([OrganizationalFramework]) and the business-process narrative\n([BusinessProcessDescriptions], which seeds the TOM document).",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — future-state analysis"
+        ],
+        "connotation": "The organizational and process-narrative facets of the future-state operating model — organization structure, roles, and process descriptions."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — future-state analysis"
+            ],
+            "connotation": "The organizational and process-narrative facets of the future-state operating model — organization structure, roles, and process descriptions."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "OAPC"
+          }
+        },
+        {
+          "name": "Comment",
+          "arguments": {
+            "text": "Seeds → TOM"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Unused"
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "organizationalFramework",
+          "kind": "complex",
+          "doc": "Target organizational structure and roles.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "type": "OrganizationalFramework"
+        },
+        {
+          "name": "businessProcessDescriptions",
+          "kind": "complex",
+          "doc": "Business-process descriptions and narrative. Seeds → TOM.",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "Seeds → TOM"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "type": "BusinessProcessDescriptions"
+        }
+      ]
+    },
     "OrganizationStructure": {
       "name": "OrganizationStructure",
       "sectionId": "ORGST",
@@ -247982,113 +248071,10 @@
         }
       ]
     },
-    "TargetBusinessProcessModel": {
-      "name": "TargetBusinessProcessModel",
-      "sectionId": "TBPM",
-      "doc": "6. Target Business Process Model.",
-      "standardReferences": {
-        "standards": [
-          "BPMN 2.0 — business process model & notation",
-          "APQC PCF — Process Classification Framework",
-          "BPM CBOK — business process management body of knowledge"
-        ],
-        "connotation": "Defines the complete target business process landscape the system will support, spanning process descriptions and actor interactions."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "BPMN 2.0 — business process model & notation",
-              "APQC PCF — Process Classification Framework",
-              "BPM CBOK — business process management body of knowledge"
-            ],
-            "connotation": "Defines the complete target business process landscape the system will support, spanning process descriptions and actor interactions."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "TBPM"
-          }
-        },
-        {
-          "name": "Comment",
-          "arguments": {
-            "text": "Seeds → TOM, ISC"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "help": "Overview of target business processes the system will support. This section\nestablishes the process vision, documents key processes with their triggers,\nactors, inputs/outputs, and performance expectations, and defines actor\ninteractions that seed use case development.\n\n**Key Activities:**\n- Define process vision and design principles\n- Create process catalog with comprehensive process definitions\n- Identify actors and their goals, permissions, and technology profiles\n- Document key interactions following Cockburn use case patterns\n- Map end-to-end scenarios showing user journeys\n\n**Best Practices:**\n- Follow BPMN 2.0 notation for process diagrams\n- Use APQC Process Classification Framework for process categorization\n- Apply Cockburn-style goal levels (summary/user/subfunction)\n- Define RACI for all process roles\n- Include performance KPIs and SLAs for each process\n",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Overview of target business processes the system will support. This section\nestablishes the process vision, documents key processes with their triggers,\nactors, inputs/outputs, and performance expectations, and defines actor\ninteractions that seed use case development.\n\n**Key Activities:**\n- Define process vision and design principles\n- Create process catalog with comprehensive process definitions\n- Identify actors and their goals, permissions, and technology profiles\n- Document key interactions following Cockburn use case patterns\n- Map end-to-end scenarios showing user journeys\n\n**Best Practices:**\n- Follow BPMN 2.0 notation for process diagrams\n- Use APQC Process Classification Framework for process categorization\n- Apply Cockburn-style goal levels (summary/user/subfunction)\n- Define RACI for all process roles\n- Include performance KPIs and SLAs for each process\n"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        },
-        {
-          "name": "businessProcessDescriptions",
-          "kind": "complex",
-          "doc": "6.1. Business Process Descriptions. Seeds → TOM.",
-          "serializationOrder": 1,
-          "annotations": [
-            {
-              "name": "Comment",
-              "arguments": {
-                "text": "Seeds → TOM"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 1
-              }
-            }
-          ],
-          "type": "BusinessProcessDescriptions"
-        },
-        {
-          "name": "processStepsAndActorInteractions",
-          "kind": "complex",
-          "doc": "6.2. Process Steps and Actor Interactions. Seeds → ISC.",
-          "serializationOrder": 2,
-          "annotations": [
-            {
-              "name": "Comment",
-              "arguments": {
-                "text": "Seeds → ISC"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 2
-              }
-            }
-          ],
-          "type": "ProcessStepsAndActorInteractions"
-        }
-      ]
-    },
     "TargetOperatingModel": {
       "name": "TargetOperatingModel",
       "sectionId": "TOMC",
-      "doc": "SBP.7 Target Operating Model concept.",
+      "doc": "SBP.7 Target Operating Model concept.\n\nSplit into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)\nand a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)\nso each whole branch is owned by a single downstream process.",
       "standardReferences": {
         "standards": [
           "BABOK v3 — future-state analysis"
@@ -248131,9 +248117,9 @@
           "contentType": "text"
         },
         {
-          "name": "organizationalFramework",
+          "name": "organizationAndProcess",
           "kind": "complex",
-          "doc": "Target organizational structure and roles.",
+          "doc": "ORG/OPS follow-up subtree: target organization + process narrative.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -248143,14 +248129,20 @@
               }
             }
           ],
-          "type": "OrganizationalFramework"
+          "type": "OrganizationAndProcessConcept"
         },
         {
-          "name": "targetBusinessProcess",
+          "name": "processStepsAndActorInteractions",
           "kind": "complex",
-          "doc": "Target business process model.",
+          "doc": "CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "Seeds → ISC"
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -248158,7 +248150,7 @@
               }
             }
           ],
-          "type": "TargetBusinessProcessModel"
+          "type": "ProcessStepsAndActorInteractions"
         }
       ]
     },

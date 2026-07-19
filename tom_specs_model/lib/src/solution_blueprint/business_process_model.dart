@@ -1,63 +1,19 @@
-/// Section 6: Target Business Process Model.
+/// Section 6: Target business process facets.
 ///
-/// Target business processes the system will support. Splits into process
-/// descriptions (seeds → TOM) and actor interactions (seeds → ISC).
+/// Defines the two former children of the Target Business Process Model — now
+/// re-parented by the csm-8-1 split: [BusinessProcessDescriptions] (process
+/// narrative, seeds → TOM, ORG/OPS follow-up) and
+/// [ProcessStepsAndActorInteractions] (actor interactions, seeds → ISC,
+/// CodeSpecs CE-SU/CE-SC). The former `TargetBusinessProcessModel` grouping
+/// container is dissolved: [BusinessProcessDescriptions] now sits in the SBP.7
+/// ORG/OPS follow-up subtree (`OrganizationAndProcessConcept`) and
+/// [ProcessStepsAndActorInteractions] is the SBP.7 CodeSpecs subtree.
 /// Follows BPM best practices (BPMN 2.0, APQC PCF, BPM CBOK).
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
-
-/// 6. Target Business Process Model.
-@StandardReferences(
-  [
-    'BPMN 2.0 — business process model & notation',
-    'APQC PCF — Process Classification Framework',
-    'BPM CBOK — business process management body of knowledge',
-  ],
-  'Defines the complete target business process landscape the system will '
-  'support, spanning process descriptions and actor interactions.',
-)
-@SectionId('TBPM')
-@Comment('Seeds → TOM, ISC')
-class TargetBusinessProcessModel extends DocSpecsSection {
-  @ContentHelp('''
-Overview of target business processes the system will support. This section
-establishes the process vision, documents key processes with their triggers,
-actors, inputs/outputs, and performance expectations, and defines actor
-interactions that seed use case development.
-
-**Key Activities:**
-- Define process vision and design principles
-- Create process catalog with comprehensive process definitions
-- Identify actors and their goals, permissions, and technology profiles
-- Document key interactions following Cockburn use case patterns
-- Map end-to-end scenarios showing user journeys
-
-**Best Practices:**
-- Follow BPMN 2.0 notation for process diagrams
-- Use APQC Process Classification Framework for process categorization
-- Apply Cockburn-style goal levels (summary/user/subfunction)
-- Define RACI for all process roles
-- Include performance KPIs and SLAs for each process
-''')
-  @override
-  @SerializationOrder(0)
-  String? content;
-
-  /// 6.1. Business Process Descriptions. Seeds → TOM.
-  @Comment('Seeds → TOM')
-  @SerializationOrder(1)
-  BusinessProcessDescriptions businessProcessDescriptions =
-      BusinessProcessDescriptions();
-
-  /// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
-  @Comment('Seeds → ISC')
-  @SerializationOrder(2)
-  ProcessStepsAndActorInteractions processStepsAndActorInteractions =
-      ProcessStepsAndActorInteractions();
-}
 
 // ---------------------------------------------------------------------------
 // 6.1 Business Process Descriptions
