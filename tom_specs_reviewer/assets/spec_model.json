@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T14:52:36.155911Z",
+  "generatedAt": "2026-07-19T16:28:10.251294Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -2292,6 +2292,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ACRSE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -6341,6 +6349,14 @@
           "arguments": {
             "id": "AFFN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ]
+          }
         }
       ],
       "fields": [
@@ -6446,6 +6462,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "AFOB"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ]
           }
         }
       ],
@@ -19893,6 +19917,15 @@
           "arguments": {
             "id": "BEHAV"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "Behavior rule governing an object → validation rule."
+          }
         }
       ],
       "fields": [
@@ -24218,6 +24251,14 @@
           "arguments": {
             "id": "BIOBAT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ]
+          }
         }
       ],
       "fields": [
@@ -24490,6 +24531,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "BJOEN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ]
           }
         }
       ],
@@ -25212,6 +25261,15 @@
           "name": "MapsTo",
           "arguments": {
             "documentClass": "D03InformationModel"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ],
+            "note": "DDD domain object catalog → observable view-model (CE-ST). Physical persistence is DataEntity (CE-DB); AggregateRoot entries are the CE-SU root aggregate (§5.17)."
           }
         }
       ],
@@ -26014,6 +26072,15 @@
           "arguments": {
             "id": "BIRU"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "Business rule → validation (field/form rule)."
+          }
         }
       ],
       "fields": [
@@ -26565,6 +26632,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "BIRURE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ]
           }
         }
       ],
@@ -59522,6 +59597,15 @@
           "arguments": {
             "documentClass": "D03InformationModel"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ],
+            "note": "Data classification drives access restrictions → authorization; retention/handling policy is governance (non-codespecs)."
+          }
         }
       ],
       "fields": [
@@ -59663,6 +59747,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "DCLSE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -106556,6 +106648,15 @@
           "arguments": {
             "id": "FNDMX"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "Function×data CRUD matrix → feeds CE-SU owned-entity/operation derivation."
+          }
         }
       ],
       "fields": [
@@ -106650,6 +106751,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "FUNCT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ]
           }
         }
       ],
@@ -106982,6 +107091,15 @@
           "name": "MapsTo",
           "arguments": {
             "documentClass": "D03InformationModel"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "Business function decomposition → logical service unit (§5.17)."
           }
         }
       ],
@@ -119216,6 +119334,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "INTEG"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi",
+              "CodeSpecPart.serverCall"
+            ],
+            "note": "Integration point: an exposed API → CE-API; a consumed integration → CE-SC."
           }
         }
       ],
@@ -131459,6 +131587,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "LFTRS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "Guarded state transition → action; the state-machine/workflow view is deferred to CE-WF."
           }
         }
       ],
@@ -153379,6 +153516,15 @@
           "arguments": {
             "id": "OBINV"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "Object invariant (must-always-hold) → validation rule."
+          }
         }
       ],
       "fields": [
@@ -153480,6 +153626,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "OBOP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "Domain operation (pre/post) → action; the server realisation is CE-SC/CE-SU (derived)."
           }
         }
       ],
@@ -153760,6 +153915,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "OBST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.domainEnum"
+            ],
+            "note": "Closed lifecycle state set → domain enum."
           }
         }
       ],
@@ -204051,6 +204215,15 @@
           "arguments": {
             "id": "RULEXM"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "Rule example → validation test case (Phase 5 derivation)."
+          }
         }
       ],
       "fields": [
@@ -233795,6 +233968,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "SUFN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ]
           }
         }
       ],

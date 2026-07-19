@@ -1357,6 +1357,9 @@ class EntityRelationshipEntry extends DocSpecsSection {
 )
 @SectionId('DATCL')
 @DetailedIn(D03InformationModel)
+@CodeSpecKind([CodeSpecPart.authorization],
+    note: 'Data classification drives access restrictions → authorization; '
+        'retention/handling policy is governance (non-codespecs).')
 class DataClassification extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
@@ -1418,6 +1421,7 @@ class DataClassification extends DocSpecsSection {
   'A single data-classification level with its storage, access control, retention, compliance, handling, and access-restriction rules.',
 )
 @SectionId('DCLSE')
+@CodeSpecKind([CodeSpecPart.authorization])
 class DataClassificationEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification Identity (5 fields)
@@ -1710,6 +1714,7 @@ class HandlingRequirementEntry extends DocSpecsSection {
   'A single access restriction (role, geographic, temporal, contextual) with its scope, enforcement, and override policy.',
 )
 @SectionId('ACRSE')
+@CodeSpecKind([CodeSpecPart.authorization])
 class AccessRestrictionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1770,6 +1775,10 @@ class AccessRestrictionEntry extends DocSpecsSection {
 )
 @SectionId('BJOMD')
 @MapsTo(D03InformationModel)
+@CodeSpecKind([CodeSpecPart.viewState],
+    note: 'DDD domain object catalog → observable view-model (CE-ST). Physical '
+        'persistence is DataEntity (CE-DB); AggregateRoot entries are the CE-SU '
+        'root aggregate (§5.17).')
 class BusinessObjectModel extends DocSpecsSection {
   @ContentHelp('''
 Key business objects, their properties, states, and behaviors. Following
@@ -1825,6 +1834,7 @@ Domain-Driven Design patterns for rich domain modeling.
   'A single business object in the domain model, with its identity, attributes, states, rules and operations.',
 )
 @SectionId('BJOEN')
+@CodeSpecKind([CodeSpecPart.viewState])
 class BusinessObjectEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (6 fields)
@@ -2097,6 +2107,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   'A single business-level attribute of an object, describing its meaning, type and rules.',
 )
 @SectionId('BIOBAT')
+@CodeSpecKind([CodeSpecPart.viewState])
 class BusinessObjectAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2226,6 +2237,8 @@ class BusinessObjectAttributeEntry extends DocSpecsSection {
   'A single lifecycle state of a business object, with its entry/exit conditions and allowed operations.',
 )
 @SectionId('OBST')
+@CodeSpecKind([CodeSpecPart.domainEnum],
+    note: 'Closed lifecycle state set → domain enum.')
 class ObjectStateEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2303,6 +2316,7 @@ class ObjectStateEntry extends DocSpecsSection {
   'A reference to a business rule that governs this object, including its trigger and consequence on violation.',
 )
 @SectionId('BIRURE')
+@CodeSpecKind([CodeSpecPart.validation])
 class BusinessRuleReferenceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2373,6 +2387,9 @@ class BusinessRuleReferenceEntry extends DocSpecsSection {
   'A single state transition in an object lifecycle, from a source state to a target state.',
 )
 @SectionId('LFTRS')
+@CodeSpecKind([CodeSpecPart.action],
+    note: 'Guarded state transition → action; the state-machine/workflow view '
+        'is deferred to CE-WF.')
 class LifecycleTransitionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2499,6 +2516,9 @@ class LifecycleTransitionEntry extends DocSpecsSection {
   'A single domain operation that can be performed on the object, as a command, query or event.',
 )
 @SectionId('OBOP')
+@CodeSpecKind([CodeSpecPart.action],
+    note: 'Domain operation (pre/post) → action; the server realisation is '
+        'CE-SC/CE-SU (derived).')
 class ObjectOperationEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2639,6 +2659,8 @@ class ObjectOperationEntry extends DocSpecsSection {
   'A single business invariant that must always hold true, with its expression, scope and violation action.',
 )
 @SectionId('OBINV')
+@CodeSpecKind([CodeSpecPart.validation],
+    note: 'Object invariant (must-always-hold) → validation rule.')
 class ObjectInvariantEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2707,6 +2729,8 @@ class ObjectInvariantEntry extends DocSpecsSection {
 )
 @SectionId('FUMO')
 @MapsTo(D03InformationModel)
+@CodeSpecKind([CodeSpecPart.serviceUnit],
+    note: 'Business function decomposition → logical service unit (§5.17).')
 class FunctionModel extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Function Decomposition Overview (4 fields)
@@ -2822,6 +2846,7 @@ class FunctionModel extends DocSpecsSection {
   'A single business function, described by name, purpose, and its place in the hierarchy.',
 )
 @SectionId('FUNCT')
+@CodeSpecKind([CodeSpecPart.serviceUnit])
 class FunctionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2946,6 +2971,7 @@ class FunctionEntry extends DocSpecsSection {
   'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
 ], 'A lower-level sub-function within the functional decomposition.')
 @SectionId('SUFN')
+@CodeSpecKind([CodeSpecPart.serviceUnit])
 class SubFunctionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2987,6 +3013,9 @@ class SubFunctionEntry extends DocSpecsSection {
   'A single cell of the CRUD matrix, recording how one function accesses one data entity.',
 )
 @SectionId('FNDMX')
+@CodeSpecKind([CodeSpecPart.serviceUnit],
+    note: 'Function×data CRUD matrix → feeds CE-SU owned-entity/operation '
+        'derivation.')
 class FunctionDataMatrixEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3044,6 +3073,8 @@ class FunctionDataMatrixEntry extends DocSpecsSection {
   'A single business rule with its logic, enforcement, exceptions, and governance.',
 )
 @SectionId('BIRU')
+@CodeSpecKind([CodeSpecPart.validation],
+    note: 'Business rule → validation (field/form rule).')
 class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Rule Identity (5 fields)
@@ -3313,6 +3344,7 @@ class BusinessRuleEntry extends DocSpecsSection {
   'SBVR — business rule statements',
 ], 'A business object affected by a rule, and how it is impacted.')
 @SectionId('AFOB')
+@CodeSpecKind([CodeSpecPart.validation])
 class AffectedObjectEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3355,6 +3387,7 @@ class AffectedObjectEntry extends DocSpecsSection {
   'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
 ], 'A function where a rule applies, with its trigger point and impact.')
 @SectionId('AFFN')
+@CodeSpecKind([CodeSpecPart.validation])
 class AffectedFunctionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3395,6 +3428,8 @@ class AffectedFunctionEntry extends DocSpecsSection {
   'SBVR — business rule statements',
 ], 'A worked example illustrating how a rule evaluates for given inputs.')
 @SectionId('RULEXM')
+@CodeSpecKind([CodeSpecPart.validation],
+    note: 'Rule example → validation test case (Phase 5 derivation).')
 class RuleExampleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3542,6 +3577,8 @@ integrity constraints must hold in every persistent state.
   'The business rules, invariants, key operations, and derived properties that govern a domain object\'s behavior.',
 )
 @SectionId('BEHAV')
+@CodeSpecKind([CodeSpecPart.validation],
+    note: 'Behavior rule governing an object → validation rule.')
 class BehaviorRuleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3586,6 +3623,9 @@ class BehaviorRuleEntry extends DocSpecsSection {
   'How a domain object connects to the outside world: the APIs that expose it, events it publishes or subscribes to, and external-system mappings.',
 )
 @SectionId('INTEG')
+@CodeSpecKind([CodeSpecPart.serverApi, CodeSpecPart.serverCall],
+    note: 'Integration point: an exposed API → CE-API; a consumed integration '
+        '→ CE-SC.')
 class IntegrationPointEntry extends DocSpecsSection {
   @Form([
     Field(
