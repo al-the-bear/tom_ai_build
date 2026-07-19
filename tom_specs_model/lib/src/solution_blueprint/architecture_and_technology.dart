@@ -2217,6 +2217,14 @@ class ComponentOrganization extends DocSpecsSection {
   'A single component or service in the architecture and its defining attributes.',
 )
 @SectionId('ARCM')
+@CodeSpecKind(
+  [CodeSpecPart.serviceUnit],
+  note:
+      'Architecture-level naming of a component/service boundary; informs '
+      'the CE-SU service-unit slice (codespecs_mapping.md §5.1). The concrete '
+      'CsServiceUnit code is server-only and derived from the D02/D05 '
+      'operations, not from this narrative entry.',
+)
 class ArchitectureComponentEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16080,9 +16088,12 @@ define the user experience boundary conditions.
   'Describes the end-user client requirements across browsers, desktop, mobile, display, network, hardware, accessibility, and security.',
 )
 @SectionId('CLRESE')
-@CodeSpecKind([CodeSpecPart.client],
-    note: 'CE-CL — the client applications that exist (Flutter app, CLI, '
-        'other server) and the environments they must run in.')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'CE-CL — the client applications that exist (Flutter app, CLI, '
+      'other server) and the environments they must run in.',
+)
 class ClientRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of client requirements and support strategy.
@@ -16190,9 +16201,12 @@ Provide an overview of client requirements and support strategy.
   'The per-machine configuration of a client application install — endpoints, device options, and per-install toggles keyed by (client app, machine).',
 )
 @SectionId('CLICON')
-@CodeSpecKind([CodeSpecPart.clientConfiguration],
-    note: 'CE-CC — per-machine client-app settings, keyed by (client app, '
-        'machine); distinct from CE-CF server config and CE-UP user settings.')
+@CodeSpecKind(
+  [CodeSpecPart.clientConfiguration],
+  note:
+      'CE-CC — per-machine client-app settings, keyed by (client app, '
+      'machine); distinct from CE-CF server config and CE-UP user settings.',
+)
 class ClientConfiguration extends DocSpecsSection {
   @Form([
     Field(
@@ -21471,10 +21485,13 @@ class ReleaseStrategy extends DocSpecsSection {
       hint: 'How flags are managed',
     ),
   ])
-  @CodeSpecKind([CodeSpecPart.featureFlag],
-      note: 'CE-FF — feature flags / toggles as an explicit part, distinct '
-          'from serverConfiguration values. Deferred (§4.3), mapping-only '
-          'until §4.1.')
+  @CodeSpecKind(
+    [CodeSpecPart.featureFlag],
+    note:
+        'CE-FF — feature flags / toggles as an explicit part, distinct '
+        'from serverConfiguration values. Deferred (§4.3), mapping-only '
+        'until §4.1.',
+  )
   @SerializationOrder(3)
   DocSpecsSection? featureFlags;
 
@@ -21708,6 +21725,12 @@ class RollbackStrategy extends DocSpecsSection {
   'Describes how application configuration and secrets are stored, versioned, and audited across environments.',
 )
 @SectionId('CM')
+@CodeSpecKind(
+  [CodeSpecPart.serverConfiguration],
+  note:
+      'Server-side application configuration and secrets stored/versioned '
+      'across environments (CsServerConfig, codespecs_mapping.md §5.5).',
+)
 class ConfigurationManagement extends DocSpecsSection {
   @Form([
     Field(
@@ -27481,9 +27504,12 @@ class AdminInterfaceRequirements extends DocSpecsSection {
   'System configuration management specifies how the system stores and controls its configuration.',
 )
 @SectionId('SYCOMA')
-@CodeSpecKind([CodeSpecPart.serverConfiguration],
-    note: 'CE-CF — server / system configuration only (narrowed csm2r5); '
-        'never carries user or client-machine settings.')
+@CodeSpecKind(
+  [CodeSpecPart.serverConfiguration],
+  note:
+      'CE-CF — server / system configuration only (narrowed csm2r5); '
+      'never carries user or client-machine settings.',
+)
 class SystemConfigurationManagement extends DocSpecsSection {
   @Form([
     // Configuration sources
@@ -27780,10 +27806,13 @@ class UserProvisioningTools extends DocSpecsSection {
   'Batch job management specifies how scheduled and background jobs are defined and operated.',
 )
 @SectionId('BAJOMA')
-@CodeSpecKind([CodeSpecPart.backgroundJob],
-    note: 'CE-JB — scheduled / background / queued jobs (cron, workers), '
-        'distinct from request-driven serverApi. Deferred (§4.3), '
-        'mapping-only until §4.1.')
+@CodeSpecKind(
+  [CodeSpecPart.backgroundJob],
+  note:
+      'CE-JB — scheduled / background / queued jobs (cron, workers), '
+      'distinct from request-driven serverApi. Deferred (§4.3), '
+      'mapping-only until §4.1.',
+)
 class BatchJobManagement extends DocSpecsSection {
   @Form([
     Field(
@@ -35923,4 +35952,3 @@ drivers / trade-offs.
   @SerializationOrder(0)
   String? content;
 }
-

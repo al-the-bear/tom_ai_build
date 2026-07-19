@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T17:33:24.157402Z",
+  "generatedAt": "2026-07-19T17:45:45.434234Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -11872,6 +11872,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ARCM"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "Architecture-level naming of a component/service boundary; informs the CE-SU service-unit slice (codespecs_mapping.md §5.1). The concrete CsServiceUnit code is server-only and derived from the D02/D05 operations, not from this narrative entry."
           }
         }
       ],
@@ -48526,6 +48535,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "CM"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "Server-side application configuration and secrets stored/versioned across environments (CsServerConfig, codespecs_mapping.md §5.5)."
           }
         }
       ],
