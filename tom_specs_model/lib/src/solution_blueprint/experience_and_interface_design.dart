@@ -13336,6 +13336,9 @@ class TrainingModuleEntry extends DocSpecsSection {
 @SectionId('LACOSE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@CodeSpecKind([CodeSpecPart.userSettings],
+    note: 'CE-UP — a user language/country preference persisted per user and '
+        'restored across devices (roaming persistence, §11).')
 class LanguageCountrySelection extends DocSpecsSection {
   @SectionId('LACOSE-LANG')
   @Form([

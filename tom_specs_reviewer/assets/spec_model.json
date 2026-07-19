@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-19T07:16:51.204587Z",
+  "generatedAt": "2026-07-19T07:32:27.259027Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1217,
+  "classCount": 1218,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -14335,6 +14335,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "AUTHEN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ],
+            "note": "Credential exchange / token / session — CE-AU, distinct from CE-AZ authorization; spans shared + client + server."
           }
         }
       ],
@@ -33324,6 +33333,103 @@
         }
       ]
     },
+    "ClientConfiguration": {
+      "name": "ClientConfiguration",
+      "sectionId": "CLICON",
+      "doc": "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — config stored in the environment, per deployment",
+          "ISO/IEC 25010 — portability / installability"
+        ],
+        "connotation": "The per-machine configuration of a client application install — endpoints, device options, and per-install toggles keyed by (client app, machine)."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — config stored in the environment, per deployment",
+              "ISO/IEC 25010 — portability / installability"
+            ],
+            "connotation": "The per-machine configuration of a client application install — endpoints, device options, and per-install toggles keyed by (client app, machine)."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CLICON"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.clientConfiguration"
+            ],
+            "note": "CE-CC — per-machine client-app settings, keyed by (client app, machine); distinct from CE-CF server config and CE-UP user settings."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "apiBaseUrl",
+              "label": "API Base URL",
+              "hint": "The server/API endpoint this client install talks to",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "environment",
+              "label": "Environment",
+              "hint": "dev / staging / production for this install",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "deviceOptions",
+              "label": "Device Options",
+              "hint": "Machine-specific device/hardware options for this install",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "featureToggles",
+              "label": "Per-Install Feature Toggles",
+              "hint": "Client-side toggles applied to this install",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "updateChannel",
+              "label": "Update Channel",
+              "hint": "stable / beta / canary for this install",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "ClientHardwareRequirements": {
       "name": "ClientHardwareRequirements",
       "sectionId": "CLHARE",
@@ -34051,6 +34157,15 @@
           "arguments": {
             "id": "CLRESE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "CE-CL — the client applications that exist (Flutter app, CLI, other server) and the environments they must run in."
+          }
         }
       ],
       "fields": [
@@ -34351,6 +34466,21 @@
             }
           ],
           "type": "ClientSecurityRequirements"
+        },
+        {
+          "name": "clientConfiguration",
+          "kind": "complex",
+          "doc": "Per-machine configuration of a client application (CE-CC).",
+          "serializationOrder": 12,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 12
+              }
+            }
+          ],
+          "type": "ClientConfiguration"
         }
       ]
     },
@@ -128885,6 +129015,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.userSettings"
+            ],
+            "note": "CE-UP — a user language/country preference persisted per user and restored across devices (roaming persistence, §11)."
           }
         }
       ],
@@ -235168,6 +235307,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SYCOMA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — server / system configuration only (narrowed csm2r5); never carries user or client-machine settings."
           }
         }
       ],

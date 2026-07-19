@@ -75,6 +75,33 @@ void main() {
     });
   });
 
+  group('CSM2R5: client/config/settings/auth markers', () {
+    test('client/config/auth markers construct with optional note', () {
+      expect(const CsClient().note, isNull);
+      expect(const CsClientConfig(note: 'per-install').note, 'per-install');
+      expect(const CsAuth().note, isNull);
+    });
+
+    test('CsUserSetting carries a persistence discriminator (default roaming)',
+        () {
+      expect(const CsUserSetting().persistence, SettingsPersistence.roaming);
+      expect(
+          const CsUserSetting(persistence: SettingsPersistence.local).persistence,
+          SettingsPersistence.local);
+    });
+
+    test('the four new kind values are reachable and distinct', () {
+      const kinds = <CodeSpecPart>[
+        CodeSpecPart.serverConfiguration,
+        CodeSpecPart.clientConfiguration,
+        CodeSpecPart.userSettings,
+        CodeSpecPart.client,
+        CodeSpecPart.authentication,
+      ];
+      expect(kinds.toSet().length, kinds.length);
+    });
+  });
+
   group('CSM2R1: kind vocabulary re-exported', () {
     test('CodeSpecKind and CodeSpecPart are reachable via one import', () {
       const kind = CodeSpecKind([CodeSpecPart.form]);

@@ -16080,6 +16080,9 @@ define the user experience boundary conditions.
   'Describes the end-user client requirements across browsers, desktop, mobile, display, network, hardware, accessibility, and security.',
 )
 @SectionId('CLRESE')
+@CodeSpecKind([CodeSpecPart.client],
+    note: 'CE-CL — the client applications that exist (Flutter app, CLI, '
+        'other server) and the environments they must run in.')
 class ClientRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of client requirements and support strategy.
@@ -16166,6 +16169,66 @@ Provide an overview of client requirements and support strategy.
   @SerializationOrder(11)
   ClientSecurityRequirements securityRequirements =
       ClientSecurityRequirements();
+
+  /// Per-machine configuration of a client application (CE-CC).
+  @SerializationOrder(12)
+  ClientConfiguration clientConfiguration = ClientConfiguration();
+}
+
+/// Client configuration — per-machine settings of a client application (CE-CC).
+///
+/// Distinct from server/system configuration ([SystemConfigurationManagement],
+/// CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+/// specific *install* of a client app on a *specific machine* carries, keyed by
+/// the (client app, machine) pair. Two installs of the same client on two
+/// machines have independent client configuration (`codespecs_mapping.md` §11).
+@StandardReferences(
+  [
+    'Twelve-Factor App — config stored in the environment, per deployment',
+    'ISO/IEC 25010 — portability / installability',
+  ],
+  'The per-machine configuration of a client application install — endpoints, device options, and per-install toggles keyed by (client app, machine).',
+)
+@SectionId('CLICON')
+@CodeSpecKind([CodeSpecPart.clientConfiguration],
+    note: 'CE-CC — per-machine client-app settings, keyed by (client app, '
+        'machine); distinct from CE-CF server config and CE-UP user settings.')
+class ClientConfiguration extends DocSpecsSection {
+  @Form([
+    Field(
+      'apiBaseUrl',
+      String,
+      'API Base URL',
+      hint: 'The server/API endpoint this client install talks to',
+    ),
+    Field(
+      'environment',
+      String,
+      'Environment',
+      hint: 'dev / staging / production for this install',
+    ),
+    Field(
+      'deviceOptions',
+      String,
+      'Device Options',
+      hint: 'Machine-specific device/hardware options for this install',
+    ),
+    Field(
+      'featureToggles',
+      String,
+      'Per-Install Feature Toggles',
+      hint: 'Client-side toggles applied to this install',
+    ),
+    Field(
+      'updateChannel',
+      String,
+      'Update Channel',
+      hint: 'stable / beta / canary for this install',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// Browser requirement entry.
@@ -27414,6 +27477,9 @@ class AdminInterfaceRequirements extends DocSpecsSection {
   'System configuration management specifies how the system stores and controls its configuration.',
 )
 @SectionId('SYCOMA')
+@CodeSpecKind([CodeSpecPart.serverConfiguration],
+    note: 'CE-CF — server / system configuration only (narrowed csm2r5); '
+        'never carries user or client-machine settings.')
 class SystemConfigurationManagement extends DocSpecsSection {
   @Form([
     // Configuration sources

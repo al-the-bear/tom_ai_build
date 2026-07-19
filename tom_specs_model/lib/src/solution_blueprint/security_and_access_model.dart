@@ -2984,6 +2984,9 @@ class IdentityAttributeMappingEntry extends DocSpecsSection {
   'Describes the authentication subsystem including supported methods, credential policies, session management, and authentication flows.',
 )
 @SectionId('AUTHEN')
+@CodeSpecKind([CodeSpecPart.authentication],
+    note: 'Credential exchange / token / session — CE-AU, distinct from '
+        'CE-AZ authorization; spans shared + client + server.')
 class Authentication extends DocSpecsSection {
   @ContentHelp('''
 Overview of the authentication subsystem: methods supported, credential

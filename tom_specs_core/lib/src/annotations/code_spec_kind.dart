@@ -115,6 +115,26 @@ enum CodeSpecPart {
   /// CE-EN — domain enums / value types.
   domainEnum,
 
-  /// CE-CF — configuration and preferences.
-  configuration,
+  /// CE-CF — **server / system** configuration (narrowed, csm2r5). No longer
+  /// carries user or client-machine settings — those are [clientConfiguration]
+  /// and [userSettings].
+  serverConfiguration,
+
+  /// CE-CC — client configuration: per-machine settings of a client app
+  /// (API base URL, device options, per-install toggles), keyed by
+  /// (client app, machine). (csm2r5)
+  clientConfiguration,
+
+  /// CE-UP — user settings / profile. A `@CsUserSetting` carries a
+  /// `persistence` discriminator: `local` (machine-persisted, does not follow
+  /// the user) vs `roaming` (server-persisted, restored on any machine). (csm2r5)
+  userSettings,
+
+  /// CE-CL — client application: which clients exist (Flutter app, CLI,
+  /// other server). (csm2r5)
+  client,
+
+  /// CE-AU — authentication / session: credential exchange, token, session —
+  /// distinct from [authorization]; spans shared + client + server. (csm2r5)
+  authentication,
 }
