@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T17:06:06.258385Z",
+  "generatedAt": "2026-07-19T17:33:24.157402Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -21121,6 +21121,15 @@
           "arguments": {
             "id": "BC"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+          }
         }
       ],
       "fields": [
@@ -21302,6 +21311,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "BE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
           }
         }
       ],
@@ -41463,6 +41481,15 @@
           "arguments": {
             "id": "CMAC"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "CE-AC — an action and its trigger."
+          }
         }
       ],
       "fields": [
@@ -42534,6 +42561,15 @@
           "arguments": {
             "id": "CMFA"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "CE-EL — a screen element by semantic type then concrete implementation."
+          }
         }
       ],
       "fields": [
@@ -43473,6 +43509,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "COLI"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "CE-EL — a screen element by semantic type then concrete implementation."
           }
         }
       ],
@@ -44849,6 +44894,15 @@
           "arguments": {
             "id": "CMPR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.form"
+            ],
+            "note": "CE-FM — a configurable component property (field-like)."
+          }
         }
       ],
       "fields": [
@@ -46216,6 +46270,15 @@
           "arguments": {
             "id": "CMSL"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+          }
         }
       ],
       "fields": [
@@ -46326,6 +46389,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "COMSTAENT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ],
+            "note": "CE-ST — view-model / UI state (data-bound display, screen/component state)."
           }
         }
       ],
@@ -47112,6 +47184,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "CVE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "CE-EL — a screen element by semantic type then concrete implementation."
           }
         }
       ],
@@ -49765,6 +49846,15 @@
           "arguments": {
             "id": "COHE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
+          }
         }
       ],
       "fields": [
@@ -50190,6 +50280,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "CONA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
           }
         }
       ],
@@ -72385,6 +72484,15 @@
           "arguments": {
             "id": "DELNPT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
+          }
         }
       ],
       "fields": [
@@ -88809,6 +88917,15 @@
           "arguments": {
             "id": "ELVARUEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "CE-VA — per-field / per-element validation rule."
+          }
         }
       ],
       "fields": [
@@ -91230,6 +91347,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "EPNT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
           }
         }
       ],
@@ -93994,6 +94120,15 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "CE-ER — error-result display over the canonical structured error envelope."
+          }
         }
       ],
       "fields": [
@@ -94812,6 +94947,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ERRE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "CE-ER — error-result display over the canonical structured error envelope."
           }
         }
       ],
@@ -97381,6 +97525,15 @@
           "arguments": {
             "id": "EXFIMAEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+          }
         }
       ],
       "fields": [
@@ -97745,6 +97898,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "EFE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -98460,6 +98622,15 @@
           "arguments": {
             "id": "EXSISE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+          }
         }
       ],
       "fields": [
@@ -98533,6 +98704,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ETE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -104942,6 +105122,15 @@
           "arguments": {
             "id": "FTRTUR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
+          }
         }
       ],
       "fields": [
@@ -105109,6 +105298,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "FLDHP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
           }
         }
       ],
@@ -133318,6 +133516,15 @@
           "arguments": {
             "id": "MLARLH"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
+          }
         }
       ],
       "fields": [
@@ -147797,6 +148004,15 @@
           "arguments": {
             "id": "MLAR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
+          }
         }
       ],
       "fields": [
@@ -148955,6 +149171,15 @@
           "arguments": {
             "id": "NAVGRP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
+          }
         }
       ],
       "fields": [
@@ -149311,6 +149536,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "NAVGRD"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation",
+              "CodeSpecPart.authorization"
+            ],
+            "note": "CE-NV + CE-AZ — a route guard: navigation redirect plus an authorization / permission check."
           }
         }
       ],
@@ -149781,6 +150016,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "NAVIIT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
           }
         }
       ],
@@ -150398,6 +150642,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "NAOV"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
           }
         }
       ],
@@ -155378,6 +155631,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ONHE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
           }
         }
       ],
@@ -167884,6 +168146,15 @@
           "arguments": {
             "id": "PRNA"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
+          }
         }
       ],
       "fields": [
@@ -168204,6 +168475,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -185549,6 +185829,15 @@
           "arguments": {
             "id": "RCVSCN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "CE-ER — error-result display over the canonical structured error envelope."
+          }
         }
       ],
       "fields": [
@@ -189013,6 +189302,15 @@
           "arguments": {
             "id": "RECHAX"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+          }
         }
       ],
       "fields": [
@@ -189142,6 +189440,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "REPCHAENT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -189555,6 +189862,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "REPCOLENT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -190009,6 +190325,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "RDE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -191509,6 +191834,15 @@
           "arguments": {
             "id": "RFE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+          }
         }
       ],
       "fields": [
@@ -191842,6 +192176,15 @@
           "arguments": {
             "id": "RRE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+          }
         }
       ],
       "fields": [
@@ -192137,6 +192480,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "REPSCHENT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -192526,6 +192878,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "RSE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -197366,6 +197727,15 @@
           "arguments": {
             "id": "REBE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+          }
         }
       ],
       "fields": [
@@ -197813,6 +198183,15 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+          }
         }
       ],
       "fields": [
@@ -197981,6 +198360,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "RESPSR"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
           }
         }
       ],
@@ -209270,6 +209658,15 @@
           "arguments": {
             "id": "SCRAC"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "CE-AC — an action and its trigger."
+          }
         }
       ],
       "fields": [
@@ -209902,6 +210299,15 @@
           "arguments": {
             "id": "SCELAC"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "CE-AC — an action and its trigger."
+          }
         }
       ],
       "fields": [
@@ -210145,6 +210551,15 @@
           "arguments": {
             "id": "SEDD"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ],
+            "note": "CE-ST — view-model / UI state (data-bound display, screen/component state)."
+          }
         }
       ],
       "fields": [
@@ -210373,6 +210788,15 @@
           "arguments": {
             "discriminator": "elementType",
             "note": "CE-EL closed choice: the element kind selects its facet subsection (action / input / display); structural kinds carry only common ones."
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "CE-EL — a screen element by semantic type then concrete implementation."
           }
         }
       ],
@@ -210988,6 +211412,15 @@
             "discriminator": "dataType",
             "note": "CE-EL field kind closed choice: the data type selects its promoted options subsection (number / date / select / text); boolean, color and file kinds carry only the common formatting + validation subsections."
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.form"
+            ],
+            "note": "CE-FM — a form field / input specification."
+          }
         }
       ],
       "fields": [
@@ -211580,6 +212013,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "SCREN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout",
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-LO + CE-NV — a screen is a routable, laid-out page."
           }
         }
       ],
@@ -212877,6 +213320,15 @@
           "arguments": {
             "id": "SCRERUEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
+          }
         }
       ],
       "fields": [
@@ -212964,6 +213416,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SCRSC"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis)."
           }
         }
       ],
@@ -213347,6 +213808,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SCRST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ],
+            "note": "CE-ST — view-model / UI state (data-bound display, screen/component state)."
           }
         }
       ],
@@ -237427,6 +237897,15 @@
           "arguments": {
             "id": "SUPLOCENT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
+          }
         }
       ],
       "fields": [
@@ -240746,6 +241225,15 @@
           "arguments": {
             "id": "SYERCOEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "CE-ER — error-result display over the canonical structured error envelope."
+          }
         }
       ],
       "fields": [
@@ -240969,6 +241457,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SYERDI"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "CE-ER — error-result display over the canonical structured error envelope."
           }
         }
       ],
@@ -247035,6 +247532,15 @@
           "arguments": {
             "id": "TABADEEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
+          }
         }
       ],
       "fields": [
@@ -247315,6 +247821,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "TIE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
           }
         }
       ],
@@ -258612,6 +259127,15 @@
           "arguments": {
             "id": "TURST"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
+          }
         }
       ],
       "fields": [
@@ -263928,6 +264452,15 @@
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
+          }
         }
       ],
       "fields": [
@@ -265561,6 +266094,15 @@
           "arguments": {
             "id": "UICOMENT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "CE-EL — a screen element by semantic type then concrete implementation."
+          }
         }
       ],
       "fields": [
@@ -267078,6 +267620,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "CE-EL — a screen element by semantic type then concrete implementation."
           }
         }
       ],
@@ -269719,6 +270270,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
           }
         }
       ],
@@ -274500,6 +275060,15 @@
           "arguments": {
             "id": "UTMEITEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
+          }
         }
       ],
       "fields": [
@@ -274828,6 +275397,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "UTNAITEN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — navigation / routing structure."
           }
         }
       ],
@@ -275177,6 +275755,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "VAFE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "CE-VA — per-field / per-element validation rule."
           }
         }
       ],
@@ -275683,6 +276270,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "VMT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling)."
           }
         }
       ],

@@ -1091,6 +1091,10 @@ Screens generate TomScaffold configurations with:
   'A single application screen with its identity, purpose, layout, and behavior fully specified.',
 )
 @SectionId('SCREN')
+@CodeSpecKind([
+  CodeSpecPart.layout,
+  CodeSpecPart.navigation,
+], note: 'CE-LO + CE-NV — a screen is a routable, laid-out page.')
 class ScreenEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1402,6 +1406,11 @@ Sections map to Flutter layout widgets:
   'A single logical zone within a screen that groups related elements together.',
 )
 @SectionId('SCRSC')
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
+)
 class ScreenSectionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1530,8 +1539,14 @@ class ScreenSectionEntry extends DocSpecsSection {
 @SectionId('SCREL')
 @OneOf(
   discriminator: 'elementType',
-  note: 'CE-EL closed choice: the element kind selects its facet subsection '
+  note:
+      'CE-EL closed choice: the element kind selects its facet subsection '
       '(action / input / display); structural kinds carry only common ones.',
+)
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'CE-EL — a screen element by semantic type then concrete implementation.',
 )
 class ScreenElementEntry extends DocSpecsSection {
   @Form([
@@ -1781,6 +1796,7 @@ class ScreenElementEntry extends DocSpecsSection {
   'The specification of button or link behavior for an action-type element including its reference and effect.',
 )
 @SectionId('SCELAC')
+@CodeSpecKind([CodeSpecPart.action], note: 'CE-AC — an action and its trigger.')
 class ScreenElementAction extends DocSpecsSection {
   @Form([
     Field(
@@ -1916,10 +1932,14 @@ class ScreenElementAction extends DocSpecsSection {
 @SectionId('SEFS')
 @OneOf(
   discriminator: 'dataType',
-  note: 'CE-EL field kind closed choice: the data type selects its promoted '
+  note:
+      'CE-EL field kind closed choice: the data type selects its promoted '
       'options subsection (number / date / select / text); boolean, color and '
       'file kinds carry only the common formatting + validation subsections.',
 )
+@CodeSpecKind([
+  CodeSpecPart.form,
+], note: 'CE-FM — a form field / input specification.')
 class ScreenElementFieldSpec extends DocSpecsSection {
   @Form([
     Field(
@@ -1983,13 +2003,10 @@ class ScreenElementFieldSpec extends DocSpecsSection {
   /// Present only for numeric field kinds; carries only numeric constraints
   /// (no length or option-source attributes).
   @SectionId('SEFSN')
-  @StandardReferences(
-    [
-      'ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges and precision',
-      'ISO 9241-110:2020 — use error tolerance through bounded numeric input',
-    ],
-    'The value range and precision constraints for a numeric input field.',
-  )
+  @StandardReferences([
+    'ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges and precision',
+    'ISO 9241-110:2020 — use error tolerance through bounded numeric input',
+  ], 'The value range and precision constraints for a numeric input field.')
   @Case(ScreenElementFieldKind.integer)
   @Case(ScreenElementFieldKind.decimal)
   @Case(ScreenElementFieldKind.currency)
@@ -2021,13 +2038,10 @@ class ScreenElementFieldSpec extends DocSpecsSection {
   /// Present only for date/time field kinds; carries only temporal
   /// constraints (no numeric precision or length attributes).
   @SectionId('SEFSD')
-  @StandardReferences(
-    [
-      'ISO 9241-143:2012 — constraints on date and time form-field input',
-      'ISO 8601-1:2019 — representation of dates and times',
-    ],
-    'The date/time range and format constraints for a temporal input field.',
-  )
+  @StandardReferences([
+    'ISO 9241-143:2012 — constraints on date and time form-field input',
+    'ISO 8601-1:2019 — representation of dates and times',
+  ], 'The date/time range and format constraints for a temporal input field.')
   @Case(ScreenElementFieldKind.date)
   @Case(ScreenElementFieldKind.dateTime)
   @Case(ScreenElementFieldKind.time)
@@ -2038,12 +2052,7 @@ class ScreenElementFieldSpec extends DocSpecsSection {
       'First Date',
       hint: 'Earliest selectable date/time',
     ),
-    Field(
-      'lastDate',
-      String,
-      'Last Date',
-      hint: 'Latest selectable date/time',
-    ),
+    Field('lastDate', String, 'Last Date', hint: 'Latest selectable date/time'),
     Field(
       'dateFormat',
       String,
@@ -2058,13 +2067,10 @@ class ScreenElementFieldSpec extends DocSpecsSection {
   ///
   /// Present only for free-text field kinds; carries only length constraints.
   @SectionId('SEFST')
-  @StandardReferences(
-    [
-      'ISO 9241-143:2012 — length constraints on text form-field input',
-      'ISO 9241-110:2020 — use error tolerance through bounded text input',
-    ],
-    'The length constraints for a free-text input field.',
-  )
+  @StandardReferences([
+    'ISO 9241-143:2012 — length constraints on text form-field input',
+    'ISO 9241-110:2020 — use error tolerance through bounded text input',
+  ], 'The length constraints for a free-text input field.')
   @Case(ScreenElementFieldKind.string)
   @Case(ScreenElementFieldKind.email)
   @Case(ScreenElementFieldKind.phone)
@@ -2122,13 +2128,10 @@ class ScreenElementFieldSpec extends DocSpecsSection {
   /// Present only for the enumeration (select) field kind; carries only the
   /// option-source and selection-mode attributes.
   @SectionId('SEFSS')
-  @StandardReferences(
-    [
-      'ISO 9241-143:2012 — form fields with selection and input assistance',
-      'ISO 9241-161:2016 — selection controls such as dropdowns and radio groups',
-    ],
-    'The option source and selection-mode attributes for a select input field.',
-  )
+  @StandardReferences([
+    'ISO 9241-143:2012 — form fields with selection and input assistance',
+    'ISO 9241-161:2016 — selection controls such as dropdowns and radio groups',
+  ], 'The option source and selection-mode attributes for a select input field.')
   @Case(ScreenElementFieldKind.enumeration)
   @Form([
     Field(
@@ -2168,6 +2171,11 @@ class ScreenElementFieldSpec extends DocSpecsSection {
   'The specification of how data is presented for a display-type element including format and empty state.',
 )
 @SectionId('SEDD')
+@CodeSpecKind(
+  [CodeSpecPart.viewState],
+  note:
+      'CE-ST — view-model / UI state (data-bound display, screen/component state).',
+)
 class ScreenElementDataDisplay extends DocSpecsSection {
   @Form([
     Field(
@@ -2269,6 +2277,9 @@ class ScreenElementDataDisplay extends DocSpecsSection {
   'A single validation rule describing how one input constraint is checked and reported.',
 )
 @SectionId('ELVARUEN')
+@CodeSpecKind([
+  CodeSpecPart.validation,
+], note: 'CE-VA — per-field / per-element validation rule.')
 class ElementValidationRuleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2290,7 +2301,8 @@ class ElementValidationRuleEntry extends DocSpecsSection {
       'errorCode',
       String,
       'Error Code',
-      hint: 'The error code emitted on failure — reference into the error-code '
+      hint:
+          'The error code emitted on failure — reference into the error-code '
           'registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX',
     ),
     Field(
@@ -2374,6 +2386,7 @@ Actions integrate with `TomAction` system:
   'A single top-level screen action available via toolbar, app bar, or floating action button.',
 )
 @SectionId('SCRAC')
+@CodeSpecKind([CodeSpecPart.action], note: 'CE-AC — an action and its trigger.')
 class ScreenActionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2581,6 +2594,11 @@ empty states, and error displays.
   'A single screen state describing one visual or behavioral condition the screen can be in.',
 )
 @SectionId('SCRST')
+@CodeSpecKind(
+  [CodeSpecPart.viewState],
+  note:
+      'CE-ST — view-model / UI state (data-bound display, screen/component state).',
+)
 class ScreenStateEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2678,6 +2696,9 @@ class ScreenUserCategoryEntry extends DocSpecsSection {
   'A single entry point describing where a user comes from when reaching this screen.',
 )
 @SectionId('EPNT')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class EntryPointEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2716,6 +2737,11 @@ class EntryPointEntry extends DocSpecsSection {
   'A single responsive-adaptation rule describing how the screen changes at a given breakpoint.',
 )
 @SectionId('SCRERUEN')
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
+)
 class ScreenResponsiveRuleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2961,6 +2987,9 @@ Navigation model generates:
   'The overall navigation strategy, routing approach, and landing-screen decisions.',
 )
 @SectionId('NAOV')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class NavigationOverview extends DocSpecsSection {
   @Form([
     Field(
@@ -3082,6 +3111,9 @@ Full navigation tree: groups and items.
   'ISO 9241-14:1997 — a menu group collects related options under a common heading',
 ], 'A logical grouping of related navigation items.')
 @SectionId('NAVGRP')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class NavigationGroupEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3246,6 +3278,9 @@ class NavigationGroupEntry extends DocSpecsSection {
   'ISO 9241-14:1997 — menu options correspond to discrete, selectable destinations',
 ], 'A single navigable destination within a navigation group.')
 @SectionId('NAVIIT')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class NavigationItemEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3469,6 +3504,9 @@ class NavigationItemEntry extends DocSpecsSection {
   'The primary-navigation configuration defining the top-level entry points across platforms.',
 )
 @SectionId('PRNA')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class PrimaryNavigation extends DocSpecsSection {
   @Form([
     Field(
@@ -3673,6 +3711,9 @@ Tab bars map to `TomTabBar` with:
   'ISO 9241-151:2008 — in-page navigation structures link the user to related content',
 ], 'A tab bar or segmented control definition bound to a specific host screen.')
 @SectionId('TABADEEN')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class TabBarDefinitionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3789,6 +3830,9 @@ class TabBarDefinitionEntry extends DocSpecsSection {
   'A single tab item defining its label, icon, target content, and visibility rules.',
 )
 @SectionId('TIE')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class TabItemEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3909,6 +3953,9 @@ Dropdown/popup menus have nested items with:
   'A single persistent utility element in the app bar, such as the user avatar or notifications bell.',
 )
 @SectionId('UTNAITEN')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class UtilityNavigationItemEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4028,6 +4075,9 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
   'A single entry within a utility popup or dropdown menu, such as a user-menu option.',
 )
 @SectionId('UTMEITEN')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class UtilityMenuItemEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4132,6 +4182,9 @@ class UtilityMenuItemEntry extends DocSpecsSection {
   'The contextual-navigation configuration for breadcrumbs, back navigation, and related links.',
 )
 @SectionId('CONA')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class ContextualNavigation extends DocSpecsSection {
   @ContentHelp('''
 ## Contextual Navigation (10.3.1.6)
@@ -4307,6 +4360,9 @@ External entry points and shareable URLs.
   'A single deep-link pattern mapping an external URL to a target screen with its access rules.',
 )
 @SectionId('DELNPT')
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — navigation / routing structure.')
 class DeepLinkPatternEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4431,6 +4487,11 @@ Guards integrate with `TomRouter` middleware.
   'A single route-guard rule that intercepts navigation for authentication, permission, or unsaved-change checks.',
 )
 @SectionId('NAVGRD')
+@CodeSpecKind(
+  [CodeSpecPart.navigation, CodeSpecPart.authorization],
+  note:
+      'CE-NV + CE-AZ — a route guard: navigation redirect plus an authorization / permission check.',
+)
 class NavigationGuardEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4553,6 +4614,11 @@ class NavigationGuardEntry extends DocSpecsSection {
 @SectionId('PRLA')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class PrintAndExportLayout extends DocSpecsSection {
   @Form([
     Field(
@@ -4852,9 +4918,12 @@ class PrintAndExportLayout extends DocSpecsSection {
   'A single report definition describing its data source layout sections and output.',
 )
 @SectionId('REPENT')
-@CodeSpecKind([CodeSpecPart.reporting],
-    note: 'CE-RP — reporting / read-models / analytics projections over the '
-        'domain model. Deferred (§4.3), mapping-only until §4.1.')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-models / analytics projections over the '
+      'domain model. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5356,6 +5425,11 @@ class ReportEntry extends DocSpecsSection {
   'A single section within a report describing its data layout sorting and content.',
 )
 @SectionId('RSE')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportSectionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5582,6 +5656,11 @@ class ReportSectionEntry extends DocSpecsSection {
   'ISO 9241-13:1998 — user guidance covers column header labels',
 ], 'A single column definition within a tabular report section.')
 @SectionId('REPCOLENT')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportColumnEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5795,6 +5874,11 @@ class ReportColumnEntry extends DocSpecsSection {
   'ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of charts',
 ], 'A single chart definition describing how report data is visualised.')
 @SectionId('REPCHAENT')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportChartEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5965,6 +6049,11 @@ class ReportChartEntry extends DocSpecsSection {
   'Axis configuration mapping data fields to chart X-axis and Y-axis dimensions.',
 )
 @SectionId('RECHAX')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportChartAxes extends DocSpecsSection {
   @Form([
     Field(
@@ -6042,6 +6131,11 @@ class ReportChartAxes extends DocSpecsSection {
   'A single report-filter entry defining one parameter by which report content is filtered.',
 )
 @SectionId('RFE')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportFilterEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -6224,6 +6318,11 @@ class ReportFilterEntry extends DocSpecsSection {
   'A single report-schedule entry defining when and how often a report is generated.',
 )
 @SectionId('REPSCHENT')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportScheduleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -6419,6 +6518,11 @@ class ReportScheduleEntry extends DocSpecsSection {
   'A single distribution-channel entry defining how a report is delivered over one channel.',
 )
 @SectionId('RDE')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportDistributionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -6600,6 +6704,11 @@ class ReportDistributionEntry extends DocSpecsSection {
   'A single report-recipient entry identifying who receives a report and how they are referenced.',
 )
 @SectionId('RRE')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ReportRecipientEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -6753,6 +6862,11 @@ class ReportRecipientEntry extends DocSpecsSection {
   'A single export-format definition describing how report output is rendered, delimited, sized, and secured.',
 )
 @SectionId('EFE')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ExportFormatEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -7071,6 +7185,11 @@ class ExportFormatEntry extends DocSpecsSection {
   'Row limits and file-splitting settings that bound the size of generated export files.',
 )
 @SectionId('EXSISE')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ExportSizeSettings extends DocSpecsSection {
   @Form([
     Field('maxRows', int, 'Maximum Rows', hint: 'Row limit; 0 = unlimited'),
@@ -7101,6 +7220,11 @@ class ExportSizeSettings extends DocSpecsSection {
   'A single mapping that binds one source data field to one target field in the export output.',
 )
 @SectionId('EXFIMAEN')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ExportFieldMappingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -7285,6 +7409,11 @@ class ExportFieldMappingEntry extends DocSpecsSection {
   'A reusable export template that bundles format, field, layout, and access settings for repeated exports.',
 )
 @SectionId('ETE')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1.',
+)
 class ExportTemplateEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -7479,6 +7608,11 @@ class ExportTemplateEntry extends DocSpecsSection {
 @SectionId('ERHACO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'CE-ER — error-result display over the canonical structured error envelope.',
+)
 class ErrorHandling extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
@@ -7664,6 +7798,9 @@ class ErrorHandling extends DocSpecsSection {
   'The validation-feedback configuration governing how input errors are surfaced.',
 )
 @SectionId('VAFE')
+@CodeSpecKind([
+  CodeSpecPart.validation,
+], note: 'CE-VA — per-field / per-element validation rule.')
 class ValidationFeedback extends DocSpecsSection {
   @SectionId('VAFE-VALI')
   @Form([
@@ -7880,6 +8017,11 @@ class ValidationFeedback extends DocSpecsSection {
   'The validation-message template configuration defining reusable error message content.',
 )
 @SectionId('VMT')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class ValidationMessageTemplate extends DocSpecsSection {
   @Form([
     Field(
@@ -7907,7 +8049,8 @@ class ValidationMessageTemplate extends DocSpecsSection {
       String,
       'Message Template',
       required: true,
-      hint: 'Template with {field}, {value} placeholders. Author the copy once '
+      hint:
+          'Template with {field}, {value} placeholders. Author the copy once '
           'in the CE-TX Message Key Registry (MSGKR) and reference it via '
           'localizationKey; this field carries the resolved default copy',
     ),
@@ -7940,7 +8083,8 @@ class ValidationMessageTemplate extends DocSpecsSection {
       'localizationKey',
       String,
       'Localization Key',
-      hint: 'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — '
+      hint:
+          'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — '
           'the single author-once home for this validation copy and its '
           'locale variants',
     ),
@@ -7963,6 +8107,11 @@ class ValidationMessageTemplate extends DocSpecsSection {
   'The system-error display configuration governing how errors are shown to users.',
 )
 @SectionId('SYERDI')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'CE-ER — error-result display over the canonical structured error envelope.',
+)
 class SystemErrorDisplay extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // System Error Handling
@@ -8198,6 +8347,11 @@ class SystemErrorDisplay extends DocSpecsSection {
   'ISO 9241-13:1998 — user guidance maps each error to a clear and specific user message',
 ], 'A single catalogued system error code with its user message and handling.')
 @SectionId('SYERCOEN')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'CE-ER — error-result display over the canonical structured error envelope.',
+)
 class SystemErrorCodeEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -8303,6 +8457,11 @@ class SystemErrorCodeEntry extends DocSpecsSection {
   'The error-recovery configuration covering data preservation, retry, and guided recovery.',
 )
 @SectionId('ERRE')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'CE-ER — error-result display over the canonical structured error envelope.',
+)
 class ErrorRecovery extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Recovery Mechanisms
@@ -8561,6 +8720,11 @@ class ErrorRecovery extends DocSpecsSection {
   'The configuration for a single recovery scenario describing its trigger, impact, and recovery steps.',
 )
 @SectionId('RCVSCN')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'CE-ER — error-result display over the canonical structured error envelope.',
+)
 class RecoveryScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -8641,6 +8805,11 @@ class RecoveryScenarioEntry extends DocSpecsSection {
 @SectionId('USAS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class UserAssistance extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
@@ -8783,6 +8952,11 @@ class UserAssistance extends DocSpecsSection {
   'The contextual-help configuration providing on-screen assistance in context.',
 )
 @SectionId('COHE')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class ContextualHelp extends DocSpecsSection {
   @SectionId('COHE-CONT')
   @Form([
@@ -8962,6 +9136,11 @@ class ContextualHelp extends DocSpecsSection {
   'ISO 9241-13:1998 — user guidance offers field-level help for input elements',
 ], 'A single field-help entry describing the assistance for one input field.')
 @SectionId('FLDHP')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class FieldHelpEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9024,6 +9203,11 @@ class FieldHelpEntry extends DocSpecsSection {
   'A single onboarding-help configuration guiding new users through the interface.',
 )
 @SectionId('ONHE')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class OnboardingHelp extends DocSpecsSection {
   @SectionId('ONHE-ONBO')
   @Form([
@@ -9236,6 +9420,11 @@ class OnboardingHelp extends DocSpecsSection {
   'ISO/IEC 25010:2023 — supports learnability so users can learn to operate the feature with ease',
 ], 'A single feature-tour definition, including audience, trigger, and steps.')
 @SectionId('FTRTUR')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class FeatureTourEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9314,6 +9503,11 @@ class FeatureTourEntry extends DocSpecsSection {
   'A single step within a guided feature tour, targeting one interface element.',
 )
 @SectionId('TURST')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class TourStepEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10201,6 +10395,11 @@ class AccessibilityCheckEntry extends DocSpecsSection {
 @SectionId('REDE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
+)
 class ResponsiveDesign extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
@@ -10290,6 +10489,11 @@ class ResponsiveDesign extends DocSpecsSection {
   'The configuration of viewport breakpoints, their units, and density handling for responsive layouts.',
 )
 @SectionId('BC')
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
+)
 class BreakpointConfiguration extends DocSpecsSection {
   @SectionId('BC-BREA')
   @Form([
@@ -10380,6 +10584,11 @@ class BreakpointConfiguration extends DocSpecsSection {
   'A single breakpoint entry defining a viewport width range and its associated layout and scaling rules.',
 )
 @SectionId('BE')
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
+)
 class BreakpointEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10482,6 +10691,11 @@ class BreakpointEntry extends DocSpecsSection {
   'The specification of how the interface adapts its layout, navigation, visibility, touch, and content across breakpoints.',
 )
 @SectionId('REBE')
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
+)
 class ResponsiveBehavior extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Layout Adaptation
@@ -10672,6 +10886,11 @@ class ResponsiveBehavior extends DocSpecsSection {
   'A single screen-specific responsive rule describing how one screen adapts across mobile, tablet, and desktop layouts.',
 )
 @SectionId('RESPSR')
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
+)
 class ResponsiveScreenRuleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10738,6 +10957,11 @@ class ResponsiveScreenRuleEntry extends DocSpecsSection {
 @SectionId('UICO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'CE-EL — a screen element by semantic type then concrete implementation.',
+)
 class UiComponents extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
@@ -10913,6 +11137,11 @@ class UiComponents extends DocSpecsSection {
   'The component-library configuration describing the design system and its shared foundations.',
 )
 @SectionId('COLI')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'CE-EL — a screen element by semantic type then concrete implementation.',
+)
 class ComponentLibrary extends DocSpecsSection {
   @StandardReferences(
     [
@@ -11287,6 +11516,11 @@ class TypographyStyleEntry extends DocSpecsSection {
   'A grouping of related interface components that share function, patterns, and consistency rules.',
 )
 @SectionId('CMFA')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'CE-EL — a screen element by semantic type then concrete implementation.',
+)
 class ComponentFamilyEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11402,6 +11636,11 @@ class FamilyComponentRef extends DocSpecsSection {
   'The complete specification of a single user-interface component covering identity, visual design, behaviour, accessibility, authorization, and data binding.',
 )
 @SectionId('UICOMENT')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'CE-EL — a screen element by semantic type then concrete implementation.',
+)
 class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Identity
@@ -12146,6 +12385,11 @@ class UiComponentEntry extends DocSpecsSection {
   'The component state definition describing a distinct visual and functional state of a UI component.',
 )
 @SectionId('COMSTAENT')
+@CodeSpecKind(
+  [CodeSpecPart.viewState],
+  note:
+      'CE-ST — view-model / UI state (data-bound display, screen/component state).',
+)
 class ComponentStateEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12295,6 +12539,11 @@ class ComponentStateEntry extends DocSpecsSection {
   'The component variant definition describing an alternative appearance or behavior of a component.',
 )
 @SectionId('CVE')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'CE-EL — a screen element by semantic type then concrete implementation.',
+)
 class ComponentVariantEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12418,6 +12667,7 @@ class ComponentVariantEntry extends DocSpecsSection {
   'The component action definition describing an operation that a user can trigger from a component.',
 )
 @SectionId('CMAC')
+@CodeSpecKind([CodeSpecPart.action], note: 'CE-AC — an action and its trigger.')
 class ComponentActionEntry extends DocSpecsSection {
   @Form([
     Field('actionId', String, 'Action ID', required: true),
@@ -12530,6 +12780,11 @@ class ComponentActionEntry extends DocSpecsSection {
   'The component slot definition describing a placeholder where child content can be inserted.',
 )
 @SectionId('CMSL')
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
+)
 class ComponentSlotEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12600,6 +12855,9 @@ class ComponentSlotEntry extends DocSpecsSection {
   'The configurable property definition describing a settable attribute of a UI component.',
 )
 @SectionId('CMPR')
+@CodeSpecKind([
+  CodeSpecPart.form,
+], note: 'CE-FM — a configurable component property (field-like).')
 class ComponentPropertyEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12690,6 +12948,11 @@ class ComponentPropertyEntry extends DocSpecsSection {
   'The multi-language support architecture covering supported languages, primary language, and locale handling.',
 )
 @SectionId('MLAR')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class MultiLanguageSupport extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Multi-language Overview
@@ -12762,6 +13025,11 @@ class MultiLanguageSupport extends DocSpecsSection {
   'The locale format, country variants, detection, and fallback-chain behavior.',
 )
 @SectionId('MLARLH')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class LocaleHandlingRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -13509,9 +13777,12 @@ class TrainingModuleEntry extends DocSpecsSection {
 @SectionId('LACOSE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@CodeSpecKind([CodeSpecPart.userSettings],
-    note: 'CE-UP — a user language/country preference persisted per user and '
-        'restored across devices (roaming persistence, §11).')
+@CodeSpecKind(
+  [CodeSpecPart.userSettings],
+  note:
+      'CE-UP — a user language/country preference persisted per user and '
+      'restored across devices (roaming persistence, §11).',
+)
 class LanguageCountrySelection extends DocSpecsSection {
   @SectionId('LACOSE-LANG')
   @Form([
@@ -13700,6 +13971,11 @@ class LanguageCountrySelection extends DocSpecsSection {
 @SectionId('TRAREQ')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class TranslationRequirements extends DocSpecsSection {
   @SectionId('TRAREQ-TRAN')
   @Form([
@@ -13887,6 +14163,11 @@ class TranslationRequirements extends DocSpecsSection {
   'A single locale the product supports, named by its language tag, language name, and region.',
 )
 @SectionId('SUPLOCENT')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
+)
 class SupportedLocaleEntry extends DocSpecsSection {
   @Form([
     Field(
