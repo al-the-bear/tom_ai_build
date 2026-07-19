@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-19T13:02:52.043700Z",
+  "generatedAt": "2026-07-19T13:39:16.675936Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1220,
+  "classCount": 1223,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -55298,6 +55298,21 @@
             }
           ],
           "type": "IntegrityConstraints"
+        },
+        {
+          "name": "domainEnumRegistry",
+          "kind": "complex",
+          "doc": "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).",
+          "serializationOrder": 14,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 14
+              }
+            }
+          ],
+          "type": "DomainEnumRegistry"
         }
       ]
     },
@@ -86486,6 +86501,341 @@
         }
       ]
     },
+    "DomainEnumEntry": {
+      "name": "DomainEnumEntry",
+      "sectionId": "DMENE",
+      "doc": "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / value-domain enumerations",
+          "Domain-Driven Design — value objects / enumerations"
+        ],
+        "connotation": "A single domain enum: its name, backing type, default, and named member values."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / value-domain enumerations",
+              "Domain-Driven Design — value objects / enumerations"
+            ],
+            "connotation": "A single domain enum: its name, backing type, default, and named member values."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DMENE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.domainEnum"
+            ],
+            "note": "CE-EN — a closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "enumName",
+              "label": "Enum Name",
+              "hint": "Logical enum name in PascalCase (e.g. OrderStatus, Currency)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What this value set represents and where it is used",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "backingType",
+              "label": "Backing Type",
+              "hint": "Type of the persisted/serialized code: String | Integer",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "defaultValue",
+              "label": "Default Value",
+              "hint": "The value id used as the default, if any",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "values",
+          "kind": "list",
+          "doc": "7.5.x. Enum Values — one entry per member of the value set.",
+          "help": "Add one entry per enum value.",
+          "sectionId": "DMEVA-VALU-LST",
+          "sectionIdPattern": "DMEVA-VALU-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / value-domain enumerations"
+            ],
+            "connotation": "The member values of this domain enum, each with a stable id, backing value, and copy reference."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — metadata registries / value-domain enumerations"
+                ],
+                "connotation": "The member values of this domain enum, each with a stable id, backing value, and copy reference."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DMEVA-VALU-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "DMEVA-VALU-xxx"
+              }
+            },
+            {
+              "name": "Min",
+              "arguments": {
+                "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per enum value."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "DomainEnumValueEntry",
+          "elementIsComplex": true,
+          "min": 1
+        }
+      ]
+    },
+    "DomainEnumRegistry": {
+      "name": "DomainEnumRegistry",
+      "sectionId": "DOMEN",
+      "doc": "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / value-domain enumerations",
+          "Domain-Driven Design — value objects / enumerations"
+        ],
+        "connotation": "The registry of domain enums (closed value sets): each enum with its named, backed values — the CE-EN home and the closed-choice discriminator source."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / value-domain enumerations",
+              "Domain-Driven Design — value objects / enumerations"
+            ],
+            "connotation": "The registry of domain enums (closed value sets): each enum with its named, backed values — the CE-EN home and the closed-choice discriminator source."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DOMEN"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "enums",
+          "kind": "list",
+          "doc": "7.5.1. Domain Enums — one entry per closed value set.",
+          "help": "Add one entry per domain enum (closed value set).",
+          "sectionId": "DMENE-ENUM-LST",
+          "sectionIdPattern": "DMENE-ENUM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / value-domain enumerations"
+            ],
+            "connotation": "The catalogued domain enums, each a named closed value set."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — metadata registries / value-domain enumerations"
+                ],
+                "connotation": "The catalogued domain enums, each a named closed value set."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DMENE-ENUM-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "DMENE-ENUM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per domain enum (closed value set)."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "DomainEnumEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "DomainEnumValueEntry": {
+      "name": "DomainEnumValueEntry",
+      "sectionId": "DMEVA",
+      "doc": "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / value-domain enumerations",
+          "ISO 9241-13:1998 — user guidance / clear labelling"
+        ],
+        "connotation": "A single domain-enum member: its stable value id, backing value, and copy-key reference."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / value-domain enumerations",
+              "ISO 9241-13:1998 — user guidance / clear labelling"
+            ],
+            "connotation": "A single domain-enum member: its stable value id, backing value, and copy-key reference."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DMEVA"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "valueId",
+              "label": "Value Id",
+              "hint": "Stable value identifier (the enum constant / @Case token)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "backingValue",
+              "label": "Backing Value",
+              "hint": "Persisted/serialized code (int or string), if distinct from the id",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "copyKey",
+              "label": "Copy Key",
+              "hint": "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What this value means",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "DomainEventEntry": {
       "name": "DomainEventEntry",
       "sectionId": "DOEV",
@@ -115277,6 +115627,21 @@
             }
           ],
           "type": "SchemaVersioningAndMigration"
+        },
+        {
+          "name": "domainEnumRegistry",
+          "kind": "complex",
+          "doc": "7.5. Domain Enum Registry.",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "type": "DomainEnumRegistry"
         }
       ]
     },

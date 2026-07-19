@@ -426,6 +426,9 @@ static SomMetaNode **meta_children_documentation_standards_section(SomStrList *s
 static SomMetaNode **meta_children_domain_boundaries(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_domain_business_rule_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_domain_business_rules(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_domain_enum_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_domain_enum_registry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_domain_enum_value_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_domain_event_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_domain_events(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_domain_interface_entry(SomStrList *stack, size_t *len);
@@ -2395,6 +2398,7 @@ static void meta_build_d03_information_model_business_rules_elem(SomMetaNode *n)
 static void meta_build_d03_information_model_data_dictionary(SomMetaNode *n);
 static void meta_build_d03_information_model_validation_constraints(SomMetaNode *n);
 static void meta_build_d03_information_model_integrity_constraints(SomMetaNode *n);
+static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_header(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_functional_requirements(SomMetaNode *n);
@@ -3050,6 +3054,13 @@ static void meta_build_domain_business_rule_entry_governance(SomMetaNode *n);
 static void meta_build_domain_business_rules_content(SomMetaNode *n);
 static void meta_build_domain_business_rules_rules(SomMetaNode *n);
 static void meta_build_domain_business_rules_rules_elem(SomMetaNode *n);
+static void meta_build_domain_enum_entry_content(SomMetaNode *n);
+static void meta_build_domain_enum_entry_values(SomMetaNode *n);
+static void meta_build_domain_enum_entry_values_elem(SomMetaNode *n);
+static void meta_build_domain_enum_registry_content(SomMetaNode *n);
+static void meta_build_domain_enum_registry_enums(SomMetaNode *n);
+static void meta_build_domain_enum_registry_enums_elem(SomMetaNode *n);
+static void meta_build_domain_enum_value_entry_content(SomMetaNode *n);
 static void meta_build_domain_event_entry_content(SomMetaNode *n);
 static void meta_build_domain_events_content(SomMetaNode *n);
 static void meta_build_domain_events_events(SomMetaNode *n);
@@ -3595,6 +3606,7 @@ static void meta_build_information_and_data_model_data_model(SomMetaNode *n);
 static void meta_build_information_and_data_model_business_object_model(SomMetaNode *n);
 static void meta_build_information_and_data_model_function_model(SomMetaNode *n);
 static void meta_build_information_and_data_model_schema_versioning_and_migration(SomMetaNode *n);
+static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNode *n);
 static void meta_build_information_architecture_content(SomMetaNode *n);
 static void meta_build_information_architecture_site_map(SomMetaNode *n);
 static void meta_build_information_architecture_content_hierarchy(SomMetaNode *n);
@@ -7314,6 +7326,16 @@ static void *meta_nav_factory_domain_business_rule_entry(const SomMetaTree *tree
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_domain_enum_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_domain_enum_entry *r = (som_nav_domain_enum_entry *)malloc(sizeof(som_nav_domain_enum_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_domain_enum_value_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_domain_enum_value_entry *r = (som_nav_domain_enum_value_entry *)malloc(sizeof(som_nav_domain_enum_value_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_domain_event_entry(const SomMetaTree *tree, const char *path) {
   som_nav_domain_event_entry *r = (som_nav_domain_event_entry *)malloc(sizeof(som_nav_domain_event_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -9726,6 +9748,16 @@ static void *meta_id_factory_distribution_recipient_preferences(const SomMetaTre
 }
 static void *meta_id_factory_domain_business_rule_entry(const SomMetaTree *tree, const char *path) {
   som_id_domain_business_rule_entry *r = (som_id_domain_business_rule_entry *)malloc(sizeof(som_id_domain_business_rule_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_domain_enum_entry(const SomMetaTree *tree, const char *path) {
+  som_id_domain_enum_entry *r = (som_id_domain_enum_entry *)malloc(sizeof(som_id_domain_enum_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_domain_enum_value_entry(const SomMetaTree *tree, const char *path) {
+  som_id_domain_enum_value_entry *r = (som_id_domain_enum_value_entry *)malloc(sizeof(som_id_domain_enum_value_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -39039,6 +39071,17 @@ static void meta_build_d03_information_model_integrity_constraints(SomMetaNode *
   meta_set(&n->class_doc_comment, "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.");
   meta_set(&n->detailed_in, "D03InformationModel");
 }
+static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumRegistry");
+  meta_set(&n->member_name, "domainEnumRegistry");
+  meta_set(&n->class_section_id, "DOMEN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "DomainEnumRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 14;
+  meta_set(&n->doc_comment, "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).");
+  meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
+}
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D04RequirementsSpecification");
   meta_set(&n->member_name, "content");
@@ -54883,6 +54926,138 @@ static void meta_build_domain_business_rules_rules_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A domain business rule entry (form).");
   meta_set(&n->class_doc_comment, "A domain business rule entry (form).");
 }
+static void meta_build_domain_enum_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("enumName");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Enum Name");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Logical enum name in PascalCase (e.g. OrderStatus, Currency)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("description");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Description");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("What this value set represents and where it is used");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("backingType");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Backing Type");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Type of the persisted/serialized code: String | Integer");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("defaultValue");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Default Value");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The value id used as the default, if any");
+  n->form->fields[3].order = 3;
+}
+static void meta_build_domain_enum_entry_values(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumEntry");
+  meta_set(&n->member_name, "values");
+  meta_set(&n->section_id, "DMEVA-VALU-LST");
+  meta_set(&n->section_id_pattern, "DMEVA-VALU-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "DomainEnumValueEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  n->has_min = 1;
+  n->min = 1;
+  meta_set(&n->content_help, "Add one entry per enum value.");
+  meta_set(&n->doc_comment, "7.5.x. Enum Values — one entry per member of the value set.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / value-domain enumerations\"],\"connotation\":\"The member values of this domain enum, each with a stable id, backing value, and copy reference.\"}", NULL);
+}
+static void meta_build_domain_enum_entry_values_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumValueEntry");
+  meta_set(&n->class_section_id, "DMEVA");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "DomainEnumValueEntry");
+  meta_set(&n->doc_comment, "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).");
+  meta_set(&n->class_doc_comment, "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).");
+}
+static void meta_build_domain_enum_registry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumRegistry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n");
+}
+static void meta_build_domain_enum_registry_enums(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumRegistry");
+  meta_set(&n->member_name, "enums");
+  meta_set(&n->section_id, "DMENE-ENUM-LST");
+  meta_set(&n->section_id_pattern, "DMENE-ENUM-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "DomainEnumEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per domain enum (closed value set).");
+  meta_set(&n->doc_comment, "7.5.1. Domain Enums — one entry per closed value set.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / value-domain enumerations\"],\"connotation\":\"The catalogued domain enums, each a named closed value set.\"}", NULL);
+}
+static void meta_build_domain_enum_registry_enums_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumEntry");
+  meta_set(&n->class_section_id, "DMENE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "DomainEnumEntry");
+  meta_set(&n->doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
+  meta_set(&n->class_doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
+}
+static void meta_build_domain_enum_value_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumValueEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("valueId");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Value Id");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Stable value identifier (the enum constant / @Case token)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("backingValue");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Backing Value");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Persisted/serialized code (int or string), if distinct from the id");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("copyKey");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Copy Key");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("description");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Description");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("What this value means");
+  n->form->fields[3].order = 3;
+}
 static void meta_build_domain_event_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEventEntry");
   meta_set(&n->member_name, "content");
@@ -69401,6 +69576,17 @@ static void meta_build_information_and_data_model_schema_versioning_and_migratio
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "7.4. Schema Versioning and Migration.");
   meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.");
+}
+static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "DomainEnumRegistry");
+  meta_set(&n->member_name, "domainEnumRegistry");
+  meta_set(&n->class_section_id, "DOMEN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "DomainEnumRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "7.5. Domain Enum Registry.");
+  meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
 }
 static void meta_build_information_architecture_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InformationArchitecture");
@@ -157321,6 +157507,7 @@ static SomMetaNode **meta_children_d03_information_model(SomStrList *stack, size
   meta_push(&arr, len, &cap, meta_cx("DataDictionary", stack, meta_children_data_dictionary, meta_build_d03_information_model_data_dictionary));
   meta_push(&arr, len, &cap, meta_cx("ValidationConstraints", stack, meta_children_validation_constraints, meta_build_d03_information_model_validation_constraints));
   meta_push(&arr, len, &cap, meta_cx("IntegrityConstraints", stack, meta_children_integrity_constraints, meta_build_d03_information_model_integrity_constraints));
+  meta_push(&arr, len, &cap, meta_cx("DomainEnumRegistry", stack, meta_children_domain_enum_registry, meta_build_d03_information_model_domain_enum_registry));
   return arr;
 }
 
@@ -160665,6 +160852,55 @@ static SomMetaNode **meta_children_domain_business_rules(SomStrList *stack, size
   return arr;
 }
 
+static SomMetaNode **meta_children_domain_enum_entry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_domain_enum_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_domain_enum_entry_values(ln);
+    ln->element_node = meta_cx("DomainEnumValueEntry", stack, meta_children_domain_enum_value_entry, meta_build_domain_enum_entry_values_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_domain_enum_registry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_domain_enum_registry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_domain_enum_registry_enums(ln);
+    ln->element_node = meta_cx("DomainEnumEntry", stack, meta_children_domain_enum_entry, meta_build_domain_enum_registry_enums_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_domain_enum_value_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_domain_enum_value_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_domain_event_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -163787,6 +164023,7 @@ static SomMetaNode **meta_children_information_and_data_model(SomStrList *stack,
   meta_push(&arr, len, &cap, meta_cx("BusinessObjectModel", stack, meta_children_business_object_model, meta_build_information_and_data_model_business_object_model));
   meta_push(&arr, len, &cap, meta_cx("FunctionModel", stack, meta_children_function_model, meta_build_information_and_data_model_function_model));
   meta_push(&arr, len, &cap, meta_cx("SchemaVersioningAndMigration", stack, meta_children_schema_versioning_and_migration, meta_build_information_and_data_model_schema_versioning_and_migration));
+  meta_push(&arr, len, &cap, meta_cx("DomainEnumRegistry", stack, meta_children_domain_enum_registry, meta_build_information_and_data_model_domain_enum_registry));
   return arr;
 }
 
@@ -189372,6 +189609,13 @@ som_nav_integrity_constraints d03_information_model_nav_integrity_constraints(so
   free(path);
   return out;
 }
+som_nav_domain_enum_registry d03_information_model_nav_domain_enum_registry(som_nav_d03_information_model x) {
+  som_nav_domain_enum_registry out;
+  char *path = spec_path_join(x.ref.path, "domainEnumRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef d04_requirements_specification_nav_content(som_nav_d04_requirements_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -193579,6 +193823,41 @@ SomListMetaRef domain_business_rules_nav_rules(som_nav_domain_business_rules x) 
   free(path);
   return out;
 }
+SomMetaRef domain_enum_entry_nav_content(som_nav_domain_enum_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef domain_enum_entry_nav_values(som_nav_domain_enum_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DMEVA-VALU-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_domain_enum_value_entry);
+  free(path);
+  return out;
+}
+SomMetaRef domain_enum_registry_nav_content(som_nav_domain_enum_registry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef domain_enum_registry_nav_enums(som_nav_domain_enum_registry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DMENE-ENUM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_domain_enum_entry);
+  free(path);
+  return out;
+}
+SomMetaRef domain_enum_value_entry_nav_content(som_nav_domain_enum_value_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef domain_event_entry_nav_content(som_nav_domain_event_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -197019,6 +197298,13 @@ som_nav_function_model information_and_data_model_nav_function_model(som_nav_inf
 som_nav_schema_versioning_and_migration information_and_data_model_nav_schema_versioning_and_migration(som_nav_information_and_data_model x) {
   som_nav_schema_versioning_and_migration out;
   char *path = spec_path_join(x.ref.path, "schemaVersioningAndMigration");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_domain_enum_registry information_and_data_model_nav_domain_enum_registry(som_nav_information_and_data_model x) {
+  som_nav_domain_enum_registry out;
+  char *path = spec_path_join(x.ref.path, "domainEnumRegistry");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -220131,6 +220417,13 @@ SomListMetaRef d00_solution_blueprint_id_scmst_step_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_dmene_enum_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_domain_enum_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d00_solution_blueprint_id_trareq_tran(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
@@ -227940,6 +228233,13 @@ SomListMetaRef d03_information_model_id_biru_busi_lst(som_id_d03_information_mod
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "BIRU-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_business_rule_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_dmene_enum_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "domainEnumRegistry/DMENE-ENUM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_domain_enum_entry);
   free(path);
   return out;
 }
@@ -235892,6 +236192,13 @@ SomMetaRef domain_business_rule_entry_id_dbreg(som_id_domain_business_rule_entry
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DBREG");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef domain_enum_entry_id_dmeva_valu_lst(som_id_domain_enum_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DMEVA-VALU-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_domain_enum_value_entry);
   free(path);
   return out;
 }

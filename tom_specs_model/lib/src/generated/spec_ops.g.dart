@@ -4666,6 +4666,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.dataDictionary, (v) => n.dataDictionary = v as DataDictionary, label: 'dataDictionary'),
         SpecSlot.node(() => n.validationConstraints, (v) => n.validationConstraints = v as ValidationConstraints, label: 'validationConstraints'),
         SpecSlot.node(() => n.integrityConstraints, (v) => n.integrityConstraints = v as IntegrityConstraints, label: 'integrityConstraints'),
+        SpecSlot.node(() => n.domainEnumRegistry, (v) => n.domainEnumRegistry = v as DomainEnumRegistry, label: 'domainEnumRegistry'),
       ];
     },
     cloneShallow: (o) {
@@ -4684,7 +4685,8 @@ void registerSpecOps() {
         ..businessRules = n.businessRules
         ..dataDictionary = n.dataDictionary
         ..validationConstraints = n.validationConstraints
-        ..integrityConstraints = n.integrityConstraints;
+        ..integrityConstraints = n.integrityConstraints
+        ..domainEnumRegistry = n.domainEnumRegistry;
     },
     yamlScalar: (o) => (o as D03InformationModel).content,
   ));
@@ -7201,6 +7203,45 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DomainBusinessRules).content,
   ));
+  SpecRegistry.register(DomainEnumEntry, SpecClassOps(
+    slots: (o) {
+      final n = o as DomainEnumEntry;
+      return [
+        SpecSlot.list(() => n.values, (v) => n.values = v.cast<DomainEnumValueEntry>(), label: 'values'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as DomainEnumEntry;
+      return DomainEnumEntry()
+        ..content = n.content
+        ..values = n.values;
+    },
+    yamlScalar: (o) => (o as DomainEnumEntry).content,
+  ));
+  SpecRegistry.register(DomainEnumRegistry, SpecClassOps(
+    slots: (o) {
+      final n = o as DomainEnumRegistry;
+      return [
+        SpecSlot.list(() => n.enums, (v) => n.enums = v.cast<DomainEnumEntry>(), label: 'enums'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as DomainEnumRegistry;
+      return DomainEnumRegistry()
+        ..content = n.content
+        ..enums = n.enums;
+    },
+    yamlScalar: (o) => (o as DomainEnumRegistry).content,
+  ));
+  SpecRegistry.register(DomainEnumValueEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as DomainEnumValueEntry;
+      return DomainEnumValueEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as DomainEnumValueEntry).content,
+  ));
   SpecRegistry.register(DomainEventEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -9439,6 +9480,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.businessObjectModel, (v) => n.businessObjectModel = v as BusinessObjectModel, label: 'businessObjectModel'),
         SpecSlot.node(() => n.functionModel, (v) => n.functionModel = v as FunctionModel, label: 'functionModel'),
         SpecSlot.node(() => n.schemaVersioningAndMigration, (v) => n.schemaVersioningAndMigration = v as SchemaVersioningAndMigration, label: 'schemaVersioningAndMigration'),
+        SpecSlot.node(() => n.domainEnumRegistry, (v) => n.domainEnumRegistry = v as DomainEnumRegistry, label: 'domainEnumRegistry'),
       ];
     },
     cloneShallow: (o) {
@@ -9448,7 +9490,8 @@ void registerSpecOps() {
         ..dataModel = n.dataModel
         ..businessObjectModel = n.businessObjectModel
         ..functionModel = n.functionModel
-        ..schemaVersioningAndMigration = n.schemaVersioningAndMigration;
+        ..schemaVersioningAndMigration = n.schemaVersioningAndMigration
+        ..domainEnumRegistry = n.domainEnumRegistry;
     },
     yamlScalar: (o) => (o as InformationAndDataModel).content,
   ));

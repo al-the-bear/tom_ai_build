@@ -56,6 +56,10 @@ IFM (Information Model) document.
   @SerializationOrder(4)
   SchemaVersioningAndMigration schemaVersioningAndMigration =
       SchemaVersioningAndMigration();
+
+  /// 7.5. Domain Enum Registry.
+  @SerializationOrder(5)
+  DomainEnumRegistry domainEnumRegistry = DomainEnumRegistry();
 }
 
 // ---------------------------------------------------------------------------
@@ -4072,6 +4076,180 @@ class SchemaMigrationStepEntry extends DocSpecsSection {
       bool,
       'Reversible',
       hint: 'Whether a down/rollback migration is provided',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.5 Domain Enum Registry
+// ---------------------------------------------------------------------------
+
+/// 7.5. Domain Enum Registry.
+///
+/// The first-class SOM home for the system's **domain enums** — the closed
+/// value sets the business data model relies on (order status, currency,
+/// account type, …). Before this registry existed, closed value sets could
+/// only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+/// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+/// expressible home and the closed-choice mechanism had no real enum to use as
+/// a discriminator.
+///
+/// This registry serves **two** roles:
+///
+/// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+///    type and default, and its [DomainEnumEntry.values] each carry a value id,
+///    a backing value and a copy reference into the CE-TX message registry.
+/// 2. **Closed-choice discriminator source** — because each enum is *named* and
+///    exposes an *enumerable* set of value ids, a future `@OneOf`
+///    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+///    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+///    provides that source; the `@OneOf`/`@Case` annotations themselves are a
+///    separate part.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / value-domain enumerations',
+    'Domain-Driven Design — value objects / enumerations',
+  ],
+  'The registry of domain enums (closed value sets): each enum with its named, backed values — the CE-EN home and the closed-choice discriminator source.',
+)
+@SectionId('DOMEN')
+class DomainEnumRegistry extends DocSpecsSection {
+  @ContentHelp('''
+Catalogue the domain enums — the closed value sets the data model relies on
+(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum
+lists its members with a stable value id, an optional backing value (the
+persisted/serialized code) and a copy reference for the display label.
+
+Domain enums authored here are the single source for:
+- CE-EN (`domainEnum`) code generation — an enum type per entry;
+- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice
+  set, its value ids are the cases.
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.5.1. Domain Enums — one entry per closed value set.
+  @StandardReferences([
+    'ISO/IEC 11179 — metadata registries / value-domain enumerations',
+  ], 'The catalogued domain enums, each a named closed value set.')
+  @SectionId('DMENE-ENUM-LST')
+  @SectionIdPattern('DMENE-ENUM-xxx')
+  @ContentHelp('Add one entry per domain enum (closed value set).')
+  @SerializationOrder(1)
+  List<DomainEnumEntry> enums = [];
+}
+
+/// A single domain enum (form + values).
+///
+/// One named closed value set: its name, backing value type, default value and
+/// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+/// name becomes the generated enum type and each member becomes a constant —
+/// and doubles as a closed-choice discriminator source (csm-7-4): the enum
+/// name identifies the choice set and [values] supply the cases.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / value-domain enumerations',
+    'Domain-Driven Design — value objects / enumerations',
+  ],
+  'A single domain enum: its name, backing type, default, and named member values.',
+)
+@SectionId('DMENE')
+@CodeSpecKind([CodeSpecPart.domainEnum],
+    note: 'CE-EN — a closed value set becomes a domain enum / value type: the '
+        'enum name is the generated type, each value id + backing value a '
+        'constant, and each member copy resolves via CE-TX. The enum also '
+        'serves as the closed-choice (@OneOf) discriminator source (csm-7-4).')
+class DomainEnumEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'enumName',
+      String,
+      'Enum Name',
+      required: true,
+      hint: 'Logical enum name in PascalCase (e.g. OrderStatus, Currency)',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What this value set represents and where it is used',
+    ),
+    Field(
+      'backingType',
+      String,
+      'Backing Type',
+      hint: 'Type of the persisted/serialized code: String | Integer',
+    ),
+    Field(
+      'defaultValue',
+      String,
+      'Default Value',
+      hint: 'The value id used as the default, if any',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.5.x. Enum Values — one entry per member of the value set.
+  @StandardReferences([
+    'ISO/IEC 11179 — metadata registries / value-domain enumerations',
+  ], 'The member values of this domain enum, each with a stable id, backing value, and copy reference.')
+  @SectionId('DMEVA-VALU-LST')
+  @SectionIdPattern('DMEVA-VALU-xxx')
+  @Min(1)
+  @ContentHelp('Add one entry per enum value.')
+  @SerializationOrder(1)
+  List<DomainEnumValueEntry> values = [];
+}
+
+/// A single domain-enum value (form).
+///
+/// One member of a [DomainEnumEntry]: a stable value id (the generated enum
+/// constant and the `@Case` discriminator token), an optional backing value
+/// (the persisted/serialized code), and a copy reference — a message key into
+/// the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+/// display label is authored once and referenced everywhere (csm5 cross-cutting
+/// finding #1).
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / value-domain enumerations',
+    'ISO 9241-13:1998 — user guidance / clear labelling',
+  ],
+  'A single domain-enum member: its stable value id, backing value, and copy-key reference.',
+)
+@SectionId('DMEVA')
+class DomainEnumValueEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'valueId',
+      String,
+      'Value Id',
+      required: true,
+      hint: 'Stable value identifier (the enum constant / @Case token)',
+    ),
+    Field(
+      'backingValue',
+      String,
+      'Backing Value',
+      hint: 'Persisted/serialized code (int or string), if distinct from the id',
+    ),
+    Field(
+      'copyKey',
+      String,
+      'Copy Key',
+      hint: 'Message-key reference into the CE-TX message registry for the '
+          'display label (author copy once, reference here)',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What this value means',
     ),
   ])
   @override

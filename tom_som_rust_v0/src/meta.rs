@@ -3668,6 +3668,10 @@ fn meta_children_d03_information_model(s: &mut HashSet<String>) -> Vec<Rc<som::S
             class_name: "IntegrityConstraints".to_string(), member_name: "integrityConstraints".to_string(), class_section_id: "INCO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrityConstraints".to_string(), serialization_order: Some(13), doc_comment: "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("DomainEnumRegistry", s, meta_children_domain_enum_registry, |r, c| som::SomMetaNode {
+            class_name: "DomainEnumRegistry".to_string(), member_name: "domainEnumRegistry".to_string(), class_section_id: "DOMEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumRegistry".to_string(), serialization_order: Some(14), doc_comment: "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).".to_string(), class_doc_comment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
     ]
 }
 
@@ -5833,6 +5837,40 @@ fn meta_children_domain_business_rules(s: &mut HashSet<String>) -> Vec<Rc<som::S
     ]
 }
 
+fn meta_children_domain_enum_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "DomainEnumEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "enumName".to_string(), type_name: "String".to_string(), description: "Enum Name".to_string(), required: true, hint: "Logical enum name in PascalCase (e.g. OrderStatus, Currency)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "What this value set represents and where it is used".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "backingType".to_string(), type_name: "String".to_string(), description: "Backing Type".to_string(), required: false, hint: "Type of the persisted/serialized code: String | Integer".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "defaultValue".to_string(), type_name: "String".to_string(), description: "Default Value".to_string(), required: false, hint: "The value id used as the default, if any".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "DomainEnumEntry".to_string(), member_name: "values".to_string(), section_id: "DMEVA-VALU-LST".to_string(), section_id_pattern: "DMEVA-VALU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DomainEnumValueEntry".to_string(), serialization_order: Some(1), min: Some(1), content_help: "Add one entry per enum value.".to_string(), doc_comment: "7.5.x. Enum Values — one entry per member of the value set.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 11179 — metadata registries / value-domain enumerations".to_string())])), ("connotation".to_string(), som::Json::Str("The member values of this domain enum, each with a stable id, backing value, and copy reference.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("DomainEnumValueEntry", s, meta_children_domain_enum_value_entry, |r, c| som::SomMetaNode {
+                class_name: "DomainEnumValueEntry".to_string(), class_section_id: "DMEVA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumValueEntry".to_string(), doc_comment: "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).".to_string(), class_doc_comment: "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
+fn meta_children_domain_enum_registry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "DomainEnumRegistry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "DomainEnumRegistry".to_string(), member_name: "enums".to_string(), section_id: "DMENE-ENUM-LST".to_string(), section_id_pattern: "DMENE-ENUM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DomainEnumEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per domain enum (closed value set).".to_string(), doc_comment: "7.5.1. Domain Enums — one entry per closed value set.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 11179 — metadata registries / value-domain enumerations".to_string())])), ("connotation".to_string(), som::Json::Str("The catalogued domain enums, each a named closed value set.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("DomainEnumEntry", s, meta_children_domain_enum_entry, |r, c| som::SomMetaNode {
+                class_name: "DomainEnumEntry".to_string(), class_section_id: "DMENE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumEntry".to_string(), doc_comment: "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.".to_string(), class_doc_comment: "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
+fn meta_children_domain_enum_value_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "DomainEnumValueEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "valueId".to_string(), type_name: "String".to_string(), description: "Value Id".to_string(), required: true, hint: "Stable value identifier (the enum constant / @Case token)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "backingValue".to_string(), type_name: "String".to_string(), description: "Backing Value".to_string(), required: false, hint: "Persisted/serialized code (int or string), if distinct from the id".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "copyKey".to_string(), type_name: "String".to_string(), description: "Copy Key".to_string(), required: false, hint: "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "What this value means".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_domain_event_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "DomainEventEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "eventName".to_string(), type_name: "String".to_string(), description: "Event Name (past tense, e.g., OrderPlaced)".to_string(), required: true, hint: "Past-tense event name, e.g., OrderPlaced".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "eventDescription".to_string(), type_name: "String".to_string(), description: "Event Description".to_string(), required: true, hint: "What this event represents in the business".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "eventType".to_string(), type_name: "String".to_string(), description: "Event Type (State Change, Action Completed, Time-based, External)".to_string(), required: false, hint: "State Change / Action Completed / Time-based / External".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "trigger".to_string(), type_name: "String".to_string(), description: "Trigger (what causes this event)".to_string(), required: false, hint: "What causes this event to occur".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "sourceEntity".to_string(), type_name: "String".to_string(), description: "Source Entity (which concept generates this event)".to_string(), required: false, hint: "Which domain concept generates this event".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "eventData".to_string(), type_name: "String".to_string(), description: "Event Data (what information is carried with the event)".to_string(), required: false, hint: "Information carried in the event payload".to_string(), order: 5, enum_values: vec![] }, som::SomFormFieldMeta { name: "subscribers".to_string(), type_name: "String".to_string(), description: "Subscribers (who/what reacts to this event)".to_string(), required: false, hint: "Who or what reacts to this event".to_string(), order: 6, enum_values: vec![] }, som::SomFormFieldMeta { name: "reactions".to_string(), type_name: "String".to_string(), description: "Reactions (what happens when this event occurs)".to_string(), required: false, hint: "What happens in response to this event".to_string(), order: 7, enum_values: vec![] }, som::SomFormFieldMeta { name: "frequency".to_string(), type_name: "String".to_string(), description: "Frequency (how often this event occurs)".to_string(), required: false, hint: "How often this event occurs".to_string(), order: 8, enum_values: vec![] }, som::SomFormFieldMeta { name: "businessImpact".to_string(), type_name: "String".to_string(), description: "Business Impact (significance of this event)".to_string(), required: false, hint: "Significance of this event to the business".to_string(), order: 9, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -7565,6 +7603,10 @@ fn meta_children_information_and_data_model(s: &mut HashSet<String>) -> Vec<Rc<s
         }),
         meta_cx("SchemaVersioningAndMigration", s, meta_children_schema_versioning_and_migration, |r, c| som::SomMetaNode {
             class_name: "SchemaVersioningAndMigration".to_string(), member_name: "schemaVersioningAndMigration".to_string(), class_section_id: "SCHMG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaVersioningAndMigration".to_string(), serialization_order: Some(4), doc_comment: "7.4. Schema Versioning and Migration.".to_string(), class_doc_comment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("DomainEnumRegistry", s, meta_children_domain_enum_registry, |r, c| som::SomMetaNode {
+            class_name: "DomainEnumRegistry".to_string(), member_name: "domainEnumRegistry".to_string(), class_section_id: "DOMEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumRegistry".to_string(), serialization_order: Some(5), doc_comment: "7.5. Domain Enum Registry.".to_string(), class_doc_comment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -27899,6 +27941,10 @@ impl<'a> D03InformationModelNav<'a> {
     pub fn integrity_constraints(&self) -> IntegrityConstraintsNav<'a> {
         IntegrityConstraintsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "integrityConstraints"))
     }
+
+    pub fn domain_enum_registry(&self) -> DomainEnumRegistryNav<'a> {
+        DomainEnumRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "domainEnumRegistry"))
+    }
 }
 
 /// D04RequirementsSpecificationNav holds the dot-notation accessors of `D04RequirementsSpecification` (DR1 §4.1).
@@ -33759,6 +33805,107 @@ impl<'a> DomainBusinessRulesNav<'a> {
     }
 }
 
+/// DomainEnumEntryNav holds the dot-notation accessors of `DomainEnumEntry` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct DomainEnumEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DomainEnumEntryNav<'a> {
+    /// Binds a DomainEnumEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DomainEnumEntryNav<'a> {
+        DomainEnumEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn values(&self) -> som::SomListMetaRef<'a, DomainEnumValueEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DMEVA-VALU-LST"), DomainEnumValueEntryNav::new)
+    }
+}
+
+/// DomainEnumRegistryNav holds the dot-notation accessors of `DomainEnumRegistry` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct DomainEnumRegistryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DomainEnumRegistryNav<'a> {
+    /// Binds a DomainEnumRegistryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DomainEnumRegistryNav<'a> {
+        DomainEnumRegistryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn enums(&self) -> som::SomListMetaRef<'a, DomainEnumEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DMENE-ENUM-LST"), DomainEnumEntryNav::new)
+    }
+}
+
+/// DomainEnumValueEntryNav holds the dot-notation accessors of `DomainEnumValueEntry` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct DomainEnumValueEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DomainEnumValueEntryNav<'a> {
+    /// Binds a DomainEnumValueEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DomainEnumValueEntryNav<'a> {
+        DomainEnumValueEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// DomainEventEntryNav holds the dot-notation accessors of `DomainEventEntry` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -39099,6 +39246,10 @@ impl<'a> InformationAndDataModelNav<'a> {
 
     pub fn schema_versioning_and_migration(&self) -> SchemaVersioningAndMigrationNav<'a> {
         SchemaVersioningAndMigrationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "schemaVersioningAndMigration"))
+    }
+
+    pub fn domain_enum_registry(&self) -> DomainEnumRegistryNav<'a> {
+        DomainEnumRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "domainEnumRegistry"))
     }
 }
 
@@ -74297,6 +74448,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST"), SchemaMigrationStepEntryId::new)
     }
 
+    pub fn DMENE_ENUM_LST(&self) -> som::SomListMetaRef<'a, DomainEnumEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST"), DomainEnumEntryId::new)
+    }
+
     pub fn TRAREQ_TRAN(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"))
     }
@@ -78837,6 +78992,10 @@ impl<'a> D03InformationModelId<'a> {
 
     pub fn BIRU_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessRuleEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BIRU-BUSI-LST"), BusinessRuleEntryId::new)
+    }
+
+    pub fn DMENE_ENUM_LST(&self) -> som::SomListMetaRef<'a, DomainEnumEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "domainEnumRegistry/DMENE-ENUM-LST"), DomainEnumEntryId::new)
     }
 }
 
@@ -84759,6 +84918,62 @@ impl<'a> DomainBusinessRuleEntryId<'a> {
 
     pub fn DBREG(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DBREG"))
+    }
+}
+
+/// DomainEnumEntryId holds the ID-tree accessors of `DomainEnumEntry` (DR1 §4.2):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct DomainEnumEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DomainEnumEntryId<'a> {
+    /// Binds a DomainEnumEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DomainEnumEntryId<'a> {
+        DomainEnumEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn DMEVA_VALU_LST(&self) -> som::SomListMetaRef<'a, DomainEnumValueEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DMEVA-VALU-LST"), DomainEnumValueEntryId::new)
+    }
+}
+
+/// DomainEnumValueEntryId holds the ID-tree accessors of `DomainEnumValueEntry` (DR1 §4.2):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct DomainEnumValueEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DomainEnumValueEntryId<'a> {
+    /// Binds a DomainEnumValueEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DomainEnumValueEntryId<'a> {
+        DomainEnumValueEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
     }
 }
 

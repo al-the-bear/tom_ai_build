@@ -9870,6 +9870,13 @@ IntegrityConstraints d03_information_model_integrity_constraints(const D03Inform
   free(path);
   return out;
 }
+DomainEnumRegistry d03_information_model_domain_enum_registry(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "domainEnumRegistry");
+  DomainEnumRegistry out;
+  domain_enum_registry_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 int d04_requirements_specification_new(D04RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
   if (check_som_model_version(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
@@ -15917,6 +15924,79 @@ SomList domain_business_rules_rules(const DomainBusinessRules *self) {
   return out;
 }
 
+void domain_enum_entry_init(DomainEnumEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void domain_enum_entry_free(DomainEnumEntry *self) {
+  som_node_free(&self->node);
+}
+int domain_enum_entry_can_have_content(const DomainEnumEntry *self) {
+  (void)self;
+  return 0;
+}
+DomainEnumEntryContentForm domain_enum_entry_content(const DomainEnumEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  DomainEnumEntryContentForm out;
+  domain_enum_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList domain_enum_entry_values(const DomainEnumEntry *self) {
+  char *path = spec_path_join(self->node.path, "DMEVA-VALU-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "DMEVA-VALU-xxx");
+  free(path);
+  return out;
+}
+
+void domain_enum_registry_init(DomainEnumRegistry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void domain_enum_registry_free(DomainEnumRegistry *self) {
+  som_node_free(&self->node);
+}
+int domain_enum_registry_can_have_content(const DomainEnumRegistry *self) {
+  (void)self;
+  return 1;
+}
+char *domain_enum_registry_content(const DomainEnumRegistry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void domain_enum_registry_set_content(DomainEnumRegistry *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+SomList domain_enum_registry_enums(const DomainEnumRegistry *self) {
+  char *path = spec_path_join(self->node.path, "DMENE-ENUM-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "DMENE-ENUM-xxx");
+  free(path);
+  return out;
+}
+
+void domain_enum_value_entry_init(DomainEnumValueEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void domain_enum_value_entry_free(DomainEnumValueEntry *self) {
+  som_node_free(&self->node);
+}
+int domain_enum_value_entry_can_have_content(const DomainEnumValueEntry *self) {
+  (void)self;
+  return 0;
+}
+DomainEnumValueEntryContentForm domain_enum_value_entry_content(const DomainEnumValueEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  DomainEnumValueEntryContentForm out;
+  domain_enum_value_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void domain_event_entry_init(DomainEventEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -20720,6 +20800,13 @@ SchemaVersioningAndMigration information_and_data_model_schema_versioning_and_mi
   char *path = spec_path_join(self->node.path, "schemaVersioningAndMigration");
   SchemaVersioningAndMigration out;
   schema_versioning_and_migration_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DomainEnumRegistry information_and_data_model_domain_enum_registry(const InformationAndDataModel *self) {
+  char *path = spec_path_join(self->node.path, "domainEnumRegistry");
+  DomainEnumRegistry out;
+  domain_enum_registry_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -82045,6 +82132,90 @@ char *domain_business_rule_entry_governance_form_examples(const DomainBusinessRu
 }
 void domain_business_rule_entry_governance_form_set_examples(DomainBusinessRuleEntryGovernanceForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "examples", value);
+}
+
+void domain_enum_entry_content_form_init(DomainEnumEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void domain_enum_entry_content_form_free(DomainEnumEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *domain_enum_entry_content_form_content(const DomainEnumEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_entry_content_form_set_content(DomainEnumEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *domain_enum_entry_content_form_enum_name(const DomainEnumEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "enumName");
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_entry_content_form_set_enum_name(DomainEnumEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "enumName", value);
+}
+char *domain_enum_entry_content_form_description(const DomainEnumEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_entry_content_form_set_description(DomainEnumEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
+}
+char *domain_enum_entry_content_form_backing_type(const DomainEnumEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "backingType");
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_entry_content_form_set_backing_type(DomainEnumEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "backingType", value);
+}
+char *domain_enum_entry_content_form_default_value(const DomainEnumEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "defaultValue");
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_entry_content_form_set_default_value(DomainEnumEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "defaultValue", value);
+}
+
+void domain_enum_value_entry_content_form_init(DomainEnumValueEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void domain_enum_value_entry_content_form_free(DomainEnumValueEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *domain_enum_value_entry_content_form_content(const DomainEnumValueEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_value_entry_content_form_set_content(DomainEnumValueEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *domain_enum_value_entry_content_form_value_id(const DomainEnumValueEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "valueId");
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_value_entry_content_form_set_value_id(DomainEnumValueEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "valueId", value);
+}
+char *domain_enum_value_entry_content_form_backing_value(const DomainEnumValueEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "backingValue");
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_value_entry_content_form_set_backing_value(DomainEnumValueEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "backingValue", value);
+}
+char *domain_enum_value_entry_content_form_copy_key(const DomainEnumValueEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "copyKey");
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_value_entry_content_form_set_copy_key(DomainEnumValueEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "copyKey", value);
+}
+char *domain_enum_value_entry_content_form_description(const DomainEnumValueEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
+  return som_strdup(v != NULL ? v : "");
+}
+void domain_enum_value_entry_content_form_set_description(DomainEnumValueEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
 }
 
 void domain_event_entry_content_form_init(DomainEventEntryContentForm *self, SpecDocument *doc, const char *path) {

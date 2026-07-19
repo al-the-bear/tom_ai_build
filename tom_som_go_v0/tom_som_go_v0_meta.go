@@ -3357,6 +3357,9 @@ func metaChildrenD03InformationModel(s map[string]bool) []*som.SomMetaNode {
 		metaCx("IntegrityConstraints", s, metaChildrenIntegrityConstraints, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "IntegrityConstraints", MemberName: "integrityConstraints", ClassSectionID: "INCO", Kind: som.SomMetaKindComplex, TypeName: "IntegrityConstraints", SerializationOrder: metaIntPtr(13), DocComment: "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).", ClassDocComment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
+		metaCx("DomainEnumRegistry", s, metaChildrenDomainEnumRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "domainEnumRegistry", ClassSectionID: "DOMEN", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumRegistry", SerializationOrder: metaIntPtr(14), DocComment: "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).", ClassDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.", Recursive: r, Children: c}
+		}),
 	}
 }
 
@@ -5288,6 +5291,38 @@ func metaChildrenDomainBusinessRules(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenDomainEnumEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "DomainEnumEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "enumName", TypeName: "String", Description: "Enum Name", Required: true, Hint: "Logical enum name in PascalCase (e.g. OrderStatus, Currency)", Order: 0}, {Name: "description", TypeName: "String", Description: "Description", Hint: "What this value set represents and where it is used", Order: 1}, {Name: "backingType", TypeName: "String", Description: "Backing Type", Hint: "Type of the persisted/serialized code: String | Integer", Order: 2}, {Name: "defaultValue", TypeName: "String", Description: "Default Value", Hint: "The value id used as the default, if any", Order: 3}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "DomainEnumEntry", MemberName: "values", SectionID: "DMEVA-VALU-LST", SectionIDPattern: "DMEVA-VALU-xxx", Kind: som.SomMetaKindList, TypeName: "DomainEnumValueEntry", SerializationOrder: metaIntPtr(1), Min: metaIntPtr(1), ContentHelp: "Add one entry per enum value.", DocComment: "7.5.x. Enum Values — one entry per member of the value set.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 11179 — metadata registries / value-domain enumerations"}, "connotation": "The member values of this domain enum, each with a stable id, backing value, and copy reference."}}}}
+			n.ElementNode = metaCx("DomainEnumValueEntry", s, metaChildrenDomainEnumValueEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "DomainEnumValueEntry", ClassSectionID: "DMEVA", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumValueEntry", DocComment: "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).", ClassDocComment: "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
+func metaChildrenDomainEnumRegistry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "DomainEnumRegistry", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n"},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "enums", SectionID: "DMENE-ENUM-LST", SectionIDPattern: "DMENE-ENUM-xxx", Kind: som.SomMetaKindList, TypeName: "DomainEnumEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per domain enum (closed value set).", DocComment: "7.5.1. Domain Enums — one entry per closed value set.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 11179 — metadata registries / value-domain enumerations"}, "connotation": "The catalogued domain enums, each a named closed value set."}}}}
+			n.ElementNode = metaCx("DomainEnumEntry", s, metaChildrenDomainEnumEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "DomainEnumEntry", ClassSectionID: "DMENE", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumEntry", DocComment: "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", ClassDocComment: "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
+func metaChildrenDomainEnumValueEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "DomainEnumValueEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "valueId", TypeName: "String", Description: "Value Id", Required: true, Hint: "Stable value identifier (the enum constant / @Case token)", Order: 0}, {Name: "backingValue", TypeName: "String", Description: "Backing Value", Hint: "Persisted/serialized code (int or string), if distinct from the id", Order: 1}, {Name: "copyKey", TypeName: "String", Description: "Copy Key", Hint: "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)", Order: 2}, {Name: "description", TypeName: "String", Description: "Description", Hint: "What this value means", Order: 3}}}},
+	}
+}
+
 func metaChildrenDomainEventEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DomainEventEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "eventName", TypeName: "String", Description: "Event Name (past tense, e.g., OrderPlaced)", Required: true, Hint: "Past-tense event name, e.g., OrderPlaced", Order: 0}, {Name: "eventDescription", TypeName: "String", Description: "Event Description", Required: true, Hint: "What this event represents in the business", Order: 1}, {Name: "eventType", TypeName: "String", Description: "Event Type (State Change, Action Completed, Time-based, External)", Hint: "State Change / Action Completed / Time-based / External", Order: 2}, {Name: "trigger", TypeName: "String", Description: "Trigger (what causes this event)", Hint: "What causes this event to occur", Order: 3}, {Name: "sourceEntity", TypeName: "String", Description: "Source Entity (which concept generates this event)", Hint: "Which domain concept generates this event", Order: 4}, {Name: "eventData", TypeName: "String", Description: "Event Data (what information is carried with the event)", Hint: "Information carried in the event payload", Order: 5}, {Name: "subscribers", TypeName: "String", Description: "Subscribers (who/what reacts to this event)", Hint: "Who or what reacts to this event", Order: 6}, {Name: "reactions", TypeName: "String", Description: "Reactions (what happens when this event occurs)", Hint: "What happens in response to this event", Order: 7}, {Name: "frequency", TypeName: "String", Description: "Frequency (how often this event occurs)", Hint: "How often this event occurs", Order: 8}, {Name: "businessImpact", TypeName: "String", Description: "Business Impact (significance of this event)", Hint: "Significance of this event to the business", Order: 9}}}},
@@ -6885,6 +6920,9 @@ func metaChildrenInformationAndDataModel(s map[string]bool) []*som.SomMetaNode {
 		}),
 		metaCx("SchemaVersioningAndMigration", s, metaChildrenSchemaVersioningAndMigration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "schemaVersioningAndMigration", ClassSectionID: "SCHMG", Kind: som.SomMetaKindComplex, TypeName: "SchemaVersioningAndMigration", SerializationOrder: metaIntPtr(4), DocComment: "7.4. Schema Versioning and Migration.", ClassDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.", Recursive: r, Children: c}
+		}),
+		metaCx("DomainEnumRegistry", s, metaChildrenDomainEnumRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "domainEnumRegistry", ClassSectionID: "DOMEN", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumRegistry", SerializationOrder: metaIntPtr(5), DocComment: "7.5. Domain Enum Registry.", ClassDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -23593,6 +23631,10 @@ func (x *D03InformationModelNav) IntegrityConstraints() *IntegrityConstraintsNav
 	return newIntegrityConstraintsNav(x.Tree, x.Path+"/integrityConstraints")
 }
 
+func (x *D03InformationModelNav) DomainEnumRegistry() *DomainEnumRegistryNav {
+	return newDomainEnumRegistryNav(x.Tree, x.Path+"/domainEnumRegistry")
+}
+
 // D04RequirementsSpecificationNav holds the dot-notation accessors of `D04RequirementsSpecification` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -27921,6 +27963,72 @@ func (x *DomainBusinessRulesNav) Rules() *som.SomListMetaRef[*DomainBusinessRule
 	})
 }
 
+// DomainEnumEntryNav holds the dot-notation accessors of `DomainEnumEntry` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type DomainEnumEntryNav struct {
+	som.SomMetaRef
+}
+
+// newDomainEnumEntryNav binds a DomainEnumEntryNav accessor to a tree and a path.
+func newDomainEnumEntryNav(tree *som.SomMetaTree, path string) *DomainEnumEntryNav {
+	return &DomainEnumEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DomainEnumEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *DomainEnumEntryNav) Values() *som.SomListMetaRef[*DomainEnumValueEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DMEVA-VALU-LST", func(t *som.SomMetaTree, p string) *DomainEnumValueEntryNav {
+		return newDomainEnumValueEntryNav(t, p)
+	})
+}
+
+// DomainEnumRegistryNav holds the dot-notation accessors of `DomainEnumRegistry` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type DomainEnumRegistryNav struct {
+	som.SomMetaRef
+}
+
+// newDomainEnumRegistryNav binds a DomainEnumRegistryNav accessor to a tree and a path.
+func newDomainEnumRegistryNav(tree *som.SomMetaTree, path string) *DomainEnumRegistryNav {
+	return &DomainEnumRegistryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DomainEnumRegistryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *DomainEnumRegistryNav) Enums() *som.SomListMetaRef[*DomainEnumEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DMENE-ENUM-LST", func(t *som.SomMetaTree, p string) *DomainEnumEntryNav {
+		return newDomainEnumEntryNav(t, p)
+	})
+}
+
+// DomainEnumValueEntryNav holds the dot-notation accessors of `DomainEnumValueEntry` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type DomainEnumValueEntryNav struct {
+	som.SomMetaRef
+}
+
+// newDomainEnumValueEntryNav binds a DomainEnumValueEntryNav accessor to a tree and a path.
+func newDomainEnumValueEntryNav(tree *som.SomMetaTree, path string) *DomainEnumValueEntryNav {
+	return &DomainEnumValueEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DomainEnumValueEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // DomainEventEntryNav holds the dot-notation accessors of `DomainEventEntry` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -31747,6 +31855,10 @@ func (x *InformationAndDataModelNav) FunctionModel() *FunctionModelNav {
 
 func (x *InformationAndDataModelNav) SchemaVersioningAndMigration() *SchemaVersioningAndMigrationNav {
 	return newSchemaVersioningAndMigrationNav(x.Tree, x.Path+"/schemaVersioningAndMigration")
+}
+
+func (x *InformationAndDataModelNav) DomainEnumRegistry() *DomainEnumRegistryNav {
+	return newDomainEnumRegistryNav(x.Tree, x.Path+"/domainEnumRegistry")
 }
 
 // InformationArchitectureNav holds the dot-notation accessors of `InformationArchitecture` (DR1 §4.1).
@@ -57491,6 +57603,12 @@ func (x *D00SolutionBlueprintID) SCMST_STEP_LST() *som.SomListMetaRef[*SchemaMig
 	})
 }
 
+func (x *D00SolutionBlueprintID) DMENE_ENUM_LST() *som.SomListMetaRef[*DomainEnumEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST", func(t *som.SomMetaTree, p string) *DomainEnumEntryID {
+		return newDomainEnumEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) TRAREQ_TRAN() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"}
 }
@@ -62423,6 +62541,12 @@ func (x *D03InformationModelID) FNDMX_FUNC_LST() *som.SomListMetaRef[*FunctionDa
 func (x *D03InformationModelID) BIRU_BUSI_LST() *som.SomListMetaRef[*BusinessRuleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/BIRU-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessRuleEntryID {
 		return newBusinessRuleEntryID(t, p)
+	})
+}
+
+func (x *D03InformationModelID) DMENE_ENUM_LST() *som.SomListMetaRef[*DomainEnumEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/domainEnumRegistry/DMENE-ENUM-LST", func(t *som.SomMetaTree, p string) *DomainEnumEntryID {
+		return newDomainEnumEntryID(t, p)
 	})
 }
 
@@ -68041,6 +68165,38 @@ func (x *DomainBusinessRuleEntryID) DBRED() *som.SomMetaRef {
 
 func (x *DomainBusinessRuleEntryID) DBREG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DBREG"}
+}
+
+// DomainEnumEntryID holds the ID-tree accessors of `DomainEnumEntry` (DR1 §4.2): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type DomainEnumEntryID struct {
+	som.SomMetaRef
+}
+
+// newDomainEnumEntryID binds a DomainEnumEntryID accessor to a tree and a path.
+func newDomainEnumEntryID(tree *som.SomMetaTree, path string) *DomainEnumEntryID {
+	return &DomainEnumEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DomainEnumEntryID) DMEVA_VALU_LST() *som.SomListMetaRef[*DomainEnumValueEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DMEVA-VALU-LST", func(t *som.SomMetaTree, p string) *DomainEnumValueEntryID {
+		return newDomainEnumValueEntryID(t, p)
+	})
+}
+
+// DomainEnumValueEntryID holds the ID-tree accessors of `DomainEnumValueEntry` (DR1 §4.2): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type DomainEnumValueEntryID struct {
+	som.SomMetaRef
+}
+
+// newDomainEnumValueEntryID binds a DomainEnumValueEntryID accessor to a tree and a path.
+func newDomainEnumValueEntryID(tree *som.SomMetaTree, path string) *DomainEnumValueEntryID {
+	return &DomainEnumValueEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // DomainEventEntryID holds the ID-tree accessors of `DomainEventEntry` (DR1 §4.2): methods

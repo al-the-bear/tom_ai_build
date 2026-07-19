@@ -3949,6 +3949,9 @@ ValidationConstraints D03InformationModel::validationConstraints() const {
 IntegrityConstraints D03InformationModel::integrityConstraints() const {
   return IntegrityConstraints(doc(), som::joinPath(path(), "integrityConstraints"));
 }
+DomainEnumRegistry D03InformationModel::domainEnumRegistry() const {
+  return DomainEnumRegistry(doc(), som::joinPath(path(), "domainEnumRegistry"));
+}
 
 D04RequirementsSpecification::D04RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "RSP") {
@@ -6485,6 +6488,33 @@ som::SomList DomainBusinessRules::rules() const {
   return som::SomList(doc(), som::joinPath(path(), "DOBIRU-RULE-LST"), "DOBIRU-RULE-xxx");
 }
 
+DomainEnumEntry::DomainEnumEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+DomainEnumEntryContentForm DomainEnumEntry::content() const {
+  return DomainEnumEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList DomainEnumEntry::values() const {
+  return som::SomList(doc(), som::joinPath(path(), "DMEVA-VALU-LST"), "DMEVA-VALU-xxx");
+}
+
+DomainEnumRegistry::DomainEnumRegistry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DomainEnumRegistry::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void DomainEnumRegistry::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList DomainEnumRegistry::enums() const {
+  return som::SomList(doc(), som::joinPath(path(), "DMENE-ENUM-LST"), "DMENE-ENUM-xxx");
+}
+
+DomainEnumValueEntry::DomainEnumValueEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+DomainEnumValueEntryContentForm DomainEnumValueEntry::content() const {
+  return DomainEnumValueEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 DomainEventEntry::DomainEventEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 DomainEventEntryContentForm DomainEventEntry::content() const {
@@ -8364,6 +8394,9 @@ FunctionModel InformationAndDataModel::functionModel() const {
 }
 SchemaVersioningAndMigration InformationAndDataModel::schemaVersioningAndMigration() const {
   return SchemaVersioningAndMigration(doc(), som::joinPath(path(), "schemaVersioningAndMigration"));
+}
+DomainEnumRegistry InformationAndDataModel::domainEnumRegistry() const {
+  return DomainEnumRegistry(doc(), som::joinPath(path(), "domainEnumRegistry"));
 }
 
 InformationArchitecture::InformationArchitecture(som::SpecDocument& doc, std::string path)
@@ -46368,6 +46401,72 @@ std::string DomainBusinessRuleEntryGovernanceForm::examples() const {
 }
 void DomainBusinessRuleEntryGovernanceForm::setExamples(const std::string& value) {
   doc().setFormField(path(), "examples", value);
+}
+
+DomainEnumEntryContentForm::DomainEnumEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DomainEnumEntryContentForm::content() const {
+  return doc().content(path());
+}
+void DomainEnumEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DomainEnumEntryContentForm::enumName() const {
+  return doc().formField(path(), "enumName");
+}
+void DomainEnumEntryContentForm::setEnumName(const std::string& value) {
+  doc().setFormField(path(), "enumName", value);
+}
+std::string DomainEnumEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void DomainEnumEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
+std::string DomainEnumEntryContentForm::backingType() const {
+  return doc().formField(path(), "backingType");
+}
+void DomainEnumEntryContentForm::setBackingType(const std::string& value) {
+  doc().setFormField(path(), "backingType", value);
+}
+std::string DomainEnumEntryContentForm::defaultValue() const {
+  return doc().formField(path(), "defaultValue");
+}
+void DomainEnumEntryContentForm::setDefaultValue(const std::string& value) {
+  doc().setFormField(path(), "defaultValue", value);
+}
+
+DomainEnumValueEntryContentForm::DomainEnumValueEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DomainEnumValueEntryContentForm::content() const {
+  return doc().content(path());
+}
+void DomainEnumValueEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DomainEnumValueEntryContentForm::valueId() const {
+  return doc().formField(path(), "valueId");
+}
+void DomainEnumValueEntryContentForm::setValueId(const std::string& value) {
+  doc().setFormField(path(), "valueId", value);
+}
+std::string DomainEnumValueEntryContentForm::backingValue() const {
+  return doc().formField(path(), "backingValue");
+}
+void DomainEnumValueEntryContentForm::setBackingValue(const std::string& value) {
+  doc().setFormField(path(), "backingValue", value);
+}
+std::string DomainEnumValueEntryContentForm::copyKey() const {
+  return doc().formField(path(), "copyKey");
+}
+void DomainEnumValueEntryContentForm::setCopyKey(const std::string& value) {
+  doc().setFormField(path(), "copyKey", value);
+}
+std::string DomainEnumValueEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void DomainEnumValueEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
 }
 
 DomainEventEntryContentForm::DomainEventEntryContentForm(som::SpecDocument& doc, std::string path)

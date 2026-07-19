@@ -7790,6 +7790,12 @@ class D03InformationModel extends SomNode {
   get integrityConstraints() {
     return new IntegrityConstraints(this.doc, this.path + "/integrityConstraints");
   }
+
+  // Domain enum registry — the closed value sets the data model relies on
+  // (CE-EN home + closed-choice discriminator source, csmb3).
+  get domainEnumRegistry() {
+    return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
+  }
 }
 
 // RSP00 Requirements Specification.
@@ -12477,6 +12483,90 @@ class DomainBusinessRules extends SomNode {
   }
 }
 
+// A single domain enum (form + values).
+//
+// One named closed value set: its name, backing value type, default value and
+// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+// name becomes the generated enum type and each member becomes a constant —
+// and doubles as a closed-choice discriminator source (csm-7-4): the enum
+// name identifies the choice set and [values] supply the cases.
+class DomainEnumEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new DomainEnumEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.5.x. Enum Values — one entry per member of the value set.
+  get values() {
+    return new SomList(this.doc, this.path + "/DMEVA-VALU-LST", (d, p) => new DomainEnumValueEntry(d, p), "DMEVA-VALU-xxx");
+  }
+}
+
+// 7.5. Domain Enum Registry.
+//
+// The first-class SOM home for the system's **domain enums** — the closed
+// value sets the business data model relies on (order status, currency,
+// account type, …). Before this registry existed, closed value sets could
+// only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+// expressible home and the closed-choice mechanism had no real enum to use as
+// a discriminator.
+//
+// This registry serves **two** roles:
+//
+// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+//    type and default, and its [DomainEnumEntry.values] each carry a value id,
+//    a backing value and a copy reference into the CE-TX message registry.
+// 2. **Closed-choice discriminator source** — because each enum is *named* and
+//    exposes an *enumerable* set of value ids, a future `@OneOf`
+//    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+//    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+//    provides that source; the `@OneOf`/`@Case` annotations themselves are a
+//    separate part.
+class DomainEnumRegistry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 7.5.1. Domain Enums — one entry per closed value set.
+  get enums() {
+    return new SomList(this.doc, this.path + "/DMENE-ENUM-LST", (d, p) => new DomainEnumEntry(d, p), "DMENE-ENUM-xxx");
+  }
+}
+
+// A single domain-enum value (form).
+//
+// One member of a [DomainEnumEntry]: a stable value id (the generated enum
+// constant and the `@Case` discriminator token), an optional backing value
+// (the persisted/serialized code), and a copy reference — a message key into
+// the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+// display label is authored once and referenced everywhere (csm5 cross-cutting
+// finding #1).
+class DomainEnumValueEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new DomainEnumValueEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // A domain event entry (form).
 class DomainEventEntry extends SomNode {
   constructor(doc, path) {
@@ -16206,6 +16296,11 @@ class InformationAndDataModel extends SomNode {
   // 7.4. Schema Versioning and Migration.
   get schemaVersioningAndMigration() {
     return new SchemaVersioningAndMigration(this.doc, this.path + "/schemaVersioningAndMigration");
+  }
+
+  // 7.5. Domain Enum Registry.
+  get domainEnumRegistry() {
+    return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
   }
 }
 
@@ -79282,6 +79377,108 @@ class DomainBusinessRuleEntryGovernanceForm extends SomNode {
 
   set examples(value) {
     this.doc.setFormField(this.path, "examples", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class DomainEnumEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get enumName() {
+    return this.doc.formField(this.path, "enumName") || '';
+  }
+
+  set enumName(value) {
+    this.doc.setFormField(this.path, "enumName", value);
+  }
+
+  get description() {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get backingType() {
+    return this.doc.formField(this.path, "backingType") || '';
+  }
+
+  set backingType(value) {
+    this.doc.setFormField(this.path, "backingType", value);
+  }
+
+  get defaultValue() {
+    return this.doc.formField(this.path, "defaultValue") || '';
+  }
+
+  set defaultValue(value) {
+    this.doc.setFormField(this.path, "defaultValue", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class DomainEnumValueEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get valueId() {
+    return this.doc.formField(this.path, "valueId") || '';
+  }
+
+  set valueId(value) {
+    this.doc.setFormField(this.path, "valueId", value);
+  }
+
+  get backingValue() {
+    return this.doc.formField(this.path, "backingValue") || '';
+  }
+
+  set backingValue(value) {
+    this.doc.setFormField(this.path, "backingValue", value);
+  }
+
+  get copyKey() {
+    return this.doc.formField(this.path, "copyKey") || '';
+  }
+
+  set copyKey(value) {
+    this.doc.setFormField(this.path, "copyKey", value);
+  }
+
+  get description() {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value) {
+    this.doc.setFormField(this.path, "description", value);
   }
 }
 
@@ -178732,6 +178929,9 @@ module.exports = {
   DomainBoundaries,
   DomainBusinessRuleEntry,
   DomainBusinessRules,
+  DomainEnumEntry,
+  DomainEnumRegistry,
+  DomainEnumValueEntry,
   DomainEventEntry,
   DomainEvents,
   DomainInterfaceEntry,
@@ -180400,6 +180600,8 @@ module.exports = {
   DomainBusinessRuleEntryContentForm,
   DomainBusinessRuleEntryDefinitionForm,
   DomainBusinessRuleEntryGovernanceForm,
+  DomainEnumEntryContentForm,
+  DomainEnumValueEntryContentForm,
   DomainEventEntryContentForm,
   DomainInterfaceEntryContentForm,
   DomainOverviewDomainDetailsForm,

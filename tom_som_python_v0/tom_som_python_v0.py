@@ -7413,6 +7413,12 @@ class D03InformationModel(SomNode):
     def integrityConstraints(self):
         return IntegrityConstraints(self.doc, f"{self.path}/integrityConstraints")
 
+    # Domain enum registry — the closed value sets the data model relies on
+    # (CE-EN home + closed-choice discriminator source, csmb3).
+    @property
+    def domainEnumRegistry(self):
+        return DomainEnumRegistry(self.doc, f"{self.path}/domainEnumRegistry")
+
 class D04RequirementsSpecification(SomNode):
     """RSP00 Requirements Specification.
     
@@ -11888,6 +11894,87 @@ class DomainBusinessRules(SomNode):
     def rules(self):
         return SomList(self.doc, f"{self.path}/DOBIRU-RULE-LST", lambda d, p: DomainBusinessRuleEntry(d, p), pattern="DOBIRU-RULE-xxx")
 
+class DomainEnumEntry(SomNode):
+    """A single domain enum (form + values).
+    
+    One named closed value set: its name, backing value type, default value and
+    the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+    name becomes the generated enum type and each member becomes a constant —
+    and doubles as a closed-choice discriminator source (csm-7-4): the enum
+    name identifies the choice set and [values] supply the cases.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return DomainEnumEntryContentForm(self.doc, f"{self.path}/content")
+
+    # 7.5.x. Enum Values — one entry per member of the value set.
+    @property
+    def values(self):
+        return SomList(self.doc, f"{self.path}/DMEVA-VALU-LST", lambda d, p: DomainEnumValueEntry(d, p), pattern="DMEVA-VALU-xxx")
+
+class DomainEnumRegistry(SomNode):
+    """7.5. Domain Enum Registry.
+    
+    The first-class SOM home for the system's **domain enums** — the closed
+    value sets the business data model relies on (order status, currency,
+    account type, …). Before this registry existed, closed value sets could
+    only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+    inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+    expressible home and the closed-choice mechanism had no real enum to use as
+    a discriminator.
+    
+    This registry serves **two** roles:
+    
+    1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+       type and default, and its [DomainEnumEntry.values] each carry a value id,
+       a backing value and a copy reference into the CE-TX message registry.
+    2. **Closed-choice discriminator source** — because each enum is *named* and
+       exposes an *enumerable* set of value ids, a future `@OneOf`
+       discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+       match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+       provides that source; the `@OneOf`/`@Case` annotations themselves are a
+       separate part.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 7.5.1. Domain Enums — one entry per closed value set.
+    @property
+    def enums(self):
+        return SomList(self.doc, f"{self.path}/DMENE-ENUM-LST", lambda d, p: DomainEnumEntry(d, p), pattern="DMENE-ENUM-xxx")
+
+class DomainEnumValueEntry(SomNode):
+    """A single domain-enum value (form).
+    
+    One member of a [DomainEnumEntry]: a stable value id (the generated enum
+    constant and the `@Case` discriminator token), an optional backing value
+    (the persisted/serialized code), and a copy reference — a message key into
+    the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+    display label is authored once and referenced everywhere (csm5 cross-cutting
+    finding #1).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return DomainEnumValueEntryContentForm(self.doc, f"{self.path}/content")
+
 class DomainEventEntry(SomNode):
     """A domain event entry (form)."""
     def __init__(self, doc, path):
@@ -15433,6 +15520,11 @@ class InformationAndDataModel(SomNode):
     @property
     def schemaVersioningAndMigration(self):
         return SchemaVersioningAndMigration(self.doc, f"{self.path}/schemaVersioningAndMigration")
+
+    # 7.5. Domain Enum Registry.
+    @property
+    def domainEnumRegistry(self):
+        return DomainEnumRegistry(self.doc, f"{self.path}/domainEnumRegistry")
 
 class InformationArchitecture(SomNode):
     """10.2.2. Information Architecture.
@@ -76000,6 +76092,104 @@ class DomainBusinessRuleEntryGovernanceForm(SomNode):
     @examples.setter
     def examples(self, value):
         self.doc.set_form_field(self.path, "examples", value)
+
+class DomainEnumEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def enumName(self) -> str:
+        return self.doc.form_field(self.path, "enumName") or ""
+
+    @enumName.setter
+    def enumName(self, value):
+        self.doc.set_form_field(self.path, "enumName", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+    @property
+    def backingType(self) -> str:
+        return self.doc.form_field(self.path, "backingType") or ""
+
+    @backingType.setter
+    def backingType(self, value):
+        self.doc.set_form_field(self.path, "backingType", value)
+
+    @property
+    def defaultValue(self) -> str:
+        return self.doc.form_field(self.path, "defaultValue") or ""
+
+    @defaultValue.setter
+    def defaultValue(self, value):
+        self.doc.set_form_field(self.path, "defaultValue", value)
+
+class DomainEnumValueEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def valueId(self) -> str:
+        return self.doc.form_field(self.path, "valueId") or ""
+
+    @valueId.setter
+    def valueId(self, value):
+        self.doc.set_form_field(self.path, "valueId", value)
+
+    @property
+    def backingValue(self) -> str:
+        return self.doc.form_field(self.path, "backingValue") or ""
+
+    @backingValue.setter
+    def backingValue(self, value):
+        self.doc.set_form_field(self.path, "backingValue", value)
+
+    @property
+    def copyKey(self) -> str:
+        return self.doc.form_field(self.path, "copyKey") or ""
+
+    @copyKey.setter
+    def copyKey(self, value):
+        self.doc.set_form_field(self.path, "copyKey", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class DomainEventEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

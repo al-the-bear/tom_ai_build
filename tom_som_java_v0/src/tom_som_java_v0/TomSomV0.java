@@ -7831,6 +7831,12 @@ public final class TomSomV0 {
     public IntegrityConstraints integrityConstraints() {
       return new IntegrityConstraints(doc, path + "/integrityConstraints");
     }
+
+    // Domain enum registry — the closed value sets the data model relies on
+    // (CE-EN home + closed-choice discriminator source, csmb3).
+    public DomainEnumRegistry domainEnumRegistry() {
+      return new DomainEnumRegistry(doc, path + "/domainEnumRegistry");
+    }
   }
 
   // RSP00 Requirements Specification.
@@ -12629,6 +12635,92 @@ public final class TomSomV0 {
     }
   }
 
+  // A single domain enum (form + values).
+  //
+  // One named closed value set: its name, backing value type, default value and
+  // the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+  // name becomes the generated enum type and each member becomes a constant —
+  // and doubles as a closed-choice discriminator source (csm-7-4): the enum
+  // name identifies the choice set and [values] supply the cases.
+  public static final class DomainEnumEntry extends SomNode {
+    public DomainEnumEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public DomainEnumEntryContentForm content() {
+      return new DomainEnumEntryContentForm(doc, path + "/content");
+    }
+
+    // 7.5.x. Enum Values — one entry per member of the value set.
+    public SomList<DomainEnumValueEntry> values() {
+      return new SomList<>(doc, path + "/DMEVA-VALU-LST", (d, p) -> new DomainEnumValueEntry(d, p), "DMEVA-VALU-xxx");
+    }
+  }
+
+  // 7.5. Domain Enum Registry.
+  //
+  // The first-class SOM home for the system's **domain enums** — the closed
+  // value sets the business data model relies on (order status, currency,
+  // account type, …). Before this registry existed, closed value sets could
+  // only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+  // inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+  // expressible home and the closed-choice mechanism had no real enum to use as
+  // a discriminator.
+  //
+  // This registry serves **two** roles:
+  //
+  // 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+  //    type and default, and its [DomainEnumEntry.values] each carry a value id,
+  //    a backing value and a copy reference into the CE-TX message registry.
+  // 2. **Closed-choice discriminator source** — because each enum is *named* and
+  //    exposes an *enumerable* set of value ids, a future `@OneOf`
+  //    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+  //    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+  //    provides that source; the `@OneOf`/`@Case` annotations themselves are a
+  //    separate part.
+  public static final class DomainEnumRegistry extends SomNode {
+    public DomainEnumRegistry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 7.5.1. Domain Enums — one entry per closed value set.
+    public SomList<DomainEnumEntry> enums() {
+      return new SomList<>(doc, path + "/DMENE-ENUM-LST", (d, p) -> new DomainEnumEntry(d, p), "DMENE-ENUM-xxx");
+    }
+  }
+
+  // A single domain-enum value (form).
+  //
+  // One member of a [DomainEnumEntry]: a stable value id (the generated enum
+  // constant and the `@Case` discriminator token), an optional backing value
+  // (the persisted/serialized code), and a copy reference — a message key into
+  // the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+  // display label is authored once and referenced everywhere (csm5 cross-cutting
+  // finding #1).
+  public static final class DomainEnumValueEntry extends SomNode {
+    public DomainEnumValueEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public DomainEnumValueEntryContentForm content() {
+      return new DomainEnumValueEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // A domain event entry (form).
   public static final class DomainEventEntry extends SomNode {
     public DomainEventEntry(SpecDocument doc, String path) {
@@ -16372,6 +16464,11 @@ public final class TomSomV0 {
     // 7.4. Schema Versioning and Migration.
     public SchemaVersioningAndMigration schemaVersioningAndMigration() {
       return new SchemaVersioningAndMigration(doc, path + "/schemaVersioningAndMigration");
+    }
+
+    // 7.5. Domain Enum Registry.
+    public DomainEnumRegistry domainEnumRegistry() {
+      return new DomainEnumRegistry(doc, path + "/domainEnumRegistry");
     }
   }
 
@@ -85214,6 +85311,122 @@ public final class TomSomV0 {
 
     public void examples(String value) {
       doc.setFormField(path, "examples", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DomainEnumEntryContentForm extends SomNode {
+    public DomainEnumEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String enumName() {
+      String v = doc.formField(path, "enumName");
+      return v == null ? "" : v;
+    }
+
+    public void enumName(String value) {
+      doc.setFormField(path, "enumName", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+
+    public String backingType() {
+      String v = doc.formField(path, "backingType");
+      return v == null ? "" : v;
+    }
+
+    public void backingType(String value) {
+      doc.setFormField(path, "backingType", value);
+    }
+
+    public String defaultValue() {
+      String v = doc.formField(path, "defaultValue");
+      return v == null ? "" : v;
+    }
+
+    public void defaultValue(String value) {
+      doc.setFormField(path, "defaultValue", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DomainEnumValueEntryContentForm extends SomNode {
+    public DomainEnumValueEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String valueId() {
+      String v = doc.formField(path, "valueId");
+      return v == null ? "" : v;
+    }
+
+    public void valueId(String value) {
+      doc.setFormField(path, "valueId", value);
+    }
+
+    public String backingValue() {
+      String v = doc.formField(path, "backingValue");
+      return v == null ? "" : v;
+    }
+
+    public void backingValue(String value) {
+      doc.setFormField(path, "backingValue", value);
+    }
+
+    public String copyKey() {
+      String v = doc.formField(path, "copyKey");
+      return v == null ? "" : v;
+    }
+
+    public void copyKey(String value) {
+      doc.setFormField(path, "copyKey", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
     }
   }
 

@@ -117,4 +117,9 @@ class D03InformationModel extends DocSpecsSection {
   /// `List<IntegrityConstraints>` (L34C-12 SR-25).
   @SerializationOrder(13)
   IntegrityConstraints integrityConstraints = IntegrityConstraints();
+
+  /// Domain enum registry — the closed value sets the data model relies on
+  /// (CE-EN home + closed-choice discriminator source, csmb3).
+  @SerializationOrder(14)
+  DomainEnumRegistry domainEnumRegistry = DomainEnumRegistry();
 }

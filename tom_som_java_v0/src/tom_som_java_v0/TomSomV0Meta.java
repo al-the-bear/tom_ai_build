@@ -20986,6 +20986,17 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("DomainEnumRegistry", s, DomainEnumRegistryNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("DomainEnumRegistry", SomMetaKind.COMPLEX, "DomainEnumRegistry");
+        n.memberName = "domainEnumRegistry";
+        n.classSectionId = "DOMEN";
+        n.serializationOrder = 14;
+        n.docComment = "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -21043,6 +21054,10 @@ public final class TomSomV0Meta {
 
     public IntegrityConstraintsNav integrityConstraints() {
       return new IntegrityConstraintsNav(tree, path + "/integrityConstraints");
+    }
+
+    public DomainEnumRegistryNav domainEnumRegistry() {
+      return new DomainEnumRegistryNav(tree, path + "/domainEnumRegistry");
     }
   }
 
@@ -33391,6 +33406,148 @@ public final class TomSomV0Meta {
     }
   }
 
+  // DomainEnumEntryNav holds the dot-notation accessors of `DomainEnumEntry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class DomainEnumEntryNav extends SomMetaRef {
+    public DomainEnumEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `DomainEnumEntry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("DomainEnumEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("enumName", "String", "Enum Name", true, "Logical enum name in PascalCase (e.g. OrderStatus, Currency)", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "What this value set represents and where it is used", 1),
+            new SomFormFieldMeta("backingType", "String", "Backing Type", false, "Type of the persisted/serialized code: String | Integer", 2),
+            new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "The value id used as the default, if any", 3)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("DomainEnumEntry", SomMetaKind.LIST, "DomainEnumValueEntry");
+        n.memberName = "values";
+        n.sectionId = "DMEVA-VALU-LST";
+        n.sectionIdPattern = "DMEVA-VALU-xxx";
+        n.serializationOrder = 1;
+        n.min = 1;
+        n.contentHelp = "Add one entry per enum value.";
+        n.docComment = "7.5.x. Enum Values — one entry per member of the value set.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — metadata registries / value-domain enumerations"), "connotation", "The member values of this domain enum, each with a stable id, backing value, and copy reference.")));
+        n.elementNode = metaCx("DomainEnumValueEntry", s, DomainEnumValueEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("DomainEnumValueEntry", SomMetaKind.COMPLEX, "DomainEnumValueEntry");
+          e.classSectionId = "DMEVA";
+          e.docComment = "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).";
+          e.classDocComment = "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<DomainEnumValueEntryNav> values() {
+      return new SomListMetaRef<>(tree, path + "/DMEVA-VALU-LST", (t, p) -> new DomainEnumValueEntryNav(t, p));
+    }
+  }
+
+  // DomainEnumRegistryNav holds the dot-notation accessors of `DomainEnumRegistry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class DomainEnumRegistryNav extends SomMetaRef {
+    public DomainEnumRegistryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `DomainEnumRegistry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("DomainEnumRegistry", SomMetaKind.CONTENT, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n";
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("DomainEnumRegistry", SomMetaKind.LIST, "DomainEnumEntry");
+        n.memberName = "enums";
+        n.sectionId = "DMENE-ENUM-LST";
+        n.sectionIdPattern = "DMENE-ENUM-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per domain enum (closed value set).";
+        n.docComment = "7.5.1. Domain Enums — one entry per closed value set.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — metadata registries / value-domain enumerations"), "connotation", "The catalogued domain enums, each a named closed value set.")));
+        n.elementNode = metaCx("DomainEnumEntry", s, DomainEnumEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("DomainEnumEntry", SomMetaKind.COMPLEX, "DomainEnumEntry");
+          e.classSectionId = "DMENE";
+          e.docComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
+          e.classDocComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<DomainEnumEntryNav> enums() {
+      return new SomListMetaRef<>(tree, path + "/DMENE-ENUM-LST", (t, p) -> new DomainEnumEntryNav(t, p));
+    }
+  }
+
+  // DomainEnumValueEntryNav holds the dot-notation accessors of `DomainEnumValueEntry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class DomainEnumValueEntryNav extends SomMetaRef {
+    public DomainEnumValueEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `DomainEnumValueEntry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("DomainEnumValueEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("valueId", "String", "Value Id", true, "Stable value identifier (the enum constant / @Case token)", 0),
+            new SomFormFieldMeta("backingValue", "String", "Backing Value", false, "Persisted/serialized code (int or string), if distinct from the id", 1),
+            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)", 2),
+            new SomFormFieldMeta("description", "String", "Description", false, "What this value means", 3)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // DomainEventEntryNav holds the dot-notation accessors of `DomainEventEntry` (DR1 §4.1).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -43804,6 +43961,17 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("DomainEnumRegistry", s, DomainEnumRegistryNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("DomainEnumRegistry", SomMetaKind.COMPLEX, "DomainEnumRegistry");
+        n.memberName = "domainEnumRegistry";
+        n.classSectionId = "DOMEN";
+        n.serializationOrder = 5;
+        n.docComment = "7.5. Domain Enum Registry.";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -43825,6 +43993,10 @@ public final class TomSomV0Meta {
 
     public SchemaVersioningAndMigrationNav schemaVersioningAndMigration() {
       return new SchemaVersioningAndMigrationNav(tree, path + "/schemaVersioningAndMigration");
+    }
+
+    public DomainEnumRegistryNav domainEnumRegistry() {
+      return new DomainEnumRegistryNav(tree, path + "/domainEnumRegistry");
     }
   }
 
@@ -105926,6 +106098,10 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST", (t, p) -> new SchemaMigrationStepEntryId(t, p));
     }
 
+    public SomListMetaRef<DomainEnumEntryId> DMENE_ENUM_LST() {
+      return new SomListMetaRef<>(tree, path + "/informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST", (t, p) -> new DomainEnumEntryId(t, p));
+    }
+
     public SomMetaRef TRAREQ_TRAN() {
       return new SomMetaRef(tree, path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
     }
@@ -110418,6 +110594,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<BusinessRuleEntryId> BIRU_BUSI_LST() {
       return new SomListMetaRef<>(tree, path + "/BIRU-BUSI-LST", (t, p) -> new BusinessRuleEntryId(t, p));
+    }
+
+    public SomListMetaRef<DomainEnumEntryId> DMENE_ENUM_LST() {
+      return new SomListMetaRef<>(tree, path + "/domainEnumRegistry/DMENE-ENUM-LST", (t, p) -> new DomainEnumEntryId(t, p));
     }
   }
 
@@ -115492,6 +115672,30 @@ public final class TomSomV0Meta {
 
     public SomMetaRef DBREG() {
       return new SomMetaRef(tree, path + "/DBREG");
+    }
+  }
+
+  // DomainEnumEntryId holds the ID-tree accessors of `DomainEnumEntry` (DR1 §4.2): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class DomainEnumEntryId extends SomMetaRef {
+    public DomainEnumEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    public SomListMetaRef<DomainEnumValueEntryId> DMEVA_VALU_LST() {
+      return new SomListMetaRef<>(tree, path + "/DMEVA-VALU-LST", (t, p) -> new DomainEnumValueEntryId(t, p));
+    }
+  }
+
+  // DomainEnumValueEntryId holds the ID-tree accessors of `DomainEnumValueEntry` (DR1 §4.2): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class DomainEnumValueEntryId extends SomMetaRef {
+    public DomainEnumValueEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
     }
   }
 

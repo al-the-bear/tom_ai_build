@@ -380,6 +380,9 @@ class DocumentationStandardsSection;
 class DomainBoundaries;
 class DomainBusinessRuleEntry;
 class DomainBusinessRules;
+class DomainEnumEntry;
+class DomainEnumRegistry;
+class DomainEnumValueEntry;
 class DomainEventEntry;
 class DomainEvents;
 class DomainInterfaceEntry;
@@ -2048,6 +2051,8 @@ class DocumentationStandardsVersioningForm;
 class DomainBusinessRuleEntryContentForm;
 class DomainBusinessRuleEntryDefinitionForm;
 class DomainBusinessRuleEntryGovernanceForm;
+class DomainEnumEntryContentForm;
+class DomainEnumValueEntryContentForm;
 class DomainEventEntryContentForm;
 class DomainInterfaceEntryContentForm;
 class DomainOverviewDomainDetailsForm;
@@ -8158,6 +8163,9 @@ class D03InformationModel : public som::SomNode {
   // One whole-catalog content section; collapsed from
   // `List<IntegrityConstraints>` (L34C-12 SR-25).
   IntegrityConstraints integrityConstraints() const;
+  // Domain enum registry — the closed value sets the data model relies on
+  // (CE-EN home + closed-choice discriminator source, csmb3).
+  DomainEnumRegistry domainEnumRegistry() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -10696,6 +10704,71 @@ class DomainBusinessRules : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
+// A single domain enum (form + values).
+//
+// One named closed value set: its name, backing value type, default value and
+// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+// name becomes the generated enum type and each member becomes a constant —
+// and doubles as a closed-choice discriminator source (csm-7-4): the enum
+// name identifies the choice set and [values] supply the cases.
+class DomainEnumEntry : public som::SomNode {
+ public:
+  DomainEnumEntry(som::SpecDocument& doc, std::string path);
+  DomainEnumEntryContentForm content() const;
+  // 7.5.x. Enum Values — one entry per member of the value set.
+  // Returns the list view; element type: DomainEnumValueEntry (construct from item paths).
+  som::SomList values() const;
+};
+
+// 7.5. Domain Enum Registry.
+//
+// The first-class SOM home for the system's **domain enums** — the closed
+// value sets the business data model relies on (order status, currency,
+// account type, …). Before this registry existed, closed value sets could
+// only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+// expressible home and the closed-choice mechanism had no real enum to use as
+// a discriminator.
+//
+// This registry serves **two** roles:
+//
+// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+//    type and default, and its [DomainEnumEntry.values] each carry a value id,
+//    a backing value and a copy reference into the CE-TX message registry.
+// 2. **Closed-choice discriminator source** — because each enum is *named* and
+//    exposes an *enumerable* set of value ids, a future `@OneOf`
+//    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+//    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+//    provides that source; the `@OneOf`/`@Case` annotations themselves are a
+//    separate part.
+class DomainEnumRegistry : public som::SomNode {
+ public:
+  DomainEnumRegistry(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 7.5.1. Domain Enums — one entry per closed value set.
+  // Returns the list view; element type: DomainEnumEntry (construct from item paths).
+  som::SomList enums() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// A single domain-enum value (form).
+//
+// One member of a [DomainEnumEntry]: a stable value id (the generated enum
+// constant and the `@Case` discriminator token), an optional backing value
+// (the persisted/serialized code), and a copy reference — a message key into
+// the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+// display label is authored once and referenced everywhere (csm5 cross-cutting
+// finding #1).
+class DomainEnumValueEntry : public som::SomNode {
+ public:
+  DomainEnumValueEntry(som::SpecDocument& doc, std::string path);
+  DomainEnumValueEntryContentForm content() const;
+};
+
 // A domain event entry (form).
 class DomainEventEntry : public som::SomNode {
  public:
@@ -12753,6 +12826,8 @@ class InformationAndDataModel : public som::SomNode {
   FunctionModel functionModel() const;
   // 7.4. Schema Versioning and Migration.
   SchemaVersioningAndMigration schemaVersioningAndMigration() const;
+  // 7.5. Domain Enum Registry.
+  DomainEnumRegistry domainEnumRegistry() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -39232,6 +39307,42 @@ class DomainBusinessRuleEntryGovernanceForm : public som::SomNode {
   void setExceptions(const std::string& value);
   std::string examples() const;
   void setExamples(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class DomainEnumEntryContentForm : public som::SomNode {
+ public:
+  DomainEnumEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string enumName() const;
+  void setEnumName(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string backingType() const;
+  void setBackingType(const std::string& value);
+  std::string defaultValue() const;
+  void setDefaultValue(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class DomainEnumValueEntryContentForm : public som::SomNode {
+ public:
+  DomainEnumValueEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string valueId() const;
+  void setValueId(const std::string& value);
+  std::string backingValue() const;
+  void setBackingValue(const std::string& value);
+  std::string copyKey() const;
+  void setCopyKey(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

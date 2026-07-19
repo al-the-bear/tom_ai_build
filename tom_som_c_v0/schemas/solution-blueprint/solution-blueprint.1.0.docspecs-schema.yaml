@@ -1643,6 +1643,23 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per delivery dependency.
+  dmene-enum-lst:
+    prefix: DMENE_ENUM_LST
+    subsection-types:
+      dmene-enum:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per domain enum (closed value set).
+  dmeva-valu-lst:
+    prefix: DMEVA_VALU_LST
+    subsection-types:
+      dmeva-valu:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per enum value.
   doctl-aprv-lst:
     prefix: DOCTL_APRV_LST
     subsection-types:
@@ -6854,6 +6871,22 @@ section-types:
       pattern: ^DLVDP-DEPE-.+$
       error-message: IDs of this section must match DLVDP-DEPE-xxx
     description: Add one entry per delivery dependency.
+  dmene-enum:
+    prefix: DMENE_ENUM_
+    subsection-types:
+      dmeva-valu-lst:
+        max-count: 1
+        min-count: 1
+    pattern-check-id:
+      pattern: ^DMENE-ENUM-.+$
+      error-message: IDs of this section must match DMENE-ENUM-xxx
+    description: Add one entry per domain enum (closed value set).
+  dmeva-valu:
+    prefix: DMEVA_VALU_
+    pattern-check-id:
+      pattern: ^DMEVA-VALU-.+$
+      error-message: IDs of this section must match DMEVA-VALU-xxx
+    description: Add one entry per enum value.
   doantr-docu:
     prefix: DOANTR_DOCU
     format: doantr-docu-form
@@ -16665,6 +16698,12 @@ section-types:
     prefix: DOETO
     format: doeto-form
     description: Trade-offs and reversibility.
+  domen:
+    prefix: DOMEN
+    subsection-types:
+      dmene-enum-lst:
+        max-count: 1
+    description: 7.5. Domain Enum Registry.
   dorer:
     prefix: DORER
     format: dorer-form
@@ -21266,6 +21305,8 @@ section-types:
       fumo:
         max-count: 1
       schmg:
+        max-count: 1
+      domen:
         max-count: 1
     description: "SBP.8 Information & Data Model. Seeds → IFM."
   ingo:

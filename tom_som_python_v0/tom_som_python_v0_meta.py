@@ -11227,6 +11227,18 @@ def _mc_D03InformationModel(s):
                 detailed_in="D03InformationModel",
                 recursive=r,
                 children=c)),
+         _cx("DomainEnumRegistry", s, _mc_DomainEnumRegistry,
+            lambda r, c: SomMetaNode(
+                class_name="DomainEnumRegistry",
+                member_name="domainEnumRegistry",
+                class_section_id="DOMEN",
+                kind=SomMetaKind.COMPLEX,
+                type_name="DomainEnumRegistry",
+                serialization_order=14,
+                doc_comment="Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).",
+                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+                recursive=r,
+                children=c)),
     ]
 
 
@@ -18171,6 +18183,68 @@ def _mc_DomainBusinessRules(s):
     ]
 
 
+def _mc_DomainEnumEntry(s):
+    return [
+         SomMetaNode(
+            class_name="DomainEnumEntry",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="enumName", type_name="String", description="Enum Name", required=True, hint="Logical enum name in PascalCase (e.g. OrderStatus, Currency)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this value set represents and where it is used", order=1), SomFormFieldMeta(name="backingType", type_name="String", description="Backing Type", hint="Type of the persisted/serialized code: String | Integer", order=2), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="The value id used as the default, if any", order=3)])),
+         SomMetaNode(
+            class_name="DomainEnumEntry",
+            member_name="values",
+            section_id="DMEVA-VALU-LST",
+            section_id_pattern="DMEVA-VALU-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="DomainEnumValueEntry",
+            serialization_order=1,
+            min=1,
+            content_help="Add one entry per enum value.",
+            doc_comment="7.5.x. Enum Values — one entry per member of the value set.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / value-domain enumerations"], "connotation": "The member values of this domain enum, each with a stable id, backing value, and copy reference."})],
+            element_node=_cx("DomainEnumValueEntry", s, _mc_DomainEnumValueEntry, lambda r, c: SomMetaNode(class_name="DomainEnumValueEntry", class_section_id="DMEVA", kind=SomMetaKind.COMPLEX, type_name="DomainEnumValueEntry", doc_comment="A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).", class_doc_comment="A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).", recursive=r, children=c))),
+    ]
+
+
+def _mc_DomainEnumRegistry(s):
+    return [
+         SomMetaNode(
+            class_name="DomainEnumRegistry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n"),
+         SomMetaNode(
+            class_name="DomainEnumRegistry",
+            member_name="enums",
+            section_id="DMENE-ENUM-LST",
+            section_id_pattern="DMENE-ENUM-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="DomainEnumEntry",
+            serialization_order=1,
+            content_help="Add one entry per domain enum (closed value set).",
+            doc_comment="7.5.1. Domain Enums — one entry per closed value set.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / value-domain enumerations"], "connotation": "The catalogued domain enums, each a named closed value set."})],
+            element_node=_cx("DomainEnumEntry", s, _mc_DomainEnumEntry, lambda r, c: SomMetaNode(class_name="DomainEnumEntry", class_section_id="DMENE", kind=SomMetaKind.COMPLEX, type_name="DomainEnumEntry", doc_comment="A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", class_doc_comment="A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", recursive=r, children=c))),
+    ]
+
+
+def _mc_DomainEnumValueEntry(s):
+    return [
+         SomMetaNode(
+            class_name="DomainEnumValueEntry",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="valueId", type_name="String", description="Value Id", required=True, hint="Stable value identifier (the enum constant / @Case token)", order=0), SomFormFieldMeta(name="backingValue", type_name="String", description="Backing Value", hint="Persisted/serialized code (int or string), if distinct from the id", order=1), SomFormFieldMeta(name="copyKey", type_name="String", description="Copy Key", hint="Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this value means", order=3)])),
+    ]
+
+
 def _mc_DomainEventEntry(s):
     return [
          SomMetaNode(
@@ -23598,6 +23672,18 @@ def _mc_InformationAndDataModel(s):
                 serialization_order=4,
                 doc_comment="7.4. Schema Versioning and Migration.",
                 class_doc_comment="7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.",
+                recursive=r,
+                children=c)),
+         _cx("DomainEnumRegistry", s, _mc_DomainEnumRegistry,
+            lambda r, c: SomMetaNode(
+                class_name="DomainEnumRegistry",
+                member_name="domainEnumRegistry",
+                class_section_id="DOMEN",
+                kind=SomMetaKind.COMPLEX,
+                type_name="DomainEnumRegistry",
+                serialization_order=5,
+                doc_comment="7.5. Domain Enum Registry.",
+                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
                 recursive=r,
                 children=c)),
     ]
@@ -59754,6 +59840,10 @@ class D03InformationModelNav(SomMetaRef):
     def integrityConstraints(self):
         return IntegrityConstraintsNav(self.tree, f"{self.path}/integrityConstraints")
 
+    @property
+    def domainEnumRegistry(self):
+        return DomainEnumRegistryNav(self.tree, f"{self.path}/domainEnumRegistry")
+
 
 class D04RequirementsSpecificationNav(SomMetaRef):
     """Dot-notation accessors of ``D04RequirementsSpecification`` (DR1 §4.1). Every getter is
@@ -63093,6 +63183,47 @@ class DomainBusinessRulesNav(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/DOBIRU-RULE-LST", DomainBusinessRuleEntryNav)
 
 
+class DomainEnumEntryNav(SomMetaRef):
+    """Dot-notation accessors of ``DomainEnumEntry`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def values(self):
+        return SomListMetaRef(self.tree, f"{self.path}/DMEVA-VALU-LST", DomainEnumValueEntryNav)
+
+
+class DomainEnumRegistryNav(SomMetaRef):
+    """Dot-notation accessors of ``DomainEnumRegistry`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def enums(self):
+        return SomListMetaRef(self.tree, f"{self.path}/DMENE-ENUM-LST", DomainEnumEntryNav)
+
+
+class DomainEnumValueEntryNav(SomMetaRef):
+    """Dot-notation accessors of ``DomainEnumValueEntry`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+
 class DomainEventEntryNav(SomMetaRef):
     """Dot-notation accessors of ``DomainEventEntry`` (DR1 §4.1). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -65934,6 +66065,10 @@ class InformationAndDataModelNav(SomMetaRef):
     @property
     def schemaVersioningAndMigration(self):
         return SchemaVersioningAndMigrationNav(self.tree, f"{self.path}/schemaVersioningAndMigration")
+
+    @property
+    def domainEnumRegistry(self):
+        return DomainEnumRegistryNav(self.tree, f"{self.path}/domainEnumRegistry")
 
 
 class InformationArchitectureNav(SomMetaRef):
@@ -84902,6 +85037,10 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST", SchemaMigrationStepEntryId)
 
     @property
+    def DMENE_ENUM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST", DomainEnumEntryId)
+
+    @property
     def TRAREQ_TRAN(self):
         return SomMetaRef(self.tree, f"{self.path}/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN")
 
@@ -89385,6 +89524,10 @@ class D03InformationModelId(SomMetaRef):
     @property
     def BIRU_BUSI_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/BIRU-BUSI-LST", BusinessRuleEntryId)
+
+    @property
+    def DMENE_ENUM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/domainEnumRegistry/DMENE-ENUM-LST", DomainEnumEntryId)
 
 
 class D04RequirementsSpecificationId(SomMetaRef):
@@ -94300,6 +94443,24 @@ class DomainBusinessRuleEntryId(SomMetaRef):
     @property
     def DBREG(self):
         return SomMetaRef(self.tree, f"{self.path}/DBREG")
+
+
+class DomainEnumEntryId(SomMetaRef):
+    """ID-tree accessors of ``DomainEnumEntry`` (DR1 §4.2): getters named by
+    section id (``-`` → ``_``), hoisted through id-less members so every
+    reachable id is one step. ``.path`` and ``.meta`` agree with the
+    dot-notation surface."""
+
+    @property
+    def DMEVA_VALU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/DMEVA-VALU-LST", DomainEnumValueEntryId)
+
+
+class DomainEnumValueEntryId(SomMetaRef):
+    """ID-tree accessors of ``DomainEnumValueEntry`` (DR1 §4.2): getters named by
+    section id (``-`` → ``_``), hoisted through id-less members so every
+    reachable id is one step. ``.path`` and ``.meta`` agree with the
+    dot-notation surface."""
 
 
 class DomainEventEntryId(SomMetaRef):

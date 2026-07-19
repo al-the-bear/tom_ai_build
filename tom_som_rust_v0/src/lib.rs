@@ -10963,6 +10963,12 @@ impl D03InformationModel {
     pub fn integrity_constraints(&self) -> IntegrityConstraints {
         IntegrityConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "integrityConstraints"))
     }
+
+    /// Domain enum registry — the closed value sets the data model relies on
+    /// (CE-EN home + closed-choice discriminator source, csmb3).
+    pub fn domain_enum_registry(&self) -> DomainEnumRegistry {
+        DomainEnumRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainEnumRegistry"))
+    }
 }
 
 /// RSP00 Requirements Specification.
@@ -17311,6 +17317,133 @@ impl DomainBusinessRules {
     }
 }
 
+/// A single domain enum (form + values).
+///
+/// One named closed value set: its name, backing value type, default value and
+/// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+/// name becomes the generated enum type and each member becomes a constant —
+/// and doubles as a closed-choice discriminator source (csm-7-4): the enum
+/// name identifies the choice set and [values] supply the cases.
+pub struct DomainEnumEntry {
+    pub node: som::SomNode,
+}
+
+impl DomainEnumEntry {
+    /// Binds a DomainEnumEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DomainEnumEntry {
+        DomainEnumEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> DomainEnumEntryContentForm {
+        DomainEnumEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.5.x. Enum Values — one entry per member of the value set.
+    pub fn values(&self) -> som::SomList<DomainEnumValueEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DMEVA-VALU-LST"),
+            Box::new(DomainEnumValueEntry::new),
+            "DMEVA-VALU-xxx".to_string(),
+        )
+    }
+}
+
+/// 7.5. Domain Enum Registry.
+///
+/// The first-class SOM home for the system's **domain enums** — the closed
+/// value sets the business data model relies on (order status, currency,
+/// account type, …). Before this registry existed, closed value sets could
+/// only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+/// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+/// expressible home and the closed-choice mechanism had no real enum to use as
+/// a discriminator.
+///
+/// This registry serves **two** roles:
+///
+/// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+///    type and default, and its [DomainEnumEntry.values] each carry a value id,
+///    a backing value and a copy reference into the CE-TX message registry.
+/// 2. **Closed-choice discriminator source** — because each enum is *named* and
+///    exposes an *enumerable* set of value ids, a future `@OneOf`
+///    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+///    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+///    provides that source; the `@OneOf`/`@Case` annotations themselves are a
+///    separate part.
+pub struct DomainEnumRegistry {
+    pub node: som::SomNode,
+}
+
+impl DomainEnumRegistry {
+    /// Binds a DomainEnumRegistry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DomainEnumRegistry {
+        DomainEnumRegistry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 7.5.1. Domain Enums — one entry per closed value set.
+    pub fn enums(&self) -> som::SomList<DomainEnumEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DMENE-ENUM-LST"),
+            Box::new(DomainEnumEntry::new),
+            "DMENE-ENUM-xxx".to_string(),
+        )
+    }
+}
+
+/// A single domain-enum value (form).
+///
+/// One member of a [DomainEnumEntry]: a stable value id (the generated enum
+/// constant and the `@Case` discriminator token), an optional backing value
+/// (the persisted/serialized code), and a copy reference — a message key into
+/// the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+/// display label is authored once and referenced everywhere (csm5 cross-cutting
+/// finding #1).
+pub struct DomainEnumValueEntry {
+    pub node: som::SomNode,
+}
+
+impl DomainEnumValueEntry {
+    /// Binds a DomainEnumValueEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DomainEnumValueEntry {
+        DomainEnumValueEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> DomainEnumValueEntryContentForm {
+        DomainEnumValueEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// A domain event entry (form).
 pub struct DomainEventEntry {
     pub node: som::SomNode,
@@ -22654,6 +22787,11 @@ impl InformationAndDataModel {
     /// 7.4. Schema Versioning and Migration.
     pub fn schema_versioning_and_migration(&self) -> SchemaVersioningAndMigration {
         SchemaVersioningAndMigration::new(self.node.doc(), format!("{}/{}", self.node.path(), "schemaVersioningAndMigration"))
+    }
+
+    /// 7.5. Domain Enum Registry.
+    pub fn domain_enum_registry(&self) -> DomainEnumRegistry {
+        DomainEnumRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainEnumRegistry"))
     }
 }
 
@@ -107659,6 +107797,138 @@ impl DomainBusinessRuleEntryGovernanceForm {
     pub fn set_examples(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "examples", value);
+    }
+}
+
+/// DomainEnumEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DomainEnumEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl DomainEnumEntryContentForm {
+    /// Binds a DomainEnumEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DomainEnumEntryContentForm {
+        DomainEnumEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn enum_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "enumName")
+    }
+
+    pub fn set_enum_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "enumName", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+
+    pub fn backing_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "backingType")
+    }
+
+    pub fn set_backing_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "backingType", value);
+    }
+
+    pub fn default_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultValue")
+    }
+
+    pub fn set_default_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
+    }
+}
+
+/// DomainEnumValueEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DomainEnumValueEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl DomainEnumValueEntryContentForm {
+    /// Binds a DomainEnumValueEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DomainEnumValueEntryContentForm {
+        DomainEnumValueEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn value_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "valueId")
+    }
+
+    pub fn set_value_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "valueId", value);
+    }
+
+    pub fn backing_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "backingValue")
+    }
+
+    pub fn set_backing_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "backingValue", value);
+    }
+
+    pub fn copy_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "copyKey")
+    }
+
+    pub fn set_copy_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "copyKey", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
     }
 }
 

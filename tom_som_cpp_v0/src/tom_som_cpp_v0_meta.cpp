@@ -404,6 +404,9 @@ void buildDocumentationStandardsSectionChildren(som::SomMetaNode& parent, std::v
 void buildDomainBoundariesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDomainBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDomainBusinessRulesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildDomainEnumEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildDomainEnumRegistryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildDomainEnumValueEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDomainEventEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDomainEventsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDomainInterfaceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -19317,6 +19320,22 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
       buildIntegrityConstraintsChildren);
     parent.addChild(std::move(n));
   }
+  {
+    auto n = metaCx("DomainEnumRegistry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "DomainEnumRegistry";
+        n.memberName = "domainEnumRegistry";
+        n.classSectionId = "DOMEN";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "DomainEnumRegistry";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 14;
+        n.docComment = "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+      },
+      buildDomainEnumRegistryChildren);
+    parent.addChild(std::move(n));
+  }
 }
 
 void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
@@ -30007,6 +30026,110 @@ void buildDomainBusinessRulesChildren(som::SomMetaNode& parent, std::vector<std:
   }
 }
 
+void buildDomainEnumEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DomainEnumEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enumName", "String", "Enum Name", true, "Logical enum name in PascalCase (e.g. OrderStatus, Currency)", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this value set represents and where it is used", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"backingType", "String", "Backing Type", false, "Type of the persisted/serialized code: String | Integer", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "The value id used as the default, if any", 3, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "DomainEnumEntry";
+    (*ln).memberName = "values";
+    (*ln).sectionId = "DMEVA-VALU-LST";
+    (*ln).sectionIdPattern = "DMEVA-VALU-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "DomainEnumValueEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).hasMin = true;
+    (*ln).min = 1;
+    (*ln).contentHelp = "Add one entry per enum value.";
+    (*ln).docComment = "7.5.x. Enum Values — one entry per member of the value set.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / value-domain enumerations\"],\"connotation\":\"The member values of this domain enum, each with a stable id, backing value, and copy reference.\"}", nullptr)});
+    ln->elementNode = metaCx("DomainEnumValueEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "DomainEnumValueEntry";
+        n.classSectionId = "DMEVA";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "DomainEnumValueEntry";
+        n.docComment = "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).";
+        n.classDocComment = "A single domain-enum value (form).\n\nOne member of a [DomainEnumEntry]: a stable value id (the generated enum\nconstant and the `@Case` discriminator token), an optional backing value\n(the persisted/serialized code), and a copy reference — a message key into\nthe CE-TX message registry (csm-7-3) rather than an inline literal, so the\ndisplay label is authored once and referenced everywhere (csm5 cross-cutting\nfinding #1).";
+      },
+      buildDomainEnumValueEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
+void buildDomainEnumRegistryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DomainEnumRegistry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindContent;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).contentHelp = "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n";
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "DomainEnumRegistry";
+    (*ln).memberName = "enums";
+    (*ln).sectionId = "DMENE-ENUM-LST";
+    (*ln).sectionIdPattern = "DMENE-ENUM-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "DomainEnumEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per domain enum (closed value set).";
+    (*ln).docComment = "7.5.1. Domain Enums — one entry per closed value set.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / value-domain enumerations\"],\"connotation\":\"The catalogued domain enums, each a named closed value set.\"}", nullptr)});
+    ln->elementNode = metaCx("DomainEnumEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "DomainEnumEntry";
+        n.classSectionId = "DMENE";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "DomainEnumEntry";
+        n.docComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
+        n.classDocComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
+      },
+      buildDomainEnumEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
+void buildDomainEnumValueEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DomainEnumValueEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueId", "String", "Value Id", true, "Stable value identifier (the enum constant / @Case token)", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"backingValue", "String", "Backing Value", false, "Persisted/serialized code (int or string), if distinct from the id", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"copyKey", "String", "Copy Key", false, "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this value means", 3, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+}
+
 void buildDomainEventEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -38900,6 +39023,22 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.";
       },
       buildSchemaVersioningAndMigrationChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("DomainEnumRegistry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "DomainEnumRegistry";
+        n.memberName = "domainEnumRegistry";
+        n.classSectionId = "DOMEN";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "DomainEnumRegistry";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 5;
+        n.docComment = "7.5. Domain Enum Registry.";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+      },
+      buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -89077,6 +89216,12 @@ void* metaNavFactoryDistributionRecipientPreferences(const som::SomMetaTree* tre
 void* metaNavFactoryDomainBusinessRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDomainBusinessRuleEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryDomainEnumEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavDomainEnumEntry{som::SomMetaRef(tree, path)};
+}
+void* metaNavFactoryDomainEnumValueEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavDomainEnumValueEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryDomainEventEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDomainEventEntry{som::SomMetaRef(tree, path)};
 }
@@ -90525,6 +90670,12 @@ void* metaIdFactoryDistributionRecipientPreferences(const som::SomMetaTree* tree
 }
 void* metaIdFactoryDomainBusinessRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDomainBusinessRuleEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryDomainEnumEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdDomainEnumEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryDomainEnumValueEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdDomainEnumValueEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryDomainEventEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDomainEventEntry{som::SomMetaRef(tree, path)};
@@ -94993,6 +95144,9 @@ NavValidationConstraints navD03InformationModel_validationConstraints(NavD03Info
 NavIntegrityConstraints navD03InformationModel_integrityConstraints(NavD03InformationModel x) {
   return NavIntegrityConstraints{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "integrityConstraints"))};
 }
+NavDomainEnumRegistry navD03InformationModel_domainEnumRegistry(NavD03InformationModel x) {
+  return NavDomainEnumRegistry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "domainEnumRegistry"))};
+}
 som::SomMetaRef navD04RequirementsSpecification_content(NavD04RequirementsSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -96796,6 +96950,21 @@ som::SomMetaRef navDomainBusinessRules_content(NavDomainBusinessRules x) {
 som::SomListMetaRef navDomainBusinessRules_rules(NavDomainBusinessRules x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DOBIRU-RULE-LST"), metaNavFactoryDomainBusinessRuleEntry);
 }
+som::SomMetaRef navDomainEnumEntry_content(NavDomainEnumEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navDomainEnumEntry_values(NavDomainEnumEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DMEVA-VALU-LST"), metaNavFactoryDomainEnumValueEntry);
+}
+som::SomMetaRef navDomainEnumRegistry_content(NavDomainEnumRegistry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navDomainEnumRegistry_enums(NavDomainEnumRegistry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DMENE-ENUM-LST"), metaNavFactoryDomainEnumEntry);
+}
+som::SomMetaRef navDomainEnumValueEntry_content(NavDomainEnumValueEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
 som::SomMetaRef navDomainEventEntry_content(NavDomainEventEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -98271,6 +98440,9 @@ NavFunctionModel navInformationAndDataModel_functionModel(NavInformationAndDataM
 }
 NavSchemaVersioningAndMigration navInformationAndDataModel_schemaVersioningAndMigration(NavInformationAndDataModel x) {
   return NavSchemaVersioningAndMigration{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "schemaVersioningAndMigration"))};
+}
+NavDomainEnumRegistry navInformationAndDataModel_domainEnumRegistry(NavInformationAndDataModel x) {
+  return NavDomainEnumRegistry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "domainEnumRegistry"))};
 }
 som::SomMetaRef navInformationArchitecture_content(NavInformationArchitecture x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -108176,6 +108348,9 @@ som::SomListMetaRef idD00SolutionBlueprint_BIRU_BUSI_LST(IdD00SolutionBlueprint 
 som::SomListMetaRef idD00SolutionBlueprint_SCMST_STEP_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST"), metaIdFactorySchemaMigrationStepEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_DMENE_ENUM_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST"), metaIdFactoryDomainEnumEntry);
+}
 som::SomMetaRef idD00SolutionBlueprint_TRAREQ_TRAN(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"));
 }
@@ -111523,6 +111698,9 @@ som::SomListMetaRef idD03InformationModel_FNDMX_FUNC_LST(IdD03InformationModel x
 }
 som::SomListMetaRef idD03InformationModel_BIRU_BUSI_LST(IdD03InformationModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BIRU-BUSI-LST"), metaIdFactoryBusinessRuleEntry);
+}
+som::SomListMetaRef idD03InformationModel_DMENE_ENUM_LST(IdD03InformationModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "domainEnumRegistry/DMENE-ENUM-LST"), metaIdFactoryDomainEnumEntry);
 }
 som::SomMetaRef idD04RequirementsSpecification_FR_SUMM(IdD04RequirementsSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "functionalRequirements/FR-SUMM"));
@@ -114931,6 +115109,9 @@ som::SomMetaRef idDomainBusinessRuleEntry_DBRED(IdDomainBusinessRuleEntry x) {
 }
 som::SomMetaRef idDomainBusinessRuleEntry_DBREG(IdDomainBusinessRuleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DBREG"));
+}
+som::SomListMetaRef idDomainEnumEntry_DMEVA_VALU_LST(IdDomainEnumEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DMEVA-VALU-LST"), metaIdFactoryDomainEnumValueEntry);
 }
 som::SomMetaRef idDomainProcessEntry_DPEF(IdDomainProcessEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DPEF"));

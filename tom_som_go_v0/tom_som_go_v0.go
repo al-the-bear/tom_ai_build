@@ -8831,6 +8831,12 @@ func (x *D03InformationModel) IntegrityConstraints() *IntegrityConstraints {
 	return NewIntegrityConstraints(x.Doc(), x.Path()+"/integrityConstraints")
 }
 
+// Domain enum registry — the closed value sets the data model relies on
+// (CE-EN home + closed-choice discriminator source, csmb3).
+func (x *D03InformationModel) DomainEnumRegistry() *DomainEnumRegistry {
+	return NewDomainEnumRegistry(x.Doc(), x.Path()+"/domainEnumRegistry")
+}
+
 // RSP00 Requirements Specification.
 //
 // Full requirements catalog covering functional, technical, security,
@@ -14178,6 +14184,105 @@ func (x *DomainBusinessRules) Rules() *som.SomList[*DomainBusinessRuleEntry] {
 	}, "DOBIRU-RULE-xxx")
 }
 
+// A single domain enum (form + values).
+//
+// One named closed value set: its name, backing value type, default value and
+// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+// name becomes the generated enum type and each member becomes a constant —
+// and doubles as a closed-choice discriminator source (csm-7-4): the enum
+// name identifies the choice set and [values] supply the cases.
+type DomainEnumEntry struct {
+	som.SomNode
+}
+
+// NewDomainEnumEntry binds a DomainEnumEntry facade to a document and a path.
+func NewDomainEnumEntry(doc *som.SpecDocument, path string) *DomainEnumEntry {
+	return &DomainEnumEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DomainEnumEntry) Content() *DomainEnumEntryContentForm {
+	return NewDomainEnumEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.5.x. Enum Values — one entry per member of the value set.
+func (x *DomainEnumEntry) Values() *som.SomList[*DomainEnumValueEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/DMEVA-VALU-LST", func(d *som.SpecDocument, p string) *DomainEnumValueEntry {
+		return NewDomainEnumValueEntry(d, p)
+	}, "DMEVA-VALU-xxx")
+}
+
+// 7.5. Domain Enum Registry.
+//
+// The first-class SOM home for the system's **domain enums** — the closed
+// value sets the business data model relies on (order status, currency,
+// account type, …). Before this registry existed, closed value sets could
+// only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+// expressible home and the closed-choice mechanism had no real enum to use as
+// a discriminator.
+//
+// This registry serves **two** roles:
+//
+// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+//    type and default, and its [DomainEnumEntry.values] each carry a value id,
+//    a backing value and a copy reference into the CE-TX message registry.
+// 2. **Closed-choice discriminator source** — because each enum is *named* and
+//    exposes an *enumerable* set of value ids, a future `@OneOf`
+//    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+//    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+//    provides that source; the `@OneOf`/`@Case` annotations themselves are a
+//    separate part.
+type DomainEnumRegistry struct {
+	som.SomNode
+}
+
+// NewDomainEnumRegistry binds a DomainEnumRegistry facade to a document and a path.
+func NewDomainEnumRegistry(doc *som.SpecDocument, path string) *DomainEnumRegistry {
+	return &DomainEnumRegistry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DomainEnumRegistry) CanHaveContent() bool {
+	return true
+}
+
+func (x *DomainEnumRegistry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DomainEnumRegistry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 7.5.1. Domain Enums — one entry per closed value set.
+func (x *DomainEnumRegistry) Enums() *som.SomList[*DomainEnumEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/DMENE-ENUM-LST", func(d *som.SpecDocument, p string) *DomainEnumEntry {
+		return NewDomainEnumEntry(d, p)
+	}, "DMENE-ENUM-xxx")
+}
+
+// A single domain-enum value (form).
+//
+// One member of a [DomainEnumEntry]: a stable value id (the generated enum
+// constant and the `@Case` discriminator token), an optional backing value
+// (the persisted/serialized code), and a copy reference — a message key into
+// the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+// display label is authored once and referenced everywhere (csm5 cross-cutting
+// finding #1).
+type DomainEnumValueEntry struct {
+	som.SomNode
+}
+
+// NewDomainEnumValueEntry binds a DomainEnumValueEntry facade to a document and a path.
+func NewDomainEnumValueEntry(doc *som.SpecDocument, path string) *DomainEnumValueEntry {
+	return &DomainEnumValueEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DomainEnumValueEntry) Content() *DomainEnumValueEntryContentForm {
+	return NewDomainEnumValueEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // A domain event entry (form).
 type DomainEventEntry struct {
 	som.SomNode
@@ -18401,6 +18506,11 @@ func (x *InformationAndDataModel) FunctionModel() *FunctionModel {
 // 7.4. Schema Versioning and Migration.
 func (x *InformationAndDataModel) SchemaVersioningAndMigration() *SchemaVersioningAndMigration {
 	return NewSchemaVersioningAndMigration(x.Doc(), x.Path()+"/schemaVersioningAndMigration")
+}
+
+// 7.5. Domain Enum Registry.
+func (x *InformationAndDataModel) DomainEnumRegistry() *DomainEnumRegistry {
+	return NewDomainEnumRegistry(x.Doc(), x.Path()+"/domainEnumRegistry")
 }
 
 // 10.2.2. Information Architecture.
@@ -93101,6 +93211,122 @@ func (x *DomainBusinessRuleEntryGovernanceForm) Examples() string {
 
 func (x *DomainBusinessRuleEntryGovernanceForm) SetExamples(value string) {
 	x.Doc().SetFormField(x.Path(), "examples", value)
+}
+
+// DomainEnumEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type DomainEnumEntryContentForm struct {
+	som.SomNode
+}
+
+// NewDomainEnumEntryContentForm binds a DomainEnumEntryContentForm facade to a document and a path.
+func NewDomainEnumEntryContentForm(doc *som.SpecDocument, path string) *DomainEnumEntryContentForm {
+	return &DomainEnumEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DomainEnumEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DomainEnumEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DomainEnumEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DomainEnumEntryContentForm) EnumName() string {
+	return x.Doc().FormFieldOr(x.Path(), "enumName")
+}
+
+func (x *DomainEnumEntryContentForm) SetEnumName(value string) {
+	x.Doc().SetFormField(x.Path(), "enumName", value)
+}
+
+func (x *DomainEnumEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *DomainEnumEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+func (x *DomainEnumEntryContentForm) BackingType() string {
+	return x.Doc().FormFieldOr(x.Path(), "backingType")
+}
+
+func (x *DomainEnumEntryContentForm) SetBackingType(value string) {
+	x.Doc().SetFormField(x.Path(), "backingType", value)
+}
+
+func (x *DomainEnumEntryContentForm) DefaultValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultValue")
+}
+
+func (x *DomainEnumEntryContentForm) SetDefaultValue(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultValue", value)
+}
+
+// DomainEnumValueEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type DomainEnumValueEntryContentForm struct {
+	som.SomNode
+}
+
+// NewDomainEnumValueEntryContentForm binds a DomainEnumValueEntryContentForm facade to a document and a path.
+func NewDomainEnumValueEntryContentForm(doc *som.SpecDocument, path string) *DomainEnumValueEntryContentForm {
+	return &DomainEnumValueEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DomainEnumValueEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DomainEnumValueEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DomainEnumValueEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DomainEnumValueEntryContentForm) ValueId() string {
+	return x.Doc().FormFieldOr(x.Path(), "valueId")
+}
+
+func (x *DomainEnumValueEntryContentForm) SetValueId(value string) {
+	x.Doc().SetFormField(x.Path(), "valueId", value)
+}
+
+func (x *DomainEnumValueEntryContentForm) BackingValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "backingValue")
+}
+
+func (x *DomainEnumValueEntryContentForm) SetBackingValue(value string) {
+	x.Doc().SetFormField(x.Path(), "backingValue", value)
+}
+
+func (x *DomainEnumValueEntryContentForm) CopyKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "copyKey")
+}
+
+func (x *DomainEnumValueEntryContentForm) SetCopyKey(value string) {
+	x.Doc().SetFormField(x.Path(), "copyKey", value)
+}
+
+func (x *DomainEnumValueEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *DomainEnumValueEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // DomainEventEntryContentForm is the generated section facade for the `content` @Form section: its own

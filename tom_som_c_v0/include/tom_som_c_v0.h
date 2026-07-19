@@ -404,6 +404,9 @@ typedef struct { SomNode node; } DocumentationStandardsSection;
 typedef struct { SomNode node; } DomainBoundaries;
 typedef struct { SomNode node; } DomainBusinessRuleEntry;
 typedef struct { SomNode node; } DomainBusinessRules;
+typedef struct { SomNode node; } DomainEnumEntry;
+typedef struct { SomNode node; } DomainEnumRegistry;
+typedef struct { SomNode node; } DomainEnumValueEntry;
 typedef struct { SomNode node; } DomainEventEntry;
 typedef struct { SomNode node; } DomainEvents;
 typedef struct { SomNode node; } DomainInterfaceEntry;
@@ -2072,6 +2075,8 @@ typedef struct { SomNode node; } DocumentationStandardsVersioningForm;
 typedef struct { SomNode node; } DomainBusinessRuleEntryContentForm;
 typedef struct { SomNode node; } DomainBusinessRuleEntryDefinitionForm;
 typedef struct { SomNode node; } DomainBusinessRuleEntryGovernanceForm;
+typedef struct { SomNode node; } DomainEnumEntryContentForm;
+typedef struct { SomNode node; } DomainEnumValueEntryContentForm;
 typedef struct { SomNode node; } DomainEventEntryContentForm;
 typedef struct { SomNode node; } DomainInterfaceEntryContentForm;
 typedef struct { SomNode node; } DomainOverviewDomainDetailsForm;
@@ -8110,6 +8115,9 @@ ValidationConstraints d03_information_model_validation_constraints(const D03Info
 // One whole-catalog content section; collapsed from
 // `List<IntegrityConstraints>` (L34C-12 SR-25).
 IntegrityConstraints d03_information_model_integrity_constraints(const D03InformationModel *self);
+// Domain enum registry — the closed value sets the data model relies on
+// (CE-EN home + closed-choice discriminator source, csmb3).
+DomainEnumRegistry d03_information_model_domain_enum_registry(const D03InformationModel *self);
 
 // RSP00 Requirements Specification.
 //
@@ -10592,6 +10600,70 @@ void domain_business_rules_set_content(DomainBusinessRules *self, const char *va
 // Returns the list view; element type: DomainBusinessRuleEntry (construct from item paths).
 SomList domain_business_rules_rules(const DomainBusinessRules *self);
 
+// A single domain enum (form + values).
+//
+// One named closed value set: its name, backing value type, default value and
+// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
+// name becomes the generated enum type and each member becomes a constant —
+// and doubles as a closed-choice discriminator source (csm-7-4): the enum
+// name identifies the choice set and [values] supply the cases.
+// Binds a DomainEnumEntry facade to a document and a path (path copied).
+void domain_enum_entry_init(DomainEnumEntry *self, SpecDocument *doc, const char *path);
+void domain_enum_entry_free(DomainEnumEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int domain_enum_entry_can_have_content(const DomainEnumEntry *self);
+DomainEnumEntryContentForm domain_enum_entry_content(const DomainEnumEntry *self);
+// 7.5.x. Enum Values — one entry per member of the value set.
+// Returns the list view; element type: DomainEnumValueEntry (construct from item paths).
+SomList domain_enum_entry_values(const DomainEnumEntry *self);
+
+// 7.5. Domain Enum Registry.
+//
+// The first-class SOM home for the system's **domain enums** — the closed
+// value sets the business data model relies on (order status, currency,
+// account type, …). Before this registry existed, closed value sets could
+// only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
+// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+// expressible home and the closed-choice mechanism had no real enum to use as
+// a discriminator.
+//
+// This registry serves **two** roles:
+//
+// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+//    type and default, and its [DomainEnumEntry.values] each carry a value id,
+//    a backing value and a copy reference into the CE-TX message registry.
+// 2. **Closed-choice discriminator source** — because each enum is *named* and
+//    exposes an *enumerable* set of value ids, a future `@OneOf`
+//    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
+//    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+//    provides that source; the `@OneOf`/`@Case` annotations themselves are a
+//    separate part.
+// Binds a DomainEnumRegistry facade to a document and a path (path copied).
+void domain_enum_registry_init(DomainEnumRegistry *self, SpecDocument *doc, const char *path);
+void domain_enum_registry_free(DomainEnumRegistry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int domain_enum_registry_can_have_content(const DomainEnumRegistry *self);
+char *domain_enum_registry_content(const DomainEnumRegistry *self);
+void domain_enum_registry_set_content(DomainEnumRegistry *self, const char *value);
+// 7.5.1. Domain Enums — one entry per closed value set.
+// Returns the list view; element type: DomainEnumEntry (construct from item paths).
+SomList domain_enum_registry_enums(const DomainEnumRegistry *self);
+
+// A single domain-enum value (form).
+//
+// One member of a [DomainEnumEntry]: a stable value id (the generated enum
+// constant and the `@Case` discriminator token), an optional backing value
+// (the persisted/serialized code), and a copy reference — a message key into
+// the CE-TX message registry (csm-7-3) rather than an inline literal, so the
+// display label is authored once and referenced everywhere (csm5 cross-cutting
+// finding #1).
+// Binds a DomainEnumValueEntry facade to a document and a path (path copied).
+void domain_enum_value_entry_init(DomainEnumValueEntry *self, SpecDocument *doc, const char *path);
+void domain_enum_value_entry_free(DomainEnumValueEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int domain_enum_value_entry_can_have_content(const DomainEnumValueEntry *self);
+DomainEnumValueEntryContentForm domain_enum_value_entry_content(const DomainEnumValueEntry *self);
+
 // A domain event entry (form).
 // Binds a DomainEventEntry facade to a document and a path (path copied).
 void domain_event_entry_init(DomainEventEntry *self, SpecDocument *doc, const char *path);
@@ -12639,6 +12711,8 @@ BusinessObjectModel information_and_data_model_business_object_model(const Infor
 FunctionModel information_and_data_model_function_model(const InformationAndDataModel *self);
 // 7.4. Schema Versioning and Migration.
 SchemaVersioningAndMigration information_and_data_model_schema_versioning_and_migration(const InformationAndDataModel *self);
+// 7.5. Domain Enum Registry.
+DomainEnumRegistry information_and_data_model_domain_enum_registry(const InformationAndDataModel *self);
 
 // 10.2.2. Information Architecture.
 //
@@ -36537,6 +36611,36 @@ char *domain_business_rule_entry_governance_form_exceptions(const DomainBusiness
 void domain_business_rule_entry_governance_form_set_exceptions(DomainBusinessRuleEntryGovernanceForm *self, const char *value);
 char *domain_business_rule_entry_governance_form_examples(const DomainBusinessRuleEntryGovernanceForm *self);
 void domain_business_rule_entry_governance_form_set_examples(DomainBusinessRuleEntryGovernanceForm *self, const char *value);
+
+// DomainEnumEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void domain_enum_entry_content_form_init(DomainEnumEntryContentForm *self, SpecDocument *doc, const char *path);
+void domain_enum_entry_content_form_free(DomainEnumEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *domain_enum_entry_content_form_content(const DomainEnumEntryContentForm *self);
+void domain_enum_entry_content_form_set_content(DomainEnumEntryContentForm *self, const char *value);
+char *domain_enum_entry_content_form_enum_name(const DomainEnumEntryContentForm *self);
+void domain_enum_entry_content_form_set_enum_name(DomainEnumEntryContentForm *self, const char *value);
+char *domain_enum_entry_content_form_description(const DomainEnumEntryContentForm *self);
+void domain_enum_entry_content_form_set_description(DomainEnumEntryContentForm *self, const char *value);
+char *domain_enum_entry_content_form_backing_type(const DomainEnumEntryContentForm *self);
+void domain_enum_entry_content_form_set_backing_type(DomainEnumEntryContentForm *self, const char *value);
+char *domain_enum_entry_content_form_default_value(const DomainEnumEntryContentForm *self);
+void domain_enum_entry_content_form_set_default_value(DomainEnumEntryContentForm *self, const char *value);
+
+// DomainEnumValueEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void domain_enum_value_entry_content_form_init(DomainEnumValueEntryContentForm *self, SpecDocument *doc, const char *path);
+void domain_enum_value_entry_content_form_free(DomainEnumValueEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *domain_enum_value_entry_content_form_content(const DomainEnumValueEntryContentForm *self);
+void domain_enum_value_entry_content_form_set_content(DomainEnumValueEntryContentForm *self, const char *value);
+char *domain_enum_value_entry_content_form_value_id(const DomainEnumValueEntryContentForm *self);
+void domain_enum_value_entry_content_form_set_value_id(DomainEnumValueEntryContentForm *self, const char *value);
+char *domain_enum_value_entry_content_form_backing_value(const DomainEnumValueEntryContentForm *self);
+void domain_enum_value_entry_content_form_set_backing_value(DomainEnumValueEntryContentForm *self, const char *value);
+char *domain_enum_value_entry_content_form_copy_key(const DomainEnumValueEntryContentForm *self);
+void domain_enum_value_entry_content_form_set_copy_key(DomainEnumValueEntryContentForm *self, const char *value);
+char *domain_enum_value_entry_content_form_description(const DomainEnumValueEntryContentForm *self);
+void domain_enum_value_entry_content_form_set_description(DomainEnumValueEntryContentForm *self, const char *value);
 
 // DomainEventEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void domain_event_entry_content_form_init(DomainEventEntryContentForm *self, SpecDocument *doc, const char *path);
