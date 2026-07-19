@@ -4272,9 +4272,12 @@ class SessionModel extends DocSpecsSection {
   'and delivery mechanisms.',
 )
 @SectionId('NM')
-@CodeSpecKind([CodeSpecPart.notification],
-    note: 'CE-NT — outbound communications (email/push/SMS/webhooks) as a '
-        'first-class effect. Deferred (§4.3), mapping-only until §4.1.')
+@CodeSpecKind(
+  [CodeSpecPart.notification],
+  note:
+      'CE-NT — outbound communications (email/push/SMS/webhooks) as a '
+      'first-class effect. Deferred (§4.3), mapping-only until §4.1.',
+)
 class NotificationModel extends DocSpecsSection {
   @ContentType('description', 'Overview of notification strategy.')
   @override
@@ -8676,6 +8679,11 @@ class RequirementAcceptanceCriteria extends DocSpecsSection {
   'method, test type, priority, and status.',
 )
 @SectionId('ACE')
+@CodeSpecKind(
+  [CodeSpecPart.validation],
+  note:
+      'CE-VA — given/when/then acceptance criteria realised as verification rules',
+)
 class AcceptanceCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -8801,6 +8809,11 @@ class RequirementBusinessRules extends DocSpecsSection {
   'period, exceptions, enforcement strength, and violation impact.',
 )
 @SectionId('RQBIRU')
+@CodeSpecKind(
+  [CodeSpecPart.validation],
+  note:
+      'CE-VA — a requirement business rule (statement + enforcement) realised as a validation rule',
+)
 class RequirementBusinessRuleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -8924,6 +8937,11 @@ class RequirementDataRequirements extends DocSpecsSection {
   'it, the attributes involved, volume, quality rules, and data owner.',
 )
 @SectionId('DAENRE')
+@CodeSpecKind(
+  [CodeSpecPart.dataAccess],
+  note:
+      'CE-DB — the entity + CRUD operations + data-quality rules a requirement touches, realised as data access',
+)
 class DataEntityReferenceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9109,6 +9127,11 @@ class RequirementUiSpecification extends DocSpecsSection {
   'conditions, validation, layout, and validation rules that govern it.',
 )
 @SectionId('SFE')
+@CodeSpecKind(
+  [CodeSpecPart.form],
+  note:
+      'CE-FM — a requirement-side form field spec (type, binding, layout); authoritative UI parts owned by the ExperienceDesign D09 pass',
+)
 class ScreenFieldEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9341,6 +9364,11 @@ class ScreenFieldEntry extends DocSpecsSection {
   'severity, and the event that triggers it.',
 )
 @SectionId('FLDVL')
+@CodeSpecKind(
+  [CodeSpecPart.validation],
+  note:
+      'CE-VA — a field validation rule (expression, error code, severity, trigger)',
+)
 class FieldValidationRule extends DocSpecsSection {
   @Form([
     Field(
@@ -9360,7 +9388,8 @@ class FieldValidationRule extends DocSpecsSection {
       'errorCode',
       String,
       'Error Code',
-      hint: 'The error code emitted on failure — reference into the error-code '
+      hint:
+          'The error code emitted on failure — reference into the error-code '
           'registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX',
     ),
     Field(
@@ -9401,6 +9430,11 @@ class FieldValidationRule extends DocSpecsSection {
   'permission, and audit behavior, plus its parameters.',
 )
 @SectionId('RQSCAC')
+@CodeSpecKind(
+  [CodeSpecPart.action, CodeSpecPart.serverCall, CodeSpecPart.navigation],
+  note:
+      'CE-AC/CE-SC/CE-NV — a screen action: actionType (action), apiEndpoint (server call) and/or navigationTarget (screen transition)',
+)
 class RequirementScreenActionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9555,6 +9589,9 @@ class RequirementScreenActionEntry extends DocSpecsSection {
   'value, and whether it is required.',
 )
 @SectionId('ACPR')
+@CodeSpecKind([
+  CodeSpecPart.action,
+], note: 'CE-AC — an input parameter binding of a screen action')
 class ActionParameterEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9603,6 +9640,11 @@ class ActionParameterEntry extends DocSpecsSection {
   'affected fields, and action.',
 )
 @SectionId('SCBHV')
+@CodeSpecKind(
+  [CodeSpecPart.validation],
+  note:
+      'CE-VA — a dynamic form behaviour (visibility/calculation/validation on trigger) realised as a form rule',
+)
 class ScreenBehaviorEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -18937,34 +18979,3 @@ captures partner-specific logic.
   @SerializationOrder(0)
   String? content;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

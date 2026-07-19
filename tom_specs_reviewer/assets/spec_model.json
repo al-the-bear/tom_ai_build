@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T16:56:11.499533Z",
+  "generatedAt": "2026-07-19T17:06:06.258385Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -447,6 +447,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ACE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "CE-VA — given/when/then acceptance criteria realised as verification rules"
           }
         }
       ],
@@ -4161,6 +4170,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ACPR"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "CE-AC — an input parameter binding of a screen action"
           }
         }
       ],
@@ -62182,6 +62200,15 @@
           "arguments": {
             "id": "DAENRE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ],
+            "note": "CE-DB — the entity + CRUD operations + data-quality rules a requirement touches, realised as data access"
+          }
         }
       ],
       "fields": [
@@ -105191,6 +105218,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "FLDVL"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "CE-VA — a field validation rule (expression, error code, severity, trigger)"
           }
         }
       ],
@@ -193228,6 +193264,15 @@
           "arguments": {
             "id": "RQBIRU"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "CE-VA — a requirement business rule (statement + enforcement) realised as a validation rule"
+          }
         }
       ],
       "fields": [
@@ -193907,6 +193952,17 @@
           "name": "SectionId",
           "arguments": {
             "id": "RQSCAC"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action",
+              "CodeSpecPart.serverCall",
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-AC/CE-SC/CE-NV — a screen action: actionType (action), apiEndpoint (server call) and/or navigationTarget (screen transition)"
           }
         }
       ],
@@ -209617,6 +209673,15 @@
           "arguments": {
             "id": "SCBHV"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "CE-VA — a dynamic form behaviour (visibility/calculation/validation on trigger) realised as a form rule"
+          }
         }
       ],
       "fields": [
@@ -212108,6 +212173,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SFE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.form"
+            ],
+            "note": "CE-FM — a requirement-side form field spec (type, binding, layout); authoritative UI parts owned by the ExperienceDesign D09 pass"
           }
         }
       ],
