@@ -3021,10 +3021,13 @@ class ActorRelationshipDiagram extends DocSpecsSection {
 ], 'Captures the step-by-step target workflow for a single catalogued process.')
 @SectionId('DEPRWO')
 @DetailedIn(D02TargetOperatingModel)
-@CodeSpecKind([CodeSpecPart.workflow],
-    note: 'CE-WF — multi-step process / workflow orchestration (state '
-        'machines, long-running processes). Deferred (§4.3), mapping-only '
-        'until §4.1.')
+@CodeSpecKind(
+  [CodeSpecPart.workflow],
+  note:
+      'CE-WF — multi-step process / workflow orchestration (state '
+      'machines, long-running processes). Deferred (§4.3), mapping-only '
+      'until §4.1.',
+)
 class DetailedProcessWorkflow extends DocSpecsSection {
   @ContentHelp('''
 Step-level detail for each process in the catalog: activity sequence,
@@ -3747,6 +3750,11 @@ class ActorGoals extends DocSpecsSection {
   'along with audit requirements.',
 )
 @SectionId('ACPE')
+@CodeSpecKind(
+  [CodeSpecPart.authorization],
+  note:
+      'CE-AZ — actor RBAC roles, clearance and approval limits realised as authorization rules',
+)
 class ActorPermissions extends DocSpecsSection {
   @Form([
     Field(
@@ -3995,6 +4003,9 @@ following Cockburn's fully dressed use case template.
   'case — identity, scope, stakeholders, pre/postconditions, flows and rules.',
 )
 @SectionId('INEN')
+@CodeSpecKind([
+  CodeSpecPart.action,
+], note: 'CE-AC — a use case / interaction is a user-triggered action')
 class InteractionEntry extends DocSpecsSection {
   /// Interaction identification (use case header).
   @SectionId('INID')
@@ -4455,6 +4466,11 @@ class StakeholdersAndInterests extends DocSpecsSection {
   'in motion.',
 )
 @SectionId('PRANTR')
+@CodeSpecKind(
+  [CodeSpecPart.action, CodeSpecPart.validation],
+  note:
+      'CE-AC/CE-VA — interaction trigger drives the action; pre-start checks are validation rules',
+)
 class PreconditionsAndTriggers extends DocSpecsSection {
   @Form([
     Field(
@@ -4622,6 +4638,11 @@ class MainSuccessScenario extends DocSpecsSection {
   'response, with the data, rules and UI involved.',
 )
 @SectionId('MNSST')
+@CodeSpecKind(
+  [CodeSpecPart.action, CodeSpecPart.serverCall, CodeSpecPart.navigation],
+  note:
+      'CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition',
+)
 class MainScenarioStepEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4729,6 +4750,11 @@ class UseCaseExtensions extends DocSpecsSection {
   'alternative or exception path.',
 )
 @SectionId('EXTEN')
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'CE-AC — an extension is an alternate/exception action branch of the use case',
+)
 class ExtensionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4812,6 +4838,11 @@ class ExtensionEntry extends DocSpecsSection {
   'response.',
 )
 @SectionId('EXTST')
+@CodeSpecKind(
+  [CodeSpecPart.action, CodeSpecPart.serverCall, CodeSpecPart.navigation],
+  note:
+      'CE-AC/CE-SC/CE-NV — each extension step: actor action, server call, and/or screen transition',
+)
 class ExtensionStepEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4902,6 +4933,11 @@ class TechnologyDataVariations extends DocSpecsSection {
   'feedback and layout — ahead of full UI design.',
 )
 @SectionId('UIRP')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'CE-NV — previews the screen flow / navigation path (full UI parts owned by the ExperienceDesign pass)',
+)
 class UIRequirementsPreview extends DocSpecsSection {
   @Form([
     Field(
@@ -4969,6 +5005,11 @@ class UIRequirementsPreview extends DocSpecsSection {
   'notification and integration — invoked by this interaction.',
 )
 @SectionId('INBURU')
+@CodeSpecKind(
+  [CodeSpecPart.validation],
+  note:
+      'CE-VA — validation/authorization/workflow BR-xxx rules invoked by the interaction; realised as validation rules',
+)
 class InteractionBusinessRules extends DocSpecsSection {
   @Form([
     Field(
@@ -5130,6 +5171,10 @@ and places their first order."
   'A comprehensive definition of one end-to-end scenario, bundling its identity, context, steps, alternative flows, data, timing, and validation.',
 )
 @SectionId('SCNRY')
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note: 'CE-AC — an end-to-end scenario is a goal-directed sequence of actions',
+)
 class ScenarioEntry extends DocSpecsSection {
   /// Scenario identification.
   @SectionId('SCID')
@@ -5442,6 +5487,11 @@ class ScenarioEntry extends DocSpecsSection {
   'A single numbered step of the main flow, pairing an actor action with the resulting system response.',
 )
 @SectionId('SCNST')
+@CodeSpecKind(
+  [CodeSpecPart.action, CodeSpecPart.serverCall, CodeSpecPart.navigation],
+  note:
+      'CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition',
+)
 class ScenarioStepEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5554,6 +5604,11 @@ class ScenarioStepEntry extends DocSpecsSection {
   'Defines a single alternative, exception, or error flow that branches from the main scenario path.',
 )
 @SectionId('ALFL')
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'CE-AC — an alternative/exception flow is an action branch of the scenario',
+)
 class AlternativeFlowEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5648,6 +5703,11 @@ class AlternativeFlowEntry extends DocSpecsSection {
   'A single step within an alternative flow, pairing an action with its system response and expected result.',
 )
 @SectionId('ALST')
+@CodeSpecKind(
+  [CodeSpecPart.action, CodeSpecPart.serverCall, CodeSpecPart.navigation],
+  note:
+      'CE-AC/CE-SC/CE-NV — each alternative-flow step: actor action, server call, and/or screen transition',
+)
 class AlternativeStepEntry extends DocSpecsSection {
   @Form([
     Field(

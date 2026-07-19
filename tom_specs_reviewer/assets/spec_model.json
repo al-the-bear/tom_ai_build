@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T16:38:12.743656Z",
+  "generatedAt": "2026-07-19T16:56:11.499533Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -5348,6 +5348,15 @@
           "arguments": {
             "id": "ACPE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ],
+            "note": "CE-AZ — actor RBAC roles, clearance and approval limits realised as authorization rules"
+          }
         }
       ],
       "fields": [
@@ -8604,6 +8613,15 @@
           "arguments": {
             "id": "ALFL"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "CE-AC — an alternative/exception flow is an action branch of the scenario"
+          }
         }
       ],
       "fields": [
@@ -8780,6 +8798,17 @@
           "name": "SectionId",
           "arguments": {
             "id": "ALST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action",
+              "CodeSpecPart.serverCall",
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-AC/CE-SC/CE-NV — each alternative-flow step: actor action, server call, and/or screen transition"
           }
         }
       ],
@@ -98871,6 +98900,15 @@
           "arguments": {
             "id": "EXTEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "CE-AC — an extension is an alternate/exception action branch of the use case"
+          }
         }
       ],
       "fields": [
@@ -99038,6 +99076,17 @@
           "name": "SectionId",
           "arguments": {
             "id": "EXTST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action",
+              "CodeSpecPart.serverCall",
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-AC/CE-SC/CE-NV — each extension step: actor action, server call, and/or screen transition"
           }
         }
       ],
@@ -120258,6 +120307,15 @@
           "arguments": {
             "id": "INBURU"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ],
+            "note": "CE-VA — validation/authorization/workflow BR-xxx rules invoked by the interaction; realised as validation rules"
+          }
         }
       ],
       "fields": [
@@ -121405,6 +121463,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "INEN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "CE-AC — a use case / interaction is a user-triggered action"
           }
         }
       ],
@@ -135206,6 +135273,17 @@
           "name": "SectionId",
           "arguments": {
             "id": "MNSST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action",
+              "CodeSpecPart.serverCall",
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
           }
         }
       ],
@@ -167657,6 +167735,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "PRANTR"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action",
+              "CodeSpecPart.validation"
+            ],
+            "note": "CE-AC/CE-VA — interaction trigger drives the action; pre-start checks are validation rules"
           }
         }
       ],
@@ -207317,6 +207405,15 @@
           "arguments": {
             "id": "SCNRY"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "CE-AC — an end-to-end scenario is a goal-directed sequence of actions"
+          }
         }
       ],
       "fields": [
@@ -207929,6 +208026,17 @@
           "name": "SectionId",
           "arguments": {
             "id": "SCNST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action",
+              "CodeSpecPart.serverCall",
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
           }
         }
       ],
@@ -264918,6 +265026,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "UIRP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — previews the screen flow / navigation path (full UI parts owned by the ExperienceDesign pass)"
           }
         }
       ],
