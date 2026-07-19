@@ -27,6 +27,85 @@ Iso25010Characteristic? _parseIso25010Characteristic(String? token) {
   return null;
 }
 
+/// Generated enum for `ObjectLifecycleKind` values.
+enum ObjectLifecycleKind {
+  initial,
+  intermediate,
+  terminal,
+  error;
+}
+
+/// Parses a stored token into a [ObjectLifecycleKind], or `null`.
+ObjectLifecycleKind? _parseObjectLifecycleKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ObjectLifecycleKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ScreenElementFieldKind` values.
+enum ScreenElementFieldKind {
+  string,
+  integer,
+  decimal,
+  currency,
+  date,
+  dateTime,
+  time,
+  boolean,
+  enumeration,
+  email,
+  phone,
+  url,
+  password,
+  richText,
+  color,
+  file;
+}
+
+/// Parses a stored token into a [ScreenElementFieldKind], or `null`.
+ScreenElementFieldKind? _parseScreenElementFieldKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ScreenElementFieldKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ScreenElementKind` values.
+enum ScreenElementKind {
+  actionButton,
+  link,
+  textField,
+  numberField,
+  dateField,
+  selectField,
+  checkbox,
+  toggle,
+  dataDisplay,
+  dataTable,
+  card,
+  chart,
+  statusIndicator,
+  icon,
+  label,
+  image,
+  badge,
+  divider,
+  spacer,
+  tabBar;
+}
+
+/// Parses a stored token into a [ScreenElementKind], or `null`.
+ScreenElementKind? _parseScreenElementKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ScreenElementKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// 14.2.1. Acceptance Criteria.
 class AcceptanceCriteriaList extends SomNode {
   AcceptanceCriteriaList(super.doc, super.path);
@@ -17757,12 +17836,18 @@ class ScreenElementEntry extends SomNode {
   ScreenElementEntryPresentationForm get presentation => ScreenElementEntryPresentationForm(doc, '$path/SCELENPR');
 
   /// 10.2.1.n.m.k.1. Element Action.
+  /// 
+  /// Present only for action-kind elements (`@OneOf` case, csmb6).
   ScreenElementAction get elementAction => ScreenElementAction(doc, '$path/elementAction');
 
   /// 10.2.1.n.m.k.2. Element Field Spec.
+  /// 
+  /// Present only for input-kind elements (`@OneOf` case, csmb6).
   ScreenElementFieldSpec get fieldSpec => ScreenElementFieldSpec(doc, '$path/fieldSpec');
 
   /// 10.2.1.n.m.k.3. Element Data Display.
+  /// 
+  /// Present only for display-kind elements (`@OneOf` case, csmb6).
   ScreenElementDataDisplay get dataDisplay => ScreenElementDataDisplay(doc, '$path/dataDisplay');
 
   /// Contains 0+× ElementValidationRule.
@@ -17780,14 +17865,31 @@ class ScreenElementFieldSpec extends SomNode {
   /// Prefix, suffix, and formatting.
   ScreenElementFieldSpecFormattingForm get formatting => ScreenElementFieldSpecFormattingForm(doc, '$path/SEFSF');
 
-  /// Length and value constraints.
-  ScreenElementFieldSpecConstraintsForm get constraints => ScreenElementFieldSpecConstraintsForm(doc, '$path/SEFSC');
+  /// Number-kind options — a promoted `@OneOf` case (csmb6).
+  /// 
+  /// Present only for numeric field kinds; carries only numeric constraints
+  /// (no length or option-source attributes).
+  ScreenElementFieldSpecNumberOptionsForm get numberOptions => ScreenElementFieldSpecNumberOptionsForm(doc, '$path/SEFSN');
+
+  /// Date-kind options — a promoted `@OneOf` case (csmb6).
+  /// 
+  /// Present only for date/time field kinds; carries only temporal
+  /// constraints (no numeric precision or length attributes).
+  ScreenElementFieldSpecDateOptionsForm get dateOptions => ScreenElementFieldSpecDateOptionsForm(doc, '$path/SEFSD');
+
+  /// Text-kind options — a promoted `@OneOf` case (csmb6).
+  /// 
+  /// Present only for free-text field kinds; carries only length constraints.
+  ScreenElementFieldSpecTextOptionsForm get textOptions => ScreenElementFieldSpecTextOptionsForm(doc, '$path/SEFST');
 
   /// Validation behavior.
   ScreenElementFieldSpecValidationForm get validation => ScreenElementFieldSpecValidationForm(doc, '$path/SEFSV');
 
-  /// Selection and input assistance.
-  ScreenElementFieldSpecSelectionForm get selection => ScreenElementFieldSpecSelectionForm(doc, '$path/SEFSS');
+  /// Select-kind options — a promoted `@OneOf` case (csmb6).
+  /// 
+  /// Present only for the enumeration (select) field kind; carries only the
+  /// option-source and selection-mode attributes.
+  ScreenElementFieldSpecSelectOptionsForm get selectOptions => ScreenElementFieldSpecSelectOptionsForm(doc, '$path/SEFSS');
 }
 
 /// A screen entry (form).
@@ -61130,8 +61232,8 @@ class ObjectStateEntryContentForm extends SomNode {
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
-  String get stateType => doc.formField(path, 'stateType') ?? '';
-  set stateType(String value) => doc.setFormField(path, 'stateType', value);
+  ObjectLifecycleKind? get stateType => _parseObjectLifecycleKind(doc.formField(path, 'stateType'));
+  set stateType(ObjectLifecycleKind? value) => doc.setFormField(path, 'stateType', value?.name ?? '');
 
   String get entryConditions => doc.formField(path, 'entryConditions') ?? '';
   set entryConditions(String value) => doc.setFormField(path, 'entryConditions', value);
@@ -74775,8 +74877,8 @@ class ScreenElementEntryContentForm extends SomNode {
   String get elementName => doc.formField(path, 'elementName') ?? '';
   set elementName(String value) => doc.setFormField(path, 'elementName', value);
 
-  String get elementType => doc.formField(path, 'elementType') ?? '';
-  set elementType(String value) => doc.setFormField(path, 'elementType', value);
+  ScreenElementKind? get elementType => _parseScreenElementKind(doc.formField(path, 'elementType'));
+  set elementType(ScreenElementKind? value) => doc.setFormField(path, 'elementType', value?.name ?? '');
 }
 
 /// Generated section facade for the `layout` `@Form` section:
@@ -74857,34 +74959,6 @@ class ScreenElementEntryResourcesForm extends SomNode {
   set iconPosition(String value) => doc.setFormField(path, 'iconPosition', value);
 }
 
-/// Generated section facade for the `constraints` `@Form` section:
-/// its own `content` text followed by one typed member per form field.
-class ScreenElementFieldSpecConstraintsForm extends SomNode {
-  ScreenElementFieldSpecConstraintsForm(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  /// The section's own free-text content, before the form fields.
-  String get content => doc.content(path) ?? '';
-  set content(String value) => doc.setContent(path, value);
-
-  int? get maxLength => somParseInt(doc.formField(path, 'maxLength'));
-  set maxLength(int? value) => doc.setFormField(path, 'maxLength', somFormatInt(value));
-
-  int? get minLength => somParseInt(doc.formField(path, 'minLength'));
-  set minLength(int? value) => doc.setFormField(path, 'minLength', somFormatInt(value));
-
-  String get minValue => doc.formField(path, 'minValue') ?? '';
-  set minValue(String value) => doc.setFormField(path, 'minValue', value);
-
-  String get maxValue => doc.formField(path, 'maxValue') ?? '';
-  set maxValue(String value) => doc.setFormField(path, 'maxValue', value);
-
-  int? get decimalPlaces => somParseInt(doc.formField(path, 'decimalPlaces'));
-  set decimalPlaces(int? value) => doc.setFormField(path, 'decimalPlaces', somFormatInt(value));
-}
-
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ScreenElementFieldSpecContentForm extends SomNode {
@@ -74900,11 +74974,33 @@ class ScreenElementFieldSpecContentForm extends SomNode {
   String get fieldName => doc.formField(path, 'fieldName') ?? '';
   set fieldName(String value) => doc.setFormField(path, 'fieldName', value);
 
-  String get dataType => doc.formField(path, 'dataType') ?? '';
-  set dataType(String value) => doc.setFormField(path, 'dataType', value);
+  ScreenElementFieldKind? get dataType => _parseScreenElementFieldKind(doc.formField(path, 'dataType'));
+  set dataType(ScreenElementFieldKind? value) => doc.setFormField(path, 'dataType', value?.name ?? '');
 
   String get placeholderResource => doc.formField(path, 'placeholderResource') ?? '';
   set placeholderResource(String value) => doc.setFormField(path, 'placeholderResource', value);
+}
+
+/// Generated section facade for the `dateOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecDateOptionsForm extends SomNode {
+  ScreenElementFieldSpecDateOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get firstDate => doc.formField(path, 'firstDate') ?? '';
+  set firstDate(String value) => doc.setFormField(path, 'firstDate', value);
+
+  String get lastDate => doc.formField(path, 'lastDate') ?? '';
+  set lastDate(String value) => doc.setFormField(path, 'lastDate', value);
+
+  String get dateFormat => doc.formField(path, 'dateFormat') ?? '';
+  set dateFormat(String value) => doc.setFormField(path, 'dateFormat', value);
 }
 
 /// Generated section facade for the `formatting` `@Form` section:
@@ -74932,10 +75028,32 @@ class ScreenElementFieldSpecFormattingForm extends SomNode {
   set displayFormat(String value) => doc.setFormField(path, 'displayFormat', value);
 }
 
-/// Generated section facade for the `selection` `@Form` section:
+/// Generated section facade for the `numberOptions` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
-class ScreenElementFieldSpecSelectionForm extends SomNode {
-  ScreenElementFieldSpecSelectionForm(super.doc, super.path);
+class ScreenElementFieldSpecNumberOptionsForm extends SomNode {
+  ScreenElementFieldSpecNumberOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get minValue => doc.formField(path, 'minValue') ?? '';
+  set minValue(String value) => doc.setFormField(path, 'minValue', value);
+
+  String get maxValue => doc.formField(path, 'maxValue') ?? '';
+  set maxValue(String value) => doc.setFormField(path, 'maxValue', value);
+
+  int? get decimalPlaces => somParseInt(doc.formField(path, 'decimalPlaces'));
+  set decimalPlaces(int? value) => doc.setFormField(path, 'decimalPlaces', somFormatInt(value));
+}
+
+/// Generated section facade for the `selectOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecSelectOptionsForm extends SomNode {
+  ScreenElementFieldSpecSelectOptionsForm(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;
@@ -74955,6 +75073,25 @@ class ScreenElementFieldSpecSelectionForm extends SomNode {
 
   String get displayMode => doc.formField(path, 'displayMode') ?? '';
   set displayMode(String value) => doc.setFormField(path, 'displayMode', value);
+}
+
+/// Generated section facade for the `textOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecTextOptionsForm extends SomNode {
+  ScreenElementFieldSpecTextOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  int? get maxLength => somParseInt(doc.formField(path, 'maxLength'));
+  set maxLength(int? value) => doc.setFormField(path, 'maxLength', somFormatInt(value));
+
+  int? get minLength => somParseInt(doc.formField(path, 'minLength'));
+  set minLength(int? value) => doc.setFormField(path, 'minLength', somFormatInt(value));
 }
 
 /// Generated section facade for the `validation` `@Form` section:

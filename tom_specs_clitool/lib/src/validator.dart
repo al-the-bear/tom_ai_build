@@ -811,6 +811,170 @@ void _validateStructuralInvariants(
       'section)',
     );
   }
+
+  // --- 8. @OneOf / @Case discriminated subsection groups -------------------
+  //
+  // A container section that resolves to exactly one of a closed set of typed
+  // alternatives carries `@OneOf(discriminator: '<formField>')`; each
+  // alternative complex-subsection field carries one or more `@Case(<const>)`
+  // bindings; un-@Case'd subsections are *common* (present for every case).
+  // The static tier checks (`codespecs_coverage_gaps.md` §4.4):
+  //   (i)   the discriminator resolves to a `@Form` field of the container
+  //         whose type is a model enum;
+  //   (ii)  every `@Case` value is a constant of that discriminator enum;
+  //   (iii) the cases *cover* the enum (an uncovered constant is a WARNING — a
+  //         kind with no attributes yet is legal);
+  //   (iv)  every `@Case`-bound field is a complex subsection of the same
+  //         container; and a `@Case` outside any `@OneOf` container is rejected.
+  _validateOneOfGroups(classes, reachable, errors, warnings);
+}
+
+/// Gathers every `@Form` field of [cls], from the class-level `@Form` and from
+/// each member's field-level `@Form` (the discriminator of a `@OneOf` group may
+/// live on the reserved `content` member's form, e.g. `ScreenElementEntry`).
+List<FormFieldInfo> _allFormFields(ModelClass cls) => [
+      ...cls.formFields,
+      for (final field in cls.fields) ...field.formFields,
+    ];
+
+/// Splits a qualified `EnumType.constant` token (as carried by `@Case`) into
+/// its `(enumType, constant)` parts, or `null` if it is not qualified.
+({String enumType, String constant})? _splitEnumToken(Object? value) {
+  if (value is! String) return null;
+  final dot = value.indexOf('.');
+  if (dot <= 0 || dot == value.length - 1) return null;
+  return (enumType: value.substring(0, dot), constant: value.substring(dot + 1));
+}
+
+/// Static enforcement of the `@OneOf`/`@Case` closed-choice mechanism (§4.4,
+/// csm-7-4/csmb6).
+void _validateOneOfGroups(
+  Map<String, ModelClass> classes,
+  Set<String> reachable,
+  List<String> errors,
+  List<String> warnings,
+) {
+  // A case-bound field must be a genuine *subsection* whose presence/absence
+  // is meaningful under the chosen case: a complex class field, a complex list,
+  // a known section type, or an inline content/form sub-section (a
+  // `DocSpecsSection` member carrying its own field-level `@SectionId`, shape 3
+  // — distinct from the reserved unmarked `content` member).
+  bool isSubsection(ModelField f) =>
+      f.isComplex ||
+      (f.isList && f.listElementIsComplex) ||
+      f.isSectionType ||
+      (f.isContentSection && f.getAnnotation('SectionId') != null);
+
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+
+    final oneOf = cls.getAnnotation('OneOf');
+
+    // (iv-b) A `@Case` outside any `@OneOf` container is dangling.
+    if (oneOf == null) {
+      for (final field in cls.fields) {
+        if (field.annotations.any((a) => a.name == 'Case')) {
+          errors.add(
+            '§8.6 one-of: $className.${field.name} carries @Case but its class '
+            'declares no @OneOf group — @Case is only valid on a subsection of '
+            'an @OneOf container',
+          );
+        }
+      }
+      continue;
+    }
+
+    final discriminator = oneOf.arguments['discriminator'] as String?;
+    if (discriminator == null || discriminator.isEmpty) {
+      errors.add(
+        '§8.6 one-of: $className carries @OneOf without a discriminator name',
+      );
+      continue;
+    }
+
+    // (i) The discriminator resolves to a @Form field whose type is a model
+    // enum (its enum constants are resolved at read time — YRD7).
+    final formFields = _allFormFields(cls);
+    FormFieldInfo? discField;
+    for (final f in formFields) {
+      if (f.name == discriminator) {
+        discField = f;
+        break;
+      }
+    }
+    if (discField == null) {
+      errors.add(
+        '§8.6 one-of: $className @OneOf discriminator "$discriminator" is not a '
+        '@Form field of the class',
+      );
+      continue;
+    }
+    if (discField.enumValues.isEmpty) {
+      errors.add(
+        '§8.6 one-of: $className @OneOf discriminator "$discriminator" '
+        '(type ${discField.typeName}) is not a model enum — the discriminator '
+        'must be an enum @Form field so cases can be checked and resolved',
+      );
+      continue;
+    }
+    final enumType = discField.typeName;
+    final enumConstants = discField.enumValues.toSet();
+
+    final coveredConstants = <String>{};
+    for (final field in cls.fields) {
+      final caseAnnos =
+          field.annotations.where((a) => a.name == 'Case').toList();
+      if (caseAnnos.isEmpty) continue;
+
+      // (iv) Every @Case-bound field is a complex subsection of the container.
+      if (!isSubsection(field)) {
+        errors.add(
+          '§8.6 one-of: $className.${field.name} carries @Case but is not a '
+          'complex subsection — only subsection fields can be case-bound',
+        );
+      }
+
+      for (final caseAnno in caseAnnos) {
+        final token = _splitEnumToken(caseAnno.arguments['value']);
+        if (token == null) {
+          errors.add(
+            '§8.6 one-of: $className.${field.name} @Case value is not a '
+            'qualified enum constant',
+          );
+          continue;
+        }
+        // (ii) Every @Case value is a constant of the discriminator enum.
+        if (token.enumType != enumType) {
+          errors.add(
+            '§8.6 one-of: $className.${field.name} @Case(${token.enumType}.'
+            '${token.constant}) does not belong to the discriminator enum '
+            '"$enumType"',
+          );
+          continue;
+        }
+        if (!enumConstants.contains(token.constant)) {
+          errors.add(
+            '§8.6 one-of: $className.${field.name} @Case value '
+            '"$enumType.${token.constant}" is not a constant of "$enumType"',
+          );
+          continue;
+        }
+        coveredConstants.add(token.constant);
+      }
+    }
+
+    // (iii) Cases should cover the enum — uncovered constants are a WARNING.
+    final uncovered = enumConstants.difference(coveredConstants).toList()
+      ..sort();
+    if (uncovered.isNotEmpty) {
+      warnings.add(
+        '§8.6 one-of: $className @OneOf on "$discriminator" leaves '
+        '${uncovered.length} enum constant(s) uncovered by any @Case '
+        '(${uncovered.join(', ')}) — legal for kinds with no extra attributes',
+      );
+    }
+  }
 }
 
 Set<String> _findReachableTypes(

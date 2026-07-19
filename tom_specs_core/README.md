@@ -124,6 +124,8 @@ target (class `C` / member `M`).
 | `@PatternCheckId` | `PatternCheckId(String pattern, {String? errorMessage})` | C | Validates the full section-ID format of children. |
 | `@PatternCheck` | `PatternCheck(String pattern, {String? errorMessage})` | M | Validates a field value against a regex. |
 | `@ValidationPrompt` | `ValidationPrompt(String prompt)` | C, M | AI-assisted validation prompt. |
+| `@OneOf` | `OneOf({required String discriminator, String? note})` | C | Marks a container class as a **discriminated subsection group** (`codespecs_coverage_gaps.md` §4). `discriminator` names a `@Form` field of the container whose type is a **model enum** (YRD7); the enum value chosen at author time selects which `@Case`-bound subsection fields are present. |
+| `@Case` | `Case(Object value)` | M | Repeatable. Binds a complex subsection field to one enum constant of the enclosing `@OneOf` discriminator (`value` is the qualified `EnumType.constant`). A subsection with no `@Case` is *common* (present under any case). Enforced statically (validator.dart §8.6 one-of) and at instance level (runtime `validateDocument`, `oneOfCaseMismatch`). |
 
 ### Cross-references & relationships
 

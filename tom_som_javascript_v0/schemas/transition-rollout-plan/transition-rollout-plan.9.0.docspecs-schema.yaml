@@ -1,0 +1,326 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: transition-rollout-plan/9.0
+
+title-format: "# <!--[TRP]--> Transition & Rollout Plan"
+section-types:
+  trmoen-trai-lst:
+    prefix: TRMOEN_TRAI_LST
+    subsection-types:
+      trmoen-trai:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per training module.
+  trveen-vend-lst:
+    prefix: TRVEEN_VEND_LST
+    subsection-types:
+      trveen-vend:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per translation vendor.
+  trmoen-trai:
+    prefix: TRMOEN_TRAI_
+    pattern-check-id:
+      pattern: ^TRMOEN-TRAI-.+$
+      error-message: IDs of this section must match TRMOEN-TRAI-xxx
+    description: Add one entry per training module.
+  trveen-vend:
+    prefix: TRVEEN_VEND_
+    pattern-check-id:
+      pattern: ^TRVEEN-VEND-.+$
+      error-message: IDs of this section must match TRVEEN-VEND-xxx
+    description: Add one entry per translation vendor.
+  doantr-docu:
+    prefix: DOANTR_DOCU
+    format: doantr-docu-form
+  trmat-trai:
+    prefix: TRMAT_TRAI
+    format: trmat-trai-form
+  lopr-loca:
+    prefix: LOPR_LOCA
+    format: lopr-loca-form
+  trpr-tran:
+    prefix: TRPR_TRAN
+    format: trpr-tran-form
+  cutprc:
+    prefix: CUTPRC
+    description: Cutover procedures.
+  doantr:
+    prefix: DOANTR
+    subsection-types:
+      doantr-docu:
+        max-count: 1
+      datd:
+        max-count: 1
+      datl:
+        max-count: 1
+    description: User documentation requirements (doc half of the former DOANTR;
+  loprde:
+    prefix: LOPRDE
+    format: loprde-form
+    description: Deployment settings.
+  loprfo:
+    prefix: LOPRFO
+    format: loprfo-form
+    description: Formatting rules.
+  loprr1:
+    prefix: LOPRR1
+    format: loprr1-form
+    description: Review process.
+  migpln:
+    prefix: MIGPLN
+    description: Migration plan.
+  pltpln:
+    prefix: PLTPLN
+    description: Pilot plan.
+  rltpln:
+    prefix: RLTPLN
+    description: Rollout plan.
+  trpron:
+    prefix: TRPRON
+    format: trpron-form
+    description: Ongoing localization operations.
+  trprqu:
+    prefix: TRPRQU
+    format: trprqu-form
+    description: Quality assurance.
+  trprte:
+    prefix: TRPRTE
+    format: trprte-form
+    description: Terminology and voice management.
+  trprwo:
+    prefix: TRPRWO
+    format: trprwo-form
+    description: Translation workflow.
+  usrman:
+    prefix: USRMAN
+    description: User manuals.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  kntfr:
+    prefix: KNTFR
+    description: Knowledge transfer.
+  rlttm:
+    prefix: RLTTM
+    description: Training materials.
+  trmat:
+    prefix: TRMAT
+    subsection-types:
+      trmat-trai:
+        max-count: 1
+      trmoen-trai-lst:
+        max-count: 1
+    description: Training deliverable requirements (training half of the former DOANTR;
+  wrtsp:
+    prefix: WRTSP
+    description: Warranty and support.
+  datd:
+    prefix: DATD
+    format: datd-form
+    description: Documentation deliverables provided to users.
+  datl:
+    prefix: DATL
+    format: datl-form
+    description: Documentation localization approach.
+  lopr:
+    prefix: LOPR
+    subsection-types:
+      lopr-loca:
+        max-count: 1
+      loprr1:
+        max-count: 1
+      loprfo:
+        max-count: 1
+      loprde:
+        max-count: 1
+    description: Localization process.
+  trpr:
+    prefix: TRPR
+    subsection-types:
+      trpr-tran:
+        max-count: 1
+      trprwo:
+        max-count: 1
+      trprqu:
+        max-count: 1
+      trprte:
+        max-count: 1
+      trpron:
+        max-count: 1
+      trveen-vend-lst:
+        max-count: 1
+    description: Translation process.
+form-types:
+  lopr-loca-form:
+    fields:
+      - fieldname: contentIdentification
+        description: How localizable content is identified
+      - fieldname: stringExternalization
+        description: Approach to externalizing strings
+      - fieldname: contentTagging
+        description: How content is tagged for translation
+      - fieldname: localizationScope
+        description: "UI text, images, audio, video, documents"
+  loprr1-form:
+    fields:
+      - fieldname: reviewWorkflow
+        description: Steps in the localization review
+      - fieldname: stakeholderApproval
+        description: Who approves localized content
+      - fieldname: qualityAssurance
+        description: QA process for localized content
+  loprfo-form:
+    fields:
+      - fieldname: dateFormatRules
+        description: Locale-specific date formatting
+      - fieldname: numberFormatRules
+        description: Locale-specific number formatting
+      - fieldname: currencyFormatRules
+        description: Locale-specific currency formatting
+      - fieldname: addressFormatRules
+        description: Locale-specific address formatting
+      - fieldname: phoneFormatRules
+        description: Locale-specific phone number formatting
+  loprde-form:
+    fields:
+      - fieldname: localeDeployment
+        description: How locales are deployed
+      - fieldname: localeToggling
+        description: Feature flags for locales
+      - fieldname: perLocaleCustomization
+        description: Locale-specific features or content
+  trpr-tran-form:
+    fields:
+      - fieldname: translationManagementSystem
+        description: "TMS tool (Phrase, Lokalise, Crowdin)"
+      - fieldname: translationMemory
+        description: TM usage and maintenance
+      - fieldname: machineTranslation
+        description: "MT usage (Google, DeepL, none)"
+      - fieldname: catTools
+        description: Computer-assisted translation tools
+  trprwo-form:
+    fields:
+      - fieldname: translationWorkflow
+        description: "Steps: extract → translate → review → integrate"
+      - fieldname: reviewCycles
+        description: Number of review rounds
+      - fieldname: inCountryReview
+        description: Native speaker review process
+      - fieldname: contextualReview
+        description: In-app review process
+  trprqu-form:
+    fields:
+      - fieldname: qualityChecks
+        description: Automated quality checks
+      - fieldname: linguisticQA
+        description: Linguistic quality assurance
+      - fieldname: functionalQA
+        description: Functional testing of translations
+  trprte-form:
+    fields:
+      - fieldname: glossaryManagement
+        description: Term base management
+      - fieldname: styleGuide
+        description: Translation style guidelines
+      - fieldname: brandVoice
+        description: How brand voice is maintained
+  trpron-form:
+    fields:
+      - fieldname: continuousLocalization
+        description: CI/CD integration for translations
+      - fieldname: translationMemoryMaintenance
+        description: How translation memory is maintained
+  doantr-docu-form:
+    fields:
+      - fieldname: documentationFormat
+        description: "HTML, PDF, in-app, wiki"
+      - fieldname: documentationPlatform
+        description: "GitBook, Notion, custom, Confluence"
+      - fieldname: documentationVersioning
+        description: How docs are versioned with releases
+  datd-form:
+    fields:
+      - fieldname: userGuide
+        description: Include a full user guide (true or false)
+      - fieldname: quickStartGuide
+        description: Include a quick start guide (true or false)
+      - fieldname: onlineHelp
+        description: Include online help pages (true or false)
+      - fieldname: videoTutorials
+        description: Include video tutorials (true or false)
+      - fieldname: contextualHelp
+        description: Include in-context help hints (true or false)
+      - fieldname: faq
+        description: Include a frequently-asked-questions page (true or false)
+      - fieldname: releaseNotes
+        description: Include per-release notes (true or false)
+  datl-form:
+    fields:
+      - fieldname: documentationLanguages
+        description: Languages for documentation
+      - fieldname: documentationTranslation
+        description: Translation approach for docs
+  trmat-trai-form:
+    fields:
+      - fieldname: trainingMaterials
+        description: "Slides, workbooks, exercises"
+      - fieldname: trainingFormat
+        description: "In-person, virtual, self-paced"
+      - fieldname: trainingDuration
+        description: Duration per role/module
+      - fieldname: trainingSchedule
+        description: When training occurs
+      - fieldname: trainTheTrainer
+        description: Train internal trainers
+      - fieldname: refresherTraining
+        description: Ongoing training approach
+      - fieldname: knowledgeTransferPlan
+        description: How knowledge is transferred
+      - fieldname: supportHandoff
+        description: Transition to support team
+      - fieldname: certificationProgram
+        description: User certification if applicable
+document:
+  sections:
+    dochd:
+      section-type: dochd
+      optional: true
+    lopr:
+      section-type: lopr
+      optional: true
+    trpr:
+      section-type: trpr
+      optional: true
+    doantr:
+      section-type: doantr
+      optional: true
+    trmat:
+      section-type: trmat
+      optional: true
+    rltpln:
+      section-type: rltpln
+      optional: true
+    migpln:
+      section-type: migpln
+      optional: true
+    usrman:
+      section-type: usrman
+      optional: true
+    rlttm:
+      section-type: rlttm
+      optional: true
+    pltpln:
+      section-type: pltpln
+      optional: true
+    cutprc:
+      section-type: cutprc
+      optional: true
+    kntfr:
+      section-type: kntfr
+      optional: true
+    wrtsp:
+      section-type: wrtsp
+      optional: true

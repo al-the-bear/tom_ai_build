@@ -7,6 +7,66 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
+/// The closed set of screen-element kinds (CE-EL, csm6 §4 / csmb6).
+///
+/// The discriminator enum for the `ScreenElementEntry` `@OneOf` group: it picks
+/// which element facet applies — an action element carries `elementAction`, an
+/// input element `fieldSpec`, a display element `dataDisplay`; structural kinds
+/// (divider/spacer/tabBar) carry only the common subsections. Replaces the
+/// former free-text `elementType` so the choice is a real closed set.
+enum ScreenElementKind {
+  // Action facet.
+  actionButton,
+  link,
+  // Input facet.
+  textField,
+  numberField,
+  dateField,
+  selectField,
+  checkbox,
+  toggle,
+  // Display facet.
+  dataDisplay,
+  dataTable,
+  card,
+  chart,
+  statusIndicator,
+  icon,
+  label,
+  image,
+  badge,
+  // Structural (no facet subsection).
+  divider,
+  spacer,
+  tabBar,
+}
+
+/// The closed set of input field data-kinds (CE-EL field kind, csm6 §4 / csmb6).
+///
+/// The discriminator enum for the `ScreenElementFieldSpec` `@OneOf` group: it
+/// picks the promoted, kind-specific options subsection — `numberOptions`,
+/// `dateOptions`, `selectOptions`, or `textOptions` — so a Date field no longer
+/// carries `decimalPlaces` and a Number field no longer carries `optionsSource`.
+/// Replaces the former free-text `dataType`.
+enum ScreenElementFieldKind {
+  string,
+  integer,
+  decimal,
+  currency,
+  date,
+  dateTime,
+  time,
+  boolean,
+  enumeration,
+  email,
+  phone,
+  url,
+  password,
+  richText,
+  color,
+  file,
+}
+
 /// 10. Experience & Interface Design. Seeds → XDS.
 @StandardReferences(
   [
@@ -1468,6 +1528,11 @@ class ScreenSectionEntry extends DocSpecsSection {
   'A single interactive or display element within a screen section together with its type and behavior.',
 )
 @SectionId('SCREL')
+@OneOf(
+  discriminator: 'elementType',
+  note: 'CE-EL closed choice: the element kind selects its facet subsection '
+      '(action / input / display); structural kinds carry only common ones.',
+)
 class ScreenElementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1486,13 +1551,10 @@ class ScreenElementEntry extends DocSpecsSection {
     ),
     Field(
       'elementType',
-      String,
+      ScreenElementKind,
       'Element Type',
       required: true,
-      hint:
-          'Action-Button/Text-Field/Number-Field/Date-Field/Select-Field/'
-          'Checkbox/Toggle/Data-Display/Data-Table/Card/Chart/Status-Indicator/'
-          'Icon/Label/Link/Image/Divider/Spacer/Tab-Bar/Badge',
+      hint: 'The semantic element kind — selects the facet subsection.',
     ),
   ])
   @override
@@ -1659,14 +1721,37 @@ class ScreenElementEntry extends DocSpecsSection {
   DocSpecsSection? presentation;
 
   /// 10.2.1.n.m.k.1. Element Action.
+  ///
+  /// Present only for action-kind elements (`@OneOf` case, csmb6).
+  @Case(ScreenElementKind.actionButton)
+  @Case(ScreenElementKind.link)
   @SerializationOrder(5)
   ScreenElementAction? elementAction;
 
   /// 10.2.1.n.m.k.2. Element Field Spec.
+  ///
+  /// Present only for input-kind elements (`@OneOf` case, csmb6).
+  @Case(ScreenElementKind.textField)
+  @Case(ScreenElementKind.numberField)
+  @Case(ScreenElementKind.dateField)
+  @Case(ScreenElementKind.selectField)
+  @Case(ScreenElementKind.checkbox)
+  @Case(ScreenElementKind.toggle)
   @SerializationOrder(6)
   ScreenElementFieldSpec? fieldSpec;
 
   /// 10.2.1.n.m.k.3. Element Data Display.
+  ///
+  /// Present only for display-kind elements (`@OneOf` case, csmb6).
+  @Case(ScreenElementKind.dataDisplay)
+  @Case(ScreenElementKind.dataTable)
+  @Case(ScreenElementKind.card)
+  @Case(ScreenElementKind.chart)
+  @Case(ScreenElementKind.statusIndicator)
+  @Case(ScreenElementKind.icon)
+  @Case(ScreenElementKind.label)
+  @Case(ScreenElementKind.image)
+  @Case(ScreenElementKind.badge)
   @SerializationOrder(7)
   ScreenElementDataDisplay? dataDisplay;
 
@@ -1829,6 +1914,12 @@ class ScreenElementAction extends DocSpecsSection {
   'The specification of input behavior for an input-type element including data type and constraints.',
 )
 @SectionId('SEFS')
+@OneOf(
+  discriminator: 'dataType',
+  note: 'CE-EL field kind closed choice: the data type selects its promoted '
+      'options subsection (number / date / select / text); boolean, color and '
+      'file kinds carry only the common formatting + validation subsections.',
+)
 class ScreenElementFieldSpec extends DocSpecsSection {
   @Form([
     Field(
@@ -1839,11 +1930,9 @@ class ScreenElementFieldSpec extends DocSpecsSection {
     ),
     Field(
       'dataType',
-      String,
+      ScreenElementFieldKind,
       'Data Type',
-      hint:
-          'String/Integer/Decimal/Currency/Date/DateTime/Time/Boolean/Enum/'
-          'Email/Phone/URL/Password/Rich-Text/Color/File',
+      hint: 'The input data kind — selects the promoted options subsection.',
     ),
     Field(
       'placeholderResource',
@@ -1889,29 +1978,33 @@ class ScreenElementFieldSpec extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? formatting;
 
-  /// Length and value constraints.
-  @SectionId('SEFSC')
+  /// Number-kind options — a promoted `@OneOf` case (csmb6).
+  ///
+  /// Present only for numeric field kinds; carries only numeric constraints
+  /// (no length or option-source attributes).
+  @SectionId('SEFSN')
   @StandardReferences(
     [
-      'ISO 9241-143:2012 — constraints on form-field input such as length and value ranges',
-      'ISO 9241-110:2020 — use error tolerance through bounded input constraints',
+      'ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges and precision',
+      'ISO 9241-110:2020 — use error tolerance through bounded numeric input',
     ],
-    'The length and value constraints that bound acceptable input for a form field.',
+    'The value range and precision constraints for a numeric input field.',
   )
+  @Case(ScreenElementFieldKind.integer)
+  @Case(ScreenElementFieldKind.decimal)
+  @Case(ScreenElementFieldKind.currency)
   @Form([
-    Field('maxLength', int, 'Max Length', hint: 'Character limit'),
-    Field('minLength', int, 'Min Length', hint: 'Minimum length'),
     Field(
       'minValue',
       String,
       'Min Value',
-      hint: 'Minimum allowed value for numeric/date fields',
+      hint: 'Minimum allowed numeric value',
     ),
     Field(
       'maxValue',
       String,
       'Max Value',
-      hint: 'Maximum allowed value for numeric/date fields',
+      hint: 'Maximum allowed numeric value',
     ),
     Field(
       'decimalPlaces',
@@ -1921,7 +2014,69 @@ class ScreenElementFieldSpec extends DocSpecsSection {
     ),
   ])
   @SerializationOrder(2)
-  DocSpecsSection? constraints;
+  DocSpecsSection? numberOptions;
+
+  /// Date-kind options — a promoted `@OneOf` case (csmb6).
+  ///
+  /// Present only for date/time field kinds; carries only temporal
+  /// constraints (no numeric precision or length attributes).
+  @SectionId('SEFSD')
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — constraints on date and time form-field input',
+      'ISO 8601-1:2019 — representation of dates and times',
+    ],
+    'The date/time range and format constraints for a temporal input field.',
+  )
+  @Case(ScreenElementFieldKind.date)
+  @Case(ScreenElementFieldKind.dateTime)
+  @Case(ScreenElementFieldKind.time)
+  @Form([
+    Field(
+      'firstDate',
+      String,
+      'First Date',
+      hint: 'Earliest selectable date/time',
+    ),
+    Field(
+      'lastDate',
+      String,
+      'Last Date',
+      hint: 'Latest selectable date/time',
+    ),
+    Field(
+      'dateFormat',
+      String,
+      'Date Format',
+      hint: 'Display/parse pattern, e.g., yyyy-MM-dd',
+    ),
+  ])
+  @SerializationOrder(3)
+  DocSpecsSection? dateOptions;
+
+  /// Text-kind options — a promoted `@OneOf` case (csmb6).
+  ///
+  /// Present only for free-text field kinds; carries only length constraints.
+  @SectionId('SEFST')
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — length constraints on text form-field input',
+      'ISO 9241-110:2020 — use error tolerance through bounded text input',
+    ],
+    'The length constraints for a free-text input field.',
+  )
+  @Case(ScreenElementFieldKind.string)
+  @Case(ScreenElementFieldKind.email)
+  @Case(ScreenElementFieldKind.phone)
+  @Case(ScreenElementFieldKind.url)
+  @Case(ScreenElementFieldKind.password)
+  @Case(ScreenElementFieldKind.richText)
+  @Form([
+    Field('maxLength', int, 'Max Length', hint: 'Character limit'),
+    Field('minLength', int, 'Min Length', hint: 'Minimum length'),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? textOptions;
 
   /// Validation behavior.
   @SectionId('SEFSV')
@@ -1959,18 +2114,22 @@ class ScreenElementFieldSpec extends DocSpecsSection {
       hint: 'Yes/No — show clear/reset affordance',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(5)
   DocSpecsSection? validation;
 
-  /// Selection and input assistance.
+  /// Select-kind options — a promoted `@OneOf` case (csmb6).
+  ///
+  /// Present only for the enumeration (select) field kind; carries only the
+  /// option-source and selection-mode attributes.
   @SectionId('SEFSS')
   @StandardReferences(
     [
       'ISO 9241-143:2012 — form fields with selection and input assistance',
       'ISO 9241-161:2016 — selection controls such as dropdowns and radio groups',
     ],
-    'The selection and input-assistance behavior for a form field such as autocomplete and option sources.',
+    'The option source and selection-mode attributes for a select input field.',
   )
+  @Case(ScreenElementFieldKind.enumeration)
   @Form([
     Field(
       'autocompleteSource',
@@ -1994,8 +2153,8 @@ class ScreenElementFieldSpec extends DocSpecsSection {
           'Dialog-Picker',
     ),
   ])
-  @SerializationOrder(4)
-  DocSpecsSection? selection;
+  @SerializationOrder(6)
+  DocSpecsSection? selectOptions;
 }
 
 /// Data display specification for display-type elements (form).

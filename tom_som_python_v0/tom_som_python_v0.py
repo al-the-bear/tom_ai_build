@@ -26676,16 +26676,22 @@ class ScreenElementEntry(SomNode):
         return ScreenElementEntryPresentationForm(self.doc, f"{self.path}/SCELENPR")
 
     # 10.2.1.n.m.k.1. Element Action.
+    #
+    # Present only for action-kind elements (`@OneOf` case, csmb6).
     @property
     def elementAction(self):
         return ScreenElementAction(self.doc, f"{self.path}/elementAction")
 
     # 10.2.1.n.m.k.2. Element Field Spec.
+    #
+    # Present only for input-kind elements (`@OneOf` case, csmb6).
     @property
     def fieldSpec(self):
         return ScreenElementFieldSpec(self.doc, f"{self.path}/fieldSpec")
 
     # 10.2.1.n.m.k.3. Element Data Display.
+    #
+    # Present only for display-kind elements (`@OneOf` case, csmb6).
     @property
     def dataDisplay(self):
         return ScreenElementDataDisplay(self.doc, f"{self.path}/dataDisplay")
@@ -26712,20 +26718,41 @@ class ScreenElementFieldSpec(SomNode):
     def formatting(self):
         return ScreenElementFieldSpecFormattingForm(self.doc, f"{self.path}/SEFSF")
 
-    # Length and value constraints.
+    # Number-kind options — a promoted `@OneOf` case (csmb6).
+    #
+    # Present only for numeric field kinds; carries only numeric constraints
+    # (no length or option-source attributes).
     @property
-    def constraints(self):
-        return ScreenElementFieldSpecConstraintsForm(self.doc, f"{self.path}/SEFSC")
+    def numberOptions(self):
+        return ScreenElementFieldSpecNumberOptionsForm(self.doc, f"{self.path}/SEFSN")
+
+    # Date-kind options — a promoted `@OneOf` case (csmb6).
+    #
+    # Present only for date/time field kinds; carries only temporal
+    # constraints (no numeric precision or length attributes).
+    @property
+    def dateOptions(self):
+        return ScreenElementFieldSpecDateOptionsForm(self.doc, f"{self.path}/SEFSD")
+
+    # Text-kind options — a promoted `@OneOf` case (csmb6).
+    #
+    # Present only for free-text field kinds; carries only length constraints.
+    @property
+    def textOptions(self):
+        return ScreenElementFieldSpecTextOptionsForm(self.doc, f"{self.path}/SEFST")
 
     # Validation behavior.
     @property
     def validation(self):
         return ScreenElementFieldSpecValidationForm(self.doc, f"{self.path}/SEFSV")
 
-    # Selection and input assistance.
+    # Select-kind options — a promoted `@OneOf` case (csmb6).
+    #
+    # Present only for the enumeration (select) field kind; carries only the
+    # option-source and selection-mode attributes.
     @property
-    def selection(self):
-        return ScreenElementFieldSpecSelectionForm(self.doc, f"{self.path}/SEFSS")
+    def selectOptions(self):
+        return ScreenElementFieldSpecSelectOptionsForm(self.doc, f"{self.path}/SEFSS")
 
 class ScreenEntry(SomNode):
     """A screen entry (form).
@@ -138237,81 +138264,6 @@ class ScreenElementEntryResourcesForm(SomNode):
     def iconPosition(self, value):
         self.doc.set_form_field(self.path, "iconPosition", value)
 
-class ScreenElementFieldSpecConstraintsForm(SomNode):
-    """Generated section facade for the `constraints` @Form section: its own content text followed by one typed member per form field."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self) -> str:
-        return self.doc.content(self.path) or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(self.path, value)
-
-    @property
-    def maxLength(self) -> "int | None":
-        v = self.doc.form_field(self.path, "maxLength")
-        if v is None or v == "":
-            return None
-        try:
-            return int(v)
-        except (TypeError, ValueError):
-            return None
-
-    @maxLength.setter
-    def maxLength(self, value):
-        self.doc.set_form_field(self.path, "maxLength", "" if value is None else str(value))
-
-    @property
-    def minLength(self) -> "int | None":
-        v = self.doc.form_field(self.path, "minLength")
-        if v is None or v == "":
-            return None
-        try:
-            return int(v)
-        except (TypeError, ValueError):
-            return None
-
-    @minLength.setter
-    def minLength(self, value):
-        self.doc.set_form_field(self.path, "minLength", "" if value is None else str(value))
-
-    @property
-    def minValue(self) -> str:
-        return self.doc.form_field(self.path, "minValue") or ""
-
-    @minValue.setter
-    def minValue(self, value):
-        self.doc.set_form_field(self.path, "minValue", value)
-
-    @property
-    def maxValue(self) -> str:
-        return self.doc.form_field(self.path, "maxValue") or ""
-
-    @maxValue.setter
-    def maxValue(self, value):
-        self.doc.set_form_field(self.path, "maxValue", value)
-
-    @property
-    def decimalPlaces(self) -> "int | None":
-        v = self.doc.form_field(self.path, "decimalPlaces")
-        if v is None or v == "":
-            return None
-        try:
-            return int(v)
-        except (TypeError, ValueError):
-            return None
-
-    @decimalPlaces.setter
-    def decimalPlaces(self, value):
-        self.doc.set_form_field(self.path, "decimalPlaces", "" if value is None else str(value))
-
 class ScreenElementFieldSpecContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -138352,6 +138304,47 @@ class ScreenElementFieldSpecContentForm(SomNode):
     @placeholderResource.setter
     def placeholderResource(self, value):
         self.doc.set_form_field(self.path, "placeholderResource", value)
+
+class ScreenElementFieldSpecDateOptionsForm(SomNode):
+    """Generated section facade for the `dateOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def firstDate(self) -> str:
+        return self.doc.form_field(self.path, "firstDate") or ""
+
+    @firstDate.setter
+    def firstDate(self, value):
+        self.doc.set_form_field(self.path, "firstDate", value)
+
+    @property
+    def lastDate(self) -> str:
+        return self.doc.form_field(self.path, "lastDate") or ""
+
+    @lastDate.setter
+    def lastDate(self, value):
+        self.doc.set_form_field(self.path, "lastDate", value)
+
+    @property
+    def dateFormat(self) -> str:
+        return self.doc.form_field(self.path, "dateFormat") or ""
+
+    @dateFormat.setter
+    def dateFormat(self, value):
+        self.doc.set_form_field(self.path, "dateFormat", value)
 
 class ScreenElementFieldSpecFormattingForm(SomNode):
     """Generated section facade for the `formatting` @Form section: its own content text followed by one typed member per form field."""
@@ -138402,8 +138395,55 @@ class ScreenElementFieldSpecFormattingForm(SomNode):
     def displayFormat(self, value):
         self.doc.set_form_field(self.path, "displayFormat", value)
 
-class ScreenElementFieldSpecSelectionForm(SomNode):
-    """Generated section facade for the `selection` @Form section: its own content text followed by one typed member per form field."""
+class ScreenElementFieldSpecNumberOptionsForm(SomNode):
+    """Generated section facade for the `numberOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def minValue(self) -> str:
+        return self.doc.form_field(self.path, "minValue") or ""
+
+    @minValue.setter
+    def minValue(self, value):
+        self.doc.set_form_field(self.path, "minValue", value)
+
+    @property
+    def maxValue(self) -> str:
+        return self.doc.form_field(self.path, "maxValue") or ""
+
+    @maxValue.setter
+    def maxValue(self, value):
+        self.doc.set_form_field(self.path, "maxValue", value)
+
+    @property
+    def decimalPlaces(self) -> "int | None":
+        v = self.doc.form_field(self.path, "decimalPlaces")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @decimalPlaces.setter
+    def decimalPlaces(self, value):
+        self.doc.set_form_field(self.path, "decimalPlaces", "" if value is None else str(value))
+
+class ScreenElementFieldSpecSelectOptionsForm(SomNode):
+    """Generated section facade for the `selectOptions` @Form section: its own content text followed by one typed member per form field."""
 
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -138450,6 +138490,51 @@ class ScreenElementFieldSpecSelectionForm(SomNode):
     @displayMode.setter
     def displayMode(self, value):
         self.doc.set_form_field(self.path, "displayMode", value)
+
+class ScreenElementFieldSpecTextOptionsForm(SomNode):
+    """Generated section facade for the `textOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def maxLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxLength.setter
+    def maxLength(self, value):
+        self.doc.set_form_field(self.path, "maxLength", "" if value is None else str(value))
+
+    @property
+    def minLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "minLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @minLength.setter
+    def minLength(self, value):
+        self.doc.set_form_field(self.path, "minLength", "" if value is None else str(value))
 
 class ScreenElementFieldSpecValidationForm(SomNode):
     """Generated section facade for the `validation` @Form section: its own content text followed by one typed member per form field."""

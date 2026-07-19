@@ -25,6 +25,11 @@ enum SpecValidationCode {
 
   /// A populated list holds fewer items than its `@Min` requires.
   minItems,
+
+  /// A `@OneOf` container carries a case-bound subsection that the chosen
+  /// discriminator value does not select, or more than one subsection for the
+  /// chosen case (`codespecs_coverage_gaps.md` §4.4, csmb6).
+  oneOfCaseMismatch,
 }
 
 /// One problem found while validating a document.
@@ -122,6 +127,121 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
         path: path,
         code: SpecValidationCode.minItems,
         message: 'list holds $count item(s) but requires at least $min',
+      ));
+    }
+  }
+
+  // 4. @OneOf discriminated subsection groups (instance tier, csmb6).
+  //
+  // A concrete `@OneOf` container must carry ONLY the subsections whose `@Case`
+  // matches the chosen discriminator value (plus the common, un-`@Case`d ones),
+  // and at most one case subsection for the chosen case
+  // (`codespecs_coverage_gaps.md` §4.4). The static tier (validator.dart) has
+  // already checked the annotations are well-formed; here we check a document's
+  // *values* against them.
+  errors.addAll(_validateOneOfInstances(refl, doc));
+
+  return errors;
+}
+
+/// The constant part of a qualified `EnumType.constant` `@Case` token (or the
+/// whole string when it is not qualified).
+String _caseConstant(String token) {
+  final dot = token.indexOf('.');
+  return dot >= 0 ? token.substring(dot + 1) : token;
+}
+
+/// Instance-tier `@OneOf`/`@Case` check (csmb6): for every `@OneOf` container
+/// instance present in [doc], verify the populated case subsections match the
+/// chosen discriminator value.
+List<SpecValidationError> _validateOneOfInstances(
+  SpecReflection refl,
+  SpecDocument doc,
+) {
+  final errors = <SpecValidationError>[];
+
+  // Every section-instance path present in the document: each stored value path
+  // plus all of its ancestor prefixes (a container's own discriminator form
+  // lives at `<container>/content`, so the container path is always a prefix of
+  // a populated path).
+  final sectionPaths = <String>{};
+  void addPrefixes(String full) {
+    final segs = full.split('/');
+    final buf = StringBuffer();
+    for (var i = 0; i < segs.length; i++) {
+      if (i > 0) buf.write('/');
+      buf.write(segs[i]);
+      sectionPaths.add(buf.toString());
+    }
+  }
+
+  for (final p in doc.contentPaths) {
+    addPrefixes(p);
+  }
+  for (final p in doc.formPaths) {
+    addPrefixes(p);
+  }
+  for (final p in doc.listPaths) {
+    addPrefixes(p);
+  }
+  for (final p in doc.headlinePaths) {
+    addPrefixes(p);
+  }
+
+  for (final path in sectionPaths.toList()..sort()) {
+    final res = refl.resolve(path);
+    final cls = res?.targetClass;
+    if (cls == null) continue;
+    final oneOf = cls.annotation('OneOf');
+    if (oneOf == null) continue;
+    final discriminator = oneOf.argument('discriminator') as String?;
+    if (discriminator == null || discriminator.isEmpty) continue;
+
+    // Read the chosen discriminator value from the container's own @Form.
+    SpecField? formHolder;
+    for (final f in cls.fields) {
+      if (f.kind == SpecFieldKind.form &&
+          f.formFields.any((ff) => ff.name == discriminator)) {
+        formHolder = f;
+        break;
+      }
+    }
+    if (formHolder == null) continue; // static tier flagged the mismatch
+    final chosen =
+        doc.formField('$path/${refl.fieldSegment(formHolder)}', discriminator);
+    if (chosen == null || chosen.isEmpty) continue; // no case chosen yet
+
+    // Inspect each case-bound subsection: present + not-selected → mismatch.
+    final presentForChosen = <String>[];
+    for (final f in cls.fields) {
+      final caseConstants = <String>{
+        for (final a in f.annotations)
+          if (a.name == 'Case' && a.argument('value') is String)
+            _caseConstant(a.argument('value') as String),
+      };
+      if (caseConstants.isEmpty) continue; // common subsection — always allowed
+      final childPath = '$path/${refl.fieldSegment(f)}';
+      if (!doc.hasValuesUnder(childPath)) continue;
+      if (caseConstants.contains(chosen)) {
+        presentForChosen.add(f.name);
+      } else {
+        errors.add(SpecValidationError(
+          path: childPath,
+          code: SpecValidationCode.oneOfCaseMismatch,
+          message: 'subsection "${f.name}" is present but the chosen '
+              '$discriminator="$chosen" does not select it '
+              '(cases: ${(caseConstants.toList()..sort()).join(', ')})',
+        ));
+      }
+    }
+    if (presentForChosen.length > 1) {
+      presentForChosen.sort();
+      errors.add(SpecValidationError(
+        path: path,
+        code: SpecValidationCode.oneOfCaseMismatch,
+        message: 'chosen $discriminator="$chosen" selects more than one '
+            'populated subsection (${presentForChosen.join(', ')}) — at most '
+            'one case subsection may be present',
       ));
     }
   }

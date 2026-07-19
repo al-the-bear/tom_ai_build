@@ -1,0 +1,4969 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: experience-design-specification/9.0
+
+title-format: "# <!--[XDS]--> Experience Design Specification"
+section-types:
+  delnpt-patt-lst:
+    prefix: DELNPT_PATT_LST
+    subsection-types:
+      delnpt-patt:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per deep-link URL pattern.
+  exfoen-expo-lst:
+    prefix: EXFOEN_EXPO_LST
+    subsection-types:
+      exfoen-expo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export format.
+  exsise-size-lst:
+    prefix: EXSISE_SIZE_LST
+    subsection-types:
+      exsise-size:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per size-and-splitting setting.
+  exteen-expo-lst:
+    prefix: EXTEEN_EXPO_LST
+    subsection-types:
+      exteen-expo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export template.
+  famref-comp-lst:
+    prefix: FAMREF_COMP_LST
+    subsection-types:
+      famref-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component in the family.
+  ftrtur-feat-lst:
+    prefix: FTRTUR_FEAT_LST
+    subsection-types:
+      ftrtur-feat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per feature tour.
+  navgrd-guar-lst:
+    prefix: NAVGRD_GUAR_LST
+    subsection-types:
+      navgrd-guar:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per navigation guard rule.
+  navgrp-grou-lst:
+    prefix: NAVGRP_GROU_LST
+    subsection-types:
+      navgrp-grou:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per navigation group.
+  naviit-item-lst:
+    prefix: NAVIIT_ITEM_LST
+    subsection-types:
+      naviit-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per navigation item in this group.
+  prfeen-feat-lst:
+    prefix: PRFEEN_FEAT_LST
+    subsection-types:
+      prfeen-feat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per prototype feature.
+  prgoen-goal-lst:
+    prefix: PRGOEN_GOAL_LST
+    subsection-types:
+      prgoen-goal:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per prototype goal.
+  rcvscn-reco-lst:
+    prefix: RCVSCN_RECO_LST
+    subsection-types:
+      rcvscn-reco:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per common recovery scenario.
+  rechax-axes-lst:
+    prefix: RECHAX_AXES_LST
+    subsection-types:
+      rechax-axes:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per chart axis configuration.
+  rechen-char-lst:
+    prefix: RECHEN_CHAR_LST
+    subsection-types:
+      rechen-char:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per chart shown in the section.
+  recoe1-colu-lst:
+    prefix: RECOE1_COLU_LST
+    subsection-types:
+      recoe1-colu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per column in the section table.
+  redien-dist-lst:
+    prefix: REDIEN_DIST_LST
+    subsection-types:
+      redien-dist:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report distribution channel.
+  refien-filt-lst:
+    prefix: REFIEN_FILT_LST
+    subsection-types:
+      refien-filt:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report data filter.
+  rereen-reci-lst:
+    prefix: REREEN_RECI_LST
+    subsection-types:
+      rereen-reci:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report recipient.
+  rescen-sche-lst:
+    prefix: RESCEN_SCHE_LST
+    subsection-types:
+      rescen-sche:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report generation schedule.
+  resee1-sect-lst:
+    prefix: RESEE1_SECT_LST
+    subsection-types:
+      resee1-sect:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report section.
+  respsr-scre-lst:
+    prefix: RESPSR_SCRE_LST
+    subsection-types:
+      respsr-scre:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen with distinct responsive rules.
+  scrusc-user-lst:
+    prefix: SCRUSC_USER_LST
+    subsection-types:
+      scrusc-user:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user category.
+  taiten-tabs-lst:
+    prefix: TAITEN_TABS_LST
+    subsection-types:
+      taiten-tabs:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per tab item in the tab bar.
+  uicoen-comp-lst:
+    prefix: UICOEN_COMP_LST
+    subsection-types:
+      uicoen-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per catalog component.
+  vamete-mess-lst:
+    prefix: VAMETE_MESS_LST
+    subsection-types:
+      vamete-mess:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per validation message template.
+  desig-desi-lst:
+    prefix: DESIG_DESI_LST
+    subsection-types:
+      desig-desi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per design foundation.
+  dgoen-item-lst:
+    prefix: DGOEN_ITEM_LST
+    subsection-types:
+      dgoen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per design goal.
+  field-fiel-lst:
+    prefix: FIELD_FIEL_LST
+    subsection-types:
+      field-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per field validation rule.
+  fldhp-fiel-lst:
+    prefix: FLDHP_FIEL_LST
+    subsection-types:
+      fldhp-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per field that needs contextual help.
+  globa-glob-lst:
+    prefix: GLOBA_GLOB_LST
+    subsection-types:
+      globa-glob:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per global entry point.
+  peren-item-lst:
+    prefix: PEREN_ITEM_LST
+    subsection-types:
+      peren-item:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user persona.
+  pgoen-item-lst:
+    prefix: PGOEN_ITEM_LST
+    subsection-types:
+      pgoen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per persona goal.
+  pppen-item-lst:
+    prefix: PPPEN_ITEM_LST
+    subsection-types:
+      pppen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per persona pain point.
+  pscen-item-lst:
+    prefix: PSCEN_ITEM_LST
+    subsection-types:
+      pscen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per persona scenario.
+  recov-reco-lst:
+    prefix: RECOV_RECO_LST
+    subsection-types:
+      recov-reco:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per recovery flow.
+  scrac-item-lst:
+    prefix: SCRAC_ITEM_LST
+    subsection-types:
+      scrac-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen action.
+  screl-elem-lst:
+    prefix: SCREL_ELEM_LST
+    subsection-types:
+      screl-elem:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen element.
+  scren-item-lst:
+    prefix: SCREN_ITEM_LST
+    subsection-types:
+      scren-item:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen.
+  scrsc-item-lst:
+    prefix: SCRSC_ITEM_LST
+    subsection-types:
+      scrsc-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen section.
+  scrst-item-lst:
+    prefix: SCRST_ITEM_LST
+    subsection-types:
+      scrst-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen state.
+  turst-step-lst:
+    prefix: TURST_STEP_LST
+    subsection-types:
+      turst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per guided-tour step.
+  acch-item-lst:
+    prefix: ACCH_ITEM_LST
+    subsection-types:
+      acch-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per accessibility check.
+  cmac-acti-lst:
+    prefix: CMAC_ACTI_LST
+    subsection-types:
+      cmac-acti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component action.
+  cmfa-comp-lst:
+    prefix: CMFA_COMP_LST
+    subsection-types:
+      cmfa-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component family.
+  cmpr-prop-lst:
+    prefix: CMPR_PROP_LST
+    subsection-types:
+      cmpr-prop:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component property.
+  cmsl-slot-lst:
+    prefix: CMSL_SLOT_LST
+    subsection-types:
+      cmsl-slot:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component slot.
+  cmst-stat-lst:
+    prefix: CMST_STAT_LST
+    subsection-types:
+      cmst-stat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component state.
+  cmvn-vari-lst:
+    prefix: CMVN_VARI_LST
+    subsection-types:
+      cmvn-vari:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component variant.
+  copa-colo-lst:
+    prefix: COPA_COLO_LST
+    subsection-types:
+      copa-colo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per colour palette.
+  dpen-item-lst:
+    prefix: DPEN_ITEM_LST
+    subsection-types:
+      dpen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per design principle.
+  efme-fiel-lst:
+    prefix: EFME_FIEL_LST
+    subsection-types:
+      efme-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export field mapping.
+  epde-erro-lst:
+    prefix: EPDE_ERRO_LST
+    subsection-types:
+      epde-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per error page design.
+  epnt-entr-lst:
+    prefix: EPNT_ENTR_LST
+    subsection-types:
+      epnt-entr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entry point.
+  evre-vali-lst:
+    prefix: EVRE_VALI_LST
+    subsection-types:
+      evre-vali:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per validation rule.
+  reen-repo-lst:
+    prefix: REEN_REPO_LST
+    subsection-types:
+      reen-repo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report.
+  sece-erro-lst:
+    prefix: SECE_ERRO_LST
+    subsection-types:
+      sece-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per system error code.
+  srre-resp-lst:
+    prefix: SRRE_RESP_LST
+    subsection-types:
+      srre-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per responsive rule.
+  tbde-tabb-lst:
+    prefix: TBDE_TABB_LST
+    subsection-types:
+      tbde-tabb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per tab bar or segmented control.
+  tyst-typo-lst:
+    prefix: TYST_TYPO_LST
+    subsection-types:
+      tyst-typo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per typography style.
+  uicoment-acce:
+    prefix: UICOMENT_ACCE
+    format: uicoment-acce-form
+  uicoment-auth:
+    prefix: UICOMENT_AUTH
+    format: uicoment-auth-form
+  uicoment-data:
+    prefix: UICOMENT_DATA
+    format: uicoment-data-form
+  uicoment-iden:
+    prefix: UICOMENT_IDEN
+    format: uicoment-iden-form
+  uicoment-inte:
+    prefix: UICOMENT_INTE
+    format: uicoment-inte-form
+  uicoment-reso:
+    prefix: UICOMENT_RESO
+    format: uicoment-reso-form
+  uicoment-resp:
+    prefix: UICOMENT_RESP
+    format: uicoment-resp-form
+  uicoment-visu:
+    prefix: UICOMENT_VISU
+    format: uicoment-visu-form
+  umie-menu-lst:
+    prefix: UMIE_MENU_LST
+    subsection-types:
+      umie-menu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per utility menu item.
+  unie-item-lst:
+    prefix: UNIE_ITEM_LST
+    subsection-types:
+      unie-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per utility navigation item.
+  wsce-succ-lst:
+    prefix: WSCE_SUCC_LST
+    subsection-types:
+      wsce-succ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per WCAG success criterion.
+  bre-brea-lst:
+    prefix: BRE_BREA_LST
+    subsection-types:
+      bre-brea:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per layout breakpoint.
+  delnpt-patt:
+    prefix: DELNPT_PATT_
+    pattern-check-id:
+      pattern: ^DELNPT-PATT-.+$
+      error-message: IDs of this section must match DELNPT-PATT-xxx
+    description: Add one entry per deep-link URL pattern.
+  exfoen-expo:
+    prefix: EXFOEN_EXPO_
+    subsection-types:
+      exid:
+        max-count: 1
+      exfifo:
+        max-count: 1
+      exde:
+        max-count: 1
+      exdafo:
+        max-count: 1
+      exsise-size-lst:
+        max-count: 1
+      exse:
+        max-count: 1
+      exou:
+        max-count: 1
+      exac:
+        max-count: 1
+      efme-fiel-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EXFOEN-EXPO-.+$
+      error-message: IDs of this section must match EXFOEN-EXPO-xxx
+    description: Add one entry per export format.
+  exsise-size:
+    prefix: EXSISE_SIZE_
+    pattern-check-id:
+      pattern: ^EXSISE-SIZE-.+$
+      error-message: IDs of this section must match EXSISE-SIZE-xxx
+    description: Add one entry per size-and-splitting setting.
+  exteen-expo:
+    prefix: EXTEEN_EXPO_
+    subsection-types:
+      etef:
+        max-count: 1
+      exteenfi:
+        max-count: 1
+      etel:
+        max-count: 1
+      etea:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EXTEEN-EXPO-.+$
+      error-message: IDs of this section must match EXTEEN-EXPO-xxx
+    description: Add one entry per export template.
+  famref-comp:
+    prefix: FAMREF_COMP_
+    pattern-check-id:
+      pattern: ^FAMREF-COMP-.+$
+      error-message: IDs of this section must match FAMREF-COMP-xxx
+    description: Add one entry per component in the family.
+  ftrtur-feat:
+    prefix: FTRTUR_FEAT_
+    subsection-types:
+      turst-step-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^FTRTUR-FEAT-.+$
+      error-message: IDs of this section must match FTRTUR-FEAT-xxx
+    description: Add one entry per feature tour.
+  navgrd-guar:
+    prefix: NAVGRD_GUAR_
+    subsection-types:
+      naguendi:
+        max-count: 1
+      nger:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^NAVGRD-GUAR-.+$
+      error-message: IDs of this section must match NAVGRD-GUAR-xxx
+    description: Add one entry per navigation guard rule.
+  navgrp-grou:
+    prefix: NAVGRP_GROU_
+    subsection-types:
+      nged:
+        max-count: 1
+      ngea:
+        max-count: 1
+      nges:
+        max-count: 1
+      naviit-item-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^NAVGRP-GROU-.+$
+      error-message: IDs of this section must match NAVGRP-GROU-xxx
+    description: Add one entry per navigation group.
+  naviit-item:
+    prefix: NAVIIT_ITEM_
+    subsection-types:
+      nied:
+        max-count: 1
+      nier:
+        max-count: 1
+      niea:
+        max-count: 1
+      nieb:
+        max-count: 1
+      niei:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^NAVIIT-ITEM-.+$
+      error-message: IDs of this section must match NAVIIT-ITEM-xxx
+    description: Add one entry per navigation item in this group.
+  prfeen-feat:
+    prefix: PRFEEN_FEAT_
+    pattern-check-id:
+      pattern: ^PRFEEN-FEAT-.+$
+      error-message: IDs of this section must match PRFEEN-FEAT-xxx
+    description: Add one entry per prototype feature.
+  prgoen-goal:
+    prefix: PRGOEN_GOAL_
+    pattern-check-id:
+      pattern: ^PRGOEN-GOAL-.+$
+      error-message: IDs of this section must match PRGOEN-GOAL-xxx
+    description: Add one entry per prototype goal.
+  rcvscn-reco:
+    prefix: RCVSCN_RECO_
+    pattern-check-id:
+      pattern: ^RCVSCN-RECO-.+$
+      error-message: IDs of this section must match RCVSCN-RECO-xxx
+    description: Add one entry per common recovery scenario.
+  rechax-axes:
+    prefix: RECHAX_AXES_
+    pattern-check-id:
+      pattern: ^RECHAX-AXES-.+$
+      error-message: IDs of this section must match RECHAX-AXES-xxx
+    description: Add one entry per chart axis configuration.
+  rechen-char:
+    prefix: RECHEN_CHAR_
+    subsection-types:
+      rechax-axes-lst:
+        max-count: 1
+      rechse:
+        max-count: 1
+      rechdi:
+        max-count: 1
+      rechin:
+        max-count: 1
+      rechla:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RECHEN-CHAR-.+$
+      error-message: IDs of this section must match RECHEN-CHAR-xxx
+    description: Add one entry per chart shown in the section.
+  recoe1-colu:
+    prefix: RECOE1_COLU_
+    subsection-types:
+      rcds:
+        max-count: 1
+      recofo:
+        max-count: 1
+      recoag:
+        max-count: 1
+      recoin:
+        max-count: 1
+      recola:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RECOE1-COLU-.+$
+      error-message: IDs of this section must match RECOE1-COLU-xxx
+    description: Add one entry per column in the section table.
+  redien-dist:
+    prefix: REDIEN_DIST_
+    subsection-types:
+      redienre:
+        max-count: 1
+      redienco:
+        max-count: 1
+      rded:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REDIEN-DIST-.+$
+      error-message: IDs of this section must match REDIEN-DIST-xxx
+    description: Add one entry per report distribution channel.
+  refien-filt:
+    prefix: REFIEN_FILT_
+    subsection-types:
+      rfei:
+        max-count: 1
+      rfeb:
+        max-count: 1
+      rfep:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REFIEN-FILT-.+$
+      error-message: IDs of this section must match REFIEN-FILT-xxx
+    description: Add one entry per report data filter.
+  rereen-reci:
+    prefix: REREEN_RECI_
+    subsection-types:
+      rereenco:
+        max-count: 1
+      rred:
+        max-count: 1
+      rrel:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REREEN-RECI-.+$
+      error-message: IDs of this section must match REREEN-RECI-xxx
+    description: Add one entry per report recipient.
+  rescen-sche:
+    prefix: RESCEN_SCHE_
+    subsection-types:
+      rset:
+        max-count: 1
+      rser:
+        max-count: 1
+      rsen:
+        max-count: 1
+      rseo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RESCEN-SCHE-.+$
+      error-message: IDs of this section must match RESCEN-SCHE-xxx
+    description: Add one entry per report generation schedule.
+  resee1-sect:
+    prefix: RESEE1_SECT_
+    subsection-types:
+      reseda:
+        max-count: 1
+      resela:
+        max-count: 1
+      reseso:
+        max-count: 1
+      reseag:
+        max-count: 1
+      recoe1-colu-lst:
+        max-count: 1
+      rechen-char-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RESEE1-SECT-.+$
+      error-message: IDs of this section must match RESEE1-SECT-xxx
+    description: Add one entry per report section.
+  respsr-scre:
+    prefix: RESPSR_SCRE_
+    pattern-check-id:
+      pattern: ^RESPSR-SCRE-.+$
+      error-message: IDs of this section must match RESPSR-SCRE-xxx
+    description: Add one entry per screen with distinct responsive rules.
+  scrusc-user:
+    prefix: SCRUSC_USER_
+    pattern-check-id:
+      pattern: ^SCRUSC-USER-.+$
+      error-message: IDs of this section must match SCRUSC-USER-xxx
+    description: Add one entry per user category.
+  taiten-tabs:
+    prefix: TAITEN_TABS_
+    pattern-check-id:
+      pattern: ^TAITEN-TABS-.+$
+      error-message: IDs of this section must match TAITEN-TABS-xxx
+    description: Add one entry per tab item in the tab bar.
+  uicoen-comp:
+    prefix: UICOEN_COMP_
+    subsection-types:
+      uicoment-iden:
+        max-count: 1
+      ucep:
+        max-count: 1
+      ucec:
+        max-count: 1
+      uicoment-visu:
+        max-count: 1
+      uced:
+        max-count: 1
+      uces:
+        max-count: 1
+      uicoensu:
+        max-count: 1
+      uicoment-inte:
+        max-count: 1
+      uceib:
+        max-count: 1
+      ucea:
+        max-count: 1
+      uicoensc:
+        max-count: 1
+      uicoment-resp:
+        max-count: 1
+      uicoment-acce:
+        max-count: 1
+      uicoment-auth:
+        max-count: 1
+      uicoment-reso:
+        max-count: 1
+      uicoment-data:
+        max-count: 1
+      cmst-stat-lst:
+        max-count: 1
+      cmvn-vari-lst:
+        max-count: 1
+      cmac-acti-lst:
+        max-count: 1
+      cmsl-slot-lst:
+        max-count: 1
+      cmpr-prop-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UICOEN-COMP-.+$
+      error-message: IDs of this section must match UICOEN-COMP-xxx
+    description: Add one entry per catalog component.
+  vamete-mess:
+    prefix: VAMETE_MESS_
+    pattern-check-id:
+      pattern: ^VAMETE-MESS-.+$
+      error-message: IDs of this section must match VAMETE-MESS-xxx
+    description: Add one entry per validation message template.
+  access-acce:
+    prefix: ACCESS_ACCE
+    format: access-acce-form
+  acchls-chec:
+    prefix: ACCHLS_CHEC
+    format: acchls-chec-form
+  desig-desi:
+    prefix: DESIG_DESI_
+    pattern-check-id:
+      pattern: ^DESIG-DESI-.+$
+      error-message: IDs of this section must match DESIG-DESI-xxx
+    description: Add one entry per design foundation.
+  dgoen-item:
+    prefix: DGOEN_ITEM_
+    pattern-check-id:
+      pattern: ^DGOEN-ITEM-.+$
+      error-message: IDs of this section must match DGOEN-ITEM-xxx
+    description: Add one entry per design goal.
+  erhaco-erro:
+    prefix: ERHACO_ERRO
+    format: erhaco-erro-form
+  field-fiel:
+    prefix: FIELD_FIEL_
+    pattern-check-id:
+      pattern: ^FIELD-FIEL-.+$
+      error-message: IDs of this section must match FIELD-FIEL-xxx
+    description: Add one entry per field validation rule.
+  fldhp-fiel:
+    prefix: FLDHP_FIEL_
+    pattern-check-id:
+      pattern: ^FLDHP-FIEL-.+$
+      error-message: IDs of this section must match FLDHP-FIEL-xxx
+    description: Add one entry per field that needs contextual help.
+  globa-glob:
+    prefix: GLOBA_GLOB_
+    pattern-check-id:
+      pattern: ^GLOBA-GLOB-.+$
+      error-message: IDs of this section must match GLOBA-GLOB-xxx
+    description: Add one entry per global entry point.
+  lacose-lang:
+    prefix: LACOSE_LANG
+    format: lacose-lang-form
+  peren-item:
+    prefix: PEREN_ITEM_
+    subsection-types:
+      peprf:
+        max-count: 1
+      pectx:
+        max-count: 1
+      pends:
+        max-count: 1
+      pergl:
+        max-count: 1
+      peppt:
+        max-count: 1
+      persc:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PEREN-ITEM-.+$
+      error-message: IDs of this section must match PEREN-ITEM-xxx
+    description: Add one entry per user persona.
+  pgoen-item:
+    prefix: PGOEN_ITEM_
+    pattern-check-id:
+      pattern: ^PGOEN-ITEM-.+$
+      error-message: IDs of this section must match PGOEN-ITEM-xxx
+    description: Add one entry per persona goal.
+  pppen-item:
+    prefix: PPPEN_ITEM_
+    pattern-check-id:
+      pattern: ^PPPEN-ITEM-.+$
+      error-message: IDs of this section must match PPPEN-ITEM-xxx
+    description: Add one entry per persona pain point.
+  prfesu-feat:
+    prefix: PRFESU_FEAT
+    format: prfesu-feat-form
+  protot-prot:
+    prefix: PROTOT_PROT
+    format: protot-prot-form
+  prtyse-prot:
+    prefix: PRTYSE_PROT
+    format: prtyse-prot-form
+  pscen-item:
+    prefix: PSCEN_ITEM_
+    pattern-check-id:
+      pattern: ^PSCEN-ITEM-.+$
+      error-message: IDs of this section must match PSCEN-ITEM-xxx
+    description: Add one entry per persona scenario.
+  recov-reco:
+    prefix: RECOV_RECO_
+    pattern-check-id:
+      pattern: ^RECOV-RECO-.+$
+      error-message: IDs of this section must match RECOV-RECO-xxx
+    description: Add one entry per recovery flow.
+  reupro-reus:
+    prefix: REUPRO_REUS
+    format: reupro-reus-form
+  scrac-item:
+    prefix: SCRAC_ITEM_
+    subsection-types:
+      saev:
+        max-count: 1
+      saec:
+        max-count: 1
+      saeb:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCRAC-ITEM-.+$
+      error-message: IDs of this section must match SCRAC-ITEM-xxx
+    description: Add one entry per screen action.
+  screl-elem:
+    prefix: SCREL_ELEM_
+    subsection-types:
+      seer:
+        max-count: 1
+      scelenla:
+        max-count: 1
+      seeb:
+        max-count: 1
+      scelenpr:
+        max-count: 1
+      scelac:
+        max-count: 1
+      sefs:
+        max-count: 1
+      sedd:
+        max-count: 1
+      evre-vali-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCREL-ELEM-.+$
+      error-message: IDs of this section must match SCREL-ELEM-xxx
+    description: Add one entry per screen element.
+  scren-item:
+    prefix: SCREN_ITEM_
+    subsection-types:
+      scecl:
+        max-count: 1
+      sceac:
+        max-count: 1
+      scetr:
+        max-count: 1
+      scenpr:
+        max-count: 1
+      scse:
+        max-count: 1
+      scac:
+        max-count: 1
+      scst:
+        max-count: 1
+      scrusc-user-lst:
+        max-count: 1
+      epnt-entr-lst:
+        max-count: 1
+      srre-resp-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCREN-ITEM-.+$
+      error-message: IDs of this section must match SCREN-ITEM-xxx
+    description: Add one entry per screen.
+  scrsc-item:
+    prefix: SCRSC_ITEM_
+    subsection-types:
+      ssel:
+        max-count: 1
+      sseb:
+        max-count: 1
+      screl-elem-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCRSC-ITEM-.+$
+      error-message: IDs of this section must match SCRSC-ITEM-xxx
+    description: Add one entry per screen section.
+  scrst-item:
+    prefix: SCRST_ITEM_
+    pattern-check-id:
+      pattern: ^SCRST-ITEM-.+$
+      error-message: IDs of this section must match SCRST-ITEM-xxx
+    description: Add one entry per screen state.
+  syerdi-syst:
+    prefix: SYERDI_SYST
+    format: syerdi-syst-form
+  turst-step:
+    prefix: TURST_STEP_
+    pattern-check-id:
+      pattern: ^TURST-STEP-.+$
+      error-message: IDs of this section must match TURST-STEP-xxx
+    description: Add one entry per guided-tour step.
+  acch-item:
+    prefix: ACCH_ITEM_
+    subsection-types:
+      acec:
+        max-count: 1
+      acee:
+        max-count: 1
+      acer:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ACCH-ITEM-.+$
+      error-message: IDs of this section must match ACCH-ITEM-xxx
+    description: Add one entry per accessibility check.
+  cmac-acti:
+    prefix: CMAC_ACTI_
+    subsection-types:
+      caeg:
+        max-count: 1
+      caee:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CMAC-ACTI-.+$
+      error-message: IDs of this section must match CMAC-ACTI-xxx
+    description: Add one entry per component action.
+  cmfa-comp:
+    prefix: CMFA_COMP_
+    subsection-types:
+      famref-comp-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CMFA-COMP-.+$
+      error-message: IDs of this section must match CMFA-COMP-xxx
+    description: Add one entry per component family.
+  cmpr-prop:
+    prefix: CMPR_PROP_
+    pattern-check-id:
+      pattern: ^CMPR-PROP-.+$
+      error-message: IDs of this section must match CMPR-PROP-xxx
+    description: Add one entry per component property.
+  cmsl-slot:
+    prefix: CMSL_SLOT_
+    pattern-check-id:
+      pattern: ^CMSL-SLOT-.+$
+      error-message: IDs of this section must match CMSL-SLOT-xxx
+    description: Add one entry per component slot.
+  cmst-stat:
+    prefix: CMST_STAT_
+    subsection-types:
+      csev:
+        max-count: 1
+      cseb:
+        max-count: 1
+      cset:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CMST-STAT-.+$
+      error-message: IDs of this section must match CMST-STAT-xxx
+    description: Add one entry per component state.
+  cmvn-vari:
+    prefix: CMVN_VARI_
+    subsection-types:
+      cvev:
+        max-count: 1
+      cveb:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CMVN-VARI-.+$
+      error-message: IDs of this section must match CMVN-VARI-xxx
+    description: Add one entry per component variant.
+  copa-colo:
+    prefix: COPA_COLO_
+    pattern-check-id:
+      pattern: ^COPA-COLO-.+$
+      error-message: IDs of this section must match COPA-COLO-xxx
+    description: Add one entry per colour palette.
+  dpen-item:
+    prefix: DPEN_ITEM_
+    pattern-check-id:
+      pattern: ^DPEN-ITEM-.+$
+      error-message: IDs of this section must match DPEN-ITEM-xxx
+    description: Add one entry per design principle.
+  efme-fiel:
+    prefix: EFME_FIEL_
+    subsection-types:
+      efmef:
+        max-count: 1
+      efmet:
+        max-count: 1
+      efmei:
+        max-count: 1
+      efmel:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EFME-FIEL-.+$
+      error-message: IDs of this section must match EFME-FIEL-xxx
+    description: Add one entry per export field mapping.
+  epde-erro:
+    prefix: EPDE_ERRO_
+    pattern-check-id:
+      pattern: ^EPDE-ERRO-.+$
+      error-message: IDs of this section must match EPDE-ERRO-xxx
+    description: Add one entry per error page design.
+  epnt-entr:
+    prefix: EPNT_ENTR_
+    pattern-check-id:
+      pattern: ^EPNT-ENTR-.+$
+      error-message: IDs of this section must match EPNT-ENTR-xxx
+    description: Add one entry per entry point.
+  evre-vali:
+    prefix: EVRE_VALI_
+    pattern-check-id:
+      pattern: ^EVRE-VALI-.+$
+      error-message: IDs of this section must match EVRE-VALI-xxx
+    description: Add one entry per validation rule.
+  reen-repo:
+    prefix: REEN_REPO_
+    subsection-types:
+      reid:
+        max-count: 1
+      redaso:
+        max-count: 1
+      refo:
+        max-count: 1
+      rela:
+        max-count: 1
+      rehefo:
+        max-count: 1
+      regr:
+        max-count: 1
+      rf:
+        max-count: 1
+      rein:
+        max-count: 1
+      repa:
+        max-count: 1
+      rese:
+        max-count: 1
+      reli:
+        max-count: 1
+      resee1-sect-lst:
+        max-count: 1
+      refien-filt-lst:
+        max-count: 1
+      rescen-sche-lst:
+        max-count: 1
+      redien-dist-lst:
+        max-count: 1
+      rereen-reci-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REEN-REPO-.+$
+      error-message: IDs of this section must match REEN-REPO-xxx
+    description: Add one entry per report.
+  sece-erro:
+    prefix: SECE_ERRO_
+    subsection-types:
+      seceh:
+        max-count: 1
+      seceo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SECE-ERRO-.+$
+      error-message: IDs of this section must match SECE-ERRO-xxx
+    description: Add one entry per system error code.
+  srre-resp:
+    prefix: SRRE_RESP_
+    pattern-check-id:
+      pattern: ^SRRE-RESP-.+$
+      error-message: IDs of this section must match SRRE-RESP-xxx
+    description: Add one entry per responsive rule.
+  tbde-tabb:
+    prefix: TBDE_TABB_
+    subsection-types:
+      tbdeb:
+        max-count: 1
+      tbdel:
+        max-count: 1
+      taiten-tabs-lst:
+        max-count: 1
+        min-count: 1
+    pattern-check-id:
+      pattern: ^TBDE-TABB-.+$
+      error-message: IDs of this section must match TBDE-TABB-xxx
+    description: Add one entry per tab bar or segmented control.
+  tyst-typo:
+    prefix: TYST_TYPO_
+    pattern-check-id:
+      pattern: ^TYST-TYPO-.+$
+      error-message: IDs of this section must match TYST-TYPO-xxx
+    description: Add one entry per typography style.
+  umie-menu:
+    prefix: UMIE_MENU_
+    subsection-types:
+      umiea:
+        max-count: 1
+      umieb:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UMIE-MENU-.+$
+      error-message: IDs of this section must match UMIE-MENU-xxx
+    description: Add one entry per utility menu item.
+  unie-item:
+    prefix: UNIE_ITEM_
+    subsection-types:
+      unied:
+        max-count: 1
+      unieb:
+        max-count: 1
+      umie-menu-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UNIE-ITEM-.+$
+      error-message: IDs of this section must match UNIE-ITEM-xxx
+    description: Add one entry per utility navigation item.
+  wsce-succ:
+    prefix: WSCE_SUCC_
+    pattern-check-id:
+      pattern: ^WSCE-SUCC-.+$
+      error-message: IDs of this section must match WSCE-SUCC-xxx
+    description: Add one entry per WCAG success criterion.
+  bre-brea:
+    prefix: BRE_BREA_
+    subsection-types:
+      brenla:
+        max-count: 1
+      brensc:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BRE-BREA-.+$
+      error-message: IDs of this section must match BRE-BREA-xxx
+    description: Add one entry per layout breakpoint.
+  cohe-cont:
+    prefix: COHE_CONT
+    format: cohe-cont-form
+  erre-reco:
+    prefix: ERRE_RECO
+    format: erre-reco-form
+  onhe-onbo:
+    prefix: ONHE_ONBO
+    format: onhe-onbo-form
+  rebe-layo:
+    prefix: REBE_LAYO
+    format: rebe-layo-form
+  rede-resp:
+    prefix: REDE_RESP
+    format: rede-resp-form
+  suac-supp:
+    prefix: SUAC_SUPP
+    format: suac-supp-form
+  thpr-thro:
+    prefix: THPR_THRO
+    format: thpr-thro-form
+  uico-comp:
+    prefix: UICO_COMP
+    format: uico-comp-form
+  usas-help:
+    prefix: USAS_HELP
+    format: usas-help-form
+  vafe-vali:
+    prefix: VAFE_VALI
+    format: vafe-vali-form
+  wcco-wcag:
+    prefix: WCCO_WCAG
+    format: wcco-wcag-form
+  exteenfi:
+    prefix: EXTEENFI
+    format: exteenfi-form
+    description: Field and filter settings.
+  naguendi:
+    prefix: NAGUENDI
+    format: naguendi-form
+    description: Covered routes and dialog resources.
+  redienco:
+    prefix: REDIENCO
+    format: redienco-form
+    description: Message and attachment content.
+  redienre:
+    prefix: REDIENRE
+    format: redienre-form
+    description: Recipient and format settings.
+  rereenco:
+    prefix: REREENCO
+    format: rereenco-form
+    description: Recipient business context.
+  scelenla:
+    prefix: SCELENLA
+    format: scelenla-form
+    description: Placement and layout settings.
+  scelenpr:
+    prefix: SCELENPR
+    format: scelenpr-form
+    description: Styling and data binding.
+  uicoensc:
+    prefix: UICOENSC
+    format: uicoensc-form
+    description: Scrolling behavior.
+  uicoensu:
+    prefix: UICOENSU
+    format: uicoensu-form
+    description: Surface treatment.
+  bc-brea:
+    prefix: BC_BREA
+    format: bc-brea-form
+  pg-goal:
+    prefix: PG_GOAL
+    format: pg-goal-form
+  tp-trai:
+    prefix: TP_TRAI
+    format: tp-trai-form
+  access:
+    prefix: ACCESS
+    subsection-types:
+      access-acce:
+        max-count: 1
+      acstgy:
+        max-count: 1
+      acte:
+        max-count: 1
+      acsu:
+        max-count: 1
+      wcco:
+        max-count: 1
+      acchls:
+        max-count: 1
+    description: Accessibility.
+  acchls:
+    prefix: ACCHLS
+    subsection-types:
+      acchls-chec:
+        max-count: 1
+      acch-item-lst:
+        max-count: 1
+    description: 10.9.2. Accessibility Checklist.
+  acstgy:
+    prefix: ACSTGY
+    format: acstgy-form
+    description: Ownership and inclusive design philosophy.
+  brenla:
+    prefix: BRENLA
+    format: brenla-form
+    description: Grid and layout rules for this breakpoint.
+  brensc:
+    prefix: BRENSC
+    format: brensc-form
+    description: Navigation and visual scaling rules.
+  cohein:
+    prefix: COHEIN
+    format: cohein-form
+    description: Inline help behavior.
+  cohepa:
+    prefix: COHEPA
+    format: cohepa-form
+    description: Help panel behavior.
+  coheri:
+    prefix: COHERI
+    format: coheri-form
+    description: Rich help media settings.
+  colibo:
+    prefix: COLIBO
+    format: colibo-form
+    description: Borders and corners.
+  colico:
+    prefix: COLICO
+    format: colico-form
+    description: Color system.
+  colisp:
+    prefix: COLISP
+    format: colisp-form
+    description: Spacing and elevation.
+  colity:
+    prefix: COLITY
+    format: colity-form
+    description: Typography system.
+  colivi:
+    prefix: COLIVI
+    format: colivi-form
+    description: Icons and animation.
+  erhaco:
+    prefix: ERHACO
+    subsection-types:
+      erhaco-erro:
+        max-count: 1
+      ehcc:
+        max-count: 1
+      ehca:
+        max-count: 1
+      ehco:
+        max-count: 1
+      vafe:
+        max-count: 1
+      syerdi:
+        max-count: 1
+      erre:
+        max-count: 1
+    description: Error handling concept.
+  exdafo:
+    prefix: EXDAFO
+    format: exdafo-form
+    description: Data formatting.
+  exfifo:
+    prefix: EXFIFO
+    format: exfifo-form
+    description: File format settings.
+  lacose:
+    prefix: LACOSE
+    subsection-types:
+      lacose-lang:
+        max-count: 1
+      lcsd:
+        max-count: 1
+      lcsp:
+        max-count: 1
+      lcsf:
+        max-count: 1
+      lcsu:
+        max-count: 1
+    description: Language and country selection.
+  onhech:
+    prefix: ONHECH
+    format: onhech-form
+    description: Getting started checklist configuration.
+  onhedi:
+    prefix: ONHEDI
+    format: onhedi-form
+    description: Progressive disclosure configuration.
+  onhere:
+    prefix: ONHERE
+    format: onhere-form
+    description: Returning user experience.
+  onheto:
+    prefix: ONHETO
+    format: onheto-form
+    description: Feature tour settings.
+  prfesu:
+    prefix: PRFESU
+    subsection-types:
+      prfesu-feat:
+        max-count: 1
+      pfss:
+        max-count: 1
+      pfsf:
+        max-count: 1
+      prfeen-feat-lst:
+        max-count: 1
+    description: 10.13.2. Selected Feature Subset.
+  prgofe:
+    prefix: PRGOFE
+    format: prgofe-form
+    description: User feedback objectives and intake.
+  prgori:
+    prefix: PRGORI
+    format: prgori-form
+    description: Risk reduction and assumption testing.
+  prlaar:
+    prefix: PRLAAR
+    format: prlaar-form
+    description: Archive and batch settings.
+  prlabr:
+    prefix: PRLABR
+    format: prlabr-form
+    description: Branding configuration.
+  prlawa:
+    prefix: PRLAWA
+    format: prlawa-form
+    description: Watermark and confidentiality.
+  prnadr:
+    prefix: PRNADR
+    format: prnadr-form
+    description: Drawer and rail behavior.
+  prnasi:
+    prefix: PRNASI
+    format: prnasi-form
+    description: Sidebar sizing and selection behavior.
+  prores:
+    prefix: PRORES
+    format: prores-form
+    description: Prototype staffing and environment.
+  protot:
+    prefix: PROTOT
+    subsection-types:
+      protot-prot:
+        max-count: 1
+      prti:
+        max-count: 1
+      prores:
+        max-count: 1
+      prgo:
+        max-count: 1
+      pg:
+        max-count: 1
+      prfesu:
+        max-count: 1
+      prtyse:
+        max-count: 1
+    description: Prototype.
+  prtyse:
+    prefix: PRTYSE
+    subsection-types:
+      prtyse-prot:
+        max-count: 1
+      reupro:
+        max-count: 1
+      tp:
+        max-count: 1
+      thpr:
+        max-count: 1
+    description: 10.13.3. Prototype Type.
+  rebeco:
+    prefix: REBECO
+    format: rebeco-form
+    description: Content reflow rules.
+  rebena:
+    prefix: REBENA
+    format: rebena-form
+    description: Navigation patterns per device class.
+  rebeto:
+    prefix: REBETO
+    format: rebeto-form
+    description: Touch and interaction optimizations.
+  rebevi:
+    prefix: REBEVI
+    format: rebevi-form
+    description: Visibility rules.
+  rechdi:
+    prefix: RECHDI
+    format: rechdi-form
+    description: Display options.
+  rechin:
+    prefix: RECHIN
+    format: rechin-form
+    description: Interaction.
+  rechla:
+    prefix: RECHLA
+    format: rechla-form
+    description: Layout.
+  rechse:
+    prefix: RECHSE
+    format: rechse-form
+    description: Series and colors.
+  recoag:
+    prefix: RECOAG
+    format: recoag-form
+    description: Aggregation settings.
+  recofo:
+    prefix: RECOFO
+    format: recofo-form
+    description: Display formatting.
+  recoin:
+    prefix: RECOIN
+    format: recoin-form
+    description: Interaction options.
+  recola:
+    prefix: RECOLA
+    format: recola-form
+    description: Visibility and layout.
+  redaso:
+    prefix: REDASO
+    format: redaso-form
+    description: Data source configuration.
+  rehefo:
+    prefix: REHEFO
+    format: rehefo-form
+    description: Header and footer templates.
+  reprar:
+    prefix: REPRAR
+    format: reprar-form
+    description: Architecture alignment and refactoring expectations.
+  reprin:
+    prefix: REPRIN
+    format: reprin-form
+    description: Integration and merge strategy.
+  reprtr:
+    prefix: REPRTR
+    format: reprtr-form
+    description: Transition and handoff planning.
+  reseag:
+    prefix: RESEAG
+    format: reseag-form
+    description: Aggregation and limits.
+  reseda:
+    prefix: RESEDA
+    format: reseda-form
+    description: Data source configuration.
+  resela:
+    prefix: RESELA
+    format: resela-form
+    description: Layout and page settings.
+  reseso:
+    prefix: RESESO
+    format: reseso-form
+    description: Sorting and grouping.
+  reupro:
+    prefix: REUPRO
+    subsection-types:
+      reupro-reus:
+        max-count: 1
+      reprar:
+        max-count: 1
+      reprin:
+        max-count: 1
+      reprtr:
+        max-count: 1
+    description: 10.13.3.1. Reusable Prototype.
+  scelac:
+    prefix: SCELAC
+    subsection-types:
+      seae:
+        max-count: 1
+      sean:
+        max-count: 1
+    description: 10.2.1.n.m.k.1. Element Action.
+  scenpr:
+    prefix: SCENPR
+    format: scenpr-form
+    description: Presentation metadata.
+  scflst:
+    prefix: SCFLST
+    subsection-types:
+      namo:
+        max-count: 1
+    description: Screen flow structure.
+  scrinv:
+    prefix: SCRINV
+    subsection-types:
+      scren-item-lst:
+        max-count: 1
+        min-count: 1
+    description: 10.2.1. Screen Inventory.
+  suacti:
+    prefix: SUACTI
+    format: suacti-form
+    description: Ticket system configuration.
+  syerdi:
+    prefix: SYERDI
+    subsection-types:
+      syerdi-syst:
+        max-count: 1
+      sedet:
+        max-count: 1
+      sedm:
+        max-count: 1
+      sedc:
+        max-count: 1
+      sedf:
+        max-count: 1
+      epde-erro-lst:
+        max-count: 1
+      sece-erro-lst:
+        max-count: 1
+    description: 10.7.2. System Error Display.
+  thprdi:
+    prefix: THPRDI
+    format: thprdi-form
+    description: Disposal and follow-up handling.
+  thprfi:
+    prefix: THPRFI
+    format: thprfi-form
+    description: Findings and decisions captured from evaluation.
+  thprva:
+    prefix: THPRVA
+    format: thprva-form
+    description: Long-term value retained from the prototype.
+  trprdi:
+    prefix: TRPRDI
+    format: trprdi-form
+    description: Code disposition and reimplementation planning.
+  trprou:
+    prefix: TRPROU
+    format: trprou-form
+    description: Documentation outputs and team learning.
+  uicocu:
+    prefix: UICOCU
+    format: uicocu-form
+    description: Extension and theming boundaries.
+  usasde:
+    prefix: USASDE
+    format: usasde-form
+    description: Content stewardship and help affordances.
+  usasin:
+    prefix: USASIN
+    format: usasin-form
+    description: Analytics and improvement feedback.
+  vafebe:
+    prefix: VAFEBE
+    format: vafebe-form
+    description: Animation and focus behavior.
+  vafegu:
+    prefix: VAFEGU
+    format: vafegu-form
+    description: Guidance settings.
+  vafeme:
+    prefix: VAFEME
+    format: vafeme-form
+    description: Message formatting details.
+  vafepl:
+    prefix: VAFEPL
+    format: vafepl-form
+    description: Display placement details.
+  wccoop:
+    prefix: WCCOOP
+    format: wccoop-form
+    description: Operable principles.
+  wccoro:
+    prefix: WCCORO
+    format: wccoro-form
+    description: Robustness requirements.
+  wccoun:
+    prefix: WCCOUN
+    format: wccoun-form
+    description: Understandable principles.
+  wianmo:
+    prefix: WIANMO
+    description: Wireframes and mockups (new in Phase A).
+  degol:
+    prefix: DEGOL
+    subsection-types:
+      dgoen-item-lst:
+        max-count: 1
+    description: 10.1.1. Design Goals.
+  depri:
+    prefix: DEPRI
+    subsection-types:
+      dpen-item-lst:
+        max-count: 1
+    description: 10.1.2. Design Principles.
+  deviz:
+    prefix: DEVIZ
+    subsection-types:
+      degol:
+        max-count: 1
+      depri:
+        max-count: 1
+      usper:
+        max-count: 1
+    description: Design vision.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  efmef:
+    prefix: EFMEF
+    format: efmef-form
+    description: Ordering and formatting settings.
+  efmei:
+    prefix: EFMEI
+    format: efmei-form
+    description: Inclusion and defaults.
+  efmel:
+    prefix: EFMEL
+    format: efmel-form
+    description: Fixed-width and quoting rules.
+  efmet:
+    prefix: EFMET
+    format: efmet-form
+    description: Transformation rules.
+  pectx:
+    prefix: PECTX
+    format: pectx-form
+    description: Usage environment and device context.
+  pends:
+    prefix: PENDS
+    format: pends-form
+    description: "Motivations, frustrations, and success markers."
+  peppt:
+    prefix: PEPPT
+    subsection-types:
+      pppen-item-lst:
+        max-count: 1
+    description: 10.1.3.n.2. Persona Pain Points.
+  peprf:
+    prefix: PEPRF
+    format: peprf-form
+    description: Background and capability profile.
+  pergl:
+    prefix: PERGL
+    subsection-types:
+      pgoen-item-lst:
+        max-count: 1
+    description: 10.1.3.n.1. Persona Goals.
+  persc:
+    prefix: PERSC
+    subsection-types:
+      pscen-item-lst:
+        max-count: 1
+    description: 10.1.3.n.3. Persona Scenarios.
+  sceac:
+    prefix: SCEAC
+    format: sceac-form
+    description: Access control settings.
+  scecl:
+    prefix: SCECL
+    format: scecl-form
+    description: Classification and routing metadata.
+  scetr:
+    prefix: SCETR
+    format: scetr-form
+    description: Traceability metadata.
+  scrdz:
+    prefix: SCRDZ
+    subsection-types:
+      scrinv:
+        max-count: 1
+      ia:
+        max-count: 1
+    description: Screen descriptions.
+  seceh:
+    prefix: SECEH
+    format: seceh-form
+    description: Recovery and display guidance.
+  seceo:
+    prefix: SECEO
+    format: seceo-form
+    description: Operational support and logging controls.
+  seddb:
+    prefix: SEDDB
+    format: seddb-form
+    description: Refresh and drill-down behavior.
+  seddo:
+    prefix: SEDDO
+    format: seddo-form
+    description: Table/list interaction controls.
+  sedet:
+    prefix: SEDET
+    format: sedet-form
+    description: Error type handling configuration.
+  sefsd:
+    prefix: SEFSD
+    format: sefsd-form
+    description: "Date-kind options — a promoted `@OneOf` case (csmb6)."
+  sefsf:
+    prefix: SEFSF
+    format: sefsf-form
+    description: "Prefix, suffix, and formatting."
+  sefsn:
+    prefix: SEFSN
+    format: sefsn-form
+    description: "Number-kind options — a promoted `@OneOf` case (csmb6)."
+  sefss:
+    prefix: SEFSS
+    format: sefss-form
+    description: "Select-kind options — a promoted `@OneOf` case (csmb6)."
+  sefst:
+    prefix: SEFST
+    format: sefst-form
+    description: "Text-kind options — a promoted `@OneOf` case (csmb6)."
+  sefsv:
+    prefix: SEFSV
+    format: sefsv-form
+    description: Validation behavior.
+  tbdeb:
+    prefix: TBDEB
+    format: tbdeb-form
+    description: Position and selection behavior.
+  tbdel:
+    prefix: TBDEL
+    format: tbdel-form
+    description: Visibility and loading profile.
+  uceib:
+    prefix: UCEIB
+    format: uceib-form
+    description: Focus and keyboard behavior.
+  umiea:
+    prefix: UMIEA
+    format: umiea-form
+    description: Routing and action references.
+  umieb:
+    prefix: UMIEB
+    format: umieb-form
+    description: Visibility and confirmation behavior.
+  unieb:
+    prefix: UNIEB
+    format: unieb-form
+    description: Badge and interaction behavior.
+  unied:
+    prefix: UNIED
+    format: unied-form
+    description: "Ordering, rendering, and access rules."
+  usper:
+    prefix: USPER
+    subsection-types:
+      peren-item-lst:
+        max-count: 1
+        min-count: 1
+    description: 10.1.3. User Personas.
+  acec:
+    prefix: ACEC
+    format: acec-form
+    description: WCAG mapping and compliance classification.
+  acee:
+    prefix: ACEE
+    format: acee-form
+    description: Testing execution ownership and status.
+  acer:
+    prefix: ACER
+    format: acer-form
+    description: Issue tracking and remediation details.
+  acsu:
+    prefix: ACSU
+    format: acsu-form
+    description: Supported assistive technologies and platform features.
+  acte:
+    prefix: ACTE
+    format: acte-form
+    description: Accessibility testing approach.
+  brco:
+    prefix: BRCO
+    format: brco-form
+    description: 10.3.1.6.1. Breadcrumb Configuration.
+  caee:
+    prefix: CAEE
+    format: caee-form
+    description: Async execution and feedback behavior.
+  caeg:
+    prefix: CAEG
+    format: caeg-form
+    description: Authorization and confirmation behavior.
+  chwt:
+    prefix: CHWT
+    format: chwt-form
+    description: What's-this mode settings.
+  cohe:
+    prefix: COHE
+    subsection-types:
+      cohe-cont:
+        max-count: 1
+      cohein:
+        max-count: 1
+      cohepa:
+        max-count: 1
+      chwt:
+        max-count: 1
+      coheri:
+        max-count: 1
+      fldhp-fiel-lst:
+        max-count: 1
+    description: 10.8.1. Contextual Help.
+  coli:
+    prefix: COLI
+    subsection-types:
+      desig-desi-lst:
+        max-count: 1
+      colico:
+        max-count: 1
+      colity:
+        max-count: 1
+      colisp:
+        max-count: 1
+      colibo:
+        max-count: 1
+      colivi:
+        max-count: 1
+      copa-colo-lst:
+        max-count: 1
+      tyst-typo-lst:
+        max-count: 1
+    description: 10.11.1. Component Library.
+  cona:
+    prefix: CONA
+    subsection-types:
+      brco:
+        max-count: 1
+    description: 10.3.1.6. Contextual Navigation.
+  cseb:
+    prefix: CSEB
+    format: cseb-form
+    description: Behavior and accessibility changes in this state.
+  cset:
+    prefix: CSET
+    format: cset-form
+    description: Entry and exit transition rules.
+  csev:
+    prefix: CSEV
+    format: csev-form
+    description: Visual appearance in this state.
+  cveb:
+    prefix: CVEB
+    format: cveb-form
+    description: Behavioral and implementation notes.
+  cvev:
+    prefix: CVEV
+    format: cvev-form
+    description: Visual styling details.
+  deli:
+    prefix: DELI
+    subsection-types:
+      delnpt-patt-lst:
+        max-count: 1
+    description: 10.3.1.7. Deep Linking.
+  ehca:
+    prefix: EHCA
+    format: ehca-form
+    description: Accessibility and inclusive error cues.
+  ehcc:
+    prefix: EHCC
+    format: ehcc-form
+    description: Error categorization and display priority.
+  ehco:
+    prefix: EHCO
+    format: ehco-form
+    description: Localization and analytics behavior.
+  erdp:
+    prefix: ERDP
+    format: erdp-form
+    description: "Data preservation: draft auto-save settings."
+  ergr:
+    prefix: ERGR
+    format: ergr-form
+    description: Guided recovery options.
+  erre:
+    prefix: ERRE
+    subsection-types:
+      erre-reco:
+        max-count: 1
+      erdp:
+        max-count: 1
+      errm:
+        max-count: 1
+      ergr:
+        max-count: 1
+      ersc:
+        max-count: 1
+      ersh:
+        max-count: 1
+      recov-reco-lst:
+        max-count: 1
+      rcvscn-reco-lst:
+        max-count: 1
+    description: 10.7.3. Error Recovery.
+  errm:
+    prefix: ERRM
+    format: errm-form
+    description: Retry mechanisms configuration.
+  ersc:
+    prefix: ERSC
+    format: ersc-form
+    description: Support contact details.
+  ersh:
+    prefix: ERSH
+    format: ersh-form
+    description: Session handling configuration.
+  etea:
+    prefix: ETEA
+    format: etea-form
+    description: Access and metadata.
+  etef:
+    prefix: ETEF
+    format: etef-form
+    description: Format configuration.
+  etel:
+    prefix: ETEL
+    format: etel-form
+    description: Layout configuration.
+  exac:
+    prefix: EXAC
+    format: exac-form
+    description: Access and audit.
+  exde:
+    prefix: EXDE
+    format: exde-form
+    description: Delimiter and quoting.
+  exid:
+    prefix: EXID
+    format: exid-form
+    description: Identity and data source.
+  exou:
+    prefix: EXOU
+    format: exou-form
+    description: Output and scheduling.
+  exse:
+    prefix: EXSE
+    format: exse-form
+    description: Security settings.
+  lcsd:
+    prefix: LCSD
+    format: lcsd-form
+    description: Default locale behavior.
+  lcsf:
+    prefix: LCSF
+    format: lcsf-form
+    description: Fallback behavior.
+  lcsp:
+    prefix: LCSP
+    format: lcsp-form
+    description: Persistence rules.
+  lcsu:
+    prefix: LCSU
+    format: lcsu-form
+    description: Switching UX behavior.
+  nagu:
+    prefix: NAGU
+    subsection-types:
+      navgrd-guar-lst:
+        max-count: 1
+    description: 10.3.1.8. Navigation Guards.
+  nahi:
+    prefix: NAHI
+    subsection-types:
+      navgrp-grou-lst:
+        max-count: 1
+    description: 10.3.1.2. Navigation Hierarchy.
+  namo:
+    prefix: NAMO
+    subsection-types:
+      naov:
+        max-count: 1
+      nahi:
+        max-count: 1
+      prna:
+        max-count: 1
+      sena:
+        max-count: 1
+      utna:
+        max-count: 1
+      cona:
+        max-count: 1
+      deli:
+        max-count: 1
+      nagu:
+        max-count: 1
+    description: 10.3.1. Navigation Model.
+  naov:
+    prefix: NAOV
+    description: 10.3.1.1. Navigation Overview.
+  ngea:
+    prefix: NGEA
+    format: ngea-form
+    description: Access-control settings.
+  nged:
+    prefix: NGED
+    format: nged-form
+    description: Display and expansion behavior.
+  nger:
+    prefix: NGER
+    format: nger-form
+    description: Redirect routing and evaluation priority.
+  nges:
+    prefix: NGES
+    format: nges-form
+    description: Badge and hierarchy settings.
+  niea:
+    prefix: NIEA
+    format: niea-form
+    description: Access control settings.
+  nieb:
+    prefix: NIEB
+    format: nieb-form
+    description: Badge configuration.
+  nied:
+    prefix: NIED
+    format: nied-form
+    description: "Display properties: icons, labels, descriptions."
+  niei:
+    prefix: NIEI
+    format: niei-form
+    description: Interaction settings.
+  nier:
+    prefix: NIER
+    format: nier-form
+    description: Routing configuration.
+  ohsd:
+    prefix: OHSD
+    format: ohsd-form
+    description: Sample data settings.
+  onhe:
+    prefix: ONHE
+    subsection-types:
+      onhe-onbo:
+        max-count: 1
+      onheto:
+        max-count: 1
+      ohsd:
+        max-count: 1
+      onhech:
+        max-count: 1
+      onhedi:
+        max-count: 1
+      onhere:
+        max-count: 1
+      ftrtur-feat-lst:
+        max-count: 1
+    description: 10.8.2. Onboarding.
+  pfsf:
+    prefix: PFSF
+    format: pfsf-form
+    description: Fidelity expectations for the prototype.
+  pfss:
+    prefix: PFSS
+    format: pfss-form
+    description: Included and excluded feature scope.
+  plhf:
+    prefix: PLHF
+    format: plhf-form
+    description: Header and footer settings.
+  plps:
+    prefix: PLPS
+    format: plps-form
+    description: Page margins and setup.
+  pnbn:
+    prefix: PNBN
+    format: pnbn-form
+    description: Bottom navigation rules.
+  prgo:
+    prefix: PRGO
+    format: prgo-form
+    description: Approval and progression criteria.
+  prla:
+    prefix: PRLA
+    subsection-types:
+      plps:
+        max-count: 1
+      prlabr:
+        max-count: 1
+      prlawa:
+        max-count: 1
+      plhf:
+        max-count: 1
+      prlaar:
+        max-count: 1
+      reen-repo-lst:
+        max-count: 1
+      exfoen-expo-lst:
+        max-count: 1
+      exteen-expo-lst:
+        max-count: 1
+    description: Print layout.
+  prna:
+    prefix: PRNA
+    subsection-types:
+      prnadr:
+        max-count: 1
+      pnbn:
+        max-count: 1
+      prnasi:
+        max-count: 1
+    description: 10.3.1.3. Primary Navigation.
+  prti:
+    prefix: PRTI
+    format: prti-form
+    description: Prototype timing commitments.
+  rcds:
+    prefix: RCDS
+    format: rcds-form
+    description: Data source and type.
+  rded:
+    prefix: RDED
+    format: rded-form
+    description: Delivery conditions and lifecycle settings.
+  rebe:
+    prefix: REBE
+    subsection-types:
+      rebe-layo:
+        max-count: 1
+      rebena:
+        max-count: 1
+      rebevi:
+        max-count: 1
+      rebeto:
+        max-count: 1
+      rebeco:
+        max-count: 1
+      respsr-scre-lst:
+        max-count: 1
+    description: 10.10.2. Responsive Behavior.
+  rede:
+    prefix: REDE
+    subsection-types:
+      rede-resp:
+        max-count: 1
+      bc:
+        max-count: 1
+      rebe:
+        max-count: 1
+    description: Responsive design.
+  refo:
+    prefix: REFO
+    format: refo-form
+    description: Output format options.
+  regr:
+    prefix: REGR
+    format: regr-form
+    description: Sorting and grouping.
+  reid:
+    prefix: REID
+    format: reid-form
+    description: Identity and context.
+  rein:
+    prefix: REIN
+    format: rein-form
+    description: Interactivity and parameters.
+  rela:
+    prefix: RELA
+    format: rela-form
+    description: Page layout settings.
+  reli:
+    prefix: RELI
+    format: reli-form
+    description: Lifecycle and archiving.
+  repa:
+    prefix: REPA
+    format: repa-form
+    description: Pagination settings.
+  rese:
+    prefix: RESE
+    format: rese-form
+    description: Security and access.
+  rfeb:
+    prefix: RFEB
+    format: rfeb-form
+    description: Scope and validation behavior.
+  rfei:
+    prefix: RFEI
+    format: rfei-form
+    description: Input and value configuration.
+  rfep:
+    prefix: RFEP
+    format: rfep-form
+    description: Presentation options.
+  rred:
+    prefix: RRED
+    format: rred-form
+    description: Delivery preferences.
+  rrel:
+    prefix: RREL
+    format: rrel-form
+    description: Lifecycle settings.
+  rsen:
+    prefix: RSEN
+    format: rsen-form
+    description: Notification settings.
+  rseo:
+    prefix: RSEO
+    format: rseo-form
+    description: Output configuration.
+  rser:
+    prefix: RSER
+    format: rser-form
+    description: Retry configuration.
+  rset:
+    prefix: RSET
+    format: rset-form
+    description: Timing configuration.
+  sacm:
+    prefix: SACM
+    format: sacm-form
+    description: Contact methods.
+  saeb:
+    prefix: SAEB
+    format: saeb-form
+    description: "Confirmation, navigation, and feedback behavior."
+  saec:
+    prefix: SAEC
+    format: saec-form
+    description: "Visibility, enablement, and permission rules."
+  saev:
+    prefix: SAEV
+    format: saev-form
+    description: Visual presentation of the action.
+  sahc:
+    prefix: SAHC
+    format: sahc-form
+    description: Help center configuration.
+  sals:
+    prefix: SALS
+    format: sals-form
+    description: Live support settings.
+  sass:
+    prefix: SASS
+    format: sass-form
+    description: Self-service and feedback options.
+  scac:
+    prefix: SCAC
+    subsection-types:
+      scrac-item-lst:
+        max-count: 1
+    description: 10.2.1.n.2. Screen Actions.
+  scse:
+    prefix: SCSE
+    subsection-types:
+      scrsc-item-lst:
+        max-count: 1
+    description: 10.2.1.n.1. Screen Sections.
+  scst:
+    prefix: SCST
+    subsection-types:
+      scrst-item-lst:
+        max-count: 1
+    description: 10.2.1.n.3. Screen States.
+  seae:
+    prefix: SEAE
+    format: seae-form
+    description: Confirmation and execution feedback behavior.
+  sean:
+    prefix: SEAN
+    format: sean-form
+    description: Post-action navigation rules.
+  sedc:
+    prefix: SEDC
+    format: sedc-form
+    description: Content options.
+  sedd:
+    prefix: SEDD
+    subsection-types:
+      seddb:
+        max-count: 1
+      seddo:
+        max-count: 1
+    description: 10.2.1.n.m.k.3. Element Data Display.
+  sedf:
+    prefix: SEDF
+    format: sedf-form
+    description: Fallback behavior.
+  sedm:
+    prefix: SEDM
+    format: sedm-form
+    description: Display method settings.
+  seeb:
+    prefix: SEEB
+    format: seeb-form
+    description: Visibility and permission rules.
+  seer:
+    prefix: SEER
+    format: seer-form
+    description: Labels and icon resources.
+  sefs:
+    prefix: SEFS
+    subsection-types:
+      sefsf:
+        max-count: 1
+      sefsn:
+        max-count: 1
+      sefsd:
+        max-count: 1
+      sefst:
+        max-count: 1
+      sefsv:
+        max-count: 1
+      sefss:
+        max-count: 1
+    description: 10.2.1.n.m.k.2. Element Field Spec.
+  sena:
+    prefix: SENA
+    subsection-types:
+      tbde-tabb-lst:
+        max-count: 1
+    description: 10.3.1.4. Secondary Navigation.
+  sseb:
+    prefix: SSEB
+    format: sseb-form
+    description: Visibility and collapse behavior.
+  ssel:
+    prefix: SSEL
+    format: ssel-form
+    description: Layout and ordering for the section.
+  suac:
+    prefix: SUAC
+    subsection-types:
+      suac-supp:
+        max-count: 1
+      sahc:
+        max-count: 1
+      sals:
+        max-count: 1
+      suacti:
+        max-count: 1
+      sacm:
+        max-count: 1
+      sass:
+        max-count: 1
+    description: 10.8.3. Support Access.
+  thpr:
+    prefix: THPR
+    subsection-types:
+      thpr-thro:
+        max-count: 1
+      thprfi:
+        max-count: 1
+      thprdi:
+        max-count: 1
+      thprva:
+        max-count: 1
+    description: 10.13.3.3. Throwaway Prototype.
+  ucca:
+    prefix: UCCA
+    format: ucca-form
+    description: Component naming and documentation approach.
+  ucea:
+    prefix: UCEA
+    format: ucea-form
+    description: Animation behavior.
+  ucec:
+    prefix: UCEC
+    format: ucec-form
+    description: Classification details.
+  uced:
+    prefix: UCED
+    format: uced-form
+    description: Visual dimensions.
+  ucep:
+    prefix: UCEP
+    format: ucep-form
+    description: Wrapper mapping and business purpose.
+  uces:
+    prefix: UCES
+    format: uces-form
+    description: Spacing rules.
+  ucvl:
+    prefix: UCVL
+    format: ucvl-form
+    description: Visual language and brand alignment.
+  uico:
+    prefix: UICO
+    subsection-types:
+      uico-comp:
+        max-count: 1
+      ucvl:
+        max-count: 1
+      ucca:
+        max-count: 1
+      uicocu:
+        max-count: 1
+      coli:
+        max-count: 1
+      uicoen-comp-lst:
+        max-count: 1
+      cmfa-comp-lst:
+        max-count: 1
+    description: UI components.
+  usas:
+    prefix: USAS
+    subsection-types:
+      usas-help:
+        max-count: 1
+      usasde:
+        max-count: 1
+      usasin:
+        max-count: 1
+      cohe:
+        max-count: 1
+      onhe:
+        max-count: 1
+      suac:
+        max-count: 1
+    description: Help concept.
+  utna:
+    prefix: UTNA
+    subsection-types:
+      unie-item-lst:
+        max-count: 1
+    description: 10.3.1.5. Utility Navigation.
+  vafe:
+    prefix: VAFE
+    subsection-types:
+      vafe-vali:
+        max-count: 1
+      vafepl:
+        max-count: 1
+      vafeme:
+        max-count: 1
+      vafegu:
+        max-count: 1
+      vafebe:
+        max-count: 1
+      vamete-mess-lst:
+        max-count: 1
+      field-fiel-lst:
+        max-count: 1
+    description: 10.7.1. Validation Feedback.
+  wcco:
+    prefix: WCCO
+    subsection-types:
+      wcco-wcag:
+        max-count: 1
+      wccoop:
+        max-count: 1
+      wccoun:
+        max-count: 1
+      wccoro:
+        max-count: 1
+      wsce-succ-lst:
+        max-count: 1
+    description: 10.9.1. WCAG Compliance Level.
+  bc:
+    prefix: BC
+    subsection-types:
+      bc-brea:
+        max-count: 1
+      bre-brea-lst:
+        max-count: 1
+    description: 10.10.1. Breakpoints.
+  ia:
+    prefix: IA
+    subsection-types:
+      globa-glob-lst:
+        max-count: 1
+    description: 10.2.2. Information Architecture.
+  pg:
+    prefix: PG
+    subsection-types:
+      pg-goal:
+        max-count: 1
+      prgori:
+        max-count: 1
+      prgofe:
+        max-count: 1
+      prgoen-goal-lst:
+        max-count: 1
+    description: 10.13.1. Prototype Goals.
+  rf:
+    prefix: RF
+    format: rf-form
+    description: Conditional formatting.
+  tp:
+    prefix: TP
+    subsection-types:
+      tp-trai:
+        max-count: 1
+      trprdi:
+        max-count: 1
+      trprou:
+        max-count: 1
+    description: 10.13.3.2. Training Prototype.
+form-types:
+  peprf-form:
+    fields:
+      - fieldname: bio
+        description: Brief biographical context
+      - fieldname: technicalProficiency
+        description: Beginner/Intermediate/Advanced — with context
+      - fieldname: accessibilityNeeds
+        description: Visual/Motor/Cognitive/None
+  pectx-form:
+    fields:
+      - fieldname: typicalUsage
+        description: "Frequency, duration, and primary activities"
+      - fieldname: primaryDevice
+        description: Desktop/Laptop/Tablet/Mobile
+      - fieldname: additionalDevices
+        description: Secondary devices used
+      - fieldname: workEnvironment
+        description: Office/Remote/Field/Hybrid
+  pends-form:
+    fields:
+      - fieldname: motivations
+        description: What drives their behavior
+      - fieldname: frustrationsWithCurrent
+        description: Issues with existing solutions
+      - fieldname: successCriteria
+        description: How they measure success
+      - fieldname: quote
+        description: A quote that captures their perspective
+  scecl-form:
+    fields:
+      - fieldname: screenCategory
+        description: List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing
+      - fieldname: parentScreenId
+        description: Parent screen if this is a sub-screen or drill-down
+      - fieldname: routePattern
+        description: "Navigation route path, e.g., /orders/:id/edit"
+  sceac-form:
+    fields:
+      - fieldname: accessLevel
+        description: Public/Authenticated/Role-specific
+      - fieldname: requiredRoles
+        description: Authorization roles that may access this screen
+      - fieldname: requiredPermissions
+        description: Specific permissions needed
+      - fieldname: permissionEffect
+        description: Hide-Screen/Show-Readonly/Show-With-Restrictions
+  scetr-form:
+    fields:
+      - fieldname: relatedUseCases
+        description: ISC references this screen serves
+      - fieldname: relatedRequirements
+        description: RSP references this screen satisfies
+      - fieldname: relatedBusinessProcesses
+        description: TOM references where this screen appears
+      - fieldname: dataEntities
+        description: IFM entity references displayed/edited
+      - fieldname: primaryAction
+        description: Main user action on this screen
+  scenpr-form:
+    fields:
+      - fieldname: pageTitleResource
+        description: Resource key for the screen title text
+      - fieldname: pageIconResource
+        description: Resource key for the screen icon
+      - fieldname: helpTopicId
+        description: Link to help/documentation topic
+      - fieldname: layout
+        description: "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile"
+  ssel-form:
+    fields:
+      - fieldname: layoutDirection
+        description: Horizontal/Vertical/Wrap/Grid
+      - fieldname: displayOrder
+        description: Position in reading order
+      - fieldname: titleResource
+        description: Resource key for section header text
+      - fieldname: borderStyle
+        description: Named style or resource key
+  sseb-form:
+    fields:
+      - fieldname: collapsible
+        description: "Yes/No — can the user collapse this section?"
+      - fieldname: initiallyCollapsed
+        description: Yes/No — default collapsed state
+      - fieldname: visibilityCondition
+        description: "When this section is shown, e.g., role==Admin"
+  seer-form:
+    fields:
+      - fieldname: labelResource
+        description: Resource key for display label
+      - fieldname: hintResource
+        description: Resource key for tooltip/helper text
+      - fieldname: descriptionResource
+        description: Resource key for extended description
+      - fieldname: iconResource
+        description: Resource key for icon
+      - fieldname: iconPosition
+        description: Leading/Trailing/Above/Below/Only
+  scelenla-form:
+    fields:
+      - fieldname: placementOrder
+        description: Order within parent section
+      - fieldname: width
+        description: Fill/Auto/Fixed(200)/Proportion(1/3)
+      - fieldname: alignment
+        description: Start/Center/End/Stretch
+  seeb-form:
+    fields:
+      - fieldname: visibilityCondition
+        description: When this element is shown
+      - fieldname: enabledCondition
+        description: When this element is interactive
+      - fieldname: readonlyCondition
+        description: When this element is read-only
+      - fieldname: requiredPermission
+        description: Permission needed to see/interact
+      - fieldname: permissionEffect
+        description: Hide/Disable/Readonly
+  scelenpr-form:
+    fields:
+      - fieldname: styleVariant
+        description: Primary/Secondary/Danger/Subtle/Custom
+      - fieldname: accessibilityLabel
+        description: Override for screen readers
+      - fieldname: dataBinding
+        description: "Path to bound data field, e.g., order.customerName"
+      - fieldname: defaultValue
+        description: Default value or expression
+      - fieldname: notes
+        description: Design rationale or open questions
+  seae-form:
+    fields:
+      - fieldname: confirmationRequired
+        description: "Yes/No — show confirmation dialog?"
+      - fieldname: confirmationMessageResource
+        description: Resource key for confirmation prompt
+      - fieldname: loadingLabelResource
+        description: Resource key for label during async execution
+      - fieldname: successMessageResource
+        description: Resource key for success notification
+      - fieldname: errorHandling
+        description: Inline/Toast/Dialog/Banner
+  sean-form:
+    fields:
+      - fieldname: navigateTo
+        description: Target screen ID or route after action
+      - fieldname: navigateParams
+        description: Parameters to pass to navigation target
+      - fieldname: doubleClickPrevention
+        description: "Yes/No — disable during execution?"
+  sefsf-form:
+    fields:
+      - fieldname: prefixResource
+        description: "Prefix text/icon resource, e.g., currency symbol"
+      - fieldname: suffixResource
+        description: "Suffix text/icon resource, e.g., unit label"
+      - fieldname: inputMask
+        description: "Pattern, e.g., ##/##/####"
+      - fieldname: displayFormat
+        description: "Format pattern, e.g., #,##0.00"
+  sefsn-form:
+    fields:
+      - fieldname: minValue
+        description: Minimum allowed numeric value
+      - fieldname: maxValue
+        description: Maximum allowed numeric value
+      - fieldname: decimalPlaces
+        description: Number of decimal places
+  sefsd-form:
+    fields:
+      - fieldname: firstDate
+        description: Earliest selectable date/time
+      - fieldname: lastDate
+        description: Latest selectable date/time
+      - fieldname: dateFormat
+        description: "Display/parse pattern, e.g., yyyy-MM-dd"
+  sefst-form:
+    fields:
+      - fieldname: maxLength
+        description: Character limit
+      - fieldname: minLength
+        description: Minimum length
+  sefsv-form:
+    fields:
+      - fieldname: validationTrigger
+        description: On-Change/On-Blur/On-Submit/Debounced
+      - fieldname: errorDisplayMode
+        description: Below-Field/Tooltip/Inline/Banner
+      - fieldname: required
+        description: Yes/No/Conditional
+      - fieldname: requiredCondition
+        description: Condition when field becomes required
+      - fieldname: clearButton
+        description: Yes/No — show clear/reset affordance
+  sefss-form:
+    fields:
+      - fieldname: autocompleteSource
+        description: Source reference for autocomplete suggestions
+      - fieldname: optionsSource
+        description: "For select fields: static list, API endpoint, or entity query"
+      - fieldname: selectMode
+        description: Single/Multi
+      - fieldname: displayMode
+        description: Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker
+  seddb-form:
+    fields:
+      - fieldname: refreshMode
+        description: Auto/Manual/Interval(seconds)
+      - fieldname: drillDownTarget
+        description: Screen ID navigated to on click/tap
+  seddo-form:
+    fields:
+      - fieldname: sortable
+        description: Yes/No — for table columns
+      - fieldname: filterable
+        description: Yes/No — for table columns
+      - fieldname: paginated
+        description: Yes/No — for lists and tables
+      - fieldname: pageSize
+        description: Default items per page
+      - fieldname: selectable
+        description: None/Single/Multi — row selection mode
+  saev-form:
+    fields:
+      - fieldname: labelResource
+        description: Resource key for button label
+      - fieldname: iconResource
+        description: Resource key for action icon
+      - fieldname: placement
+        description: App-Bar/Toolbar/FAB/Context-Menu/Overflow-Menu
+      - fieldname: buttonStyle
+        description: Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only
+  saec-form:
+    fields:
+      - fieldname: visibilityCondition
+        description: When this action is shown
+      - fieldname: enabledCondition
+        description: When this action is active
+      - fieldname: requiredPermission
+        description: Permission needed to use this action
+  saeb-form:
+    fields:
+      - fieldname: confirmationRequired
+        description: Yes/No
+      - fieldname: confirmationMessageResource
+        description: Resource key for confirmation dialog
+      - fieldname: keyboardShortcut
+        description: "Shortcut binding, e.g., Ctrl+N"
+      - fieldname: navigateTo
+        description: Target screen after action
+      - fieldname: successMessageResource
+        description: Resource key for success notification
+  nged-form:
+    fields:
+      - fieldname: displayOrder
+        description: Sort position among siblings
+      - fieldname: collapsible
+        description: "Yes/No — can the group be collapsed?"
+      - fieldname: initiallyExpanded
+        description: Yes/No — default expanded state
+      - fieldname: visibilityCondition
+        description: Business rule for visibility
+  ngea-form:
+    fields:
+      - fieldname: requiredRoles
+        description: Comma-separated role IDs
+      - fieldname: requiredPermissions
+        description: Specific permissions required
+      - fieldname: permissionBehavior
+        description: Hide/Disable/Collapse when unauthorized
+  nges-form:
+    fields:
+      - fieldname: badgeType
+        description: None/Count/Dot/Text — aggregate from children
+      - fieldname: badgeSource
+        description: Data source for badge value
+      - fieldname: navigationLevel
+        description: Primary/Secondary/Tertiary
+      - fieldname: parentGroupId
+        description: "For nested groups, null = top-level"
+      - fieldname: dividerBefore
+        description: Yes/No — show divider above
+  nied-form:
+    fields:
+      - fieldname: shortLabel
+        description: Abbreviated label for bottom nav/compact mode
+      - fieldname: icon
+        description: Primary icon resource key
+      - fieldname: activeIcon
+        description: Icon variant when selected (filled vs outlined)
+      - fieldname: description
+        description: Tooltip or subtitle text
+  nier-form:
+    fields:
+      - fieldname: targetScreenId
+        description: Reference to Screen Inventory SCR-xxx
+      - fieldname: targetRouteParams
+        description: "Default params, e.g., {status: active}"
+      - fieldname: displayOrder
+        description: Position within parent group
+      - fieldname: isDefault
+        description: Yes/No — default selected item in group
+  niea-form:
+    fields:
+      - fieldname: visibilityCondition
+        description: Business condition for visibility
+      - fieldname: enabledCondition
+        description: When item is visible but non-interactive
+      - fieldname: requiredRoles
+        description: Comma-separated roles
+      - fieldname: requiredPermissions
+        description: Specific permissions
+      - fieldname: permissionBehavior
+        description: Hide/Disable/Show-Locked-Icon
+  nieb-form:
+    fields:
+      - fieldname: badgeType
+        description: None/Count/Dot/Text/Icon
+      - fieldname: badgeSource
+        description: "Data binding for badge, e.g., inbox.unreadCount"
+      - fieldname: badgeColor
+        description: Error/Warning/Info/Success/Neutral
+  niei-form:
+    fields:
+      - fieldname: keyboardShortcut
+        description: "Global shortcut, e.g., Ctrl+Shift+C"
+      - fieldname: searchKeywords
+        description: Keywords for global search matching
+      - fieldname: openBehavior
+        description: Replace/Push/New-Tab/Dialog
+      - fieldname: highlightRules
+        description: Routes that keep this item highlighted
+  prnadr-form:
+    fields:
+      - fieldname: drawerBehavior
+        description: Modal-Overlay/Push-Content/Persistent
+      - fieldname: drawerWidth
+        description: "Width specification, e.g., 280dp/25%"
+      - fieldname: drawerHeaderContent
+        description: User-Avatar/App-Logo/User-Card/Custom
+      - fieldname: drawerFooterContent
+        description: Version-Info/Settings-Link/Logout/None
+  pnbn-form:
+    fields:
+      - fieldname: bottomNavMaxItems
+        description: "Maximum items (Material guideline: 3-5)"
+      - fieldname: bottomNavStyle
+        description: Fixed/Shifting/Labeled/Icon-Only
+      - fieldname: bottomNavShowLabels
+        description: Always/Selected-Only/Never
+  prnasi-form:
+    fields:
+      - fieldname: sidebarCollapsedWidth
+        description: Rail/icon width when collapsed
+      - fieldname: sidebarExpandedWidth
+        description: Full sidebar width
+      - fieldname: selectedItemStyle
+        description: Background-Highlight/Indicator-Bar/Bold/Color-Change
+      - fieldname: overflowBehavior
+        description: Scroll/More-Menu/Paginated
+  tbdeb-form:
+    fields:
+      - fieldname: tabBarPosition
+        description: Top/Bottom/Left
+      - fieldname: isScrollable
+        description: Yes/No — scrollable when tabs exceed width
+      - fieldname: defaultTabIndex
+        description: Zero-based index of initially selected tab
+      - fieldname: persistSelection
+        description: Yes/No — remember last selected tab
+  tbdel-form:
+    fields:
+      - fieldname: swipeEnabled
+        description: Yes/No — swipe between tabs on mobile
+      - fieldname: lazyLoading
+        description: Yes/No — load tab content when first selected
+      - fieldname: visibilityCondition
+        description: When entire tab bar is shown
+  unied-form:
+    fields:
+      - fieldname: displayOrder
+        description: Sort position
+      - fieldname: widgetType
+        description: Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon
+      - fieldname: visibilityCondition
+        description: When shown
+      - fieldname: requiredRoles
+        description: Access control
+  unieb-form:
+    fields:
+      - fieldname: badgeType
+        description: None/Count/Dot
+      - fieldname: badgeSource
+        description: Data binding for badge
+      - fieldname: interactionType
+        description: Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog
+      - fieldname: targetScreenId
+        description: Navigation target
+  umiea-form:
+    fields:
+      - fieldname: actionType
+        description: Navigate/Action/External-Link/Divider
+      - fieldname: targetRoute
+        description: Navigation target
+      - fieldname: actionId
+        description: "Action system reference, e.g., logout"
+  umieb-form:
+    fields:
+      - fieldname: visibilityCondition
+        description: When shown
+      - fieldname: requiredPermissions
+        description: Access control
+      - fieldname: isDangerous
+        description: Yes/No — show in danger style
+      - fieldname: confirmationRequired
+        description: Yes/No — show confirmation dialog
+  brco-form:
+    fields:
+      - fieldname: enabled
+        description: Yes/No — whether breadcrumbs are shown
+      - fieldname: platformVisibility
+        description: All/Desktop-Only/Tablet-Up
+      - fieldname: maxVisibleItems
+        description: Items before collapsing with ellipsis
+      - fieldname: collapseBehavior
+        description: Ellipsis-Menu/Hide-Middle/Truncate
+      - fieldname: showHomeItem
+        description: Yes/No — include root/home as first crumb
+      - fieldname: homeLabel
+        description: Resource key for home crumb
+      - fieldname: homeIcon
+        description: Icon for home crumb
+      - fieldname: separator
+        description: "Visual separator: / , > , chevron-icon"
+      - fieldname: currentItemStyle
+        description: Bold/Muted/Normal — style of last item
+      - fieldname: position
+        description: Below-AppBar/Inside-Content/Top-Of-Page
+  naguendi-form:
+    fields:
+      - fieldname: appliesTo
+        description: Route patterns or screen IDs this guard covers
+      - fieldname: dialogTitleResource
+        description: Resource key for confirmation dialog title
+      - fieldname: dialogMessageResource
+        description: Resource key for confirmation dialog message
+      - fieldname: confirmActionResource
+        description: "Resource key for confirm button, e.g., Discard"
+      - fieldname: cancelActionResource
+        description: "Resource key for cancel button, e.g., Stay"
+  nger-form:
+    fields:
+      - fieldname: redirectTo
+        description: Route to redirect to if guard blocks navigation
+      - fieldname: priority
+        description: Execution order when multiple guards apply
+  plps-form:
+    fields:
+      - fieldname: defaultMarginTop
+        description: "Top margin, e.g. 20mm"
+      - fieldname: defaultMarginBottom
+        description: "Bottom margin, e.g. 20mm"
+      - fieldname: defaultMarginLeft
+        description: "Left margin, e.g. 15mm"
+      - fieldname: defaultMarginRight
+        description: "Right margin, e.g. 15mm"
+  prlabr-form:
+    fields:
+      - fieldname: brandingLogoResource
+        description: Resource key or path for company logo
+      - fieldname: brandingColorPrimary
+        description: "Primary brand color, e.g. #003366"
+      - fieldname: brandingColorSecondary
+        description: Secondary brand color for subheadings
+      - fieldname: brandingFontFamily
+        description: "Font family, e.g. Helvetica, Arial"
+      - fieldname: brandingFontSizeBase
+        description: "Base font size, e.g. 10pt"
+  prlawa-form:
+    fields:
+      - fieldname: watermarkText
+        description: "Text watermark, e.g. DRAFT, CONFIDENTIAL"
+      - fieldname: watermarkImageResource
+        description: Resource key for image watermark
+      - fieldname: watermarkOpacity
+        description: "Watermark opacity, e.g. 0.1"
+      - fieldname: confidentialityMarking
+        description: Internal / Confidential / Public
+      - fieldname: confidentialityPosition
+        description: Header / Footer / Both / Watermark
+  plhf-form:
+    fields:
+      - fieldname: defaultHeaderContent
+        description: "Header template, e.g. {logo} {reportTitle} {date}"
+      - fieldname: defaultFooterContent
+        description: "Footer template, e.g. {companyName} — Page {page}/{pages}"
+      - fieldname: defaultDateFormat
+        description: "Date format, e.g. dd.MM.yyyy"
+      - fieldname: defaultNumberFormat
+        description: "Number format, e.g. #,##0.00"
+      - fieldname: defaultCurrencyFormat
+        description: "Currency format, e.g. €#,##0.00"
+      - fieldname: defaultTimezone
+        description: "Timezone, e.g. Europe/Berlin"
+      - fieldname: defaultLocale
+        description: "Locale, e.g. de-DE"
+  prlaar-form:
+    fields:
+      - fieldname: archivePolicy
+        description: None / 30-days / 1-year / Permanent
+      - fieldname: reportNamingConvention
+        description: "File naming pattern, e.g. {reportId}_{date}_{version}"
+      - fieldname: batchGenerationSupport
+        description: Yes / No — support batch report generation
+      - fieldname: maxConcurrentReports
+        description: Maximum concurrent reports
+  reid-form:
+    fields:
+      - fieldname: description
+        description: Business purpose and summary of the report
+      - fieldname: reportCategory
+        description: Operational / Analytical / Compliance / Financial / Audit
+      - fieldname: relatedUseCases
+        description: ISC references this report serves
+      - fieldname: relatedBusinessProcesses
+        description: TOM references where this report is used
+      - fieldname: relatedDataEntities
+        description: IFM entity references used as data sources
+  redaso-form:
+    fields:
+      - fieldname: dataSource
+        description: Primary data source or query reference
+      - fieldname: dataScope
+        description: "What data is included, e.g. All orders for current fiscal year"
+      - fieldname: dataCurrency
+        description: Real-time / Near-real-time / Daily-snapshot / As-of-date
+      - fieldname: generationTrigger
+        description: On-demand / Scheduled / Event-triggered / Batch
+  refo-form:
+    fields:
+      - fieldname: format
+        description: PDF / Excel / CSV / HTML / Word / Print / Multi-format
+      - fieldname: interactivity
+        description: Static / Interactive / Drill-down / Parameterized
+      - fieldname: pageSize
+        description: "Override: A4 / Letter / Legal / A3 / Custom"
+      - fieldname: orientation
+        description: "Override: Portrait / Landscape / Auto"
+  rela-form:
+    fields:
+      - fieldname: marginTop
+        description: Override top margin
+      - fieldname: marginBottom
+        description: Override bottom margin
+      - fieldname: marginLeft
+        description: Override left margin
+      - fieldname: marginRight
+        description: Override right margin
+  rehefo-form:
+    fields:
+      - fieldname: headerTemplate
+        description: "Page header override, e.g. {logo} {reportTitle}"
+      - fieldname: footerTemplate
+        description: Page footer override
+      - fieldname: coverPage
+        description: Yes / No — include a cover page
+      - fieldname: coverPageTemplate
+        description: Cover page content template
+      - fieldname: tableOfContents
+        description: Yes / No — include TOC for multi-section reports
+  regr-form:
+    fields:
+      - fieldname: defaultSortField
+        description: Default sort column or field
+      - fieldname: defaultSortDirection
+        description: Ascending / Descending
+      - fieldname: defaultGroupBy
+        description: Default grouping field
+      - fieldname: groupSummary
+        description: Yes / No — show subtotals per group
+      - fieldname: grandTotal
+        description: Yes / No — show grand total row
+  rf-form:
+    fields:
+      - fieldname: conditionalFormatting
+        description: Description of conditional formatting rules
+      - fieldname: highlightRules
+        description: "Row/cell highlight rules, e.g. overdue items in red"
+  rein-form:
+    fields:
+      - fieldname: drillDownTarget
+        description: Report or screen navigated to on row click
+      - fieldname: drillThroughReports
+        description: Comma-separated report IDs reachable from this report
+      - fieldname: parameterForm
+        description: Description of user input form shown before generation
+      - fieldname: emptyDataMessage
+        description: Message to display when report has no data
+  repa-form:
+    fields:
+      - fieldname: maxRows
+        description: Row limit for performance; 0 = unlimited
+      - fieldname: paginationStyle
+        description: Page-break / Continuous / Scrollable
+      - fieldname: rowsPerPage
+        description: For paginated tabular reports
+  rese-form:
+    fields:
+      - fieldname: localization
+        description: "Locales supported, e.g. de-DE, en-US, fr-FR"
+      - fieldname: brandingOverride
+        description: Override branding for this report
+      - fieldname: accessLevel
+        description: Public / Authenticated / Role-specific / Confidential
+      - fieldname: requiredRoles
+        description: Roles permitted to generate this report
+      - fieldname: dataLevelSecurity
+        description: Row/column level security rules
+  reli-form:
+    fields:
+      - fieldname: archiveRetention
+        description: "Retention policy for generated instances, e.g. 90 days"
+      - fieldname: signatureRequired
+        description: Yes / No — does the report require a digital signature
+      - fieldname: approvalWorkflow
+        description: "Approval steps before distribution, if any"
+      - fieldname: notes
+        description: Additional design notes or open questions
+  reseda-form:
+    fields:
+      - fieldname: purpose
+        description: What this section communicates
+      - fieldname: dataSource
+        description: Data source or query for this section
+      - fieldname: dataScope
+        description: Scope filter applied to the section data
+      - fieldname: textContent
+        description: Static text or template for text-type sections
+      - fieldname: notes
+        description: Design notes
+  resela-form:
+    fields:
+      - fieldname: displayOrder
+        description: Position within the report
+      - fieldname: pageBreakBefore
+        description: Yes / No — force page break before this section
+      - fieldname: pageBreakAfter
+        description: Yes / No — force page break after this section
+      - fieldname: repeatOnNewPage
+        description: Yes / No — repeat section header on each new page
+      - fieldname: orientation
+        description: "Override: Portrait / Landscape"
+      - fieldname: conditionalVisibility
+        description: Condition when section is shown
+      - fieldname: backgroundColor
+        description: Background color or shading
+      - fieldname: borderStyle
+        description: None / Thin / Medium / Thick / Custom
+  reseso-form:
+    fields:
+      - fieldname: sortField
+        description: Default sort for this section data
+      - fieldname: sortDirection
+        description: Ascending / Descending
+      - fieldname: groupByField
+        description: Field used for grouping rows
+      - fieldname: showGroupSubtotals
+        description: Yes / No
+  reseag-form:
+    fields:
+      - fieldname: showSectionTotal
+        description: Yes / No — show totals row at section end
+      - fieldname: aggregationFields
+        description: Comma-separated fields with aggregation
+      - fieldname: maxRows
+        description: Row limit for this section; 0 = unlimited
+      - fieldname: overflowBehavior
+        description: Truncate / Continue-next-page / Scroll
+  rcds-form:
+    fields:
+      - fieldname: dataSourceField
+        description: "Path to the data field, e.g. order.customer.name"
+      - fieldname: dataType
+        description: String / Integer / Decimal / Currency / Date / Boolean
+  recofo-form:
+    fields:
+      - fieldname: displayOrder
+        description: Column position left to right
+      - fieldname: width
+        description: "Auto / Fixed(120px) / Proportion(25%)"
+      - fieldname: alignment
+        description: Left / Center / Right
+      - fieldname: verticalAlignment
+        description: Top / Middle / Bottom
+      - fieldname: formatPattern
+        description: "Display format, e.g. #,##0.00"
+      - fieldname: currencyCode
+        description: Currency code if type is Currency
+      - fieldname: nullDisplay
+        description: What to show for null/empty values
+      - fieldname: booleanTrueDisplay
+        description: "Display for true, e.g. Yes / ✓"
+      - fieldname: booleanFalseDisplay
+        description: "Display for false, e.g. No / —"
+  recoag-form:
+    fields:
+      - fieldname: aggregation
+        description: None / Sum / Average / Count / Min / Max
+      - fieldname: aggregationLabel
+        description: Custom label for the aggregation row
+      - fieldname: conditionalFormattingRules
+        description: Rules for value-based formatting
+      - fieldname: hyperlinkTarget
+        description: Make column values clickable
+  recoin-form:
+    fields:
+      - fieldname: sortable
+        description: Yes / No — can user sort by this column
+      - fieldname: filterable
+        description: Yes / No — can user filter by this column
+  recola-form:
+    fields:
+      - fieldname: visible
+        description: Yes / No / Conditional
+      - fieldname: visibilityCondition
+        description: When this column is shown
+      - fieldname: wordWrap
+        description: Yes / No — wrap long text
+      - fieldname: truncateAt
+        description: Character limit before truncation
+      - fieldname: notes
+        description: Design notes
+  rechse-form:
+    fields:
+      - fieldname: seriesField
+        description: Field used to split data into series
+      - fieldname: seriesColors
+        description: Comma-separated color assignments
+      - fieldname: colorScheme
+        description: "Named palette, e.g. Corporate / Pastel / Sequential-Blue"
+      - fieldname: legendPosition
+        description: Top / Bottom / Left / Right / None
+  rechdi-form:
+    fields:
+      - fieldname: showDataLabels
+        description: Yes / No / On-Hover
+      - fieldname: dataLabelFormat
+        description: Format for data labels
+      - fieldname: thresholdLines
+        description: "Reference lines, e.g. Target:500000:green"
+      - fieldname: trendLine
+        description: None / Linear / Moving-Average / Polynomial
+      - fieldname: goalValue
+        description: Target/goal value for gauge/KPI charts
+      - fieldname: emptyDataMessage
+        description: Message when chart has no data
+  rechin-form:
+    fields:
+      - fieldname: interactive
+        description: "Yes / No — tooltips, zoom, click events"
+      - fieldname: drillDownTarget
+        description: Report or screen navigated to on chart element click
+      - fieldname: notes
+        description: Design notes
+  rechla-form:
+    fields:
+      - fieldname: width
+        description: "Chart width: Full / Half / Third / Custom(400px)"
+      - fieldname: height
+        description: "Chart height, e.g. 300px / Auto"
+  rfei-form:
+    fields:
+      - fieldname: dataType
+        description: String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref
+      - fieldname: inputType
+        description: Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select
+      - fieldname: defaultValue
+        description: "Default filter value, e.g. current_month, today, *"
+      - fieldname: availableValuesSource
+        description: "Source for dropdown/select values: static list, entity query, API endpoint"
+      - fieldname: staticValues
+        description: "Comma-separated values if source is static, e.g. Active,Inactive,All"
+      - fieldname: cascadeParent
+        description: Filter ID of parent filter for cascading dropdowns
+      - fieldname: multiSelect
+        description: Yes / No — allow selecting multiple values
+  rfeb-form:
+    fields:
+      - fieldname: required
+        description: Yes / No — must user provide a value
+      - fieldname: appliedScope
+        description: "Whole-Report / Section:{sectionId} — where the filter applies"
+      - fieldname: displayOrder
+        description: Position in parameter form
+      - fieldname: groupName
+        description: "Group related filters visually, e.g. Date Filters, Entity Filters"
+      - fieldname: validationRule
+        description: "Validation expression, e.g. startDate <= endDate"
+      - fieldname: dependsOn
+        description: Other filter IDs this filter depends on
+  rfep-form:
+    fields:
+      - fieldname: hiddenFilter
+        description: "Yes / No — filter applied programmatically, not shown to user"
+      - fieldname: quickFilterBar
+        description: Yes / No — show in report quick filter bar
+      - fieldname: rememberLastValue
+        description: Yes / No — persist user last selection
+      - fieldname: notes
+        description: Design notes
+  rset-form:
+    fields:
+      - fieldname: scheduleExpression
+        description: "Cron-like expression or recurrence rule, e.g. 0 6 1 * * (1st of month at 06:00)"
+      - fieldname: timezone
+        description: "Timezone for schedule, e.g. Europe/Berlin"
+      - fieldname: startDate
+        description: Schedule effective start date
+      - fieldname: endDate
+        description: Schedule expiry date; empty = no expiry
+      - fieldname: generationWindow
+        description: "Time window for generation, e.g. 02:00–06:00 (off-peak)"
+      - fieldname: generationTimeout
+        description: "Max duration before timeout, e.g. 30min"
+  rser-form:
+    fields:
+      - fieldname: retryOnFailure
+        description: Yes / No
+      - fieldname: maxRetries
+        description: Number of retry attempts
+      - fieldname: retryDelay
+        description: "Delay between retries, e.g. 5min / 15min / Exponential"
+  rsen-form:
+    fields:
+      - fieldname: notifyOnCompletion
+        description: Yes / No — send notification when report is ready
+      - fieldname: completionRecipients
+        description: Recipients for completion notification (if different from report recipients)
+      - fieldname: notifyOnFailure
+        description: Yes / No — send alert on generation failure
+      - fieldname: failureRecipients
+        description: Recipients for failure alerts
+  rseo-form:
+    fields:
+      - fieldname: filterOverrides
+        description: "Parameter values for scheduled run, e.g. dateRange=last_month"
+      - fieldname: outputFormat
+        description: "Override format for this schedule, e.g. PDF"
+      - fieldname: outputDestination
+        description: "Where to store generated output: Archive / File-Share / Dashboard / S3-Bucket"
+      - fieldname: priority
+        description: Low / Normal / High / Critical — queue priority
+      - fieldname: enabled
+        description: Yes / No — is this schedule active
+      - fieldname: notes
+        description: Design notes
+  redienre-form:
+    fields:
+      - fieldname: formatPerChannel
+        description: "Output format for this channel, e.g. PDF for email, Excel for file-share"
+      - fieldname: recipientSource
+        description: Static-List / Role-Based / Query / Report-Filter
+      - fieldname: recipientList
+        description: Comma-separated recipient IDs or addresses
+      - fieldname: recipientRoles
+        description: Roles whose members receive the report
+  redienco-form:
+    fields:
+      - fieldname: subjectTemplate
+        description: "Email/notification subject, e.g. {reportName} — {dateRange}"
+      - fieldname: bodyTemplate
+        description: Email/notification body template
+      - fieldname: attachmentOption
+        description: Inline / Attachment / Link-Only / Embedded-Preview
+      - fieldname: attachmentFileNamePattern
+        description: "Pattern for attachment filename, e.g. {reportName}_{date}.pdf"
+  rded-form:
+    fields:
+      - fieldname: compressionEnabled
+        description: Yes / No — compress attachment (ZIP)
+      - fieldname: passwordProtect
+        description: Yes / No — encrypt attachment with password
+      - fieldname: conditionalDistribution
+        description: "Condition for sending, e.g. data.rows > 0 or totalAmount > threshold"
+      - fieldname: suppressIfEmpty
+        description: Yes / No — skip distribution if report has no data
+      - fieldname: fileSharePath
+        description: Network/cloud path for file-share distribution
+      - fieldname: retainCopy
+        description: Yes / No — keep a copy in the archive
+      - fieldname: sendTime
+        description: "When to distribute after generation: Immediately / Delay(1h) / Scheduled-Window"
+      - fieldname: enabled
+        description: Yes / No — is this channel active
+      - fieldname: notes
+        description: Design notes
+  rereenco-form:
+    fields:
+      - fieldname: role
+        description: "Business role of this recipient, e.g. Department Head, Controller"
+      - fieldname: dataScopeRestriction
+        description: "Data visibility restriction, e.g. own-department-only"
+  rred-form:
+    fields:
+      - fieldname: deliveryPreference
+        description: Email / Dashboard / Print / File-Share / API — preferred channel
+      - fieldname: formatPreference
+        description: PDF / Excel / HTML — preferred output format
+      - fieldname: localePreference
+        description: "Preferred locale for this recipient, e.g. en-US"
+      - fieldname: scheduleOverride
+        description: "Override schedule for this recipient, e.g. Weekly instead of Monthly"
+      - fieldname: notifyOnReady
+        description: Yes / No — send notification when report is available
+  rrel-form:
+    fields:
+      - fieldname: active
+        description: Yes / No — is this recipient currently receiving reports
+      - fieldname: effectiveFrom
+        description: Date this recipient is added
+      - fieldname: effectiveTo
+        description: Date this recipient is removed; empty = indefinite
+      - fieldname: notes
+        description: Design notes
+  exid-form:
+    fields:
+      - fieldname: description
+        description: Business purpose of this export
+      - fieldname: relatedDataEntities
+        description: IFM entity references included in export
+      - fieldname: dataSource
+        description: Data source or query reference
+      - fieldname: dataScope
+        description: Scope of exported data
+  exfifo-form:
+    fields:
+      - fieldname: fileNamingPattern
+        description: "Output filename pattern, e.g. orders_{date}.csv"
+      - fieldname: encoding
+        description: UTF-8 / UTF-16 / ISO-8859-1 / ASCII
+      - fieldname: lineEnding
+        description: CRLF / LF / CR
+  exde-form:
+    fields:
+      - fieldname: delimiter
+        description: "Column delimiter: Comma / Semicolon / Tab / Pipe"
+      - fieldname: quoteCharacter
+        description: Field quote character
+      - fieldname: headerRow
+        description: Yes / No — include column header row
+      - fieldname: headerStyle
+        description: Display-Labels / Field-Names / Custom-Mapping
+  exdafo-form:
+    fields:
+      - fieldname: dateFormat
+        description: "Date format, e.g. yyyy-MM-dd / ISO-8601"
+      - fieldname: numberFormat
+        description: Locale-default / US / EU / Raw
+      - fieldname: decimalSeparator
+        description: ". or ,"
+      - fieldname: currencyFormat
+        description: Symbol-prefix / Code-suffix / Raw-number
+      - fieldname: booleanTrueValue
+        description: "String value for true, e.g. 1, true, Yes"
+      - fieldname: booleanFalseValue
+        description: "String value for false, e.g. 0, false, No"
+      - fieldname: nullHandling
+        description: Empty-string / Null-literal / Custom-value
+  exse-form:
+    fields:
+      - fieldname: compressionFormat
+        description: None / ZIP / GZIP / BZIP2
+      - fieldname: encryptionEnabled
+        description: Yes / No
+      - fieldname: encryptionMethod
+        description: AES-256 / Password-Protected-ZIP / PGP / None
+  exou-form:
+    fields:
+      - fieldname: outputDestination
+        description: Download / File-Share / S3 / SFTP / API / Email
+      - fieldname: outputPath
+        description: Path or URL for destination
+      - fieldname: schedulingEnabled
+        description: Yes / No — can this export be scheduled
+      - fieldname: schedulingExpression
+        description: Cron-like expression for automated export
+  exac-form:
+    fields:
+      - fieldname: accessLevel
+        description: Public / Authenticated / Role-specific
+      - fieldname: requiredRoles
+        description: Roles permitted to run this export
+      - fieldname: auditLogging
+        description: Yes / No — log export executions
+      - fieldname: previewAvailable
+        description: Yes / No — allow user to preview
+      - fieldname: notes
+        description: Design notes
+  efmef-form:
+    fields:
+      - fieldname: displayOrder
+        description: Position in the export output (column order)
+      - fieldname: dataType
+        description: String / Integer / Decimal / Date / DateTime / Boolean / Enum
+      - fieldname: formatPattern
+        description: "Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers"
+  efmet-form:
+    fields:
+      - fieldname: transformationRule
+        description: "Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom"
+      - fieldname: transformationExpression
+        description: "Expression for transform, e.g. firstName + lastName"
+      - fieldname: valueMapping
+        description: "Value substitution map, e.g. ACTIVE→A, INACTIVE→I"
+  efmei-form:
+    fields:
+      - fieldname: defaultValue
+        description: Value to use when source is null/empty
+      - fieldname: includeInExport
+        description: Yes / No / Conditional
+      - fieldname: inclusionCondition
+        description: Condition for conditional inclusion
+      - fieldname: maxLength
+        description: Truncate output to this character length
+  efmel-form:
+    fields:
+      - fieldname: paddingChar
+        description: "For fixed-width: padding character, e.g. space or 0"
+      - fieldname: paddingDirection
+        description: Left / Right for fixed-width formats
+      - fieldname: fixedWidth
+        description: Column width for fixed-width format exports
+      - fieldname: quoteAlways
+        description: Yes / No — always quote this field in CSV
+      - fieldname: notes
+        description: Design notes
+  etef-form:
+    fields:
+      - fieldname: description
+        description: Purpose and use cases for this template
+      - fieldname: encoding
+        description: Default encoding for this template
+      - fieldname: delimiter
+        description: Default delimiter
+      - fieldname: headerRow
+        description: Yes / No
+      - fieldname: dateFormat
+        description: Default date format
+      - fieldname: numberFormat
+        description: Default number format
+  exteenfi-form:
+    fields:
+      - fieldname: fieldSet
+        description: Comma-separated field names included in this template
+      - fieldname: defaultFilters
+        description: "Pre-applied filters, e.g. status=active"
+      - fieldname: defaultSortField
+        description: Default sort column
+      - fieldname: defaultSortDirection
+        description: Ascending / Descending
+  etel-form:
+    fields:
+      - fieldname: headerConfig
+        description: Header content template for PDF/Excel exports
+      - fieldname: footerConfig
+        description: Footer content template for PDF/Excel exports
+      - fieldname: brandingOverride
+        description: Template-specific branding (for PDF)
+      - fieldname: compressionFormat
+        description: None / ZIP / GZIP
+  etea-form:
+    fields:
+      - fieldname: accessLevel
+        description: Public / Authenticated / Role-specific
+      - fieldname: requiredRoles
+        description: Roles permitted to use this template
+      - fieldname: reusableAcrossReports
+        description: Yes / No — can this template be used by multiple reports/exports
+      - fieldname: version
+        description: "Template version, e.g. 1.0"
+      - fieldname: notes
+        description: Design notes
+  erhaco-erro-form:
+    fields:
+      - fieldname: errorPhilosophy
+        description: "Prevention-first, graceful degradation, user empowerment"
+      - fieldname: errorToneOfVoice
+        description: "Friendly, professional, apologetic, neutral"
+      - fieldname: errorLanguageStyle
+        description: "Plain language, technical, user-focused"
+      - fieldname: blameAvoidance
+        description: "Never blame user, focus on solutions"
+  ehcc-form:
+    fields:
+      - fieldname: errorCategories
+        description: "Validation, network, server, permission, data"
+      - fieldname: errorSeverityLevels
+        description: "Critical, warning, info, success"
+      - fieldname: errorPriorityDisplay
+        description: "Most severe first, chronological, by field"
+  ehca-form:
+    fields:
+      - fieldname: errorAccessibility
+        description: "Screen reader announcements, ARIA live regions"
+      - fieldname: colorContrastCompliance
+        description: "WCAG AA, AAA for error states"
+      - fieldname: nonColorIndicators
+        description: "Icons, text, patterns for colorblind users"
+  ehco-form:
+    fields:
+      - fieldname: errorLocalization
+        description: "All messages localized, fallback language"
+      - fieldname: dynamicContentHandling
+        description: How dynamic values are inserted into messages
+      - fieldname: errorTrackingApproach
+        description: "Analytics for user errors, trend analysis"
+      - fieldname: userFrustrationDetection
+        description: "Rage click detection, repeated errors"
+  vafe-vali-form:
+    fields:
+      - fieldname: validationTiming
+        description: "Real-time, on-blur, on-submit, debounced"
+      - fieldname: debounceDelay
+        description: Milliseconds before validation triggers
+      - fieldname: validationSequence
+        description: "Field-by-field, all-at-once, progressive"
+  vafepl-form:
+    fields:
+      - fieldname: errorMessagePlacement
+        description: "Inline below field, above field, tooltip, summary"
+      - fieldname: summaryPosition
+        description: "Top of form, bottom of form, modal"
+      - fieldname: fieldHighlighting
+        description: "Border color, background color, icon"
+      - fieldname: fieldErrorIcon
+        description: Icon displayed on invalid fields
+      - fieldname: fieldErrorIconPosition
+        description: "Leading, trailing, inside field, outside"
+  vafeme-form:
+    fields:
+      - fieldname: messageFormat
+        description: "Text only, icon + text, structured"
+      - fieldname: maxMessageLength
+        description: Character limit for inline messages
+      - fieldname: multipleErrorsDisplay
+        description: "First only, all, expandable list"
+      - fieldname: errorPersistence
+        description: "Until fixed, until field accessed, timed"
+  vafegu-form:
+    fields:
+      - fieldname: showRequirements
+        description: Display field requirements before error
+      - fieldname: showSuggestions
+        description: Suggest corrections for common errors
+      - fieldname: showExamples
+        description: Show example valid input
+  vafebe-form:
+    fields:
+      - fieldname: errorAnimation
+        description: "Shake, fade-in, bounce, none"
+      - fieldname: clearAnimation
+        description: Animation when error is resolved
+      - fieldname: scrollToError
+        description: Auto-scroll to first error on submit
+      - fieldname: focusOnError
+        description: Move focus to first invalid field
+  syerdi-syst-form:
+    fields:
+      - fieldname: networkErrorHandling
+        description: How connectivity issues are displayed
+      - fieldname: systemErrorDisplayMethod
+        description: "Modal, snackbar, banner, full-page"
+      - fieldname: gracefulDegradation
+        description: How features degrade on partial failure
+  sedet-form:
+    fields:
+      - fieldname: serverErrorHandling
+        description: How 5xx errors are presented
+      - fieldname: timeoutHandling
+        description: How request timeouts are displayed
+      - fieldname: authenticationErrorHandling
+        description: "Session expired, unauthorized"
+      - fieldname: permissionErrorHandling
+        description: Forbidden access display
+      - fieldname: maintenanceModeHandling
+        description: Scheduled downtime display
+  sedm-form:
+    fields:
+      - fieldname: errorModalStyle
+        description: Dialog design for error modals
+      - fieldname: snackbarPosition
+        description: "Bottom, top, bottom-left, top-right"
+      - fieldname: snackbarDuration
+        description: Auto-dismiss time or persistent
+      - fieldname: bannerPosition
+        description: "Top of page, top of content"
+      - fieldname: fullPageErrorTemplate
+        description: "Design for full-page errors (500, 503)"
+  sedc-form:
+    fields:
+      - fieldname: showTechnicalDetails
+        description: "Display error codes, request IDs"
+      - fieldname: showRetryOption
+        description: Offer a retry button on the error
+      - fieldname: showContactSupport
+        description: Show a link to contact support
+      - fieldname: showStatusPageLink
+        description: Show a link to the service status page
+      - fieldname: offlineModeMessage
+        description: Message when app detects offline state
+  sedf-form:
+    fields:
+      - fieldname: cachedDataFallback
+        description: Show stale data with indicator
+      - fieldname: retryStrategy
+        description: Automatic retry with backoff
+      - fieldname: maxRetryAttempts
+        description: Number of retries before giving up
+      - fieldname: retryDelaySeconds
+        description: Seconds to wait between retries
+  seceh-form:
+    fields:
+      - fieldname: technicalDescription
+        description: Developer-facing description
+      - fieldname: suggestedAction
+        description: What user should do
+      - fieldname: retryable
+        description: Whether retry is likely to help
+      - fieldname: autoRetry
+        description: System automatically retries
+      - fieldname: displayMethod
+        description: How this error is displayed
+  seceo-form:
+    fields:
+      - fieldname: notifySupport
+        description: Auto-notify support team
+      - fieldname: logLevel
+        description: "Error, warning, info"
+  erre-reco-form:
+    fields:
+      - fieldname: formDataPreservation
+        description: How unsaved form data is preserved on error
+      - fieldname: sessionRecovery
+        description: How expired sessions are handled
+      - fieldname: supportContactMethod
+        description: "Chat, email, phone, ticket"
+  erdp-form:
+    fields:
+      - fieldname: draftAutoSave
+        description: Automatic draft saving before submission
+      - fieldname: draftSaveInterval
+        description: How often drafts are auto-saved
+      - fieldname: draftStorageMethod
+        description: "LocalStorage, IndexedDB, server-side"
+      - fieldname: draftRetentionPeriod
+        description: How long drafts are kept
+      - fieldname: draftRecoveryPrompt
+        description: How users are notified of recoverable drafts
+  errm-form:
+    fields:
+      - fieldname: automaticRetryEnabled
+        description: Whether failed operations are retried automatically
+      - fieldname: retryBackoffStrategy
+        description: "Exponential, linear, fixed"
+      - fieldname: maxAutomaticRetries
+        description: Maximum number of automatic retry attempts
+      - fieldname: manualRetryButton
+        description: Whether a user-triggered retry button is shown
+      - fieldname: retryButtonLabel
+        description: "Button text (e.g., \"Try Again\")"
+      - fieldname: retryFeedback
+        description: How retry attempts are indicated
+  ergr-form:
+    fields:
+      - fieldname: stepByStepRecovery
+        description: Guided recovery wizard
+      - fieldname: alternativeActions
+        description: What else user can do
+      - fieldname: skipOption
+        description: Allow skipping failed operation
+      - fieldname: cancelOption
+        description: Allow canceling and returning
+  ersc-form:
+    fields:
+      - fieldname: supportAvailability
+        description: When support is available
+      - fieldname: errorReportSubmission
+        description: Allow user to submit error report
+      - fieldname: includeDebugInfo
+        description: Include technical details in report
+  ersh-form:
+    fields:
+      - fieldname: reauthenticationFlow
+        description: "Inline login, redirect, modal"
+      - fieldname: preserveContextOnReauth
+        description: Return to original location after reauth
+  usas-help-form:
+    fields:
+      - fieldname: helpPhilosophy
+        description: "Self-service first, guided, on-demand"
+      - fieldname: helpAccessibility
+        description: "Always visible, contextual, searchable"
+      - fieldname: helpPersonalization
+        description: "Role-based, skill-based, contextual"
+      - fieldname: helpContentStrategy
+        description: "Video, text, interactive, mixed"
+  usasde-form:
+    fields:
+      - fieldname: helpContentOwnership
+        description: Who maintains help content
+      - fieldname: helpUpdateProcess
+        description: How help content is kept current
+      - fieldname: helpIconStandard
+        description: "Question mark, info icon, custom"
+      - fieldname: helpIconPlacement
+        description: "By field labels, in headers, floating"
+      - fieldname: helpTooltipStyle
+        description: Tooltip design and behavior
+  usasin-form:
+    fields:
+      - fieldname: helpAnalytics
+        description: "Track help usage, identify gaps"
+      - fieldname: helpFeedback
+        description: "Rate help articles, suggest improvements"
+  cohe-cont-form:
+    fields:
+      - fieldname: tooltipTrigger
+        description: "Hover, click, focus, icon click"
+      - fieldname: tooltipDelay
+        description: Milliseconds before showing
+      - fieldname: tooltipDuration
+        description: How long tooltip stays visible
+      - fieldname: tooltipMaxWidth
+        description: Maximum width in pixels
+      - fieldname: tooltipPosition
+        description: "Above, below, auto-position"
+  cohein-form:
+    fields:
+      - fieldname: inlineHelpPlacement
+        description: "Below labels, below fields, expandable"
+      - fieldname: inlineHelpVisibility
+        description: "Always visible, on demand, progressive"
+      - fieldname: inlineHelpLength
+        description: Max characters for inline help
+  cohepa-form:
+    fields:
+      - fieldname: helpPanelAvailable
+        description: Slide-out help panel
+      - fieldname: helpPanelPosition
+        description: "Right side, bottom, overlay"
+      - fieldname: helpPanelContent
+        description: "Field help, page help, related articles"
+  chwt-form:
+    fields:
+      - fieldname: whatsThisMode
+        description: Click-anywhere help mode
+      - fieldname: whatsThisActivation
+        description: "Keyboard shortcut, toolbar button"
+  coheri-form:
+    fields:
+      - fieldname: helpScreenshots
+        description: Include screenshots in help
+      - fieldname: helpVideos
+        description: Include video tutorials
+      - fieldname: helpAnimations
+        description: Animated demonstrations
+  onhe-onbo-form:
+    fields:
+      - fieldname: welcomeFlowEnabled
+        description: Whether the welcome flow is enabled
+      - fieldname: welcomeFlowStyle
+        description: "Modal wizard, full-page, inline"
+      - fieldname: welcomeFlowSkippable
+        description: Whether users can skip the welcome flow
+      - fieldname: welcomeFlowDuration
+        description: Expected completion time
+  onheto-form:
+    fields:
+      - fieldname: featureToursEnabled
+        description: Whether feature tours are enabled
+      - fieldname: featureTourStyle
+        description: "Spotlight, coach marks, carousel"
+      - fieldname: featureTourTrigger
+        description: "First visit, after action, manual"
+      - fieldname: featureTourProgress
+        description: Show progress indicator
+  ohsd-form:
+    fields:
+      - fieldname: sampleDataAvailable
+        description: Whether sample data is provided
+      - fieldname: sampleDataScope
+        description: What sample data is provided
+      - fieldname: sampleDataClear
+        description: How users remove sample data
+  onhech-form:
+    fields:
+      - fieldname: gettingStartedChecklist
+        description: Show a getting-started checklist to new users
+      - fieldname: checklistItems
+        description: Setup tasks to complete
+      - fieldname: checklistProgress
+        description: How progress is shown
+      - fieldname: checklistRewards
+        description: Gamification elements
+  onhedi-form:
+    fields:
+      - fieldname: progressiveDisclosure
+        description: How features are revealed over time
+      - fieldname: skillLevelAdaptation
+        description: Adapt to user skill level
+  onhere-form:
+    fields:
+      - fieldname: returnUserWelcome
+        description: Message for returning users
+      - fieldname: whatsNewFeature
+        description: Show new features to returning users
+  suac-supp-form:
+    fields:
+      - fieldname: helpCenterAvailable
+        description: Whether a help centre is provided
+      - fieldname: liveChatAvailable
+        description: Whether live chat support is provided
+      - fieldname: ticketSubmission
+        description: Whether users can submit support tickets
+  sahc-form:
+    fields:
+      - fieldname: helpCenterLocation
+        description: "In-app, external, hybrid"
+      - fieldname: helpCenterSearch
+        description: Searchable knowledge base
+      - fieldname: helpArticleCategories
+        description: How help is organized
+  sals-form:
+    fields:
+      - fieldname: liveChatHours
+        description: Availability hours
+      - fieldname: chatbotFirstLine
+        description: Chatbot before human
+      - fieldname: chatbotCapabilities
+        description: What chatbot can handle
+  suacti-form:
+    fields:
+      - fieldname: ticketFormFields
+        description: Required ticket information
+      - fieldname: ticketAttachments
+        description: Allow file attachments
+      - fieldname: ticketResponseSla
+        description: Expected response time
+  sacm-form:
+    fields:
+      - fieldname: emailSupport
+        description: Offer support by email
+      - fieldname: phoneSupport
+        description: Offer support by phone
+      - fieldname: phoneNumber
+        description: Published support phone number
+      - fieldname: communityForum
+        description: Offer a community forum for peer support
+  sass-form:
+    fields:
+      - fieldname: faqSection
+        description: Offer a frequently asked questions section
+      - fieldname: troubleshootingGuides
+        description: Provide step-by-step troubleshooting guides
+      - fieldname: videoTutorials
+        description: Offer instructional video tutorials
+      - fieldname: releaseNotes
+        description: Publish release notes for updates
+      - fieldname: feedbackButton
+        description: Always-visible feedback option
+      - fieldname: featureRequests
+        description: Submit feature requests
+      - fieldname: bugReporting
+        description: Report bugs from app
+  access-acce-form:
+    fields:
+      - fieldname: wcagComplianceTarget
+        description: "A, AA, AAA"
+      - fieldname: wcagVersion
+        description: "2.0, 2.1, 2.2"
+      - fieldname: additionalStandards
+        description: "Section 508, EN 301 549, ADA"
+      - fieldname: accessibilityStatement
+        description: Publish accessibility statement
+  acstgy-form:
+    fields:
+      - fieldname: accessibilityPhilosophy
+        description: "Inclusive design, equivalent experience"
+      - fieldname: accessibilityOwnership
+        description: Who is responsible for accessibility
+      - fieldname: accessibilityTraining
+        description: Team training requirements
+  acte-form:
+    fields:
+      - fieldname: automatedTestingTools
+        description: "axe, WAVE, Lighthouse"
+      - fieldname: manualTestingProcess
+        description: How manual testing is performed
+      - fieldname: assistiveTechTesting
+        description: "Screen readers, switch devices"
+      - fieldname: userTestingWithDisabilities
+        description: Include users with disabilities
+  acsu-form:
+    fields:
+      - fieldname: targetScreenReaders
+        description: "NVDA, JAWS, VoiceOver, TalkBack"
+      - fieldname: targetBrowserAccessibility
+        description: Browser accessibility features used
+  wcco-wcag-form:
+    fields:
+      - fieldname: textAlternatives
+        description: Alt text for non-text content
+      - fieldname: timeBasedMedia
+        description: "Captions, audio descriptions"
+      - fieldname: adaptableContent
+        description: "Structure, sequence, sensory"
+      - fieldname: distinguishableContent
+        description: "Color, contrast, resize, audio"
+  wccoop-form:
+    fields:
+      - fieldname: keyboardAccessible
+        description: Full keyboard operation
+      - fieldname: enoughTime
+        description: "Adjustable timing, pause"
+      - fieldname: seizureSafe
+        description: No flashing content
+      - fieldname: navigable
+        description: "Skip links, page titles, focus"
+      - fieldname: inputModalities
+        description: "Pointer, motion, touch"
+  wccoun-form:
+    fields:
+      - fieldname: readable
+        description: "Language, abbreviations"
+      - fieldname: predictable
+        description: "Consistent navigation, identification"
+      - fieldname: inputAssistance
+        description: "Error prevention, labels, suggestions"
+  wccoro-form:
+    fields:
+      - fieldname: compatible
+        description: "Parsing, name/role/value"
+  acchls-chec-form:
+    fields:
+      - fieldname: checklistStandard
+        description: "Based on WCAG, custom additions"
+      - fieldname: checklistOwner
+        description: Who maintains the checklist
+      - fieldname: checkFrequency
+        description: "Per feature, per release, continuous"
+      - fieldname: automatedChecks
+        description: Automated accessibility testing coverage
+      - fieldname: manualChecks
+        description: Manual testing procedures
+      - fieldname: userTesting
+        description: Testing with users with disabilities
+      - fieldname: reportingFormat
+        description: How accessibility status is reported
+      - fieldname: remediationProcess
+        description: How issues are fixed
+  acec-form:
+    fields:
+      - fieldname: wcagCriterion
+        description: Related WCAG success criterion
+      - fieldname: complianceLevel
+        description: "A, AA, AAA"
+      - fieldname: checkCategory
+        description: "Perceivable, operable, understandable, robust"
+  acee-form:
+    fields:
+      - fieldname: testingTool
+        description: Specific tool or technique
+      - fieldname: responsibleParty
+        description: "Developer, QA, accessibility specialist"
+      - fieldname: checkStatus
+        description: "Not tested, passed, failed, n/a"
+      - fieldname: testDate
+        description: Date the check was performed
+      - fieldname: testedBy
+        description: Name or role of the tester
+  acer-form:
+    fields:
+      - fieldname: issuesFound
+        description: Description of any issues
+      - fieldname: remediationPlan
+        description: How issues will be fixed
+  rede-resp-form:
+    fields:
+      - fieldname: responsivePhilosophy
+        description: "Mobile-first, desktop-first, adaptive"
+      - fieldname: primaryTargetDevice
+        description: "Mobile phone, tablet, desktop"
+      - fieldname: deviceAssumptions
+        description: Assumptions about target devices
+      - fieldname: responsiveFramework
+        description: "LayoutBuilder, MediaQuery, responsive_framework"
+      - fieldname: breakpointPackage
+        description: "Custom, responsive_framework, flutter_screenutil"
+      - fieldname: orientationSupport
+        description: "Portrait only, landscape only, both"
+      - fieldname: responsiveTestingApproach
+        description: "Device lab, emulator matrix, golden tests"
+      - fieldname: targetDeviceMatrix
+        description: List of target devices for testing
+  bc-brea-form:
+    fields:
+      - fieldname: mobileMax
+        description: "Maximum width for mobile (e.g., 599)"
+      - fieldname: tabletMin
+        description: "Minimum width for tablet (e.g., 600)"
+      - fieldname: tabletMax
+        description: "Maximum width for tablet (e.g., 1023)"
+      - fieldname: desktopMin
+        description: "Minimum width for desktop (e.g., 1024)"
+      - fieldname: largeDesktopMin
+        description: "Minimum width for large screens (e.g., 1440)"
+      - fieldname: watchMax
+        description: Maximum width for wearables
+      - fieldname: foldableBreakpoint
+        description: Breakpoint for foldable devices
+      - fieldname: customBreakpoints
+        description: Additional app-specific breakpoints
+      - fieldname: breakpointUnit
+        description: "Logical pixels, device pixels"
+      - fieldname: densityHandling
+        description: How pixel density is handled
+  brenla-form:
+    fields:
+      - fieldname: columns
+        description: Number of grid columns at this breakpoint
+      - fieldname: gutterWidth
+        description: Space between columns
+      - fieldname: marginWidth
+        description: Edge margins
+      - fieldname: layoutBehavior
+        description: How layout changes at this breakpoint
+  brensc-form:
+    fields:
+      - fieldname: navigationPattern
+        description: "Bottom nav, drawer, rail, tabs"
+      - fieldname: typographyScale
+        description: Font size scaling factor
+      - fieldname: spacingScale
+        description: Spacing multiplier
+      - fieldname: iconScale
+        description: Icon size scaling factor
+  rebe-layo-form:
+    fields:
+      - fieldname: mobileColumnLayout
+        description: "Single column, stacked"
+      - fieldname: tabletColumnLayout
+        description: "2-column, master-detail"
+      - fieldname: desktopColumnLayout
+        description: "3-column, sidebar + main"
+  rebena-form:
+    fields:
+      - fieldname: mobileNavigation
+        description: "Bottom nav bar, hamburger drawer"
+      - fieldname: tabletNavigation
+        description: "Navigation rail, collapsible drawer"
+      - fieldname: desktopNavigation
+        description: "Full sidebar, top navigation"
+  rebevi-form:
+    fields:
+      - fieldname: mobileHiddenElements
+        description: Elements hidden on mobile
+      - fieldname: tabletHiddenElements
+        description: Elements hidden on tablet
+      - fieldname: desktopOnlyElements
+        description: Elements shown only on desktop
+  rebeto-form:
+    fields:
+      - fieldname: touchTargetMinSize
+        description: Minimum touch target (48dp recommended)
+      - fieldname: hoverEffects
+        description: When to show hover effects
+      - fieldname: gesturePriority
+        description: "Swipe, long-press on touch devices"
+  rebeco-form:
+    fields:
+      - fieldname: contentReflowStrategy
+        description: How content reflows across breakpoints
+      - fieldname: imageScaling
+        description: How images scale responsively
+      - fieldname: tableResponsiveness
+        description: "Horizontal scroll, cards, hide columns"
+      - fieldname: formLayout
+        description: "How forms adapt: single column, multi-column"
+  uico-comp-form:
+    fields:
+      - fieldname: designSystemName
+        description: "Name of the design system (e.g., \"Acme Design System\")"
+      - fieldname: designSystemVersion
+        description: "Semantic version of the design system (e.g., \"2.1.0\")"
+      - fieldname: basedOnFramework
+        description: "Material Design 3, Cupertino, Custom"
+      - fieldname: tomFlutterUiIntegration
+        description: Uses tom_flutter_ui component library
+  ucvl-form:
+    fields:
+      - fieldname: visualLanguage
+        description: "Clean, playful, professional, minimal"
+      - fieldname: brandAlignment
+        description: How design aligns with brand guidelines
+      - fieldname: motionPrinciples
+        description: "Animation philosophy: subtle, expressive, functional"
+  ucca-form:
+    fields:
+      - fieldname: componentGranularity
+        description: "Atomic design levels: atoms, molecules, organisms"
+      - fieldname: componentNaming
+        description: "PascalCase, kebab-case, prefix rules"
+      - fieldname: componentDocumentation
+        description: "Storybook, living style guide, doc site"
+  uicocu-form:
+    fields:
+      - fieldname: extensionModel
+        description: How components can be extended or themed
+      - fieldname: themingApproach
+        description: "Token-based, widget-level, theme data"
+      - fieldname: customizationBoundaries
+        description: What can vs. cannot be customized
+  colico-form:
+    fields:
+      - fieldname: secondaryColor
+        description: "Secondary brand colour hex value (e.g., \"#03DAC6\")"
+      - fieldname: tertiaryColor
+        description: "Tertiary accent colour hex value (e.g., \"#3700B3\")"
+      - fieldname: errorColor
+        description: "Colour for error states (e.g., \"#B00020\")"
+      - fieldname: warningColor
+        description: "Colour for warning states (e.g., \"#FF9800\")"
+      - fieldname: successColor
+        description: "Colour for success states (e.g., \"#4CAF50\")"
+      - fieldname: infoColor
+        description: "Colour for informational states (e.g., \"#2196F3\")"
+      - fieldname: surfaceColors
+        description: "Background, card, dialog surfaces"
+      - fieldname: colorTokenFormat
+        description: "CSS variables, Dart constants, theme data"
+  colity-form:
+    fields:
+      - fieldname: fontFamilySecondary
+        description: "Secondary typeface for accents (e.g., \"Roboto Slab\")"
+      - fieldname: fontFamilyMonospace
+        description: "Monospace typeface for code (e.g., \"JetBrains Mono\")"
+      - fieldname: typographyScale
+        description: "Material type scale, custom scale"
+      - fieldname: fontSizeUnit
+        description: "Logical pixels, rem, sp"
+  colisp-form:
+    fields:
+      - fieldname: spacingTokens
+        description: "xxs, xs, sm, md, lg, xl, xxl"
+      - fieldname: elevationLevels
+        description: Number of elevation levels
+      - fieldname: elevationImplementation
+        description: "Shadows, borders, color shifts"
+  colibo-form:
+    fields:
+      - fieldname: cornerRadiusScale
+        description: "Rounded levels: none, sm, md, lg, full"
+      - fieldname: borderStyleDefaults
+        description: "Default border width, style, and colour (e.g., \"1px solid outline\")"
+  colivi-form:
+    fields:
+      - fieldname: iconLibrary
+        description: "Material Icons, Cupertino, custom"
+      - fieldname: iconSizeScale
+        description: "Small, medium, large sizes"
+      - fieldname: animationDurations
+        description: "Fast, normal, slow durations"
+      - fieldname: animationCurves
+        description: "Easing curves: ease, easeInOut, custom"
+  uicoment-iden-form:
+    fields:
+      - fieldname: componentId
+        required: true
+        description: "Unique identifier (e.g., CMP-DTT-001)"
+      - fieldname: componentName
+        required: true
+        description: Human-readable name
+      - fieldname: componentFamily
+        description: "Button, Input, Table, Navigation, etc."
+      - fieldname: flutterWidgetBase
+        description: "Base Flutter widget (DataTable, TextField)"
+  ucep-form:
+    fields:
+      - fieldname: tomWrapperClass
+        description: "TomDataTable, TomTextField, etc."
+      - fieldname: purpose
+        required: true
+        description: What the component does
+      - fieldname: businessContext
+        description: Business scenarios where used
+      - fieldname: userGoals
+        description: What user accomplishes with this
+  ucec-form:
+    fields:
+      - fieldname: atomicLevel
+        description: "Atom, molecule, organism"
+      - fieldname: complexity
+        description: "Simple, moderate, complex"
+      - fieldname: reusability
+        description: "Generic, semi-generic, specialized"
+  uicoment-visu-form:
+    fields:
+      - fieldname: defaultAppearance
+        description: Visual description of default state
+      - fieldname: colorScheme
+        description: "Primary, secondary, surface colors used"
+      - fieldname: typography
+        description: Text styles used
+      - fieldname: iconography
+        description: Icons used and their placement
+  uced-form:
+    fields:
+      - fieldname: defaultWidth
+        description: Default width or width behavior
+      - fieldname: defaultHeight
+        description: Default height or height behavior
+      - fieldname: minDimensions
+        description: Smallest allowed size
+      - fieldname: maxDimensions
+        description: Largest allowed size
+  uces-form:
+    fields:
+      - fieldname: internalPadding
+        description: Padding inside the component
+      - fieldname: externalMargin
+        description: Margin around the component
+      - fieldname: contentSpacing
+        description: Spacing between internal elements
+  uicoensu-form:
+    fields:
+      - fieldname: borderStyle
+        description: "Solid, dashed, none"
+      - fieldname: cornerRadius
+        description: Rounding of component corners
+      - fieldname: elevation
+        description: Depth or z-level of the surface
+      - fieldname: shadowStyle
+        description: Drop shadow appearance
+  uicoment-inte-form:
+    fields:
+      - fieldname: tapBehavior
+        description: What happens on tap/click
+      - fieldname: longPressBehavior
+        description: What happens on long press
+      - fieldname: doubleTapBehavior
+        description: What happens on double tap
+      - fieldname: swipeBehavior
+        description: What happens on swipe gestures
+      - fieldname: dragBehavior
+        description: What happens on drag gestures
+      - fieldname: hoverBehavior
+  uceib-form:
+    fields:
+      - fieldname: focusBehavior
+        description: "Focus ring, highlight, navigation"
+      - fieldname: keyboardNavigation
+        description: "Tab order, arrow key behavior"
+      - fieldname: keyboardShortcuts
+        description: Key combinations the component handles
+  ucea-form:
+    fields:
+      - fieldname: entryAnimation
+        description: How the component appears
+      - fieldname: exitAnimation
+        description: How the component disappears
+      - fieldname: stateTransitions
+        description: Animation between states
+      - fieldname: feedbackAnimations
+        description: "Ripple, scale, color change"
+  uicoensc-form:
+    fields:
+      - fieldname: scrollBehavior
+        description: If component is scrollable
+      - fieldname: stickyBehavior
+        description: "Headers, columns that stick"
+  uicoment-resp-form:
+    fields:
+      - fieldname: mobileLayout
+        description: Layout on mobile (< 600dp)
+      - fieldname: tabletLayout
+        description: Layout on tablet (600-1024dp)
+      - fieldname: desktopLayout
+        description: "Layout on desktop (> 1024dp)"
+      - fieldname: breakpointBehavior
+        description: What changes at breakpoints
+      - fieldname: adaptiveContent
+        description: Content that appears/hides
+      - fieldname: touchTargets
+        description: Minimum touch target sizes
+      - fieldname: orientationBehavior
+        description: Portrait vs. landscape
+  uicoment-acce-form:
+    fields:
+      - fieldname: semanticRole
+        description: ARIA role or semantic meaning
+      - fieldname: screenReaderLabel
+        description: How screen readers announce
+      - fieldname: screenReaderHint
+        description: Additional context for screen readers
+      - fieldname: focusOrder
+        description: Tab order in context
+      - fieldname: ariaAttributes
+        description: Required ARIA attributes
+      - fieldname: colorContrastNotes
+        description: Contrast ratios and compliance notes
+      - fieldname: motionSensitivity
+        description: Reduced motion behavior
+      - fieldname: textScalingBehavior
+        description: How component responds to text scaling
+  uicoment-auth-form:
+    fields:
+      - fieldname: authBasePath
+        description: Base path for authorization lookup
+      - fieldname: authVisibilityBehavior
+        description: "Hidden, visible, conditionally visible"
+      - fieldname: authEnabledBehavior
+        description: "Disabled, enabled, conditionally enabled"
+      - fieldname: authReadonlyBehavior
+        description: Readonly state behavior
+      - fieldname: authActionControl
+        description: Which actions are auth-controlled
+      - fieldname: authFallbackBehavior
+        description: Behavior when auth unavailable
+      - fieldname: fourStateMapping
+        description: Mapping to TomAuthState four states
+  uicoment-reso-form:
+    fields:
+      - fieldname: resourceBasePath
+        description: Base path for resource lookup
+      - fieldname: labelResource
+        description: Resource key for label text
+      - fieldname: hintResource
+        description: Resource key for hint text
+      - fieldname: errorResource
+        description: Resource key for error messages
+      - fieldname: tooltipResource
+        description: Resource key for tooltip text
+      - fieldname: placeholderResource
+        description: Resource key for placeholder text
+      - fieldname: ariaLabelResource
+        description: Resource key for the ARIA label
+      - fieldname: iconResource
+        description: Resource key for icon selection
+      - fieldname: resourceFallbacks
+        description: Fallback behavior when resource missing
+  uicoment-data-form:
+    fields:
+      - fieldname: dataType
+        description: Type of data component displays/edits
+      - fieldname: bindingPattern
+        description: "Observable, form field, direct"
+      - fieldname: valueAccessor
+        description: How value is read/written
+      - fieldname: changeNotification
+        description: How changes are communicated
+      - fieldname: validationIntegration
+        description: How validation errors are displayed
+      - fieldname: dirtyTracking
+        description: How dirty state is tracked
+      - fieldname: undoRedoSupport
+        description: Whether edits can be undone and redone
+  csev-form:
+    fields:
+      - fieldname: visualChanges
+        description: How appearance changes in this state
+      - fieldname: colorOverrides
+        description: Colors replaced in this state
+      - fieldname: opacityChange
+        description: Opacity applied in this state
+      - fieldname: iconChange
+        description: Icon swapped in this state
+      - fieldname: textChange
+        description: Label or text shown in this state
+  cseb-form:
+    fields:
+      - fieldname: interactionChanges
+        description: How interactions change
+      - fieldname: accessibilityState
+        description: Screen reader announcements
+  cset-form:
+    fields:
+      - fieldname: entryTrigger
+        description: What causes entry to this state
+      - fieldname: exitTrigger
+        description: What causes exit from this state
+      - fieldname: transitionAnimation
+        description: Animation played during the transition
+  cvev-form:
+    fields:
+      - fieldname: colorSchemeVariant
+        description: Color palette applied to this variant
+      - fieldname: borderVariant
+        description: Border style for this variant
+      - fieldname: elevationVariant
+        description: Shadow or elevation level
+  cveb-form:
+    fields:
+      - fieldname: behaviorDifferences
+        description: How behavior differs from the base component
+      - fieldname: useCaseDifferences
+        description: When to use this variant
+      - fieldname: implementationNote
+        description: How variant is implemented
+      - fieldname: flutterVariant
+        description: Corresponding Flutter variant
+  caeg-form:
+    fields:
+      - fieldname: actionResult
+        description: Expected outcome
+      - fieldname: authRequired
+        description: Requires authorization
+      - fieldname: authPermission
+        description: Required permission
+      - fieldname: confirmationRequired
+        description: Whether a confirmation prompt is shown
+      - fieldname: confirmationMessage
+        description: Text shown in the confirmation prompt
+  caee-form:
+    fields:
+      - fieldname: asyncBehavior
+        description: Loading state during async
+      - fieldname: errorHandling
+        description: What happens when the action fails
+      - fieldname: successFeedback
+        description: Confirmation shown on success
+  lacose-lang-form:
+    fields:
+      - fieldname: pickerLocation
+        description: "Header, footer, settings, onboarding"
+      - fieldname: pickerStyle
+        description: "Dropdown, modal, full page"
+      - fieldname: languageDisplay
+        description: "Native names, English names, flags"
+      - fieldname: countryDisplay
+        description: How countries are displayed
+      - fieldname: searchable
+        description: Can user search languages/countries
+  lcsd-form:
+    fields:
+      - fieldname: defaultLanguage
+        description: How default language is determined
+      - fieldname: defaultCountry
+        description: How default country is determined
+      - fieldname: autoDetection
+        description: "Browser, OS, geo-IP detection"
+  lcsp-form:
+    fields:
+      - fieldname: persistenceMethod
+        description: "Cookie, localStorage, user profile"
+      - fieldname: crossDeviceSync
+        description: Sync preference across devices
+      - fieldname: anonymousPersistence
+        description: How preference persists for guests
+  lcsf-form:
+    fields:
+      - fieldname: localeFallbackBehavior
+        description: What happens when locale unavailable
+      - fieldname: partialLocalSupport
+        description: "UI in one locale, content in another"
+      - fieldname: missingTranslationDisplay
+        description: How missing translations are shown
+  lcsu-form:
+    fields:
+      - fieldname: languageSwitchBehavior
+        description: "Page reload, inline update"
+      - fieldname: confirmationRequired
+        description: Confirm before switching
+      - fieldname: contentRetention
+        description: What happens to in-progress content
+  protot-prot-form:
+    fields:
+      - fieldname: prototypePurpose
+        description: "Primary goal: validation, alignment, feasibility"
+      - fieldname: prototypeScope
+        description: What is included in prototype
+      - fieldname: targetAudience
+        description: Who will evaluate the prototype
+      - fieldname: successCriteria
+        description: How success is measured
+  prti-form:
+    fields:
+      - fieldname: prototypeTimeline
+        description: Duration for prototype phase
+      - fieldname: prototypeDeadline
+        description: When prototype must be ready
+      - fieldname: evaluationPeriod
+        description: How long for evaluation
+  prores-form:
+    fields:
+      - fieldname: prototypeTeam
+        description: Who builds the prototype
+      - fieldname: prototypeBudget
+        description: Budget allocation
+      - fieldname: prototypeEnvironment
+        description: Where prototype is deployed
+  prgo-form:
+    fields:
+      - fieldname: acceptanceCriteria
+        description: Required criteria to proceed
+      - fieldname: stakeholderSignoff
+        description: Who must approve prototype
+  pg-goal-form:
+    fields:
+      - fieldname: usabilityValidation
+        description: Validate usability of key workflows
+      - fieldname: stakeholderAlignment
+        description: Align stakeholders on UI/UX
+      - fieldname: technicalFeasibility
+        description: Prove technical approach works
+      - fieldname: performanceValidation
+        description: Validate performance targets
+      - fieldname: integrationValidation
+        description: Validate third-party integrations
+  prgori-form:
+    fields:
+      - fieldname: riskMitigation
+        description: Risks the prototype addresses
+      - fieldname: unknownsResolution
+        description: Unknowns to be resolved
+      - fieldname: assumptionsTesting
+        description: Assumptions to be tested
+  prgofe-form:
+    fields:
+      - fieldname: userFeedbackGoals
+        description: What feedback to gather
+      - fieldname: usabilityTestingPlan
+        description: How usability testing is done
+      - fieldname: feedbackIntegration
+        description: How feedback flows back
+  prfesu-feat-form:
+    fields:
+      - fieldname: selectionCriteria
+        description: How features were selected
+      - fieldname: riskBasedSelection
+        description: High-risk features included
+      - fieldname: valueBasedSelection
+        description: High-value features included
+      - fieldname: uncertaintyBasedSelection
+        description: Most uncertain features included
+  pfss-form:
+    fields:
+      - fieldname: includedFeatures
+        description: Features in prototype
+      - fieldname: excludedFeatures
+        description: Features not in prototype
+      - fieldname: partialFeatures
+        description: Features partially implemented
+  pfsf-form:
+    fields:
+      - fieldname: prototypeFidelity
+        description: "Low, medium, high fidelity"
+      - fieldname: interactiveFidelity
+        description: Level of interactivity
+      - fieldname: dataFidelity
+        description: Real vs. mock data
+      - fieldname: visualFidelity
+        description: Production visuals vs. wireframes
+  prtyse-prot-form:
+    fields:
+      - fieldname: prototypeType
+        required: true
+        description: "Reusable, Training, Throwaway"
+      - fieldname: typeRationale
+        description: Why this type was chosen
+      - fieldname: typeImplications
+        description: Implications for development
+      - fieldname: codeQualityExpectation
+        description: "Production, demo, quick-and-dirty"
+      - fieldname: documentationRequirement
+        description: Documentation needed
+      - fieldname: transitionPlan
+        description: How prototype transitions
+  reupro-reus-form:
+    fields:
+      - fieldname: codeQualityRequirements
+        description: Standards prototype code must meet
+      - fieldname: testCoverageRequirement
+        description: Required test coverage
+      - fieldname: codeReviewRequired
+        description: Whether code review is required
+      - fieldname: documentationRequired
+        description: Whether documentation is required
+  reprar-form:
+    fields:
+      - fieldname: architectureAlignment
+        description: How prototype aligns with target architecture
+      - fieldname: refactoringPlan
+        description: Planned refactoring after prototype
+      - fieldname: technicalDebt
+        description: Acceptable technical debt
+  reprin-form:
+    fields:
+      - fieldname: integrationPlan
+        description: How prototype integrates into product
+      - fieldname: featureBranchStrategy
+        description: Git branching approach
+      - fieldname: mergeCriteria
+        description: Criteria to merge prototype code
+  reprtr-form:
+    fields:
+      - fieldname: transitionTimeline
+        description: When the transition to the product occurs
+      - fieldname: teamHandoff
+        description: Handoff to development team
+  tp-trai-form:
+    fields:
+      - fieldname: designDecisionsCarriedForward
+        description: What design decisions are preserved
+      - fieldname: patternsDocumented
+        description: Patterns documented from prototype
+      - fieldname: lessonsLearned
+        description: What was learned
+  trprdi-form:
+    fields:
+      - fieldname: codeDisposition
+        description: What happens to prototype code
+      - fieldname: reimplementationPlan
+        description: Plan for reimplementing features
+      - fieldname: reimplementationEstimate
+        description: Effort to reimplement
+  trprou-form:
+    fields:
+      - fieldname: documentationProduced
+        description: Documentation from prototype
+      - fieldname: designSystemOutput
+        description: Design system artifacts
+      - fieldname: componentSpecifications
+        description: Component specs from prototype
+      - fieldname: teamSkillsGained
+        description: Skills team gained
+      - fieldname: technologyInsights
+        description: Technology insights gained
+  thpr-thro-form:
+    fields:
+      - fieldname: evaluationCriteria
+        description: Criteria for evaluation
+      - fieldname: evaluationMethod
+        description: How prototype is evaluated
+      - fieldname: evaluationParticipants
+        description: Who participates in evaluation
+      - fieldname: evaluationTimeline
+        description: When evaluation takes place
+  thprfi-form:
+    fields:
+      - fieldname: findingsDocumentation
+        description: How findings are documented
+      - fieldname: recommendationsOutput
+        description: Recommendations produced
+      - fieldname: decisionsMade
+        description: Decisions made based on prototype
+  thprdi-form:
+    fields:
+      - fieldname: disposalPlan
+        description: How prototype is disposed
+      - fieldname: archivingApproach
+        description: Whether/how prototype is archived
+      - fieldname: nextSteps
+        description: What happens after evaluation
+  thprva-form:
+    fields:
+      - fieldname: insightsCaptured
+        description: Key insights from prototype
+      - fieldname: futureReference
+        description: What to preserve for future
+document:
+  sections:
+    dochd:
+      section-type: dochd
+      optional: true
+    deviz:
+      section-type: deviz
+      optional: true
+    scrdz:
+      section-type: scrdz
+      optional: true
+    scflst:
+      section-type: scflst
+      optional: true
+    prla:
+      section-type: prla
+      optional: true
+    erhaco:
+      section-type: erhaco
+      optional: true
+    usas:
+      section-type: usas
+      optional: true
+    access:
+      section-type: access
+      optional: true
+    rede:
+      section-type: rede
+      optional: true
+    uico:
+      section-type: uico
+      optional: true
+    lacose:
+      section-type: lacose
+      optional: true
+    protot:
+      section-type: protot
+      optional: true
+    wianmo:
+      section-type: wianmo
+      optional: true

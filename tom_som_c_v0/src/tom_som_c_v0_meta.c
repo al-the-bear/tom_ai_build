@@ -5313,9 +5313,11 @@ static void meta_build_screen_element_entry_validation_rules(SomMetaNode *n);
 static void meta_build_screen_element_entry_validation_rules_elem(SomMetaNode *n);
 static void meta_build_screen_element_field_spec_content(SomMetaNode *n);
 static void meta_build_screen_element_field_spec_formatting(SomMetaNode *n);
-static void meta_build_screen_element_field_spec_constraints(SomMetaNode *n);
+static void meta_build_screen_element_field_spec_number_options(SomMetaNode *n);
+static void meta_build_screen_element_field_spec_date_options(SomMetaNode *n);
+static void meta_build_screen_element_field_spec_text_options(SomMetaNode *n);
 static void meta_build_screen_element_field_spec_validation(SomMetaNode *n);
-static void meta_build_screen_element_field_spec_selection(SomMetaNode *n);
+static void meta_build_screen_element_field_spec_select_options(SomMetaNode *n);
 static void meta_build_screen_entry_content(SomMetaNode *n);
 static void meta_build_screen_entry_classification(SomMetaNode *n);
 static void meta_build_screen_entry_access(SomMetaNode *n);
@@ -88791,11 +88793,17 @@ static void meta_build_object_state_entry_content(SomMetaNode *n) {
   n->form->fields[2].hint = som_strdup("What this state means in business terms");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("stateType");
-  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].type_name = som_strdup("ObjectLifecycleKind");
   n->form->fields[3].description = som_strdup("State Type");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Initial | Intermediate | Terminal | Error");
+  n->form->fields[3].hint = som_strdup("Lifecycle role of this state");
   n->form->fields[3].order = 3;
+  n->form->fields[3].enum_values_len = 4;
+  n->form->fields[3].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[3].enum_values[0] = som_strdup("initial");
+  n->form->fields[3].enum_values[1] = som_strdup("intermediate");
+  n->form->fields[3].enum_values[2] = som_strdup("terminal");
+  n->form->fields[3].enum_values[3] = som_strdup("error");
   n->form->fields[4].name = som_strdup("entryConditions");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Entry Conditions");
@@ -115955,11 +115963,33 @@ static void meta_build_screen_element_entry_content(SomMetaNode *n) {
   n->form->fields[1].hint = som_strdup("Human-readable label");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("elementType");
-  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].type_name = som_strdup("ScreenElementKind");
   n->form->fields[2].description = som_strdup("Element Type");
   n->form->fields[2].required = 1;
-  n->form->fields[2].hint = som_strdup("Action-Button/Text-Field/Number-Field/Date-Field/Select-Field/Checkbox/Toggle/Data-Display/Data-Table/Card/Chart/Status-Indicator/Icon/Label/Link/Image/Divider/Spacer/Tab-Bar/Badge");
+  n->form->fields[2].hint = som_strdup("The semantic element kind — selects the facet subsection.");
   n->form->fields[2].order = 2;
+  n->form->fields[2].enum_values_len = 20;
+  n->form->fields[2].enum_values = (char **)calloc(20, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("actionButton");
+  n->form->fields[2].enum_values[1] = som_strdup("link");
+  n->form->fields[2].enum_values[2] = som_strdup("textField");
+  n->form->fields[2].enum_values[3] = som_strdup("numberField");
+  n->form->fields[2].enum_values[4] = som_strdup("dateField");
+  n->form->fields[2].enum_values[5] = som_strdup("selectField");
+  n->form->fields[2].enum_values[6] = som_strdup("checkbox");
+  n->form->fields[2].enum_values[7] = som_strdup("toggle");
+  n->form->fields[2].enum_values[8] = som_strdup("dataDisplay");
+  n->form->fields[2].enum_values[9] = som_strdup("dataTable");
+  n->form->fields[2].enum_values[10] = som_strdup("card");
+  n->form->fields[2].enum_values[11] = som_strdup("chart");
+  n->form->fields[2].enum_values[12] = som_strdup("statusIndicator");
+  n->form->fields[2].enum_values[13] = som_strdup("icon");
+  n->form->fields[2].enum_values[14] = som_strdup("label");
+  n->form->fields[2].enum_values[15] = som_strdup("image");
+  n->form->fields[2].enum_values[16] = som_strdup("badge");
+  n->form->fields[2].enum_values[17] = som_strdup("divider");
+  n->form->fields[2].enum_values[18] = som_strdup("spacer");
+  n->form->fields[2].enum_values[19] = som_strdup("tabBar");
 }
 static void meta_build_screen_element_entry_resources(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementEntry");
@@ -116145,8 +116175,14 @@ static void meta_build_screen_element_entry_element_action(SomMetaNode *n) {
   meta_set(&n->type_name, "ScreenElementAction");
   n->has_serialization_order = 1;
   n->serialization_order = 5;
-  meta_set(&n->doc_comment, "10.2.1.n.m.k.1. Element Action.");
+  meta_set(&n->doc_comment, "10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).");
   meta_set(&n->class_doc_comment, "Action specification for an action-type element (form).\n\nDefines button/link behavior: action reference, confirmation, navigation.");
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"ScreenElementKind.actionButton\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementKind.link\"}", NULL);
 }
 static void meta_build_screen_element_entry_field_spec(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementFieldSpec");
@@ -116156,8 +116192,22 @@ static void meta_build_screen_element_entry_field_spec(SomMetaNode *n) {
   meta_set(&n->type_name, "ScreenElementFieldSpec");
   n->has_serialization_order = 1;
   n->serialization_order = 6;
-  meta_set(&n->doc_comment, "10.2.1.n.m.k.2. Element Field Spec.");
+  meta_set(&n->doc_comment, "10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).");
   meta_set(&n->class_doc_comment, "Field specification for an input-type element (form).\n\nDefines input behavior: data type, constraints, validation trigger, masks.");
+  n->extra_len = 6;
+  n->extra = (SomMetaExtra *)calloc(6, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"ScreenElementKind.textField\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementKind.numberField\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenElementKind.dateField\"}", NULL);
+  n->extra[3].annotation = som_strdup("Case");
+  n->extra[3].args = som_json_parse("{\"value\":\"ScreenElementKind.selectField\"}", NULL);
+  n->extra[4].annotation = som_strdup("Case");
+  n->extra[4].args = som_json_parse("{\"value\":\"ScreenElementKind.checkbox\"}", NULL);
+  n->extra[5].annotation = som_strdup("Case");
+  n->extra[5].args = som_json_parse("{\"value\":\"ScreenElementKind.toggle\"}", NULL);
 }
 static void meta_build_screen_element_entry_data_display(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementDataDisplay");
@@ -116167,8 +116217,28 @@ static void meta_build_screen_element_entry_data_display(SomMetaNode *n) {
   meta_set(&n->type_name, "ScreenElementDataDisplay");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
-  meta_set(&n->doc_comment, "10.2.1.n.m.k.3. Element Data Display.");
+  meta_set(&n->doc_comment, "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).");
   meta_set(&n->class_doc_comment, "Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.");
+  n->extra_len = 9;
+  n->extra = (SomMetaExtra *)calloc(9, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"ScreenElementKind.dataDisplay\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementKind.dataTable\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenElementKind.card\"}", NULL);
+  n->extra[3].annotation = som_strdup("Case");
+  n->extra[3].args = som_json_parse("{\"value\":\"ScreenElementKind.chart\"}", NULL);
+  n->extra[4].annotation = som_strdup("Case");
+  n->extra[4].args = som_json_parse("{\"value\":\"ScreenElementKind.statusIndicator\"}", NULL);
+  n->extra[5].annotation = som_strdup("Case");
+  n->extra[5].args = som_json_parse("{\"value\":\"ScreenElementKind.icon\"}", NULL);
+  n->extra[6].annotation = som_strdup("Case");
+  n->extra[6].args = som_json_parse("{\"value\":\"ScreenElementKind.label\"}", NULL);
+  n->extra[7].annotation = som_strdup("Case");
+  n->extra[7].args = som_json_parse("{\"value\":\"ScreenElementKind.image\"}", NULL);
+  n->extra[8].annotation = som_strdup("Case");
+  n->extra[8].args = som_json_parse("{\"value\":\"ScreenElementKind.badge\"}", NULL);
 }
 static void meta_build_screen_element_entry_validation_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementEntry");
@@ -116211,11 +116281,29 @@ static void meta_build_screen_element_field_spec_content(SomMetaNode *n) {
   n->form->fields[0].hint = som_strdup("Logical form field name, maps to data model attribute");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("dataType");
-  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].type_name = som_strdup("ScreenElementFieldKind");
   n->form->fields[1].description = som_strdup("Data Type");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("String/Integer/Decimal/Currency/Date/DateTime/Time/Boolean/Enum/Email/Phone/URL/Password/Rich-Text/Color/File");
+  n->form->fields[1].hint = som_strdup("The input data kind — selects the promoted options subsection.");
   n->form->fields[1].order = 1;
+  n->form->fields[1].enum_values_len = 16;
+  n->form->fields[1].enum_values = (char **)calloc(16, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("string");
+  n->form->fields[1].enum_values[1] = som_strdup("integer");
+  n->form->fields[1].enum_values[2] = som_strdup("decimal");
+  n->form->fields[1].enum_values[3] = som_strdup("currency");
+  n->form->fields[1].enum_values[4] = som_strdup("date");
+  n->form->fields[1].enum_values[5] = som_strdup("dateTime");
+  n->form->fields[1].enum_values[6] = som_strdup("time");
+  n->form->fields[1].enum_values[7] = som_strdup("boolean");
+  n->form->fields[1].enum_values[8] = som_strdup("enumeration");
+  n->form->fields[1].enum_values[9] = som_strdup("email");
+  n->form->fields[1].enum_values[10] = som_strdup("phone");
+  n->form->fields[1].enum_values[11] = som_strdup("url");
+  n->form->fields[1].enum_values[12] = som_strdup("password");
+  n->form->fields[1].enum_values[13] = som_strdup("richText");
+  n->form->fields[1].enum_values[14] = som_strdup("color");
+  n->form->fields[1].enum_values[15] = som_strdup("file");
   n->form->fields[2].name = som_strdup("placeholderResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Placeholder Resource");
@@ -116264,18 +116352,100 @@ static void meta_build_screen_element_field_spec_formatting(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — formatting and affordances for form-field input\",\"ISO 9241-112:2017 — presentation of formatted information such as masks and prefixes\"],\"connotation\":\"The prefix, suffix, and formatting that shape how a form field displays and accepts input.\"}", NULL);
 }
-static void meta_build_screen_element_field_spec_constraints(SomMetaNode *n) {
+static void meta_build_screen_element_field_spec_number_options(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementFieldSpec");
-  meta_set(&n->member_name, "constraints");
-  meta_set(&n->section_id, "SEFSC");
+  meta_set(&n->member_name, "numberOptions");
+  meta_set(&n->section_id, "SEFSN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "Length and value constraints.");
+  meta_set(&n->doc_comment, "Number-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for numeric field kinds; carries only numeric constraints\n(no length or option-source attributes).");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("minValue");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Min Value");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Minimum allowed numeric value");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("maxValue");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Max Value");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Maximum allowed numeric value");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("decimalPlaces");
+  n->form->fields[2].type_name = som_strdup("int");
+  n->form->fields[2].description = som_strdup("Decimal Places");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Number of decimal places");
+  n->form->fields[2].order = 2;
+  n->extra_len = 4;
+  n->extra = (SomMetaExtra *)calloc(4, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges and precision\",\"ISO 9241-110:2020 — use error tolerance through bounded numeric input\"],\"connotation\":\"The value range and precision constraints for a numeric input field.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.integer\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.decimal\"}", NULL);
+  n->extra[3].annotation = som_strdup("Case");
+  n->extra[3].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.currency\"}", NULL);
+}
+static void meta_build_screen_element_field_spec_date_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenElementFieldSpec");
+  meta_set(&n->member_name, "dateOptions");
+  meta_set(&n->section_id, "SEFSD");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Date-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for date/time field kinds; carries only temporal\nconstraints (no numeric precision or length attributes).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("firstDate");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("First Date");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Earliest selectable date/time");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("lastDate");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Last Date");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Latest selectable date/time");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("dateFormat");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Date Format");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Display/parse pattern, e.g., yyyy-MM-dd");
+  n->form->fields[2].order = 2;
+  n->extra_len = 4;
+  n->extra = (SomMetaExtra *)calloc(4, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — constraints on date and time form-field input\",\"ISO 8601-1:2019 — representation of dates and times\"],\"connotation\":\"The date/time range and format constraints for a temporal input field.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.date\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.dateTime\"}", NULL);
+  n->extra[3].annotation = som_strdup("Case");
+  n->extra[3].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.time\"}", NULL);
+}
+static void meta_build_screen_element_field_spec_text_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenElementFieldSpec");
+  meta_set(&n->member_name, "textOptions");
+  meta_set(&n->section_id, "SEFST");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Text-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for free-text field kinds; carries only length constraints.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("maxLength");
   n->form->fields[0].type_name = som_strdup("int");
   n->form->fields[0].description = som_strdup("Max Length");
@@ -116288,28 +116458,22 @@ static void meta_build_screen_element_field_spec_constraints(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Minimum length");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("minValue");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Min Value");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Minimum allowed value for numeric/date fields");
-  n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("maxValue");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Max Value");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Maximum allowed value for numeric/date fields");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("decimalPlaces");
-  n->form->fields[4].type_name = som_strdup("int");
-  n->form->fields[4].description = som_strdup("Decimal Places");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Number of decimal places");
-  n->form->fields[4].order = 4;
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 7;
+  n->extra = (SomMetaExtra *)calloc(7, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — constraints on form-field input such as length and value ranges\",\"ISO 9241-110:2020 — use error tolerance through bounded input constraints\"],\"connotation\":\"The length and value constraints that bound acceptable input for a form field.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — length constraints on text form-field input\",\"ISO 9241-110:2020 — use error tolerance through bounded text input\"],\"connotation\":\"The length constraints for a free-text input field.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.string\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.email\"}", NULL);
+  n->extra[3].annotation = som_strdup("Case");
+  n->extra[3].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.phone\"}", NULL);
+  n->extra[4].annotation = som_strdup("Case");
+  n->extra[4].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.url\"}", NULL);
+  n->extra[5].annotation = som_strdup("Case");
+  n->extra[5].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.password\"}", NULL);
+  n->extra[6].annotation = som_strdup("Case");
+  n->extra[6].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.richText\"}", NULL);
 }
 static void meta_build_screen_element_field_spec_validation(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementFieldSpec");
@@ -116318,7 +116482,7 @@ static void meta_build_screen_element_field_spec_validation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Validation behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -116358,15 +116522,15 @@ static void meta_build_screen_element_field_spec_validation(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110:2020 — use error tolerance through input validation and error display\",\"ISO 9241-143:2012 — validation behavior for form fields\"],\"connotation\":\"The validation behavior for a form field including trigger, required rules, and error display.\"}", NULL);
 }
-static void meta_build_screen_element_field_spec_selection(SomMetaNode *n) {
+static void meta_build_screen_element_field_spec_select_options(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementFieldSpec");
-  meta_set(&n->member_name, "selection");
+  meta_set(&n->member_name, "selectOptions");
   meta_set(&n->section_id, "SEFSS");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
-  meta_set(&n->doc_comment, "Selection and input assistance.");
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "Select-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for the enumeration (select) field kind; carries only the\noption-source and selection-mode attributes.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -116394,10 +116558,12 @@ static void meta_build_screen_element_field_spec_selection(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker");
   n->form->fields[3].order = 3;
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — form fields with selection and input assistance\",\"ISO 9241-161:2016 — selection controls such as dropdowns and radio groups\"],\"connotation\":\"The selection and input-assistance behavior for a form field such as autocomplete and option sources.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — form fields with selection and input assistance\",\"ISO 9241-161:2016 — selection controls such as dropdowns and radio groups\"],\"connotation\":\"The option source and selection-mode attributes for a select input field.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.enumeration\"}", NULL);
 }
 static void meta_build_screen_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenEntry");
@@ -174577,7 +174743,17 @@ static SomMetaNode **meta_children_screen_element_field_spec(SomStrList *stack, 
   }
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_screen_element_field_spec_constraints(n);
+    meta_build_screen_element_field_spec_number_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_element_field_spec_date_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_element_field_spec_text_options(n);
     meta_push(&arr, len, &cap, n);
   }
   {
@@ -174587,7 +174763,7 @@ static SomMetaNode **meta_children_screen_element_field_spec(SomStrList *stack, 
   }
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_screen_element_field_spec_selection(n);
+    meta_build_screen_element_field_spec_select_options(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -208326,9 +208502,23 @@ SomMetaRef screen_element_field_spec_nav_formatting(som_nav_screen_element_field
   free(path);
   return out;
 }
-SomMetaRef screen_element_field_spec_nav_constraints(som_nav_screen_element_field_spec x) {
+SomMetaRef screen_element_field_spec_nav_number_options(som_nav_screen_element_field_spec x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SEFSC");
+  char *path = spec_path_join(x.ref.path, "SEFSN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_field_spec_nav_date_options(som_nav_screen_element_field_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SEFSD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_field_spec_nav_text_options(som_nav_screen_element_field_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SEFST");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -208340,7 +208530,7 @@ SomMetaRef screen_element_field_spec_nav_validation(som_nav_screen_element_field
   free(path);
   return out;
 }
-SomMetaRef screen_element_field_spec_nav_selection(som_nav_screen_element_field_spec x) {
+SomMetaRef screen_element_field_spec_nav_select_options(som_nav_screen_element_field_spec x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SEFSS");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -240359,9 +240549,23 @@ SomMetaRef screen_element_entry_id_sefsf(som_id_screen_element_entry x) {
   free(path);
   return out;
 }
-SomMetaRef screen_element_entry_id_sefsc(som_id_screen_element_entry x) {
+SomMetaRef screen_element_entry_id_sefsn(som_id_screen_element_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "fieldSpec/SEFSC");
+  char *path = spec_path_join(x.ref.path, "fieldSpec/SEFSN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_entry_id_sefsd(som_id_screen_element_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "fieldSpec/SEFSD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_entry_id_sefst(som_id_screen_element_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "fieldSpec/SEFST");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;

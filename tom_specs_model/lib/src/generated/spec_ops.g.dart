@@ -16827,9 +16827,11 @@ void registerSpecOps() {
       final n = o as ScreenElementFieldSpec;
       return [
         SpecSlot.node(() => n.formatting, (v) => n.formatting = v as DocSpecsSection?, label: 'formatting'),
-        SpecSlot.node(() => n.constraints, (v) => n.constraints = v as DocSpecsSection?, label: 'constraints'),
+        SpecSlot.node(() => n.numberOptions, (v) => n.numberOptions = v as DocSpecsSection?, label: 'numberOptions'),
+        SpecSlot.node(() => n.dateOptions, (v) => n.dateOptions = v as DocSpecsSection?, label: 'dateOptions'),
+        SpecSlot.node(() => n.textOptions, (v) => n.textOptions = v as DocSpecsSection?, label: 'textOptions'),
         SpecSlot.node(() => n.validation, (v) => n.validation = v as DocSpecsSection?, label: 'validation'),
-        SpecSlot.node(() => n.selection, (v) => n.selection = v as DocSpecsSection?, label: 'selection'),
+        SpecSlot.node(() => n.selectOptions, (v) => n.selectOptions = v as DocSpecsSection?, label: 'selectOptions'),
       ];
     },
     cloneShallow: (o) {
@@ -16837,9 +16839,11 @@ void registerSpecOps() {
       return ScreenElementFieldSpec()
         ..content = n.content
         ..formatting = n.formatting
-        ..constraints = n.constraints
+        ..numberOptions = n.numberOptions
+        ..dateOptions = n.dateOptions
+        ..textOptions = n.textOptions
         ..validation = n.validation
-        ..selection = n.selection;
+        ..selectOptions = n.selectOptions;
     },
     yamlScalar: (o) => (o as ScreenElementFieldSpec).content,
   ));

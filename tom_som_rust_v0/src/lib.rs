@@ -40107,16 +40107,22 @@ impl ScreenElementEntry {
     }
 
     /// 10.2.1.n.m.k.1. Element Action.
+    ///
+    /// Present only for action-kind elements (`@OneOf` case, csmb6).
     pub fn element_action(&self) -> ScreenElementAction {
         ScreenElementAction::new(self.node.doc(), format!("{}/{}", self.node.path(), "elementAction"))
     }
 
     /// 10.2.1.n.m.k.2. Element Field Spec.
+    ///
+    /// Present only for input-kind elements (`@OneOf` case, csmb6).
     pub fn field_spec(&self) -> ScreenElementFieldSpec {
         ScreenElementFieldSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "fieldSpec"))
     }
 
     /// 10.2.1.n.m.k.3. Element Data Display.
+    ///
+    /// Present only for display-kind elements (`@OneOf` case, csmb6).
     pub fn data_display(&self) -> ScreenElementDataDisplay {
         ScreenElementDataDisplay::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDisplay"))
     }
@@ -40161,9 +40167,27 @@ impl ScreenElementFieldSpec {
         ScreenElementFieldSpecFormattingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSF"))
     }
 
-    /// Length and value constraints.
-    pub fn constraints(&self) -> ScreenElementFieldSpecConstraintsForm {
-        ScreenElementFieldSpecConstraintsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSC"))
+    /// Number-kind options — a promoted `@OneOf` case (csmb6).
+    ///
+    /// Present only for numeric field kinds; carries only numeric constraints
+    /// (no length or option-source attributes).
+    pub fn number_options(&self) -> ScreenElementFieldSpecNumberOptionsForm {
+        ScreenElementFieldSpecNumberOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSN"))
+    }
+
+    /// Date-kind options — a promoted `@OneOf` case (csmb6).
+    ///
+    /// Present only for date/time field kinds; carries only temporal
+    /// constraints (no numeric precision or length attributes).
+    pub fn date_options(&self) -> ScreenElementFieldSpecDateOptionsForm {
+        ScreenElementFieldSpecDateOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSD"))
+    }
+
+    /// Text-kind options — a promoted `@OneOf` case (csmb6).
+    ///
+    /// Present only for free-text field kinds; carries only length constraints.
+    pub fn text_options(&self) -> ScreenElementFieldSpecTextOptionsForm {
+        ScreenElementFieldSpecTextOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFST"))
     }
 
     /// Validation behavior.
@@ -40171,9 +40195,12 @@ impl ScreenElementFieldSpec {
         ScreenElementFieldSpecValidationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSV"))
     }
 
-    /// Selection and input assistance.
-    pub fn selection(&self) -> ScreenElementFieldSpecSelectionForm {
-        ScreenElementFieldSpecSelectionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSS"))
+    /// Select-kind options — a promoted `@OneOf` case (csmb6).
+    ///
+    /// Present only for the enumeration (select) field kind; carries only the
+    /// option-source and selection-mode attributes.
+    pub fn select_options(&self) -> ScreenElementFieldSpecSelectOptionsForm {
+        ScreenElementFieldSpecSelectOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSS"))
     }
 }
 
@@ -190175,87 +190202,6 @@ impl ScreenElementEntryResourcesForm {
     }
 }
 
-/// ScreenElementFieldSpecConstraintsForm is the generated section facade for the `constraints` @Form section: its own
-/// content text followed by one typed member per form field.
-pub struct ScreenElementFieldSpecConstraintsForm {
-    pub node: som::SomNode,
-}
-
-impl ScreenElementFieldSpecConstraintsForm {
-    /// Binds a ScreenElementFieldSpecConstraintsForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ScreenElementFieldSpecConstraintsForm {
-        ScreenElementFieldSpecConstraintsForm { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    /// The section's own free-text content, before the form fields.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(self.node.path())
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn max_length(&self) -> Option<i64> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxLength");
-        if v.is_empty() { None } else { v.parse::<i64>().ok() }
-    }
-
-    pub fn set_max_length(&self, value: Option<i64>) {
-        let path = self.node.path().to_string();
-        let text = match value { Some(v) => v.to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "maxLength", &text);
-    }
-
-    pub fn min_length(&self) -> Option<i64> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "minLength");
-        if v.is_empty() { None } else { v.parse::<i64>().ok() }
-    }
-
-    pub fn set_min_length(&self, value: Option<i64>) {
-        let path = self.node.path().to_string();
-        let text = match value { Some(v) => v.to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "minLength", &text);
-    }
-
-    pub fn min_value(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "minValue")
-    }
-
-    pub fn set_min_value(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "minValue", value);
-    }
-
-    pub fn max_value(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "maxValue")
-    }
-
-    pub fn set_max_value(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "maxValue", value);
-    }
-
-    pub fn decimal_places(&self) -> Option<i64> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "decimalPlaces");
-        if v.is_empty() { None } else { v.parse::<i64>().ok() }
-    }
-
-    pub fn set_decimal_places(&self, value: Option<i64>) {
-        let path = self.node.path().to_string();
-        let text = match value { Some(v) => v.to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "decimalPlaces", &text);
-    }
-}
-
 /// ScreenElementFieldSpecContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ScreenElementFieldSpecContentForm {
@@ -190310,6 +190256,63 @@ impl ScreenElementFieldSpecContentForm {
     pub fn set_placeholder_resource(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "placeholderResource", value);
+    }
+}
+
+/// ScreenElementFieldSpecDateOptionsForm is the generated section facade for the `dateOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenElementFieldSpecDateOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenElementFieldSpecDateOptionsForm {
+    /// Binds a ScreenElementFieldSpecDateOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenElementFieldSpecDateOptionsForm {
+        ScreenElementFieldSpecDateOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn first_date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "firstDate")
+    }
+
+    pub fn set_first_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "firstDate", value);
+    }
+
+    pub fn last_date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lastDate")
+    }
+
+    pub fn set_last_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lastDate", value);
+    }
+
+    pub fn date_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dateFormat")
+    }
+
+    pub fn set_date_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dateFormat", value);
     }
 }
 
@@ -190379,16 +190382,75 @@ impl ScreenElementFieldSpecFormattingForm {
     }
 }
 
-/// ScreenElementFieldSpecSelectionForm is the generated section facade for the `selection` @Form section: its own
+/// ScreenElementFieldSpecNumberOptionsForm is the generated section facade for the `numberOptions` @Form section: its own
 /// content text followed by one typed member per form field.
-pub struct ScreenElementFieldSpecSelectionForm {
+pub struct ScreenElementFieldSpecNumberOptionsForm {
     pub node: som::SomNode,
 }
 
-impl ScreenElementFieldSpecSelectionForm {
-    /// Binds a ScreenElementFieldSpecSelectionForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ScreenElementFieldSpecSelectionForm {
-        ScreenElementFieldSpecSelectionForm { node: som::SomNode::new(doc, path) }
+impl ScreenElementFieldSpecNumberOptionsForm {
+    /// Binds a ScreenElementFieldSpecNumberOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenElementFieldSpecNumberOptionsForm {
+        ScreenElementFieldSpecNumberOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn min_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minValue")
+    }
+
+    pub fn set_min_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minValue", value);
+    }
+
+    pub fn max_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxValue")
+    }
+
+    pub fn set_max_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxValue", value);
+    }
+
+    pub fn decimal_places(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "decimalPlaces");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_decimal_places(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "decimalPlaces", &text);
+    }
+}
+
+/// ScreenElementFieldSpecSelectOptionsForm is the generated section facade for the `selectOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenElementFieldSpecSelectOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenElementFieldSpecSelectOptionsForm {
+    /// Binds a ScreenElementFieldSpecSelectOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenElementFieldSpecSelectOptionsForm {
+        ScreenElementFieldSpecSelectOptionsForm { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -190442,6 +190504,58 @@ impl ScreenElementFieldSpecSelectionForm {
     pub fn set_display_mode(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "displayMode", value);
+    }
+}
+
+/// ScreenElementFieldSpecTextOptionsForm is the generated section facade for the `textOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenElementFieldSpecTextOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenElementFieldSpecTextOptionsForm {
+    /// Binds a ScreenElementFieldSpecTextOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenElementFieldSpecTextOptionsForm {
+        ScreenElementFieldSpecTextOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn max_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxLength", &text);
+    }
+
+    pub fn min_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "minLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_min_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "minLength", &text);
     }
 }
 

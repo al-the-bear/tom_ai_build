@@ -47,4 +47,158 @@ void main() {
     final errors = validateDocument(model, doc);
     expect(errors.single.code, SpecValidationCode.kindMismatch);
   });
+
+  group('@OneOf/@Case instance tier (csmb6)', () {
+    // A minimal model: root Widget → Element (@OneOf on the `kind` discriminator)
+    // with `action` (Case action), `input` (Case input) and `common` (no case)
+    // subsections. `action2` also binds Case action to exercise the "more than
+    // one populated case subsection" rule.
+    SpecModel oneOfModel() => SpecModel.fromJson({
+          'modelVersion': 1,
+          'roots': [
+            {'type': 'Widget', 'title': 'Widget', 'sectionId': 'WD00'},
+          ],
+          'classes': {
+            'Widget': {
+              'name': 'Widget',
+              'sectionId': 'WD00',
+              'annotations': [
+                {'name': 'Document', 'arguments': {'title': 'Widget'}},
+                {'name': 'SectionId', 'arguments': {'id': 'WD00'}},
+              ],
+              'fields': [
+                {
+                  'name': 'element',
+                  'kind': 'complex',
+                  'sectionId': 'ELM',
+                  'type': 'Element',
+                },
+              ],
+            },
+            'Element': {
+              'name': 'Element',
+              'sectionId': 'ELM',
+              'annotations': [
+                {'name': 'SectionId', 'arguments': {'id': 'ELM'}},
+                {'name': 'OneOf', 'arguments': {'discriminator': 'kind'}},
+              ],
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'formFields': [
+                    {
+                      'name': 'kind',
+                      'label': 'Kind',
+                      'type': 'ElementKind',
+                      'enumValues': ['action', 'input', 'display'],
+                    },
+                  ],
+                },
+                {
+                  'name': 'action',
+                  'kind': 'complex',
+                  'sectionId': 'ACT',
+                  'type': 'ActionSub',
+                  'annotations': [
+                    {'name': 'Case', 'arguments': {'value': 'ElementKind.action'}},
+                  ],
+                },
+                {
+                  'name': 'action2',
+                  'kind': 'complex',
+                  'sectionId': 'AC2',
+                  'type': 'ActionSub',
+                  'annotations': [
+                    {'name': 'Case', 'arguments': {'value': 'ElementKind.action'}},
+                  ],
+                },
+                {
+                  'name': 'input',
+                  'kind': 'complex',
+                  'sectionId': 'INP',
+                  'type': 'InputSub',
+                  'annotations': [
+                    {'name': 'Case', 'arguments': {'value': 'ElementKind.input'}},
+                  ],
+                },
+                {
+                  'name': 'common',
+                  'kind': 'complex',
+                  'sectionId': 'CMN',
+                  'type': 'CommonSub',
+                },
+              ],
+            },
+            'ActionSub': {
+              'name': 'ActionSub',
+              'sectionId': 'ACT',
+              'fields': [
+                {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
+              ],
+            },
+            'InputSub': {
+              'name': 'InputSub',
+              'sectionId': 'INP',
+              'fields': [
+                {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
+              ],
+            },
+            'CommonSub': {
+              'name': 'CommonSub',
+              'sectionId': 'CMN',
+              'fields': [
+                {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
+              ],
+            },
+          },
+        });
+
+    final m = oneOfModel();
+
+    List<SpecValidationError> oneOf(SpecDocument doc) => validateDocument(m, doc)
+        .where((e) => e.code == SpecValidationCode.oneOfCaseMismatch)
+        .toList();
+
+    test('the subsection matching the chosen case validates clean', () {
+      final doc = SpecDocument()
+        ..setFormField('WD00/ELM/content', 'kind', 'action')
+        ..setContent('WD00/ELM/ACT/detail', 'go');
+      expect(oneOf(doc), isEmpty);
+    });
+
+    test('a subsection not selected by the chosen case is reported', () {
+      final doc = SpecDocument()
+        ..setFormField('WD00/ELM/content', 'kind', 'action')
+        ..setContent('WD00/ELM/INP/detail', 'typed');
+      final errors = oneOf(doc);
+      expect(errors, hasLength(1));
+      expect(errors.single.path, 'WD00/ELM/INP');
+      expect(errors.single.message, contains('input'));
+    });
+
+    test('a common (un-@Case) subsection is allowed under any case', () {
+      final doc = SpecDocument()
+        ..setFormField('WD00/ELM/content', 'kind', 'input')
+        ..setContent('WD00/ELM/CMN/detail', 'shared');
+      expect(oneOf(doc), isEmpty);
+    });
+
+    test('more than one populated subsection for the chosen case is reported',
+        () {
+      final doc = SpecDocument()
+        ..setFormField('WD00/ELM/content', 'kind', 'action')
+        ..setContent('WD00/ELM/ACT/detail', 'a')
+        ..setContent('WD00/ELM/AC2/detail', 'b');
+      final errors = oneOf(doc);
+      expect(errors, hasLength(1));
+      expect(errors.single.path, 'WD00/ELM');
+      expect(errors.single.message, contains('more than one'));
+    });
+
+    test('no discriminator chosen yet suppresses the case check', () {
+      final doc = SpecDocument()..setContent('WD00/ELM/INP/detail', 'typed');
+      expect(oneOf(doc), isEmpty);
+    });
+  });
 }

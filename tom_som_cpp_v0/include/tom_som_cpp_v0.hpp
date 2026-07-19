@@ -3236,10 +3236,12 @@ class ScreenElementEntryContentForm;
 class ScreenElementEntryLayoutForm;
 class ScreenElementEntryPresentationForm;
 class ScreenElementEntryResourcesForm;
-class ScreenElementFieldSpecConstraintsForm;
 class ScreenElementFieldSpecContentForm;
+class ScreenElementFieldSpecDateOptionsForm;
 class ScreenElementFieldSpecFormattingForm;
-class ScreenElementFieldSpecSelectionForm;
+class ScreenElementFieldSpecNumberOptionsForm;
+class ScreenElementFieldSpecSelectOptionsForm;
+class ScreenElementFieldSpecTextOptionsForm;
 class ScreenElementFieldSpecValidationForm;
 class ScreenEntryAccessForm;
 class ScreenEntryClassificationForm;
@@ -19464,10 +19466,16 @@ class ScreenElementEntry : public som::SomNode {
   // Styling and data binding.
   ScreenElementEntryPresentationForm presentation() const;
   // 10.2.1.n.m.k.1. Element Action.
+  //
+  // Present only for action-kind elements (`@OneOf` case, csmb6).
   ScreenElementAction elementAction() const;
   // 10.2.1.n.m.k.2. Element Field Spec.
+  //
+  // Present only for input-kind elements (`@OneOf` case, csmb6).
   ScreenElementFieldSpec fieldSpec() const;
   // 10.2.1.n.m.k.3. Element Data Display.
+  //
+  // Present only for display-kind elements (`@OneOf` case, csmb6).
   ScreenElementDataDisplay dataDisplay() const;
   // Contains 0+× ElementValidationRule.
   // Returns the list view; element type: ElementValidationRuleEntry (construct from item paths).
@@ -19483,12 +19491,27 @@ class ScreenElementFieldSpec : public som::SomNode {
   ScreenElementFieldSpecContentForm content() const;
   // Prefix, suffix, and formatting.
   ScreenElementFieldSpecFormattingForm formatting() const;
-  // Length and value constraints.
-  ScreenElementFieldSpecConstraintsForm constraints() const;
+  // Number-kind options — a promoted `@OneOf` case (csmb6).
+  //
+  // Present only for numeric field kinds; carries only numeric constraints
+  // (no length or option-source attributes).
+  ScreenElementFieldSpecNumberOptionsForm numberOptions() const;
+  // Date-kind options — a promoted `@OneOf` case (csmb6).
+  //
+  // Present only for date/time field kinds; carries only temporal
+  // constraints (no numeric precision or length attributes).
+  ScreenElementFieldSpecDateOptionsForm dateOptions() const;
+  // Text-kind options — a promoted `@OneOf` case (csmb6).
+  //
+  // Present only for free-text field kinds; carries only length constraints.
+  ScreenElementFieldSpecTextOptionsForm textOptions() const;
   // Validation behavior.
   ScreenElementFieldSpecValidationForm validation() const;
-  // Selection and input assistance.
-  ScreenElementFieldSpecSelectionForm selection() const;
+  // Select-kind options — a promoted `@OneOf` case (csmb6).
+  //
+  // Present only for the enumeration (select) field kind; carries only the
+  // option-source and selection-mode attributes.
+  ScreenElementFieldSpecSelectOptionsForm selectOptions() const;
 };
 
 // A screen entry (form).
@@ -61463,26 +61486,6 @@ class ScreenElementEntryResourcesForm : public som::SomNode {
   void setIconPosition(const std::string& value);
 };
 
-// Generated section facade for the `constraints` @Form section: its own `content` text followed by one typed member per form field.
-class ScreenElementFieldSpecConstraintsForm : public som::SomNode {
- public:
-  ScreenElementFieldSpecConstraintsForm(som::SpecDocument& doc, std::string path);
-  bool canHaveContent() const override { return true; }
-  // The section's own free-text content, before the form fields.
-  std::string content() const;
-  void setContent(const std::string& value);
-  std::optional<long> maxLength() const;
-  void setMaxLength(std::optional<long> value);
-  std::optional<long> minLength() const;
-  void setMinLength(std::optional<long> value);
-  std::string minValue() const;
-  void setMinValue(const std::string& value);
-  std::string maxValue() const;
-  void setMaxValue(const std::string& value);
-  std::optional<long> decimalPlaces() const;
-  void setDecimalPlaces(std::optional<long> value);
-};
-
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ScreenElementFieldSpecContentForm : public som::SomNode {
  public:
@@ -61497,6 +61500,22 @@ class ScreenElementFieldSpecContentForm : public som::SomNode {
   void setDataType(const std::string& value);
   std::string placeholderResource() const;
   void setPlaceholderResource(const std::string& value);
+};
+
+// Generated section facade for the `dateOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecDateOptionsForm : public som::SomNode {
+ public:
+  ScreenElementFieldSpecDateOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string firstDate() const;
+  void setFirstDate(const std::string& value);
+  std::string lastDate() const;
+  void setLastDate(const std::string& value);
+  std::string dateFormat() const;
+  void setDateFormat(const std::string& value);
 };
 
 // Generated section facade for the `formatting` @Form section: its own `content` text followed by one typed member per form field.
@@ -61517,10 +61536,26 @@ class ScreenElementFieldSpecFormattingForm : public som::SomNode {
   void setDisplayFormat(const std::string& value);
 };
 
-// Generated section facade for the `selection` @Form section: its own `content` text followed by one typed member per form field.
-class ScreenElementFieldSpecSelectionForm : public som::SomNode {
+// Generated section facade for the `numberOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecNumberOptionsForm : public som::SomNode {
  public:
-  ScreenElementFieldSpecSelectionForm(som::SpecDocument& doc, std::string path);
+  ScreenElementFieldSpecNumberOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string minValue() const;
+  void setMinValue(const std::string& value);
+  std::string maxValue() const;
+  void setMaxValue(const std::string& value);
+  std::optional<long> decimalPlaces() const;
+  void setDecimalPlaces(std::optional<long> value);
+};
+
+// Generated section facade for the `selectOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecSelectOptionsForm : public som::SomNode {
+ public:
+  ScreenElementFieldSpecSelectOptionsForm(som::SpecDocument& doc, std::string path);
   bool canHaveContent() const override { return true; }
   // The section's own free-text content, before the form fields.
   std::string content() const;
@@ -61533,6 +61568,20 @@ class ScreenElementFieldSpecSelectionForm : public som::SomNode {
   void setSelectMode(const std::string& value);
   std::string displayMode() const;
   void setDisplayMode(const std::string& value);
+};
+
+// Generated section facade for the `textOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecTextOptionsForm : public som::SomNode {
+ public:
+  ScreenElementFieldSpecTextOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<long> maxLength() const;
+  void setMaxLength(std::optional<long> value);
+  std::optional<long> minLength() const;
+  void setMinLength(std::optional<long> value);
 };
 
 // Generated section facade for the `validation` @Form section: its own `content` text followed by one typed member per form field.

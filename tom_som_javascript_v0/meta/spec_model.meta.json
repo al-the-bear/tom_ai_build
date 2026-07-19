@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-07-07T19:25:06.929044Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 1,
+  "modelVersion": 9,
   "modelVersionLabel": "1.0.0+8.1acef99",
   "classCount": 1227,
   "rootCount": 13,
@@ -153461,9 +153461,15 @@
             {
               "name": "stateType",
               "label": "State Type",
-              "hint": "Initial | Intermediate | Terminal | Error",
-              "type": "String",
-              "required": false
+              "hint": "Lifecycle role of this state",
+              "type": "ObjectLifecycleKind",
+              "required": false,
+              "enumValues": [
+                "initial",
+                "intermediate",
+                "terminal",
+                "error"
+              ]
             },
             {
               "name": "entryConditions",
@@ -208845,6 +208851,13 @@
           "arguments": {
             "id": "SCREL"
           }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "elementType",
+            "note": "CE-EL closed choice: the element kind selects its facet subsection (action / input / display); structural kinds carry only common ones."
+          }
         }
       ],
       "fields": [
@@ -208884,9 +208897,31 @@
             {
               "name": "elementType",
               "label": "Element Type",
-              "hint": "Action-Button/Text-Field/Number-Field/Date-Field/Select-Field/Checkbox/Toggle/Data-Display/Data-Table/Card/Chart/Status-Indicator/Icon/Label/Link/Image/Divider/Spacer/Tab-Bar/Badge",
-              "type": "String",
-              "required": true
+              "hint": "The semantic element kind — selects the facet subsection.",
+              "type": "ScreenElementKind",
+              "required": true,
+              "enumValues": [
+                "actionButton",
+                "link",
+                "textField",
+                "numberField",
+                "dateField",
+                "selectField",
+                "checkbox",
+                "toggle",
+                "dataDisplay",
+                "dataTable",
+                "card",
+                "chart",
+                "statusIndicator",
+                "icon",
+                "label",
+                "image",
+                "badge",
+                "divider",
+                "spacer",
+                "tabBar"
+              ]
             }
           ]
         },
@@ -209203,9 +209238,21 @@
         {
           "name": "elementAction",
           "kind": "complex",
-          "doc": "10.2.1.n.m.k.1. Element Action.",
+          "doc": "10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).",
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.actionButton"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.link"
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -209218,9 +209265,45 @@
         {
           "name": "fieldSpec",
           "kind": "complex",
-          "doc": "10.2.1.n.m.k.2. Element Field Spec.",
+          "doc": "10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).",
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.textField"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.numberField"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.dateField"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.selectField"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.checkbox"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.toggle"
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -209233,9 +209316,63 @@
         {
           "name": "dataDisplay",
           "kind": "complex",
-          "doc": "10.2.1.n.m.k.3. Element Data Display.",
+          "doc": "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).",
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.dataDisplay"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.dataTable"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.card"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.chart"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.statusIndicator"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.icon"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.label"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.image"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementKind.badge"
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -209328,6 +209465,13 @@
           "arguments": {
             "id": "SEFS"
           }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "dataType",
+            "note": "CE-EL field kind closed choice: the data type selects its promoted options subsection (number / date / select / text); boolean, color and file kinds carry only the common formatting + validation subsections."
+          }
         }
       ],
       "fields": [
@@ -209360,9 +209504,27 @@
             {
               "name": "dataType",
               "label": "Data Type",
-              "hint": "String/Integer/Decimal/Currency/Date/DateTime/Time/Boolean/Enum/Email/Phone/URL/Password/Rich-Text/Color/File",
-              "type": "String",
-              "required": false
+              "hint": "The input data kind — selects the promoted options subsection.",
+              "type": "ScreenElementFieldKind",
+              "required": false,
+              "enumValues": [
+                "string",
+                "integer",
+                "decimal",
+                "currency",
+                "date",
+                "dateTime",
+                "time",
+                "boolean",
+                "enumeration",
+                "email",
+                "phone",
+                "url",
+                "password",
+                "richText",
+                "color",
+                "file"
+              ]
             },
             {
               "name": "placeholderResource",
@@ -209448,33 +209610,51 @@
           ]
         },
         {
-          "name": "constraints",
+          "name": "numberOptions",
           "kind": "form",
-          "doc": "Length and value constraints.",
-          "sectionId": "SEFSC",
+          "doc": "Number-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for numeric field kinds; carries only numeric constraints\n(no length or option-source attributes).",
+          "sectionId": "SEFSN",
           "standardReferences": {
             "standards": [
-              "ISO 9241-143:2012 — constraints on form-field input such as length and value ranges",
-              "ISO 9241-110:2020 — use error tolerance through bounded input constraints"
+              "ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges and precision",
+              "ISO 9241-110:2020 — use error tolerance through bounded numeric input"
             ],
-            "connotation": "The length and value constraints that bound acceptable input for a form field."
+            "connotation": "The value range and precision constraints for a numeric input field."
           },
           "serializationOrder": 2,
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "SEFSC"
+                "id": "SEFSN"
               }
             },
             {
               "name": "StandardReferences",
               "arguments": {
                 "standards": [
-                  "ISO 9241-143:2012 — constraints on form-field input such as length and value ranges",
-                  "ISO 9241-110:2020 — use error tolerance through bounded input constraints"
+                  "ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges and precision",
+                  "ISO 9241-110:2020 — use error tolerance through bounded numeric input"
                 ],
-                "connotation": "The length and value constraints that bound acceptable input for a form field."
+                "connotation": "The value range and precision constraints for a numeric input field."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.integer"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.decimal"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.currency"
               }
             },
             {
@@ -209492,6 +209672,194 @@
           ],
           "formFields": [
             {
+              "name": "minValue",
+              "label": "Min Value",
+              "hint": "Minimum allowed numeric value",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maxValue",
+              "label": "Max Value",
+              "hint": "Maximum allowed numeric value",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "decimalPlaces",
+              "label": "Decimal Places",
+              "hint": "Number of decimal places",
+              "type": "int",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "dateOptions",
+          "kind": "form",
+          "doc": "Date-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for date/time field kinds; carries only temporal\nconstraints (no numeric precision or length attributes).",
+          "sectionId": "SEFSD",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — constraints on date and time form-field input",
+              "ISO 8601-1:2019 — representation of dates and times"
+            ],
+            "connotation": "The date/time range and format constraints for a temporal input field."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SEFSD"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — constraints on date and time form-field input",
+                  "ISO 8601-1:2019 — representation of dates and times"
+                ],
+                "connotation": "The date/time range and format constraints for a temporal input field."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.date"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.dateTime"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.time"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "firstDate",
+              "label": "First Date",
+              "hint": "Earliest selectable date/time",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "lastDate",
+              "label": "Last Date",
+              "hint": "Latest selectable date/time",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "dateFormat",
+              "label": "Date Format",
+              "hint": "Display/parse pattern, e.g., yyyy-MM-dd",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "textOptions",
+          "kind": "form",
+          "doc": "Text-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for free-text field kinds; carries only length constraints.",
+          "sectionId": "SEFST",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — length constraints on text form-field input",
+              "ISO 9241-110:2020 — use error tolerance through bounded text input"
+            ],
+            "connotation": "The length constraints for a free-text input field."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SEFST"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — length constraints on text form-field input",
+                  "ISO 9241-110:2020 — use error tolerance through bounded text input"
+                ],
+                "connotation": "The length constraints for a free-text input field."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.string"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.email"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.phone"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.url"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.password"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.richText"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
+            {
               "name": "maxLength",
               "label": "Max Length",
               "hint": "Character limit",
@@ -209502,27 +209870,6 @@
               "name": "minLength",
               "label": "Min Length",
               "hint": "Minimum length",
-              "type": "int",
-              "required": false
-            },
-            {
-              "name": "minValue",
-              "label": "Min Value",
-              "hint": "Minimum allowed value for numeric/date fields",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "maxValue",
-              "label": "Max Value",
-              "hint": "Maximum allowed value for numeric/date fields",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "decimalPlaces",
-              "label": "Decimal Places",
-              "hint": "Number of decimal places",
               "type": "int",
               "required": false
             }
@@ -209540,7 +209887,7 @@
             ],
             "connotation": "The validation behavior for a form field including trigger, required rules, and error display."
           },
-          "serializationOrder": 3,
+          "serializationOrder": 5,
           "annotations": [
             {
               "name": "SectionId",
@@ -209567,7 +209914,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 5
               }
             }
           ],
@@ -209610,18 +209957,18 @@
           ]
         },
         {
-          "name": "selection",
+          "name": "selectOptions",
           "kind": "form",
-          "doc": "Selection and input assistance.",
+          "doc": "Select-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for the enumeration (select) field kind; carries only the\noption-source and selection-mode attributes.",
           "sectionId": "SEFSS",
           "standardReferences": {
             "standards": [
               "ISO 9241-143:2012 — form fields with selection and input assistance",
               "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"
             ],
-            "connotation": "The selection and input-assistance behavior for a form field such as autocomplete and option sources."
+            "connotation": "The option source and selection-mode attributes for a select input field."
           },
-          "serializationOrder": 4,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "SectionId",
@@ -209636,7 +209983,13 @@
                   "ISO 9241-143:2012 — form fields with selection and input assistance",
                   "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"
                 ],
-                "connotation": "The selection and input-assistance behavior for a form field such as autocomplete and option sources."
+                "connotation": "The option source and selection-mode attributes for a select input field."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.enumeration"
               }
             },
             {
@@ -209648,7 +210001,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 6
               }
             }
           ],

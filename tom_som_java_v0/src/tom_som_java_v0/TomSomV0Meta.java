@@ -57500,7 +57500,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("stateName", "String", "State Name", true, "Name of the state (e.g., Draft, Submitted)", 0),
             new SomFormFieldMeta("stateCode", "String", "State Code", false, "Technical state code or enum value", 1),
             new SomFormFieldMeta("description", "String", "Description", false, "What this state means in business terms", 2),
-            new SomFormFieldMeta("stateType", "String", "State Type", false, "Initial | Intermediate | Terminal | Error", 3),
+            new SomFormFieldMeta("stateType", "ObjectLifecycleKind", "State Type", false, "Lifecycle role of this state", 3, java.util.List.of("initial", "intermediate", "terminal", "error")),
             new SomFormFieldMeta("entryConditions", "String", "Entry Conditions", false, "Conditions required to enter this state", 4),
             new SomFormFieldMeta("exitConditions", "String", "Exit Conditions", false, "Conditions required to exit this state", 5),
             new SomFormFieldMeta("allowedOperations", "String", "Allowed Operations", false, "What operations can be performed in this state", 6),
@@ -77231,7 +77231,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("elementId", "String", "Element ID", true, "Unique within screen, e.g., btn-submit, fld-customer-name", 0),
             new SomFormFieldMeta("elementName", "String", "Element Name", true, "Human-readable label", 1),
-            new SomFormFieldMeta("elementType", "String", "Element Type", true, "Action-Button/Text-Field/Number-Field/Date-Field/Select-Field/Checkbox/Toggle/Data-Display/Data-Table/Card/Chart/Status-Indicator/Icon/Label/Link/Image/Divider/Spacer/Tab-Bar/Badge", 2)));
+            new SomFormFieldMeta("elementType", "ScreenElementKind", "Element Type", true, "The semantic element kind — selects the facet subsection.", 2, java.util.List.of("actionButton", "link", "textField", "numberField", "dateField", "selectField", "checkbox", "toggle", "dataDisplay", "dataTable", "card", "chart", "statusIndicator", "icon", "label", "image", "badge", "divider", "spacer", "tabBar"))));
         out.add(n);
       }
       {
@@ -77297,8 +77297,9 @@ public final class TomSomV0Meta {
         n.memberName = "elementAction";
         n.classSectionId = "SCELAC";
         n.serializationOrder = 5;
-        n.docComment = "10.2.1.n.m.k.1. Element Action.";
+        n.docComment = "10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Action specification for an action-type element (form).\n\nDefines button/link behavior: action reference, confirmation, navigation.";
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.actionButton")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.link")));
         n.recursive = r;
         n.children = c;
         return n;
@@ -77308,8 +77309,9 @@ public final class TomSomV0Meta {
         n.memberName = "fieldSpec";
         n.classSectionId = "SEFS";
         n.serializationOrder = 6;
-        n.docComment = "10.2.1.n.m.k.2. Element Field Spec.";
+        n.docComment = "10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Field specification for an input-type element (form).\n\nDefines input behavior: data type, constraints, validation trigger, masks.";
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.textField")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.numberField")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.dateField")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.selectField")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.checkbox")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.toggle")));
         n.recursive = r;
         n.children = c;
         return n;
@@ -77319,8 +77321,9 @@ public final class TomSomV0Meta {
         n.memberName = "dataDisplay";
         n.classSectionId = "SEDD";
         n.serializationOrder = 7;
-        n.docComment = "10.2.1.n.m.k.3. Element Data Display.";
+        n.docComment = "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.";
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.dataDisplay")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.dataTable")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.card")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.chart")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.statusIndicator")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.icon")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.label")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.image")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.badge")));
         n.recursive = r;
         n.children = c;
         return n;
@@ -77404,7 +77407,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldName", "String", "Field Name", false, "Logical form field name, maps to data model attribute", 0),
-            new SomFormFieldMeta("dataType", "String", "Data Type", false, "String/Integer/Decimal/Currency/Date/DateTime/Time/Boolean/Enum/Email/Phone/URL/Password/Rich-Text/Color/File", 1),
+            new SomFormFieldMeta("dataType", "ScreenElementFieldKind", "Data Type", false, "The input data kind — selects the promoted options subsection.", 1, java.util.List.of("string", "integer", "decimal", "currency", "date", "dateTime", "time", "boolean", "enumeration", "email", "phone", "url", "password", "richText", "color", "file")),
             new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Resource key for placeholder text", 2)));
         out.add(n);
       }
@@ -77424,24 +77427,47 @@ public final class TomSomV0Meta {
       }
       {
         SomMetaNode n = new SomMetaNode("ScreenElementFieldSpec", SomMetaKind.FORM, "String");
-        n.memberName = "constraints";
-        n.sectionId = "SEFSC";
+        n.memberName = "numberOptions";
+        n.sectionId = "SEFSN";
         n.serializationOrder = 2;
-        n.docComment = "Length and value constraints.";
+        n.docComment = "Number-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for numeric field kinds; carries only numeric constraints\n(no length or option-source attributes).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("minValue", "String", "Min Value", false, "Minimum allowed numeric value", 0),
+            new SomFormFieldMeta("maxValue", "String", "Max Value", false, "Maximum allowed numeric value", 1),
+            new SomFormFieldMeta("decimalPlaces", "int", "Decimal Places", false, "Number of decimal places", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges and precision", "ISO 9241-110:2020 — use error tolerance through bounded numeric input"), "connotation", "The value range and precision constraints for a numeric input field.")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.integer")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.decimal")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.currency")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenElementFieldSpec", SomMetaKind.FORM, "String");
+        n.memberName = "dateOptions";
+        n.sectionId = "SEFSD";
+        n.serializationOrder = 3;
+        n.docComment = "Date-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for date/time field kinds; carries only temporal\nconstraints (no numeric precision or length attributes).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("firstDate", "String", "First Date", false, "Earliest selectable date/time", 0),
+            new SomFormFieldMeta("lastDate", "String", "Last Date", false, "Latest selectable date/time", 1),
+            new SomFormFieldMeta("dateFormat", "String", "Date Format", false, "Display/parse pattern, e.g., yyyy-MM-dd", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — constraints on date and time form-field input", "ISO 8601-1:2019 — representation of dates and times"), "connotation", "The date/time range and format constraints for a temporal input field.")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.date")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.dateTime")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.time")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenElementFieldSpec", SomMetaKind.FORM, "String");
+        n.memberName = "textOptions";
+        n.sectionId = "SEFST";
+        n.serializationOrder = 4;
+        n.docComment = "Text-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for free-text field kinds; carries only length constraints.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("maxLength", "int", "Max Length", false, "Character limit", 0),
-            new SomFormFieldMeta("minLength", "int", "Min Length", false, "Minimum length", 1),
-            new SomFormFieldMeta("minValue", "String", "Min Value", false, "Minimum allowed value for numeric/date fields", 2),
-            new SomFormFieldMeta("maxValue", "String", "Max Value", false, "Maximum allowed value for numeric/date fields", 3),
-            new SomFormFieldMeta("decimalPlaces", "int", "Decimal Places", false, "Number of decimal places", 4)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — constraints on form-field input such as length and value ranges", "ISO 9241-110:2020 — use error tolerance through bounded input constraints"), "connotation", "The length and value constraints that bound acceptable input for a form field.")));
+            new SomFormFieldMeta("minLength", "int", "Min Length", false, "Minimum length", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — length constraints on text form-field input", "ISO 9241-110:2020 — use error tolerance through bounded text input"), "connotation", "The length constraints for a free-text input field.")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.string")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.email")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.phone")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.url")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.password")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.richText")));
         out.add(n);
       }
       {
         SomMetaNode n = new SomMetaNode("ScreenElementFieldSpec", SomMetaKind.FORM, "String");
         n.memberName = "validation";
         n.sectionId = "SEFSV";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Validation behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("validationTrigger", "String", "Validation Trigger", false, "On-Change/On-Blur/On-Submit/Debounced", 0),
@@ -77454,16 +77480,16 @@ public final class TomSomV0Meta {
       }
       {
         SomMetaNode n = new SomMetaNode("ScreenElementFieldSpec", SomMetaKind.FORM, "String");
-        n.memberName = "selection";
+        n.memberName = "selectOptions";
         n.sectionId = "SEFSS";
-        n.serializationOrder = 4;
-        n.docComment = "Selection and input assistance.";
+        n.serializationOrder = 6;
+        n.docComment = "Select-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for the enumeration (select) field kind; carries only the\noption-source and selection-mode attributes.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("autocompleteSource", "String", "Autocomplete Source", false, "Source reference for autocomplete suggestions", 0),
             new SomFormFieldMeta("optionsSource", "String", "Options Source", false, "For select fields: static list, API endpoint, or entity query", 1),
             new SomFormFieldMeta("selectMode", "String", "Select Mode", false, "Single/Multi", 2),
             new SomFormFieldMeta("displayMode", "String", "Display Mode", false, "Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker", 3)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — form fields with selection and input assistance", "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"), "connotation", "The selection and input-assistance behavior for a form field such as autocomplete and option sources.")));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — form fields with selection and input assistance", "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"), "connotation", "The option source and selection-mode attributes for a select input field.")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementFieldKind.enumeration")));
         out.add(n);
       }
       return out;
@@ -77477,15 +77503,23 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SEFSF");
     }
 
-    public SomMetaRef constraints() {
-      return new SomMetaRef(tree, path + "/SEFSC");
+    public SomMetaRef numberOptions() {
+      return new SomMetaRef(tree, path + "/SEFSN");
+    }
+
+    public SomMetaRef dateOptions() {
+      return new SomMetaRef(tree, path + "/SEFSD");
+    }
+
+    public SomMetaRef textOptions() {
+      return new SomMetaRef(tree, path + "/SEFST");
     }
 
     public SomMetaRef validation() {
       return new SomMetaRef(tree, path + "/SEFSV");
     }
 
-    public SomMetaRef selection() {
+    public SomMetaRef selectOptions() {
       return new SomMetaRef(tree, path + "/SEFSS");
     }
   }
@@ -120439,8 +120473,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/fieldSpec/SEFSF");
     }
 
-    public SomMetaRef SEFSC() {
-      return new SomMetaRef(tree, path + "/fieldSpec/SEFSC");
+    public SomMetaRef SEFSN() {
+      return new SomMetaRef(tree, path + "/fieldSpec/SEFSN");
+    }
+
+    public SomMetaRef SEFSD() {
+      return new SomMetaRef(tree, path + "/fieldSpec/SEFSD");
+    }
+
+    public SomMetaRef SEFST() {
+      return new SomMetaRef(tree, path + "/fieldSpec/SEFST");
     }
 
     public SomMetaRef SEFSV() {

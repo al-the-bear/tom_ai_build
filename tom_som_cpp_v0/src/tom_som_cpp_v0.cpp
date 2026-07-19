@@ -14287,14 +14287,20 @@ ScreenElementFieldSpecContentForm ScreenElementFieldSpec::content() const {
 ScreenElementFieldSpecFormattingForm ScreenElementFieldSpec::formatting() const {
   return ScreenElementFieldSpecFormattingForm(doc(), som::joinPath(path(), "SEFSF"));
 }
-ScreenElementFieldSpecConstraintsForm ScreenElementFieldSpec::constraints() const {
-  return ScreenElementFieldSpecConstraintsForm(doc(), som::joinPath(path(), "SEFSC"));
+ScreenElementFieldSpecNumberOptionsForm ScreenElementFieldSpec::numberOptions() const {
+  return ScreenElementFieldSpecNumberOptionsForm(doc(), som::joinPath(path(), "SEFSN"));
+}
+ScreenElementFieldSpecDateOptionsForm ScreenElementFieldSpec::dateOptions() const {
+  return ScreenElementFieldSpecDateOptionsForm(doc(), som::joinPath(path(), "SEFSD"));
+}
+ScreenElementFieldSpecTextOptionsForm ScreenElementFieldSpec::textOptions() const {
+  return ScreenElementFieldSpecTextOptionsForm(doc(), som::joinPath(path(), "SEFST"));
 }
 ScreenElementFieldSpecValidationForm ScreenElementFieldSpec::validation() const {
   return ScreenElementFieldSpecValidationForm(doc(), som::joinPath(path(), "SEFSV"));
 }
-ScreenElementFieldSpecSelectionForm ScreenElementFieldSpec::selection() const {
-  return ScreenElementFieldSpecSelectionForm(doc(), som::joinPath(path(), "SEFSS"));
+ScreenElementFieldSpecSelectOptionsForm ScreenElementFieldSpec::selectOptions() const {
+  return ScreenElementFieldSpecSelectOptionsForm(doc(), som::joinPath(path(), "SEFSS"));
 }
 
 ScreenEntry::ScreenEntry(som::SpecDocument& doc, std::string path)
@@ -88473,51 +88479,6 @@ void ScreenElementEntryResourcesForm::setIconPosition(const std::string& value) 
   doc().setFormField(path(), "iconPosition", value);
 }
 
-ScreenElementFieldSpecConstraintsForm::ScreenElementFieldSpecConstraintsForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ScreenElementFieldSpecConstraintsForm::content() const {
-  return doc().content(path());
-}
-void ScreenElementFieldSpecConstraintsForm::setContent(const std::string& value) {
-  doc().setContent(path(), value);
-}
-std::optional<long> ScreenElementFieldSpecConstraintsForm::maxLength() const {
-  const std::string v = doc().formField(path(), "maxLength");
-  if (v.empty()) return std::nullopt;
-  try { return std::stol(v); } catch (...) { return std::nullopt; }
-}
-void ScreenElementFieldSpecConstraintsForm::setMaxLength(std::optional<long> value) {
-  doc().setFormField(path(), "maxLength", value.has_value() ? std::to_string(*value) : "");
-}
-std::optional<long> ScreenElementFieldSpecConstraintsForm::minLength() const {
-  const std::string v = doc().formField(path(), "minLength");
-  if (v.empty()) return std::nullopt;
-  try { return std::stol(v); } catch (...) { return std::nullopt; }
-}
-void ScreenElementFieldSpecConstraintsForm::setMinLength(std::optional<long> value) {
-  doc().setFormField(path(), "minLength", value.has_value() ? std::to_string(*value) : "");
-}
-std::string ScreenElementFieldSpecConstraintsForm::minValue() const {
-  return doc().formField(path(), "minValue");
-}
-void ScreenElementFieldSpecConstraintsForm::setMinValue(const std::string& value) {
-  doc().setFormField(path(), "minValue", value);
-}
-std::string ScreenElementFieldSpecConstraintsForm::maxValue() const {
-  return doc().formField(path(), "maxValue");
-}
-void ScreenElementFieldSpecConstraintsForm::setMaxValue(const std::string& value) {
-  doc().setFormField(path(), "maxValue", value);
-}
-std::optional<long> ScreenElementFieldSpecConstraintsForm::decimalPlaces() const {
-  const std::string v = doc().formField(path(), "decimalPlaces");
-  if (v.empty()) return std::nullopt;
-  try { return std::stol(v); } catch (...) { return std::nullopt; }
-}
-void ScreenElementFieldSpecConstraintsForm::setDecimalPlaces(std::optional<long> value) {
-  doc().setFormField(path(), "decimalPlaces", value.has_value() ? std::to_string(*value) : "");
-}
-
 ScreenElementFieldSpecContentForm::ScreenElementFieldSpecContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ScreenElementFieldSpecContentForm::content() const {
@@ -88543,6 +88504,33 @@ std::string ScreenElementFieldSpecContentForm::placeholderResource() const {
 }
 void ScreenElementFieldSpecContentForm::setPlaceholderResource(const std::string& value) {
   doc().setFormField(path(), "placeholderResource", value);
+}
+
+ScreenElementFieldSpecDateOptionsForm::ScreenElementFieldSpecDateOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenElementFieldSpecDateOptionsForm::content() const {
+  return doc().content(path());
+}
+void ScreenElementFieldSpecDateOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScreenElementFieldSpecDateOptionsForm::firstDate() const {
+  return doc().formField(path(), "firstDate");
+}
+void ScreenElementFieldSpecDateOptionsForm::setFirstDate(const std::string& value) {
+  doc().setFormField(path(), "firstDate", value);
+}
+std::string ScreenElementFieldSpecDateOptionsForm::lastDate() const {
+  return doc().formField(path(), "lastDate");
+}
+void ScreenElementFieldSpecDateOptionsForm::setLastDate(const std::string& value) {
+  doc().setFormField(path(), "lastDate", value);
+}
+std::string ScreenElementFieldSpecDateOptionsForm::dateFormat() const {
+  return doc().formField(path(), "dateFormat");
+}
+void ScreenElementFieldSpecDateOptionsForm::setDateFormat(const std::string& value) {
+  doc().setFormField(path(), "dateFormat", value);
 }
 
 ScreenElementFieldSpecFormattingForm::ScreenElementFieldSpecFormattingForm(som::SpecDocument& doc, std::string path)
@@ -88578,37 +88566,91 @@ void ScreenElementFieldSpecFormattingForm::setDisplayFormat(const std::string& v
   doc().setFormField(path(), "displayFormat", value);
 }
 
-ScreenElementFieldSpecSelectionForm::ScreenElementFieldSpecSelectionForm(som::SpecDocument& doc, std::string path)
+ScreenElementFieldSpecNumberOptionsForm::ScreenElementFieldSpecNumberOptionsForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ScreenElementFieldSpecSelectionForm::content() const {
+std::string ScreenElementFieldSpecNumberOptionsForm::content() const {
   return doc().content(path());
 }
-void ScreenElementFieldSpecSelectionForm::setContent(const std::string& value) {
+void ScreenElementFieldSpecNumberOptionsForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ScreenElementFieldSpecSelectionForm::autocompleteSource() const {
+std::string ScreenElementFieldSpecNumberOptionsForm::minValue() const {
+  return doc().formField(path(), "minValue");
+}
+void ScreenElementFieldSpecNumberOptionsForm::setMinValue(const std::string& value) {
+  doc().setFormField(path(), "minValue", value);
+}
+std::string ScreenElementFieldSpecNumberOptionsForm::maxValue() const {
+  return doc().formField(path(), "maxValue");
+}
+void ScreenElementFieldSpecNumberOptionsForm::setMaxValue(const std::string& value) {
+  doc().setFormField(path(), "maxValue", value);
+}
+std::optional<long> ScreenElementFieldSpecNumberOptionsForm::decimalPlaces() const {
+  const std::string v = doc().formField(path(), "decimalPlaces");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ScreenElementFieldSpecNumberOptionsForm::setDecimalPlaces(std::optional<long> value) {
+  doc().setFormField(path(), "decimalPlaces", value.has_value() ? std::to_string(*value) : "");
+}
+
+ScreenElementFieldSpecSelectOptionsForm::ScreenElementFieldSpecSelectOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenElementFieldSpecSelectOptionsForm::content() const {
+  return doc().content(path());
+}
+void ScreenElementFieldSpecSelectOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScreenElementFieldSpecSelectOptionsForm::autocompleteSource() const {
   return doc().formField(path(), "autocompleteSource");
 }
-void ScreenElementFieldSpecSelectionForm::setAutocompleteSource(const std::string& value) {
+void ScreenElementFieldSpecSelectOptionsForm::setAutocompleteSource(const std::string& value) {
   doc().setFormField(path(), "autocompleteSource", value);
 }
-std::string ScreenElementFieldSpecSelectionForm::optionsSource() const {
+std::string ScreenElementFieldSpecSelectOptionsForm::optionsSource() const {
   return doc().formField(path(), "optionsSource");
 }
-void ScreenElementFieldSpecSelectionForm::setOptionsSource(const std::string& value) {
+void ScreenElementFieldSpecSelectOptionsForm::setOptionsSource(const std::string& value) {
   doc().setFormField(path(), "optionsSource", value);
 }
-std::string ScreenElementFieldSpecSelectionForm::selectMode() const {
+std::string ScreenElementFieldSpecSelectOptionsForm::selectMode() const {
   return doc().formField(path(), "selectMode");
 }
-void ScreenElementFieldSpecSelectionForm::setSelectMode(const std::string& value) {
+void ScreenElementFieldSpecSelectOptionsForm::setSelectMode(const std::string& value) {
   doc().setFormField(path(), "selectMode", value);
 }
-std::string ScreenElementFieldSpecSelectionForm::displayMode() const {
+std::string ScreenElementFieldSpecSelectOptionsForm::displayMode() const {
   return doc().formField(path(), "displayMode");
 }
-void ScreenElementFieldSpecSelectionForm::setDisplayMode(const std::string& value) {
+void ScreenElementFieldSpecSelectOptionsForm::setDisplayMode(const std::string& value) {
   doc().setFormField(path(), "displayMode", value);
+}
+
+ScreenElementFieldSpecTextOptionsForm::ScreenElementFieldSpecTextOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenElementFieldSpecTextOptionsForm::content() const {
+  return doc().content(path());
+}
+void ScreenElementFieldSpecTextOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<long> ScreenElementFieldSpecTextOptionsForm::maxLength() const {
+  const std::string v = doc().formField(path(), "maxLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ScreenElementFieldSpecTextOptionsForm::setMaxLength(std::optional<long> value) {
+  doc().setFormField(path(), "maxLength", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> ScreenElementFieldSpecTextOptionsForm::minLength() const {
+  const std::string v = doc().formField(path(), "minLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ScreenElementFieldSpecTextOptionsForm::setMinLength(std::optional<long> value) {
+  doc().setFormField(path(), "minLength", value.has_value() ? std::to_string(*value) : "");
 }
 
 ScreenElementFieldSpecValidationForm::ScreenElementFieldSpecValidationForm(som::SpecDocument& doc, std::string path)

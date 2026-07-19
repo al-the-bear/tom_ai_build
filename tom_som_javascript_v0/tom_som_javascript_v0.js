@@ -28097,16 +28097,22 @@ class ScreenElementEntry extends SomNode {
   }
 
   // 10.2.1.n.m.k.1. Element Action.
+  //
+  // Present only for action-kind elements (`@OneOf` case, csmb6).
   get elementAction() {
     return new ScreenElementAction(this.doc, this.path + "/elementAction");
   }
 
   // 10.2.1.n.m.k.2. Element Field Spec.
+  //
+  // Present only for input-kind elements (`@OneOf` case, csmb6).
   get fieldSpec() {
     return new ScreenElementFieldSpec(this.doc, this.path + "/fieldSpec");
   }
 
   // 10.2.1.n.m.k.3. Element Data Display.
+  //
+  // Present only for display-kind elements (`@OneOf` case, csmb6).
   get dataDisplay() {
     return new ScreenElementDataDisplay(this.doc, this.path + "/dataDisplay");
   }
@@ -28134,9 +28140,27 @@ class ScreenElementFieldSpec extends SomNode {
     return new ScreenElementFieldSpecFormattingForm(this.doc, this.path + "/SEFSF");
   }
 
-  // Length and value constraints.
-  get constraints() {
-    return new ScreenElementFieldSpecConstraintsForm(this.doc, this.path + "/SEFSC");
+  // Number-kind options — a promoted `@OneOf` case (csmb6).
+  //
+  // Present only for numeric field kinds; carries only numeric constraints
+  // (no length or option-source attributes).
+  get numberOptions() {
+    return new ScreenElementFieldSpecNumberOptionsForm(this.doc, this.path + "/SEFSN");
+  }
+
+  // Date-kind options — a promoted `@OneOf` case (csmb6).
+  //
+  // Present only for date/time field kinds; carries only temporal
+  // constraints (no numeric precision or length attributes).
+  get dateOptions() {
+    return new ScreenElementFieldSpecDateOptionsForm(this.doc, this.path + "/SEFSD");
+  }
+
+  // Text-kind options — a promoted `@OneOf` case (csmb6).
+  //
+  // Present only for free-text field kinds; carries only length constraints.
+  get textOptions() {
+    return new ScreenElementFieldSpecTextOptionsForm(this.doc, this.path + "/SEFST");
   }
 
   // Validation behavior.
@@ -28144,9 +28168,12 @@ class ScreenElementFieldSpec extends SomNode {
     return new ScreenElementFieldSpecValidationForm(this.doc, this.path + "/SEFSV");
   }
 
-  // Selection and input assistance.
-  get selection() {
-    return new ScreenElementFieldSpecSelectionForm(this.doc, this.path + "/SEFSS");
+  // Select-kind options — a promoted `@OneOf` case (csmb6).
+  //
+  // Present only for the enumeration (select) field kind; carries only the
+  // option-source and selection-mode attributes.
+  get selectOptions() {
+    return new ScreenElementFieldSpecSelectOptionsForm(this.doc, this.path + "/SEFSS");
   }
 }
 
@@ -143255,68 +143282,6 @@ class ScreenElementEntryResourcesForm extends SomNode {
   }
 }
 
-// Generated section facade for the `constraints` @Form section: its own content text followed by one typed member per form field.
-class ScreenElementFieldSpecConstraintsForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path) || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path, value);
-  }
-
-  get maxLength() {
-    const v = this.doc.formField(this.path, "maxLength");
-    return v == null || v === '' ? null : Number.parseInt(v, 10);
-  }
-
-  set maxLength(value) {
-    this.doc.setFormField(this.path, "maxLength", value == null ? '' : String(value));
-  }
-
-  get minLength() {
-    const v = this.doc.formField(this.path, "minLength");
-    return v == null || v === '' ? null : Number.parseInt(v, 10);
-  }
-
-  set minLength(value) {
-    this.doc.setFormField(this.path, "minLength", value == null ? '' : String(value));
-  }
-
-  get minValue() {
-    return this.doc.formField(this.path, "minValue") || '';
-  }
-
-  set minValue(value) {
-    this.doc.setFormField(this.path, "minValue", value);
-  }
-
-  get maxValue() {
-    return this.doc.formField(this.path, "maxValue") || '';
-  }
-
-  set maxValue(value) {
-    this.doc.setFormField(this.path, "maxValue", value);
-  }
-
-  get decimalPlaces() {
-    const v = this.doc.formField(this.path, "decimalPlaces");
-    return v == null || v === '' ? null : Number.parseInt(v, 10);
-  }
-
-  set decimalPlaces(value) {
-    this.doc.setFormField(this.path, "decimalPlaces", value == null ? '' : String(value));
-  }
-}
-
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class ScreenElementFieldSpecContentForm extends SomNode {
   constructor(doc, path) {
@@ -143357,6 +143322,49 @@ class ScreenElementFieldSpecContentForm extends SomNode {
 
   set placeholderResource(value) {
     this.doc.setFormField(this.path, "placeholderResource", value);
+  }
+}
+
+// Generated section facade for the `dateOptions` @Form section: its own content text followed by one typed member per form field.
+class ScreenElementFieldSpecDateOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get firstDate() {
+    return this.doc.formField(this.path, "firstDate") || '';
+  }
+
+  set firstDate(value) {
+    this.doc.setFormField(this.path, "firstDate", value);
+  }
+
+  get lastDate() {
+    return this.doc.formField(this.path, "lastDate") || '';
+  }
+
+  set lastDate(value) {
+    this.doc.setFormField(this.path, "lastDate", value);
+  }
+
+  get dateFormat() {
+    return this.doc.formField(this.path, "dateFormat") || '';
+  }
+
+  set dateFormat(value) {
+    this.doc.setFormField(this.path, "dateFormat", value);
   }
 }
 
@@ -143411,8 +143419,52 @@ class ScreenElementFieldSpecFormattingForm extends SomNode {
   }
 }
 
-// Generated section facade for the `selection` @Form section: its own content text followed by one typed member per form field.
-class ScreenElementFieldSpecSelectionForm extends SomNode {
+// Generated section facade for the `numberOptions` @Form section: its own content text followed by one typed member per form field.
+class ScreenElementFieldSpecNumberOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get minValue() {
+    return this.doc.formField(this.path, "minValue") || '';
+  }
+
+  set minValue(value) {
+    this.doc.setFormField(this.path, "minValue", value);
+  }
+
+  get maxValue() {
+    return this.doc.formField(this.path, "maxValue") || '';
+  }
+
+  set maxValue(value) {
+    this.doc.setFormField(this.path, "maxValue", value);
+  }
+
+  get decimalPlaces() {
+    const v = this.doc.formField(this.path, "decimalPlaces");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set decimalPlaces(value) {
+    this.doc.setFormField(this.path, "decimalPlaces", value == null ? '' : String(value));
+  }
+}
+
+// Generated section facade for the `selectOptions` @Form section: its own content text followed by one typed member per form field.
+class ScreenElementFieldSpecSelectOptionsForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -143459,6 +143511,43 @@ class ScreenElementFieldSpecSelectionForm extends SomNode {
 
   set displayMode(value) {
     this.doc.setFormField(this.path, "displayMode", value);
+  }
+}
+
+// Generated section facade for the `textOptions` @Form section: its own content text followed by one typed member per form field.
+class ScreenElementFieldSpecTextOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get maxLength() {
+    const v = this.doc.formField(this.path, "maxLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxLength(value) {
+    this.doc.setFormField(this.path, "maxLength", value == null ? '' : String(value));
+  }
+
+  get minLength() {
+    const v = this.doc.formField(this.path, "minLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set minLength(value) {
+    this.doc.setFormField(this.path, "minLength", value == null ? '' : String(value));
   }
 }
 
@@ -182101,10 +182190,12 @@ module.exports = {
   ScreenElementEntryLayoutForm,
   ScreenElementEntryPresentationForm,
   ScreenElementEntryResourcesForm,
-  ScreenElementFieldSpecConstraintsForm,
   ScreenElementFieldSpecContentForm,
+  ScreenElementFieldSpecDateOptionsForm,
   ScreenElementFieldSpecFormattingForm,
-  ScreenElementFieldSpecSelectionForm,
+  ScreenElementFieldSpecNumberOptionsForm,
+  ScreenElementFieldSpecSelectOptionsForm,
+  ScreenElementFieldSpecTextOptionsForm,
   ScreenElementFieldSpecValidationForm,
   ScreenEntryAccessForm,
   ScreenEntryClassificationForm,

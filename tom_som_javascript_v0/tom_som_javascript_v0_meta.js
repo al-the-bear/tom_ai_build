@@ -30690,7 +30690,7 @@ function _mc_ObjectStateEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "stateName", typeName: "String", description: "State Name", required: true, hint: "Name of the state (e.g., Draft, Submitted)", order: 0}), new SomFormFieldMeta({name: "stateCode", typeName: "String", description: "State Code", hint: "Technical state code or enum value", order: 1}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "What this state means in business terms", order: 2}), new SomFormFieldMeta({name: "stateType", typeName: "String", description: "State Type", hint: "Initial | Intermediate | Terminal | Error", order: 3}), new SomFormFieldMeta({name: "entryConditions", typeName: "String", description: "Entry Conditions", hint: "Conditions required to enter this state", order: 4}), new SomFormFieldMeta({name: "exitConditions", typeName: "String", description: "Exit Conditions", hint: "Conditions required to exit this state", order: 5}), new SomFormFieldMeta({name: "allowedOperations", typeName: "String", description: "Allowed Operations", hint: "What operations can be performed in this state", order: 6}), new SomFormFieldMeta({name: "restrictedOperations", typeName: "String", description: "Restricted Operations", hint: "What operations are not allowed in this state", order: 7}), new SomFormFieldMeta({name: "slaRequirements", typeName: "String", description: "SLA Requirements", hint: "Any time-bound requirements for this state", order: 8}), new SomFormFieldMeta({name: "notificationTriggers", typeName: "String", description: "Notification Triggers", hint: "Events that trigger notifications in this state", order: 9})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "stateName", typeName: "String", description: "State Name", required: true, hint: "Name of the state (e.g., Draft, Submitted)", order: 0}), new SomFormFieldMeta({name: "stateCode", typeName: "String", description: "State Code", hint: "Technical state code or enum value", order: 1}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "What this state means in business terms", order: 2}), new SomFormFieldMeta({name: "stateType", typeName: "ObjectLifecycleKind", description: "State Type", hint: "Lifecycle role of this state", order: 3, enumValues: ["initial", "intermediate", "terminal", "error"]}), new SomFormFieldMeta({name: "entryConditions", typeName: "String", description: "Entry Conditions", hint: "Conditions required to enter this state", order: 4}), new SomFormFieldMeta({name: "exitConditions", typeName: "String", description: "Exit Conditions", hint: "Conditions required to exit this state", order: 5}), new SomFormFieldMeta({name: "allowedOperations", typeName: "String", description: "Allowed Operations", hint: "What operations can be performed in this state", order: 6}), new SomFormFieldMeta({name: "restrictedOperations", typeName: "String", description: "Restricted Operations", hint: "What operations are not allowed in this state", order: 7}), new SomFormFieldMeta({name: "slaRequirements", typeName: "String", description: "SLA Requirements", hint: "Any time-bound requirements for this state", order: 8}), new SomFormFieldMeta({name: "notificationTriggers", typeName: "String", description: "Notification Triggers", hint: "Events that trigger notifications in this state", order: 9})])}),
   ];
 }
 
@@ -40525,7 +40525,7 @@ function _mc_ScreenElementEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "elementId", typeName: "String", description: "Element ID", required: true, hint: "Unique within screen, e.g., btn-submit, fld-customer-name", order: 0}), new SomFormFieldMeta({name: "elementName", typeName: "String", description: "Element Name", required: true, hint: "Human-readable label", order: 1}), new SomFormFieldMeta({name: "elementType", typeName: "String", description: "Element Type", required: true, hint: "Action-Button/Text-Field/Number-Field/Date-Field/Select-Field/Checkbox/Toggle/Data-Display/Data-Table/Card/Chart/Status-Indicator/Icon/Label/Link/Image/Divider/Spacer/Tab-Bar/Badge", order: 2})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "elementId", typeName: "String", description: "Element ID", required: true, hint: "Unique within screen, e.g., btn-submit, fld-customer-name", order: 0}), new SomFormFieldMeta({name: "elementName", typeName: "String", description: "Element Name", required: true, hint: "Human-readable label", order: 1}), new SomFormFieldMeta({name: "elementType", typeName: "ScreenElementKind", description: "Element Type", required: true, hint: "The semantic element kind — selects the facet subsection.", order: 2, enumValues: ["actionButton", "link", "textField", "numberField", "dateField", "selectField", "checkbox", "toggle", "dataDisplay", "dataTable", "card", "chart", "statusIndicator", "icon", "label", "image", "badge", "divider", "spacer", "tabBar"]})])}),
      new SomMetaNode({
       className: "ScreenElementEntry",
       memberName: "resources",
@@ -40574,8 +40574,9 @@ function _mc_ScreenElementEntry(s) {
         kind: SomMetaKind.COMPLEX,
         typeName: "ScreenElementAction",
         serializationOrder: 5,
-        docComment: "10.2.1.n.m.k.1. Element Action.",
+        docComment: "10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).",
         classDocComment: "Action specification for an action-type element (form).\n\nDefines button/link behavior: action reference, confirmation, navigation.",
+        extra: [new SomMetaExtra("Case", {"value": "ScreenElementKind.actionButton"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.link"})],
         recursive: r,
         children: c})),
      _cx("ScreenElementFieldSpec", s, _mc_ScreenElementFieldSpec,
@@ -40586,8 +40587,9 @@ function _mc_ScreenElementEntry(s) {
         kind: SomMetaKind.COMPLEX,
         typeName: "ScreenElementFieldSpec",
         serializationOrder: 6,
-        docComment: "10.2.1.n.m.k.2. Element Field Spec.",
+        docComment: "10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).",
         classDocComment: "Field specification for an input-type element (form).\n\nDefines input behavior: data type, constraints, validation trigger, masks.",
+        extra: [new SomMetaExtra("Case", {"value": "ScreenElementKind.textField"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.numberField"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.dateField"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.selectField"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.checkbox"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.toggle"})],
         recursive: r,
         children: c})),
      _cx("ScreenElementDataDisplay", s, _mc_ScreenElementDataDisplay,
@@ -40598,8 +40600,9 @@ function _mc_ScreenElementEntry(s) {
         kind: SomMetaKind.COMPLEX,
         typeName: "ScreenElementDataDisplay",
         serializationOrder: 7,
-        docComment: "10.2.1.n.m.k.3. Element Data Display.",
+        docComment: "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).",
         classDocComment: "Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.",
+        extra: [new SomMetaExtra("Case", {"value": "ScreenElementKind.dataDisplay"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.dataTable"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.card"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.chart"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.statusIndicator"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.icon"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.label"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.image"}), new SomMetaExtra("Case", {"value": "ScreenElementKind.badge"})],
         recursive: r,
         children: c})),
      new SomMetaNode({
@@ -40625,7 +40628,7 @@ function _mc_ScreenElementFieldSpec(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "fieldName", typeName: "String", description: "Field Name", hint: "Logical form field name, maps to data model attribute", order: 0}), new SomFormFieldMeta({name: "dataType", typeName: "String", description: "Data Type", hint: "String/Integer/Decimal/Currency/Date/DateTime/Time/Boolean/Enum/Email/Phone/URL/Password/Rich-Text/Color/File", order: 1}), new SomFormFieldMeta({name: "placeholderResource", typeName: "String", description: "Placeholder Resource", hint: "Resource key for placeholder text", order: 2})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "fieldName", typeName: "String", description: "Field Name", hint: "Logical form field name, maps to data model attribute", order: 0}), new SomFormFieldMeta({name: "dataType", typeName: "ScreenElementFieldKind", description: "Data Type", hint: "The input data kind — selects the promoted options subsection.", order: 1, enumValues: ["string", "integer", "decimal", "currency", "date", "dateTime", "time", "boolean", "enumeration", "email", "phone", "url", "password", "richText", "color", "file"]}), new SomFormFieldMeta({name: "placeholderResource", typeName: "String", description: "Placeholder Resource", hint: "Resource key for placeholder text", order: 2})])}),
      new SomMetaNode({
       className: "ScreenElementFieldSpec",
       memberName: "formatting",
@@ -40638,34 +40641,54 @@ function _mc_ScreenElementFieldSpec(s) {
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — formatting and affordances for form-field input", "ISO 9241-112:2017 — presentation of formatted information such as masks and prefixes"], "connotation": "The prefix, suffix, and formatting that shape how a form field displays and accepts input."})]}),
      new SomMetaNode({
       className: "ScreenElementFieldSpec",
-      memberName: "constraints",
-      sectionId: "SEFSC",
+      memberName: "numberOptions",
+      sectionId: "SEFSN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 2,
-      docComment: "Length and value constraints.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "maxLength", typeName: "int", description: "Max Length", hint: "Character limit", order: 0}), new SomFormFieldMeta({name: "minLength", typeName: "int", description: "Min Length", hint: "Minimum length", order: 1}), new SomFormFieldMeta({name: "minValue", typeName: "String", description: "Min Value", hint: "Minimum allowed value for numeric/date fields", order: 2}), new SomFormFieldMeta({name: "maxValue", typeName: "String", description: "Max Value", hint: "Maximum allowed value for numeric/date fields", order: 3}), new SomFormFieldMeta({name: "decimalPlaces", typeName: "int", description: "Decimal Places", hint: "Number of decimal places", order: 4})]),
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — constraints on form-field input such as length and value ranges", "ISO 9241-110:2020 — use error tolerance through bounded input constraints"], "connotation": "The length and value constraints that bound acceptable input for a form field."})]}),
+      docComment: "Number-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for numeric field kinds; carries only numeric constraints\n(no length or option-source attributes).",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "minValue", typeName: "String", description: "Min Value", hint: "Minimum allowed numeric value", order: 0}), new SomFormFieldMeta({name: "maxValue", typeName: "String", description: "Max Value", hint: "Maximum allowed numeric value", order: 1}), new SomFormFieldMeta({name: "decimalPlaces", typeName: "int", description: "Decimal Places", hint: "Number of decimal places", order: 2})]),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges and precision", "ISO 9241-110:2020 — use error tolerance through bounded numeric input"], "connotation": "The value range and precision constraints for a numeric input field."}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.integer"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.decimal"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.currency"})]}),
+     new SomMetaNode({
+      className: "ScreenElementFieldSpec",
+      memberName: "dateOptions",
+      sectionId: "SEFSD",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 3,
+      docComment: "Date-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for date/time field kinds; carries only temporal\nconstraints (no numeric precision or length attributes).",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "firstDate", typeName: "String", description: "First Date", hint: "Earliest selectable date/time", order: 0}), new SomFormFieldMeta({name: "lastDate", typeName: "String", description: "Last Date", hint: "Latest selectable date/time", order: 1}), new SomFormFieldMeta({name: "dateFormat", typeName: "String", description: "Date Format", hint: "Display/parse pattern, e.g., yyyy-MM-dd", order: 2})]),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — constraints on date and time form-field input", "ISO 8601-1:2019 — representation of dates and times"], "connotation": "The date/time range and format constraints for a temporal input field."}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.date"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.dateTime"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.time"})]}),
+     new SomMetaNode({
+      className: "ScreenElementFieldSpec",
+      memberName: "textOptions",
+      sectionId: "SEFST",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 4,
+      docComment: "Text-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for free-text field kinds; carries only length constraints.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "maxLength", typeName: "int", description: "Max Length", hint: "Character limit", order: 0}), new SomFormFieldMeta({name: "minLength", typeName: "int", description: "Min Length", hint: "Minimum length", order: 1})]),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — length constraints on text form-field input", "ISO 9241-110:2020 — use error tolerance through bounded text input"], "connotation": "The length constraints for a free-text input field."}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.string"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.email"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.phone"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.url"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.password"}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.richText"})]}),
      new SomMetaNode({
       className: "ScreenElementFieldSpec",
       memberName: "validation",
       sectionId: "SEFSV",
       kind: SomMetaKind.FORM,
       typeName: "String",
-      serializationOrder: 3,
+      serializationOrder: 5,
       docComment: "Validation behavior.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "validationTrigger", typeName: "String", description: "Validation Trigger", hint: "On-Change/On-Blur/On-Submit/Debounced", order: 0}), new SomFormFieldMeta({name: "errorDisplayMode", typeName: "String", description: "Error Display Mode", hint: "Below-Field/Tooltip/Inline/Banner", order: 1}), new SomFormFieldMeta({name: "required", typeName: "String", description: "Required", hint: "Yes/No/Conditional", order: 2}), new SomFormFieldMeta({name: "requiredCondition", typeName: "String", description: "Required Condition", hint: "Condition when field becomes required", order: 3}), new SomFormFieldMeta({name: "clearButton", typeName: "String", description: "Clear Button", hint: "Yes/No — show clear/reset affordance", order: 4})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-110:2020 — use error tolerance through input validation and error display", "ISO 9241-143:2012 — validation behavior for form fields"], "connotation": "The validation behavior for a form field including trigger, required rules, and error display."})]}),
      new SomMetaNode({
       className: "ScreenElementFieldSpec",
-      memberName: "selection",
+      memberName: "selectOptions",
       sectionId: "SEFSS",
       kind: SomMetaKind.FORM,
       typeName: "String",
-      serializationOrder: 4,
-      docComment: "Selection and input assistance.",
+      serializationOrder: 6,
+      docComment: "Select-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for the enumeration (select) field kind; carries only the\noption-source and selection-mode attributes.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "autocompleteSource", typeName: "String", description: "Autocomplete Source", hint: "Source reference for autocomplete suggestions", order: 0}), new SomFormFieldMeta({name: "optionsSource", typeName: "String", description: "Options Source", hint: "For select fields: static list, API endpoint, or entity query", order: 1}), new SomFormFieldMeta({name: "selectMode", typeName: "String", description: "Select Mode", hint: "Single/Multi", order: 2}), new SomFormFieldMeta({name: "displayMode", typeName: "String", description: "Display Mode", hint: "Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker", order: 3})]),
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — form fields with selection and input assistance", "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"], "connotation": "The selection and input-assistance behavior for a form field such as autocomplete and option sources."})]}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — form fields with selection and input assistance", "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"], "connotation": "The option source and selection-mode attributes for a select input field."}), new SomMetaExtra("Case", {"value": "ScreenElementFieldKind.enumeration"})]}),
   ];
 }
 
@@ -74426,15 +74449,23 @@ class ScreenElementFieldSpec$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SEFSF");
   }
 
-  get constraints() {
-    return new SomMetaRef(this.tree, this.path + "/SEFSC");
+  get numberOptions() {
+    return new SomMetaRef(this.tree, this.path + "/SEFSN");
+  }
+
+  get dateOptions() {
+    return new SomMetaRef(this.tree, this.path + "/SEFSD");
+  }
+
+  get textOptions() {
+    return new SomMetaRef(this.tree, this.path + "/SEFST");
   }
 
   get validation() {
     return new SomMetaRef(this.tree, this.path + "/SEFSV");
   }
 
-  get selection() {
+  get selectOptions() {
     return new SomMetaRef(this.tree, this.path + "/SEFSS");
   }
 }
@@ -96643,8 +96674,16 @@ class ScreenElementEntry$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/fieldSpec/SEFSF");
   }
 
-  get SEFSC() {
-    return new SomMetaRef(this.tree, this.path + "/fieldSpec/SEFSC");
+  get SEFSN() {
+    return new SomMetaRef(this.tree, this.path + "/fieldSpec/SEFSN");
+  }
+
+  get SEFSD() {
+    return new SomMetaRef(this.tree, this.path + "/fieldSpec/SEFSD");
+  }
+
+  get SEFST() {
+    return new SomMetaRef(this.tree, this.path + "/fieldSpec/SEFST");
   }
 
   get SEFSV() {

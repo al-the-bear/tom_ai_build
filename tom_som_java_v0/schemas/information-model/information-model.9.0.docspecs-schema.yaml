@@ -1,0 +1,1421 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: information-model/9.0
+
+title-format: "# <!--[IFM]--> Information Model"
+section-types:
+  biobat-attr-lst:
+    prefix: BIOBAT_ATTR_LST
+    subsection-types:
+      biobat-attr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business object attribute.
+  birure-keyb-lst:
+    prefix: BIRURE_KEYB_LST
+    subsection-types:
+      birure-keyb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business rule reference.
+  birure-rule-ref:
+    prefix: BIRURE_RULE_REF
+  rulexm-exam-lst:
+    prefix: RULEXM_EXAM_LST
+    subsection-types:
+      rulexm-exam:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per rule example.
+  acrse-acce-lst:
+    prefix: ACRSE_ACCE_LST
+    subsection-types:
+      acrse-acce:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per access restriction.
+  behav-beha-lst:
+    prefix: BEHAV_BEHA_LST
+    subsection-types:
+      behav-beha:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per behavior rule.
+  bjoen-obje-lst:
+    prefix: BJOEN_OBJE_LST
+    subsection-types:
+      bjoen-obje:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Business object catalog (list).
+  daatt-attr-lst:
+    prefix: DAATT_ATTR_LST
+    subsection-types:
+      daatt-attr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data attribute.
+  daent-enti-lst:
+    prefix: DAENT_ENTI_LST
+    subsection-types:
+      daent-enti:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Entity inventory (list).
+  dataa-cons-lst:
+    prefix: DATAA_CONS_LST
+    subsection-types:
+      dataa-cons:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per attribute constraint.
+  dclse-item-lst:
+    prefix: DCLSE_ITEM_LST
+    subsection-types:
+      dclse-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data classification level.
+  displ-disp-lst:
+    prefix: DISPL_DISP_LST
+    subsection-types:
+      displ-disp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per display property.
+  dmene-enum-lst:
+    prefix: DMENE_ENUM_LST
+    subsection-types:
+      dmene-enum:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per domain enum (closed value set).
+  dmeva-valu-lst:
+    prefix: DMEVA_VALU_LST
+    subsection-types:
+      dmeva-valu:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per enum value.
+  encns-cons-lst:
+    prefix: ENCNS_CONS_LST
+    subsection-types:
+      encns-cons:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entity constraint.
+  enidx-inde-lst:
+    prefix: ENIDX_INDE_LST
+    subsection-types:
+      enidx-inde:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entity index.
+  enrle-item-lst:
+    prefix: ENRLE_ITEM_LST
+    subsection-types:
+      enrle-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entity relationship.
+  enrle-sour-ref:
+    prefix: ENRLE_SOUR_REF
+  enrle-targ-ref:
+    prefix: ENRLE_TARG_REF
+  ercen-code-lst:
+    prefix: ERCEN_CODE_LST
+    subsection-types:
+      ercen-code:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per shared application error code.
+  fndmx-func-lst:
+    prefix: FNDMX_FUNC_LST
+    subsection-types:
+      fndmx-func:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Function-to-data matrix (list).
+  funct-func-lst:
+    prefix: FUNCT_FUNC_LST
+    subsection-types:
+      funct-func:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Function decomposition (list).
+  hndre-hand-lst:
+    prefix: HNDRE_HAND_LST
+    subsection-types:
+      hndre-hand:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per handling requirement.
+  integ-inte-lst:
+    prefix: INTEG_INTE_LST
+    subsection-types:
+      integ-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per integration point.
+  keatt-keya-lst:
+    prefix: KEATT_KEYA_LST
+    subsection-types:
+      keatt-keya:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per key attribute.
+  keatt-refe-ref:
+    prefix: KEATT_REFE_REF
+  lftrs-life-lst:
+    prefix: LFTRS_LIFE_LST
+    subsection-types:
+      lftrs-life:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per lifecycle transition.
+  migme-migr-lst:
+    prefix: MIGME_MIGR_LST
+    subsection-types:
+      migme-migr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration mapping.
+  obinv-inva-lst:
+    prefix: OBINV_INVA_LST
+    subsection-types:
+      obinv-inva:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per object invariant.
+  parti-part-lst:
+    prefix: PARTI_PART_LST
+    subsection-types:
+      parti-part:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per participating entity.
+  relat-rela-lst:
+    prefix: RELAT_RELA_LST
+    subsection-types:
+      relat-rela:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per relationship attribute.
+  rsfde-fldd-lst:
+    prefix: RSFDE_FLDD_LST
+    subsection-types:
+      rsfde-fldd:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per field-level detail the error arm may report.
+  techn-tech-lst:
+    prefix: TECHN_TECH_LST
+    subsection-types:
+      techn-tech:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per technical characteristic.
+  volum-volu-lst:
+    prefix: VOLUM_VOLU_LST
+    subsection-types:
+      volum-volu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per volume metric.
+  affn-affe-lst:
+    prefix: AFFN_AFFE_LST
+    subsection-types:
+      affn-affe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per affected function.
+  affn-func-ref:
+    prefix: AFFN_FUNC_REF
+  afob-affe-lst:
+    prefix: AFOB_AFFE_LST
+    subsection-types:
+      afob-affe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per affected object.
+  afob-obje-ref:
+    prefix: AFOB_OBJE_REF
+  biru-busi-lst:
+    prefix: BIRU_BUSI_LST
+    subsection-types:
+      biru-busi:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Business rules catalog (list).
+  obop-oper-lst:
+    prefix: OBOP_OPER_LST
+    subsection-types:
+      obop-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per object operation.
+  obst-keys-lst:
+    prefix: OBST_KEYS_LST
+    subsection-types:
+      obst-keys:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per object state.
+  sufn-subf-lst:
+    prefix: SUFN_SUBF_LST
+    subsection-types:
+      sufn-subf:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per sub-function.
+  biobat-attr:
+    prefix: BIOBAT_ATTR_
+    subsection-types:
+      boaed:
+        max-count: 1
+      boaev:
+        max-count: 1
+      boaeg:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BIOBAT-ATTR-.+$
+      error-message: IDs of this section must match BIOBAT-ATTR-xxx
+    description: Add one entry per business object attribute.
+  birure-keyb:
+    prefix: BIRURE_KEYB_
+    subsection-types:
+      birure-rule-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BIRURE-KEYB-.+$
+      error-message: IDs of this section must match BIRURE-KEYB-xxx
+    description: Add one entry per business rule reference.
+  cre-comp-lst:
+    prefix: CRE_COMP_LST
+    subsection-types:
+      cre-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per compliance requirement.
+  rulexm-exam:
+    prefix: RULEXM_EXAM_
+    pattern-check-id:
+      pattern: ^RULEXM-EXAM-.+$
+      error-message: IDs of this section must match RULEXM-EXAM-xxx
+    description: Add one entry per rule example.
+  acrse-acce:
+    prefix: ACRSE_ACCE_
+    pattern-check-id:
+      pattern: ^ACRSE-ACCE-.+$
+      error-message: IDs of this section must match ACRSE-ACCE-xxx
+    description: Add one entry per access restriction.
+  behav-beha:
+    prefix: BEHAV_BEHA_
+    pattern-check-id:
+      pattern: ^BEHAV-BEHA-.+$
+      error-message: IDs of this section must match BEHAV-BEHA-xxx
+    description: Add one entry per behavior rule.
+  bjoen-obje:
+    prefix: BJOEN_OBJE_
+    subsection-types:
+      bjoen-iden:
+        max-count: 1
+      bjoen-doma:
+        max-count: 1
+      bjoen-life:
+        max-count: 1
+      behav-beha-lst:
+        max-count: 1
+      bjoen-owne:
+        max-count: 1
+      integ-inte-lst:
+        max-count: 1
+      biobat-attr-lst:
+        max-count: 1
+      obst-keys-lst:
+        max-count: 1
+      birure-keyb-lst:
+        max-count: 1
+      lftrs-life-lst:
+        max-count: 1
+      obop-oper-lst:
+        max-count: 1
+      obinv-inva-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BJOEN-OBJE-.+$
+      error-message: IDs of this section must match BJOEN-OBJE-xxx
+    description: A business object entry (form).
+  daatt-attr:
+    prefix: DAATT_ATTR_
+    subsection-types:
+      daatt-iden:
+        max-count: 1
+      daatt-data:
+        max-count: 1
+      dataa-cons-lst:
+        max-count: 1
+      daatt-deri:
+        max-count: 1
+      daatt-secu:
+        max-count: 1
+      daatt-migr:
+        max-count: 1
+      displ-disp-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DAATT-ATTR-.+$
+      error-message: IDs of this section must match DAATT-ATTR-xxx
+    description: Add one entry per data attribute.
+  daent-enti:
+    prefix: DAENT_ENTI_
+    subsection-types:
+      daent-iden:
+        max-count: 1
+      daent-clas:
+        max-count: 1
+      volum-volu-lst:
+        max-count: 1
+      daent-life:
+        max-count: 1
+      cre-comp-lst:
+        max-count: 1
+      daent-rela:
+        max-count: 1
+      techn-tech-lst:
+        max-count: 1
+      daatt-attr-lst:
+        max-count: 1
+      keatt-keya-lst:
+        max-count: 1
+      enidx-inde-lst:
+        max-count: 1
+      encns-cons-lst:
+        max-count: 1
+      migme-migr-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DAENT-ENTI-.+$
+      error-message: IDs of this section must match DAENT-ENTI-xxx
+    description: A data entity entry (form).
+  dataa-cons:
+    prefix: DATAA_CONS_
+    pattern-check-id:
+      pattern: ^DATAA-CONS-.+$
+      error-message: IDs of this section must match DATAA-CONS-xxx
+    description: Add one entry per attribute constraint.
+  dclse-item:
+    prefix: DCLSE_ITEM_
+    subsection-types:
+      dclse-iden:
+        max-count: 1
+      dclse-stor:
+        max-count: 1
+      dclse-acce:
+        max-count: 1
+      dclse-rete:
+        max-count: 1
+      dclse-comp:
+        max-count: 1
+      hndre-hand-lst:
+        max-count: 1
+      acrse-acce-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DCLSE-ITEM-.+$
+      error-message: IDs of this section must match DCLSE-ITEM-xxx
+    description: Add one entry per data classification level.
+  displ-disp:
+    prefix: DISPL_DISP_
+    pattern-check-id:
+      pattern: ^DISPL-DISP-.+$
+      error-message: IDs of this section must match DISPL-DISP-xxx
+    description: Add one entry per display property.
+  dmene-enum:
+    prefix: DMENE_ENUM_
+    subsection-types:
+      dmeva-valu-lst:
+        max-count: 1
+        min-count: 1
+    pattern-check-id:
+      pattern: ^DMENE-ENUM-.+$
+      error-message: IDs of this section must match DMENE-ENUM-xxx
+    description: Add one entry per domain enum (closed value set).
+  dmeva-valu:
+    prefix: DMEVA_VALU_
+    pattern-check-id:
+      pattern: ^DMEVA-VALU-.+$
+      error-message: IDs of this section must match DMEVA-VALU-xxx
+    description: Add one entry per enum value.
+  encns-cons:
+    prefix: ENCNS_CONS_
+    pattern-check-id:
+      pattern: ^ENCNS-CONS-.+$
+      error-message: IDs of this section must match ENCNS-CONS-xxx
+    description: Add one entry per entity constraint.
+  enidx-inde:
+    prefix: ENIDX_INDE_
+    pattern-check-id:
+      pattern: ^ENIDX-INDE-.+$
+      error-message: IDs of this section must match ENIDX-INDE-xxx
+    description: Add one entry per entity index.
+  enrle-item:
+    prefix: ENRLE_ITEM_
+    subsection-types:
+      enrle-iden:
+        max-count: 1
+      parti-part-lst:
+        max-count: 1
+      enrle-card:
+        max-count: 1
+      enrle-refe:
+        max-count: 1
+      enrle-navi:
+        max-count: 1
+      relat-rela-lst:
+        max-count: 1
+      enrle-sour-ref:
+        max-count: 1
+      enrle-targ-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ENRLE-ITEM-.+$
+      error-message: IDs of this section must match ENRLE-ITEM-xxx
+    description: Add one entry per entity relationship.
+  ercen-code:
+    prefix: ERCEN_CODE_
+    pattern-check-id:
+      pattern: ^ERCEN-CODE-.+$
+      error-message: IDs of this section must match ERCEN-CODE-xxx
+    description: Add one entry per shared application error code.
+  fndmx-func:
+    prefix: FNDMX_FUNC_
+    pattern-check-id:
+      pattern: ^FNDMX-FUNC-.+$
+      error-message: IDs of this section must match FNDMX-FUNC-xxx
+    description: A function-to-data matrix entry (form).
+  funct-func:
+    prefix: FUNCT_FUNC_
+    subsection-types:
+      fuencl:
+        max-count: 1
+      fuenop:
+        max-count: 1
+      fuenim:
+        max-count: 1
+      sufn-subf-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^FUNCT-FUNC-.+$
+      error-message: IDs of this section must match FUNCT-FUNC-xxx
+    description: A function entry (form).
+  hndre-hand:
+    prefix: HNDRE_HAND_
+    pattern-check-id:
+      pattern: ^HNDRE-HAND-.+$
+      error-message: IDs of this section must match HNDRE-HAND-xxx
+    description: Add one entry per handling requirement.
+  integ-inte:
+    prefix: INTEG_INTE_
+    pattern-check-id:
+      pattern: ^INTEG-INTE-.+$
+      error-message: IDs of this section must match INTEG-INTE-xxx
+    description: Add one entry per integration point.
+  keatt-keya:
+    prefix: KEATT_KEYA_
+    subsection-types:
+      keagn:
+        max-count: 1
+      kearf:
+        max-count: 1
+      keagv:
+        max-count: 1
+      keatt-refe-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^KEATT-KEYA-.+$
+      error-message: IDs of this section must match KEATT-KEYA-xxx
+    description: Add one entry per key attribute.
+  lftrs-life:
+    prefix: LFTRS_LIFE_
+    subsection-types:
+      ltet:
+        max-count: 1
+      ltec:
+        max-count: 1
+      ltee:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^LFTRS-LIFE-.+$
+      error-message: IDs of this section must match LFTRS-LIFE-xxx
+    description: Add one entry per lifecycle transition.
+  migme-migr:
+    prefix: MIGME_MIGR_
+    pattern-check-id:
+      pattern: ^MIGME-MIGR-.+$
+      error-message: IDs of this section must match MIGME-MIGR-xxx
+    description: Add one entry per migration mapping.
+  obinv-inva:
+    prefix: OBINV_INVA_
+    pattern-check-id:
+      pattern: ^OBINV-INVA-.+$
+      error-message: IDs of this section must match OBINV-INVA-xxx
+    description: Add one entry per object invariant.
+  parti-part:
+    prefix: PARTI_PART_
+    pattern-check-id:
+      pattern: ^PARTI-PART-.+$
+      error-message: IDs of this section must match PARTI-PART-xxx
+    description: Add one entry per participating entity.
+  relat-rela:
+    prefix: RELAT_RELA_
+    pattern-check-id:
+      pattern: ^RELAT-RELA-.+$
+      error-message: IDs of this section must match RELAT-RELA-xxx
+    description: Add one entry per relationship attribute.
+  rsfde-fldd:
+    prefix: RSFDE_FLDD_
+    pattern-check-id:
+      pattern: ^RSFDE-FLDD-.+$
+      error-message: IDs of this section must match RSFDE-FLDD-xxx
+    description: Add one entry per field-level detail the error arm may report.
+  techn-tech:
+    prefix: TECHN_TECH_
+    pattern-check-id:
+      pattern: ^TECHN-TECH-.+$
+      error-message: IDs of this section must match TECHN-TECH-xxx
+    description: Add one entry per technical characteristic.
+  volum-volu:
+    prefix: VOLUM_VOLU_
+    pattern-check-id:
+      pattern: ^VOLUM-VOLU-.+$
+      error-message: IDs of this section must match VOLUM-VOLU-xxx
+    description: Add one entry per volume metric.
+  affn-affe:
+    prefix: AFFN_AFFE_
+    subsection-types:
+      affn-func-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^AFFN-AFFE-.+$
+      error-message: IDs of this section must match AFFN-AFFE-xxx
+    description: Add one entry per affected function.
+  afob-affe:
+    prefix: AFOB_AFFE_
+    subsection-types:
+      afob-obje-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^AFOB-AFFE-.+$
+      error-message: IDs of this section must match AFOB-AFFE-xxx
+    description: Add one entry per affected object.
+  biru-busi:
+    prefix: BIRU_BUSI_
+    subsection-types:
+      biru-iden:
+        max-count: 1
+      biru-clas:
+        max-count: 1
+      biru-rule:
+        max-count: 1
+      biru-impl:
+        max-count: 1
+      biru-exce:
+        max-count: 1
+      biru-gove:
+        max-count: 1
+      afob-affe-lst:
+        max-count: 1
+      affn-affe-lst:
+        max-count: 1
+      rulexm-exam-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BIRU-BUSI-.+$
+      error-message: IDs of this section must match BIRU-BUSI-xxx
+    description: A business rule entry (form).
+  bjoen-doma:
+    prefix: BJOEN_DOMA
+    format: bjoen-doma-form
+  bjoen-iden:
+    prefix: BJOEN_IDEN
+    format: bjoen-iden-form
+  bjoen-life:
+    prefix: BJOEN_LIFE
+    format: bjoen-life-form
+  bjoen-owne:
+    prefix: BJOEN_OWNE
+    format: bjoen-owne-form
+  daatt-data:
+    prefix: DAATT_DATA
+    format: daatt-data-form
+  daatt-deri:
+    prefix: DAATT_DERI
+    format: daatt-deri-form
+  daatt-iden:
+    prefix: DAATT_IDEN
+    format: daatt-iden-form
+  daatt-migr:
+    prefix: DAATT_MIGR
+    format: daatt-migr-form
+  daatt-secu:
+    prefix: DAATT_SECU
+    format: daatt-secu-form
+  daent-clas:
+    prefix: DAENT_CLAS
+    format: daent-clas-form
+  daent-iden:
+    prefix: DAENT_IDEN
+    format: daent-iden-form
+  daent-life:
+    prefix: DAENT_LIFE
+    format: daent-life-form
+  daent-rela:
+    prefix: DAENT_RELA
+    format: daent-rela-form
+  datcl-over:
+    prefix: DATCL_OVER
+    format: datcl-over-form
+  dclse-acce:
+    prefix: DCLSE_ACCE
+    format: dclse-acce-form
+  dclse-comp:
+    prefix: DCLSE_COMP
+    format: dclse-comp-form
+  dclse-iden:
+    prefix: DCLSE_IDEN
+    format: dclse-iden-form
+  dclse-rete:
+    prefix: DCLSE_RETE
+    format: dclse-rete-form
+  dclse-stor:
+    prefix: DCLSE_STOR
+    format: dclse-stor-form
+  enrle-card:
+    prefix: ENRLE_CARD
+    format: enrle-card-form
+  enrle-iden:
+    prefix: ENRLE_IDEN
+    format: enrle-iden-form
+  enrle-navi:
+    prefix: ENRLE_NAVI
+    format: enrle-navi-form
+  enrle-refe:
+    prefix: ENRLE_REFE
+    format: enrle-refe-form
+  obop-oper:
+    prefix: OBOP_OPER_
+    subsection-types:
+      ooee:
+        max-count: 1
+      ooel:
+        max-count: 1
+      ooeg:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^OBOP-OPER-.+$
+      error-message: IDs of this section must match OBOP-OPER-xxx
+    description: Add one entry per object operation.
+  obst-keys:
+    prefix: OBST_KEYS_
+    pattern-check-id:
+      pattern: ^OBST-KEYS-.+$
+      error-message: IDs of this section must match OBST-KEYS-xxx
+    description: Add one entry per object state.
+  sufn-subf:
+    prefix: SUFN_SUBF_
+    pattern-check-id:
+      pattern: ^SUFN-SUBF-.+$
+      error-message: IDs of this section must match SUFN-SUBF-xxx
+    description: Add one entry per sub-function.
+  biru-clas:
+    prefix: BIRU_CLAS
+    format: biru-clas-form
+  biru-exce:
+    prefix: BIRU_EXCE
+    format: biru-exce-form
+  biru-gove:
+    prefix: BIRU_GOVE
+    format: biru-gove-form
+  biru-iden:
+    prefix: BIRU_IDEN
+    format: biru-iden-form
+  biru-impl:
+    prefix: BIRU_IMPL
+    format: biru-impl-form
+  biru-rule:
+    prefix: BIRU_RULE
+    format: biru-rule-form
+  cre-comp:
+    prefix: CRE_COMP_
+    pattern-check-id:
+      pattern: ^CRE-COMP-.+$
+      error-message: IDs of this section must match CRE-COMP-xxx
+    description: Add one entry per compliance requirement.
+  fuencl:
+    prefix: FUENCL
+    format: fuencl-form
+    description: Decomposition position and classification.
+  fuenim:
+    prefix: FUENIM
+    format: fuenim-form
+    description: Automation and data handling summary.
+  fuenop:
+    prefix: FUENOP
+    format: fuenop-form
+    description: Execution profile and criticality.
+  boaed:
+    prefix: BOAED
+    format: boaed-form
+    description: Format and requirement details.
+  boaeg:
+    prefix: BOAEG
+    format: boaeg-form
+    description: Sensitivity and presentation guidance.
+  boaev:
+    prefix: BOAEV
+    format: boaev-form
+    description: Validation and derivation rules.
+  datcl:
+    prefix: DATCL
+    subsection-types:
+      datcl-over:
+        max-count: 1
+      dclse-item-lst:
+        max-count: 1
+    description: Data classification.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  domen:
+    prefix: DOMEN
+    subsection-types:
+      dmene-enum-lst:
+        max-count: 1
+    description: Domain enum registry — the closed value sets the data model relies on
+  enrel:
+    prefix: ENREL
+    subsection-types:
+      enrle-item-lst:
+        max-count: 1
+    description: Entity relationships.
+  ercrg:
+    prefix: ERCRG
+    subsection-types:
+      ercen-code-lst:
+        max-count: 1
+    description: Error code registry — the shared application error-code vocabulary
+  keagn:
+    prefix: KEAGN
+    format: keagn-form
+    description: Key generation settings.
+  keagv:
+    prefix: KEAGV
+    format: keagv-form
+    description: Constraint semantics and business meaning.
+  kearf:
+    prefix: KEARF
+    format: kearf-form
+    description: Foreign-key reference and cascade behavior.
+  rslte:
+    prefix: RSLTE
+    subsection-types:
+      rsfde-fldd-lst:
+        max-count: 1
+    description: Result envelope — the canonical success-or-error §7 Result contract
+  dadi:
+    prefix: DADI
+    description: Data dictionary.
+  inco:
+    prefix: INCO
+    description: Integrity constraints.
+  ltec:
+    prefix: LTEC
+    format: ltec-form
+    description: Transition conditions and guarantees.
+  ltee:
+    prefix: LTEE
+    format: ltee-form
+    description: "Actions, actors, and rollback handling."
+  ltet:
+    prefix: LTET
+    format: ltet-form
+    description: Triggering event details.
+  ooee:
+    prefix: OOEE
+    format: ooee-form
+    description: Execution contract for this operation.
+  ooeg:
+    prefix: OOEG
+    format: ooeg-form
+    description: Authorization and usage boundaries.
+  ooel:
+    prefix: OOEL
+    format: ooel-form
+    description: State and event lifecycle details.
+  vaco:
+    prefix: VACO
+    description: Validation constraints.
+form-types:
+  daent-iden-form:
+    fields:
+      - fieldname: entityName
+        required: true
+        description: "Singular noun or noun phrase (e.g., Customer, OrderItem)"
+      - fieldname: tableName
+        description: Database table name if different from logical name
+      - fieldname: entityAlias
+        description: "Short alias for diagrams and references (e.g., CUST, ORD)"
+      - fieldname: description
+        description: Clear definition of what this entity represents
+      - fieldname: entityStereoType
+        description: "Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge"
+  daent-clas-form:
+    fields:
+      - fieldname: category
+        description: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData"
+      - fieldname: boundedContext
+        description: Domain-driven design bounded context this entity belongs to
+      - fieldname: owningDomain
+        description: Business domain responsible for this entity
+      - fieldname: dataOwner
+        description: Role or team accountable for data quality
+      - fieldname: dataSteward
+        description: Person or role responsible for data governance
+      - fieldname: sourceSystem
+        description: System of record or originating system for migration
+  daent-life-form:
+    fields:
+      - fieldname: lifecyclePhases
+        description: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted"
+      - fieldname: retentionPolicy
+        description: "How long data is retained and why (e.g., 7 years per tax regulations)"
+      - fieldname: archivalTrigger
+        description: "Condition for moving to archive (e.g., 2 years after last activity)"
+      - fieldname: archivalDestination
+        description: "Where archived data goes: ColdStorage | Archive | DataLake"
+      - fieldname: purgePolicy
+        description: When and how data is permanently deleted
+      - fieldname: anonymizationPolicy
+        description: "PII anonymization rules (e.g., hash email after deletion)"
+      - fieldname: auditRequirements
+        description: "What changes must be tracked: None | KeyFields | AllFields | FullHistory"
+      - fieldname: auditRetention
+        description: How long audit records are kept
+  daent-rela-form:
+    fields:
+      - fieldname: parentEntities
+        description: "Entities this depends on (e.g., Order depends on Customer)"
+      - fieldname: childEntities
+        description: "Entities that depend on this (e.g., OrderItem depends on Order)"
+      - fieldname: referencedEntities
+        description: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)"
+      - fieldname: crossDomainRelationships
+        description: Relationships that cross bounded context boundaries
+  daatt-iden-form:
+    fields:
+      - fieldname: attributeName
+        required: true
+        description: Logical attribute name in camelCase
+      - fieldname: columnName
+        description: "Database column name if different (e.g., snake_case)"
+      - fieldname: description
+        description: Clear definition of what this attribute represents
+      - fieldname: businessTerm
+        description: Business glossary term this maps to
+      - fieldname: exampleValues
+        description: "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")"
+  daatt-data-form:
+    fields:
+      - fieldname: dataType
+        description: "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary"
+      - fieldname: physicalType
+        description: "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP"
+      - fieldname: length
+        description: Maximum length for strings or size for binary
+      - fieldname: precision
+        description: Total digits for numeric types
+      - fieldname: scale
+        description: Decimal places for numeric types
+      - fieldname: collation
+        description: "Character collation for text (e.g., utf8_general_ci)"
+      - fieldname: timezone
+        description: "For datetime: UTC | Local | WithOffset"
+      - fieldname: format
+        description: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)"
+  daatt-deri-form:
+    fields:
+      - fieldname: isComputed
+        description: "Whether value is computed: Yes | No"
+      - fieldname: computeFormula
+        description: Formula or expression for computed fields
+      - fieldname: isDerived
+        description: "Whether derived from other attributes: Yes | No"
+      - fieldname: derivationLogic
+        description: How derived value is calculated
+  daatt-secu-form:
+    fields:
+      - fieldname: sensitivityLevel
+        description: "Public | Internal | Confidential | Restricted | PII | PHI"
+      - fieldname: isPii
+        description: "Personally identifiable information: Yes | No"
+      - fieldname: maskingRule
+        description: "How to mask in logs/displays: None | Partial | Full | Hash"
+      - fieldname: encryptionLevel
+        description: "Field-level encryption: None | Encrypted | Tokenized"
+      - fieldname: auditLevel
+        description: "Change tracking: None | ValueChanges | FullHistory"
+  daatt-migr-form:
+    fields:
+      - fieldname: sourceSystem
+        description: Originating system for data lineage
+      - fieldname: sourceAttribute
+        description: Source field name for migration mapping
+      - fieldname: transformationRule
+        description: Transformation applied during migration/ETL
+      - fieldname: dataLineage
+        description: Upstream sources that feed this attribute
+      - fieldname: qualityRules
+        description: "Data quality checks (e.g., completeness, accuracy)"
+  keagn-form:
+    fields:
+      - fieldname: generationStrategy
+        description: "Auto | Sequence | UUID | ULID | Custom | Natural"
+      - fieldname: sequenceName
+        description: Database sequence name if applicable
+      - fieldname: isNaturalKey
+        description: "Whether key has business meaning: Yes | No"
+  kearf-form:
+    fields:
+      - fieldname: referencedEntity
+        description: "For foreign keys: target entity name"
+      - fieldname: referencedKey
+        description: "For foreign keys: target key/column name"
+      - fieldname: onDeleteAction
+        description: "Cascade | SetNull | Restrict | NoAction | SetDefault"
+      - fieldname: onUpdateAction
+        description: "Cascade | SetNull | Restrict | NoAction | SetDefault"
+  keagv-form:
+    fields:
+      - fieldname: deferrable
+        description: "Whether constraint check can be deferred: Yes | No"
+  enrle-iden-form:
+    fields:
+      - fieldname: relationshipName
+        required: true
+        description: "Verb phrase describing the relationship (e.g., \"places\", \"contains\")"
+      - fieldname: relationshipType
+        description: "Association | Aggregation | Composition | Generalization | Dependency"
+      - fieldname: description
+        description: Business meaning of this relationship
+      - fieldname: businessJustification
+        description: Why this relationship exists from business perspective
+      - fieldname: implementationType
+        description: "ForeignKey | JunctionTable | Embedded | Reference"
+  enrle-card-form:
+    fields:
+      - fieldname: sourceCardinality
+        description: "Source side: 1 | 0..1 | 0..* | 1..* | n..m"
+      - fieldname: targetCardinality
+        description: "Target side: 1 | 0..1 | 0..* | 1..* | n..m"
+      - fieldname: sourceParticipation
+        description: "Mandatory | Optional (whether source must participate)"
+      - fieldname: targetParticipation
+        description: "Mandatory | Optional (whether target must participate)"
+      - fieldname: minSourceInstances
+        description: Minimum number of source entity instances
+      - fieldname: maxTargetInstances
+        description: Maximum number of related target instances
+  enrle-refe-form:
+    fields:
+      - fieldname: onDeleteAction
+        description: "Cascade | SetNull | Restrict | NoAction | SetDefault | Archive"
+      - fieldname: onUpdateAction
+        description: "Cascade | SetNull | Restrict | NoAction"
+      - fieldname: enforcementLevel
+        description: "Database | Application | Both | None"
+      - fieldname: isDeferrable
+        description: "Whether constraint check can be deferred: Yes | No"
+      - fieldname: cascadeScope
+        description: "For cascading: DirectOnly | AllDescendants | Custom"
+      - fieldname: orphanHandling
+        description: "How orphaned records are handled: Prevent | Allow | AssignDefault"
+  enrle-navi-form:
+    fields:
+      - fieldname: navigability
+        description: "Bidirectional | SourceToTarget | TargetToSource"
+      - fieldname: loadingStrategy
+        description: "Eager | Lazy | Explicit | None"
+      - fieldname: foreignKeyLocation
+        description: "Where FK resides: Source | Target | JunctionTable"
+      - fieldname: junctionTableName
+        description: "For many-to-many: name of the junction/bridge table"
+      - fieldname: inverseRelationship
+        description: Name of the relationship from the other side
+  datcl-over-form:
+    fields:
+      - fieldname: classificationFramework
+        description: "Standard used: Custom | ISO27001 | NIST | IndustrySpecific"
+      - fieldname: defaultClassification
+        description: Default sensitivity for unclassified data
+      - fieldname: classificationOwner
+        description: Role responsible for data classification decisions
+      - fieldname: reviewFrequency
+        description: "How often classifications are reviewed: Annually | Quarterly | OnChange"
+  dclse-iden-form:
+    fields:
+      - fieldname: classificationName
+        required: true
+        description: Name of this classification level
+      - fieldname: classificationLevel
+        description: "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret"
+      - fieldname: description
+        description: What this classification means
+      - fieldname: dataCategories
+        description: "Types of data in this class: PII | PHI | Financial | Legal | Technical"
+      - fieldname: examples
+        description: Examples of data at this classification
+  dclse-stor-form:
+    fields:
+      - fieldname: encryptionAtRest
+        description: "Encryption requirement for storage: None | Standard | Strong | FieldLevel"
+      - fieldname: encryptionInTransit
+        description: "Encryption for transmission: TLS | mTLS | EndToEnd"
+      - fieldname: storageLocations
+        description: "Where data can be stored: OnPremise | Cloud | Either | Restricted"
+      - fieldname: geographicRestrictions
+        description: "Data residency requirements (e.g., EU only)"
+      - fieldname: backupRequirements
+        description: Special backup considerations
+  dclse-acce-form:
+    fields:
+      - fieldname: accessLevels
+        description: "Who can access: AllEmployees | RoleRestricted | NeedToKnow | SystemOnly"
+      - fieldname: authenticationRequirements
+        description: "Required auth: Basic | MFA | CertificateBased | Biometric"
+      - fieldname: authorizationModel
+        description: "RBAC | ABAC | MAC | DAC"
+      - fieldname: auditRequirements
+        description: "Access audit: None | ReadAudit | WriteAudit | FullAudit"
+      - fieldname: accessRequestProcess
+        description: "How access is granted: SelfService | ManagerApproval | SecurityApproval"
+  dclse-rete-form:
+    fields:
+      - fieldname: retentionPeriod
+        description: "How long data is retained (e.g., 7 years)"
+      - fieldname: retentionBasis
+        description: "Legal | Regulatory | Business | CustomerContract"
+      - fieldname: archivalPolicy
+        description: "When and how to archive: AfterPeriod | OnInactivity | Never"
+      - fieldname: disposalMethod
+        description: "How data is disposed: Delete | Anonymize | Shred | CryptoErase"
+      - fieldname: disposalApproval
+        description: "Who approves disposal: Automatic | DataOwner | Legal"
+  dclse-comp-form:
+    fields:
+      - fieldname: applicableRegulations
+        description: "Regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA | FERPA"
+      - fieldname: complianceRequirements
+        description: Specific compliance requirements
+      - fieldname: breachNotificationSla
+        description: "Time to notify on breach (e.g., 72 hours for GDPR)"
+      - fieldname: dataSubjectRights
+        description: "Applicable rights: Access | Rectification | Erasure | Portability"
+  bjoen-iden-form:
+    fields:
+      - fieldname: objectName
+        required: true
+        description: "Business name in PascalCase (e.g., Order, Customer)"
+      - fieldname: objectAlias
+        description: "Short alias for diagrams (e.g., ORD, CUST)"
+      - fieldname: description
+        description: Clear business definition of what this object represents
+      - fieldname: businessGlossaryTerm
+        description: Official business glossary term if different
+      - fieldname: category
+        description: "Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event"
+      - fieldname: stereotypePattern
+        description: "DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga"
+  bjoen-doma-form:
+    fields:
+      - fieldname: boundedContext
+        description: DDD bounded context this object belongs to
+      - fieldname: owningDomain
+        description: Business domain responsible for this object
+      - fieldname: domainExpert
+        description: Business expert who defines this object
+      - fieldname: ubiquitousLanguageTerm
+        description: How this is referred to in the ubiquitous language
+      - fieldname: relatedObjects
+        description: Key related business objects
+  bjoen-life-form:
+    fields:
+      - fieldname: keyStates
+        description: "Primary lifecycle states (e.g., Draft → Submitted → Confirmed → Closed)"
+      - fieldname: initialState
+        description: State when object is created
+      - fieldname: terminalStates
+        description: "States where lifecycle ends (e.g., Closed, Cancelled, Deleted)"
+      - fieldname: stateTransitionRules
+        description: Summary of allowed state transitions
+      - fieldname: lifecycleOwner
+        description: System or process responsible for lifecycle management
+  bjoen-owne-form:
+    fields:
+      - fieldname: dataOwner
+        description: Business role accountable for this object
+      - fieldname: dataSteward
+        description: Role responsible for data quality
+      - fieldname: versioningStrategy
+        description: "None | Sequential | Timestamp | Optimistic | EventSourced"
+      - fieldname: concurrencyControl
+        description: "Optimistic | Pessimistic | None"
+      - fieldname: auditTrail
+        description: "What changes are tracked: None | StateChanges | AllChanges | FullHistory"
+  boaed-form:
+    fields:
+      - fieldname: format
+        description: "Business format (e.g., currency, percentage, phone)"
+      - fieldname: mandatory
+        description: "Required | Optional | ConditionallyRequired"
+      - fieldname: defaultValue
+        description: Default value or derivation
+  boaev-form:
+    fields:
+      - fieldname: validationRules
+        description: Business validation rules
+      - fieldname: allowedValues
+        description: Enumerated values or range
+      - fieldname: businessRules
+        description: Rules affecting this attribute
+      - fieldname: derivation
+        description: How value is derived if calculated
+  boaeg-form:
+    fields:
+      - fieldname: sensitivityLevel
+        description: "Public | Internal | Confidential | PII | PHI"
+      - fieldname: displayOrder
+        description: Order for UI presentation
+  ltet-form:
+    fields:
+      - fieldname: trigger
+        description: What initiates this transition
+      - fieldname: triggerType
+        description: "UserAction | SystemEvent | Timer | ExternalEvent"
+  ltec-form:
+    fields:
+      - fieldname: guardConditions
+        description: Conditions that must be true for transition
+      - fieldname: preConditions
+        description: What must be true before transition
+      - fieldname: postConditions
+        description: What is guaranteed after transition
+  ltee-form:
+    fields:
+      - fieldname: actions
+        description: Actions performed during transition
+      - fieldname: sideEffects
+        description: "Events published, notifications sent"
+      - fieldname: allowedActors
+        description: Who can trigger this transition
+      - fieldname: rollbackStrategy
+        description: How to handle transition failure
+  ooee-form:
+    fields:
+      - fieldname: preconditions
+        description: What must be true before operation
+      - fieldname: postconditions
+        description: What is guaranteed after operation
+      - fieldname: inputParameters
+        description: Required inputs for this operation
+      - fieldname: outputResult
+        description: What the operation returns
+  ooel-form:
+    fields:
+      - fieldname: businessRulesApplied
+        description: Rules evaluated during operation
+      - fieldname: stateTransitions
+        description: Possible state changes
+      - fieldname: eventsPublished
+        description: Domain events triggered
+  ooeg-form:
+    fields:
+      - fieldname: allowedInStates
+        description: States where operation is permitted
+      - fieldname: authorization
+        description: Who can perform this operation
+      - fieldname: idempotent
+        description: "Whether operation is idempotent: Yes | No"
+  fuencl-form:
+    fields:
+      - fieldname: level
+        description: "Hierarchy level: 1 | 2 | 3 etc."
+      - fieldname: functionType
+        description: "Operational | Support | Management | Information"
+      - fieldname: owningProcess
+        description: Business process this belongs to
+  fuenop-form:
+    fields:
+      - fieldname: frequency
+        description: "How often executed: Continuous | Daily | OnDemand | Periodic"
+      - fieldname: volumeEstimate
+        description: Estimated execution frequency/volume
+      - fieldname: criticalityLevel
+        description: "Business criticality: Critical | High | Medium | Low"
+  fuenim-form:
+    fields:
+      - fieldname: automationLevel
+        description: "Manual | SemiAutomated | FullyAutomated"
+      - fieldname: dataAccess
+        description: Summary of data entities accessed with CRUD
+  biru-iden-form:
+    fields:
+      - fieldname: ruleId
+        required: true
+        description: "Unique rule identifier (e.g., BR-001)"
+      - fieldname: ruleName
+        required: true
+        description: Descriptive name
+      - fieldname: ruleVersion
+        description: Version number for change tracking
+      - fieldname: description
+        description: Full statement of the business rule
+      - fieldname: businessStatement
+        description: Natural language statement from business perspective
+  biru-clas-form:
+    fields:
+      - fieldname: ruleType
+        description: "Structural | Derivation | Constraint | Authorization | Workflow | Calculation"
+      - fieldname: ruleCategory
+        description: "Validation | Computation | Inference | Action-Enabling"
+      - fieldname: enforcementLevel
+        description: "Mandatory | Guideline | Advisory"
+      - fieldname: priority
+        description: "When rules conflict: 1 (highest) to 5 (lowest)"
+      - fieldname: source
+        description: "Where rule originates: Regulation | Policy | Contract | BestPractice"
+  biru-rule-form:
+    fields:
+      - fieldname: condition
+        description: Trigger condition in natural language or pseudo-code
+      - fieldname: action
+        description: What happens when condition is true
+      - fieldname: elseAction
+        description: What happens when condition is false
+      - fieldname: expression
+        description: Formalized rule logic
+      - fieldname: parameters
+        description: Configurable values in the rule
+  biru-impl-form:
+    fields:
+      - fieldname: enforcement
+        description: "How enforced: DatabaseConstraint | ApplicationLogic | Workflow | Manual"
+      - fieldname: implementationPoint
+        description: "Where implemented: UI | API | Service | Database | Integration"
+      - fieldname: validationTiming
+        description: "When validated: OnInput | OnSave | OnSubmit | Scheduled | RealTime"
+      - fieldname: systemsInvolved
+        description: Which systems enforce this rule
+      - fieldname: testability
+        description: "How rule can be tested: UnitTestable | IntegrationRequired | ManualOnly"
+  biru-exce-form:
+    fields:
+      - fieldname: exceptionHandling
+        description: How violations are handled
+      - fieldname: overridePolicy
+        description: Whether and how rule can be overridden
+      - fieldname: overrideApproval
+        description: Who can approve overrides
+      - fieldname: escalationPath
+        description: How exceptions are escalated
+  biru-gove-form:
+    fields:
+      - fieldname: ruleOwner
+        description: Business owner responsible for this rule
+      - fieldname: effectiveDate
+        description: When rule becomes/became effective
+      - fieldname: expirationDate
+        description: When rule expires (if applicable)
+      - fieldname: reviewFrequency
+        description: "How often rule is reviewed: Annually | OnChange | Never"
+document:
+  sections:
+    dochd:
+      section-type: dochd
+      optional: true
+    daent-enti-lst:
+      section-type: daent-enti-lst
+    enrel:
+      section-type: enrel
+      optional: true
+    datcl:
+      section-type: datcl
+      optional: true
+    bjoen-obje-lst:
+      section-type: bjoen-obje-lst
+    funct-func-lst:
+      section-type: funct-func-lst
+      optional: true
+    fndmx-func-lst:
+      section-type: fndmx-func-lst
+      optional: true
+    biru-busi-lst:
+      section-type: biru-busi-lst
+    dadi:
+      section-type: dadi
+      optional: true
+    vaco:
+      section-type: vaco
+      optional: true
+    inco:
+      section-type: inco
+      optional: true
+    domen:
+      section-type: domen
+      optional: true
+    ercrg:
+      section-type: ercrg
+      optional: true
+    rslte:
+      section-type: rslte
+      optional: true

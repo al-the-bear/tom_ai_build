@@ -1,0 +1,4030 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: current-landscape-assessment/9.0
+
+title-format: "# <!--[CLA]--> Current Landscape Assessment"
+section-types:
+  repsdep-depe-lst:
+    prefix: REPSDEP_DEPE_LST
+    subsection-types:
+      repsdep-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
+  bupapo-item-lst:
+    prefix: BUPAPO_ITEM_LST
+    subsection-types:
+      bupapo-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail."
+  cubipr-proc-lst:
+    prefix: CUBIPR_PROC_LST
+    subsection-types:
+      cubipr-proc:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per business process in scope. Document each process in full — its workflows, actors, metrics, and pain points."
+  cuopme-oper-lst:
+    prefix: CUOPME_OPER_LST
+    subsection-types:
+      cuopme-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Current operational metrics.
+  daowen-owne-lst:
+    prefix: DAOWEN_OWNE_LST
+    subsection-types:
+      daowen-owne:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data domain or asset. Capture its business owner, data steward and technical custodian, who approves access, and the current ownership coverage status."
+  daqlis-qual-lst:
+    prefix: DAQLIS_QUAL_LST
+    subsection-types:
+      daqlis-qual:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per known data quality issue. Capture its severity, affected sources/entities, business impact, root cause, and proposed resolution."
+  davoen-volu-lst:
+    prefix: DAVOEN_VOLU_LST
+    subsection-types:
+      davoen-volu:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
+  mebaen-entr-lst:
+    prefix: MEBAEN_ENTR_LST
+    subsection-types:
+      mebaen-entr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target."
+  miriin-indi-lst:
+    prefix: MIRIIN_INDI_LST
+    subsection-types:
+      miriin-indi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per indicator set, describing the metrics, thresholds, and monitoring frequency that signal the risk."
+  oppapo-item-lst:
+    prefix: OPPAPO_ITEM_LST
+    subsection-types:
+      oppapo-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns."
+  papor1-rela-lst:
+    prefix: PAPOR1_RELA_LST
+    subsection-types:
+      papor1-rela:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per relationship this pain point has — related pain points, originating gaps, or other pain points it depends on."
+  prdeen-depe-lst:
+    prefix: PRDEEN_DEPE_LST
+    subsection-types:
+      prdeen-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact."
+  prmeca-cost-lst:
+    prefix: PRMECA_COST_LST
+    subsection-types:
+      prmeca-cost:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add cost metrics — cost per transaction, resource costs."
+  prmeca-effi-lst:
+    prefix: PRMECA_EFFI_LST
+    subsection-types:
+      prmeca-effi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add efficiency metrics — throughput, cycle times, utilization."
+  prmeca-manu-lst:
+    prefix: PRMECA_MANU_LST
+    subsection-types:
+      prmeca-manu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add manual-intervention metrics — manual steps, human intervention frequency."
+  prmeca-qual-lst:
+    prefix: PRMECA_QUAL_LST
+    subsection-types:
+      prmeca-qual:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add quality metrics — error rates, defect rates, rework rates."
+  prmeca-volu-lst:
+    prefix: PRMECA_VOLU_LST
+    subsection-types:
+      prmeca-volu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add volume metrics — transaction counts, throughput volumes."
+  prscen-insc-lst:
+    prefix: PRSCEN_INSC_LST
+    subsection-types:
+      prscen-insc:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per process that is in scope for analysis, with the rationale for its inclusion."
+  prscen-outo-lst:
+    prefix: PRSCEN_OUTO_LST
+    subsection-types:
+      prscen-outo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per process excluded from analysis, noting why and the impact of leaving it out."
+  repphs-phas-lst:
+    prefix: REPPHS_PHAS_LST
+    subsection-types:
+      repphs-phas:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
+  sytore-syst-lst:
+    prefix: SYTORE_SYST_LST
+    subsection-types:
+      sytore-syst:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
+  tepapo-item-lst:
+    prefix: TEPAPO_ITEM_LST
+    subsection-types:
+      tepapo-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
+  woburu-busi-lst:
+    prefix: WOBURU_BUSI_LST
+    subsection-types:
+      woburu-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
+  wodepo-deci-lst:
+    prefix: WODEPO_DECI_LST
+    subsection-types:
+      wodepo-deci:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per decision point, with its criteria, decision maker, possible outcomes, and escalation path."
+  woexen-exce-lst:
+    prefix: WOEXEN_EXCE_LST
+    subsection-types:
+      woexen-exce:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per exception type, with its frequency, handling procedure, escalation path, and recovery time."
+  woinen-inpu-lst:
+    prefix: WOINEN_INPU_LST
+    subsection-types:
+      woinen-inpu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per input this step consumes, with its source, format, and validation rules."
+  woouen-outp-lst:
+    prefix: WOOUEN_OUTP_LST
+    subsection-types:
+      woouen-outp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per output this step produces, with its destination and format."
+  wostis-know-lst:
+    prefix: WOSTIS_KNOW_LST
+    subsection-types:
+      wostis-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround."
+  wostsy-syst-lst:
+    prefix: WOSTSY_SYST_LST
+    subsection-types:
+      wostsy-syst:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per system the step uses.
+  wosuen-entr-lst:
+    prefix: WOSUEN_ENTR_LST
+    subsection-types:
+      wosuen-entr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential."
+  wotren-trig-lst:
+    prefix: WOTREN_TRIG_LST
+    subsection-types:
+      wotren-trig:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
+  criti-crit-lst:
+    prefix: CRITI_CRIT_LST
+    subsection-types:
+      criti-crit:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  escal-esca-lst:
+    prefix: ESCAL_ESCA_LST
+    subsection-types:
+      escal-esca:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
+  esent-syst-lst:
+    prefix: ESENT_SYST_LST
+    subsection-types:
+      esent-syst:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per existing system that is relevant to the project scope. Include all systems that will be replaced, integrated with, or affected by the new system."
+  exsde-item-lst:
+    prefix: EXSDE_ITEM_LST
+    subsection-types:
+      exsde-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
+  exsde-prim-ref:
+    prefix: EXSDE_PRIM_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
+  fragi-frag-lst:
+    prefix: FRAGI_FRAG_LST
+    subsection-types:
+      fragi-frag:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
+  known-know-lst:
+    prefix: KNOWN_KNOW_LST
+    subsection-types:
+      known-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data-quality issue to address; note severity and remediation approach.
+  limet-know-lst:
+    prefix: LIMET_KNOW_LST
+    subsection-types:
+      limet-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Document each known limitation with its impact on current operations and any workarounds in place.
+  mgmls-mile-lst:
+    prefix: MGMLS_MILE_LST
+    subsection-types:
+      mgmls-mile:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per program milestone, with its target date, systems included, and the success/gate criteria that must be met."
+  mgrsk-item-lst:
+    prefix: MGRSK_ITEM_LST
+    subsection-types:
+      mgrsk-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution."
+  monit-moni-lst:
+    prefix: MONIT_MONI_LST
+    subsection-types:
+      monit-moni:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
+  msddo-mast-lst:
+    prefix: MSDDO_MAST_LST
+    subsection-types:
+      msddo-mast:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
+  nonfi-nonf-lst:
+    prefix: NONFI_NONF_LST
+    subsection-types:
+      nonfi-nonf:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
+  ppgce-corr-lst:
+    prefix: PPGCE_CORR_LST
+    subsection-types:
+      ppgce-corr:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is."
+  prede-pred-lst:
+    prefix: PREDE_PRED_LST
+    subsection-types:
+      prede-pred:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
+  repol-rete-lst:
+    prefix: REPOL_RETE_LST
+    subsection-types:
+      repol-rete:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
+  respo-resp-lst:
+    prefix: RESPO_RESP_LST
+    subsection-types:
+      respo-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
+  riskb-risk-lst:
+    prefix: RISKB_RISK_LST
+    subsection-types:
+      riskb-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
+  riskc-risk-lst:
+    prefix: RISKC_RISK_LST
+    subsection-types:
+      riskc-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
+  secur-secu-lst:
+    prefix: SECUR_SECU_LST
+    subsection-types:
+      secur-secu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
+  share-shar-lst:
+    prefix: SHARE_SHAR_LST
+    subsection-types:
+      share-shar:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
+  shien-item-lst:
+    prefix: SHIEN_ITEM_LST
+    subsection-types:
+      shien-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
+  cpie-impr-lst:
+    prefix: CPIE_IMPR_LST
+    subsection-types:
+      cpie-impr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority."
+  cuwf-work-lst:
+    prefix: CUWF_WORK_LST
+    subsection-types:
+      cuwf-work:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per workflow within this process, documenting its triggers, steps, actors, inputs, outputs, and timing."
+  dadu-dupl-lst:
+    prefix: DADU_DUPL_LST
+    subsection-types:
+      dadu-dupl:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per documented duplication case. Capture the data element, its primary and duplicate sources, how copies are synchronized, the business reason, and the recommended action."
+  dain-inte-lst:
+    prefix: DAIN_INTE_LST
+    subsection-types:
+      dain-inte:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data integration point. Capture its source and target systems, integration type, volume and transport, reliability and monitoring, and its owners."
+  dasr-data-lst:
+    prefix: DASR_DATA_LST
+    subsection-types:
+      dasr-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data source/store in the environment (databases, warehouses, lakes, file systems, SaaS, APIs). Capture each source's technology, volume, quality, ownership, and key entities."
+  dcle-clas-lst:
+    prefix: DCLE_CLAS_LST
+    subsection-types:
+      dcle-clas:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per classification level (e.g. Public, Internal, Confidential, Restricted). Capture its order, meaning, examples, and the handling, access, storage, transmission, and disposal requirements."
+  dcse-clas-lst:
+    prefix: DCSE_CLAS_LST
+    subsection-types:
+      dcse-clas:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed."
+  deme-enti-lst:
+    prefix: DEME_ENTI_LST
+    subsection-types:
+      deme-enti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
+  dgpe-gove-lst:
+    prefix: DGPE_GOVE_LST
+    subsection-types:
+      dgpe-gove:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level."
+  dqie-impr-lst:
+    prefix: DQIE_IMPR_LST
+    subsection-types:
+      dqie-impr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per active or planned data-quality improvement initiative. Capture the issues it targets, its status, expected completion, and the improvement it should deliver."
+  dsee-keye-lst:
+    prefix: DSEE_KEYE_LST
+    subsection-types:
+      dsee-keye:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per key entity in this source. Capture its name, what it represents, record count, primary key, relationships, and any sensitive fields."
+  gape-item-lst:
+    prefix: GAPE_ITEM_LST
+    subsection-types:
+      gape-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
+  repsdep-depe:
+    prefix: REPSDEP_DEPE_
+    pattern-check-id:
+      pattern: ^REPSDEP-DEPE-.+$
+      error-message: IDs of this section must match REPSDEP-DEPE-xxx
+    description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
+  sbpe-supp-lst:
+    prefix: SBPE_SUPP_LST
+    subsection-types:
+      sbpe-supp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business process the system supports; note its role and execution frequency.
+  sbue-busi-lst:
+    prefix: SBUE_BUSI_LST
+    subsection-types:
+      sbue-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business unit using the system; note user count and dependency level.
+  smre-risk-lst:
+    prefix: SMRE_RISK_LST
+    subsection-types:
+      smre-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
+  syde-item-lst:
+    prefix: SYDE_ITEM_LST
+    subsection-types:
+      syde-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each."
+  syde-sour-ref:
+    prefix: SYDE_SOUR_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
+  syde-targ-ref:
+    prefix: SYDE_TARG_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
+  syin-item-lst:
+    prefix: SYIN_ITEM_LST
+    subsection-types:
+      syin-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
+  syin-sour-ref:
+    prefix: SYIN_SOUR_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
+  syin-targ-ref:
+    prefix: SYIN_TARG_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
+  ugie-user-lst:
+    prefix: UGIE_USER_LST
+    subsection-types:
+      ugie-user:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user group needing special handling; note impact level and special considerations.
+  wfac-acto-lst:
+    prefix: WFAC_ACTO_LST
+    subsection-types:
+      wfac-acto:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level."
+  bupapo-item:
+    prefix: BUPAPO_ITEM_
+    subsection-types:
+      papocl:
+        max-count: 1
+      pprc:
+        max-count: 1
+      papoim:
+        max-count: 1
+      papoev:
+        max-count: 1
+      papowo:
+        max-count: 1
+      papore:
+        max-count: 1
+      papor1-rela-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BUPAPO-ITEM-.+$
+      error-message: IDs of this section must match BUPAPO-ITEM-xxx
+    description: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail."
+  cubipr-proc:
+    prefix: CUBIPR_PROC_
+    subsection-types:
+      pc:
+        max-count: 1
+      wode:
+        max-count: 1
+      pm:
+        max-count: 1
+      prpapo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CUBIPR-PROC-.+$
+      error-message: IDs of this section must match CUBIPR-PROC-xxx
+    description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
+  cudala-datal:
+    prefix: CUDALA_DATAL
+    format: mermaid-flowchart
+    description: Visual representation of the data landscape.
+  cuopme-oper:
+    prefix: CUOPME_OPER_
+    pattern-check-id:
+      pattern: ^CUOPME-OPER-.+$
+      error-message: IDs of this section must match CUOPME-OPER-xxx
+    description: 1.5. Operational Metrics.
+  daowen-owne:
+    prefix: DAOWEN_OWNE_
+    subsection-types:
+      daowenst:
+        max-count: 1
+      doeg:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DAOWEN-OWNE-.+$
+      error-message: IDs of this section must match DAOWEN-OWNE-xxx
+    description: "Add one entry per data domain or asset. Capture its business owner, data steward and technical custodian, who approves access, and the current ownership coverage status."
+  daqlis-qual:
+    prefix: DAQLIS_QUAL_
+    subsection-types:
+      dqiec:
+        max-count: 1
+      dqiei:
+        max-count: 1
+      dqier:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DAQLIS-QUAL-.+$
+      error-message: IDs of this section must match DAQLIS-QUAL-xxx
+    description: "Add one entry per known data quality issue. Capture its severity, affected sources/entities, business impact, root cause, and proposed resolution."
+  davoen-volu:
+    prefix: DAVOEN_VOLU_
+    pattern-check-id:
+      pattern: ^DAVOEN-VOLU-.+$
+      error-message: IDs of this section must match DAVOEN-VOLU-xxx
+    description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
+  ipe-inte-lst:
+    prefix: IPE_INTE_LST
+    subsection-types:
+      ipe-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
+  kie-know-lst:
+    prefix: KIE_KNOW_LST
+    subsection-types:
+      kie-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
+  mebaen-entr:
+    prefix: MEBAEN_ENTR_
+    pattern-check-id:
+      pattern: ^MEBAEN-ENTR-.+$
+      error-message: IDs of this section must match MEBAEN-ENTR-xxx
+    description: "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target."
+  miriin-indi:
+    prefix: MIRIIN_INDI_
+    pattern-check-id:
+      pattern: ^MIRIIN-INDI-.+$
+      error-message: IDs of this section must match MIRIIN-INDI-xxx
+    description: "Add one entry per indicator set, describing the metrics, thresholds, and monitoring frequency that signal the risk."
+  oppapo-item:
+    prefix: OPPAPO_ITEM_
+    subsection-types:
+      papocl:
+        max-count: 1
+      pprc:
+        max-count: 1
+      papoim:
+        max-count: 1
+      papoev:
+        max-count: 1
+      papowo:
+        max-count: 1
+      papore:
+        max-count: 1
+      papor1-rela-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^OPPAPO-ITEM-.+$
+      error-message: IDs of this section must match OPPAPO-ITEM-xxx
+    description: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns."
+  papor1-rela:
+    prefix: PAPOR1_RELA_
+    pattern-check-id:
+      pattern: ^PAPOR1-RELA-.+$
+      error-message: IDs of this section must match PAPOR1-RELA-xxx
+    description: "Add one entry per relationship this pain point has — related pain points, originating gaps, or other pain points it depends on."
+  pme-item-lst:
+    prefix: PME_ITEM_LST
+    subsection-types:
+      pme-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add any individual metrics that do not fit a specific category above.
+  pme-keym-lst:
+    prefix: PME_KEYM_LST
+    subsection-types:
+      pme-keym:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add the most important metrics that characterize overall process performance at a glance.
+  pme-metr-lst:
+    prefix: PME_METR_LST
+    subsection-types:
+      pme-metr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per metric in this category, with its current value, unit, and measurement details."
+  pme-proc-ref:
+    prefix: PME_PROC_REF
+    subsection-types:
+      pc:
+        max-count: 1
+      wode:
+        max-count: 1
+      pm:
+        max-count: 1
+      prpapo:
+        max-count: 1
+    description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
+  prdeen-depe:
+    prefix: PRDEEN_DEPE_
+    pattern-check-id:
+      pattern: ^PRDEEN-DEPE-.+$
+      error-message: IDs of this section must match PRDEEN-DEPE-xxx
+    description: "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact."
+  prmeca-cost:
+    prefix: PRMECA_COST_
+    subsection-types:
+      pme-metr-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PRMECA-COST-.+$
+      error-message: IDs of this section must match PRMECA-COST-xxx
+    description: Group related metrics under this category and add one entry per metric it contains.
+  prmeca-effi:
+    prefix: PRMECA_EFFI_
+    subsection-types:
+      pme-metr-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PRMECA-EFFI-.+$
+      error-message: IDs of this section must match PRMECA-EFFI-xxx
+    description: Group related metrics under this category and add one entry per metric it contains.
+  prmeca-manu:
+    prefix: PRMECA_MANU_
+    subsection-types:
+      pme-metr-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PRMECA-MANU-.+$
+      error-message: IDs of this section must match PRMECA-MANU-xxx
+    description: Group related metrics under this category and add one entry per metric it contains.
+  prmeca-qual:
+    prefix: PRMECA_QUAL_
+    subsection-types:
+      pme-metr-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PRMECA-QUAL-.+$
+      error-message: IDs of this section must match PRMECA-QUAL-xxx
+    description: Group related metrics under this category and add one entry per metric it contains.
+  prmeca-volu:
+    prefix: PRMECA_VOLU_
+    subsection-types:
+      pme-metr-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PRMECA-VOLU-.+$
+      error-message: IDs of this section must match PRMECA-VOLU-xxx
+    description: Group related metrics under this category and add one entry per metric it contains.
+  prscen-insc:
+    prefix: PRSCEN_INSC_
+    pattern-check-id:
+      pattern: ^PRSCEN-INSC-.+$
+      error-message: IDs of this section must match PRSCEN-INSC-xxx
+    description: "Add one entry per process that is in scope for analysis, with the rationale for its inclusion."
+  prscen-outo:
+    prefix: PRSCEN_OUTO_
+    pattern-check-id:
+      pattern: ^PRSCEN-OUTO-.+$
+      error-message: IDs of this section must match PRSCEN-OUTO-xxx
+    description: "Add one entry per process excluded from analysis, noting why and the impact of leaving it out."
+  repphs-phas:
+    prefix: REPPHS_PHAS_
+    pattern-check-id:
+      pattern: ^REPPHS-PHAS-.+$
+      error-message: IDs of this section must match REPPHS-PHAS-xxx
+    description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
+  sytore-syst:
+    prefix: SYTORE_SYST_
+    subsection-types:
+      sytore-iden:
+        max-count: 1
+      strep:
+        max-count: 1
+      strev:
+        max-count: 1
+      syteas:
+        max-count: 1
+      sybucr:
+        max-count: 1
+      syrest:
+        max-count: 1
+      sydasc:
+        max-count: 1
+      repsdep-depe-lst:
+        max-count: 1
+      syusim:
+        max-count: 1
+      sycoan:
+        max-count: 1
+      symipl:
+        max-count: 1
+      sykntr:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SYTORE-SYST-.+$
+      error-message: IDs of this section must match SYTORE-SYST-xxx
+    description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
+  tepapo-item:
+    prefix: TEPAPO_ITEM_
+    subsection-types:
+      papocl:
+        max-count: 1
+      pprc:
+        max-count: 1
+      papoim:
+        max-count: 1
+      papoev:
+        max-count: 1
+      papowo:
+        max-count: 1
+      papore:
+        max-count: 1
+      papor1-rela-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^TEPAPO-ITEM-.+$
+      error-message: IDs of this section must match TEPAPO-ITEM-xxx
+    description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
+  wae-part-ref:
+    prefix: WAE_PART_REF
+    subsection-types:
+      wse:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Steps this actor participates in.
+  woburu-busi:
+    prefix: WOBURU_BUSI_
+    pattern-check-id:
+      pattern: ^WOBURU-BUSI-.+$
+      error-message: IDs of this section must match WOBURU-BUSI-xxx
+    description: "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
+  wodepo-deci:
+    prefix: WODEPO_DECI_
+    pattern-check-id:
+      pattern: ^WODEPO-DECI-.+$
+      error-message: IDs of this section must match WODEPO-DECI-xxx
+    description: "Add one entry per decision point, with its criteria, decision maker, possible outcomes, and escalation path."
+  woexen-exce:
+    prefix: WOEXEN_EXCE_
+    pattern-check-id:
+      pattern: ^WOEXEN-EXCE-.+$
+      error-message: IDs of this section must match WOEXEN-EXCE-xxx
+    description: "Add one entry per exception type, with its frequency, handling procedure, escalation path, and recovery time."
+  woinen-inpu:
+    prefix: WOINEN_INPU_
+    pattern-check-id:
+      pattern: ^WOINEN-INPU-.+$
+      error-message: IDs of this section must match WOINEN-INPU-xxx
+    description: "Add one entry per input this step consumes, with its source, format, and validation rules."
+  woouen-outp:
+    prefix: WOOUEN_OUTP_
+    pattern-check-id:
+      pattern: ^WOOUEN-OUTP-.+$
+      error-message: IDs of this section must match WOOUEN-OUTP-xxx
+    description: "Add one entry per output this step produces, with its destination and format."
+  wostis-know:
+    prefix: WOSTIS_KNOW_
+    pattern-check-id:
+      pattern: ^WOSTIS-KNOW-.+$
+      error-message: IDs of this section must match WOSTIS-KNOW-xxx
+    description: "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround."
+  wostsy-syst:
+    prefix: WOSTSY_SYST_
+    subsection-types:
+      wostsy-name:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^WOSTSY-SYST-.+$
+      error-message: IDs of this section must match WOSTSY-SYST-xxx
+    description: Add one entry per system the step uses.
+  wosuen-entr:
+    prefix: WOSUEN_ENTR_
+    pattern-check-id:
+      pattern: ^WOSUEN-ENTR-.+$
+      error-message: IDs of this section must match WOSUEN-ENTR-xxx
+    description: "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential."
+  wotren-trig:
+    prefix: WOTREN_TRIG_
+    pattern-check-id:
+      pattern: ^WOTREN-TRIG-.+$
+      error-message: IDs of this section must match WOTREN-TRIG-xxx
+    description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
+  wse-erro-lst:
+    prefix: WSE_ERRO_LST
+    subsection-types:
+      wse-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Identify steps with known issues, high error rates, or workarounds."
+  wse-manu-lst:
+    prefix: WSE_MANU_LST
+    subsection-types:
+      wse-manu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Identify steps that cannot be automated or require human judgment.
+  wse-step-lst:
+    prefix: WSE_STEP_LST
+    subsection-types:
+      wse-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual."
+  criti-crit:
+    prefix: CRITI_CRIT_
+    pattern-check-id:
+      pattern: ^CRITI-CRIT-.+$
+      error-message: IDs of this section must match CRITI-CRIT-xxx
+    description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  cubupr-proc:
+    prefix: CUBUPR_PROC
+    format: mermaid-flowchart
+    description: "Create a Mermaid flowchart showing the process landscape. Group processes by category (Core, Support, Management). Show handoffs and data flows between processes."
+  cudala-data:
+    prefix: CUDALA_DATA
+    format: mermaid
+    description: Data architecture summary diagram.
+  daduan-dupl:
+    prefix: DADUAN_DUPL
+    format: mermaid
+    description: Visual representation of data redundancy.
+  dainpo-data:
+    prefix: DAINPO_DATA
+    format: mermaid-flowchart
+    description: Data flow diagram.
+  daquas-qual:
+    prefix: DAQUAS_QUAL
+    format: mermaid
+    description: Quality issues by severity.
+  dasoin-data:
+    prefix: DASOIN_DATA
+    format: mermaid
+    description: Visual map of data sources by domain/category.
+  escal-esca:
+    prefix: ESCAL_ESCA_
+    pattern-check-id:
+      pattern: ^ESCAL-ESCA-.+$
+      error-message: IDs of this section must match ESCAL-ESCA-xxx
+    description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
+  esent-syst:
+    prefix: ESENT_SYST_
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ESENT-SYST-.+$
+      error-message: IDs of this section must match ESENT-SYST-xxx
+    description: "Add one entry per existing system that is relevant to the project scope. Include all systems that will be replaced, integrated with, or affected by the new system."
+  exsde-item:
+    prefix: EXSDE_ITEM_
+    subsection-types:
+      exsrl:
+        max-count: 1
+      exsop:
+        max-count: 1
+      exsrk:
+        max-count: 1
+      exsde-prim-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EXSDE-ITEM-.+$
+      error-message: IDs of this section must match EXSDE-ITEM-xxx
+    description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
+  fragi-frag:
+    prefix: FRAGI_FRAG_
+    pattern-check-id:
+      pattern: ^FRAGI-FRAG-.+$
+      error-message: IDs of this section must match FRAGI-FRAG-xxx
+    description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
+  known-know:
+    prefix: KNOWN_KNOW_
+    pattern-check-id:
+      pattern: ^KNOWN-KNOW-.+$
+      error-message: IDs of this section must match KNOWN-KNOW-xxx
+    description: Add one entry per data-quality issue to address; note severity and remediation approach.
+  limet-know:
+    prefix: LIMET_KNOW_
+    pattern-check-id:
+      pattern: ^LIMET-KNOW-.+$
+      error-message: IDs of this section must match LIMET-KNOW-xxx
+    description: Document each known limitation with its impact on current operations and any workarounds in place.
+  mgmls-mile:
+    prefix: MGMLS_MILE_
+    pattern-check-id:
+      pattern: ^MGMLS-MILE-.+$
+      error-message: IDs of this section must match MGMLS-MILE-xxx
+    description: "Add one entry per program milestone, with its target date, systems included, and the success/gate criteria that must be met."
+  mgrsk-item:
+    prefix: MGRSK_ITEM_
+    subsection-types:
+      miriid:
+        max-count: 1
+      miripr:
+        max-count: 1
+      miriim:
+        max-count: 1
+      miriqu:
+        max-count: 1
+      mirimi:
+        max-count: 1
+      mirico:
+        max-count: 1
+      miriin-indi-lst:
+        max-count: 1
+      miritr:
+        max-count: 1
+      mirir1:
+        max-count: 1
+      mirihi:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^MGRSK-ITEM-.+$
+      error-message: IDs of this section must match MGRSK-ITEM-xxx
+    description: "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution."
+  migcon-stra:
+    prefix: MIGCON_STRA
+    format: migcon-stra-form
+  monit-moni:
+    prefix: MONIT_MONI_
+    pattern-check-id:
+      pattern: ^MONIT-MONI-.+$
+      error-message: IDs of this section must match MONIT-MONI-xxx
+    description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
+  msddo-mast:
+    prefix: MSDDO_MAST_
+    subsection-types:
+      mddeq:
+        max-count: 1
+      mddeu:
+        max-count: 1
+      mddeg:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^MSDDO-MAST-.+$
+      error-message: IDs of this section must match MSDDO-MAST-xxx
+    description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
+  nonfi-nonf:
+    prefix: NONFI_NONF_
+    pattern-check-id:
+      pattern: ^NONFI-NONF-.+$
+      error-message: IDs of this section must match NONFI-NONF-xxx
+    description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
+  ppgce-corr:
+    prefix: PPGCE_CORR_
+    pattern-check-id:
+      pattern: ^PPGCE-CORR-.+$
+      error-message: IDs of this section must match PPGCE-CORR-xxx
+    description: "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is."
+  prede-pred:
+    prefix: PREDE_PRED_
+    pattern-check-id:
+      pattern: ^PREDE-PRED-.+$
+      error-message: IDs of this section must match PREDE-PRED-xxx
+    description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
+  prinma-depe:
+    prefix: PRINMA_DEPE
+    format: mermaid-flowchart
+    description: Create a Mermaid flowchart showing process dependencies. Use edge labels to describe the data/artifact exchanged.
+  repol-rete:
+    prefix: REPOL_RETE_
+    subsection-types:
+      rper:
+        max-count: 1
+      rpel:
+        max-count: 1
+      rpeg:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REPOL-RETE-.+$
+      error-message: IDs of this section must match REPOL-RETE-xxx
+    description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
+  respo-resp:
+    prefix: RESPO_RESP_
+    pattern-check-id:
+      pattern: ^RESPO-RESP-.+$
+      error-message: IDs of this section must match RESPO-RESP-xxx
+    description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
+  riskb-risk:
+    prefix: RISKB_RISK_
+    pattern-check-id:
+      pattern: ^RISKB-RISK-.+$
+      error-message: IDs of this section must match RISKB-RISK-xxx
+    description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
+  riskc-risk:
+    prefix: RISKC_RISK_
+    pattern-check-id:
+      pattern: ^RISKC-RISK-.+$
+      error-message: IDs of this section must match RISKC-RISK-xxx
+    description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
+  secur-secu:
+    prefix: SECUR_SECU_
+    pattern-check-id:
+      pattern: ^SECUR-SECU-.+$
+      error-message: IDs of this section must match SECUR-SECU-xxx
+    description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
+  share-shar:
+    prefix: SHARE_SHAR_
+    pattern-check-id:
+      pattern: ^SHARE-SHAR-.+$
+      error-message: IDs of this section must match SHARE-SHAR-xxx
+    description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
+  shien-item:
+    prefix: SHIEN_ITEM_
+    subsection-types:
+      sier:
+        max-count: 1
+      siec:
+        max-count: 1
+      sieo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SHIEN-ITEM-.+$
+      error-message: IDs of this section must match SHIEN-ITEM-xxx
+    description: "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
+  sytore-iden:
+    prefix: SYTORE_IDEN
+    format: sytore-iden-form
+  wostsy-name:
+    prefix: WOSTSY_NAME
+    description: Name of the system used in this workflow step.
+  carch-arch:
+    prefix: CARCH_ARCH
+    format: mermaid-flowchart
+    description: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions."
+  carch-depl:
+    prefix: CARCH_DEPL
+    format: description
+    description: Deployment topology description.
+  cpie-impr:
+    prefix: CPIE_IMPR_
+    pattern-check-id:
+      pattern: ^CPIE-IMPR-.+$
+      error-message: IDs of this section must match CPIE-IMPR-xxx
+    description: "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority."
+  dadu-dupl:
+    prefix: DADU_DUPL_
+    subsection-types:
+      ddes:
+        max-count: 1
+      daduensy:
+        max-count: 1
+      ddeg:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DADU-DUPL-.+$
+      error-message: IDs of this section must match DADU-DUPL-xxx
+    description: "Add one entry per documented duplication case. Capture the data element, its primary and duplicate sources, how copies are synchronized, the business reason, and the recommended action."
+  dain-inte:
+    prefix: DAIN_INTE_
+    subsection-types:
+      diee:
+        max-count: 1
+      diet:
+        max-count: 1
+      dier:
+        max-count: 1
+      dieo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DAIN-INTE-.+$
+      error-message: IDs of this section must match DAIN-INTE-xxx
+    description: "Add one entry per data integration point. Capture its source and target systems, integration type, volume and transport, reliability and monitoring, and its owners."
+  dasr-data:
+    prefix: DASR_DATA_
+    subsection-types:
+      dasocl:
+        max-count: 1
+      dasote:
+        max-count: 1
+      dasovo:
+        max-count: 1
+      dasoqu:
+        max-count: 1
+      dasoow:
+        max-count: 1
+      dasoi1:
+        max-count: 1
+      dasoli:
+        max-count: 1
+      dsrp:
+        max-count: 1
+      dsee-keye-lst:
+        max-count: 1
+        min-count: 1
+    pattern-check-id:
+      pattern: ^DASR-DATA-.+$
+      error-message: IDs of this section must match DASR-DATA-xxx
+    description: "Add one entry per data source/store in the environment (databases, warehouses, lakes, file systems, SaaS, APIs). Capture each source's technology, volume, quality, ownership, and key entities."
+  dcle-clas:
+    prefix: DCLE_CLAS_
+    pattern-check-id:
+      pattern: ^DCLE-CLAS-.+$
+      error-message: IDs of this section must match DCLE-CLAS-xxx
+    description: "Add one entry per classification level (e.g. Public, Internal, Confidential, Restricted). Capture its order, meaning, examples, and the handling, access, storage, transmission, and disposal requirements."
+  dcse-clas:
+    prefix: DCSE_CLAS_
+    pattern-check-id:
+      pattern: ^DCSE-CLAS-.+$
+      error-message: IDs of this section must match DCSE-CLAS-xxx
+    description: "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed."
+  deme-enti:
+    prefix: DEME_ENTI_
+    pattern-check-id:
+      pattern: ^DEME-ENTI-.+$
+      error-message: IDs of this section must match DEME-ENTI-xxx
+    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
+  depnt-depe:
+    prefix: DEPNT_DEPE
+    format: mermaid-flowchart
+    description: "Create a Mermaid flowchart showing dependencies between systems. Use line styles to indicate coupling strength: solid for tight coupling, dashed for loose coupling. Add labels for data types."
+  dgpe-gove:
+    prefix: DGPE_GOVE_
+    subsection-types:
+      dgpel:
+        max-count: 1
+      dgpeg:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DGPE-GOVE-.+$
+      error-message: IDs of this section must match DGPE-GOVE-xxx
+    description: "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level."
+  dqie-impr:
+    prefix: DQIE_IMPR_
+    pattern-check-id:
+      pattern: ^DQIE-IMPR-.+$
+      error-message: IDs of this section must match DQIE-IMPR-xxx
+    description: "Add one entry per active or planned data-quality improvement initiative. Capture the issues it targets, its status, expected completion, and the improvement it should deliver."
+  dsee-keye:
+    prefix: DSEE_KEYE_
+    pattern-check-id:
+      pattern: ^DSEE-KEYE-.+$
+      error-message: IDs of this section must match DSEE-KEYE-xxx
+    description: "Add one entry per key entity in this source. Capture its name, what it represents, record count, primary key, relationships, and any sensitive fields."
+  gape-item:
+    prefix: GAPE_ITEM_
+    subsection-types:
+      gaende:
+        max-count: 1
+      gaendi:
+        max-count: 1
+      gaenwo:
+        max-count: 1
+      gaenre:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^GAPE-ITEM-.+$
+      error-message: IDs of this section must match GAPE-ITEM-xxx
+    description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
+  ppag-painp:
+    prefix: PPAG_PAINP
+    format: mermaid
+    description: Pain points priority matrix (urgency vs impact).
+  sbpe-supp:
+    prefix: SBPE_SUPP_
+    pattern-check-id:
+      pattern: ^SBPE-SUPP-.+$
+      error-message: IDs of this section must match SBPE-SUPP-xxx
+    description: Add one entry per business process the system supports; note its role and execution frequency.
+  sbue-busi:
+    prefix: SBUE_BUSI_
+    pattern-check-id:
+      pattern: ^SBUE-BUSI-.+$
+      error-message: IDs of this section must match SBUE-BUSI-xxx
+    description: Add one entry per business unit using the system; note user count and dependency level.
+  smre-risk:
+    prefix: SMRE_RISK_
+    pattern-check-id:
+      pattern: ^SMRE-RISK-.+$
+      error-message: IDs of this section must match SMRE-RISK-xxx
+    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
+  syde-item:
+    prefix: SYDE_ITEM_
+    subsection-types:
+      sdem:
+        max-count: 1
+      sdede:
+        max-count: 1
+      sder:
+        max-count: 1
+      sdeo:
+        max-count: 1
+      syde-sour-ref:
+        max-count: 1
+      syde-targ-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SYDE-ITEM-.+$
+      error-message: IDs of this section must match SYDE-ITEM-xxx
+    description: "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each."
+  syin-item:
+    prefix: SYIN_ITEM_
+    subsection-types:
+      syinpr:
+        max-count: 1
+      side:
+        max-count: 1
+      sieh:
+        max-count: 1
+      syinth:
+        max-count: 1
+      syinmo:
+        max-count: 1
+      syinow:
+        max-count: 1
+      syin-sour-ref:
+        max-count: 1
+      syin-targ-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SYIN-ITEM-.+$
+      error-message: IDs of this section must match SYIN-ITEM-xxx
+    description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
+  ugie-user:
+    prefix: UGIE_USER_
+    pattern-check-id:
+      pattern: ^UGIE-USER-.+$
+      error-message: IDs of this section must match UGIE-USER-xxx
+    description: Add one entry per user group needing special handling; note impact level and special considerations.
+  wfac-acto:
+    prefix: WFAC_ACTO_
+    subsection-types:
+      wae-part-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^WFAC-ACTO-.+$
+      error-message: IDs of this section must match WFAC-ACTO-xxx
+    description: "Document all actors including their roles, responsibilities, authorization levels, and involvement pattern."
+  cuwf-work:
+    prefix: CUWF_WORK
+    subsection-types:
+      cuwf-work:
+        max-count: 1
+      wotr:
+        max-count: 1
+      wse-step-lst:
+        max-count: 1
+      wfac-acto-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      wodepo-deci-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wse-manu-lst:
+        max-count: 1
+      wse-erro-lst:
+        max-count: 1
+      woti:
+        max-count: 1
+      woex:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CUWF-WORK-.+$
+      error-message: IDs of this section must match CUWF-WORK-xxx
+    format: mermaid-flowchart
+    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
+  dago-gove:
+    prefix: DAGO_GOVE
+    format: mermaid
+    description: Governance organization structure.
+  daow-owne:
+    prefix: DAOW_OWNE
+    format: mermaid
+    description: Data ownership matrix visualization.
+  dvag-grow:
+    prefix: DVAG_GROW
+    format: mermaid
+    description: Growth trend visualization.
+  ipe-inte:
+    prefix: IPE_INTE_
+    pattern-check-id:
+      pattern: ^IPE-INTE-.+$
+      error-message: IDs of this section must match IPE-INTE-xxx
+    description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
+  kie-know:
+    prefix: KIE_KNOW_
+    pattern-check-id:
+      pattern: ^KIE-KNOW-.+$
+      error-message: IDs of this section must match KIE-KNOW-xxx
+    description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
+  miri-gove:
+    prefix: MIRI_GOVE
+    format: miri-gove-form
+  pme-item:
+    prefix: PME_ITEM_
+    subsection-types:
+      pmem:
+        max-count: 1
+      pmet:
+        max-count: 1
+      pme-proc-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PME-ITEM-.+$
+      error-message: IDs of this section must match PME-ITEM-xxx
+    description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
+  pme-keym:
+    prefix: PME_KEYM_
+    subsection-types:
+      pmem:
+        max-count: 1
+      pmet:
+        max-count: 1
+      pme-proc-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PME-KEYM-.+$
+      error-message: IDs of this section must match PME-KEYM-xxx
+    description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
+  pme-metr:
+    prefix: PME_METR_
+    subsection-types:
+      pmem:
+        max-count: 1
+      pmet:
+        max-count: 1
+      pme-proc-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PME-METR-.+$
+      error-message: IDs of this section must match PME-METR-xxx
+    description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
+  ppag-pain:
+    prefix: PPAG_PAIN
+    format: mermaid-flowchart
+    description: Visual mapping of pain points and their relationships.
+  ppgc-corr:
+    prefix: PPGC_CORR
+    format: mermaid
+    description: Visual correlation between pain points and gaps.
+  wode-work:
+    prefix: WODE_WORK
+    format: mermaid-flowchart
+    description: Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.
+  wse-erro:
+    prefix: WSE_ERRO_
+    subsection-types:
+      wostsy-syst-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wostis-know-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^WSE-ERRO-.+$
+      error-message: IDs of this section must match WSE-ERRO-xxx
+    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
+  wse-manu:
+    prefix: WSE_MANU_
+    subsection-types:
+      wostsy-syst-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wostis-know-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^WSE-MANU-.+$
+      error-message: IDs of this section must match WSE-MANU-xxx
+    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
+  wse-step:
+    prefix: WSE_STEP_
+    subsection-types:
+      wostsy-syst-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wostis-know-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^WSE-STEP-.+$
+      error-message: IDs of this section must match WSE-STEP-xxx
+    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
+  custrias:
+    prefix: CUSTRIAS
+    description: Current-state risk assessment.
+  daduensy:
+    prefix: DADUENSY
+    format: daduensy-form
+    description: Synchronization and consistency details.
+  daowenst:
+    prefix: DAOWENST
+    format: daowenst-form
+    description: Stewardship and custodianship assignments.
+  sydascmi:
+    prefix: SYDASCMI
+    format: sydascmi-form
+    description: Migration preparation and archive handling.
+  bupapo:
+    prefix: BUPAPO
+    subsection-types:
+      bpps:
+        max-count: 1
+      bupapo-item-lst:
+        max-count: 1
+    description: 1.3.2. Business Pain Points.
+  cubupr:
+    prefix: CUBUPR
+    subsection-types:
+      cubupr-proc:
+        max-count: 1
+      prscsu:
+        max-count: 1
+      prinma:
+        max-count: 1
+      prpesu:
+        max-count: 1
+      cubipr-proc-lst:
+        max-count: 1
+        min-count: 1
+    description: Current business processes.
+  cudacl:
+    prefix: CUDACL
+    subsection-types:
+      daclsu:
+        max-count: 1
+      dcle-clas-lst:
+        max-count: 1
+        min-count: 1
+      dcse-clas-lst:
+        max-count: 1
+    description: 1.4.8. Data Classification.
+  cudala:
+    prefix: CUDALA
+    subsection-types:
+      cudala-datal:
+        max-count: 1
+      cudala-data:
+        max-count: 1
+      dalasu:
+        max-count: 1
+      dasoin:
+        max-count: 1
+      daquas:
+        max-count: 1
+      daduan:
+        max-count: 1
+      daow:
+        max-count: 1
+      dvag:
+        max-count: 1
+      darepo:
+        max-count: 1
+      dago:
+        max-count: 1
+      cudacl:
+        max-count: 1
+      dainpo:
+        max-count: 1
+      madama:
+        max-count: 1
+    description: Current data landscape.
+  daclsu:
+    prefix: DACLSU
+    format: daclsu-form
+    description: Classification framework summary.
+  daduan:
+    prefix: DADUAN
+    subsection-types:
+      dadusu:
+        max-count: 1
+      daduan-dupl:
+        max-count: 1
+      dadu-dupl-lst:
+        max-count: 1
+    description: 1.4.3. Data Duplication Analysis.
+  dadusu:
+    prefix: DADUSU
+    format: dadusu-form
+    description: Duplication analysis summary.
+  dagoma:
+    prefix: DAGOMA
+    format: dagoma-form
+    description: Governance maturity assessment.
+  dainpo:
+    prefix: DAINPO
+    subsection-types:
+      dainsu:
+        max-count: 1
+      dainpo-data:
+        max-count: 1
+      dain-inte-lst:
+        max-count: 1
+        min-count: 1
+    description: 1.4.9. Data Integration Points.
+  dainsu:
+    prefix: DAINSU
+    format: dainsu-form
+    description: Integration summary.
+  dalasu:
+    prefix: DALASU
+    format: dalasu-form
+    description: Summary statistics and health indicators.
+  daowsu:
+    prefix: DAOWSU
+    format: daowsu-form
+    description: Ownership model summary.
+  daquas:
+    prefix: DAQUAS
+    subsection-types:
+      dqds:
+        max-count: 1
+      daquas-qual:
+        max-count: 1
+      daqlis-qual-lst:
+        max-count: 1
+        min-count: 1
+      dqie-impr-lst:
+        max-count: 1
+    description: 1.4.2. Data Quality Assessment.
+  darepo:
+    prefix: DAREPO
+    subsection-types:
+      reposu:
+        max-count: 1
+      repol-rete-lst:
+        max-count: 1
+        min-count: 1
+    description: 1.4.6. Retention Policies.
+  dasocl:
+    prefix: DASOCL
+    format: dasocl-form
+    description: Classification.
+  dasoi1:
+    prefix: DASOI1
+    format: dasoi1-form
+    description: Integration.
+  dasoin:
+    prefix: DASOIN
+    subsection-types:
+      dasoin-data:
+        max-count: 1
+      dasr-data-lst:
+        max-count: 1
+    description: 1.4.1. Data Source Inventory.
+  dasoli:
+    prefix: DASOLI
+    format: dasoli-form
+    description: Lifecycle.
+  dasoow:
+    prefix: DASOOW
+    format: dasoow-form
+    description: Ownership and governance.
+  dasoqu:
+    prefix: DASOQU
+    format: dasoqu-form
+    description: Quality and reliability.
+  dasote:
+    prefix: DASOTE
+    format: dasote-form
+    description: Technical details.
+  dasovo:
+    prefix: DASOVO
+    format: dasovo-form
+    description: Volume and performance.
+  davosu:
+    prefix: DAVOSU
+    subsection-types:
+      dvsg:
+        max-count: 1
+      dvsp:
+        max-count: 1
+      dvsc:
+        max-count: 1
+    description: Volume and growth summary.
+  gaende:
+    prefix: GAENDE
+    format: gaende-form
+    description: Gap description and business impact.
+  gaendi:
+    prefix: GAENDI
+    format: gaendi-form
+    description: Discovery and validation.
+  gaenre:
+    prefix: GAENRE
+    format: gaenre-form
+    description: Resolution planning.
+  gaenwo:
+    prefix: GAENWO
+    format: gaenwo-form
+    description: Current workarounds.
+  inhesu:
+    prefix: INHESU
+    subsection-types:
+      fragi-frag-lst:
+        max-count: 1
+    description: 1.1.3.5. Integration Health Summary.
+  integr:
+    prefix: INTEGR
+    subsection-types:
+      syin-item-lst:
+        max-count: 1
+    description: 1.1.3.4. System Integrations.
+  madama:
+    prefix: MADAMA
+    subsection-types:
+      mdsu:
+        max-count: 1
+      msddo-mast-lst:
+        max-count: 1
+        min-count: 1
+    description: 1.4.10. Master Data Management.
+  mebata:
+    prefix: MEBATA
+    subsection-types:
+      mebaen-entr-lst:
+        max-count: 1
+    description: Baseline comparison table.
+  medasu:
+    prefix: MEDASU
+    description: "Summarize the key process metrics for an executive audience — measurement period, data quality, and the headline performance figures."
+  migcon:
+    prefix: MIGCON
+    subsection-types:
+      migcon-stra:
+        max-count: 1
+      mire:
+        max-count: 1
+      miri:
+        max-count: 1
+      mgmls-mile-lst:
+        max-count: 1
+      escal-esca-lst:
+        max-count: 1
+    description: Migration considerations.
+  mirias:
+    prefix: MIRIAS
+    format: mirias-form
+    description: Assessment methodology settings.
+  mirico:
+    prefix: MIRICO
+    format: mirico-form
+    description: Contingency planning.
+  mirigo:
+    prefix: MIRIGO
+    format: mirigo-form
+    description: Governance and decision authority.
+  mirihi:
+    prefix: MIRIHI
+    format: mirihi-form
+    description: History and lessons learned.
+  miriid:
+    prefix: MIRIID
+    format: miriid-form
+    description: Risk identification details.
+  miriim:
+    prefix: MIRIIM
+    format: miriim-form
+    description: Impact assessment.
+  mirimi:
+    prefix: MIRIMI
+    format: mirimi-form
+    description: Mitigation strategy.
+  miripr:
+    prefix: MIRIPR
+    format: miripr-form
+    description: Probability assessment.
+  miriqu:
+    prefix: MIRIQU
+    format: miriqu-form
+    description: Risk quantification.
+  mirir1:
+    prefix: MIRIR1
+    format: mirir1-form
+    description: Related items.
+  mirire:
+    prefix: MIRIRE
+    format: mirire-form
+    description: Reporting settings.
+  mirith:
+    prefix: MIRITH
+    format: mirith-form
+    description: Threshold and trigger settings.
+  miritr:
+    prefix: MIRITR
+    format: miritr-form
+    description: Ownership and tracking.
+  oppapo:
+    prefix: OPPAPO
+    subsection-types:
+      opps:
+        max-count: 1
+      oppapo-item-lst:
+        max-count: 1
+    description: 1.3.1. Operational Pain Points.
+  papocl:
+    prefix: PAPOCL
+    format: papocl-form
+    description: Classification.
+  papoev:
+    prefix: PAPOEV
+    format: papoev-form
+    description: Evidence and validation.
+  papoim:
+    prefix: PAPOIM
+    format: papoim-form
+    description: Impact assessment.
+  papore:
+    prefix: PAPORE
+    format: papore-form
+    description: Resolution planning.
+  paposu:
+    prefix: PAPOSU
+    format: paposu-form
+    description: "Summarize the documented pain points as a whole: totals by severity, aggregate cost and productivity loss, and the most affected process and stakeholder group. Derive these from the individual entries."
+  papowo:
+    prefix: PAPOWO
+    format: papowo-form
+    description: Current state and workarounds.
+  prinma:
+    prefix: PRINMA
+    subsection-types:
+      prinma-depe:
+        max-count: 1
+      prdeen-depe-lst:
+        max-count: 1
+    description: "Document how processes interact: which feed which, what is exchanged, and how tightly coupled they are. Use the diagram for the overall picture and the entries for each pairwise dependency."
+  prpapo:
+    prefix: PRPAPO
+    subsection-types:
+      cpie-impr-lst:
+        max-count: 1
+    description: Capture the problems and improvement opportunities specific to this process — what works poorly today and where it could be better.
+  prpesu:
+    prefix: PRPESU
+    subsection-types:
+      pme-keym-lst:
+        max-count: 1
+    description: "Summarize the overall health of the current processes — maturity, automation level, manual and error-prone steps, bottlenecks, and the estimated cost of inefficiency."
+  prscsu:
+    prefix: PRSCSU
+    subsection-types:
+      prscen-insc-lst:
+        max-count: 1
+      prscen-outo-lst:
+        max-count: 1
+    description: Summarize how many processes were identified and which were selected for analysis. Record the rationale for scope decisions and any processes deferred to later phases.
+  reposu:
+    prefix: REPOSU
+    format: reposu-form
+    description: Retention policy summary.
+  sybucr:
+    prefix: SYBUCR
+    subsection-types:
+      sbco:
+        max-count: 1
+      sbcg:
+        max-count: 1
+      sbue-busi-lst:
+        max-count: 1
+      sbpe-supp-lst:
+        max-count: 1
+    description: Business value and criticality assessment.
+  sycoan:
+    prefix: SYCOAN
+    subsection-types:
+      scacc:
+        max-count: 1
+      scam:
+        max-count: 1
+      scab:
+        max-count: 1
+      nonfi-nonf-lst:
+        max-count: 1
+    description: Financial analysis for replacement decision.
+  sydasc:
+    prefix: SYDASC
+    subsection-types:
+      sdsg:
+        max-count: 1
+      sydascmi:
+        max-count: 1
+      deme-enti-lst:
+        max-count: 1
+      known-know-lst:
+        max-count: 1
+    description: Data migration scope and assessment.
+  syinmo:
+    prefix: SYINMO
+    format: syinmo-form
+    description: Monitoring and failover.
+  syinow:
+    prefix: SYINOW
+    format: syinow-form
+    description: Ownership and documentation.
+  syinpr:
+    prefix: SYINPR
+    format: syinpr-form
+    description: Protocol and transport details.
+  syinth:
+    prefix: SYINTH
+    format: syinth-form
+    description: Throughput and capacity.
+  sykntr:
+    prefix: SYKNTR
+    subsection-types:
+      criti-crit-lst:
+        max-count: 1
+    description: Documentation and knowledge transfer status.
+  symipl:
+    prefix: SYMIPL
+    subsection-types:
+      smpe:
+        max-count: 1
+      smpc:
+        max-count: 1
+      smre-risk-lst:
+        max-count: 1
+    description: Per-system migration considerations.
+  syrest:
+    prefix: SYREST
+    subsection-types:
+      srst:
+        max-count: 1
+      srsc:
+        max-count: 1
+      repphs-phas-lst:
+        max-count: 1
+      prede-pred-lst:
+        max-count: 1
+    description: Detailed replacement approach.
+  syteas:
+    prefix: SYTEAS
+    subsection-types:
+      stap:
+        max-count: 1
+      stal:
+        max-count: 1
+      staq:
+        max-count: 1
+      kie-know-lst:
+        max-count: 1
+      secur-secu-lst:
+        max-count: 1
+    description: Technical stack and architecture assessment.
+  syusim:
+    prefix: SYUSIM
+    subsection-types:
+      suicp:
+        max-count: 1
+      suie:
+        max-count: 1
+      suia:
+        max-count: 1
+      ugie-user-lst:
+        max-count: 1
+    description: User impact and change management needs.
+  tepapo:
+    prefix: TEPAPO
+    subsection-types:
+      tpps:
+        max-count: 1
+      tepapo-item-lst:
+        max-count: 1
+    description: 1.3.3. Technical Pain Points.
+  wosuta:
+    prefix: WOSUTA
+    subsection-types:
+      wosuen-entr-lst:
+        max-count: 1
+    description: "Summarize the workflows for this process — totals, average cycle time, and automation potential — then add one summary row per workflow."
+  carch:
+    prefix: CARCH
+    subsection-types:
+      carch-arch:
+        max-count: 1
+      carch-depl:
+        max-count: 1
+      ipe-inte-lst:
+        max-count: 1
+      share-shar-lst:
+        max-count: 1
+    description: 1.1.2. Current Architecture.
+  depnt:
+    prefix: DEPNT
+    subsection-types:
+      depnt-depe:
+        max-count: 1
+      intdp:
+        max-count: 1
+      extdp:
+        max-count: 1
+      shdep:
+        max-count: 1
+      integr:
+        max-count: 1
+      inhesu:
+        max-count: 1
+    description: 1.1.3. Dependencies and Integrations.
+  dgpeg:
+    prefix: DGPEG
+    format: dgpeg-form
+    description: "Ownership, enforcement, and compliance status."
+  dgpel:
+    prefix: DGPEL
+    format: dgpel-form
+    description: Policy lifecycle and applicability.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  dqiec:
+    prefix: DQIEC
+    format: dqiec-form
+    description: Classification and severity.
+  dqiei:
+    prefix: DQIEI
+    format: dqiei-form
+    description: Business impact and diagnostics.
+  dqier:
+    prefix: DQIER
+    format: dqier-form
+    description: Resolution planning.
+  esbct:
+    prefix: ESBCT
+    format: esbct-form
+    description: Business context.
+  esinf:
+    prefix: ESINF
+    format: esinf-form
+    description: Infrastructure details.
+  esint:
+    prefix: ESINT
+    format: esint-form
+    description: Integration profile.
+  eslan:
+    prefix: ESLAN
+    subsection-types:
+      syinv:
+        max-count: 1
+      carch:
+        max-count: 1
+      depnt:
+        max-count: 1
+    description: "Describe the existing systems landscape: inventory every relevant system, sketch the current architecture, and map dependencies and integrations. Include a context diagram showing how the systems interact."
+  eslcy:
+    prefix: ESLCY
+    format: eslcy-form
+    description: Lifecycle information.
+  esqua:
+    prefix: ESQUA
+    format: esqua-form
+    description: Quality and risk assessment.
+  estec:
+    prefix: ESTEC
+    format: estec-form
+    description: Technology stack details.
+  esusg:
+    prefix: ESUSG
+    format: esusg-form
+    description: Usage metrics.
+  exsop:
+    prefix: EXSOP
+    format: exsop-form
+    description: Availability and data handling details.
+  exsrk:
+    prefix: EXSRK
+    format: exsrk-form
+    description: Risk and fallback considerations.
+  exsrl:
+    prefix: EXSRL
+    format: exsrl-form
+    description: Internal dependency and contract details.
+  extdp:
+    prefix: EXTDP
+    subsection-types:
+      exsde-item-lst:
+        max-count: 1
+    description: 1.1.3.2. External Service Dependencies.
+  intdp:
+    prefix: INTDP
+    subsection-types:
+      syde-item-lst:
+        max-count: 1
+    description: 1.1.3.1. Internal Dependencies.
+  mddeg:
+    prefix: MDDEG
+    format: mddeg-form
+    description: Ownership and improvement planning.
+  mddeq:
+    prefix: MDDEQ
+    format: mddeq-form
+    description: Volume and quality indicators.
+  mddeu:
+    prefix: MDDEU
+    format: mddeu-form
+    description: Downstream usage and cadence.
+  scacc:
+    prefix: SCACC
+    format: scacc-form
+    description: Current-state support and total annual cost.
+  sdede:
+    prefix: SDEDE
+    format: sdede-form
+    description: Data exchange characteristics.
+  shdep:
+    prefix: SHDEP
+    subsection-types:
+      shien-item-lst:
+        max-count: 1
+    description: 1.1.3.3. Shared Infrastructure Dependencies.
+  strep:
+    prefix: STREP
+    format: strep-form
+    description: Classification and ownership details.
+  strev:
+    prefix: STREV
+    format: strev-form
+    description: Vendor and contract status.
+  suicp:
+    prefix: SUICP
+    format: suicp-form
+    description: User-facing change profile.
+  syinv:
+    prefix: SYINV
+    subsection-types:
+      esent-syst-lst:
+        max-count: 1
+        min-count: 1
+    description: "Inventory every system relevant to the project: those that will be replaced, integrated with, or affected by the new system. State the inclusion criteria so the boundary of the AS-IS landscape is clear."
+  bpps:
+    prefix: BPPS
+    format: bpps-form
+    description: "Aggregate the business pain points into category metrics: estimated revenue loss, compliance risk exposure, customer-satisfaction impact, and scalability constraints."
+  dago:
+    prefix: DAGO
+    subsection-types:
+      dagoma:
+        max-count: 1
+      dago-gove:
+        max-count: 1
+      dgpe-gove-lst:
+        max-count: 1
+        min-count: 1
+    description: 1.4.7. Data Governance.
+  daow:
+    prefix: DAOW
+    subsection-types:
+      daowsu:
+        max-count: 1
+      daow-owne:
+        max-count: 1
+      daowen-owne-lst:
+        max-count: 1
+        min-count: 1
+    description: 1.4.4. Data Ownership and Stewardship.
+  ddeg:
+    prefix: DDEG
+    format: ddeg-form
+    description: Business impact and resolution guidance.
+  ddes:
+    prefix: DDES
+    format: ddes-form
+    description: Sources and duplication shape.
+  diee:
+    prefix: DIEE
+    format: diee-form
+    description: Endpoints and type.
+  dieo:
+    prefix: DIEO
+    format: dieo-form
+    description: Ownership and issues.
+  dier:
+    prefix: DIER
+    format: dier-form
+    description: Reliability and monitoring.
+  diet:
+    prefix: DIET
+    format: diet-form
+    description: Volume and transport.
+  doeg:
+    prefix: DOEG
+    format: doeg-form
+    description: Access and coverage governance.
+  dqds:
+    prefix: DQDS
+    format: dqds-form
+    description: Data quality dimensions summary.
+  dsrp:
+    prefix: DSRP
+    format: dsrp-form
+    description: Retention Policy for this data source.
+  dvag:
+    prefix: DVAG
+    subsection-types:
+      davosu:
+        max-count: 1
+      dvag-grow:
+        max-count: 1
+      davoen-volu-lst:
+        max-count: 1
+        min-count: 1
+    description: 1.4.5. Data Volumes and Growth.
+  dvsc:
+    prefix: DVSC
+    format: dvsc-form
+    description: Capacity pressure and cost impact.
+  dvsg:
+    prefix: DVSG
+    format: dvsg-form
+    description: Historical growth behavior.
+  dvsp:
+    prefix: DVSP
+    format: dvsp-form
+    description: Forward-looking forecasts and utilization.
+  mdsu:
+    prefix: MDSU
+    format: mdsu-form
+    description: MDM maturity and status summary.
+  mire:
+    prefix: MIRE
+    description: Resource requirements for migration program.
+  miri:
+    prefix: MIRI
+    subsection-types:
+      miri-gove:
+        max-count: 1
+      mirigo:
+        max-count: 1
+      mirias:
+        max-count: 1
+      mirith:
+        max-count: 1
+      mirire:
+        max-count: 1
+      riskc-risk-lst:
+        max-count: 1
+      riskb-risk-lst:
+        max-count: 1
+      monit-moni-lst:
+        max-count: 1
+      respo-resp-lst:
+        max-count: 1
+      mgrsk-item-lst:
+        max-count: 1
+    description: Migration risks.
+  opps:
+    prefix: OPPS
+    format: opps-form
+    description: "Aggregate the operational pain points into category metrics: average downtime, number of manual workarounds, data-inconsistency frequency, and staff overhead spent on workarounds."
+  pmem:
+    prefix: PMEM
+    format: pmem-form
+    description: "Record how this metric is measured — the method, data source, and how often it is collected."
+  pmet:
+    prefix: PMET
+    format: pmet-form
+    description: "Record the target value for this metric, its current trend, and any industry benchmark for comparison."
+  ppag:
+    prefix: PPAG
+    subsection-types:
+      ppag-pain:
+        max-count: 1
+      ppag-painp:
+        max-count: 1
+      paposu:
+        max-count: 1
+      oppapo:
+        max-count: 1
+      bupapo:
+        max-count: 1
+      tepapo:
+        max-count: 1
+      gape-item-lst:
+        max-count: 1
+      ppgc:
+        max-count: 1
+    description: Pain points and gaps.
+  ppgc:
+    prefix: PPGC
+    subsection-types:
+      ppgc-corr:
+        max-count: 1
+      ppgce-corr-lst:
+        max-count: 1
+        min-count: 1
+    description: Cross-reference between pain points and gaps.
+  pprc:
+    prefix: PPRC
+    format: pprc-form
+    description: Root cause analysis.
+  rpeg:
+    prefix: RPEG
+    format: rpeg-form
+    description: Compliance and accountability status.
+  rpel:
+    prefix: RPEL
+    format: rpel-form
+    description: Archival and deletion lifecycle handling.
+  rper:
+    prefix: RPER
+    format: rper-form
+    description: Retention timing and legal basis.
+  sbcg:
+    prefix: SBCG
+    format: sbcg-form
+    description: Delivery and compliance constraints.
+  sbco:
+    prefix: SBCO
+    format: sbco-form
+    description: Usage scale and commercial impact.
+  scab:
+    prefix: SCAB
+    format: scab-form
+    description: Target-state cost and ROI indicators.
+  scam:
+    prefix: SCAM
+    format: scam-form
+    description: One-time migration and transition investments.
+  sdem:
+    prefix: SDEM
+    format: sdem-form
+    description: Mechanism and coupling.
+  sdeo:
+    prefix: SDEO
+    format: sdeo-form
+    description: Operations and documentation.
+  sder:
+    prefix: SDER
+    format: sder-form
+    description: Reliability and SLA.
+  sdsg:
+    prefix: SDSG
+    format: sdsg-form
+    description: Data sensitivity and quality posture.
+  side:
+    prefix: SIDE
+    format: side-form
+    description: Data exchange configuration.
+  siec:
+    prefix: SIEC
+    format: siec-form
+    description: Capacity constraints.
+  sieh:
+    prefix: SIEH
+    format: sieh-form
+    description: Error handling and retry.
+  sieo:
+    prefix: SIEO
+    format: sieo-form
+    description: Ownership and maintenance.
+  sier:
+    prefix: SIER
+    format: sier-form
+    description: Criticality and resilience.
+  smpc:
+    prefix: SMPC
+    format: smpc-form
+    description: Cutover window and business fallback.
+  smpe:
+    prefix: SMPE
+    format: smpe-form
+    description: Migration execution and validation details.
+  srsc:
+    prefix: SRSC
+    format: srsc-form
+    description: Cutover and rollback profile.
+  srst:
+    prefix: SRST
+    format: srst-form
+    description: Replacement timeline milestones.
+  stal:
+    prefix: STAL
+    format: stal-form
+    description: Support and lifecycle details.
+  stap:
+    prefix: STAP
+    format: stap-form
+    description: Platform and age details.
+  staq:
+    prefix: STAQ
+    format: staq-form
+    description: Technical quality indicators.
+  suia:
+    prefix: SUIA
+    format: suia-form
+    description: Communication and adoption support.
+  suie:
+    prefix: SUIE
+    format: suie-form
+    description: Training and enablement plan.
+  tpps:
+    prefix: TPPS
+    format: tpps-form
+    description: "Aggregate the technical pain points into category metrics: technical-debt estimate, security-vulnerability counts, systems at end of life, vendor lock-in risk, and integration complexity."
+  wode:
+    prefix: WODE
+    subsection-types:
+      wode-work:
+        max-count: 1
+      wosuta:
+        max-count: 1
+      cuwf-work-lst:
+        max-count: 1
+        min-count: 1
+    description: Describe the workflows that make up this process. Use the overview diagram for how they fit together and add one entry per individual workflow below.
+  woex:
+    prefix: WOEX
+    subsection-types:
+      woexen-exce-lst:
+        max-count: 1
+    description: Describe how exceptions are handled in this workflow and list each distinct exception type with its handling and escalation.
+  woti:
+    prefix: WOTI
+    format: woti-form
+    description: Workflow timing and performance.
+  wotr:
+    prefix: WOTR
+    subsection-types:
+      wotren-trig-lst:
+        max-count: 1
+    description: "Describe what initiates this workflow and list each distinct trigger with its type, source, and conditions."
+  wse:
+    prefix: WSE
+    subsection-types:
+      wostsy-syst-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wostis-know-lst:
+        max-count: 1
+    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
+  pc:
+    prefix: PC
+    format: pc-form
+    description: "Describe why this process exists, what business value it delivers, and how it fits into the overall organizational workflow."
+  pm:
+    prefix: PM
+    subsection-types:
+      medasu:
+        max-count: 1
+      prmeca-effi-lst:
+        max-count: 1
+      prmeca-qual-lst:
+        max-count: 1
+      prmeca-volu-lst:
+        max-count: 1
+      prmeca-cost-lst:
+        max-count: 1
+      prmeca-manu-lst:
+        max-count: 1
+      pme-item-lst:
+        max-count: 1
+      mebata:
+        max-count: 1
+    description: "Document current process performance including throughput, cycle times, error rates, and manual intervention frequency. These become the baseline against which improvements are measured."
+  ri:
+    prefix: RI
+    subsection-types:
+      sytore-syst-lst:
+        max-count: 1
+    description: Replacement inventory.
+form-types:
+  estec-form:
+    fields:
+      - fieldname: primaryPlatform
+        description: "Dominant platform, e.g. \".NET\", \"Java EE\", \"SAP NetWeaver\"."
+      - fieldname: programmingLanguages
+        description: "Languages in use, comma-separated, e.g. \"Java, JavaScript, SQL\"."
+      - fieldname: databaseTechnology
+        description: "Database engine, e.g. \"Oracle 19c\", \"PostgreSQL\", \"MS SQL\"."
+      - fieldname: operatingSystem
+        description: "Host OS, e.g. \"RHEL 8\", \"Windows Server 2019\"."
+      - fieldname: frameworksMiddleware
+        description: "Key frameworks/middleware, e.g. \"Spring Boot, WebLogic\"."
+      - fieldname: frontendTechnology
+        description: "Frontend stack, e.g. \"Angular\", \"JSP\", \"SAP GUI\" — blank if none."
+  esbct-form:
+    fields:
+      - fieldname: purpose
+        required: true
+        description: "What the system does for the business, in one or two sentences."
+      - fieldname: businessDomain
+        description: "Primary domain served, e.g. Finance, Sales, Operations, HR."
+      - fieldname: owningDepartment
+        description: Business unit accountable for the system.
+      - fieldname: businessCriticality
+        description: "How critical to operations: Mission Critical, Business Critical, Standard, or Low."
+      - fieldname: businessOwner
+        description: "Person or role owning the business outcomes, e.g. \"Head of Sales\"."
+      - fieldname: technicalOwner
+        description: Person or role owning the technical operation of the system.
+  esusg-form:
+    fields:
+      - fieldname: activeUsers
+        description: "Total registered/licensed users, e.g. 1200."
+      - fieldname: dailyActiveUsers
+        description: Typical number of users active on a normal day.
+      - fieldname: peakConcurrentUsers
+        description: Highest number of simultaneous users observed.
+      - fieldname: transactionVolumeDaily
+        description: "Average daily transactions, e.g. \"~50k orders/day\"."
+      - fieldname: dataVolumeCurrent
+        description: "Size of the data set today, e.g. \"2.5 TB\"."
+      - fieldname: dataGrowthRate
+        description: "How fast data grows, e.g. \"~50 GB/month\"."
+      - fieldname: availabilityRequirement
+        description: "Required uptime, e.g. \"99.9%\", \"24x7\", \"business hours\"."
+  eslcy-form:
+    fields:
+      - fieldname: goLiveDate
+        description: When the system first went into production (ISO 8601).
+      - fieldname: lastMajorUpgrade
+        description: Date of the most recent major upgrade (ISO 8601).
+      - fieldname: currentVersion
+        description: Version currently running in production.
+      - fieldname: supportStatus
+        description: "Vendor support state: Active, Limited, Extended, or End-of-Life."
+      - fieldname: supportExpiryDate
+        description: "Date vendor support ends (ISO 8601), if known."
+      - fieldname: plannedRetirementDate
+        description: "Target decommission date, if one is planned."
+      - fieldname: migrationUrgency
+        description: "How soon migration is needed: Immediate, Within 1 year, etc."
+  esint-form:
+    fields:
+      - fieldname: apiTypesAvailable
+        description: "APIs the system exposes: REST, SOAP, GraphQL, gRPC, or none."
+      - fieldname: integrationMethods
+        description: "How it integrates: API, File Transfer, Database Link, MQ, manual."
+      - fieldname: dataFormats
+        description: "Formats exchanged: JSON, XML, CSV, EDI, etc."
+      - fieldname: realTimeCapable
+        description: True if the system supports real-time integration.
+      - fieldname: batchProcessingWindows
+        description: "Scheduled batch windows, e.g. \"nightly 01:00–03:00\"."
+      - fieldname: externalInterfaceCount
+        description: Count of interfaces to systems outside the organization.
+      - fieldname: internalInterfaceCount
+        description: Count of interfaces to other internal systems.
+  esinf-form:
+    fields:
+      - fieldname: hostingModel
+        description: "Where it runs: On-Premise, Private Cloud, Public Cloud, Hybrid, SaaS."
+      - fieldname: cloudProvider
+        description: "Cloud provider, e.g. \"AWS\", \"Azure\", \"GCP\" — blank if on-prem."
+      - fieldname: environmentCount
+        description: "How many environments exist (Dev, Test, Staging, Prod, ...)."
+      - fieldname: geographicDeployment
+        description: "Deployment reach: Single region, Multi-region, or Global."
+      - fieldname: disasterRecovery
+        description: "DR posture: Hot standby, Warm standby, Cold backup, or None."
+      - fieldname: backupFrequency
+        description: "How often backups run, e.g. \"hourly\", \"nightly\"."
+  esqua-form:
+    fields:
+      - fieldname: technicalDebtLevel
+        description: "Accumulated technical debt: Low, Medium, High, or Critical."
+      - fieldname: codeQuality
+        description: "Code quality judgement: Good, Acceptable, Poor, or Unknown."
+      - fieldname: documentationStatus
+        description: "State of docs: Current, Outdated, Minimal, or None."
+      - fieldname: availabilitySla
+        description: "Actual availability achieved, e.g. \"99.5%\" — not the target."
+      - fieldname: securityComplianceStatus
+        description: "Compliance standing, e.g. \"PCI-DSS compliant\", \"gaps open\"."
+      - fieldname: lastSecurityAudit
+        description: Date of the most recent security audit (ISO 8601).
+      - fieldname: lastPenetrationTest
+        description: Date of the most recent penetration test (ISO 8601).
+      - fieldname: accessibilityCompliance
+        description: "Accessibility standing, e.g. \"WCAG 2.1 AA\", \"Section 508\"."
+  sdem-form:
+    fields:
+      - fieldname: mechanism
+        description: API / DatabaseLink / FileTransfer / MessageQueue / SharedStorage / Manual / ETL
+      - fieldname: couplingStrength
+        description: Tight / Moderate / Loose — degree of coupling between systems
+      - fieldname: criticality
+        description: Critical / High / Medium / Low
+  sdede-form:
+    fields:
+      - fieldname: dataExchanged
+        description: Key data entities or types flowing through this dependency
+      - fieldname: dataVolume
+        description: "Typical volume, e.g. ~5k records/day, 200 MB/hour"
+      - fieldname: dataFreshness
+        description: RealTime / NearRealTime / Hourly / Daily / OnDemand
+  sder-form:
+    fields:
+      - fieldname: failureImpact
+        description: What happens when this dependency fails — business consequences
+      - fieldname: cascadeRisk
+        description: None / Contained / ModerateCascade / SevereCascade — propagation to other systems
+      - fieldname: latencyRequirement
+        description: "Maximum acceptable latency, e.g. <500ms, within same business day"
+      - fieldname: availabilityRequirement
+        description: "Required uptime, e.g. 99.9%, business hours only"
+      - fieldname: sla
+        description: "Formal SLA reference or key terms, e.g. 4h response, 24h resolution"
+      - fieldname: fallbackProcedure
+        description: Manual or automated fallback when this dependency is unavailable
+  sdeo-form:
+    fields:
+      - fieldname: monitoringStatus
+        description: Monitored / PartiallyMonitored / Unmonitored
+      - fieldname: documentationStatus
+        description: Documented / PartiallyDocumented / Undocumented
+      - fieldname: dependencyOwner
+        description: Team or role responsible for maintaining this dependency
+      - fieldname: technicalDebt
+        description: None / Low / Moderate / High — accumulated technical debt
+      - fieldname: technicalDebtDetails
+        description: "Description of known issues, outdated protocols, or maintenance burden"
+      - fieldname: plannedChanges
+        description: Any known upcoming changes to this dependency
+  exsrl-form:
+    fields:
+      - fieldname: dependentSystems
+        description: List of internal systems that use this external service
+      - fieldname: criticality
+        description: Critical / High / Medium / Low
+      - fieldname: contractStatus
+        description: Active / Renewal Due / Negotiating / Month-to-Month
+      - fieldname: contractExpiry
+        description: Date the current contract expires (ISO 8601).
+  exsop-form:
+    fields:
+      - fieldname: slaGuarantee
+        description: "Vendor-provided availability guarantee, e.g., 99.9%"
+      - fieldname: actualAvailability
+        description: Measured availability over past period
+      - fieldname: dataExchanged
+        description: Types of data sent to/received from service
+      - fieldname: dataResidency
+        description: Where vendor stores/processes data - relevant for compliance
+      - fieldname: securityCertifications
+        description: "SOC2, ISO 27001, HIPAA, etc."
+  exsrk-form:
+    fields:
+      - fieldname: vendorLockIn
+        description: None / Low / Moderate / High / Severe
+      - fieldname: switchingCost
+        description: Estimated effort to migrate to alternative
+      - fieldname: alternativeProviders
+        description: Known alternatives if migration needed
+      - fieldname: fallbackProcedure
+        description: Manual workaround or degraded operation mode
+      - fieldname: lastOutage
+        description: Date and impact of last vendor outage
+      - fieldname: communicationChannel
+        description: How incidents are reported and tracked
+  sier-form:
+    fields:
+      - fieldname: criticality
+        description: Critical / High / Medium / Low
+      - fieldname: singlePointOfFailure
+      - fieldname: redundancyLevel
+        description: None / Active-Passive / Active-Active / Multi-Region
+      - fieldname: failoverTime
+        description: Time to recover if component fails
+      - fieldname: lastFailure
+        description: Date and summary of last significant failure
+  siec-form:
+    fields:
+      - fieldname: capacityHeadroom
+        description: "Current utilization vs capacity, e.g., 60% of max"
+      - fieldname: scalingLimitations
+        description: Constraints on horizontal or vertical scaling
+  sieo-form:
+    fields:
+      - fieldname: managedBy
+        description: Team or vendor responsible for this component
+      - fieldname: maintenanceWindow
+        description: Regular maintenance schedule
+      - fieldname: documentationStatus
+        description: Current / Outdated / Minimal / None
+  syinpr-form:
+    fields:
+      - fieldname: protocol
+        description: REST / SOAP / gRPC / SFTP / JDBC / AMQP / Kafka / Custom
+      - fieldname: direction
+        description: Inbound / Outbound / Bidirectional
+      - fieldname: frequency
+        description: Continuous / Hourly / Daily / Weekly / OnDemand
+      - fieldname: middlewareUsed
+        description: "MuleSoft, Azure Service Bus, none"
+      - fieldname: authenticationMethod
+        description: OAuth2 / APIKey / mTLS / BasicAuth / SAML / None
+  side-form:
+    fields:
+      - fieldname: dataExchanged
+        description: Key data entities or payloads exchanged
+      - fieldname: messageFormat
+        description: JSON / XML / CSV / Avro / Protobuf / EDI / Custom
+      - fieldname: schemaVersion
+        description: Current schema or API version
+      - fieldname: transformationRequired
+        description: Yes / No
+      - fieldname: dataMappingComplexity
+        description: Simple / Moderate / Complex
+  sieh-form:
+    fields:
+      - fieldname: errorHandling
+        description: Retry / DeadLetter / Alert / ManualIntervention
+      - fieldname: retryPolicy
+        description: 3 retries with exponential backoff
+  syinth-form:
+    fields:
+      - fieldname: throughputCapacity
+        description: "10k msg/sec, 500 records/batch"
+      - fieldname: currentUtilization
+        description: Typical load vs capacity
+      - fieldname: peakLoadHandling
+        description: Scales / Queues / Throttles / Degrades
+  syinmo-form:
+    fields:
+      - fieldname: monitoringAlerting
+        description: Monitoring tools and alert thresholds
+      - fieldname: failoverBehavior
+        description: AutomaticFailover / ManualFailover / NoFailover
+  syinow-form:
+    fields:
+      - fieldname: integrationAge
+        description: "When established, e.g. 2019, 7 years"
+      - fieldname: documentationQuality
+        description: Comprehensive / Adequate / Minimal / Undocumented
+      - fieldname: maintenanceOwner
+        description: Team or role responsible
+      - fieldname: securityClassification
+        description: Public / Internal / Confidential / Restricted
+      - fieldname: complianceRequirements
+        description: "PCI-DSS, GDPR data transfer"
+      - fieldname: technicalDebt
+        description: None / Low / Moderate / High
+  pmem-form:
+    fields:
+      - fieldname: measurementMethod
+      - fieldname: dataSource
+      - fieldname: frequency
+  pmet-form:
+    fields:
+      - fieldname: targetValue
+      - fieldname: trend
+      - fieldname: benchmark
+  pc-form:
+    fields:
+      - fieldname: businessPurpose
+      - fieldname: businessValue
+      - fieldname: regulatoryRequirements
+      - fieldname: slaRequirements
+      - fieldname: upstreamDependencies
+      - fieldname: downstreamConsumers
+  woti-form:
+    fields:
+      - fieldname: startToEndTime
+      - fieldname: processingTime
+      - fieldname: waitTime
+      - fieldname: slaTarget
+      - fieldname: slaMet
+      - fieldname: peakPeriods
+      - fieldname: bottlenecks
+  paposu-form:
+    fields:
+      - fieldname: totalPainPoints
+        description: Total number of documented pain points across all categories
+      - fieldname: criticalCount
+        description: Number of pain points rated as critical severity
+      - fieldname: highCount
+        description: Number of pain points rated as high severity
+      - fieldname: mediumCount
+        description: Number of pain points rated as medium severity
+      - fieldname: lowCount
+        description: Number of pain points rated as low severity
+      - fieldname: totalEstimatedAnnualCost
+        description: "Aggregate annual cost of all documented pain points, e.g. €850k/year"
+      - fieldname: totalProductivityLoss
+        description: "Aggregate productivity loss, e.g. 120 FTE hours/month"
+      - fieldname: mostAffectedProcess
+        description: Business process with the highest concentration of pain points
+      - fieldname: mostAffectedStakeholder
+        description: User role or department most impacted by pain points
+      - fieldname: averageResolutionComplexity
+        description: Low / Medium / High / Very High
+  opps-form:
+    fields:
+      - fieldname: averageDowntimePerMonth
+        description: "Total system/process downtime, e.g. 4.5 hours/month"
+      - fieldname: manualWorkaroundsCount
+        description: Count of documented manual workarounds in use
+      - fieldname: dataInconsistencyFrequency
+        description: "How often data inconsistencies occur, e.g. Daily / Weekly / Monthly"
+      - fieldname: criticalProcessesAffected
+        description: Number of critical business processes impacted
+      - fieldname: staffOverhead
+        description: "FTE hours spent on operational workarounds, e.g. 40 hours/week"
+  papocl-form:
+    fields:
+      - fieldname: description
+        description: Detailed description of the problem
+      - fieldname: category
+        description: Operational / Business / Technical
+      - fieldname: subCategory
+        description: E.g. Performance / DataQuality / Usability
+      - fieldname: urgency
+        description: Immediate / ShortTerm / MediumTerm / LongTerm
+      - fieldname: priority
+        description: P1-Critical / P2-High / P3-Medium / P4-Low
+  pprc-form:
+    fields:
+      - fieldname: rootCause
+        description: Underlying cause of the pain point
+      - fieldname: rootCauseCategory
+        description: Process / Technology / People / Data / Integration / External
+      - fieldname: contributingFactors
+        description: Additional factors that exacerbate the problem
+  papoim-form:
+    fields:
+      - fieldname: affectedProcess
+        description: Primary business process impacted
+      - fieldname: affectedSystems
+        description: Systems involved or causing the pain point
+      - fieldname: affectedStakeholders
+        description: "User roles, departments, or external parties impacted"
+      - fieldname: userCount
+        description: Approximate count of users experiencing this issue
+      - fieldname: frequency
+        description: Continuous / Daily / Weekly / Monthly / Sporadic
+      - fieldname: businessImpact
+        description: Description of impact on business outcomes
+      - fieldname: quantifiedCost
+        description: "Estimated annual cost, e.g. €75k/year"
+      - fieldname: productivityLoss
+        description: "Time lost per occurrence, e.g. 30 min/occurrence"
+  papoev-form:
+    fields:
+      - fieldname: discoveryMethod
+        description: UserFeedback / Incident / Audit / ProcessReview
+      - fieldname: dateIdentified
+        description: When the pain point was first documented
+      - fieldname: validationStatus
+        description: Identified / Confirmed / Quantified / RootCauseAnalyzed
+      - fieldname: evidenceSources
+        description: Data sources supporting this pain point
+      - fieldname: incidentReferences
+        description: References to specific incidents
+  papowo-form:
+    fields:
+      - fieldname: currentWorkaround
+        description: How users currently work around this issue
+      - fieldname: workaroundEffectiveness
+        description: None / Poor / Partial / Adequate
+      - fieldname: workaroundCost
+        description: Cost of maintaining the workaround
+      - fieldname: riskIfNotAddressed
+        description: Consequences of leaving the pain point unresolved
+  papore-form:
+    fields:
+      - fieldname: proposedResolution
+        description: High-level approach to resolve the pain point
+      - fieldname: resolutionComplexity
+        description: Low / Medium / High / VeryHigh
+      - fieldname: estimatedResolutionEffort
+        description: Time or cost to resolve
+      - fieldname: expectedBenefit
+        description: Quantified benefit after resolution
+      - fieldname: successCriteria
+        description: How to measure that the pain point is resolved
+  bpps-form:
+    fields:
+      - fieldname: estimatedRevenueLoss
+        description: "Revenue lost due to business pain points, e.g. €250k/year"
+      - fieldname: complianceRiskExposure
+        description: "Potential regulatory penalties or fines, e.g. up to €500k"
+      - fieldname: customerSatisfactionImpact
+        description: "NPS or CSAT impact, e.g. -15 NPS points"
+      - fieldname: marketShareImpact
+        description: "Estimated market share loss, e.g. 2-3% market share"
+      - fieldname: missedOpportunitiesCost
+        description: "Revenue from opportunities not pursued, e.g. €400k/year"
+      - fieldname: scalabilityConstraints
+        description: "Growth limitations, e.g. Cannot support >10k concurrent users"
+  tpps-form:
+    fields:
+      - fieldname: technicalDebtEstimate
+        description: "Estimated cost to address technical debt, e.g. €1.2M or 18 months"
+      - fieldname: securityVulnerabilityCount
+        description: Number of documented security vulnerabilities
+      - fieldname: criticalSecurityIssues
+        description: Number of critical/high severity security vulnerabilities
+      - fieldname: systemsAtEndOfLife
+        description: Number of systems using unsupported or EOL technology
+      - fieldname: undocumentedSystems
+        description: Number of systems with inadequate documentation
+      - fieldname: vendorLockInRisk
+        description: Low / Medium / High — based on proprietary dependencies
+      - fieldname: integrationComplexityScore
+        description: "Overall integration complexity, e.g. High (47 point-to-point integrations)"
+  gaende-form:
+    fields:
+      - fieldname: description
+        description: Detailed description of what is missing or inadequate
+      - fieldname: priority
+        description: MustAddress / ShouldAddress / NiceToHave
+      - fieldname: businessImpact
+        description: "How this gap affects business outcomes, revenue, or operations"
+      - fieldname: quantifiedCost
+        description: "Estimated annual cost or productivity loss, e.g. ~€120k/year in manual processing"
+      - fieldname: affectedProcess
+        description: Primary business process impacted by this gap
+      - fieldname: affectedStakeholders
+        description: "Roles, departments, or external parties impacted"
+  gaendi-form:
+    fields:
+      - fieldname: complianceDriver
+        description: "Regulation or standard making this gap critical, e.g. GDPR Art. 17, SOX Section 404"
+      - fieldname: discoveryMethod
+        description: Audit / UserFeedback / Incident / ProcessReview / Benchmarking / RegulatoryChange
+      - fieldname: gapAge
+        description: "How long this gap has been known, e.g. Since 2023-Q2, 18 months"
+      - fieldname: validationStatus
+        description: Identified / Confirmed / Quantified / Accepted
+      - fieldname: relatedPainPoints
+        description: References to pain point entries that stem from this gap
+  gaenwo-form:
+    fields:
+      - fieldname: interimWorkaround
+        description: Current workaround in place and its limitations
+      - fieldname: workaroundCost
+        description: "Cost or effort of maintaining the workaround, e.g. 2 FTE hours/week"
+      - fieldname: riskIfNotAddressed
+        description: Consequences and risk level if gap remains unresolved
+  gaenre-form:
+    fields:
+      - fieldname: proposedResolution
+        description: High-level approach to closing the gap
+      - fieldname: expectedTimeline
+        description: "Target timeframe, e.g. Phase 1 — Q3 2026, 6-9 months"
+      - fieldname: successCriteria
+        description: Measurable criteria that confirm the gap is closed
+      - fieldname: dependsOnGaps
+        description: "Other gaps that must be resolved first, by name or ID"
+  dalasu-form:
+    fields:
+      - fieldname: totalDataSources
+        description: Number of distinct data sources/stores
+      - fieldname: totalDataVolume
+        description: "Aggregate data volume across all sources, e.g. 15 TB"
+      - fieldname: overallDataQualityScore
+        description: "Aggregate quality score, e.g. 72% or B+"
+      - fieldname: criticalDataAssets
+        description: Number of data assets classified as business-critical
+      - fieldname: dataGovernanceMaturity
+        description: Level 1-5 or Initial/Managed/Defined/Measured/Optimized
+      - fieldname: knownDuplicationRate
+        description: "Estimated percentage of duplicated data, e.g. 15%"
+      - fieldname: complianceStatus
+        description: Compliant / PartiallyCompliant / NonCompliant / Unknown
+      - fieldname: dataSecurityRiskLevel
+        description: Low / Medium / High / Critical
+      - fieldname: averageDataAge
+        description: "Average age of data across sources, e.g. 18 months"
+      - fieldname: dataDocumentationCoverage
+        description: Percentage of data assets with adequate documentation
+  dasocl-form:
+    fields:
+      - fieldname: description
+        description: Brief description of what data this source contains
+      - fieldname: sourceCategory
+        description: Transactional / Analytical / Master / Reference / Archive
+      - fieldname: businessDomain
+        description: "E.g. Sales, Finance, HR, Operations, Customer"
+  dasote-form:
+    fields:
+      - fieldname: storeType
+        description: Database / DataWarehouse / DataLake / FileSystem / API
+      - fieldname: technology
+        description: "E.g. PostgreSQL, Oracle, MongoDB, S3, Salesforce"
+      - fieldname: version
+        description: Software/platform version
+      - fieldname: hostingLocation
+        description: OnPremise / CloudAWS / CloudAzure / CloudGCP / SaaS
+      - fieldname: dataFormat
+        description: Relational / Document / Key-Value / CSV / JSON / XML
+  dasovo-form:
+    fields:
+      - fieldname: estimatedVolume
+        description: "E.g. 500 GB, 2 TB, 50 million records"
+      - fieldname: estimatedRecordCount
+        description: Number of records/rows/documents
+      - fieldname: growthRate
+        description: "E.g. 5% per month, 100 GB per quarter"
+      - fieldname: accessFrequency
+        description: Realtime / Hourly / Daily / Weekly / Monthly
+      - fieldname: peakLoadPeriods
+        description: When the source experiences highest load
+  dasoqu-form:
+    fields:
+      - fieldname: dataQualityScore
+        description: "Quality rating, e.g. 85%, A, High"
+      - fieldname: knownQualityIssues
+        description: Summary of quality problems
+      - fieldname: dataFreshness
+        description: "How current the data is, e.g. RealTime / Daily"
+      - fieldname: reliabilityScore
+        description: "Uptime/reliability, e.g. 99.5%"
+  dasoow-form:
+    fields:
+      - fieldname: businessOwner
+        description: Department or role responsible for data
+      - fieldname: technicalOwner
+        description: Team or role responsible for technical management
+      - fieldname: dataSteward
+        description: Person responsible for data quality
+      - fieldname: accessControlModel
+        description: RBAC / ABAC / ACL / Open
+      - fieldname: sensitivityLevel
+        description: Public / Internal / Confidential / Restricted
+  dasoi1-form:
+    fields:
+      - fieldname: integratedSystems
+        description: Systems that read from or write to this source
+      - fieldname: upstreamSources
+        description: Data sources that feed into this one
+      - fieldname: downstreamConsumers
+        description: Systems that consume data from this source
+  dasoli-form:
+    fields:
+      - fieldname: creationDate
+        description: When the data source was established
+      - fieldname: lastMajorUpdate
+        description: When the source was last significantly modified
+      - fieldname: plannedDecommission
+        description: "If scheduled for retirement, target date"
+      - fieldname: documentationStatus
+        description: Complete / Partial / Minimal / None
+      - fieldname: schemaDocumentationLink
+        description: Link to detailed schema documentation
+  dsrp-form:
+    fields:
+      - fieldname: retentionPeriod
+        description: "How long data is kept, e.g. 7 years, indefinite"
+      - fieldname: archivalPolicy
+        description: How data is archived after active use
+      - fieldname: deletionPolicy
+        description: How data is deleted/purged
+      - fieldname: legalBasis
+        description: Regulatory or legal requirement driving retention
+      - fieldname: complianceNotes
+        description: Additional compliance considerations
+  dqds-form:
+    fields:
+      - fieldname: accuracyScore
+        description: "Overall accuracy of data, e.g. 92%"
+      - fieldname: completenessScore
+        description: "Percentage of required data present, e.g. 88%"
+      - fieldname: consistencyScore
+        description: "Data consistency across sources, e.g. 79%"
+      - fieldname: timelinessScore
+        description: "How current data is, e.g. 95%"
+      - fieldname: validityScore
+        description: "Conformance to business rules, e.g. 85%"
+      - fieldname: uniquenessScore
+        description: "Absence of duplicate records, e.g. 91%"
+      - fieldname: integrityScore
+        description: "Integrity of relationships, e.g. 88%"
+      - fieldname: assessmentDate
+        description: When this assessment was performed
+      - fieldname: assessmentScope
+        description: What was included in the assessment
+      - fieldname: assessmentMethodology
+        description: How the assessment was conducted
+  dqiec-form:
+    fields:
+      - fieldname: affectedEntities
+        description: Which data entities/tables are impacted
+      - fieldname: qualityDimension
+        description: Accuracy / Completeness / Consistency / Timeliness / Validity
+      - fieldname: severity
+        description: Critical / High / Medium / Low
+  dqiei-form:
+    fields:
+      - fieldname: impactDescription
+        description: How this quality issue affects business operations
+      - fieldname: quantifiedImpact
+        description: "Measurable impact, e.g. EUR50k/year, 10% error rate"
+      - fieldname: rootCause
+        description: Underlying cause of the quality issue
+      - fieldname: affectedRecordCount
+        description: Number or percentage of records affected
+      - fieldname: dateIdentified
+        description: When the issue was discovered
+  dqier-form:
+    fields:
+      - fieldname: currentWorkaround
+        description: How users currently cope with this issue
+      - fieldname: proposedResolution
+        description: Recommended approach to fix the issue
+      - fieldname: resolutionPriority
+        description: P1 / P2 / P3 / P4
+  dadusu-form:
+    fields:
+      - fieldname: overallDuplicationRate
+        description: "Estimated percentage of duplicated data, e.g. 23%"
+      - fieldname: duplicateDataVolume
+        description: "Volume of duplicated data, e.g. 2.3 TB"
+      - fieldname: numberOfDuplicationInstances
+        description: Count of documented duplication cases
+      - fieldname: storageWasteEstimate
+        description: "Cost of storing duplicate data, e.g. €15k/year"
+      - fieldname: synchronizationChallenges
+        description: Number of sync issues caused by duplication
+      - fieldname: dataInconsistencyRisk
+        description: Low / Medium / High / Critical
+      - fieldname: consolidationOpportunities
+        description: Number of identified consolidation opportunities
+      - fieldname: deduplicationPriority
+        description: Organizational priority for deduplication efforts
+  ddes-form:
+    fields:
+      - fieldname: primarySource
+        description: Authoritative source for this data
+      - fieldname: duplicateSources
+        description: Other locations where this data exists
+      - fieldname: duplicationType
+        description: FullCopy / PartialCopy / Denormalized / CachedCopy
+  daduensy-form:
+    fields:
+      - fieldname: synchronizationMethod
+        description: "How duplicates are kept in sync, if at all"
+      - fieldname: syncFrequency
+        description: RealTime / Hourly / Daily / Manual / None
+      - fieldname: knownInconsistencies
+        description: Documented cases of data drift between copies
+  ddeg-form:
+    fields:
+      - fieldname: businessReason
+        description: Why this duplication exists
+      - fieldname: consolidationFeasibility
+        description: Easy / Moderate / Difficult / NotFeasible
+      - fieldname: impactOfDuplication
+        description: Negative effects of this duplication
+      - fieldname: recommendedAction
+        description: Proposed resolution
+  daowsu-form:
+    fields:
+      - fieldname: ownershipModel
+        description: Centralized / Federated / Hybrid
+      - fieldname: totalDataDomains
+        description: Number of defined data domains
+      - fieldname: assignedOwnershipPercentage
+        description: "Percentage of data with clear ownership, e.g. 78%"
+      - fieldname: activeStewards
+        description: Number of active data stewards
+      - fieldname: ownershipGaps
+        description: Number of data assets without clear ownership
+      - fieldname: stewardshipMaturity
+        description: Initial / Developing / Established / Optimizing
+      - fieldname: governanceCouncilExists
+        description: Yes / No — whether a data governance council exists
+      - fieldname: escalationProcess
+        description: Whether clear escalation paths exist
+  daowenst-form:
+    fields:
+      - fieldname: dataSteward
+        description: Person responsible for day-to-day data management
+      - fieldname: stewardRole
+        description: Job title/role of the data steward
+      - fieldname: technicalCustodian
+        description: IT person/team responsible for technical data management
+      - fieldname: qualityAccountable
+        description: Who is accountable for data quality
+  doeg-form:
+    fields:
+      - fieldname: accessApprover
+        description: Who approves access to this data
+      - fieldname: coverageStatus
+        description: Full / Partial / Minimal ownership coverage
+      - fieldname: lastReviewDate
+        description: When ownership was last reviewed
+  dvsg-form:
+    fields:
+      - fieldname: annualGrowthRate
+        description: "Year-over-year growth percentage, e.g. 25%"
+      - fieldname: monthlyGrowthRate
+        description: "Month-over-month growth, e.g. 2%"
+      - fieldname: peakGrowthPeriods
+        description: "When data grows fastest, e.g. Q4, month-end"
+  dvsp-form:
+    fields:
+      - fieldname: projectedVolumeOneYear
+        description: Expected volume in 12 months
+      - fieldname: projectedVolumeThreeYears
+        description: Expected volume in 36 months
+      - fieldname: capacityUtilization
+        description: "Percentage of storage capacity used, e.g. 72%"
+  dvsc-form:
+    fields:
+      - fieldname: capacityConstraints
+        description: Any current or anticipated capacity issues
+      - fieldname: storageCost
+        description: "Annual cost of data storage, e.g. €250k/year"
+      - fieldname: costGrowthProjection
+        description: Expected storage cost growth
+  reposu-form:
+    fields:
+      - fieldname: policyFrameworkExists
+        description: Yes / Partial / No
+      - fieldname: primaryRegulations
+        description: "Key regulations driving retention, e.g. GDPR, SOX, HIPAA"
+      - fieldname: defaultRetentionPeriod
+        description: "Default retention if not specified, e.g. 7 years"
+      - fieldname: policyComplianceRate
+        description: Percentage of data following retention policies
+      - fieldname: archivalSystemExists
+        description: Yes / No — whether systematic archival exists
+      - fieldname: automatedPurging
+        description: Yes / Partial / Manual — purging automation level
+      - fieldname: legalHoldProcess
+        description: Whether legal hold process is defined
+      - fieldname: retentionGaps
+        description: Number of data areas without retention policies
+      - fieldname: lastPolicyReview
+        description: When retention policies were last reviewed
+  rper-form:
+    fields:
+      - fieldname: retentionPeriod
+        description: "How long data is retained, e.g. 7 years"
+      - fieldname: retentionTrigger
+        description: "What starts the retention clock, e.g. creation date, last access"
+      - fieldname: legalBasis
+        description: Regulation or law requiring this retention
+  rpel-form:
+    fields:
+      - fieldname: archivalMethod
+        description: "How data is archived, e.g. cold storage, tape, cloud archive"
+      - fieldname: deletionMethod
+        description: "How data is deleted, e.g. logical delete, physical purge, secure wipe"
+      - fieldname: exceptionProcess
+        description: How exceptions to the policy are handled
+  rpeg-form:
+    fields:
+      - fieldname: complianceStatus
+        description: Compliant / PartiallyCompliant / NonCompliant
+      - fieldname: implementationStatus
+        description: Implemented / InProgress / Planned / NotImplemented
+      - fieldname: responsibleParty
+        description: Who is responsible for enforcing this policy
+  dagoma-form:
+    fields:
+      - fieldname: overallMaturityLevel
+        description: Level 1-5 or Initial/Managed/Defined/Measured/Optimized
+      - fieldname: strategyMaturity
+        description: Maturity of data governance strategy
+      - fieldname: organizationMaturity
+        description: Maturity of governance organizational structure
+      - fieldname: policyMaturity
+        description: Maturity of governance policies
+      - fieldname: processMaturity
+        description: Maturity of governance processes
+      - fieldname: technologyMaturity
+        description: Maturity of supporting technology/tools
+      - fieldname: cultureMaturity
+        description: Data-aware culture maturity
+      - fieldname: assessmentDate
+        description: When maturity was last assessed
+      - fieldname: targetMaturityLevel
+        description: Desired maturity level
+      - fieldname: maturityGaps
+        description: Areas needing most improvement
+  dgpel-form:
+    fields:
+      - fieldname: scope
+        description: What the policy applies to
+      - fieldname: status
+        description: Draft / Approved / InForce / UnderReview / Retired
+      - fieldname: effectiveDate
+        description: When the policy became effective
+      - fieldname: reviewFrequency
+        description: How often the policy is reviewed
+  dgpeg-form:
+    fields:
+      - fieldname: policyOwner
+        description: Who owns the policy
+      - fieldname: enforcementMechanism
+        description: How the policy is enforced
+      - fieldname: complianceLevel
+        description: Current compliance with this policy
+  daclsu-form:
+    fields:
+      - fieldname: classificationFrameworkExists
+        description: Yes / Partial / No
+      - fieldname: frameworkName
+        description: Name of classification framework if standardized
+      - fieldname: numberOfLevels
+        description: How many classification levels are defined
+      - fieldname: classificationCoverage
+        description: Percentage of data that is classified
+      - fieldname: autoClassificationExists
+        description: Yes / Partial / No — automated classification tools
+      - fieldname: labelingImplemented
+        description: Whether data is actively labeled
+      - fieldname: handlingProceduresDocumented
+        description: Whether handling procedures per level are documented
+      - fieldname: trainingProvided
+        description: Whether classification training is provided
+      - fieldname: lastFrameworkReview
+        description: When the framework was last reviewed
+  dainsu-form:
+    fields:
+      - fieldname: totalIntegrationPoints
+        description: Number of distinct data integration points
+      - fieldname: integrationArchitecture
+        description: PointToPoint / Hub / ESB / EventDriven / Hybrid
+      - fieldname: primaryIntegrationTool
+        description: Main ETL/integration platform
+      - fieldname: realtimeIntegrations
+        description: Number of real-time integrations
+      - fieldname: batchIntegrations
+        description: Number of batch/scheduled integrations
+      - fieldname: apiIntegrations
+        description: Number of API-based integrations
+      - fieldname: integrationReliability
+        description: "Success rate of integrations, e.g. 98.5%"
+      - fieldname: averageLatency
+        description: Typical integration latency
+      - fieldname: knownBottlenecks
+        description: Number of integration bottlenecks
+      - fieldname: integrationDebt
+        description: Technical debt in integration layer
+  diee-form:
+    fields:
+      - fieldname: sourceSystem
+        description: System providing the data
+      - fieldname: targetSystem
+        description: System receiving the data
+      - fieldname: integrationType
+        description: ETL / ELT / API / FileTransfer / EventStream / CDC
+  diet-form:
+    fields:
+      - fieldname: dataVolume
+        description: Typical volume per execution
+      - fieldname: frequency
+        description: RealTime / NearRealTime / Hourly / Daily / Weekly / OnDemand
+      - fieldname: technology
+        description: Integration technology used
+      - fieldname: protocol
+        description: "Communication protocol, e.g. REST, SOAP, SFTP, Kafka"
+      - fieldname: dataTransformation
+        description: Type/complexity of transformation
+  dier-form:
+    fields:
+      - fieldname: errorHandling
+        description: How errors are handled
+      - fieldname: monitoringStatus
+        description: None / Basic / Comprehensive
+      - fieldname: reliability
+        description: "Success rate, e.g. 99.2%"
+      - fieldname: latency
+        description: "Typical latency, e.g. 5 seconds, 2 hours"
+      - fieldname: sla
+        description: Service level agreement if defined
+  dieo-form:
+    fields:
+      - fieldname: businessOwner
+        description: Who owns this integration
+      - fieldname: technicalOwner
+        description: Who maintains this integration
+      - fieldname: criticality
+        description: Critical / High / Medium / Low
+      - fieldname: knownIssues
+        description: Current problems with this integration
+  mdsu-form:
+    fields:
+      - fieldname: mdmMaturityLevel
+        description: Level 1-5 or Initial/Managed/Defined/Measured/Optimized
+      - fieldname: mdmStrategy
+        description: Centralized / RegionalHubs / Federated / NoStrategy
+      - fieldname: mdmPlatform
+        description: Technology used for MDM if any
+      - fieldname: totalMasterDataDomains
+        description: Number of defined master data domains
+      - fieldname: goldenRecordCoverage
+        description: Percentage of master data with golden records
+      - fieldname: dataQualityInMaster
+        description: Quality level of master data
+      - fieldname: synchronizationApproach
+        description: How master data is synchronized across systems
+      - fieldname: dataMatchingCapability
+        description: Level of deduplication/matching capability
+      - fieldname: hierarchyManagement
+        description: How organizational/product hierarchies are managed
+      - fieldname: mdmGaps
+        description: Primary gaps in master data management
+  mddeq-form:
+    fields:
+      - fieldname: recordCount
+        description: Number of master records
+      - fieldname: qualityScore
+        description: Quality of master data in this domain
+      - fieldname: duplicateRate
+        description: "Estimated duplication, e.g. 3%"
+  mddeu-form:
+    fields:
+      - fieldname: consumingSystems
+        description: Systems that use this master data
+      - fieldname: updateFrequency
+        description: How often master data is updated
+      - fieldname: governanceLevel
+        description: Level of governance for this domain
+  mddeg-form:
+    fields:
+      - fieldname: domainOwner
+        description: Who owns this master data domain
+      - fieldname: dataSteward
+        description: Steward responsible for data quality
+      - fieldname: knownIssues
+        description: Current issues with this master data
+      - fieldname: improvementPlan
+        description: Plans to improve this domain
+  sytore-iden-form:
+    fields:
+      - fieldname: systemId
+        required: true
+        description: Stable identifier for the legacy system being replaced
+      - fieldname: systemName
+        required: true
+        description: Common name the organization uses for this system
+      - fieldname: officialName
+        description: "Vendor/product name and edition, if a commercial system"
+      - fieldname: systemDescription
+        description: Brief description of what the system does and who uses it
+  strep-form:
+    fields:
+      - fieldname: systemCategory
+        description: Functional category of the system
+      - fieldname: applicationTier
+        description: Criticality tier of the application
+      - fieldname: businessOwner
+        description: Person or role accountable for the business function
+      - fieldname: technicalOwner
+        description: Person or role accountable for the technical platform
+  strev-form:
+    fields:
+      - fieldname: vendorName
+        description: Name of the supplying vendor or provider
+      - fieldname: contractStatus
+        description: Current state of the vendor contract
+      - fieldname: contractEndDate
+        description: Date the current contract expires
+  stap-form:
+    fields:
+      - fieldname: operatingSystem
+        description: OS the system runs on
+      - fieldname: middlewareComponents
+        description: "Application servers, message brokers, or other middleware"
+      - fieldname: deploymentDate
+        description: When the system was first put into production
+      - fieldname: systemAge
+        description: Age of the system in years
+      - fieldname: lastMajorUpgrade
+        description: Date or version of the most recent major upgrade
+  stal-form:
+    fields:
+      - fieldname: vendorSupportStatus
+        description: Current vendor support level for the system
+      - fieldname: endOfSupportDate
+        description: Date after which the vendor no longer supports the system
+  staq-form:
+    fields:
+      - fieldname: technicalDebtRating
+        description: Overall accumulated technical debt of the system
+      - fieldname: securityPosture
+        description: Overall security health of the system
+      - fieldname: performanceStatus
+        description: Current runtime performance state
+      - fieldname: scalabilityLimitations
+        description: Known limits on scaling the system
+      - fieldname: maintainability
+        description: How easily the system can be changed or maintained
+      - fieldname: documentationQuality
+        description: Quality and completeness of system documentation
+  sbco-form:
+    fields:
+      - fieldname: peakConcurrentUsers
+        description: Maximum simultaneous users observed
+      - fieldname: transactionVolume
+        description: Typical transaction throughput
+      - fieldname: dataVolume
+        description: Approximate volume of data handled
+      - fieldname: revenueImpact
+        description: How the system affects revenue
+  sbcg-form:
+    fields:
+      - fieldname: operationsImpact
+        description: Severity of disruption if the system is unavailable
+      - fieldname: complianceRole
+        description: Regulatory or compliance function the system serves
+      - fieldname: maxDowntime
+        description: Maximum tolerable outage / recovery time objective
+  srst-form:
+    fields:
+      - fieldname: plannedStartDate
+        description: When replacement work is scheduled to begin
+      - fieldname: targetCutoverDate
+        description: Planned date to switch over to the new system
+      - fieldname: decommissionDate
+        description: When the old system will be retired
+      - fieldname: parallelRunPeriod
+        description: How long old and new systems run side by side
+  srsc-form:
+    fields:
+      - fieldname: cutoverStrategy
+        description: How the switchover to the new system is performed
+      - fieldname: rollbackCapability
+        description: Extent to which the cutover can be reversed
+      - fieldname: rollbackWindow
+        description: Time window during which rollback remains possible
+  sdsg-form:
+    fields:
+      - fieldname: sensitivityLevel
+        description: Confidentiality classification of the data
+      - fieldname: retentionRequirements
+        description: Legal or policy retention obligations
+      - fieldname: dataQuality
+        description: Overall quality of the data
+      - fieldname: cleansingRequired
+        description: Whether and what data cleansing is needed
+  sydascmi-form:
+    fields:
+      - fieldname: deduplicationNeeded
+        description: Whether duplicate records must be removed
+      - fieldname: transformationComplexity
+        description: How complex the data transformation will be
+      - fieldname: migrationScope
+        description: Which subset of data will be migrated
+      - fieldname: archiveStrategy
+        description: How non-migrated data will be archived
+  suicp-form:
+    fields:
+      - fieldname: workflowChange
+        description: How much user workflows change
+      - fieldname: uiChange
+        description: How much the user interface changes
+      - fieldname: functionalityChange
+        description: How much functionality changes for users
+  suie-form:
+    fields:
+      - fieldname: trainingRequired
+        description: What training users will need
+      - fieldname: estimatedTrainingHours
+        description: Estimated training time per user
+      - fieldname: trainingApproach
+        description: How training will be delivered
+      - fieldname: trainingMaterials
+        description: Training materials that must be produced
+  suia-form:
+    fields:
+      - fieldname: communicationPlan
+        description: How change will be communicated to users
+      - fieldname: changeChampions
+        description: People who will advocate for adoption
+  scacc-form:
+    fields:
+      - fieldname: annualSupportCost
+        description: Yearly support cost of the current system
+      - fieldname: totalCurrentAnnualCost
+        description: Total yearly cost of operating the current system
+  scam-form:
+    fields:
+      - fieldname: migrationProjectCost
+        description: Cost of the migration project itself
+      - fieldname: dataConversionCost
+        description: Cost to convert and migrate data
+      - fieldname: integrationCost
+        description: Cost to rebuild integrations
+      - fieldname: trainingCost
+        description: Cost of user training
+      - fieldname: parallelRunCost
+        description: Cost of running old and new systems together
+  scab-form:
+    fields:
+      - fieldname: newSystemAnnualCost
+        description: Expected yearly cost of the replacement system
+      - fieldname: annualSavings
+        description: Expected yearly savings versus the current system
+      - fieldname: paybackPeriod
+        description: Time to recoup the migration investment
+      - fieldname: fiveYearTco
+        description: Total cost of ownership over five years
+  smpe-form:
+    fields:
+      - fieldname: duration
+        description: Expected duration of the migration execution
+      - fieldname: testingApproach
+        description: How the migration will be tested
+      - fieldname: dataValidationMethod
+        description: How migrated data will be validated
+      - fieldname: uatScope
+        description: Scope of user acceptance testing
+  smpc-form:
+    fields:
+      - fieldname: cutoverWindow
+        description: Scheduled window for performing the cutover
+      - fieldname: cutoverDuration
+        description: How long the cutover is expected to take
+      - fieldname: businessContingency
+        description: Business fallback if the cutover fails
+  migcon-stra-form:
+    fields:
+      - fieldname: overallStrategy
+        description: Chosen cutover pattern for the migration program
+      - fieldname: sequencingApproach
+        description: Order in which systems are migrated and why
+      - fieldname: interdependencyHandling
+        description: How cross-system dependencies are coordinated
+      - fieldname: migrationWindowStrategy
+        description: "When migrations run, e.g. weekends, off-hours"
+      - fieldname: blackoutPeriods
+        description: Times when no migration activity is permitted
+      - fieldname: parallelRunDuration
+        description: How long old and new run side by side
+  miri-gove-form:
+    fields:
+      - fieldname: riskGovernanceModel
+        description: "Centralized, federated, hybrid approach"
+      - fieldname: riskCommitteeCharter
+        description: Mandate and remit of the risk committee
+      - fieldname: riskReviewFrequency
+        description: "Weekly, bi-weekly, monthly cycles"
+  mirigo-form:
+    fields:
+      - fieldname: riskEscalationPath
+        description: PM → Steering Committee → Executive Sponsor
+      - fieldname: riskToleranceLevel
+        description: Enterprise risk appetite for migration
+      - fieldname: riskDecisionAuthority
+        description: Who approves risk acceptance/transfer
+  mirias-form:
+    fields:
+      - fieldname: riskAssessmentFramework
+        description: "PMBOK, ISO 31000, COSO, custom"
+      - fieldname: probabilityScale
+        description: "1-5, percentage bands, qualitative"
+      - fieldname: impactScale
+        description: "1-5, monetary, qualitative"
+      - fieldname: riskScoringMethod
+        description: "P×I matrix, expected value, Monte Carlo"
+      - fieldname: riskCategoryTaxonomy
+        description: "Technical, schedule, resource, business"
+  mirith-form:
+    fields:
+      - fieldname: criticalRiskThreshold
+        description: Score ≥ X requires executive attention
+      - fieldname: highRiskThreshold
+        description: Score range classified as high risk
+      - fieldname: mediumRiskThreshold
+        description: Score range classified as medium risk
+      - fieldname: emergentRiskTriggers
+        description: Indicators requiring immediate risk review
+  mirire-form:
+    fields:
+      - fieldname: riskReportingCadence
+        description: How often risk reports are produced
+      - fieldname: riskDashboardTools
+        description: Tools for risk visualization
+      - fieldname: riskRegisterRepository
+        description: Where risk register is maintained
+  miriid-form:
+    fields:
+      - fieldname: riskDescription
+        required: true
+        description: Detailed description of the risk event
+      - fieldname: riskCategory
+        description: "Technical, schedule, resource, business, regulatory"
+      - fieldname: riskSubcategory
+        description: More specific categorization
+      - fieldname: identifiedDate
+        description: Date the risk was first recorded
+      - fieldname: identifiedBy
+        description: Person/role who identified the risk
+      - fieldname: identificationMethod
+        description: "Workshop, review, incident, expert judgment"
+      - fieldname: affectedSystems
+        description: List of systems impacted
+      - fieldname: affectedPhases
+        description: Migration phases where risk applies
+      - fieldname: affectedStreams
+        description: "Data, application, infrastructure, etc."
+  miripr-form:
+    fields:
+      - fieldname: probabilityRating
+        description: "Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)"
+      - fieldname: probabilityScore
+        description: Numeric score for calculations
+      - fieldname: probabilityRationale
+        description: Why this probability was assigned
+      - fieldname: probabilityTrend
+        description: "Increasing, stable, decreasing"
+  miriim-form:
+    fields:
+      - fieldname: overallImpactRating
+        description: "Critical, High, Medium, Low, Minimal"
+      - fieldname: overallImpactScore
+        description: Numeric overall impact for calculations
+      - fieldname: scheduleImpact
+        description: Days/weeks delay if risk materializes
+      - fieldname: scheduleImpactScore
+        description: Numeric schedule impact (1-5)
+      - fieldname: costImpact
+        description: Budget impact if risk materializes
+      - fieldname: costImpactScore
+        description: Numeric cost impact (1-5)
+      - fieldname: businessImpact
+        description: Business disruption level
+      - fieldname: businessImpactScore
+        description: Numeric business impact (1-5)
+      - fieldname: reputationImpact
+        description: Customer/market perception impact
+      - fieldname: dataIntegrityImpact
+        description: Risk to data quality/completeness
+      - fieldname: complianceImpact
+        description: Regulatory/audit implications
+      - fieldname: impactRationale
+        description: Justification for impact assessment
+  miriqu-form:
+    fields:
+      - fieldname: riskScore
+        description: Probability × Impact (1-25)
+      - fieldname: riskPriority
+        description: "Critical, High, Medium, Low"
+      - fieldname: expectedMonetaryValue
+        description: P × Cost Impact
+      - fieldname: worstCaseScenario
+        description: Maximum potential impact
+      - fieldname: bestCaseScenario
+        description: Minimum impact if mitigated
+      - fieldname: mostLikelyScenario
+        description: Expected impact under typical conditions
+  mirimi-form:
+    fields:
+      - fieldname: responseStrategy
+        description: "Avoid, mitigate, transfer, accept"
+      - fieldname: mitigationDescription
+        description: Primary mitigation approach
+      - fieldname: mitigationActions
+        description: Specific actions to reduce risk
+      - fieldname: mitigationOwner
+        description: Responsible for mitigation execution
+      - fieldname: mitigationDueDate
+        description: Target completion date for mitigation
+      - fieldname: mitigationCost
+        description: Cost to implement mitigation
+      - fieldname: mitigationStatus
+        description: "Not started, in progress, completed"
+      - fieldname: residualProbability
+        description: Probability after mitigation
+      - fieldname: residualImpact
+        description: Impact after mitigation
+      - fieldname: residualRiskScore
+        description: Risk score after mitigation
+  mirico-form:
+    fields:
+      - fieldname: contingencyPlan
+        description: Actions if risk materializes
+      - fieldname: contingencyTrigger
+        description: What triggers contingency execution
+      - fieldname: contingencyOwner
+        description: Responsible for executing the contingency
+      - fieldname: contingencyBudget
+        description: Reserved budget for contingency
+      - fieldname: rollbackProcedure
+        description: Steps to revert if risk realized
+      - fieldname: recoveryTimeObjective
+        description: Time to recover from risk event
+  miritr-form:
+    fields:
+      - fieldname: riskDelegate
+        description: Day-to-day risk monitoring
+      - fieldname: escalationContact
+        description: Escalation point if risk increases
+      - fieldname: status
+        description: "Open, mitigating, closed, realized, transferred"
+      - fieldname: statusDate
+        description: Last status update
+      - fieldname: statusNotes
+        description: Current status commentary
+      - fieldname: nextReviewDate
+        description: When the risk is next scheduled for review
+      - fieldname: closureDate
+        description: When risk was closed
+      - fieldname: closureReason
+        description: "Why risk was closed: mitigated, accepted, transferred, expired"
+  mirir1-form:
+    fields:
+      - fieldname: relatedRisks
+        description: Risk IDs that are correlated
+      - fieldname: relatedIssues
+        description: Issue IDs linked to this risk
+      - fieldname: relatedRequirements
+        description: Requirements impacted by risk
+      - fieldname: relatedDecisions
+        description: Decisions affecting this risk
+      - fieldname: dependencyChain
+        description: Other risks this depends on
+  mirihi-form:
+    fields:
+      - fieldname: previousScores
+        description: History of risk scores
+      - fieldname: previousStatuses
+        description: Status change history
+      - fieldname: lessonsLearned
+        description: Insights from risk handling
+document:
+  sections:
+    dochd:
+      section-type: dochd
+      optional: true
+    eslan:
+      section-type: eslan
+      optional: true
+    cubupr:
+      section-type: cubupr
+      optional: true
+    ppag:
+      section-type: ppag
+      optional: true
+    cudala:
+      section-type: cudala
+      optional: true
+    cuopme-oper-lst:
+      section-type: cuopme-oper-lst
+      optional: true
+    custrias:
+      section-type: custrias
+      optional: true
+    ri:
+      section-type: ri
+      optional: true
+    migcon:
+      section-type: migcon
+      optional: true

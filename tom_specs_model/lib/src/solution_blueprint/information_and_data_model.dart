@@ -7,6 +7,14 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
+/// Lifecycle role of a business-object state (`ObjectStateEntry.stateType`).
+///
+/// A closed choice of lifecycle roles. Unlike `ScreenElementEntry` /
+/// `ScreenElementFieldSpec`, an `ObjectStateEntry` carries no per-kind
+/// alternative subsections, so this is modelled as a plain closed-choice enum
+/// form field (no `@OneOf`/`@Case` group).
+enum ObjectLifecycleKind { initial, intermediate, terminal, error }
+
 /// 7. Business Object and Data Model. Seeds → IFM.
 @StandardReferences(
   [
@@ -2237,9 +2245,9 @@ class ObjectStateEntry extends DocSpecsSection {
     ),
     Field(
       'stateType',
-      String,
+      ObjectLifecycleKind,
       'State Type',
-      hint: 'Initial | Intermediate | Terminal | Error',
+      hint: 'Lifecycle role of this state',
     ),
     Field(
       'entryConditions',

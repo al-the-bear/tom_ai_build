@@ -35999,10 +35999,24 @@ ScreenElementFieldSpecFormattingForm screen_element_field_spec_formatting(const 
   free(path);
   return out;
 }
-ScreenElementFieldSpecConstraintsForm screen_element_field_spec_constraints(const ScreenElementFieldSpec *self) {
-  char *path = spec_path_join(self->node.path, "SEFSC");
-  ScreenElementFieldSpecConstraintsForm out;
-  screen_element_field_spec_constraints_form_init(&out, self->node.doc, path);
+ScreenElementFieldSpecNumberOptionsForm screen_element_field_spec_number_options(const ScreenElementFieldSpec *self) {
+  char *path = spec_path_join(self->node.path, "SEFSN");
+  ScreenElementFieldSpecNumberOptionsForm out;
+  screen_element_field_spec_number_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScreenElementFieldSpecDateOptionsForm screen_element_field_spec_date_options(const ScreenElementFieldSpec *self) {
+  char *path = spec_path_join(self->node.path, "SEFSD");
+  ScreenElementFieldSpecDateOptionsForm out;
+  screen_element_field_spec_date_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScreenElementFieldSpecTextOptionsForm screen_element_field_spec_text_options(const ScreenElementFieldSpec *self) {
+  char *path = spec_path_join(self->node.path, "SEFST");
+  ScreenElementFieldSpecTextOptionsForm out;
+  screen_element_field_spec_text_options_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -36013,10 +36027,10 @@ ScreenElementFieldSpecValidationForm screen_element_field_spec_validation(const 
   free(path);
   return out;
 }
-ScreenElementFieldSpecSelectionForm screen_element_field_spec_selection(const ScreenElementFieldSpec *self) {
+ScreenElementFieldSpecSelectOptionsForm screen_element_field_spec_select_options(const ScreenElementFieldSpec *self) {
   char *path = spec_path_join(self->node.path, "SEFSS");
-  ScreenElementFieldSpecSelectionForm out;
-  screen_element_field_spec_selection_form_init(&out, self->node.doc, path);
+  ScreenElementFieldSpecSelectOptionsForm out;
+  screen_element_field_spec_select_options_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -134895,61 +134909,6 @@ void screen_element_entry_resources_form_set_icon_position(ScreenElementEntryRes
   spec_document_set_form_field(self->node.doc, self->node.path, "iconPosition", value);
 }
 
-void screen_element_field_spec_constraints_form_init(ScreenElementFieldSpecConstraintsForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void screen_element_field_spec_constraints_form_free(ScreenElementFieldSpecConstraintsForm *self) {
-  som_node_free(&self->node);
-}
-char *screen_element_field_spec_constraints_form_content(const ScreenElementFieldSpecConstraintsForm *self) {
-  const char *v = spec_document_content(self->node.doc, self->node.path);
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_element_field_spec_constraints_form_set_content(ScreenElementFieldSpecConstraintsForm *self, const char *value) {
-  spec_document_set_content(self->node.doc, self->node.path, value);
-}
-long screen_element_field_spec_constraints_form_max_length(const ScreenElementFieldSpecConstraintsForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxLength");
-  return (v != NULL && *v) ? atol(v) : 0;
-}
-void screen_element_field_spec_constraints_form_set_max_length(ScreenElementFieldSpecConstraintsForm *self, long value) {
-  char buf[32];
-  snprintf(buf, sizeof(buf), "%ld", value);
-  spec_document_set_form_field(self->node.doc, self->node.path, "maxLength", buf);
-}
-long screen_element_field_spec_constraints_form_min_length(const ScreenElementFieldSpecConstraintsForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minLength");
-  return (v != NULL && *v) ? atol(v) : 0;
-}
-void screen_element_field_spec_constraints_form_set_min_length(ScreenElementFieldSpecConstraintsForm *self, long value) {
-  char buf[32];
-  snprintf(buf, sizeof(buf), "%ld", value);
-  spec_document_set_form_field(self->node.doc, self->node.path, "minLength", buf);
-}
-char *screen_element_field_spec_constraints_form_min_value(const ScreenElementFieldSpecConstraintsForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minValue");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_element_field_spec_constraints_form_set_min_value(ScreenElementFieldSpecConstraintsForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "minValue", value);
-}
-char *screen_element_field_spec_constraints_form_max_value(const ScreenElementFieldSpecConstraintsForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxValue");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_element_field_spec_constraints_form_set_max_value(ScreenElementFieldSpecConstraintsForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "maxValue", value);
-}
-long screen_element_field_spec_constraints_form_decimal_places(const ScreenElementFieldSpecConstraintsForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "decimalPlaces");
-  return (v != NULL && *v) ? atol(v) : 0;
-}
-void screen_element_field_spec_constraints_form_set_decimal_places(ScreenElementFieldSpecConstraintsForm *self, long value) {
-  char buf[32];
-  snprintf(buf, sizeof(buf), "%ld", value);
-  spec_document_set_form_field(self->node.doc, self->node.path, "decimalPlaces", buf);
-}
-
 void screen_element_field_spec_content_form_init(ScreenElementFieldSpecContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -134983,6 +134942,41 @@ char *screen_element_field_spec_content_form_placeholder_resource(const ScreenEl
 }
 void screen_element_field_spec_content_form_set_placeholder_resource(ScreenElementFieldSpecContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "placeholderResource", value);
+}
+
+void screen_element_field_spec_date_options_form_init(ScreenElementFieldSpecDateOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_element_field_spec_date_options_form_free(ScreenElementFieldSpecDateOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_element_field_spec_date_options_form_content(const ScreenElementFieldSpecDateOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_field_spec_date_options_form_set_content(ScreenElementFieldSpecDateOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_element_field_spec_date_options_form_first_date(const ScreenElementFieldSpecDateOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "firstDate");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_field_spec_date_options_form_set_first_date(ScreenElementFieldSpecDateOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "firstDate", value);
+}
+char *screen_element_field_spec_date_options_form_last_date(const ScreenElementFieldSpecDateOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "lastDate");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_field_spec_date_options_form_set_last_date(ScreenElementFieldSpecDateOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "lastDate", value);
+}
+char *screen_element_field_spec_date_options_form_date_format(const ScreenElementFieldSpecDateOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dateFormat");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_field_spec_date_options_form_set_date_format(ScreenElementFieldSpecDateOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "dateFormat", value);
 }
 
 void screen_element_field_spec_formatting_form_init(ScreenElementFieldSpecFormattingForm *self, SpecDocument *doc, const char *path) {
@@ -135027,46 +135021,115 @@ void screen_element_field_spec_formatting_form_set_display_format(ScreenElementF
   spec_document_set_form_field(self->node.doc, self->node.path, "displayFormat", value);
 }
 
-void screen_element_field_spec_selection_form_init(ScreenElementFieldSpecSelectionForm *self, SpecDocument *doc, const char *path) {
+void screen_element_field_spec_number_options_form_init(ScreenElementFieldSpecNumberOptionsForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void screen_element_field_spec_selection_form_free(ScreenElementFieldSpecSelectionForm *self) {
+void screen_element_field_spec_number_options_form_free(ScreenElementFieldSpecNumberOptionsForm *self) {
   som_node_free(&self->node);
 }
-char *screen_element_field_spec_selection_form_content(const ScreenElementFieldSpecSelectionForm *self) {
+char *screen_element_field_spec_number_options_form_content(const ScreenElementFieldSpecNumberOptionsForm *self) {
   const char *v = spec_document_content(self->node.doc, self->node.path);
   return som_strdup(v != NULL ? v : "");
 }
-void screen_element_field_spec_selection_form_set_content(ScreenElementFieldSpecSelectionForm *self, const char *value) {
+void screen_element_field_spec_number_options_form_set_content(ScreenElementFieldSpecNumberOptionsForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *screen_element_field_spec_selection_form_autocomplete_source(const ScreenElementFieldSpecSelectionForm *self) {
+char *screen_element_field_spec_number_options_form_min_value(const ScreenElementFieldSpecNumberOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minValue");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_field_spec_number_options_form_set_min_value(ScreenElementFieldSpecNumberOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "minValue", value);
+}
+char *screen_element_field_spec_number_options_form_max_value(const ScreenElementFieldSpecNumberOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxValue");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_field_spec_number_options_form_set_max_value(ScreenElementFieldSpecNumberOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxValue", value);
+}
+long screen_element_field_spec_number_options_form_decimal_places(const ScreenElementFieldSpecNumberOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "decimalPlaces");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void screen_element_field_spec_number_options_form_set_decimal_places(ScreenElementFieldSpecNumberOptionsForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "decimalPlaces", buf);
+}
+
+void screen_element_field_spec_select_options_form_init(ScreenElementFieldSpecSelectOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_element_field_spec_select_options_form_free(ScreenElementFieldSpecSelectOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_element_field_spec_select_options_form_content(const ScreenElementFieldSpecSelectOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_field_spec_select_options_form_set_content(ScreenElementFieldSpecSelectOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_element_field_spec_select_options_form_autocomplete_source(const ScreenElementFieldSpecSelectOptionsForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "autocompleteSource");
   return som_strdup(v != NULL ? v : "");
 }
-void screen_element_field_spec_selection_form_set_autocomplete_source(ScreenElementFieldSpecSelectionForm *self, const char *value) {
+void screen_element_field_spec_select_options_form_set_autocomplete_source(ScreenElementFieldSpecSelectOptionsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "autocompleteSource", value);
 }
-char *screen_element_field_spec_selection_form_options_source(const ScreenElementFieldSpecSelectionForm *self) {
+char *screen_element_field_spec_select_options_form_options_source(const ScreenElementFieldSpecSelectOptionsForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "optionsSource");
   return som_strdup(v != NULL ? v : "");
 }
-void screen_element_field_spec_selection_form_set_options_source(ScreenElementFieldSpecSelectionForm *self, const char *value) {
+void screen_element_field_spec_select_options_form_set_options_source(ScreenElementFieldSpecSelectOptionsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "optionsSource", value);
 }
-char *screen_element_field_spec_selection_form_select_mode(const ScreenElementFieldSpecSelectionForm *self) {
+char *screen_element_field_spec_select_options_form_select_mode(const ScreenElementFieldSpecSelectOptionsForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "selectMode");
   return som_strdup(v != NULL ? v : "");
 }
-void screen_element_field_spec_selection_form_set_select_mode(ScreenElementFieldSpecSelectionForm *self, const char *value) {
+void screen_element_field_spec_select_options_form_set_select_mode(ScreenElementFieldSpecSelectOptionsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "selectMode", value);
 }
-char *screen_element_field_spec_selection_form_display_mode(const ScreenElementFieldSpecSelectionForm *self) {
+char *screen_element_field_spec_select_options_form_display_mode(const ScreenElementFieldSpecSelectOptionsForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayMode");
   return som_strdup(v != NULL ? v : "");
 }
-void screen_element_field_spec_selection_form_set_display_mode(ScreenElementFieldSpecSelectionForm *self, const char *value) {
+void screen_element_field_spec_select_options_form_set_display_mode(ScreenElementFieldSpecSelectOptionsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "displayMode", value);
+}
+
+void screen_element_field_spec_text_options_form_init(ScreenElementFieldSpecTextOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_element_field_spec_text_options_form_free(ScreenElementFieldSpecTextOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_element_field_spec_text_options_form_content(const ScreenElementFieldSpecTextOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_field_spec_text_options_form_set_content(ScreenElementFieldSpecTextOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+long screen_element_field_spec_text_options_form_max_length(const ScreenElementFieldSpecTextOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxLength");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void screen_element_field_spec_text_options_form_set_max_length(ScreenElementFieldSpecTextOptionsForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxLength", buf);
+}
+long screen_element_field_spec_text_options_form_min_length(const ScreenElementFieldSpecTextOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minLength");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void screen_element_field_spec_text_options_form_set_min_length(ScreenElementFieldSpecTextOptionsForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "minLength", buf);
 }
 
 void screen_element_field_spec_validation_form_init(ScreenElementFieldSpecValidationForm *self, SpecDocument *doc, const char *path) {

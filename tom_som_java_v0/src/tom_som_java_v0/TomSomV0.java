@@ -28271,16 +28271,22 @@ public final class TomSomV0 {
     }
 
     // 10.2.1.n.m.k.1. Element Action.
+    //
+    // Present only for action-kind elements (`@OneOf` case, csmb6).
     public ScreenElementAction elementAction() {
       return new ScreenElementAction(doc, path + "/elementAction");
     }
 
     // 10.2.1.n.m.k.2. Element Field Spec.
+    //
+    // Present only for input-kind elements (`@OneOf` case, csmb6).
     public ScreenElementFieldSpec fieldSpec() {
       return new ScreenElementFieldSpec(doc, path + "/fieldSpec");
     }
 
     // 10.2.1.n.m.k.3. Element Data Display.
+    //
+    // Present only for display-kind elements (`@OneOf` case, csmb6).
     public ScreenElementDataDisplay dataDisplay() {
       return new ScreenElementDataDisplay(doc, path + "/dataDisplay");
     }
@@ -28308,9 +28314,27 @@ public final class TomSomV0 {
       return new ScreenElementFieldSpecFormattingForm(doc, path + "/SEFSF");
     }
 
-    // Length and value constraints.
-    public ScreenElementFieldSpecConstraintsForm constraints() {
-      return new ScreenElementFieldSpecConstraintsForm(doc, path + "/SEFSC");
+    // Number-kind options — a promoted `@OneOf` case (csmb6).
+    //
+    // Present only for numeric field kinds; carries only numeric constraints
+    // (no length or option-source attributes).
+    public ScreenElementFieldSpecNumberOptionsForm numberOptions() {
+      return new ScreenElementFieldSpecNumberOptionsForm(doc, path + "/SEFSN");
+    }
+
+    // Date-kind options — a promoted `@OneOf` case (csmb6).
+    //
+    // Present only for date/time field kinds; carries only temporal
+    // constraints (no numeric precision or length attributes).
+    public ScreenElementFieldSpecDateOptionsForm dateOptions() {
+      return new ScreenElementFieldSpecDateOptionsForm(doc, path + "/SEFSD");
+    }
+
+    // Text-kind options — a promoted `@OneOf` case (csmb6).
+    //
+    // Present only for free-text field kinds; carries only length constraints.
+    public ScreenElementFieldSpecTextOptionsForm textOptions() {
+      return new ScreenElementFieldSpecTextOptionsForm(doc, path + "/SEFST");
     }
 
     // Validation behavior.
@@ -28318,9 +28342,12 @@ public final class TomSomV0 {
       return new ScreenElementFieldSpecValidationForm(doc, path + "/SEFSV");
     }
 
-    // Selection and input assistance.
-    public ScreenElementFieldSpecSelectionForm selection() {
-      return new ScreenElementFieldSpecSelectionForm(doc, path + "/SEFSS");
+    // Select-kind options — a promoted `@OneOf` case (csmb6).
+    //
+    // Present only for the enumeration (select) field kind; carries only the
+    // option-source and selection-mode attributes.
+    public ScreenElementFieldSpecSelectOptionsForm selectOptions() {
+      return new ScreenElementFieldSpecSelectOptionsForm(doc, path + "/SEFSS");
     }
   }
 
@@ -157856,76 +157883,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `constraints` @Form section: its own content
-  // text followed by one typed member per form field.
-  public static final class ScreenElementFieldSpecConstraintsForm extends SomNode {
-    public ScreenElementFieldSpecConstraintsForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path);
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path, value);
-    }
-
-    public Integer maxLength() {
-      String v = doc.formField(path, "maxLength");
-      if (v == null || v.isEmpty()) return null;
-      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
-    }
-
-    public void maxLength(Integer value) {
-      doc.setFormField(path, "maxLength", value == null ? "" : String.valueOf(value));
-    }
-
-    public Integer minLength() {
-      String v = doc.formField(path, "minLength");
-      if (v == null || v.isEmpty()) return null;
-      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
-    }
-
-    public void minLength(Integer value) {
-      doc.setFormField(path, "minLength", value == null ? "" : String.valueOf(value));
-    }
-
-    public String minValue() {
-      String v = doc.formField(path, "minValue");
-      return v == null ? "" : v;
-    }
-
-    public void minValue(String value) {
-      doc.setFormField(path, "minValue", value);
-    }
-
-    public String maxValue() {
-      String v = doc.formField(path, "maxValue");
-      return v == null ? "" : v;
-    }
-
-    public void maxValue(String value) {
-      doc.setFormField(path, "maxValue", value);
-    }
-
-    public Integer decimalPlaces() {
-      String v = doc.formField(path, "decimalPlaces");
-      if (v == null || v.isEmpty()) return null;
-      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
-    }
-
-    public void decimalPlaces(Integer value) {
-      doc.setFormField(path, "decimalPlaces", value == null ? "" : String.valueOf(value));
-    }
-  }
-
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ScreenElementFieldSpecContentForm extends SomNode {
@@ -157972,6 +157929,55 @@ public final class TomSomV0 {
 
     public void placeholderResource(String value) {
       doc.setFormField(path, "placeholderResource", value);
+    }
+  }
+
+  // Generated section facade for the `dateOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenElementFieldSpecDateOptionsForm extends SomNode {
+    public ScreenElementFieldSpecDateOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String firstDate() {
+      String v = doc.formField(path, "firstDate");
+      return v == null ? "" : v;
+    }
+
+    public void firstDate(String value) {
+      doc.setFormField(path, "firstDate", value);
+    }
+
+    public String lastDate() {
+      String v = doc.formField(path, "lastDate");
+      return v == null ? "" : v;
+    }
+
+    public void lastDate(String value) {
+      doc.setFormField(path, "lastDate", value);
+    }
+
+    public String dateFormat() {
+      String v = doc.formField(path, "dateFormat");
+      return v == null ? "" : v;
+    }
+
+    public void dateFormat(String value) {
+      doc.setFormField(path, "dateFormat", value);
     }
   }
 
@@ -158033,10 +158039,60 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `selection` @Form section: its own content
+  // Generated section facade for the `numberOptions` @Form section: its own content
   // text followed by one typed member per form field.
-  public static final class ScreenElementFieldSpecSelectionForm extends SomNode {
-    public ScreenElementFieldSpecSelectionForm(SpecDocument doc, String path) {
+  public static final class ScreenElementFieldSpecNumberOptionsForm extends SomNode {
+    public ScreenElementFieldSpecNumberOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String minValue() {
+      String v = doc.formField(path, "minValue");
+      return v == null ? "" : v;
+    }
+
+    public void minValue(String value) {
+      doc.setFormField(path, "minValue", value);
+    }
+
+    public String maxValue() {
+      String v = doc.formField(path, "maxValue");
+      return v == null ? "" : v;
+    }
+
+    public void maxValue(String value) {
+      doc.setFormField(path, "maxValue", value);
+    }
+
+    public Integer decimalPlaces() {
+      String v = doc.formField(path, "decimalPlaces");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void decimalPlaces(Integer value) {
+      doc.setFormField(path, "decimalPlaces", value == null ? "" : String.valueOf(value));
+    }
+  }
+
+  // Generated section facade for the `selectOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenElementFieldSpecSelectOptionsForm extends SomNode {
+    public ScreenElementFieldSpecSelectOptionsForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -158088,6 +158144,48 @@ public final class TomSomV0 {
 
     public void displayMode(String value) {
       doc.setFormField(path, "displayMode", value);
+    }
+  }
+
+  // Generated section facade for the `textOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenElementFieldSpecTextOptionsForm extends SomNode {
+    public ScreenElementFieldSpecTextOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Integer maxLength() {
+      String v = doc.formField(path, "maxLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxLength(Integer value) {
+      doc.setFormField(path, "maxLength", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer minLength() {
+      String v = doc.formField(path, "minLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void minLength(Integer value) {
+      doc.setFormField(path, "minLength", value == null ? "" : String.valueOf(value));
     }
   }
 

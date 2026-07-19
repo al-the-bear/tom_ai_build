@@ -31953,16 +31953,22 @@ func (x *ScreenElementEntry) Presentation() *ScreenElementEntryPresentationForm 
 }
 
 // 10.2.1.n.m.k.1. Element Action.
+//
+// Present only for action-kind elements (`@OneOf` case, csmb6).
 func (x *ScreenElementEntry) ElementAction() *ScreenElementAction {
 	return NewScreenElementAction(x.Doc(), x.Path()+"/elementAction")
 }
 
 // 10.2.1.n.m.k.2. Element Field Spec.
+//
+// Present only for input-kind elements (`@OneOf` case, csmb6).
 func (x *ScreenElementEntry) FieldSpec() *ScreenElementFieldSpec {
 	return NewScreenElementFieldSpec(x.Doc(), x.Path()+"/fieldSpec")
 }
 
 // 10.2.1.n.m.k.3. Element Data Display.
+//
+// Present only for display-kind elements (`@OneOf` case, csmb6).
 func (x *ScreenElementEntry) DataDisplay() *ScreenElementDataDisplay {
 	return NewScreenElementDataDisplay(x.Doc(), x.Path()+"/dataDisplay")
 }
@@ -31995,9 +32001,27 @@ func (x *ScreenElementFieldSpec) Formatting() *ScreenElementFieldSpecFormattingF
 	return NewScreenElementFieldSpecFormattingForm(x.Doc(), x.Path()+"/SEFSF")
 }
 
-// Length and value constraints.
-func (x *ScreenElementFieldSpec) Constraints() *ScreenElementFieldSpecConstraintsForm {
-	return NewScreenElementFieldSpecConstraintsForm(x.Doc(), x.Path()+"/SEFSC")
+// Number-kind options — a promoted `@OneOf` case (csmb6).
+//
+// Present only for numeric field kinds; carries only numeric constraints
+// (no length or option-source attributes).
+func (x *ScreenElementFieldSpec) NumberOptions() *ScreenElementFieldSpecNumberOptionsForm {
+	return NewScreenElementFieldSpecNumberOptionsForm(x.Doc(), x.Path()+"/SEFSN")
+}
+
+// Date-kind options — a promoted `@OneOf` case (csmb6).
+//
+// Present only for date/time field kinds; carries only temporal
+// constraints (no numeric precision or length attributes).
+func (x *ScreenElementFieldSpec) DateOptions() *ScreenElementFieldSpecDateOptionsForm {
+	return NewScreenElementFieldSpecDateOptionsForm(x.Doc(), x.Path()+"/SEFSD")
+}
+
+// Text-kind options — a promoted `@OneOf` case (csmb6).
+//
+// Present only for free-text field kinds; carries only length constraints.
+func (x *ScreenElementFieldSpec) TextOptions() *ScreenElementFieldSpecTextOptionsForm {
+	return NewScreenElementFieldSpecTextOptionsForm(x.Doc(), x.Path()+"/SEFST")
 }
 
 // Validation behavior.
@@ -32005,9 +32029,12 @@ func (x *ScreenElementFieldSpec) Validation() *ScreenElementFieldSpecValidationF
 	return NewScreenElementFieldSpecValidationForm(x.Doc(), x.Path()+"/SEFSV")
 }
 
-// Selection and input assistance.
-func (x *ScreenElementFieldSpec) Selection() *ScreenElementFieldSpecSelectionForm {
-	return NewScreenElementFieldSpecSelectionForm(x.Doc(), x.Path()+"/SEFSS")
+// Select-kind options — a promoted `@OneOf` case (csmb6).
+//
+// Present only for the enumeration (select) field kind; carries only the
+// option-source and selection-mode attributes.
+func (x *ScreenElementFieldSpec) SelectOptions() *ScreenElementFieldSpecSelectOptionsForm {
+	return NewScreenElementFieldSpecSelectOptionsForm(x.Doc(), x.Path()+"/SEFSS")
 }
 
 // A screen entry (form).
@@ -169230,108 +169257,6 @@ func (x *ScreenElementEntryResourcesForm) SetIconPosition(value string) {
 	x.Doc().SetFormField(x.Path(), "iconPosition", value)
 }
 
-// ScreenElementFieldSpecConstraintsForm is the generated section facade for the `constraints` @Form section: its own
-// content text followed by one typed member per form field.
-type ScreenElementFieldSpecConstraintsForm struct {
-	som.SomNode
-}
-
-// NewScreenElementFieldSpecConstraintsForm binds a ScreenElementFieldSpecConstraintsForm facade to a document and a path.
-func NewScreenElementFieldSpecConstraintsForm(doc *som.SpecDocument, path string) *ScreenElementFieldSpecConstraintsForm {
-	return &ScreenElementFieldSpecConstraintsForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this @Form section holds body text before its
-// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ScreenElementFieldSpecConstraintsForm) CanHaveContent() bool {
-	return true
-}
-
-// Content is the section's own free-text content, before the form fields.
-func (x *ScreenElementFieldSpecConstraintsForm) Content() string {
-	return x.Doc().ContentOr(x.Path())
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) SetContent(value string) {
-	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) MaxLength() *int {
-	v := x.Doc().FormFieldOr(x.Path(), "maxLength")
-	if v == "" {
-		return nil
-	}
-	n, err := strconv.Atoi(v)
-	if err != nil {
-		return nil
-	}
-	return &n
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) SetMaxLength(value *int) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "maxLength", "")
-		return
-	}
-	x.Doc().SetFormField(x.Path(), "maxLength", strconv.Itoa(*value))
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) MinLength() *int {
-	v := x.Doc().FormFieldOr(x.Path(), "minLength")
-	if v == "" {
-		return nil
-	}
-	n, err := strconv.Atoi(v)
-	if err != nil {
-		return nil
-	}
-	return &n
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) SetMinLength(value *int) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "minLength", "")
-		return
-	}
-	x.Doc().SetFormField(x.Path(), "minLength", strconv.Itoa(*value))
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) MinValue() string {
-	return x.Doc().FormFieldOr(x.Path(), "minValue")
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) SetMinValue(value string) {
-	x.Doc().SetFormField(x.Path(), "minValue", value)
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) MaxValue() string {
-	return x.Doc().FormFieldOr(x.Path(), "maxValue")
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) SetMaxValue(value string) {
-	x.Doc().SetFormField(x.Path(), "maxValue", value)
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) DecimalPlaces() *int {
-	v := x.Doc().FormFieldOr(x.Path(), "decimalPlaces")
-	if v == "" {
-		return nil
-	}
-	n, err := strconv.Atoi(v)
-	if err != nil {
-		return nil
-	}
-	return &n
-}
-
-func (x *ScreenElementFieldSpecConstraintsForm) SetDecimalPlaces(value *int) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "decimalPlaces", "")
-		return
-	}
-	x.Doc().SetFormField(x.Path(), "decimalPlaces", strconv.Itoa(*value))
-}
-
 // ScreenElementFieldSpecContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ScreenElementFieldSpecContentForm struct {
@@ -169380,6 +169305,56 @@ func (x *ScreenElementFieldSpecContentForm) PlaceholderResource() string {
 
 func (x *ScreenElementFieldSpecContentForm) SetPlaceholderResource(value string) {
 	x.Doc().SetFormField(x.Path(), "placeholderResource", value)
+}
+
+// ScreenElementFieldSpecDateOptionsForm is the generated section facade for the `dateOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenElementFieldSpecDateOptionsForm struct {
+	som.SomNode
+}
+
+// NewScreenElementFieldSpecDateOptionsForm binds a ScreenElementFieldSpecDateOptionsForm facade to a document and a path.
+func NewScreenElementFieldSpecDateOptionsForm(doc *som.SpecDocument, path string) *ScreenElementFieldSpecDateOptionsForm {
+	return &ScreenElementFieldSpecDateOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenElementFieldSpecDateOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenElementFieldSpecDateOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenElementFieldSpecDateOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenElementFieldSpecDateOptionsForm) FirstDate() string {
+	return x.Doc().FormFieldOr(x.Path(), "firstDate")
+}
+
+func (x *ScreenElementFieldSpecDateOptionsForm) SetFirstDate(value string) {
+	x.Doc().SetFormField(x.Path(), "firstDate", value)
+}
+
+func (x *ScreenElementFieldSpecDateOptionsForm) LastDate() string {
+	return x.Doc().FormFieldOr(x.Path(), "lastDate")
+}
+
+func (x *ScreenElementFieldSpecDateOptionsForm) SetLastDate(value string) {
+	x.Doc().SetFormField(x.Path(), "lastDate", value)
+}
+
+func (x *ScreenElementFieldSpecDateOptionsForm) DateFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "dateFormat")
+}
+
+func (x *ScreenElementFieldSpecDateOptionsForm) SetDateFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "dateFormat", value)
 }
 
 // ScreenElementFieldSpecFormattingForm is the generated section facade for the `formatting` @Form section: its own
@@ -169440,62 +169415,190 @@ func (x *ScreenElementFieldSpecFormattingForm) SetDisplayFormat(value string) {
 	x.Doc().SetFormField(x.Path(), "displayFormat", value)
 }
 
-// ScreenElementFieldSpecSelectionForm is the generated section facade for the `selection` @Form section: its own
+// ScreenElementFieldSpecNumberOptionsForm is the generated section facade for the `numberOptions` @Form section: its own
 // content text followed by one typed member per form field.
-type ScreenElementFieldSpecSelectionForm struct {
+type ScreenElementFieldSpecNumberOptionsForm struct {
 	som.SomNode
 }
 
-// NewScreenElementFieldSpecSelectionForm binds a ScreenElementFieldSpecSelectionForm facade to a document and a path.
-func NewScreenElementFieldSpecSelectionForm(doc *som.SpecDocument, path string) *ScreenElementFieldSpecSelectionForm {
-	return &ScreenElementFieldSpecSelectionForm{SomNode: som.NewSomNode(doc, path)}
+// NewScreenElementFieldSpecNumberOptionsForm binds a ScreenElementFieldSpecNumberOptionsForm facade to a document and a path.
+func NewScreenElementFieldSpecNumberOptionsForm(doc *som.SpecDocument, path string) *ScreenElementFieldSpecNumberOptionsForm {
+	return &ScreenElementFieldSpecNumberOptionsForm{SomNode: som.NewSomNode(doc, path)}
 }
 
 // CanHaveContent reports that this @Form section holds body text before its
 // form fields (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ScreenElementFieldSpecSelectionForm) CanHaveContent() bool {
+func (x *ScreenElementFieldSpecNumberOptionsForm) CanHaveContent() bool {
 	return true
 }
 
 // Content is the section's own free-text content, before the form fields.
-func (x *ScreenElementFieldSpecSelectionForm) Content() string {
+func (x *ScreenElementFieldSpecNumberOptionsForm) Content() string {
 	return x.Doc().ContentOr(x.Path())
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) SetContent(value string) {
+func (x *ScreenElementFieldSpecNumberOptionsForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) AutocompleteSource() string {
+func (x *ScreenElementFieldSpecNumberOptionsForm) MinValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "minValue")
+}
+
+func (x *ScreenElementFieldSpecNumberOptionsForm) SetMinValue(value string) {
+	x.Doc().SetFormField(x.Path(), "minValue", value)
+}
+
+func (x *ScreenElementFieldSpecNumberOptionsForm) MaxValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxValue")
+}
+
+func (x *ScreenElementFieldSpecNumberOptionsForm) SetMaxValue(value string) {
+	x.Doc().SetFormField(x.Path(), "maxValue", value)
+}
+
+func (x *ScreenElementFieldSpecNumberOptionsForm) DecimalPlaces() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "decimalPlaces")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ScreenElementFieldSpecNumberOptionsForm) SetDecimalPlaces(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "decimalPlaces", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "decimalPlaces", strconv.Itoa(*value))
+}
+
+// ScreenElementFieldSpecSelectOptionsForm is the generated section facade for the `selectOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenElementFieldSpecSelectOptionsForm struct {
+	som.SomNode
+}
+
+// NewScreenElementFieldSpecSelectOptionsForm binds a ScreenElementFieldSpecSelectOptionsForm facade to a document and a path.
+func NewScreenElementFieldSpecSelectOptionsForm(doc *som.SpecDocument, path string) *ScreenElementFieldSpecSelectOptionsForm {
+	return &ScreenElementFieldSpecSelectOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenElementFieldSpecSelectOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenElementFieldSpecSelectOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenElementFieldSpecSelectOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenElementFieldSpecSelectOptionsForm) AutocompleteSource() string {
 	return x.Doc().FormFieldOr(x.Path(), "autocompleteSource")
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) SetAutocompleteSource(value string) {
+func (x *ScreenElementFieldSpecSelectOptionsForm) SetAutocompleteSource(value string) {
 	x.Doc().SetFormField(x.Path(), "autocompleteSource", value)
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) OptionsSource() string {
+func (x *ScreenElementFieldSpecSelectOptionsForm) OptionsSource() string {
 	return x.Doc().FormFieldOr(x.Path(), "optionsSource")
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) SetOptionsSource(value string) {
+func (x *ScreenElementFieldSpecSelectOptionsForm) SetOptionsSource(value string) {
 	x.Doc().SetFormField(x.Path(), "optionsSource", value)
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) SelectMode() string {
+func (x *ScreenElementFieldSpecSelectOptionsForm) SelectMode() string {
 	return x.Doc().FormFieldOr(x.Path(), "selectMode")
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) SetSelectMode(value string) {
+func (x *ScreenElementFieldSpecSelectOptionsForm) SetSelectMode(value string) {
 	x.Doc().SetFormField(x.Path(), "selectMode", value)
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) DisplayMode() string {
+func (x *ScreenElementFieldSpecSelectOptionsForm) DisplayMode() string {
 	return x.Doc().FormFieldOr(x.Path(), "displayMode")
 }
 
-func (x *ScreenElementFieldSpecSelectionForm) SetDisplayMode(value string) {
+func (x *ScreenElementFieldSpecSelectOptionsForm) SetDisplayMode(value string) {
 	x.Doc().SetFormField(x.Path(), "displayMode", value)
+}
+
+// ScreenElementFieldSpecTextOptionsForm is the generated section facade for the `textOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenElementFieldSpecTextOptionsForm struct {
+	som.SomNode
+}
+
+// NewScreenElementFieldSpecTextOptionsForm binds a ScreenElementFieldSpecTextOptionsForm facade to a document and a path.
+func NewScreenElementFieldSpecTextOptionsForm(doc *som.SpecDocument, path string) *ScreenElementFieldSpecTextOptionsForm {
+	return &ScreenElementFieldSpecTextOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenElementFieldSpecTextOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenElementFieldSpecTextOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenElementFieldSpecTextOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenElementFieldSpecTextOptionsForm) MaxLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ScreenElementFieldSpecTextOptionsForm) SetMaxLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxLength", strconv.Itoa(*value))
+}
+
+func (x *ScreenElementFieldSpecTextOptionsForm) MinLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "minLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ScreenElementFieldSpecTextOptionsForm) SetMinLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "minLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "minLength", strconv.Itoa(*value))
 }
 
 // ScreenElementFieldSpecValidationForm is the generated section facade for the `validation` @Form section: its own

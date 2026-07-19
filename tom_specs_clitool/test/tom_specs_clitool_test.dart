@@ -2049,4 +2049,263 @@ void main() {
       expect(code, contains('yamlScalar: (o) => (o as Doc).content'));
     });
   });
+
+  group('unit: @OneOf/@Case discriminated subsection groups (csmb6)', () {
+    // A @Case-bound complex subsection field.
+    ModelField caseField(
+      String name,
+      String typeName,
+      List<String> caseValues,
+    ) =>
+        ModelField(
+          name: name,
+          typeName: typeName,
+          annotations: [
+            for (final v in caseValues) AnnotationData('Case', {'value': v}),
+          ],
+        );
+
+    // A container carrying @OneOf plus its enum discriminator @Form field.
+    ModelClass container({
+      required String discriminator,
+      required String enumType,
+      required List<String> enumValues,
+      required List<ModelField> caseFields,
+      bool includeDiscriminator = true,
+    }) =>
+        ModelClass(
+          name: 'Container',
+          annotations: [
+            AnnotationData('SectionId', {'id': 'CTR'}),
+            AnnotationData('OneOf', {'discriminator': discriminator}),
+          ],
+          formFields: includeDiscriminator
+              ? [
+                  FormFieldInfo(
+                    name: discriminator,
+                    typeName: enumType,
+                    enumValues: enumValues,
+                  ),
+                ]
+              : const [],
+          fields: caseFields,
+        );
+
+    // Wraps a container + case subsection classes under a reachable SBP root.
+    Map<String, ModelClass> model(
+      ModelClass ctr, {
+      Map<String, ModelClass> subs = const {},
+    }) =>
+        {
+          'D00SolutionBlueprint': ModelClass(
+            name: 'D00SolutionBlueprint',
+            annotations: [
+              AnnotationData('Document', {}),
+              AnnotationData('SectionId', {'id': 'SBP00'}),
+            ],
+            fields: [_field('container', 'Container')],
+          ),
+          'Container': ctr,
+          ...subs,
+        };
+
+    List<String> oneOfErrors(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .errors
+            .where((e) => e.contains('one-of'))
+            .toList();
+    List<String> oneOfWarnings(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .warnings
+            .where((e) => e.contains('one-of'))
+            .toList();
+
+    final alphaBeta = {
+      'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'ALP'})]),
+      'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'BET'})]),
+    };
+
+    test('fully-covered cases produce no one-of errors or warnings', () {
+      final classes = model(
+        container(
+          discriminator: 'kind',
+          enumType: 'Kind',
+          enumValues: ['a', 'b'],
+          caseFields: [
+            caseField('alpha', 'Alpha', ['Kind.a']),
+            caseField('beta', 'Beta', ['Kind.b']),
+          ],
+        ),
+        subs: alphaBeta,
+      );
+      expect(oneOfErrors(classes), isEmpty);
+      expect(oneOfWarnings(classes), isEmpty);
+    });
+
+    test('uncovered enum constant is a warning, not an error', () {
+      final classes = model(
+        container(
+          discriminator: 'kind',
+          enumType: 'Kind',
+          enumValues: ['a', 'b', 'c'],
+          caseFields: [
+            caseField('alpha', 'Alpha', ['Kind.a']),
+            caseField('beta', 'Beta', ['Kind.b']),
+          ],
+        ),
+        subs: alphaBeta,
+      );
+      expect(oneOfErrors(classes), isEmpty);
+      expect(oneOfWarnings(classes), hasLength(1));
+      expect(oneOfWarnings(classes).single, contains('c'));
+    });
+
+    test('discriminator that is not a @Form field is an error', () {
+      final classes = model(
+        container(
+          discriminator: 'kind',
+          enumType: 'Kind',
+          enumValues: ['a'],
+          caseFields: [caseField('alpha', 'Alpha', ['Kind.a'])],
+          includeDiscriminator: false,
+        ),
+        subs: alphaBeta,
+      );
+      expect(
+        oneOfErrors(classes),
+        contains(predicate<String>(
+            (e) => e.contains('is not a\n@Form field') || e.contains('is not a @Form field'))),
+      );
+    });
+
+    test('non-enum discriminator @Form field is an error', () {
+      final classes = model(
+        container(
+          discriminator: 'kind',
+          enumType: 'String',
+          enumValues: const [], // empty → not a model enum
+          caseFields: [caseField('alpha', 'Alpha', ['Kind.a'])],
+        ),
+        subs: alphaBeta,
+      );
+      expect(
+        oneOfErrors(classes),
+        contains(predicate<String>((e) => e.contains('is not a model enum'))),
+      );
+    });
+
+    test('@Case value from the wrong enum is an error', () {
+      final classes = model(
+        container(
+          discriminator: 'kind',
+          enumType: 'Kind',
+          enumValues: ['a', 'b'],
+          caseFields: [caseField('alpha', 'Alpha', ['Other.a'])],
+        ),
+        subs: alphaBeta,
+      );
+      expect(
+        oneOfErrors(classes),
+        contains(predicate<String>(
+            (e) => e.contains('does not belong to the discriminator enum'))),
+      );
+    });
+
+    test('@Case value that is not a constant of the enum is an error', () {
+      final classes = model(
+        container(
+          discriminator: 'kind',
+          enumType: 'Kind',
+          enumValues: ['a', 'b'],
+          caseFields: [caseField('alpha', 'Alpha', ['Kind.z'])],
+        ),
+        subs: alphaBeta,
+      );
+      expect(
+        oneOfErrors(classes),
+        contains(predicate<String>(
+            (e) => e.contains('is not a constant of "Kind"'))),
+      );
+    });
+
+    test('@Case on a non-subsection (scalar) field is an error', () {
+      final classes = model(
+        container(
+          discriminator: 'kind',
+          enumType: 'Kind',
+          enumValues: ['a'],
+          caseFields: [
+            ModelField(
+              name: 'scalar',
+              typeName: 'String',
+              annotations: [AnnotationData('Case', {'value': 'Kind.a'})],
+            ),
+          ],
+        ),
+      );
+      expect(
+        oneOfErrors(classes),
+        contains(predicate<String>(
+            (e) => e.contains('is not a\ncomplex subsection') ||
+                e.contains('is not a complex subsection'))),
+      );
+    });
+
+    test('@Case outside any @OneOf container is a dangling error', () {
+      final classes = {
+        'D00SolutionBlueprint': ModelClass(
+          name: 'D00SolutionBlueprint',
+          annotations: [
+            AnnotationData('Document', {}),
+            AnnotationData('SectionId', {'id': 'SBP00'}),
+          ],
+          fields: [_field('loose', 'Loose')],
+        ),
+        'Loose': ModelClass(
+          name: 'Loose',
+          annotations: [AnnotationData('SectionId', {'id': 'LSE'})],
+          fields: [caseField('alpha', 'Alpha', ['Kind.a'])],
+        ),
+        ...alphaBeta,
+      };
+      expect(
+        oneOfErrors(classes),
+        contains(predicate<String>(
+            (e) => e.contains('declares no @OneOf group'))),
+      );
+    });
+
+    test('inline form sub-section (DocSpecsSection + @SectionId) is a valid '
+        'case-bound field', () {
+      final classes = model(
+        ModelClass(
+          name: 'Container',
+          annotations: [
+            AnnotationData('SectionId', {'id': 'CTR'}),
+            AnnotationData('OneOf', {'discriminator': 'kind'}),
+          ],
+          formFields: [
+            FormFieldInfo(
+              name: 'kind',
+              typeName: 'Kind',
+              enumValues: ['a'],
+            ),
+          ],
+          fields: [
+            ModelField(
+              name: 'options',
+              typeName: 'DocSpecsSection?',
+              isNullable: true,
+              isContentSection: true,
+              annotations: [
+                AnnotationData('SectionId', {'id': 'CTR-OPT'}),
+                AnnotationData('Case', {'value': 'Kind.a'}),
+              ],
+            ),
+          ],
+        ),
+      );
+      expect(oneOfErrors(classes), isEmpty);
+    });
+  });
 }

@@ -3,6 +3,7 @@ library;
 
 export 'access_key.dart';
 export 'allowed_tags.dart';
+export 'case_of.dart';
 export 'code_spec_kind.dart';
 export 'comment.dart';
 export 'content_help.dart';
@@ -18,6 +19,7 @@ export 'max_depth.dart';
 export 'max_length.dart';
 export 'min.dart';
 export 'min_length.dart';
+export 'one_of.dart';
 export 'pattern_check.dart';
 export 'pattern_check_id.dart';
 export 'position.dart';

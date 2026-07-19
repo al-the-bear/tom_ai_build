@@ -1,0 +1,946 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: target-operating-model/9.0
+
+title-format: "# <!--[TOM]--> Target Operating Model"
+section-types:
+  deprwo-deta-lst:
+    prefix: DEPRWO_DETA_LST
+    subsection-types:
+      deprwo-deta:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Detailed process workflows.
+  bpren-proc-lst:
+    prefix: BPREN_PROC_LST
+    subsection-types:
+      bpren-proc:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business process.
+  exipr-expe-lst:
+    prefix: EXIPR_EXPE_LST
+    subsection-types:
+      exipr-expe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per expected improvement.
+  pcctl-cont-lst:
+    prefix: PCCTL_CONT_LST
+    subsection-types:
+      pcctl-cont:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per control applied to this process.
+  pcexc-exce-lst:
+    prefix: PCEXC_EXCE_LST
+    subsection-types:
+      pcexc-exce:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per exception scenario for this process.
+  pcimv-impr-lst:
+    prefix: PCIMV_IMPR_LST
+    subsection-types:
+      pcimv-impr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per planned process improvement.
+  pcinp-inpu-lst:
+    prefix: PCINP_INPU_LST
+    subsection-types:
+      pcinp-inpu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process input.
+  pckpi-kpis-lst:
+    prefix: PCKPI_KPIS_LST
+    subsection-types:
+      pckpi-kpis:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per KPI tracked for this process.
+  pcout-outp-lst:
+    prefix: PCOUT_OUTP_LST
+    subsection-types:
+      pcout-outp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process output.
+  pcrlt-rela-lst:
+    prefix: PCRLT_RELA_LST
+    subsection-types:
+      pcrlt-rela:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per relationship to another process.
+  pcrol-role-lst:
+    prefix: PCROL_ROLE_LST
+    subsection-types:
+      pcrol-role:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process role.
+  pcsla-slas-lst:
+    prefix: PCSLA_SLAS_LST
+    subsection-types:
+      pcsla-slas:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per service level agreement for this process.
+  pdpen-prin-lst:
+    prefix: PDPEN_PRIN_LST
+    subsection-types:
+      pdpen-prin:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process design principle.
+  peevt-ende-lst:
+    prefix: PEEVT_ENDE_LST
+    subsection-types:
+      peevt-ende:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process end event.
+  ptren-trig-lst:
+    prefix: PTREN_TRIG_LST
+    subsection-types:
+      ptren-trig:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process trigger.
+  pmak-proc-lst:
+    prefix: PMAK_PROC_LST
+    subsection-types:
+      pmak-proc:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Process metrics and KPIs.
+  deprwo-deta:
+    prefix: DEPRWO_DETA_
+    pattern-check-id:
+      pattern: ^DEPRWO-DETA-.+$
+      error-message: IDs of this section must match DEPRWO-DETA-xxx
+    description: 6.1.7. Detailed Process Workflows.
+  bpren-proc:
+    prefix: BPREN_PROC_
+    subsection-types:
+      pridn:
+        max-count: 1
+      prchr:
+        max-count: 1
+      prtrg:
+        max-count: 1
+      prinou:
+        max-count: 1
+      prro:
+        max-count: 1
+      pp:
+        max-count: 1
+      prco:
+        max-count: 1
+      prte:
+        max-count: 1
+      prex:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BPREN-PROC-.+$
+      error-message: IDs of this section must match BPREN-PROC-xxx
+    description: Add one entry per business process.
+  exipr-expe:
+    prefix: EXIPR_EXPE_
+    pattern-check-id:
+      pattern: ^EXIPR-EXPE-.+$
+      error-message: IDs of this section must match EXIPR-EXPE-xxx
+    description: Add one entry per expected improvement.
+  pcctl-cont:
+    prefix: PCCTL_CONT_
+    subsection-types:
+      pceo:
+        max-count: 1
+      pcev:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PCCTL-CONT-.+$
+      error-message: IDs of this section must match PCCTL-CONT-xxx
+    description: Add one entry per control applied to this process.
+  pcexc-exce:
+    prefix: PCEXC_EXCE_
+    subsection-types:
+      peea:
+        max-count: 1
+      peer:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PCEXC-EXCE-.+$
+      error-message: IDs of this section must match PCEXC-EXCE-xxx
+    description: Add one entry per exception scenario for this process.
+  pcimv-impr:
+    prefix: PCIMV_IMPR_
+    subsection-types:
+      pieb:
+        max-count: 1
+      pied:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PCIMV-IMPR-.+$
+      error-message: IDs of this section must match PCIMV-IMPR-xxx
+    description: Add one entry per planned process improvement.
+  pcinp-inpu:
+    prefix: PCINP_INPU_
+    pattern-check-id:
+      pattern: ^PCINP-INPU-.+$
+      error-message: IDs of this section must match PCINP-INPU-xxx
+    description: Add one entry per process input.
+  pckpi-kpis:
+    prefix: PCKPI_KPIS_
+    subsection-types:
+      pkem:
+        max-count: 1
+      pkeo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PCKPI-KPIS-.+$
+      error-message: IDs of this section must match PCKPI-KPIS-xxx
+    description: Add one entry per KPI tracked for this process.
+  pcout-outp:
+    prefix: PCOUT_OUTP_
+    pattern-check-id:
+      pattern: ^PCOUT-OUTP-.+$
+      error-message: IDs of this section must match PCOUT-OUTP-xxx
+    description: Add one entry per process output.
+  pcrlt-rela:
+    prefix: PCRLT_RELA_
+    pattern-check-id:
+      pattern: ^PCRLT-RELA-.+$
+      error-message: IDs of this section must match PCRLT-RELA-xxx
+    description: Add one entry per relationship to another process.
+  pcrol-role:
+    prefix: PCROL_ROLE_
+    subsection-types:
+      pree:
+        max-count: 1
+      prec:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PCROL-ROLE-.+$
+      error-message: IDs of this section must match PCROL-ROLE-xxx
+    description: Add one entry per process role.
+  pcsla-slas:
+    prefix: PCSLA_SLAS_
+    pattern-check-id:
+      pattern: ^PCSLA-SLAS-.+$
+      error-message: IDs of this section must match PCSLA-SLAS-xxx
+    description: Add one entry per service level agreement for this process.
+  pdpen-prin:
+    prefix: PDPEN_PRIN_
+    pattern-check-id:
+      pattern: ^PDPEN-PRIN-.+$
+      error-message: IDs of this section must match PDPEN-PRIN-xxx
+    description: Add one entry per process design principle.
+  peevt-ende:
+    prefix: PEEVT_ENDE_
+    pattern-check-id:
+      pattern: ^PEEVT-ENDE-.+$
+      error-message: IDs of this section must match PEEVT-ENDE-xxx
+    description: Add one entry per process end event.
+  ptren-trig:
+    prefix: PTREN_TRIG_
+    pattern-check-id:
+      pattern: ^PTREN-TRIG-.+$
+      error-message: IDs of this section must match PTREN-TRIG-xxx
+    description: Add one entry per process trigger.
+  pmak-proc:
+    prefix: PMAK_PROC_
+    pattern-check-id:
+      pattern: ^PMAK-PROC-.+$
+      error-message: IDs of this section must match PMAK-PROC-xxx
+    description: 6.1.10. Process Metrics and KPIs.
+  crpran:
+    prefix: CRPRAN
+    description: Cross-process analysis.
+  imbuca:
+    prefix: IMBUCA
+    format: imbuca-form
+    description: Business case summary.
+  inouov:
+    prefix: INOUOV
+    format: inouov-form
+    description: Inputs overview.
+  prcoov:
+    prefix: PRCOOV
+    format: prcoov-form
+    description: Controls overview.
+  prdiov:
+    prefix: PRDIOV
+    format: prdiov-form
+    description: Diagram overview.
+  prexha:
+    prefix: PREXHA
+    description: Process exception handling.
+  prexov:
+    prefix: PREXOV
+    format: prexov-form
+    description: Exceptions overview.
+  primsu:
+    prefix: PRIMSU
+    subsection-types:
+      imov:
+        max-count: 1
+      pcimv-impr-lst:
+        max-count: 1
+      imbuca:
+        max-count: 1
+    description: Improvement summary.
+  prinou:
+    prefix: PRINOU
+    subsection-types:
+      inouov:
+        max-count: 1
+      pcinp-inpu-lst:
+        max-count: 1
+      pcout-outp-lst:
+        max-count: 1
+    description: Process inputs and outputs.
+  provdi:
+    prefix: PROVDI
+    subsection-types:
+      prdiov:
+        max-count: 1
+    description: Process overview diagram.
+  prpeov:
+    prefix: PRPEOV
+    format: prpeov-form
+    description: Performance overview.
+  prroov:
+    prefix: PRROOV
+    format: prroov-form
+    description: Roles overview.
+  prteex:
+    prefix: PRTEEX
+    format: prteex-form
+    description: Access channel and analytics capabilities.
+  prtein:
+    prefix: PRTEIN
+    format: prtein-form
+    description: "Data, reporting, and document tooling."
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  dpovw:
+    prefix: DPOVW
+    format: dpovw-form
+    description: Design principles overview.
+  pcbiz:
+    prefix: PCBIZ
+    format: pcbiz-form
+    description: Demand and business value profile.
+  pcops:
+    prefix: PCOPS
+    format: pcops-form
+    description: Operational characteristics and automation level.
+  pcovw:
+    prefix: PCOVW
+    format: pcovw-form
+    description: Process catalog overview.
+  pdpri:
+    prefix: PDPRI
+    subsection-types:
+      dpovw:
+        max-count: 1
+      pdpen-prin-lst:
+        max-count: 1
+    description: Design principles.
+  picls:
+    prefix: PICLS
+    format: picls-form
+    description: Position in the process hierarchy and taxonomy.
+  pidef:
+    prefix: PIDEF
+    format: pidef-form
+    description: "Narrative description, purpose, and scope."
+  pigov:
+    prefix: PIGOV
+    format: pigov-form
+    description: Ownership and lifecycle metadata.
+  prcat:
+    prefix: PRCAT
+    subsection-types:
+      pcovw:
+        max-count: 1
+      prccl:
+        max-count: 1
+      bpren-proc-lst:
+        max-count: 1
+        min-count: 1
+    description: Process catalog.
+  prccl:
+    prefix: PRCCL
+    format: prccl-form
+    description: Process classification scheme.
+  prchr:
+    prefix: PRCHR
+    subsection-types:
+      pcops:
+        max-count: 1
+      pcbiz:
+        max-count: 1
+    description: Process characteristics.
+  pridn:
+    prefix: PRIDN
+    subsection-types:
+      picls:
+        max-count: 1
+      pidef:
+        max-count: 1
+      pigov:
+        max-count: 1
+    description: Process identification.
+  prsuc:
+    prefix: PRSUC
+    format: prsuc-form
+    description: Success criteria for process transformation.
+  prtrg:
+    prefix: PRTRG
+    subsection-types:
+      tgovw:
+        max-count: 1
+      ptren-trig-lst:
+        max-count: 1
+      peevt-ende-lst:
+        max-count: 1
+    description: Process triggers and events.
+  prviz:
+    prefix: PRVIZ
+    subsection-types:
+      pvovw:
+        max-count: 1
+      exipr-expe-lst:
+        max-count: 1
+      prsuc:
+        max-count: 1
+    description: Process vision.
+  pvovw:
+    prefix: PVOVW
+    format: pvovw-form
+    description: Process vision overview.
+  tgovw:
+    prefix: TGOVW
+    format: tgovw-form
+    description: Main trigger overview.
+  imov:
+    prefix: IMOV
+    format: imov-form
+    description: Improvement overview.
+  pceo:
+    prefix: PCEO
+    format: pceo-form
+    description: Control operation and ownership.
+  pcev:
+    prefix: PCEV
+    format: pcev-form
+    description: "Evidence, testing, and failure handling."
+  peea:
+    prefix: PEEA
+    format: peea-form
+    description: "Likelihood, impact, and detection."
+  peer:
+    prefix: PEER
+    format: peer-form
+    description: Resolution and prevention approach.
+  pieb:
+    prefix: PIEB
+    format: pieb-form
+    description: Target outcome and value case.
+  pied:
+    prefix: PIED
+    format: pied-form
+    description: "Enablers, dependencies, and verification."
+  pkem:
+    prefix: PKEM
+    format: pkem-form
+    description: Measurement targets and thresholds.
+  pkeo:
+    prefix: PKEO
+    format: pkeo-form
+    description: Reporting ownership and improvement use.
+  prco:
+    prefix: PRCO
+    subsection-types:
+      prcoov:
+        max-count: 1
+      pcctl-cont-lst:
+        max-count: 1
+    description: Process controls and compliance.
+  prec:
+    prefix: PREC
+    format: prec-form
+    description: "Access, coverage, and handoff expectations."
+  pree:
+    prefix: PREE
+    format: pree-form
+    description: Process participation and authority.
+  prex:
+    prefix: PREX
+    subsection-types:
+      prexov:
+        max-count: 1
+      pcexc-exce-lst:
+        max-count: 1
+    description: Process exceptions.
+  prro:
+    prefix: PRRO
+    subsection-types:
+      prroov:
+        max-count: 1
+      pcrol-role-lst:
+        max-count: 1
+    description: Roles and responsibilities.
+  prte:
+    prefix: PRTE
+    subsection-types:
+      prtein:
+        max-count: 1
+      prteex:
+        max-count: 1
+    description: Technology support.
+  pp:
+    prefix: PP
+    subsection-types:
+      prpeov:
+        max-count: 1
+      pckpi-kpis-lst:
+        max-count: 1
+      pcsla-slas-lst:
+        max-count: 1
+    description: Process performance.
+  pr:
+    prefix: PR
+    subsection-types:
+      pcrlt-rela-lst:
+        max-count: 1
+    description: Process relationships.
+form-types:
+  pvovw-form:
+    fields:
+      - fieldname: visionStatement
+        description: One or two sentences describing the future-state process
+      - fieldname: strategicAlignment
+        description: Link processes to strategic goals
+      - fieldname: transformationTheme
+        description: "The unifying theme of the change (e.g. digital, automation)"
+      - fieldname: targetMaturityLevel
+        description: Desired maturity level to reach
+      - fieldname: timeHorizon
+        description: Timeframe for achieving the vision
+      - fieldname: keyEnabler
+        description: What must be in place to enable the vision
+      - fieldname: changeScope
+        description: How wide and deep the change reaches
+      - fieldname: stakeholderImpact
+        description: Groups affected and the nature of impact
+  prsuc-form:
+    fields:
+      - fieldname: kpiTargets
+        description: Concrete KPI values that signal success
+      - fieldname: timeToValue
+        description: How soon benefits should appear
+      - fieldname: adoptionTargets
+        description: Expected user adoption levels
+      - fieldname: qualityTargets
+        description: Target defect or error rates
+      - fieldname: performanceTargets
+        description: Target response time or throughput
+      - fieldname: userSatisfaction
+        description: Target satisfaction or NPS scores
+      - fieldname: businessOutcomes
+        description: Expected business-level outcomes
+      - fieldname: measurementApproach
+        description: How and when success is measured
+  dpovw-form:
+    fields:
+      - fieldname: principlePhilosophy
+        description: The guiding philosophy behind the principles
+      - fieldname: priorityOrder
+        description: How competing principles are ranked
+      - fieldname: exceptionHandling
+        description: How deviations from principles are handled
+      - fieldname: continuousImprovement
+        description: How principles adapt over time
+  pcovw-form:
+    fields:
+      - fieldname: totalProcessCount
+        description: Number of processes in the catalog
+      - fieldname: scopeStatement
+        description: What the catalog does and does not cover
+      - fieldname: classificationFramework
+        description: Framework used to classify processes
+      - fieldname: namingConvention
+        description: Rules for naming processes
+      - fieldname: idConvention
+        description: Rules for assigning process IDs
+      - fieldname: processOwnership
+        description: How process owners are determined
+      - fieldname: governanceModel
+        description: How process changes are controlled
+      - fieldname: versioningApproach
+        description: How process versions are tracked
+  prccl-form:
+    fields:
+      - fieldname: level1Categories
+        description: Top-level process categories
+      - fieldname: level2Breakdown
+        description: Major process groups within each category
+      - fieldname: level3Detail
+        description: Specific processes at the detailed level
+      - fieldname: crossFunctional
+        description: Processes that cross organisational boundaries
+      - fieldname: customerFacing
+        description: Processes with direct customer contact
+      - fieldname: valueDriving
+        description: Processes central to the value chain
+      - fieldname: supportProcesses
+        description: Enabling or support processes
+      - fieldname: managementProcesses
+        description: Governance and strategic processes
+  picls-form:
+    fields:
+      - fieldname: parentProcess
+        description: The higher-level process this rolls up to
+      - fieldname: processCategory
+        description: The category the process falls into
+      - fieldname: processType
+        description: The functional type of the process
+  pidef-form:
+    fields:
+      - fieldname: description
+        description: What the process actually does
+      - fieldname: purpose
+        description: Why the process exists
+      - fieldname: scope
+        description: Where the process starts and ends
+  pigov-form:
+    fields:
+      - fieldname: processOwner
+        description: Role or person accountable for the process
+      - fieldname: processManager
+        description: Role responsible for daily operation
+      - fieldname: effectiveDate
+        description: Date the process becomes active
+      - fieldname: version
+        description: Current version of the process
+      - fieldname: status
+        description: Lifecycle status of the process
+  pcops-form:
+    fields:
+      - fieldname: criticality
+        description: How business-critical the process is
+      - fieldname: automationLevel
+        description: Share of the process that is automated
+      - fieldname: straightThroughRate
+        description: Share completed with no human touch
+      - fieldname: exceptionRate
+        description: Share needing manual intervention
+  pcbiz-form:
+    fields:
+      - fieldname: volumeEstimate
+        description: Expected number of cases per period
+      - fieldname: seasonality
+        description: Seasonal demand variation
+      - fieldname: valueAdded
+        description: Value the process contributes
+      - fieldname: costDriver
+        description: Main factors that drive process cost
+  tgovw-form:
+    fields:
+      - fieldname: primaryTrigger
+        description: The most common way the process starts
+      - fieldname: triggerChannel
+        description: Channel through which triggers arrive
+      - fieldname: triggerFrequency
+        description: How often the process is triggered
+      - fieldname: peakTriggerTime
+        description: When trigger volume peaks
+      - fieldname: preTriggerState
+        description: System state expected before triggering
+  inouov-form:
+    fields:
+      - fieldname: inputSummary
+        description: High-level overview of required inputs
+      - fieldname: outputSummary
+        description: High-level overview of produced outputs
+      - fieldname: dataFlowSummary
+        description: How data flows through the process
+  prroov-form:
+    fields:
+      - fieldname: primaryActor
+        description: The main role that executes the process
+      - fieldname: processOwner
+        description: Role accountable for process outcomes
+      - fieldname: supportRoles
+        description: Roles that assist the process
+      - fieldname: escalationPath
+        description: Who issues are escalated to
+      - fieldname: raciSummary
+        description: Overview of the RACI assignments
+  pree-form:
+    fields:
+      - fieldname: stepsInvolved
+        description: List the steps this role performs
+      - fieldname: decisionAuthority
+        description: State the decisions this role may make
+      - fieldname: skillsRequired
+        description: List the competencies the role needs
+      - fieldname: systemAccess
+        description: Name the system permissions required
+  prec-form:
+    fields:
+      - fieldname: availability
+        description: Describe required availability windows
+      - fieldname: backupRole
+        description: Name the role that covers absences
+      - fieldname: handoffTo
+        description: List downstream roles receiving work
+      - fieldname: handoffFrom
+        description: List upstream roles supplying work
+  prpeov-form:
+    fields:
+      - fieldname: targetCycleTime
+        description: Give the expected end-to-end duration
+      - fieldname: targetThroughput
+        description: Give the expected cases per period
+      - fieldname: targetQuality
+        description: State the target error/first-time-right rate
+      - fieldname: targetCost
+        description: Give the target cost per transaction
+      - fieldname: targetCustomerSat
+        description: Give the CSAT/NPS satisfaction target
+      - fieldname: monitoringFrequency
+        description: State how often metrics are reviewed
+      - fieldname: dashboardLocation
+        description: Name where the metrics dashboard lives
+      - fieldname: improvementGoals
+        description: State improvement targets for next period
+  pkem-form:
+    fields:
+      - fieldname: unit
+        description: State the unit of measurement
+      - fieldname: targetValue
+        description: Give the target value to achieve
+      - fieldname: thresholds
+        description: Define the RAG threshold boundaries
+      - fieldname: dataSource
+        description: Name the source of the data
+  pkeo-form:
+    fields:
+      - fieldname: calculationFrequency
+        description: State how often the KPI is calculated
+      - fieldname: reportingFrequency
+        description: State how often the KPI is reported
+      - fieldname: owner
+        description: Name the accountable owner
+      - fieldname: improvementLever
+        description: Describe how to move the KPI
+  prcoov-form:
+    fields:
+      - fieldname: controlFramework
+        description: Name the governing control framework
+      - fieldname: riskLevel
+        description: State the inherent risk level
+      - fieldname: complianceRequirements
+        description: List applicable regulations/standards
+      - fieldname: auditFrequency
+        description: State how often the process is audited
+      - fieldname: segregationOfDuties
+        description: Describe duty separation rules
+      - fieldname: approvalMatrix
+        description: Define who approves which actions
+      - fieldname: documentationRequirements
+        description: List what must be documented
+      - fieldname: retentionRequirements
+        description: State record retention periods
+  pceo-form:
+    fields:
+      - fieldname: controlDescription
+        description: Describe what the control does
+      - fieldname: riskAddressed
+        description: State the risk it mitigates
+      - fieldname: controlOwner
+        description: Name the responsible owner
+      - fieldname: frequency
+        description: State how often the control runs
+      - fieldname: automation
+        description: State the automation level
+  pcev-form:
+    fields:
+      - fieldname: evidenceProduced
+        description: Describe the evidence generated
+      - fieldname: testingApproach
+        description: Describe how the control is tested
+      - fieldname: failureAction
+        description: State the action on control failure
+  prtein-form:
+    fields:
+      - fieldname: dataRepositories
+        description: List the databases and data stores
+      - fieldname: reportingTools
+        description: List BI and dashboard tools
+      - fieldname: communicationTools
+        description: List communication/notification tools
+      - fieldname: documentManagement
+        description: Name the document storage system
+  prteex-form:
+    fields:
+      - fieldname: mobileCapability
+        description: State mobile access requirements
+      - fieldname: offlineCapability
+        description: State offline operation requirements
+      - fieldname: analyticsCapability
+        description: State analytics/process mining needs
+  prexov-form:
+    fields:
+      - fieldname: exceptionPhilosophy
+        description: State the overall exception approach
+      - fieldname: exceptionRate
+        description: Give the expected exception rate
+      - fieldname: exceptionRouting
+        description: State where exceptions are routed
+      - fieldname: resolutionSla
+        description: Give the exception resolution SLA
+      - fieldname: escalationPath
+        description: Name who handles escalations
+      - fieldname: rootCauseAnalysis
+        description: Describe root-cause analysis approach
+      - fieldname: continuousImprovement
+        description: Describe how exceptions drive change
+  peea-form:
+    fields:
+      - fieldname: probability
+        description: State how likely the exception is
+      - fieldname: impact
+        description: Describe the impact if it occurs
+      - fieldname: detectionMethod
+        description: Describe how it is detected
+  peer-form:
+    fields:
+      - fieldname: resolutionSteps
+        description: Describe the steps to resolve it
+      - fieldname: resolutionOwner
+        description: Name who resolves the exception
+      - fieldname: resolutionSla
+        description: Give the resolution SLA
+      - fieldname: preventionStrategy
+        description: Describe how to prevent recurrence
+      - fieldname: workArounds
+        description: List temporary workarounds
+  prdiov-form:
+    fields:
+      - fieldname: diagramPurpose
+        description: State what the diagram conveys
+      - fieldname: diagramScope
+        description: State what is in and out of scope
+      - fieldname: notation
+        description: Name the diagram notation used
+      - fieldname: readingGuide
+        description: Explain how to read the diagram
+      - fieldname: legend
+        description: Define the symbols used
+  imov-form:
+    fields:
+      - fieldname: improvementTheme
+        description: State the overall improvement theme
+      - fieldname: baselineDate
+        description: Give the baseline measurement date
+      - fieldname: targetDate
+        description: Give the target achievement date
+      - fieldname: benefitRealizationPlan
+        description: Describe how benefits are tracked
+      - fieldname: changeEnablers
+        description: List what enables the improvement
+  pieb-form:
+    fields:
+      - fieldname: targetState
+        description: Give the target-state measurement
+      - fieldname: improvementPercent
+        description: Give the expected percent gain
+      - fieldname: monetaryBenefit
+        description: Give the financial value
+      - fieldname: beneficiaries
+        description: Name who benefits from it
+  pied-form:
+    fields:
+      - fieldname: enablers
+        description: List what enables the improvement
+      - fieldname: dependencies
+        description: List prerequisites for delivery
+      - fieldname: risks
+        description: List delivery risks
+      - fieldname: measurementMethod
+        description: Describe how the gain is verified
+  imbuca-form:
+    fields:
+      - fieldname: totalInvestment
+        description: Give the total investment cost
+      - fieldname: annualBenefits
+        description: Give the yearly value delivered
+      - fieldname: paybackPeriod
+        description: Give the time to break even
+      - fieldname: roi
+        description: Give the return on investment
+      - fieldname: npv
+        description: Give the net present value
+      - fieldname: intangibleBenefits
+        description: List non-financial benefits
+      - fieldname: riskAdjustment
+        description: State the confidence/risk factor
+document:
+  sections:
+    dochd:
+      section-type: dochd
+      optional: true
+    prviz:
+      section-type: prviz
+      optional: true
+    pdpri:
+      section-type: pdpri
+      optional: true
+    prcat:
+      section-type: prcat
+      optional: true
+    provdi:
+      section-type: provdi
+      optional: true
+    primsu:
+      section-type: primsu
+      optional: true
+    pr:
+      section-type: pr
+      optional: true
+    deprwo-deta-lst:
+      section-type: deprwo-deta-lst
+      optional: true
+    crpran:
+      section-type: crpran
+      optional: true
+    prexha:
+      section-type: prexha
+      optional: true
+    pmak-proc-lst:
+      section-type: pmak-proc-lst
+      optional: true

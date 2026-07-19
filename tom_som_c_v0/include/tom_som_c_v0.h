@@ -3260,10 +3260,12 @@ typedef struct { SomNode node; } ScreenElementEntryContentForm;
 typedef struct { SomNode node; } ScreenElementEntryLayoutForm;
 typedef struct { SomNode node; } ScreenElementEntryPresentationForm;
 typedef struct { SomNode node; } ScreenElementEntryResourcesForm;
-typedef struct { SomNode node; } ScreenElementFieldSpecConstraintsForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecContentForm;
+typedef struct { SomNode node; } ScreenElementFieldSpecDateOptionsForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecFormattingForm;
-typedef struct { SomNode node; } ScreenElementFieldSpecSelectionForm;
+typedef struct { SomNode node; } ScreenElementFieldSpecNumberOptionsForm;
+typedef struct { SomNode node; } ScreenElementFieldSpecSelectOptionsForm;
+typedef struct { SomNode node; } ScreenElementFieldSpecTextOptionsForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecValidationForm;
 typedef struct { SomNode node; } ScreenEntryAccessForm;
 typedef struct { SomNode node; } ScreenEntryClassificationForm;
@@ -19337,10 +19339,16 @@ ScreenElementEntryBehaviorForm screen_element_entry_behavior(const ScreenElement
 // Styling and data binding.
 ScreenElementEntryPresentationForm screen_element_entry_presentation(const ScreenElementEntry *self);
 // 10.2.1.n.m.k.1. Element Action.
+//
+// Present only for action-kind elements (`@OneOf` case, csmb6).
 ScreenElementAction screen_element_entry_element_action(const ScreenElementEntry *self);
 // 10.2.1.n.m.k.2. Element Field Spec.
+//
+// Present only for input-kind elements (`@OneOf` case, csmb6).
 ScreenElementFieldSpec screen_element_entry_field_spec(const ScreenElementEntry *self);
 // 10.2.1.n.m.k.3. Element Data Display.
+//
+// Present only for display-kind elements (`@OneOf` case, csmb6).
 ScreenElementDataDisplay screen_element_entry_data_display(const ScreenElementEntry *self);
 // Contains 0+× ElementValidationRule.
 // Returns the list view; element type: ElementValidationRuleEntry (construct from item paths).
@@ -19357,12 +19365,27 @@ int screen_element_field_spec_can_have_content(const ScreenElementFieldSpec *sel
 ScreenElementFieldSpecContentForm screen_element_field_spec_content(const ScreenElementFieldSpec *self);
 // Prefix, suffix, and formatting.
 ScreenElementFieldSpecFormattingForm screen_element_field_spec_formatting(const ScreenElementFieldSpec *self);
-// Length and value constraints.
-ScreenElementFieldSpecConstraintsForm screen_element_field_spec_constraints(const ScreenElementFieldSpec *self);
+// Number-kind options — a promoted `@OneOf` case (csmb6).
+//
+// Present only for numeric field kinds; carries only numeric constraints
+// (no length or option-source attributes).
+ScreenElementFieldSpecNumberOptionsForm screen_element_field_spec_number_options(const ScreenElementFieldSpec *self);
+// Date-kind options — a promoted `@OneOf` case (csmb6).
+//
+// Present only for date/time field kinds; carries only temporal
+// constraints (no numeric precision or length attributes).
+ScreenElementFieldSpecDateOptionsForm screen_element_field_spec_date_options(const ScreenElementFieldSpec *self);
+// Text-kind options — a promoted `@OneOf` case (csmb6).
+//
+// Present only for free-text field kinds; carries only length constraints.
+ScreenElementFieldSpecTextOptionsForm screen_element_field_spec_text_options(const ScreenElementFieldSpec *self);
 // Validation behavior.
 ScreenElementFieldSpecValidationForm screen_element_field_spec_validation(const ScreenElementFieldSpec *self);
-// Selection and input assistance.
-ScreenElementFieldSpecSelectionForm screen_element_field_spec_selection(const ScreenElementFieldSpec *self);
+// Select-kind options — a promoted `@OneOf` case (csmb6).
+//
+// Present only for the enumeration (select) field kind; carries only the
+// option-source and selection-mode attributes.
+ScreenElementFieldSpecSelectOptionsForm screen_element_field_spec_select_options(const ScreenElementFieldSpec *self);
 
 // A screen entry (form).
 //
@@ -55223,23 +55246,6 @@ void screen_element_entry_resources_form_set_icon_resource(ScreenElementEntryRes
 char *screen_element_entry_resources_form_icon_position(const ScreenElementEntryResourcesForm *self);
 void screen_element_entry_resources_form_set_icon_position(ScreenElementEntryResourcesForm *self, const char *value);
 
-// ScreenElementFieldSpecConstraintsForm is the generated section facade for the `constraints` @Form section: its own `content` text followed by one typed member per form field.
-void screen_element_field_spec_constraints_form_init(ScreenElementFieldSpecConstraintsForm *self, SpecDocument *doc, const char *path);
-void screen_element_field_spec_constraints_form_free(ScreenElementFieldSpecConstraintsForm *self);
-// The section's own free-text content, before the form fields (owned).
-char *screen_element_field_spec_constraints_form_content(const ScreenElementFieldSpecConstraintsForm *self);
-void screen_element_field_spec_constraints_form_set_content(ScreenElementFieldSpecConstraintsForm *self, const char *value);
-long screen_element_field_spec_constraints_form_max_length(const ScreenElementFieldSpecConstraintsForm *self);
-void screen_element_field_spec_constraints_form_set_max_length(ScreenElementFieldSpecConstraintsForm *self, long value);
-long screen_element_field_spec_constraints_form_min_length(const ScreenElementFieldSpecConstraintsForm *self);
-void screen_element_field_spec_constraints_form_set_min_length(ScreenElementFieldSpecConstraintsForm *self, long value);
-char *screen_element_field_spec_constraints_form_min_value(const ScreenElementFieldSpecConstraintsForm *self);
-void screen_element_field_spec_constraints_form_set_min_value(ScreenElementFieldSpecConstraintsForm *self, const char *value);
-char *screen_element_field_spec_constraints_form_max_value(const ScreenElementFieldSpecConstraintsForm *self);
-void screen_element_field_spec_constraints_form_set_max_value(ScreenElementFieldSpecConstraintsForm *self, const char *value);
-long screen_element_field_spec_constraints_form_decimal_places(const ScreenElementFieldSpecConstraintsForm *self);
-void screen_element_field_spec_constraints_form_set_decimal_places(ScreenElementFieldSpecConstraintsForm *self, long value);
-
 // ScreenElementFieldSpecContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void screen_element_field_spec_content_form_init(ScreenElementFieldSpecContentForm *self, SpecDocument *doc, const char *path);
 void screen_element_field_spec_content_form_free(ScreenElementFieldSpecContentForm *self);
@@ -55252,6 +55258,19 @@ char *screen_element_field_spec_content_form_data_type(const ScreenElementFieldS
 void screen_element_field_spec_content_form_set_data_type(ScreenElementFieldSpecContentForm *self, const char *value);
 char *screen_element_field_spec_content_form_placeholder_resource(const ScreenElementFieldSpecContentForm *self);
 void screen_element_field_spec_content_form_set_placeholder_resource(ScreenElementFieldSpecContentForm *self, const char *value);
+
+// ScreenElementFieldSpecDateOptionsForm is the generated section facade for the `dateOptions` @Form section: its own `content` text followed by one typed member per form field.
+void screen_element_field_spec_date_options_form_init(ScreenElementFieldSpecDateOptionsForm *self, SpecDocument *doc, const char *path);
+void screen_element_field_spec_date_options_form_free(ScreenElementFieldSpecDateOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_element_field_spec_date_options_form_content(const ScreenElementFieldSpecDateOptionsForm *self);
+void screen_element_field_spec_date_options_form_set_content(ScreenElementFieldSpecDateOptionsForm *self, const char *value);
+char *screen_element_field_spec_date_options_form_first_date(const ScreenElementFieldSpecDateOptionsForm *self);
+void screen_element_field_spec_date_options_form_set_first_date(ScreenElementFieldSpecDateOptionsForm *self, const char *value);
+char *screen_element_field_spec_date_options_form_last_date(const ScreenElementFieldSpecDateOptionsForm *self);
+void screen_element_field_spec_date_options_form_set_last_date(ScreenElementFieldSpecDateOptionsForm *self, const char *value);
+char *screen_element_field_spec_date_options_form_date_format(const ScreenElementFieldSpecDateOptionsForm *self);
+void screen_element_field_spec_date_options_form_set_date_format(ScreenElementFieldSpecDateOptionsForm *self, const char *value);
 
 // ScreenElementFieldSpecFormattingForm is the generated section facade for the `formatting` @Form section: its own `content` text followed by one typed member per form field.
 void screen_element_field_spec_formatting_form_init(ScreenElementFieldSpecFormattingForm *self, SpecDocument *doc, const char *path);
@@ -55268,20 +55287,44 @@ void screen_element_field_spec_formatting_form_set_input_mask(ScreenElementField
 char *screen_element_field_spec_formatting_form_display_format(const ScreenElementFieldSpecFormattingForm *self);
 void screen_element_field_spec_formatting_form_set_display_format(ScreenElementFieldSpecFormattingForm *self, const char *value);
 
-// ScreenElementFieldSpecSelectionForm is the generated section facade for the `selection` @Form section: its own `content` text followed by one typed member per form field.
-void screen_element_field_spec_selection_form_init(ScreenElementFieldSpecSelectionForm *self, SpecDocument *doc, const char *path);
-void screen_element_field_spec_selection_form_free(ScreenElementFieldSpecSelectionForm *self);
+// ScreenElementFieldSpecNumberOptionsForm is the generated section facade for the `numberOptions` @Form section: its own `content` text followed by one typed member per form field.
+void screen_element_field_spec_number_options_form_init(ScreenElementFieldSpecNumberOptionsForm *self, SpecDocument *doc, const char *path);
+void screen_element_field_spec_number_options_form_free(ScreenElementFieldSpecNumberOptionsForm *self);
 // The section's own free-text content, before the form fields (owned).
-char *screen_element_field_spec_selection_form_content(const ScreenElementFieldSpecSelectionForm *self);
-void screen_element_field_spec_selection_form_set_content(ScreenElementFieldSpecSelectionForm *self, const char *value);
-char *screen_element_field_spec_selection_form_autocomplete_source(const ScreenElementFieldSpecSelectionForm *self);
-void screen_element_field_spec_selection_form_set_autocomplete_source(ScreenElementFieldSpecSelectionForm *self, const char *value);
-char *screen_element_field_spec_selection_form_options_source(const ScreenElementFieldSpecSelectionForm *self);
-void screen_element_field_spec_selection_form_set_options_source(ScreenElementFieldSpecSelectionForm *self, const char *value);
-char *screen_element_field_spec_selection_form_select_mode(const ScreenElementFieldSpecSelectionForm *self);
-void screen_element_field_spec_selection_form_set_select_mode(ScreenElementFieldSpecSelectionForm *self, const char *value);
-char *screen_element_field_spec_selection_form_display_mode(const ScreenElementFieldSpecSelectionForm *self);
-void screen_element_field_spec_selection_form_set_display_mode(ScreenElementFieldSpecSelectionForm *self, const char *value);
+char *screen_element_field_spec_number_options_form_content(const ScreenElementFieldSpecNumberOptionsForm *self);
+void screen_element_field_spec_number_options_form_set_content(ScreenElementFieldSpecNumberOptionsForm *self, const char *value);
+char *screen_element_field_spec_number_options_form_min_value(const ScreenElementFieldSpecNumberOptionsForm *self);
+void screen_element_field_spec_number_options_form_set_min_value(ScreenElementFieldSpecNumberOptionsForm *self, const char *value);
+char *screen_element_field_spec_number_options_form_max_value(const ScreenElementFieldSpecNumberOptionsForm *self);
+void screen_element_field_spec_number_options_form_set_max_value(ScreenElementFieldSpecNumberOptionsForm *self, const char *value);
+long screen_element_field_spec_number_options_form_decimal_places(const ScreenElementFieldSpecNumberOptionsForm *self);
+void screen_element_field_spec_number_options_form_set_decimal_places(ScreenElementFieldSpecNumberOptionsForm *self, long value);
+
+// ScreenElementFieldSpecSelectOptionsForm is the generated section facade for the `selectOptions` @Form section: its own `content` text followed by one typed member per form field.
+void screen_element_field_spec_select_options_form_init(ScreenElementFieldSpecSelectOptionsForm *self, SpecDocument *doc, const char *path);
+void screen_element_field_spec_select_options_form_free(ScreenElementFieldSpecSelectOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_element_field_spec_select_options_form_content(const ScreenElementFieldSpecSelectOptionsForm *self);
+void screen_element_field_spec_select_options_form_set_content(ScreenElementFieldSpecSelectOptionsForm *self, const char *value);
+char *screen_element_field_spec_select_options_form_autocomplete_source(const ScreenElementFieldSpecSelectOptionsForm *self);
+void screen_element_field_spec_select_options_form_set_autocomplete_source(ScreenElementFieldSpecSelectOptionsForm *self, const char *value);
+char *screen_element_field_spec_select_options_form_options_source(const ScreenElementFieldSpecSelectOptionsForm *self);
+void screen_element_field_spec_select_options_form_set_options_source(ScreenElementFieldSpecSelectOptionsForm *self, const char *value);
+char *screen_element_field_spec_select_options_form_select_mode(const ScreenElementFieldSpecSelectOptionsForm *self);
+void screen_element_field_spec_select_options_form_set_select_mode(ScreenElementFieldSpecSelectOptionsForm *self, const char *value);
+char *screen_element_field_spec_select_options_form_display_mode(const ScreenElementFieldSpecSelectOptionsForm *self);
+void screen_element_field_spec_select_options_form_set_display_mode(ScreenElementFieldSpecSelectOptionsForm *self, const char *value);
+
+// ScreenElementFieldSpecTextOptionsForm is the generated section facade for the `textOptions` @Form section: its own `content` text followed by one typed member per form field.
+void screen_element_field_spec_text_options_form_init(ScreenElementFieldSpecTextOptionsForm *self, SpecDocument *doc, const char *path);
+void screen_element_field_spec_text_options_form_free(ScreenElementFieldSpecTextOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_element_field_spec_text_options_form_content(const ScreenElementFieldSpecTextOptionsForm *self);
+void screen_element_field_spec_text_options_form_set_content(ScreenElementFieldSpecTextOptionsForm *self, const char *value);
+long screen_element_field_spec_text_options_form_max_length(const ScreenElementFieldSpecTextOptionsForm *self);
+void screen_element_field_spec_text_options_form_set_max_length(ScreenElementFieldSpecTextOptionsForm *self, long value);
+long screen_element_field_spec_text_options_form_min_length(const ScreenElementFieldSpecTextOptionsForm *self);
+void screen_element_field_spec_text_options_form_set_min_length(ScreenElementFieldSpecTextOptionsForm *self, long value);
 
 // ScreenElementFieldSpecValidationForm is the generated section facade for the `validation` @Form section: its own `content` text followed by one typed member per form field.
 void screen_element_field_spec_validation_form_init(ScreenElementFieldSpecValidationForm *self, SpecDocument *doc, const char *path);

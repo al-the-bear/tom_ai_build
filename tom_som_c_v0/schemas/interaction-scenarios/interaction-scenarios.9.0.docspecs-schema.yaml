@@ -1,0 +1,854 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: interaction-scenarios/9.0
+
+title-format: "# <!--[ISC]--> Interaction Scenarios"
+section-types:
+  inburu-busi-lst:
+    prefix: INBURU_BUSI_LST
+    subsection-types:
+      inburu-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business-rule group.
+  poangu-post-lst:
+    prefix: POANGU_POST_LST
+    subsection-types:
+      poangu-post:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per postcondition/guarantee set.
+  prantr-prec-lst:
+    prefix: PRANTR_PREC_LST
+    subsection-types:
+      prantr-prec:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per precondition/trigger set.
+  stanin-stak-lst:
+    prefix: STANIN_STAK_LST
+    subsection-types:
+      stanin-stak:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per stakeholder interest.
+  tedava-vari-lst:
+    prefix: TEDAVA_VARI_LST
+    subsection-types:
+      tedava-vari:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per variation.
+  etets-endt-lst:
+    prefix: ETETS_ENDT_LST
+    subsection-types:
+      etets-endt:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: End-to-end test scenarios.
+  exten-exte-lst:
+    prefix: EXTEN_EXTE_LST
+    subsection-types:
+      exten-exte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per extension flow.
+  extst-step-lst:
+    prefix: EXTST_STEP_LST
+    subsection-types:
+      extst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per extension step.
+  mnsst-step-lst:
+    prefix: MNSST_STEP_LST
+    subsection-types:
+      mnsst-step:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per numbered step.
+  scnry-scen-lst:
+    prefix: SCNRY_SCEN_LST
+    subsection-types:
+      scnry-scen:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per key scenario.
+  scnst-step-lst:
+    prefix: SCNST_STEP_LST
+    subsection-types:
+      scnst-step:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per main-flow step, in order."
+  acen-acto-lst:
+    prefix: ACEN_ACTO_LST
+    subsection-types:
+      acen-acto:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per actor.
+  acgo-goal-lst:
+    prefix: ACGO_GOAL_LST
+    subsection-types:
+      acgo-goal:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per actor goal.
+  acpe-perm-lst:
+    prefix: ACPE_PERM_LST
+    subsection-types:
+      acpe-perm:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per actor permission set.
+  alfl-alte-lst:
+    prefix: ALFL_ALTE_LST
+    subsection-types:
+      alfl-alte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per alternative or exception flow.
+  alst-step-lst:
+    prefix: ALST_STEP_LST
+    subsection-types:
+      alst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per step of this alternative flow, in order."
+  inen-inte-lst:
+    prefix: INEN_INTE_LST
+    subsection-types:
+      inen-inte:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per interaction.
+  inburu-busi:
+    prefix: INBURU_BUSI_
+    pattern-check-id:
+      pattern: ^INBURU-BUSI-.+$
+      error-message: IDs of this section must match INBURU-BUSI-xxx
+    description: Add one entry per business-rule group.
+  poangu-post:
+    prefix: POANGU_POST_
+    pattern-check-id:
+      pattern: ^POANGU-POST-.+$
+      error-message: IDs of this section must match POANGU-POST-xxx
+    description: Add one entry per postcondition/guarantee set.
+  prantr-prec:
+    prefix: PRANTR_PREC_
+    pattern-check-id:
+      pattern: ^PRANTR-PREC-.+$
+      error-message: IDs of this section must match PRANTR-PREC-xxx
+    description: Add one entry per precondition/trigger set.
+  stanin-stak:
+    prefix: STANIN_STAK_
+    pattern-check-id:
+      pattern: ^STANIN-STAK-.+$
+      error-message: IDs of this section must match STANIN-STAK-xxx
+    description: Add one entry per stakeholder interest.
+  tedava-vari:
+    prefix: TEDAVA_VARI_
+    pattern-check-id:
+      pattern: ^TEDAVA-VARI-.+$
+      error-message: IDs of this section must match TEDAVA-VARI-xxx
+    description: Add one entry per variation.
+  etets-endt:
+    prefix: ETETS_ENDT_
+    pattern-check-id:
+      pattern: ^ETETS-ENDT-.+$
+      error-message: IDs of this section must match ETETS-ENDT-xxx
+    description: 6.2.4. End-to-End Test Scenarios.
+  exten-exte:
+    prefix: EXTEN_EXTE_
+    subsection-types:
+      extst-step-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EXTEN-EXTE-.+$
+      error-message: IDs of this section must match EXTEN-EXTE-xxx
+    description: Add one entry per extension flow.
+  extst-step:
+    prefix: EXTST_STEP_
+    pattern-check-id:
+      pattern: ^EXTST-STEP-.+$
+      error-message: IDs of this section must match EXTST-STEP-xxx
+    description: Add one entry per extension step.
+  mnsst-step:
+    prefix: MNSST_STEP_
+    pattern-check-id:
+      pattern: ^MNSST-STEP-.+$
+      error-message: IDs of this section must match MNSST-STEP-xxx
+    description: Add one entry per numbered step.
+  scnry-scen:
+    prefix: SCNRY_SCEN_
+    subsection-types:
+      scid:
+        max-count: 1
+      scco:
+        max-count: 1
+      scnst-step-lst:
+        max-count: 1
+        min-count: 1
+      alfl-alte-lst:
+        max-count: 1
+      scda:
+        max-count: 1
+      scti:
+        max-count: 1
+      scva:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCNRY-SCEN-.+$
+      error-message: IDs of this section must match SCNRY-SCEN-xxx
+    description: Add one entry per key scenario.
+  scnst-step:
+    prefix: SCNST_STEP_
+    subsection-types:
+      ssec:
+        max-count: 1
+      scstenex:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCNST-STEP-.+$
+      error-message: IDs of this section must match SCNST-STEP-xxx
+    description: "Add one entry per main-flow step, in order."
+  acen-acto:
+    prefix: ACEN_ACTO_
+    subsection-types:
+      acid:
+        max-count: 1
+      actcha:
+        max-count: 1
+      acgo-goal-lst:
+        max-count: 1
+      acpe-perm-lst:
+        max-count: 1
+      actepr:
+        max-count: 1
+      acinsu:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ACEN-ACTO-.+$
+      error-message: IDs of this section must match ACEN-ACTO-xxx
+    description: Add one entry per actor.
+  acgo-goal:
+    prefix: ACGO_GOAL_
+    pattern-check-id:
+      pattern: ^ACGO-GOAL-.+$
+      error-message: IDs of this section must match ACGO-GOAL-xxx
+    description: Add one entry per actor goal.
+  acpe-perm:
+    prefix: ACPE_PERM_
+    pattern-check-id:
+      pattern: ^ACPE-PERM-.+$
+      error-message: IDs of this section must match ACPE-PERM-xxx
+    description: Add one entry per actor permission set.
+  alfl-alte:
+    prefix: ALFL_ALTE_
+    subsection-types:
+      alst-step-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ALFL-ALTE-.+$
+      error-message: IDs of this section must match ALFL-ALTE-xxx
+    description: Add one entry per alternative or exception flow.
+  alst-step:
+    prefix: ALST_STEP_
+    pattern-check-id:
+      pattern: ^ALST-STEP-.+$
+      error-message: IDs of this section must match ALST-STEP-xxx
+    description: "Add one entry per step of this alternative flow, in order."
+  inen-inte:
+    prefix: INEN_INTE_
+    subsection-types:
+      inid:
+        max-count: 1
+      ucsc:
+        max-count: 1
+      stanin-stak-lst:
+        max-count: 1
+      prantr-prec-lst:
+        max-count: 1
+      poangu-post-lst:
+        max-count: 1
+      masusc:
+        max-count: 1
+      uscaex:
+        max-count: 1
+      tedava-vari-lst:
+        max-count: 1
+      uirp:
+        max-count: 1
+      inpe:
+        max-count: 1
+      inse:
+        max-count: 1
+      inburu-busi-lst:
+        max-count: 1
+      intr:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^INEN-INTE-.+$
+      error-message: IDs of this section must match INEN-INTE-xxx
+    description: Add one entry per interaction.
+  scstenex:
+    prefix: SCSTENEX
+    format: scstenex-form
+    description: "Branching, timing, and notes."
+  accasu:
+    prefix: ACCASU
+    format: accasu-form
+    description: Actor categorization summary.
+  acchsu:
+    prefix: ACCHSU
+    format: acchsu-form
+    description: Communication and accessibility profile.
+  acchus:
+    prefix: ACCHUS
+    format: acchus-form
+    description: Usage patterns and decision scope.
+  acdiov:
+    prefix: ACDIOV
+    format: acdiov-form
+    description: Diagram overview.
+  acinsu:
+    prefix: ACINSU
+    format: acinsu-form
+    description: Actor interactions summary.
+  acovna:
+    prefix: ACOVNA
+    format: acovna-form
+    description: Actor overview narrative.
+  acredi:
+    prefix: ACREDI
+    subsection-types:
+      acdiov:
+        max-count: 1
+    description: Actor relationship diagram.
+  actcha:
+    prefix: ACTCHA
+    subsection-types:
+      acchus:
+        max-count: 1
+      acchsu:
+        max-count: 1
+    description: Actor characteristics.
+  actepr:
+    prefix: ACTEPR
+    format: actepr-form
+    description: Actor technology profile.
+  incaov:
+    prefix: INCAOV
+    format: incaov-form
+    description: Interaction catalog overview.
+  masusc:
+    prefix: MASUSC
+    subsection-types:
+      mnsst-step-lst:
+        max-count: 1
+        min-count: 1
+    description: Main success scenario (basic flow).
+  prstov:
+    prefix: PRSTOV
+    description: Process steps overview.
+  uscaex:
+    prefix: USCAEX
+    subsection-types:
+      exten-exte-lst:
+        max-count: 1
+    description: Extensions (alternative and exception flows).
+  uscatr:
+    prefix: USCATR
+    description: Use case traceability.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  acid:
+    prefix: ACID
+    format: acid-form
+    description: Actor identification.
+  acov:
+    prefix: ACOV
+    subsection-types:
+      acovna:
+        max-count: 1
+      acen-acto-lst:
+        max-count: 1
+        min-count: 1
+      accasu:
+        max-count: 1
+    description: Actor overview.
+  inca:
+    prefix: INCA
+    subsection-types:
+      incaov:
+        max-count: 1
+      inen-inte-lst:
+        max-count: 1
+        min-count: 1
+      inpr:
+        max-count: 1
+    description: Interaction catalog.
+  inid:
+    prefix: INID
+    format: inid-form
+    description: Interaction identification (use case header).
+  inpe:
+    prefix: INPE
+    format: inpe-form
+    description: Performance and frequency.
+  inpr:
+    prefix: INPR
+    format: inpr-form
+    description: Interaction prioritization matrix.
+  inse:
+    prefix: INSE
+    format: inse-form
+    description: Security and authorization.
+  intr:
+    prefix: INTR
+    format: intr-form
+    description: Related elements and traceability.
+  kesc:
+    prefix: KESC
+    subsection-types:
+      scov:
+        max-count: 1
+      scnry-scen-lst:
+        max-count: 1
+        min-count: 1
+    description: Key scenarios.
+  scco:
+    prefix: SCCO
+    format: scco-form
+    description: Scenario context.
+  scda:
+    prefix: SCDA
+    format: scda-form
+    description: Scenario data.
+  scid:
+    prefix: SCID
+    format: scid-form
+    description: Scenario identification.
+  scov:
+    prefix: SCOV
+    format: scov-form
+    description: Scenario overview.
+  scti:
+    prefix: SCTI
+    format: scti-form
+    description: Scenario timing.
+  scva:
+    prefix: SCVA
+    format: scva-form
+    description: Scenario validation.
+  ssec:
+    prefix: SSEC
+    format: ssec-form
+    description: Expected outcome and referenced artifacts.
+  ucsc:
+    prefix: UCSC
+    format: ucsc-form
+    description: Use case scope and context (Cockburn style).
+  uirp:
+    prefix: UIRP
+    description: UI requirements preview.
+form-types:
+  acovna-form:
+    fields:
+      - fieldname: totalActorCount
+        description: Enter the total number of actors
+      - fieldname: humanActorCount
+        description: Enter how many actors are human users
+      - fieldname: systemActorCount
+        description: Enter how many actors are internal systems
+      - fieldname: externalActorCount
+        description: Enter how many actors are external systems
+      - fieldname: actorIdentificationApproach
+        description: Describe the method used to discover actors
+      - fieldname: actorPrioritization
+        description: State which actors matter most and why
+      - fieldname: actorGoalAlignment
+        description: Explain how actor goals map to business goals
+  acid-form:
+    fields:
+      - fieldname: actorId
+        required: true
+        description: Use a stable unique code such as ACT-001
+      - fieldname: actorName
+        required: true
+        description: "Give the role a clear, recognisable name"
+      - fieldname: actorType
+        description: "State whether the actor is a person, system or scheduled job"
+      - fieldname: category
+        description: Classify using Cockburn primary/secondary/supporting/offstage
+      - fieldname: description
+        description: Explain the actor’s purpose in one or two sentences
+      - fieldname: realWorldExamples
+        description: Name concrete job titles or people that fill this role
+      - fieldname: organizationalUnit
+        description: Identify the department or team the actor belongs to
+      - fieldname: estimatedCount
+        description: Estimate the number of individuals in this role
+      - fieldname: geographicDistribution
+        description: Note the locations or regions where actors operate
+  acchus-form:
+    fields:
+      - fieldname: usageDuration
+        description: Estimate the length of a typical working session
+      - fieldname: peakUsageTimes
+        description: Note the times of day or periods of heaviest use
+      - fieldname: taskComplexity
+        description: Characterise the complexity of the actor’s tasks
+      - fieldname: decisionAuthority
+        description: State the decisions the actor is authorised to make
+  acchsu-form:
+    fields:
+      - fieldname: supervisionLevel
+        description: State how closely the actor’s work is supervised
+      - fieldname: communicationPreference
+        description: Note preferred channels for reaching the actor
+      - fieldname: languageRequirements
+        description: List the languages the actor needs supported
+      - fieldname: accessibilityNeeds
+        description: Describe any accessibility accommodations required
+  actepr-form:
+    fields:
+      - fieldname: primaryAccessChannel
+        description: Name the main channel the actor uses to access the system
+      - fieldname: secondaryAccessChannels
+        description: List alternative channels the actor may use
+      - fieldname: deviceTypes
+        description: List the device types the actor uses
+      - fieldname: operatingSystems
+        description: List the operating systems the actor runs
+      - fieldname: browserRequirements
+        description: Note the browsers that must be supported
+      - fieldname: networkConnectivity
+        description: Describe the actor’s typical network connectivity
+      - fieldname: bandwidthExpectations
+        description: State the bandwidth the actor typically has available
+      - fieldname: integratedTools
+        description: List other tools the actor integrates with
+      - fieldname: authenticationMethod
+        description: State how the actor authenticates to the system
+  acinsu-form:
+    fields:
+      - fieldname: primaryInteractions
+        description: List the main use cases the actor initiates or drives
+      - fieldname: secondaryInteractions
+        description: List supporting use cases the actor takes part in
+      - fieldname: interactionFrequency
+        description: State how often each interaction type occurs
+      - fieldname: criticalInteractions
+        description: Highlight the actor’s most important interactions
+      - fieldname: complexInteractions
+        description: Note the actor’s most challenging interactions
+      - fieldname: collaborativeInteractions
+        description: List interactions that involve other actors
+      - fieldname: handoffPoints
+        description: Identify points where work is handed off to others
+  accasu-form:
+    fields:
+      - fieldname: primaryActors
+        description: List the actors that initiate interactions
+      - fieldname: secondaryActors
+        description: List the actors that support primary actors
+      - fieldname: offstageActors
+        description: List stakeholders with interests but no direct interaction
+      - fieldname: systemActors
+        description: List external systems acting as actors
+      - fieldname: timerActors
+        description: List time-triggered or scheduled actors
+  incaov-form:
+    fields:
+      - fieldname: totalInteractionCount
+        description: Count of all documented interactions
+      - fieldname: highPriorityCount
+        description: Number of must-have interactions
+      - fieldname: mediumPriorityCount
+        description: Number of should-have interactions
+      - fieldname: lowPriorityCount
+        description: Number of could-have interactions
+      - fieldname: coverageStatement
+        description: State which processes and goals the catalog covers
+      - fieldname: identificationMethod
+        description: "e.g. actor-goal analysis, event storming, process decomposition"
+      - fieldname: prioritizationCriteria
+        description: "e.g. MoSCoW, business value vs. effort"
+      - fieldname: traceabilityToProcesses
+        description: Reference the TOM-xxx process each interaction realizes
+  inid-form:
+    fields:
+      - fieldname: interactionId
+        required: true
+        description: Stable code such as INT-001
+      - fieldname: useCaseName
+        required: true
+        description: "Active-verb goal, e.g. \"Place order\""
+      - fieldname: processReference
+        description: The TOM-xxx process this use case realizes
+      - fieldname: briefDescription
+        description: One-sentence summary of the goal
+      - fieldname: fullDescription
+        description: Fuller narrative of what the interaction achieves
+      - fieldname: primaryActor
+        description: The actor with the goal who starts the interaction
+      - fieldname: supportingActors
+        description: Other actors or systems that contribute
+      - fieldname: goalLevel
+        description: "Cockburn level: + summary, ! user goal, - subfunction"
+      - fieldname: designScope
+        description: "Boundary in view: organization, system, subsystem, component"
+  ucsc-form:
+    fields:
+      - fieldname: systemUnderDiscussion
+        description: Name the system whose behavior is being described
+      - fieldname: systemBoundary
+        description: State what falls inside vs. outside the system
+      - fieldname: level
+        description: "Cockburn altitude: sea (user goal), fish (subfunction)"
+      - fieldname: context
+        description: Business situation in which this use case occurs
+      - fieldname: assumption
+        description: Facts assumed true but not verified in the flow
+      - fieldname: dependency
+        description: External systems or use cases this relies on
+      - fieldname: constraint
+        description: Limitations bounding how the use case may work
+      - fieldname: relatedUseCases
+        description: Use cases this one includes or extends
+  inpe-form:
+    fields:
+      - fieldname: expectedFrequency
+        description: "How often the interaction runs, e.g. per day"
+      - fieldname: peakVolume
+        description: Maximum concurrent load expected
+      - fieldname: responseTimeTarget
+        description: Maximum acceptable response time
+      - fieldname: throughputTarget
+        description: Required transactions per second
+      - fieldname: availabilityRequirement
+        description: "Required uptime, e.g. 99.9%"
+      - fieldname: concurrencyExpectation
+        description: Expected number of simultaneous users
+      - fieldname: dataVolumeHandled
+        description: Typical data size processed per run
+  inse-form:
+    fields:
+      - fieldname: authenticationRequired
+        description: Whether and how the actor must authenticate
+      - fieldname: authorizationRules
+        description: Which roles are permitted to perform this
+      - fieldname: dataClassification
+        description: Sensitivity level of the data handled
+      - fieldname: encryptionRequirements
+        description: Encryption needed in transit and at rest
+      - fieldname: auditLogging
+        description: Security-relevant events to log
+      - fieldname: sessionRequirements
+        description: Session timeout and renewal rules
+      - fieldname: complianceRequirements
+        description: "Regulations to satisfy, e.g. GDPR, HIPAA"
+  intr-form:
+    fields:
+      - fieldname: relatedProcess
+        description: TOM-xxx process this interaction realizes
+      - fieldname: relatedRequirements
+        description: REQ-xxx requirements satisfied here
+      - fieldname: relatedUseCase
+        description: ISC-xxx use case in the ISC document
+      - fieldname: relatedDataEntities
+        description: Data entities read or written
+      - fieldname: relatedBusinessObjects
+        description: BO-xxx business objects involved
+      - fieldname: relatedBusinessRules
+        description: BR-xxx business rules referenced
+      - fieldname: relatedIntegrations
+        description: INT-xxx integrations touched
+      - fieldname: relatedTestCases
+        description: TC-xxx test cases covering this
+  inpr-form:
+    fields:
+      - fieldname: mustHaveInteractions
+        description: List interactions the MVP cannot ship without
+      - fieldname: shouldHaveInteractions
+        description: Important but can slip to a later release
+      - fieldname: couldHaveInteractions
+        description: Desirable if capacity allows
+      - fieldname: wontHaveInteractions
+        description: Explicitly out of scope for this effort
+      - fieldname: phaseOneInteractions
+        description: Interactions targeted for the first delivery phase
+      - fieldname: phaseTwoInteractions
+        description: Interactions targeted for the second delivery phase
+      - fieldname: futureInteractions
+        description: Interactions deferred to an unscheduled future phase
+  scov-form:
+    fields:
+      - fieldname: totalScenarioCount
+        description: Number of scenarios documented
+      - fieldname: scenarioCoverage
+        description: Which end-to-end journeys the scenarios span
+      - fieldname: scenarioTypes
+        description: "Mix of happy-path, error, and edge-case scenarios"
+      - fieldname: scenarioPrioritization
+        description: How scenarios are ranked by importance
+      - fieldname: scenarioToTestMapping
+        description: How each scenario traces to TC-xxx test cases
+  scid-form:
+    fields:
+      - fieldname: scenarioId
+        required: true
+        description: Stable code such as SCE-001
+      - fieldname: scenarioName
+        required: true
+        description: Short descriptive name for the scenario
+      - fieldname: scenarioType
+        description: "One of happy path, alternative, or exception"
+      - fieldname: description
+        description: One-paragraph narrative of the journey
+      - fieldname: businessGoal
+        description: The outcome the actor is trying to reach
+      - fieldname: primaryActor
+        description: The main actor driving the scenario
+      - fieldname: supportingActors
+        description: Other actors or systems that participate
+      - fieldname: priority
+        description: Business priority of this scenario
+      - fieldname: complexity
+        description: Relative implementation/test complexity
+  scco-form:
+    fields:
+      - fieldname: preconditions
+        description: State that must hold before the scenario starts
+      - fieldname: trigger
+        description: The event that initiates the scenario
+      - fieldname: successCondition
+        description: Observable state indicating success
+      - fieldname: failureCondition
+        description: Observable state indicating failure
+      - fieldname: assumptions
+        description: Assumptions taken as given for this scenario
+      - fieldname: outOfScope
+        description: What this scenario deliberately excludes
+      - fieldname: relatedInteractions
+        description: INT-xxx interactions referenced by this scenario
+  ssec-form:
+    fields:
+      - fieldname: expectedResult
+        description: The observable outcome after the step
+      - fieldname: interactionReference
+        description: INT-xxx interaction detailing this step
+      - fieldname: dataInvolved
+        description: Data read or written during the step
+      - fieldname: uiElement
+        description: Screen or component the actor uses
+  scstenex-form:
+    fields:
+      - fieldname: decisionPoint
+        description: Condition under which the flow branches here
+      - fieldname: timing
+        description: Expected time this step takes
+      - fieldname: notes
+        description: Additional clarifications for this step
+  scda-form:
+    fields:
+      - fieldname: inputData
+        description: Data required before the scenario can run
+      - fieldname: outputData
+        description: Data the scenario produces on completion
+      - fieldname: testDataRequirements
+        description: Data needed to exercise this scenario in tests
+      - fieldname: dataTransformations
+        description: How data is transformed through the scenario
+      - fieldname: dataValidations
+        description: Validation checks applied to the data
+      - fieldname: sampleDataValues
+        description: Concrete example values for input/output
+  scti-form:
+    fields:
+      - fieldname: totalDuration
+        description: Expected end-to-end elapsed time
+      - fieldname: userActiveTime
+        description: Time the user is actively engaged
+      - fieldname: systemProcessingTime
+        description: Time the system spends processing
+      - fieldname: waitTime
+        description: Delays waiting on external factors
+      - fieldname: timeConstraints
+        description: Deadlines or SLAs the scenario must meet
+      - fieldname: timeoutHandling
+        description: What happens if timing limits are exceeded
+  scva-form:
+    fields:
+      - fieldname: acceptanceCriteria
+        description: Criteria that confirm the scenario succeeded
+      - fieldname: testScenarios
+        description: TC-xxx test cases covering this scenario
+      - fieldname: verificationMethod
+        description: "How the scenario is verified: manual or automated"
+      - fieldname: validationData
+        description: Data checked to validate the outcome
+      - fieldname: expectedMetrics
+        description: Performance or quality targets to meet
+      - fieldname: knownIssues
+        description: Documented problems or limitations
+  acdiov-form:
+    fields:
+      - fieldname: diagramPurpose
+        description: State what the diagram is meant to communicate
+      - fieldname: actorCategories
+        description: List the actor categories shown in the diagram
+      - fieldname: systemBoundary
+        description: Define what lies inside vs outside the system
+      - fieldname: notation
+        description: Name the diagram notation used
+document:
+  sections:
+    dochd:
+      section-type: dochd
+      optional: true
+    prstov:
+      section-type: prstov
+      optional: true
+    acov:
+      section-type: acov
+      optional: true
+    inca:
+      section-type: inca
+      optional: true
+    kesc:
+      section-type: kesc
+      optional: true
+    acredi:
+      section-type: acredi
+      optional: true
+    etets-endt-lst:
+      section-type: etets-endt-lst
+      optional: true
+    uscatr:
+      section-type: uscatr
+      optional: true
