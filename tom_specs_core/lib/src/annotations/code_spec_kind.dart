@@ -50,8 +50,10 @@ class CodeSpecKind {
 /// the single source of the kind vocabulary shared by:
 ///
 /// 1. `@CodeSpecKind(CodeSpecPart.x)` — the type-level mapping declared here;
-/// 2. the `Cs<Id>` base class that realises the part (in `tom_code_specs`);
-/// 3. the `@Ca<Id>` annotation family.
+/// 2. the `@Cs<Id>` annotation that marks a CodeSpec class as realising the part
+///    (in `tom_code_specs`) — the framework carries **annotations only, no base
+///    classes** (`codespecs_mapping.md` §0). A CodeSpec is an ordinary class
+///    built on an existing `tom_core`-family class and enriched by that marker.
 ///
 /// The cross-cutting **CE-TR (Traceability)** part is intentionally **absent**:
 /// traceability is not a mappable kind — it rides on every element via

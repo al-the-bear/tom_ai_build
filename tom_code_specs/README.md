@@ -20,9 +20,10 @@ whose every element carries traceability annotations back to its source spec.
 
 | Symbol | Role | Reference |
 |--------|------|-----------|
-| `@DocSpec([DocRef(sectionId, description), …])` | Code → doc back-trace on a CodeSpec class/member | `codespecs_mapping.md` §9.3 |
+| `@CodeSpec(id, {source, requirements})` | Identity + forward doc → code trace (CE-TR) on a CodeSpec class | `codespecs_mapping.md` §9 |
+| `@DocSpec([DocRef(sectionId, description), …])` | Code → doc back-trace on a CodeSpec class/member | §9.3 |
 | `DocRef(sectionId, description)` | One back-trace entry | §9.3 |
-| `Cs*` annotation family (no base classes) | The 21-part catalogue's annotations (added in later csm waves) | §4.1 |
+| `Cs*` annotation family (no base classes) — 20 markers | The catalogue's part markers: client/UI (`@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsAction`, `@CsTrigger`, `@CsServerCall`, `@CsViewModel`, `@CsRoute`), server (`@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn`, `@CsRepository`, `@CsAuthorize`, `@CsServerConfig`), shared (`@CsError`, `@CsEnum`) | §4.1 |
 
 ## What lives in `tom_specs_core` instead
 
@@ -47,5 +48,8 @@ The concrete forward link — the `codeSpec` `List<String>` member on
 
 ## Status
 
-Scaffold (csm3). `@DocSpec`/`DocRef` are declared; the `Cs*`/`Ca*` bases follow
-in later CodeSpecs waves.
+csm2r1 (annotations-only re-baseline). `@CodeSpec`, `@DocSpec`/`DocRef`, and the
+20-marker `Cs*` annotation family are declared. The 4 new-part annotations
+(`@CsClientConfig` / `@CsUserSetting` / `@CsClient` / `@CsAuth`) arrive with
+csm2r5; list-valued `@CodeSpecKind` with csm2r2; per-part attribute surfaces in
+the Band D waves.

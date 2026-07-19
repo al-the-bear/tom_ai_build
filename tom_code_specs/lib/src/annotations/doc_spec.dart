@@ -18,11 +18,12 @@
 ///
 /// Example:
 /// ```dart
+/// @CsTable()
 /// @DocSpec([
 ///   DocRef('IMO-014', 'Order entity fields and constraints'),
 ///   DocRef('RSP-042', 'total must be non-negative'),
 /// ])
-/// class CsOrder extends CsDbTable { ... }
+/// class Order { ... }
 /// ```
 class DocSpec {
   /// The sections this code element realises, each with a description of the
