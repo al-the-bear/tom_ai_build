@@ -9577,7 +9577,7 @@ function _mc_ContextualNavigation(s) {
       typeName: "String",
       serializationOrder: 1,
       docComment: "10.3.1.6.1. Breadcrumb Configuration.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "enabled", typeName: "String", description: "Enabled", hint: "Yes/No — whether breadcrumbs are shown", order: 0}), new SomFormFieldMeta({name: "platformVisibility", typeName: "String", description: "Platform Visibility", hint: "All/Desktop-Only/Tablet-Up", order: 1}), new SomFormFieldMeta({name: "maxVisibleItems", typeName: "int", description: "Max Visible Items", hint: "Items before collapsing with ellipsis", order: 2}), new SomFormFieldMeta({name: "collapseBehavior", typeName: "String", description: "Collapse Behavior", hint: "Ellipsis-Menu/Hide-Middle/Truncate", order: 3}), new SomFormFieldMeta({name: "showHomeItem", typeName: "String", description: "Show Home", hint: "Yes/No — include root/home as first crumb", order: 4}), new SomFormFieldMeta({name: "homeLabel", typeName: "String", description: "Home Label Resource", hint: "Resource key for home crumb", order: 5}), new SomFormFieldMeta({name: "homeIcon", typeName: "String", description: "Home Icon Resource", hint: "Icon for home crumb", order: 6}), new SomFormFieldMeta({name: "separator", typeName: "String", description: "Separator", hint: "Visual separator: / , > , chevron-icon", order: 7}), new SomFormFieldMeta({name: "currentItemStyle", typeName: "String", description: "Current Item Style", hint: "Bold/Muted/Normal — style of last item", order: 8}), new SomFormFieldMeta({name: "position", typeName: "String", description: "Position", hint: "Below-AppBar/Inside-Content/Top-Of-Page", order: 9})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "enabled", typeName: "String", description: "Enabled", hint: "Yes/No — whether breadcrumbs are shown", order: 0}), new SomFormFieldMeta({name: "platformVisibility", typeName: "String", description: "Platform Visibility", hint: "All/Desktop-Only/Tablet-Up", order: 1}), new SomFormFieldMeta({name: "maxVisibleItems", typeName: "int", description: "Max Visible Items", hint: "Items before collapsing with ellipsis", order: 2}), new SomFormFieldMeta({name: "collapseBehavior", typeName: "String", description: "Collapse Behavior", hint: "Ellipsis-Menu/Hide-Middle/Truncate", order: 3}), new SomFormFieldMeta({name: "showHomeItem", typeName: "String", description: "Show Home", hint: "Yes/No — include root/home as first crumb", order: 4}), new SomFormFieldMeta({name: "homeLabel", typeName: "String", description: "Home Label Resource", hint: "Message key (MSGKR registry) for home crumb", order: 5}), new SomFormFieldMeta({name: "homeIcon", typeName: "String", description: "Home Icon Resource", hint: "Icon for home crumb", order: 6}), new SomFormFieldMeta({name: "separator", typeName: "String", description: "Separator", hint: "Visual separator: / , > , chevron-icon", order: 7}), new SomFormFieldMeta({name: "currentItemStyle", typeName: "String", description: "Current Item Style", hint: "Bold/Muted/Normal — style of last item", order: 8}), new SomFormFieldMeta({name: "position", typeName: "String", description: "Position", hint: "Below-AppBar/Inside-Content/Top-Of-Page", order: 9})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-13:1998 — user guidance covers wayfinding cues that help users know their location", "ISO 9241-151:2008 — supports orientation within the information architecture through navigation aids"], "connotation": "The breadcrumb-trail configuration governing visibility, collapse behavior, and styling of location crumbs."})]}),
      new SomMetaNode({
       className: "ContextualNavigation",
@@ -11269,6 +11269,18 @@ function _mc_D03InformationModel(s) {
         serializationOrder: 16,
         docComment: "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).",
         classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+        recursive: r,
+        children: c})),
+     _cx("MessageKeyRegistry", s, _mc_MessageKeyRegistry,
+      (r, c) => new SomMetaNode({
+        className: "MessageKeyRegistry",
+        memberName: "messageKeyRegistry",
+        classSectionId: "MSGKR",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "MessageKeyRegistry",
+        serializationOrder: 17,
+        docComment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).",
+        classDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
         recursive: r,
         children: c})),
   ];
@@ -18273,7 +18285,7 @@ function _mc_DomainEnumValueEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "valueId", typeName: "String", description: "Value Id", required: true, hint: "Stable value identifier (the enum constant / @Case token)", order: 0}), new SomFormFieldMeta({name: "backingValue", typeName: "String", description: "Backing Value", hint: "Persisted/serialized code (int or string), if distinct from the id", order: 1}), new SomFormFieldMeta({name: "copyKey", typeName: "String", description: "Copy Key", hint: "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)", order: 2}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "What this value means", order: 3})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "valueId", typeName: "String", description: "Value Id", required: true, hint: "Stable value identifier (the enum constant / @Case token)", order: 0}), new SomFormFieldMeta({name: "backingValue", typeName: "String", description: "Backing Value", hint: "Persisted/serialized code (int or string), if distinct from the id", order: 1}), new SomFormFieldMeta({name: "copyKey", typeName: "String", description: "Copy Key", hint: "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the display label (author copy once, reference here)", order: 2}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "What this value means", order: 3})])}),
   ];
 }
 
@@ -18514,7 +18526,7 @@ function _mc_ElementValidationRuleEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "ruleType", typeName: "String", description: "Rule Type", required: true, hint: "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", order: 0}), new SomFormFieldMeta({name: "ruleExpression", typeName: "String", description: "Rule Expression", hint: "Validation expression or pattern", order: 1}), new SomFormFieldMeta({name: "errorCode", typeName: "String", description: "Error Code", hint: "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", order: 2}), new SomFormFieldMeta({name: "errorMessageResource", typeName: "String", description: "Error Message Resource", hint: "Resource key for validation error message", order: 3}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity", hint: "Error/Warning/Info", order: 4}), new SomFormFieldMeta({name: "validateOn", typeName: "String", description: "Validate On", hint: "On-Change/On-Blur/On-Submit", order: 5})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ruleType", typeName: "String", description: "Rule Type", required: true, hint: "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", order: 0}), new SomFormFieldMeta({name: "ruleExpression", typeName: "String", description: "Rule Expression", hint: "Validation expression or pattern", order: 1}), new SomFormFieldMeta({name: "errorCode", typeName: "String", description: "Error Code", hint: "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", order: 2}), new SomFormFieldMeta({name: "errorMessageResource", typeName: "String", description: "Error Message Resource", hint: "Message key (MSGKR registry) for validation error message", order: 3}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity", hint: "Error/Warning/Info", order: 4}), new SomFormFieldMeta({name: "validateOn", typeName: "String", description: "Validate On", hint: "On-Change/On-Blur/On-Submit", order: 5})])}),
   ];
 }
 
@@ -19377,7 +19389,7 @@ function _mc_ErrorCodeEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "code", typeName: "String", description: "Code", required: true, hint: "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy", order: 0}), new SomFormFieldMeta({name: "category", typeName: "String", description: "Category", hint: "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System", order: 1}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Default Severity", hint: "Default severity: Info | Warning | Error | Fatal", order: 2}), new SomFormFieldMeta({name: "retryable", typeName: "bool", description: "Retryable", hint: "Whether retrying the same operation may reasonably succeed", order: 3}), new SomFormFieldMeta({name: "httpStatusHint", typeName: "int", description: "HTTP Status Hint", hint: "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)", order: 4}), new SomFormFieldMeta({name: "copyKey", typeName: "String", description: "Copy Key", hint: "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)", order: 5})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "code", typeName: "String", description: "Code", required: true, hint: "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy", order: 0}), new SomFormFieldMeta({name: "category", typeName: "String", description: "Category", hint: "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System", order: 1}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Default Severity", hint: "Default severity: Info | Warning | Error | Fatal", order: 2}), new SomFormFieldMeta({name: "retryable", typeName: "bool", description: "Retryable", hint: "Whether retrying the same operation may reasonably succeed", order: 3}), new SomFormFieldMeta({name: "httpStatusHint", typeName: "int", description: "HTTP Status Hint", hint: "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)", order: 4}), new SomFormFieldMeta({name: "copyKey", typeName: "String", description: "Copy Key", hint: "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the default user-facing message (author copy once, reference here)", order: 5})])}),
   ];
 }
 
@@ -23779,6 +23791,18 @@ function _mc_InformationAndDataModel(s) {
         classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
         recursive: r,
         children: c})),
+     _cx("MessageKeyRegistry", s, _mc_MessageKeyRegistry,
+      (r, c) => new SomMetaNode({
+        className: "MessageKeyRegistry",
+        memberName: "messageKeyRegistry",
+        classSectionId: "MSGKR",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "MessageKeyRegistry",
+        serializationOrder: 8,
+        docComment: "7.8. Message Key Registry.",
+        classDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+        recursive: r,
+        children: c})),
   ];
 }
 
@@ -27758,6 +27782,67 @@ function _mc_MessageFormatStandards(s) {
   ];
 }
 
+function _mc_MessageKeyEntry(s) {
+  return [
+     new SomMetaNode({
+      className: "MessageKeyEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "key", typeName: "String", description: "Message Key", required: true, hint: "Stable message key referenced everywhere (e.g. order.status.pending, error.user.notFound). Dotted, namespaced.", order: 0}), new SomFormFieldMeta({name: "defaultCopy", typeName: "String", description: "Default Copy", required: true, hint: "The default (base-locale) user-facing text. May contain named placeholders like {count} or {name}.", order: 1}), new SomFormFieldMeta({name: "placeholders", typeName: "String", description: "Placeholders", hint: "Comma-separated named parameters the copy interpolates (e.g. count, name), if any", order: 2}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "Where this copy is used and any translator guidance", order: 3})])}),
+     new SomMetaNode({
+      className: "MessageKeyEntry",
+      memberName: "localeVariants",
+      sectionId: "MSGLV-LOCV-LST",
+      sectionIdPattern: "MSGLV-LOCV-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "MessageLocaleVariantEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per non-default locale.",
+      docComment: "7.8.x. Locale Variants — one entry per non-default locale.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Unicode CLDR / BCP 47 — locale identification and localized message data"], "connotation": "The per-locale copy variants of this message key (the default copy is the base locale)."})],
+      elementNode: _cx("MessageLocaleVariantEntry", s, _mc_MessageLocaleVariantEntry, (r, c) => new SomMetaNode({className: "MessageLocaleVariantEntry", classSectionId: "MSGLV", kind: SomMetaKind.COMPLEX, typeName: "MessageLocaleVariantEntry", docComment: "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.", classDocComment: "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_MessageKeyRegistry(s) {
+  return [
+     new SomMetaNode({
+      className: "MessageKeyRegistry",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("text", ""),
+      contentHelp: "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n"}),
+     new SomMetaNode({
+      className: "MessageKeyRegistry",
+      memberName: "messageKeys",
+      sectionId: "MSGKE-MKEY-LST",
+      sectionIdPattern: "MSGKE-MKEY-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "MessageKeyEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per message key (author-once copy string).",
+      docComment: "7.8.1. Message Keys — one entry per author-once copy string.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["W3C Internationalization (i18n) — message catalogues / externalised strings"], "connotation": "The catalogued message keys, each with its default copy and locale variants."})],
+      elementNode: _cx("MessageKeyEntry", s, _mc_MessageKeyEntry, (r, c) => new SomMetaNode({className: "MessageKeyEntry", classSectionId: "MSGKE", kind: SomMetaKind.COMPLEX, typeName: "MessageKeyEntry", docComment: "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.", classDocComment: "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_MessageLocaleVariantEntry(s) {
+  return [
+     new SomMetaNode({
+      className: "MessageLocaleVariantEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "locale", typeName: "String", description: "Locale", required: true, hint: "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)", order: 0}), new SomFormFieldMeta({name: "copy", typeName: "String", description: "Copy", required: true, hint: "The user-facing text for this locale", order: 1})])}),
+  ];
+}
+
 function _mc_MetricsAndObservability(s) {
   return [
      new SomMetaNode({
@@ -29597,7 +29682,7 @@ function _mc_NavigationGroupEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "groupId", typeName: "String", description: "Group ID", required: true, hint: "Unique identifier, e.g., nav-grp-sales", order: 0}), new SomFormFieldMeta({name: "groupLabel", typeName: "String", description: "Label Resource", required: true, hint: "Resource key for display label", order: 1}), new SomFormFieldMeta({name: "groupIcon", typeName: "String", description: "Icon Resource", hint: "Resource key for group icon", order: 2}), new SomFormFieldMeta({name: "groupDescription", typeName: "String", description: "Description Resource", hint: "Resource key for tooltip/subtitle", order: 3})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "groupId", typeName: "String", description: "Group ID", required: true, hint: "Unique identifier, e.g., nav-grp-sales", order: 0}), new SomFormFieldMeta({name: "groupLabel", typeName: "String", description: "Label Resource", required: true, hint: "Message key (MSGKR registry) for display label", order: 1}), new SomFormFieldMeta({name: "groupIcon", typeName: "String", description: "Icon Resource", hint: "Resource key for group icon", order: 2}), new SomFormFieldMeta({name: "groupDescription", typeName: "String", description: "Description Resource", hint: "Message key (MSGKR registry) for tooltip/subtitle", order: 3})])}),
      new SomMetaNode({
       className: "NavigationGroupEntry",
       memberName: "display",
@@ -29660,7 +29745,7 @@ function _mc_NavigationGuardEntry(s) {
       typeName: "String",
       serializationOrder: 1,
       docComment: "Covered routes and dialog resources.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "appliesTo", typeName: "String", description: "Applies To", hint: "Route patterns or screen IDs this guard covers", order: 0}), new SomFormFieldMeta({name: "dialogTitleResource", typeName: "String", description: "Dialog Title Resource", hint: "Resource key for confirmation dialog title", order: 1}), new SomFormFieldMeta({name: "dialogMessageResource", typeName: "String", description: "Dialog Message Resource", hint: "Resource key for confirmation dialog message", order: 2}), new SomFormFieldMeta({name: "confirmActionResource", typeName: "String", description: "Confirm Action Resource", hint: "Resource key for confirm button, e.g., Discard", order: 3}), new SomFormFieldMeta({name: "cancelActionResource", typeName: "String", description: "Cancel Action Resource", hint: "Resource key for cancel button, e.g., Stay", order: 4})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "appliesTo", typeName: "String", description: "Applies To", hint: "Route patterns or screen IDs this guard covers", order: 0}), new SomFormFieldMeta({name: "dialogTitleResource", typeName: "String", description: "Dialog Title Resource", hint: "Message key (MSGKR registry) for confirmation dialog title", order: 1}), new SomFormFieldMeta({name: "dialogMessageResource", typeName: "String", description: "Dialog Message Resource", hint: "Message key (MSGKR registry) for confirmation dialog message", order: 2}), new SomFormFieldMeta({name: "confirmActionResource", typeName: "String", description: "Confirm Action Resource", hint: "Message key (MSGKR registry) for confirm button, e.g., Discard", order: 3}), new SomFormFieldMeta({name: "cancelActionResource", typeName: "String", description: "Cancel Action Resource", hint: "Message key (MSGKR registry) for cancel button, e.g., Stay", order: 4})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-110:2020 — use-error tolerance keeps users informed before a navigation guard discards their work", "ISO 9241-13:1998 — user guidance provides prompts and messages that explain the current situation"], "connotation": "The routes covered by a guard together with the dialog resources shown when it intervenes."})]}),
      new SomMetaNode({
       className: "NavigationGuardEntry",
@@ -29749,7 +29834,7 @@ function _mc_NavigationItemEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "itemId", typeName: "String", description: "Item ID", required: true, hint: "Unique identifier, e.g., nav-customers", order: 0}), new SomFormFieldMeta({name: "label", typeName: "String", description: "Label Resource", required: true, hint: "Resource key for display label", order: 1}), new SomFormFieldMeta({name: "targetRoute", typeName: "String", description: "Target Route", hint: "Route path, e.g., /customers", order: 2})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "itemId", typeName: "String", description: "Item ID", required: true, hint: "Unique identifier, e.g., nav-customers", order: 0}), new SomFormFieldMeta({name: "label", typeName: "String", description: "Label Resource", required: true, hint: "Message key (MSGKR registry) for display label", order: 1}), new SomFormFieldMeta({name: "targetRoute", typeName: "String", description: "Target Route", hint: "Route path, e.g., /customers", order: 2})])}),
      new SomMetaNode({
       className: "NavigationItemEntry",
       memberName: "display",
@@ -40354,7 +40439,7 @@ function _mc_ScreenActionEntry(s) {
       typeName: "String",
       serializationOrder: 1,
       docComment: "Visual presentation of the action.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "labelResource", typeName: "String", description: "Label Resource", hint: "Resource key for button label", order: 0}), new SomFormFieldMeta({name: "iconResource", typeName: "String", description: "Icon Resource", hint: "Resource key for action icon", order: 1}), new SomFormFieldMeta({name: "placement", typeName: "String", description: "Placement", hint: "App-Bar/Toolbar/FAB/Context-Menu/Overflow-Menu", order: 2}), new SomFormFieldMeta({name: "buttonStyle", typeName: "String", description: "Button Style", hint: "Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only", order: 3})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "labelResource", typeName: "String", description: "Label Resource", hint: "Message key (MSGKR registry) for button label", order: 0}), new SomFormFieldMeta({name: "iconResource", typeName: "String", description: "Icon Resource", hint: "Resource key for action icon", order: 1}), new SomFormFieldMeta({name: "placement", typeName: "String", description: "Placement", hint: "App-Bar/Toolbar/FAB/Context-Menu/Overflow-Menu", order: 2}), new SomFormFieldMeta({name: "buttonStyle", typeName: "String", description: "Button Style", hint: "Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only", order: 3})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-161:2016 — visual presentation of command and action elements", "ISO 9241-125:2017 — visual presentation of information such as labels and icons"], "connotation": "The visual presentation of a screen action including its label, icon, placement, and style."})]}),
      new SomMetaNode({
       className: "ScreenActionEntry",
@@ -40374,7 +40459,7 @@ function _mc_ScreenActionEntry(s) {
       typeName: "String",
       serializationOrder: 3,
       docComment: "Confirmation, navigation, and feedback behavior.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "confirmationRequired", typeName: "String", description: "Confirmation Required", hint: "Yes/No", order: 0}), new SomFormFieldMeta({name: "confirmationMessageResource", typeName: "String", description: "Confirmation Message", hint: "Resource key for confirmation dialog", order: 1}), new SomFormFieldMeta({name: "keyboardShortcut", typeName: "String", description: "Keyboard Shortcut", hint: "Shortcut binding, e.g., Ctrl+N", order: 2}), new SomFormFieldMeta({name: "navigateTo", typeName: "String", description: "Navigate To", hint: "Target screen after action", order: 3}), new SomFormFieldMeta({name: "successMessageResource", typeName: "String", description: "Success Message", hint: "Resource key for success notification", order: 4})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "confirmationRequired", typeName: "String", description: "Confirmation Required", hint: "Yes/No", order: 0}), new SomFormFieldMeta({name: "confirmationMessageResource", typeName: "String", description: "Confirmation Message", hint: "Message key (MSGKR registry) for confirmation dialog", order: 1}), new SomFormFieldMeta({name: "keyboardShortcut", typeName: "String", description: "Keyboard Shortcut", hint: "Shortcut binding, e.g., Ctrl+N", order: 2}), new SomFormFieldMeta({name: "navigateTo", typeName: "String", description: "Navigate To", hint: "Target screen after action", order: 3}), new SomFormFieldMeta({name: "successMessageResource", typeName: "String", description: "Success Message", hint: "Message key (MSGKR registry) for success notification", order: 4})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-110:2020 — controllability and use error tolerance for action execution", "ISO 9241-161:2016 — command and action user-interface elements"], "connotation": "The confirmation, navigation, and feedback behavior that governs how a screen action executes."})]}),
   ];
 }
@@ -40470,7 +40555,7 @@ function _mc_ScreenElementAction(s) {
       typeName: "String",
       serializationOrder: 1,
       docComment: "Confirmation and execution feedback behavior.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "confirmationRequired", typeName: "String", description: "Confirmation Required", hint: "Yes/No — show confirmation dialog?", order: 0}), new SomFormFieldMeta({name: "confirmationMessageResource", typeName: "String", description: "Confirmation Message Resource", hint: "Resource key for confirmation prompt", order: 1}), new SomFormFieldMeta({name: "loadingLabelResource", typeName: "String", description: "Loading Label Resource", hint: "Resource key for label during async execution", order: 2}), new SomFormFieldMeta({name: "successMessageResource", typeName: "String", description: "Success Message Resource", hint: "Resource key for success notification", order: 3}), new SomFormFieldMeta({name: "errorHandling", typeName: "String", description: "Error Handling", hint: "Inline/Toast/Dialog/Banner", order: 4})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "confirmationRequired", typeName: "String", description: "Confirmation Required", hint: "Yes/No — show confirmation dialog?", order: 0}), new SomFormFieldMeta({name: "confirmationMessageResource", typeName: "String", description: "Confirmation Message Resource", hint: "Message key (MSGKR registry) for confirmation prompt", order: 1}), new SomFormFieldMeta({name: "loadingLabelResource", typeName: "String", description: "Loading Label Resource", hint: "Message key (MSGKR registry) for label during async execution", order: 2}), new SomFormFieldMeta({name: "successMessageResource", typeName: "String", description: "Success Message Resource", hint: "Message key (MSGKR registry) for success notification", order: 3}), new SomFormFieldMeta({name: "errorHandling", typeName: "String", description: "Error Handling", hint: "Inline/Toast/Dialog/Banner", order: 4})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-110:2020 — use error tolerance and feedback during action execution", "ISO 9241-161:2016 — user-interface elements for confirmation and progress feedback"], "connotation": "The confirmation and execution-feedback behavior that governs how an action element runs and reports."})]}),
      new SomMetaNode({
       className: "ScreenElementAction",
@@ -40493,7 +40578,7 @@ function _mc_ScreenElementDataDisplay(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "dataSource", typeName: "String", description: "Data Source", hint: "Data entity or query reference", order: 0}), new SomFormFieldMeta({name: "displayFormat", typeName: "String", description: "Display Format", hint: "How data is formatted for display", order: 1}), new SomFormFieldMeta({name: "emptyStateMessageResource", typeName: "String", description: "Empty State Message", hint: "Resource key for message when no data", order: 2}), new SomFormFieldMeta({name: "emptyStateIconResource", typeName: "String", description: "Empty State Icon", hint: "Resource key for icon when no data", order: 3})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "dataSource", typeName: "String", description: "Data Source", hint: "Data entity or query reference", order: 0}), new SomFormFieldMeta({name: "displayFormat", typeName: "String", description: "Display Format", hint: "How data is formatted for display", order: 1}), new SomFormFieldMeta({name: "emptyStateMessageResource", typeName: "String", description: "Empty State Message", hint: "Message key (MSGKR registry) for message when no data", order: 2}), new SomFormFieldMeta({name: "emptyStateIconResource", typeName: "String", description: "Empty State Icon", hint: "Resource key for icon when no data", order: 3})])}),
      new SomMetaNode({
       className: "ScreenElementDataDisplay",
       memberName: "behavior",
@@ -40534,7 +40619,7 @@ function _mc_ScreenElementEntry(s) {
       typeName: "String",
       serializationOrder: 1,
       docComment: "Labels and icon resources.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "labelResource", typeName: "String", description: "Label Resource", hint: "Resource key for display label", order: 0}), new SomFormFieldMeta({name: "hintResource", typeName: "String", description: "Hint Resource", hint: "Resource key for tooltip/helper text", order: 1}), new SomFormFieldMeta({name: "descriptionResource", typeName: "String", description: "Description Resource", hint: "Resource key for extended description", order: 2}), new SomFormFieldMeta({name: "iconResource", typeName: "String", description: "Icon Resource", hint: "Resource key for icon", order: 3}), new SomFormFieldMeta({name: "iconPosition", typeName: "String", description: "Icon Position", hint: "Leading/Trailing/Above/Below/Only", order: 4})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "labelResource", typeName: "String", description: "Label Resource", hint: "Message key (MSGKR registry) for display label", order: 0}), new SomFormFieldMeta({name: "hintResource", typeName: "String", description: "Hint Resource", hint: "Message key (MSGKR registry) for tooltip/helper text", order: 1}), new SomFormFieldMeta({name: "descriptionResource", typeName: "String", description: "Description Resource", hint: "Message key (MSGKR registry) for extended description", order: 2}), new SomFormFieldMeta({name: "iconResource", typeName: "String", description: "Icon Resource", hint: "Resource key for icon", order: 3}), new SomFormFieldMeta({name: "iconPosition", typeName: "String", description: "Icon Position", hint: "Leading/Trailing/Above/Below/Only", order: 4})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-161:2016 — labels, icons, and tooltips associated with user-interface elements", "ISO 9241-112:2017 — presentation of labels and identifying information to the user"], "connotation": "The label, hint, description, and icon resources that identify a screen element to the user."})]}),
      new SomMetaNode({
       className: "ScreenElementEntry",
@@ -40628,7 +40713,7 @@ function _mc_ScreenElementFieldSpec(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "fieldName", typeName: "String", description: "Field Name", hint: "Logical form field name, maps to data model attribute", order: 0}), new SomFormFieldMeta({name: "dataType", typeName: "ScreenElementFieldKind", description: "Data Type", hint: "The input data kind — selects the promoted options subsection.", order: 1, enumValues: ["string", "integer", "decimal", "currency", "date", "dateTime", "time", "boolean", "enumeration", "email", "phone", "url", "password", "richText", "color", "file"]}), new SomFormFieldMeta({name: "placeholderResource", typeName: "String", description: "Placeholder Resource", hint: "Resource key for placeholder text", order: 2})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "fieldName", typeName: "String", description: "Field Name", hint: "Logical form field name, maps to data model attribute", order: 0}), new SomFormFieldMeta({name: "dataType", typeName: "ScreenElementFieldKind", description: "Data Type", hint: "The input data kind — selects the promoted options subsection.", order: 1, enumValues: ["string", "integer", "decimal", "currency", "date", "dateTime", "time", "boolean", "enumeration", "email", "phone", "url", "password", "richText", "color", "file"]}), new SomFormFieldMeta({name: "placeholderResource", typeName: "String", description: "Placeholder Resource", hint: "Message key (MSGKR registry) for placeholder text", order: 2})])}),
      new SomMetaNode({
       className: "ScreenElementFieldSpec",
       memberName: "formatting",
@@ -40739,7 +40824,7 @@ function _mc_ScreenEntry(s) {
       typeName: "String",
       serializationOrder: 4,
       docComment: "Presentation metadata.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "pageTitleResource", typeName: "String", description: "Page Title Resource", hint: "Resource key for the screen title text", order: 0}), new SomFormFieldMeta({name: "pageIconResource", typeName: "String", description: "Page Icon Resource", hint: "Resource key for the screen icon", order: 1}), new SomFormFieldMeta({name: "helpTopicId", typeName: "String", description: "Help Topic ID", hint: "Link to help/documentation topic", order: 2}), new SomFormFieldMeta({name: "layout", typeName: "String", description: "Layout", hint: "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", order: 3})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "pageTitleResource", typeName: "String", description: "Page Title Resource", hint: "Message key (MSGKR registry) for the screen title text", order: 0}), new SomFormFieldMeta({name: "pageIconResource", typeName: "String", description: "Page Icon Resource", hint: "Resource key for the screen icon", order: 1}), new SomFormFieldMeta({name: "helpTopicId", typeName: "String", description: "Help Topic ID", hint: "Link to help/documentation topic", order: 2}), new SomFormFieldMeta({name: "layout", typeName: "String", description: "Layout", hint: "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", order: 3})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information", "ISO 9241-125:2017 — visual presentation and layout of the screen"], "connotation": "The presentation metadata such as title, icon, and layout that defines how a screen appears."})]}),
      new SomMetaNode({
       className: "ScreenEntry",
@@ -40984,7 +41069,7 @@ function _mc_ScreenSectionEntry(s) {
       typeName: "String",
       serializationOrder: 1,
       docComment: "Layout and ordering for the section.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "layoutDirection", typeName: "String", description: "Layout Direction", hint: "Horizontal/Vertical/Wrap/Grid", order: 0}), new SomFormFieldMeta({name: "displayOrder", typeName: "int", description: "Display Order", hint: "Position in reading order", order: 1}), new SomFormFieldMeta({name: "titleResource", typeName: "String", description: "Title Resource", hint: "Resource key for section header text", order: 2}), new SomFormFieldMeta({name: "borderStyle", typeName: "String", description: "Border Style", hint: "Named style or resource key", order: 3})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "layoutDirection", typeName: "String", description: "Layout Direction", hint: "Horizontal/Vertical/Wrap/Grid", order: 0}), new SomFormFieldMeta({name: "displayOrder", typeName: "int", description: "Display Order", hint: "Position in reading order", order: 1}), new SomFormFieldMeta({name: "titleResource", typeName: "String", description: "Title Resource", hint: "Message key (MSGKR registry) for section header text", order: 2}), new SomFormFieldMeta({name: "borderStyle", typeName: "String", description: "Border Style", hint: "Named style or resource key", order: 3})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-125:2017 — spatial layout and ordering of presented information", "ISO 9241-112:2017 — organisation of information within a display area"], "connotation": "The layout direction, order, and border styling that arrange a screen section within its screen."})]}),
      new SomMetaNode({
       className: "ScreenSectionEntry",
@@ -41044,7 +41129,7 @@ function _mc_ScreenStateEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "stateName", typeName: "String", description: "State Name", required: true, hint: "Loading/Empty/Error/Permission-Denied/First-Use/Offline/Success", order: 0}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "When this state occurs", order: 1}), new SomFormFieldMeta({name: "messageResource", typeName: "String", description: "Message Resource", hint: "Resource key for state message", order: 2}), new SomFormFieldMeta({name: "iconResource", typeName: "String", description: "Icon Resource", hint: "Resource key for state icon", order: 3}), new SomFormFieldMeta({name: "illustrationResource", typeName: "String", description: "Illustration Resource", hint: "Resource key for state illustration/image", order: 4}), new SomFormFieldMeta({name: "primaryActionLabel", typeName: "String", description: "Primary Action Label", hint: "Resource key for recovery action, e.g., Try Again", order: 5}), new SomFormFieldMeta({name: "primaryActionTarget", typeName: "String", description: "Primary Action Target", hint: "Action or navigation on recovery", order: 6}), new SomFormFieldMeta({name: "secondaryActionLabel", typeName: "String", description: "Secondary Action Label", hint: "Resource key for alternative action", order: 7})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "stateName", typeName: "String", description: "State Name", required: true, hint: "Loading/Empty/Error/Permission-Denied/First-Use/Offline/Success", order: 0}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "When this state occurs", order: 1}), new SomFormFieldMeta({name: "messageResource", typeName: "String", description: "Message Resource", hint: "Message key (MSGKR registry) for state message", order: 2}), new SomFormFieldMeta({name: "iconResource", typeName: "String", description: "Icon Resource", hint: "Resource key for state icon", order: 3}), new SomFormFieldMeta({name: "illustrationResource", typeName: "String", description: "Illustration Resource", hint: "Resource key for state illustration/image", order: 4}), new SomFormFieldMeta({name: "primaryActionLabel", typeName: "String", description: "Primary Action Label", hint: "Message key (MSGKR registry) for recovery action, e.g., Try Again", order: 5}), new SomFormFieldMeta({name: "primaryActionTarget", typeName: "String", description: "Primary Action Target", hint: "Action or navigation on recovery", order: 6}), new SomFormFieldMeta({name: "secondaryActionLabel", typeName: "String", description: "Secondary Action Label", hint: "Message key (MSGKR registry) for alternative action", order: 7})])}),
   ];
 }
 
@@ -48042,7 +48127,7 @@ function _mc_TabItemEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "tabId", typeName: "String", description: "Tab ID", required: true, hint: "Unique within tab bar", order: 0}), new SomFormFieldMeta({name: "label", typeName: "String", description: "Label Resource", required: true, hint: "Resource key for tab label", order: 1}), new SomFormFieldMeta({name: "icon", typeName: "String", description: "Icon Resource", hint: "Tab icon", order: 2}), new SomFormFieldMeta({name: "displayOrder", typeName: "int", description: "Display Order", hint: "Position in tab bar", order: 3}), new SomFormFieldMeta({name: "contentScreenId", typeName: "String", description: "Content Screen ID", hint: "Screen/fragment loaded in tab", order: 4}), new SomFormFieldMeta({name: "visibilityCondition", typeName: "String", description: "Visibility Condition", hint: "Business rule for visibility", order: 5}), new SomFormFieldMeta({name: "requiredPermissions", typeName: "String", description: "Required Permissions", hint: "Tab-level access control", order: 6}), new SomFormFieldMeta({name: "permissionBehavior", typeName: "String", description: "Permission Behavior", hint: "Hide/Disable", order: 7}), new SomFormFieldMeta({name: "badgeType", typeName: "String", description: "Badge Type", hint: "None/Count/Dot", order: 8}), new SomFormFieldMeta({name: "badgeSource", typeName: "String", description: "Badge Source", hint: "Data source for badge", order: 9})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "tabId", typeName: "String", description: "Tab ID", required: true, hint: "Unique within tab bar", order: 0}), new SomFormFieldMeta({name: "label", typeName: "String", description: "Label Resource", required: true, hint: "Message key (MSGKR registry) for tab label", order: 1}), new SomFormFieldMeta({name: "icon", typeName: "String", description: "Icon Resource", hint: "Tab icon", order: 2}), new SomFormFieldMeta({name: "displayOrder", typeName: "int", description: "Display Order", hint: "Position in tab bar", order: 3}), new SomFormFieldMeta({name: "contentScreenId", typeName: "String", description: "Content Screen ID", hint: "Screen/fragment loaded in tab", order: 4}), new SomFormFieldMeta({name: "visibilityCondition", typeName: "String", description: "Visibility Condition", hint: "Business rule for visibility", order: 5}), new SomFormFieldMeta({name: "requiredPermissions", typeName: "String", description: "Required Permissions", hint: "Tab-level access control", order: 6}), new SomFormFieldMeta({name: "permissionBehavior", typeName: "String", description: "Permission Behavior", hint: "Hide/Disable", order: 7}), new SomFormFieldMeta({name: "badgeType", typeName: "String", description: "Badge Type", hint: "None/Count/Dot", order: 8}), new SomFormFieldMeta({name: "badgeSource", typeName: "String", description: "Badge Source", hint: "Data source for badge", order: 9})])}),
   ];
 }
 
@@ -51388,7 +51473,7 @@ function _mc_UiComponentEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 15,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "resourceBasePath", typeName: "String", description: "Resource Base Path", hint: "Base path for resource lookup", order: 0}), new SomFormFieldMeta({name: "labelResource", typeName: "String", description: "Label Resource", hint: "Resource key for label text", order: 1}), new SomFormFieldMeta({name: "hintResource", typeName: "String", description: "Hint Resource", hint: "Resource key for hint text", order: 2}), new SomFormFieldMeta({name: "errorResource", typeName: "String", description: "Error Resource", hint: "Resource key for error messages", order: 3}), new SomFormFieldMeta({name: "tooltipResource", typeName: "String", description: "Tooltip Resource", hint: "Resource key for tooltip text", order: 4}), new SomFormFieldMeta({name: "placeholderResource", typeName: "String", description: "Placeholder Resource", hint: "Resource key for placeholder text", order: 5}), new SomFormFieldMeta({name: "ariaLabelResource", typeName: "String", description: "ARIA Label Resource", hint: "Resource key for the ARIA label", order: 6}), new SomFormFieldMeta({name: "iconResource", typeName: "String", description: "Icon Resource", hint: "Resource key for icon selection", order: 7}), new SomFormFieldMeta({name: "resourceFallbacks", typeName: "String", description: "Resource Fallbacks", hint: "Fallback behavior when resource missing", order: 8})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "resourceBasePath", typeName: "String", description: "Resource Base Path", hint: "Base path for resource lookup", order: 0}), new SomFormFieldMeta({name: "labelResource", typeName: "String", description: "Label Resource", hint: "Message key (MSGKR registry) for label text", order: 1}), new SomFormFieldMeta({name: "hintResource", typeName: "String", description: "Hint Resource", hint: "Message key (MSGKR registry) for hint text", order: 2}), new SomFormFieldMeta({name: "errorResource", typeName: "String", description: "Error Resource", hint: "Message key (MSGKR registry) for error messages", order: 3}), new SomFormFieldMeta({name: "tooltipResource", typeName: "String", description: "Tooltip Resource", hint: "Message key (MSGKR registry) for tooltip text", order: 4}), new SomFormFieldMeta({name: "placeholderResource", typeName: "String", description: "Placeholder Resource", hint: "Message key (MSGKR registry) for placeholder text", order: 5}), new SomFormFieldMeta({name: "ariaLabelResource", typeName: "String", description: "ARIA Label Resource", hint: "Message key (MSGKR registry) for the ARIA label", order: 6}), new SomFormFieldMeta({name: "iconResource", typeName: "String", description: "Icon Resource", hint: "Resource key for icon selection", order: 7}), new SomFormFieldMeta({name: "resourceFallbacks", typeName: "String", description: "Resource Fallbacks", hint: "Fallback behavior when resource missing", order: 8})])}),
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "dataBinding",
@@ -53271,7 +53356,7 @@ function _mc_ValidationMessageTemplate(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "messageId", typeName: "String", description: "Message ID", required: true, hint: "Unique identifier (e.g., VAL-REQ-001)", order: 0}), new SomFormFieldMeta({name: "validationType", typeName: "String", description: "Validation Type", required: true, hint: "Required, format, range, length, custom", order: 1}), new SomFormFieldMeta({name: "fieldTypes", typeName: "String", description: "Applicable Field Types", hint: "Text, email, number, date, select", order: 2}), new SomFormFieldMeta({name: "messageTemplate", typeName: "String", description: "Message Template", required: true, hint: "Template with {field}, {value} placeholders", order: 3}), new SomFormFieldMeta({name: "shortMessage", typeName: "String", description: "Short Message", hint: "Brief version for space-constrained contexts", order: 4}), new SomFormFieldMeta({name: "helpText", typeName: "String", description: "Help Text", hint: "Extended guidance for complex errors", order: 5}), new SomFormFieldMeta({name: "exampleCorrection", typeName: "String", description: "Example Correction", hint: "Example of valid input", order: 6}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity", hint: "Error, warning, info", order: 7}), new SomFormFieldMeta({name: "iconCode", typeName: "String", description: "Icon Code", hint: "Icon to display with message", order: 8}), new SomFormFieldMeta({name: "localizationKey", typeName: "String", description: "Localization Key", hint: "i18n key for translation", order: 9})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "messageId", typeName: "String", description: "Message ID", required: true, hint: "Unique identifier (e.g., VAL-REQ-001)", order: 0}), new SomFormFieldMeta({name: "validationType", typeName: "String", description: "Validation Type", required: true, hint: "Required, format, range, length, custom", order: 1}), new SomFormFieldMeta({name: "fieldTypes", typeName: "String", description: "Applicable Field Types", hint: "Text, email, number, date, select", order: 2}), new SomFormFieldMeta({name: "messageTemplate", typeName: "String", description: "Message Template", required: true, hint: "Template with {field}, {value} placeholders. Author the copy once in the CE-TX Message Key Registry (MSGKR) and reference it via localizationKey; this field carries the resolved default copy", order: 3}), new SomFormFieldMeta({name: "shortMessage", typeName: "String", description: "Short Message", hint: "Brief version for space-constrained contexts", order: 4}), new SomFormFieldMeta({name: "helpText", typeName: "String", description: "Help Text", hint: "Extended guidance for complex errors", order: 5}), new SomFormFieldMeta({name: "exampleCorrection", typeName: "String", description: "Example Correction", hint: "Example of valid input", order: 6}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity", hint: "Error, warning, info", order: 7}), new SomFormFieldMeta({name: "iconCode", typeName: "String", description: "Icon Code", hint: "Icon to display with message", order: 8}), new SomFormFieldMeta({name: "localizationKey", typeName: "String", description: "Localization Key", hint: "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants", order: 9})])}),
   ];
 }
 
@@ -59760,6 +59845,10 @@ class D03InformationModel$Nav extends SomMetaRef {
   get resultEnvelope() {
     return new ResultEnvelope$Nav(this.tree, this.path + "/resultEnvelope");
   }
+
+  get messageKeyRegistry() {
+    return new MessageKeyRegistry$Nav(this.tree, this.path + "/messageKeyRegistry");
+  }
 }
 
 // Dot-notation accessors of `D04RequirementsSpecification` (DR1 §4.1). Every getter is one
@@ -65764,6 +65853,10 @@ class InformationAndDataModel$Nav extends SomMetaRef {
   get resultEnvelope() {
     return new ResultEnvelope$Nav(this.tree, this.path + "/resultEnvelope");
   }
+
+  get messageKeyRegistry() {
+    return new MessageKeyRegistry$Nav(this.tree, this.path + "/messageKeyRegistry");
+  }
 }
 
 // Dot-notation accessors of `InformationArchitecture` (DR1 §4.1). Every getter is one
@@ -67809,6 +67902,44 @@ class MessageFormatStandards$Nav extends SomMetaRef {
 
   get transport() {
     return new SomMetaRef(this.tree, this.path + "/MFST");
+  }
+}
+
+// Dot-notation accessors of `MessageKeyEntry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class MessageKeyEntry$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get localeVariants() {
+    return new SomListMetaRef(this.tree, this.path + "/MSGLV-LOCV-LST", (t, p) => new MessageLocaleVariantEntry$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `MessageKeyRegistry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class MessageKeyRegistry$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get messageKeys() {
+    return new SomListMetaRef(this.tree, this.path + "/MSGKE-MKEY-LST", (t, p) => new MessageKeyEntry$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `MessageLocaleVariantEntry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class MessageLocaleVariantEntry$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -83905,6 +84036,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST", (t, p) => new ResultFieldDetailEntry$Id(t, p));
   }
 
+  get MSGKE_MKEY_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST", (t, p) => new MessageKeyEntry$Id(t, p));
+  }
+
   get TRAREQ_TRAN() {
     return new SomMetaRef(this.tree, this.path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
   }
@@ -88394,6 +88529,10 @@ class D03InformationModel$Id extends SomMetaRef {
 
   get RSFDE_FLDD_LST() {
     return new SomListMetaRef(this.tree, this.path + "/resultEnvelope/RSFDE-FLDD-LST", (t, p) => new ResultFieldDetailEntry$Id(t, p));
+  }
+
+  get MSGKE_MKEY_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/messageKeyRegistry/MSGKE-MKEY-LST", (t, p) => new MessageKeyEntry$Id(t, p));
   }
 }
 
@@ -94728,6 +94867,21 @@ class MasterDataDomainEntry$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `MessageKeyEntry` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+class MessageKeyEntry$Id extends SomMetaRef {
+  get MSGLV_LOCV_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/MSGLV-LOCV-LST", (t, p) => new MessageLocaleVariantEntry$Id(t, p));
+  }
+}
+
+// ID-tree accessors of `MessageLocaleVariantEntry` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+class MessageLocaleVariantEntry$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `MetricsBaselineEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -99618,6 +99772,9 @@ module.exports = {
   MasterDataDomainEntry$Nav,
   MasterDataManagement$Nav,
   MessageFormatStandards$Nav,
+  MessageKeyEntry$Nav,
+  MessageKeyRegistry$Nav,
+  MessageLocaleVariantEntry$Nav,
   MetricsAndObservability$Nav,
   MetricsBaselineEntry$Nav,
   MetricsBaselineTable$Nav,
@@ -100486,6 +100643,8 @@ module.exports = {
   MaintenanceDependencyEntry$Id,
   MaintenanceWindowEntry$Id,
   MasterDataDomainEntry$Id,
+  MessageKeyEntry$Id,
+  MessageLocaleVariantEntry$Id,
   MetricsBaselineEntry$Id,
   MfaCategoryRequirementEntry$Id,
   MigrationEnvironments$Id,

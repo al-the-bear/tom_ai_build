@@ -76,6 +76,10 @@ IFM (Information Model) document.
   /// 7.7. Result Envelope.
   @SerializationOrder(7)
   ResultEnvelope resultEnvelope = ResultEnvelope();
+
+  /// 7.8. Message Key Registry.
+  @SerializationOrder(8)
+  MessageKeyRegistry messageKeyRegistry = MessageKeyRegistry();
 }
 
 // ---------------------------------------------------------------------------
@@ -4258,8 +4262,8 @@ class DomainEnumValueEntry extends DocSpecsSection {
       'copyKey',
       String,
       'Copy Key',
-      hint: 'Message-key reference into the CE-TX message registry for the '
-          'display label (author copy once, reference here)',
+      hint: 'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) '
+          'for the display label (author copy once, reference here)',
     ),
     Field(
       'description',
@@ -4389,8 +4393,8 @@ class ErrorCodeEntry extends DocSpecsSection {
       'copyKey',
       String,
       'Copy Key',
-      hint: 'Message-key reference into the CE-TX message registry for the '
-          'default user-facing message (author copy once, reference here)',
+      hint: 'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) '
+          'for the default user-facing message (author copy once, reference here)',
     ),
   ])
   @override
@@ -4518,6 +4522,174 @@ class ResultFieldDetailEntry extends DocSpecsSection {
       'Default Message',
       hint: 'Optional default message; user-facing copy resolves from the code '
           'via CE-TX',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.8 Message Key Registry
+// ---------------------------------------------------------------------------
+
+/// 7.8. Message Key Registry.
+///
+/// The single **author-copy-once, reference-everywhere** home for user-facing
+/// copy — the CE-TX (`text`) part. Before this registry existed, copy was
+/// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+/// as unvalidated free text, so the "author once, reference everywhere"
+/// invariant could not hold and the same string could diverge between the
+/// screen element, the validation message and the error copy (csm5 cross-cutting
+/// finding #1; `codespecs_coverage_gaps.md` §3.3).
+///
+/// Each [MessageKeyEntry] declares a stable message key, its default (base
+/// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+/// resolves to the right copy in each locale. The other CodeSpecs parts stop
+/// carrying inline copy and instead reference a key here:
+///
+/// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+/// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+/// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+/// - **CE-VA** validation-failure messages.
+///
+/// csmb3 and csmb5 already modelled their `copyKey` references as plain
+/// message-key strings anticipating this registry; those keys now resolve
+/// against [MessageKeyEntry.key].
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+    'W3C Internationalization (i18n) — message catalogues / externalised strings',
+    'Unicode CLDR / BCP 47 — locale identification and localized message data',
+  ],
+  'The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes.',
+)
+@SectionId('MSGKR')
+class MessageKeyRegistry extends DocSpecsSection {
+  @ContentHelp('''
+Catalogue the user-facing copy as message keys. Add one entry per key; each key
+carries its default (base-locale) copy and any per-locale variants.
+
+Author each string **once here** and reference it by key everywhere it appears:
+- CE-EL/CE-AC element and action labels, placeholders and help text,
+- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),
+- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),
+- CE-VA validation-failure messages.
+
+Referencing the registry by key keeps copy consistent, translatable and
+validated — no more free-text `*Resource` keys that can silently diverge.
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.8.1. Message Keys — one entry per author-once copy string.
+  @StandardReferences([
+    'W3C Internationalization (i18n) — message catalogues / externalised strings',
+  ], 'The catalogued message keys, each with its default copy and locale variants.')
+  @SectionId('MSGKE-MKEY-LST')
+  @SectionIdPattern('MSGKE-MKEY-xxx')
+  @ContentHelp('Add one entry per message key (author-once copy string).')
+  @SerializationOrder(1)
+  List<MessageKeyEntry> messageKeys = [];
+}
+
+/// A single message key (form + locale variants).
+///
+/// One author-once copy string: a stable [key] (the token every consumer
+/// references), the default base-locale copy, an optional list of named
+/// placeholders the copy interpolates, and its
+/// [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+/// the generated code resolves per locale.
+@StandardReferences(
+  [
+    'W3C Internationalization (i18n) — message catalogues / externalised strings',
+    'ISO 9241-13:1998 — user guidance / clear and specific wording',
+  ],
+  'A single message key: its stable token, default copy, placeholders, and locale variants.',
+)
+@SectionId('MSGKE')
+@CodeSpecKind([CodeSpecPart.text],
+    note: 'CE-TX — the author-once copy string every consumer references. The '
+        'key is the join token: CE-EL/CE-AC labels, CE-EN value copy '
+        '(DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) '
+        'and CE-VA messages all resolve here. The default copy plus locale '
+        'variants become the generated message catalogue.')
+class MessageKeyEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'key',
+      String,
+      'Message Key',
+      required: true,
+      hint: 'Stable message key referenced everywhere (e.g. '
+          'order.status.pending, error.user.notFound). Dotted, namespaced.',
+    ),
+    Field(
+      'defaultCopy',
+      String,
+      'Default Copy',
+      required: true,
+      hint: 'The default (base-locale) user-facing text. May contain named '
+          'placeholders like {count} or {name}.',
+    ),
+    Field(
+      'placeholders',
+      String,
+      'Placeholders',
+      hint: 'Comma-separated named parameters the copy interpolates (e.g. '
+          'count, name), if any',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'Where this copy is used and any translator guidance',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.8.x. Locale Variants — one entry per non-default locale.
+  @StandardReferences([
+    'Unicode CLDR / BCP 47 — locale identification and localized message data',
+  ], 'The per-locale copy variants of this message key (the default copy is the base locale).')
+  @SectionId('MSGLV-LOCV-LST')
+  @SectionIdPattern('MSGLV-LOCV-xxx')
+  @ContentHelp('Add one entry per non-default locale.')
+  @SerializationOrder(1)
+  List<MessageLocaleVariantEntry> localeVariants = [];
+}
+
+/// A single locale variant of a message key (form).
+///
+/// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+/// copy for that locale. The base-locale copy lives on
+/// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+@StandardReferences(
+  [
+    'Unicode CLDR / BCP 47 — locale identification and localized message data',
+    'W3C Internationalization (i18n) — message catalogues / externalised strings',
+  ],
+  'A single locale variant: a BCP-47 locale tag and the copy for that locale.',
+)
+@SectionId('MSGLV')
+class MessageLocaleVariantEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'locale',
+      String,
+      'Locale',
+      required: true,
+      hint: 'BCP-47 locale tag (e.g. en, en-US, de, fr-CA)',
+    ),
+    Field(
+      'copy',
+      String,
+      'Copy',
+      required: true,
+      hint: 'The user-facing text for this locale',
     ),
   ])
   @override

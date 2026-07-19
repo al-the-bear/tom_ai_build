@@ -3958,6 +3958,9 @@ ErrorCodeRegistry D03InformationModel::errorCodeRegistry() const {
 ResultEnvelope D03InformationModel::resultEnvelope() const {
   return ResultEnvelope(doc(), som::joinPath(path(), "resultEnvelope"));
 }
+MessageKeyRegistry D03InformationModel::messageKeyRegistry() const {
+  return MessageKeyRegistry(doc(), som::joinPath(path(), "messageKeyRegistry"));
+}
 
 D04RequirementsSpecification::D04RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "RSP") {
@@ -8428,6 +8431,9 @@ ErrorCodeRegistry InformationAndDataModel::errorCodeRegistry() const {
 ResultEnvelope InformationAndDataModel::resultEnvelope() const {
   return ResultEnvelope(doc(), som::joinPath(path(), "resultEnvelope"));
 }
+MessageKeyRegistry InformationAndDataModel::messageKeyRegistry() const {
+  return MessageKeyRegistry(doc(), som::joinPath(path(), "messageKeyRegistry"));
+}
 
 InformationArchitecture::InformationArchitecture(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -9816,6 +9822,33 @@ MessageFormatStandardsResponsesForm MessageFormatStandards::responses() const {
 }
 MessageFormatStandardsTransportForm MessageFormatStandards::transport() const {
   return MessageFormatStandardsTransportForm(doc(), som::joinPath(path(), "MFST"));
+}
+
+MessageKeyEntry::MessageKeyEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+MessageKeyEntryContentForm MessageKeyEntry::content() const {
+  return MessageKeyEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList MessageKeyEntry::localeVariants() const {
+  return som::SomList(doc(), som::joinPath(path(), "MSGLV-LOCV-LST"), "MSGLV-LOCV-xxx");
+}
+
+MessageKeyRegistry::MessageKeyRegistry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MessageKeyRegistry::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void MessageKeyRegistry::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList MessageKeyRegistry::messageKeys() const {
+  return som::SomList(doc(), som::joinPath(path(), "MSGKE-MKEY-LST"), "MSGKE-MKEY-xxx");
+}
+
+MessageLocaleVariantEntry::MessageLocaleVariantEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+MessageLocaleVariantEntryContentForm MessageLocaleVariantEntry::content() const {
+  return MessageLocaleVariantEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 MetricsAndObservability::MetricsAndObservability(som::SpecDocument& doc, std::string path)
@@ -63948,6 +63981,60 @@ std::string MessageFormatStandardsTransportForm::notes() const {
 }
 void MessageFormatStandardsTransportForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+
+MessageKeyEntryContentForm::MessageKeyEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MessageKeyEntryContentForm::content() const {
+  return doc().content(path());
+}
+void MessageKeyEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string MessageKeyEntryContentForm::key() const {
+  return doc().formField(path(), "key");
+}
+void MessageKeyEntryContentForm::setKey(const std::string& value) {
+  doc().setFormField(path(), "key", value);
+}
+std::string MessageKeyEntryContentForm::defaultCopy() const {
+  return doc().formField(path(), "defaultCopy");
+}
+void MessageKeyEntryContentForm::setDefaultCopy(const std::string& value) {
+  doc().setFormField(path(), "defaultCopy", value);
+}
+std::string MessageKeyEntryContentForm::placeholders() const {
+  return doc().formField(path(), "placeholders");
+}
+void MessageKeyEntryContentForm::setPlaceholders(const std::string& value) {
+  doc().setFormField(path(), "placeholders", value);
+}
+std::string MessageKeyEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void MessageKeyEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
+
+MessageLocaleVariantEntryContentForm::MessageLocaleVariantEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MessageLocaleVariantEntryContentForm::content() const {
+  return doc().content(path());
+}
+void MessageLocaleVariantEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string MessageLocaleVariantEntryContentForm::locale() const {
+  return doc().formField(path(), "locale");
+}
+void MessageLocaleVariantEntryContentForm::setLocale(const std::string& value) {
+  doc().setFormField(path(), "locale", value);
+}
+std::string MessageLocaleVariantEntryContentForm::copy() const {
+  return doc().formField(path(), "copy");
+}
+void MessageLocaleVariantEntryContentForm::setCopy(const std::string& value) {
+  doc().setFormField(path(), "copy", value);
 }
 
 MetricsAndObservabilityMetricsOverviewForm::MetricsAndObservabilityMetricsOverviewForm(som::SpecDocument& doc, std::string path)

@@ -133,4 +133,10 @@ class D03InformationModel extends DocSpecsSection {
   /// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
   @SerializationOrder(16)
   ResultEnvelope resultEnvelope = ResultEnvelope();
+
+  /// Message key registry — the single author-copy-once home for user-facing
+  /// copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+  /// (csmb7).
+  @SerializationOrder(17)
+  MessageKeyRegistry messageKeyRegistry = MessageKeyRegistry();
 }

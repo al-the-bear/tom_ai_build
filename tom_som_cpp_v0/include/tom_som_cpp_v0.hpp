@@ -609,6 +609,9 @@ class MaintenanceWindowsSection;
 class MasterDataDomainEntry;
 class MasterDataManagement;
 class MessageFormatStandards;
+class MessageKeyEntry;
+class MessageKeyRegistry;
+class MessageLocaleVariantEntry;
 class MetricsAndObservability;
 class MetricsBaselineEntry;
 class MetricsBaselineTable;
@@ -2559,6 +2562,8 @@ class MessageFormatStandardsConventionsForm;
 class MessageFormatStandardsResponsesForm;
 class MessageFormatStandardsSchemaForm;
 class MessageFormatStandardsTransportForm;
+class MessageKeyEntryContentForm;
+class MessageLocaleVariantEntryContentForm;
 class MetricsAndObservabilityMetricsOverviewForm;
 class MetricsBaselineEntryContentForm;
 class MetricsCollectionRequirementsApplicationForm;
@@ -8182,6 +8187,10 @@ class D03InformationModel : public som::SomNode {
   // Result envelope — the canonical success-or-error §7 Result contract
   // (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
   ResultEnvelope resultEnvelope() const;
+  // Message key registry — the single author-copy-once home for user-facing
+  // copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+  // (csmb7).
+  MessageKeyRegistry messageKeyRegistry() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -12893,6 +12902,8 @@ class InformationAndDataModel : public som::SomNode {
   ErrorCodeRegistry errorCodeRegistry() const;
   // 7.7. Result Envelope.
   ResultEnvelope resultEnvelope() const;
+  // 7.8. Message Key Registry.
+  MessageKeyRegistry messageKeyRegistry() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -14458,6 +14469,70 @@ class MessageFormatStandards : public som::SomNode {
   MessageFormatStandardsResponsesForm responses() const;
   // Compression and negotiation.
   MessageFormatStandardsTransportForm transport() const;
+};
+
+// A single message key (form + locale variants).
+//
+// One author-once copy string: a stable [key] (the token every consumer
+// references), the default base-locale copy, an optional list of named
+// placeholders the copy interpolates, and its
+// [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+// the generated code resolves per locale.
+class MessageKeyEntry : public som::SomNode {
+ public:
+  MessageKeyEntry(som::SpecDocument& doc, std::string path);
+  MessageKeyEntryContentForm content() const;
+  // 7.8.x. Locale Variants — one entry per non-default locale.
+  // Returns the list view; element type: MessageLocaleVariantEntry (construct from item paths).
+  som::SomList localeVariants() const;
+};
+
+// 7.8. Message Key Registry.
+//
+// The single **author-copy-once, reference-everywhere** home for user-facing
+// copy — the CE-TX (`text`) part. Before this registry existed, copy was
+// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+// as unvalidated free text, so the "author once, reference everywhere"
+// invariant could not hold and the same string could diverge between the
+// screen element, the validation message and the error copy (csm5 cross-cutting
+// finding #1; `codespecs_coverage_gaps.md` §3.3).
+//
+// Each [MessageKeyEntry] declares a stable message key, its default (base
+// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+// resolves to the right copy in each locale. The other CodeSpecs parts stop
+// carrying inline copy and instead reference a key here:
+//
+// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+// - **CE-VA** validation-failure messages.
+//
+// csmb3 and csmb5 already modelled their `copyKey` references as plain
+// message-key strings anticipating this registry; those keys now resolve
+// against [MessageKeyEntry.key].
+class MessageKeyRegistry : public som::SomNode {
+ public:
+  MessageKeyRegistry(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 7.8.1. Message Keys — one entry per author-once copy string.
+  // Returns the list view; element type: MessageKeyEntry (construct from item paths).
+  som::SomList messageKeys() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// A single locale variant of a message key (form).
+//
+// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+// copy for that locale. The base-locale copy lives on
+// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+class MessageLocaleVariantEntry : public som::SomNode {
+ public:
+  MessageLocaleVariantEntry(som::SpecDocument& doc, std::string path);
+  MessageLocaleVariantEntryContentForm content() const;
 };
 
 // 8.7.2.3. Metrics and Observability.
@@ -48692,6 +48767,38 @@ class MessageFormatStandardsTransportForm : public som::SomNode {
   void setContentNegotiation(std::optional<bool> value);
   std::string notes() const;
   void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class MessageKeyEntryContentForm : public som::SomNode {
+ public:
+  MessageKeyEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string key() const;
+  void setKey(const std::string& value);
+  std::string defaultCopy() const;
+  void setDefaultCopy(const std::string& value);
+  std::string placeholders() const;
+  void setPlaceholders(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class MessageLocaleVariantEntryContentForm : public som::SomNode {
+ public:
+  MessageLocaleVariantEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string locale() const;
+  void setLocale(const std::string& value);
+  std::string copy() const;
+  void setCopy(const std::string& value);
 };
 
 // Generated section facade for the `metricsOverview` @Form section: its own `content` text followed by one typed member per form field.

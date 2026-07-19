@@ -4669,6 +4669,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.domainEnumRegistry, (v) => n.domainEnumRegistry = v as DomainEnumRegistry, label: 'domainEnumRegistry'),
         SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
         SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
+        SpecSlot.node(() => n.messageKeyRegistry, (v) => n.messageKeyRegistry = v as MessageKeyRegistry, label: 'messageKeyRegistry'),
       ];
     },
     cloneShallow: (o) {
@@ -4690,7 +4691,8 @@ void registerSpecOps() {
         ..integrityConstraints = n.integrityConstraints
         ..domainEnumRegistry = n.domainEnumRegistry
         ..errorCodeRegistry = n.errorCodeRegistry
-        ..resultEnvelope = n.resultEnvelope;
+        ..resultEnvelope = n.resultEnvelope
+        ..messageKeyRegistry = n.messageKeyRegistry;
     },
     yamlScalar: (o) => (o as D03InformationModel).content,
   ));
@@ -9511,6 +9513,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.domainEnumRegistry, (v) => n.domainEnumRegistry = v as DomainEnumRegistry, label: 'domainEnumRegistry'),
         SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
         SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
+        SpecSlot.node(() => n.messageKeyRegistry, (v) => n.messageKeyRegistry = v as MessageKeyRegistry, label: 'messageKeyRegistry'),
       ];
     },
     cloneShallow: (o) {
@@ -9523,7 +9526,8 @@ void registerSpecOps() {
         ..schemaVersioningAndMigration = n.schemaVersioningAndMigration
         ..domainEnumRegistry = n.domainEnumRegistry
         ..errorCodeRegistry = n.errorCodeRegistry
-        ..resultEnvelope = n.resultEnvelope;
+        ..resultEnvelope = n.resultEnvelope
+        ..messageKeyRegistry = n.messageKeyRegistry;
     },
     yamlScalar: (o) => (o as InformationAndDataModel).content,
   ));
@@ -11257,6 +11261,45 @@ void registerSpecOps() {
         ..transport = n.transport;
     },
     yamlScalar: (o) => (o as MessageFormatStandards).content,
+  ));
+  SpecRegistry.register(MessageKeyEntry, SpecClassOps(
+    slots: (o) {
+      final n = o as MessageKeyEntry;
+      return [
+        SpecSlot.list(() => n.localeVariants, (v) => n.localeVariants = v.cast<MessageLocaleVariantEntry>(), label: 'localeVariants'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as MessageKeyEntry;
+      return MessageKeyEntry()
+        ..content = n.content
+        ..localeVariants = n.localeVariants;
+    },
+    yamlScalar: (o) => (o as MessageKeyEntry).content,
+  ));
+  SpecRegistry.register(MessageKeyRegistry, SpecClassOps(
+    slots: (o) {
+      final n = o as MessageKeyRegistry;
+      return [
+        SpecSlot.list(() => n.messageKeys, (v) => n.messageKeys = v.cast<MessageKeyEntry>(), label: 'messageKeys'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as MessageKeyRegistry;
+      return MessageKeyRegistry()
+        ..content = n.content
+        ..messageKeys = n.messageKeys;
+    },
+    yamlScalar: (o) => (o as MessageKeyRegistry).content,
+  ));
+  SpecRegistry.register(MessageLocaleVariantEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as MessageLocaleVariantEntry;
+      return MessageLocaleVariantEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as MessageLocaleVariantEntry).content,
   ));
   SpecRegistry.register(MetricsAndObservability, SpecClassOps(
     slots: (o) {

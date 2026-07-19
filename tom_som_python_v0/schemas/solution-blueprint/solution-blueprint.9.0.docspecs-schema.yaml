@@ -2221,6 +2221,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
+  msgke-mkey-lst:
+    prefix: MSGKE_MKEY_LST
+    subsection-types:
+      msgke-mkey:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per message key (author-once copy string).
+  msglv-locv-lst:
+    prefix: MSGLV_LOCV_LST
+    subsection-types:
+      msglv-locv:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per non-default locale.
   nonfi-nonf-lst:
     prefix: NONFI_NONF_LST
     subsection-types:
@@ -7569,6 +7585,21 @@ section-types:
       pattern: ^MSDDO-MAST-.+$
       error-message: IDs of this section must match MSDDO-MAST-xxx
     description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
+  msgke-mkey:
+    prefix: MSGKE_MKEY_
+    subsection-types:
+      msglv-locv-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^MSGKE-MKEY-.+$
+      error-message: IDs of this section must match MSGKE-MKEY-xxx
+    description: Add one entry per message key (author-once copy string).
+  msglv-locv:
+    prefix: MSGLV_LOCV_
+    pattern-check-id:
+      pattern: ^MSGLV-LOCV-.+$
+      error-message: IDs of this section must match MSGLV-LOCV-xxx
+    description: Add one entry per non-default locale.
   mupacr-must:
     prefix: MUPACR_MUST
     format: mupacr-must-form
@@ -17365,6 +17396,12 @@ section-types:
     prefix: MPCEV
     format: mpcev-form
     description: Verification and threshold details.
+  msgkr:
+    prefix: MSGKR
+    subsection-types:
+      msgke-mkey-lst:
+        max-count: 1
+    description: 7.8. Message Key Registry.
   muigd:
     prefix: MUIGD
     format: muigd-form
@@ -21359,6 +21396,8 @@ section-types:
       ercrg:
         max-count: 1
       rslte:
+        max-count: 1
+      msgkr:
         max-count: 1
     description: "SBP.8 Information & Data Model. Seeds → IFM."
   ingo:
@@ -42549,7 +42588,7 @@ form-types:
   scenpr-form:
     fields:
       - fieldname: pageTitleResource
-        description: Resource key for the screen title text
+        description: Message key (MSGKR registry) for the screen title text
       - fieldname: pageIconResource
         description: Resource key for the screen icon
       - fieldname: helpTopicId
@@ -42563,7 +42602,7 @@ form-types:
       - fieldname: displayOrder
         description: Position in reading order
       - fieldname: titleResource
-        description: Resource key for section header text
+        description: Message key (MSGKR registry) for section header text
       - fieldname: borderStyle
         description: Named style or resource key
   sseb-form:
@@ -42577,11 +42616,11 @@ form-types:
   seer-form:
     fields:
       - fieldname: labelResource
-        description: Resource key for display label
+        description: Message key (MSGKR registry) for display label
       - fieldname: hintResource
-        description: Resource key for tooltip/helper text
+        description: Message key (MSGKR registry) for tooltip/helper text
       - fieldname: descriptionResource
-        description: Resource key for extended description
+        description: Message key (MSGKR registry) for extended description
       - fieldname: iconResource
         description: Resource key for icon
       - fieldname: iconPosition
@@ -42623,11 +42662,11 @@ form-types:
       - fieldname: confirmationRequired
         description: "Yes/No — show confirmation dialog?"
       - fieldname: confirmationMessageResource
-        description: Resource key for confirmation prompt
+        description: Message key (MSGKR registry) for confirmation prompt
       - fieldname: loadingLabelResource
-        description: Resource key for label during async execution
+        description: Message key (MSGKR registry) for label during async execution
       - fieldname: successMessageResource
-        description: Resource key for success notification
+        description: Message key (MSGKR registry) for success notification
       - fieldname: errorHandling
         description: Inline/Toast/Dialog/Banner
   sean-form:
@@ -42713,7 +42752,7 @@ form-types:
   saev-form:
     fields:
       - fieldname: labelResource
-        description: Resource key for button label
+        description: Message key (MSGKR registry) for button label
       - fieldname: iconResource
         description: Resource key for action icon
       - fieldname: placement
@@ -42733,13 +42772,13 @@ form-types:
       - fieldname: confirmationRequired
         description: Yes/No
       - fieldname: confirmationMessageResource
-        description: Resource key for confirmation dialog
+        description: Message key (MSGKR registry) for confirmation dialog
       - fieldname: keyboardShortcut
         description: "Shortcut binding, e.g., Ctrl+N"
       - fieldname: navigateTo
         description: Target screen after action
       - fieldname: successMessageResource
-        description: Resource key for success notification
+        description: Message key (MSGKR registry) for success notification
   nged-form:
     fields:
       - fieldname: displayOrder
@@ -42917,7 +42956,7 @@ form-types:
       - fieldname: showHomeItem
         description: Yes/No — include root/home as first crumb
       - fieldname: homeLabel
-        description: Resource key for home crumb
+        description: Message key (MSGKR registry) for home crumb
       - fieldname: homeIcon
         description: Icon for home crumb
       - fieldname: separator
@@ -42931,13 +42970,13 @@ form-types:
       - fieldname: appliesTo
         description: Route patterns or screen IDs this guard covers
       - fieldname: dialogTitleResource
-        description: Resource key for confirmation dialog title
+        description: Message key (MSGKR registry) for confirmation dialog title
       - fieldname: dialogMessageResource
-        description: Resource key for confirmation dialog message
+        description: Message key (MSGKR registry) for confirmation dialog message
       - fieldname: confirmActionResource
-        description: "Resource key for confirm button, e.g., Discard"
+        description: "Message key (MSGKR registry) for confirm button, e.g., Discard"
       - fieldname: cancelActionResource
-        description: "Resource key for cancel button, e.g., Stay"
+        description: "Message key (MSGKR registry) for cancel button, e.g., Stay"
   nger-form:
     fields:
       - fieldname: redirectTo
@@ -44423,17 +44462,17 @@ form-types:
       - fieldname: resourceBasePath
         description: Base path for resource lookup
       - fieldname: labelResource
-        description: Resource key for label text
+        description: Message key (MSGKR registry) for label text
       - fieldname: hintResource
-        description: Resource key for hint text
+        description: Message key (MSGKR registry) for hint text
       - fieldname: errorResource
-        description: Resource key for error messages
+        description: Message key (MSGKR registry) for error messages
       - fieldname: tooltipResource
-        description: Resource key for tooltip text
+        description: Message key (MSGKR registry) for tooltip text
       - fieldname: placeholderResource
-        description: Resource key for placeholder text
+        description: Message key (MSGKR registry) for placeholder text
       - fieldname: ariaLabelResource
-        description: Resource key for the ARIA label
+        description: Message key (MSGKR registry) for the ARIA label
       - fieldname: iconResource
         description: Resource key for icon selection
       - fieldname: resourceFallbacks

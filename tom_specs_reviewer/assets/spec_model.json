@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-19T14:29:26.874332Z",
+  "generatedAt": "2026-07-19T14:52:36.155911Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1227,
+  "classCount": 1230,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -49895,7 +49895,7 @@
             {
               "name": "homeLabel",
               "label": "Home Label Resource",
-              "hint": "Resource key for home crumb",
+              "hint": "Message key (MSGKR registry) for home crumb",
               "type": "String",
               "required": false
             },
@@ -55343,6 +55343,21 @@
             }
           ],
           "type": "ResultEnvelope"
+        },
+        {
+          "name": "messageKeyRegistry",
+          "kind": "complex",
+          "doc": "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).",
+          "serializationOrder": 17,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 17
+              }
+            }
+          ],
+          "type": "MessageKeyRegistry"
         }
       ]
     },
@@ -86851,7 +86866,7 @@
             {
               "name": "copyKey",
               "label": "Copy Key",
-              "hint": "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)",
+              "hint": "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the display label (author copy once, reference here)",
               "type": "String",
               "required": false
             },
@@ -88340,7 +88355,7 @@
             {
               "name": "errorMessageResource",
               "label": "Error Message Resource",
-              "hint": "Resource key for validation error message",
+              "hint": "Message key (MSGKR registry) for validation error message",
               "type": "String",
               "required": false
             },
@@ -93275,7 +93290,7 @@
             {
               "name": "copyKey",
               "label": "Copy Key",
-              "hint": "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)",
+              "hint": "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the default user-facing message (author copy once, reference here)",
               "type": "String",
               "required": false
             }
@@ -115925,6 +115940,21 @@
             }
           ],
           "type": "ResultEnvelope"
+        },
+        {
+          "name": "messageKeyRegistry",
+          "kind": "complex",
+          "doc": "7.8. Message Key Registry.",
+          "serializationOrder": 8,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 8
+              }
+            }
+          ],
+          "type": "MessageKeyRegistry"
         }
       ]
     },
@@ -137597,6 +137627,322 @@
         }
       ]
     },
+    "MessageKeyEntry": {
+      "name": "MessageKeyEntry",
+      "sectionId": "MSGKE",
+      "doc": "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.",
+      "standardReferences": {
+        "standards": [
+          "W3C Internationalization (i18n) — message catalogues / externalised strings",
+          "ISO 9241-13:1998 — user guidance / clear and specific wording"
+        ],
+        "connotation": "A single message key: its stable token, default copy, placeholders, and locale variants."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C Internationalization (i18n) — message catalogues / externalised strings",
+              "ISO 9241-13:1998 — user guidance / clear and specific wording"
+            ],
+            "connotation": "A single message key: its stable token, default copy, placeholders, and locale variants."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MSGKE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, CE-EN value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "key",
+              "label": "Message Key",
+              "hint": "Stable message key referenced everywhere (e.g. order.status.pending, error.user.notFound). Dotted, namespaced.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "defaultCopy",
+              "label": "Default Copy",
+              "hint": "The default (base-locale) user-facing text. May contain named placeholders like {count} or {name}.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "placeholders",
+              "label": "Placeholders",
+              "hint": "Comma-separated named parameters the copy interpolates (e.g. count, name), if any",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "Where this copy is used and any translator guidance",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "localeVariants",
+          "kind": "list",
+          "doc": "7.8.x. Locale Variants — one entry per non-default locale.",
+          "help": "Add one entry per non-default locale.",
+          "sectionId": "MSGLV-LOCV-LST",
+          "sectionIdPattern": "MSGLV-LOCV-xxx",
+          "standardReferences": {
+            "standards": [
+              "Unicode CLDR / BCP 47 — locale identification and localized message data"
+            ],
+            "connotation": "The per-locale copy variants of this message key (the default copy is the base locale)."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Unicode CLDR / BCP 47 — locale identification and localized message data"
+                ],
+                "connotation": "The per-locale copy variants of this message key (the default copy is the base locale)."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MSGLV-LOCV-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "MSGLV-LOCV-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per non-default locale."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "MessageLocaleVariantEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "MessageKeyRegistry": {
+      "name": "MessageKeyRegistry",
+      "sectionId": "MSGKR",
+      "doc": "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions",
+          "W3C Internationalization (i18n) — message catalogues / externalised strings",
+          "Unicode CLDR / BCP 47 — locale identification and localized message data"
+        ],
+        "connotation": "The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "W3C Internationalization (i18n) — message catalogues / externalised strings",
+              "Unicode CLDR / BCP 47 — locale identification and localized message data"
+            ],
+            "connotation": "The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MSGKR"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "messageKeys",
+          "kind": "list",
+          "doc": "7.8.1. Message Keys — one entry per author-once copy string.",
+          "help": "Add one entry per message key (author-once copy string).",
+          "sectionId": "MSGKE-MKEY-LST",
+          "sectionIdPattern": "MSGKE-MKEY-xxx",
+          "standardReferences": {
+            "standards": [
+              "W3C Internationalization (i18n) — message catalogues / externalised strings"
+            ],
+            "connotation": "The catalogued message keys, each with its default copy and locale variants."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "W3C Internationalization (i18n) — message catalogues / externalised strings"
+                ],
+                "connotation": "The catalogued message keys, each with its default copy and locale variants."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MSGKE-MKEY-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "MSGKE-MKEY-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per message key (author-once copy string)."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "MessageKeyEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "MessageLocaleVariantEntry": {
+      "name": "MessageLocaleVariantEntry",
+      "sectionId": "MSGLV",
+      "doc": "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.",
+      "standardReferences": {
+        "standards": [
+          "Unicode CLDR / BCP 47 — locale identification and localized message data",
+          "W3C Internationalization (i18n) — message catalogues / externalised strings"
+        ],
+        "connotation": "A single locale variant: a BCP-47 locale tag and the copy for that locale."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Unicode CLDR / BCP 47 — locale identification and localized message data",
+              "W3C Internationalization (i18n) — message catalogues / externalised strings"
+            ],
+            "connotation": "A single locale variant: a BCP-47 locale tag and the copy for that locale."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MSGLV"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "locale",
+              "label": "Locale",
+              "hint": "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "copy",
+              "label": "Copy",
+              "hint": "The user-facing text for this locale",
+              "type": "String",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
     "MetricsAndObservability": {
       "name": "MetricsAndObservability",
       "sectionId": "MEANOB",
@@ -147766,7 +148112,7 @@
             {
               "name": "groupLabel",
               "label": "Label Resource",
-              "hint": "Resource key for display label",
+              "hint": "Message key (MSGKR registry) for display label",
               "type": "String",
               "required": true
             },
@@ -147780,7 +148126,7 @@
             {
               "name": "groupDescription",
               "label": "Description Resource",
-              "hint": "Resource key for tooltip/subtitle",
+              "hint": "Message key (MSGKR registry) for tooltip/subtitle",
               "type": "String",
               "required": false
             }
@@ -148197,28 +148543,28 @@
             {
               "name": "dialogTitleResource",
               "label": "Dialog Title Resource",
-              "hint": "Resource key for confirmation dialog title",
+              "hint": "Message key (MSGKR registry) for confirmation dialog title",
               "type": "String",
               "required": false
             },
             {
               "name": "dialogMessageResource",
               "label": "Dialog Message Resource",
-              "hint": "Resource key for confirmation dialog message",
+              "hint": "Message key (MSGKR registry) for confirmation dialog message",
               "type": "String",
               "required": false
             },
             {
               "name": "confirmActionResource",
               "label": "Confirm Action Resource",
-              "hint": "Resource key for confirm button, e.g., Discard",
+              "hint": "Message key (MSGKR registry) for confirm button, e.g., Discard",
               "type": "String",
               "required": false
             },
             {
               "name": "cancelActionResource",
               "label": "Cancel Action Resource",
-              "hint": "Resource key for cancel button, e.g., Stay",
+              "hint": "Message key (MSGKR registry) for cancel button, e.g., Stay",
               "type": "String",
               "required": false
             }
@@ -148593,7 +148939,7 @@
             {
               "name": "label",
               "label": "Label Resource",
-              "hint": "Resource key for display label",
+              "hint": "Message key (MSGKR registry) for display label",
               "type": "String",
               "required": true
             },
@@ -207855,7 +208201,7 @@
             {
               "name": "labelResource",
               "label": "Label Resource",
-              "hint": "Resource key for button label",
+              "hint": "Message key (MSGKR registry) for button label",
               "type": "String",
               "required": false
             },
@@ -208003,7 +208349,7 @@
             {
               "name": "confirmationMessageResource",
               "label": "Confirmation Message",
-              "hint": "Resource key for confirmation dialog",
+              "hint": "Message key (MSGKR registry) for confirmation dialog",
               "type": "String",
               "required": false
             },
@@ -208024,7 +208370,7 @@
             {
               "name": "successMessageResource",
               "label": "Success Message",
-              "hint": "Resource key for success notification",
+              "hint": "Message key (MSGKR registry) for success notification",
               "type": "String",
               "required": false
             }
@@ -208506,21 +208852,21 @@
             {
               "name": "confirmationMessageResource",
               "label": "Confirmation Message Resource",
-              "hint": "Resource key for confirmation prompt",
+              "hint": "Message key (MSGKR registry) for confirmation prompt",
               "type": "String",
               "required": false
             },
             {
               "name": "loadingLabelResource",
               "label": "Loading Label Resource",
-              "hint": "Resource key for label during async execution",
+              "hint": "Message key (MSGKR registry) for label during async execution",
               "type": "String",
               "required": false
             },
             {
               "name": "successMessageResource",
               "label": "Success Message Resource",
-              "hint": "Resource key for success notification",
+              "hint": "Message key (MSGKR registry) for success notification",
               "type": "String",
               "required": false
             },
@@ -208668,7 +209014,7 @@
             {
               "name": "emptyStateMessageResource",
               "label": "Empty State Message",
-              "hint": "Resource key for message when no data",
+              "hint": "Message key (MSGKR registry) for message when no data",
               "type": "String",
               "required": false
             },
@@ -208972,21 +209318,21 @@
             {
               "name": "labelResource",
               "label": "Label Resource",
-              "hint": "Resource key for display label",
+              "hint": "Message key (MSGKR registry) for display label",
               "type": "String",
               "required": false
             },
             {
               "name": "hintResource",
               "label": "Hint Resource",
-              "hint": "Resource key for tooltip/helper text",
+              "hint": "Message key (MSGKR registry) for tooltip/helper text",
               "type": "String",
               "required": false
             },
             {
               "name": "descriptionResource",
               "label": "Description Resource",
-              "hint": "Resource key for extended description",
+              "hint": "Message key (MSGKR registry) for extended description",
               "type": "String",
               "required": false
             },
@@ -209529,7 +209875,7 @@
             {
               "name": "placeholderResource",
               "label": "Placeholder Resource",
-              "hint": "Resource key for placeholder text",
+              "hint": "Message key (MSGKR registry) for placeholder text",
               "type": "String",
               "required": false
             }
@@ -210379,7 +210725,7 @@
             {
               "name": "pageTitleResource",
               "label": "Page Title Resource",
-              "hint": "Resource key for the screen title text",
+              "hint": "Message key (MSGKR registry) for the screen title text",
               "type": "String",
               "required": false
             },
@@ -211553,7 +211899,7 @@
             {
               "name": "titleResource",
               "label": "Title Resource",
-              "hint": "Resource key for section header text",
+              "hint": "Message key (MSGKR registry) for section header text",
               "type": "String",
               "required": false
             },
@@ -211862,7 +212208,7 @@
             {
               "name": "messageResource",
               "label": "Message Resource",
-              "hint": "Resource key for state message",
+              "hint": "Message key (MSGKR registry) for state message",
               "type": "String",
               "required": false
             },
@@ -211883,7 +212229,7 @@
             {
               "name": "primaryActionLabel",
               "label": "Primary Action Label",
-              "hint": "Resource key for recovery action, e.g., Try Again",
+              "hint": "Message key (MSGKR registry) for recovery action, e.g., Try Again",
               "type": "String",
               "required": false
             },
@@ -211897,7 +212243,7 @@
             {
               "name": "secondaryActionLabel",
               "label": "Secondary Action Label",
-              "hint": "Resource key for alternative action",
+              "hint": "Message key (MSGKR registry) for alternative action",
               "type": "String",
               "required": false
             }
@@ -245663,7 +246009,7 @@
             {
               "name": "label",
               "label": "Label Resource",
-              "hint": "Resource key for tab label",
+              "hint": "Message key (MSGKR registry) for tab label",
               "type": "String",
               "required": true
             },
@@ -264843,42 +265189,42 @@
             {
               "name": "labelResource",
               "label": "Label Resource",
-              "hint": "Resource key for label text",
+              "hint": "Message key (MSGKR registry) for label text",
               "type": "String",
               "required": false
             },
             {
               "name": "hintResource",
               "label": "Hint Resource",
-              "hint": "Resource key for hint text",
+              "hint": "Message key (MSGKR registry) for hint text",
               "type": "String",
               "required": false
             },
             {
               "name": "errorResource",
               "label": "Error Resource",
-              "hint": "Resource key for error messages",
+              "hint": "Message key (MSGKR registry) for error messages",
               "type": "String",
               "required": false
             },
             {
               "name": "tooltipResource",
               "label": "Tooltip Resource",
-              "hint": "Resource key for tooltip text",
+              "hint": "Message key (MSGKR registry) for tooltip text",
               "type": "String",
               "required": false
             },
             {
               "name": "placeholderResource",
               "label": "Placeholder Resource",
-              "hint": "Resource key for placeholder text",
+              "hint": "Message key (MSGKR registry) for placeholder text",
               "type": "String",
               "required": false
             },
             {
               "name": "ariaLabelResource",
               "label": "ARIA Label Resource",
-              "hint": "Resource key for the ARIA label",
+              "hint": "Message key (MSGKR registry) for the ARIA label",
               "type": "String",
               "required": false
             },
@@ -273892,7 +274238,7 @@
             {
               "name": "messageTemplate",
               "label": "Message Template",
-              "hint": "Template with {field}, {value} placeholders",
+              "hint": "Template with {field}, {value} placeholders. Author the copy once in the CE-TX Message Key Registry (MSGKR) and reference it via localizationKey; this field carries the resolved default copy",
               "type": "String",
               "required": true
             },
@@ -273934,7 +274280,7 @@
             {
               "name": "localizationKey",
               "label": "Localization Key",
-              "hint": "i18n key for translation",
+              "hint": "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants",
               "type": "String",
               "required": false
             }

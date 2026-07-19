@@ -1321,6 +1321,12 @@
         - content @Form(discriminatorField, successArm, errorArm, retryable, severity)
         - fieldDetails: `ResultFieldDetailEntry`
           - content @Form(fieldPath, errorCodeRef, message)
+      - `MessageKeyRegistry`
+        - content
+        - messageKeys: `MessageKeyEntry`
+          - content @Form(key, defaultCopy, placeholders, description)
+          - localeVariants: `MessageLocaleVariantEntry`
+            - content @Form(locale, copy)
     - `Requirements`
       - content @description
       - localizationTranslation: `LocalizationTranslationRequirements`
@@ -3344,6 +3350,12 @@
       - content @Form(discriminatorField, successArm, errorArm, retryable, severity)
       - fieldDetails: `ResultFieldDetailEntry`
         - content @Form(fieldPath, errorCodeRef, message)
+    - `MessageKeyRegistry`
+      - content
+      - messageKeys: `MessageKeyEntry`
+        - content @Form(key, defaultCopy, placeholders, description)
+        - localeVariants: `MessageLocaleVariantEntry`
+          - content @Form(locale, copy)
   - targetOperatingModel: `D02TargetOperatingModel`
     - content
     - header: `DocumentHeader`

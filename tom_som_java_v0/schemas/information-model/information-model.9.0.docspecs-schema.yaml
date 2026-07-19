@@ -206,6 +206,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per migration mapping.
+  msgke-mkey-lst:
+    prefix: MSGKE_MKEY_LST
+    subsection-types:
+      msgke-mkey:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per message key (author-once copy string).
+  msglv-locv-lst:
+    prefix: MSGLV_LOCV_LST
+    subsection-types:
+      msglv-locv:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per non-default locale.
   obinv-inva-lst:
     prefix: OBINV_INVA_LST
     subsection-types:
@@ -595,6 +611,21 @@ section-types:
       pattern: ^MIGME-MIGR-.+$
       error-message: IDs of this section must match MIGME-MIGR-xxx
     description: Add one entry per migration mapping.
+  msgke-mkey:
+    prefix: MSGKE_MKEY_
+    subsection-types:
+      msglv-locv-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^MSGKE-MKEY-.+$
+      error-message: IDs of this section must match MSGKE-MKEY-xxx
+    description: Add one entry per message key (author-once copy string).
+  msglv-locv:
+    prefix: MSGLV_LOCV_
+    pattern-check-id:
+      pattern: ^MSGLV-LOCV-.+$
+      error-message: IDs of this section must match MSGLV-LOCV-xxx
+    description: Add one entry per non-default locale.
   obinv-inva:
     prefix: OBINV_INVA_
     pattern-check-id:
@@ -857,6 +888,12 @@ section-types:
     prefix: KEARF
     format: kearf-form
     description: Foreign-key reference and cascade behavior.
+  msgkr:
+    prefix: MSGKR
+    subsection-types:
+      msgke-mkey-lst:
+        max-count: 1
+    description: Message key registry — the single author-copy-once home for user-facing
   rslte:
     prefix: RSLTE
     subsection-types:
@@ -1418,4 +1455,7 @@ document:
       optional: true
     rslte:
       section-type: rslte
+      optional: true
+    msgkr:
+      section-type: msgkr
       optional: true

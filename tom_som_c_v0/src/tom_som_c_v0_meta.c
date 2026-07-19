@@ -655,6 +655,9 @@ static SomMetaNode **meta_children_maintenance_windows_section(SomStrList *stack
 static SomMetaNode **meta_children_master_data_domain_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_master_data_management(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_message_format_standards(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_message_key_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_message_key_registry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_message_locale_variant_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_metrics_and_observability(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_metrics_baseline_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_metrics_baseline_table(SomStrList *stack, size_t *len);
@@ -2405,6 +2408,7 @@ static void meta_build_d03_information_model_integrity_constraints(SomMetaNode *
 static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n);
 static void meta_build_d03_information_model_error_code_registry(SomMetaNode *n);
 static void meta_build_d03_information_model_result_envelope(SomMetaNode *n);
+static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_header(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_functional_requirements(SomMetaNode *n);
@@ -3619,6 +3623,7 @@ static void meta_build_information_and_data_model_schema_versioning_and_migratio
 static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNode *n);
 static void meta_build_information_and_data_model_error_code_registry(SomMetaNode *n);
 static void meta_build_information_and_data_model_result_envelope(SomMetaNode *n);
+static void meta_build_information_and_data_model_message_key_registry(SomMetaNode *n);
 static void meta_build_information_architecture_content(SomMetaNode *n);
 static void meta_build_information_architecture_site_map(SomMetaNode *n);
 static void meta_build_information_architecture_content_hierarchy(SomMetaNode *n);
@@ -4016,6 +4021,13 @@ static void meta_build_message_format_standards_schema(SomMetaNode *n);
 static void meta_build_message_format_standards_conventions(SomMetaNode *n);
 static void meta_build_message_format_standards_responses(SomMetaNode *n);
 static void meta_build_message_format_standards_transport(SomMetaNode *n);
+static void meta_build_message_key_entry_content(SomMetaNode *n);
+static void meta_build_message_key_entry_locale_variants(SomMetaNode *n);
+static void meta_build_message_key_entry_locale_variants_elem(SomMetaNode *n);
+static void meta_build_message_key_registry_content(SomMetaNode *n);
+static void meta_build_message_key_registry_message_keys(SomMetaNode *n);
+static void meta_build_message_key_registry_message_keys_elem(SomMetaNode *n);
+static void meta_build_message_locale_variant_entry_content(SomMetaNode *n);
 static void meta_build_metrics_and_observability_metrics_overview(SomMetaNode *n);
 static void meta_build_metrics_and_observability_overview_narrative(SomMetaNode *n);
 static void meta_build_metrics_and_observability_application_metrics(SomMetaNode *n);
@@ -7809,6 +7821,16 @@ static void *meta_nav_factory_master_data_domain_entry(const SomMetaTree *tree, 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_message_key_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_message_key_entry *r = (som_nav_message_key_entry *)malloc(sizeof(som_nav_message_key_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_message_locale_variant_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_message_locale_variant_entry *r = (som_nav_message_locale_variant_entry *)malloc(sizeof(som_nav_message_locale_variant_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_metrics_baseline_entry(const SomMetaTree *tree, const char *path) {
   som_nav_metrics_baseline_entry *r = (som_nav_metrics_baseline_entry *)malloc(sizeof(som_nav_metrics_baseline_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10241,6 +10263,16 @@ static void *meta_id_factory_maintenance_window_entry(const SomMetaTree *tree, c
 }
 static void *meta_id_factory_master_data_domain_entry(const SomMetaTree *tree, const char *path) {
   som_id_master_data_domain_entry *r = (som_id_master_data_domain_entry *)malloc(sizeof(som_id_master_data_domain_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_message_key_entry(const SomMetaTree *tree, const char *path) {
+  som_id_message_key_entry *r = (som_id_message_key_entry *)malloc(sizeof(som_id_message_key_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_message_locale_variant_entry(const SomMetaTree *tree, const char *path) {
+  som_id_message_locale_variant_entry *r = (som_id_message_locale_variant_entry *)malloc(sizeof(som_id_message_locale_variant_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -36385,7 +36417,7 @@ static void meta_build_contextual_navigation_breadcrumbs(SomMetaNode *n) {
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Home Label Resource");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Resource key for home crumb");
+  n->form->fields[5].hint = som_strdup("Message key (MSGKR registry) for home crumb");
   n->form->fields[5].order = 5;
   n->form->fields[6].name = som_strdup("homeIcon");
   n->form->fields[6].type_name = som_strdup("String");
@@ -39141,6 +39173,17 @@ static void meta_build_d03_information_model_result_envelope(SomMetaNode *n) {
   n->serialization_order = 16;
   meta_set(&n->doc_comment, "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).");
   meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
+}
+static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageKeyRegistry");
+  meta_set(&n->member_name, "messageKeyRegistry");
+  meta_set(&n->class_section_id, "MSGKR");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "MessageKeyRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 17;
+  meta_set(&n->doc_comment, "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).");
+  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
 }
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D04RequirementsSpecification");
@@ -55109,7 +55152,7 @@ static void meta_build_domain_enum_value_entry_content(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Copy Key");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)");
+  n->form->fields[2].hint = som_strdup("MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the display label (author copy once, reference here)");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("description");
   n->form->fields[3].type_name = som_strdup("String");
@@ -55824,7 +55867,7 @@ static void meta_build_element_validation_rule_entry_content(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Error Message Resource");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Resource key for validation error message");
+  n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for validation error message");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("severity");
   n->form->fields[4].type_name = som_strdup("String");
@@ -58382,7 +58425,7 @@ static void meta_build_error_code_entry_content(SomMetaNode *n) {
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Copy Key");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)");
+  n->form->fields[5].hint = som_strdup("MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the default user-facing message (author copy once, reference here)");
   n->form->fields[5].order = 5;
 }
 static void meta_build_error_code_registry_content(SomMetaNode *n) {
@@ -69765,6 +69808,17 @@ static void meta_build_information_and_data_model_result_envelope(SomMetaNode *n
   meta_set(&n->doc_comment, "7.7. Result Envelope.");
   meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
 }
+static void meta_build_information_and_data_model_message_key_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageKeyRegistry");
+  meta_set(&n->member_name, "messageKeyRegistry");
+  meta_set(&n->class_section_id, "MSGKR");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "MessageKeyRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 8;
+  meta_set(&n->doc_comment, "7.8. Message Key Registry.");
+  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+}
 static void meta_build_information_architecture_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InformationArchitecture");
   meta_set(&n->member_name, "content");
@@ -80590,6 +80644,124 @@ static void meta_build_message_format_standards_transport(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"IETF RFC 9110 — HTTP semantics\",\"JSON / IETF RFC 8259 — data interchange format\"],\"connotation\":\"Defines message compression algorithms and content negotiation behavior.\"}", NULL);
 }
+static void meta_build_message_key_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageKeyEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("key");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Message Key");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Stable message key referenced everywhere (e.g. order.status.pending, error.user.notFound). Dotted, namespaced.");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("defaultCopy");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Default Copy");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The default (base-locale) user-facing text. May contain named placeholders like {count} or {name}.");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("placeholders");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Placeholders");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Comma-separated named parameters the copy interpolates (e.g. count, name), if any");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("description");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Description");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Where this copy is used and any translator guidance");
+  n->form->fields[3].order = 3;
+}
+static void meta_build_message_key_entry_locale_variants(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageKeyEntry");
+  meta_set(&n->member_name, "localeVariants");
+  meta_set(&n->section_id, "MSGLV-LOCV-LST");
+  meta_set(&n->section_id_pattern, "MSGLV-LOCV-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "MessageLocaleVariantEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per non-default locale.");
+  meta_set(&n->doc_comment, "7.8.x. Locale Variants — one entry per non-default locale.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Unicode CLDR / BCP 47 — locale identification and localized message data\"],\"connotation\":\"The per-locale copy variants of this message key (the default copy is the base locale).\"}", NULL);
+}
+static void meta_build_message_key_entry_locale_variants_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageLocaleVariantEntry");
+  meta_set(&n->class_section_id, "MSGLV");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "MessageLocaleVariantEntry");
+  meta_set(&n->doc_comment, "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.");
+  meta_set(&n->class_doc_comment, "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.");
+}
+static void meta_build_message_key_registry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageKeyRegistry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n");
+}
+static void meta_build_message_key_registry_message_keys(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageKeyRegistry");
+  meta_set(&n->member_name, "messageKeys");
+  meta_set(&n->section_id, "MSGKE-MKEY-LST");
+  meta_set(&n->section_id_pattern, "MSGKE-MKEY-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "MessageKeyEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per message key (author-once copy string).");
+  meta_set(&n->doc_comment, "7.8.1. Message Keys — one entry per author-once copy string.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"W3C Internationalization (i18n) — message catalogues / externalised strings\"],\"connotation\":\"The catalogued message keys, each with its default copy and locale variants.\"}", NULL);
+}
+static void meta_build_message_key_registry_message_keys_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageKeyEntry");
+  meta_set(&n->class_section_id, "MSGKE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "MessageKeyEntry");
+  meta_set(&n->doc_comment, "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.");
+  meta_set(&n->class_doc_comment, "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.");
+}
+static void meta_build_message_locale_variant_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MessageLocaleVariantEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("locale");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Locale");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("BCP-47 locale tag (e.g. en, en-US, de, fr-CA)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("copy");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Copy");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The user-facing text for this locale");
+  n->form->fields[1].order = 1;
+}
 static void meta_build_metrics_and_observability_metrics_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsAndObservability");
   meta_set(&n->member_name, "metricsOverview");
@@ -85854,7 +86026,7 @@ static void meta_build_navigation_group_entry_content(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Label Resource");
   n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("Resource key for display label");
+  n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for display label");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("groupIcon");
   n->form->fields[2].type_name = som_strdup("String");
@@ -85866,7 +86038,7 @@ static void meta_build_navigation_group_entry_content(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Description Resource");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Resource key for tooltip/subtitle");
+  n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for tooltip/subtitle");
   n->form->fields[3].order = 3;
 }
 static void meta_build_navigation_group_entry_display(SomMetaNode *n) {
@@ -86073,25 +86245,25 @@ static void meta_build_navigation_guard_entry_dialog(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Dialog Title Resource");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Resource key for confirmation dialog title");
+  n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for confirmation dialog title");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("dialogMessageResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Dialog Message Resource");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for confirmation dialog message");
+  n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for confirmation dialog message");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("confirmActionResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Confirm Action Resource");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Resource key for confirm button, e.g., Discard");
+  n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for confirm button, e.g., Discard");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("cancelActionResource");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Cancel Action Resource");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Resource key for cancel button, e.g., Stay");
+  n->form->fields[4].hint = som_strdup("Message key (MSGKR registry) for cancel button, e.g., Stay");
   n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -86243,7 +86415,7 @@ static void meta_build_navigation_item_entry_content(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Label Resource");
   n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("Resource key for display label");
+  n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for display label");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("targetRoute");
   n->form->fields[2].type_name = som_strdup("String");
@@ -115452,7 +115624,7 @@ static void meta_build_screen_action_entry_visual(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Label Resource");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Resource key for button label");
+  n->form->fields[0].hint = som_strdup("Message key (MSGKR registry) for button label");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("iconResource");
   n->form->fields[1].type_name = som_strdup("String");
@@ -115534,7 +115706,7 @@ static void meta_build_screen_action_entry_behavior(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Confirmation Message");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Resource key for confirmation dialog");
+  n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for confirmation dialog");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("keyboardShortcut");
   n->form->fields[2].type_name = som_strdup("String");
@@ -115552,7 +115724,7 @@ static void meta_build_screen_action_entry_behavior(SomMetaNode *n) {
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Success Message");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Resource key for success notification");
+  n->form->fields[4].hint = som_strdup("Message key (MSGKR registry) for success notification");
   n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -115769,19 +115941,19 @@ static void meta_build_screen_element_action_execution(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Confirmation Message Resource");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Resource key for confirmation prompt");
+  n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for confirmation prompt");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("loadingLabelResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Loading Label Resource");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for label during async execution");
+  n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for label during async execution");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("successMessageResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Success Message Resource");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Resource key for success notification");
+  n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for success notification");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("errorHandling");
   n->form->fields[4].type_name = som_strdup("String");
@@ -115855,7 +116027,7 @@ static void meta_build_screen_element_data_display_content(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Empty State Message");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for message when no data");
+  n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for message when no data");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("emptyStateIconResource");
   n->form->fields[3].type_name = som_strdup("String");
@@ -116007,19 +116179,19 @@ static void meta_build_screen_element_entry_resources(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Label Resource");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Resource key for display label");
+  n->form->fields[0].hint = som_strdup("Message key (MSGKR registry) for display label");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("hintResource");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Hint Resource");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Resource key for tooltip/helper text");
+  n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for tooltip/helper text");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("descriptionResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Description Resource");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for extended description");
+  n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for extended description");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("iconResource");
   n->form->fields[3].type_name = som_strdup("String");
@@ -116308,7 +116480,7 @@ static void meta_build_screen_element_field_spec_content(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Placeholder Resource");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for placeholder text");
+  n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for placeholder text");
   n->form->fields[2].order = 2;
 }
 static void meta_build_screen_element_field_spec_formatting(SomMetaNode *n) {
@@ -116733,7 +116905,7 @@ static void meta_build_screen_entry_presentation(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Page Title Resource");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Resource key for the screen title text");
+  n->form->fields[0].hint = som_strdup("Message key (MSGKR registry) for the screen title text");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("pageIconResource");
   n->form->fields[1].type_name = som_strdup("String");
@@ -117317,7 +117489,7 @@ static void meta_build_screen_section_entry_layout(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Title Resource");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for section header text");
+  n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for section header text");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("borderStyle");
   n->form->fields[3].type_name = som_strdup("String");
@@ -117451,7 +117623,7 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Message Resource");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for state message");
+  n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for state message");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("iconResource");
   n->form->fields[3].type_name = som_strdup("String");
@@ -117469,7 +117641,7 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n) {
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Primary Action Label");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Resource key for recovery action, e.g., Try Again");
+  n->form->fields[5].hint = som_strdup("Message key (MSGKR registry) for recovery action, e.g., Try Again");
   n->form->fields[5].order = 5;
   n->form->fields[6].name = som_strdup("primaryActionTarget");
   n->form->fields[6].type_name = som_strdup("String");
@@ -117481,7 +117653,7 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n) {
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Secondary Action Label");
   n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Resource key for alternative action");
+  n->form->fields[7].hint = som_strdup("Message key (MSGKR registry) for alternative action");
   n->form->fields[7].order = 7;
 }
 static void meta_build_screen_states_content(SomMetaNode *n) {
@@ -134742,7 +134914,7 @@ static void meta_build_tab_item_entry_content(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Label Resource");
   n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("Resource key for tab label");
+  n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for tab label");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("icon");
   n->form->fields[2].type_name = som_strdup("String");
@@ -144671,37 +144843,37 @@ static void meta_build_ui_component_entry_resource_integration(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Label Resource");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Resource key for label text");
+  n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for label text");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("hintResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Hint Resource");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for hint text");
+  n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for hint text");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("errorResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Error Resource");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Resource key for error messages");
+  n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for error messages");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("tooltipResource");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Tooltip Resource");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Resource key for tooltip text");
+  n->form->fields[4].hint = som_strdup("Message key (MSGKR registry) for tooltip text");
   n->form->fields[4].order = 4;
   n->form->fields[5].name = som_strdup("placeholderResource");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Placeholder Resource");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Resource key for placeholder text");
+  n->form->fields[5].hint = som_strdup("Message key (MSGKR registry) for placeholder text");
   n->form->fields[5].order = 5;
   n->form->fields[6].name = som_strdup("ariaLabelResource");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("ARIA Label Resource");
   n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Resource key for the ARIA label");
+  n->form->fields[6].hint = som_strdup("Message key (MSGKR registry) for the ARIA label");
   n->form->fields[6].order = 6;
   n->form->fields[7].name = som_strdup("iconResource");
   n->form->fields[7].type_name = som_strdup("String");
@@ -148916,7 +149088,7 @@ static void meta_build_validation_message_template_content(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Message Template");
   n->form->fields[3].required = 1;
-  n->form->fields[3].hint = som_strdup("Template with {field}, {value} placeholders");
+  n->form->fields[3].hint = som_strdup("Template with {field}, {value} placeholders. Author the copy once in the CE-TX Message Key Registry (MSGKR) and reference it via localizationKey; this field carries the resolved default copy");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("shortMessage");
   n->form->fields[4].type_name = som_strdup("String");
@@ -148952,7 +149124,7 @@ static void meta_build_validation_message_template_content(SomMetaNode *n) {
   n->form->fields[9].type_name = som_strdup("String");
   n->form->fields[9].description = som_strdup("Localization Key");
   n->form->fields[9].required = 0;
-  n->form->fields[9].hint = som_strdup("i18n key for translation");
+  n->form->fields[9].hint = som_strdup("MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants");
   n->form->fields[9].order = 9;
 }
 static void meta_build_value_proposition_content(SomMetaNode *n) {
@@ -157945,6 +158117,7 @@ static SomMetaNode **meta_children_d03_information_model(SomStrList *stack, size
   meta_push(&arr, len, &cap, meta_cx("DomainEnumRegistry", stack, meta_children_domain_enum_registry, meta_build_d03_information_model_domain_enum_registry));
   meta_push(&arr, len, &cap, meta_cx("ErrorCodeRegistry", stack, meta_children_error_code_registry, meta_build_d03_information_model_error_code_registry));
   meta_push(&arr, len, &cap, meta_cx("ResultEnvelope", stack, meta_children_result_envelope, meta_build_d03_information_model_result_envelope));
+  meta_push(&arr, len, &cap, meta_cx("MessageKeyRegistry", stack, meta_children_message_key_registry, meta_build_d03_information_model_message_key_registry));
   return arr;
 }
 
@@ -164494,6 +164667,7 @@ static SomMetaNode **meta_children_information_and_data_model(SomStrList *stack,
   meta_push(&arr, len, &cap, meta_cx("DomainEnumRegistry", stack, meta_children_domain_enum_registry, meta_build_information_and_data_model_domain_enum_registry));
   meta_push(&arr, len, &cap, meta_cx("ErrorCodeRegistry", stack, meta_children_error_code_registry, meta_build_information_and_data_model_error_code_registry));
   meta_push(&arr, len, &cap, meta_cx("ResultEnvelope", stack, meta_children_result_envelope, meta_build_information_and_data_model_result_envelope));
+  meta_push(&arr, len, &cap, meta_cx("MessageKeyRegistry", stack, meta_children_message_key_registry, meta_build_information_and_data_model_message_key_registry));
   return arr;
 }
 
@@ -166923,6 +167097,55 @@ static SomMetaNode **meta_children_message_format_standards(SomStrList *stack, s
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_message_format_standards_transport(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_message_key_entry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_message_key_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_message_key_entry_locale_variants(ln);
+    ln->element_node = meta_cx("MessageLocaleVariantEntry", stack, meta_children_message_locale_variant_entry, meta_build_message_key_entry_locale_variants_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_message_key_registry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_message_key_registry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_message_key_registry_message_keys(ln);
+    ln->element_node = meta_cx("MessageKeyEntry", stack, meta_children_message_key_entry, meta_build_message_key_registry_message_keys_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_message_locale_variant_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_message_locale_variant_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -190141,6 +190364,13 @@ som_nav_result_envelope d03_information_model_nav_result_envelope(som_nav_d03_in
   free(path);
   return out;
 }
+som_nav_message_key_registry d03_information_model_nav_message_key_registry(som_nav_d03_information_model x) {
+  som_nav_message_key_registry out;
+  char *path = spec_path_join(x.ref.path, "messageKeyRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef d04_requirements_specification_nav_content(som_nav_d04_requirements_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -197869,6 +198099,13 @@ som_nav_result_envelope information_and_data_model_nav_result_envelope(som_nav_i
   free(path);
   return out;
 }
+som_nav_message_key_registry information_and_data_model_nav_message_key_registry(som_nav_information_and_data_model x) {
+  som_nav_message_key_registry out;
+  char *path = spec_path_join(x.ref.path, "messageKeyRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef information_architecture_nav_content(som_nav_information_architecture x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -200406,6 +200643,41 @@ SomMetaRef message_format_standards_nav_responses(som_nav_message_format_standar
 SomMetaRef message_format_standards_nav_transport(som_nav_message_format_standards x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MFST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef message_key_entry_nav_content(som_nav_message_key_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef message_key_entry_nav_locale_variants(som_nav_message_key_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "MSGLV-LOCV-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_message_locale_variant_entry);
+  free(path);
+  return out;
+}
+SomMetaRef message_key_registry_nav_content(som_nav_message_key_registry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef message_key_registry_nav_message_keys(som_nav_message_key_registry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "MSGKE-MKEY-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_message_key_entry);
+  free(path);
+  return out;
+}
+SomMetaRef message_locale_variant_entry_nav_content(som_nav_message_locale_variant_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -221033,6 +221305,13 @@ SomListMetaRef d00_solution_blueprint_id_rsfde_fldd_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_msgke_mkey_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_message_key_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d00_solution_blueprint_id_trareq_tran(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
@@ -228863,6 +229142,13 @@ SomListMetaRef d03_information_model_id_rsfde_fldd_lst(som_id_d03_information_mo
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "resultEnvelope/RSFDE-FLDD-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_result_field_detail_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_msgke_mkey_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "messageKeyRegistry/MSGKE-MKEY-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_message_key_entry);
   free(path);
   return out;
 }
@@ -238551,6 +238837,13 @@ SomMetaRef master_data_domain_entry_id_mddeg(som_id_master_data_domain_entry x) 
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MDDEG");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef message_key_entry_id_msglv_locv_lst(som_id_message_key_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "MSGLV-LOCV-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_message_locale_variant_entry);
   free(path);
   return out;
 }

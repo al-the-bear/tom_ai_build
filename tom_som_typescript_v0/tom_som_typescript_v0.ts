@@ -7660,6 +7660,13 @@ export class D03InformationModel extends SomNode {
   get resultEnvelope(): ResultEnvelope {
     return new ResultEnvelope(this.doc, this.path + "/resultEnvelope");
   }
+
+  // Message key registry — the single author-copy-once home for user-facing
+  // copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+  // (csmb7).
+  get messageKeyRegistry(): MessageKeyRegistry {
+    return new MessageKeyRegistry(this.doc, this.path + "/messageKeyRegistry");
+  }
 }
 
 // RSP00 Requirements Specification.
@@ -16128,6 +16135,11 @@ export class InformationAndDataModel extends SomNode {
   get resultEnvelope(): ResultEnvelope {
     return new ResultEnvelope(this.doc, this.path + "/resultEnvelope");
   }
+
+  // 7.8. Message Key Registry.
+  get messageKeyRegistry(): MessageKeyRegistry {
+    return new MessageKeyRegistry(this.doc, this.path + "/messageKeyRegistry");
+  }
 }
 
 // 10.2.2. Information Architecture.
@@ -18868,6 +18880,89 @@ export class MessageFormatStandards extends SomNode {
   // Compression and negotiation.
   get transport(): MessageFormatStandardsTransportForm {
     return new MessageFormatStandardsTransportForm(this.doc, this.path + "/MFST");
+  }
+}
+
+// A single message key (form + locale variants).
+//
+// One author-once copy string: a stable [key] (the token every consumer
+// references), the default base-locale copy, an optional list of named
+// placeholders the copy interpolates, and its
+// [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+// the generated code resolves per locale.
+export class MessageKeyEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): MessageKeyEntryContentForm {
+    return new MessageKeyEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.8.x. Locale Variants — one entry per non-default locale.
+  get localeVariants(): SomList<MessageLocaleVariantEntry> {
+    return new SomList(this.doc, this.path + "/MSGLV-LOCV-LST", (d: SpecDocument, p: string) => new MessageLocaleVariantEntry(d, p), "MSGLV-LOCV-xxx");
+  }
+}
+
+// 7.8. Message Key Registry.
+//
+// The single **author-copy-once, reference-everywhere** home for user-facing
+// copy — the CE-TX (`text`) part. Before this registry existed, copy was
+// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+// as unvalidated free text, so the "author once, reference everywhere"
+// invariant could not hold and the same string could diverge between the
+// screen element, the validation message and the error copy (csm5 cross-cutting
+// finding #1; `codespecs_coverage_gaps.md` §3.3).
+//
+// Each [MessageKeyEntry] declares a stable message key, its default (base
+// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+// resolves to the right copy in each locale. The other CodeSpecs parts stop
+// carrying inline copy and instead reference a key here:
+//
+// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+// - **CE-VA** validation-failure messages.
+//
+// csmb3 and csmb5 already modelled their `copyKey` references as plain
+// message-key strings anticipating this registry; those keys now resolve
+// against [MessageKeyEntry.key].
+export class MessageKeyRegistry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 7.8.1. Message Keys — one entry per author-once copy string.
+  get messageKeys(): SomList<MessageKeyEntry> {
+    return new SomList(this.doc, this.path + "/MSGKE-MKEY-LST", (d: SpecDocument, p: string) => new MessageKeyEntry(d, p), "MSGKE-MKEY-xxx");
+  }
+}
+
+// A single locale variant of a message key (form).
+//
+// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+// copy for that locale. The base-locale copy lives on
+// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+export class MessageLocaleVariantEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): MessageLocaleVariantEntryContentForm {
+    return new MessageLocaleVariantEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -105470,6 +105565,92 @@ export class MessageFormatStandardsTransportForm extends SomNode {
 
   set notes(value: string) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class MessageKeyEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get key(): string {
+    return this.doc.formField(this.path, "key") || '';
+  }
+
+  set key(value: string) {
+    this.doc.setFormField(this.path, "key", value);
+  }
+
+  get defaultCopy(): string {
+    return this.doc.formField(this.path, "defaultCopy") || '';
+  }
+
+  set defaultCopy(value: string) {
+    this.doc.setFormField(this.path, "defaultCopy", value);
+  }
+
+  get placeholders(): string {
+    return this.doc.formField(this.path, "placeholders") || '';
+  }
+
+  set placeholders(value: string) {
+    this.doc.setFormField(this.path, "placeholders", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class MessageLocaleVariantEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get locale(): string {
+    return this.doc.formField(this.path, "locale") || '';
+  }
+
+  set locale(value: string) {
+    this.doc.setFormField(this.path, "locale", value);
+  }
+
+  get copy(): string {
+    return this.doc.formField(this.path, "copy") || '';
+  }
+
+  set copy(value: string) {
+    this.doc.setFormField(this.path, "copy", value);
   }
 }
 

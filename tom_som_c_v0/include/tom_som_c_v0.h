@@ -633,6 +633,9 @@ typedef struct { SomNode node; } MaintenanceWindowsSection;
 typedef struct { SomNode node; } MasterDataDomainEntry;
 typedef struct { SomNode node; } MasterDataManagement;
 typedef struct { SomNode node; } MessageFormatStandards;
+typedef struct { SomNode node; } MessageKeyEntry;
+typedef struct { SomNode node; } MessageKeyRegistry;
+typedef struct { SomNode node; } MessageLocaleVariantEntry;
 typedef struct { SomNode node; } MetricsAndObservability;
 typedef struct { SomNode node; } MetricsBaselineEntry;
 typedef struct { SomNode node; } MetricsBaselineTable;
@@ -2583,6 +2586,8 @@ typedef struct { SomNode node; } MessageFormatStandardsConventionsForm;
 typedef struct { SomNode node; } MessageFormatStandardsResponsesForm;
 typedef struct { SomNode node; } MessageFormatStandardsSchemaForm;
 typedef struct { SomNode node; } MessageFormatStandardsTransportForm;
+typedef struct { SomNode node; } MessageKeyEntryContentForm;
+typedef struct { SomNode node; } MessageLocaleVariantEntryContentForm;
 typedef struct { SomNode node; } MetricsAndObservabilityMetricsOverviewForm;
 typedef struct { SomNode node; } MetricsBaselineEntryContentForm;
 typedef struct { SomNode node; } MetricsCollectionRequirementsApplicationForm;
@@ -8134,6 +8139,10 @@ ErrorCodeRegistry d03_information_model_error_code_registry(const D03Information
 // Result envelope — the canonical success-or-error §7 Result contract
 // (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
 ResultEnvelope d03_information_model_result_envelope(const D03InformationModel *self);
+// Message key registry — the single author-copy-once home for user-facing
+// copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+// (csmb7).
+MessageKeyRegistry d03_information_model_message_key_registry(const D03InformationModel *self);
 
 // RSP00 Requirements Specification.
 //
@@ -12776,6 +12785,8 @@ DomainEnumRegistry information_and_data_model_domain_enum_registry(const Informa
 ErrorCodeRegistry information_and_data_model_error_code_registry(const InformationAndDataModel *self);
 // 7.7. Result Envelope.
 ResultEnvelope information_and_data_model_result_envelope(const InformationAndDataModel *self);
+// 7.8. Message Key Registry.
+MessageKeyRegistry information_and_data_model_message_key_registry(const InformationAndDataModel *self);
 
 // 10.2.2. Information Architecture.
 //
@@ -14328,6 +14339,69 @@ MessageFormatStandardsConventionsForm message_format_standards_conventions(const
 MessageFormatStandardsResponsesForm message_format_standards_responses(const MessageFormatStandards *self);
 // Compression and negotiation.
 MessageFormatStandardsTransportForm message_format_standards_transport(const MessageFormatStandards *self);
+
+// A single message key (form + locale variants).
+//
+// One author-once copy string: a stable [key] (the token every consumer
+// references), the default base-locale copy, an optional list of named
+// placeholders the copy interpolates, and its
+// [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+// the generated code resolves per locale.
+// Binds a MessageKeyEntry facade to a document and a path (path copied).
+void message_key_entry_init(MessageKeyEntry *self, SpecDocument *doc, const char *path);
+void message_key_entry_free(MessageKeyEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int message_key_entry_can_have_content(const MessageKeyEntry *self);
+MessageKeyEntryContentForm message_key_entry_content(const MessageKeyEntry *self);
+// 7.8.x. Locale Variants — one entry per non-default locale.
+// Returns the list view; element type: MessageLocaleVariantEntry (construct from item paths).
+SomList message_key_entry_locale_variants(const MessageKeyEntry *self);
+
+// 7.8. Message Key Registry.
+//
+// The single **author-copy-once, reference-everywhere** home for user-facing
+// copy — the CE-TX (`text`) part. Before this registry existed, copy was
+// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+// as unvalidated free text, so the "author once, reference everywhere"
+// invariant could not hold and the same string could diverge between the
+// screen element, the validation message and the error copy (csm5 cross-cutting
+// finding #1; `codespecs_coverage_gaps.md` §3.3).
+//
+// Each [MessageKeyEntry] declares a stable message key, its default (base
+// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+// resolves to the right copy in each locale. The other CodeSpecs parts stop
+// carrying inline copy and instead reference a key here:
+//
+// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+// - **CE-VA** validation-failure messages.
+//
+// csmb3 and csmb5 already modelled their `copyKey` references as plain
+// message-key strings anticipating this registry; those keys now resolve
+// against [MessageKeyEntry.key].
+// Binds a MessageKeyRegistry facade to a document and a path (path copied).
+void message_key_registry_init(MessageKeyRegistry *self, SpecDocument *doc, const char *path);
+void message_key_registry_free(MessageKeyRegistry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int message_key_registry_can_have_content(const MessageKeyRegistry *self);
+char *message_key_registry_content(const MessageKeyRegistry *self);
+void message_key_registry_set_content(MessageKeyRegistry *self, const char *value);
+// 7.8.1. Message Keys — one entry per author-once copy string.
+// Returns the list view; element type: MessageKeyEntry (construct from item paths).
+SomList message_key_registry_message_keys(const MessageKeyRegistry *self);
+
+// A single locale variant of a message key (form).
+//
+// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+// copy for that locale. The base-locale copy lives on
+// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+// Binds a MessageLocaleVariantEntry facade to a document and a path (path copied).
+void message_locale_variant_entry_init(MessageLocaleVariantEntry *self, SpecDocument *doc, const char *path);
+void message_locale_variant_entry_free(MessageLocaleVariantEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int message_locale_variant_entry_can_have_content(const MessageLocaleVariantEntry *self);
+MessageLocaleVariantEntryContentForm message_locale_variant_entry_content(const MessageLocaleVariantEntry *self);
 
 // 8.7.2.3. Metrics and Observability.
 //
@@ -44484,6 +44558,32 @@ bool message_format_standards_transport_form_content_negotiation(const MessageFo
 void message_format_standards_transport_form_set_content_negotiation(MessageFormatStandardsTransportForm *self, bool value);
 char *message_format_standards_transport_form_notes(const MessageFormatStandardsTransportForm *self);
 void message_format_standards_transport_form_set_notes(MessageFormatStandardsTransportForm *self, const char *value);
+
+// MessageKeyEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void message_key_entry_content_form_init(MessageKeyEntryContentForm *self, SpecDocument *doc, const char *path);
+void message_key_entry_content_form_free(MessageKeyEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *message_key_entry_content_form_content(const MessageKeyEntryContentForm *self);
+void message_key_entry_content_form_set_content(MessageKeyEntryContentForm *self, const char *value);
+char *message_key_entry_content_form_key(const MessageKeyEntryContentForm *self);
+void message_key_entry_content_form_set_key(MessageKeyEntryContentForm *self, const char *value);
+char *message_key_entry_content_form_default_copy(const MessageKeyEntryContentForm *self);
+void message_key_entry_content_form_set_default_copy(MessageKeyEntryContentForm *self, const char *value);
+char *message_key_entry_content_form_placeholders(const MessageKeyEntryContentForm *self);
+void message_key_entry_content_form_set_placeholders(MessageKeyEntryContentForm *self, const char *value);
+char *message_key_entry_content_form_description(const MessageKeyEntryContentForm *self);
+void message_key_entry_content_form_set_description(MessageKeyEntryContentForm *self, const char *value);
+
+// MessageLocaleVariantEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void message_locale_variant_entry_content_form_init(MessageLocaleVariantEntryContentForm *self, SpecDocument *doc, const char *path);
+void message_locale_variant_entry_content_form_free(MessageLocaleVariantEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *message_locale_variant_entry_content_form_content(const MessageLocaleVariantEntryContentForm *self);
+void message_locale_variant_entry_content_form_set_content(MessageLocaleVariantEntryContentForm *self, const char *value);
+char *message_locale_variant_entry_content_form_locale(const MessageLocaleVariantEntryContentForm *self);
+void message_locale_variant_entry_content_form_set_locale(MessageLocaleVariantEntryContentForm *self, const char *value);
+char *message_locale_variant_entry_content_form_copy(const MessageLocaleVariantEntryContentForm *self);
+void message_locale_variant_entry_content_form_set_copy(MessageLocaleVariantEntryContentForm *self, const char *value);
 
 // MetricsAndObservabilityMetricsOverviewForm is the generated section facade for the `metricsOverview` @Form section: its own `content` text followed by one typed member per form field.
 void metrics_and_observability_metrics_overview_form_init(MetricsAndObservabilityMetricsOverviewForm *self, SpecDocument *doc, const char *path);

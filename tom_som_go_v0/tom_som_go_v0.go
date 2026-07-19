@@ -8850,6 +8850,13 @@ func (x *D03InformationModel) ResultEnvelope() *ResultEnvelope {
 	return NewResultEnvelope(x.Doc(), x.Path()+"/resultEnvelope")
 }
 
+// Message key registry — the single author-copy-once home for user-facing
+// copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+// (csmb7).
+func (x *D03InformationModel) MessageKeyRegistry() *MessageKeyRegistry {
+	return NewMessageKeyRegistry(x.Doc(), x.Path()+"/messageKeyRegistry")
+}
+
 // RSP00 Requirements Specification.
 //
 // Full requirements catalog covering functional, technical, security,
@@ -18604,6 +18611,11 @@ func (x *InformationAndDataModel) ResultEnvelope() *ResultEnvelope {
 	return NewResultEnvelope(x.Doc(), x.Path()+"/resultEnvelope")
 }
 
+// 7.8. Message Key Registry.
+func (x *InformationAndDataModel) MessageKeyRegistry() *MessageKeyRegistry {
+	return NewMessageKeyRegistry(x.Doc(), x.Path()+"/messageKeyRegistry")
+}
+
 // 10.2.2. Information Architecture.
 //
 // Overall information architecture: site map, content hierarchy, navigation
@@ -21774,6 +21786,104 @@ func (x *MessageFormatStandards) Responses() *MessageFormatStandardsResponsesFor
 // Compression and negotiation.
 func (x *MessageFormatStandards) Transport() *MessageFormatStandardsTransportForm {
 	return NewMessageFormatStandardsTransportForm(x.Doc(), x.Path()+"/MFST")
+}
+
+// A single message key (form + locale variants).
+//
+// One author-once copy string: a stable [key] (the token every consumer
+// references), the default base-locale copy, an optional list of named
+// placeholders the copy interpolates, and its
+// [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+// the generated code resolves per locale.
+type MessageKeyEntry struct {
+	som.SomNode
+}
+
+// NewMessageKeyEntry binds a MessageKeyEntry facade to a document and a path.
+func NewMessageKeyEntry(doc *som.SpecDocument, path string) *MessageKeyEntry {
+	return &MessageKeyEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MessageKeyEntry) Content() *MessageKeyEntryContentForm {
+	return NewMessageKeyEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.8.x. Locale Variants — one entry per non-default locale.
+func (x *MessageKeyEntry) LocaleVariants() *som.SomList[*MessageLocaleVariantEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MSGLV-LOCV-LST", func(d *som.SpecDocument, p string) *MessageLocaleVariantEntry {
+		return NewMessageLocaleVariantEntry(d, p)
+	}, "MSGLV-LOCV-xxx")
+}
+
+// 7.8. Message Key Registry.
+//
+// The single **author-copy-once, reference-everywhere** home for user-facing
+// copy — the CE-TX (`text`) part. Before this registry existed, copy was
+// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+// as unvalidated free text, so the "author once, reference everywhere"
+// invariant could not hold and the same string could diverge between the
+// screen element, the validation message and the error copy (csm5 cross-cutting
+// finding #1; `codespecs_coverage_gaps.md` §3.3).
+//
+// Each [MessageKeyEntry] declares a stable message key, its default (base
+// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+// resolves to the right copy in each locale. The other CodeSpecs parts stop
+// carrying inline copy and instead reference a key here:
+//
+// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+// - **CE-VA** validation-failure messages.
+//
+// csmb3 and csmb5 already modelled their `copyKey` references as plain
+// message-key strings anticipating this registry; those keys now resolve
+// against [MessageKeyEntry.key].
+type MessageKeyRegistry struct {
+	som.SomNode
+}
+
+// NewMessageKeyRegistry binds a MessageKeyRegistry facade to a document and a path.
+func NewMessageKeyRegistry(doc *som.SpecDocument, path string) *MessageKeyRegistry {
+	return &MessageKeyRegistry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *MessageKeyRegistry) CanHaveContent() bool {
+	return true
+}
+
+func (x *MessageKeyRegistry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *MessageKeyRegistry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 7.8.1. Message Keys — one entry per author-once copy string.
+func (x *MessageKeyRegistry) MessageKeys() *som.SomList[*MessageKeyEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MSGKE-MKEY-LST", func(d *som.SpecDocument, p string) *MessageKeyEntry {
+		return NewMessageKeyEntry(d, p)
+	}, "MSGKE-MKEY-xxx")
+}
+
+// A single locale variant of a message key (form).
+//
+// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+// copy for that locale. The base-locale copy lives on
+// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+type MessageLocaleVariantEntry struct {
+	som.SomNode
+}
+
+// NewMessageLocaleVariantEntry binds a MessageLocaleVariantEntry facade to a document and a path.
+func NewMessageLocaleVariantEntry(doc *som.SpecDocument, path string) *MessageLocaleVariantEntry {
+	return &MessageLocaleVariantEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MessageLocaleVariantEntry) Content() *MessageLocaleVariantEntryContentForm {
+	return NewMessageLocaleVariantEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // 8.7.2.3. Metrics and Observability.
@@ -125248,6 +125358,106 @@ func (x *MessageFormatStandardsTransportForm) Notes() string {
 
 func (x *MessageFormatStandardsTransportForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// MessageKeyEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type MessageKeyEntryContentForm struct {
+	som.SomNode
+}
+
+// NewMessageKeyEntryContentForm binds a MessageKeyEntryContentForm facade to a document and a path.
+func NewMessageKeyEntryContentForm(doc *som.SpecDocument, path string) *MessageKeyEntryContentForm {
+	return &MessageKeyEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *MessageKeyEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *MessageKeyEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *MessageKeyEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *MessageKeyEntryContentForm) Key() string {
+	return x.Doc().FormFieldOr(x.Path(), "key")
+}
+
+func (x *MessageKeyEntryContentForm) SetKey(value string) {
+	x.Doc().SetFormField(x.Path(), "key", value)
+}
+
+func (x *MessageKeyEntryContentForm) DefaultCopy() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultCopy")
+}
+
+func (x *MessageKeyEntryContentForm) SetDefaultCopy(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultCopy", value)
+}
+
+func (x *MessageKeyEntryContentForm) Placeholders() string {
+	return x.Doc().FormFieldOr(x.Path(), "placeholders")
+}
+
+func (x *MessageKeyEntryContentForm) SetPlaceholders(value string) {
+	x.Doc().SetFormField(x.Path(), "placeholders", value)
+}
+
+func (x *MessageKeyEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *MessageKeyEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+// MessageLocaleVariantEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type MessageLocaleVariantEntryContentForm struct {
+	som.SomNode
+}
+
+// NewMessageLocaleVariantEntryContentForm binds a MessageLocaleVariantEntryContentForm facade to a document and a path.
+func NewMessageLocaleVariantEntryContentForm(doc *som.SpecDocument, path string) *MessageLocaleVariantEntryContentForm {
+	return &MessageLocaleVariantEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *MessageLocaleVariantEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *MessageLocaleVariantEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *MessageLocaleVariantEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *MessageLocaleVariantEntryContentForm) Locale() string {
+	return x.Doc().FormFieldOr(x.Path(), "locale")
+}
+
+func (x *MessageLocaleVariantEntryContentForm) SetLocale(value string) {
+	x.Doc().SetFormField(x.Path(), "locale", value)
+}
+
+func (x *MessageLocaleVariantEntryContentForm) Copy() string {
+	return x.Doc().FormFieldOr(x.Path(), "copy")
+}
+
+func (x *MessageLocaleVariantEntryContentForm) SetCopy(value string) {
+	x.Doc().SetFormField(x.Path(), "copy", value)
 }
 
 // MetricsAndObservabilityMetricsOverviewForm is the generated section facade for the `metricsOverview` @Form section: its own

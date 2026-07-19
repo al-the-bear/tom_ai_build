@@ -9891,6 +9891,13 @@ ResultEnvelope d03_information_model_result_envelope(const D03InformationModel *
   free(path);
   return out;
 }
+MessageKeyRegistry d03_information_model_message_key_registry(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "messageKeyRegistry");
+  MessageKeyRegistry out;
+  message_key_registry_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 int d04_requirements_specification_new(D04RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
   if (check_som_model_version(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
@@ -20886,6 +20893,13 @@ ResultEnvelope information_and_data_model_result_envelope(const InformationAndDa
   free(path);
   return out;
 }
+MessageKeyRegistry information_and_data_model_message_key_registry(const InformationAndDataModel *self) {
+  char *path = spec_path_join(self->node.path, "messageKeyRegistry");
+  MessageKeyRegistry out;
+  message_key_registry_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 void information_architecture_init(InformationArchitecture *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -24460,6 +24474,79 @@ MessageFormatStandardsTransportForm message_format_standards_transport(const Mes
   char *path = spec_path_join(self->node.path, "MFST");
   MessageFormatStandardsTransportForm out;
   message_format_standards_transport_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void message_key_entry_init(MessageKeyEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void message_key_entry_free(MessageKeyEntry *self) {
+  som_node_free(&self->node);
+}
+int message_key_entry_can_have_content(const MessageKeyEntry *self) {
+  (void)self;
+  return 0;
+}
+MessageKeyEntryContentForm message_key_entry_content(const MessageKeyEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  MessageKeyEntryContentForm out;
+  message_key_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList message_key_entry_locale_variants(const MessageKeyEntry *self) {
+  char *path = spec_path_join(self->node.path, "MSGLV-LOCV-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "MSGLV-LOCV-xxx");
+  free(path);
+  return out;
+}
+
+void message_key_registry_init(MessageKeyRegistry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void message_key_registry_free(MessageKeyRegistry *self) {
+  som_node_free(&self->node);
+}
+int message_key_registry_can_have_content(const MessageKeyRegistry *self) {
+  (void)self;
+  return 1;
+}
+char *message_key_registry_content(const MessageKeyRegistry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void message_key_registry_set_content(MessageKeyRegistry *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+SomList message_key_registry_message_keys(const MessageKeyRegistry *self) {
+  char *path = spec_path_join(self->node.path, "MSGKE-MKEY-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "MSGKE-MKEY-xxx");
+  free(path);
+  return out;
+}
+
+void message_locale_variant_entry_init(MessageLocaleVariantEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void message_locale_variant_entry_free(MessageLocaleVariantEntry *self) {
+  som_node_free(&self->node);
+}
+int message_locale_variant_entry_can_have_content(const MessageLocaleVariantEntry *self) {
+  (void)self;
+  return 0;
+}
+MessageLocaleVariantEntryContentForm message_locale_variant_entry_content(const MessageLocaleVariantEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  MessageLocaleVariantEntryContentForm out;
+  message_locale_variant_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -104176,6 +104263,76 @@ char *message_format_standards_transport_form_notes(const MessageFormatStandards
 }
 void message_format_standards_transport_form_set_notes(MessageFormatStandardsTransportForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
+}
+
+void message_key_entry_content_form_init(MessageKeyEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void message_key_entry_content_form_free(MessageKeyEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *message_key_entry_content_form_content(const MessageKeyEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void message_key_entry_content_form_set_content(MessageKeyEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *message_key_entry_content_form_key(const MessageKeyEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "key");
+  return som_strdup(v != NULL ? v : "");
+}
+void message_key_entry_content_form_set_key(MessageKeyEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "key", value);
+}
+char *message_key_entry_content_form_default_copy(const MessageKeyEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "defaultCopy");
+  return som_strdup(v != NULL ? v : "");
+}
+void message_key_entry_content_form_set_default_copy(MessageKeyEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "defaultCopy", value);
+}
+char *message_key_entry_content_form_placeholders(const MessageKeyEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "placeholders");
+  return som_strdup(v != NULL ? v : "");
+}
+void message_key_entry_content_form_set_placeholders(MessageKeyEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "placeholders", value);
+}
+char *message_key_entry_content_form_description(const MessageKeyEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
+  return som_strdup(v != NULL ? v : "");
+}
+void message_key_entry_content_form_set_description(MessageKeyEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
+}
+
+void message_locale_variant_entry_content_form_init(MessageLocaleVariantEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void message_locale_variant_entry_content_form_free(MessageLocaleVariantEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *message_locale_variant_entry_content_form_content(const MessageLocaleVariantEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void message_locale_variant_entry_content_form_set_content(MessageLocaleVariantEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *message_locale_variant_entry_content_form_locale(const MessageLocaleVariantEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "locale");
+  return som_strdup(v != NULL ? v : "");
+}
+void message_locale_variant_entry_content_form_set_locale(MessageLocaleVariantEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "locale", value);
+}
+char *message_locale_variant_entry_content_form_copy(const MessageLocaleVariantEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "copy");
+  return som_strdup(v != NULL ? v : "");
+}
+void message_locale_variant_entry_content_form_set_copy(MessageLocaleVariantEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "copy", value);
 }
 
 void metrics_and_observability_metrics_overview_form_init(MetricsAndObservabilityMetricsOverviewForm *self, SpecDocument *doc, const char *path) {

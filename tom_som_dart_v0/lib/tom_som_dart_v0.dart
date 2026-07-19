@@ -5008,6 +5008,11 @@ class D03InformationModel extends SomNode {
   /// Result envelope — the canonical success-or-error §7 Result contract
   /// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
   ResultEnvelope get resultEnvelope => ResultEnvelope(doc, '$path/resultEnvelope');
+
+  /// Message key registry — the single author-copy-once home for user-facing
+  /// copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+  /// (csmb7).
+  MessageKeyRegistry get messageKeyRegistry => MessageKeyRegistry(doc, '$path/messageKeyRegistry');
 }
 
 /// RSP00 Requirements Specification.
@@ -10474,6 +10479,9 @@ class InformationAndDataModel extends SomNode {
 
   /// 7.7. Result Envelope.
   ResultEnvelope get resultEnvelope => ResultEnvelope(doc, '$path/resultEnvelope');
+
+  /// 7.8. Message Key Registry.
+  MessageKeyRegistry get messageKeyRegistry => MessageKeyRegistry(doc, '$path/messageKeyRegistry');
 }
 
 /// 10.2.2. Information Architecture.
@@ -12232,6 +12240,69 @@ class MessageFormatStandards extends SomNode {
 
   /// Compression and negotiation.
   MessageFormatStandardsTransportForm get transport => MessageFormatStandardsTransportForm(doc, '$path/MFST');
+}
+
+/// A single message key (form + locale variants).
+/// 
+/// One author-once copy string: a stable [key] (the token every consumer
+/// references), the default base-locale copy, an optional list of named
+/// placeholders the copy interpolates, and its
+/// [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+/// the generated code resolves per locale.
+class MessageKeyEntry extends SomNode {
+  MessageKeyEntry(super.doc, super.path);
+
+  MessageKeyEntryContentForm get content => MessageKeyEntryContentForm(doc, '$path/content');
+
+  /// 7.8.x. Locale Variants — one entry per non-default locale.
+  SomList<MessageLocaleVariantEntry> get localeVariants => SomList<MessageLocaleVariantEntry>(doc, '$path/MSGLV-LOCV-LST', (d, p) => MessageLocaleVariantEntry(d, p), pattern: 'MSGLV-LOCV-xxx');
+}
+
+/// 7.8. Message Key Registry.
+/// 
+/// The single **author-copy-once, reference-everywhere** home for user-facing
+/// copy — the CE-TX (`text`) part. Before this registry existed, copy was
+/// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+/// as unvalidated free text, so the "author once, reference everywhere"
+/// invariant could not hold and the same string could diverge between the
+/// screen element, the validation message and the error copy (csm5 cross-cutting
+/// finding #1; `codespecs_coverage_gaps.md` §3.3).
+/// 
+/// Each [MessageKeyEntry] declares a stable message key, its default (base
+/// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+/// resolves to the right copy in each locale. The other CodeSpecs parts stop
+/// carrying inline copy and instead reference a key here:
+/// 
+/// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+/// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+/// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+/// - **CE-VA** validation-failure messages.
+/// 
+/// csmb3 and csmb5 already modelled their `copyKey` references as plain
+/// message-key strings anticipating this registry; those keys now resolve
+/// against [MessageKeyEntry.key].
+class MessageKeyRegistry extends SomNode {
+  MessageKeyRegistry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 7.8.1. Message Keys — one entry per author-once copy string.
+  SomList<MessageKeyEntry> get messageKeys => SomList<MessageKeyEntry>(doc, '$path/MSGKE-MKEY-LST', (d, p) => MessageKeyEntry(d, p), pattern: 'MSGKE-MKEY-xxx');
+}
+
+/// A single locale variant of a message key (form).
+/// 
+/// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+/// copy for that locale. The base-locale copy lives on
+/// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+class MessageLocaleVariantEntry extends SomNode {
+  MessageLocaleVariantEntry(super.doc, super.path);
+
+  MessageLocaleVariantEntryContentForm get content => MessageLocaleVariantEntryContentForm(doc, '$path/content');
 }
 
 /// 8.7.2.3. Metrics and Observability.
@@ -57123,6 +57194,50 @@ class MessageFormatStandardsTransportForm extends SomNode {
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class MessageKeyEntryContentForm extends SomNode {
+  MessageKeyEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get key => doc.formField(path, 'key') ?? '';
+  set key(String value) => doc.setFormField(path, 'key', value);
+
+  String get defaultCopy => doc.formField(path, 'defaultCopy') ?? '';
+  set defaultCopy(String value) => doc.setFormField(path, 'defaultCopy', value);
+
+  String get placeholders => doc.formField(path, 'placeholders') ?? '';
+  set placeholders(String value) => doc.setFormField(path, 'placeholders', value);
+
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class MessageLocaleVariantEntryContentForm extends SomNode {
+  MessageLocaleVariantEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get locale => doc.formField(path, 'locale') ?? '';
+  set locale(String value) => doc.setFormField(path, 'locale', value);
+
+  String get copy => doc.formField(path, 'copy') ?? '';
+  set copy(String value) => doc.setFormField(path, 'copy', value);
 }
 
 /// Generated section facade for the `metricsOverview` `@Form` section:

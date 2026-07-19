@@ -7432,6 +7432,13 @@ class D03InformationModel(SomNode):
     def resultEnvelope(self):
         return ResultEnvelope(self.doc, f"{self.path}/resultEnvelope")
 
+    # Message key registry — the single author-copy-once home for user-facing
+    # copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+    # (csmb7).
+    @property
+    def messageKeyRegistry(self):
+        return MessageKeyRegistry(self.doc, f"{self.path}/messageKeyRegistry")
+
 class D04RequirementsSpecification(SomNode):
     """RSP00 Requirements Specification.
     
@@ -15605,6 +15612,11 @@ class InformationAndDataModel(SomNode):
     def resultEnvelope(self):
         return ResultEnvelope(self.doc, f"{self.path}/resultEnvelope")
 
+    # 7.8. Message Key Registry.
+    @property
+    def messageKeyRegistry(self):
+        return MessageKeyRegistry(self.doc, f"{self.path}/messageKeyRegistry")
+
 class InformationArchitecture(SomNode):
     """10.2.2. Information Architecture.
     
@@ -18254,6 +18266,86 @@ class MessageFormatStandards(SomNode):
     @property
     def transport(self):
         return MessageFormatStandardsTransportForm(self.doc, f"{self.path}/MFST")
+
+class MessageKeyEntry(SomNode):
+    """A single message key (form + locale variants).
+    
+    One author-once copy string: a stable [key] (the token every consumer
+    references), the default base-locale copy, an optional list of named
+    placeholders the copy interpolates, and its
+    [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+    the generated code resolves per locale.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return MessageKeyEntryContentForm(self.doc, f"{self.path}/content")
+
+    # 7.8.x. Locale Variants — one entry per non-default locale.
+    @property
+    def localeVariants(self):
+        return SomList(self.doc, f"{self.path}/MSGLV-LOCV-LST", lambda d, p: MessageLocaleVariantEntry(d, p), pattern="MSGLV-LOCV-xxx")
+
+class MessageKeyRegistry(SomNode):
+    """7.8. Message Key Registry.
+    
+    The single **author-copy-once, reference-everywhere** home for user-facing
+    copy — the CE-TX (`text`) part. Before this registry existed, copy was
+    scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+    as unvalidated free text, so the "author once, reference everywhere"
+    invariant could not hold and the same string could diverge between the
+    screen element, the validation message and the error copy (csm5 cross-cutting
+    finding #1; `codespecs_coverage_gaps.md` §3.3).
+    
+    Each [MessageKeyEntry] declares a stable message key, its default (base
+    locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+    resolves to the right copy in each locale. The other CodeSpecs parts stop
+    carrying inline copy and instead reference a key here:
+    
+    - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+    - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+    - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+    - **CE-VA** validation-failure messages.
+    
+    csmb3 and csmb5 already modelled their `copyKey` references as plain
+    message-key strings anticipating this registry; those keys now resolve
+    against [MessageKeyEntry.key].
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 7.8.1. Message Keys — one entry per author-once copy string.
+    @property
+    def messageKeys(self):
+        return SomList(self.doc, f"{self.path}/MSGKE-MKEY-LST", lambda d, p: MessageKeyEntry(d, p), pattern="MSGKE-MKEY-xxx")
+
+class MessageLocaleVariantEntry(SomNode):
+    """A single locale variant of a message key (form).
+    
+    One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+    copy for that locale. The base-locale copy lives on
+    [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return MessageLocaleVariantEntryContentForm(self.doc, f"{self.path}/content")
 
 class MetricsAndObservability(SomNode):
     """8.7.2.3. Metrics and Observability.
@@ -102041,6 +102133,88 @@ class MessageFormatStandardsTransportForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+class MessageKeyEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def key(self) -> str:
+        return self.doc.form_field(self.path, "key") or ""
+
+    @key.setter
+    def key(self, value):
+        self.doc.set_form_field(self.path, "key", value)
+
+    @property
+    def defaultCopy(self) -> str:
+        return self.doc.form_field(self.path, "defaultCopy") or ""
+
+    @defaultCopy.setter
+    def defaultCopy(self, value):
+        self.doc.set_form_field(self.path, "defaultCopy", value)
+
+    @property
+    def placeholders(self) -> str:
+        return self.doc.form_field(self.path, "placeholders") or ""
+
+    @placeholders.setter
+    def placeholders(self, value):
+        self.doc.set_form_field(self.path, "placeholders", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+class MessageLocaleVariantEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def locale(self) -> str:
+        return self.doc.form_field(self.path, "locale") or ""
+
+    @locale.setter
+    def locale(self, value):
+        self.doc.set_form_field(self.path, "locale", value)
+
+    @property
+    def copy(self) -> str:
+        return self.doc.form_field(self.path, "copy") or ""
+
+    @copy.setter
+    def copy(self, value):
+        self.doc.set_form_field(self.path, "copy", value)
 
 class MetricsAndObservabilityMetricsOverviewForm(SomNode):
     """Generated section facade for the `metricsOverview` @Form section: its own content text followed by one typed member per form field."""

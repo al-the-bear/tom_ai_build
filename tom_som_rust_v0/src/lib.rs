@@ -10982,6 +10982,13 @@ impl D03InformationModel {
     pub fn result_envelope(&self) -> ResultEnvelope {
         ResultEnvelope::new(self.node.doc(), format!("{}/{}", self.node.path(), "resultEnvelope"))
     }
+
+    /// Message key registry — the single author-copy-once home for user-facing
+    /// copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+    /// (csmb7).
+    pub fn message_key_registry(&self) -> MessageKeyRegistry {
+        MessageKeyRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "messageKeyRegistry"))
+    }
 }
 
 /// RSP00 Requirements Specification.
@@ -22900,6 +22907,11 @@ impl InformationAndDataModel {
     pub fn result_envelope(&self) -> ResultEnvelope {
         ResultEnvelope::new(self.node.doc(), format!("{}/{}", self.node.path(), "resultEnvelope"))
     }
+
+    /// 7.8. Message Key Registry.
+    pub fn message_key_registry(&self) -> MessageKeyRegistry {
+        MessageKeyRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "messageKeyRegistry"))
+    }
 }
 
 /// 10.2.2. Information Architecture.
@@ -26950,6 +26962,132 @@ impl MessageFormatStandards {
     /// Compression and negotiation.
     pub fn transport(&self) -> MessageFormatStandardsTransportForm {
         MessageFormatStandardsTransportForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MFST"))
+    }
+}
+
+/// A single message key (form + locale variants).
+///
+/// One author-once copy string: a stable [key] (the token every consumer
+/// references), the default base-locale copy, an optional list of named
+/// placeholders the copy interpolates, and its
+/// [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+/// the generated code resolves per locale.
+pub struct MessageKeyEntry {
+    pub node: som::SomNode,
+}
+
+impl MessageKeyEntry {
+    /// Binds a MessageKeyEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MessageKeyEntry {
+        MessageKeyEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> MessageKeyEntryContentForm {
+        MessageKeyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.8.x. Locale Variants — one entry per non-default locale.
+    pub fn locale_variants(&self) -> som::SomList<MessageLocaleVariantEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "MSGLV-LOCV-LST"),
+            Box::new(MessageLocaleVariantEntry::new),
+            "MSGLV-LOCV-xxx".to_string(),
+        )
+    }
+}
+
+/// 7.8. Message Key Registry.
+///
+/// The single **author-copy-once, reference-everywhere** home for user-facing
+/// copy — the CE-TX (`text`) part. Before this registry existed, copy was
+/// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+/// as unvalidated free text, so the "author once, reference everywhere"
+/// invariant could not hold and the same string could diverge between the
+/// screen element, the validation message and the error copy (csm5 cross-cutting
+/// finding #1; `codespecs_coverage_gaps.md` §3.3).
+///
+/// Each [MessageKeyEntry] declares a stable message key, its default (base
+/// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+/// resolves to the right copy in each locale. The other CodeSpecs parts stop
+/// carrying inline copy and instead reference a key here:
+///
+/// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+/// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+/// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+/// - **CE-VA** validation-failure messages.
+///
+/// csmb3 and csmb5 already modelled their `copyKey` references as plain
+/// message-key strings anticipating this registry; those keys now resolve
+/// against [MessageKeyEntry.key].
+pub struct MessageKeyRegistry {
+    pub node: som::SomNode,
+}
+
+impl MessageKeyRegistry {
+    /// Binds a MessageKeyRegistry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MessageKeyRegistry {
+        MessageKeyRegistry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 7.8.1. Message Keys — one entry per author-once copy string.
+    pub fn message_keys(&self) -> som::SomList<MessageKeyEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "MSGKE-MKEY-LST"),
+            Box::new(MessageKeyEntry::new),
+            "MSGKE-MKEY-xxx".to_string(),
+        )
+    }
+}
+
+/// A single locale variant of a message key (form).
+///
+/// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+/// copy for that locale. The base-locale copy lives on
+/// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+pub struct MessageLocaleVariantEntry {
+    pub node: som::SomNode,
+}
+
+impl MessageLocaleVariantEntry {
+    /// Binds a MessageLocaleVariantEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MessageLocaleVariantEntry {
+        MessageLocaleVariantEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> MessageLocaleVariantEntryContentForm {
+        MessageLocaleVariantEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -142420,6 +142558,120 @@ impl MessageFormatStandardsTransportForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// MessageKeyEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct MessageKeyEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl MessageKeyEntryContentForm {
+    /// Binds a MessageKeyEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MessageKeyEntryContentForm {
+        MessageKeyEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "key")
+    }
+
+    pub fn set_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "key", value);
+    }
+
+    pub fn default_copy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultCopy")
+    }
+
+    pub fn set_default_copy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultCopy", value);
+    }
+
+    pub fn placeholders(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "placeholders")
+    }
+
+    pub fn set_placeholders(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "placeholders", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+}
+
+/// MessageLocaleVariantEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct MessageLocaleVariantEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl MessageLocaleVariantEntryContentForm {
+    /// Binds a MessageLocaleVariantEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MessageLocaleVariantEntryContentForm {
+        MessageLocaleVariantEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn locale(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "locale")
+    }
+
+    pub fn set_locale(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "locale", value);
+    }
+
+    pub fn copy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "copy")
+    }
+
+    pub fn set_copy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "copy", value);
     }
 }
 

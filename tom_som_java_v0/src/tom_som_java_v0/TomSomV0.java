@@ -7850,6 +7850,13 @@ public final class TomSomV0 {
     public ResultEnvelope resultEnvelope() {
       return new ResultEnvelope(doc, path + "/resultEnvelope");
     }
+
+    // Message key registry — the single author-copy-once home for user-facing
+    // copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+    // (csmb7).
+    public MessageKeyRegistry messageKeyRegistry() {
+      return new MessageKeyRegistry(doc, path + "/messageKeyRegistry");
+    }
   }
 
   // RSP00 Requirements Specification.
@@ -16553,6 +16560,11 @@ public final class TomSomV0 {
     public ResultEnvelope resultEnvelope() {
       return new ResultEnvelope(doc, path + "/resultEnvelope");
     }
+
+    // 7.8. Message Key Registry.
+    public MessageKeyRegistry messageKeyRegistry() {
+      return new MessageKeyRegistry(doc, path + "/messageKeyRegistry");
+    }
   }
 
   // 10.2.2. Information Architecture.
@@ -19350,6 +19362,91 @@ public final class TomSomV0 {
     // Compression and negotiation.
     public MessageFormatStandardsTransportForm transport() {
       return new MessageFormatStandardsTransportForm(doc, path + "/MFST");
+    }
+  }
+
+  // A single message key (form + locale variants).
+  //
+  // One author-once copy string: a stable [key] (the token every consumer
+  // references), the default base-locale copy, an optional list of named
+  // placeholders the copy interpolates, and its
+  // [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
+  // the generated code resolves per locale.
+  public static final class MessageKeyEntry extends SomNode {
+    public MessageKeyEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public MessageKeyEntryContentForm content() {
+      return new MessageKeyEntryContentForm(doc, path + "/content");
+    }
+
+    // 7.8.x. Locale Variants — one entry per non-default locale.
+    public SomList<MessageLocaleVariantEntry> localeVariants() {
+      return new SomList<>(doc, path + "/MSGLV-LOCV-LST", (d, p) -> new MessageLocaleVariantEntry(d, p), "MSGLV-LOCV-xxx");
+    }
+  }
+
+  // 7.8. Message Key Registry.
+  //
+  // The single **author-copy-once, reference-everywhere** home for user-facing
+  // copy — the CE-TX (`text`) part. Before this registry existed, copy was
+  // scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
+  // as unvalidated free text, so the "author once, reference everywhere"
+  // invariant could not hold and the same string could diverge between the
+  // screen element, the validation message and the error copy (csm5 cross-cutting
+  // finding #1; `codespecs_coverage_gaps.md` §3.3).
+  //
+  // Each [MessageKeyEntry] declares a stable message key, its default (base
+  // locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
+  // resolves to the right copy in each locale. The other CodeSpecs parts stop
+  // carrying inline copy and instead reference a key here:
+  //
+  // - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
+  // - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+  // - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+  // - **CE-VA** validation-failure messages.
+  //
+  // csmb3 and csmb5 already modelled their `copyKey` references as plain
+  // message-key strings anticipating this registry; those keys now resolve
+  // against [MessageKeyEntry.key].
+  public static final class MessageKeyRegistry extends SomNode {
+    public MessageKeyRegistry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 7.8.1. Message Keys — one entry per author-once copy string.
+    public SomList<MessageKeyEntry> messageKeys() {
+      return new SomList<>(doc, path + "/MSGKE-MKEY-LST", (d, p) -> new MessageKeyEntry(d, p), "MSGKE-MKEY-xxx");
+    }
+  }
+
+  // A single locale variant of a message key (form).
+  //
+  // One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
+  // copy for that locale. The base-locale copy lives on
+  // [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+  public static final class MessageLocaleVariantEntry extends SomNode {
+    public MessageLocaleVariantEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public MessageLocaleVariantEntryContentForm content() {
+      return new MessageLocaleVariantEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -115702,6 +115799,104 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class MessageKeyEntryContentForm extends SomNode {
+    public MessageKeyEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String key() {
+      String v = doc.formField(path, "key");
+      return v == null ? "" : v;
+    }
+
+    public void key(String value) {
+      doc.setFormField(path, "key", value);
+    }
+
+    public String defaultCopy() {
+      String v = doc.formField(path, "defaultCopy");
+      return v == null ? "" : v;
+    }
+
+    public void defaultCopy(String value) {
+      doc.setFormField(path, "defaultCopy", value);
+    }
+
+    public String placeholders() {
+      String v = doc.formField(path, "placeholders");
+      return v == null ? "" : v;
+    }
+
+    public void placeholders(String value) {
+      doc.setFormField(path, "placeholders", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class MessageLocaleVariantEntryContentForm extends SomNode {
+    public MessageLocaleVariantEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String locale() {
+      String v = doc.formField(path, "locale");
+      return v == null ? "" : v;
+    }
+
+    public void locale(String value) {
+      doc.setFormField(path, "locale", value);
+    }
+
+    public String copy() {
+      String v = doc.formField(path, "copy");
+      return v == null ? "" : v;
+    }
+
+    public void copy(String value) {
+      doc.setFormField(path, "copy", value);
     }
   }
 

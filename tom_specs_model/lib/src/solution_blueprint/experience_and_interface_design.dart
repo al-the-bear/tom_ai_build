@@ -1246,7 +1246,7 @@ class ScreenEntry extends DocSpecsSection {
       'pageTitleResource',
       String,
       'Page Title Resource',
-      hint: 'Resource key for the screen title text',
+      hint: 'Message key (MSGKR registry) for the screen title text',
     ),
     Field(
       'pageIconResource',
@@ -1457,7 +1457,7 @@ class ScreenSectionEntry extends DocSpecsSection {
       'titleResource',
       String,
       'Title Resource',
-      hint: 'Resource key for section header text',
+      hint: 'Message key (MSGKR registry) for section header text',
     ),
     Field(
       'borderStyle',
@@ -1575,19 +1575,19 @@ class ScreenElementEntry extends DocSpecsSection {
       'labelResource',
       String,
       'Label Resource',
-      hint: 'Resource key for display label',
+      hint: 'Message key (MSGKR registry) for display label',
     ),
     Field(
       'hintResource',
       String,
       'Hint Resource',
-      hint: 'Resource key for tooltip/helper text',
+      hint: 'Message key (MSGKR registry) for tooltip/helper text',
     ),
     Field(
       'descriptionResource',
       String,
       'Description Resource',
-      hint: 'Resource key for extended description',
+      hint: 'Message key (MSGKR registry) for extended description',
     ),
     Field(
       'iconResource',
@@ -1846,19 +1846,19 @@ class ScreenElementAction extends DocSpecsSection {
       'confirmationMessageResource',
       String,
       'Confirmation Message Resource',
-      hint: 'Resource key for confirmation prompt',
+      hint: 'Message key (MSGKR registry) for confirmation prompt',
     ),
     Field(
       'loadingLabelResource',
       String,
       'Loading Label Resource',
-      hint: 'Resource key for label during async execution',
+      hint: 'Message key (MSGKR registry) for label during async execution',
     ),
     Field(
       'successMessageResource',
       String,
       'Success Message Resource',
-      hint: 'Resource key for success notification',
+      hint: 'Message key (MSGKR registry) for success notification',
     ),
     Field(
       'errorHandling',
@@ -1938,7 +1938,7 @@ class ScreenElementFieldSpec extends DocSpecsSection {
       'placeholderResource',
       String,
       'Placeholder Resource',
-      hint: 'Resource key for placeholder text',
+      hint: 'Message key (MSGKR registry) for placeholder text',
     ),
   ])
   @override
@@ -2186,7 +2186,7 @@ class ScreenElementDataDisplay extends DocSpecsSection {
       'emptyStateMessageResource',
       String,
       'Empty State Message',
-      hint: 'Resource key for message when no data',
+      hint: 'Message key (MSGKR registry) for message when no data',
     ),
     Field(
       'emptyStateIconResource',
@@ -2297,7 +2297,7 @@ class ElementValidationRuleEntry extends DocSpecsSection {
       'errorMessageResource',
       String,
       'Error Message Resource',
-      hint: 'Resource key for validation error message',
+      hint: 'Message key (MSGKR registry) for validation error message',
     ),
     Field('severity', String, 'Severity', hint: 'Error/Warning/Info'),
     Field(
@@ -2415,7 +2415,7 @@ class ScreenActionEntry extends DocSpecsSection {
       'labelResource',
       String,
       'Label Resource',
-      hint: 'Resource key for button label',
+      hint: 'Message key (MSGKR registry) for button label',
     ),
     Field(
       'iconResource',
@@ -2491,7 +2491,7 @@ class ScreenActionEntry extends DocSpecsSection {
       'confirmationMessageResource',
       String,
       'Confirmation Message',
-      hint: 'Resource key for confirmation dialog',
+      hint: 'Message key (MSGKR registry) for confirmation dialog',
     ),
     Field(
       'keyboardShortcut',
@@ -2509,7 +2509,7 @@ class ScreenActionEntry extends DocSpecsSection {
       'successMessageResource',
       String,
       'Success Message',
-      hint: 'Resource key for success notification',
+      hint: 'Message key (MSGKR registry) for success notification',
     ),
   ])
   @SerializationOrder(3)
@@ -2595,7 +2595,7 @@ class ScreenStateEntry extends DocSpecsSection {
       'messageResource',
       String,
       'Message Resource',
-      hint: 'Resource key for state message',
+      hint: 'Message key (MSGKR registry) for state message',
     ),
     Field(
       'iconResource',
@@ -2613,7 +2613,7 @@ class ScreenStateEntry extends DocSpecsSection {
       'primaryActionLabel',
       String,
       'Primary Action Label',
-      hint: 'Resource key for recovery action, e.g., Try Again',
+      hint: 'Message key (MSGKR registry) for recovery action, e.g., Try Again',
     ),
     Field(
       'primaryActionTarget',
@@ -2625,7 +2625,7 @@ class ScreenStateEntry extends DocSpecsSection {
       'secondaryActionLabel',
       String,
       'Secondary Action Label',
-      hint: 'Resource key for alternative action',
+      hint: 'Message key (MSGKR registry) for alternative action',
     ),
   ])
   @override
@@ -3096,7 +3096,7 @@ class NavigationGroupEntry extends DocSpecsSection {
       String,
       'Label Resource',
       required: true,
-      hint: 'Resource key for display label',
+      hint: 'Message key (MSGKR registry) for display label',
     ),
     Field(
       'groupIcon',
@@ -3108,7 +3108,7 @@ class NavigationGroupEntry extends DocSpecsSection {
       'groupDescription',
       String,
       'Description Resource',
-      hint: 'Resource key for tooltip/subtitle',
+      hint: 'Message key (MSGKR registry) for tooltip/subtitle',
     ),
   ])
   @override
@@ -3260,7 +3260,7 @@ class NavigationItemEntry extends DocSpecsSection {
       String,
       'Label Resource',
       required: true,
-      hint: 'Resource key for display label',
+      hint: 'Message key (MSGKR registry) for display label',
     ),
     Field(
       'targetRoute',
@@ -3803,7 +3803,7 @@ class TabItemEntry extends DocSpecsSection {
       String,
       'Label Resource',
       required: true,
-      hint: 'Resource key for tab label',
+      hint: 'Message key (MSGKR registry) for tab label',
     ),
     Field('icon', String, 'Icon Resource', hint: 'Tab icon'),
     Field('displayOrder', int, 'Display Order', hint: 'Position in tab bar'),
@@ -4201,7 +4201,7 @@ Breadcrumbs, back navigation, related links.
       'homeLabel',
       String,
       'Home Label Resource',
-      hint: 'Resource key for home crumb',
+      hint: 'Message key (MSGKR registry) for home crumb',
     ),
     Field(
       'homeIcon',
@@ -4486,25 +4486,25 @@ class NavigationGuardEntry extends DocSpecsSection {
       'dialogTitleResource',
       String,
       'Dialog Title Resource',
-      hint: 'Resource key for confirmation dialog title',
+      hint: 'Message key (MSGKR registry) for confirmation dialog title',
     ),
     Field(
       'dialogMessageResource',
       String,
       'Dialog Message Resource',
-      hint: 'Resource key for confirmation dialog message',
+      hint: 'Message key (MSGKR registry) for confirmation dialog message',
     ),
     Field(
       'confirmActionResource',
       String,
       'Confirm Action Resource',
-      hint: 'Resource key for confirm button, e.g., Discard',
+      hint: 'Message key (MSGKR registry) for confirm button, e.g., Discard',
     ),
     Field(
       'cancelActionResource',
       String,
       'Cancel Action Resource',
-      hint: 'Resource key for cancel button, e.g., Stay',
+      hint: 'Message key (MSGKR registry) for cancel button, e.g., Stay',
     ),
   ])
   @SerializationOrder(1)
@@ -7907,7 +7907,9 @@ class ValidationMessageTemplate extends DocSpecsSection {
       String,
       'Message Template',
       required: true,
-      hint: 'Template with {field}, {value} placeholders',
+      hint: 'Template with {field}, {value} placeholders. Author the copy once '
+          'in the CE-TX Message Key Registry (MSGKR) and reference it via '
+          'localizationKey; this field carries the resolved default copy',
     ),
     Field(
       'shortMessage',
@@ -7938,7 +7940,9 @@ class ValidationMessageTemplate extends DocSpecsSection {
       'localizationKey',
       String,
       'Localization Key',
-      hint: 'i18n key for translation',
+      hint: 'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — '
+          'the single author-once home for this validation copy and its '
+          'locale variants',
     ),
   ])
   @override
@@ -11952,37 +11956,37 @@ class UiComponentEntry extends DocSpecsSection {
       'labelResource',
       String,
       'Label Resource',
-      hint: 'Resource key for label text',
+      hint: 'Message key (MSGKR registry) for label text',
     ),
     Field(
       'hintResource',
       String,
       'Hint Resource',
-      hint: 'Resource key for hint text',
+      hint: 'Message key (MSGKR registry) for hint text',
     ),
     Field(
       'errorResource',
       String,
       'Error Resource',
-      hint: 'Resource key for error messages',
+      hint: 'Message key (MSGKR registry) for error messages',
     ),
     Field(
       'tooltipResource',
       String,
       'Tooltip Resource',
-      hint: 'Resource key for tooltip text',
+      hint: 'Message key (MSGKR registry) for tooltip text',
     ),
     Field(
       'placeholderResource',
       String,
       'Placeholder Resource',
-      hint: 'Resource key for placeholder text',
+      hint: 'Message key (MSGKR registry) for placeholder text',
     ),
     Field(
       'ariaLabelResource',
       String,
       'ARIA Label Resource',
-      hint: 'Resource key for the ARIA label',
+      hint: 'Message key (MSGKR registry) for the ARIA label',
     ),
     Field(
       'iconResource',

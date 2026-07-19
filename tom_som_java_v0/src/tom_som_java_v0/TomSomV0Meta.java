@@ -18243,7 +18243,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("maxVisibleItems", "int", "Max Visible Items", false, "Items before collapsing with ellipsis", 2),
             new SomFormFieldMeta("collapseBehavior", "String", "Collapse Behavior", false, "Ellipsis-Menu/Hide-Middle/Truncate", 3),
             new SomFormFieldMeta("showHomeItem", "String", "Show Home", false, "Yes/No — include root/home as first crumb", 4),
-            new SomFormFieldMeta("homeLabel", "String", "Home Label Resource", false, "Resource key for home crumb", 5),
+            new SomFormFieldMeta("homeLabel", "String", "Home Label Resource", false, "Message key (MSGKR registry) for home crumb", 5),
             new SomFormFieldMeta("homeIcon", "String", "Home Icon Resource", false, "Icon for home crumb", 6),
             new SomFormFieldMeta("separator", "String", "Separator", false, "Visual separator: / , > , chevron-icon", 7),
             new SomFormFieldMeta("currentItemStyle", "String", "Current Item Style", false, "Bold/Muted/Normal — style of last item", 8),
@@ -21019,6 +21019,17 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("MessageKeyRegistry", s, MessageKeyRegistryNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("MessageKeyRegistry", SomMetaKind.COMPLEX, "MessageKeyRegistry");
+        n.memberName = "messageKeyRegistry";
+        n.classSectionId = "MSGKR";
+        n.serializationOrder = 17;
+        n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -21088,6 +21099,10 @@ public final class TomSomV0Meta {
 
     public ResultEnvelopeNav resultEnvelope() {
       return new ResultEnvelopeNav(tree, path + "/resultEnvelope");
+    }
+
+    public MessageKeyRegistryNav messageKeyRegistry() {
+      return new MessageKeyRegistryNav(tree, path + "/messageKeyRegistry");
     }
   }
 
@@ -33566,7 +33581,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("valueId", "String", "Value Id", true, "Stable value identifier (the enum constant / @Case token)", 0),
             new SomFormFieldMeta("backingValue", "String", "Backing Value", false, "Persisted/serialized code (int or string), if distinct from the id", 1),
-            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "Message-key reference into the CE-TX message registry for the display label (author copy once, reference here)", 2),
+            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the display label (author copy once, reference here)", 2),
             new SomFormFieldMeta("description", "String", "Description", false, "What this value means", 3)));
         out.add(n);
       }
@@ -34105,7 +34120,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("ruleType", "String", "Rule Type", true, "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", 0),
             new SomFormFieldMeta("ruleExpression", "String", "Rule Expression", false, "Validation expression or pattern", 1),
             new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2),
-            new SomFormFieldMeta("errorMessageResource", "String", "Error Message Resource", false, "Resource key for validation error message", 3),
+            new SomFormFieldMeta("errorMessageResource", "String", "Error Message Resource", false, "Message key (MSGKR registry) for validation error message", 3),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Error/Warning/Info", 4),
             new SomFormFieldMeta("validateOn", "String", "Validate On", false, "On-Change/On-Blur/On-Submit", 5)));
         out.add(n);
@@ -35859,7 +35874,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("severity", "String", "Default Severity", false, "Default severity: Info | Warning | Error | Fatal", 2),
             new SomFormFieldMeta("retryable", "bool", "Retryable", false, "Whether retrying the same operation may reasonably succeed", 3),
             new SomFormFieldMeta("httpStatusHint", "int", "HTTP Status Hint", false, "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)", 4),
-            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)", 5)));
+            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the default user-facing message (author copy once, reference here)", 5)));
         out.add(n);
       }
       return out;
@@ -44113,6 +44128,17 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("MessageKeyRegistry", s, MessageKeyRegistryNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("MessageKeyRegistry", SomMetaKind.COMPLEX, "MessageKeyRegistry");
+        n.memberName = "messageKeyRegistry";
+        n.classSectionId = "MSGKR";
+        n.serializationOrder = 8;
+        n.docComment = "7.8. Message Key Registry.";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -44146,6 +44172,10 @@ public final class TomSomV0Meta {
 
     public ResultEnvelopeNav resultEnvelope() {
       return new ResultEnvelopeNav(tree, path + "/resultEnvelope");
+    }
+
+    public MessageKeyRegistryNav messageKeyRegistry() {
+      return new MessageKeyRegistryNav(tree, path + "/messageKeyRegistry");
     }
   }
 
@@ -51891,6 +51921,145 @@ public final class TomSomV0Meta {
     }
   }
 
+  // MessageKeyEntryNav holds the dot-notation accessors of `MessageKeyEntry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class MessageKeyEntryNav extends SomMetaRef {
+    public MessageKeyEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `MessageKeyEntry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("MessageKeyEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("key", "String", "Message Key", true, "Stable message key referenced everywhere (e.g. order.status.pending, error.user.notFound). Dotted, namespaced.", 0),
+            new SomFormFieldMeta("defaultCopy", "String", "Default Copy", true, "The default (base-locale) user-facing text. May contain named placeholders like {count} or {name}.", 1),
+            new SomFormFieldMeta("placeholders", "String", "Placeholders", false, "Comma-separated named parameters the copy interpolates (e.g. count, name), if any", 2),
+            new SomFormFieldMeta("description", "String", "Description", false, "Where this copy is used and any translator guidance", 3)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("MessageKeyEntry", SomMetaKind.LIST, "MessageLocaleVariantEntry");
+        n.memberName = "localeVariants";
+        n.sectionId = "MSGLV-LOCV-LST";
+        n.sectionIdPattern = "MSGLV-LOCV-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per non-default locale.";
+        n.docComment = "7.8.x. Locale Variants — one entry per non-default locale.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Unicode CLDR / BCP 47 — locale identification and localized message data"), "connotation", "The per-locale copy variants of this message key (the default copy is the base locale).")));
+        n.elementNode = metaCx("MessageLocaleVariantEntry", s, MessageLocaleVariantEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("MessageLocaleVariantEntry", SomMetaKind.COMPLEX, "MessageLocaleVariantEntry");
+          e.classSectionId = "MSGLV";
+          e.docComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.";
+          e.classDocComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<MessageLocaleVariantEntryNav> localeVariants() {
+      return new SomListMetaRef<>(tree, path + "/MSGLV-LOCV-LST", (t, p) -> new MessageLocaleVariantEntryNav(t, p));
+    }
+  }
+
+  // MessageKeyRegistryNav holds the dot-notation accessors of `MessageKeyRegistry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class MessageKeyRegistryNav extends SomMetaRef {
+    public MessageKeyRegistryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `MessageKeyRegistry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("MessageKeyRegistry", SomMetaKind.CONTENT, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n";
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("MessageKeyRegistry", SomMetaKind.LIST, "MessageKeyEntry");
+        n.memberName = "messageKeys";
+        n.sectionId = "MSGKE-MKEY-LST";
+        n.sectionIdPattern = "MSGKE-MKEY-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per message key (author-once copy string).";
+        n.docComment = "7.8.1. Message Keys — one entry per author-once copy string.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("W3C Internationalization (i18n) — message catalogues / externalised strings"), "connotation", "The catalogued message keys, each with its default copy and locale variants.")));
+        n.elementNode = metaCx("MessageKeyEntry", s, MessageKeyEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("MessageKeyEntry", SomMetaKind.COMPLEX, "MessageKeyEntry");
+          e.classSectionId = "MSGKE";
+          e.docComment = "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.";
+          e.classDocComment = "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<MessageKeyEntryNav> messageKeys() {
+      return new SomListMetaRef<>(tree, path + "/MSGKE-MKEY-LST", (t, p) -> new MessageKeyEntryNav(t, p));
+    }
+  }
+
+  // MessageLocaleVariantEntryNav holds the dot-notation accessors of `MessageLocaleVariantEntry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class MessageLocaleVariantEntryNav extends SomMetaRef {
+    public MessageLocaleVariantEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `MessageLocaleVariantEntry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("MessageLocaleVariantEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("locale", "String", "Locale", true, "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)", 0),
+            new SomFormFieldMeta("copy", "String", "Copy", true, "The user-facing text for this locale", 1)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // MetricsAndObservabilityNav holds the dot-notation accessors of `MetricsAndObservability` (DR1 §4.1).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -55448,9 +55617,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("groupId", "String", "Group ID", true, "Unique identifier, e.g., nav-grp-sales", 0),
-            new SomFormFieldMeta("groupLabel", "String", "Label Resource", true, "Resource key for display label", 1),
+            new SomFormFieldMeta("groupLabel", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1),
             new SomFormFieldMeta("groupIcon", "String", "Icon Resource", false, "Resource key for group icon", 2),
-            new SomFormFieldMeta("groupDescription", "String", "Description Resource", false, "Resource key for tooltip/subtitle", 3)));
+            new SomFormFieldMeta("groupDescription", "String", "Description Resource", false, "Message key (MSGKR registry) for tooltip/subtitle", 3)));
         out.add(n);
       }
       {
@@ -55571,10 +55740,10 @@ public final class TomSomV0Meta {
         n.docComment = "Covered routes and dialog resources.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("appliesTo", "String", "Applies To", false, "Route patterns or screen IDs this guard covers", 0),
-            new SomFormFieldMeta("dialogTitleResource", "String", "Dialog Title Resource", false, "Resource key for confirmation dialog title", 1),
-            new SomFormFieldMeta("dialogMessageResource", "String", "Dialog Message Resource", false, "Resource key for confirmation dialog message", 2),
-            new SomFormFieldMeta("confirmActionResource", "String", "Confirm Action Resource", false, "Resource key for confirm button, e.g., Discard", 3),
-            new SomFormFieldMeta("cancelActionResource", "String", "Cancel Action Resource", false, "Resource key for cancel button, e.g., Stay", 4)));
+            new SomFormFieldMeta("dialogTitleResource", "String", "Dialog Title Resource", false, "Message key (MSGKR registry) for confirmation dialog title", 1),
+            new SomFormFieldMeta("dialogMessageResource", "String", "Dialog Message Resource", false, "Message key (MSGKR registry) for confirmation dialog message", 2),
+            new SomFormFieldMeta("confirmActionResource", "String", "Confirm Action Resource", false, "Message key (MSGKR registry) for confirm button, e.g., Discard", 3),
+            new SomFormFieldMeta("cancelActionResource", "String", "Cancel Action Resource", false, "Message key (MSGKR registry) for cancel button, e.g., Stay", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — use-error tolerance keeps users informed before a navigation guard discards their work", "ISO 9241-13:1998 — user guidance provides prompts and messages that explain the current situation"), "connotation", "The routes covered by a guard together with the dialog resources shown when it intervenes.")));
         out.add(n);
       }
@@ -55755,7 +55924,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("itemId", "String", "Item ID", true, "Unique identifier, e.g., nav-customers", 0),
-            new SomFormFieldMeta("label", "String", "Label Resource", true, "Resource key for display label", 1),
+            new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1),
             new SomFormFieldMeta("targetRoute", "String", "Target Route", false, "Route path, e.g., /customers", 2)));
         out.add(n);
       }
@@ -76869,7 +77038,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Visual presentation of the action.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Resource key for button label", 0),
+            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for button label", 0),
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for action icon", 1),
             new SomFormFieldMeta("placement", "String", "Placement", false, "App-Bar/Toolbar/FAB/Context-Menu/Overflow-Menu", 2),
             new SomFormFieldMeta("buttonStyle", "String", "Button Style", false, "Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only", 3)));
@@ -76897,10 +77066,10 @@ public final class TomSomV0Meta {
         n.docComment = "Confirmation, navigation, and feedback behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required", false, "Yes/No", 0),
-            new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message", false, "Resource key for confirmation dialog", 1),
+            new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message", false, "Message key (MSGKR registry) for confirmation dialog", 1),
             new SomFormFieldMeta("keyboardShortcut", "String", "Keyboard Shortcut", false, "Shortcut binding, e.g., Ctrl+N", 2),
             new SomFormFieldMeta("navigateTo", "String", "Navigate To", false, "Target screen after action", 3),
-            new SomFormFieldMeta("successMessageResource", "String", "Success Message", false, "Resource key for success notification", 4)));
+            new SomFormFieldMeta("successMessageResource", "String", "Success Message", false, "Message key (MSGKR registry) for success notification", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — controllability and use error tolerance for action execution", "ISO 9241-161:2016 — command and action user-interface elements"), "connotation", "The confirmation, navigation, and feedback behavior that governs how a screen action executes.")));
         out.add(n);
       }
@@ -77108,9 +77277,9 @@ public final class TomSomV0Meta {
         n.docComment = "Confirmation and execution feedback behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required", false, "Yes/No — show confirmation dialog?", 0),
-            new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message Resource", false, "Resource key for confirmation prompt", 1),
-            new SomFormFieldMeta("loadingLabelResource", "String", "Loading Label Resource", false, "Resource key for label during async execution", 2),
-            new SomFormFieldMeta("successMessageResource", "String", "Success Message Resource", false, "Resource key for success notification", 3),
+            new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message Resource", false, "Message key (MSGKR registry) for confirmation prompt", 1),
+            new SomFormFieldMeta("loadingLabelResource", "String", "Loading Label Resource", false, "Message key (MSGKR registry) for label during async execution", 2),
+            new SomFormFieldMeta("successMessageResource", "String", "Success Message Resource", false, "Message key (MSGKR registry) for success notification", 3),
             new SomFormFieldMeta("errorHandling", "String", "Error Handling", false, "Inline/Toast/Dialog/Banner", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — use error tolerance and feedback during action execution", "ISO 9241-161:2016 — user-interface elements for confirmation and progress feedback"), "connotation", "The confirmation and execution-feedback behavior that governs how an action element runs and reports.")));
         out.add(n);
@@ -77164,7 +77333,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataSource", "String", "Data Source", false, "Data entity or query reference", 0),
             new SomFormFieldMeta("displayFormat", "String", "Display Format", false, "How data is formatted for display", 1),
-            new SomFormFieldMeta("emptyStateMessageResource", "String", "Empty State Message", false, "Resource key for message when no data", 2),
+            new SomFormFieldMeta("emptyStateMessageResource", "String", "Empty State Message", false, "Message key (MSGKR registry) for message when no data", 2),
             new SomFormFieldMeta("emptyStateIconResource", "String", "Empty State Icon", false, "Resource key for icon when no data", 3)));
         out.add(n);
       }
@@ -77241,9 +77410,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Labels and icon resources.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Resource key for display label", 0),
-            new SomFormFieldMeta("hintResource", "String", "Hint Resource", false, "Resource key for tooltip/helper text", 1),
-            new SomFormFieldMeta("descriptionResource", "String", "Description Resource", false, "Resource key for extended description", 2),
+            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for display label", 0),
+            new SomFormFieldMeta("hintResource", "String", "Hint Resource", false, "Message key (MSGKR registry) for tooltip/helper text", 1),
+            new SomFormFieldMeta("descriptionResource", "String", "Description Resource", false, "Message key (MSGKR registry) for extended description", 2),
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for icon", 3),
             new SomFormFieldMeta("iconPosition", "String", "Icon Position", false, "Leading/Trailing/Above/Below/Only", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-161:2016 — labels, icons, and tooltips associated with user-interface elements", "ISO 9241-112:2017 — presentation of labels and identifying information to the user"), "connotation", "The label, hint, description, and icon resources that identify a screen element to the user.")));
@@ -77408,7 +77577,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldName", "String", "Field Name", false, "Logical form field name, maps to data model attribute", 0),
             new SomFormFieldMeta("dataType", "ScreenElementFieldKind", "Data Type", false, "The input data kind — selects the promoted options subsection.", 1, java.util.List.of("string", "integer", "decimal", "currency", "date", "dateTime", "time", "boolean", "enumeration", "email", "phone", "url", "password", "richText", "color", "file")),
-            new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Resource key for placeholder text", 2)));
+            new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Message key (MSGKR registry) for placeholder text", 2)));
         out.add(n);
       }
       {
@@ -77596,7 +77765,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 4;
         n.docComment = "Presentation metadata.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("pageTitleResource", "String", "Page Title Resource", false, "Resource key for the screen title text", 0),
+            new SomFormFieldMeta("pageTitleResource", "String", "Page Title Resource", false, "Message key (MSGKR registry) for the screen title text", 0),
             new SomFormFieldMeta("pageIconResource", "String", "Page Icon Resource", false, "Resource key for the screen icon", 1),
             new SomFormFieldMeta("helpTopicId", "String", "Help Topic ID", false, "Link to help/documentation topic", 2),
             new SomFormFieldMeta("layout", "String", "Layout", false, "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", 3)));
@@ -78077,7 +78246,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("layoutDirection", "String", "Layout Direction", false, "Horizontal/Vertical/Wrap/Grid", 0),
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in reading order", 1),
-            new SomFormFieldMeta("titleResource", "String", "Title Resource", false, "Resource key for section header text", 2),
+            new SomFormFieldMeta("titleResource", "String", "Title Resource", false, "Message key (MSGKR registry) for section header text", 2),
             new SomFormFieldMeta("borderStyle", "String", "Border Style", false, "Named style or resource key", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-125:2017 — spatial layout and ordering of presented information", "ISO 9241-112:2017 — organisation of information within a display area"), "connotation", "The layout direction, order, and border styling that arrange a screen section within its screen.")));
         out.add(n);
@@ -78208,12 +78377,12 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stateName", "String", "State Name", true, "Loading/Empty/Error/Permission-Denied/First-Use/Offline/Success", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 1),
-            new SomFormFieldMeta("messageResource", "String", "Message Resource", false, "Resource key for state message", 2),
+            new SomFormFieldMeta("messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 2),
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for state icon", 3),
             new SomFormFieldMeta("illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 4),
-            new SomFormFieldMeta("primaryActionLabel", "String", "Primary Action Label", false, "Resource key for recovery action, e.g., Try Again", 5),
+            new SomFormFieldMeta("primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 5),
             new SomFormFieldMeta("primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 6),
-            new SomFormFieldMeta("secondaryActionLabel", "String", "Secondary Action Label", false, "Resource key for alternative action", 7)));
+            new SomFormFieldMeta("secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 7)));
         out.add(n);
       }
       return out;
@@ -91006,7 +91175,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tabId", "String", "Tab ID", true, "Unique within tab bar", 0),
-            new SomFormFieldMeta("label", "String", "Label Resource", true, "Resource key for tab label", 1),
+            new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for tab label", 1),
             new SomFormFieldMeta("icon", "String", "Icon Resource", false, "Tab icon", 2),
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in tab bar", 3),
             new SomFormFieldMeta("contentScreenId", "String", "Content Screen ID", false, "Screen/fragment loaded in tab", 4),
@@ -97645,12 +97814,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 15;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceBasePath", "String", "Resource Base Path", false, "Base path for resource lookup", 0),
-            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Resource key for label text", 1),
-            new SomFormFieldMeta("hintResource", "String", "Hint Resource", false, "Resource key for hint text", 2),
-            new SomFormFieldMeta("errorResource", "String", "Error Resource", false, "Resource key for error messages", 3),
-            new SomFormFieldMeta("tooltipResource", "String", "Tooltip Resource", false, "Resource key for tooltip text", 4),
-            new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Resource key for placeholder text", 5),
-            new SomFormFieldMeta("ariaLabelResource", "String", "ARIA Label Resource", false, "Resource key for the ARIA label", 6),
+            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for label text", 1),
+            new SomFormFieldMeta("hintResource", "String", "Hint Resource", false, "Message key (MSGKR registry) for hint text", 2),
+            new SomFormFieldMeta("errorResource", "String", "Error Resource", false, "Message key (MSGKR registry) for error messages", 3),
+            new SomFormFieldMeta("tooltipResource", "String", "Tooltip Resource", false, "Message key (MSGKR registry) for tooltip text", 4),
+            new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Message key (MSGKR registry) for placeholder text", 5),
+            new SomFormFieldMeta("ariaLabelResource", "String", "ARIA Label Resource", false, "Message key (MSGKR registry) for the ARIA label", 6),
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for icon selection", 7),
             new SomFormFieldMeta("resourceFallbacks", "String", "Resource Fallbacks", false, "Fallback behavior when resource missing", 8)));
         out.add(n);
@@ -101200,13 +101369,13 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("messageId", "String", "Message ID", true, "Unique identifier (e.g., VAL-REQ-001)", 0),
             new SomFormFieldMeta("validationType", "String", "Validation Type", true, "Required, format, range, length, custom", 1),
             new SomFormFieldMeta("fieldTypes", "String", "Applicable Field Types", false, "Text, email, number, date, select", 2),
-            new SomFormFieldMeta("messageTemplate", "String", "Message Template", true, "Template with {field}, {value} placeholders", 3),
+            new SomFormFieldMeta("messageTemplate", "String", "Message Template", true, "Template with {field}, {value} placeholders. Author the copy once in the CE-TX Message Key Registry (MSGKR) and reference it via localizationKey; this field carries the resolved default copy", 3),
             new SomFormFieldMeta("shortMessage", "String", "Short Message", false, "Brief version for space-constrained contexts", 4),
             new SomFormFieldMeta("helpText", "String", "Help Text", false, "Extended guidance for complex errors", 5),
             new SomFormFieldMeta("exampleCorrection", "String", "Example Correction", false, "Example of valid input", 6),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Error, warning, info", 7),
             new SomFormFieldMeta("iconCode", "String", "Icon Code", false, "Icon to display with message", 8),
-            new SomFormFieldMeta("localizationKey", "String", "Localization Key", false, "i18n key for translation", 9)));
+            new SomFormFieldMeta("localizationKey", "String", "Localization Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants", 9)));
         out.add(n);
       }
       return out;
@@ -106381,6 +106550,10 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST", (t, p) -> new ResultFieldDetailEntryId(t, p));
     }
 
+    public SomListMetaRef<MessageKeyEntryId> MSGKE_MKEY_LST() {
+      return new SomListMetaRef<>(tree, path + "/informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST", (t, p) -> new MessageKeyEntryId(t, p));
+    }
+
     public SomMetaRef TRAREQ_TRAN() {
       return new SomMetaRef(tree, path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
     }
@@ -110885,6 +111058,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<ResultFieldDetailEntryId> RSFDE_FLDD_LST() {
       return new SomListMetaRef<>(tree, path + "/resultEnvelope/RSFDE-FLDD-LST", (t, p) -> new ResultFieldDetailEntryId(t, p));
+    }
+
+    public SomListMetaRef<MessageKeyEntryId> MSGKE_MKEY_LST() {
+      return new SomListMetaRef<>(tree, path + "/messageKeyRegistry/MSGKE-MKEY-LST", (t, p) -> new MessageKeyEntryId(t, p));
     }
   }
 
@@ -117881,6 +118058,30 @@ public final class TomSomV0Meta {
 
     public SomMetaRef MDDEG() {
       return new SomMetaRef(tree, path + "/MDDEG");
+    }
+  }
+
+  // MessageKeyEntryId holds the ID-tree accessors of `MessageKeyEntry` (DR1 §4.2): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class MessageKeyEntryId extends SomMetaRef {
+    public MessageKeyEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    public SomListMetaRef<MessageLocaleVariantEntryId> MSGLV_LOCV_LST() {
+      return new SomListMetaRef<>(tree, path + "/MSGLV-LOCV-LST", (t, p) -> new MessageLocaleVariantEntryId(t, p));
+    }
+  }
+
+  // MessageLocaleVariantEntryId holds the ID-tree accessors of `MessageLocaleVariantEntry` (DR1 §4.2): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class MessageLocaleVariantEntryId extends SomMetaRef {
+    public MessageLocaleVariantEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
     }
   }
 

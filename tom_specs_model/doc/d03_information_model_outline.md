@@ -80,3 +80,23 @@
     - content
   - `IntegrityConstraints`
     - content
+  - `DomainEnumRegistry`
+    - content
+    - enums: `DomainEnumEntry`
+      - content @Form(enumName, description, backingType, defaultValue)
+      - [1,] values: `DomainEnumValueEntry`
+        - content @Form(valueId, backingValue, copyKey, description)
+  - `ErrorCodeRegistry`
+    - content
+    - errorCodes: `ErrorCodeEntry`
+      - content @Form(code, category, severity, retryable, httpStatusHint, copyKey)
+  - `ResultEnvelope`
+    - content @Form(discriminatorField, successArm, errorArm, retryable, severity)
+    - fieldDetails: `ResultFieldDetailEntry`
+      - content @Form(fieldPath, errorCodeRef, message)
+  - `MessageKeyRegistry`
+    - content
+    - messageKeys: `MessageKeyEntry`
+      - content @Form(key, defaultCopy, placeholders, description)
+      - localeVariants: `MessageLocaleVariantEntry`
+        - content @Form(locale, copy)
