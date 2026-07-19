@@ -3021,6 +3021,10 @@ class ActorRelationshipDiagram extends DocSpecsSection {
 ], 'Captures the step-by-step target workflow for a single catalogued process.')
 @SectionId('DEPRWO')
 @DetailedIn(D02TargetOperatingModel)
+@CodeSpecKind([CodeSpecPart.workflow],
+    note: 'CE-WF — multi-step process / workflow orchestration (state '
+        'machines, long-running processes). Deferred (§4.3), mapping-only '
+        'until §4.1.')
 class DetailedProcessWorkflow extends DocSpecsSection {
   @ContentHelp('''
 Step-level detail for each process in the catalog: activity sequence,

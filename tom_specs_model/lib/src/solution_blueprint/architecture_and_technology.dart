@@ -21471,6 +21471,10 @@ class ReleaseStrategy extends DocSpecsSection {
       hint: 'How flags are managed',
     ),
   ])
+  @CodeSpecKind([CodeSpecPart.featureFlag],
+      note: 'CE-FF — feature flags / toggles as an explicit part, distinct '
+          'from serverConfiguration values. Deferred (§4.3), mapping-only '
+          'until §4.1.')
   @SerializationOrder(3)
   DocSpecsSection? featureFlags;
 
@@ -27776,6 +27780,10 @@ class UserProvisioningTools extends DocSpecsSection {
   'Batch job management specifies how scheduled and background jobs are defined and operated.',
 )
 @SectionId('BAJOMA')
+@CodeSpecKind([CodeSpecPart.backgroundJob],
+    note: 'CE-JB — scheduled / background / queued jobs (cron, workers), '
+        'distinct from request-driven serverApi. Deferred (§4.3), '
+        'mapping-only until §4.1.')
 class BatchJobManagement extends DocSpecsSection {
   @Form([
     Field(

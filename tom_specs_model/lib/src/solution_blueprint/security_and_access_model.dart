@@ -89,6 +89,9 @@ access and authorization concerns.
 )
 @SectionId('USMGT')
 @DetailedIn(D08SecurityAccessSpecification)
+@CodeSpecKind([CodeSpecPart.identity],
+    note: 'CE-ID — principal/identity model (users, groups, service '
+        'principals). Deferred (§4.3), mapping-only until promoted into §4.1.')
 class UserManagement extends DocSpecsSection {
   @ContentHelp('''
 Describe how users are organized, categorized, and managed throughout their
@@ -8194,6 +8197,9 @@ class ApiSecurityMonitoring extends DocSpecsSection {
   'Covers end-to-end file and storage security including upload validation, encryption, access control, scanning, and lifecycle.',
 )
 @SectionId('FASS')
+@CodeSpecKind([CodeSpecPart.fileStorage],
+    note: 'CE-FS — file/blob storage abstraction (upload/download, references '
+        'from the data model). Deferred (§4.3), mapping-only until §4.1.')
 class FileAndStorageSecurity extends DocSpecsSection {
   @ContentHelp('''
 Define security controls for user-uploaded files, generated documents,
@@ -13231,6 +13237,9 @@ class KeyCompromiseRecoveryPolicy extends DocSpecsSection {
 )
 @SectionId('AUANLO')
 @DetailedIn(D08SecurityAccessSpecification)
+@CodeSpecKind([CodeSpecPart.auditLog],
+    note: 'CE-LG — logging & audit trail (who did what, when) as a '
+        'cross-cutting effect. Deferred (§4.3), mapping-only until §4.1.')
 class AuditAndLogging extends DocSpecsSection {
   @ContentHelp('''
 Define security audit and logging requirements. Comprehensive logging enables

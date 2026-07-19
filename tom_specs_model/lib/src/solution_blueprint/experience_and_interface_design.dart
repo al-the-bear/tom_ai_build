@@ -4686,6 +4686,9 @@ class PrintAndExportLayout extends DocSpecsSection {
   'A single report definition describing its data source layout sections and output.',
 )
 @SectionId('REPENT')
+@CodeSpecKind([CodeSpecPart.reporting],
+    note: 'CE-RP — reporting / read-models / analytics projections over the '
+        'domain model. Deferred (§4.3), mapping-only until §4.1.')
 class ReportEntry extends DocSpecsSection {
   @Form([
     Field(

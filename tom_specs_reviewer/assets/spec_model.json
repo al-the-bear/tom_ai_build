@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T08:07:27.968113Z",
+  "generatedAt": "2026-07-19T08:16:15.393927Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -13670,6 +13670,15 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ],
+            "note": "CE-LG — logging & audit trail (who did what, when) as a cross-cutting effect. Deferred (§4.3), mapping-only until §4.1."
+          }
         }
       ],
       "fields": [
@@ -19550,6 +19559,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "BAJOMA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.backgroundJob"
+            ],
+            "note": "CE-JB — scheduled / background / queued jobs (cron, workers), distinct from request-driven serverApi. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -79588,6 +79606,15 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.workflow"
+            ],
+            "note": "CE-WF — multi-step process / workflow orchestration (state machines, long-running processes). Deferred (§4.3), mapping-only until §4.1."
+          }
         }
       ],
       "fields": [
@@ -104164,6 +104191,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "FASS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.fileStorage"
+            ],
+            "note": "CE-FS — file/blob storage abstraction (upload/download, references from the data model). Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -151995,6 +152031,15 @@
           "arguments": {
             "id": "NM"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.notification"
+            ],
+            "note": "CE-NT — outbound communications (email/push/SMS/webhooks) as a first-class effect. Deferred (§4.3), mapping-only until §4.1."
+          }
         }
       ],
       "fields": [
@@ -185473,6 +185518,15 @@
               }
             },
             {
+              "name": "CodeSpecKind",
+              "arguments": {
+                "kinds": [
+                  "CodeSpecPart.featureFlag"
+                ],
+                "note": "CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 3
@@ -188302,6 +188356,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "REPENT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "CE-RP — reporting / read-models / analytics projections over the domain model. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -206319,6 +206382,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SCHMG"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.schemaMigration"
+            ],
+            "note": "CE-MG — DB schema versioning / migration steps derived from the data model evolution. Deferred (§4.3), mapping-only until §4.1."
           }
         }
       ],
@@ -270012,6 +270084,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ],
+            "note": "CE-ID — principal/identity model (users, groups, service principals). Deferred (§4.3), mapping-only until promoted into §4.1."
           }
         }
       ],

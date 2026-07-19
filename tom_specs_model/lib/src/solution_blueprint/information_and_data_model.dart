@@ -3958,6 +3958,9 @@ class RelationshipAttributeEntry extends DocSpecsSection {
   'Captures the schema versioning strategy and the ordered migration steps derived from the data model’s evolution — the DDL history, not business-data migration between systems.',
 )
 @SectionId('SCHMG')
+@CodeSpecKind([CodeSpecPart.schemaMigration],
+    note: 'CE-MG — DB schema versioning / migration steps derived from the '
+        'data model evolution. Deferred (§4.3), mapping-only until §4.1.')
 class SchemaVersioningAndMigration extends DocSpecsSection {
   @ContentHelp('''
 Describe how the database schema is versioned and how migrations are authored,

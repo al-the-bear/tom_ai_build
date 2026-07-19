@@ -4272,6 +4272,9 @@ class SessionModel extends DocSpecsSection {
   'and delivery mechanisms.',
 )
 @SectionId('NM')
+@CodeSpecKind([CodeSpecPart.notification],
+    note: 'CE-NT — outbound communications (email/push/SMS/webhooks) as a '
+        'first-class effect. Deferred (§4.3), mapping-only until §4.1.')
 class NotificationModel extends DocSpecsSection {
   @ContentType('description', 'Overview of notification strategy.')
   @override
