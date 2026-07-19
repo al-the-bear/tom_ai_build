@@ -137,6 +137,7 @@ authentication and authorization by defining who the users are.
   'Defines the distinct categories of users who interact with the system and their trust levels.',
 )
 @SectionId('AUSCT')
+@CodeSpecKind([CodeSpecPart.identity])
 class AccessUserCategories extends DocSpecsSection {
   @ContentHelp('''
 Define the distinct categories of users who interact with the system. Each
@@ -183,6 +184,7 @@ relationships.
   'Defines a single user category together with its access level and estimated population.',
 )
 @SectionId('USCDF')
+@CodeSpecKind([CodeSpecPart.identity])
 class UserCategoryDefinition extends DocSpecsSection {
   @Form([
     Field(
@@ -230,6 +232,7 @@ class UserCategoryDefinition extends DocSpecsSection {
   'Defines the complete user account lifecycle from creation through permanent deletion.',
 )
 @SectionId('USLCS')
+@CodeSpecKind([CodeSpecPart.identity])
 class UserLifecycle extends DocSpecsSection {
   @ContentHelp('''
 Document the complete lifecycle of user accounts from creation to permanent
@@ -384,6 +387,7 @@ and compliance with data retention requirements.
   'Defines the possible states a user account can be in throughout its lifecycle.',
 )
 @SectionId('UACST')
+@CodeSpecKind([CodeSpecPart.identity])
 class UserAccountStatesDefinition extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -514,6 +518,7 @@ class UserAccountStatesDefinition extends DocSpecsSection {
   'Defines how new user accounts are created, including registration methods and identity proofing requirements.',
 )
 @SectionId('URREG')
+@CodeSpecKind([CodeSpecPart.identity])
 class UserRegistrationProcess extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -614,6 +619,7 @@ class UserRegistrationProcess extends DocSpecsSection {
   'Defines the steps to move a newly registered account from pending to active status.',
 )
 @SectionId('ACACT')
+@CodeSpecKind([CodeSpecPart.identity])
 class AccountActivationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -728,6 +734,7 @@ class AccountActivationPolicy extends DocSpecsSection {
   'Defines which account attributes can be changed, by whom, and what re-verification is required after changes.',
 )
 @SectionId('ACMOD')
+@CodeSpecKind([CodeSpecPart.identity])
 class AccountModificationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -844,6 +851,7 @@ class AccountModificationPolicy extends DocSpecsSection {
   'Defines temporary or permanent disabling of user accounts, their effects, and reactivation conditions.',
 )
 @SectionId('ACDEA')
+@CodeSpecKind([CodeSpecPart.identity])
 class AccountDeactivationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -971,6 +979,7 @@ class AccountDeactivationPolicy extends DocSpecsSection {
   'Defines permanent account removal, data anonymization, retention obligations, and right-to-be-forgotten compliance.',
 )
 @SectionId('ACDEL')
+@CodeSpecKind([CodeSpecPart.identity])
 class AccountDeletionPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -1052,6 +1061,7 @@ class AccountDeletionPolicy extends DocSpecsSection {
   'Defines the permissible transitions between lifecycle states and the approval workflow each transition requires.',
 )
 @SectionId('ULTRS')
+@CodeSpecKind([CodeSpecPart.identity])
 class UserLifecycleTransitions extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -1088,6 +1098,7 @@ class UserLifecycleTransitions extends DocSpecsSection {
   'Defines a single permissible transition between two lifecycle states, including its trigger and approval.',
 )
 @SectionId('ULTRE')
+@CodeSpecKind([CodeSpecPart.identity])
 class UserLifecycleTransitionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1325,6 +1336,7 @@ class UserLifecycleTransitionEntry extends DocSpecsSection {
   'Defines the lifecycle actions users can perform on their own accounts without administrator involvement.',
 )
 @SectionId('SSACM')
+@CodeSpecKind([CodeSpecPart.identity])
 class SelfServiceAccountManagement extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -1445,6 +1457,7 @@ class SelfServiceAccountManagement extends DocSpecsSection {
   'Defines lifecycle management for non-human service accounts such as APIs, bots, and system integrations.',
 )
 @SectionId('SACLC')
+@CodeSpecKind([CodeSpecPart.identity])
 class ServiceAccountLifecycle extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -1464,6 +1477,7 @@ class ServiceAccountLifecycle extends DocSpecsSection {
   'Defines the user profile attributes captured and managed to support authentication, authorization, and compliance.',
 )
 @SectionId('USATT')
+@CodeSpecKind([CodeSpecPart.identity])
 class UserAttributes extends DocSpecsSection {
   @ContentHelp('''
 Define the user profile attributes captured and managed by the system. These
@@ -1518,6 +1532,7 @@ compliance requirements.
   'Defines a single user profile attribute together with its data type, source, and whether it is mandatory.',
 )
 @SectionId('USATE')
+@CodeSpecKind([CodeSpecPart.identity])
 class UserAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1562,6 +1577,7 @@ class UserAttributeEntry extends DocSpecsSection {
 )
 @SectionId('IDAUT')
 @DetailedIn(D08SecurityAccessSpecification)
+@CodeSpecKind([CodeSpecPart.authentication])
 class IdentificationAndAuthentication extends DocSpecsSection {
   @ContentHelp('''
 Define how users prove their identity to the system. Authentication is the
@@ -1616,6 +1632,7 @@ user identification.
   'Describes how user identities are established, sourced, verified, federated, and mapped within the system.',
 )
 @SectionId('IDENT')
+@CodeSpecKind([CodeSpecPart.authentication])
 class Identification extends DocSpecsSection {
   @Form([
     Field(
@@ -1761,6 +1778,7 @@ class Identification extends DocSpecsSection {
   'Defines a single source from which identities are obtained, such as a directory, IdP, or HR system.',
 )
 @SectionId('IDTSR')
+@CodeSpecKind([CodeSpecPart.authentication])
 class IdentitySourceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1954,6 +1972,7 @@ class IdentitySourceEntry extends DocSpecsSection {
   'Defines the identity-proofing policy including assurance level, verification mode, and re-verification.',
 )
 @SectionId('IDVEPO')
+@CodeSpecKind([CodeSpecPart.authentication])
 class IdentityVerificationPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -2160,6 +2179,7 @@ class IdentityVerificationPolicy extends DocSpecsSection {
   'Configures a single external identity provider including protocol, endpoints, mapping, and trust.',
 )
 @SectionId('IDTPV')
+@CodeSpecKind([CodeSpecPart.authentication])
 class IdentityProviderEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2332,6 +2352,7 @@ class IdentityProviderEntry extends DocSpecsSection {
   'Captures the product, protocol version, and descriptive details of an identity provider.',
 )
 @SectionId('IDPRDE')
+@CodeSpecKind([CodeSpecPart.authentication])
 class IdentityProviderDetails extends DocSpecsSection {
   @Form([
     Field(
@@ -2367,6 +2388,7 @@ class IdentityProviderDetails extends DocSpecsSection {
   'Defines the authentication endpoints, metadata URL, issuer, and client identifiers for an identity provider.',
 )
 @SectionId('IDPREN')
+@CodeSpecKind([CodeSpecPart.authentication])
 class IdentityProviderEndpoints extends DocSpecsSection {
   @Form([
     Field(
@@ -2413,6 +2435,7 @@ class IdentityProviderEndpoints extends DocSpecsSection {
   'Defines the Single Sign-On policy including scope, protocol, session propagation, and federation.',
 )
 @SectionId('SSOP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class SingleSignOnPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -2610,6 +2633,7 @@ class SingleSignOnPolicy extends DocSpecsSection {
   'Defines the self-service identity creation policy covering registration flow, verification, approval, and abuse controls.',
 )
 @SectionId('SEREPO')
+@CodeSpecKind([CodeSpecPart.authentication])
 class SelfRegistrationPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -2839,6 +2863,7 @@ class SelfRegistrationPolicy extends DocSpecsSection {
   'Defines how a single attribute is mapped between an identity source and the application.',
 )
 @SectionId('IDTAM')
+@CodeSpecKind([CodeSpecPart.authentication])
 class IdentityAttributeMappingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3050,6 +3075,7 @@ policies, session management, and authentication flows.
   'Describes the supported authentication methods and their assurance levels across all authenticator types.',
 )
 @SectionId('AUME')
+@CodeSpecKind([CodeSpecPart.authentication])
 class AuthenticationMethods extends DocSpecsSection {
   @ContentHelp('''
 Document all authentication methods supported by the system and their
@@ -3211,6 +3237,7 @@ applicability to different user categories and use cases.
   'Defines multi-factor authentication requirements based on proof of possession and control of two distinct authentication factors.',
 )
 @SectionId('MC')
+@CodeSpecKind([CodeSpecPart.authentication])
 class MfaConfiguration extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -3320,6 +3347,7 @@ class MfaConfiguration extends DocSpecsSection {
   'Defines federation and single sign-on configuration for centralized authentication across multiple applications via identity providers.',
 )
 @SectionId('SP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class SsoPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -3418,6 +3446,7 @@ class SsoPolicy extends DocSpecsSection {
   'Defines requirements for X.509 certificate authentication including mutual TLS, PIV, and smart-card credentials.',
 )
 @SectionId('CAP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class CertificateAuthenticationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -3523,6 +3552,7 @@ class CertificateAuthenticationPolicy extends DocSpecsSection {
   'Defines requirements for biometric authentication factors used as activation factors for multi-factor authenticators.',
 )
 @SectionId('BAP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class BiometricAuthenticationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -3636,6 +3666,7 @@ class BiometricAuthenticationPolicy extends DocSpecsSection {
   'Defines lifecycle management for API keys, service tokens, and machine-to-machine authentication credentials.',
 )
 @SectionId('AKMP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class ApiKeyManagementPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -3659,6 +3690,7 @@ class ApiKeyManagementPolicy extends DocSpecsSection {
   'Provides a detailed per-method specification for a single authentication method aligned with NIST authenticator types.',
 )
 @SectionId('ATME')
+@CodeSpecKind([CodeSpecPart.authentication])
 class AuthenticationMethodEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3864,6 +3896,7 @@ class AuthenticationMethodEntry extends DocSpecsSection {
   'Describes the end-to-end authentication flow from credential submission through token issuance and session establishment.',
 )
 @SectionId('AUFL')
+@CodeSpecKind([CodeSpecPart.authentication])
 class AuthenticationFlow extends DocSpecsSection {
   @ContentHelp('''
 Document the end-to-end authentication flow from initial login request to
@@ -4060,6 +4093,7 @@ established session. Include sequence diagrams for clarity.
   'Defines the overall login flow structure including entry points, credential submission, and post-authentication actions.',
 )
 @SectionId('LFC')
+@CodeSpecKind([CodeSpecPart.authentication])
 class LoginFlowConfiguration extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -4187,6 +4221,7 @@ class LoginFlowConfiguration extends DocSpecsSection {
   'Defines token issuance, refresh, storage, and revocation policies for authentication tokens.',
 )
 @SectionId('TMP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class TokenManagementPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -4297,6 +4332,7 @@ class TokenManagementPolicy extends DocSpecsSection {
   'Defines how authenticated sessions are established after successful authentication including session binding and device binding.',
 )
 @SectionId('SCP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class SessionCreationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -4401,6 +4437,7 @@ class SessionCreationPolicy extends DocSpecsSection {
   'Defines how authentication redirects, OAuth and OIDC callbacks, deep links, and error redirects are managed in the authentication flow.',
 )
 @SectionId('RHP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class RedirectHandlingPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -4499,6 +4536,7 @@ class RedirectHandlingPolicy extends DocSpecsSection {
   'Defines how authentication failures, lockouts, and brute-force security events are handled in the authentication flow.',
 )
 @SectionId('AEH')
+@CodeSpecKind([CodeSpecPart.authentication])
 class AuthenticationErrorHandling extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -4604,6 +4642,7 @@ class AuthenticationErrorHandling extends DocSpecsSection {
   'Defines when and how authentication assurance is elevated for sensitive operations including risk-based and context-aware authentication.',
 )
 @SectionId('SUAP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class StepUpAuthenticationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -4634,6 +4673,7 @@ class StepUpAuthenticationPolicy extends DocSpecsSection {
   'Defines an individual step in the authentication flow sequence from initial request to authenticated session.',
 )
 @SectionId('LGFLS')
+@CodeSpecKind([CodeSpecPart.authentication])
 class LoginFlowStepEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4786,6 +4826,7 @@ class LoginFlowStepEntry extends DocSpecsSection {
   'Captures the complete password and credential policy including storage, lifecycle, lockout, recovery, and MFA enforcement.',
 )
 @SectionId('PACP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class PasswordAndCredentialPolicy extends DocSpecsSection {
   @ContentHelp('''
 Define the complete password and credential policy. NIST SP 800-63B (2024
@@ -4989,6 +5030,7 @@ revision) emphasizes length over complexity and discourages forced rotation.
   'Defines password creation rules including length, character set, blocklists, and user guidance.',
 )
 @SectionId('PRP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class PasswordRequirementsPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -5093,6 +5135,7 @@ class PasswordRequirementsPolicy extends DocSpecsSection {
   'Defines how passwords are stored, hashed, salted, and verified against timing attacks.',
 )
 @SectionId('PSP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class PasswordStoragePolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -5200,6 +5243,7 @@ class PasswordStoragePolicy extends DocSpecsSection {
   'Defines the password lifecycle covering creation, rotation, expiry, and history.',
 )
 @SectionId('PLP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class PasswordLifecyclePolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -5312,6 +5356,7 @@ class PasswordLifecyclePolicy extends DocSpecsSection {
   'Defines how failed authentication attempts are rate-limited and how accounts are locked and unlocked.',
 )
 @SectionId('ALP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class AccountLockoutPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -5421,6 +5466,7 @@ class AccountLockoutPolicy extends DocSpecsSection {
   'Defines how users recover access when they lose credentials through reset flows and identity re-verification.',
 )
 @SectionId('CRP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class CredentialRecoveryPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -5515,6 +5561,7 @@ class CredentialRecoveryPolicy extends DocSpecsSection {
   'Defines how compromised credentials are detected via breach monitoring and how the system responds.',
 )
 @SectionId('CCDP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class CredentialCompromiseDetectionPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -5606,6 +5653,7 @@ class CredentialCompromiseDetectionPolicy extends DocSpecsSection {
   'Defines credential management for non-human identities such as service accounts, API keys, and machine tokens.',
 )
 @SectionId('SACP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class ServiceAccountCredentialPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -5628,6 +5676,7 @@ class ServiceAccountCredentialPolicy extends DocSpecsSection {
   'Defines the MFA enforcement requirements for a specific user category and target assurance level.',
 )
 @SectionId('MFACRQ')
+@CodeSpecKind([CodeSpecPart.authentication])
 class MfaCategoryRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5782,6 +5831,7 @@ class MfaCategoryRequirementEntry extends DocSpecsSection {
   'Captures the comprehensive session management policy covering timeouts, concurrency, revocation, and hardening.',
 )
 @SectionId('SEMA')
+@CodeSpecKind([CodeSpecPart.authentication])
 class SessionManagement extends DocSpecsSection {
   @ContentHelp('''
 Define session management policies that balance security with user experience.
@@ -5972,6 +6022,7 @@ Define session management policies that balance security with user experience.
   'Defines idle, absolute, and renewal timeout parameters including per-AAL differentiation.',
 )
 @SectionId('STP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class SessionTimeoutPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -6072,6 +6123,7 @@ class SessionTimeoutPolicy extends DocSpecsSection {
   'Defines how multiple simultaneous sessions per account are limited, notified, and resolved.',
 )
 @SectionId('CSP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class ConcurrentSessionPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -6185,6 +6237,7 @@ class ConcurrentSessionPolicy extends DocSpecsSection {
   'Defines how sessions are explicitly invalidated on logout, privilege change, and bulk revocation.',
 )
 @SectionId('SRP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class SessionRevocationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -6296,6 +6349,7 @@ class SessionRevocationPolicy extends DocSpecsSection {
   'Defines remember-me persistent login, device trust, and long-lived session token management.',
 )
 @SectionId('RMP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class RememberMePolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -6405,6 +6459,7 @@ class RememberMePolicy extends DocSpecsSection {
   'Defines session fixation protection, session binding, anomaly detection, and transport hardening.',
 )
 @SectionId('SSP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class SessionSecurityPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -6509,6 +6564,7 @@ class SessionSecurityPolicy extends DocSpecsSection {
   'Defines how session events are logged, monitored, and audited across the full session lifecycle.',
 )
 @SectionId('SLM')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class SessionLifecycleMonitoring extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -6530,6 +6586,7 @@ class SessionLifecycleMonitoring extends DocSpecsSection {
 )
 @SectionId('RESPRO')
 @DetailedIn(D08SecurityAccessSpecification)
+@CodeSpecKind([CodeSpecPart.authorization])
 class ResourceProtection extends DocSpecsSection {
   @ContentHelp('''
 Overview of resource protection strategies covering data, APIs, and file
@@ -6590,6 +6647,7 @@ can only access the specific resources they are entitled to.
   'Covers data-level protection including database access, row and column-level security, tenant isolation, and masking.',
 )
 @SectionId('DALESE')
+@CodeSpecKind([CodeSpecPart.authorization])
 class DataLevelSecurity extends DocSpecsSection {
   @ContentHelp('''
 Define data-level security controls that protect sensitive information
@@ -6771,6 +6829,7 @@ within databases and data stores.
   'Defines how database accounts, credentials, and privileged access are controlled and how queries are protected from injection.',
 )
 @SectionId('DAP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class DatabaseAccessPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -6872,6 +6931,7 @@ class DatabaseAccessPolicy extends DocSpecsSection {
   'Defines how data access is restricted at the row level so users can only see records they are authorized to view.',
 )
 @SectionId('RLSP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RowLevelSecurityPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -6959,6 +7019,7 @@ class RowLevelSecurityPolicy extends DocSpecsSection {
   'Defines how access to specific data columns or fields is restricted by role, sensitivity classification, or regulation.',
 )
 @SectionId('CLSP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class ColumnLevelSecurityPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -7059,6 +7120,7 @@ class ColumnLevelSecurityPolicy extends DocSpecsSection {
   'Defines how each tenant data is isolated, exported, and removed so that one tenant cannot access another tenant records.',
 )
 @SectionId('TDIP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class TenantDataIsolationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -7180,6 +7242,7 @@ class TenantDataIsolationPolicy extends DocSpecsSection {
   'Defines how sensitive data is masked or obfuscated for non-production, reporting, and limited-access scenarios.',
 )
 @SectionId('DMP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class DataMaskingPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -7286,6 +7349,7 @@ class DataMaskingPolicy extends DocSpecsSection {
   'Defines how data access events are logged, monitored, and reviewed to detect unauthorized access and support compliance.',
 )
 @SectionId('DAAP')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class DataAccessAuditPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -7315,6 +7379,7 @@ class DataAccessAuditPolicy extends DocSpecsSection {
   'Covers end-to-end API security including authentication, authorization, request validation, CORS, abuse prevention, and monitoring.',
 )
 @SectionId('APSE')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class ApiSecurity extends DocSpecsSection {
   @ContentHelp('''
 Define security controls for all APIs exposed by the system, including
@@ -7534,6 +7599,7 @@ public-facing APIs, internal microservices, and webhooks.
   'Defines how API callers authenticate, including credential types, token formats, and webhook signature verification.',
 )
 @SectionId('AAP')
+@CodeSpecKind([CodeSpecPart.authentication])
 class ApiAuthenticationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -7666,6 +7732,7 @@ class ApiAuthenticationPolicy extends DocSpecsSection {
   'Defines object-level, function-level, and property-level authorization and controls against privilege escalation.',
 )
 @SectionId('APAUPO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class ApiAuthorizationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -7804,6 +7871,7 @@ class ApiAuthorizationPolicy extends DocSpecsSection {
   'Defines input validation, schema enforcement, size limits, and content-type verification for all API requests.',
 )
 @SectionId('ARVP')
+@CodeSpecKind([CodeSpecPart.validation])
 class ApiRequestValidationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -7915,6 +7983,7 @@ class ApiRequestValidationPolicy extends DocSpecsSection {
   'Defines CORS configuration and security response headers that govern cross-origin access to the API.',
 )
 @SectionId('APCOSE')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class ApiCorsSecurity extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -8038,6 +8107,7 @@ class ApiCorsSecurity extends DocSpecsSection {
   'Defines rate limiting, bot detection, brute-force prevention, and business-flow protection against API abuse.',
 )
 @SectionId('APABPR')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class ApiAbuseProtection extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -8168,6 +8238,7 @@ class ApiAbuseProtection extends DocSpecsSection {
   'Defines API access logging, anomaly detection, inventory management, and compliance reporting for API security.',
 )
 @SectionId('APSEMO')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class ApiSecurityMonitoring extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -8434,6 +8505,7 @@ and all stored media.
   'Defines how uploaded files are validated for type, size, and content before acceptance to prevent malicious uploads.',
 )
 @SectionId('FUVP')
+@CodeSpecKind([CodeSpecPart.fileStorage])
 class FileUploadValidationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -8548,6 +8620,7 @@ class FileUploadValidationPolicy extends DocSpecsSection {
   'Defines how files and storage volumes are encrypted at rest and in transit, including key management scope.',
 )
 @SectionId('STENPO')
+@CodeSpecKind([CodeSpecPart.fileStorage])
 class StorageEncryptionPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -8694,6 +8767,7 @@ class StorageEncryptionPolicy extends DocSpecsSection {
   'Defines who may access stored files and how access is enforced through permissions and time-limited direct links.',
 )
 @SectionId('FACP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class FileAccessControlPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -8824,6 +8898,7 @@ class FileAccessControlPolicy extends DocSpecsSection {
   'Defines how uploaded and stored files are scanned for malware, sensitive data, and policy-violating content.',
 )
 @SectionId('COSCPO')
+@CodeSpecKind([CodeSpecPart.fileStorage])
 class ContentScanningPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -8934,6 +9009,7 @@ class ContentScanningPolicy extends DocSpecsSection {
   'Defines how file downloads are protected through authentication, rate limiting, content disposition, and audit logging.',
 )
 @SectionId('FDSP')
+@CodeSpecKind([CodeSpecPart.fileStorage])
 class FileDownloadSecurityPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9079,6 +9155,7 @@ class FileDownloadSecurityPolicy extends DocSpecsSection {
   'Defines retention, archiving, versioning, backup, and secure deletion rules across the lifecycle of stored files.',
 )
 @SectionId('STLIPO')
+@CodeSpecKind([CodeSpecPart.fileStorage])
 class StorageLifecyclePolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9108,6 +9185,7 @@ class StorageLifecyclePolicy extends DocSpecsSection {
   'Describes the authorization model used by the system such as RBAC, ABAC, ReBAC, or a hybrid.',
 )
 @SectionId('AUMO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class AuthorizationModel extends DocSpecsSection {
   @ContentHelp('''
 Define the authorization model that governs who can do what in the system.
@@ -9283,6 +9361,7 @@ Define the authorization model that governs who can do what in the system.
   'Defines the primary access control paradigm such as RBAC or ABAC and the rationale for the choice.',
 )
 @SectionId('ACMS')
+@CodeSpecKind([CodeSpecPart.authorization])
 class AccessControlModelSelection extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9385,6 +9464,7 @@ class AccessControlModelSelection extends DocSpecsSection {
   'Defines the levels at which permissions can be specified from function-level through field-level control.',
 )
 @SectionId('PEGRPO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class PermissionGranularityPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9489,6 +9569,7 @@ class PermissionGranularityPolicy extends DocSpecsSection {
   'Defines how permissions from multiple sources combine into an effective permission set.',
 )
 @SectionId('PECOST')
+@CodeSpecKind([CodeSpecPart.authorization])
 class PermissionCompositionStrategy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9597,6 +9678,7 @@ class PermissionCompositionStrategy extends DocSpecsSection {
   'Defines constraints that restrict access beyond basic role or attribute assignments.',
 )
 @SectionId('ACCOPO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class AccessConstraintPolicies extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9706,6 +9788,7 @@ class AccessConstraintPolicies extends DocSpecsSection {
   'Defines how the system evaluates and enforces access control decisions at runtime.',
 )
 @SectionId('PEEVBE')
+@CodeSpecKind([CodeSpecPart.authorization])
 class PermissionEvaluationBehavior extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9728,6 +9811,7 @@ class PermissionEvaluationBehavior extends DocSpecsSection {
 )
 @SectionId('USAU')
 @DetailedIn(D08SecurityAccessSpecification)
+@CodeSpecKind([CodeSpecPart.authorization])
 class UserAuthorization extends DocSpecsSection {
   @ContentHelp('''
 Define the complete authorization structure that controls what users can do.
@@ -9835,6 +9919,7 @@ Aligned with Tom Core authorization model.
   'Defines the role hierarchy including inheritance rules, mutual exclusions, and role certification policies.',
 )
 @SectionId('ROHI')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleHierarchy extends DocSpecsSection {
   @ContentHelp('''
 Define role inheritance and combination rules. A well-designed role hierarchy
@@ -10015,6 +10100,7 @@ simplifies administration and ensures consistent access control.
   'Defines the global settings governing how the role hierarchy is structured and how inheritance works.',
 )
 @SectionId('ROHIPO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleHierarchyPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -10033,6 +10119,7 @@ class RoleHierarchyPolicy extends DocSpecsSection {
   'NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance',
 ], 'Defines one parent-child inheritance relationship between two roles.')
 @SectionId('RLINH')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleInheritanceRuleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10099,6 +10186,7 @@ class RoleInheritanceRuleEntry extends DocSpecsSection {
   'Defines a rule about which roles can or cannot be combined for a single user.',
 )
 @SectionId('RLCMB')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleCombinationConstraintEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10174,6 +10262,7 @@ class RoleCombinationConstraintEntry extends DocSpecsSection {
   'Defines a system-wide mutual exclusion rule that applies across all users for separation of duties.',
 )
 @SectionId('GBRLX')
+@CodeSpecKind([CodeSpecPart.authorization])
 class GlobalRoleExclusionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10297,6 +10386,7 @@ class GlobalRoleExclusionEntry extends DocSpecsSection {
   'Defines how roles and role assignments are periodically reviewed and certified to prevent privilege creep.',
 )
 @SectionId('ROCEPO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleCertificationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -10328,6 +10418,7 @@ class RoleCertificationPolicy extends DocSpecsSection {
   'Describes how multi-tenant authorization is structured and isolated at the authorization layer.',
 )
 @SectionId('TEIS')
+@CodeSpecKind([CodeSpecPart.authorization])
 class TenantIsolation extends DocSpecsSection {
   @ContentHelp('''
 Define how multi-tenant authorization is structured at the application layer.
@@ -10473,6 +10564,7 @@ Complements data-level tenant isolation.
   'Defines how the tenant context is established, validated, and propagated through authorization decisions.',
 )
 @SectionId('TECOPO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class TenantContextPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -10563,6 +10655,7 @@ class TenantContextPolicy extends DocSpecsSection {
   'Defines whether and how access across tenant boundaries is permitted and governed.',
 )
 @SectionId('CTAP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class CrossTenantAccessPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -10586,6 +10679,7 @@ class CrossTenantAccessPolicy extends DocSpecsSection {
   'Describes one area where a tenant can customize its authorization model beyond platform defaults.',
 )
 @SectionId('TNCS')
+@CodeSpecKind([CodeSpecPart.authorization])
 class TenantCustomizationEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10754,6 +10848,7 @@ class TenantCustomizationEntry extends DocSpecsSection {
   'Defines how authorization resources are provisioned on tenant onboarding and cleaned up on offboarding.',
 )
 @SectionId('TEONPO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class TenantOnboardingPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -10854,6 +10949,7 @@ class TenantOnboardingPolicy extends DocSpecsSection {
   'Defines how authorization boundaries between tenants are enforced at runtime across the architectural layers.',
 )
 @SectionId('TBEP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class TenantBoundaryEnforcementPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -10870,6 +10966,7 @@ class TenantBoundaryEnforcementPolicy extends DocSpecsSection {
   'ISO/IEC 27001:2022 — control A.5.15 access control',
 ], 'Defines an authorization group that bundles roles for assignment to users.')
 @SectionId('AZGR')
+@CodeSpecKind([CodeSpecPart.authorization])
 class AuthorizationGroupEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10914,6 +11011,7 @@ class AuthorizationGroupEntry extends DocSpecsSection {
   'NIST RBAC INCITS 359-2012 — role identification',
 ], 'References a single authorization role by name from a group or assignment.')
 @SectionId('ROLREF')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleReferenceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10942,6 +11040,7 @@ class RoleReferenceEntry extends DocSpecsSection {
   'Defines a single authorization role with its category, scope, permissions, and lifecycle controls.',
 )
 @SectionId('AZRO')
+@CodeSpecKind([CodeSpecPart.authorization])
 class AuthorizationRoleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11195,6 +11294,7 @@ class AuthorizationRoleEntry extends DocSpecsSection {
   'ISO/IEC 27001:2022 — control A.5.15 access control',
 ], 'References a responsibility associated with a role.')
 @SectionId('RSPREF')
+@CodeSpecKind([CodeSpecPart.authorization])
 class ResponsibilityReferenceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11238,6 +11338,7 @@ class ResponsibilityReferenceEntry extends DocSpecsSection {
   'ISO/IEC 27001:2022 — control A.5.15 access control',
 ], 'References an entitlement granted to a role.')
 @SectionId('ENREFE')
+@CodeSpecKind([CodeSpecPart.authorization])
 class EntitlementReferenceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11287,6 +11388,7 @@ class EntitlementReferenceEntry extends DocSpecsSection {
   'ISO/IEC 27001:2022 — control A.5.15 access control',
 ], 'Defines a permission assigned directly to a role.')
 @SectionId('ROLPERM')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RolePermissionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11337,6 +11439,7 @@ class RolePermissionEntry extends DocSpecsSection {
   'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
 ], 'Specifies which data categories a role may access and at what level.')
 @SectionId('ROLDSCP')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleDataScopeEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11387,6 +11490,7 @@ class RoleDataScopeEntry extends DocSpecsSection {
   'Declares a role that must not be held together with this one to enforce separation of duties.',
 )
 @SectionId('ROLEXC')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleExclusionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11430,6 +11534,7 @@ class RoleExclusionEntry extends DocSpecsSection {
   'ISO/IEC 27001:2022 — control A.5.15 access control',
 ], 'Describes the population of users expected to hold a role.')
 @SectionId('ROLHLD')
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleHolderEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11477,6 +11582,7 @@ class RoleHolderEntry extends DocSpecsSection {
   'ISO/IEC 27001:2022 — control A.5.15 access control',
 ], 'Defines an entitlement that grants a bundle of access rights.')
 @SectionId('ENT')
+@CodeSpecKind([CodeSpecPart.authorization])
 class EntitlementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11522,6 +11628,7 @@ class EntitlementEntry extends DocSpecsSection {
   'NIST RBAC INCITS 359-2012 — role-based access control',
 ], 'References a protected resource by its unique resource key.')
 @SectionId('RESKREF')
+@CodeSpecKind([CodeSpecPart.authorization])
 class ResourceKeyReferenceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11543,6 +11650,7 @@ class ResourceKeyReferenceEntry extends DocSpecsSection {
   'NIST RBAC INCITS 359-2012 — role-based access control',
 ], 'Defines a protected resource identified by a unique resource key.')
 @SectionId('RESKEY')
+@CodeSpecKind([CodeSpecPart.authorization])
 class ResourceKeyEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11586,6 +11694,7 @@ class ResourceKeyEntry extends DocSpecsSection {
 )
 @SectionId('SEDAEN')
 @DetailedIn(D08SecurityAccessSpecification)
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class SensitiveDataEncryption extends DocSpecsSection {
   @ContentHelp('''
 Define encryption requirements for sensitive data both at rest and in transit.
@@ -11657,6 +11766,7 @@ other controls fail.
   'This section defines encryption requirements for stored data, covering algorithms, key lengths, encryption layers, field-level and full-disk encryption, encrypted data categories, and backup encryption.',
 )
 @SectionId('ENATRE')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class EncryptionAtRest extends DocSpecsSection {
   @ContentHelp('''
 Define how stored data is encrypted to protect against unauthorized access,
@@ -11833,6 +11943,7 @@ data breaches, and physical media theft.
   'This section defines global settings governing how data at rest is encrypted, covering the default algorithm, key size, cipher mode, encryption layer strategy, and compliance framework alignment.',
 )
 @SectionId('EARP')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class EncryptionAtRestPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -11857,6 +11968,7 @@ class EncryptionAtRestPolicy extends DocSpecsSection {
   'This section defines a specific category of data requiring encryption at rest, including its classification, encryption approach, algorithm override, and data minimization strategy.',
 )
 @SectionId('ENDACA')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class EncryptedDataCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12002,6 +12114,7 @@ class EncryptedDataCategoryEntry extends DocSpecsSection {
   'This section defines how database-level encryption is implemented, covering TDE configuration, column-level encryption, index handling for encrypted columns, and search strategy.',
 )
 @SectionId('DAENPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class DatabaseEncryptionPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -12082,6 +12195,7 @@ class DatabaseEncryptionPolicy extends DocSpecsSection {
   'This section defines how files, blobs, and non-database storage are encrypted at rest, covering file-level versus volume-level encryption, cloud storage encryption, and local device encryption.',
 )
 @SectionId('FSEP')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class FileStorageEncryptionPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -12159,6 +12273,7 @@ class FileStorageEncryptionPolicy extends DocSpecsSection {
   'This section defines encryption requirements for backup data, covering the backup encryption method, separate key management, retention of encrypted backups, and verification of encryption integrity.',
 )
 @SectionId('BAENPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class BackupEncryptionPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -12187,6 +12302,7 @@ class BackupEncryptionPolicy extends DocSpecsSection {
   'This section defines encryption requirements for data in transit, covering TLS protocol versions, cipher suites, certificate management, HSTS, mutual TLS, and service-to-service communication.',
 )
 @SectionId('ENINTR')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class EncryptionInTransit extends DocSpecsSection {
   @ContentHelp('''
 Define how data is protected while moving over networks, both externally
@@ -12346,6 +12462,7 @@ Define how data is protected while moving over networks, both externally
   'This section defines global TLS protocol configuration, covering minimum and preferred protocol versions, allowed cipher suites, Diffie-Hellman groups, and compression settings.',
 )
 @SectionId('TLPRPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class TlsProtocolPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -12461,6 +12578,7 @@ class TlsProtocolPolicy extends DocSpecsSection {
   'This section defines how TLS certificates are managed, covering certificate authority selection, validation type, key strength, hashing algorithm, wildcard policy, lifecycle, and automated renewal.',
 )
 @SectionId('CEMAPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class CertificateManagementPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -12486,6 +12604,7 @@ class CertificateManagementPolicy extends DocSpecsSection {
   'This section defines encryption requirements for a specific communication channel, allowing different channels to have distinct TLS configurations and requirements.',
 )
 @SectionId('COCHEN')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class CommunicationChannelEncryptionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12629,6 +12748,7 @@ class CommunicationChannelEncryptionEntry extends DocSpecsSection {
   'This section defines mutual TLS requirements where both client and server authenticate via certificates, covering issuance, authentication scope, revocation checking, and fallback behavior.',
 )
 @SectionId('MUTLPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class MutualTlsPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -12727,6 +12847,7 @@ class MutualTlsPolicy extends DocSpecsSection {
   'This section defines HTTP Strict Transport Security, HTTP-to-HTTPS redirect behavior, secure cookie flags, mixed content prevention, and sensitive data caching rules.',
 )
 @SectionId('TRSEPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class TransportSecurityPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -12755,6 +12876,7 @@ class TransportSecurityPolicy extends DocSpecsSection {
   'This section defines cryptographic key management policies covering the full key lifecycle: generation, storage, rotation, escrow and backup, and compromise recovery.',
 )
 @SectionId('KEMA')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class KeyManagement extends DocSpecsSection {
   @ContentHelp('''
 Define policies for the complete lifecycle of cryptographic keys. Proper
@@ -12840,6 +12962,7 @@ key management is essential — poor key management can negate all encryption.
   'This section defines how cryptographic keys are generated, covering approved algorithms, cryptographic module requirements, random number generation, and minimum key strengths.',
 )
 @SectionId('KEGEPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class KeyGenerationPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -12922,6 +13045,7 @@ class KeyGenerationPolicy extends DocSpecsSection {
   'This section defines how cryptographic keys are stored, covering storage mechanisms, key-encryption-key requirements, plaintext prohibitions, integrity protection, and access control.',
 )
 @SectionId('KESTPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class KeyStoragePolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13002,6 +13126,7 @@ class KeyStoragePolicy extends DocSpecsSection {
   'This section defines key rotation schedules, automation, triggers, grace periods, versioning, and distribution of rotated cryptographic keys.',
 )
 @SectionId('KEROPO')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class KeyRotationPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13076,6 +13201,7 @@ class KeyRotationPolicy extends DocSpecsSection {
   'This section defines key escrow and backup procedures, including who holds escrowed keys, which key types are backed up, and how backups are protected and stored.',
 )
 @SectionId('KEABP')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class KeyEscrowAndBackupPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13147,6 +13273,7 @@ class KeyEscrowAndBackupPolicy extends DocSpecsSection {
   'This section defines procedures for detecting key compromise, notifying stakeholders, re-keying, revocation, and recovering from a compromised cryptographic key.',
 )
 @SectionId('KCRP')
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class KeyCompromiseRecoveryPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13314,6 +13441,7 @@ incident detection, forensic investigation, and compliance reporting.
   'This section defines which security-relevant events must be captured in audit logs across authentication, authorization, data, and administrative categories.',
 )
 @SectionId('SEEVDE')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class SecurityEventsDefinition extends DocSpecsSection {
   @ContentHelp('''
 Define which security-relevant events must be captured in audit logs.
@@ -13403,6 +13531,7 @@ Balance comprehensive coverage with log volume management.
   'This section defines the overall policy for security event logging, including default level, PII handling, and severity classification.',
 )
 @SectionId('SELP')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class SecurityEventLoggingPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13474,6 +13603,7 @@ class SecurityEventLoggingPolicy extends DocSpecsSection {
   'This section defines which authentication events, such as logins, password changes, and MFA activity, are logged.',
 )
 @SectionId('AUEVPO')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class AuthenticationEventPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13539,6 +13669,7 @@ class AuthenticationEventPolicy extends DocSpecsSection {
   'This section defines which authorization events, such as access grants, denials, and privilege changes, are logged.',
 )
 @SectionId('AUEVP1')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class AuthorizationEventPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13598,6 +13729,7 @@ class AuthorizationEventPolicy extends DocSpecsSection {
   'This section defines which data access events, including creation, modification, deletion, and export of sensitive data, are logged.',
 )
 @SectionId('DAEP')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class DataAccessEventPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13663,6 +13795,7 @@ class DataAccessEventPolicy extends DocSpecsSection {
   'This section defines which administrative events, such as configuration and user management changes, are logged.',
 )
 @SectionId('ADEVPO')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class AdministrativeEventPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13729,6 +13862,7 @@ class AdministrativeEventPolicy extends DocSpecsSection {
   'This section defines a single application-specific security event beyond the standard categories, with its trigger and response.',
 )
 @SectionId('SEVT')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class SecurityEventEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -13797,6 +13931,7 @@ class SecurityEventEntry extends DocSpecsSection {
   'This section defines the structure and format of audit log entries so they are consistent, parsable, and useful for forensic investigation.',
 )
 @SectionId('AULOFO')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class AuditLogFormat extends DocSpecsSection {
   @ContentHelp('''
 Define the structure and format of audit log entries for consistency,
@@ -13874,6 +14009,7 @@ parsability, and forensic utility.
   'This section defines which attributes are captured for each log event, covering when, where, who, and what information.',
 )
 @SectionId('EVATPO')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class EventAttributePolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -13951,6 +14087,7 @@ class EventAttributePolicy extends DocSpecsSection {
   'This section defines where and how log data is stored, including centralization, storage format, and encryption at rest.',
 )
 @SectionId('LOSTPO')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class LogStoragePolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -14010,6 +14147,7 @@ class LogStoragePolicy extends DocSpecsSection {
   'This section defines tamper protection and integrity verification for audit logs, including write protection and deletion controls.',
 )
 @SectionId('LOPRPO')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class LogProtectionPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -14075,6 +14213,7 @@ class LogProtectionPolicy extends DocSpecsSection {
   'This section defines log retention periods, archival, and secure disposal, including handling of legal holds.',
 )
 @SectionId('LOREPO')
+@CodeSpecKind([CodeSpecPart.auditLog])
 class LogRetentionPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -14477,6 +14616,7 @@ class RegulatoryAuditSupport extends DocSpecsSection {
 )
 @SectionId('ROMA')
 @DetailedIn(D08SecurityAccessSpecification)
+@CodeSpecKind([CodeSpecPart.authorization])
 class RoleMatrix extends DocSpecsSection {
   @ContentHelp('''
 Authoritative mapping of system roles to the permissions they hold.

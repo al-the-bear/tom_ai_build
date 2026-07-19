@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T16:28:10.251294Z",
+  "generatedAt": "2026-07-19T16:38:12.743656Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -1688,6 +1688,14 @@
           "arguments": {
             "id": "ACCOPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -1755,6 +1763,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ACMS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -2404,6 +2420,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "AUSCT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
@@ -3764,6 +3788,14 @@
           "arguments": {
             "id": "ACACT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
+          }
         }
       ],
       "fields": [
@@ -3831,6 +3863,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ACDEA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
@@ -3900,6 +3940,14 @@
           "arguments": {
             "id": "ACDEL"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
+          }
         }
       ],
       "fields": [
@@ -3968,6 +4016,14 @@
           "arguments": {
             "id": "ALP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -4035,6 +4091,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ACMOD"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
@@ -6114,6 +6178,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ADEVPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
           }
         }
       ],
@@ -8911,6 +8983,14 @@
           "arguments": {
             "id": "APABPR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
+          }
         }
       ],
       "fields": [
@@ -8981,6 +9061,14 @@
           "arguments": {
             "id": "AAP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -9050,6 +9138,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "APAUPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -9470,6 +9566,14 @@
           "arguments": {
             "id": "APCOSE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
+          }
         }
       ],
       "fields": [
@@ -9537,6 +9641,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "AKMP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -9608,6 +9720,14 @@
           "arguments": {
             "id": "ARVP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.validation"
+            ]
+          }
         }
       ],
       "fields": [
@@ -9671,6 +9791,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "APSE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -9838,6 +9966,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "APSEMO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
           }
         }
       ],
@@ -14113,6 +14249,14 @@
           "arguments": {
             "id": "AULOFO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
+          }
         }
       ],
       "fields": [
@@ -14499,6 +14643,14 @@
           "arguments": {
             "id": "AEH"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -14560,6 +14712,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "AUEVPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
           }
         }
       ],
@@ -14680,6 +14840,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "AUFL"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -14911,6 +15079,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ATME"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -15286,6 +15462,14 @@
           "arguments": {
             "id": "AUME"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -15484,6 +15668,14 @@
           "arguments": {
             "id": "AUEVP1"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
+          }
         }
       ],
       "fields": [
@@ -15594,6 +15786,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "AZGR"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -15722,6 +15922,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "AUMO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -15866,6 +16074,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "AZRO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -17664,6 +17880,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "BAENPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -20019,6 +20243,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "BAP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -27333,6 +27565,14 @@
           "arguments": {
             "id": "CAP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -27741,6 +27981,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "CEMAPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -37269,6 +37517,14 @@
           "arguments": {
             "id": "CLSP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -37669,6 +37925,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "COCHEN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -47761,6 +48025,14 @@
           "arguments": {
             "id": "CSP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -49248,6 +49520,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "COSCPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.fileStorage"
+            ]
           }
         }
       ],
@@ -50884,6 +51164,14 @@
           "arguments": {
             "id": "CCDP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -50951,6 +51239,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "CRP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -51574,6 +51870,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "CTAP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -58400,6 +58704,14 @@
           "arguments": {
             "id": "DAAP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
+          }
         }
       ],
       "fields": [
@@ -58461,6 +58773,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "DAEP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
           }
         }
       ],
@@ -63756,6 +64076,14 @@
           "arguments": {
             "id": "DALESE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -63922,6 +64250,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "DMP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -69839,6 +70175,14 @@
           "arguments": {
             "id": "DAP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -70255,6 +70599,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "DAENPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -88778,6 +89130,14 @@
           "arguments": {
             "id": "ENDACA"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
+          }
         }
       ],
       "fields": [
@@ -88886,6 +89246,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ENATRE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -89074,6 +89442,14 @@
           "arguments": {
             "id": "EARP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
+          }
         }
       ],
       "fields": [
@@ -89135,6 +89511,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ENINTR"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -89733,6 +90117,14 @@
           "arguments": {
             "id": "ENT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -89867,6 +90259,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ENREFE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -95336,6 +95736,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "EVATPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
           }
         }
       ],
@@ -104838,6 +105246,14 @@
           "arguments": {
             "id": "FACP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -105078,6 +105494,14 @@
           "arguments": {
             "id": "FDSP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.fileStorage"
+            ]
+          }
         }
       ],
       "fields": [
@@ -105145,6 +105569,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "FSEP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -105215,6 +105647,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "FUVP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.fileStorage"
+            ]
           }
         }
       ],
@@ -109332,6 +109772,14 @@
           "arguments": {
             "id": "GBRLX"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -112336,6 +112784,14 @@
           "arguments": {
             "id": "IDENT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -112675,6 +113131,14 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -112757,6 +113221,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "IDTAM"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -113040,6 +113512,14 @@
           "arguments": {
             "id": "IDPRDE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -113113,6 +113593,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "IDPREN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -113203,6 +113691,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "IDTPV"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -113608,6 +114104,14 @@
           "arguments": {
             "id": "IDTSR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -113970,6 +114474,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "IDVEPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -128440,6 +128952,14 @@
           "arguments": {
             "id": "KCRP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
+          }
         }
       ],
       "fields": [
@@ -128870,6 +129390,14 @@
           "arguments": {
             "id": "KEABP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
+          }
         }
       ],
       "fields": [
@@ -128980,6 +129508,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "KEGEPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -129098,6 +129634,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "KEMA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -129365,6 +129909,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "KEROPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -129678,6 +130230,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "KESTPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -133922,6 +134482,14 @@
           "arguments": {
             "id": "LOPRPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
+          }
         }
       ],
       "fields": [
@@ -134033,6 +134601,14 @@
           "arguments": {
             "id": "LOREPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
+          }
         }
       ],
       "fields": [
@@ -134143,6 +134719,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "LOSTPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
           }
         }
       ],
@@ -134263,6 +134847,14 @@
           "arguments": {
             "id": "LFC"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -134324,6 +134916,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "LGFLS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -139056,6 +139656,14 @@
           "arguments": {
             "id": "MFACRQ"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -139345,6 +139953,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "MC"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -147811,6 +148427,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "MUTLPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -161725,6 +162349,14 @@
           "arguments": {
             "id": "PACP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -161957,6 +162589,14 @@
           "arguments": {
             "id": "PLP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -162025,6 +162665,14 @@
           "arguments": {
             "id": "PRP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -162092,6 +162740,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "PSP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -163109,6 +163765,14 @@
           "arguments": {
             "id": "PECOST"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -163177,6 +163841,14 @@
           "arguments": {
             "id": "PEEVBE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -163244,6 +163916,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "PEGRPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -184892,6 +185572,14 @@
           "arguments": {
             "id": "RHP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -187460,6 +188148,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "RMP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -195183,6 +195879,14 @@
           "arguments": {
             "id": "RESKEY"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -195264,6 +195968,14 @@
           "arguments": {
             "id": "RESKREF"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -195332,6 +196044,14 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -196336,6 +197056,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "RSPREF"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -202110,6 +202838,14 @@
           "arguments": {
             "id": "ROCEPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -202171,6 +202907,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "RLCMB"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -202376,6 +203120,14 @@
           "arguments": {
             "id": "ROLDSCP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -202457,6 +203209,14 @@
           "arguments": {
             "id": "ROLEXC"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -202537,6 +203297,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ROHI"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -202799,6 +203567,14 @@
           "arguments": {
             "id": "ROHIPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -202860,6 +203636,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ROLHLD"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -202946,6 +203730,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "RLINH"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -203051,6 +203843,14 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -203103,6 +203903,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ROLPERM"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -203182,6 +203990,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ROLREF"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -203844,6 +204660,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "RLSP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -215289,6 +216113,14 @@
           "arguments": {
             "id": "SEVT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
+          }
         }
       ],
       "fields": [
@@ -215390,6 +216222,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "SELP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
           }
         }
       ],
@@ -215503,6 +216343,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "SEEVDE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
           }
         }
       ],
@@ -217383,6 +218231,14 @@
           "arguments": {
             "id": "SEREPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -217835,6 +218691,14 @@
           "arguments": {
             "id": "SSACM"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
+          }
         }
       ],
       "fields": [
@@ -217903,6 +218767,14 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
           }
         }
       ],
@@ -219705,6 +220577,14 @@
           "arguments": {
             "id": "SACP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -219772,6 +220652,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "SACLC"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
@@ -220928,6 +221816,14 @@
           "arguments": {
             "id": "SCP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -220996,6 +221892,14 @@
           "arguments": {
             "id": "SLM"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.auditLog"
+            ]
+          }
         }
       ],
       "fields": [
@@ -221057,6 +221961,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "SEMA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -221488,6 +222400,14 @@
           "arguments": {
             "id": "SRP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -221556,6 +222476,14 @@
           "arguments": {
             "id": "SSP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -221623,6 +222551,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "STP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -223205,6 +224141,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "SSOP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -225263,6 +226207,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "SP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -233595,6 +234547,14 @@
           "arguments": {
             "id": "SUAP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
+          }
         }
       ],
       "fields": [
@@ -233703,6 +234663,14 @@
           "arguments": {
             "id": "STENPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.fileStorage"
+            ]
+          }
         }
       ],
       "fields": [
@@ -233772,6 +234740,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "STLIPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.fileStorage"
+            ]
           }
         }
       ],
@@ -251653,6 +252629,14 @@
           "arguments": {
             "id": "TBEP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -251721,6 +252705,14 @@
           "arguments": {
             "id": "TECOPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -251782,6 +252774,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "TNCS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -251907,6 +252907,14 @@
           "arguments": {
             "id": "TDIP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
         }
       ],
       "fields": [
@@ -251968,6 +252976,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "TEIS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -252155,6 +253171,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "TEONPO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -254874,6 +255898,14 @@
           "arguments": {
             "id": "TLPRPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
+          }
         }
       ],
       "fields": [
@@ -255288,6 +256320,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "TMP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ]
           }
         }
       ],
@@ -263202,6 +264242,14 @@
           "arguments": {
             "id": "TRSEPO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ]
+          }
         }
       ],
       "fields": [
@@ -268395,6 +269443,14 @@
           "arguments": {
             "id": "UACST"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
+          }
         }
       ],
       "fields": [
@@ -268793,6 +269849,14 @@
           "arguments": {
             "id": "USATE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
+          }
         }
       ],
       "fields": [
@@ -268873,6 +269937,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "USATT"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
@@ -268985,6 +270057,14 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
           }
         }
       ],
@@ -269455,6 +270535,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "USCDF"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
@@ -271161,6 +272249,14 @@
           "arguments": {
             "id": "USLCS"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
+          }
         }
       ],
       "fields": [
@@ -271401,6 +272497,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ULTRE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
@@ -271696,6 +272800,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "ULTRS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
@@ -272911,6 +274023,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "URREG"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.identity"
+            ]
           }
         }
       ],
