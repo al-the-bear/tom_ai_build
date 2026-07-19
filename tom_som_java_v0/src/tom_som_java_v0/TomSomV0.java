@@ -7837,6 +7837,19 @@ public final class TomSomV0 {
     public DomainEnumRegistry domainEnumRegistry() {
       return new DomainEnumRegistry(doc, path + "/domainEnumRegistry");
     }
+
+    // Error code registry — the shared application error-code vocabulary
+    // referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+    // (csmb5).
+    public ErrorCodeRegistry errorCodeRegistry() {
+      return new ErrorCodeRegistry(doc, path + "/errorCodeRegistry");
+    }
+
+    // Result envelope — the canonical success-or-error §7 Result contract
+    // (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+    public ResultEnvelope resultEnvelope() {
+      return new ResultEnvelope(doc, path + "/resultEnvelope");
+    }
   }
 
   // RSP00 Requirements Specification.
@@ -13549,6 +13562,66 @@ public final class TomSomV0 {
     }
   }
 
+  // A single shared application error code (form).
+  //
+  // One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+  // referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+  // a default severity, a retryable hint, an optional HTTP-status hint and a
+  // copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+  // CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+  // arm draws from.
+  public static final class ErrorCodeEntry extends SomNode {
+    public ErrorCodeEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ErrorCodeEntryContentForm content() {
+      return new ErrorCodeEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // 7.6. Error Code Registry.
+  //
+  // The single, shared **application error-code vocabulary** — the spine that
+  // CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+  // reference so they never invent divergent code strings (csm5 cross-cutting
+  // finding #2; `codespecs_coverage_gaps.md` §3.1).
+  //
+  // This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+  // *system/network/display* error catalogue (HTTP status, presentation,
+  // recovery). This registry is the **application-level** error vocabulary a
+  // success-or-error [ResultEnvelope] carries:
+  //
+  // - a CE-VA field/form rule names its "error code on fail" from here rather
+  //   than minting a literal;
+  // - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+  // - CE-TX error copy is keyed by the same code, so client message and server
+  //   error share one source.
+  public static final class ErrorCodeRegistry extends SomNode {
+    public ErrorCodeRegistry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 7.6.1. Error Codes — one entry per shared application error code.
+    public SomList<ErrorCodeEntry> errorCodes() {
+      return new SomList<>(doc, path + "/ERCEN-CODE-LST", (d, p) -> new ErrorCodeEntry(d, p), "ERCEN-CODE-xxx");
+    }
+  }
+
   // 10.7. Error Handling.
   //
   // Comprehensive error handling user experience framework covering validation
@@ -16469,6 +16542,16 @@ public final class TomSomV0 {
     // 7.5. Domain Enum Registry.
     public DomainEnumRegistry domainEnumRegistry() {
       return new DomainEnumRegistry(doc, path + "/domainEnumRegistry");
+    }
+
+    // 7.6. Error Code Registry.
+    public ErrorCodeRegistry errorCodeRegistry() {
+      return new ErrorCodeRegistry(doc, path + "/errorCodeRegistry");
+    }
+
+    // 7.7. Result Envelope.
+    public ResultEnvelope resultEnvelope() {
+      return new ResultEnvelope(doc, path + "/resultEnvelope");
     }
   }
 
@@ -26654,6 +26737,53 @@ public final class TomSomV0 {
 
     public ResponsiveScreenRuleEntryContentForm content() {
       return new ResponsiveScreenRuleEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // 7.7. Result Envelope.
+  //
+  // The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+  // the §7 server contract). This is the model-side counterpart of the
+  // `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+  // every application outcome — success *or* structured error — is returned in a
+  // normal (2xx-transport) body as this one envelope; only 5xx are transport
+  // failures.
+  //
+  // The envelope has two arms, distinguished by an **is-success discriminator**:
+  //
+  // 1. **success** — carries a value payload;
+  // 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+  //    retryable/severity hint, and an optional list of field-level details
+  //    ([ResultFieldDetailEntry]) for input-attributable failures.
+  public static final class ResultEnvelope extends SomNode {
+    public ResultEnvelope(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ResultEnvelopeContentForm content() {
+      return new ResultEnvelopeContentForm(doc, path + "/content");
+    }
+
+    // 7.7.1. Field-Level Details — the per-field error detail the error arm may
+    // carry (e.g. form-validation failures).
+    public SomList<ResultFieldDetailEntry> fieldDetails() {
+      return new SomList<>(doc, path + "/RSFDE-FLDD-LST", (d, p) -> new ResultFieldDetailEntry(d, p), "RSFDE-FLDD-xxx");
+    }
+  }
+
+  // A single field-level error detail (form).
+  //
+  // One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+  // field path, an error code referencing the [ErrorCodeRegistry], and an
+  // optional default message (user copy resolves from the code via CE-TX). The
+  // model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+  public static final class ResultFieldDetailEntry extends SomNode {
+    public ResultFieldDetailEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ResultFieldDetailEntryContentForm content() {
+      return new ResultFieldDetailEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -86260,6 +86390,15 @@ public final class TomSomV0 {
       doc.setFormField(path, "ruleExpression", value);
     }
 
+    public String errorCode() {
+      String v = doc.formField(path, "errorCode");
+      return v == null ? "" : v;
+    }
+
+    public void errorCode(String value) {
+      doc.setFormField(path, "errorCode", value);
+    }
+
     public String errorMessageResource() {
       String v = doc.formField(path, "errorMessageResource");
       return v == null ? "" : v;
@@ -89285,6 +89424,84 @@ public final class TomSomV0 {
 
     public void burnRateTimePeriods(String value) {
       doc.setFormField(path, "burnRateTimePeriods", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ErrorCodeEntryContentForm extends SomNode {
+    public ErrorCodeEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String code() {
+      String v = doc.formField(path, "code");
+      return v == null ? "" : v;
+    }
+
+    public void code(String value) {
+      doc.setFormField(path, "code", value);
+    }
+
+    public String category() {
+      String v = doc.formField(path, "category");
+      return v == null ? "" : v;
+    }
+
+    public void category(String value) {
+      doc.setFormField(path, "category", value);
+    }
+
+    public String severity() {
+      String v = doc.formField(path, "severity");
+      return v == null ? "" : v;
+    }
+
+    public void severity(String value) {
+      doc.setFormField(path, "severity", value);
+    }
+
+    public Boolean retryable() {
+      String v = doc.formField(path, "retryable");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void retryable(Boolean value) {
+      doc.setFormField(path, "retryable", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Integer httpStatusHint() {
+      String v = doc.formField(path, "httpStatusHint");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void httpStatusHint(Integer value) {
+      doc.setFormField(path, "httpStatusHint", value == null ? "" : String.valueOf(value));
+    }
+
+    public String copyKey() {
+      String v = doc.formField(path, "copyKey");
+      return v == null ? "" : v;
+    }
+
+    public void copyKey(String value) {
+      doc.setFormField(path, "copyKey", value);
     }
   }
 
@@ -96146,6 +96363,15 @@ public final class TomSomV0 {
 
     public void ruleExpression(String value) {
       doc.setFormField(path, "ruleExpression", value);
+    }
+
+    public String errorCode() {
+      String v = doc.formField(path, "errorCode");
+      return v == null ? "" : v;
+    }
+
+    public void errorCode(String value) {
+      doc.setFormField(path, "errorCode", value);
     }
 
     public String errorMessage() {
@@ -149899,6 +150125,123 @@ public final class TomSomV0 {
 
     public void specialConsiderations(String value) {
       doc.setFormField(path, "specialConsiderations", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ResultEnvelopeContentForm extends SomNode {
+    public ResultEnvelopeContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String discriminatorField() {
+      String v = doc.formField(path, "discriminatorField");
+      return v == null ? "" : v;
+    }
+
+    public void discriminatorField(String value) {
+      doc.setFormField(path, "discriminatorField", value);
+    }
+
+    public String successArm() {
+      String v = doc.formField(path, "successArm");
+      return v == null ? "" : v;
+    }
+
+    public void successArm(String value) {
+      doc.setFormField(path, "successArm", value);
+    }
+
+    public String errorArm() {
+      String v = doc.formField(path, "errorArm");
+      return v == null ? "" : v;
+    }
+
+    public void errorArm(String value) {
+      doc.setFormField(path, "errorArm", value);
+    }
+
+    public Boolean retryable() {
+      String v = doc.formField(path, "retryable");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void retryable(Boolean value) {
+      doc.setFormField(path, "retryable", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String severity() {
+      String v = doc.formField(path, "severity");
+      return v == null ? "" : v;
+    }
+
+    public void severity(String value) {
+      doc.setFormField(path, "severity", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ResultFieldDetailEntryContentForm extends SomNode {
+    public ResultFieldDetailEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String fieldPath() {
+      String v = doc.formField(path, "fieldPath");
+      return v == null ? "" : v;
+    }
+
+    public void fieldPath(String value) {
+      doc.setFormField(path, "fieldPath", value);
+    }
+
+    public String errorCodeRef() {
+      String v = doc.formField(path, "errorCodeRef");
+      return v == null ? "" : v;
+    }
+
+    public void errorCodeRef(String value) {
+      doc.setFormField(path, "errorCodeRef", value);
+    }
+
+    public String message() {
+      String v = doc.formField(path, "message");
+      return v == null ? "" : v;
+    }
+
+    public void message(String value) {
+      doc.setFormField(path, "message", value);
     }
   }
 

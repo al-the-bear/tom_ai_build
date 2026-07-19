@@ -3672,6 +3672,14 @@ fn meta_children_d03_information_model(s: &mut HashSet<String>) -> Vec<Rc<som::S
             class_name: "DomainEnumRegistry".to_string(), member_name: "domainEnumRegistry".to_string(), class_section_id: "DOMEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumRegistry".to_string(), serialization_order: Some(14), doc_comment: "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).".to_string(), class_doc_comment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ErrorCodeRegistry", s, meta_children_error_code_registry, |r, c| som::SomMetaNode {
+            class_name: "ErrorCodeRegistry".to_string(), member_name: "errorCodeRegistry".to_string(), class_section_id: "ERCRG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorCodeRegistry".to_string(), serialization_order: Some(15), doc_comment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).".to_string(), class_doc_comment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ResultEnvelope", s, meta_children_result_envelope, |r, c| som::SomMetaNode {
+            class_name: "ResultEnvelope".to_string(), member_name: "resultEnvelope".to_string(), class_section_id: "RSLTE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResultEnvelope".to_string(), serialization_order: Some(16), doc_comment: "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).".to_string(), class_doc_comment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
     ]
 }
 
@@ -5960,7 +5968,7 @@ fn meta_children_efficiency(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode
 
 fn meta_children_element_validation_rule_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "ElementValidationRuleEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "ruleType".to_string(), type_name: "String".to_string(), description: "Rule Type".to_string(), required: true, hint: "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "ruleExpression".to_string(), type_name: "String".to_string(), description: "Rule Expression".to_string(), required: false, hint: "Validation expression or pattern".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "errorMessageResource".to_string(), type_name: "String".to_string(), description: "Error Message Resource".to_string(), required: false, hint: "Resource key for validation error message".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "severity".to_string(), type_name: "String".to_string(), description: "Severity".to_string(), required: false, hint: "Error/Warning/Info".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "validateOn".to_string(), type_name: "String".to_string(), description: "Validate On".to_string(), required: false, hint: "On-Change/On-Blur/On-Submit".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ElementValidationRuleEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "ruleType".to_string(), type_name: "String".to_string(), description: "Rule Type".to_string(), required: true, hint: "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "ruleExpression".to_string(), type_name: "String".to_string(), description: "Rule Expression".to_string(), required: false, hint: "Validation expression or pattern".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "errorCode".to_string(), type_name: "String".to_string(), description: "Error Code".to_string(), required: false, hint: "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "errorMessageResource".to_string(), type_name: "String".to_string(), description: "Error Message Resource".to_string(), required: false, hint: "Resource key for validation error message".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "severity".to_string(), type_name: "String".to_string(), description: "Severity".to_string(), required: false, hint: "Error/Warning/Info".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "validateOn".to_string(), type_name: "String".to_string(), description: "Validate On".to_string(), required: false, hint: "On-Change/On-Blur/On-Submit".to_string(), order: 5, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -6255,6 +6263,26 @@ fn meta_children_error_budget_tracking(_s: &mut HashSet<String>) -> Vec<Rc<som::
         Rc::new(som::SomMetaNode { class_name: "ErrorBudgetTracking".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "budgetCalculationMethod".to_string(), type_name: "String".to_string(), description: "Budget Calculation Method".to_string(), required: false, hint: "How error budget is calculated".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "budgetWindow".to_string(), type_name: "String".to_string(), description: "Budget Window".to_string(), required: false, hint: "Rolling or calendar window".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "budgetResetPolicy".to_string(), type_name: "String".to_string(), description: "Budget Reset Policy".to_string(), required: false, hint: "When budget resets".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "budgetBurnRateDashboard".to_string(), type_name: "bool".to_string(), description: "Budget Burn Rate Dashboard".to_string(), required: false, hint: "Dashboard showing burn rate".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ErrorBudgetTracking".to_string(), member_name: "monitoring".to_string(), section_id: "EBTM".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Burn-rate monitoring thresholds.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "budgetAlertThresholds".to_string(), type_name: "String".to_string(), description: "Budget Alert Thresholds".to_string(), required: false, hint: "Warn at 50%, critical at 80%".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "burnRateTimePeriods".to_string(), type_name: "String".to_string(), description: "Burn Rate Time Periods".to_string(), required: false, hint: "1h, 6h, 24h, 7d burn rates".to_string(), order: 1, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — error budgets".to_string()), som::Json::Str("Google SRE — service level objectives (SLOs and SLIs)".to_string())])), ("connotation".to_string(), som::Json::Str("Thresholds that watch how quickly the error budget burns down.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ErrorBudgetTracking".to_string(), member_name: "governance".to_string(), section_id: "EBTG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Recovery policy and attribution rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "budgetExhaustionActions".to_string(), type_name: "String".to_string(), description: "Budget Exhaustion Actions".to_string(), required: false, hint: "Feature freeze, deployment freeze".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "budgetRecoveryProcess".to_string(), type_name: "String".to_string(), description: "Budget Recovery Process".to_string(), required: false, hint: "Steps to recover budget".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "budgetReviewMeeting".to_string(), type_name: "String".to_string(), description: "Budget Review Meeting".to_string(), required: false, hint: "Regular error budget review".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "budgetAttribution".to_string(), type_name: "String".to_string(), description: "Budget Attribution".to_string(), required: false, hint: "Attribute budget spend to incidents".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Free-form governance notes".to_string(), order: 4, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — error budgets".to_string()), som::Json::Str("ITIL 4 — service level management practice".to_string())])), ("connotation".to_string(), som::Json::Str("Recovery and attribution rules applied when the error budget is spent.".to_string()))] }], ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_error_code_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ErrorCodeEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "code".to_string(), type_name: "String".to_string(), description: "Code".to_string(), required: true, hint: "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "category".to_string(), type_name: "String".to_string(), description: "Category".to_string(), required: false, hint: "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "severity".to_string(), type_name: "String".to_string(), description: "Default Severity".to_string(), required: false, hint: "Default severity: Info | Warning | Error | Fatal".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "retryable".to_string(), type_name: "bool".to_string(), description: "Retryable".to_string(), required: false, hint: "Whether retrying the same operation may reasonably succeed".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "httpStatusHint".to_string(), type_name: "int".to_string(), description: "HTTP Status Hint".to_string(), required: false, hint: "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "copyKey".to_string(), type_name: "String".to_string(), description: "Copy Key".to_string(), required: false, hint: "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)".to_string(), order: 5, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_error_code_registry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ErrorCodeRegistry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ErrorCodeRegistry".to_string(), member_name: "errorCodes".to_string(), section_id: "ERCEN-CODE-LST".to_string(), section_id_pattern: "ERCEN-CODE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ErrorCodeEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per shared application error code.".to_string(), doc_comment: "7.6.1. Error Codes — one entry per shared application error code.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 11179 — metadata registries / value-domain enumerations".to_string())])), ("connotation".to_string(), som::Json::Str("The catalogued shared application error codes.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ErrorCodeEntry", s, meta_children_error_code_entry, |r, c| som::SomMetaNode {
+                class_name: "ErrorCodeEntry".to_string(), class_section_id: "ERCEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorCodeEntry".to_string(), doc_comment: "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.".to_string(), class_doc_comment: "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -6892,7 +6920,7 @@ fn meta_children_field_help_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
 
 fn meta_children_field_validation_rule(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "FieldValidationRule".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "ruleType".to_string(), type_name: "String".to_string(), description: "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)".to_string(), required: true, hint: "Required, Pattern, Range, Length, Custom, or CrossField".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "ruleExpression".to_string(), type_name: "String".to_string(), description: "Rule Expression / Formula".to_string(), required: false, hint: "Expression or formula implementing the rule".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "errorMessage".to_string(), type_name: "String".to_string(), description: "Error Message".to_string(), required: true, hint: "Message shown when the rule fails".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "severity".to_string(), type_name: "String".to_string(), description: "Severity (Error, Warning, Info)".to_string(), required: false, hint: "Error, Warning, or Info".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "triggerEvent".to_string(), type_name: "String".to_string(), description: "Trigger Event (OnBlur, OnChange, OnSubmit)".to_string(), required: false, hint: "OnBlur, OnChange, or OnSubmit".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "FieldValidationRule".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "ruleType".to_string(), type_name: "String".to_string(), description: "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)".to_string(), required: true, hint: "Required, Pattern, Range, Length, Custom, or CrossField".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "ruleExpression".to_string(), type_name: "String".to_string(), description: "Rule Expression / Formula".to_string(), required: false, hint: "Expression or formula implementing the rule".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "errorCode".to_string(), type_name: "String".to_string(), description: "Error Code".to_string(), required: false, hint: "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "errorMessage".to_string(), type_name: "String".to_string(), description: "Error Message".to_string(), required: true, hint: "Message shown when the rule fails".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "severity".to_string(), type_name: "String".to_string(), description: "Severity (Error, Warning, Info)".to_string(), required: false, hint: "Error, Warning, or Info".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "triggerEvent".to_string(), type_name: "String".to_string(), description: "Trigger Event (OnBlur, OnChange, OnSubmit)".to_string(), required: false, hint: "OnBlur, OnChange, or OnSubmit".to_string(), order: 5, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -7607,6 +7635,14 @@ fn meta_children_information_and_data_model(s: &mut HashSet<String>) -> Vec<Rc<s
         }),
         meta_cx("DomainEnumRegistry", s, meta_children_domain_enum_registry, |r, c| som::SomMetaNode {
             class_name: "DomainEnumRegistry".to_string(), member_name: "domainEnumRegistry".to_string(), class_section_id: "DOMEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumRegistry".to_string(), serialization_order: Some(5), doc_comment: "7.5. Domain Enum Registry.".to_string(), class_doc_comment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ErrorCodeRegistry", s, meta_children_error_code_registry, |r, c| som::SomMetaNode {
+            class_name: "ErrorCodeRegistry".to_string(), member_name: "errorCodeRegistry".to_string(), class_section_id: "ERCRG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorCodeRegistry".to_string(), serialization_order: Some(6), doc_comment: "7.6. Error Code Registry.".to_string(), class_doc_comment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ResultEnvelope", s, meta_children_result_envelope, |r, c| som::SomMetaNode {
+            class_name: "ResultEnvelope".to_string(), member_name: "resultEnvelope".to_string(), class_section_id: "RSLTE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResultEnvelope".to_string(), serialization_order: Some(7), doc_comment: "7.7. Result Envelope.".to_string(), class_doc_comment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -12394,6 +12430,26 @@ fn meta_children_responsive_design(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
 fn meta_children_responsive_screen_rule_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ResponsiveScreenRuleEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "screenId".to_string(), type_name: "String".to_string(), description: "Screen ID".to_string(), required: true, hint: "Unique identifier of the screen this rule applies to".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "screenName".to_string(), type_name: "String".to_string(), description: "Screen Name".to_string(), required: true, hint: "Human-readable name of the screen".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "mobileLayout".to_string(), type_name: "String".to_string(), description: "Mobile Layout".to_string(), required: false, hint: "How this screen is laid out on mobile".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "tabletLayout".to_string(), type_name: "String".to_string(), description: "Tablet Layout".to_string(), required: false, hint: "How this screen is laid out on tablet".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "desktopLayout".to_string(), type_name: "String".to_string(), description: "Desktop Layout".to_string(), required: false, hint: "How this screen is laid out on desktop".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "specialConsiderations".to_string(), type_name: "String".to_string(), description: "Special Considerations".to_string(), required: false, hint: "Any screen-specific responsive notes or exceptions".to_string(), order: 5, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_result_envelope(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ResultEnvelope".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "discriminatorField".to_string(), type_name: "String".to_string(), description: "Is-Success Discriminator".to_string(), required: true, hint: "The boolean field that distinguishes the arms (default: success)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "successArm".to_string(), type_name: "String".to_string(), description: "Success Arm".to_string(), required: false, hint: "The success payload — the value type carried when success is true (may be empty for operations returning nothing)".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "errorArm".to_string(), type_name: "String".to_string(), description: "Error Arm".to_string(), required: false, hint: "The structured error carried when success is false — its code references the error-code registry (ERCRG)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "retryable".to_string(), type_name: "bool".to_string(), description: "Carries Retryable Flag".to_string(), required: false, hint: "Whether the error arm carries a retryable flag".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "severity".to_string(), type_name: "String".to_string(), description: "Severity Value Set".to_string(), required: false, hint: "The error severity value set: Info | Warning | Error | Fatal".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ResultEnvelope".to_string(), member_name: "fieldDetails".to_string(), section_id: "RSFDE-FLDD-LST".to_string(), section_id_pattern: "RSFDE-FLDD-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ResultFieldDetailEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per field-level detail the error arm may report.".to_string(), doc_comment: "7.7.1. Field-Level Details — the per-field error detail the error arm may\ncarry (e.g. form-validation failures).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — form-based interaction and input validation".to_string())])), ("connotation".to_string(), som::Json::Str("The field-level error details the Result envelope error arm may carry.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ResultFieldDetailEntry", s, meta_children_result_field_detail_entry, |r, c| som::SomMetaNode {
+                class_name: "ResultFieldDetailEntry".to_string(), class_section_id: "RSFDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResultFieldDetailEntry".to_string(), doc_comment: "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).".to_string(), class_doc_comment: "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
+fn meta_children_result_field_detail_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ResultFieldDetailEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "fieldPath".to_string(), type_name: "String".to_string(), description: "Field Path".to_string(), required: true, hint: "The field (or dotted path) the error applies to (e.g. email, address.postalCode)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "errorCodeRef".to_string(), type_name: "String".to_string(), description: "Error Code".to_string(), required: false, hint: "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "message".to_string(), type_name: "String".to_string(), description: "Default Message".to_string(), required: false, hint: "Optional default message; user-facing copy resolves from the code via CE-TX".to_string(), order: 2, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -27945,6 +28001,14 @@ impl<'a> D03InformationModelNav<'a> {
     pub fn domain_enum_registry(&self) -> DomainEnumRegistryNav<'a> {
         DomainEnumRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "domainEnumRegistry"))
     }
+
+    pub fn error_code_registry(&self) -> ErrorCodeRegistryNav<'a> {
+        ErrorCodeRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorCodeRegistry"))
+    }
+
+    pub fn result_envelope(&self) -> ResultEnvelopeNav<'a> {
+        ResultEnvelopeNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resultEnvelope"))
+    }
 }
 
 /// D04RequirementsSpecificationNav holds the dot-notation accessors of `D04RequirementsSpecification` (DR1 §4.1).
@@ -35120,6 +35184,72 @@ impl<'a> ErrorBudgetTrackingNav<'a> {
     }
 }
 
+/// ErrorCodeEntryNav holds the dot-notation accessors of `ErrorCodeEntry` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ErrorCodeEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ErrorCodeEntryNav<'a> {
+    /// Binds a ErrorCodeEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ErrorCodeEntryNav<'a> {
+        ErrorCodeEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// ErrorCodeRegistryNav holds the dot-notation accessors of `ErrorCodeRegistry` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ErrorCodeRegistryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ErrorCodeRegistryNav<'a> {
+    /// Binds a ErrorCodeRegistryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ErrorCodeRegistryNav<'a> {
+        ErrorCodeRegistryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn error_codes(&self) -> som::SomListMetaRef<'a, ErrorCodeEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ERCEN-CODE-LST"), ErrorCodeEntryNav::new)
+    }
+}
+
 /// ErrorHandlingNav holds the dot-notation accessors of `ErrorHandling` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -39250,6 +39380,14 @@ impl<'a> InformationAndDataModelNav<'a> {
 
     pub fn domain_enum_registry(&self) -> DomainEnumRegistryNav<'a> {
         DomainEnumRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "domainEnumRegistry"))
+    }
+
+    pub fn error_code_registry(&self) -> ErrorCodeRegistryNav<'a> {
+        ErrorCodeRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorCodeRegistry"))
+    }
+
+    pub fn result_envelope(&self) -> ResultEnvelopeNav<'a> {
+        ResultEnvelopeNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resultEnvelope"))
     }
 }
 
@@ -54554,6 +54692,72 @@ impl<'a> ResponsiveScreenRuleEntryNav<'a> {
     /// Binds a ResponsiveScreenRuleEntryNav accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> ResponsiveScreenRuleEntryNav<'a> {
         ResponsiveScreenRuleEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// ResultEnvelopeNav holds the dot-notation accessors of `ResultEnvelope` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ResultEnvelopeNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ResultEnvelopeNav<'a> {
+    /// Binds a ResultEnvelopeNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ResultEnvelopeNav<'a> {
+        ResultEnvelopeNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn field_details(&self) -> som::SomListMetaRef<'a, ResultFieldDetailEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RSFDE-FLDD-LST"), ResultFieldDetailEntryNav::new)
+    }
+}
+
+/// ResultFieldDetailEntryNav holds the dot-notation accessors of `ResultFieldDetailEntry` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ResultFieldDetailEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ResultFieldDetailEntryNav<'a> {
+    /// Binds a ResultFieldDetailEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ResultFieldDetailEntryNav<'a> {
+        ResultFieldDetailEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (§4 path grammar).
@@ -74452,6 +74656,14 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST"), DomainEnumEntryId::new)
     }
 
+    pub fn ERCEN_CODE_LST(&self) -> som::SomListMetaRef<'a, ErrorCodeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST"), ErrorCodeEntryId::new)
+    }
+
+    pub fn RSFDE_FLDD_LST(&self) -> som::SomListMetaRef<'a, ResultFieldDetailEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST"), ResultFieldDetailEntryId::new)
+    }
+
     pub fn TRAREQ_TRAN(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"))
     }
@@ -78996,6 +79208,14 @@ impl<'a> D03InformationModelId<'a> {
 
     pub fn DMENE_ENUM_LST(&self) -> som::SomListMetaRef<'a, DomainEnumEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "domainEnumRegistry/DMENE-ENUM-LST"), DomainEnumEntryId::new)
+    }
+
+    pub fn ERCEN_CODE_LST(&self) -> som::SomListMetaRef<'a, ErrorCodeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorCodeRegistry/ERCEN-CODE-LST"), ErrorCodeEntryId::new)
+    }
+
+    pub fn RSFDE_FLDD_LST(&self) -> som::SomListMetaRef<'a, ResultFieldDetailEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resultEnvelope/RSFDE-FLDD-LST"), ResultFieldDetailEntryId::new)
     }
 }
 
@@ -85472,6 +85692,32 @@ impl<'a> EnvironmentEntryId<'a> {
 
     pub fn ENVCP(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ENVCP"))
+    }
+}
+
+/// ErrorCodeEntryId holds the ID-tree accessors of `ErrorCodeEntry` (DR1 §4.2):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ErrorCodeEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ErrorCodeEntryId<'a> {
+    /// Binds a ErrorCodeEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ErrorCodeEntryId<'a> {
+        ErrorCodeEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
     }
 }
 
@@ -92314,6 +92560,32 @@ impl<'a> ResponsiveScreenRuleEntryId<'a> {
     /// Binds a ResponsiveScreenRuleEntryId accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> ResponsiveScreenRuleEntryId<'a> {
         ResponsiveScreenRuleEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
+/// ResultFieldDetailEntryId holds the ID-tree accessors of `ResultFieldDetailEntry` (DR1 §4.2):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ResultFieldDetailEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ResultFieldDetailEntryId<'a> {
+    /// Binds a ResultFieldDetailEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ResultFieldDetailEntryId<'a> {
+        ResultFieldDetailEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (§4 path grammar).

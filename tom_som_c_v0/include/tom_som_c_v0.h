@@ -437,6 +437,8 @@ typedef struct { SomNode node; } EnvironmentStrategy;
 typedef struct { SomNode node; } Environments;
 typedef struct { SomNode node; } EquipmentRequirements;
 typedef struct { SomNode node; } ErrorBudgetTracking;
+typedef struct { SomNode node; } ErrorCodeEntry;
+typedef struct { SomNode node; } ErrorCodeRegistry;
 typedef struct { SomNode node; } ErrorHandling;
 typedef struct { SomNode node; } ErrorHandlingStandards;
 typedef struct { SomNode node; } ErrorRecovery;
@@ -897,6 +899,8 @@ typedef struct { SomNode node; } ResponsibilitySystems;
 typedef struct { SomNode node; } ResponsiveBehavior;
 typedef struct { SomNode node; } ResponsiveDesign;
 typedef struct { SomNode node; } ResponsiveScreenRuleEntry;
+typedef struct { SomNode node; } ResultEnvelope;
+typedef struct { SomNode node; } ResultFieldDetailEntry;
 typedef struct { SomNode node; } RetentionPolicyEntry;
 typedef struct { SomNode node; } ReusabilityPrinciples;
 typedef struct { SomNode node; } ReusableComponentsSection;
@@ -2137,6 +2141,7 @@ typedef struct { SomNode node; } EquipmentRequirementsOverviewForm;
 typedef struct { SomNode node; } ErrorBudgetTrackingContentForm;
 typedef struct { SomNode node; } ErrorBudgetTrackingGovernanceForm;
 typedef struct { SomNode node; } ErrorBudgetTrackingMonitoringForm;
+typedef struct { SomNode node; } ErrorCodeEntryContentForm;
 typedef struct { SomNode node; } ErrorHandlingAccessibilityForm;
 typedef struct { SomNode node; } ErrorHandlingClassificationForm;
 typedef struct { SomNode node; } ErrorHandlingErrorPhilosophyContentForm;
@@ -3121,6 +3126,8 @@ typedef struct { SomNode node; } ResponsiveBehaviorTouchForm;
 typedef struct { SomNode node; } ResponsiveBehaviorVisibilityForm;
 typedef struct { SomNode node; } ResponsiveDesignResponsiveOverviewForm;
 typedef struct { SomNode node; } ResponsiveScreenRuleEntryContentForm;
+typedef struct { SomNode node; } ResultEnvelopeContentForm;
+typedef struct { SomNode node; } ResultFieldDetailEntryContentForm;
 typedef struct { SomNode node; } RetentionPolicyEntryContentForm;
 typedef struct { SomNode node; } RetentionPolicyEntryGovernanceForm;
 typedef struct { SomNode node; } RetentionPolicyEntryLifecycleForm;
@@ -8118,6 +8125,13 @@ IntegrityConstraints d03_information_model_integrity_constraints(const D03Inform
 // Domain enum registry — the closed value sets the data model relies on
 // (CE-EN home + closed-choice discriminator source, csmb3).
 DomainEnumRegistry d03_information_model_domain_enum_registry(const D03InformationModel *self);
+// Error code registry — the shared application error-code vocabulary
+// referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+// (csmb5).
+ErrorCodeRegistry d03_information_model_error_code_registry(const D03InformationModel *self);
+// Result envelope — the canonical success-or-error §7 Result contract
+// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+ResultEnvelope d03_information_model_result_envelope(const D03InformationModel *self);
 
 // RSP00 Requirements Specification.
 //
@@ -11122,6 +11136,49 @@ ErrorBudgetTrackingMonitoringForm error_budget_tracking_monitoring(const ErrorBu
 // Recovery policy and attribution rules.
 ErrorBudgetTrackingGovernanceForm error_budget_tracking_governance(const ErrorBudgetTracking *self);
 
+// A single shared application error code (form).
+//
+// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+// a default severity, a retryable hint, an optional HTTP-status hint and a
+// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+// CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+// arm draws from.
+// Binds a ErrorCodeEntry facade to a document and a path (path copied).
+void error_code_entry_init(ErrorCodeEntry *self, SpecDocument *doc, const char *path);
+void error_code_entry_free(ErrorCodeEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int error_code_entry_can_have_content(const ErrorCodeEntry *self);
+ErrorCodeEntryContentForm error_code_entry_content(const ErrorCodeEntry *self);
+
+// 7.6. Error Code Registry.
+//
+// The single, shared **application error-code vocabulary** — the spine that
+// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+// reference so they never invent divergent code strings (csm5 cross-cutting
+// finding #2; `codespecs_coverage_gaps.md` §3.1).
+//
+// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+// *system/network/display* error catalogue (HTTP status, presentation,
+// recovery). This registry is the **application-level** error vocabulary a
+// success-or-error [ResultEnvelope] carries:
+//
+// - a CE-VA field/form rule names its "error code on fail" from here rather
+//   than minting a literal;
+// - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+// - CE-TX error copy is keyed by the same code, so client message and server
+//   error share one source.
+// Binds a ErrorCodeRegistry facade to a document and a path (path copied).
+void error_code_registry_init(ErrorCodeRegistry *self, SpecDocument *doc, const char *path);
+void error_code_registry_free(ErrorCodeRegistry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int error_code_registry_can_have_content(const ErrorCodeRegistry *self);
+char *error_code_registry_content(const ErrorCodeRegistry *self);
+void error_code_registry_set_content(ErrorCodeRegistry *self, const char *value);
+// 7.6.1. Error Codes — one entry per shared application error code.
+// Returns the list view; element type: ErrorCodeEntry (construct from item paths).
+SomList error_code_registry_error_codes(const ErrorCodeRegistry *self);
+
 // 10.7. Error Handling.
 //
 // Comprehensive error handling user experience framework covering validation
@@ -12713,6 +12770,10 @@ FunctionModel information_and_data_model_function_model(const InformationAndData
 SchemaVersioningAndMigration information_and_data_model_schema_versioning_and_migration(const InformationAndDataModel *self);
 // 7.5. Domain Enum Registry.
 DomainEnumRegistry information_and_data_model_domain_enum_registry(const InformationAndDataModel *self);
+// 7.6. Error Code Registry.
+ErrorCodeRegistry information_and_data_model_error_code_registry(const InformationAndDataModel *self);
+// 7.7. Result Envelope.
+ResultEnvelope information_and_data_model_result_envelope(const InformationAndDataModel *self);
 
 // 10.2.2. Information Architecture.
 //
@@ -18390,6 +18451,45 @@ void responsive_screen_rule_entry_free(ResponsiveScreenRuleEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
 int responsive_screen_rule_entry_can_have_content(const ResponsiveScreenRuleEntry *self);
 ResponsiveScreenRuleEntryContentForm responsive_screen_rule_entry_content(const ResponsiveScreenRuleEntry *self);
+
+// 7.7. Result Envelope.
+//
+// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+// the §7 server contract). This is the model-side counterpart of the
+// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+// every application outcome — success *or* structured error — is returned in a
+// normal (2xx-transport) body as this one envelope; only 5xx are transport
+// failures.
+//
+// The envelope has two arms, distinguished by an **is-success discriminator**:
+//
+// 1. **success** — carries a value payload;
+// 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+//    retryable/severity hint, and an optional list of field-level details
+//    ([ResultFieldDetailEntry]) for input-attributable failures.
+// Binds a ResultEnvelope facade to a document and a path (path copied).
+void result_envelope_init(ResultEnvelope *self, SpecDocument *doc, const char *path);
+void result_envelope_free(ResultEnvelope *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int result_envelope_can_have_content(const ResultEnvelope *self);
+ResultEnvelopeContentForm result_envelope_content(const ResultEnvelope *self);
+// 7.7.1. Field-Level Details — the per-field error detail the error arm may
+// carry (e.g. form-validation failures).
+// Returns the list view; element type: ResultFieldDetailEntry (construct from item paths).
+SomList result_envelope_field_details(const ResultEnvelope *self);
+
+// A single field-level error detail (form).
+//
+// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+// field path, an error code referencing the [ErrorCodeRegistry], and an
+// optional default message (user copy resolves from the code via CE-TX). The
+// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+// Binds a ResultFieldDetailEntry facade to a document and a path (path copied).
+void result_field_detail_entry_init(ResultFieldDetailEntry *self, SpecDocument *doc, const char *path);
+void result_field_detail_entry_free(ResultFieldDetailEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int result_field_detail_entry_can_have_content(const ResultFieldDetailEntry *self);
+ResultFieldDetailEntryContentForm result_field_detail_entry_content(const ResultFieldDetailEntry *self);
 
 // Retention policy for a specific data category.
 // Binds a RetentionPolicyEntry facade to a document and a path (path copied).
@@ -36851,6 +36951,8 @@ char *element_validation_rule_entry_content_form_rule_type(const ElementValidati
 void element_validation_rule_entry_content_form_set_rule_type(ElementValidationRuleEntryContentForm *self, const char *value);
 char *element_validation_rule_entry_content_form_rule_expression(const ElementValidationRuleEntryContentForm *self);
 void element_validation_rule_entry_content_form_set_rule_expression(ElementValidationRuleEntryContentForm *self, const char *value);
+char *element_validation_rule_entry_content_form_error_code(const ElementValidationRuleEntryContentForm *self);
+void element_validation_rule_entry_content_form_set_error_code(ElementValidationRuleEntryContentForm *self, const char *value);
 char *element_validation_rule_entry_content_form_error_message_resource(const ElementValidationRuleEntryContentForm *self);
 void element_validation_rule_entry_content_form_set_error_message_resource(ElementValidationRuleEntryContentForm *self, const char *value);
 char *element_validation_rule_entry_content_form_severity(const ElementValidationRuleEntryContentForm *self);
@@ -37623,6 +37725,25 @@ char *error_budget_tracking_monitoring_form_budget_alert_thresholds(const ErrorB
 void error_budget_tracking_monitoring_form_set_budget_alert_thresholds(ErrorBudgetTrackingMonitoringForm *self, const char *value);
 char *error_budget_tracking_monitoring_form_burn_rate_time_periods(const ErrorBudgetTrackingMonitoringForm *self);
 void error_budget_tracking_monitoring_form_set_burn_rate_time_periods(ErrorBudgetTrackingMonitoringForm *self, const char *value);
+
+// ErrorCodeEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void error_code_entry_content_form_init(ErrorCodeEntryContentForm *self, SpecDocument *doc, const char *path);
+void error_code_entry_content_form_free(ErrorCodeEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *error_code_entry_content_form_content(const ErrorCodeEntryContentForm *self);
+void error_code_entry_content_form_set_content(ErrorCodeEntryContentForm *self, const char *value);
+char *error_code_entry_content_form_code(const ErrorCodeEntryContentForm *self);
+void error_code_entry_content_form_set_code(ErrorCodeEntryContentForm *self, const char *value);
+char *error_code_entry_content_form_category(const ErrorCodeEntryContentForm *self);
+void error_code_entry_content_form_set_category(ErrorCodeEntryContentForm *self, const char *value);
+char *error_code_entry_content_form_severity(const ErrorCodeEntryContentForm *self);
+void error_code_entry_content_form_set_severity(ErrorCodeEntryContentForm *self, const char *value);
+bool error_code_entry_content_form_retryable(const ErrorCodeEntryContentForm *self);
+void error_code_entry_content_form_set_retryable(ErrorCodeEntryContentForm *self, bool value);
+long error_code_entry_content_form_http_status_hint(const ErrorCodeEntryContentForm *self);
+void error_code_entry_content_form_set_http_status_hint(ErrorCodeEntryContentForm *self, long value);
+char *error_code_entry_content_form_copy_key(const ErrorCodeEntryContentForm *self);
+void error_code_entry_content_form_set_copy_key(ErrorCodeEntryContentForm *self, const char *value);
 
 // ErrorHandlingAccessibilityForm is the generated section facade for the `accessibility` @Form section: its own `content` text followed by one typed member per form field.
 void error_handling_accessibility_form_init(ErrorHandlingAccessibilityForm *self, SpecDocument *doc, const char *path);
@@ -39376,6 +39497,8 @@ char *field_validation_rule_content_form_rule_type(const FieldValidationRuleCont
 void field_validation_rule_content_form_set_rule_type(FieldValidationRuleContentForm *self, const char *value);
 char *field_validation_rule_content_form_rule_expression(const FieldValidationRuleContentForm *self);
 void field_validation_rule_content_form_set_rule_expression(FieldValidationRuleContentForm *self, const char *value);
+char *field_validation_rule_content_form_error_code(const FieldValidationRuleContentForm *self);
+void field_validation_rule_content_form_set_error_code(FieldValidationRuleContentForm *self, const char *value);
 char *field_validation_rule_content_form_error_message(const FieldValidationRuleContentForm *self);
 void field_validation_rule_content_form_set_error_message(FieldValidationRuleContentForm *self, const char *value);
 char *field_validation_rule_content_form_severity(const FieldValidationRuleContentForm *self);
@@ -53107,6 +53230,36 @@ char *responsive_screen_rule_entry_content_form_desktop_layout(const ResponsiveS
 void responsive_screen_rule_entry_content_form_set_desktop_layout(ResponsiveScreenRuleEntryContentForm *self, const char *value);
 char *responsive_screen_rule_entry_content_form_special_considerations(const ResponsiveScreenRuleEntryContentForm *self);
 void responsive_screen_rule_entry_content_form_set_special_considerations(ResponsiveScreenRuleEntryContentForm *self, const char *value);
+
+// ResultEnvelopeContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void result_envelope_content_form_init(ResultEnvelopeContentForm *self, SpecDocument *doc, const char *path);
+void result_envelope_content_form_free(ResultEnvelopeContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *result_envelope_content_form_content(const ResultEnvelopeContentForm *self);
+void result_envelope_content_form_set_content(ResultEnvelopeContentForm *self, const char *value);
+char *result_envelope_content_form_discriminator_field(const ResultEnvelopeContentForm *self);
+void result_envelope_content_form_set_discriminator_field(ResultEnvelopeContentForm *self, const char *value);
+char *result_envelope_content_form_success_arm(const ResultEnvelopeContentForm *self);
+void result_envelope_content_form_set_success_arm(ResultEnvelopeContentForm *self, const char *value);
+char *result_envelope_content_form_error_arm(const ResultEnvelopeContentForm *self);
+void result_envelope_content_form_set_error_arm(ResultEnvelopeContentForm *self, const char *value);
+bool result_envelope_content_form_retryable(const ResultEnvelopeContentForm *self);
+void result_envelope_content_form_set_retryable(ResultEnvelopeContentForm *self, bool value);
+char *result_envelope_content_form_severity(const ResultEnvelopeContentForm *self);
+void result_envelope_content_form_set_severity(ResultEnvelopeContentForm *self, const char *value);
+
+// ResultFieldDetailEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void result_field_detail_entry_content_form_init(ResultFieldDetailEntryContentForm *self, SpecDocument *doc, const char *path);
+void result_field_detail_entry_content_form_free(ResultFieldDetailEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *result_field_detail_entry_content_form_content(const ResultFieldDetailEntryContentForm *self);
+void result_field_detail_entry_content_form_set_content(ResultFieldDetailEntryContentForm *self, const char *value);
+char *result_field_detail_entry_content_form_field_path(const ResultFieldDetailEntryContentForm *self);
+void result_field_detail_entry_content_form_set_field_path(ResultFieldDetailEntryContentForm *self, const char *value);
+char *result_field_detail_entry_content_form_error_code_ref(const ResultFieldDetailEntryContentForm *self);
+void result_field_detail_entry_content_form_set_error_code_ref(ResultFieldDetailEntryContentForm *self, const char *value);
+char *result_field_detail_entry_content_form_message(const ResultFieldDetailEntryContentForm *self);
+void result_field_detail_entry_content_form_set_message(ResultFieldDetailEntryContentForm *self, const char *value);
 
 // RetentionPolicyEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void retention_policy_entry_content_form_init(RetentionPolicyEntryContentForm *self, SpecDocument *doc, const char *path);

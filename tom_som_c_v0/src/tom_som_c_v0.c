@@ -9877,6 +9877,20 @@ DomainEnumRegistry d03_information_model_domain_enum_registry(const D03Informati
   free(path);
   return out;
 }
+ErrorCodeRegistry d03_information_model_error_code_registry(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "errorCodeRegistry");
+  ErrorCodeRegistry out;
+  error_code_registry_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ResultEnvelope d03_information_model_result_envelope(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "resultEnvelope");
+  ResultEnvelope out;
+  result_envelope_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 int d04_requirements_specification_new(D04RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
   if (check_som_model_version(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
@@ -17059,6 +17073,54 @@ ErrorBudgetTrackingGovernanceForm error_budget_tracking_governance(const ErrorBu
   return out;
 }
 
+void error_code_entry_init(ErrorCodeEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void error_code_entry_free(ErrorCodeEntry *self) {
+  som_node_free(&self->node);
+}
+int error_code_entry_can_have_content(const ErrorCodeEntry *self) {
+  (void)self;
+  return 0;
+}
+ErrorCodeEntryContentForm error_code_entry_content(const ErrorCodeEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ErrorCodeEntryContentForm out;
+  error_code_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void error_code_registry_init(ErrorCodeRegistry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void error_code_registry_free(ErrorCodeRegistry *self) {
+  som_node_free(&self->node);
+}
+int error_code_registry_can_have_content(const ErrorCodeRegistry *self) {
+  (void)self;
+  return 1;
+}
+char *error_code_registry_content(const ErrorCodeRegistry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void error_code_registry_set_content(ErrorCodeRegistry *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+SomList error_code_registry_error_codes(const ErrorCodeRegistry *self) {
+  char *path = spec_path_join(self->node.path, "ERCEN-CODE-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "ERCEN-CODE-xxx");
+  free(path);
+  return out;
+}
+
 void error_handling_init(ErrorHandling *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -20807,6 +20869,20 @@ DomainEnumRegistry information_and_data_model_domain_enum_registry(const Informa
   char *path = spec_path_join(self->node.path, "domainEnumRegistry");
   DomainEnumRegistry out;
   domain_enum_registry_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ErrorCodeRegistry information_and_data_model_error_code_registry(const InformationAndDataModel *self) {
+  char *path = spec_path_join(self->node.path, "errorCodeRegistry");
+  ErrorCodeRegistry out;
+  error_code_registry_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ResultEnvelope information_and_data_model_result_envelope(const InformationAndDataModel *self) {
+  char *path = spec_path_join(self->node.path, "resultEnvelope");
+  ResultEnvelope out;
+  result_envelope_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -33910,6 +33986,49 @@ ResponsiveScreenRuleEntryContentForm responsive_screen_rule_entry_content(const 
   char *path = spec_path_join(self->node.path, "content");
   ResponsiveScreenRuleEntryContentForm out;
   responsive_screen_rule_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void result_envelope_init(ResultEnvelope *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void result_envelope_free(ResultEnvelope *self) {
+  som_node_free(&self->node);
+}
+int result_envelope_can_have_content(const ResultEnvelope *self) {
+  (void)self;
+  return 0;
+}
+ResultEnvelopeContentForm result_envelope_content(const ResultEnvelope *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ResultEnvelopeContentForm out;
+  result_envelope_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList result_envelope_field_details(const ResultEnvelope *self) {
+  char *path = spec_path_join(self->node.path, "RSFDE-FLDD-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RSFDE-FLDD-xxx");
+  free(path);
+  return out;
+}
+
+void result_field_detail_entry_init(ResultFieldDetailEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void result_field_detail_entry_free(ResultFieldDetailEntry *self) {
+  som_node_free(&self->node);
+}
+int result_field_detail_entry_can_have_content(const ResultFieldDetailEntry *self) {
+  (void)self;
+  return 0;
+}
+ResultFieldDetailEntryContentForm result_field_detail_entry_content(const ResultFieldDetailEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ResultFieldDetailEntryContentForm out;
+  result_field_detail_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -82826,6 +82945,13 @@ char *element_validation_rule_entry_content_form_rule_expression(const ElementVa
 void element_validation_rule_entry_content_form_set_rule_expression(ElementValidationRuleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ruleExpression", value);
 }
+char *element_validation_rule_entry_content_form_error_code(const ElementValidationRuleEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorCode");
+  return som_strdup(v != NULL ? v : "");
+}
+void element_validation_rule_entry_content_form_set_error_code(ElementValidationRuleEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "errorCode", value);
+}
 char *element_validation_rule_entry_content_form_error_message_resource(const ElementValidationRuleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorMessageResource");
   return som_strdup(v != NULL ? v : "");
@@ -85025,6 +85151,64 @@ char *error_budget_tracking_monitoring_form_burn_rate_time_periods(const ErrorBu
 }
 void error_budget_tracking_monitoring_form_set_burn_rate_time_periods(ErrorBudgetTrackingMonitoringForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "burnRateTimePeriods", value);
+}
+
+void error_code_entry_content_form_init(ErrorCodeEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void error_code_entry_content_form_free(ErrorCodeEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *error_code_entry_content_form_content(const ErrorCodeEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void error_code_entry_content_form_set_content(ErrorCodeEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *error_code_entry_content_form_code(const ErrorCodeEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "code");
+  return som_strdup(v != NULL ? v : "");
+}
+void error_code_entry_content_form_set_code(ErrorCodeEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "code", value);
+}
+char *error_code_entry_content_form_category(const ErrorCodeEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
+  return som_strdup(v != NULL ? v : "");
+}
+void error_code_entry_content_form_set_category(ErrorCodeEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "category", value);
+}
+char *error_code_entry_content_form_severity(const ErrorCodeEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "severity");
+  return som_strdup(v != NULL ? v : "");
+}
+void error_code_entry_content_form_set_severity(ErrorCodeEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "severity", value);
+}
+bool error_code_entry_content_form_retryable(const ErrorCodeEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "retryable");
+  return v != NULL && strcmp(v, "true") == 0;
+}
+void error_code_entry_content_form_set_retryable(ErrorCodeEntryContentForm *self, bool value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "retryable", value ? "true" : "false");
+}
+long error_code_entry_content_form_http_status_hint(const ErrorCodeEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "httpStatusHint");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void error_code_entry_content_form_set_http_status_hint(ErrorCodeEntryContentForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "httpStatusHint", buf);
+}
+char *error_code_entry_content_form_copy_key(const ErrorCodeEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "copyKey");
+  return som_strdup(v != NULL ? v : "");
+}
+void error_code_entry_content_form_set_copy_key(ErrorCodeEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "copyKey", value);
 }
 
 void error_handling_accessibility_form_init(ErrorHandlingAccessibilityForm *self, SpecDocument *doc, const char *path) {
@@ -90021,6 +90205,13 @@ char *field_validation_rule_content_form_rule_expression(const FieldValidationRu
 }
 void field_validation_rule_content_form_set_rule_expression(FieldValidationRuleContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ruleExpression", value);
+}
+char *field_validation_rule_content_form_error_code(const FieldValidationRuleContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorCode");
+  return som_strdup(v != NULL ? v : "");
+}
+void field_validation_rule_content_form_set_error_code(FieldValidationRuleContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "errorCode", value);
 }
 char *field_validation_rule_content_form_error_message(const FieldValidationRuleContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorMessage");
@@ -129091,6 +129282,90 @@ char *responsive_screen_rule_entry_content_form_special_considerations(const Res
 }
 void responsive_screen_rule_entry_content_form_set_special_considerations(ResponsiveScreenRuleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "specialConsiderations", value);
+}
+
+void result_envelope_content_form_init(ResultEnvelopeContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void result_envelope_content_form_free(ResultEnvelopeContentForm *self) {
+  som_node_free(&self->node);
+}
+char *result_envelope_content_form_content(const ResultEnvelopeContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void result_envelope_content_form_set_content(ResultEnvelopeContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *result_envelope_content_form_discriminator_field(const ResultEnvelopeContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "discriminatorField");
+  return som_strdup(v != NULL ? v : "");
+}
+void result_envelope_content_form_set_discriminator_field(ResultEnvelopeContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "discriminatorField", value);
+}
+char *result_envelope_content_form_success_arm(const ResultEnvelopeContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "successArm");
+  return som_strdup(v != NULL ? v : "");
+}
+void result_envelope_content_form_set_success_arm(ResultEnvelopeContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "successArm", value);
+}
+char *result_envelope_content_form_error_arm(const ResultEnvelopeContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorArm");
+  return som_strdup(v != NULL ? v : "");
+}
+void result_envelope_content_form_set_error_arm(ResultEnvelopeContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "errorArm", value);
+}
+bool result_envelope_content_form_retryable(const ResultEnvelopeContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "retryable");
+  return v != NULL && strcmp(v, "true") == 0;
+}
+void result_envelope_content_form_set_retryable(ResultEnvelopeContentForm *self, bool value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "retryable", value ? "true" : "false");
+}
+char *result_envelope_content_form_severity(const ResultEnvelopeContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "severity");
+  return som_strdup(v != NULL ? v : "");
+}
+void result_envelope_content_form_set_severity(ResultEnvelopeContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "severity", value);
+}
+
+void result_field_detail_entry_content_form_init(ResultFieldDetailEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void result_field_detail_entry_content_form_free(ResultFieldDetailEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *result_field_detail_entry_content_form_content(const ResultFieldDetailEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void result_field_detail_entry_content_form_set_content(ResultFieldDetailEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *result_field_detail_entry_content_form_field_path(const ResultFieldDetailEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "fieldPath");
+  return som_strdup(v != NULL ? v : "");
+}
+void result_field_detail_entry_content_form_set_field_path(ResultFieldDetailEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "fieldPath", value);
+}
+char *result_field_detail_entry_content_form_error_code_ref(const ResultFieldDetailEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorCodeRef");
+  return som_strdup(v != NULL ? v : "");
+}
+void result_field_detail_entry_content_form_set_error_code_ref(ResultFieldDetailEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "errorCodeRef", value);
+}
+char *result_field_detail_entry_content_form_message(const ResultFieldDetailEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "message");
+  return som_strdup(v != NULL ? v : "");
+}
+void result_field_detail_entry_content_form_set_message(ResultFieldDetailEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "message", value);
 }
 
 void retention_policy_entry_content_form_init(RetentionPolicyEntryContentForm *self, SpecDocument *doc, const char *path) {

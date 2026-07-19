@@ -413,6 +413,8 @@ class EnvironmentStrategy;
 class Environments;
 class EquipmentRequirements;
 class ErrorBudgetTracking;
+class ErrorCodeEntry;
+class ErrorCodeRegistry;
 class ErrorHandling;
 class ErrorHandlingStandards;
 class ErrorRecovery;
@@ -873,6 +875,8 @@ class ResponsibilitySystems;
 class ResponsiveBehavior;
 class ResponsiveDesign;
 class ResponsiveScreenRuleEntry;
+class ResultEnvelope;
+class ResultFieldDetailEntry;
 class RetentionPolicyEntry;
 class ReusabilityPrinciples;
 class ReusableComponentsSection;
@@ -2113,6 +2117,7 @@ class EquipmentRequirementsOverviewForm;
 class ErrorBudgetTrackingContentForm;
 class ErrorBudgetTrackingGovernanceForm;
 class ErrorBudgetTrackingMonitoringForm;
+class ErrorCodeEntryContentForm;
 class ErrorHandlingAccessibilityForm;
 class ErrorHandlingClassificationForm;
 class ErrorHandlingErrorPhilosophyContentForm;
@@ -3097,6 +3102,8 @@ class ResponsiveBehaviorTouchForm;
 class ResponsiveBehaviorVisibilityForm;
 class ResponsiveDesignResponsiveOverviewForm;
 class ResponsiveScreenRuleEntryContentForm;
+class ResultEnvelopeContentForm;
+class ResultFieldDetailEntryContentForm;
 class RetentionPolicyEntryContentForm;
 class RetentionPolicyEntryGovernanceForm;
 class RetentionPolicyEntryLifecycleForm;
@@ -8166,6 +8173,13 @@ class D03InformationModel : public som::SomNode {
   // Domain enum registry — the closed value sets the data model relies on
   // (CE-EN home + closed-choice discriminator source, csmb3).
   DomainEnumRegistry domainEnumRegistry() const;
+  // Error code registry — the shared application error-code vocabulary
+  // referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+  // (csmb5).
+  ErrorCodeRegistry errorCodeRegistry() const;
+  // Result envelope — the canonical success-or-error §7 Result contract
+  // (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+  ResultEnvelope resultEnvelope() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -11233,6 +11247,51 @@ class ErrorBudgetTracking : public som::SomNode {
   ErrorBudgetTrackingGovernanceForm governance() const;
 };
 
+// A single shared application error code (form).
+//
+// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+// a default severity, a retryable hint, an optional HTTP-status hint and a
+// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+// CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+// arm draws from.
+class ErrorCodeEntry : public som::SomNode {
+ public:
+  ErrorCodeEntry(som::SpecDocument& doc, std::string path);
+  ErrorCodeEntryContentForm content() const;
+};
+
+// 7.6. Error Code Registry.
+//
+// The single, shared **application error-code vocabulary** — the spine that
+// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+// reference so they never invent divergent code strings (csm5 cross-cutting
+// finding #2; `codespecs_coverage_gaps.md` §3.1).
+//
+// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+// *system/network/display* error catalogue (HTTP status, presentation,
+// recovery). This registry is the **application-level** error vocabulary a
+// success-or-error [ResultEnvelope] carries:
+//
+// - a CE-VA field/form rule names its "error code on fail" from here rather
+//   than minting a literal;
+// - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+// - CE-TX error copy is keyed by the same code, so client message and server
+//   error share one source.
+class ErrorCodeRegistry : public som::SomNode {
+ public:
+  ErrorCodeRegistry(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 7.6.1. Error Codes — one entry per shared application error code.
+  // Returns the list view; element type: ErrorCodeEntry (construct from item paths).
+  som::SomList errorCodes() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
 // 10.7. Error Handling.
 //
 // Comprehensive error handling user experience framework covering validation
@@ -12828,6 +12887,10 @@ class InformationAndDataModel : public som::SomNode {
   SchemaVersioningAndMigration schemaVersioningAndMigration() const;
   // 7.5. Domain Enum Registry.
   DomainEnumRegistry domainEnumRegistry() const;
+  // 7.6. Error Code Registry.
+  ErrorCodeRegistry errorCodeRegistry() const;
+  // 7.7. Result Envelope.
+  ResultEnvelope resultEnvelope() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -18520,6 +18583,43 @@ class ResponsiveScreenRuleEntry : public som::SomNode {
  public:
   ResponsiveScreenRuleEntry(som::SpecDocument& doc, std::string path);
   ResponsiveScreenRuleEntryContentForm content() const;
+};
+
+// 7.7. Result Envelope.
+//
+// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+// the §7 server contract). This is the model-side counterpart of the
+// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+// every application outcome — success *or* structured error — is returned in a
+// normal (2xx-transport) body as this one envelope; only 5xx are transport
+// failures.
+//
+// The envelope has two arms, distinguished by an **is-success discriminator**:
+//
+// 1. **success** — carries a value payload;
+// 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+//    retryable/severity hint, and an optional list of field-level details
+//    ([ResultFieldDetailEntry]) for input-attributable failures.
+class ResultEnvelope : public som::SomNode {
+ public:
+  ResultEnvelope(som::SpecDocument& doc, std::string path);
+  ResultEnvelopeContentForm content() const;
+  // 7.7.1. Field-Level Details — the per-field error detail the error arm may
+  // carry (e.g. form-validation failures).
+  // Returns the list view; element type: ResultFieldDetailEntry (construct from item paths).
+  som::SomList fieldDetails() const;
+};
+
+// A single field-level error detail (form).
+//
+// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+// field path, an error code referencing the [ErrorCodeRegistry], and an
+// optional default message (user copy resolves from the code via CE-TX). The
+// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+class ResultFieldDetailEntry : public som::SomNode {
+ public:
+  ResultFieldDetailEntry(som::SpecDocument& doc, std::string path);
+  ResultFieldDetailEntryContentForm content() const;
 };
 
 // Retention policy for a specific data category.
@@ -39589,6 +39689,8 @@ class ElementValidationRuleEntryContentForm : public som::SomNode {
   void setRuleType(const std::string& value);
   std::string ruleExpression() const;
   void setRuleExpression(const std::string& value);
+  std::string errorCode() const;
+  void setErrorCode(const std::string& value);
   std::string errorMessageResource() const;
   void setErrorMessageResource(const std::string& value);
   std::string severity() const;
@@ -40505,6 +40607,28 @@ class ErrorBudgetTrackingMonitoringForm : public som::SomNode {
   void setBudgetAlertThresholds(const std::string& value);
   std::string burnRateTimePeriods() const;
   void setBurnRateTimePeriods(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ErrorCodeEntryContentForm : public som::SomNode {
+ public:
+  ErrorCodeEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string code() const;
+  void setCode(const std::string& value);
+  std::string category() const;
+  void setCategory(const std::string& value);
+  std::string severity() const;
+  void setSeverity(const std::string& value);
+  std::optional<bool> retryable() const;
+  void setRetryable(std::optional<bool> value);
+  std::optional<long> httpStatusHint() const;
+  void setHttpStatusHint(std::optional<long> value);
+  std::string copyKey() const;
+  void setCopyKey(const std::string& value);
 };
 
 // Generated section facade for the `accessibility` @Form section: its own `content` text followed by one typed member per form field.
@@ -42591,6 +42715,8 @@ class FieldValidationRuleContentForm : public som::SomNode {
   void setRuleType(const std::string& value);
   std::string ruleExpression() const;
   void setRuleExpression(const std::string& value);
+  std::string errorCode() const;
+  void setErrorCode(const std::string& value);
   std::string errorMessage() const;
   void setErrorMessage(const std::string& value);
   std::string severity() const;
@@ -58941,6 +59067,42 @@ class ResponsiveScreenRuleEntryContentForm : public som::SomNode {
   void setDesktopLayout(const std::string& value);
   std::string specialConsiderations() const;
   void setSpecialConsiderations(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ResultEnvelopeContentForm : public som::SomNode {
+ public:
+  ResultEnvelopeContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string discriminatorField() const;
+  void setDiscriminatorField(const std::string& value);
+  std::string successArm() const;
+  void setSuccessArm(const std::string& value);
+  std::string errorArm() const;
+  void setErrorArm(const std::string& value);
+  std::optional<bool> retryable() const;
+  void setRetryable(std::optional<bool> value);
+  std::string severity() const;
+  void setSeverity(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ResultFieldDetailEntryContentForm : public som::SomNode {
+ public:
+  ResultFieldDetailEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string fieldPath() const;
+  void setFieldPath(const std::string& value);
+  std::string errorCodeRef() const;
+  void setErrorCodeRef(const std::string& value);
+  std::string message() const;
+  void setMessage(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

@@ -20997,6 +20997,28 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ErrorCodeRegistry", s, ErrorCodeRegistryNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ErrorCodeRegistry", SomMetaKind.COMPLEX, "ErrorCodeRegistry");
+        n.memberName = "errorCodeRegistry";
+        n.classSectionId = "ERCRG";
+        n.serializationOrder = 15;
+        n.docComment = "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).";
+        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      out.add(metaCx("ResultEnvelope", s, ResultEnvelopeNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ResultEnvelope", SomMetaKind.COMPLEX, "ResultEnvelope");
+        n.memberName = "resultEnvelope";
+        n.classSectionId = "RSLTE";
+        n.serializationOrder = 16;
+        n.docComment = "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).";
+        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -21058,6 +21080,14 @@ public final class TomSomV0Meta {
 
     public DomainEnumRegistryNav domainEnumRegistry() {
       return new DomainEnumRegistryNav(tree, path + "/domainEnumRegistry");
+    }
+
+    public ErrorCodeRegistryNav errorCodeRegistry() {
+      return new ErrorCodeRegistryNav(tree, path + "/errorCodeRegistry");
+    }
+
+    public ResultEnvelopeNav resultEnvelope() {
+      return new ResultEnvelopeNav(tree, path + "/resultEnvelope");
     }
   }
 
@@ -34074,9 +34104,10 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type", true, "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", 0),
             new SomFormFieldMeta("ruleExpression", "String", "Rule Expression", false, "Validation expression or pattern", 1),
-            new SomFormFieldMeta("errorMessageResource", "String", "Error Message Resource", false, "Resource key for validation error message", 2),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Error/Warning/Info", 3),
-            new SomFormFieldMeta("validateOn", "String", "Validate On", false, "On-Change/On-Blur/On-Submit", 4)));
+            new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2),
+            new SomFormFieldMeta("errorMessageResource", "String", "Error Message Resource", false, "Resource key for validation error message", 3),
+            new SomFormFieldMeta("severity", "String", "Severity", false, "Error/Warning/Info", 4),
+            new SomFormFieldMeta("validateOn", "String", "Validate On", false, "On-Change/On-Blur/On-Submit", 5)));
         out.add(n);
       }
       return out;
@@ -35802,6 +35833,93 @@ public final class TomSomV0Meta {
 
     public SomMetaRef governance() {
       return new SomMetaRef(tree, path + "/EBTG");
+    }
+  }
+
+  // ErrorCodeEntryNav holds the dot-notation accessors of `ErrorCodeEntry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ErrorCodeEntryNav extends SomMetaRef {
+    public ErrorCodeEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ErrorCodeEntry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ErrorCodeEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("code", "String", "Code", true, "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy", 0),
+            new SomFormFieldMeta("category", "String", "Category", false, "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System", 1),
+            new SomFormFieldMeta("severity", "String", "Default Severity", false, "Default severity: Info | Warning | Error | Fatal", 2),
+            new SomFormFieldMeta("retryable", "bool", "Retryable", false, "Whether retrying the same operation may reasonably succeed", 3),
+            new SomFormFieldMeta("httpStatusHint", "int", "HTTP Status Hint", false, "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)", 4),
+            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)", 5)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
+  // ErrorCodeRegistryNav holds the dot-notation accessors of `ErrorCodeRegistry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ErrorCodeRegistryNav extends SomMetaRef {
+    public ErrorCodeRegistryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ErrorCodeRegistry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ErrorCodeRegistry", SomMetaKind.CONTENT, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n";
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ErrorCodeRegistry", SomMetaKind.LIST, "ErrorCodeEntry");
+        n.memberName = "errorCodes";
+        n.sectionId = "ERCEN-CODE-LST";
+        n.sectionIdPattern = "ERCEN-CODE-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per shared application error code.";
+        n.docComment = "7.6.1. Error Codes — one entry per shared application error code.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — metadata registries / value-domain enumerations"), "connotation", "The catalogued shared application error codes.")));
+        n.elementNode = metaCx("ErrorCodeEntry", s, ErrorCodeEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ErrorCodeEntry", SomMetaKind.COMPLEX, "ErrorCodeEntry");
+          e.classSectionId = "ERCEN";
+          e.docComment = "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.";
+          e.classDocComment = "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<ErrorCodeEntryNav> errorCodes() {
+      return new SomListMetaRef<>(tree, path + "/ERCEN-CODE-LST", (t, p) -> new ErrorCodeEntryNav(t, p));
     }
   }
 
@@ -39789,9 +39907,10 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", true, "Required, Pattern, Range, Length, Custom, or CrossField", 0),
             new SomFormFieldMeta("ruleExpression", "String", "Rule Expression / Formula", false, "Expression or formula implementing the rule", 1),
-            new SomFormFieldMeta("errorMessage", "String", "Error Message", true, "Message shown when the rule fails", 2),
-            new SomFormFieldMeta("severity", "String", "Severity (Error, Warning, Info)", false, "Error, Warning, or Info", 3),
-            new SomFormFieldMeta("triggerEvent", "String", "Trigger Event (OnBlur, OnChange, OnSubmit)", false, "OnBlur, OnChange, or OnSubmit", 4)));
+            new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2),
+            new SomFormFieldMeta("errorMessage", "String", "Error Message", true, "Message shown when the rule fails", 3),
+            new SomFormFieldMeta("severity", "String", "Severity (Error, Warning, Info)", false, "Error, Warning, or Info", 4),
+            new SomFormFieldMeta("triggerEvent", "String", "Trigger Event (OnBlur, OnChange, OnSubmit)", false, "OnBlur, OnChange, or OnSubmit", 5)));
         out.add(n);
       }
       return out;
@@ -43972,6 +44091,28 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ErrorCodeRegistry", s, ErrorCodeRegistryNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ErrorCodeRegistry", SomMetaKind.COMPLEX, "ErrorCodeRegistry");
+        n.memberName = "errorCodeRegistry";
+        n.classSectionId = "ERCRG";
+        n.serializationOrder = 6;
+        n.docComment = "7.6. Error Code Registry.";
+        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      out.add(metaCx("ResultEnvelope", s, ResultEnvelopeNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ResultEnvelope", SomMetaKind.COMPLEX, "ResultEnvelope");
+        n.memberName = "resultEnvelope";
+        n.classSectionId = "RSLTE";
+        n.serializationOrder = 7;
+        n.docComment = "7.7. Result Envelope.";
+        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -43997,6 +44138,14 @@ public final class TomSomV0Meta {
 
     public DomainEnumRegistryNav domainEnumRegistry() {
       return new DomainEnumRegistryNav(tree, path + "/domainEnumRegistry");
+    }
+
+    public ErrorCodeRegistryNav errorCodeRegistry() {
+      return new ErrorCodeRegistryNav(tree, path + "/errorCodeRegistry");
+    }
+
+    public ResultEnvelopeNav resultEnvelope() {
+      return new ResultEnvelopeNav(tree, path + "/resultEnvelope");
     }
   }
 
@@ -72941,6 +73090,94 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("tabletLayout", "String", "Tablet Layout", false, "How this screen is laid out on tablet", 3),
             new SomFormFieldMeta("desktopLayout", "String", "Desktop Layout", false, "How this screen is laid out on desktop", 4),
             new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any screen-specific responsive notes or exceptions", 5)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
+  // ResultEnvelopeNav holds the dot-notation accessors of `ResultEnvelope` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ResultEnvelopeNav extends SomMetaRef {
+    public ResultEnvelopeNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ResultEnvelope` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ResultEnvelope", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("discriminatorField", "String", "Is-Success Discriminator", true, "The boolean field that distinguishes the arms (default: success)", 0),
+            new SomFormFieldMeta("successArm", "String", "Success Arm", false, "The success payload — the value type carried when success is true (may be empty for operations returning nothing)", 1),
+            new SomFormFieldMeta("errorArm", "String", "Error Arm", false, "The structured error carried when success is false — its code references the error-code registry (ERCRG)", 2),
+            new SomFormFieldMeta("retryable", "bool", "Carries Retryable Flag", false, "Whether the error arm carries a retryable flag", 3),
+            new SomFormFieldMeta("severity", "String", "Severity Value Set", false, "The error severity value set: Info | Warning | Error | Fatal", 4)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ResultEnvelope", SomMetaKind.LIST, "ResultFieldDetailEntry");
+        n.memberName = "fieldDetails";
+        n.sectionId = "RSFDE-FLDD-LST";
+        n.sectionIdPattern = "RSFDE-FLDD-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per field-level detail the error arm may report.";
+        n.docComment = "7.7.1. Field-Level Details — the per-field error detail the error arm may\ncarry (e.g. form-validation failures).";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — form-based interaction and input validation"), "connotation", "The field-level error details the Result envelope error arm may carry.")));
+        n.elementNode = metaCx("ResultFieldDetailEntry", s, ResultFieldDetailEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ResultFieldDetailEntry", SomMetaKind.COMPLEX, "ResultFieldDetailEntry");
+          e.classSectionId = "RSFDE";
+          e.docComment = "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).";
+          e.classDocComment = "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<ResultFieldDetailEntryNav> fieldDetails() {
+      return new SomListMetaRef<>(tree, path + "/RSFDE-FLDD-LST", (t, p) -> new ResultFieldDetailEntryNav(t, p));
+    }
+  }
+
+  // ResultFieldDetailEntryNav holds the dot-notation accessors of `ResultFieldDetailEntry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ResultFieldDetailEntryNav extends SomMetaRef {
+    public ResultFieldDetailEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ResultFieldDetailEntry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ResultFieldDetailEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("fieldPath", "String", "Field Path", true, "The field (or dotted path) the error applies to (e.g. email, address.postalCode)", 0),
+            new SomFormFieldMeta("errorCodeRef", "String", "Error Code", false, "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code", 1),
+            new SomFormFieldMeta("message", "String", "Default Message", false, "Optional default message; user-facing copy resolves from the code via CE-TX", 2)));
         out.add(n);
       }
       return out;
@@ -106102,6 +106339,14 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST", (t, p) -> new DomainEnumEntryId(t, p));
     }
 
+    public SomListMetaRef<ErrorCodeEntryId> ERCEN_CODE_LST() {
+      return new SomListMetaRef<>(tree, path + "/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST", (t, p) -> new ErrorCodeEntryId(t, p));
+    }
+
+    public SomListMetaRef<ResultFieldDetailEntryId> RSFDE_FLDD_LST() {
+      return new SomListMetaRef<>(tree, path + "/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST", (t, p) -> new ResultFieldDetailEntryId(t, p));
+    }
+
     public SomMetaRef TRAREQ_TRAN() {
       return new SomMetaRef(tree, path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
     }
@@ -110598,6 +110843,14 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<DomainEnumEntryId> DMENE_ENUM_LST() {
       return new SomListMetaRef<>(tree, path + "/domainEnumRegistry/DMENE-ENUM-LST", (t, p) -> new DomainEnumEntryId(t, p));
+    }
+
+    public SomListMetaRef<ErrorCodeEntryId> ERCEN_CODE_LST() {
+      return new SomListMetaRef<>(tree, path + "/errorCodeRegistry/ERCEN-CODE-LST", (t, p) -> new ErrorCodeEntryId(t, p));
+    }
+
+    public SomListMetaRef<ResultFieldDetailEntryId> RSFDE_FLDD_LST() {
+      return new SomListMetaRef<>(tree, path + "/resultEnvelope/RSFDE-FLDD-LST", (t, p) -> new ResultFieldDetailEntryId(t, p));
     }
   }
 
@@ -115957,6 +116210,16 @@ public final class TomSomV0Meta {
     }
   }
 
+  // ErrorCodeEntryId holds the ID-tree accessors of `ErrorCodeEntry` (DR1 §4.2): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class ErrorCodeEntryId extends SomMetaRef {
+    public ErrorCodeEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
   // EvaluationCriterionEntryId holds the ID-tree accessors of `EvaluationCriterionEntry` (DR1 §4.2): methods
   // named by section id (`-` → `_`), hoisted through id-less members so every
   // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
@@ -119701,6 +119964,16 @@ public final class TomSomV0Meta {
   // surface.
   public static final class ResponsiveScreenRuleEntryId extends SomMetaRef {
     public ResponsiveScreenRuleEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
+  // ResultFieldDetailEntryId holds the ID-tree accessors of `ResultFieldDetailEntry` (DR1 §4.2): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class ResultFieldDetailEntryId extends SomMetaRef {
+    public ResultFieldDetailEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
   }

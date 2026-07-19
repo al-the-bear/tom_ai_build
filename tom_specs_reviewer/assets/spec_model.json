@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-19T13:39:16.675936Z",
+  "generatedAt": "2026-07-19T13:56:31.211373Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1223,
+  "classCount": 1227,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -55313,6 +55313,36 @@
             }
           ],
           "type": "DomainEnumRegistry"
+        },
+        {
+          "name": "errorCodeRegistry",
+          "kind": "complex",
+          "doc": "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).",
+          "serializationOrder": 15,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 15
+              }
+            }
+          ],
+          "type": "ErrorCodeRegistry"
+        },
+        {
+          "name": "resultEnvelope",
+          "kind": "complex",
+          "doc": "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).",
+          "serializationOrder": 16,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 16
+              }
+            }
+          ],
+          "type": "ResultEnvelope"
         }
       ]
     },
@@ -88301,6 +88331,13 @@
               "required": false
             },
             {
+              "name": "errorCode",
+              "label": "Error Code",
+              "hint": "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX",
+              "type": "String",
+              "required": false
+            },
+            {
               "name": "errorMessageResource",
               "label": "Error Message Resource",
               "hint": "Resource key for validation error message",
@@ -93139,6 +93176,215 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "ErrorCodeEntry": {
+      "name": "ErrorCodeEntry",
+      "sectionId": "ERCEN",
+      "doc": "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions",
+          "ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated"
+        ],
+        "connotation": "A single shared application error code: its stable id, category, default severity, retryable hint, HTTP-status hint, and copy-key reference."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated"
+            ],
+            "connotation": "A single shared application error code: its stable id, category, default severity, retryable hint, HTTP-status hint, and copy-key reference."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "ERCEN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "code",
+              "label": "Code",
+              "hint": "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "category",
+              "label": "Category",
+              "hint": "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "severity",
+              "label": "Default Severity",
+              "hint": "Default severity: Info | Warning | Error | Fatal",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "retryable",
+              "label": "Retryable",
+              "hint": "Whether retrying the same operation may reasonably succeed",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "httpStatusHint",
+              "label": "HTTP Status Hint",
+              "hint": "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "copyKey",
+              "label": "Copy Key",
+              "hint": "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "ErrorCodeRegistry": {
+      "name": "ErrorCodeRegistry",
+      "sectionId": "ERCRG",
+      "doc": "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / value-domain enumerations",
+          "ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated"
+        ],
+        "connotation": "The registry of shared application error codes referenced by validation rules (CE-VA), the Result envelope (CE-ER), and error copy (CE-TX)."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / value-domain enumerations",
+              "ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated"
+            ],
+            "connotation": "The registry of shared application error codes referenced by validation rules (CE-VA), the Result envelope (CE-ER), and error copy (CE-TX)."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "ERCRG"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "errorCodes",
+          "kind": "list",
+          "doc": "7.6.1. Error Codes — one entry per shared application error code.",
+          "help": "Add one entry per shared application error code.",
+          "sectionId": "ERCEN-CODE-LST",
+          "sectionIdPattern": "ERCEN-CODE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / value-domain enumerations"
+            ],
+            "connotation": "The catalogued shared application error codes."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — metadata registries / value-domain enumerations"
+                ],
+                "connotation": "The catalogued shared application error codes."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ERCEN-CODE-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "ERCEN-CODE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per shared application error code."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ErrorCodeEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -104419,6 +104665,13 @@
               "required": false
             },
             {
+              "name": "errorCode",
+              "label": "Error Code",
+              "hint": "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX",
+              "type": "String",
+              "required": false
+            },
+            {
               "name": "errorMessage",
               "label": "Error Message",
               "hint": "Message shown when the rule fails",
@@ -115642,6 +115895,36 @@
             }
           ],
           "type": "DomainEnumRegistry"
+        },
+        {
+          "name": "errorCodeRegistry",
+          "kind": "complex",
+          "doc": "7.6. Error Code Registry.",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "type": "ErrorCodeRegistry"
+        },
+        {
+          "name": "resultEnvelope",
+          "kind": "complex",
+          "doc": "7.7. Result Envelope.",
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
+              }
+            }
+          ],
+          "type": "ResultEnvelope"
         }
       ]
     },
@@ -196372,6 +196655,229 @@
               "name": "specialConsiderations",
               "label": "Special Considerations",
               "hint": "Any screen-specific responsive notes or exceptions",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "ResultEnvelope": {
+      "name": "ResultEnvelope",
+      "sectionId": "RSLTE",
+      "doc": "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
+          "REST / RPC result-envelope patterns — success-or-error response modelling"
+        ],
+        "connotation": "The canonical success-or-error Result envelope (CE-ER, §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
+              "REST / RPC result-envelope patterns — success-or-error response modelling"
+            ],
+            "connotation": "The canonical success-or-error Result envelope (CE-ER, §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RSLTE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "CE-ER — the canonical §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised by tom_core_kernel's TomResult/TomErrorResult (csmb4)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "discriminatorField",
+              "label": "Is-Success Discriminator",
+              "hint": "The boolean field that distinguishes the arms (default: success)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "successArm",
+              "label": "Success Arm",
+              "hint": "The success payload — the value type carried when success is true (may be empty for operations returning nothing)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "errorArm",
+              "label": "Error Arm",
+              "hint": "The structured error carried when success is false — its code references the error-code registry (ERCRG)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "retryable",
+              "label": "Carries Retryable Flag",
+              "hint": "Whether the error arm carries a retryable flag",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "severity",
+              "label": "Severity Value Set",
+              "hint": "The error severity value set: Info | Warning | Error | Fatal",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "fieldDetails",
+          "kind": "list",
+          "doc": "7.7.1. Field-Level Details — the per-field error detail the error arm may\ncarry (e.g. form-validation failures).",
+          "help": "Add one entry per field-level detail the error arm may report.",
+          "sectionId": "RSFDE-FLDD-LST",
+          "sectionIdPattern": "RSFDE-FLDD-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — form-based interaction and input validation"
+            ],
+            "connotation": "The field-level error details the Result envelope error arm may carry."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — form-based interaction and input validation"
+                ],
+                "connotation": "The field-level error details the Result envelope error arm may carry."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RSFDE-FLDD-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RSFDE-FLDD-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per field-level detail the error arm may report."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ResultFieldDetailEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "ResultFieldDetailEntry": {
+      "name": "ResultFieldDetailEntry",
+      "sectionId": "RSFDE",
+      "doc": "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — form-based interaction and input validation",
+          "ISO 9241-13:1998 — user guidance / clear and specific feedback"
+        ],
+        "connotation": "A single field-level error detail: the offending field path, an error-code reference, and an optional default message."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — form-based interaction and input validation",
+              "ISO 9241-13:1998 — user guidance / clear and specific feedback"
+            ],
+            "connotation": "A single field-level error detail: the offending field path, an error-code reference, and an optional default message."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RSFDE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "fieldPath",
+              "label": "Field Path",
+              "hint": "The field (or dotted path) the error applies to (e.g. email, address.postalCode)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "errorCodeRef",
+              "label": "Error Code",
+              "hint": "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "message",
+              "label": "Default Message",
+              "hint": "Optional default message; user-facing copy resolves from the code via CE-TX",
               "type": "String",
               "required": false
             }

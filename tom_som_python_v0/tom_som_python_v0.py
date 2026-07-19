@@ -7419,6 +7419,19 @@ class D03InformationModel(SomNode):
     def domainEnumRegistry(self):
         return DomainEnumRegistry(self.doc, f"{self.path}/domainEnumRegistry")
 
+    # Error code registry — the shared application error-code vocabulary
+    # referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+    # (csmb5).
+    @property
+    def errorCodeRegistry(self):
+        return ErrorCodeRegistry(self.doc, f"{self.path}/errorCodeRegistry")
+
+    # Result envelope — the canonical success-or-error §7 Result contract
+    # (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+    @property
+    def resultEnvelope(self):
+        return ResultEnvelope(self.doc, f"{self.path}/resultEnvelope")
+
 class D04RequirementsSpecification(SomNode):
     """RSP00 Requirements Specification.
     
@@ -12747,6 +12760,62 @@ class ErrorBudgetTracking(SomNode):
     def governance(self):
         return ErrorBudgetTrackingGovernanceForm(self.doc, f"{self.path}/EBTG")
 
+class ErrorCodeEntry(SomNode):
+    """A single shared application error code (form).
+    
+    One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+    referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+    a default severity, a retryable hint, an optional HTTP-status hint and a
+    copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+    CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+    arm draws from.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ErrorCodeEntryContentForm(self.doc, f"{self.path}/content")
+
+class ErrorCodeRegistry(SomNode):
+    """7.6. Error Code Registry.
+    
+    The single, shared **application error-code vocabulary** — the spine that
+    CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+    reference so they never invent divergent code strings (csm5 cross-cutting
+    finding #2; `codespecs_coverage_gaps.md` §3.1).
+    
+    This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+    *system/network/display* error catalogue (HTTP status, presentation,
+    recovery). This registry is the **application-level** error vocabulary a
+    success-or-error [ResultEnvelope] carries:
+    
+    - a CE-VA field/form rule names its "error code on fail" from here rather
+      than minting a literal;
+    - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+    - CE-TX error copy is keyed by the same code, so client message and server
+      error share one source.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 7.6.1. Error Codes — one entry per shared application error code.
+    @property
+    def errorCodes(self):
+        return SomList(self.doc, f"{self.path}/ERCEN-CODE-LST", lambda d, p: ErrorCodeEntry(d, p), pattern="ERCEN-CODE-xxx")
+
 class ErrorHandling(SomNode):
     """10.7. Error Handling.
     
@@ -15525,6 +15594,16 @@ class InformationAndDataModel(SomNode):
     @property
     def domainEnumRegistry(self):
         return DomainEnumRegistry(self.doc, f"{self.path}/domainEnumRegistry")
+
+    # 7.6. Error Code Registry.
+    @property
+    def errorCodeRegistry(self):
+        return ErrorCodeRegistry(self.doc, f"{self.path}/errorCodeRegistry")
+
+    # 7.7. Result Envelope.
+    @property
+    def resultEnvelope(self):
+        return ResultEnvelope(self.doc, f"{self.path}/resultEnvelope")
 
 class InformationArchitecture(SomNode):
     """10.2.2. Information Architecture.
@@ -25159,6 +25238,51 @@ class ResponsiveScreenRuleEntry(SomNode):
     @property
     def content(self):
         return ResponsiveScreenRuleEntryContentForm(self.doc, f"{self.path}/content")
+
+class ResultEnvelope(SomNode):
+    """7.7. Result Envelope.
+    
+    The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+    the §7 server contract). This is the model-side counterpart of the
+    `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+    every application outcome — success *or* structured error — is returned in a
+    normal (2xx-transport) body as this one envelope; only 5xx are transport
+    failures.
+    
+    The envelope has two arms, distinguished by an **is-success discriminator**:
+    
+    1. **success** — carries a value payload;
+    2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+       retryable/severity hint, and an optional list of field-level details
+       ([ResultFieldDetailEntry]) for input-attributable failures.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ResultEnvelopeContentForm(self.doc, f"{self.path}/content")
+
+    # 7.7.1. Field-Level Details — the per-field error detail the error arm may
+    # carry (e.g. form-validation failures).
+    @property
+    def fieldDetails(self):
+        return SomList(self.doc, f"{self.path}/RSFDE-FLDD-LST", lambda d, p: ResultFieldDetailEntry(d, p), pattern="RSFDE-FLDD-xxx")
+
+class ResultFieldDetailEntry(SomNode):
+    """A single field-level error detail (form).
+    
+    One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+    field path, an error code referencing the [ErrorCodeRegistry], and an
+    optional default message (user copy resolves from the code via CE-TX). The
+    model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ResultFieldDetailEntryContentForm(self.doc, f"{self.path}/content")
 
 class RetentionPolicyEntry(SomNode):
     """Retention policy for a specific data category."""
@@ -76900,6 +77024,14 @@ class ElementValidationRuleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "ruleExpression", value)
 
     @property
+    def errorCode(self) -> str:
+        return self.doc.form_field(self.path, "errorCode") or ""
+
+    @errorCode.setter
+    def errorCode(self, value):
+        self.doc.set_form_field(self.path, "errorCode", value)
+
+    @property
     def errorMessageResource(self) -> str:
         return self.doc.form_field(self.path, "errorMessageResource") or ""
 
@@ -79472,6 +79604,78 @@ class ErrorBudgetTrackingMonitoringForm(SomNode):
     @burnRateTimePeriods.setter
     def burnRateTimePeriods(self, value):
         self.doc.set_form_field(self.path, "burnRateTimePeriods", value)
+
+class ErrorCodeEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def code(self) -> str:
+        return self.doc.form_field(self.path, "code") or ""
+
+    @code.setter
+    def code(self, value):
+        self.doc.set_form_field(self.path, "code", value)
+
+    @property
+    def category(self) -> str:
+        return self.doc.form_field(self.path, "category") or ""
+
+    @category.setter
+    def category(self, value):
+        self.doc.set_form_field(self.path, "category", value)
+
+    @property
+    def severity(self) -> str:
+        return self.doc.form_field(self.path, "severity") or ""
+
+    @severity.setter
+    def severity(self, value):
+        self.doc.set_form_field(self.path, "severity", value)
+
+    @property
+    def retryable(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "retryable")
+        return None if v is None else (v == "true")
+
+    @retryable.setter
+    def retryable(self, value):
+        self.doc.set_form_field(self.path, "retryable", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def httpStatusHint(self) -> "int | None":
+        v = self.doc.form_field(self.path, "httpStatusHint")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @httpStatusHint.setter
+    def httpStatusHint(self, value):
+        self.doc.set_form_field(self.path, "httpStatusHint", "" if value is None else str(value))
+
+    @property
+    def copyKey(self) -> str:
+        return self.doc.form_field(self.path, "copyKey") or ""
+
+    @copyKey.setter
+    def copyKey(self, value):
+        self.doc.set_form_field(self.path, "copyKey", value)
 
 class ErrorHandlingAccessibilityForm(SomNode):
     """Generated section facade for the `accessibility` @Form section: its own content text followed by one typed member per form field."""
@@ -85355,6 +85559,14 @@ class FieldValidationRuleContentForm(SomNode):
     @ruleExpression.setter
     def ruleExpression(self, value):
         self.doc.set_form_field(self.path, "ruleExpression", value)
+
+    @property
+    def errorCode(self) -> str:
+        return self.doc.form_field(self.path, "errorCode") or ""
+
+    @errorCode.setter
+    def errorCode(self, value):
+        self.doc.set_form_field(self.path, "errorCode", value)
 
     @property
     def errorMessage(self) -> str:
@@ -131378,6 +131590,105 @@ class ResponsiveScreenRuleEntryContentForm(SomNode):
     @specialConsiderations.setter
     def specialConsiderations(self, value):
         self.doc.set_form_field(self.path, "specialConsiderations", value)
+
+class ResultEnvelopeContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def discriminatorField(self) -> str:
+        return self.doc.form_field(self.path, "discriminatorField") or ""
+
+    @discriminatorField.setter
+    def discriminatorField(self, value):
+        self.doc.set_form_field(self.path, "discriminatorField", value)
+
+    @property
+    def successArm(self) -> str:
+        return self.doc.form_field(self.path, "successArm") or ""
+
+    @successArm.setter
+    def successArm(self, value):
+        self.doc.set_form_field(self.path, "successArm", value)
+
+    @property
+    def errorArm(self) -> str:
+        return self.doc.form_field(self.path, "errorArm") or ""
+
+    @errorArm.setter
+    def errorArm(self, value):
+        self.doc.set_form_field(self.path, "errorArm", value)
+
+    @property
+    def retryable(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "retryable")
+        return None if v is None else (v == "true")
+
+    @retryable.setter
+    def retryable(self, value):
+        self.doc.set_form_field(self.path, "retryable", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def severity(self) -> str:
+        return self.doc.form_field(self.path, "severity") or ""
+
+    @severity.setter
+    def severity(self, value):
+        self.doc.set_form_field(self.path, "severity", value)
+
+class ResultFieldDetailEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def fieldPath(self) -> str:
+        return self.doc.form_field(self.path, "fieldPath") or ""
+
+    @fieldPath.setter
+    def fieldPath(self, value):
+        self.doc.set_form_field(self.path, "fieldPath", value)
+
+    @property
+    def errorCodeRef(self) -> str:
+        return self.doc.form_field(self.path, "errorCodeRef") or ""
+
+    @errorCodeRef.setter
+    def errorCodeRef(self, value):
+        self.doc.set_form_field(self.path, "errorCodeRef", value)
+
+    @property
+    def message(self) -> str:
+        return self.doc.form_field(self.path, "message") or ""
+
+    @message.setter
+    def message(self, value):
+        self.doc.set_form_field(self.path, "message", value)
 
 class RetentionPolicyEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

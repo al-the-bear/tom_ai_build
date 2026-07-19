@@ -1712,6 +1712,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per environment (e.g. Dev, QA, Staging, Prod, DR), capturing its identity, infrastructure, access, data, availability, monitoring, lifecycle, cost, and compliance."
+  ercen-code-lst:
+    prefix: ERCEN_CODE_LST
+    subsection-types:
+      ercen-code:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per shared application error code.
   error-erro-lst:
     prefix: ERROR_ERRO_LST
     subsection-types:
@@ -2741,6 +2749,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per unfilled position, with its required skills, experience, allocation, target date, priority, and recruitment status."
+  rsfde-fldd-lst:
+    prefix: RSFDE_FLDD_LST
+    subsection-types:
+      rsfde-fldd:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per field-level detail the error arm may report.
   rspch-adde-lst:
     prefix: RSPCH_ADDE_LST
     subsection-types:
@@ -6980,6 +6996,12 @@ section-types:
       pattern: ^ENVEN-ITEM-.+$
       error-message: IDs of this section must match ENVEN-ITEM-xxx
     description: "Add one entry per environment (e.g. Dev, QA, Staging, Prod, DR), capturing its identity, infrastructure, access, data, availability, monitoring, lifecycle, cost, and compliance."
+  ercen-code:
+    prefix: ERCEN_CODE_
+    pattern-check-id:
+      pattern: ^ERCEN-CODE-.+$
+      error-message: IDs of this section must match ERCEN-CODE-xxx
+    description: Add one entry per shared application error code.
   erhaco-erro:
     prefix: ERHACO_ERRO
     format: erhaco-erro-form
@@ -8172,6 +8194,12 @@ section-types:
       pattern: ^RREQE-OPEN-.+$
       error-message: IDs of this section must match RREQE-OPEN-xxx
     description: "Add one entry per unfilled position, with its required skills, experience, allocation, target date, priority, and recruitment status."
+  rsfde-fldd:
+    prefix: RSFDE_FLDD_
+    pattern-check-id:
+      pattern: ^RSFDE-FLDD-.+$
+      error-message: IDs of this section must match RSFDE-FLDD-xxx
+    description: Add one entry per field-level detail the error arm may report.
   rspch-adde:
     prefix: RSPCH_ADDE_
     pattern-check-id:
@@ -16922,6 +16950,12 @@ section-types:
     prefix: ENVSC
     format: envsc-form
     description: Access and security configuration.
+  ercrg:
+    prefix: ERCRG
+    subsection-types:
+      ercen-code-lst:
+        max-count: 1
+    description: 7.6. Error Code Registry.
   esbct:
     prefix: ESBCT
     format: esbct-form
@@ -17861,6 +17895,12 @@ section-types:
     prefix: RRRBT
     format: rrrbt-form
     description: Tier-based targets.
+  rslte:
+    prefix: RSLTE
+    subsection-types:
+      rsfde-fldd-lst:
+        max-count: 1
+    description: 7.7. Result Envelope.
   rtcea:
     prefix: RTCEA
     format: rtcea-form
@@ -21307,6 +21347,10 @@ section-types:
       schmg:
         max-count: 1
       domen:
+        max-count: 1
+      ercrg:
+        max-count: 1
+      rslte:
         max-count: 1
     description: "SBP.8 Information & Data Model. Seeds → IFM."
   ingo:

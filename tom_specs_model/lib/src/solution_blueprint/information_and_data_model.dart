@@ -60,6 +60,14 @@ IFM (Information Model) document.
   /// 7.5. Domain Enum Registry.
   @SerializationOrder(5)
   DomainEnumRegistry domainEnumRegistry = DomainEnumRegistry();
+
+  /// 7.6. Error Code Registry.
+  @SerializationOrder(6)
+  ErrorCodeRegistry errorCodeRegistry = ErrorCodeRegistry();
+
+  /// 7.7. Result Envelope.
+  @SerializationOrder(7)
+  ResultEnvelope resultEnvelope = ResultEnvelope();
 }
 
 // ---------------------------------------------------------------------------
@@ -4250,6 +4258,258 @@ class DomainEnumValueEntry extends DocSpecsSection {
       String,
       'Description',
       hint: 'What this value means',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.6 Error Code Registry
+// ---------------------------------------------------------------------------
+
+/// 7.6. Error Code Registry.
+///
+/// The single, shared **application error-code vocabulary** — the spine that
+/// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+/// reference so they never invent divergent code strings (csm5 cross-cutting
+/// finding #2; `codespecs_coverage_gaps.md` §3.1).
+///
+/// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+/// *system/network/display* error catalogue (HTTP status, presentation,
+/// recovery). This registry is the **application-level** error vocabulary a
+/// success-or-error [ResultEnvelope] carries:
+///
+/// - a CE-VA field/form rule names its "error code on fail" from here rather
+///   than minting a literal;
+/// - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+/// - CE-TX error copy is keyed by the same code, so client message and server
+///   error share one source.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / value-domain enumerations',
+    'ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated',
+  ],
+  'The registry of shared application error codes referenced by validation rules (CE-VA), the Result envelope (CE-ER), and error copy (CE-TX).',
+)
+@SectionId('ERCRG')
+class ErrorCodeRegistry extends DocSpecsSection {
+  @ContentHelp('''
+Catalogue the shared application error codes. Add one entry per code; each
+code is referenced by:
+- CE-VA validation rules (a rule's error code on fail),
+- the CE-ER Result envelope (the error arm's `code`),
+- CE-TX error copy (the message keyed by the code).
+
+Author the code **once here**; everything else references it by id so the
+vocabulary never diverges. This is the *application* error registry — distinct
+from D09's system/network/display error catalogue.
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.6.1. Error Codes — one entry per shared application error code.
+  @StandardReferences([
+    'ISO/IEC 11179 — metadata registries / value-domain enumerations',
+  ], 'The catalogued shared application error codes.')
+  @SectionId('ERCEN-CODE-LST')
+  @SectionIdPattern('ERCEN-CODE-xxx')
+  @ContentHelp('Add one entry per shared application error code.')
+  @SerializationOrder(1)
+  List<ErrorCodeEntry> errorCodes = [];
+}
+
+/// A single shared application error code (form).
+///
+/// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+/// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+/// a default severity, a retryable hint, an optional HTTP-status hint and a
+/// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+/// CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+/// arm draws from.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+    'ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated',
+  ],
+  'A single shared application error code: its stable id, category, default severity, retryable hint, HTTP-status hint, and copy-key reference.',
+)
+@SectionId('ERCEN')
+@CodeSpecKind([CodeSpecPart.errorResult],
+    note: 'CE-ER — the shared error-code vocabulary the Result envelope error '
+        'arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX '
+        'error copy (one code, three consumers).')
+class ErrorCodeEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'code',
+      String,
+      'Code',
+      required: true,
+      hint: 'Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) '
+          '— the join key for CE-VA rules, CE-ER and CE-TX copy',
+    ),
+    Field(
+      'category',
+      String,
+      'Category',
+      hint: 'Grouping: Validation | Authorization | NotFound | Conflict | '
+          'BusinessRule | System',
+    ),
+    Field(
+      'severity',
+      String,
+      'Default Severity',
+      hint: 'Default severity: Info | Warning | Error | Fatal',
+    ),
+    Field(
+      'retryable',
+      bool,
+      'Retryable',
+      hint: 'Whether retrying the same operation may reasonably succeed',
+    ),
+    Field(
+      'httpStatusHint',
+      int,
+      'HTTP Status Hint',
+      hint: 'Optional transport-status hint (application errors ride in a 2xx '
+          'body; 5xx are transport failures)',
+    ),
+    Field(
+      'copyKey',
+      String,
+      'Copy Key',
+      hint: 'Message-key reference into the CE-TX message registry for the '
+          'default user-facing message (author copy once, reference here)',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.7 Result Envelope
+// ---------------------------------------------------------------------------
+
+/// 7.7. Result Envelope.
+///
+/// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+/// the §7 server contract). This is the model-side counterpart of the
+/// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+/// every application outcome — success *or* structured error — is returned in a
+/// normal (2xx-transport) body as this one envelope; only 5xx are transport
+/// failures.
+///
+/// The envelope has two arms, distinguished by an **is-success discriminator**:
+///
+/// 1. **success** — carries a value payload;
+/// 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+///    retryable/severity hint, and an optional list of field-level details
+///    ([ResultFieldDetailEntry]) for input-attributable failures.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description (interface contracts)',
+    'REST / RPC result-envelope patterns — success-or-error response modelling',
+  ],
+  'The canonical success-or-error Result envelope (CE-ER, §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm.',
+)
+@SectionId('RSLTE')
+@CodeSpecKind([CodeSpecPart.errorResult],
+    note: 'CE-ER — the canonical §7 Result/ErrorResult envelope: a success arm '
+        'or a structured error arm carrying a code (from the error-code '
+        'registry), field-level details, and retryable/severity. Realised by '
+        "tom_core_kernel's TomResult/TomErrorResult (csmb4).")
+class ResultEnvelope extends DocSpecsSection {
+  @Form([
+    Field(
+      'discriminatorField',
+      String,
+      'Is-Success Discriminator',
+      required: true,
+      hint: 'The boolean field that distinguishes the arms (default: success)',
+    ),
+    Field(
+      'successArm',
+      String,
+      'Success Arm',
+      hint: 'The success payload — the value type carried when success is true '
+          '(may be empty for operations returning nothing)',
+    ),
+    Field(
+      'errorArm',
+      String,
+      'Error Arm',
+      hint: 'The structured error carried when success is false — its code '
+          'references the error-code registry (ERCRG)',
+    ),
+    Field(
+      'retryable',
+      bool,
+      'Carries Retryable Flag',
+      hint: 'Whether the error arm carries a retryable flag',
+    ),
+    Field(
+      'severity',
+      String,
+      'Severity Value Set',
+      hint: 'The error severity value set: Info | Warning | Error | Fatal',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.7.1. Field-Level Details — the per-field error detail the error arm may
+  /// carry (e.g. form-validation failures).
+  @StandardReferences([
+    'ISO 9241-143:2012 — form-based interaction and input validation',
+  ], 'The field-level error details the Result envelope error arm may carry.')
+  @SectionId('RSFDE-FLDD-LST')
+  @SectionIdPattern('RSFDE-FLDD-xxx')
+  @ContentHelp('Add one entry per field-level detail the error arm may report.')
+  @SerializationOrder(1)
+  List<ResultFieldDetailEntry> fieldDetails = [];
+}
+
+/// A single field-level error detail (form).
+///
+/// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+/// field path, an error code referencing the [ErrorCodeRegistry], and an
+/// optional default message (user copy resolves from the code via CE-TX). The
+/// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — form-based interaction and input validation',
+    'ISO 9241-13:1998 — user guidance / clear and specific feedback',
+  ],
+  'A single field-level error detail: the offending field path, an error-code reference, and an optional default message.',
+)
+@SectionId('RSFDE')
+class ResultFieldDetailEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'fieldPath',
+      String,
+      'Field Path',
+      required: true,
+      hint: 'The field (or dotted path) the error applies to (e.g. email, '
+          'address.postalCode)',
+    ),
+    Field(
+      'errorCodeRef',
+      String,
+      'Error Code',
+      hint: 'Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code',
+    ),
+    Field(
+      'message',
+      String,
+      'Default Message',
+      hint: 'Optional default message; user-facing copy resolves from the code '
+          'via CE-TX',
     ),
   ])
   @override

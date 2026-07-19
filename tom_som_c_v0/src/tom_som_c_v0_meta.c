@@ -459,6 +459,8 @@ static SomMetaNode **meta_children_environment_strategy(SomStrList *stack, size_
 static SomMetaNode **meta_children_environments(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_equipment_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_error_budget_tracking(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_error_code_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_error_code_registry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_error_handling(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_error_handling_standards(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_error_recovery(SomStrList *stack, size_t *len);
@@ -919,6 +921,8 @@ static SomMetaNode **meta_children_responsibility_systems(SomStrList *stack, siz
 static SomMetaNode **meta_children_responsive_behavior(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsive_design(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsive_screen_rule_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_result_envelope(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_result_field_detail_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_retention_policy_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_reusability_principles(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_reusable_components_section(SomStrList *stack, size_t *len);
@@ -2399,6 +2403,8 @@ static void meta_build_d03_information_model_data_dictionary(SomMetaNode *n);
 static void meta_build_d03_information_model_validation_constraints(SomMetaNode *n);
 static void meta_build_d03_information_model_integrity_constraints(SomMetaNode *n);
 static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n);
+static void meta_build_d03_information_model_error_code_registry(SomMetaNode *n);
+static void meta_build_d03_information_model_result_envelope(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_header(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_functional_requirements(SomMetaNode *n);
@@ -3178,6 +3184,10 @@ static void meta_build_equipment_requirements_specialized_equipment_elem(SomMeta
 static void meta_build_error_budget_tracking_content(SomMetaNode *n);
 static void meta_build_error_budget_tracking_monitoring(SomMetaNode *n);
 static void meta_build_error_budget_tracking_governance(SomMetaNode *n);
+static void meta_build_error_code_entry_content(SomMetaNode *n);
+static void meta_build_error_code_registry_content(SomMetaNode *n);
+static void meta_build_error_code_registry_error_codes(SomMetaNode *n);
+static void meta_build_error_code_registry_error_codes_elem(SomMetaNode *n);
 static void meta_build_error_handling_error_philosophy_content(SomMetaNode *n);
 static void meta_build_error_handling_classification(SomMetaNode *n);
 static void meta_build_error_handling_accessibility(SomMetaNode *n);
@@ -3607,6 +3617,8 @@ static void meta_build_information_and_data_model_business_object_model(SomMetaN
 static void meta_build_information_and_data_model_function_model(SomMetaNode *n);
 static void meta_build_information_and_data_model_schema_versioning_and_migration(SomMetaNode *n);
 static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNode *n);
+static void meta_build_information_and_data_model_error_code_registry(SomMetaNode *n);
+static void meta_build_information_and_data_model_result_envelope(SomMetaNode *n);
 static void meta_build_information_architecture_content(SomMetaNode *n);
 static void meta_build_information_architecture_site_map(SomMetaNode *n);
 static void meta_build_information_architecture_content_hierarchy(SomMetaNode *n);
@@ -5088,6 +5100,10 @@ static void meta_build_responsive_design_responsive_narrative(SomMetaNode *n);
 static void meta_build_responsive_design_breakpoint_config(SomMetaNode *n);
 static void meta_build_responsive_design_responsive_behavior(SomMetaNode *n);
 static void meta_build_responsive_screen_rule_entry_content(SomMetaNode *n);
+static void meta_build_result_envelope_content(SomMetaNode *n);
+static void meta_build_result_envelope_field_details(SomMetaNode *n);
+static void meta_build_result_envelope_field_details_elem(SomMetaNode *n);
+static void meta_build_result_field_detail_entry_content(SomMetaNode *n);
 static void meta_build_retention_policy_entry_content(SomMetaNode *n);
 static void meta_build_retention_policy_entry_requirements(SomMetaNode *n);
 static void meta_build_retention_policy_entry_lifecycle(SomMetaNode *n);
@@ -7411,6 +7427,11 @@ static void *meta_nav_factory_environment_entry(const SomMetaTree *tree, const c
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_error_code_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_error_code_entry *r = (som_nav_error_code_entry *)malloc(sizeof(som_nav_error_code_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_evaluation_criterion_entry(const SomMetaTree *tree, const char *path) {
   som_nav_evaluation_criterion_entry *r = (som_nav_evaluation_criterion_entry *)malloc(sizeof(som_nav_evaluation_criterion_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8378,6 +8399,11 @@ static void *meta_nav_factory_responsibility_systems(const SomMetaTree *tree, co
 }
 static void *meta_nav_factory_responsive_screen_rule_entry(const SomMetaTree *tree, const char *path) {
   som_nav_responsive_screen_rule_entry *r = (som_nav_responsive_screen_rule_entry *)malloc(sizeof(som_nav_responsive_screen_rule_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_result_field_detail_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_result_field_detail_entry *r = (som_nav_result_field_detail_entry *)malloc(sizeof(som_nav_result_field_detail_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9836,6 +9862,11 @@ static void *meta_id_factory_environment_entry(const SomMetaTree *tree, const ch
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_error_code_entry(const SomMetaTree *tree, const char *path) {
+  som_id_error_code_entry *r = (som_id_error_code_entry *)malloc(sizeof(som_id_error_code_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_evaluation_criterion_entry(const SomMetaTree *tree, const char *path) {
   som_id_evaluation_criterion_entry *r = (som_id_evaluation_criterion_entry *)malloc(sizeof(som_id_evaluation_criterion_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10803,6 +10834,11 @@ static void *meta_id_factory_responsibility_systems(const SomMetaTree *tree, con
 }
 static void *meta_id_factory_responsive_screen_rule_entry(const SomMetaTree *tree, const char *path) {
   som_id_responsive_screen_rule_entry *r = (som_id_responsive_screen_rule_entry *)malloc(sizeof(som_id_responsive_screen_rule_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_result_field_detail_entry(const SomMetaTree *tree, const char *path) {
+  som_id_result_field_detail_entry *r = (som_id_result_field_detail_entry *)malloc(sizeof(som_id_result_field_detail_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -39082,6 +39118,28 @@ static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n
   meta_set(&n->doc_comment, "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).");
   meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
 }
+static void meta_build_d03_information_model_error_code_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "ErrorCodeRegistry");
+  meta_set(&n->member_name, "errorCodeRegistry");
+  meta_set(&n->class_section_id, "ERCRG");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ErrorCodeRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 15;
+  meta_set(&n->doc_comment, "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).");
+  meta_set(&n->class_doc_comment, "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.");
+}
+static void meta_build_d03_information_model_result_envelope(SomMetaNode *n) {
+  meta_set(&n->class_name, "ResultEnvelope");
+  meta_set(&n->member_name, "resultEnvelope");
+  meta_set(&n->class_section_id, "RSLTE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ResultEnvelope");
+  n->has_serialization_order = 1;
+  n->serialization_order = 16;
+  meta_set(&n->doc_comment, "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).");
+  meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
+}
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D04RequirementsSpecification");
   meta_set(&n->member_name, "content");
@@ -55740,8 +55798,8 @@ static void meta_build_element_validation_rule_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("ruleType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Rule Type");
@@ -55754,24 +55812,30 @@ static void meta_build_element_validation_rule_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Validation expression or pattern");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("errorMessageResource");
+  n->form->fields[2].name = som_strdup("errorCode");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Error Message Resource");
+  n->form->fields[2].description = som_strdup("Error Code");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Resource key for validation error message");
+  n->form->fields[2].hint = som_strdup("The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("severity");
+  n->form->fields[3].name = som_strdup("errorMessageResource");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Severity");
+  n->form->fields[3].description = som_strdup("Error Message Resource");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Error/Warning/Info");
+  n->form->fields[3].hint = som_strdup("Resource key for validation error message");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("validateOn");
+  n->form->fields[4].name = som_strdup("severity");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Validate On");
+  n->form->fields[4].description = som_strdup("Severity");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("On-Change/On-Blur/On-Submit");
+  n->form->fields[4].hint = som_strdup("Error/Warning/Info");
   n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("validateOn");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Validate On");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("On-Change/On-Blur/On-Submit");
+  n->form->fields[5].order = 5;
 }
 static void meta_build_emergency_maintenance_procedures_content(SomMetaNode *n) {
   meta_set(&n->class_name, "EmergencyMaintenanceProcedures");
@@ -58271,6 +58335,89 @@ static void meta_build_error_budget_tracking_governance(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Google SRE — error budgets\",\"ITIL 4 — service level management practice\"],\"connotation\":\"Recovery and attribution rules applied when the error budget is spent.\"}", NULL);
+}
+static void meta_build_error_code_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ErrorCodeEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("code");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Code");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("category");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Category");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("severity");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Default Severity");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Default severity: Info | Warning | Error | Fatal");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("retryable");
+  n->form->fields[3].type_name = som_strdup("bool");
+  n->form->fields[3].description = som_strdup("Retryable");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Whether retrying the same operation may reasonably succeed");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("httpStatusHint");
+  n->form->fields[4].type_name = som_strdup("int");
+  n->form->fields[4].description = som_strdup("HTTP Status Hint");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("copyKey");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Copy Key");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)");
+  n->form->fields[5].order = 5;
+}
+static void meta_build_error_code_registry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ErrorCodeRegistry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n");
+}
+static void meta_build_error_code_registry_error_codes(SomMetaNode *n) {
+  meta_set(&n->class_name, "ErrorCodeRegistry");
+  meta_set(&n->member_name, "errorCodes");
+  meta_set(&n->section_id, "ERCEN-CODE-LST");
+  meta_set(&n->section_id_pattern, "ERCEN-CODE-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ErrorCodeEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per shared application error code.");
+  meta_set(&n->doc_comment, "7.6.1. Error Codes — one entry per shared application error code.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / value-domain enumerations\"],\"connotation\":\"The catalogued shared application error codes.\"}", NULL);
+}
+static void meta_build_error_code_registry_error_codes_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ErrorCodeEntry");
+  meta_set(&n->class_section_id, "ERCEN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ErrorCodeEntry");
+  meta_set(&n->doc_comment, "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.");
+  meta_set(&n->class_doc_comment, "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.");
 }
 static void meta_build_error_handling_error_philosophy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorHandling");
@@ -64070,8 +64217,8 @@ static void meta_build_field_validation_rule_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("ruleType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Rule Type (Required, Pattern, Range, Length, Custom, CrossField)");
@@ -64084,24 +64231,30 @@ static void meta_build_field_validation_rule_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Expression or formula implementing the rule");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("errorMessage");
+  n->form->fields[2].name = som_strdup("errorCode");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Error Message");
-  n->form->fields[2].required = 1;
-  n->form->fields[2].hint = som_strdup("Message shown when the rule fails");
+  n->form->fields[2].description = som_strdup("Error Code");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("severity");
+  n->form->fields[3].name = som_strdup("errorMessage");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Severity (Error, Warning, Info)");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Error, Warning, or Info");
+  n->form->fields[3].description = som_strdup("Error Message");
+  n->form->fields[3].required = 1;
+  n->form->fields[3].hint = som_strdup("Message shown when the rule fails");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("triggerEvent");
+  n->form->fields[4].name = som_strdup("severity");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Trigger Event (OnBlur, OnChange, OnSubmit)");
+  n->form->fields[4].description = som_strdup("Severity (Error, Warning, Info)");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("OnBlur, OnChange, or OnSubmit");
+  n->form->fields[4].hint = som_strdup("Error, Warning, or Info");
   n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("triggerEvent");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Trigger Event (OnBlur, OnChange, OnSubmit)");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("OnBlur, OnChange, or OnSubmit");
+  n->form->fields[5].order = 5;
 }
 static void meta_build_file_access_control_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FileAccessControlPolicy");
@@ -69587,6 +69740,28 @@ static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNo
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "7.5. Domain Enum Registry.");
   meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
+}
+static void meta_build_information_and_data_model_error_code_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "ErrorCodeRegistry");
+  meta_set(&n->member_name, "errorCodeRegistry");
+  meta_set(&n->class_section_id, "ERCRG");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ErrorCodeRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "7.6. Error Code Registry.");
+  meta_set(&n->class_doc_comment, "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.");
+}
+static void meta_build_information_and_data_model_result_envelope(SomMetaNode *n) {
+  meta_set(&n->class_name, "ResultEnvelope");
+  meta_set(&n->member_name, "resultEnvelope");
+  meta_set(&n->class_section_id, "RSLTE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ResultEnvelope");
+  n->has_serialization_order = 1;
+  n->serialization_order = 7;
+  meta_set(&n->doc_comment, "7.7. Result Envelope.");
+  meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
 }
 static void meta_build_information_architecture_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InformationArchitecture");
@@ -109907,6 +110082,100 @@ static void meta_build_responsive_screen_rule_entry_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Any screen-specific responsive notes or exceptions");
   n->form->fields[5].order = 5;
+}
+static void meta_build_result_envelope_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ResultEnvelope");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("discriminatorField");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Is-Success Discriminator");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The boolean field that distinguishes the arms (default: success)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("successArm");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Success Arm");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The success payload — the value type carried when success is true (may be empty for operations returning nothing)");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("errorArm");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Error Arm");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The structured error carried when success is false — its code references the error-code registry (ERCRG)");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("retryable");
+  n->form->fields[3].type_name = som_strdup("bool");
+  n->form->fields[3].description = som_strdup("Carries Retryable Flag");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Whether the error arm carries a retryable flag");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("severity");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Severity Value Set");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("The error severity value set: Info | Warning | Error | Fatal");
+  n->form->fields[4].order = 4;
+}
+static void meta_build_result_envelope_field_details(SomMetaNode *n) {
+  meta_set(&n->class_name, "ResultEnvelope");
+  meta_set(&n->member_name, "fieldDetails");
+  meta_set(&n->section_id, "RSFDE-FLDD-LST");
+  meta_set(&n->section_id_pattern, "RSFDE-FLDD-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ResultFieldDetailEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per field-level detail the error arm may report.");
+  meta_set(&n->doc_comment, "7.7.1. Field-Level Details — the per-field error detail the error arm may\ncarry (e.g. form-validation failures).");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — form-based interaction and input validation\"],\"connotation\":\"The field-level error details the Result envelope error arm may carry.\"}", NULL);
+}
+static void meta_build_result_envelope_field_details_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ResultFieldDetailEntry");
+  meta_set(&n->class_section_id, "RSFDE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ResultFieldDetailEntry");
+  meta_set(&n->doc_comment, "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).");
+  meta_set(&n->class_doc_comment, "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).");
+}
+static void meta_build_result_field_detail_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ResultFieldDetailEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("fieldPath");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Field Path");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The field (or dotted path) the error applies to (e.g. email, address.postalCode)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("errorCodeRef");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Error Code");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("message");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Default Message");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Optional default message; user-facing copy resolves from the code via CE-TX");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_retention_policy_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RetentionPolicyEntry");
@@ -157508,6 +157777,8 @@ static SomMetaNode **meta_children_d03_information_model(SomStrList *stack, size
   meta_push(&arr, len, &cap, meta_cx("ValidationConstraints", stack, meta_children_validation_constraints, meta_build_d03_information_model_validation_constraints));
   meta_push(&arr, len, &cap, meta_cx("IntegrityConstraints", stack, meta_children_integrity_constraints, meta_build_d03_information_model_integrity_constraints));
   meta_push(&arr, len, &cap, meta_cx("DomainEnumRegistry", stack, meta_children_domain_enum_registry, meta_build_d03_information_model_domain_enum_registry));
+  meta_push(&arr, len, &cap, meta_cx("ErrorCodeRegistry", stack, meta_children_error_code_registry, meta_build_d03_information_model_error_code_registry));
+  meta_push(&arr, len, &cap, meta_cx("ResultEnvelope", stack, meta_children_result_envelope, meta_build_d03_information_model_result_envelope));
   return arr;
 }
 
@@ -161620,6 +161891,37 @@ static SomMetaNode **meta_children_error_budget_tracking(SomStrList *stack, size
   return arr;
 }
 
+static SomMetaNode **meta_children_error_code_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_error_code_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_error_code_registry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_error_code_registry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_error_code_registry_error_codes(ln);
+    ln->element_node = meta_cx("ErrorCodeEntry", stack, meta_children_error_code_entry, meta_build_error_code_registry_error_codes_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_error_handling(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
@@ -164024,6 +164326,8 @@ static SomMetaNode **meta_children_information_and_data_model(SomStrList *stack,
   meta_push(&arr, len, &cap, meta_cx("FunctionModel", stack, meta_children_function_model, meta_build_information_and_data_model_function_model));
   meta_push(&arr, len, &cap, meta_cx("SchemaVersioningAndMigration", stack, meta_children_schema_versioning_and_migration, meta_build_information_and_data_model_schema_versioning_and_migration));
   meta_push(&arr, len, &cap, meta_cx("DomainEnumRegistry", stack, meta_children_domain_enum_registry, meta_build_information_and_data_model_domain_enum_registry));
+  meta_push(&arr, len, &cap, meta_cx("ErrorCodeRegistry", stack, meta_children_error_code_registry, meta_build_information_and_data_model_error_code_registry));
+  meta_push(&arr, len, &cap, meta_cx("ResultEnvelope", stack, meta_children_result_envelope, meta_build_information_and_data_model_result_envelope));
   return arr;
 }
 
@@ -172893,6 +173197,37 @@ static SomMetaNode **meta_children_responsive_screen_rule_entry(SomStrList *stac
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_responsive_screen_rule_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_result_envelope(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_result_envelope_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_result_envelope_field_details(ln);
+    ln->element_node = meta_cx("ResultFieldDetailEntry", stack, meta_children_result_field_detail_entry, meta_build_result_envelope_field_details_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_result_field_detail_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_result_field_detail_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -189616,6 +189951,20 @@ som_nav_domain_enum_registry d03_information_model_nav_domain_enum_registry(som_
   free(path);
   return out;
 }
+som_nav_error_code_registry d03_information_model_nav_error_code_registry(som_nav_d03_information_model x) {
+  som_nav_error_code_registry out;
+  char *path = spec_path_join(x.ref.path, "errorCodeRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_result_envelope d03_information_model_nav_result_envelope(som_nav_d03_information_model x) {
+  som_nav_result_envelope out;
+  char *path = spec_path_join(x.ref.path, "resultEnvelope");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef d04_requirements_specification_nav_content(som_nav_d04_requirements_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -194565,6 +194914,27 @@ SomMetaRef error_budget_tracking_nav_governance(som_nav_error_budget_tracking x)
   free(path);
   return out;
 }
+SomMetaRef error_code_entry_nav_content(som_nav_error_code_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef error_code_registry_nav_content(som_nav_error_code_registry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef error_code_registry_nav_error_codes(som_nav_error_code_registry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ERCEN-CODE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_error_code_entry);
+  free(path);
+  return out;
+}
 SomMetaRef error_handling_nav_error_philosophy_content(som_nav_error_handling x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ERHACO-ERRO");
@@ -197305,6 +197675,20 @@ som_nav_schema_versioning_and_migration information_and_data_model_nav_schema_ve
 som_nav_domain_enum_registry information_and_data_model_nav_domain_enum_registry(som_nav_information_and_data_model x) {
   som_nav_domain_enum_registry out;
   char *path = spec_path_join(x.ref.path, "domainEnumRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_error_code_registry information_and_data_model_nav_error_code_registry(som_nav_information_and_data_model x) {
+  som_nav_error_code_registry out;
+  char *path = spec_path_join(x.ref.path, "errorCodeRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_result_envelope information_and_data_model_nav_result_envelope(som_nav_information_and_data_model x) {
+  som_nav_result_envelope out;
+  char *path = spec_path_join(x.ref.path, "resultEnvelope");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -206592,6 +206976,27 @@ som_nav_responsive_behavior responsive_design_nav_responsive_behavior(som_nav_re
   return out;
 }
 SomMetaRef responsive_screen_rule_entry_nav_content(som_nav_responsive_screen_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef result_envelope_nav_content(som_nav_result_envelope x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef result_envelope_nav_field_details(som_nav_result_envelope x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RSFDE-FLDD-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_result_field_detail_entry);
+  free(path);
+  return out;
+}
+SomMetaRef result_field_detail_entry_nav_content(som_nav_result_field_detail_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -220424,6 +220829,20 @@ SomListMetaRef d00_solution_blueprint_id_dmene_enum_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_ercen_code_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_error_code_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_rsfde_fldd_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_result_field_detail_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d00_solution_blueprint_id_trareq_tran(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
@@ -228240,6 +228659,20 @@ SomListMetaRef d03_information_model_id_dmene_enum_lst(som_id_d03_information_mo
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "domainEnumRegistry/DMENE-ENUM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_domain_enum_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_ercen_code_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "errorCodeRegistry/ERCEN-CODE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_error_code_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_rsfde_fldd_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "resultEnvelope/RSFDE-FLDD-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_result_field_detail_entry);
   free(path);
   return out;
 }

@@ -122,4 +122,15 @@ class D03InformationModel extends DocSpecsSection {
   /// (CE-EN home + closed-choice discriminator source, csmb3).
   @SerializationOrder(14)
   DomainEnumRegistry domainEnumRegistry = DomainEnumRegistry();
+
+  /// Error code registry — the shared application error-code vocabulary
+  /// referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+  /// (csmb5).
+  @SerializationOrder(15)
+  ErrorCodeRegistry errorCodeRegistry = ErrorCodeRegistry();
+
+  /// Result envelope — the canonical success-or-error §7 Result contract
+  /// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+  @SerializationOrder(16)
+  ResultEnvelope resultEnvelope = ResultEnvelope();
 }

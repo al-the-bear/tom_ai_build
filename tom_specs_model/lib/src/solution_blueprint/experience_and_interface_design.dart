@@ -2128,6 +2128,13 @@ class ElementValidationRuleEntry extends DocSpecsSection {
       hint: 'Validation expression or pattern',
     ),
     Field(
+      'errorCode',
+      String,
+      'Error Code',
+      hint: 'The error code emitted on failure — reference into the error-code '
+          'registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX',
+    ),
+    Field(
       'errorMessageResource',
       String,
       'Error Message Resource',

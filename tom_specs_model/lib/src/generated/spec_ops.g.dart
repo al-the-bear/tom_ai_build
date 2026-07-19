@@ -4667,6 +4667,8 @@ void registerSpecOps() {
         SpecSlot.node(() => n.validationConstraints, (v) => n.validationConstraints = v as ValidationConstraints, label: 'validationConstraints'),
         SpecSlot.node(() => n.integrityConstraints, (v) => n.integrityConstraints = v as IntegrityConstraints, label: 'integrityConstraints'),
         SpecSlot.node(() => n.domainEnumRegistry, (v) => n.domainEnumRegistry = v as DomainEnumRegistry, label: 'domainEnumRegistry'),
+        SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
+        SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
       ];
     },
     cloneShallow: (o) {
@@ -4686,7 +4688,9 @@ void registerSpecOps() {
         ..dataDictionary = n.dataDictionary
         ..validationConstraints = n.validationConstraints
         ..integrityConstraints = n.integrityConstraints
-        ..domainEnumRegistry = n.domainEnumRegistry;
+        ..domainEnumRegistry = n.domainEnumRegistry
+        ..errorCodeRegistry = n.errorCodeRegistry
+        ..resultEnvelope = n.resultEnvelope;
     },
     yamlScalar: (o) => (o as D03InformationModel).content,
   ));
@@ -7734,6 +7738,30 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ErrorBudgetTracking).content,
   ));
+  SpecRegistry.register(ErrorCodeEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ErrorCodeEntry;
+      return ErrorCodeEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ErrorCodeEntry).content,
+  ));
+  SpecRegistry.register(ErrorCodeRegistry, SpecClassOps(
+    slots: (o) {
+      final n = o as ErrorCodeRegistry;
+      return [
+        SpecSlot.list(() => n.errorCodes, (v) => n.errorCodes = v.cast<ErrorCodeEntry>(), label: 'errorCodes'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ErrorCodeRegistry;
+      return ErrorCodeRegistry()
+        ..content = n.content
+        ..errorCodes = n.errorCodes;
+    },
+    yamlScalar: (o) => (o as ErrorCodeRegistry).content,
+  ));
   SpecRegistry.register(ErrorHandling, SpecClassOps(
     slots: (o) {
       final n = o as ErrorHandling;
@@ -9481,6 +9509,8 @@ void registerSpecOps() {
         SpecSlot.node(() => n.functionModel, (v) => n.functionModel = v as FunctionModel, label: 'functionModel'),
         SpecSlot.node(() => n.schemaVersioningAndMigration, (v) => n.schemaVersioningAndMigration = v as SchemaVersioningAndMigration, label: 'schemaVersioningAndMigration'),
         SpecSlot.node(() => n.domainEnumRegistry, (v) => n.domainEnumRegistry = v as DomainEnumRegistry, label: 'domainEnumRegistry'),
+        SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
+        SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
       ];
     },
     cloneShallow: (o) {
@@ -9491,7 +9521,9 @@ void registerSpecOps() {
         ..businessObjectModel = n.businessObjectModel
         ..functionModel = n.functionModel
         ..schemaVersioningAndMigration = n.schemaVersioningAndMigration
-        ..domainEnumRegistry = n.domainEnumRegistry;
+        ..domainEnumRegistry = n.domainEnumRegistry
+        ..errorCodeRegistry = n.errorCodeRegistry
+        ..resultEnvelope = n.resultEnvelope;
     },
     yamlScalar: (o) => (o as InformationAndDataModel).content,
   ));
@@ -15836,6 +15868,30 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as ResponsiveScreenRuleEntry).content,
+  ));
+  SpecRegistry.register(ResultEnvelope, SpecClassOps(
+    slots: (o) {
+      final n = o as ResultEnvelope;
+      return [
+        SpecSlot.list(() => n.fieldDetails, (v) => n.fieldDetails = v.cast<ResultFieldDetailEntry>(), label: 'fieldDetails'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ResultEnvelope;
+      return ResultEnvelope()
+        ..content = n.content
+        ..fieldDetails = n.fieldDetails;
+    },
+    yamlScalar: (o) => (o as ResultEnvelope).content,
+  ));
+  SpecRegistry.register(ResultFieldDetailEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ResultFieldDetailEntry;
+      return ResultFieldDetailEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ResultFieldDetailEntry).content,
   ));
   SpecRegistry.register(RetentionPolicyEntry, SpecClassOps(
     slots: (o) {

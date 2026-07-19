@@ -3952,6 +3952,12 @@ IntegrityConstraints D03InformationModel::integrityConstraints() const {
 DomainEnumRegistry D03InformationModel::domainEnumRegistry() const {
   return DomainEnumRegistry(doc(), som::joinPath(path(), "domainEnumRegistry"));
 }
+ErrorCodeRegistry D03InformationModel::errorCodeRegistry() const {
+  return ErrorCodeRegistry(doc(), som::joinPath(path(), "errorCodeRegistry"));
+}
+ResultEnvelope D03InformationModel::resultEnvelope() const {
+  return ResultEnvelope(doc(), som::joinPath(path(), "resultEnvelope"));
+}
 
 D04RequirementsSpecification::D04RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "RSP") {
@@ -6929,6 +6935,24 @@ ErrorBudgetTrackingGovernanceForm ErrorBudgetTracking::governance() const {
   return ErrorBudgetTrackingGovernanceForm(doc(), som::joinPath(path(), "EBTG"));
 }
 
+ErrorCodeEntry::ErrorCodeEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ErrorCodeEntryContentForm ErrorCodeEntry::content() const {
+  return ErrorCodeEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ErrorCodeRegistry::ErrorCodeRegistry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ErrorCodeRegistry::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void ErrorCodeRegistry::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList ErrorCodeRegistry::errorCodes() const {
+  return som::SomList(doc(), som::joinPath(path(), "ERCEN-CODE-LST"), "ERCEN-CODE-xxx");
+}
+
 ErrorHandling::ErrorHandling(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ErrorHandlingErrorPhilosophyContentForm ErrorHandling::errorPhilosophyContent() const {
@@ -8397,6 +8421,12 @@ SchemaVersioningAndMigration InformationAndDataModel::schemaVersioningAndMigrati
 }
 DomainEnumRegistry InformationAndDataModel::domainEnumRegistry() const {
   return DomainEnumRegistry(doc(), som::joinPath(path(), "domainEnumRegistry"));
+}
+ErrorCodeRegistry InformationAndDataModel::errorCodeRegistry() const {
+  return ErrorCodeRegistry(doc(), som::joinPath(path(), "errorCodeRegistry"));
+}
+ResultEnvelope InformationAndDataModel::resultEnvelope() const {
+  return ResultEnvelope(doc(), som::joinPath(path(), "resultEnvelope"));
 }
 
 InformationArchitecture::InformationArchitecture(som::SpecDocument& doc, std::string path)
@@ -13482,6 +13512,21 @@ ResponsiveScreenRuleEntry::ResponsiveScreenRuleEntry(som::SpecDocument& doc, std
     : som::SomNode(doc, std::move(path)) {}
 ResponsiveScreenRuleEntryContentForm ResponsiveScreenRuleEntry::content() const {
   return ResponsiveScreenRuleEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ResultEnvelope::ResultEnvelope(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ResultEnvelopeContentForm ResultEnvelope::content() const {
+  return ResultEnvelopeContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList ResultEnvelope::fieldDetails() const {
+  return som::SomList(doc(), som::joinPath(path(), "RSFDE-FLDD-LST"), "RSFDE-FLDD-xxx");
+}
+
+ResultFieldDetailEntry::ResultFieldDetailEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ResultFieldDetailEntryContentForm ResultFieldDetailEntry::content() const {
+  return ResultFieldDetailEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 RetentionPolicyEntry::RetentionPolicyEntry(som::SpecDocument& doc, std::string path)
@@ -46954,6 +46999,12 @@ std::string ElementValidationRuleEntryContentForm::ruleExpression() const {
 void ElementValidationRuleEntryContentForm::setRuleExpression(const std::string& value) {
   doc().setFormField(path(), "ruleExpression", value);
 }
+std::string ElementValidationRuleEntryContentForm::errorCode() const {
+  return doc().formField(path(), "errorCode");
+}
+void ElementValidationRuleEntryContentForm::setErrorCode(const std::string& value) {
+  doc().setFormField(path(), "errorCode", value);
+}
 std::string ElementValidationRuleEntryContentForm::errorMessageResource() const {
   return doc().formField(path(), "errorMessageResource");
 }
@@ -48711,6 +48762,55 @@ std::string ErrorBudgetTrackingMonitoringForm::burnRateTimePeriods() const {
 }
 void ErrorBudgetTrackingMonitoringForm::setBurnRateTimePeriods(const std::string& value) {
   doc().setFormField(path(), "burnRateTimePeriods", value);
+}
+
+ErrorCodeEntryContentForm::ErrorCodeEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ErrorCodeEntryContentForm::content() const {
+  return doc().content(path());
+}
+void ErrorCodeEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ErrorCodeEntryContentForm::code() const {
+  return doc().formField(path(), "code");
+}
+void ErrorCodeEntryContentForm::setCode(const std::string& value) {
+  doc().setFormField(path(), "code", value);
+}
+std::string ErrorCodeEntryContentForm::category() const {
+  return doc().formField(path(), "category");
+}
+void ErrorCodeEntryContentForm::setCategory(const std::string& value) {
+  doc().setFormField(path(), "category", value);
+}
+std::string ErrorCodeEntryContentForm::severity() const {
+  return doc().formField(path(), "severity");
+}
+void ErrorCodeEntryContentForm::setSeverity(const std::string& value) {
+  doc().setFormField(path(), "severity", value);
+}
+std::optional<bool> ErrorCodeEntryContentForm::retryable() const {
+  const std::string v = doc().formField(path(), "retryable");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ErrorCodeEntryContentForm::setRetryable(std::optional<bool> value) {
+  doc().setFormField(path(), "retryable", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<long> ErrorCodeEntryContentForm::httpStatusHint() const {
+  const std::string v = doc().formField(path(), "httpStatusHint");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ErrorCodeEntryContentForm::setHttpStatusHint(std::optional<long> value) {
+  doc().setFormField(path(), "httpStatusHint", value.has_value() ? std::to_string(*value) : "");
+}
+std::string ErrorCodeEntryContentForm::copyKey() const {
+  return doc().formField(path(), "copyKey");
+}
+void ErrorCodeEntryContentForm::setCopyKey(const std::string& value) {
+  doc().setFormField(path(), "copyKey", value);
 }
 
 ErrorHandlingAccessibilityForm::ErrorHandlingAccessibilityForm(som::SpecDocument& doc, std::string path)
@@ -52692,6 +52792,12 @@ std::string FieldValidationRuleContentForm::ruleExpression() const {
 }
 void FieldValidationRuleContentForm::setRuleExpression(const std::string& value) {
   doc().setFormField(path(), "ruleExpression", value);
+}
+std::string FieldValidationRuleContentForm::errorCode() const {
+  return doc().formField(path(), "errorCode");
+}
+void FieldValidationRuleContentForm::setErrorCode(const std::string& value) {
+  doc().setFormField(path(), "errorCode", value);
 }
 std::string FieldValidationRuleContentForm::errorMessage() const {
   return doc().formField(path(), "errorMessage");
@@ -83923,6 +84029,74 @@ std::string ResponsiveScreenRuleEntryContentForm::specialConsiderations() const 
 }
 void ResponsiveScreenRuleEntryContentForm::setSpecialConsiderations(const std::string& value) {
   doc().setFormField(path(), "specialConsiderations", value);
+}
+
+ResultEnvelopeContentForm::ResultEnvelopeContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ResultEnvelopeContentForm::content() const {
+  return doc().content(path());
+}
+void ResultEnvelopeContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ResultEnvelopeContentForm::discriminatorField() const {
+  return doc().formField(path(), "discriminatorField");
+}
+void ResultEnvelopeContentForm::setDiscriminatorField(const std::string& value) {
+  doc().setFormField(path(), "discriminatorField", value);
+}
+std::string ResultEnvelopeContentForm::successArm() const {
+  return doc().formField(path(), "successArm");
+}
+void ResultEnvelopeContentForm::setSuccessArm(const std::string& value) {
+  doc().setFormField(path(), "successArm", value);
+}
+std::string ResultEnvelopeContentForm::errorArm() const {
+  return doc().formField(path(), "errorArm");
+}
+void ResultEnvelopeContentForm::setErrorArm(const std::string& value) {
+  doc().setFormField(path(), "errorArm", value);
+}
+std::optional<bool> ResultEnvelopeContentForm::retryable() const {
+  const std::string v = doc().formField(path(), "retryable");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ResultEnvelopeContentForm::setRetryable(std::optional<bool> value) {
+  doc().setFormField(path(), "retryable", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ResultEnvelopeContentForm::severity() const {
+  return doc().formField(path(), "severity");
+}
+void ResultEnvelopeContentForm::setSeverity(const std::string& value) {
+  doc().setFormField(path(), "severity", value);
+}
+
+ResultFieldDetailEntryContentForm::ResultFieldDetailEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ResultFieldDetailEntryContentForm::content() const {
+  return doc().content(path());
+}
+void ResultFieldDetailEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ResultFieldDetailEntryContentForm::fieldPath() const {
+  return doc().formField(path(), "fieldPath");
+}
+void ResultFieldDetailEntryContentForm::setFieldPath(const std::string& value) {
+  doc().setFormField(path(), "fieldPath", value);
+}
+std::string ResultFieldDetailEntryContentForm::errorCodeRef() const {
+  return doc().formField(path(), "errorCodeRef");
+}
+void ResultFieldDetailEntryContentForm::setErrorCodeRef(const std::string& value) {
+  doc().setFormField(path(), "errorCodeRef", value);
+}
+std::string ResultFieldDetailEntryContentForm::message() const {
+  return doc().formField(path(), "message");
+}
+void ResultFieldDetailEntryContentForm::setMessage(const std::string& value) {
+  doc().setFormField(path(), "message", value);
 }
 
 RetentionPolicyEntryContentForm::RetentionPolicyEntryContentForm(som::SpecDocument& doc, std::string path)

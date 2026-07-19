@@ -9357,6 +9357,13 @@ class FieldValidationRule extends DocSpecsSection {
       hint: 'Expression or formula implementing the rule',
     ),
     Field(
+      'errorCode',
+      String,
+      'Error Code',
+      hint: 'The error code emitted on failure — reference into the error-code '
+          'registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX',
+    ),
+    Field(
       'errorMessage',
       String,
       'Error Message',

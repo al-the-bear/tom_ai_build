@@ -10969,6 +10969,19 @@ impl D03InformationModel {
     pub fn domain_enum_registry(&self) -> DomainEnumRegistry {
         DomainEnumRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainEnumRegistry"))
     }
+
+    /// Error code registry — the shared application error-code vocabulary
+    /// referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+    /// (csmb5).
+    pub fn error_code_registry(&self) -> ErrorCodeRegistry {
+        ErrorCodeRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorCodeRegistry"))
+    }
+
+    /// Result envelope — the canonical success-or-error §7 Result contract
+    /// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+    pub fn result_envelope(&self) -> ResultEnvelope {
+        ResultEnvelope::new(self.node.doc(), format!("{}/{}", self.node.path(), "resultEnvelope"))
+    }
 }
 
 /// RSP00 Requirements Specification.
@@ -18667,6 +18680,90 @@ impl ErrorBudgetTracking {
     }
 }
 
+/// A single shared application error code (form).
+///
+/// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+/// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+/// a default severity, a retryable hint, an optional HTTP-status hint and a
+/// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+/// CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+/// arm draws from.
+pub struct ErrorCodeEntry {
+    pub node: som::SomNode,
+}
+
+impl ErrorCodeEntry {
+    /// Binds a ErrorCodeEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorCodeEntry {
+        ErrorCodeEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ErrorCodeEntryContentForm {
+        ErrorCodeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 7.6. Error Code Registry.
+///
+/// The single, shared **application error-code vocabulary** — the spine that
+/// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+/// reference so they never invent divergent code strings (csm5 cross-cutting
+/// finding #2; `codespecs_coverage_gaps.md` §3.1).
+///
+/// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+/// *system/network/display* error catalogue (HTTP status, presentation,
+/// recovery). This registry is the **application-level** error vocabulary a
+/// success-or-error [ResultEnvelope] carries:
+///
+/// - a CE-VA field/form rule names its "error code on fail" from here rather
+///   than minting a literal;
+/// - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+/// - CE-TX error copy is keyed by the same code, so client message and server
+///   error share one source.
+pub struct ErrorCodeRegistry {
+    pub node: som::SomNode,
+}
+
+impl ErrorCodeRegistry {
+    /// Binds a ErrorCodeRegistry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorCodeRegistry {
+        ErrorCodeRegistry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 7.6.1. Error Codes — one entry per shared application error code.
+    pub fn error_codes(&self) -> som::SomList<ErrorCodeEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "ERCEN-CODE-LST"),
+            Box::new(ErrorCodeEntry::new),
+            "ERCEN-CODE-xxx".to_string(),
+        )
+    }
+}
+
 /// 10.7. Error Handling.
 ///
 /// Comprehensive error handling user experience framework covering validation
@@ -22792,6 +22889,16 @@ impl InformationAndDataModel {
     /// 7.5. Domain Enum Registry.
     pub fn domain_enum_registry(&self) -> DomainEnumRegistry {
         DomainEnumRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainEnumRegistry"))
+    }
+
+    /// 7.6. Error Code Registry.
+    pub fn error_code_registry(&self) -> ErrorCodeRegistry {
+        ErrorCodeRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorCodeRegistry"))
+    }
+
+    /// 7.7. Result Envelope.
+    pub fn result_envelope(&self) -> ResultEnvelope {
+        ResultEnvelope::new(self.node.doc(), format!("{}/{}", self.node.path(), "resultEnvelope"))
     }
 }
 
@@ -37742,6 +37849,82 @@ impl ResponsiveScreenRuleEntry {
 
     pub fn content(&self) -> ResponsiveScreenRuleEntryContentForm {
         ResponsiveScreenRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 7.7. Result Envelope.
+///
+/// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+/// the §7 server contract). This is the model-side counterpart of the
+/// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+/// every application outcome — success *or* structured error — is returned in a
+/// normal (2xx-transport) body as this one envelope; only 5xx are transport
+/// failures.
+///
+/// The envelope has two arms, distinguished by an **is-success discriminator**:
+///
+/// 1. **success** — carries a value payload;
+/// 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+///    retryable/severity hint, and an optional list of field-level details
+///    ([ResultFieldDetailEntry]) for input-attributable failures.
+pub struct ResultEnvelope {
+    pub node: som::SomNode,
+}
+
+impl ResultEnvelope {
+    /// Binds a ResultEnvelope facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ResultEnvelope {
+        ResultEnvelope { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ResultEnvelopeContentForm {
+        ResultEnvelopeContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.7.1. Field-Level Details — the per-field error detail the error arm may
+    /// carry (e.g. form-validation failures).
+    pub fn field_details(&self) -> som::SomList<ResultFieldDetailEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RSFDE-FLDD-LST"),
+            Box::new(ResultFieldDetailEntry::new),
+            "RSFDE-FLDD-xxx".to_string(),
+        )
+    }
+}
+
+/// A single field-level error detail (form).
+///
+/// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+/// field path, an error code referencing the [ErrorCodeRegistry], and an
+/// optional default message (user copy resolves from the code via CE-TX). The
+/// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+pub struct ResultFieldDetailEntry {
+    pub node: som::SomNode,
+}
+
+impl ResultFieldDetailEntry {
+    /// Binds a ResultFieldDetailEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ResultFieldDetailEntry {
+        ResultFieldDetailEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ResultFieldDetailEntryContentForm {
+        ResultFieldDetailEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -108858,6 +109041,15 @@ impl ElementValidationRuleEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "ruleExpression", value);
     }
 
+    pub fn error_code(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "errorCode")
+    }
+
+    pub fn set_error_code(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "errorCode", value);
+    }
+
     pub fn error_message_resource(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "errorMessageResource")
     }
@@ -112276,6 +112468,94 @@ impl ErrorBudgetTrackingMonitoringForm {
     pub fn set_burn_rate_time_periods(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "burnRateTimePeriods", value);
+    }
+}
+
+/// ErrorCodeEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ErrorCodeEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ErrorCodeEntryContentForm {
+    /// Binds a ErrorCodeEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorCodeEntryContentForm {
+        ErrorCodeEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn code(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "code")
+    }
+
+    pub fn set_code(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "code", value);
+    }
+
+    pub fn category(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "category")
+    }
+
+    pub fn set_category(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "category", value);
+    }
+
+    pub fn severity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    }
+
+    pub fn set_severity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+    }
+
+    pub fn retryable(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "retryable");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_retryable(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "retryable", &text);
+    }
+
+    pub fn http_status_hint(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "httpStatusHint");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_http_status_hint(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "httpStatusHint", &text);
+    }
+
+    pub fn copy_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "copyKey")
+    }
+
+    pub fn set_copy_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "copyKey", value);
     }
 }
 
@@ -120052,6 +120332,15 @@ impl FieldValidationRuleContentForm {
     pub fn set_rule_expression(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "ruleExpression", value);
+    }
+
+    pub fn error_code(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "errorCode")
+    }
+
+    pub fn set_error_code(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "errorCode", value);
     }
 
     pub fn error_message(&self) -> String {
@@ -181046,6 +181335,140 @@ impl ResponsiveScreenRuleEntryContentForm {
     pub fn set_special_considerations(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "specialConsiderations", value);
+    }
+}
+
+/// ResultEnvelopeContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ResultEnvelopeContentForm {
+    pub node: som::SomNode,
+}
+
+impl ResultEnvelopeContentForm {
+    /// Binds a ResultEnvelopeContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ResultEnvelopeContentForm {
+        ResultEnvelopeContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn discriminator_field(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "discriminatorField")
+    }
+
+    pub fn set_discriminator_field(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "discriminatorField", value);
+    }
+
+    pub fn success_arm(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "successArm")
+    }
+
+    pub fn set_success_arm(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "successArm", value);
+    }
+
+    pub fn error_arm(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "errorArm")
+    }
+
+    pub fn set_error_arm(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "errorArm", value);
+    }
+
+    pub fn retryable(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "retryable");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_retryable(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "retryable", &text);
+    }
+
+    pub fn severity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    }
+
+    pub fn set_severity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+    }
+}
+
+/// ResultFieldDetailEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ResultFieldDetailEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ResultFieldDetailEntryContentForm {
+    /// Binds a ResultFieldDetailEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ResultFieldDetailEntryContentForm {
+        ResultFieldDetailEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn field_path(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fieldPath")
+    }
+
+    pub fn set_field_path(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fieldPath", value);
+    }
+
+    pub fn error_code_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "errorCodeRef")
+    }
+
+    pub fn set_error_code_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "errorCodeRef", value);
+    }
+
+    pub fn message(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "message")
+    }
+
+    pub fn set_message(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "message", value);
     }
 }
 

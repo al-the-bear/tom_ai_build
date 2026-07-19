@@ -8837,6 +8837,19 @@ func (x *D03InformationModel) DomainEnumRegistry() *DomainEnumRegistry {
 	return NewDomainEnumRegistry(x.Doc(), x.Path()+"/domainEnumRegistry")
 }
 
+// Error code registry — the shared application error-code vocabulary
+// referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+// (csmb5).
+func (x *D03InformationModel) ErrorCodeRegistry() *ErrorCodeRegistry {
+	return NewErrorCodeRegistry(x.Doc(), x.Path()+"/errorCodeRegistry")
+}
+
+// Result envelope — the canonical success-or-error §7 Result contract
+// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+func (x *D03InformationModel) ResultEnvelope() *ResultEnvelope {
+	return NewResultEnvelope(x.Doc(), x.Path()+"/resultEnvelope")
+}
+
 // RSP00 Requirements Specification.
 //
 // Full requirements catalog covering functional, technical, security,
@@ -15230,6 +15243,74 @@ func (x *ErrorBudgetTracking) Governance() *ErrorBudgetTrackingGovernanceForm {
 	return NewErrorBudgetTrackingGovernanceForm(x.Doc(), x.Path()+"/EBTG")
 }
 
+// A single shared application error code (form).
+//
+// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+// a default severity, a retryable hint, an optional HTTP-status hint and a
+// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+// CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+// arm draws from.
+type ErrorCodeEntry struct {
+	som.SomNode
+}
+
+// NewErrorCodeEntry binds a ErrorCodeEntry facade to a document and a path.
+func NewErrorCodeEntry(doc *som.SpecDocument, path string) *ErrorCodeEntry {
+	return &ErrorCodeEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ErrorCodeEntry) Content() *ErrorCodeEntryContentForm {
+	return NewErrorCodeEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.6. Error Code Registry.
+//
+// The single, shared **application error-code vocabulary** — the spine that
+// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+// reference so they never invent divergent code strings (csm5 cross-cutting
+// finding #2; `codespecs_coverage_gaps.md` §3.1).
+//
+// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+// *system/network/display* error catalogue (HTTP status, presentation,
+// recovery). This registry is the **application-level** error vocabulary a
+// success-or-error [ResultEnvelope] carries:
+//
+// - a CE-VA field/form rule names its "error code on fail" from here rather
+//   than minting a literal;
+// - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+// - CE-TX error copy is keyed by the same code, so client message and server
+//   error share one source.
+type ErrorCodeRegistry struct {
+	som.SomNode
+}
+
+// NewErrorCodeRegistry binds a ErrorCodeRegistry facade to a document and a path.
+func NewErrorCodeRegistry(doc *som.SpecDocument, path string) *ErrorCodeRegistry {
+	return &ErrorCodeRegistry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ErrorCodeRegistry) CanHaveContent() bool {
+	return true
+}
+
+func (x *ErrorCodeRegistry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ErrorCodeRegistry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 7.6.1. Error Codes — one entry per shared application error code.
+func (x *ErrorCodeRegistry) ErrorCodes() *som.SomList[*ErrorCodeEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/ERCEN-CODE-LST", func(d *som.SpecDocument, p string) *ErrorCodeEntry {
+		return NewErrorCodeEntry(d, p)
+	}, "ERCEN-CODE-xxx")
+}
+
 // 10.7. Error Handling.
 //
 // Comprehensive error handling user experience framework covering validation
@@ -18511,6 +18592,16 @@ func (x *InformationAndDataModel) SchemaVersioningAndMigration() *SchemaVersioni
 // 7.5. Domain Enum Registry.
 func (x *InformationAndDataModel) DomainEnumRegistry() *DomainEnumRegistry {
 	return NewDomainEnumRegistry(x.Doc(), x.Path()+"/domainEnumRegistry")
+}
+
+// 7.6. Error Code Registry.
+func (x *InformationAndDataModel) ErrorCodeRegistry() *ErrorCodeRegistry {
+	return NewErrorCodeRegistry(x.Doc(), x.Path()+"/errorCodeRegistry")
+}
+
+// 7.7. Result Envelope.
+func (x *InformationAndDataModel) ResultEnvelope() *ResultEnvelope {
+	return NewResultEnvelope(x.Doc(), x.Path()+"/resultEnvelope")
 }
 
 // 10.2.2. Information Architecture.
@@ -30116,6 +30207,61 @@ func NewResponsiveScreenRuleEntry(doc *som.SpecDocument, path string) *Responsiv
 
 func (x *ResponsiveScreenRuleEntry) Content() *ResponsiveScreenRuleEntryContentForm {
 	return NewResponsiveScreenRuleEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.7. Result Envelope.
+//
+// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+// the §7 server contract). This is the model-side counterpart of the
+// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+// every application outcome — success *or* structured error — is returned in a
+// normal (2xx-transport) body as this one envelope; only 5xx are transport
+// failures.
+//
+// The envelope has two arms, distinguished by an **is-success discriminator**:
+//
+// 1. **success** — carries a value payload;
+// 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+//    retryable/severity hint, and an optional list of field-level details
+//    ([ResultFieldDetailEntry]) for input-attributable failures.
+type ResultEnvelope struct {
+	som.SomNode
+}
+
+// NewResultEnvelope binds a ResultEnvelope facade to a document and a path.
+func NewResultEnvelope(doc *som.SpecDocument, path string) *ResultEnvelope {
+	return &ResultEnvelope{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ResultEnvelope) Content() *ResultEnvelopeContentForm {
+	return NewResultEnvelopeContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.7.1. Field-Level Details — the per-field error detail the error arm may
+// carry (e.g. form-validation failures).
+func (x *ResultEnvelope) FieldDetails() *som.SomList[*ResultFieldDetailEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RSFDE-FLDD-LST", func(d *som.SpecDocument, p string) *ResultFieldDetailEntry {
+		return NewResultFieldDetailEntry(d, p)
+	}, "RSFDE-FLDD-xxx")
+}
+
+// A single field-level error detail (form).
+//
+// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+// field path, an error code referencing the [ErrorCodeRegistry], and an
+// optional default message (user copy resolves from the code via CE-TX). The
+// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+type ResultFieldDetailEntry struct {
+	som.SomNode
+}
+
+// NewResultFieldDetailEntry binds a ResultFieldDetailEntry facade to a document and a path.
+func NewResultFieldDetailEntry(doc *som.SpecDocument, path string) *ResultFieldDetailEntry {
+	return &ResultFieldDetailEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ResultFieldDetailEntry) Content() *ResultFieldDetailEntryContentForm {
+	return NewResultFieldDetailEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Retention policy for a specific data category.
@@ -94145,6 +94291,14 @@ func (x *ElementValidationRuleEntryContentForm) SetRuleExpression(value string) 
 	x.Doc().SetFormField(x.Path(), "ruleExpression", value)
 }
 
+func (x *ElementValidationRuleEntryContentForm) ErrorCode() string {
+	return x.Doc().FormFieldOr(x.Path(), "errorCode")
+}
+
+func (x *ElementValidationRuleEntryContentForm) SetErrorCode(value string) {
+	x.Doc().SetFormField(x.Path(), "errorCode", value)
+}
+
 func (x *ElementValidationRuleEntryContentForm) ErrorMessageResource() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorMessageResource")
 }
@@ -97251,6 +97405,105 @@ func (x *ErrorBudgetTrackingMonitoringForm) BurnRateTimePeriods() string {
 
 func (x *ErrorBudgetTrackingMonitoringForm) SetBurnRateTimePeriods(value string) {
 	x.Doc().SetFormField(x.Path(), "burnRateTimePeriods", value)
+}
+
+// ErrorCodeEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ErrorCodeEntryContentForm struct {
+	som.SomNode
+}
+
+// NewErrorCodeEntryContentForm binds a ErrorCodeEntryContentForm facade to a document and a path.
+func NewErrorCodeEntryContentForm(doc *som.SpecDocument, path string) *ErrorCodeEntryContentForm {
+	return &ErrorCodeEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ErrorCodeEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ErrorCodeEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ErrorCodeEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ErrorCodeEntryContentForm) Code() string {
+	return x.Doc().FormFieldOr(x.Path(), "code")
+}
+
+func (x *ErrorCodeEntryContentForm) SetCode(value string) {
+	x.Doc().SetFormField(x.Path(), "code", value)
+}
+
+func (x *ErrorCodeEntryContentForm) Category() string {
+	return x.Doc().FormFieldOr(x.Path(), "category")
+}
+
+func (x *ErrorCodeEntryContentForm) SetCategory(value string) {
+	x.Doc().SetFormField(x.Path(), "category", value)
+}
+
+func (x *ErrorCodeEntryContentForm) Severity() string {
+	return x.Doc().FormFieldOr(x.Path(), "severity")
+}
+
+func (x *ErrorCodeEntryContentForm) SetSeverity(value string) {
+	x.Doc().SetFormField(x.Path(), "severity", value)
+}
+
+func (x *ErrorCodeEntryContentForm) Retryable() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "retryable")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ErrorCodeEntryContentForm) SetRetryable(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "retryable", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "retryable", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "retryable", "false")
+	}
+}
+
+func (x *ErrorCodeEntryContentForm) HttpStatusHint() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "httpStatusHint")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ErrorCodeEntryContentForm) SetHttpStatusHint(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "httpStatusHint", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "httpStatusHint", strconv.Itoa(*value))
+}
+
+func (x *ErrorCodeEntryContentForm) CopyKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "copyKey")
+}
+
+func (x *ErrorCodeEntryContentForm) SetCopyKey(value string) {
+	x.Doc().SetFormField(x.Path(), "copyKey", value)
 }
 
 // ErrorHandlingAccessibilityForm is the generated section facade for the `accessibility` @Form section: its own
@@ -104379,6 +104632,14 @@ func (x *FieldValidationRuleContentForm) RuleExpression() string {
 
 func (x *FieldValidationRuleContentForm) SetRuleExpression(value string) {
 	x.Doc().SetFormField(x.Path(), "ruleExpression", value)
+}
+
+func (x *FieldValidationRuleContentForm) ErrorCode() string {
+	return x.Doc().FormFieldOr(x.Path(), "errorCode")
+}
+
+func (x *FieldValidationRuleContentForm) SetErrorCode(value string) {
+	x.Doc().SetFormField(x.Path(), "errorCode", value)
 }
 
 func (x *FieldValidationRuleContentForm) ErrorMessage() string {
@@ -160809,6 +161070,135 @@ func (x *ResponsiveScreenRuleEntryContentForm) SpecialConsiderations() string {
 
 func (x *ResponsiveScreenRuleEntryContentForm) SetSpecialConsiderations(value string) {
 	x.Doc().SetFormField(x.Path(), "specialConsiderations", value)
+}
+
+// ResultEnvelopeContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ResultEnvelopeContentForm struct {
+	som.SomNode
+}
+
+// NewResultEnvelopeContentForm binds a ResultEnvelopeContentForm facade to a document and a path.
+func NewResultEnvelopeContentForm(doc *som.SpecDocument, path string) *ResultEnvelopeContentForm {
+	return &ResultEnvelopeContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ResultEnvelopeContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ResultEnvelopeContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ResultEnvelopeContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ResultEnvelopeContentForm) DiscriminatorField() string {
+	return x.Doc().FormFieldOr(x.Path(), "discriminatorField")
+}
+
+func (x *ResultEnvelopeContentForm) SetDiscriminatorField(value string) {
+	x.Doc().SetFormField(x.Path(), "discriminatorField", value)
+}
+
+func (x *ResultEnvelopeContentForm) SuccessArm() string {
+	return x.Doc().FormFieldOr(x.Path(), "successArm")
+}
+
+func (x *ResultEnvelopeContentForm) SetSuccessArm(value string) {
+	x.Doc().SetFormField(x.Path(), "successArm", value)
+}
+
+func (x *ResultEnvelopeContentForm) ErrorArm() string {
+	return x.Doc().FormFieldOr(x.Path(), "errorArm")
+}
+
+func (x *ResultEnvelopeContentForm) SetErrorArm(value string) {
+	x.Doc().SetFormField(x.Path(), "errorArm", value)
+}
+
+func (x *ResultEnvelopeContentForm) Retryable() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "retryable")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ResultEnvelopeContentForm) SetRetryable(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "retryable", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "retryable", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "retryable", "false")
+	}
+}
+
+func (x *ResultEnvelopeContentForm) Severity() string {
+	return x.Doc().FormFieldOr(x.Path(), "severity")
+}
+
+func (x *ResultEnvelopeContentForm) SetSeverity(value string) {
+	x.Doc().SetFormField(x.Path(), "severity", value)
+}
+
+// ResultFieldDetailEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ResultFieldDetailEntryContentForm struct {
+	som.SomNode
+}
+
+// NewResultFieldDetailEntryContentForm binds a ResultFieldDetailEntryContentForm facade to a document and a path.
+func NewResultFieldDetailEntryContentForm(doc *som.SpecDocument, path string) *ResultFieldDetailEntryContentForm {
+	return &ResultFieldDetailEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ResultFieldDetailEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ResultFieldDetailEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ResultFieldDetailEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ResultFieldDetailEntryContentForm) FieldPath() string {
+	return x.Doc().FormFieldOr(x.Path(), "fieldPath")
+}
+
+func (x *ResultFieldDetailEntryContentForm) SetFieldPath(value string) {
+	x.Doc().SetFormField(x.Path(), "fieldPath", value)
+}
+
+func (x *ResultFieldDetailEntryContentForm) ErrorCodeRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "errorCodeRef")
+}
+
+func (x *ResultFieldDetailEntryContentForm) SetErrorCodeRef(value string) {
+	x.Doc().SetFormField(x.Path(), "errorCodeRef", value)
+}
+
+func (x *ResultFieldDetailEntryContentForm) Message() string {
+	return x.Doc().FormFieldOr(x.Path(), "message")
+}
+
+func (x *ResultFieldDetailEntryContentForm) SetMessage(value string) {
+	x.Doc().SetFormField(x.Path(), "message", value)
 }
 
 // RetentionPolicyEntryContentForm is the generated section facade for the `content` @Form section: its own

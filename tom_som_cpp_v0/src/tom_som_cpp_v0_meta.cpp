@@ -437,6 +437,8 @@ void buildEnvironmentStrategyChildren(som::SomMetaNode& parent, std::vector<std:
 void buildEnvironmentsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildEquipmentRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildErrorBudgetTrackingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildErrorCodeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildErrorCodeRegistryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildErrorHandlingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildErrorHandlingStandardsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildErrorRecoveryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -897,6 +899,8 @@ void buildResponsibilitySystemsChildren(som::SomMetaNode& parent, std::vector<st
 void buildResponsiveBehaviorChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsiveDesignChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsiveScreenRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildResultEnvelopeChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildResultFieldDetailEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRetentionPolicyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReusabilityPrinciplesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReusableComponentsSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -19336,6 +19340,38 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
   }
+  {
+    auto n = metaCx("ErrorCodeRegistry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ErrorCodeRegistry";
+        n.memberName = "errorCodeRegistry";
+        n.classSectionId = "ERCRG";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ErrorCodeRegistry";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 15;
+        n.docComment = "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).";
+        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+      },
+      buildErrorCodeRegistryChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("ResultEnvelope", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ResultEnvelope";
+        n.memberName = "resultEnvelope";
+        n.classSectionId = "RSLTE";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ResultEnvelope";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 16;
+        n.docComment = "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).";
+        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+      },
+      buildResultEnvelopeChildren);
+    parent.addChild(std::move(n));
+  }
 }
 
 void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
@@ -30533,9 +30569,10 @@ void buildElementValidationRuleEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleType", "String", "Rule Type", true, "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleExpression", "String", "Rule Expression", false, "Validation expression or pattern", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorMessageResource", "String", "Error Message Resource", false, "Resource key for validation error message", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Error/Warning/Info", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validateOn", "String", "Validate On", false, "On-Change/On-Blur/On-Submit", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorMessageResource", "String", "Error Message Resource", false, "Resource key for validation error message", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Error/Warning/Info", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validateOn", "String", "Validate On", false, "On-Change/On-Blur/On-Submit", 5, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -32009,6 +32046,67 @@ void buildErrorBudgetTrackingChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Free-form governance notes", 4, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Google SRE — error budgets\",\"ITIL 4 — service level management practice\"],\"connotation\":\"Recovery and attribution rules applied when the error budget is spent.\"}", nullptr)});
     parent.addChild(std::move(n));
+  }
+}
+
+void buildErrorCodeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ErrorCodeEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"code", "String", "Code", true, "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Default Severity", false, "Default severity: Info | Warning | Error | Fatal", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"retryable", "bool", "Retryable", false, "Whether retrying the same operation may reasonably succeed", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"httpStatusHint", "int", "HTTP Status Hint", false, "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"copyKey", "String", "Copy Key", false, "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)", 5, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildErrorCodeRegistryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ErrorCodeRegistry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindContent;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).contentHelp = "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n";
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ErrorCodeRegistry";
+    (*ln).memberName = "errorCodes";
+    (*ln).sectionId = "ERCEN-CODE-LST";
+    (*ln).sectionIdPattern = "ERCEN-CODE-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ErrorCodeEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per shared application error code.";
+    (*ln).docComment = "7.6.1. Error Codes — one entry per shared application error code.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / value-domain enumerations\"],\"connotation\":\"The catalogued shared application error codes.\"}", nullptr)});
+    ln->elementNode = metaCx("ErrorCodeEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ErrorCodeEntry";
+        n.classSectionId = "ERCEN";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ErrorCodeEntry";
+        n.docComment = "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.";
+        n.classDocComment = "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.";
+      },
+      buildErrorCodeEntryChildren);
+    parent.addChild(std::move(ln));
   }
 }
 
@@ -35490,9 +35588,10 @@ void buildFieldValidationRuleChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleType", "String", "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", true, "Required, Pattern, Range, Length, Custom, or CrossField", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleExpression", "String", "Rule Expression / Formula", false, "Expression or formula implementing the rule", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorMessage", "String", "Error Message", true, "Message shown when the rule fails", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity (Error, Warning, Info)", false, "Error, Warning, or Info", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerEvent", "String", "Trigger Event (OnBlur, OnChange, OnSubmit)", false, "OnBlur, OnChange, or OnSubmit", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorMessage", "String", "Error Message", true, "Message shown when the rule fails", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity (Error, Warning, Info)", false, "Error, Warning, or Info", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerEvent", "String", "Trigger Event (OnBlur, OnChange, OnSubmit)", false, "OnBlur, OnChange, or OnSubmit", 5, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -39039,6 +39138,38 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
       },
       buildDomainEnumRegistryChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("ErrorCodeRegistry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ErrorCodeRegistry";
+        n.memberName = "errorCodeRegistry";
+        n.classSectionId = "ERCRG";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ErrorCodeRegistry";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 6;
+        n.docComment = "7.6. Error Code Registry.";
+        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+      },
+      buildErrorCodeRegistryChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("ResultEnvelope", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ResultEnvelope";
+        n.memberName = "resultEnvelope";
+        n.classSectionId = "RSLTE";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ResultEnvelope";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 7;
+        n.docComment = "7.7. Result Envelope.";
+        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+      },
+      buildResultEnvelopeChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -63285,6 +63416,68 @@ void buildResponsiveScreenRuleEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tabletLayout", "String", "Tablet Layout", false, "How this screen is laid out on tablet", 3, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"desktopLayout", "String", "Desktop Layout", false, "How this screen is laid out on desktop", 4, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"specialConsiderations", "String", "Special Considerations", false, "Any screen-specific responsive notes or exceptions", 5, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildResultEnvelopeChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ResultEnvelope";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"discriminatorField", "String", "Is-Success Discriminator", true, "The boolean field that distinguishes the arms (default: success)", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"successArm", "String", "Success Arm", false, "The success payload — the value type carried when success is true (may be empty for operations returning nothing)", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorArm", "String", "Error Arm", false, "The structured error carried when success is false — its code references the error-code registry (ERCRG)", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"retryable", "bool", "Carries Retryable Flag", false, "Whether the error arm carries a retryable flag", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity Value Set", false, "The error severity value set: Info | Warning | Error | Fatal", 4, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ResultEnvelope";
+    (*ln).memberName = "fieldDetails";
+    (*ln).sectionId = "RSFDE-FLDD-LST";
+    (*ln).sectionIdPattern = "RSFDE-FLDD-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ResultFieldDetailEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per field-level detail the error arm may report.";
+    (*ln).docComment = "7.7.1. Field-Level Details — the per-field error detail the error arm may\ncarry (e.g. form-validation failures).";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-143:2012 — form-based interaction and input validation\"],\"connotation\":\"The field-level error details the Result envelope error arm may carry.\"}", nullptr)});
+    ln->elementNode = metaCx("ResultFieldDetailEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ResultFieldDetailEntry";
+        n.classSectionId = "RSFDE";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ResultFieldDetailEntry";
+        n.docComment = "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).";
+        n.classDocComment = "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).";
+      },
+      buildResultFieldDetailEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
+void buildResultFieldDetailEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ResultFieldDetailEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldPath", "String", "Field Path", true, "The field (or dotted path) the error applies to (e.g. email, address.postalCode)", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorCodeRef", "String", "Error Code", false, "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"message", "String", "Default Message", false, "Optional default message; user-facing copy resolves from the code via CE-TX", 2, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -89267,6 +89460,9 @@ void* metaNavFactoryEntryPointEntry(const som::SomMetaTree* tree, const std::str
 void* metaNavFactoryEnvironmentEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavEnvironmentEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryErrorCodeEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavErrorCodeEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryEvaluationCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavEvaluationCriterionEntry{som::SomMetaRef(tree, path)};
 }
@@ -89848,6 +90044,9 @@ void* metaNavFactoryResponsibilitySystems(const som::SomMetaTree* tree, const st
 }
 void* metaNavFactoryResponsiveScreenRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavResponsiveScreenRuleEntry{som::SomMetaRef(tree, path)};
+}
+void* metaNavFactoryResultFieldDetailEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavResultFieldDetailEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryRetentionPolicyEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavRetentionPolicyEntry{som::SomMetaRef(tree, path)};
@@ -90722,6 +90921,9 @@ void* metaIdFactoryEntryPointEntry(const som::SomMetaTree* tree, const std::stri
 void* metaIdFactoryEnvironmentEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdEnvironmentEntry{som::SomMetaRef(tree, path)};
 }
+void* metaIdFactoryErrorCodeEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdErrorCodeEntry{som::SomMetaRef(tree, path)};
+}
 void* metaIdFactoryEvaluationCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdEvaluationCriterionEntry{som::SomMetaRef(tree, path)};
 }
@@ -91303,6 +91505,9 @@ void* metaIdFactoryResponsibilitySystems(const som::SomMetaTree* tree, const std
 }
 void* metaIdFactoryResponsiveScreenRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdResponsiveScreenRuleEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryResultFieldDetailEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdResultFieldDetailEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryRetentionPolicyEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdRetentionPolicyEntry{som::SomMetaRef(tree, path)};
@@ -95147,6 +95352,12 @@ NavIntegrityConstraints navD03InformationModel_integrityConstraints(NavD03Inform
 NavDomainEnumRegistry navD03InformationModel_domainEnumRegistry(NavD03InformationModel x) {
   return NavDomainEnumRegistry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "domainEnumRegistry"))};
 }
+NavErrorCodeRegistry navD03InformationModel_errorCodeRegistry(NavD03InformationModel x) {
+  return NavErrorCodeRegistry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorCodeRegistry"))};
+}
+NavResultEnvelope navD03InformationModel_resultEnvelope(NavD03InformationModel x) {
+  return NavResultEnvelope{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "resultEnvelope"))};
+}
 som::SomMetaRef navD04RequirementsSpecification_content(NavD04RequirementsSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -97268,6 +97479,15 @@ som::SomMetaRef navErrorBudgetTracking_monitoring(NavErrorBudgetTracking x) {
 som::SomMetaRef navErrorBudgetTracking_governance(NavErrorBudgetTracking x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EBTG"));
 }
+som::SomMetaRef navErrorCodeEntry_content(NavErrorCodeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navErrorCodeRegistry_content(NavErrorCodeRegistry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navErrorCodeRegistry_errorCodes(NavErrorCodeRegistry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERCEN-CODE-LST"), metaNavFactoryErrorCodeEntry);
+}
 som::SomMetaRef navErrorHandling_errorPhilosophyContent(NavErrorHandling x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERHACO-ERRO"));
 }
@@ -98443,6 +98663,12 @@ NavSchemaVersioningAndMigration navInformationAndDataModel_schemaVersioningAndMi
 }
 NavDomainEnumRegistry navInformationAndDataModel_domainEnumRegistry(NavInformationAndDataModel x) {
   return NavDomainEnumRegistry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "domainEnumRegistry"))};
+}
+NavErrorCodeRegistry navInformationAndDataModel_errorCodeRegistry(NavInformationAndDataModel x) {
+  return NavErrorCodeRegistry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorCodeRegistry"))};
+}
+NavResultEnvelope navInformationAndDataModel_resultEnvelope(NavInformationAndDataModel x) {
+  return NavResultEnvelope{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "resultEnvelope"))};
 }
 som::SomMetaRef navInformationArchitecture_content(NavInformationArchitecture x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -102423,6 +102649,15 @@ NavResponsiveBehavior navResponsiveDesign_responsiveBehavior(NavResponsiveDesign
   return NavResponsiveBehavior{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "responsiveBehavior"))};
 }
 som::SomMetaRef navResponsiveScreenRuleEntry_content(NavResponsiveScreenRuleEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navResultEnvelope_content(NavResultEnvelope x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navResultEnvelope_fieldDetails(NavResultEnvelope x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RSFDE-FLDD-LST"), metaNavFactoryResultFieldDetailEntry);
+}
+som::SomMetaRef navResultFieldDetailEntry_content(NavResultFieldDetailEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navRetentionPolicyEntry_content(NavRetentionPolicyEntry x) {
@@ -108351,6 +108586,12 @@ som::SomListMetaRef idD00SolutionBlueprint_SCMST_STEP_LST(IdD00SolutionBlueprint
 som::SomListMetaRef idD00SolutionBlueprint_DMENE_ENUM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST"), metaIdFactoryDomainEnumEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_ERCEN_CODE_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST"), metaIdFactoryErrorCodeEntry);
+}
+som::SomListMetaRef idD00SolutionBlueprint_RSFDE_FLDD_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST"), metaIdFactoryResultFieldDetailEntry);
+}
 som::SomMetaRef idD00SolutionBlueprint_TRAREQ_TRAN(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"));
 }
@@ -111701,6 +111942,12 @@ som::SomListMetaRef idD03InformationModel_BIRU_BUSI_LST(IdD03InformationModel x)
 }
 som::SomListMetaRef idD03InformationModel_DMENE_ENUM_LST(IdD03InformationModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "domainEnumRegistry/DMENE-ENUM-LST"), metaIdFactoryDomainEnumEntry);
+}
+som::SomListMetaRef idD03InformationModel_ERCEN_CODE_LST(IdD03InformationModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorCodeRegistry/ERCEN-CODE-LST"), metaIdFactoryErrorCodeEntry);
+}
+som::SomListMetaRef idD03InformationModel_RSFDE_FLDD_LST(IdD03InformationModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "resultEnvelope/RSFDE-FLDD-LST"), metaIdFactoryResultFieldDetailEntry);
 }
 som::SomMetaRef idD04RequirementsSpecification_FR_SUMM(IdD04RequirementsSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "functionalRequirements/FR-SUMM"));

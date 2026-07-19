@@ -7796,6 +7796,19 @@ class D03InformationModel extends SomNode {
   get domainEnumRegistry() {
     return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
   }
+
+  // Error code registry — the shared application error-code vocabulary
+  // referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+  // (csmb5).
+  get errorCodeRegistry() {
+    return new ErrorCodeRegistry(this.doc, this.path + "/errorCodeRegistry");
+  }
+
+  // Result envelope — the canonical success-or-error §7 Result contract
+  // (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+  get resultEnvelope() {
+    return new ResultEnvelope(this.doc, this.path + "/resultEnvelope");
+  }
 }
 
 // RSP00 Requirements Specification.
@@ -13384,6 +13397,64 @@ class ErrorBudgetTracking extends SomNode {
   }
 }
 
+// A single shared application error code (form).
+//
+// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+// a default severity, a retryable hint, an optional HTTP-status hint and a
+// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+// CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+// arm draws from.
+class ErrorCodeEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ErrorCodeEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 7.6. Error Code Registry.
+//
+// The single, shared **application error-code vocabulary** — the spine that
+// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+// reference so they never invent divergent code strings (csm5 cross-cutting
+// finding #2; `codespecs_coverage_gaps.md` §3.1).
+//
+// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+// *system/network/display* error catalogue (HTTP status, presentation,
+// recovery). This registry is the **application-level** error vocabulary a
+// success-or-error [ResultEnvelope] carries:
+//
+// - a CE-VA field/form rule names its "error code on fail" from here rather
+//   than minting a literal;
+// - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+// - CE-TX error copy is keyed by the same code, so client message and server
+//   error share one source.
+class ErrorCodeRegistry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 7.6.1. Error Codes — one entry per shared application error code.
+  get errorCodes() {
+    return new SomList(this.doc, this.path + "/ERCEN-CODE-LST", (d, p) => new ErrorCodeEntry(d, p), "ERCEN-CODE-xxx");
+  }
+}
+
 // 10.7. Error Handling.
 //
 // Comprehensive error handling user experience framework covering validation
@@ -16301,6 +16372,16 @@ class InformationAndDataModel extends SomNode {
   // 7.5. Domain Enum Registry.
   get domainEnumRegistry() {
     return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
+  }
+
+  // 7.6. Error Code Registry.
+  get errorCodeRegistry() {
+    return new ErrorCodeRegistry(this.doc, this.path + "/errorCodeRegistry");
+  }
+
+  // 7.7. Result Envelope.
+  get resultEnvelope() {
+    return new ResultEnvelope(this.doc, this.path + "/resultEnvelope");
   }
 }
 
@@ -26497,6 +26578,53 @@ class ResponsiveScreenRuleEntry extends SomNode {
 
   get content() {
     return new ResponsiveScreenRuleEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 7.7. Result Envelope.
+//
+// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+// the §7 server contract). This is the model-side counterpart of the
+// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+// every application outcome — success *or* structured error — is returned in a
+// normal (2xx-transport) body as this one envelope; only 5xx are transport
+// failures.
+//
+// The envelope has two arms, distinguished by an **is-success discriminator**:
+//
+// 1. **success** — carries a value payload;
+// 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+//    retryable/severity hint, and an optional list of field-level details
+//    ([ResultFieldDetailEntry]) for input-attributable failures.
+class ResultEnvelope extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ResultEnvelopeContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.7.1. Field-Level Details — the per-field error detail the error arm may
+  // carry (e.g. form-validation failures).
+  get fieldDetails() {
+    return new SomList(this.doc, this.path + "/RSFDE-FLDD-LST", (d, p) => new ResultFieldDetailEntry(d, p), "RSFDE-FLDD-xxx");
+  }
+}
+
+// A single field-level error detail (form).
+//
+// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+// field path, an error code referencing the [ErrorCodeRegistry], and an
+// optional default message (user copy resolves from the code via CE-TX). The
+// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+class ResultFieldDetailEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ResultFieldDetailEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -80213,6 +80341,14 @@ class ElementValidationRuleEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "ruleExpression", value);
   }
 
+  get errorCode() {
+    return this.doc.formField(this.path, "errorCode") || '';
+  }
+
+  set errorCode(value) {
+    this.doc.setFormField(this.path, "errorCode", value);
+  }
+
   get errorMessageResource() {
     return this.doc.formField(this.path, "errorMessageResource") || '';
   }
@@ -82876,6 +83012,75 @@ class ErrorBudgetTrackingMonitoringForm extends SomNode {
 
   set burnRateTimePeriods(value) {
     this.doc.setFormField(this.path, "burnRateTimePeriods", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class ErrorCodeEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get code() {
+    return this.doc.formField(this.path, "code") || '';
+  }
+
+  set code(value) {
+    this.doc.setFormField(this.path, "code", value);
+  }
+
+  get category() {
+    return this.doc.formField(this.path, "category") || '';
+  }
+
+  set category(value) {
+    this.doc.setFormField(this.path, "category", value);
+  }
+
+  get severity() {
+    return this.doc.formField(this.path, "severity") || '';
+  }
+
+  set severity(value) {
+    this.doc.setFormField(this.path, "severity", value);
+  }
+
+  get retryable() {
+    const v = this.doc.formField(this.path, "retryable");
+    return v == null ? null : v === 'true';
+  }
+
+  set retryable(value) {
+    this.doc.setFormField(this.path, "retryable", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get httpStatusHint() {
+    const v = this.doc.formField(this.path, "httpStatusHint");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set httpStatusHint(value) {
+    this.doc.setFormField(this.path, "httpStatusHint", value == null ? '' : String(value));
+  }
+
+  get copyKey() {
+    return this.doc.formField(this.path, "copyKey") || '';
+  }
+
+  set copyKey(value) {
+    this.doc.setFormField(this.path, "copyKey", value);
   }
 }
 
@@ -88916,6 +89121,14 @@ class FieldValidationRuleContentForm extends SomNode {
 
   set ruleExpression(value) {
     this.doc.setFormField(this.path, "ruleExpression", value);
+  }
+
+  get errorCode() {
+    return this.doc.formField(this.path, "errorCode") || '';
+  }
+
+  set errorCode(value) {
+    this.doc.setFormField(this.path, "errorCode", value);
   }
 
   get errorMessage() {
@@ -136244,6 +136457,109 @@ class ResponsiveScreenRuleEntryContentForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class ResultEnvelopeContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get discriminatorField() {
+    return this.doc.formField(this.path, "discriminatorField") || '';
+  }
+
+  set discriminatorField(value) {
+    this.doc.setFormField(this.path, "discriminatorField", value);
+  }
+
+  get successArm() {
+    return this.doc.formField(this.path, "successArm") || '';
+  }
+
+  set successArm(value) {
+    this.doc.setFormField(this.path, "successArm", value);
+  }
+
+  get errorArm() {
+    return this.doc.formField(this.path, "errorArm") || '';
+  }
+
+  set errorArm(value) {
+    this.doc.setFormField(this.path, "errorArm", value);
+  }
+
+  get retryable() {
+    const v = this.doc.formField(this.path, "retryable");
+    return v == null ? null : v === 'true';
+  }
+
+  set retryable(value) {
+    this.doc.setFormField(this.path, "retryable", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get severity() {
+    return this.doc.formField(this.path, "severity") || '';
+  }
+
+  set severity(value) {
+    this.doc.setFormField(this.path, "severity", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class ResultFieldDetailEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get fieldPath() {
+    return this.doc.formField(this.path, "fieldPath") || '';
+  }
+
+  set fieldPath(value) {
+    this.doc.setFormField(this.path, "fieldPath", value);
+  }
+
+  get errorCodeRef() {
+    return this.doc.formField(this.path, "errorCodeRef") || '';
+  }
+
+  set errorCodeRef(value) {
+    this.doc.setFormField(this.path, "errorCodeRef", value);
+  }
+
+  get message() {
+    return this.doc.formField(this.path, "message") || '';
+  }
+
+  set message(value) {
+    this.doc.setFormField(this.path, "message", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class RetentionPolicyEntryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -178962,6 +179278,8 @@ module.exports = {
   Environments,
   EquipmentRequirements,
   ErrorBudgetTracking,
+  ErrorCodeEntry,
+  ErrorCodeRegistry,
   ErrorHandling,
   ErrorHandlingStandards,
   ErrorRecovery,
@@ -179422,6 +179740,8 @@ module.exports = {
   ResponsiveBehavior,
   ResponsiveDesign,
   ResponsiveScreenRuleEntry,
+  ResultEnvelope,
+  ResultFieldDetailEntry,
   RetentionPolicyEntry,
   ReusabilityPrinciples,
   ReusableComponentsSection,
@@ -180662,6 +180982,7 @@ module.exports = {
   ErrorBudgetTrackingContentForm,
   ErrorBudgetTrackingGovernanceForm,
   ErrorBudgetTrackingMonitoringForm,
+  ErrorCodeEntryContentForm,
   ErrorHandlingAccessibilityForm,
   ErrorHandlingClassificationForm,
   ErrorHandlingErrorPhilosophyContentForm,
@@ -181646,6 +181967,8 @@ module.exports = {
   ResponsiveBehaviorVisibilityForm,
   ResponsiveDesignResponsiveOverviewForm,
   ResponsiveScreenRuleEntryContentForm,
+  ResultEnvelopeContentForm,
+  ResultFieldDetailEntryContentForm,
   RetentionPolicyEntryContentForm,
   RetentionPolicyEntryGovernanceForm,
   RetentionPolicyEntryLifecycleForm,

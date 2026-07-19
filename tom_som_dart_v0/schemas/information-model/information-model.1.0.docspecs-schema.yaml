@@ -140,6 +140,14 @@ section-types:
     prefix: ENRLE_SOUR_REF
   enrle-targ-ref:
     prefix: ENRLE_TARG_REF
+  ercen-code-lst:
+    prefix: ERCEN_CODE_LST
+    subsection-types:
+      ercen-code:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per shared application error code.
   fndmx-func-lst:
     prefix: FNDMX_FUNC_LST
     subsection-types:
@@ -222,6 +230,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per relationship attribute.
+  rsfde-fldd-lst:
+    prefix: RSFDE_FLDD_LST
+    subsection-types:
+      rsfde-fldd:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per field-level detail the error arm may report.
   techn-tech-lst:
     prefix: TECHN_TECH_LST
     subsection-types:
@@ -506,6 +522,12 @@ section-types:
       pattern: ^ENRLE-ITEM-.+$
       error-message: IDs of this section must match ENRLE-ITEM-xxx
     description: Add one entry per entity relationship.
+  ercen-code:
+    prefix: ERCEN_CODE_
+    pattern-check-id:
+      pattern: ^ERCEN-CODE-.+$
+      error-message: IDs of this section must match ERCEN-CODE-xxx
+    description: Add one entry per shared application error code.
   fndmx-func:
     prefix: FNDMX_FUNC_
     pattern-check-id:
@@ -591,6 +613,12 @@ section-types:
       pattern: ^RELAT-RELA-.+$
       error-message: IDs of this section must match RELAT-RELA-xxx
     description: Add one entry per relationship attribute.
+  rsfde-fldd:
+    prefix: RSFDE_FLDD_
+    pattern-check-id:
+      pattern: ^RSFDE-FLDD-.+$
+      error-message: IDs of this section must match RSFDE-FLDD-xxx
+    description: Add one entry per field-level detail the error arm may report.
   techn-tech:
     prefix: TECHN_TECH_
     pattern-check-id:
@@ -811,6 +839,12 @@ section-types:
       enrle-item-lst:
         max-count: 1
     description: Entity relationships.
+  ercrg:
+    prefix: ERCRG
+    subsection-types:
+      ercen-code-lst:
+        max-count: 1
+    description: Error code registry — the shared application error-code vocabulary
   keagn:
     prefix: KEAGN
     format: keagn-form
@@ -823,6 +857,12 @@ section-types:
     prefix: KEARF
     format: kearf-form
     description: Foreign-key reference and cascade behavior.
+  rslte:
+    prefix: RSLTE
+    subsection-types:
+      rsfde-fldd-lst:
+        max-count: 1
+    description: Result envelope — the canonical success-or-error §7 Result contract
   dadi:
     prefix: DADI
     description: Data dictionary.
@@ -1372,4 +1412,10 @@ document:
       optional: true
     domen:
       section-type: domen
+      optional: true
+    ercrg:
+      section-type: ercrg
+      optional: true
+    rslte:
+      section-type: rslte
       optional: true

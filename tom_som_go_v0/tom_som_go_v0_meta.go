@@ -3360,6 +3360,12 @@ func metaChildrenD03InformationModel(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DomainEnumRegistry", s, metaChildrenDomainEnumRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "domainEnumRegistry", ClassSectionID: "DOMEN", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumRegistry", SerializationOrder: metaIntPtr(14), DocComment: "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).", ClassDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.", Recursive: r, Children: c}
 		}),
+		metaCx("ErrorCodeRegistry", s, metaChildrenErrorCodeRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ErrorCodeRegistry", MemberName: "errorCodeRegistry", ClassSectionID: "ERCRG", Kind: som.SomMetaKindComplex, TypeName: "ErrorCodeRegistry", SerializationOrder: metaIntPtr(15), DocComment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).", ClassDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.", Recursive: r, Children: c}
+		}),
+		metaCx("ResultEnvelope", s, metaChildrenResultEnvelope, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ResultEnvelope", MemberName: "resultEnvelope", ClassSectionID: "RSLTE", Kind: som.SomMetaKindComplex, TypeName: "ResultEnvelope", SerializationOrder: metaIntPtr(16), DocComment: "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).", ClassDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.", Recursive: r, Children: c}
+		}),
 	}
 }
 
@@ -5409,7 +5415,7 @@ func metaChildrenEfficiency(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenElementValidationRuleEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ElementValidationRuleEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleType", TypeName: "String", Description: "Rule Type", Required: true, Hint: "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", Order: 0}, {Name: "ruleExpression", TypeName: "String", Description: "Rule Expression", Hint: "Validation expression or pattern", Order: 1}, {Name: "errorMessageResource", TypeName: "String", Description: "Error Message Resource", Hint: "Resource key for validation error message", Order: 2}, {Name: "severity", TypeName: "String", Description: "Severity", Hint: "Error/Warning/Info", Order: 3}, {Name: "validateOn", TypeName: "String", Description: "Validate On", Hint: "On-Change/On-Blur/On-Submit", Order: 4}}}},
+		{ClassName: "ElementValidationRuleEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleType", TypeName: "String", Description: "Rule Type", Required: true, Hint: "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", Order: 0}, {Name: "ruleExpression", TypeName: "String", Description: "Rule Expression", Hint: "Validation expression or pattern", Order: 1}, {Name: "errorCode", TypeName: "String", Description: "Error Code", Hint: "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", Order: 2}, {Name: "errorMessageResource", TypeName: "String", Description: "Error Message Resource", Hint: "Resource key for validation error message", Order: 3}, {Name: "severity", TypeName: "String", Description: "Severity", Hint: "Error/Warning/Info", Order: 4}, {Name: "validateOn", TypeName: "String", Description: "Validate On", Hint: "On-Change/On-Blur/On-Submit", Order: 5}}}},
 	}
 }
 
@@ -5683,6 +5689,25 @@ func metaChildrenErrorBudgetTracking(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ErrorBudgetTracking", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "budgetCalculationMethod", TypeName: "String", Description: "Budget Calculation Method", Hint: "How error budget is calculated", Order: 0}, {Name: "budgetWindow", TypeName: "String", Description: "Budget Window", Hint: "Rolling or calendar window", Order: 1}, {Name: "budgetResetPolicy", TypeName: "String", Description: "Budget Reset Policy", Hint: "When budget resets", Order: 2}, {Name: "budgetBurnRateDashboard", TypeName: "bool", Description: "Budget Burn Rate Dashboard", Hint: "Dashboard showing burn rate", Order: 3}}}},
 		{ClassName: "ErrorBudgetTracking", MemberName: "monitoring", SectionID: "EBTM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Burn-rate monitoring thresholds.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "budgetAlertThresholds", TypeName: "String", Description: "Budget Alert Thresholds", Hint: "Warn at 50%, critical at 80%", Order: 0}, {Name: "burnRateTimePeriods", TypeName: "String", Description: "Burn Rate Time Periods", Hint: "1h, 6h, 24h, 7d burn rates", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — error budgets", "Google SRE — service level objectives (SLOs and SLIs)"}, "connotation": "Thresholds that watch how quickly the error budget burns down."}}}},
 		{ClassName: "ErrorBudgetTracking", MemberName: "governance", SectionID: "EBTG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Recovery policy and attribution rules.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "budgetExhaustionActions", TypeName: "String", Description: "Budget Exhaustion Actions", Hint: "Feature freeze, deployment freeze", Order: 0}, {Name: "budgetRecoveryProcess", TypeName: "String", Description: "Budget Recovery Process", Hint: "Steps to recover budget", Order: 1}, {Name: "budgetReviewMeeting", TypeName: "String", Description: "Budget Review Meeting", Hint: "Regular error budget review", Order: 2}, {Name: "budgetAttribution", TypeName: "String", Description: "Budget Attribution", Hint: "Attribute budget spend to incidents", Order: 3}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Free-form governance notes", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — error budgets", "ITIL 4 — service level management practice"}, "connotation": "Recovery and attribution rules applied when the error budget is spent."}}}},
+	}
+}
+
+func metaChildrenErrorCodeEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ErrorCodeEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "code", TypeName: "String", Description: "Code", Required: true, Hint: "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy", Order: 0}, {Name: "category", TypeName: "String", Description: "Category", Hint: "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System", Order: 1}, {Name: "severity", TypeName: "String", Description: "Default Severity", Hint: "Default severity: Info | Warning | Error | Fatal", Order: 2}, {Name: "retryable", TypeName: "bool", Description: "Retryable", Hint: "Whether retrying the same operation may reasonably succeed", Order: 3}, {Name: "httpStatusHint", TypeName: "int", Description: "HTTP Status Hint", Hint: "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)", Order: 4}, {Name: "copyKey", TypeName: "String", Description: "Copy Key", Hint: "Message-key reference into the CE-TX message registry for the default user-facing message (author copy once, reference here)", Order: 5}}}},
+	}
+}
+
+func metaChildrenErrorCodeRegistry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ErrorCodeRegistry", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n"},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ErrorCodeRegistry", MemberName: "errorCodes", SectionID: "ERCEN-CODE-LST", SectionIDPattern: "ERCEN-CODE-xxx", Kind: som.SomMetaKindList, TypeName: "ErrorCodeEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per shared application error code.", DocComment: "7.6.1. Error Codes — one entry per shared application error code.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 11179 — metadata registries / value-domain enumerations"}, "connotation": "The catalogued shared application error codes."}}}}
+			n.ElementNode = metaCx("ErrorCodeEntry", s, metaChildrenErrorCodeEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ErrorCodeEntry", ClassSectionID: "ERCEN", Kind: som.SomMetaKindComplex, TypeName: "ErrorCodeEntry", DocComment: "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.", ClassDocComment: "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -6265,7 +6290,7 @@ func metaChildrenFieldHelpEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenFieldValidationRule(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FieldValidationRule", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleType", TypeName: "String", Description: "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", Required: true, Hint: "Required, Pattern, Range, Length, Custom, or CrossField", Order: 0}, {Name: "ruleExpression", TypeName: "String", Description: "Rule Expression / Formula", Hint: "Expression or formula implementing the rule", Order: 1}, {Name: "errorMessage", TypeName: "String", Description: "Error Message", Required: true, Hint: "Message shown when the rule fails", Order: 2}, {Name: "severity", TypeName: "String", Description: "Severity (Error, Warning, Info)", Hint: "Error, Warning, or Info", Order: 3}, {Name: "triggerEvent", TypeName: "String", Description: "Trigger Event (OnBlur, OnChange, OnSubmit)", Hint: "OnBlur, OnChange, or OnSubmit", Order: 4}}}},
+		{ClassName: "FieldValidationRule", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleType", TypeName: "String", Description: "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", Required: true, Hint: "Required, Pattern, Range, Length, Custom, or CrossField", Order: 0}, {Name: "ruleExpression", TypeName: "String", Description: "Rule Expression / Formula", Hint: "Expression or formula implementing the rule", Order: 1}, {Name: "errorCode", TypeName: "String", Description: "Error Code", Hint: "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", Order: 2}, {Name: "errorMessage", TypeName: "String", Description: "Error Message", Required: true, Hint: "Message shown when the rule fails", Order: 3}, {Name: "severity", TypeName: "String", Description: "Severity (Error, Warning, Info)", Hint: "Error, Warning, or Info", Order: 4}, {Name: "triggerEvent", TypeName: "String", Description: "Trigger Event (OnBlur, OnChange, OnSubmit)", Hint: "OnBlur, OnChange, or OnSubmit", Order: 5}}}},
 	}
 }
 
@@ -6923,6 +6948,12 @@ func metaChildrenInformationAndDataModel(s map[string]bool) []*som.SomMetaNode {
 		}),
 		metaCx("DomainEnumRegistry", s, metaChildrenDomainEnumRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "domainEnumRegistry", ClassSectionID: "DOMEN", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumRegistry", SerializationOrder: metaIntPtr(5), DocComment: "7.5. Domain Enum Registry.", ClassDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.", Recursive: r, Children: c}
+		}),
+		metaCx("ErrorCodeRegistry", s, metaChildrenErrorCodeRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ErrorCodeRegistry", MemberName: "errorCodeRegistry", ClassSectionID: "ERCRG", Kind: som.SomMetaKindComplex, TypeName: "ErrorCodeRegistry", SerializationOrder: metaIntPtr(6), DocComment: "7.6. Error Code Registry.", ClassDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.", Recursive: r, Children: c}
+		}),
+		metaCx("ResultEnvelope", s, metaChildrenResultEnvelope, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ResultEnvelope", MemberName: "resultEnvelope", ClassSectionID: "RSLTE", Kind: som.SomMetaKindComplex, TypeName: "ResultEnvelope", SerializationOrder: metaIntPtr(7), DocComment: "7.7. Result Envelope.", ClassDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -11380,6 +11411,25 @@ func metaChildrenResponsiveDesign(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenResponsiveScreenRuleEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ResponsiveScreenRuleEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "screenId", TypeName: "String", Description: "Screen ID", Required: true, Hint: "Unique identifier of the screen this rule applies to", Order: 0}, {Name: "screenName", TypeName: "String", Description: "Screen Name", Required: true, Hint: "Human-readable name of the screen", Order: 1}, {Name: "mobileLayout", TypeName: "String", Description: "Mobile Layout", Hint: "How this screen is laid out on mobile", Order: 2}, {Name: "tabletLayout", TypeName: "String", Description: "Tablet Layout", Hint: "How this screen is laid out on tablet", Order: 3}, {Name: "desktopLayout", TypeName: "String", Description: "Desktop Layout", Hint: "How this screen is laid out on desktop", Order: 4}, {Name: "specialConsiderations", TypeName: "String", Description: "Special Considerations", Hint: "Any screen-specific responsive notes or exceptions", Order: 5}}}},
+	}
+}
+
+func metaChildrenResultEnvelope(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ResultEnvelope", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "discriminatorField", TypeName: "String", Description: "Is-Success Discriminator", Required: true, Hint: "The boolean field that distinguishes the arms (default: success)", Order: 0}, {Name: "successArm", TypeName: "String", Description: "Success Arm", Hint: "The success payload — the value type carried when success is true (may be empty for operations returning nothing)", Order: 1}, {Name: "errorArm", TypeName: "String", Description: "Error Arm", Hint: "The structured error carried when success is false — its code references the error-code registry (ERCRG)", Order: 2}, {Name: "retryable", TypeName: "bool", Description: "Carries Retryable Flag", Hint: "Whether the error arm carries a retryable flag", Order: 3}, {Name: "severity", TypeName: "String", Description: "Severity Value Set", Hint: "The error severity value set: Info | Warning | Error | Fatal", Order: 4}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ResultEnvelope", MemberName: "fieldDetails", SectionID: "RSFDE-FLDD-LST", SectionIDPattern: "RSFDE-FLDD-xxx", Kind: som.SomMetaKindList, TypeName: "ResultFieldDetailEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per field-level detail the error arm may report.", DocComment: "7.7.1. Field-Level Details — the per-field error detail the error arm may\ncarry (e.g. form-validation failures).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — form-based interaction and input validation"}, "connotation": "The field-level error details the Result envelope error arm may carry."}}}}
+			n.ElementNode = metaCx("ResultFieldDetailEntry", s, metaChildrenResultFieldDetailEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ResultFieldDetailEntry", ClassSectionID: "RSFDE", Kind: som.SomMetaKindComplex, TypeName: "ResultFieldDetailEntry", DocComment: "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).", ClassDocComment: "A single field-level error detail (form).\n\nOne entry in a [ResultEnvelope] error arm's field-detail list: the offending\nfield path, an error code referencing the [ErrorCodeRegistry], and an\noptional default message (user copy resolves from the code via CE-TX). The\nmodel-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
+func metaChildrenResultFieldDetailEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ResultFieldDetailEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "fieldPath", TypeName: "String", Description: "Field Path", Required: true, Hint: "The field (or dotted path) the error applies to (e.g. email, address.postalCode)", Order: 0}, {Name: "errorCodeRef", TypeName: "String", Description: "Error Code", Hint: "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code", Order: 1}, {Name: "message", TypeName: "String", Description: "Default Message", Hint: "Optional default message; user-facing copy resolves from the code via CE-TX", Order: 2}}}},
 	}
 }
 
@@ -23635,6 +23685,14 @@ func (x *D03InformationModelNav) DomainEnumRegistry() *DomainEnumRegistryNav {
 	return newDomainEnumRegistryNav(x.Tree, x.Path+"/domainEnumRegistry")
 }
 
+func (x *D03InformationModelNav) ErrorCodeRegistry() *ErrorCodeRegistryNav {
+	return newErrorCodeRegistryNav(x.Tree, x.Path+"/errorCodeRegistry")
+}
+
+func (x *D03InformationModelNav) ResultEnvelope() *ResultEnvelopeNav {
+	return newResultEnvelopeNav(x.Tree, x.Path+"/resultEnvelope")
+}
+
 // D04RequirementsSpecificationNav holds the dot-notation accessors of `D04RequirementsSpecification` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -28885,6 +28943,48 @@ func (x *ErrorBudgetTrackingNav) Governance() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/EBTG"}
 }
 
+// ErrorCodeEntryNav holds the dot-notation accessors of `ErrorCodeEntry` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ErrorCodeEntryNav struct {
+	som.SomMetaRef
+}
+
+// newErrorCodeEntryNav binds a ErrorCodeEntryNav accessor to a tree and a path.
+func newErrorCodeEntryNav(tree *som.SomMetaTree, path string) *ErrorCodeEntryNav {
+	return &ErrorCodeEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ErrorCodeEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// ErrorCodeRegistryNav holds the dot-notation accessors of `ErrorCodeRegistry` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ErrorCodeRegistryNav struct {
+	som.SomMetaRef
+}
+
+// newErrorCodeRegistryNav binds a ErrorCodeRegistryNav accessor to a tree and a path.
+func newErrorCodeRegistryNav(tree *som.SomMetaTree, path string) *ErrorCodeRegistryNav {
+	return &ErrorCodeRegistryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ErrorCodeRegistryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ErrorCodeRegistryNav) ErrorCodes() *som.SomListMetaRef[*ErrorCodeEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ERCEN-CODE-LST", func(t *som.SomMetaTree, p string) *ErrorCodeEntryNav {
+		return newErrorCodeEntryNav(t, p)
+	})
+}
+
 // ErrorHandlingNav holds the dot-notation accessors of `ErrorHandling` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -31859,6 +31959,14 @@ func (x *InformationAndDataModelNav) SchemaVersioningAndMigration() *SchemaVersi
 
 func (x *InformationAndDataModelNav) DomainEnumRegistry() *DomainEnumRegistryNav {
 	return newDomainEnumRegistryNav(x.Tree, x.Path+"/domainEnumRegistry")
+}
+
+func (x *InformationAndDataModelNav) ErrorCodeRegistry() *ErrorCodeRegistryNav {
+	return newErrorCodeRegistryNav(x.Tree, x.Path+"/errorCodeRegistry")
+}
+
+func (x *InformationAndDataModelNav) ResultEnvelope() *ResultEnvelopeNav {
+	return newResultEnvelopeNav(x.Tree, x.Path+"/resultEnvelope")
 }
 
 // InformationArchitectureNav holds the dot-notation accessors of `InformationArchitecture` (DR1 §4.1).
@@ -42708,6 +42816,48 @@ func newResponsiveScreenRuleEntryNav(tree *som.SomMetaTree, path string) *Respon
 }
 
 func (x *ResponsiveScreenRuleEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// ResultEnvelopeNav holds the dot-notation accessors of `ResultEnvelope` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ResultEnvelopeNav struct {
+	som.SomMetaRef
+}
+
+// newResultEnvelopeNav binds a ResultEnvelopeNav accessor to a tree and a path.
+func newResultEnvelopeNav(tree *som.SomMetaTree, path string) *ResultEnvelopeNav {
+	return &ResultEnvelopeNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ResultEnvelopeNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ResultEnvelopeNav) FieldDetails() *som.SomListMetaRef[*ResultFieldDetailEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RSFDE-FLDD-LST", func(t *som.SomMetaTree, p string) *ResultFieldDetailEntryNav {
+		return newResultFieldDetailEntryNav(t, p)
+	})
+}
+
+// ResultFieldDetailEntryNav holds the dot-notation accessors of `ResultFieldDetailEntry` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ResultFieldDetailEntryNav struct {
+	som.SomMetaRef
+}
+
+// newResultFieldDetailEntryNav binds a ResultFieldDetailEntryNav accessor to a tree and a path.
+func newResultFieldDetailEntryNav(tree *som.SomMetaTree, path string) *ResultFieldDetailEntryNav {
+	return &ResultFieldDetailEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ResultFieldDetailEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
@@ -57609,6 +57759,18 @@ func (x *D00SolutionBlueprintID) DMENE_ENUM_LST() *som.SomListMetaRef[*DomainEnu
 	})
 }
 
+func (x *D00SolutionBlueprintID) ERCEN_CODE_LST() *som.SomListMetaRef[*ErrorCodeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST", func(t *som.SomMetaTree, p string) *ErrorCodeEntryID {
+		return newErrorCodeEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) RSFDE_FLDD_LST() *som.SomListMetaRef[*ResultFieldDetailEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST", func(t *som.SomMetaTree, p string) *ResultFieldDetailEntryID {
+		return newResultFieldDetailEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) TRAREQ_TRAN() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"}
 }
@@ -62547,6 +62709,18 @@ func (x *D03InformationModelID) BIRU_BUSI_LST() *som.SomListMetaRef[*BusinessRul
 func (x *D03InformationModelID) DMENE_ENUM_LST() *som.SomListMetaRef[*DomainEnumEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/domainEnumRegistry/DMENE-ENUM-LST", func(t *som.SomMetaTree, p string) *DomainEnumEntryID {
 		return newDomainEnumEntryID(t, p)
+	})
+}
+
+func (x *D03InformationModelID) ERCEN_CODE_LST() *som.SomListMetaRef[*ErrorCodeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorCodeRegistry/ERCEN-CODE-LST", func(t *som.SomMetaTree, p string) *ErrorCodeEntryID {
+		return newErrorCodeEntryID(t, p)
+	})
+}
+
+func (x *D03InformationModelID) RSFDE_FLDD_LST() *som.SomListMetaRef[*ResultFieldDetailEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/resultEnvelope/RSFDE-FLDD-LST", func(t *som.SomMetaTree, p string) *ResultFieldDetailEntryID {
+		return newResultFieldDetailEntryID(t, p)
 	})
 }
 
@@ -68508,6 +68682,19 @@ func (x *EnvironmentEntryID) ENVCP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENVCP"}
 }
 
+// ErrorCodeEntryID holds the ID-tree accessors of `ErrorCodeEntry` (DR1 §4.2): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ErrorCodeEntryID struct {
+	som.SomMetaRef
+}
+
+// newErrorCodeEntryID binds a ErrorCodeEntryID accessor to a tree and a path.
+func newErrorCodeEntryID(tree *som.SomMetaTree, path string) *ErrorCodeEntryID {
+	return &ErrorCodeEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
 // EvaluationCriterionEntryID holds the ID-tree accessors of `EvaluationCriterionEntry` (DR1 §4.2): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -72972,6 +73159,19 @@ type ResponsiveScreenRuleEntryID struct {
 // newResponsiveScreenRuleEntryID binds a ResponsiveScreenRuleEntryID accessor to a tree and a path.
 func newResponsiveScreenRuleEntryID(tree *som.SomMetaTree, path string) *ResponsiveScreenRuleEntryID {
 	return &ResponsiveScreenRuleEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// ResultFieldDetailEntryID holds the ID-tree accessors of `ResultFieldDetailEntry` (DR1 §4.2): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ResultFieldDetailEntryID struct {
+	som.SomMetaRef
+}
+
+// newResultFieldDetailEntryID binds a ResultFieldDetailEntryID accessor to a tree and a path.
+func newResultFieldDetailEntryID(tree *som.SomMetaTree, path string) *ResultFieldDetailEntryID {
+	return &ResultFieldDetailEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // RetentionPolicyEntryID holds the ID-tree accessors of `RetentionPolicyEntry` (DR1 §4.2): methods

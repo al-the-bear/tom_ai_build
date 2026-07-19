@@ -4920,6 +4920,15 @@ class D03InformationModel extends SomNode {
   /// Domain enum registry — the closed value sets the data model relies on
   /// (CE-EN home + closed-choice discriminator source, csmb3).
   DomainEnumRegistry get domainEnumRegistry => DomainEnumRegistry(doc, '$path/domainEnumRegistry');
+
+  /// Error code registry — the shared application error-code vocabulary
+  /// referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
+  /// (csmb5).
+  ErrorCodeRegistry get errorCodeRegistry => ErrorCodeRegistry(doc, '$path/errorCodeRegistry');
+
+  /// Result envelope — the canonical success-or-error §7 Result contract
+  /// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+  ResultEnvelope get resultEnvelope => ResultEnvelope(doc, '$path/resultEnvelope');
 }
 
 /// RSP00 Requirements Specification.
@@ -8505,6 +8514,50 @@ class ErrorBudgetTracking extends SomNode {
   ErrorBudgetTrackingGovernanceForm get governance => ErrorBudgetTrackingGovernanceForm(doc, '$path/EBTG');
 }
 
+/// A single shared application error code (form).
+/// 
+/// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+/// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
+/// a default severity, a retryable hint, an optional HTTP-status hint and a
+/// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
+/// CE-ER `errorResult` part — the code vocabulary the Result envelope's error
+/// arm draws from.
+class ErrorCodeEntry extends SomNode {
+  ErrorCodeEntry(super.doc, super.path);
+
+  ErrorCodeEntryContentForm get content => ErrorCodeEntryContentForm(doc, '$path/content');
+}
+
+/// 7.6. Error Code Registry.
+/// 
+/// The single, shared **application error-code vocabulary** — the spine that
+/// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
+/// reference so they never invent divergent code strings (csm5 cross-cutting
+/// finding #2; `codespecs_coverage_gaps.md` §3.1).
+/// 
+/// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
+/// *system/network/display* error catalogue (HTTP status, presentation,
+/// recovery). This registry is the **application-level** error vocabulary a
+/// success-or-error [ResultEnvelope] carries:
+/// 
+/// - a CE-VA field/form rule names its "error code on fail" from here rather
+///   than minting a literal;
+/// - a CE-ER [ResultEnvelope] error arm carries one of these codes;
+/// - CE-TX error copy is keyed by the same code, so client message and server
+///   error share one source.
+class ErrorCodeRegistry extends SomNode {
+  ErrorCodeRegistry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 7.6.1. Error Codes — one entry per shared application error code.
+  SomList<ErrorCodeEntry> get errorCodes => SomList<ErrorCodeEntry>(doc, '$path/ERCEN-CODE-LST', (d, p) => ErrorCodeEntry(d, p), pattern: 'ERCEN-CODE-xxx');
+}
+
 /// 10.7. Error Handling.
 /// 
 /// Comprehensive error handling user experience framework covering validation
@@ -10336,6 +10389,12 @@ class InformationAndDataModel extends SomNode {
 
   /// 7.5. Domain Enum Registry.
   DomainEnumRegistry get domainEnumRegistry => DomainEnumRegistry(doc, '$path/domainEnumRegistry');
+
+  /// 7.6. Error Code Registry.
+  ErrorCodeRegistry get errorCodeRegistry => ErrorCodeRegistry(doc, '$path/errorCodeRegistry');
+
+  /// 7.7. Result Envelope.
+  ResultEnvelope get resultEnvelope => ResultEnvelope(doc, '$path/resultEnvelope');
 }
 
 /// 10.2.2. Information Architecture.
@@ -16721,6 +16780,43 @@ class ResponsiveScreenRuleEntry extends SomNode {
   ResponsiveScreenRuleEntry(super.doc, super.path);
 
   ResponsiveScreenRuleEntryContentForm get content => ResponsiveScreenRuleEntryContentForm(doc, '$path/content');
+}
+
+/// 7.7. Result Envelope.
+/// 
+/// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
+/// the §7 server contract). This is the model-side counterpart of the
+/// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
+/// every application outcome — success *or* structured error — is returned in a
+/// normal (2xx-transport) body as this one envelope; only 5xx are transport
+/// failures.
+/// 
+/// The envelope has two arms, distinguished by an **is-success discriminator**:
+/// 
+/// 1. **success** — carries a value payload;
+/// 2. **error** — carries a code (from the [ErrorCodeRegistry]), a
+///    retryable/severity hint, and an optional list of field-level details
+///    ([ResultFieldDetailEntry]) for input-attributable failures.
+class ResultEnvelope extends SomNode {
+  ResultEnvelope(super.doc, super.path);
+
+  ResultEnvelopeContentForm get content => ResultEnvelopeContentForm(doc, '$path/content');
+
+  /// 7.7.1. Field-Level Details — the per-field error detail the error arm may
+  /// carry (e.g. form-validation failures).
+  SomList<ResultFieldDetailEntry> get fieldDetails => SomList<ResultFieldDetailEntry>(doc, '$path/RSFDE-FLDD-LST', (d, p) => ResultFieldDetailEntry(d, p), pattern: 'RSFDE-FLDD-xxx');
+}
+
+/// A single field-level error detail (form).
+/// 
+/// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
+/// field path, an error code referencing the [ErrorCodeRegistry], and an
+/// optional default message (user copy resolves from the code via CE-TX). The
+/// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+class ResultFieldDetailEntry extends SomNode {
+  ResultFieldDetailEntry(super.doc, super.path);
+
+  ResultFieldDetailEntryContentForm get content => ResultFieldDetailEntryContentForm(doc, '$path/content');
 }
 
 /// Retention policy for a specific data category.
@@ -44436,6 +44532,9 @@ class ElementValidationRuleEntryContentForm extends SomNode {
   String get ruleExpression => doc.formField(path, 'ruleExpression') ?? '';
   set ruleExpression(String value) => doc.setFormField(path, 'ruleExpression', value);
 
+  String get errorCode => doc.formField(path, 'errorCode') ?? '';
+  set errorCode(String value) => doc.setFormField(path, 'errorCode', value);
+
   String get errorMessageResource => doc.formField(path, 'errorMessageResource') ?? '';
   set errorMessageResource(String value) => doc.setFormField(path, 'errorMessageResource', value);
 
@@ -45713,6 +45812,37 @@ class ErrorBudgetTrackingMonitoringForm extends SomNode {
 
   String get burnRateTimePeriods => doc.formField(path, 'burnRateTimePeriods') ?? '';
   set burnRateTimePeriods(String value) => doc.setFormField(path, 'burnRateTimePeriods', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ErrorCodeEntryContentForm extends SomNode {
+  ErrorCodeEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get code => doc.formField(path, 'code') ?? '';
+  set code(String value) => doc.setFormField(path, 'code', value);
+
+  String get category => doc.formField(path, 'category') ?? '';
+  set category(String value) => doc.setFormField(path, 'category', value);
+
+  String get severity => doc.formField(path, 'severity') ?? '';
+  set severity(String value) => doc.setFormField(path, 'severity', value);
+
+  bool? get retryable => somParseBool(doc.formField(path, 'retryable'));
+  set retryable(bool? value) => doc.setFormField(path, 'retryable', somFormatBool(value));
+
+  int? get httpStatusHint => somParseInt(doc.formField(path, 'httpStatusHint'));
+  set httpStatusHint(int? value) => doc.setFormField(path, 'httpStatusHint', somFormatInt(value));
+
+  String get copyKey => doc.formField(path, 'copyKey') ?? '';
+  set copyKey(String value) => doc.setFormField(path, 'copyKey', value);
 }
 
 /// Generated section facade for the `accessibility` `@Form` section:
@@ -48620,6 +48750,9 @@ class FieldValidationRuleContentForm extends SomNode {
 
   String get ruleExpression => doc.formField(path, 'ruleExpression') ?? '';
   set ruleExpression(String value) => doc.setFormField(path, 'ruleExpression', value);
+
+  String get errorCode => doc.formField(path, 'errorCode') ?? '';
+  set errorCode(String value) => doc.setFormField(path, 'errorCode', value);
 
   String get errorMessage => doc.formField(path, 'errorMessage') ?? '';
   set errorMessage(String value) => doc.setFormField(path, 'errorMessage', value);
@@ -71399,6 +71532,56 @@ class ResponsiveScreenRuleEntryContentForm extends SomNode {
 
   String get specialConsiderations => doc.formField(path, 'specialConsiderations') ?? '';
   set specialConsiderations(String value) => doc.setFormField(path, 'specialConsiderations', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ResultEnvelopeContentForm extends SomNode {
+  ResultEnvelopeContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get discriminatorField => doc.formField(path, 'discriminatorField') ?? '';
+  set discriminatorField(String value) => doc.setFormField(path, 'discriminatorField', value);
+
+  String get successArm => doc.formField(path, 'successArm') ?? '';
+  set successArm(String value) => doc.setFormField(path, 'successArm', value);
+
+  String get errorArm => doc.formField(path, 'errorArm') ?? '';
+  set errorArm(String value) => doc.setFormField(path, 'errorArm', value);
+
+  bool? get retryable => somParseBool(doc.formField(path, 'retryable'));
+  set retryable(bool? value) => doc.setFormField(path, 'retryable', somFormatBool(value));
+
+  String get severity => doc.formField(path, 'severity') ?? '';
+  set severity(String value) => doc.setFormField(path, 'severity', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ResultFieldDetailEntryContentForm extends SomNode {
+  ResultFieldDetailEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get fieldPath => doc.formField(path, 'fieldPath') ?? '';
+  set fieldPath(String value) => doc.setFormField(path, 'fieldPath', value);
+
+  String get errorCodeRef => doc.formField(path, 'errorCodeRef') ?? '';
+  set errorCodeRef(String value) => doc.setFormField(path, 'errorCodeRef', value);
+
+  String get message => doc.formField(path, 'message') ?? '';
+  set message(String value) => doc.setFormField(path, 'message', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
