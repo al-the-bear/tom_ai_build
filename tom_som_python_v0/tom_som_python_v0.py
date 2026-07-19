@@ -4353,6 +4353,22 @@ class ClientAccessibilityRequirements(SomNode):
     def standards(self):
         return ClientAccessibilityRequirementsStandardsForm(self.doc, f"{self.path}/CARS")
 
+class ClientConfiguration(SomNode):
+    """Client configuration — per-machine settings of a client application (CE-CC).
+    
+    Distinct from server/system configuration ([SystemConfigurationManagement],
+    CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+    specific *install* of a client app on a *specific machine* carries, keyed by
+    the (client app, machine) pair. Two installs of the same client on two
+    machines have independent client configuration (`codespecs_mapping.md` §11).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ClientConfigurationContentForm(self.doc, f"{self.path}/content")
+
 class ClientHardwareRequirements(SomNode):
     """Client hardware requirements."""
     def __init__(self, doc, path):
@@ -4486,6 +4502,11 @@ class ClientRequirementsSection(SomNode):
     @property
     def securityRequirements(self):
         return ClientSecurityRequirements(self.doc, f"{self.path}/securityRequirements")
+
+    # Per-machine configuration of a client application (CE-CC).
+    @property
+    def clientConfiguration(self):
+        return ClientConfiguration(self.doc, f"{self.path}/clientConfiguration")
 
 class ClientSecurityRequirements(SomNode):
     """Client security requirements."""
@@ -15408,6 +15429,11 @@ class InformationAndDataModel(SomNode):
     def functionModel(self):
         return FunctionModel(self.doc, f"{self.path}/functionModel")
 
+    # 7.4. Schema Versioning and Migration.
+    @property
+    def schemaVersioningAndMigration(self):
+        return SchemaVersioningAndMigration(self.doc, f"{self.path}/schemaVersioningAndMigration")
+
 class InformationArchitecture(SomNode):
     """10.2.2. Information Architecture.
     
@@ -26178,6 +26204,41 @@ class ScheduledMaintenancePolicy(SomNode):
     @property
     def approval(self):
         return ScheduledMaintenancePolicyApprovalForm(self.doc, f"{self.path}/SMPA")
+
+class SchemaMigrationStepEntry(SomNode):
+    """A single schema migration step (form).
+    
+    One versioned change to the database schema — the DDL operations it applies,
+    the entities it touches, whether it is reversible, and any data backfill it
+    performs as part of the schema change.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return SchemaMigrationStepEntryContentForm(self.doc, f"{self.path}/content")
+
+class SchemaVersioningAndMigration(SomNode):
+    """7.4. Schema Versioning and Migration.
+    
+    Records how the database schema is *versioned and migrated* as the data
+    model evolves — the ordered DDL / migration steps and the tooling and
+    policy that govern them. This is distinct from business-data migration
+    between systems (see `MigrationMappingEntry` for old→new field mapping):
+    here the subject is the schema's own evolution over releases.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return SchemaVersioningAndMigrationContentForm(self.doc, f"{self.path}/content")
+
+    # 7.4.1. Schema Migration Steps — one entry per versioned migration.
+    @property
+    def migrationSteps(self):
+        return SomList(self.doc, f"{self.path}/SCMST-STEP-LST", lambda d, p: SchemaMigrationStepEntry(d, p), pattern="SCMST-STEP-xxx")
 
 class ScopeBoundaries(SomNode):
     """4.1.1.6. Scope Boundaries.
@@ -51090,6 +51151,63 @@ class ClientAccessibilityRequirementsVisualForm(SomNode):
     @fontScaling.setter
     def fontScaling(self, value):
         self.doc.set_form_field(self.path, "fontScaling", value)
+
+class ClientConfigurationContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def apiBaseUrl(self) -> str:
+        return self.doc.form_field(self.path, "apiBaseUrl") or ""
+
+    @apiBaseUrl.setter
+    def apiBaseUrl(self, value):
+        self.doc.set_form_field(self.path, "apiBaseUrl", value)
+
+    @property
+    def environment(self) -> str:
+        return self.doc.form_field(self.path, "environment") or ""
+
+    @environment.setter
+    def environment(self, value):
+        self.doc.set_form_field(self.path, "environment", value)
+
+    @property
+    def deviceOptions(self) -> str:
+        return self.doc.form_field(self.path, "deviceOptions") or ""
+
+    @deviceOptions.setter
+    def deviceOptions(self, value):
+        self.doc.set_form_field(self.path, "deviceOptions", value)
+
+    @property
+    def featureToggles(self) -> str:
+        return self.doc.form_field(self.path, "featureToggles") or ""
+
+    @featureToggles.setter
+    def featureToggles(self, value):
+        self.doc.set_form_field(self.path, "featureToggles", value)
+
+    @property
+    def updateChannel(self) -> str:
+        return self.doc.form_field(self.path, "updateChannel") or ""
+
+    @updateChannel.setter
+    def updateChannel(self, value):
+        self.doc.set_form_field(self.path, "updateChannel", value)
 
 class ClientHardwareRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -136592,6 +136710,130 @@ class ScheduledMaintenancePolicySchedulingForm(SomNode):
     @blackoutPeriods.setter
     def blackoutPeriods(self, value):
         self.doc.set_form_field(self.path, "blackoutPeriods", value)
+
+class SchemaMigrationStepEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def version(self) -> str:
+        return self.doc.form_field(self.path, "version") or ""
+
+    @version.setter
+    def version(self, value):
+        self.doc.set_form_field(self.path, "version", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+    @property
+    def ddlOperations(self) -> str:
+        return self.doc.form_field(self.path, "ddlOperations") or ""
+
+    @ddlOperations.setter
+    def ddlOperations(self, value):
+        self.doc.set_form_field(self.path, "ddlOperations", value)
+
+    @property
+    def affectedEntities(self) -> str:
+        return self.doc.form_field(self.path, "affectedEntities") or ""
+
+    @affectedEntities.setter
+    def affectedEntities(self, value):
+        self.doc.set_form_field(self.path, "affectedEntities", value)
+
+    @property
+    def dataBackfill(self) -> str:
+        return self.doc.form_field(self.path, "dataBackfill") or ""
+
+    @dataBackfill.setter
+    def dataBackfill(self, value):
+        self.doc.set_form_field(self.path, "dataBackfill", value)
+
+    @property
+    def reversible(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "reversible")
+        return None if v is None else (v == "true")
+
+    @reversible.setter
+    def reversible(self, value):
+        self.doc.set_form_field(self.path, "reversible", "" if value is None else ("true" if value else "false"))
+
+class SchemaVersioningAndMigrationContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def migrationTooling(self) -> str:
+        return self.doc.form_field(self.path, "migrationTooling") or ""
+
+    @migrationTooling.setter
+    def migrationTooling(self, value):
+        self.doc.set_form_field(self.path, "migrationTooling", value)
+
+    @property
+    def versioningStrategy(self) -> str:
+        return self.doc.form_field(self.path, "versioningStrategy") or ""
+
+    @versioningStrategy.setter
+    def versioningStrategy(self, value):
+        self.doc.set_form_field(self.path, "versioningStrategy", value)
+
+    @property
+    def forwardOnly(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "forwardOnly")
+        return None if v is None else (v == "true")
+
+    @forwardOnly.setter
+    def forwardOnly(self, value):
+        self.doc.set_form_field(self.path, "forwardOnly", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def baselineVersion(self) -> str:
+        return self.doc.form_field(self.path, "baselineVersion") or ""
+
+    @baselineVersion.setter
+    def baselineVersion(self, value):
+        self.doc.set_form_field(self.path, "baselineVersion", value)
+
+    @property
+    def zeroDowntimeApproach(self) -> str:
+        return self.doc.form_field(self.path, "zeroDowntimeApproach") or ""
+
+    @zeroDowntimeApproach.setter
+    def zeroDowntimeApproach(self, value):
+        self.doc.set_form_field(self.path, "zeroDowntimeApproach", value)
 
 class ScopeItemEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

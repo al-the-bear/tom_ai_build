@@ -6692,6 +6692,18 @@ function _mc_ClientAccessibilityRequirements(s) {
   ];
 }
 
+function _mc_ClientConfiguration(s) {
+  return [
+     new SomMetaNode({
+      className: "ClientConfiguration",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "apiBaseUrl", typeName: "String", description: "API Base URL", hint: "The server/API endpoint this client install talks to", order: 0}), new SomFormFieldMeta({name: "environment", typeName: "String", description: "Environment", hint: "dev / staging / production for this install", order: 1}), new SomFormFieldMeta({name: "deviceOptions", typeName: "String", description: "Device Options", hint: "Machine-specific device/hardware options for this install", order: 2}), new SomFormFieldMeta({name: "featureToggles", typeName: "String", description: "Per-Install Feature Toggles", hint: "Client-side toggles applied to this install", order: 3}), new SomFormFieldMeta({name: "updateChannel", typeName: "String", description: "Update Channel", hint: "stable / beta / canary for this install", order: 4})])}),
+  ];
+}
+
 function _mc_ClientHardwareRequirements(s) {
   return [
      new SomMetaNode({
@@ -6932,6 +6944,18 @@ function _mc_ClientRequirementsSection(s) {
         serializationOrder: 11,
         docComment: "Client security requirements.",
         classDocComment: "Client security requirements.",
+        recursive: r,
+        children: c})),
+     _cx("ClientConfiguration", s, _mc_ClientConfiguration,
+      (r, c) => new SomMetaNode({
+        className: "ClientConfiguration",
+        memberName: "clientConfiguration",
+        classSectionId: "CLICON",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ClientConfiguration",
+        serializationOrder: 12,
+        docComment: "Per-machine configuration of a client application (CE-CC).",
+        classDocComment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).",
         recursive: r,
         children: c})),
   ];
@@ -23572,6 +23596,18 @@ function _mc_InformationAndDataModel(s) {
         mapsTo: "D03InformationModel",
         recursive: r,
         children: c})),
+     _cx("SchemaVersioningAndMigration", s, _mc_SchemaVersioningAndMigration,
+      (r, c) => new SomMetaNode({
+        className: "SchemaVersioningAndMigration",
+        memberName: "schemaVersioningAndMigration",
+        classSectionId: "SCHMG",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "SchemaVersioningAndMigration",
+        serializationOrder: 4,
+        docComment: "7.4. Schema Versioning and Migration.",
+        classDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.",
+        recursive: r,
+        children: c})),
   ];
 }
 
@@ -36491,7 +36527,7 @@ function _mc_ReleaseStrategy(s) {
       serializationOrder: 3,
       docComment: "Feature flags configuration.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "featureFlagsEnabled", typeName: "bool", description: "Feature Flags Enabled", hint: "Uses feature flags", order: 0}), new SomFormFieldMeta({name: "featureFlagProvider", typeName: "String", description: "Feature Flag Provider", hint: "LaunchDarkly, Flagsmith, custom", order: 1}), new SomFormFieldMeta({name: "flagStrategy", typeName: "String", description: "Flag Strategy", hint: "How flags are managed", order: 2})]),
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"], "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."})]}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"], "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}), new SomMetaExtra("CodeSpecKind", {"kinds": ["CodeSpecPart.featureFlag"], "note": "CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1."})]}),
      new SomMetaNode({
       className: "ReleaseStrategy",
       memberName: "management",
@@ -39982,6 +40018,43 @@ function _mc_ScheduledMaintenancePolicy(s) {
       docComment: "Approval requirements.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "approvalRequired", typeName: "bool", description: "Approval Required", hint: "Requires approval", order: 0}), new SomFormFieldMeta({name: "approvalAuthority", typeName: "String", description: "Approval Authority", hint: "Who approves maintenance", order: 1}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional policy notes", order: 2})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ITIL 4 — change management", "ISO/IEC 20000 — IT service management system"], "connotation": "Defines who must approve scheduled maintenance and the approval requirements."})]}),
+  ];
+}
+
+function _mc_SchemaMigrationStepEntry(s) {
+  return [
+     new SomMetaNode({
+      className: "SchemaMigrationStepEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "version", typeName: "String", description: "Version", hint: "The schema version this step produces (e.g. V7, 2026-07-19-01)", order: 0}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "What this migration changes and why", order: 1}), new SomFormFieldMeta({name: "ddlOperations", typeName: "String", description: "DDL Operations", hint: "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)", order: 2}), new SomFormFieldMeta({name: "affectedEntities", typeName: "String", description: "Affected Entities", hint: "The Data Model entities this step touches", order: 3}), new SomFormFieldMeta({name: "dataBackfill", typeName: "String", description: "Data Backfill", hint: "Any data population/transformation done as part of the step, or None", order: 4}), new SomFormFieldMeta({name: "reversible", typeName: "bool", description: "Reversible", hint: "Whether a down/rollback migration is provided", order: 5})])}),
+  ];
+}
+
+function _mc_SchemaVersioningAndMigration(s) {
+  return [
+     new SomMetaNode({
+      className: "SchemaVersioningAndMigration",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "migrationTooling", typeName: "String", description: "Migration Tooling", hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", order: 0}), new SomFormFieldMeta({name: "versioningStrategy", typeName: "String", description: "Versioning Strategy", hint: "Sequential numbered | Timestamped | Semantic", order: 1}), new SomFormFieldMeta({name: "forwardOnly", typeName: "bool", description: "Forward-Only", hint: "Whether migrations are forward-only (no down migrations)", order: 2}), new SomFormFieldMeta({name: "baselineVersion", typeName: "String", description: "Baseline Version", hint: "The initial/baseline schema version migrations build on", order: 3}), new SomFormFieldMeta({name: "zeroDowntimeApproach", typeName: "String", description: "Zero-Downtime Approach", hint: "Expand/contract, online DDL, blue-green schema, or None", order: 4})])}),
+     new SomMetaNode({
+      className: "SchemaVersioningAndMigration",
+      memberName: "migrationSteps",
+      sectionId: "SCMST-STEP-LST",
+      sectionIdPattern: "SCMST-STEP-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "SchemaMigrationStepEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per versioned schema migration step.",
+      docComment: "7.4.1. Schema Migration Steps — one entry per versioned migration.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Evolutionary Database Design (Ambler & Sadalage) — database refactoring"], "connotation": "The ordered schema migration steps that evolve the database over releases."})],
+      elementNode: _cx("SchemaMigrationStepEntry", s, _mc_SchemaMigrationStepEntry, (r, c) => new SomMetaNode({className: "SchemaMigrationStepEntry", classSectionId: "SCMST", kind: SomMetaKind.COMPLEX, typeName: "SchemaMigrationStepEntry", docComment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.", classDocComment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.", recursive: r, children: c}))}),
   ];
 }
 
@@ -57253,6 +57326,16 @@ class ClientAccessibilityRequirements$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `ClientConfiguration` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class ClientConfiguration$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
 // Dot-notation accessors of `ClientHardwareRequirements` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -57356,6 +57439,10 @@ class ClientRequirementsSection$Nav extends SomMetaRef {
 
   get securityRequirements() {
     return new ClientSecurityRequirements$Nav(this.tree, this.path + "/securityRequirements");
+  }
+
+  get clientConfiguration() {
+    return new ClientConfiguration$Nav(this.tree, this.path + "/clientConfiguration");
   }
 }
 
@@ -65356,6 +65443,10 @@ class InformationAndDataModel$Nav extends SomMetaRef {
 
   get functionModel() {
     return new FunctionModel$Nav(this.tree, this.path + "/functionModel");
+  }
+
+  get schemaVersioningAndMigration() {
+    return new SchemaVersioningAndMigration$Nav(this.tree, this.path + "/schemaVersioningAndMigration");
   }
 }
 
@@ -73800,6 +73891,30 @@ class ScheduledMaintenancePolicy$Nav extends SomMetaRef {
 
   get approval() {
     return new SomMetaRef(this.tree, this.path + "/SMPA");
+  }
+}
+
+// Dot-notation accessors of `SchemaMigrationStepEntry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class SchemaMigrationStepEntry$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
+// Dot-notation accessors of `SchemaVersioningAndMigration` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class SchemaVersioningAndMigration$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get migrationSteps() {
+    return new SomListMetaRef(this.tree, this.path + "/SCMST-STEP-LST", (t, p) => new SchemaMigrationStepEntry$Nav(t, p));
   }
 }
 
@@ -83424,6 +83539,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get BIRU_BUSI_LST() {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/functionModel/BIRU-BUSI-LST", (t, p) => new BusinessRuleEntry$Id(t, p));
+  }
+
+  get SCMST_STEP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST", (t, p) => new SchemaMigrationStepEntry$Id(t, p));
   }
 
   get TRAREQ_TRAN() {
@@ -96089,6 +96208,12 @@ class ScenarioStepEntry$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `SchemaMigrationStepEntry` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+class SchemaMigrationStepEntry$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `ScopeItemEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -98638,6 +98763,7 @@ module.exports = {
   CiCdPipelineConfiguration$Nav,
   CiCdPipelineRequirements$Nav,
   ClientAccessibilityRequirements$Nav,
+  ClientConfiguration$Nav,
   ClientHardwareRequirements$Nav,
   ClientNetworkRequirements$Nav,
   ClientRequirementsSection$Nav,
@@ -99397,6 +99523,8 @@ module.exports = {
   ScenarioEntry$Nav,
   ScenarioStepEntry$Nav,
   ScheduledMaintenancePolicy$Nav,
+  SchemaMigrationStepEntry$Nav,
+  SchemaVersioningAndMigration$Nav,
   ScopeBoundaries$Nav,
   ScopeItemEntry$Nav,
   ScreenActionEntry$Nav,
@@ -100080,6 +100208,7 @@ module.exports = {
   RuntimeDependencyEntry$Id,
   ScenarioEntry$Id,
   ScenarioStepEntry$Id,
+  SchemaMigrationStepEntry$Id,
   ScopeItemEntry$Id,
   ScreenActionEntry$Id,
   ScreenBehaviorEntry$Id,

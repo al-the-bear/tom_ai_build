@@ -2875,6 +2875,19 @@ class ClientAccessibilityRequirements extends SomNode {
   ClientAccessibilityRequirementsStandardsForm get standards => ClientAccessibilityRequirementsStandardsForm(doc, '$path/CARS');
 }
 
+/// Client configuration — per-machine settings of a client application (CE-CC).
+/// 
+/// Distinct from server/system configuration ([SystemConfigurationManagement],
+/// CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+/// specific *install* of a client app on a *specific machine* carries, keyed by
+/// the (client app, machine) pair. Two installs of the same client on two
+/// machines have independent client configuration (`codespecs_mapping.md` §11).
+class ClientConfiguration extends SomNode {
+  ClientConfiguration(super.doc, super.path);
+
+  ClientConfigurationContentForm get content => ClientConfigurationContentForm(doc, '$path/content');
+}
+
 /// Client hardware requirements.
 class ClientHardwareRequirements extends SomNode {
   ClientHardwareRequirements(super.doc, super.path);
@@ -2958,6 +2971,9 @@ class ClientRequirementsSection extends SomNode {
 
   /// Client security requirements.
   ClientSecurityRequirements get securityRequirements => ClientSecurityRequirements(doc, '$path/securityRequirements');
+
+  /// Per-machine configuration of a client application (CE-CC).
+  ClientConfiguration get clientConfiguration => ClientConfiguration(doc, '$path/clientConfiguration');
 }
 
 /// Client security requirements.
@@ -10246,6 +10262,9 @@ class InformationAndDataModel extends SomNode {
 
   /// 7.3. Function Model.
   FunctionModel get functionModel => FunctionModel(doc, '$path/functionModel');
+
+  /// 7.4. Schema Versioning and Migration.
+  SchemaVersioningAndMigration get schemaVersioningAndMigration => SchemaVersioningAndMigration(doc, '$path/schemaVersioningAndMigration');
 }
 
 /// 10.2.2. Information Architecture.
@@ -17396,6 +17415,33 @@ class ScheduledMaintenancePolicy extends SomNode {
 
   /// Approval requirements.
   ScheduledMaintenancePolicyApprovalForm get approval => ScheduledMaintenancePolicyApprovalForm(doc, '$path/SMPA');
+}
+
+/// A single schema migration step (form).
+/// 
+/// One versioned change to the database schema — the DDL operations it applies,
+/// the entities it touches, whether it is reversible, and any data backfill it
+/// performs as part of the schema change.
+class SchemaMigrationStepEntry extends SomNode {
+  SchemaMigrationStepEntry(super.doc, super.path);
+
+  SchemaMigrationStepEntryContentForm get content => SchemaMigrationStepEntryContentForm(doc, '$path/content');
+}
+
+/// 7.4. Schema Versioning and Migration.
+/// 
+/// Records how the database schema is *versioned and migrated* as the data
+/// model evolves — the ordered DDL / migration steps and the tooling and
+/// policy that govern them. This is distinct from business-data migration
+/// between systems (see `MigrationMappingEntry` for old→new field mapping):
+/// here the subject is the schema's own evolution over releases.
+class SchemaVersioningAndMigration extends SomNode {
+  SchemaVersioningAndMigration(super.doc, super.path);
+
+  SchemaVersioningAndMigrationContentForm get content => SchemaVersioningAndMigrationContentForm(doc, '$path/content');
+
+  /// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+  SomList<SchemaMigrationStepEntry> get migrationSteps => SomList<SchemaMigrationStepEntry>(doc, '$path/SCMST-STEP-LST', (d, p) => SchemaMigrationStepEntry(d, p), pattern: 'SCMST-STEP-xxx');
 }
 
 /// 4.1.1.6. Scope Boundaries.
@@ -31322,6 +31368,34 @@ class ClientAccessibilityRequirementsVisualForm extends SomNode {
 
   String get fontScaling => doc.formField(path, 'fontScaling') ?? '';
   set fontScaling(String value) => doc.setFormField(path, 'fontScaling', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ClientConfigurationContentForm extends SomNode {
+  ClientConfigurationContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get apiBaseUrl => doc.formField(path, 'apiBaseUrl') ?? '';
+  set apiBaseUrl(String value) => doc.setFormField(path, 'apiBaseUrl', value);
+
+  String get environment => doc.formField(path, 'environment') ?? '';
+  set environment(String value) => doc.setFormField(path, 'environment', value);
+
+  String get deviceOptions => doc.formField(path, 'deviceOptions') ?? '';
+  set deviceOptions(String value) => doc.setFormField(path, 'deviceOptions', value);
+
+  String get featureToggles => doc.formField(path, 'featureToggles') ?? '';
+  set featureToggles(String value) => doc.setFormField(path, 'featureToggles', value);
+
+  String get updateChannel => doc.formField(path, 'updateChannel') ?? '';
+  set updateChannel(String value) => doc.setFormField(path, 'updateChannel', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -73972,6 +74046,65 @@ class ScheduledMaintenancePolicySchedulingForm extends SomNode {
 
   String get blackoutPeriods => doc.formField(path, 'blackoutPeriods') ?? '';
   set blackoutPeriods(String value) => doc.setFormField(path, 'blackoutPeriods', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SchemaMigrationStepEntryContentForm extends SomNode {
+  SchemaMigrationStepEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get version => doc.formField(path, 'version') ?? '';
+  set version(String value) => doc.setFormField(path, 'version', value);
+
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
+
+  String get ddlOperations => doc.formField(path, 'ddlOperations') ?? '';
+  set ddlOperations(String value) => doc.setFormField(path, 'ddlOperations', value);
+
+  String get affectedEntities => doc.formField(path, 'affectedEntities') ?? '';
+  set affectedEntities(String value) => doc.setFormField(path, 'affectedEntities', value);
+
+  String get dataBackfill => doc.formField(path, 'dataBackfill') ?? '';
+  set dataBackfill(String value) => doc.setFormField(path, 'dataBackfill', value);
+
+  bool? get reversible => somParseBool(doc.formField(path, 'reversible'));
+  set reversible(bool? value) => doc.setFormField(path, 'reversible', somFormatBool(value));
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SchemaVersioningAndMigrationContentForm extends SomNode {
+  SchemaVersioningAndMigrationContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get migrationTooling => doc.formField(path, 'migrationTooling') ?? '';
+  set migrationTooling(String value) => doc.setFormField(path, 'migrationTooling', value);
+
+  String get versioningStrategy => doc.formField(path, 'versioningStrategy') ?? '';
+  set versioningStrategy(String value) => doc.setFormField(path, 'versioningStrategy', value);
+
+  bool? get forwardOnly => somParseBool(doc.formField(path, 'forwardOnly'));
+  set forwardOnly(bool? value) => doc.setFormField(path, 'forwardOnly', somFormatBool(value));
+
+  String get baselineVersion => doc.formField(path, 'baselineVersion') ?? '';
+  set baselineVersion(String value) => doc.setFormField(path, 'baselineVersion', value);
+
+  String get zeroDowntimeApproach => doc.formField(path, 'zeroDowntimeApproach') ?? '';
+  set zeroDowntimeApproach(String value) => doc.setFormField(path, 'zeroDowntimeApproach', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:

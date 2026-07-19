@@ -27,7 +27,13 @@
 /// id are stored per node by the YRD3 runtime), which keeps the exported meta
 /// tree identical to the pre-YRD5 `String`-member model.
 class DocSpecsSection {
-  DocSpecsSection({this.headline, this.id, this.content, this.form});
+  DocSpecsSection({
+    this.headline,
+    this.id,
+    this.content,
+    this.form,
+    List<String>? codeSpec,
+  }) : codeSpec = codeSpec ?? <String>[];
 
   /// The stored headline of this section (YRD3 decision (b): the stored value
   /// is authoritative; `@Headline` on the member only supplies the default).
@@ -35,6 +41,16 @@ class DocSpecsSection {
 
   /// The stored section id (the `<!--[ID]-->` marker), when present.
   String? id;
+
+  /// The concrete instance-level forward DocSpecs→CodeSpecs link
+  /// (`codespecs_mapping.md` §9.2): the exact CodeSpecs code location(s) this
+  /// section maps to — e.g. `['CsOrder', 'CsOrder.total', 'CsOrderRepository']`.
+  ///
+  /// Serialized alongside the id inside the same `<!--[ID] codeSpec="…"-->`
+  /// headline HTML comment (one comma-separated, quoted value) on the markdown
+  /// side, and as a `codeSpec` field in the section mapping on the yaml side.
+  /// Empty by default so untouched sections stay byte-stable.
+  List<String> codeSpec;
 
   /// The section's body content. For `@Form`-annotated members this holds the
   /// full unparsed section text until [form] mediates it.

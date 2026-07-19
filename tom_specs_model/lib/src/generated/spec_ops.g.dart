@@ -26,6 +26,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as DocSpecsSection).content,
@@ -38,6 +39,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as TextSection).content,
@@ -50,6 +52,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as DiagramSection).content,
@@ -62,6 +65,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as ErDiagramSection).content,
@@ -74,6 +78,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as FlowDiagramSection).content,
@@ -86,6 +91,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as GanttDiagramSection).content,
@@ -98,6 +104,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as SequenceDiagramSection).content,
@@ -110,6 +117,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as CodeSection).content,
@@ -122,6 +130,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as DartCodeSection).content,
@@ -134,6 +143,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as SqlCodeSection).content,
@@ -146,6 +156,7 @@ void registerSpecOps() {
         ..headline = n.headline
         ..id = n.id
         ..content = n.content
+        ..codeSpec = n.codeSpec
         ..form = n.form;
     },
     yamlScalar: (o) => (o as DdlCodeSection).content,
@@ -2936,6 +2947,15 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ClientAccessibilityRequirements).content,
   ));
+  SpecRegistry.register(ClientConfiguration, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ClientConfiguration;
+      return ClientConfiguration()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ClientConfiguration).content,
+  ));
   SpecRegistry.register(ClientHardwareRequirements, SpecClassOps(
     slots: (o) {
       final n = o as ClientHardwareRequirements;
@@ -2993,6 +3013,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.pwaRequirements, (v) => n.pwaRequirements = v as PwaRequirements, label: 'pwaRequirements'),
         SpecSlot.node(() => n.nativeAppRequirements, (v) => n.nativeAppRequirements = v as NativeAppRequirements, label: 'nativeAppRequirements'),
         SpecSlot.node(() => n.securityRequirements, (v) => n.securityRequirements = v as ClientSecurityRequirements, label: 'securityRequirements'),
+        SpecSlot.node(() => n.clientConfiguration, (v) => n.clientConfiguration = v as ClientConfiguration, label: 'clientConfiguration'),
       ];
     },
     cloneShallow: (o) {
@@ -3009,7 +3030,8 @@ void registerSpecOps() {
         ..accessibilityRequirements = n.accessibilityRequirements
         ..pwaRequirements = n.pwaRequirements
         ..nativeAppRequirements = n.nativeAppRequirements
-        ..securityRequirements = n.securityRequirements;
+        ..securityRequirements = n.securityRequirements
+        ..clientConfiguration = n.clientConfiguration;
     },
     yamlScalar: (o) => (o as ClientRequirementsSection).content,
   ));
@@ -9416,6 +9438,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.dataModel, (v) => n.dataModel = v as DataModel, label: 'dataModel'),
         SpecSlot.node(() => n.businessObjectModel, (v) => n.businessObjectModel = v as BusinessObjectModel, label: 'businessObjectModel'),
         SpecSlot.node(() => n.functionModel, (v) => n.functionModel = v as FunctionModel, label: 'functionModel'),
+        SpecSlot.node(() => n.schemaVersioningAndMigration, (v) => n.schemaVersioningAndMigration = v as SchemaVersioningAndMigration, label: 'schemaVersioningAndMigration'),
       ];
     },
     cloneShallow: (o) {
@@ -9424,7 +9447,8 @@ void registerSpecOps() {
         ..content = n.content
         ..dataModel = n.dataModel
         ..businessObjectModel = n.businessObjectModel
-        ..functionModel = n.functionModel;
+        ..functionModel = n.functionModel
+        ..schemaVersioningAndMigration = n.schemaVersioningAndMigration;
     },
     yamlScalar: (o) => (o as InformationAndDataModel).content,
   ));
@@ -16521,6 +16545,30 @@ void registerSpecOps() {
         ..approval = n.approval;
     },
     yamlScalar: (o) => (o as ScheduledMaintenancePolicy).content,
+  ));
+  SpecRegistry.register(SchemaMigrationStepEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SchemaMigrationStepEntry;
+      return SchemaMigrationStepEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SchemaMigrationStepEntry).content,
+  ));
+  SpecRegistry.register(SchemaVersioningAndMigration, SpecClassOps(
+    slots: (o) {
+      final n = o as SchemaVersioningAndMigration;
+      return [
+        SpecSlot.list(() => n.migrationSteps, (v) => n.migrationSteps = v.cast<SchemaMigrationStepEntry>(), label: 'migrationSteps'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SchemaVersioningAndMigration;
+      return SchemaVersioningAndMigration()
+        ..content = n.content
+        ..migrationSteps = n.migrationSteps;
+    },
+    yamlScalar: (o) => (o as SchemaVersioningAndMigration).content,
   ));
   SpecRegistry.register(ScopeBoundaries, SpecClassOps(
     slots: (o) {

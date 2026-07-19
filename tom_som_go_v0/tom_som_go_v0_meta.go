@@ -2018,6 +2018,12 @@ func metaChildrenClientAccessibilityRequirements(s map[string]bool) []*som.SomMe
 	}
 }
 
+func metaChildrenClientConfiguration(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ClientConfiguration", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "apiBaseUrl", TypeName: "String", Description: "API Base URL", Hint: "The server/API endpoint this client install talks to", Order: 0}, {Name: "environment", TypeName: "String", Description: "Environment", Hint: "dev / staging / production for this install", Order: 1}, {Name: "deviceOptions", TypeName: "String", Description: "Device Options", Hint: "Machine-specific device/hardware options for this install", Order: 2}, {Name: "featureToggles", TypeName: "String", Description: "Per-Install Feature Toggles", Hint: "Client-side toggles applied to this install", Order: 3}, {Name: "updateChannel", TypeName: "String", Description: "Update Channel", Hint: "stable / beta / canary for this install", Order: 4}}}},
+	}
+}
+
 func metaChildrenClientHardwareRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ClientHardwareRequirements", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "minCpuCores", TypeName: "String", Description: "Minimum CPU Cores", Hint: "Minimum CPU cores", Order: 0}, {Name: "recommendedCpuCores", TypeName: "String", Description: "Recommended CPU Cores", Hint: "Recommended CPU cores", Order: 1}, {Name: "cpuArchitecture", TypeName: "String", Description: "CPU Architecture", Hint: "x64, ARM, Universal", Order: 2}, {Name: "minCpuSpeed", TypeName: "String", Description: "Minimum CPU Speed", Hint: "Minimum clock speed", Order: 3}}}},
@@ -2083,6 +2089,9 @@ func metaChildrenClientRequirementsSection(s map[string]bool) []*som.SomMetaNode
 		}),
 		metaCx("ClientSecurityRequirements", s, metaChildrenClientSecurityRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ClientSecurityRequirements", MemberName: "securityRequirements", ClassSectionID: "CLSERE", Kind: som.SomMetaKindComplex, TypeName: "ClientSecurityRequirements", SerializationOrder: metaIntPtr(11), DocComment: "Client security requirements.", ClassDocComment: "Client security requirements.", Recursive: r, Children: c}
+		}),
+		metaCx("ClientConfiguration", s, metaChildrenClientConfiguration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ClientConfiguration", MemberName: "clientConfiguration", ClassSectionID: "CLICON", Kind: som.SomMetaKindComplex, TypeName: "ClientConfiguration", SerializationOrder: metaIntPtr(12), DocComment: "Per-machine configuration of a client application (CE-CC).", ClassDocComment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -6874,6 +6883,9 @@ func metaChildrenInformationAndDataModel(s map[string]bool) []*som.SomMetaNode {
 		metaCx("FunctionModel", s, metaChildrenFunctionModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "FunctionModel", MemberName: "functionModel", ClassSectionID: "FUMO", Kind: som.SomMetaKindComplex, TypeName: "FunctionModel", SerializationOrder: metaIntPtr(3), DocComment: "7.3. Function Model.", ClassDocComment: "7.3. Function Model.\n\nBusiness functions, their decomposition, and relationships to data objects.", MapsTo: "D03InformationModel", Recursive: r, Children: c}
 		}),
+		metaCx("SchemaVersioningAndMigration", s, metaChildrenSchemaVersioningAndMigration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "schemaVersioningAndMigration", ClassSectionID: "SCHMG", Kind: som.SomMetaKindComplex, TypeName: "SchemaVersioningAndMigration", SerializationOrder: metaIntPtr(4), DocComment: "7.4. Schema Versioning and Migration.", ClassDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.", Recursive: r, Children: c}
+		}),
 	}
 }
 
@@ -10750,7 +10762,7 @@ func metaChildrenReleaseStrategy(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ReleaseStrategy", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "releaseMethodology", TypeName: "String", Description: "Release Methodology", Hint: "Blue-green, Canary, Rolling, A/B", Order: 0}, {Name: "releaseFrequency", TypeName: "String", Description: "Release Frequency", Hint: "Daily, Weekly, Bi-weekly", Order: 1}, {Name: "releaseSchedule", TypeName: "String", Description: "Release Schedule", Hint: "When releases occur", Order: 2}}}},
 		{ClassName: "ReleaseStrategy", MemberName: "blueGreen", SectionID: "RSBG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Blue-green deployment configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "releaseWindow", TypeName: "String", Description: "Release Window", Hint: "Allowed deployment times", Order: 0}, {Name: "blueGreenEnabled", TypeName: "bool", Description: "Blue-Green Enabled", Hint: "Uses blue-green deployment", Order: 1}, {Name: "trafficSwitching", TypeName: "String", Description: "Traffic Switching", Hint: "How traffic is switched", Order: 2}, {Name: "warmupPeriod", TypeName: "String", Description: "Warmup Period", Hint: "New version warmup time", Order: 3}, {Name: "greenRetention", TypeName: "String", Description: "Green Retention", Hint: "How long to keep old version", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous delivery pipelines", "Google SRE — site reliability engineering"}, "connotation": "Defines blue-green deployment: traffic switching, warmup period, and retention of the old (green) version for fast switch-back."}}}},
 		{ClassName: "ReleaseStrategy", MemberName: "canary", SectionID: "RESTCA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Canary deployment configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "canaryEnabled", TypeName: "bool", Description: "Canary Enabled", Hint: "Uses canary deployment", Order: 0}, {Name: "canaryPercentage", TypeName: "String", Description: "Canary Percentage", Hint: "Initial canary traffic %", Order: 1}, {Name: "canaryRampUpSteps", TypeName: "String", Description: "Canary Ramp-Up Steps", Hint: "Percentage ramp-up steps", Order: 2}, {Name: "canaryMetrics", TypeName: "String", Description: "Canary Metrics", Hint: "Metrics for canary health", Order: 3}, {Name: "canaryDuration", TypeName: "String", Description: "Canary Duration", Hint: "Time at each step", Order: 4}, {Name: "autoRollbackCriteria", TypeName: "String", Description: "Auto-Rollback Criteria", Hint: "When to auto-rollback canary", Order: 5}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous delivery pipelines", "Google SRE — site reliability engineering"}, "connotation": "Defines canary deployment: initial traffic percentage, ramp-up steps, health metrics, and auto-rollback criteria."}}}},
-		{ClassName: "ReleaseStrategy", MemberName: "featureFlags", SectionID: "RSFF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Feature flags configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "featureFlagsEnabled", TypeName: "bool", Description: "Feature Flags Enabled", Hint: "Uses feature flags", Order: 0}, {Name: "featureFlagProvider", TypeName: "String", Description: "Feature Flag Provider", Hint: "LaunchDarkly, Flagsmith, custom", Order: 1}, {Name: "flagStrategy", TypeName: "String", Description: "Flag Strategy", Hint: "How flags are managed", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"}, "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}}}},
+		{ClassName: "ReleaseStrategy", MemberName: "featureFlags", SectionID: "RSFF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Feature flags configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "featureFlagsEnabled", TypeName: "bool", Description: "Feature Flags Enabled", Hint: "Uses feature flags", Order: 0}, {Name: "featureFlagProvider", TypeName: "String", Description: "Feature Flag Provider", Hint: "LaunchDarkly, Flagsmith, custom", Order: 1}, {Name: "flagStrategy", TypeName: "String", Description: "Flag Strategy", Hint: "How flags are managed", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"}, "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}}, {Annotation: "CodeSpecKind", Args: map[string]interface{}{"kinds": []interface{}{"CodeSpecPart.featureFlag"}, "note": "CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1."}}}},
 		{ClassName: "ReleaseStrategy", MemberName: "management", SectionID: "RESTMA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Release management.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "releaseNotes", TypeName: "String", Description: "Release Notes", Hint: "Release notes process", Order: 0}, {Name: "changelogGeneration", TypeName: "String", Description: "Changelog Generation", Hint: "Auto or manual changelog", Order: 1}, {Name: "releaseApproval", TypeName: "String", Description: "Release Approval", Hint: "Who approves releases", Order: 2}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional release notes", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — IT service management", "CI/CD — continuous delivery pipelines"}, "connotation": "Defines release management practices: release notes, changelog generation, and release approval."}}}},
 	}
 }
@@ -11817,6 +11829,25 @@ func metaChildrenScheduledMaintenancePolicy(s map[string]bool) []*som.SomMetaNod
 		{ClassName: "ScheduledMaintenancePolicy", MemberName: "duration", SectionID: "SMPD", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Duration constraints.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "maxDuration", TypeName: "String", Description: "Maximum Duration", Hint: "Max window duration", Order: 0}, {Name: "typicalDuration", TypeName: "String", Description: "Typical Duration", Hint: "Typical window length", Order: 1}, {Name: "extensionPolicy", TypeName: "String", Description: "Extension Policy", Hint: "How to extend if needed", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — change management", "ISO/IEC 20000 — IT service management system"}, "connotation": "Defines the maximum and typical duration constraints for scheduled maintenance windows."}}}},
 		{ClassName: "ScheduledMaintenancePolicy", MemberName: "notice", SectionID: "SMPN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Notice requirements.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "standardNotice", TypeName: "String", Description: "Standard Notice Period", Hint: "Days advance notice", Order: 0}, {Name: "minimumNotice", TypeName: "String", Description: "Minimum Notice Period", Hint: "Minimum advance notice", Order: 1}, {Name: "noticeChannels", TypeName: "String", Description: "Notice Channels", Hint: "How users are notified", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — IT service management", "ISO/IEC 20000 — IT service management system"}, "connotation": "Defines the advance notice periods and channels for scheduled maintenance."}}}},
 		{ClassName: "ScheduledMaintenancePolicy", MemberName: "approval", SectionID: "SMPA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Approval requirements.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "approvalRequired", TypeName: "bool", Description: "Approval Required", Hint: "Requires approval", Order: 0}, {Name: "approvalAuthority", TypeName: "String", Description: "Approval Authority", Hint: "Who approves maintenance", Order: 1}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional policy notes", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — change management", "ISO/IEC 20000 — IT service management system"}, "connotation": "Defines who must approve scheduled maintenance and the approval requirements."}}}},
+	}
+}
+
+func metaChildrenSchemaMigrationStepEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "SchemaMigrationStepEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "version", TypeName: "String", Description: "Version", Hint: "The schema version this step produces (e.g. V7, 2026-07-19-01)", Order: 0}, {Name: "description", TypeName: "String", Description: "Description", Hint: "What this migration changes and why", Order: 1}, {Name: "ddlOperations", TypeName: "String", Description: "DDL Operations", Hint: "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)", Order: 2}, {Name: "affectedEntities", TypeName: "String", Description: "Affected Entities", Hint: "The Data Model entities this step touches", Order: 3}, {Name: "dataBackfill", TypeName: "String", Description: "Data Backfill", Hint: "Any data population/transformation done as part of the step, or None", Order: 4}, {Name: "reversible", TypeName: "bool", Description: "Reversible", Hint: "Whether a down/rollback migration is provided", Order: 5}}}},
+	}
+}
+
+func metaChildrenSchemaVersioningAndMigration(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "SchemaVersioningAndMigration", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "migrationTooling", TypeName: "String", Description: "Migration Tooling", Hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", Order: 0}, {Name: "versioningStrategy", TypeName: "String", Description: "Versioning Strategy", Hint: "Sequential numbered | Timestamped | Semantic", Order: 1}, {Name: "forwardOnly", TypeName: "bool", Description: "Forward-Only", Hint: "Whether migrations are forward-only (no down migrations)", Order: 2}, {Name: "baselineVersion", TypeName: "String", Description: "Baseline Version", Hint: "The initial/baseline schema version migrations build on", Order: 3}, {Name: "zeroDowntimeApproach", TypeName: "String", Description: "Zero-Downtime Approach", Hint: "Expand/contract, online DDL, blue-green schema, or None", Order: 4}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "migrationSteps", SectionID: "SCMST-STEP-LST", SectionIDPattern: "SCMST-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "SchemaMigrationStepEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per versioned schema migration step.", DocComment: "7.4.1. Schema Migration Steps — one entry per versioned migration.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Evolutionary Database Design (Ambler & Sadalage) — database refactoring"}, "connotation": "The ordered schema migration steps that evolve the database over releases."}}}}
+			n.ElementNode = metaCx("SchemaMigrationStepEntry", s, metaChildrenSchemaMigrationStepEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "SchemaMigrationStepEntry", ClassSectionID: "SCMST", Kind: som.SomMetaKindComplex, TypeName: "SchemaMigrationStepEntry", DocComment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.", ClassDocComment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -20520,6 +20551,24 @@ func (x *ClientAccessibilityRequirementsNav) Standards() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CARS"}
 }
 
+// ClientConfigurationNav holds the dot-notation accessors of `ClientConfiguration` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ClientConfigurationNav struct {
+	som.SomMetaRef
+}
+
+// newClientConfigurationNav binds a ClientConfigurationNav accessor to a tree and a path.
+func newClientConfigurationNav(tree *som.SomMetaTree, path string) *ClientConfigurationNav {
+	return &ClientConfigurationNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ClientConfigurationNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // ClientHardwareRequirementsNav holds the dot-notation accessors of `ClientHardwareRequirements` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -20654,6 +20703,10 @@ func (x *ClientRequirementsSectionNav) NativeAppRequirements() *NativeAppRequire
 
 func (x *ClientRequirementsSectionNav) SecurityRequirements() *ClientSecurityRequirementsNav {
 	return newClientSecurityRequirementsNav(x.Tree, x.Path+"/securityRequirements")
+}
+
+func (x *ClientRequirementsSectionNav) ClientConfiguration() *ClientConfigurationNav {
+	return newClientConfigurationNav(x.Tree, x.Path+"/clientConfiguration")
 }
 
 // ClientSecurityRequirementsNav holds the dot-notation accessors of `ClientSecurityRequirements` (DR1 §4.1).
@@ -31690,6 +31743,10 @@ func (x *InformationAndDataModelNav) BusinessObjectModel() *BusinessObjectModelN
 
 func (x *InformationAndDataModelNav) FunctionModel() *FunctionModelNav {
 	return newFunctionModelNav(x.Tree, x.Path+"/functionModel")
+}
+
+func (x *InformationAndDataModelNav) SchemaVersioningAndMigration() *SchemaVersioningAndMigrationNav {
+	return newSchemaVersioningAndMigrationNav(x.Tree, x.Path+"/schemaVersioningAndMigration")
 }
 
 // InformationArchitectureNav holds the dot-notation accessors of `InformationArchitecture` (DR1 §4.1).
@@ -43832,6 +43889,48 @@ func (x *ScheduledMaintenancePolicyNav) Notice() *som.SomMetaRef {
 
 func (x *ScheduledMaintenancePolicyNav) Approval() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SMPA"}
+}
+
+// SchemaMigrationStepEntryNav holds the dot-notation accessors of `SchemaMigrationStepEntry` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type SchemaMigrationStepEntryNav struct {
+	som.SomMetaRef
+}
+
+// newSchemaMigrationStepEntryNav binds a SchemaMigrationStepEntryNav accessor to a tree and a path.
+func newSchemaMigrationStepEntryNav(tree *som.SomMetaTree, path string) *SchemaMigrationStepEntryNav {
+	return &SchemaMigrationStepEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *SchemaMigrationStepEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// SchemaVersioningAndMigrationNav holds the dot-notation accessors of `SchemaVersioningAndMigration` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type SchemaVersioningAndMigrationNav struct {
+	som.SomMetaRef
+}
+
+// newSchemaVersioningAndMigrationNav binds a SchemaVersioningAndMigrationNav accessor to a tree and a path.
+func newSchemaVersioningAndMigrationNav(tree *som.SomMetaTree, path string) *SchemaVersioningAndMigrationNav {
+	return &SchemaVersioningAndMigrationNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *SchemaVersioningAndMigrationNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *SchemaVersioningAndMigrationNav) MigrationSteps() *som.SomListMetaRef[*SchemaMigrationStepEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCMST-STEP-LST", func(t *som.SomMetaTree, p string) *SchemaMigrationStepEntryNav {
+		return newSchemaMigrationStepEntryNav(t, p)
+	})
 }
 
 // ScopeBoundariesNav holds the dot-notation accessors of `ScopeBoundaries` (DR1 §4.1).
@@ -57383,6 +57482,12 @@ func (x *D00SolutionBlueprintID) FNDMX_MATR_LST() *som.SomListMetaRef[*FunctionD
 func (x *D00SolutionBlueprintID) BIRU_BUSI_LST() *som.SomListMetaRef[*BusinessRuleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/functionModel/BIRU-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessRuleEntryID {
 		return newBusinessRuleEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) SCMST_STEP_LST() *som.SomListMetaRef[*SchemaMigrationStepEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST", func(t *som.SomMetaTree, p string) *SchemaMigrationStepEntryID {
+		return newSchemaMigrationStepEntryID(t, p)
 	})
 }
 
@@ -73149,6 +73254,19 @@ func (x *ScenarioStepEntryID) SSEC() *som.SomMetaRef {
 
 func (x *ScenarioStepEntryID) SCSTENEX() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCSTENEX"}
+}
+
+// SchemaMigrationStepEntryID holds the ID-tree accessors of `SchemaMigrationStepEntry` (DR1 §4.2): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type SchemaMigrationStepEntryID struct {
+	som.SomMetaRef
+}
+
+// newSchemaMigrationStepEntryID binds a SchemaMigrationStepEntryID accessor to a tree and a path.
+func newSchemaMigrationStepEntryID(tree *som.SomMetaTree, path string) *SchemaMigrationStepEntryID {
+	return &SchemaMigrationStepEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // ScopeItemEntryID holds the ID-tree accessors of `ScopeItemEntry` (DR1 §4.2): methods

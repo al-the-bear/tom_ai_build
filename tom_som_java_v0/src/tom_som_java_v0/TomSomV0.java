@@ -4582,6 +4582,23 @@ public final class TomSomV0 {
     }
   }
 
+  // Client configuration — per-machine settings of a client application (CE-CC).
+  //
+  // Distinct from server/system configuration ([SystemConfigurationManagement],
+  // CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+  // specific *install* of a client app on a *specific machine* carries, keyed by
+  // the (client app, machine) pair. Two installs of the same client on two
+  // machines have independent client configuration (`codespecs_mapping.md` §11).
+  public static final class ClientConfiguration extends SomNode {
+    public ClientConfiguration(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ClientConfigurationContentForm content() {
+      return new ClientConfigurationContentForm(doc, path + "/content");
+    }
+  }
+
   // Client hardware requirements.
   public static final class ClientHardwareRequirements extends SomNode {
     public ClientHardwareRequirements(SpecDocument doc, String path) {
@@ -4718,6 +4735,11 @@ public final class TomSomV0 {
     // Client security requirements.
     public ClientSecurityRequirements securityRequirements() {
       return new ClientSecurityRequirements(doc, path + "/securityRequirements");
+    }
+
+    // Per-machine configuration of a client application (CE-CC).
+    public ClientConfiguration clientConfiguration() {
+      return new ClientConfiguration(doc, path + "/clientConfiguration");
     }
   }
 
@@ -16346,6 +16368,11 @@ public final class TomSomV0 {
     public FunctionModel functionModel() {
       return new FunctionModel(doc, path + "/functionModel");
     }
+
+    // 7.4. Schema Versioning and Migration.
+    public SchemaVersioningAndMigration schemaVersioningAndMigration() {
+      return new SchemaVersioningAndMigration(doc, path + "/schemaVersioningAndMigration");
+    }
   }
 
   // 10.2.2. Information Architecture.
@@ -27741,6 +27768,43 @@ public final class TomSomV0 {
     // Approval requirements.
     public ScheduledMaintenancePolicyApprovalForm approval() {
       return new ScheduledMaintenancePolicyApprovalForm(doc, path + "/SMPA");
+    }
+  }
+
+  // A single schema migration step (form).
+  //
+  // One versioned change to the database schema — the DDL operations it applies,
+  // the entities it touches, whether it is reversible, and any data backfill it
+  // performs as part of the schema change.
+  public static final class SchemaMigrationStepEntry extends SomNode {
+    public SchemaMigrationStepEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SchemaMigrationStepEntryContentForm content() {
+      return new SchemaMigrationStepEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // 7.4. Schema Versioning and Migration.
+  //
+  // Records how the database schema is *versioned and migrated* as the data
+  // model evolves — the ordered DDL / migration steps and the tooling and
+  // policy that govern them. This is distinct from business-data migration
+  // between systems (see `MigrationMappingEntry` for old→new field mapping):
+  // here the subject is the schema's own evolution over releases.
+  public static final class SchemaVersioningAndMigration extends SomNode {
+    public SchemaVersioningAndMigration(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SchemaVersioningAndMigrationContentForm content() {
+      return new SchemaVersioningAndMigrationContentForm(doc, path + "/content");
+    }
+
+    // 7.4.1. Schema Migration Steps — one entry per versioned migration.
+    public SomList<SchemaMigrationStepEntry> migrationSteps() {
+      return new SomList<>(doc, path + "/SCMST-STEP-LST", (d, p) -> new SchemaMigrationStepEntry(d, p), "SCMST-STEP-xxx");
     }
   }
 
@@ -55905,6 +55969,73 @@ public final class TomSomV0 {
 
     public void fontScaling(String value) {
       doc.setFormField(path, "fontScaling", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ClientConfigurationContentForm extends SomNode {
+    public ClientConfigurationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String apiBaseUrl() {
+      String v = doc.formField(path, "apiBaseUrl");
+      return v == null ? "" : v;
+    }
+
+    public void apiBaseUrl(String value) {
+      doc.setFormField(path, "apiBaseUrl", value);
+    }
+
+    public String environment() {
+      String v = doc.formField(path, "environment");
+      return v == null ? "" : v;
+    }
+
+    public void environment(String value) {
+      doc.setFormField(path, "environment", value);
+    }
+
+    public String deviceOptions() {
+      String v = doc.formField(path, "deviceOptions");
+      return v == null ? "" : v;
+    }
+
+    public void deviceOptions(String value) {
+      doc.setFormField(path, "deviceOptions", value);
+    }
+
+    public String featureToggles() {
+      String v = doc.formField(path, "featureToggles");
+      return v == null ? "" : v;
+    }
+
+    public void featureToggles(String value) {
+      doc.setFormField(path, "featureToggles", value);
+    }
+
+    public String updateChannel() {
+      String v = doc.formField(path, "updateChannel");
+      return v == null ? "" : v;
+    }
+
+    public void updateChannel(String value) {
+      doc.setFormField(path, "updateChannel", value);
     }
   }
 
@@ -155970,6 +156101,151 @@ public final class TomSomV0 {
 
     public void blackoutPeriods(String value) {
       doc.setFormField(path, "blackoutPeriods", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SchemaMigrationStepEntryContentForm extends SomNode {
+    public SchemaMigrationStepEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String version() {
+      String v = doc.formField(path, "version");
+      return v == null ? "" : v;
+    }
+
+    public void version(String value) {
+      doc.setFormField(path, "version", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+
+    public String ddlOperations() {
+      String v = doc.formField(path, "ddlOperations");
+      return v == null ? "" : v;
+    }
+
+    public void ddlOperations(String value) {
+      doc.setFormField(path, "ddlOperations", value);
+    }
+
+    public String affectedEntities() {
+      String v = doc.formField(path, "affectedEntities");
+      return v == null ? "" : v;
+    }
+
+    public void affectedEntities(String value) {
+      doc.setFormField(path, "affectedEntities", value);
+    }
+
+    public String dataBackfill() {
+      String v = doc.formField(path, "dataBackfill");
+      return v == null ? "" : v;
+    }
+
+    public void dataBackfill(String value) {
+      doc.setFormField(path, "dataBackfill", value);
+    }
+
+    public Boolean reversible() {
+      String v = doc.formField(path, "reversible");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void reversible(Boolean value) {
+      doc.setFormField(path, "reversible", value == null ? "" : (value ? "true" : "false"));
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SchemaVersioningAndMigrationContentForm extends SomNode {
+    public SchemaVersioningAndMigrationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String migrationTooling() {
+      String v = doc.formField(path, "migrationTooling");
+      return v == null ? "" : v;
+    }
+
+    public void migrationTooling(String value) {
+      doc.setFormField(path, "migrationTooling", value);
+    }
+
+    public String versioningStrategy() {
+      String v = doc.formField(path, "versioningStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void versioningStrategy(String value) {
+      doc.setFormField(path, "versioningStrategy", value);
+    }
+
+    public Boolean forwardOnly() {
+      String v = doc.formField(path, "forwardOnly");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void forwardOnly(Boolean value) {
+      doc.setFormField(path, "forwardOnly", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String baselineVersion() {
+      String v = doc.formField(path, "baselineVersion");
+      return v == null ? "" : v;
+    }
+
+    public void baselineVersion(String value) {
+      doc.setFormField(path, "baselineVersion", value);
+    }
+
+    public String zeroDowntimeApproach() {
+      String v = doc.formField(path, "zeroDowntimeApproach");
+      return v == null ? "" : v;
+    }
+
+    public void zeroDowntimeApproach(String value) {
+      doc.setFormField(path, "zeroDowntimeApproach", value);
     }
   }
 

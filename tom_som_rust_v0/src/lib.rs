@@ -6493,6 +6493,35 @@ impl ClientAccessibilityRequirements {
     }
 }
 
+/// Client configuration — per-machine settings of a client application (CE-CC).
+///
+/// Distinct from server/system configuration ([SystemConfigurationManagement],
+/// CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+/// specific *install* of a client app on a *specific machine* carries, keyed by
+/// the (client app, machine) pair. Two installs of the same client on two
+/// machines have independent client configuration (`codespecs_mapping.md` §11).
+pub struct ClientConfiguration {
+    pub node: som::SomNode,
+}
+
+impl ClientConfiguration {
+    /// Binds a ClientConfiguration facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ClientConfiguration {
+        ClientConfiguration { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ClientConfigurationContentForm {
+        ClientConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Client hardware requirements.
 pub struct ClientHardwareRequirements {
     pub node: som::SomNode,
@@ -6675,6 +6704,11 @@ impl ClientRequirementsSection {
     /// Client security requirements.
     pub fn security_requirements(&self) -> ClientSecurityRequirements {
         ClientSecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityRequirements"))
+    }
+
+    /// Per-machine configuration of a client application (CE-CC).
+    pub fn client_configuration(&self) -> ClientConfiguration {
+        ClientConfiguration::new(self.node.doc(), format!("{}/{}", self.node.path(), "clientConfiguration"))
     }
 }
 
@@ -22615,6 +22649,11 @@ impl InformationAndDataModel {
     /// 7.3. Function Model.
     pub fn function_model(&self) -> FunctionModel {
         FunctionModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionModel"))
+    }
+
+    /// 7.4. Schema Versioning and Migration.
+    pub fn schema_versioning_and_migration(&self) -> SchemaVersioningAndMigration {
+        SchemaVersioningAndMigration::new(self.node.doc(), format!("{}/{}", self.node.path(), "schemaVersioningAndMigration"))
     }
 }
 
@@ -39324,6 +39363,72 @@ impl ScheduledMaintenancePolicy {
     /// Approval requirements.
     pub fn approval(&self) -> ScheduledMaintenancePolicyApprovalForm {
         ScheduledMaintenancePolicyApprovalForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SMPA"))
+    }
+}
+
+/// A single schema migration step (form).
+///
+/// One versioned change to the database schema — the DDL operations it applies,
+/// the entities it touches, whether it is reversible, and any data backfill it
+/// performs as part of the schema change.
+pub struct SchemaMigrationStepEntry {
+    pub node: som::SomNode,
+}
+
+impl SchemaMigrationStepEntry {
+    /// Binds a SchemaMigrationStepEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SchemaMigrationStepEntry {
+        SchemaMigrationStepEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> SchemaMigrationStepEntryContentForm {
+        SchemaMigrationStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 7.4. Schema Versioning and Migration.
+///
+/// Records how the database schema is *versioned and migrated* as the data
+/// model evolves — the ordered DDL / migration steps and the tooling and
+/// policy that govern them. This is distinct from business-data migration
+/// between systems (see `MigrationMappingEntry` for old→new field mapping):
+/// here the subject is the schema's own evolution over releases.
+pub struct SchemaVersioningAndMigration {
+    pub node: som::SomNode,
+}
+
+impl SchemaVersioningAndMigration {
+    /// Binds a SchemaVersioningAndMigration facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SchemaVersioningAndMigration {
+        SchemaVersioningAndMigration { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> SchemaVersioningAndMigrationContentForm {
+        SchemaVersioningAndMigrationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+    pub fn migration_steps(&self) -> som::SomList<SchemaMigrationStepEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SCMST-STEP-LST"),
+            Box::new(SchemaMigrationStepEntry::new),
+            "SCMST-STEP-xxx".to_string(),
+        )
     }
 }
 
@@ -74092,6 +74197,81 @@ impl ClientAccessibilityRequirementsVisualForm {
     pub fn set_font_scaling(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "fontScaling", value);
+    }
+}
+
+/// ClientConfigurationContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ClientConfigurationContentForm {
+    pub node: som::SomNode,
+}
+
+impl ClientConfigurationContentForm {
+    /// Binds a ClientConfigurationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ClientConfigurationContentForm {
+        ClientConfigurationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn api_base_url(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiBaseUrl")
+    }
+
+    pub fn set_api_base_url(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiBaseUrl", value);
+    }
+
+    pub fn environment(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "environment")
+    }
+
+    pub fn set_environment(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "environment", value);
+    }
+
+    pub fn device_options(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deviceOptions")
+    }
+
+    pub fn set_device_options(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deviceOptions", value);
+    }
+
+    pub fn feature_toggles(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "featureToggles")
+    }
+
+    pub fn set_feature_toggles(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "featureToggles", value);
+    }
+
+    pub fn update_channel(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "updateChannel")
+    }
+
+    pub fn set_update_channel(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "updateChannel", value);
     }
 }
 
@@ -187947,6 +188127,169 @@ impl ScheduledMaintenancePolicySchedulingForm {
     pub fn set_blackout_periods(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "blackoutPeriods", value);
+    }
+}
+
+/// SchemaMigrationStepEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SchemaMigrationStepEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl SchemaMigrationStepEntryContentForm {
+    /// Binds a SchemaMigrationStepEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SchemaMigrationStepEntryContentForm {
+        SchemaMigrationStepEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "version")
+    }
+
+    pub fn set_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "version", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+
+    pub fn ddl_operations(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ddlOperations")
+    }
+
+    pub fn set_ddl_operations(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ddlOperations", value);
+    }
+
+    pub fn affected_entities(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "affectedEntities")
+    }
+
+    pub fn set_affected_entities(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "affectedEntities", value);
+    }
+
+    pub fn data_backfill(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataBackfill")
+    }
+
+    pub fn set_data_backfill(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataBackfill", value);
+    }
+
+    pub fn reversible(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "reversible");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_reversible(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "reversible", &text);
+    }
+}
+
+/// SchemaVersioningAndMigrationContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SchemaVersioningAndMigrationContentForm {
+    pub node: som::SomNode,
+}
+
+impl SchemaVersioningAndMigrationContentForm {
+    /// Binds a SchemaVersioningAndMigrationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SchemaVersioningAndMigrationContentForm {
+        SchemaVersioningAndMigrationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn migration_tooling(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "migrationTooling")
+    }
+
+    pub fn set_migration_tooling(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "migrationTooling", value);
+    }
+
+    pub fn versioning_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "versioningStrategy")
+    }
+
+    pub fn set_versioning_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "versioningStrategy", value);
+    }
+
+    pub fn forward_only(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "forwardOnly");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_forward_only(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "forwardOnly", &text);
+    }
+
+    pub fn baseline_version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "baselineVersion")
+    }
+
+    pub fn set_baseline_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "baselineVersion", value);
+    }
+
+    pub fn zero_downtime_approach(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "zeroDowntimeApproach")
+    }
+
+    pub fn set_zero_downtime_approach(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "zeroDowntimeApproach", value);
     }
 }
 

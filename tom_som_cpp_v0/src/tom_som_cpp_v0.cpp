@@ -2281,6 +2281,12 @@ ClientAccessibilityRequirementsStandardsForm ClientAccessibilityRequirements::st
   return ClientAccessibilityRequirementsStandardsForm(doc(), som::joinPath(path(), "CARS"));
 }
 
+ClientConfiguration::ClientConfiguration(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ClientConfigurationContentForm ClientConfiguration::content() const {
+  return ClientConfigurationContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 ClientHardwareRequirements::ClientHardwareRequirements(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ClientHardwareRequirementsContentForm ClientHardwareRequirements::content() const {
@@ -2354,6 +2360,9 @@ NativeAppRequirements ClientRequirementsSection::nativeAppRequirements() const {
 }
 ClientSecurityRequirements ClientRequirementsSection::securityRequirements() const {
   return ClientSecurityRequirements(doc(), som::joinPath(path(), "securityRequirements"));
+}
+ClientConfiguration ClientRequirementsSection::clientConfiguration() const {
+  return ClientConfiguration(doc(), som::joinPath(path(), "clientConfiguration"));
 }
 
 ClientSecurityRequirements::ClientSecurityRequirements(som::SpecDocument& doc, std::string path)
@@ -8353,6 +8362,9 @@ BusinessObjectModel InformationAndDataModel::businessObjectModel() const {
 FunctionModel InformationAndDataModel::functionModel() const {
   return FunctionModel(doc(), som::joinPath(path(), "functionModel"));
 }
+SchemaVersioningAndMigration InformationAndDataModel::schemaVersioningAndMigration() const {
+  return SchemaVersioningAndMigration(doc(), som::joinPath(path(), "schemaVersioningAndMigration"));
+}
 
 InformationArchitecture::InformationArchitecture(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -14043,6 +14055,21 @@ ScheduledMaintenancePolicyNoticeForm ScheduledMaintenancePolicy::notice() const 
 }
 ScheduledMaintenancePolicyApprovalForm ScheduledMaintenancePolicy::approval() const {
   return ScheduledMaintenancePolicyApprovalForm(doc(), som::joinPath(path(), "SMPA"));
+}
+
+SchemaMigrationStepEntry::SchemaMigrationStepEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+SchemaMigrationStepEntryContentForm SchemaMigrationStepEntry::content() const {
+  return SchemaMigrationStepEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+SchemaVersioningAndMigration::SchemaVersioningAndMigration(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+SchemaVersioningAndMigrationContentForm SchemaVersioningAndMigration::content() const {
+  return SchemaVersioningAndMigrationContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList SchemaVersioningAndMigration::migrationSteps() const {
+  return som::SomList(doc(), som::joinPath(path(), "SCMST-STEP-LST"), "SCMST-STEP-xxx");
 }
 
 ScopeBoundaries::ScopeBoundaries(som::SpecDocument& doc, std::string path)
@@ -29568,6 +29595,45 @@ std::string ClientAccessibilityRequirementsVisualForm::fontScaling() const {
 }
 void ClientAccessibilityRequirementsVisualForm::setFontScaling(const std::string& value) {
   doc().setFormField(path(), "fontScaling", value);
+}
+
+ClientConfigurationContentForm::ClientConfigurationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ClientConfigurationContentForm::content() const {
+  return doc().content(path());
+}
+void ClientConfigurationContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ClientConfigurationContentForm::apiBaseUrl() const {
+  return doc().formField(path(), "apiBaseUrl");
+}
+void ClientConfigurationContentForm::setApiBaseUrl(const std::string& value) {
+  doc().setFormField(path(), "apiBaseUrl", value);
+}
+std::string ClientConfigurationContentForm::environment() const {
+  return doc().formField(path(), "environment");
+}
+void ClientConfigurationContentForm::setEnvironment(const std::string& value) {
+  doc().setFormField(path(), "environment", value);
+}
+std::string ClientConfigurationContentForm::deviceOptions() const {
+  return doc().formField(path(), "deviceOptions");
+}
+void ClientConfigurationContentForm::setDeviceOptions(const std::string& value) {
+  doc().setFormField(path(), "deviceOptions", value);
+}
+std::string ClientConfigurationContentForm::featureToggles() const {
+  return doc().formField(path(), "featureToggles");
+}
+void ClientConfigurationContentForm::setFeatureToggles(const std::string& value) {
+  doc().setFormField(path(), "featureToggles", value);
+}
+std::string ClientConfigurationContentForm::updateChannel() const {
+  return doc().formField(path(), "updateChannel");
+}
+void ClientConfigurationContentForm::setUpdateChannel(const std::string& value) {
+  doc().setFormField(path(), "updateChannel", value);
 }
 
 ClientHardwareRequirementsContentForm::ClientHardwareRequirementsContentForm(som::SpecDocument& doc, std::string path)
@@ -87437,6 +87503,94 @@ std::string ScheduledMaintenancePolicySchedulingForm::blackoutPeriods() const {
 }
 void ScheduledMaintenancePolicySchedulingForm::setBlackoutPeriods(const std::string& value) {
   doc().setFormField(path(), "blackoutPeriods", value);
+}
+
+SchemaMigrationStepEntryContentForm::SchemaMigrationStepEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SchemaMigrationStepEntryContentForm::content() const {
+  return doc().content(path());
+}
+void SchemaMigrationStepEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SchemaMigrationStepEntryContentForm::version() const {
+  return doc().formField(path(), "version");
+}
+void SchemaMigrationStepEntryContentForm::setVersion(const std::string& value) {
+  doc().setFormField(path(), "version", value);
+}
+std::string SchemaMigrationStepEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void SchemaMigrationStepEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
+std::string SchemaMigrationStepEntryContentForm::ddlOperations() const {
+  return doc().formField(path(), "ddlOperations");
+}
+void SchemaMigrationStepEntryContentForm::setDdlOperations(const std::string& value) {
+  doc().setFormField(path(), "ddlOperations", value);
+}
+std::string SchemaMigrationStepEntryContentForm::affectedEntities() const {
+  return doc().formField(path(), "affectedEntities");
+}
+void SchemaMigrationStepEntryContentForm::setAffectedEntities(const std::string& value) {
+  doc().setFormField(path(), "affectedEntities", value);
+}
+std::string SchemaMigrationStepEntryContentForm::dataBackfill() const {
+  return doc().formField(path(), "dataBackfill");
+}
+void SchemaMigrationStepEntryContentForm::setDataBackfill(const std::string& value) {
+  doc().setFormField(path(), "dataBackfill", value);
+}
+std::optional<bool> SchemaMigrationStepEntryContentForm::reversible() const {
+  const std::string v = doc().formField(path(), "reversible");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void SchemaMigrationStepEntryContentForm::setReversible(std::optional<bool> value) {
+  doc().setFormField(path(), "reversible", value.has_value() ? (*value ? "true" : "false") : "");
+}
+
+SchemaVersioningAndMigrationContentForm::SchemaVersioningAndMigrationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SchemaVersioningAndMigrationContentForm::content() const {
+  return doc().content(path());
+}
+void SchemaVersioningAndMigrationContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SchemaVersioningAndMigrationContentForm::migrationTooling() const {
+  return doc().formField(path(), "migrationTooling");
+}
+void SchemaVersioningAndMigrationContentForm::setMigrationTooling(const std::string& value) {
+  doc().setFormField(path(), "migrationTooling", value);
+}
+std::string SchemaVersioningAndMigrationContentForm::versioningStrategy() const {
+  return doc().formField(path(), "versioningStrategy");
+}
+void SchemaVersioningAndMigrationContentForm::setVersioningStrategy(const std::string& value) {
+  doc().setFormField(path(), "versioningStrategy", value);
+}
+std::optional<bool> SchemaVersioningAndMigrationContentForm::forwardOnly() const {
+  const std::string v = doc().formField(path(), "forwardOnly");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void SchemaVersioningAndMigrationContentForm::setForwardOnly(std::optional<bool> value) {
+  doc().setFormField(path(), "forwardOnly", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string SchemaVersioningAndMigrationContentForm::baselineVersion() const {
+  return doc().formField(path(), "baselineVersion");
+}
+void SchemaVersioningAndMigrationContentForm::setBaselineVersion(const std::string& value) {
+  doc().setFormField(path(), "baselineVersion", value);
+}
+std::string SchemaVersioningAndMigrationContentForm::zeroDowntimeApproach() const {
+  return doc().formField(path(), "zeroDowntimeApproach");
+}
+void SchemaVersioningAndMigrationContentForm::setZeroDowntimeApproach(const std::string& value) {
+  doc().setFormField(path(), "zeroDowntimeApproach", value);
 }
 
 ScopeItemEntryContentForm::ScopeItemEntryContentForm(som::SpecDocument& doc, std::string path)

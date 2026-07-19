@@ -208,6 +208,7 @@ static SomMetaNode **meta_children_channel_integrations(SomStrList *stack, size_
 static SomMetaNode **meta_children_ci_cd_pipeline_configuration(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_ci_cd_pipeline_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_accessibility_requirements(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_client_configuration(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_hardware_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_network_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_requirements_section(SomStrList *stack, size_t *len);
@@ -959,6 +960,8 @@ static SomMetaNode **meta_children_scaling_triggers_and_thresholds(SomStrList *s
 static SomMetaNode **meta_children_scenario_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scenario_step_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scheduled_maintenance_policy(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_schema_migration_step_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_schema_versioning_and_migration(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scope_boundaries(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scope_item_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_action_entry(SomStrList *stack, size_t *len);
@@ -1933,6 +1936,7 @@ static void meta_build_client_accessibility_requirements_visual(SomMetaNode *n);
 static void meta_build_client_accessibility_requirements_motor(SomMetaNode *n);
 static void meta_build_client_accessibility_requirements_cognitive(SomMetaNode *n);
 static void meta_build_client_accessibility_requirements_standards(SomMetaNode *n);
+static void meta_build_client_configuration_content(SomMetaNode *n);
 static void meta_build_client_hardware_requirements_content(SomMetaNode *n);
 static void meta_build_client_hardware_requirements_memory(SomMetaNode *n);
 static void meta_build_client_hardware_requirements_storage(SomMetaNode *n);
@@ -1958,6 +1962,7 @@ static void meta_build_client_requirements_section_accessibility_requirements(So
 static void meta_build_client_requirements_section_pwa_requirements(SomMetaNode *n);
 static void meta_build_client_requirements_section_native_app_requirements(SomMetaNode *n);
 static void meta_build_client_requirements_section_security_requirements(SomMetaNode *n);
+static void meta_build_client_requirements_section_client_configuration(SomMetaNode *n);
 static void meta_build_client_security_requirements_content(SomMetaNode *n);
 static void meta_build_client_security_requirements_authentication(SomMetaNode *n);
 static void meta_build_client_security_requirements_device(SomMetaNode *n);
@@ -3589,6 +3594,7 @@ static void meta_build_information_and_data_model_content(SomMetaNode *n);
 static void meta_build_information_and_data_model_data_model(SomMetaNode *n);
 static void meta_build_information_and_data_model_business_object_model(SomMetaNode *n);
 static void meta_build_information_and_data_model_function_model(SomMetaNode *n);
+static void meta_build_information_and_data_model_schema_versioning_and_migration(SomMetaNode *n);
 static void meta_build_information_architecture_content(SomMetaNode *n);
 static void meta_build_information_architecture_site_map(SomMetaNode *n);
 static void meta_build_information_architecture_content_hierarchy(SomMetaNode *n);
@@ -5237,6 +5243,10 @@ static void meta_build_scheduled_maintenance_policy_scheduling(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_duration(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_notice(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_approval(SomMetaNode *n);
+static void meta_build_schema_migration_step_entry_content(SomMetaNode *n);
+static void meta_build_schema_versioning_and_migration_content(SomMetaNode *n);
+static void meta_build_schema_versioning_and_migration_migration_steps(SomMetaNode *n);
+static void meta_build_schema_versioning_and_migration_migration_steps_elem(SomMetaNode *n);
 static void meta_build_scope_boundaries_content(SomMetaNode *n);
 static void meta_build_scope_boundaries_in_scope_items(SomMetaNode *n);
 static void meta_build_scope_boundaries_in_scope_items_elem(SomMetaNode *n);
@@ -8449,6 +8459,11 @@ static void *meta_nav_factory_scenario_step_entry(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_schema_migration_step_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_schema_migration_step_entry *r = (som_nav_schema_migration_step_entry *)malloc(sizeof(som_nav_schema_migration_step_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_scope_item_entry(const SomMetaTree *tree, const char *path) {
   som_nav_scope_item_entry *r = (som_nav_scope_item_entry *)malloc(sizeof(som_nav_scope_item_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10856,6 +10871,11 @@ static void *meta_id_factory_scenario_entry(const SomMetaTree *tree, const char 
 }
 static void *meta_id_factory_scenario_step_entry(const SomMetaTree *tree, const char *path) {
   som_id_scenario_step_entry *r = (som_id_scenario_step_entry *)malloc(sizeof(som_id_scenario_step_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_schema_migration_step_entry(const SomMetaTree *tree, const char *path) {
+  som_id_schema_migration_step_entry *r = (som_id_schema_migration_step_entry *)malloc(sizeof(som_id_schema_migration_step_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -28052,6 +28072,47 @@ static void meta_build_client_accessibility_requirements_standards(SomMetaNode *
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"WCAG 2.2 — accessible client experience\"],\"connotation\":\"Captures the accessibility conformance standards such as WCAG level and Section 508 the client targets.\"}", NULL);
 }
+static void meta_build_client_configuration_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ClientConfiguration");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("apiBaseUrl");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("API Base URL");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("The server/API endpoint this client install talks to");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("environment");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Environment");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("dev / staging / production for this install");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("deviceOptions");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Device Options");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Machine-specific device/hardware options for this install");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("featureToggles");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Per-Install Feature Toggles");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Client-side toggles applied to this install");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("updateChannel");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Update Channel");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("stable / beta / canary for this install");
+  n->form->fields[4].order = 4;
+}
 static void meta_build_client_hardware_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientHardwareRequirements");
   meta_set(&n->member_name, "content");
@@ -28580,6 +28641,17 @@ static void meta_build_client_requirements_section_security_requirements(SomMeta
   n->serialization_order = 11;
   meta_set(&n->doc_comment, "Client security requirements.");
   meta_set(&n->class_doc_comment, "Client security requirements.");
+}
+static void meta_build_client_requirements_section_client_configuration(SomMetaNode *n) {
+  meta_set(&n->class_name, "ClientConfiguration");
+  meta_set(&n->member_name, "clientConfiguration");
+  meta_set(&n->class_section_id, "CLICON");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ClientConfiguration");
+  n->has_serialization_order = 1;
+  n->serialization_order = 12;
+  meta_set(&n->doc_comment, "Per-machine configuration of a client application (CE-CC).");
+  meta_set(&n->class_doc_comment, "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).");
 }
 static void meta_build_client_security_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientSecurityRequirements");
@@ -69319,6 +69391,17 @@ static void meta_build_information_and_data_model_function_model(SomMetaNode *n)
   meta_set(&n->class_doc_comment, "7.3. Function Model.\n\nBusiness functions, their decomposition, and relationships to data objects.");
   meta_set(&n->maps_to, "D03InformationModel");
 }
+static void meta_build_information_and_data_model_schema_versioning_and_migration(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaVersioningAndMigration");
+  meta_set(&n->member_name, "schemaVersioningAndMigration");
+  meta_set(&n->class_section_id, "SCHMG");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "SchemaVersioningAndMigration");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "7.4. Schema Versioning and Migration.");
+  meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.");
+}
 static void meta_build_information_architecture_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InformationArchitecture");
   meta_set(&n->member_name, "content");
@@ -104472,10 +104555,12 @@ static void meta_build_release_strategy_feature_flags(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("How flags are managed");
   n->form->fields[2].order = 2;
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"CI/CD — continuous delivery pipelines\",\"Twelve-Factor App — cloud-native ops\"],\"connotation\":\"Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.\"}", NULL);
+  n->extra[1].annotation = som_strdup("CodeSpecKind");
+  n->extra[1].args = som_json_parse("{\"kinds\":[\"CodeSpecPart.featureFlag\"],\"note\":\"CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1.\"}", NULL);
 }
 static void meta_build_release_strategy_management(SomMetaNode *n) {
   meta_set(&n->class_name, "ReleaseStrategy");
@@ -114609,6 +114694,119 @@ static void meta_build_scheduled_maintenance_policy_approval(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ITIL 4 — change management\",\"ISO/IEC 20000 — IT service management system\"],\"connotation\":\"Defines who must approve scheduled maintenance and the approval requirements.\"}", NULL);
+}
+static void meta_build_schema_migration_step_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaMigrationStepEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("version");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Version");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("The schema version this step produces (e.g. V7, 2026-07-19-01)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("description");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Description");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("What this migration changes and why");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("ddlOperations");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("DDL Operations");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("affectedEntities");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Affected Entities");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The Data Model entities this step touches");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("dataBackfill");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Data Backfill");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Any data population/transformation done as part of the step, or None");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("reversible");
+  n->form->fields[5].type_name = som_strdup("bool");
+  n->form->fields[5].description = som_strdup("Reversible");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("Whether a down/rollback migration is provided");
+  n->form->fields[5].order = 5;
+}
+static void meta_build_schema_versioning_and_migration_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaVersioningAndMigration");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("migrationTooling");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Migration Tooling");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("versioningStrategy");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Versioning Strategy");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Sequential numbered | Timestamped | Semantic");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("forwardOnly");
+  n->form->fields[2].type_name = som_strdup("bool");
+  n->form->fields[2].description = som_strdup("Forward-Only");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Whether migrations are forward-only (no down migrations)");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("baselineVersion");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Baseline Version");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The initial/baseline schema version migrations build on");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("zeroDowntimeApproach");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Zero-Downtime Approach");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Expand/contract, online DDL, blue-green schema, or None");
+  n->form->fields[4].order = 4;
+}
+static void meta_build_schema_versioning_and_migration_migration_steps(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaVersioningAndMigration");
+  meta_set(&n->member_name, "migrationSteps");
+  meta_set(&n->section_id, "SCMST-STEP-LST");
+  meta_set(&n->section_id_pattern, "SCMST-STEP-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "SchemaMigrationStepEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per versioned schema migration step.");
+  meta_set(&n->doc_comment, "7.4.1. Schema Migration Steps — one entry per versioned migration.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Evolutionary Database Design (Ambler & Sadalage) — database refactoring\"],\"connotation\":\"The ordered schema migration steps that evolve the database over releases.\"}", NULL);
+}
+static void meta_build_schema_versioning_and_migration_migration_steps_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaMigrationStepEntry");
+  meta_set(&n->class_section_id, "SCMST");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "SchemaMigrationStepEntry");
+  meta_set(&n->doc_comment, "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.");
+  meta_set(&n->class_doc_comment, "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.");
 }
 static void meta_build_scope_boundaries_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScopeBoundaries");
@@ -154650,6 +154848,19 @@ static SomMetaNode **meta_children_client_accessibility_requirements(SomStrList 
   return arr;
 }
 
+static SomMetaNode **meta_children_client_configuration(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_client_configuration_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_client_hardware_requirements(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -154755,6 +154966,7 @@ static SomMetaNode **meta_children_client_requirements_section(SomStrList *stack
   meta_push(&arr, len, &cap, meta_cx("PwaRequirements", stack, meta_children_pwa_requirements, meta_build_client_requirements_section_pwa_requirements));
   meta_push(&arr, len, &cap, meta_cx("NativeAppRequirements", stack, meta_children_native_app_requirements, meta_build_client_requirements_section_native_app_requirements));
   meta_push(&arr, len, &cap, meta_cx("ClientSecurityRequirements", stack, meta_children_client_security_requirements, meta_build_client_requirements_section_security_requirements));
+  meta_push(&arr, len, &cap, meta_cx("ClientConfiguration", stack, meta_children_client_configuration, meta_build_client_requirements_section_client_configuration));
   return arr;
 }
 
@@ -163574,6 +163786,7 @@ static SomMetaNode **meta_children_information_and_data_model(SomStrList *stack,
   meta_push(&arr, len, &cap, meta_cx("DataModel", stack, meta_children_data_model, meta_build_information_and_data_model_data_model));
   meta_push(&arr, len, &cap, meta_cx("BusinessObjectModel", stack, meta_children_business_object_model, meta_build_information_and_data_model_business_object_model));
   meta_push(&arr, len, &cap, meta_cx("FunctionModel", stack, meta_children_function_model, meta_build_information_and_data_model_function_model));
+  meta_push(&arr, len, &cap, meta_cx("SchemaVersioningAndMigration", stack, meta_children_schema_versioning_and_migration, meta_build_information_and_data_model_schema_versioning_and_migration));
   return arr;
 }
 
@@ -173532,6 +173745,37 @@ static SomMetaNode **meta_children_scheduled_maintenance_policy(SomStrList *stac
     SomMetaNode *n = som_meta_node_new();
     meta_build_scheduled_maintenance_policy_approval(n);
     meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_schema_migration_step_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_schema_migration_step_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_schema_versioning_and_migration(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_schema_versioning_and_migration_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_schema_versioning_and_migration_migration_steps(ln);
+    ln->element_node = meta_cx("SchemaMigrationStepEntry", stack, meta_children_schema_migration_step_entry, meta_build_schema_versioning_and_migration_migration_steps_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -186265,6 +186509,13 @@ SomMetaRef client_accessibility_requirements_nav_standards(som_nav_client_access
   free(path);
   return out;
 }
+SomMetaRef client_configuration_nav_content(som_nav_client_configuration x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef client_hardware_requirements_nav_content(som_nav_client_hardware_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -186415,6 +186666,13 @@ som_nav_native_app_requirements client_requirements_section_nav_native_app_requi
 som_nav_client_security_requirements client_requirements_section_nav_security_requirements(som_nav_client_requirements_section x) {
   som_nav_client_security_requirements out;
   char *path = spec_path_join(x.ref.path, "securityRequirements");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_client_configuration client_requirements_section_nav_client_configuration(som_nav_client_requirements_section x) {
+  som_nav_client_configuration out;
+  char *path = spec_path_join(x.ref.path, "clientConfiguration");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -196754,6 +197012,13 @@ som_nav_business_object_model information_and_data_model_nav_business_object_mod
 som_nav_function_model information_and_data_model_nav_function_model(som_nav_information_and_data_model x) {
   som_nav_function_model out;
   char *path = spec_path_join(x.ref.path, "functionModel");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_schema_versioning_and_migration information_and_data_model_nav_schema_versioning_and_migration(som_nav_information_and_data_model x) {
+  som_nav_schema_versioning_and_migration out;
+  char *path = spec_path_join(x.ref.path, "schemaVersioningAndMigration");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -207115,6 +207380,27 @@ SomMetaRef scheduled_maintenance_policy_nav_approval(som_nav_scheduled_maintenan
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SMPA");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef schema_migration_step_entry_nav_content(som_nav_schema_migration_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef schema_versioning_and_migration_nav_content(som_nav_schema_versioning_and_migration x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef schema_versioning_and_migration_nav_migration_steps(som_nav_schema_versioning_and_migration x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCMST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_schema_migration_step_entry);
   free(path);
   return out;
 }
@@ -219835,6 +220121,13 @@ SomListMetaRef d00_solution_blueprint_id_biru_busi_lst(som_id_d00_solution_bluep
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "informationAndDataModel/functionModel/BIRU-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_business_rule_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_scmst_step_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_schema_migration_step_entry);
   free(path);
   return out;
 }

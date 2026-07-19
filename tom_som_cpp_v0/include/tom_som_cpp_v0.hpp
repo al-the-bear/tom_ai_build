@@ -162,6 +162,7 @@ class ChannelIntegrations;
 class CiCdPipelineConfiguration;
 class CiCdPipelineRequirements;
 class ClientAccessibilityRequirements;
+class ClientConfiguration;
 class ClientHardwareRequirements;
 class ClientNetworkRequirements;
 class ClientRequirementsSection;
@@ -913,6 +914,8 @@ class ScalingTriggersAndThresholds;
 class ScenarioEntry;
 class ScenarioStepEntry;
 class ScheduledMaintenancePolicy;
+class SchemaMigrationStepEntry;
+class SchemaVersioningAndMigration;
 class ScopeBoundaries;
 class ScopeItemEntry;
 class ScreenActionEntry;
@@ -1534,6 +1537,7 @@ class ClientAccessibilityRequirementsContentForm;
 class ClientAccessibilityRequirementsMotorForm;
 class ClientAccessibilityRequirementsStandardsForm;
 class ClientAccessibilityRequirementsVisualForm;
+class ClientConfigurationContentForm;
 class ClientHardwareRequirementsContentForm;
 class ClientHardwareRequirementsGraphicsForm;
 class ClientHardwareRequirementsMemoryForm;
@@ -3201,6 +3205,8 @@ class ScheduledMaintenancePolicyContentForm;
 class ScheduledMaintenancePolicyDurationForm;
 class ScheduledMaintenancePolicyNoticeForm;
 class ScheduledMaintenancePolicySchedulingForm;
+class SchemaMigrationStepEntryContentForm;
+class SchemaVersioningAndMigrationContentForm;
 class ScopeItemEntryContentForm;
 class ScreenActionEntryBehaviorForm;
 class ScreenActionEntryConditionsForm;
@@ -6392,6 +6398,19 @@ class ClientAccessibilityRequirements : public som::SomNode {
   ClientAccessibilityRequirementsStandardsForm standards() const;
 };
 
+// Client configuration — per-machine settings of a client application (CE-CC).
+//
+// Distinct from server/system configuration ([SystemConfigurationManagement],
+// CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+// specific *install* of a client app on a *specific machine* carries, keyed by
+// the (client app, machine) pair. Two installs of the same client on two
+// machines have independent client configuration (`codespecs_mapping.md` §11).
+class ClientConfiguration : public som::SomNode {
+ public:
+  ClientConfiguration(som::SpecDocument& doc, std::string path);
+  ClientConfigurationContentForm content() const;
+};
+
 // Client hardware requirements.
 class ClientHardwareRequirements : public som::SomNode {
  public:
@@ -6456,6 +6475,8 @@ class ClientRequirementsSection : public som::SomNode {
   NativeAppRequirements nativeAppRequirements() const;
   // Client security requirements.
   ClientSecurityRequirements securityRequirements() const;
+  // Per-machine configuration of a client application (CE-CC).
+  ClientConfiguration clientConfiguration() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -12730,6 +12751,8 @@ class InformationAndDataModel : public som::SomNode {
   BusinessObjectModel businessObjectModel() const;
   // 7.3. Function Model.
   FunctionModel functionModel() const;
+  // 7.4. Schema Versioning and Migration.
+  SchemaVersioningAndMigration schemaVersioningAndMigration() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -19102,6 +19125,33 @@ class ScheduledMaintenancePolicy : public som::SomNode {
   ScheduledMaintenancePolicyNoticeForm notice() const;
   // Approval requirements.
   ScheduledMaintenancePolicyApprovalForm approval() const;
+};
+
+// A single schema migration step (form).
+//
+// One versioned change to the database schema — the DDL operations it applies,
+// the entities it touches, whether it is reversible, and any data backfill it
+// performs as part of the schema change.
+class SchemaMigrationStepEntry : public som::SomNode {
+ public:
+  SchemaMigrationStepEntry(som::SpecDocument& doc, std::string path);
+  SchemaMigrationStepEntryContentForm content() const;
+};
+
+// 7.4. Schema Versioning and Migration.
+//
+// Records how the database schema is *versioned and migrated* as the data
+// model evolves — the ordered DDL / migration steps and the tooling and
+// policy that govern them. This is distinct from business-data migration
+// between systems (see `MigrationMappingEntry` for old→new field mapping):
+// here the subject is the schema's own evolution over releases.
+class SchemaVersioningAndMigration : public som::SomNode {
+ public:
+  SchemaVersioningAndMigration(som::SpecDocument& doc, std::string path);
+  SchemaVersioningAndMigrationContentForm content() const;
+  // 7.4.1. Schema Migration Steps — one entry per versioned migration.
+  // Returns the list view; element type: SchemaMigrationStepEntry (construct from item paths).
+  som::SomList migrationSteps() const;
 };
 
 // 4.1.1.6. Scope Boundaries.
@@ -30100,6 +30150,26 @@ class ClientAccessibilityRequirementsVisualForm : public som::SomNode {
   void setZoomSupport(const std::string& value);
   std::string fontScaling() const;
   void setFontScaling(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ClientConfigurationContentForm : public som::SomNode {
+ public:
+  ClientConfigurationContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string apiBaseUrl() const;
+  void setApiBaseUrl(const std::string& value);
+  std::string environment() const;
+  void setEnvironment(const std::string& value);
+  std::string deviceOptions() const;
+  void setDeviceOptions(const std::string& value);
+  std::string featureToggles() const;
+  void setFeatureToggles(const std::string& value);
+  std::string updateChannel() const;
+  void setUpdateChannel(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -60756,6 +60826,48 @@ class ScheduledMaintenancePolicySchedulingForm : public som::SomNode {
   void setMaxFrequency(const std::string& value);
   std::string blackoutPeriods() const;
   void setBlackoutPeriods(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SchemaMigrationStepEntryContentForm : public som::SomNode {
+ public:
+  SchemaMigrationStepEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string version() const;
+  void setVersion(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string ddlOperations() const;
+  void setDdlOperations(const std::string& value);
+  std::string affectedEntities() const;
+  void setAffectedEntities(const std::string& value);
+  std::string dataBackfill() const;
+  void setDataBackfill(const std::string& value);
+  std::optional<bool> reversible() const;
+  void setReversible(std::optional<bool> value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SchemaVersioningAndMigrationContentForm : public som::SomNode {
+ public:
+  SchemaVersioningAndMigrationContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string migrationTooling() const;
+  void setMigrationTooling(const std::string& value);
+  std::string versioningStrategy() const;
+  void setVersioningStrategy(const std::string& value);
+  std::optional<bool> forwardOnly() const;
+  void setForwardOnly(std::optional<bool> value);
+  std::string baselineVersion() const;
+  void setBaselineVersion(const std::string& value);
+  std::string zeroDowntimeApproach() const;
+  void setZeroDowntimeApproach(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

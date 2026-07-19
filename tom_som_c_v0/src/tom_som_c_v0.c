@@ -5798,6 +5798,24 @@ ClientAccessibilityRequirementsStandardsForm client_accessibility_requirements_s
   return out;
 }
 
+void client_configuration_init(ClientConfiguration *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void client_configuration_free(ClientConfiguration *self) {
+  som_node_free(&self->node);
+}
+int client_configuration_can_have_content(const ClientConfiguration *self) {
+  (void)self;
+  return 0;
+}
+ClientConfigurationContentForm client_configuration_content(const ClientConfiguration *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ClientConfigurationContentForm out;
+  client_configuration_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void client_hardware_requirements_init(ClientHardwareRequirements *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -5979,6 +5997,13 @@ ClientSecurityRequirements client_requirements_section_security_requirements(con
   char *path = spec_path_join(self->node.path, "securityRequirements");
   ClientSecurityRequirements out;
   client_security_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ClientConfiguration client_requirements_section_client_configuration(const ClientRequirementsSection *self) {
+  char *path = spec_path_join(self->node.path, "clientConfiguration");
+  ClientConfiguration out;
+  client_configuration_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -20691,6 +20716,13 @@ FunctionModel information_and_data_model_function_model(const InformationAndData
   free(path);
   return out;
 }
+SchemaVersioningAndMigration information_and_data_model_schema_versioning_and_migration(const InformationAndDataModel *self) {
+  char *path = spec_path_join(self->node.path, "schemaVersioningAndMigration");
+  SchemaVersioningAndMigration out;
+  schema_versioning_and_migration_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 void information_architecture_init(InformationArchitecture *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -35359,6 +35391,49 @@ ScheduledMaintenancePolicyApprovalForm scheduled_maintenance_policy_approval(con
   char *path = spec_path_join(self->node.path, "SMPA");
   ScheduledMaintenancePolicyApprovalForm out;
   scheduled_maintenance_policy_approval_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void schema_migration_step_entry_init(SchemaMigrationStepEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void schema_migration_step_entry_free(SchemaMigrationStepEntry *self) {
+  som_node_free(&self->node);
+}
+int schema_migration_step_entry_can_have_content(const SchemaMigrationStepEntry *self) {
+  (void)self;
+  return 0;
+}
+SchemaMigrationStepEntryContentForm schema_migration_step_entry_content(const SchemaMigrationStepEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  SchemaMigrationStepEntryContentForm out;
+  schema_migration_step_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void schema_versioning_and_migration_init(SchemaVersioningAndMigration *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void schema_versioning_and_migration_free(SchemaVersioningAndMigration *self) {
+  som_node_free(&self->node);
+}
+int schema_versioning_and_migration_can_have_content(const SchemaVersioningAndMigration *self) {
+  (void)self;
+  return 0;
+}
+SchemaVersioningAndMigrationContentForm schema_versioning_and_migration_content(const SchemaVersioningAndMigration *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  SchemaVersioningAndMigrationContentForm out;
+  schema_versioning_and_migration_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList schema_versioning_and_migration_migration_steps(const SchemaVersioningAndMigration *self) {
+  char *path = spec_path_join(self->node.path, "SCMST-STEP-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SCMST-STEP-xxx");
   free(path);
   return out;
 }
@@ -60856,6 +60931,55 @@ char *client_accessibility_requirements_visual_form_font_scaling(const ClientAcc
 }
 void client_accessibility_requirements_visual_form_set_font_scaling(ClientAccessibilityRequirementsVisualForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "fontScaling", value);
+}
+
+void client_configuration_content_form_init(ClientConfigurationContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void client_configuration_content_form_free(ClientConfigurationContentForm *self) {
+  som_node_free(&self->node);
+}
+char *client_configuration_content_form_content(const ClientConfigurationContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void client_configuration_content_form_set_content(ClientConfigurationContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *client_configuration_content_form_api_base_url(const ClientConfigurationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "apiBaseUrl");
+  return som_strdup(v != NULL ? v : "");
+}
+void client_configuration_content_form_set_api_base_url(ClientConfigurationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "apiBaseUrl", value);
+}
+char *client_configuration_content_form_environment(const ClientConfigurationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "environment");
+  return som_strdup(v != NULL ? v : "");
+}
+void client_configuration_content_form_set_environment(ClientConfigurationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "environment", value);
+}
+char *client_configuration_content_form_device_options(const ClientConfigurationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "deviceOptions");
+  return som_strdup(v != NULL ? v : "");
+}
+void client_configuration_content_form_set_device_options(ClientConfigurationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "deviceOptions", value);
+}
+char *client_configuration_content_form_feature_toggles(const ClientConfigurationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureToggles");
+  return som_strdup(v != NULL ? v : "");
+}
+void client_configuration_content_form_set_feature_toggles(ClientConfigurationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "featureToggles", value);
+}
+char *client_configuration_content_form_update_channel(const ClientConfigurationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "updateChannel");
+  return som_strdup(v != NULL ? v : "");
+}
+void client_configuration_content_form_set_update_channel(ClientConfigurationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "updateChannel", value);
 }
 
 void client_hardware_requirements_content_form_init(ClientHardwareRequirementsContentForm *self, SpecDocument *doc, const char *path) {
@@ -133451,6 +133575,111 @@ char *scheduled_maintenance_policy_scheduling_form_blackout_periods(const Schedu
 }
 void scheduled_maintenance_policy_scheduling_form_set_blackout_periods(ScheduledMaintenancePolicySchedulingForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "blackoutPeriods", value);
+}
+
+void schema_migration_step_entry_content_form_init(SchemaMigrationStepEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void schema_migration_step_entry_content_form_free(SchemaMigrationStepEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *schema_migration_step_entry_content_form_content(const SchemaMigrationStepEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_migration_step_entry_content_form_set_content(SchemaMigrationStepEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *schema_migration_step_entry_content_form_version(const SchemaMigrationStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "version");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_migration_step_entry_content_form_set_version(SchemaMigrationStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "version", value);
+}
+char *schema_migration_step_entry_content_form_description(const SchemaMigrationStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_migration_step_entry_content_form_set_description(SchemaMigrationStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
+}
+char *schema_migration_step_entry_content_form_ddl_operations(const SchemaMigrationStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ddlOperations");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_migration_step_entry_content_form_set_ddl_operations(SchemaMigrationStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ddlOperations", value);
+}
+char *schema_migration_step_entry_content_form_affected_entities(const SchemaMigrationStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "affectedEntities");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_migration_step_entry_content_form_set_affected_entities(SchemaMigrationStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "affectedEntities", value);
+}
+char *schema_migration_step_entry_content_form_data_backfill(const SchemaMigrationStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataBackfill");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_migration_step_entry_content_form_set_data_backfill(SchemaMigrationStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "dataBackfill", value);
+}
+bool schema_migration_step_entry_content_form_reversible(const SchemaMigrationStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "reversible");
+  return v != NULL && strcmp(v, "true") == 0;
+}
+void schema_migration_step_entry_content_form_set_reversible(SchemaMigrationStepEntryContentForm *self, bool value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "reversible", value ? "true" : "false");
+}
+
+void schema_versioning_and_migration_content_form_init(SchemaVersioningAndMigrationContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void schema_versioning_and_migration_content_form_free(SchemaVersioningAndMigrationContentForm *self) {
+  som_node_free(&self->node);
+}
+char *schema_versioning_and_migration_content_form_content(const SchemaVersioningAndMigrationContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_versioning_and_migration_content_form_set_content(SchemaVersioningAndMigrationContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *schema_versioning_and_migration_content_form_migration_tooling(const SchemaVersioningAndMigrationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "migrationTooling");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_versioning_and_migration_content_form_set_migration_tooling(SchemaVersioningAndMigrationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "migrationTooling", value);
+}
+char *schema_versioning_and_migration_content_form_versioning_strategy(const SchemaVersioningAndMigrationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "versioningStrategy");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_versioning_and_migration_content_form_set_versioning_strategy(SchemaVersioningAndMigrationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "versioningStrategy", value);
+}
+bool schema_versioning_and_migration_content_form_forward_only(const SchemaVersioningAndMigrationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "forwardOnly");
+  return v != NULL && strcmp(v, "true") == 0;
+}
+void schema_versioning_and_migration_content_form_set_forward_only(SchemaVersioningAndMigrationContentForm *self, bool value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "forwardOnly", value ? "true" : "false");
+}
+char *schema_versioning_and_migration_content_form_baseline_version(const SchemaVersioningAndMigrationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "baselineVersion");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_versioning_and_migration_content_form_set_baseline_version(SchemaVersioningAndMigrationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "baselineVersion", value);
+}
+char *schema_versioning_and_migration_content_form_zero_downtime_approach(const SchemaVersioningAndMigrationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "zeroDowntimeApproach");
+  return som_strdup(v != NULL ? v : "");
+}
+void schema_versioning_and_migration_content_form_set_zero_downtime_approach(SchemaVersioningAndMigrationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "zeroDowntimeApproach", value);
 }
 
 void scope_item_entry_content_form_init(ScopeItemEntryContentForm *self, SpecDocument *doc, const char *path) {

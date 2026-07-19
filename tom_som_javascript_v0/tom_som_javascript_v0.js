@@ -4590,6 +4590,23 @@ class ClientAccessibilityRequirements extends SomNode {
   }
 }
 
+// Client configuration — per-machine settings of a client application (CE-CC).
+//
+// Distinct from server/system configuration ([SystemConfigurationManagement],
+// CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+// specific *install* of a client app on a *specific machine* carries, keyed by
+// the (client app, machine) pair. Two installs of the same client on two
+// machines have independent client configuration (`codespecs_mapping.md` §11).
+class ClientConfiguration extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ClientConfigurationContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Client hardware requirements.
 class ClientHardwareRequirements extends SomNode {
   constructor(doc, path) {
@@ -4726,6 +4743,11 @@ class ClientRequirementsSection extends SomNode {
   // Client security requirements.
   get securityRequirements() {
     return new ClientSecurityRequirements(this.doc, this.path + "/securityRequirements");
+  }
+
+  // Per-machine configuration of a client application (CE-CC).
+  get clientConfiguration() {
+    return new ClientConfiguration(this.doc, this.path + "/clientConfiguration");
   }
 }
 
@@ -16180,6 +16202,11 @@ class InformationAndDataModel extends SomNode {
   get functionModel() {
     return new FunctionModel(this.doc, this.path + "/functionModel");
   }
+
+  // 7.4. Schema Versioning and Migration.
+  get schemaVersioningAndMigration() {
+    return new SchemaVersioningAndMigration(this.doc, this.path + "/schemaVersioningAndMigration");
+  }
 }
 
 // 10.2.2. Information Architecture.
@@ -27577,6 +27604,43 @@ class ScheduledMaintenancePolicy extends SomNode {
   // Approval requirements.
   get approval() {
     return new ScheduledMaintenancePolicyApprovalForm(this.doc, this.path + "/SMPA");
+  }
+}
+
+// A single schema migration step (form).
+//
+// One versioned change to the database schema — the DDL operations it applies,
+// the entities it touches, whether it is reversible, and any data backfill it
+// performs as part of the schema change.
+class SchemaMigrationStepEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SchemaMigrationStepEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 7.4. Schema Versioning and Migration.
+//
+// Records how the database schema is *versioned and migrated* as the data
+// model evolves — the ordered DDL / migration steps and the tooling and
+// policy that govern them. This is distinct from business-data migration
+// between systems (see `MigrationMappingEntry` for old→new field mapping):
+// here the subject is the schema's own evolution over releases.
+class SchemaVersioningAndMigration extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SchemaVersioningAndMigrationContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.4.1. Schema Migration Steps — one entry per versioned migration.
+  get migrationSteps() {
+    return new SomList(this.doc, this.path + "/SCMST-STEP-LST", (d, p) => new SchemaMigrationStepEntry(d, p), "SCMST-STEP-xxx");
   }
 }
 
@@ -53492,6 +53556,65 @@ class ClientAccessibilityRequirementsVisualForm extends SomNode {
 
   set fontScaling(value) {
     this.doc.setFormField(this.path, "fontScaling", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class ClientConfigurationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get apiBaseUrl() {
+    return this.doc.formField(this.path, "apiBaseUrl") || '';
+  }
+
+  set apiBaseUrl(value) {
+    this.doc.setFormField(this.path, "apiBaseUrl", value);
+  }
+
+  get environment() {
+    return this.doc.formField(this.path, "environment") || '';
+  }
+
+  set environment(value) {
+    this.doc.setFormField(this.path, "environment", value);
+  }
+
+  get deviceOptions() {
+    return this.doc.formField(this.path, "deviceOptions") || '';
+  }
+
+  set deviceOptions(value) {
+    this.doc.setFormField(this.path, "deviceOptions", value);
+  }
+
+  get featureToggles() {
+    return this.doc.formField(this.path, "featureToggles") || '';
+  }
+
+  set featureToggles(value) {
+    this.doc.setFormField(this.path, "featureToggles", value);
+  }
+
+  get updateChannel() {
+    return this.doc.formField(this.path, "updateChannel") || '';
+  }
+
+  set updateChannel(value) {
+    this.doc.setFormField(this.path, "updateChannel", value);
   }
 }
 
@@ -141567,6 +141690,134 @@ class ScheduledMaintenancePolicySchedulingForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class SchemaMigrationStepEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get version() {
+    return this.doc.formField(this.path, "version") || '';
+  }
+
+  set version(value) {
+    this.doc.setFormField(this.path, "version", value);
+  }
+
+  get description() {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get ddlOperations() {
+    return this.doc.formField(this.path, "ddlOperations") || '';
+  }
+
+  set ddlOperations(value) {
+    this.doc.setFormField(this.path, "ddlOperations", value);
+  }
+
+  get affectedEntities() {
+    return this.doc.formField(this.path, "affectedEntities") || '';
+  }
+
+  set affectedEntities(value) {
+    this.doc.setFormField(this.path, "affectedEntities", value);
+  }
+
+  get dataBackfill() {
+    return this.doc.formField(this.path, "dataBackfill") || '';
+  }
+
+  set dataBackfill(value) {
+    this.doc.setFormField(this.path, "dataBackfill", value);
+  }
+
+  get reversible() {
+    const v = this.doc.formField(this.path, "reversible");
+    return v == null ? null : v === 'true';
+  }
+
+  set reversible(value) {
+    this.doc.setFormField(this.path, "reversible", value == null ? '' : (value ? 'true' : 'false'));
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class SchemaVersioningAndMigrationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get migrationTooling() {
+    return this.doc.formField(this.path, "migrationTooling") || '';
+  }
+
+  set migrationTooling(value) {
+    this.doc.setFormField(this.path, "migrationTooling", value);
+  }
+
+  get versioningStrategy() {
+    return this.doc.formField(this.path, "versioningStrategy") || '';
+  }
+
+  set versioningStrategy(value) {
+    this.doc.setFormField(this.path, "versioningStrategy", value);
+  }
+
+  get forwardOnly() {
+    const v = this.doc.formField(this.path, "forwardOnly");
+    return v == null ? null : v === 'true';
+  }
+
+  set forwardOnly(value) {
+    this.doc.setFormField(this.path, "forwardOnly", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get baselineVersion() {
+    return this.doc.formField(this.path, "baselineVersion") || '';
+  }
+
+  set baselineVersion(value) {
+    this.doc.setFormField(this.path, "baselineVersion", value);
+  }
+
+  get zeroDowntimeApproach() {
+    return this.doc.formField(this.path, "zeroDowntimeApproach") || '';
+  }
+
+  set zeroDowntimeApproach(value) {
+    this.doc.setFormField(this.path, "zeroDowntimeApproach", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class ScopeItemEntryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -178263,6 +178514,7 @@ module.exports = {
   CiCdPipelineConfiguration,
   CiCdPipelineRequirements,
   ClientAccessibilityRequirements,
+  ClientConfiguration,
   ClientHardwareRequirements,
   ClientNetworkRequirements,
   ClientRequirementsSection,
@@ -179014,6 +179266,8 @@ module.exports = {
   ScenarioEntry,
   ScenarioStepEntry,
   ScheduledMaintenancePolicy,
+  SchemaMigrationStepEntry,
+  SchemaVersioningAndMigration,
   ScopeBoundaries,
   ScopeItemEntry,
   ScreenActionEntry,
@@ -179635,6 +179889,7 @@ module.exports = {
   ClientAccessibilityRequirementsMotorForm,
   ClientAccessibilityRequirementsStandardsForm,
   ClientAccessibilityRequirementsVisualForm,
+  ClientConfigurationContentForm,
   ClientHardwareRequirementsContentForm,
   ClientHardwareRequirementsGraphicsForm,
   ClientHardwareRequirementsMemoryForm,
@@ -181302,6 +181557,8 @@ module.exports = {
   ScheduledMaintenancePolicyDurationForm,
   ScheduledMaintenancePolicyNoticeForm,
   ScheduledMaintenancePolicySchedulingForm,
+  SchemaMigrationStepEntryContentForm,
+  SchemaVersioningAndMigrationContentForm,
   ScopeItemEntryContentForm,
   ScreenActionEntryBehaviorForm,
   ScreenActionEntryConditionsForm,

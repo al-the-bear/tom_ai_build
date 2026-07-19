@@ -2821,6 +2821,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: List items explicitly excluded. This is as important as in-scope items to prevent misunderstandings and scope creep.
+  scmst-step-lst:
+    prefix: SCMST_STEP_LST
+    subsection-types:
+      scmst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per versioned schema migration step.
   scnry-scen-lst:
     prefix: SCNRY_SCEN_LST
     subsection-types:
@@ -8220,6 +8228,12 @@ section-types:
       pattern: ^SCITE-OUTO-.+$
       error-message: IDs of this section must match SCITE-OUTO-xxx
     description: List items explicitly excluded. This is as important as in-scope items to prevent misunderstandings and scope creep.
+  scmst-step:
+    prefix: SCMST_STEP_
+    pattern-check-id:
+      pattern: ^SCMST-STEP-.+$
+      error-message: IDs of this section must match SCMST-STEP-xxx
+    description: Add one entry per versioned schema migration step.
   scnry-scen:
     prefix: SCNRY_SCEN_
     subsection-types:
@@ -12109,6 +12123,9 @@ section-types:
       chrp:
         max-count: 1
     description: Client hardware requirements.
+  clicon:
+    prefix: CLICON
+    description: Per-machine configuration of a client application (CE-CC).
   clnere:
     prefix: CLNERE
     subsection-types:
@@ -12155,6 +12172,8 @@ section-types:
       naapre:
         max-count: 1
       clsere:
+        max-count: 1
+      clicon:
         max-count: 1
     description: |
       Specify client device requirements including browsers, operating systems,
@@ -17856,6 +17875,12 @@ section-types:
     prefix: SCETR
     format: scetr-form
     description: Traceability metadata.
+  schmg:
+    prefix: SCHMG
+    subsection-types:
+      scmst-step-lst:
+        max-count: 1
+    description: 7.4. Schema Versioning and Migration.
   scrdz:
     prefix: SCRDZ
     subsection-types:
@@ -21239,6 +21264,8 @@ section-types:
       bjomd:
         max-count: 1
       fumo:
+        max-count: 1
+      schmg:
         max-count: 1
     description: "SBP.8 Information & Data Model. Seeds → IFM."
   ingo:

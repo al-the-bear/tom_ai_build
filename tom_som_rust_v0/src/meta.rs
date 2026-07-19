@@ -2195,6 +2195,12 @@ fn meta_children_client_accessibility_requirements(_s: &mut HashSet<String>) -> 
     ]
 }
 
+fn meta_children_client_configuration(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ClientConfiguration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "apiBaseUrl".to_string(), type_name: "String".to_string(), description: "API Base URL".to_string(), required: false, hint: "The server/API endpoint this client install talks to".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "environment".to_string(), type_name: "String".to_string(), description: "Environment".to_string(), required: false, hint: "dev / staging / production for this install".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "deviceOptions".to_string(), type_name: "String".to_string(), description: "Device Options".to_string(), required: false, hint: "Machine-specific device/hardware options for this install".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "featureToggles".to_string(), type_name: "String".to_string(), description: "Per-Install Feature Toggles".to_string(), required: false, hint: "Client-side toggles applied to this install".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "updateChannel".to_string(), type_name: "String".to_string(), description: "Update Channel".to_string(), required: false, hint: "stable / beta / canary for this install".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_client_hardware_requirements(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ClientHardwareRequirements".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "minCpuCores".to_string(), type_name: "String".to_string(), description: "Minimum CPU Cores".to_string(), required: false, hint: "Minimum CPU cores".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "recommendedCpuCores".to_string(), type_name: "String".to_string(), description: "Recommended CPU Cores".to_string(), required: false, hint: "Recommended CPU cores".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "cpuArchitecture".to_string(), type_name: "String".to_string(), description: "CPU Architecture".to_string(), required: false, hint: "x64, ARM, Universal".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "minCpuSpeed".to_string(), type_name: "String".to_string(), description: "Minimum CPU Speed".to_string(), required: false, hint: "Minimum clock speed".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -2269,6 +2275,10 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
         }),
         meta_cx("ClientSecurityRequirements", s, meta_children_client_security_requirements, |r, c| som::SomMetaNode {
             class_name: "ClientSecurityRequirements".to_string(), member_name: "securityRequirements".to_string(), class_section_id: "CLSERE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientSecurityRequirements".to_string(), serialization_order: Some(11), doc_comment: "Client security requirements.".to_string(), class_doc_comment: "Client security requirements.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ClientConfiguration", s, meta_children_client_configuration, |r, c| som::SomMetaNode {
+            class_name: "ClientConfiguration".to_string(), member_name: "clientConfiguration".to_string(), class_section_id: "CLICON".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientConfiguration".to_string(), serialization_order: Some(12), doc_comment: "Per-machine configuration of a client application (CE-CC).".to_string(), class_doc_comment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -7553,6 +7563,10 @@ fn meta_children_information_and_data_model(s: &mut HashSet<String>) -> Vec<Rc<s
             class_name: "FunctionModel".to_string(), member_name: "functionModel".to_string(), class_section_id: "FUMO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FunctionModel".to_string(), serialization_order: Some(3), doc_comment: "7.3. Function Model.".to_string(), class_doc_comment: "7.3. Function Model.\n\nBusiness functions, their decomposition, and relationships to data objects.".to_string(), maps_to: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("SchemaVersioningAndMigration", s, meta_children_schema_versioning_and_migration, |r, c| som::SomMetaNode {
+            class_name: "SchemaVersioningAndMigration".to_string(), member_name: "schemaVersioningAndMigration".to_string(), class_section_id: "SCHMG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaVersioningAndMigration".to_string(), serialization_order: Some(4), doc_comment: "7.4. Schema Versioning and Migration.".to_string(), class_doc_comment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
     ]
 }
 
@@ -11718,7 +11732,7 @@ fn meta_children_release_strategy(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
         Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "releaseMethodology".to_string(), type_name: "String".to_string(), description: "Release Methodology".to_string(), required: false, hint: "Blue-green, Canary, Rolling, A/B".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "releaseFrequency".to_string(), type_name: "String".to_string(), description: "Release Frequency".to_string(), required: false, hint: "Daily, Weekly, Bi-weekly".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "releaseSchedule".to_string(), type_name: "String".to_string(), description: "Release Schedule".to_string(), required: false, hint: "When releases occur".to_string(), order: 2, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "blueGreen".to_string(), section_id: "RSBG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Blue-green deployment configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "releaseWindow".to_string(), type_name: "String".to_string(), description: "Release Window".to_string(), required: false, hint: "Allowed deployment times".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "blueGreenEnabled".to_string(), type_name: "bool".to_string(), description: "Blue-Green Enabled".to_string(), required: false, hint: "Uses blue-green deployment".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "trafficSwitching".to_string(), type_name: "String".to_string(), description: "Traffic Switching".to_string(), required: false, hint: "How traffic is switched".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "warmupPeriod".to_string(), type_name: "String".to_string(), description: "Warmup Period".to_string(), required: false, hint: "New version warmup time".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "greenRetention".to_string(), type_name: "String".to_string(), description: "Green Retention".to_string(), required: false, hint: "How long to keep old version".to_string(), order: 4, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous delivery pipelines".to_string()), som::Json::Str("Google SRE — site reliability engineering".to_string())])), ("connotation".to_string(), som::Json::Str("Defines blue-green deployment: traffic switching, warmup period, and retention of the old (green) version for fast switch-back.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "canary".to_string(), section_id: "RESTCA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Canary deployment configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "canaryEnabled".to_string(), type_name: "bool".to_string(), description: "Canary Enabled".to_string(), required: false, hint: "Uses canary deployment".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "canaryPercentage".to_string(), type_name: "String".to_string(), description: "Canary Percentage".to_string(), required: false, hint: "Initial canary traffic %".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "canaryRampUpSteps".to_string(), type_name: "String".to_string(), description: "Canary Ramp-Up Steps".to_string(), required: false, hint: "Percentage ramp-up steps".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "canaryMetrics".to_string(), type_name: "String".to_string(), description: "Canary Metrics".to_string(), required: false, hint: "Metrics for canary health".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "canaryDuration".to_string(), type_name: "String".to_string(), description: "Canary Duration".to_string(), required: false, hint: "Time at each step".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "autoRollbackCriteria".to_string(), type_name: "String".to_string(), description: "Auto-Rollback Criteria".to_string(), required: false, hint: "When to auto-rollback canary".to_string(), order: 5, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous delivery pipelines".to_string()), som::Json::Str("Google SRE — site reliability engineering".to_string())])), ("connotation".to_string(), som::Json::Str("Defines canary deployment: initial traffic percentage, ramp-up steps, health metrics, and auto-rollback criteria.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "featureFlags".to_string(), section_id: "RSFF".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Feature flags configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "featureFlagsEnabled".to_string(), type_name: "bool".to_string(), description: "Feature Flags Enabled".to_string(), required: false, hint: "Uses feature flags".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "featureFlagProvider".to_string(), type_name: "String".to_string(), description: "Feature Flag Provider".to_string(), required: false, hint: "LaunchDarkly, Flagsmith, custom".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "flagStrategy".to_string(), type_name: "String".to_string(), description: "Flag Strategy".to_string(), required: false, hint: "How flags are managed".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous delivery pipelines".to_string()), som::Json::Str("Twelve-Factor App — cloud-native ops".to_string())])), ("connotation".to_string(), som::Json::Str("Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "featureFlags".to_string(), section_id: "RSFF".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Feature flags configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "featureFlagsEnabled".to_string(), type_name: "bool".to_string(), description: "Feature Flags Enabled".to_string(), required: false, hint: "Uses feature flags".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "featureFlagProvider".to_string(), type_name: "String".to_string(), description: "Feature Flag Provider".to_string(), required: false, hint: "LaunchDarkly, Flagsmith, custom".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "flagStrategy".to_string(), type_name: "String".to_string(), description: "Flag Strategy".to_string(), required: false, hint: "How flags are managed".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous delivery pipelines".to_string()), som::Json::Str("Twelve-Factor App — cloud-native ops".to_string())])), ("connotation".to_string(), som::Json::Str("Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.".to_string()))] }, som::SomMetaExtra { annotation: "CodeSpecKind".to_string(), args: vec![("kinds".to_string(), som::Json::Array(vec![som::Json::Str("CodeSpecPart.featureFlag".to_string())])), ("note".to_string(), som::Json::Str("CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "management".to_string(), section_id: "RESTMA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Release management.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "releaseNotes".to_string(), type_name: "String".to_string(), description: "Release Notes".to_string(), required: false, hint: "Release notes process".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "changelogGeneration".to_string(), type_name: "String".to_string(), description: "Changelog Generation".to_string(), required: false, hint: "Auto or manual changelog".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "releaseApproval".to_string(), type_name: "String".to_string(), description: "Release Approval".to_string(), required: false, hint: "Who approves releases".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional release notes".to_string(), order: 3, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — IT service management".to_string()), som::Json::Str("CI/CD — continuous delivery pipelines".to_string())])), ("connotation".to_string(), som::Json::Str("Defines release management practices: release notes, changelog generation, and release approval.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
@@ -12848,6 +12862,26 @@ fn meta_children_scheduled_maintenance_policy(_s: &mut HashSet<String>) -> Vec<R
         Rc::new(som::SomMetaNode { class_name: "ScheduledMaintenancePolicy".to_string(), member_name: "duration".to_string(), section_id: "SMPD".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Duration constraints.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "maxDuration".to_string(), type_name: "String".to_string(), description: "Maximum Duration".to_string(), required: false, hint: "Max window duration".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "typicalDuration".to_string(), type_name: "String".to_string(), description: "Typical Duration".to_string(), required: false, hint: "Typical window length".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "extensionPolicy".to_string(), type_name: "String".to_string(), description: "Extension Policy".to_string(), required: false, hint: "How to extend if needed".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — change management".to_string()), som::Json::Str("ISO/IEC 20000 — IT service management system".to_string())])), ("connotation".to_string(), som::Json::Str("Defines the maximum and typical duration constraints for scheduled maintenance windows.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScheduledMaintenancePolicy".to_string(), member_name: "notice".to_string(), section_id: "SMPN".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Notice requirements.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "standardNotice".to_string(), type_name: "String".to_string(), description: "Standard Notice Period".to_string(), required: false, hint: "Days advance notice".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "minimumNotice".to_string(), type_name: "String".to_string(), description: "Minimum Notice Period".to_string(), required: false, hint: "Minimum advance notice".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "noticeChannels".to_string(), type_name: "String".to_string(), description: "Notice Channels".to_string(), required: false, hint: "How users are notified".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — IT service management".to_string()), som::Json::Str("ISO/IEC 20000 — IT service management system".to_string())])), ("connotation".to_string(), som::Json::Str("Defines the advance notice periods and channels for scheduled maintenance.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScheduledMaintenancePolicy".to_string(), member_name: "approval".to_string(), section_id: "SMPA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Approval requirements.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "approvalRequired".to_string(), type_name: "bool".to_string(), description: "Approval Required".to_string(), required: false, hint: "Requires approval".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "approvalAuthority".to_string(), type_name: "String".to_string(), description: "Approval Authority".to_string(), required: false, hint: "Who approves maintenance".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional policy notes".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — change management".to_string()), som::Json::Str("ISO/IEC 20000 — IT service management system".to_string())])), ("connotation".to_string(), som::Json::Str("Defines who must approve scheduled maintenance and the approval requirements.".to_string()))] }], ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_schema_migration_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "SchemaMigrationStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "version".to_string(), type_name: "String".to_string(), description: "Version".to_string(), required: false, hint: "The schema version this step produces (e.g. V7, 2026-07-19-01)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "What this migration changes and why".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "ddlOperations".to_string(), type_name: "String".to_string(), description: "DDL Operations".to_string(), required: false, hint: "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "affectedEntities".to_string(), type_name: "String".to_string(), description: "Affected Entities".to_string(), required: false, hint: "The Data Model entities this step touches".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "dataBackfill".to_string(), type_name: "String".to_string(), description: "Data Backfill".to_string(), required: false, hint: "Any data population/transformation done as part of the step, or None".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "reversible".to_string(), type_name: "bool".to_string(), description: "Reversible".to_string(), required: false, hint: "Whether a down/rollback migration is provided".to_string(), order: 5, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_schema_versioning_and_migration(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "migrationTooling".to_string(), type_name: "String".to_string(), description: "Migration Tooling".to_string(), required: false, hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "versioningStrategy".to_string(), type_name: "String".to_string(), description: "Versioning Strategy".to_string(), required: false, hint: "Sequential numbered | Timestamped | Semantic".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "forwardOnly".to_string(), type_name: "bool".to_string(), description: "Forward-Only".to_string(), required: false, hint: "Whether migrations are forward-only (no down migrations)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "baselineVersion".to_string(), type_name: "String".to_string(), description: "Baseline Version".to_string(), required: false, hint: "The initial/baseline schema version migrations build on".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "zeroDowntimeApproach".to_string(), type_name: "String".to_string(), description: "Zero-Downtime Approach".to_string(), required: false, hint: "Expand/contract, online DDL, blue-green schema, or None".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "migrationSteps".to_string(), section_id: "SCMST-STEP-LST".to_string(), section_id_pattern: "SCMST-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SchemaMigrationStepEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per versioned schema migration step.".to_string(), doc_comment: "7.4.1. Schema Migration Steps — one entry per versioned migration.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Evolutionary Database Design (Ambler & Sadalage) — database refactoring".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered schema migration steps that evolve the database over releases.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("SchemaMigrationStepEntry", s, meta_children_schema_migration_step_entry, |r, c| som::SomMetaNode {
+                class_name: "SchemaMigrationStepEntry".to_string(), class_section_id: "SCMST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaMigrationStepEntry".to_string(), doc_comment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.".to_string(), class_doc_comment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -23720,6 +23754,37 @@ impl<'a> ClientAccessibilityRequirementsNav<'a> {
     }
 }
 
+/// ClientConfigurationNav holds the dot-notation accessors of `ClientConfiguration` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ClientConfigurationNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ClientConfigurationNav<'a> {
+    /// Binds a ClientConfigurationNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ClientConfigurationNav<'a> {
+        ClientConfigurationNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// ClientHardwareRequirementsNav holds the dot-notation accessors of `ClientHardwareRequirements` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -23886,6 +23951,10 @@ impl<'a> ClientRequirementsSectionNav<'a> {
 
     pub fn security_requirements(&self) -> ClientSecurityRequirementsNav<'a> {
         ClientSecurityRequirementsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityRequirements"))
+    }
+
+    pub fn client_configuration(&self) -> ClientConfigurationNav<'a> {
+        ClientConfigurationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "clientConfiguration"))
     }
 }
 
@@ -39026,6 +39095,10 @@ impl<'a> InformationAndDataModelNav<'a> {
 
     pub fn function_model(&self) -> FunctionModelNav<'a> {
         FunctionModelNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "functionModel"))
+    }
+
+    pub fn schema_versioning_and_migration(&self) -> SchemaVersioningAndMigrationNav<'a> {
+        SchemaVersioningAndMigrationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "schemaVersioningAndMigration"))
     }
 }
 
@@ -56206,6 +56279,72 @@ impl<'a> ScheduledMaintenancePolicyNav<'a> {
 
     pub fn approval(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SMPA"))
+    }
+}
+
+/// SchemaMigrationStepEntryNav holds the dot-notation accessors of `SchemaMigrationStepEntry` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct SchemaMigrationStepEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> SchemaMigrationStepEntryNav<'a> {
+    /// Binds a SchemaMigrationStepEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> SchemaMigrationStepEntryNav<'a> {
+        SchemaMigrationStepEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// SchemaVersioningAndMigrationNav holds the dot-notation accessors of `SchemaVersioningAndMigration` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct SchemaVersioningAndMigrationNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> SchemaVersioningAndMigrationNav<'a> {
+    /// Binds a SchemaVersioningAndMigrationNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> SchemaVersioningAndMigrationNav<'a> {
+        SchemaVersioningAndMigrationNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn migration_steps(&self) -> som::SomListMetaRef<'a, SchemaMigrationStepEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCMST-STEP-LST"), SchemaMigrationStepEntryNav::new)
     }
 }
 
@@ -74152,6 +74291,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
 
     pub fn BIRU_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessRuleEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/functionModel/BIRU-BUSI-LST"), BusinessRuleEntryId::new)
+    }
+
+    pub fn SCMST_STEP_LST(&self) -> som::SomListMetaRef<'a, SchemaMigrationStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST"), SchemaMigrationStepEntryId::new)
     }
 
     pub fn TRAREQ_TRAN(&self) -> som::SomMetaRef<'a> {
@@ -92658,6 +92801,32 @@ impl<'a> ScenarioStepEntryId<'a> {
 
     pub fn SCSTENEX(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCSTENEX"))
+    }
+}
+
+/// SchemaMigrationStepEntryId holds the ID-tree accessors of `SchemaMigrationStepEntry` (DR1 §4.2):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct SchemaMigrationStepEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> SchemaMigrationStepEntryId<'a> {
+    /// Binds a SchemaMigrationStepEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> SchemaMigrationStepEntryId<'a> {
+        SchemaMigrationStepEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
     }
 }
 

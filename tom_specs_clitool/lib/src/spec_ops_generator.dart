@@ -111,7 +111,8 @@ class SpecOpsGenerator {
 
   void _writeContentLeaf(StringBuffer b, String type) {
     // YRD5: section leaves extend DocSpecsSection, so the shallow clone copies
-    // the full stored state — headline, id, content and the parsed form.
+    // the full stored state — headline, id, content, the parsed form and the
+    // csmb1 codeSpec forward link.
     b.writeln('  SpecRegistry.register($type, SpecClassOps(');
     b.writeln('    slots: (o) => const [],');
     b.writeln('    cloneShallow: (o) {');
@@ -120,6 +121,7 @@ class SpecOpsGenerator {
     b.writeln('        ..headline = n.headline');
     b.writeln('        ..id = n.id');
     b.writeln('        ..content = n.content');
+    b.writeln('        ..codeSpec = n.codeSpec');
     b.writeln('        ..form = n.form;');
     b.writeln('    },');
     b.writeln('    yamlScalar: (o) => (o as $type).content,');

@@ -192,7 +192,10 @@ class DocSpecsDocument {
           final c = SpecDocumentMarkdown.headlineComment.firstMatch(rest);
           final section = DocSpecsSection(
             id: c?.group(1),
-            title: c != null ? c.group(2)!.trim() : rest,
+            // group(2) is the optional key=value region (§9.2 codeSpec); the
+            // title is group(3). For a bare heading with no comment, the whole
+            // rest is the title.
+            title: c != null ? c.group(3)!.trim() : rest,
             level: level,
             line: lineNo,
           );

@@ -43,6 +43,11 @@ class SpecDocument {
   final Map<String, String> _itemSectionId = {};
   final Map<String, String> _headline = {};
 
+  /// The concrete instance-level forward DocSpecs→CodeSpecs link (§9.2): any
+  /// section path → the comma-joined list of CodeSpecs code locations that
+  /// section maps to. Sparse like [_headline]: unset means "no code mapping".
+  final Map<String, String> _codeSpec = {};
+
   /// The authoring object-model version (`major.minor`) this document was loaded
   /// from, or `null` for a brand-new / unstamped document. Retained here by
   /// [fromYaml] so a consumer need not thread `decoded.modelVersion` to the
@@ -136,6 +141,26 @@ class SpecDocument {
   /// All section paths currently carrying a stored headline (unordered
   /// snapshot).
   Iterable<String> get headlinePaths => _headline.keys;
+
+  /// The stored codeSpec mapping at [path] as the comma-joined list of
+  /// CodeSpecs code locations, or `null` when the section carries no mapping
+  /// (§9.2 — codeSpec is sparse like the headline).
+  String? codeSpec(String path) => _codeSpec[path];
+
+  /// Sets the stored codeSpec mapping at [path] (the comma-joined list of
+  /// CodeSpecs code locations). An empty value clears it, returning the section
+  /// to "no code mapping" (§9.2).
+  void setCodeSpec(String path, String value) {
+    if (value.isEmpty) {
+      _codeSpec.remove(path);
+    } else {
+      _codeSpec[path] = value;
+    }
+  }
+
+  /// All section paths currently carrying a stored codeSpec mapping (unordered
+  /// snapshot).
+  Iterable<String> get codeSpecPaths => _codeSpec.keys;
 
   /// The value of form [field] at [path], or `null` if unset.
   String? formField(String path, String field) => _form[path]?[field];
@@ -256,6 +281,7 @@ class SpecDocument {
     _listSeq.removeWhere((k, _) => isUnder(k));
     _itemSectionId.removeWhere((k, _) => isUnder(k));
     _headline.removeWhere((k, _) => isUnder(k));
+    _codeSpec.removeWhere((k, _) => isUnder(k));
   }
 
   /// Drops every value at [prefix] or nested beneath it — content, form
@@ -273,7 +299,8 @@ class SpecDocument {
       _content.isEmpty &&
       _form.isEmpty &&
       _listItems.isEmpty &&
-      _headline.isEmpty;
+      _headline.isEmpty &&
+      _codeSpec.isEmpty;
 
   /// Whether any value exists at [prefix] or nested beneath it — the structural
   /// "empty = no value" test (§13.1, D4).
@@ -291,7 +318,8 @@ class SpecDocument {
     return _content.keys.any(isUnder) ||
         _form.keys.any(isUnder) ||
         _listItems.keys.any(isUnder) ||
-        _headline.keys.any(isUnder);
+        _headline.keys.any(isUnder) ||
+        _codeSpec.keys.any(isUnder);
   }
 
   /// All content-leaf paths currently set (unordered snapshot).
@@ -321,6 +349,7 @@ class SpecDocument {
   ///   forms:     { "<path>": { "<field>": "<value>", ... }, ... },
   ///   lists:     { "<path>": { seq: <int>, items: ["<path-1>", ...] }, ... },
   ///   headlines: { "<path>": "<stored headline>", ... },
+  ///   codeSpecs: { "<path>": "<comma-joined code locations>", ... },
   /// }
   /// ```
   ///
@@ -354,6 +383,10 @@ class SpecDocument {
         'headlines': {
           for (final k in sorted(_headline.keys)) k: _headline[k],
         },
+      if (_codeSpec.isNotEmpty)
+        'codeSpecs': {
+          for (final k in sorted(_codeSpec.keys)) k: _codeSpec[k],
+        },
     };
   }
 
@@ -368,6 +401,7 @@ class SpecDocument {
     _listSeq.clear();
     _itemSectionId.clear();
     _headline.clear();
+    _codeSpec.clear();
 
     final content = json['content'];
     if (content is Map) {
@@ -421,6 +455,13 @@ class SpecDocument {
         if (v != null && '$v'.isNotEmpty) _headline['$k'] = '$v';
       });
     }
+
+    final codeSpecs = json['codeSpecs'];
+    if (codeSpecs is Map) {
+      codeSpecs.forEach((k, v) {
+        if (v != null && '$v'.isNotEmpty) _codeSpec['$k'] = '$v';
+      });
+    }
   }
 
   /// A deep-copied snapshot of the whole document, for the undo stack (§10).
@@ -434,6 +475,7 @@ class SpecDocument {
         listSeq: Map.of(_listSeq),
         itemSectionId: Map.of(_itemSectionId),
         headline: Map.of(_headline),
+        codeSpec: Map.of(_codeSpec),
       );
 
   /// Replaces the document's contents with a previously [captureState]d
@@ -459,6 +501,9 @@ class SpecDocument {
     _headline
       ..clear()
       ..addAll(state._headline);
+    _codeSpec
+      ..clear()
+      ..addAll(state._codeSpec);
   }
 }
 
@@ -474,6 +519,7 @@ class SpecDocumentState {
   final Map<String, int> _listSeq;
   final Map<String, String> _itemSectionId;
   final Map<String, String> _headline;
+  final Map<String, String> _codeSpec;
 
   SpecDocumentState._({
     required Map<String, String> content,
@@ -482,12 +528,14 @@ class SpecDocumentState {
     required Map<String, int> listSeq,
     required Map<String, String> itemSectionId,
     required Map<String, String> headline,
+    required Map<String, String> codeSpec,
   })  : _content = content,
         _form = form,
         _listItems = listItems,
         _listSeq = listSeq,
         _itemSectionId = itemSectionId,
-        _headline = headline;
+        _headline = headline,
+        _codeSpec = codeSpec;
 
   /// The content value at [path] as of this snapshot (the review's base pane).
   String? contentAt(String path) => _content[path];
@@ -515,6 +563,7 @@ class SpecDocumentState {
       enc(listFlat),
       enc(_itemSectionId),
       enc(_headline),
+      enc(_codeSpec),
     ].join('\u0002');
   }
 }

@@ -6267,6 +6267,16 @@ List<SomMetaNode> _mc$ClientAccessibilityRequirements(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['WCAG 2.2 — accessible client experience'], 'connotation': 'Captures the accessibility conformance standards such as WCAG level and Section 508 the client targets.'})]),
     ];
 
+List<SomMetaNode> _mc$ClientConfiguration(Set<String> s) => [
+       SomMetaNode(
+          className: 'ClientConfiguration',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'apiBaseUrl', typeName: 'String', description: 'API Base URL', hint: 'The server/API endpoint this client install talks to', order: 0), SomFormFieldMeta(name: 'environment', typeName: 'String', description: 'Environment', hint: 'dev / staging / production for this install', order: 1), SomFormFieldMeta(name: 'deviceOptions', typeName: 'String', description: 'Device Options', hint: 'Machine-specific device/hardware options for this install', order: 2), SomFormFieldMeta(name: 'featureToggles', typeName: 'String', description: 'Per-Install Feature Toggles', hint: 'Client-side toggles applied to this install', order: 3), SomFormFieldMeta(name: 'updateChannel', typeName: 'String', description: 'Update Channel', hint: 'stable / beta / canary for this install', order: 4)])),
+    ];
+
 List<SomMetaNode> _mc$ClientHardwareRequirements(Set<String> s) => [
        SomMetaNode(
           className: 'ClientHardwareRequirements',
@@ -6495,6 +6505,17 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           serializationOrder: 11,
           docComment: 'Client security requirements.',
           classDocComment: 'Client security requirements.',
+          recursive: r,
+          children: c)),
+       _cx('ClientConfiguration', s, _mc$ClientConfiguration, (r, c) => SomMetaNode(
+          className: 'ClientConfiguration',
+          memberName: 'clientConfiguration',
+          classSectionId: 'CLICON',
+          kind: SomMetaKind.complex,
+          typeName: 'ClientConfiguration',
+          serializationOrder: 12,
+          docComment: 'Per-machine configuration of a client application (CE-CC).',
+          classDocComment: 'Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user\'s preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).',
           recursive: r,
           children: c)),
     ];
@@ -22117,6 +22138,17 @@ List<SomMetaNode> _mc$InformationAndDataModel(Set<String> s) => [
           mapsTo: 'D03InformationModel',
           recursive: r,
           children: c)),
+       _cx('SchemaVersioningAndMigration', s, _mc$SchemaVersioningAndMigration, (r, c) => SomMetaNode(
+          className: 'SchemaVersioningAndMigration',
+          memberName: 'schemaVersioningAndMigration',
+          classSectionId: 'SCHMG',
+          kind: SomMetaKind.complex,
+          typeName: 'SchemaVersioningAndMigration',
+          serializationOrder: 4,
+          docComment: '7.4. Schema Versioning and Migration.',
+          classDocComment: '7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema\'s own evolution over releases.',
+          recursive: r,
+          children: c)),
     ];
 
 List<SomMetaNode> _mc$InformationArchitecture(Set<String> s) => [
@@ -34236,7 +34268,7 @@ List<SomMetaNode> _mc$ReleaseStrategy(Set<String> s) => [
           serializationOrder: 3,
           docComment: 'Feature flags configuration.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'featureFlagsEnabled', typeName: 'bool', description: 'Feature Flags Enabled', hint: 'Uses feature flags', order: 0), SomFormFieldMeta(name: 'featureFlagProvider', typeName: 'String', description: 'Feature Flag Provider', hint: 'LaunchDarkly, Flagsmith, custom', order: 1), SomFormFieldMeta(name: 'flagStrategy', typeName: 'String', description: 'Flag Strategy', hint: 'How flags are managed', order: 2)]),
-          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['CI/CD — continuous delivery pipelines', 'Twelve-Factor App — cloud-native ops'], 'connotation': 'Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.'})]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['CI/CD — continuous delivery pipelines', 'Twelve-Factor App — cloud-native ops'], 'connotation': 'Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.'}), SomMetaExtra(annotation: 'CodeSpecKind', args: {'kinds': ['CodeSpecPart.featureFlag'], 'note': 'CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1.'})]),
        SomMetaNode(
           className: 'ReleaseStrategy',
           memberName: 'management',
@@ -37511,6 +37543,39 @@ List<SomMetaNode> _mc$ScheduledMaintenancePolicy(Set<String> s) => [
           docComment: 'Approval requirements.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'approvalRequired', typeName: 'bool', description: 'Approval Required', hint: 'Requires approval', order: 0), SomFormFieldMeta(name: 'approvalAuthority', typeName: 'String', description: 'Approval Authority', hint: 'Who approves maintenance', order: 1), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional policy notes', order: 2)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ITIL 4 — change management', 'ISO/IEC 20000 — IT service management system'], 'connotation': 'Defines who must approve scheduled maintenance and the approval requirements.'})]),
+    ];
+
+List<SomMetaNode> _mc$SchemaMigrationStepEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'SchemaMigrationStepEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'version', typeName: 'String', description: 'Version', hint: 'The schema version this step produces (e.g. V7, 2026-07-19-01)', order: 0), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Description', hint: 'What this migration changes and why', order: 1), SomFormFieldMeta(name: 'ddlOperations', typeName: 'String', description: 'DDL Operations', hint: 'CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)', order: 2), SomFormFieldMeta(name: 'affectedEntities', typeName: 'String', description: 'Affected Entities', hint: 'The Data Model entities this step touches', order: 3), SomFormFieldMeta(name: 'dataBackfill', typeName: 'String', description: 'Data Backfill', hint: 'Any data population/transformation done as part of the step, or None', order: 4), SomFormFieldMeta(name: 'reversible', typeName: 'bool', description: 'Reversible', hint: 'Whether a down/rollback migration is provided', order: 5)])),
+    ];
+
+List<SomMetaNode> _mc$SchemaVersioningAndMigration(Set<String> s) => [
+       SomMetaNode(
+          className: 'SchemaVersioningAndMigration',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          contentHelp: 'Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'migrationTooling', typeName: 'String', description: 'Migration Tooling', hint: 'Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts', order: 0), SomFormFieldMeta(name: 'versioningStrategy', typeName: 'String', description: 'Versioning Strategy', hint: 'Sequential numbered | Timestamped | Semantic', order: 1), SomFormFieldMeta(name: 'forwardOnly', typeName: 'bool', description: 'Forward-Only', hint: 'Whether migrations are forward-only (no down migrations)', order: 2), SomFormFieldMeta(name: 'baselineVersion', typeName: 'String', description: 'Baseline Version', hint: 'The initial/baseline schema version migrations build on', order: 3), SomFormFieldMeta(name: 'zeroDowntimeApproach', typeName: 'String', description: 'Zero-Downtime Approach', hint: 'Expand/contract, online DDL, blue-green schema, or None', order: 4)])),
+       SomMetaNode(
+          className: 'SchemaVersioningAndMigration',
+          memberName: 'migrationSteps',
+          sectionId: 'SCMST-STEP-LST',
+          sectionIdPattern: 'SCMST-STEP-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'SchemaMigrationStepEntry',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per versioned schema migration step.',
+          docComment: '7.4.1. Schema Migration Steps — one entry per versioned migration.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Evolutionary Database Design (Ambler & Sadalage) — database refactoring'], 'connotation': 'The ordered schema migration steps that evolve the database over releases.'})],
+          elementNode: _cx('SchemaMigrationStepEntry', s, _mc$SchemaMigrationStepEntry, (r, c) => SomMetaNode(className: 'SchemaMigrationStepEntry', classSectionId: 'SCMST', kind: SomMetaKind.complex, typeName: 'SchemaMigrationStepEntry', docComment: 'A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.', classDocComment: 'A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$ScopeBoundaries(Set<String> s) => [
@@ -52752,6 +52817,15 @@ class ClientAccessibilityRequirements$Nav extends SomMetaRef {
   SomMetaRef get standards => SomMetaRef(tree, '$path/CARS');
 }
 
+/// Dot-notation accessors of `ClientConfiguration` (DR1 §4.1). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ClientConfiguration$Nav extends SomMetaRef {
+  ClientConfiguration$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
 /// Dot-notation accessors of `ClientHardwareRequirements` (DR1 §4.1). Every getter is one
 /// navigable position: `.path` is the absolute document path, `.meta` the
 /// metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -52796,6 +52870,7 @@ class ClientRequirementsSection$Nav extends SomMetaRef {
   PwaRequirements$Nav get pwaRequirements => PwaRequirements$Nav(tree, '$path/pwaRequirements');
   NativeAppRequirements$Nav get nativeAppRequirements => NativeAppRequirements$Nav(tree, '$path/nativeAppRequirements');
   ClientSecurityRequirements$Nav get securityRequirements => ClientSecurityRequirements$Nav(tree, '$path/securityRequirements');
+  ClientConfiguration$Nav get clientConfiguration => ClientConfiguration$Nav(tree, '$path/clientConfiguration');
 }
 
 /// Dot-notation accessors of `ClientSecurityRequirements` (DR1 §4.1). Every getter is one
@@ -57006,6 +57081,7 @@ class InformationAndDataModel$Nav extends SomMetaRef {
   DataModel$Nav get dataModel => DataModel$Nav(tree, '$path/dataModel');
   BusinessObjectModel$Nav get businessObjectModel => BusinessObjectModel$Nav(tree, '$path/businessObjectModel');
   FunctionModel$Nav get functionModel => FunctionModel$Nav(tree, '$path/functionModel');
+  SchemaVersioningAndMigration$Nav get schemaVersioningAndMigration => SchemaVersioningAndMigration$Nav(tree, '$path/schemaVersioningAndMigration');
 }
 
 /// Dot-notation accessors of `InformationArchitecture` (DR1 §4.1). Every getter is one
@@ -61821,6 +61897,25 @@ class ScheduledMaintenancePolicy$Nav extends SomMetaRef {
   SomMetaRef get duration => SomMetaRef(tree, '$path/SMPD');
   SomMetaRef get notice => SomMetaRef(tree, '$path/SMPN');
   SomMetaRef get approval => SomMetaRef(tree, '$path/SMPA');
+}
+
+/// Dot-notation accessors of `SchemaMigrationStepEntry` (DR1 §4.1). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class SchemaMigrationStepEntry$Nav extends SomMetaRef {
+  SchemaMigrationStepEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
+/// Dot-notation accessors of `SchemaVersioningAndMigration` (DR1 §4.1). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class SchemaVersioningAndMigration$Nav extends SomMetaRef {
+  SchemaVersioningAndMigration$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<SchemaMigrationStepEntry$Nav> get migrationSteps => SomListMetaRef(tree, '$path/SCMST-STEP-LST', SchemaMigrationStepEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ScopeBoundaries` (DR1 §4.1). Every getter is one
@@ -66739,6 +66834,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomListMetaRef<FunctionEntry$Id> get FUNCT_FUNC_LST => SomListMetaRef(tree, '$path/informationAndDataModel/functionModel/FUNCT-FUNC-LST', FunctionEntry$Id.new);
   SomListMetaRef<FunctionDataMatrixEntry$Id> get FNDMX_MATR_LST => SomListMetaRef(tree, '$path/informationAndDataModel/functionModel/FNDMX-MATR-LST', FunctionDataMatrixEntry$Id.new);
   SomListMetaRef<BusinessRuleEntry$Id> get BIRU_BUSI_LST => SomListMetaRef(tree, '$path/informationAndDataModel/functionModel/BIRU-BUSI-LST', BusinessRuleEntry$Id.new);
+  SomListMetaRef<SchemaMigrationStepEntry$Id> get SCMST_STEP_LST => SomListMetaRef(tree, '$path/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST', SchemaMigrationStepEntry$Id.new);
   SomMetaRef get TRAREQ_TRAN => SomMetaRef(tree, '$path/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN');
   SomMetaRef get TRRERT => SomMetaRef(tree, '$path/requirements/localizationTranslation/translationRequirements/TRRERT');
   SomMetaRef get TRREFO => SomMetaRef(tree, '$path/requirements/localizationTranslation/translationRequirements/TRREFO');
@@ -71508,6 +71604,13 @@ class ScenarioStepEntry$Id extends SomMetaRef {
   ScenarioStepEntry$Id(super.tree, super.path);
   SomMetaRef get SSEC => SomMetaRef(tree, '$path/SSEC');
   SomMetaRef get SCSTENEX => SomMetaRef(tree, '$path/SCSTENEX');
+}
+
+/// ID-tree accessors of `SchemaMigrationStepEntry` (DR1 §4.2): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class SchemaMigrationStepEntry$Id extends SomMetaRef {
+  SchemaMigrationStepEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `ScopeItemEntry` (DR1 §4.2): getters named by section

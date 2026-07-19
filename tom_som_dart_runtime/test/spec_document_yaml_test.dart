@@ -433,6 +433,28 @@ void main() {
       expect(yaml, contains('requirements-1: {}'));
       expect(roundTrip(doc).listItemCount('D00/D00-REQ'), 1);
     });
+
+    test('csmb1: a stored codeSpec survives the yaml round-trip', () {
+      final doc = _populated()
+        ..setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total,CsOrderRepository');
+      final yaml = enc(doc);
+      expect(yaml, contains('codeSpec:'));
+      final out = roundTrip(doc);
+      expect(out.codeSpec('D00/D00-OVR'),
+          'CsOrder,CsOrder.total,CsOrderRepository');
+      // Sibling without codeSpec keeps no codeSpec entry.
+      expect(out.codeSpec('D00/D00-PRI'), isNull);
+    });
+
+    test('csmb1: encode is byte-stable with codeSpec across decode → re-encode',
+        () {
+      final doc = _populated()
+        ..setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total');
+      final yaml1 = enc(doc, stamp: '1.2');
+      final yaml2 = SpecDocumentYaml.encode(
+          document: dec(yaml1).document, tree: tree, modelVersion: '1.2');
+      expect(yaml2, yaml1);
+    });
   });
 
   group('strict decode', () {

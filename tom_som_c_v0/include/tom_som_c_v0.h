@@ -186,6 +186,7 @@ typedef struct { SomNode node; } ChannelIntegrations;
 typedef struct { SomNode node; } CiCdPipelineConfiguration;
 typedef struct { SomNode node; } CiCdPipelineRequirements;
 typedef struct { SomNode node; } ClientAccessibilityRequirements;
+typedef struct { SomNode node; } ClientConfiguration;
 typedef struct { SomNode node; } ClientHardwareRequirements;
 typedef struct { SomNode node; } ClientNetworkRequirements;
 typedef struct { SomNode node; } ClientRequirementsSection;
@@ -937,6 +938,8 @@ typedef struct { SomNode node; } ScalingTriggersAndThresholds;
 typedef struct { SomNode node; } ScenarioEntry;
 typedef struct { SomNode node; } ScenarioStepEntry;
 typedef struct { SomNode node; } ScheduledMaintenancePolicy;
+typedef struct { SomNode node; } SchemaMigrationStepEntry;
+typedef struct { SomNode node; } SchemaVersioningAndMigration;
 typedef struct { SomNode node; } ScopeBoundaries;
 typedef struct { SomNode node; } ScopeItemEntry;
 typedef struct { SomNode node; } ScreenActionEntry;
@@ -1558,6 +1561,7 @@ typedef struct { SomNode node; } ClientAccessibilityRequirementsContentForm;
 typedef struct { SomNode node; } ClientAccessibilityRequirementsMotorForm;
 typedef struct { SomNode node; } ClientAccessibilityRequirementsStandardsForm;
 typedef struct { SomNode node; } ClientAccessibilityRequirementsVisualForm;
+typedef struct { SomNode node; } ClientConfigurationContentForm;
 typedef struct { SomNode node; } ClientHardwareRequirementsContentForm;
 typedef struct { SomNode node; } ClientHardwareRequirementsGraphicsForm;
 typedef struct { SomNode node; } ClientHardwareRequirementsMemoryForm;
@@ -3225,6 +3229,8 @@ typedef struct { SomNode node; } ScheduledMaintenancePolicyContentForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyDurationForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyNoticeForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicySchedulingForm;
+typedef struct { SomNode node; } SchemaMigrationStepEntryContentForm;
+typedef struct { SomNode node; } SchemaVersioningAndMigrationContentForm;
 typedef struct { SomNode node; } ScopeItemEntryContentForm;
 typedef struct { SomNode node; } ScreenActionEntryBehaviorForm;
 typedef struct { SomNode node; } ScreenActionEntryConditionsForm;
@@ -6370,6 +6376,20 @@ ClientAccessibilityRequirementsCognitiveForm client_accessibility_requirements_c
 // Standards and notes.
 ClientAccessibilityRequirementsStandardsForm client_accessibility_requirements_standards(const ClientAccessibilityRequirements *self);
 
+// Client configuration — per-machine settings of a client application (CE-CC).
+//
+// Distinct from server/system configuration ([SystemConfigurationManagement],
+// CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+// specific *install* of a client app on a *specific machine* carries, keyed by
+// the (client app, machine) pair. Two installs of the same client on two
+// machines have independent client configuration (`codespecs_mapping.md` §11).
+// Binds a ClientConfiguration facade to a document and a path (path copied).
+void client_configuration_init(ClientConfiguration *self, SpecDocument *doc, const char *path);
+void client_configuration_free(ClientConfiguration *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int client_configuration_can_have_content(const ClientConfiguration *self);
+ClientConfigurationContentForm client_configuration_content(const ClientConfiguration *self);
+
 // Client hardware requirements.
 // Binds a ClientHardwareRequirements facade to a document and a path (path copied).
 void client_hardware_requirements_init(ClientHardwareRequirements *self, SpecDocument *doc, const char *path);
@@ -6438,6 +6458,8 @@ PwaRequirements client_requirements_section_pwa_requirements(const ClientRequire
 NativeAppRequirements client_requirements_section_native_app_requirements(const ClientRequirementsSection *self);
 // Client security requirements.
 ClientSecurityRequirements client_requirements_section_security_requirements(const ClientRequirementsSection *self);
+// Per-machine configuration of a client application (CE-CC).
+ClientConfiguration client_requirements_section_client_configuration(const ClientRequirementsSection *self);
 
 // Client security requirements.
 // Binds a ClientSecurityRequirements facade to a document and a path (path copied).
@@ -12615,6 +12637,8 @@ DataModel information_and_data_model_data_model(const InformationAndDataModel *s
 BusinessObjectModel information_and_data_model_business_object_model(const InformationAndDataModel *self);
 // 7.3. Function Model.
 FunctionModel information_and_data_model_function_model(const InformationAndDataModel *self);
+// 7.4. Schema Versioning and Migration.
+SchemaVersioningAndMigration information_and_data_model_schema_versioning_and_migration(const InformationAndDataModel *self);
 
 // 10.2.2. Information Architecture.
 //
@@ -18976,6 +19000,35 @@ ScheduledMaintenancePolicyDurationForm scheduled_maintenance_policy_duration(con
 ScheduledMaintenancePolicyNoticeForm scheduled_maintenance_policy_notice(const ScheduledMaintenancePolicy *self);
 // Approval requirements.
 ScheduledMaintenancePolicyApprovalForm scheduled_maintenance_policy_approval(const ScheduledMaintenancePolicy *self);
+
+// A single schema migration step (form).
+//
+// One versioned change to the database schema — the DDL operations it applies,
+// the entities it touches, whether it is reversible, and any data backfill it
+// performs as part of the schema change.
+// Binds a SchemaMigrationStepEntry facade to a document and a path (path copied).
+void schema_migration_step_entry_init(SchemaMigrationStepEntry *self, SpecDocument *doc, const char *path);
+void schema_migration_step_entry_free(SchemaMigrationStepEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int schema_migration_step_entry_can_have_content(const SchemaMigrationStepEntry *self);
+SchemaMigrationStepEntryContentForm schema_migration_step_entry_content(const SchemaMigrationStepEntry *self);
+
+// 7.4. Schema Versioning and Migration.
+//
+// Records how the database schema is *versioned and migrated* as the data
+// model evolves — the ordered DDL / migration steps and the tooling and
+// policy that govern them. This is distinct from business-data migration
+// between systems (see `MigrationMappingEntry` for old→new field mapping):
+// here the subject is the schema's own evolution over releases.
+// Binds a SchemaVersioningAndMigration facade to a document and a path (path copied).
+void schema_versioning_and_migration_init(SchemaVersioningAndMigration *self, SpecDocument *doc, const char *path);
+void schema_versioning_and_migration_free(SchemaVersioningAndMigration *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int schema_versioning_and_migration_can_have_content(const SchemaVersioningAndMigration *self);
+SchemaVersioningAndMigrationContentForm schema_versioning_and_migration_content(const SchemaVersioningAndMigration *self);
+// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+// Returns the list view; element type: SchemaMigrationStepEntry (construct from item paths).
+SomList schema_versioning_and_migration_migration_steps(const SchemaVersioningAndMigration *self);
 
 // 4.1.1.6. Scope Boundaries.
 //
@@ -28935,6 +28988,23 @@ char *client_accessibility_requirements_visual_form_zoom_support(const ClientAcc
 void client_accessibility_requirements_visual_form_set_zoom_support(ClientAccessibilityRequirementsVisualForm *self, const char *value);
 char *client_accessibility_requirements_visual_form_font_scaling(const ClientAccessibilityRequirementsVisualForm *self);
 void client_accessibility_requirements_visual_form_set_font_scaling(ClientAccessibilityRequirementsVisualForm *self, const char *value);
+
+// ClientConfigurationContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void client_configuration_content_form_init(ClientConfigurationContentForm *self, SpecDocument *doc, const char *path);
+void client_configuration_content_form_free(ClientConfigurationContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *client_configuration_content_form_content(const ClientConfigurationContentForm *self);
+void client_configuration_content_form_set_content(ClientConfigurationContentForm *self, const char *value);
+char *client_configuration_content_form_api_base_url(const ClientConfigurationContentForm *self);
+void client_configuration_content_form_set_api_base_url(ClientConfigurationContentForm *self, const char *value);
+char *client_configuration_content_form_environment(const ClientConfigurationContentForm *self);
+void client_configuration_content_form_set_environment(ClientConfigurationContentForm *self, const char *value);
+char *client_configuration_content_form_device_options(const ClientConfigurationContentForm *self);
+void client_configuration_content_form_set_device_options(ClientConfigurationContentForm *self, const char *value);
+char *client_configuration_content_form_feature_toggles(const ClientConfigurationContentForm *self);
+void client_configuration_content_form_set_feature_toggles(ClientConfigurationContentForm *self, const char *value);
+char *client_configuration_content_form_update_channel(const ClientConfigurationContentForm *self);
+void client_configuration_content_form_set_update_channel(ClientConfigurationContentForm *self, const char *value);
 
 // ClientHardwareRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void client_hardware_requirements_content_form_init(ClientHardwareRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -54590,6 +54660,42 @@ char *scheduled_maintenance_policy_scheduling_form_max_frequency(const Scheduled
 void scheduled_maintenance_policy_scheduling_form_set_max_frequency(ScheduledMaintenancePolicySchedulingForm *self, const char *value);
 char *scheduled_maintenance_policy_scheduling_form_blackout_periods(const ScheduledMaintenancePolicySchedulingForm *self);
 void scheduled_maintenance_policy_scheduling_form_set_blackout_periods(ScheduledMaintenancePolicySchedulingForm *self, const char *value);
+
+// SchemaMigrationStepEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void schema_migration_step_entry_content_form_init(SchemaMigrationStepEntryContentForm *self, SpecDocument *doc, const char *path);
+void schema_migration_step_entry_content_form_free(SchemaMigrationStepEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *schema_migration_step_entry_content_form_content(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_content(SchemaMigrationStepEntryContentForm *self, const char *value);
+char *schema_migration_step_entry_content_form_version(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_version(SchemaMigrationStepEntryContentForm *self, const char *value);
+char *schema_migration_step_entry_content_form_description(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_description(SchemaMigrationStepEntryContentForm *self, const char *value);
+char *schema_migration_step_entry_content_form_ddl_operations(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_ddl_operations(SchemaMigrationStepEntryContentForm *self, const char *value);
+char *schema_migration_step_entry_content_form_affected_entities(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_affected_entities(SchemaMigrationStepEntryContentForm *self, const char *value);
+char *schema_migration_step_entry_content_form_data_backfill(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_data_backfill(SchemaMigrationStepEntryContentForm *self, const char *value);
+bool schema_migration_step_entry_content_form_reversible(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_reversible(SchemaMigrationStepEntryContentForm *self, bool value);
+
+// SchemaVersioningAndMigrationContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void schema_versioning_and_migration_content_form_init(SchemaVersioningAndMigrationContentForm *self, SpecDocument *doc, const char *path);
+void schema_versioning_and_migration_content_form_free(SchemaVersioningAndMigrationContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *schema_versioning_and_migration_content_form_content(const SchemaVersioningAndMigrationContentForm *self);
+void schema_versioning_and_migration_content_form_set_content(SchemaVersioningAndMigrationContentForm *self, const char *value);
+char *schema_versioning_and_migration_content_form_migration_tooling(const SchemaVersioningAndMigrationContentForm *self);
+void schema_versioning_and_migration_content_form_set_migration_tooling(SchemaVersioningAndMigrationContentForm *self, const char *value);
+char *schema_versioning_and_migration_content_form_versioning_strategy(const SchemaVersioningAndMigrationContentForm *self);
+void schema_versioning_and_migration_content_form_set_versioning_strategy(SchemaVersioningAndMigrationContentForm *self, const char *value);
+bool schema_versioning_and_migration_content_form_forward_only(const SchemaVersioningAndMigrationContentForm *self);
+void schema_versioning_and_migration_content_form_set_forward_only(SchemaVersioningAndMigrationContentForm *self, bool value);
+char *schema_versioning_and_migration_content_form_baseline_version(const SchemaVersioningAndMigrationContentForm *self);
+void schema_versioning_and_migration_content_form_set_baseline_version(SchemaVersioningAndMigrationContentForm *self, const char *value);
+char *schema_versioning_and_migration_content_form_zero_downtime_approach(const SchemaVersioningAndMigrationContentForm *self);
+void schema_versioning_and_migration_content_form_set_zero_downtime_approach(SchemaVersioningAndMigrationContentForm *self, const char *value);
 
 // ScopeItemEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void scope_item_entry_content_form_init(ScopeItemEntryContentForm *self, SpecDocument *doc, const char *path);

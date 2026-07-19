@@ -186,6 +186,7 @@ void buildChannelIntegrationsChildren(som::SomMetaNode& parent, std::vector<std:
 void buildCiCdPipelineConfigurationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCiCdPipelineRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildClientAccessibilityRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildClientConfigurationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildClientHardwareRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildClientNetworkRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildClientRequirementsSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -937,6 +938,8 @@ void buildScalingTriggersAndThresholdsChildren(som::SomMetaNode& parent, std::ve
 void buildScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScheduledMaintenancePolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildSchemaMigrationStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildSchemaVersioningAndMigrationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScopeBoundariesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScopeItemEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenActionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -11988,6 +11991,26 @@ void buildClientAccessibilityRequirementsChildren(som::SomMetaNode& parent, std:
   }
 }
 
+void buildClientConfigurationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ClientConfiguration";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiBaseUrl", "String", "API Base URL", false, "The server/API endpoint this client install talks to", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"environment", "String", "Environment", false, "dev / staging / production for this install", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceOptions", "String", "Device Options", false, "Machine-specific device/hardware options for this install", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureToggles", "String", "Per-Install Feature Toggles", false, "Client-side toggles applied to this install", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"updateChannel", "String", "Update Channel", false, "stable / beta / canary for this install", 4, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+}
+
 void buildClientHardwareRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -12373,6 +12396,22 @@ void buildClientRequirementsSectionChildren(som::SomMetaNode& parent, std::vecto
         n.classDocComment = "Client security requirements.";
       },
       buildClientSecurityRequirementsChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("ClientConfiguration", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ClientConfiguration";
+        n.memberName = "clientConfiguration";
+        n.classSectionId = "CLICON";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ClientConfiguration";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 12;
+        n.docComment = "Per-machine configuration of a client application (CE-CC).";
+        n.classDocComment = "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).";
+      },
+      buildClientConfigurationChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -38847,6 +38886,22 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
       buildFunctionModelChildren);
     parent.addChild(std::move(n));
   }
+  {
+    auto n = metaCx("SchemaVersioningAndMigration", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "SchemaVersioningAndMigration";
+        n.memberName = "schemaVersioningAndMigration";
+        n.classSectionId = "SCHMG";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "SchemaVersioningAndMigration";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 4;
+        n.docComment = "7.4. Schema Versioning and Migration.";
+        n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.";
+      },
+      buildSchemaVersioningAndMigrationChildren);
+    parent.addChild(std::move(n));
+  }
 }
 
 void buildInformationArchitectureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
@@ -60071,6 +60126,7 @@ void buildReleaseStrategyChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).form->fields.push_back(som::SomFormFieldMeta{"featureFlagProvider", "String", "Feature Flag Provider", false, "LaunchDarkly, Flagsmith, custom", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"flagStrategy", "String", "Flag Strategy", false, "How flags are managed", 2, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"CI/CD — continuous delivery pipelines\",\"Twelve-Factor App — cloud-native ops\"],\"connotation\":\"Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"CodeSpecKind", som::jsonParse("{\"kinds\":[\"CodeSpecPart.featureFlag\"],\"note\":\"CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -65881,6 +65937,72 @@ void buildScheduledMaintenancePolicyChildren(som::SomMetaNode& parent, std::vect
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional policy notes", 2, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ITIL 4 — change management\",\"ISO/IEC 20000 — IT service management system\"],\"connotation\":\"Defines who must approve scheduled maintenance and the approval requirements.\"}", nullptr)});
     parent.addChild(std::move(n));
+  }
+}
+
+void buildSchemaMigrationStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SchemaMigrationStepEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version", false, "The schema version this step produces (e.g. V7, 2026-07-19-01)", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this migration changes and why", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ddlOperations", "String", "DDL Operations", false, "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedEntities", "String", "Affected Entities", false, "The Data Model entities this step touches", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataBackfill", "String", "Data Backfill", false, "Any data population/transformation done as part of the step, or None", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reversible", "bool", "Reversible", false, "Whether a down/rollback migration is provided", 5, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildSchemaVersioningAndMigrationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SchemaVersioningAndMigration";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentHelp = "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"migrationTooling", "String", "Migration Tooling", false, "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"versioningStrategy", "String", "Versioning Strategy", false, "Sequential numbered | Timestamped | Semantic", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"forwardOnly", "bool", "Forward-Only", false, "Whether migrations are forward-only (no down migrations)", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"baselineVersion", "String", "Baseline Version", false, "The initial/baseline schema version migrations build on", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"zeroDowntimeApproach", "String", "Zero-Downtime Approach", false, "Expand/contract, online DDL, blue-green schema, or None", 4, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "SchemaVersioningAndMigration";
+    (*ln).memberName = "migrationSteps";
+    (*ln).sectionId = "SCMST-STEP-LST";
+    (*ln).sectionIdPattern = "SCMST-STEP-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "SchemaMigrationStepEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per versioned schema migration step.";
+    (*ln).docComment = "7.4.1. Schema Migration Steps — one entry per versioned migration.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Evolutionary Database Design (Ambler & Sadalage) — database refactoring\"],\"connotation\":\"The ordered schema migration steps that evolve the database over releases.\"}", nullptr)});
+    ln->elementNode = metaCx("SchemaMigrationStepEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "SchemaMigrationStepEntry";
+        n.classSectionId = "SCMST";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "SchemaMigrationStepEntry";
+        n.docComment = "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.";
+        n.classDocComment = "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.";
+      },
+      buildSchemaMigrationStepEntryChildren);
+    parent.addChild(std::move(ln));
   }
 }
 
@@ -89642,6 +89764,9 @@ void* metaNavFactoryScenarioEntry(const som::SomMetaTree* tree, const std::strin
 void* metaNavFactoryScenarioStepEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScenarioStepEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactorySchemaMigrationStepEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavSchemaMigrationStepEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryScopeItemEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScopeItemEntry{som::SomMetaRef(tree, path)};
 }
@@ -91087,6 +91212,9 @@ void* metaIdFactoryScenarioEntry(const som::SomMetaTree* tree, const std::string
 }
 void* metaIdFactoryScenarioStepEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScenarioStepEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactorySchemaMigrationStepEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdSchemaMigrationStepEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryScopeItemEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScopeItemEntry{som::SomMetaRef(tree, path)};
@@ -93638,6 +93766,9 @@ som::SomMetaRef navClientAccessibilityRequirements_cognitive(NavClientAccessibil
 som::SomMetaRef navClientAccessibilityRequirements_standards(NavClientAccessibilityRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CARS"));
 }
+som::SomMetaRef navClientConfiguration_content(NavClientConfiguration x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
 som::SomMetaRef navClientHardwareRequirements_content(NavClientHardwareRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -93703,6 +93834,9 @@ NavNativeAppRequirements navClientRequirementsSection_nativeAppRequirements(NavC
 }
 NavClientSecurityRequirements navClientRequirementsSection_securityRequirements(NavClientRequirementsSection x) {
   return NavClientSecurityRequirements{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityRequirements"))};
+}
+NavClientConfiguration navClientRequirementsSection_clientConfiguration(NavClientRequirementsSection x) {
+  return NavClientConfiguration{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "clientConfiguration"))};
 }
 som::SomMetaRef navClientSecurityRequirements_content(NavClientSecurityRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -98134,6 +98268,9 @@ NavBusinessObjectModel navInformationAndDataModel_businessObjectModel(NavInforma
 }
 NavFunctionModel navInformationAndDataModel_functionModel(NavInformationAndDataModel x) {
   return NavFunctionModel{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "functionModel"))};
+}
+NavSchemaVersioningAndMigration navInformationAndDataModel_schemaVersioningAndMigration(NavInformationAndDataModel x) {
+  return NavSchemaVersioningAndMigration{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "schemaVersioningAndMigration"))};
 }
 som::SomMetaRef navInformationArchitecture_content(NavInformationArchitecture x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -102574,6 +102711,15 @@ som::SomMetaRef navScheduledMaintenancePolicy_notice(NavScheduledMaintenancePoli
 }
 som::SomMetaRef navScheduledMaintenancePolicy_approval(NavScheduledMaintenancePolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SMPA"));
+}
+som::SomMetaRef navSchemaMigrationStepEntry_content(NavSchemaMigrationStepEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navSchemaVersioningAndMigration_content(NavSchemaVersioningAndMigration x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navSchemaVersioningAndMigration_migrationSteps(NavSchemaVersioningAndMigration x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCMST-STEP-LST"), metaNavFactorySchemaMigrationStepEntry);
 }
 som::SomMetaRef navScopeBoundaries_content(NavScopeBoundaries x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -108026,6 +108172,9 @@ som::SomListMetaRef idD00SolutionBlueprint_FNDMX_MATR_LST(IdD00SolutionBlueprint
 }
 som::SomListMetaRef idD00SolutionBlueprint_BIRU_BUSI_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/functionModel/BIRU-BUSI-LST"), metaIdFactoryBusinessRuleEntry);
+}
+som::SomListMetaRef idD00SolutionBlueprint_SCMST_STEP_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST"), metaIdFactorySchemaMigrationStepEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_TRAREQ_TRAN(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"));

@@ -5170,6 +5170,26 @@ func (x *ClientAccessibilityRequirements) Standards() *ClientAccessibilityRequir
 	return NewClientAccessibilityRequirementsStandardsForm(x.Doc(), x.Path()+"/CARS")
 }
 
+// Client configuration — per-machine settings of a client application (CE-CC).
+//
+// Distinct from server/system configuration ([SystemConfigurationManagement],
+// CE-CF) and from a user's preferences (CE-UP): this is the configuration a
+// specific *install* of a client app on a *specific machine* carries, keyed by
+// the (client app, machine) pair. Two installs of the same client on two
+// machines have independent client configuration (`codespecs_mapping.md` §11).
+type ClientConfiguration struct {
+	som.SomNode
+}
+
+// NewClientConfiguration binds a ClientConfiguration facade to a document and a path.
+func NewClientConfiguration(doc *som.SpecDocument, path string) *ClientConfiguration {
+	return &ClientConfiguration{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ClientConfiguration) Content() *ClientConfigurationContentForm {
+	return NewClientConfigurationContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // Client hardware requirements.
 type ClientHardwareRequirements struct {
 	som.SomNode
@@ -5322,6 +5342,11 @@ func (x *ClientRequirementsSection) NativeAppRequirements() *NativeAppRequiremen
 // Client security requirements.
 func (x *ClientRequirementsSection) SecurityRequirements() *ClientSecurityRequirements {
 	return NewClientSecurityRequirements(x.Doc(), x.Path()+"/securityRequirements")
+}
+
+// Per-machine configuration of a client application (CE-CC).
+func (x *ClientRequirementsSection) ClientConfiguration() *ClientConfiguration {
+	return NewClientConfiguration(x.Doc(), x.Path()+"/clientConfiguration")
 }
 
 // Client security requirements.
@@ -18373,6 +18398,11 @@ func (x *InformationAndDataModel) FunctionModel() *FunctionModel {
 	return NewFunctionModel(x.Doc(), x.Path()+"/functionModel")
 }
 
+// 7.4. Schema Versioning and Migration.
+func (x *InformationAndDataModel) SchemaVersioningAndMigration() *SchemaVersioningAndMigration {
+	return NewSchemaVersioningAndMigration(x.Doc(), x.Path()+"/schemaVersioningAndMigration")
+}
+
 // 10.2.2. Information Architecture.
 //
 // Overall information architecture: site map, content hierarchy, navigation
@@ -31346,6 +31376,51 @@ func (x *ScheduledMaintenancePolicy) Notice() *ScheduledMaintenancePolicyNoticeF
 // Approval requirements.
 func (x *ScheduledMaintenancePolicy) Approval() *ScheduledMaintenancePolicyApprovalForm {
 	return NewScheduledMaintenancePolicyApprovalForm(x.Doc(), x.Path()+"/SMPA")
+}
+
+// A single schema migration step (form).
+//
+// One versioned change to the database schema — the DDL operations it applies,
+// the entities it touches, whether it is reversible, and any data backfill it
+// performs as part of the schema change.
+type SchemaMigrationStepEntry struct {
+	som.SomNode
+}
+
+// NewSchemaMigrationStepEntry binds a SchemaMigrationStepEntry facade to a document and a path.
+func NewSchemaMigrationStepEntry(doc *som.SpecDocument, path string) *SchemaMigrationStepEntry {
+	return &SchemaMigrationStepEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SchemaMigrationStepEntry) Content() *SchemaMigrationStepEntryContentForm {
+	return NewSchemaMigrationStepEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.4. Schema Versioning and Migration.
+//
+// Records how the database schema is *versioned and migrated* as the data
+// model evolves — the ordered DDL / migration steps and the tooling and
+// policy that govern them. This is distinct from business-data migration
+// between systems (see `MigrationMappingEntry` for old→new field mapping):
+// here the subject is the schema's own evolution over releases.
+type SchemaVersioningAndMigration struct {
+	som.SomNode
+}
+
+// NewSchemaVersioningAndMigration binds a SchemaVersioningAndMigration facade to a document and a path.
+func NewSchemaVersioningAndMigration(doc *som.SpecDocument, path string) *SchemaVersioningAndMigration {
+	return &SchemaVersioningAndMigration{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SchemaVersioningAndMigration) Content() *SchemaVersioningAndMigrationContentForm {
+	return NewSchemaVersioningAndMigrationContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+func (x *SchemaVersioningAndMigration) MigrationSteps() *som.SomList[*SchemaMigrationStepEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SCMST-STEP-LST", func(d *som.SpecDocument, p string) *SchemaMigrationStepEntry {
+		return NewSchemaMigrationStepEntry(d, p)
+	}, "SCMST-STEP-xxx")
 }
 
 // 4.1.1.6. Scope Boundaries.
@@ -62204,6 +62279,72 @@ func (x *ClientAccessibilityRequirementsVisualForm) FontScaling() string {
 
 func (x *ClientAccessibilityRequirementsVisualForm) SetFontScaling(value string) {
 	x.Doc().SetFormField(x.Path(), "fontScaling", value)
+}
+
+// ClientConfigurationContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ClientConfigurationContentForm struct {
+	som.SomNode
+}
+
+// NewClientConfigurationContentForm binds a ClientConfigurationContentForm facade to a document and a path.
+func NewClientConfigurationContentForm(doc *som.SpecDocument, path string) *ClientConfigurationContentForm {
+	return &ClientConfigurationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ClientConfigurationContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ClientConfigurationContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ClientConfigurationContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ClientConfigurationContentForm) ApiBaseUrl() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiBaseUrl")
+}
+
+func (x *ClientConfigurationContentForm) SetApiBaseUrl(value string) {
+	x.Doc().SetFormField(x.Path(), "apiBaseUrl", value)
+}
+
+func (x *ClientConfigurationContentForm) Environment() string {
+	return x.Doc().FormFieldOr(x.Path(), "environment")
+}
+
+func (x *ClientConfigurationContentForm) SetEnvironment(value string) {
+	x.Doc().SetFormField(x.Path(), "environment", value)
+}
+
+func (x *ClientConfigurationContentForm) DeviceOptions() string {
+	return x.Doc().FormFieldOr(x.Path(), "deviceOptions")
+}
+
+func (x *ClientConfigurationContentForm) SetDeviceOptions(value string) {
+	x.Doc().SetFormField(x.Path(), "deviceOptions", value)
+}
+
+func (x *ClientConfigurationContentForm) FeatureToggles() string {
+	return x.Doc().FormFieldOr(x.Path(), "featureToggles")
+}
+
+func (x *ClientConfigurationContentForm) SetFeatureToggles(value string) {
+	x.Doc().SetFormField(x.Path(), "featureToggles", value)
+}
+
+func (x *ClientConfigurationContentForm) UpdateChannel() string {
+	return x.Doc().FormFieldOr(x.Path(), "updateChannel")
+}
+
+func (x *ClientConfigurationContentForm) SetUpdateChannel(value string) {
+	x.Doc().SetFormField(x.Path(), "updateChannel", value)
 }
 
 // ClientHardwareRequirementsContentForm is the generated section facade for the `content` @Form section: its own
@@ -167239,6 +167380,172 @@ func (x *ScheduledMaintenancePolicySchedulingForm) BlackoutPeriods() string {
 
 func (x *ScheduledMaintenancePolicySchedulingForm) SetBlackoutPeriods(value string) {
 	x.Doc().SetFormField(x.Path(), "blackoutPeriods", value)
+}
+
+// SchemaMigrationStepEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SchemaMigrationStepEntryContentForm struct {
+	som.SomNode
+}
+
+// NewSchemaMigrationStepEntryContentForm binds a SchemaMigrationStepEntryContentForm facade to a document and a path.
+func NewSchemaMigrationStepEntryContentForm(doc *som.SpecDocument, path string) *SchemaMigrationStepEntryContentForm {
+	return &SchemaMigrationStepEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *SchemaMigrationStepEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SchemaMigrationStepEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SchemaMigrationStepEntryContentForm) Version() string {
+	return x.Doc().FormFieldOr(x.Path(), "version")
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "version", value)
+}
+
+func (x *SchemaMigrationStepEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+func (x *SchemaMigrationStepEntryContentForm) DdlOperations() string {
+	return x.Doc().FormFieldOr(x.Path(), "ddlOperations")
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetDdlOperations(value string) {
+	x.Doc().SetFormField(x.Path(), "ddlOperations", value)
+}
+
+func (x *SchemaMigrationStepEntryContentForm) AffectedEntities() string {
+	return x.Doc().FormFieldOr(x.Path(), "affectedEntities")
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetAffectedEntities(value string) {
+	x.Doc().SetFormField(x.Path(), "affectedEntities", value)
+}
+
+func (x *SchemaMigrationStepEntryContentForm) DataBackfill() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataBackfill")
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetDataBackfill(value string) {
+	x.Doc().SetFormField(x.Path(), "dataBackfill", value)
+}
+
+func (x *SchemaMigrationStepEntryContentForm) Reversible() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "reversible")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetReversible(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "reversible", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "reversible", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "reversible", "false")
+	}
+}
+
+// SchemaVersioningAndMigrationContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SchemaVersioningAndMigrationContentForm struct {
+	som.SomNode
+}
+
+// NewSchemaVersioningAndMigrationContentForm binds a SchemaVersioningAndMigrationContentForm facade to a document and a path.
+func NewSchemaVersioningAndMigrationContentForm(doc *som.SpecDocument, path string) *SchemaVersioningAndMigrationContentForm {
+	return &SchemaVersioningAndMigrationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *SchemaVersioningAndMigrationContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SchemaVersioningAndMigrationContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) MigrationTooling() string {
+	return x.Doc().FormFieldOr(x.Path(), "migrationTooling")
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) SetMigrationTooling(value string) {
+	x.Doc().SetFormField(x.Path(), "migrationTooling", value)
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) VersioningStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "versioningStrategy")
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) SetVersioningStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "versioningStrategy", value)
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) ForwardOnly() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "forwardOnly")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) SetForwardOnly(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "forwardOnly", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "forwardOnly", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "forwardOnly", "false")
+	}
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) BaselineVersion() string {
+	return x.Doc().FormFieldOr(x.Path(), "baselineVersion")
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) SetBaselineVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "baselineVersion", value)
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) ZeroDowntimeApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "zeroDowntimeApproach")
+}
+
+func (x *SchemaVersioningAndMigrationContentForm) SetZeroDowntimeApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "zeroDowntimeApproach", value)
 }
 
 // ScopeItemEntryContentForm is the generated section facade for the `content` @Form section: its own

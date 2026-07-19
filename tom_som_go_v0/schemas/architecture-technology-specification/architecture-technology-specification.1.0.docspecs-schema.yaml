@@ -2317,6 +2317,9 @@ section-types:
       chrp:
         max-count: 1
     description: Client hardware requirements.
+  clicon:
+    prefix: CLICON
+    description: Per-machine configuration of a client application (CE-CC).
   clnere:
     prefix: CLNERE
     subsection-types:
@@ -2363,6 +2366,8 @@ section-types:
       naapre:
         max-count: 1
       clsere:
+        max-count: 1
+      clicon:
         max-count: 1
     description: |
       Specify client device requirements including browsers, operating systems,

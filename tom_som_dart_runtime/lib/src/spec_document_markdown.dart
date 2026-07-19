@@ -101,6 +101,7 @@ class SpecMarkdownResult {
     required this.rejections,
     required this.rootPrefixes,
     this.headlines = const {},
+    this.codeSpecs = const {},
   });
 
   /// Content/scalar/enum leaf values (and section body text): path → value.
@@ -117,6 +118,11 @@ class SpecMarkdownResult {
   /// parsed heading text differs from the effective default title (keeping
   /// untouched documents byte-stable).
   final Map<String, String> headlines;
+
+  /// Stored codeSpec mappings (§9.2): path → the comma-joined list of CodeSpecs
+  /// code locations parsed from the `codeSpec="…"` key in the heading comment.
+  /// Staged whenever present (codeSpec has no effective default).
+  final Map<String, String> codeSpecs;
 
   /// Every rejected block, in source order.
   final List<SpecMarkdownRejection> rejections;
@@ -305,8 +311,9 @@ class SpecDocumentMarkdown {
     b.writeln('<!-- docspec: ${kebabCase(root.title)}/'
         '${model.modelVersionString} -->');
     final rootSeg = node.segment;
-    _writeHeading(
-        b, 1, rootSeg, document.headline(rootSeg) ?? node.headline ?? root.title);
+    _writeHeading(b, 1, rootSeg,
+        document.headline(rootSeg) ?? node.headline ?? root.title,
+        codeSpec: document.codeSpec(rootSeg));
     _writeSectionBody(b, node, rootSeg);
     _writeChildren(b, node, rootSeg, 2);
     return b.toString();
@@ -339,17 +346,20 @@ class SpecDocumentMarkdown {
           final value = document.content(path);
           if (value == null) break;
           _writeHeading(b, depth, _headingIdOf(child),
-              document.headline(path) ?? _titleOf(child));
+              document.headline(path) ?? _titleOf(child),
+              codeSpec: document.codeSpec(path));
           _writeBody(b, value, path);
         case SomMetaKind.form:
           if (!_formHasValues(child, path)) break;
           _writeHeading(b, depth, _headingIdOf(child),
-              document.headline(path) ?? _titleOf(child));
+              document.headline(path) ?? _titleOf(child),
+              codeSpec: document.codeSpec(path));
           _writeForm(b, child, path);
         case SomMetaKind.section:
         case SomMetaKind.complex:
           _writeHeading(b, depth, _headingIdOf(child),
-              document.headline(path) ?? _titleOf(child));
+              document.headline(path) ?? _titleOf(child),
+              codeSpec: document.codeSpec(path));
           _writeSectionBody(b, child, path);
           _writeChildren(b, child, path, depth + 1);
         case SomMetaKind.list:
@@ -372,7 +382,8 @@ class SpecDocumentMarkdown {
     // member segment for a pattern-less list); its title is the stored
     // headline, else the member name.
     _writeHeading(b, depth, _headingIdOf(node),
-        document.headline(listPath) ?? _titleOf(node));
+        document.headline(listPath) ?? _titleOf(node),
+        codeSpec: document.codeSpec(listPath));
     // Item heading stem. Complex lists derive it from the element class name
     // (DR1 §1.5, `Entry` dropped). A scalar list (`List<String>`, shape 6) has
     // no element class — its element `typeName` is literally `String`, which
@@ -396,7 +407,8 @@ class SpecDocumentMarkdown {
           pattern?.replaceAll('xxx', '$pos') ??
           '${node.memberName ?? node.segment}-$pos';
       _writeHeading(b, depth + 1, id,
-          document.headline(itemPath) ?? '$stem $pos');
+          document.headline(itemPath) ?? '$stem $pos',
+          codeSpec: document.codeSpec(itemPath));
       final element = node.elementNode;
       if (element == null) {
         // Scalar list: the item's value is its body.
@@ -437,8 +449,14 @@ class SpecDocumentMarkdown {
   /// nests past markdown's native 6 levels) keep their structure; the parse
   /// grammar accepts `#{7,}` accordingly. Capping would silently flatten
   /// distinct nesting positions into siblings and break schema validation.
-  static void _writeHeading(StringBuffer b, int depth, String id, String title) {
-    b.writeln('${'#' * depth} <!--[$id]--> $title');
+  ///
+  /// When [codeSpec] is non-empty it is emitted as a `codeSpec="…"` key inside
+  /// the same headline comment (§9.2): `## <!--[ID] codeSpec="A,B"--> Title`.
+  static void _writeHeading(StringBuffer b, int depth, String id, String title,
+      {String? codeSpec}) {
+    final code =
+        (codeSpec != null && codeSpec.isNotEmpty) ? ' codeSpec="$codeSpec"' : '';
+    b.writeln('${'#' * depth} <!--[$id]$code--> $title');
     b.writeln();
   }
 
@@ -518,13 +536,34 @@ class SpecDocumentMarkdown {
       rejections: p.rejections,
       rootPrefixes: p.rootPrefixes,
       headlines: p.headlines,
+      codeSpecs: p.codeSpecs,
     );
   }
 
   // Shared with _Parser.
   static final RegExp headingLine = RegExp(r'^(#+)\s+(.*)$');
+
+  /// The heading HTML comment: `<!--[ID]--> Title` with an optional key=value
+  /// region between the id bracket and the closing `-->` (§9.2 `codeSpec`).
+  /// Group 1 = the section id, group 2 = the raw key=value region (possibly
+  /// empty), group 3 = the heading title. The middle group is `[^>]*` — safe
+  /// because the region's only values are quoted code locations / identifiers,
+  /// never a raw `>`.
   static final RegExp headlineComment =
-      RegExp(r'^<!--\[([^\]]+)\]-->\s*(.*)$');
+      RegExp(r'^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$');
+
+  /// Extracts the `codeSpec="…"` value from a heading-comment key=value region
+  /// (§9.2), mirroring the tom_doc_scanner key=value grammar. Returns the empty
+  /// string when the region carries no `codeSpec` key.
+  static String codeSpecOf(String region) {
+    final m = _codeSpecPattern.firstMatch(region);
+    if (m == null) return '';
+    return (m.group(1) ?? m.group(2) ?? m.group(3) ?? '').trim();
+  }
+
+  static final RegExp _codeSpecPattern =
+      RegExp(r'''codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))''');
+
   static final RegExp docspecComment =
       RegExp(r'^<!--\s*docspec:.*-->\s*$');
 }
@@ -596,6 +635,7 @@ class _Parser {
   final forms = <String, Map<String, String>>{};
   final lists = <String, _ListState>{};
   final headlines = <String, String>{};
+  final codeSpecs = <String, String>{};
   final rejections = <SpecMarkdownRejection>[];
   final rootPrefixes = <String>{};
 
@@ -656,10 +696,11 @@ class _Parser {
       return;
     }
     final id = m.group(1)!;
-    final title = m.group(2)!.trim();
+    final codeSpec = SpecDocumentMarkdown.codeSpecOf(m.group(2)!);
+    final title = m.group(3)!.trim();
 
     if (_stack.isEmpty) {
-      _openRoot(level, id, title, lineNo);
+      _openRoot(level, id, title, codeSpec, lineNo);
       return;
     }
 
@@ -691,7 +732,7 @@ class _Parser {
     // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
     //    of that list's items — resolved positionally, not by the schema tree.
     if (pNode.kind == SomMetaKind.list) {
-      _openItemHeading(level, parent, pNode, id, title, lineNo);
+      _openItemHeading(level, parent, pNode, id, title, codeSpec, lineNo);
       return;
     }
 
@@ -710,6 +751,8 @@ class _Parser {
         if (title.isNotEmpty && title != SpecDocumentMarkdown._titleOf(c)) {
           headlines[path] = title;
         }
+        // §9.2: stage the codeSpec mapping whenever present (no default).
+        if (codeSpec.isNotEmpty) codeSpecs[path] = codeSpec;
         _stack.add(_Frame(level: level, node: c, path: path, line: lineNo));
         return;
       }
@@ -732,7 +775,7 @@ class _Parser {
   /// number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored
   /// id, or — for any other id — an anonymous next item carrying the stored id.
   void _openItemHeading(int level, _Frame container, SomMetaNode listNode,
-      String id, String title, int lineNo) {
+      String id, String title, String codeSpec, int lineNo) {
     final listPath = container.path;
     final anon =
         RegExp('^${RegExp.escape(listNode.memberName ?? listNode.segment)}'
@@ -740,7 +783,7 @@ class _Parser {
             .firstMatch(id);
     if (anon != null) {
       _openItem(level, listPath, listNode, int.parse(anon.group(1)!), null,
-          title, lineNo);
+          title, codeSpec, lineNo);
       return;
     }
     final pattern =
@@ -753,20 +796,21 @@ class _Parser {
           .firstMatch(id);
       if (numbered != null && numbered.groupCount == 1) {
         _openItem(level, listPath, listNode, int.parse(numbered.group(1)!),
-            null, title, lineNo);
+            null, title, codeSpec, lineNo);
         return;
       }
       if (_patternMatches(pattern, id)) {
-        _openItem(level, listPath, listNode, null, id, title, lineNo);
+        _openItem(level, listPath, listNode, null, id, title, codeSpec, lineNo);
         return;
       }
     }
     // Any other id under the container is an anonymous next item carrying the
     // stored id (YRD3: stored ids round-trip through md as well as yaml).
-    _openItem(level, listPath, listNode, null, id, title, lineNo);
+    _openItem(level, listPath, listNode, null, id, title, codeSpec, lineNo);
   }
 
-  void _openRoot(int level, String id, String title, int lineNo) {
+  void _openRoot(int level, String id, String title, String codeSpec,
+      int lineNo) {
     for (final root in codec.model.roots) {
       final seg = root.sectionId ?? root.type;
       if (seg == id) {
@@ -778,6 +822,8 @@ class _Parser {
         if (title.isNotEmpty && title != (tree.root.headline ?? root.title)) {
           headlines[seg] = title;
         }
+        // §9.2: stage the root codeSpec mapping whenever present.
+        if (codeSpec.isNotEmpty) codeSpecs[seg] = codeSpec;
         _stack.add(
             _Frame(level: level, node: tree.root, path: seg, line: lineNo));
         return;
@@ -799,7 +845,7 @@ class _Parser {
   /// heading [title] is staged as a stored headline when it differs from the
   /// default item title `<stem> <number>` (YRD3).
   void _openItem(int level, String listPath, SomMetaNode listNode, int? n,
-      String? storedId, String title, int lineNo) {
+      String? storedId, String title, String codeSpec, int lineNo) {
     final state = lists.putIfAbsent(listPath, _ListState.new);
     final number = n ?? state.maxN + 1;
     if (number > state.maxN) state.maxN = number;
@@ -811,6 +857,8 @@ class _Parser {
     if (title.isNotEmpty && title != '$stem $number') {
       headlines[itemPath] = title;
     }
+    // §9.2: stage the item codeSpec mapping whenever present.
+    if (codeSpec.isNotEmpty) codeSpecs[itemPath] = codeSpec;
     _stack.add(
         _Frame(level: level, node: element, path: itemPath, line: lineNo));
   }

@@ -12621,6 +12621,39 @@ public final class TomSomV0Meta {
     }
   }
 
+  // ClientConfigurationNav holds the dot-notation accessors of `ClientConfiguration` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ClientConfigurationNav extends SomMetaRef {
+    public ClientConfigurationNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ClientConfiguration` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ClientConfiguration", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("apiBaseUrl", "String", "API Base URL", false, "The server/API endpoint this client install talks to", 0),
+            new SomFormFieldMeta("environment", "String", "Environment", false, "dev / staging / production for this install", 1),
+            new SomFormFieldMeta("deviceOptions", "String", "Device Options", false, "Machine-specific device/hardware options for this install", 2),
+            new SomFormFieldMeta("featureToggles", "String", "Per-Install Feature Toggles", false, "Client-side toggles applied to this install", 3),
+            new SomFormFieldMeta("updateChannel", "String", "Update Channel", false, "stable / beta / canary for this install", 4)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // ClientHardwareRequirementsNav holds the dot-notation accessors of `ClientHardwareRequirements` (DR1 §4.1).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -12988,6 +13021,17 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ClientConfiguration", s, ClientConfigurationNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ClientConfiguration", SomMetaKind.COMPLEX, "ClientConfiguration");
+        n.memberName = "clientConfiguration";
+        n.classSectionId = "CLICON";
+        n.serializationOrder = 12;
+        n.docComment = "Per-machine configuration of a client application (CE-CC).";
+        n.classDocComment = "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -13037,6 +13081,10 @@ public final class TomSomV0Meta {
 
     public ClientSecurityRequirementsNav securityRequirements() {
       return new ClientSecurityRequirementsNav(tree, path + "/securityRequirements");
+    }
+
+    public ClientConfigurationNav clientConfiguration() {
+      return new ClientConfigurationNav(tree, path + "/clientConfiguration");
     }
   }
 
@@ -43745,6 +43793,17 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("SchemaVersioningAndMigration", s, SchemaVersioningAndMigrationNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("SchemaVersioningAndMigration", SomMetaKind.COMPLEX, "SchemaVersioningAndMigration");
+        n.memberName = "schemaVersioningAndMigration";
+        n.classSectionId = "SCHMG";
+        n.serializationOrder = 4;
+        n.docComment = "7.4. Schema Versioning and Migration.";
+        n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -43762,6 +43821,10 @@ public final class TomSomV0Meta {
 
     public FunctionModelNav functionModel() {
       return new FunctionModelNav(tree, path + "/functionModel");
+    }
+
+    public SchemaVersioningAndMigrationNav schemaVersioningAndMigration() {
+      return new SchemaVersioningAndMigrationNav(tree, path + "/schemaVersioningAndMigration");
     }
   }
 
@@ -69036,7 +69099,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("featureFlagsEnabled", "bool", "Feature Flags Enabled", false, "Uses feature flags", 0),
             new SomFormFieldMeta("featureFlagProvider", "String", "Feature Flag Provider", false, "LaunchDarkly, Flagsmith, custom", 1),
             new SomFormFieldMeta("flagStrategy", "String", "Flag Strategy", false, "How flags are managed", 2)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"), "connotation", "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.")));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"), "connotation", "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.")), new SomMetaExtra("CodeSpecKind", metaArgs("kinds", Arrays.asList("CodeSpecPart.featureFlag"), "note", "CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1.")));
         out.add(n);
       }
       {
@@ -76124,6 +76187,98 @@ public final class TomSomV0Meta {
 
     public SomMetaRef approval() {
       return new SomMetaRef(tree, path + "/SMPA");
+    }
+  }
+
+  // SchemaMigrationStepEntryNav holds the dot-notation accessors of `SchemaMigrationStepEntry` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class SchemaMigrationStepEntryNav extends SomMetaRef {
+    public SchemaMigrationStepEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `SchemaMigrationStepEntry` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("SchemaMigrationStepEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("version", "String", "Version", false, "The schema version this step produces (e.g. V7, 2026-07-19-01)", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "What this migration changes and why", 1),
+            new SomFormFieldMeta("ddlOperations", "String", "DDL Operations", false, "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)", 2),
+            new SomFormFieldMeta("affectedEntities", "String", "Affected Entities", false, "The Data Model entities this step touches", 3),
+            new SomFormFieldMeta("dataBackfill", "String", "Data Backfill", false, "Any data population/transformation done as part of the step, or None", 4),
+            new SomFormFieldMeta("reversible", "bool", "Reversible", false, "Whether a down/rollback migration is provided", 5)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
+  // SchemaVersioningAndMigrationNav holds the dot-notation accessors of `SchemaVersioningAndMigration` (DR1 §4.1).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class SchemaVersioningAndMigrationNav extends SomMetaRef {
+    public SchemaVersioningAndMigrationNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `SchemaVersioningAndMigration` (DR1 §3.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("SchemaVersioningAndMigration", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("migrationTooling", "String", "Migration Tooling", false, "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", 0),
+            new SomFormFieldMeta("versioningStrategy", "String", "Versioning Strategy", false, "Sequential numbered | Timestamped | Semantic", 1),
+            new SomFormFieldMeta("forwardOnly", "bool", "Forward-Only", false, "Whether migrations are forward-only (no down migrations)", 2),
+            new SomFormFieldMeta("baselineVersion", "String", "Baseline Version", false, "The initial/baseline schema version migrations build on", 3),
+            new SomFormFieldMeta("zeroDowntimeApproach", "String", "Zero-Downtime Approach", false, "Expand/contract, online DDL, blue-green schema, or None", 4)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("SchemaVersioningAndMigration", SomMetaKind.LIST, "SchemaMigrationStepEntry");
+        n.memberName = "migrationSteps";
+        n.sectionId = "SCMST-STEP-LST";
+        n.sectionIdPattern = "SCMST-STEP-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per versioned schema migration step.";
+        n.docComment = "7.4.1. Schema Migration Steps — one entry per versioned migration.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Evolutionary Database Design (Ambler & Sadalage) — database refactoring"), "connotation", "The ordered schema migration steps that evolve the database over releases.")));
+        n.elementNode = metaCx("SchemaMigrationStepEntry", s, SchemaMigrationStepEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("SchemaMigrationStepEntry", SomMetaKind.COMPLEX, "SchemaMigrationStepEntry");
+          e.classSectionId = "SCMST";
+          e.docComment = "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.";
+          e.classDocComment = "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<SchemaMigrationStepEntryNav> migrationSteps() {
+      return new SomListMetaRef<>(tree, path + "/SCMST-STEP-LST", (t, p) -> new SchemaMigrationStepEntryNav(t, p));
     }
   }
 
@@ -105767,6 +105922,10 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/informationAndDataModel/functionModel/BIRU-BUSI-LST", (t, p) -> new BusinessRuleEntryId(t, p));
     }
 
+    public SomListMetaRef<SchemaMigrationStepEntryId> SCMST_STEP_LST() {
+      return new SomListMetaRef<>(tree, path + "/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST", (t, p) -> new SchemaMigrationStepEntryId(t, p));
+    }
+
     public SomMetaRef TRAREQ_TRAN() {
       return new SomMetaRef(tree, path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
     }
@@ -119711,6 +119870,16 @@ public final class TomSomV0Meta {
 
     public SomMetaRef SCSTENEX() {
       return new SomMetaRef(tree, path + "/SCSTENEX");
+    }
+  }
+
+  // SchemaMigrationStepEntryId holds the ID-tree accessors of `SchemaMigrationStepEntry` (DR1 §4.2): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class SchemaMigrationStepEntryId extends SomMetaRef {
+    public SchemaMigrationStepEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
     }
   }
 

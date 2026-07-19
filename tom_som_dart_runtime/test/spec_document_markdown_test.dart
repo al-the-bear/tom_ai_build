@@ -766,5 +766,45 @@ document:
         });
       expect(export(target), md);
     });
+
+    test('csmb1: a stored codeSpec rides in the headline comment', () {
+      final doc = populated()
+        ..setCodeSpec('H00/H00-OVR', 'CsOrder,CsOrder.total,CsOrderRepository');
+      final md = export(doc);
+      expect(
+        md,
+        contains('## <!--[H00-OVR] codeSpec="CsOrder,CsOrder.total,'
+            'CsOrderRepository"--> Executive Overview'),
+      );
+      // Untouched sections stay byte-stable (no empty codeSpec attribute).
+      expect(md, contains('## <!--[H00-PLN]--> Plain'));
+    });
+
+    test('csmb1: codeSpec is parsed back out of the headline comment', () {
+      final doc = populated()
+        ..setCodeSpec('H00/H00-OVR', 'CsOrder,CsOrder.total');
+      final md = export(doc);
+      final report = SpecDocumentMarkdown(model(), SpecDocument()).parse(md);
+      expect(report.codeSpecs['H00/H00-OVR'], 'CsOrder,CsOrder.total');
+    });
+
+    test('csmb1: codeSpec + headline round-trip is byte-stable', () {
+      final doc = populated()
+        ..setHeadline('H00/H00-OVR', 'Custom Overview')
+        ..setCodeSpec('H00/H00-OVR', 'CsOrder,CsOrder.total,CsOrderRepository');
+      final md = export(doc);
+      final report = SpecDocumentMarkdown(model(), SpecDocument()).parse(md);
+      final target = SpecDocument()
+        ..loadJson({
+          'content': report.content,
+          'forms': report.forms,
+          'lists': report.lists,
+          'headlines': report.headlines,
+          'codeSpecs': report.codeSpecs,
+        });
+      expect(export(target), md);
+      expect(target.codeSpec('H00/H00-OVR'),
+          'CsOrder,CsOrder.total,CsOrderRepository');
+    });
   });
 }
