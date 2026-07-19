@@ -14601,6 +14601,15 @@ class ExternalInterfaces extends DocSpecsSection {
   'Comprehensively documents a single external interface across identification, technical, data, security, operational, and governance facets.',
 )
 @SectionId('EIE')
+@CodeSpecKind(
+  [CodeSpecPart.serviceUnit],
+  note:
+      'One external interface = the integration boundary to a single '
+      'external system: a cohesive grouping of operations to/from that '
+      'system (CE-SU, codespecs_mapping.md §5.1/§8). Its individual '
+      'operations carry serverApi/serverCall; the interface itself is the '
+      'service-unit grouping.',
+)
 class ExternalInterfaceEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
   // Interface Identification
@@ -15017,6 +15026,15 @@ class InterfaceTechnicalSpec extends DocSpecsSection {
   'Documents a single API operation including method, path, idempotency, and request/response formats.',
 )
 @SectionId('IOE')
+@CodeSpecKind(
+  [CodeSpecPart.serverApi, CodeSpecPart.serverCall],
+  note:
+      'A single boundary operation with its request/response pair. Under '
+      'the §7 contract (POST-only, operation-named, typed T/R, CE-ER '
+      'envelope) it is realised as a serverApi (CsEndpoint) when inbound '
+      '(we expose) and a serverCall (CsServerCall) when outbound (we call '
+      'the external system); direction-dependent, hence list-valued.',
+)
 class InterfaceOperationEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -15553,6 +15571,13 @@ class InterfaceOperational extends DocSpecsSection {
   'Specifies how errors from the interface are detected, classified, and handled to keep integrations resilient.',
 )
 @SectionId('INERHA')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'Per-interface structured error handling — the application-level '
+      'error outcomes carried in the CE-ER Result/ErrorResult envelope '
+      '(§7.3), not 5xx transport failures.',
+)
 class InterfaceErrorHandling extends DocSpecsSection {
   @Form([
     // Error Responses
@@ -18960,6 +18985,13 @@ than being specific to one partner.
 /// Distinct from per-interface error handling.
 @SectionId('CBEH')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'Cross-boundary failure-propagation policy shared by all interfaces '
+      '— the canonical CE-ER error codes/envelope that propagate across '
+      'boundaries (§7.3/§7.4).',
+)
 class CrossBoundaryErrorHandling extends DocSpecsSection {
   @ContentHelp('''
 Policy for how failures propagate or are contained across boundary

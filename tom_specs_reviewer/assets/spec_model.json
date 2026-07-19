@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T17:45:45.434234Z",
+  "generatedAt": "2026-07-19T17:53:33.491946Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -51464,6 +51464,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "Cross-boundary failure-propagation policy shared by all interfaces — the canonical CE-ER error codes/envelope that propagate across boundaries (§7.3/§7.4)."
+          }
         }
       ],
       "fields": [
@@ -99987,6 +99996,15 @@
           "arguments": {
             "id": "EIE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "One external interface = the integration boundary to a single external system: a cohesive grouping of operations to/from that system (CE-SU, codespecs_mapping.md §5.1/§8). Its individual operations carry serverApi/serverCall; the interface itself is the service-unit grouping."
+          }
         }
       ],
       "fields": [
@@ -123686,6 +123704,15 @@
           "arguments": {
             "id": "INERHA"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "Per-interface structured error handling — the application-level error outcomes carried in the CE-ER Result/ErrorResult envelope (§7.3), not 5xx transport failures."
+          }
         }
       ],
       "fields": [
@@ -124268,6 +124295,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "IOE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi",
+              "CodeSpecPart.serverCall"
+            ],
+            "note": "A single boundary operation with its request/response pair. Under the §7 contract (POST-only, operation-named, typed T/R, CE-ER envelope) it is realised as a serverApi (CsEndpoint) when inbound (we expose) and a serverCall (CsServerCall) when outbound (we call the external system); direction-dependent, hence list-valued."
           }
         }
       ],
