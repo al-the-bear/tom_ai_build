@@ -51,6 +51,11 @@ IFM (Information Model) document.
   /// 7.3. Function Model.
   @SerializationOrder(3)
   FunctionModel functionModel = FunctionModel();
+
+  /// 7.4. Schema Versioning and Migration.
+  @SerializationOrder(4)
+  SchemaVersioningAndMigration schemaVersioningAndMigration =
+      SchemaVersioningAndMigration();
 }
 
 // ---------------------------------------------------------------------------
@@ -3927,6 +3932,143 @@ class RelationshipAttributeEntry extends DocSpecsSection {
       String,
       'Temporal Aspects',
       hint: 'Effective dates, versioning: None | EffectiveDates | FullHistory',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.4 Schema Versioning and Migration
+// ---------------------------------------------------------------------------
+
+/// 7.4. Schema Versioning and Migration.
+///
+/// Records how the database schema is *versioned and migrated* as the data
+/// model evolves — the ordered DDL / migration steps and the tooling and
+/// policy that govern them. This is distinct from business-data migration
+/// between systems (see `MigrationMappingEntry` for old→new field mapping):
+/// here the subject is the schema's own evolution over releases.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
+  ],
+  'Captures the schema versioning strategy and the ordered migration steps derived from the data model’s evolution — the DDL history, not business-data migration between systems.',
+)
+@SectionId('SCHMG')
+class SchemaVersioningAndMigration extends DocSpecsSection {
+  @ContentHelp('''
+Describe how the database schema is versioned and how migrations are authored,
+ordered, and applied as the data model evolves across releases.
+
+**Covers:**
+- The migration tooling and where migration scripts live
+- The versioning strategy (sequential, timestamped, semantic)
+- Whether down/rollback migrations are supported (forward-only vs reversible)
+- The baseline schema version and any zero-downtime approach (expand/contract)
+
+This section is derived from the evolution of the entities in the Data Model
+(7.1). It is NOT business-data migration between systems.
+''')
+  @Form([
+    Field(
+      'migrationTooling',
+      String,
+      'Migration Tooling',
+      hint: 'Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts',
+    ),
+    Field(
+      'versioningStrategy',
+      String,
+      'Versioning Strategy',
+      hint: 'Sequential numbered | Timestamped | Semantic',
+    ),
+    Field(
+      'forwardOnly',
+      bool,
+      'Forward-Only',
+      hint: 'Whether migrations are forward-only (no down migrations)',
+    ),
+    Field(
+      'baselineVersion',
+      String,
+      'Baseline Version',
+      hint: 'The initial/baseline schema version migrations build on',
+    ),
+    Field(
+      'zeroDowntimeApproach',
+      String,
+      'Zero-Downtime Approach',
+      hint: 'Expand/contract, online DDL, blue-green schema, or None',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+  @StandardReferences([
+    'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
+  ], 'The ordered schema migration steps that evolve the database over releases.')
+  @SectionId('SCMST-STEP-LST')
+  @SectionIdPattern('SCMST-STEP-xxx')
+  @ContentHelp('Add one entry per versioned schema migration step.')
+  @SerializationOrder(1)
+  List<SchemaMigrationStepEntry> migrationSteps = [];
+}
+
+/// A single schema migration step (form).
+///
+/// One versioned change to the database schema — the DDL operations it applies,
+/// the entities it touches, whether it is reversible, and any data backfill it
+/// performs as part of the schema change.
+@StandardReferences(
+  [
+    'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
+    'DAMA-DMBOK2 — data management body of knowledge',
+  ],
+  'A single versioned schema migration step: its DDL operations, affected entities, reversibility, and any accompanying data backfill.',
+)
+@SectionId('SCMST')
+class SchemaMigrationStepEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'version',
+      String,
+      'Version',
+      hint: 'The schema version this step produces (e.g. V7, 2026-07-19-01)',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What this migration changes and why',
+    ),
+    Field(
+      'ddlOperations',
+      String,
+      'DDL Operations',
+      hint: 'CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)',
+    ),
+    Field(
+      'affectedEntities',
+      String,
+      'Affected Entities',
+      hint: 'The Data Model entities this step touches',
+    ),
+    Field(
+      'dataBackfill',
+      String,
+      'Data Backfill',
+      hint: 'Any data population/transformation done as part of the step, or None',
+    ),
+    Field(
+      'reversible',
+      bool,
+      'Reversible',
+      hint: 'Whether a down/rollback migration is provided',
     ),
   ])
   @override

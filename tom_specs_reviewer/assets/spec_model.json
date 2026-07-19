@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-19T07:32:27.259027Z",
+  "generatedAt": "2026-07-19T08:07:27.968113Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1218,
+  "classCount": 1220,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -115226,6 +115226,21 @@
             }
           ],
           "type": "FunctionModel"
+        },
+        {
+          "name": "schemaVersioningAndMigration",
+          "kind": "complex",
+          "doc": "7.4. Schema Versioning and Migration.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "type": "SchemaVersioningAndMigration"
         }
       ]
     },
@@ -206180,6 +206195,248 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "SchemaMigrationStepEntry": {
+      "name": "SchemaMigrationStepEntry",
+      "sectionId": "SCMST",
+      "doc": "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.",
+      "standardReferences": {
+        "standards": [
+          "Evolutionary Database Design (Ambler & Sadalage) — database refactoring",
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "A single versioned schema migration step: its DDL operations, affected entities, reversibility, and any accompanying data backfill."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Evolutionary Database Design (Ambler & Sadalage) — database refactoring",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "A single versioned schema migration step: its DDL operations, affected entities, reversibility, and any accompanying data backfill."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCMST"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "version",
+              "label": "Version",
+              "hint": "The schema version this step produces (e.g. V7, 2026-07-19-01)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What this migration changes and why",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "ddlOperations",
+              "label": "DDL Operations",
+              "hint": "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "affectedEntities",
+              "label": "Affected Entities",
+              "hint": "The Data Model entities this step touches",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "dataBackfill",
+              "label": "Data Backfill",
+              "hint": "Any data population/transformation done as part of the step, or None",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "reversible",
+              "label": "Reversible",
+              "hint": "Whether a down/rollback migration is provided",
+              "type": "bool",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "SchemaVersioningAndMigration": {
+      "name": "SchemaVersioningAndMigration",
+      "sectionId": "SCHMG",
+      "doc": "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge",
+          "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
+        ],
+        "connotation": "Captures the schema versioning strategy and the ordered migration steps derived from the data model’s evolution — the DDL history, not business-data migration between systems."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
+            ],
+            "connotation": "Captures the schema versioning strategy and the ordered migration steps derived from the data model’s evolution — the DDL history, not business-data migration between systems."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCHMG"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "help": "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "migrationTooling",
+              "label": "Migration Tooling",
+              "hint": "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "versioningStrategy",
+              "label": "Versioning Strategy",
+              "hint": "Sequential numbered | Timestamped | Semantic",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "forwardOnly",
+              "label": "Forward-Only",
+              "hint": "Whether migrations are forward-only (no down migrations)",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "baselineVersion",
+              "label": "Baseline Version",
+              "hint": "The initial/baseline schema version migrations build on",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "zeroDowntimeApproach",
+              "label": "Zero-Downtime Approach",
+              "hint": "Expand/contract, online DDL, blue-green schema, or None",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "migrationSteps",
+          "kind": "list",
+          "doc": "7.4.1. Schema Migration Steps — one entry per versioned migration.",
+          "help": "Add one entry per versioned schema migration step.",
+          "sectionId": "SCMST-STEP-LST",
+          "sectionIdPattern": "SCMST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
+            ],
+            "connotation": "The ordered schema migration steps that evolve the database over releases."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
+                ],
+                "connotation": "The ordered schema migration steps that evolve the database over releases."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCMST-STEP-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SCMST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per versioned schema migration step."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "SchemaMigrationStepEntry",
+          "elementIsComplex": true
         }
       ]
     },
