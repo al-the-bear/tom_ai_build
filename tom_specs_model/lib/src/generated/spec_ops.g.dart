@@ -18156,7 +18156,7 @@ void registerSpecOps() {
       final n = o as SolutionArchitectureAndTechnology;
       return [
         SpecSlot.node(() => n.technicalFramework, (v) => n.technicalFramework = v as TechnicalFrameworkConcept, label: 'technicalFramework'),
-        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsAndDependencies, label: 'componentsToUse'),
+        SpecSlot.node(() => n.architectureFollowUp, (v) => n.architectureFollowUp = v as SolutionArchitectureFollowUp, label: 'architectureFollowUp'),
       ];
     },
     cloneShallow: (o) {
@@ -18164,9 +18164,24 @@ void registerSpecOps() {
       return SolutionArchitectureAndTechnology()
         ..content = n.content
         ..technicalFramework = n.technicalFramework
-        ..componentsToUse = n.componentsToUse;
+        ..architectureFollowUp = n.architectureFollowUp;
     },
     yamlScalar: (o) => (o as SolutionArchitectureAndTechnology).content,
+  ));
+  SpecRegistry.register(SolutionArchitectureFollowUp, SpecClassOps(
+    slots: (o) {
+      final n = o as SolutionArchitectureFollowUp;
+      return [
+        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsAndDependencies, label: 'componentsToUse'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SolutionArchitectureFollowUp;
+      return SolutionArchitectureFollowUp()
+        ..content = n.content
+        ..componentsToUse = n.componentsToUse;
+    },
+    yamlScalar: (o) => (o as SolutionArchitectureFollowUp).content,
   ));
   SpecRegistry.register(SpecializedEquipmentEntry, SpecClassOps(
     slots: (o) {

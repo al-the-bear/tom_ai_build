@@ -1964,46 +1964,49 @@
             - content @Form(auditName, auditCategory, auditDescription, frequency), scheduling, execution, followUp
       - systemArchitecture: `SystemArchitectureSpec`
         - content
-    - componentsToUse: `ComponentsAndDependencies`
-      - content, componentRoleInSystem @text
-      - strategy: `ComponentStrategy`
-        - content @Form(buildVsBuyPhilosophy, buildVsBuyThreshold, technologyStackAlignment), vendors, governance,
-          portfolio, policies, planning
-        - reuseGoals: `ReuseGoalEntry`
-          - content @Form(goalId, goal, rationale, category), measurement, governance, enablement
-        - `EvaluationCriteria`
+    - architectureFollowUp: `SolutionArchitectureFollowUp`
+      - content @description
+      - componentsToUse: `ComponentsAndDependencies`
+        - content, componentRoleInSystem @text
+        - strategy: `ComponentStrategy`
+          - content @Form(buildVsBuyPhilosophy, buildVsBuyThreshold, technologyStackAlignment), vendors, governance,
+            portfolio, policies, planning
+          - reuseGoals: `ReuseGoalEntry`
+            - content @Form(goalId, goal, rationale, category), measurement, governance, enablement
+          - `EvaluationCriteria`
+            - content
+            - items: `EvaluationCriterionEntry`
+              - content @Form(criterionId, criterion, description, category), scoring, process, guidelines
+        - componentCatalog: `ComponentEntry`
+          - content @Form(componentId, componentName, category), vendor, maturity, support, performance, deployment,
+            cost, compliance, risk, usageRights @text
+          - docs: `ComponentDocs`
+            - content @Form(documentationQuality, documentationUrl, approvalStatus, approvedBy)
+          - interfaces: `ComponentInterfaceEntry`
+            - content @Form(interfaceName, interfaceType, protocol), network, security, data, sla, operations
+          - licensing: `ComponentLicensingEntry`
+            - content @Form(licenseModel, licenseName, contractTermLength), costs, rights, compliance, capacity,
+              contract
+          - responsibilities: `ComponentResponsibilitiesEntry`
+            - content @Form(primaryOwner, backupOwner, escalationPath), support, sla, operations, governance
+        - `RuntimeDependencies`
           - content
-          - items: `EvaluationCriterionEntry`
-            - content @Form(criterionId, criterion, description, category), scoring, process, guidelines
-      - componentCatalog: `ComponentEntry`
-        - content @Form(componentId, componentName, category), vendor, maturity, support, performance, deployment,
-          cost, compliance, risk, usageRights @text
-        - docs: `ComponentDocs`
-          - content @Form(documentationQuality, documentationUrl, approvalStatus, approvedBy)
-        - interfaces: `ComponentInterfaceEntry`
-          - content @Form(interfaceName, interfaceType, protocol), network, security, data, sla, operations
-        - licensing: `ComponentLicensingEntry`
-          - content @Form(licenseModel, licenseName, contractTermLength), costs, rights, compliance, capacity, contract
-        - responsibilities: `ComponentResponsibilitiesEntry`
-          - content @Form(primaryOwner, backupOwner, escalationPath), support, sla, operations, governance
-      - `RuntimeDependencies`
-        - content
-        - items: `RuntimeDependencyEntry`
-          - content @Form(dependencyId, name, version, dependencyType), classification, startup, resilience,
-            integration, risk
-      - `MaintenanceDependencies`
-        - content
-        - items: `MaintenanceDependencyEntry`
-          - content @Form(dependencyId, name, version, versionConstraint), classification, update, risk
-      - riskAssessment: `ComponentRiskAssessment`
-        - content
-        - risks: `ComponentRiskEntry`
-          - content @Form(riskId, componentRef, riskTitle), description, assessment, detection, mitigation, governance
-        - `ContingencyPlans`
+          - items: `RuntimeDependencyEntry`
+            - content @Form(dependencyId, name, version, dependencyType), classification, startup, resilience,
+              integration, risk
+        - `MaintenanceDependencies`
           - content
-          - items: `ContingencyPlanEntry`
-            - content @Form(contingencyId, planTitle, triggerCondition), references, actions, responsibility,
-              communication, testing
+          - items: `MaintenanceDependencyEntry`
+            - content @Form(dependencyId, name, version, versionConstraint), classification, update, risk
+        - riskAssessment: `ComponentRiskAssessment`
+          - content
+          - risks: `ComponentRiskEntry`
+            - content @Form(riskId, componentRef, riskTitle), description, assessment, detection, mitigation, governance
+          - `ContingencyPlans`
+            - content
+            - items: `ContingencyPlanEntry`
+              - content @Form(contingencyId, planTitle, triggerCondition), references, actions, responsibility,
+                communication, testing
   - `SecurityAndAccessModel`
     - content
     - `UserManagement`
