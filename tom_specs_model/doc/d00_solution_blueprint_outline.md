@@ -2342,256 +2342,265 @@
       - `ComplianceFramework`
         - content
   - `ExperienceAndInterfaceDesign`
-    - content, dataStructureAlignment @text, authorizationCompliance @text
-    - `DesignVision`
-      - content
-      - `DesignGoals`
-        - content, overview @text
-        - items: `DesignGoalEntry`
-          - content @Form(goalName, description, priority, category, measurementCriteria, targetMetric, relatedPrinciples)
-      - `DesignPrinciples`
-        - content, overview @text
-        - items: `DesignPrincipleEntry`
-          - content @Form(principleName, description, rationale, category, examples, exceptions, sourceReference, relatedGoals)
-      - personas: `UserPersonas`
-        - content, overview @text
-        - [1,] items: `PersonaEntry`
-          - content @Form(personaName, age, role), profile, context, needs
-          - goals: `PersonaGoals`
-            - content
-            - items: `PersonaGoalEntry`
-              - content @Form(goal, priority, frequency, currentApproach, desiredOutcome)
-          - painPoints: `PersonaPainPoints`
-            - content
-            - items: `PersonaPainPointEntry`
-              - content @Form(painPoint, severity, frequency, impact, workaround, desiredSolution)
-          - scenarios: `PersonaScenarios`
-            - content
-            - items: `PersonaScenarioEntry`
-              - content @Form(scenarioName, description, frequency, urgency, context, requiredScreens, successMetric)
-    - screens: `ScreenDescriptions`
-      - content
-      - `ScreenInventory`
-        - content, overview @text
-        - [1,] items: `ScreenEntry`
-          - content @Form(screenId, screenName, purpose), classification, access, traceability, presentation,
-            designNotes @text
-          - sections: `ScreenSections`
-            - content
-            - items: `ScreenSectionEntry`
-              - content @Form(sectionId, sectionName, purpose, sectionType), layout, behavior
-              - elements: `ScreenElementEntry`
-                - content @Form(elementId, elementName, elementType), resources, layout, behavior, presentation
-                - elementAction: `ScreenElementAction`
-                  - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut),
-                    execution, navigation
-                - fieldSpec: `ScreenElementFieldSpec`
-                  - content @Form(fieldName, dataType, placeholderResource), formatting, numberOptions, dateOptions,
-                    textOptions, validation, selectOptions
-                - dataDisplay: `ScreenElementDataDisplay`
-                  - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
-                    behavior, options
-                - validationRules: `ElementValidationRuleEntry`
-                  - content @Form(ruleType, ruleExpression, errorCode, errorMessageResource, severity, validateOn)
-          - actions: `ScreenActions`
-            - content
-            - items: `ScreenActionEntry`
-              - content @Form(actionId, actionName, actionType), visual, conditions, behavior
-          - states: `ScreenStates`
-            - content
-            - items: `ScreenStateEntry`
-              - content @Form(stateName, description, messageResource, iconResource, illustrationResource, primaryActionLabel, primaryActionTarget, secondaryActionLabel)
-          - userCategories: `ScreenUserCategoryEntry`
-            - content @Form(categoryName, description, contentVariations)
-          - entryPoints: `EntryPointEntry`
-            - content @Form(entryPoint, source, contextPassed)
-          - responsiveRules: `ScreenResponsiveRuleEntry`
-            - content @Form(breakpoint, layoutChanges, hiddenElements, collapsedSections, navigationMode)
-      - `InformationArchitecture`
-        - content, siteMap @text, contentHierarchy @text, navigationStructure @text, architectureDiagram @mermaid-flow
-        - globalEntryPoints: `String`
-    - screenFlow: `ScreenFlowStructure`
-      - content, screenFlowDiagram @mermaid-flow
-      - `NavigationModel`
+    - content
+    - `ExperienceCodeSpecs`
+      - content @description, dataStructureAlignment @text
+      - screens: `ScreenDescriptions`
         - content
-        - overview: `NavigationOverview`
-          - content @Form(navigationStrategy, maxNavigationDepth, defaultLandingScreen, unauthenticatedLanding, navigationPersistence, historyManagement, backBehavior),
-            designNotes @text
-        - hierarchy: `NavigationHierarchy`
+        - `ScreenInventory`
           - content, overview @text
-          - groups: `NavigationGroupEntry`
-            - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, access, structure
-            - items: `NavigationItemEntry`
-              - content @Form(itemId, label, targetRoute), display, routing, access, badge, interaction
-        - `PrimaryNavigation`
-          - content @Form(mobilePattern, tabletPattern, desktopPattern), drawer, bottomNav, sidebar, designNotes @text
-        - `SecondaryNavigation`
-          - content, overview @text
-          - tabBars: `TabBarDefinitionEntry`
-            - content @Form(tabBarId, tabBarName, hostScreenId, tabBarStyle), behavior, loading
-            - [1,] tabs: `TabItemEntry`
-              - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, requiredPermissions, permissionBehavior, badgeType, badgeSource)
-        - `UtilityNavigation`
+          - [1,] items: `ScreenEntry`
+            - content @Form(screenId, screenName, purpose), classification, access, traceability, presentation,
+              designNotes @text
+            - sections: `ScreenSections`
+              - content
+              - items: `ScreenSectionEntry`
+                - content @Form(sectionId, sectionName, purpose, sectionType), layout, behavior
+                - elements: `ScreenElementEntry`
+                  - content @Form(elementId, elementName, elementType), resources, layout, behavior, presentation
+                  - elementAction: `ScreenElementAction`
+                    - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut),
+                      execution, navigation
+                  - fieldSpec: `ScreenElementFieldSpec`
+                    - content @Form(fieldName, dataType, placeholderResource), formatting, numberOptions, dateOptions,
+                      textOptions, validation, selectOptions
+                  - dataDisplay: `ScreenElementDataDisplay`
+                    - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
+                      behavior, options
+                  - validationRules: `ElementValidationRuleEntry`
+                    - content @Form(ruleType, ruleExpression, errorCode, errorMessageResource, severity, validateOn)
+            - actions: `ScreenActions`
+              - content
+              - items: `ScreenActionEntry`
+                - content @Form(actionId, actionName, actionType), visual, conditions, behavior
+            - states: `ScreenStates`
+              - content
+              - items: `ScreenStateEntry`
+                - content @Form(stateName, description, messageResource, iconResource, illustrationResource, primaryActionLabel, primaryActionTarget, secondaryActionLabel)
+            - userCategories: `ScreenUserCategoryEntry`
+              - content @Form(categoryName, description, contentVariations)
+            - entryPoints: `EntryPointEntry`
+              - content @Form(entryPoint, source, contextPassed)
+            - responsiveRules: `ScreenResponsiveRuleEntry`
+              - content @Form(breakpoint, layoutChanges, hiddenElements, collapsedSections, navigationMode)
+        - `InformationArchitecture`
+          - content, siteMap @text, contentHierarchy @text, navigationStructure @text, architectureDiagram @mermaid-flow
+          - globalEntryPoints: `String`
+      - screenFlow: `ScreenFlowStructure`
+        - content, screenFlowDiagram @mermaid-flow
+        - `NavigationModel`
           - content
-          - items: `UtilityNavigationItemEntry`
-            - content @Form(utilityId, label, icon, position), display, behavior
-            - menuItems: `UtilityMenuItemEntry`
-              - content @Form(menuItemId, label, icon, displayOrder), action, behavior
-        - `ContextualNavigation`
-          - content, breadcrumbs, backNavigation @text, relatedLinks @text
-        - `DeepLinking`
-          - content, strategy @text
-          - patterns: `DeepLinkPatternEntry`
-            - content @Form(patternId, urlPattern, targetScreenId, description, authenticationRequired, requiredPermissions, fallbackRoute, shareEnabled)
-        - `NavigationGuards`
+          - overview: `NavigationOverview`
+            - content @Form(navigationStrategy, maxNavigationDepth, defaultLandingScreen, unauthenticatedLanding, navigationPersistence, historyManagement, backBehavior),
+              designNotes @text
+          - hierarchy: `NavigationHierarchy`
+            - content, overview @text
+            - groups: `NavigationGroupEntry`
+              - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, access, structure
+              - items: `NavigationItemEntry`
+                - content @Form(itemId, label, targetRoute), display, routing, access, badge, interaction
+          - `PrimaryNavigation`
+            - content @Form(mobilePattern, tabletPattern, desktopPattern), drawer, bottomNav, sidebar, designNotes @text
+          - `SecondaryNavigation`
+            - content, overview @text
+            - tabBars: `TabBarDefinitionEntry`
+              - content @Form(tabBarId, tabBarName, hostScreenId, tabBarStyle), behavior, loading
+              - [1,] tabs: `TabItemEntry`
+                - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, requiredPermissions, permissionBehavior, badgeType, badgeSource)
+          - `UtilityNavigation`
+            - content
+            - items: `UtilityNavigationItemEntry`
+              - content @Form(utilityId, label, icon, position), display, behavior
+              - menuItems: `UtilityMenuItemEntry`
+                - content @Form(menuItemId, label, icon, displayOrder), action, behavior
+          - `ContextualNavigation`
+            - content, breadcrumbs, backNavigation @text, relatedLinks @text
+          - `DeepLinking`
+            - content, strategy @text
+            - patterns: `DeepLinkPatternEntry`
+              - content @Form(patternId, urlPattern, targetScreenId, description, authenticationRequired, requiredPermissions, fallbackRoute, shareEnabled)
+          - `NavigationGuards`
+            - content, overview @text
+            - guards: `NavigationGuardEntry`
+              - content @Form(guardId, guardName, guardType, triggerCondition), dialog, routing
+      - `ErrorHandling`
+        - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
+          errorMessageCatalog @text, errorVisualDesign @text
+        - `ValidationFeedback`
+          - validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
+          - messageTemplates: `ValidationMessageTemplate`
+            - content @Form(messageId, validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
+          - fieldValidationRules: `String`
+        - `SystemErrorDisplay`
+          - systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
+          - errorPageDesigns: `String`
+          - errorCodes: `SystemErrorCodeEntry`
+            - content @Form(errorCode, httpStatus, errorCategory, userMessage), handling, operations
+        - `ErrorRecovery`
+          - recoveryMechanismsContent, dataPreservation, retryMechanisms, guidedRecovery, supportContact,
+            sessionHandling, recoveryNarrative @text
+          - recoveryFlows: `String`
+          - recoveryScenarios: `RecoveryScenarioEntry`
+            - content @Form(scenarioId, scenarioName, triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
+              detailedFlow @text
+      - `ResponsiveDesign`
+        - responsiveOverview, responsiveNarrative @text
+        - breakpointConfig: `BreakpointConfiguration`
+          - breakpointOverview
+          - breakpoints: `BreakpointEntry`
+            - content @Form(breakpointId, breakpointName, minWidth, maxWidth), layout, scaling
+        - `ResponsiveBehavior`
+          - layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
+          - screenRules: `ResponsiveScreenRuleEntry`
+            - content @Form(screenId, screenName, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
+      - `UiComponents`
+        - componentLibraryOverview, visualLanguage, componentApproach, customization
+        - `ComponentLibrary`
+          - colors, typography, spacing, borders, visuals, designSystemNarrative @text, designTokenCatalog @text
+          - designFoundations: `DesignFoundationEntry`
+            - content @Form(primaryColor, fontFamilyPrimary, spacingScale)
+          - colorPalettes: `ColorPaletteEntry`
+            - content @Form(paletteName, paletteRole, colorCount, baseColor, lightVariants, darkVariants, onColorDefault, wcagCompliance, usageGuidelines)
+          - typographyStyles: `TypographyStyleEntry`
+            - content @Form(styleName, fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textDecoration, useCase)
+        - componentSpecs: `UiComponentEntry`
+          - identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface,
+            visualDiagram @mermaid, interactiveBehavior, inputBehavior, animation, scroll, responsiveness,
+            accessibility, authorization, resourceIntegration, dataBinding, behaviorNarrative @text
+          - states: `ComponentStateEntry`
+            - content @Form(stateId, stateName, stateDescription), visual, behavior, transitions, stateMockup @mermaid
+          - variants: `ComponentVariantEntry`
+            - content @Form(variantId, variantName, variantDescription, visualDifferences), visual, behavior,
+              variantMockup @mermaid
+          - actions: `ComponentActionEntry`
+            - content @Form(actionId, actionName, actionTrigger, actionPayload), governance, execution
+          - slots: `ComponentSlotEntry`
+            - content @Form(slotId, slotName, slotDescription, slotRequired, acceptedWidgets, defaultContent, sizingBehavior, resourceKey)
+          - properties: `ComponentPropertyEntry`
+            - content @Form(propertyId, propertyName, propertyType, defaultValue, allowedValues, propertyDescription, affectsAppearance, affectsBehavior, resourceResolvable, authControlled)
+        - componentFamilies: `ComponentFamilyEntry`
+          - content @Form(familyId, familyName, familyDescription, componentCount, sharedPatterns, consistencyRules),
+            familyNarrative @text
+          - components: `FamilyComponentRef`
+            - content @Form(componentId, componentName, familyRole, relationToOthers)
+    - designFollowUp: `ExperienceDesignFollowUp`
+      - content @description
+      - `DesignVision`
+        - content
+        - `DesignGoals`
           - content, overview @text
-          - guards: `NavigationGuardEntry`
-            - content @Form(guardId, guardName, guardType, triggerCondition), dialog, routing
-    - printLayout: `PrintAndExportLayout`
-      - content @Form(printStrategy, defaultPaperSize, defaultOrientation), pageSetup, branding, watermark,
-        headerFooter, archive
-      - reports: `ReportEntry`
-        - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
-          grouping, formatting, interactivity, pagination, security, lifecycle
-        - sections: `ReportSectionEntry`
-          - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
-          - columns: `ReportColumnEntry`
-            - content @Form(columnId, columnName, displayLabel), dataSource, formatting, aggregation, interaction,
-              layout
-          - charts: `ReportChartEntry`
-            - content @Form(chartId, title, chartType), series, display, interaction, layout
-            - axes: `ReportChartAxes`
-              - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
-        - filters: `ReportFilterEntry`
-          - content @Form(filterId, filterName, displayLabel), input, behavior, presentation
-        - schedules: `ReportScheduleEntry`
-          - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
-        - distributions: `ReportDistributionEntry`
-          - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
-        - recipients: `ReportRecipientEntry`
-          - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
-      - exportFormats: `ExportFormatEntry`
-        - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security,
-          output, access
-        - sizeSettings: `ExportSizeSettings`
-          - content @Form(maxRows, splitLargeFiles, splitThreshold)
-        - fieldMappings: `ExportFieldMappingEntry`
-          - content @Form(mappingId, sourceField, targetFieldName), formatting, transformation, inclusion, layout
-      - exportTemplates: `ExportTemplateEntry`
-        - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
-    - `ErrorHandling`
-      - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
-        errorMessageCatalog @text, errorVisualDesign @text
-      - `ValidationFeedback`
-        - validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
-        - messageTemplates: `ValidationMessageTemplate`
-          - content @Form(messageId, validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
-        - fieldValidationRules: `String`
-      - `SystemErrorDisplay`
-        - systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
-        - errorPageDesigns: `String`
-        - errorCodes: `SystemErrorCodeEntry`
-          - content @Form(errorCode, httpStatus, errorCategory, userMessage), handling, operations
-      - `ErrorRecovery`
-        - recoveryMechanismsContent, dataPreservation, retryMechanisms, guidedRecovery, supportContact,
-          sessionHandling, recoveryNarrative @text
-        - recoveryFlows: `String`
-        - recoveryScenarios: `RecoveryScenarioEntry`
-          - content @Form(scenarioId, scenarioName, triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
-            detailedFlow @text
-    - `UserAssistance`
-      - helpOverviewContent, delivery, insights, helpOverview @text, helpContentInventory @text
-      - `ContextualHelp`
-        - contextualHelpContent, inline, panels, whatsThis, rich, contextualHelpNarrative @text
-        - fieldHelpCatalog: `FieldHelpEntry`
-          - content @Form(fieldId, fieldLabel, tooltipText, inlineHelpText, extendedHelp, relatedArticles, exampleValues, commonMistakes)
-      - onboarding: `OnboardingHelp`
-        - onboardingContent, tours, sampleData, checklist, disclosure, reengagement, onboardingNarrative @text
-        - featureTours: `FeatureTourEntry`
-          - content @Form(tourId, tourName, tourDescription, targetAudience, triggerCondition, stepCount, estimatedDuration, skippable, repeatPolicy)
-          - steps: `TourStepEntry`
-            - content @Form(stepOrder, targetElement, stepTitle, stepContent, placement, actionRequired, spotlightShape)
-      - `SupportAccess`
-        - supportAccessContent, helpCenter, liveSupport, tickets, contactMethods, selfService,
-          supportAccessNarrative @text
-    - `Accessibility`
-      - accessibilityOverviewContent, strategy, testing, support, accessibilityOverview @text,
-        keyboardNavigation @text, screenReaderSupport @text, colorAndContrast @text
-      - wcagComplianceLevel: `WcagCompliance`
-        - wcagComplianceContent, operable, understandable, robust, wcagNarrative @text
-        - successCriteria: `WcagSuccessCriterionEntry`
-          - content @Form(criterionId, criterionName, level, applicability, implementation, testingMethod, status, exceptions)
-      - `AccessibilityChecklist`
-        - checklistOverviewContent, checklistOverview @text
-        - items: `AccessibilityCheckEntry`
-          - content @Form(checkId, checkItem, checkDescription, verificationMethod), compliance, execution, remediation
-    - `ResponsiveDesign`
-      - responsiveOverview, responsiveNarrative @text
-      - breakpointConfig: `BreakpointConfiguration`
-        - breakpointOverview
-        - breakpoints: `BreakpointEntry`
-          - content @Form(breakpointId, breakpointName, minWidth, maxWidth), layout, scaling
-      - `ResponsiveBehavior`
-        - layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
-        - screenRules: `ResponsiveScreenRuleEntry`
-          - content @Form(screenId, screenName, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
-    - `UiComponents`
-      - componentLibraryOverview, visualLanguage, componentApproach, customization
-      - `ComponentLibrary`
-        - colors, typography, spacing, borders, visuals, designSystemNarrative @text, designTokenCatalog @text
-        - designFoundations: `DesignFoundationEntry`
-          - content @Form(primaryColor, fontFamilyPrimary, spacingScale)
-        - colorPalettes: `ColorPaletteEntry`
-          - content @Form(paletteName, paletteRole, colorCount, baseColor, lightVariants, darkVariants, onColorDefault, wcagCompliance, usageGuidelines)
-        - typographyStyles: `TypographyStyleEntry`
-          - content @Form(styleName, fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textDecoration, useCase)
-      - componentSpecs: `UiComponentEntry`
-        - identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface, visualDiagram @mermaid,
-          interactiveBehavior, inputBehavior, animation, scroll, responsiveness, accessibility, authorization,
-          resourceIntegration, dataBinding, behaviorNarrative @text
-        - states: `ComponentStateEntry`
-          - content @Form(stateId, stateName, stateDescription), visual, behavior, transitions, stateMockup @mermaid
-        - variants: `ComponentVariantEntry`
-          - content @Form(variantId, variantName, variantDescription, visualDifferences), visual, behavior,
-            variantMockup @mermaid
-        - actions: `ComponentActionEntry`
-          - content @Form(actionId, actionName, actionTrigger, actionPayload), governance, execution
-        - slots: `ComponentSlotEntry`
-          - content @Form(slotId, slotName, slotDescription, slotRequired, acceptedWidgets, defaultContent, sizingBehavior, resourceKey)
-        - properties: `ComponentPropertyEntry`
-          - content @Form(propertyId, propertyName, propertyType, defaultValue, allowedValues, propertyDescription, affectsAppearance, affectsBehavior, resourceResolvable, authControlled)
-      - componentFamilies: `ComponentFamilyEntry`
-        - content @Form(familyId, familyName, familyDescription, componentCount, sharedPatterns, consistencyRules),
-          familyNarrative @text
-        - components: `FamilyComponentRef`
-          - content @Form(componentId, componentName, familyRole, relationToOthers)
-    - `MultiLanguageSupport`
-      - multiLanguageOverview, overviewNarrative @text
-      - `LanguageCountrySelection`
-        - languageSelectionContent, defaults, persistence, fallback, ux, languageSelectionNarrative @text,
-          languagePickerMockup @mermaid
-      - supportedLocales: `SupportedLocaleEntry`
-        - content @Form(localeCode, languageName, nativeLanguageName, countryRegion), formatting, rollout
-    - `Prototype`
-      - prototypeOverview, timeline, resources, governance, overviewNarrative @text, prototypeSchedule @text
-      - `PrototypeGoals`
-        - goalsContent, riskProfile, feedbackProfile, goalsNarrative @text
-        - goals: `PrototypeGoalEntry`
-          - content @Form(goalId, goalDescription, goalCategory, validationMethod, successMetric, priority, relatedRisks, stakeholders)
-      - featureSubset: `PrototypeFeatureSubset`
-        - featureSubsetContent, scope, fidelity, featureNarrative @text
-        - features: `PrototypeFeatureEntry`
-          - content @Form(featureId, featureName, inclusionReason, fidelityLevel, completenessLevel, relatedGoals, implementationNotes, knownLimitations)
-      - `PrototypeType`
-        - prototypeTypeOverview
-        - `ReusablePrototype`
-          - reusableContent, architecture, integration, transition, reusableNarrative @text
-        - `TrainingPrototype`
-          - trainingContent, disposition, outputs, trainingNarrative @text
-        - `ThrowawayPrototype`
-          - throwawayContent, findings, disposition, value, throwawayNarrative @text
-    - `WireframesAndMockups`
-      - content
+          - items: `DesignGoalEntry`
+            - content @Form(goalName, description, priority, category, measurementCriteria, targetMetric, relatedPrinciples)
+        - `DesignPrinciples`
+          - content, overview @text
+          - items: `DesignPrincipleEntry`
+            - content @Form(principleName, description, rationale, category, examples, exceptions, sourceReference, relatedGoals)
+        - personas: `UserPersonas`
+          - content, overview @text
+          - [1,] items: `PersonaEntry`
+            - content @Form(personaName, age, role), profile, context, needs
+            - goals: `PersonaGoals`
+              - content
+              - items: `PersonaGoalEntry`
+                - content @Form(goal, priority, frequency, currentApproach, desiredOutcome)
+            - painPoints: `PersonaPainPoints`
+              - content
+              - items: `PersonaPainPointEntry`
+                - content @Form(painPoint, severity, frequency, impact, workaround, desiredSolution)
+            - scenarios: `PersonaScenarios`
+              - content
+              - items: `PersonaScenarioEntry`
+                - content @Form(scenarioName, description, frequency, urgency, context, requiredScreens, successMetric)
+      - printLayout: `PrintAndExportLayout`
+        - content @Form(printStrategy, defaultPaperSize, defaultOrientation), pageSetup, branding, watermark,
+          headerFooter, archive
+        - reports: `ReportEntry`
+          - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
+            grouping, formatting, interactivity, pagination, security, lifecycle
+          - sections: `ReportSectionEntry`
+            - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
+            - columns: `ReportColumnEntry`
+              - content @Form(columnId, columnName, displayLabel), dataSource, formatting, aggregation, interaction,
+                layout
+            - charts: `ReportChartEntry`
+              - content @Form(chartId, title, chartType), series, display, interaction, layout
+              - axes: `ReportChartAxes`
+                - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
+          - filters: `ReportFilterEntry`
+            - content @Form(filterId, filterName, displayLabel), input, behavior, presentation
+          - schedules: `ReportScheduleEntry`
+            - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
+          - distributions: `ReportDistributionEntry`
+            - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
+          - recipients: `ReportRecipientEntry`
+            - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
+        - exportFormats: `ExportFormatEntry`
+          - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security,
+            output, access
+          - sizeSettings: `ExportSizeSettings`
+            - content @Form(maxRows, splitLargeFiles, splitThreshold)
+          - fieldMappings: `ExportFieldMappingEntry`
+            - content @Form(mappingId, sourceField, targetFieldName), formatting, transformation, inclusion, layout
+        - exportTemplates: `ExportTemplateEntry`
+          - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
+      - `UserAssistance`
+        - helpOverviewContent, delivery, insights, helpOverview @text, helpContentInventory @text
+        - `ContextualHelp`
+          - contextualHelpContent, inline, panels, whatsThis, rich, contextualHelpNarrative @text
+          - fieldHelpCatalog: `FieldHelpEntry`
+            - content @Form(fieldId, fieldLabel, tooltipText, inlineHelpText, extendedHelp, relatedArticles, exampleValues, commonMistakes)
+        - onboarding: `OnboardingHelp`
+          - onboardingContent, tours, sampleData, checklist, disclosure, reengagement, onboardingNarrative @text
+          - featureTours: `FeatureTourEntry`
+            - content @Form(tourId, tourName, tourDescription, targetAudience, triggerCondition, stepCount, estimatedDuration, skippable, repeatPolicy)
+            - steps: `TourStepEntry`
+              - content @Form(stepOrder, targetElement, stepTitle, stepContent, placement, actionRequired, spotlightShape)
+        - `SupportAccess`
+          - supportAccessContent, helpCenter, liveSupport, tickets, contactMethods, selfService,
+            supportAccessNarrative @text
+      - `Accessibility`
+        - accessibilityOverviewContent, strategy, testing, support, accessibilityOverview @text,
+          keyboardNavigation @text, screenReaderSupport @text, colorAndContrast @text
+        - wcagComplianceLevel: `WcagCompliance`
+          - wcagComplianceContent, operable, understandable, robust, wcagNarrative @text
+          - successCriteria: `WcagSuccessCriterionEntry`
+            - content @Form(criterionId, criterionName, level, applicability, implementation, testingMethod, status, exceptions)
+        - `AccessibilityChecklist`
+          - checklistOverviewContent, checklistOverview @text
+          - items: `AccessibilityCheckEntry`
+            - content @Form(checkId, checkItem, checkDescription, verificationMethod), compliance, execution,
+              remediation
+      - `Prototype`
+        - prototypeOverview, timeline, resources, governance, overviewNarrative @text, prototypeSchedule @text
+        - `PrototypeGoals`
+          - goalsContent, riskProfile, feedbackProfile, goalsNarrative @text
+          - goals: `PrototypeGoalEntry`
+            - content @Form(goalId, goalDescription, goalCategory, validationMethod, successMetric, priority, relatedRisks, stakeholders)
+        - featureSubset: `PrototypeFeatureSubset`
+          - featureSubsetContent, scope, fidelity, featureNarrative @text
+          - features: `PrototypeFeatureEntry`
+            - content @Form(featureId, featureName, inclusionReason, fidelityLevel, completenessLevel, relatedGoals, implementationNotes, knownLimitations)
+        - `PrototypeType`
+          - prototypeTypeOverview
+          - `ReusablePrototype`
+            - reusableContent, architecture, integration, transition, reusableNarrative @text
+          - `TrainingPrototype`
+            - trainingContent, disposition, outputs, trainingNarrative @text
+          - `ThrowawayPrototype`
+            - throwawayContent, findings, disposition, value, throwawayNarrative @text
+      - `WireframesAndMockups`
+        - content
+    - localizationFollowUp: `ExperienceLocalizationFollowUp`
+      - content @description
+      - `MultiLanguageSupport`
+        - multiLanguageOverview, overviewNarrative @text
+        - `LanguageCountrySelection`
+          - languageSelectionContent, defaults, persistence, fallback, ux, languageSelectionNarrative @text,
+            languagePickerMockup @mermaid
+        - supportedLocales: `SupportedLocaleEntry`
+          - content @Form(localeCode, languageName, nativeLanguageName, countryRegion), formatting, rollout
+    - `AuthorizationComplianceFollowUp`
+      - content @description, authorizationCompliance @text
   - `QualityAndAcceptanceModel`
     - content
     - `SystemQualityGoals`

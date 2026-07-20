@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-20T10:13:08.827462Z",
+  "generatedAt": "2026-07-20T10:25:20.401526Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1237,
+  "classCount": 1241,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -15824,6 +15824,75 @@
           ],
           "elementType": "AuthenticationMethodEntry",
           "elementIsComplex": true
+        }
+      ]
+    },
+    "AuthorizationComplianceFollowUp": {
+      "name": "AuthorizationComplianceFollowUp",
+      "sectionId": "XCFU",
+      "doc": "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — information security management",
+          "SOC 2 — trust services criteria"
+        ],
+        "connotation": "The CMP follow-up: UI authorization compliance — how the interface adapts to user roles and permissions as a compliance obligation."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — information security management",
+              "SOC 2 — trust services criteria"
+            ],
+            "connotation": "The CMP follow-up: UI authorization compliance — how the interface adapts to user roles and permissions as a compliance obligation."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "XCFU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "description",
+                "description": "Summarize the authorization-compliance follow-up: UI adaptation to roles and permissions."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "description"
+        },
+        {
+          "name": "authorizationCompliance",
+          "kind": "section",
+          "doc": "10.4.1. Authorization Compliance.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
         }
       ]
     },
@@ -97622,9 +97691,268 @@
           "contentType": "text"
         },
         {
+          "name": "experienceCodeSpecs",
+          "kind": "complex",
+          "doc": "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "type": "ExperienceCodeSpecs"
+        },
+        {
+          "name": "designFollowUp",
+          "kind": "complex",
+          "doc": "10.2. Experience Design — DOC follow-up subtree.",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "type": "ExperienceDesignFollowUp"
+        },
+        {
+          "name": "localizationFollowUp",
+          "kind": "complex",
+          "doc": "10.3. Experience Localization — L10N follow-up subtree.",
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "type": "ExperienceLocalizationFollowUp"
+        },
+        {
+          "name": "authorizationComplianceFollowUp",
+          "kind": "complex",
+          "doc": "10.4. Authorization Compliance — CMP follow-up subtree.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "type": "AuthorizationComplianceFollowUp"
+        }
+      ]
+    },
+    "ExperienceCodeSpecs": {
+      "name": "ExperienceCodeSpecs",
+      "sectionId": "XCS",
+      "doc": "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — human-centred design for interactive systems",
+          "ISO/IEC 25010:2023 — interaction capability as a product-quality characteristic"
+        ],
+        "connotation": "The CodeSpecs UI-generation seed: screens, screen flow, data-structure alignment, error handling, responsive design, and the UI component library."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — human-centred design for interactive systems",
+              "ISO/IEC 25010:2023 — interaction capability as a product-quality characteristic"
+            ],
+            "connotation": "The CodeSpecs UI-generation seed: screens, screen flow, data-structure alignment, error handling, responsive design, and the UI component library."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "XCS"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "description",
+                "description": "Summarize the CodeSpecs UI-generation subtree: screens, navigation, error handling, responsive design, and components."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "description"
+        },
+        {
+          "name": "screens",
+          "kind": "complex",
+          "doc": "10.1.1. Screen Descriptions. Seeds → XDS.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "type": "ScreenDescriptions"
+        },
+        {
+          "name": "screenFlow",
+          "kind": "complex",
+          "doc": "10.1.2. Screen Flow Structure. Seeds → XDS.",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "type": "ScreenFlowStructure"
+        },
+        {
+          "name": "dataStructureAlignment",
+          "kind": "section",
+          "doc": "10.1.3. Data Structure Alignment.",
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "errorHandling",
+          "kind": "complex",
+          "doc": "10.1.4. Error Handling. Seeds → XDS.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "type": "ErrorHandling"
+        },
+        {
+          "name": "responsiveDesign",
+          "kind": "complex",
+          "doc": "10.1.5. Responsive Design. Seeds → XDS.",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "type": "ResponsiveDesign"
+        },
+        {
+          "name": "uiComponents",
+          "kind": "complex",
+          "doc": "10.1.6. UI Components. Seeds → XDS.",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "type": "UiComponents"
+        }
+      ]
+    },
+    "ExperienceDesignFollowUp": {
+      "name": "ExperienceDesignFollowUp",
+      "sectionId": "XDFU",
+      "doc": "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — human-centred design for interactive systems",
+          "ISO/IEC/IEEE 26514 — designing and developing user documentation",
+          "W3C WCAG 2.2 — accessibility"
+        ],
+        "connotation": "The DOC design follow-up: design vision, print / export layout, user assistance, accessibility, prototype, and wireframes & mockups."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — human-centred design for interactive systems",
+              "ISO/IEC/IEEE 26514 — designing and developing user documentation",
+              "W3C WCAG 2.2 — accessibility"
+            ],
+            "connotation": "The DOC design follow-up: design vision, print / export layout, user assistance, accessibility, prototype, and wireframes & mockups."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "XDFU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "description",
+                "description": "Summarize the design follow-up: vision, print layout, user assistance, accessibility, prototype, and wireframes."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "description"
+        },
+        {
           "name": "designVision",
           "kind": "complex",
-          "doc": "10.1. Design Vision. Seeds → XDS.",
+          "doc": "10.2.1. Design Vision. Seeds → XDS.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -97637,9 +97965,9 @@
           "type": "DesignVision"
         },
         {
-          "name": "screens",
+          "name": "printLayout",
           "kind": "complex",
-          "doc": "10.2. Screen Descriptions. Seeds → XDS.",
+          "doc": "10.2.2. Print Layout. Seeds → XDS.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -97649,12 +97977,12 @@
               }
             }
           ],
-          "type": "ScreenDescriptions"
+          "type": "PrintAndExportLayout"
         },
         {
-          "name": "screenFlow",
+          "name": "userAssistance",
           "kind": "complex",
-          "doc": "10.3. Screen Flow Structure. Seeds → XDS.",
+          "doc": "10.2.3. User Assistance. Seeds → XDS.",
           "serializationOrder": 3,
           "annotations": [
             {
@@ -97664,12 +97992,12 @@
               }
             }
           ],
-          "type": "ScreenFlowStructure"
+          "type": "UserAssistance"
         },
         {
-          "name": "printLayout",
+          "name": "accessibility",
           "kind": "complex",
-          "doc": "10.4. Print Layout. Seeds → XDS.",
+          "doc": "10.2.4. Accessibility. Seeds → XDS.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -97679,12 +98007,12 @@
               }
             }
           ],
-          "type": "PrintAndExportLayout"
+          "type": "Accessibility"
         },
         {
-          "name": "dataStructureAlignment",
-          "kind": "section",
-          "doc": "Data Structure Alignment.",
+          "name": "prototype",
+          "kind": "complex",
+          "doc": "10.2.5. Prototype. Seeds → XDS.",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -97694,13 +98022,12 @@
               }
             }
           ],
-          "contentType": "text",
-          "sectionType": "TextSection"
+          "type": "Prototype"
         },
         {
-          "name": "authorizationCompliance",
-          "kind": "section",
-          "doc": "Authorization Compliance.",
+          "name": "wireframesAndMockups",
+          "kind": "complex",
+          "doc": "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -97710,128 +98037,75 @@
               }
             }
           ],
-          "contentType": "text",
-          "sectionType": "TextSection"
+          "type": "WireframesAndMockups"
+        }
+      ]
+    },
+    "ExperienceLocalizationFollowUp": {
+      "name": "ExperienceLocalizationFollowUp",
+      "sectionId": "XLFU",
+      "doc": "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — portability / adaptability",
+          "Unicode CLDR — locale data"
+        ],
+        "connotation": "The L10N follow-up: the multi-language support / internationalization approach for the user interface."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — portability / adaptability",
+              "Unicode CLDR — locale data"
+            ],
+            "connotation": "The L10N follow-up: the multi-language support / internationalization approach for the user interface."
+          }
         },
         {
-          "name": "errorHandling",
-          "kind": "complex",
-          "doc": "10.7. Error Handling. Seeds → XDS.",
-          "serializationOrder": 7,
+          "name": "SectionId",
+          "arguments": {
+            "id": "XLFU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "description",
+                "description": "Summarize the localization follow-up: the multi-language / internationalization approach."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 0
               }
             }
           ],
-          "type": "ErrorHandling"
-        },
-        {
-          "name": "userAssistance",
-          "kind": "complex",
-          "doc": "10.8. User Assistance. Seeds → XDS.",
-          "serializationOrder": 8,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 8
-              }
-            }
-          ],
-          "type": "UserAssistance"
-        },
-        {
-          "name": "accessibility",
-          "kind": "complex",
-          "doc": "10.9. Accessibility. Seeds → XDS.",
-          "serializationOrder": 9,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 9
-              }
-            }
-          ],
-          "type": "Accessibility"
-        },
-        {
-          "name": "responsiveDesign",
-          "kind": "complex",
-          "doc": "10.10. Responsive Design. Seeds → XDS.",
-          "serializationOrder": 10,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 10
-              }
-            }
-          ],
-          "type": "ResponsiveDesign"
-        },
-        {
-          "name": "uiComponents",
-          "kind": "complex",
-          "doc": "10.11. UI Components. Seeds → XDS.",
-          "serializationOrder": 11,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 11
-              }
-            }
-          ],
-          "type": "UiComponents"
+          "contentType": "description"
         },
         {
           "name": "multiLanguageSupport",
           "kind": "complex",
-          "doc": "10.12. Multi-language Support.",
-          "serializationOrder": 12,
+          "doc": "10.3.1. Multi-language Support.",
+          "serializationOrder": 1,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 12
+                "order": 1
               }
             }
           ],
           "type": "MultiLanguageSupport"
-        },
-        {
-          "name": "prototype",
-          "kind": "complex",
-          "doc": "10.13. Prototype. Seeds → XDS.",
-          "serializationOrder": 13,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 13
-              }
-            }
-          ],
-          "type": "Prototype"
-        },
-        {
-          "name": "wireframesAndMockups",
-          "kind": "complex",
-          "doc": "10.14. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
-          "serializationOrder": 14,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 14
-              }
-            }
-          ],
-          "type": "WireframesAndMockups"
         }
       ]
     },

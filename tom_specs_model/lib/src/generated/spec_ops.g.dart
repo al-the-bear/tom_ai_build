@@ -1603,6 +1603,21 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as AuthenticationMethods).content,
   ));
+  SpecRegistry.register(AuthorizationComplianceFollowUp, SpecClassOps(
+    slots: (o) {
+      final n = o as AuthorizationComplianceFollowUp;
+      return [
+        SpecSlot.node(() => n.authorizationCompliance, (v) => n.authorizationCompliance = v as TextSection, label: 'authorizationCompliance'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as AuthorizationComplianceFollowUp;
+      return AuthorizationComplianceFollowUp()
+        ..content = n.content
+        ..authorizationCompliance = n.authorizationCompliance;
+    },
+    yamlScalar: (o) => (o as AuthorizationComplianceFollowUp).content,
+  ));
   SpecRegistry.register(AuthorizationEventPolicy, SpecClassOps(
     slots: (o) {
       final n = o as AuthorizationEventPolicy;
@@ -8025,42 +8040,87 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as ExperienceAndInterfaceDesign;
       return [
-        SpecSlot.node(() => n.designVision, (v) => n.designVision = v as DesignVision, label: 'designVision'),
-        SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
-        SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
-        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintAndExportLayout, label: 'printLayout'),
-        SpecSlot.node(() => n.dataStructureAlignment, (v) => n.dataStructureAlignment = v as TextSection, label: 'dataStructureAlignment'),
-        SpecSlot.node(() => n.authorizationCompliance, (v) => n.authorizationCompliance = v as TextSection, label: 'authorizationCompliance'),
-        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandling, label: 'errorHandling'),
-        SpecSlot.node(() => n.userAssistance, (v) => n.userAssistance = v as UserAssistance, label: 'userAssistance'),
-        SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
-        SpecSlot.node(() => n.responsiveDesign, (v) => n.responsiveDesign = v as ResponsiveDesign, label: 'responsiveDesign'),
-        SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
-        SpecSlot.node(() => n.multiLanguageSupport, (v) => n.multiLanguageSupport = v as MultiLanguageSupport, label: 'multiLanguageSupport'),
-        SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
-        SpecSlot.node(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v as WireframesAndMockups, label: 'wireframesAndMockups'),
+        SpecSlot.node(() => n.experienceCodeSpecs, (v) => n.experienceCodeSpecs = v as ExperienceCodeSpecs, label: 'experienceCodeSpecs'),
+        SpecSlot.node(() => n.designFollowUp, (v) => n.designFollowUp = v as ExperienceDesignFollowUp, label: 'designFollowUp'),
+        SpecSlot.node(() => n.localizationFollowUp, (v) => n.localizationFollowUp = v as ExperienceLocalizationFollowUp, label: 'localizationFollowUp'),
+        SpecSlot.node(() => n.authorizationComplianceFollowUp, (v) => n.authorizationComplianceFollowUp = v as AuthorizationComplianceFollowUp, label: 'authorizationComplianceFollowUp'),
       ];
     },
     cloneShallow: (o) {
       final n = o as ExperienceAndInterfaceDesign;
       return ExperienceAndInterfaceDesign()
         ..content = n.content
-        ..designVision = n.designVision
+        ..experienceCodeSpecs = n.experienceCodeSpecs
+        ..designFollowUp = n.designFollowUp
+        ..localizationFollowUp = n.localizationFollowUp
+        ..authorizationComplianceFollowUp = n.authorizationComplianceFollowUp;
+    },
+    yamlScalar: (o) => (o as ExperienceAndInterfaceDesign).content,
+  ));
+  SpecRegistry.register(ExperienceCodeSpecs, SpecClassOps(
+    slots: (o) {
+      final n = o as ExperienceCodeSpecs;
+      return [
+        SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
+        SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
+        SpecSlot.node(() => n.dataStructureAlignment, (v) => n.dataStructureAlignment = v as TextSection, label: 'dataStructureAlignment'),
+        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandling, label: 'errorHandling'),
+        SpecSlot.node(() => n.responsiveDesign, (v) => n.responsiveDesign = v as ResponsiveDesign, label: 'responsiveDesign'),
+        SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ExperienceCodeSpecs;
+      return ExperienceCodeSpecs()
+        ..content = n.content
         ..screens = n.screens
         ..screenFlow = n.screenFlow
-        ..printLayout = n.printLayout
         ..dataStructureAlignment = n.dataStructureAlignment
-        ..authorizationCompliance = n.authorizationCompliance
         ..errorHandling = n.errorHandling
+        ..responsiveDesign = n.responsiveDesign
+        ..uiComponents = n.uiComponents;
+    },
+    yamlScalar: (o) => (o as ExperienceCodeSpecs).content,
+  ));
+  SpecRegistry.register(ExperienceDesignFollowUp, SpecClassOps(
+    slots: (o) {
+      final n = o as ExperienceDesignFollowUp;
+      return [
+        SpecSlot.node(() => n.designVision, (v) => n.designVision = v as DesignVision, label: 'designVision'),
+        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintAndExportLayout, label: 'printLayout'),
+        SpecSlot.node(() => n.userAssistance, (v) => n.userAssistance = v as UserAssistance, label: 'userAssistance'),
+        SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
+        SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
+        SpecSlot.node(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v as WireframesAndMockups, label: 'wireframesAndMockups'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ExperienceDesignFollowUp;
+      return ExperienceDesignFollowUp()
+        ..content = n.content
+        ..designVision = n.designVision
+        ..printLayout = n.printLayout
         ..userAssistance = n.userAssistance
         ..accessibility = n.accessibility
-        ..responsiveDesign = n.responsiveDesign
-        ..uiComponents = n.uiComponents
-        ..multiLanguageSupport = n.multiLanguageSupport
         ..prototype = n.prototype
         ..wireframesAndMockups = n.wireframesAndMockups;
     },
-    yamlScalar: (o) => (o as ExperienceAndInterfaceDesign).content,
+    yamlScalar: (o) => (o as ExperienceDesignFollowUp).content,
+  ));
+  SpecRegistry.register(ExperienceLocalizationFollowUp, SpecClassOps(
+    slots: (o) {
+      final n = o as ExperienceLocalizationFollowUp;
+      return [
+        SpecSlot.node(() => n.multiLanguageSupport, (v) => n.multiLanguageSupport = v as MultiLanguageSupport, label: 'multiLanguageSupport'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ExperienceLocalizationFollowUp;
+      return ExperienceLocalizationFollowUp()
+        ..content = n.content
+        ..multiLanguageSupport = n.multiLanguageSupport;
+    },
+    yamlScalar: (o) => (o as ExperienceLocalizationFollowUp).content,
   ));
   SpecRegistry.register(ExportFieldMappingEntry, SpecClassOps(
     slots: (o) {

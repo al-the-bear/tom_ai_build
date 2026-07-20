@@ -128,64 +128,181 @@ to pixel-perfect designs with exact typography and spacing.
   @SerializationOrder(0)
   String? content;
 
-  /// 10.1. Design Vision. Seeds → XDS.
+  /// 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+  @SerializationOrder(1)
+  ExperienceCodeSpecs experienceCodeSpecs = ExperienceCodeSpecs();
+
+  /// 10.2. Experience Design — DOC follow-up subtree.
+  @SerializationOrder(2)
+  ExperienceDesignFollowUp designFollowUp = ExperienceDesignFollowUp();
+
+  /// 10.3. Experience Localization — L10N follow-up subtree.
+  @SerializationOrder(3)
+  ExperienceLocalizationFollowUp localizationFollowUp =
+      ExperienceLocalizationFollowUp();
+
+  /// 10.4. Authorization Compliance — CMP follow-up subtree.
+  @SerializationOrder(4)
+  AuthorizationComplianceFollowUp authorizationComplianceFollowUp =
+      AuthorizationComplianceFollowUp();
+}
+
+/// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+///
+/// Groups the UI concerns CodeSpecs generates (§4.6 of
+/// `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+/// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+/// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+/// reusable UI component library (CE-EL/CE-LO). The container itself carries no
+/// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+/// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+/// follow-up subtrees.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — human-centred design for interactive systems',
+    'ISO/IEC 25010:2023 — interaction capability as a product-quality characteristic',
+  ],
+  'The CodeSpecs UI-generation seed: screens, screen flow, data-structure '
+  'alignment, error handling, responsive design, and the UI component library.',
+)
+@SectionId('XCS')
+class ExperienceCodeSpecs extends DocSpecsSection {
+  @ContentType('description', 'Summarize the CodeSpecs UI-generation subtree: '
+      'screens, navigation, error handling, responsive design, and components.')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 10.1.1. Screen Descriptions. Seeds → XDS.
+  @SerializationOrder(1)
+  ScreenDescriptions screens = ScreenDescriptions();
+
+  /// 10.1.2. Screen Flow Structure. Seeds → XDS.
+  @SerializationOrder(2)
+  ScreenFlowStructure screenFlow = ScreenFlowStructure();
+
+  /// 10.1.3. Data Structure Alignment.
+  @SerializationOrder(3)
+  TextSection dataStructureAlignment = TextSection();
+
+  /// 10.1.4. Error Handling. Seeds → XDS.
+  @SerializationOrder(4)
+  ErrorHandling errorHandling = ErrorHandling();
+
+  /// 10.1.5. Responsive Design. Seeds → XDS.
+  @SerializationOrder(5)
+  ResponsiveDesign responsiveDesign = ResponsiveDesign();
+
+  /// 10.1.6. UI Components. Seeds → XDS.
+  @SerializationOrder(6)
+  UiComponents uiComponents = UiComponents();
+}
+
+/// SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+///
+/// Groups the design / documentation concerns that are **follow-up** (design
+/// vision, print & export layout, user assistance, accessibility, prototype,
+/// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+/// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+/// is generation-owned-out. Accessibility's operational (OPS) facet is a
+/// secondary concern refined by the follow-up taxonomy pass.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — human-centred design for interactive systems',
+    'ISO/IEC/IEEE 26514 — designing and developing user documentation',
+    'W3C WCAG 2.2 — accessibility',
+  ],
+  'The DOC design follow-up: design vision, print / export layout, user '
+  'assistance, accessibility, prototype, and wireframes & mockups.',
+)
+@SectionId('XDFU')
+class ExperienceDesignFollowUp extends DocSpecsSection {
+  @ContentType('description', 'Summarize the design follow-up: vision, print '
+      'layout, user assistance, accessibility, prototype, and wireframes.')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 10.2.1. Design Vision. Seeds → XDS.
   @SerializationOrder(1)
   DesignVision designVision = DesignVision();
 
-  /// 10.2. Screen Descriptions. Seeds → XDS.
+  /// 10.2.2. Print Layout. Seeds → XDS.
   @SerializationOrder(2)
-  ScreenDescriptions screens = ScreenDescriptions();
-
-  /// 10.3. Screen Flow Structure. Seeds → XDS.
-  @SerializationOrder(3)
-  ScreenFlowStructure screenFlow = ScreenFlowStructure();
-
-  /// 10.4. Print Layout. Seeds → XDS.
-  @SerializationOrder(4)
   PrintAndExportLayout printLayout = PrintAndExportLayout();
 
-  /// Data Structure Alignment.
-  @SerializationOrder(5)
-  TextSection dataStructureAlignment = TextSection();
-
-  /// Authorization Compliance.
-  @SerializationOrder(6)
-  TextSection authorizationCompliance = TextSection();
-
-  /// 10.7. Error Handling. Seeds → XDS.
-  @SerializationOrder(7)
-  ErrorHandling errorHandling = ErrorHandling();
-
-  /// 10.8. User Assistance. Seeds → XDS.
-  @SerializationOrder(8)
+  /// 10.2.3. User Assistance. Seeds → XDS.
+  @SerializationOrder(3)
   UserAssistance userAssistance = UserAssistance();
 
-  /// 10.9. Accessibility. Seeds → XDS.
-  @SerializationOrder(9)
+  /// 10.2.4. Accessibility. Seeds → XDS.
+  @SerializationOrder(4)
   Accessibility accessibility = Accessibility();
 
-  /// 10.10. Responsive Design. Seeds → XDS.
-  @SerializationOrder(10)
-  ResponsiveDesign responsiveDesign = ResponsiveDesign();
-
-  /// 10.11. UI Components. Seeds → XDS.
-  @SerializationOrder(11)
-  UiComponents uiComponents = UiComponents();
-
-  /// 10.12. Multi-language Support.
-  @SerializationOrder(12)
-  MultiLanguageSupport multiLanguageSupport = MultiLanguageSupport();
-
-  /// 10.13. Prototype. Seeds → XDS.
-  @SerializationOrder(13)
+  /// 10.2.5. Prototype. Seeds → XDS.
+  @SerializationOrder(5)
   Prototype prototype = Prototype();
 
-  /// 10.14. Wireframes and Mockups.
+  /// 10.2.6. Wireframes and Mockups.
   ///
   /// One whole-catalog content section; collapsed from
   /// `List<WireframesAndMockups>` (L34C-12 SR-52).
-  @SerializationOrder(14)
+  @SerializationOrder(6)
   WireframesAndMockups wireframesAndMockups = WireframesAndMockups();
+}
+
+/// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+///
+/// Groups the internationalization concern, a **follow-up** (L10N) rather than
+/// CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+/// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — portability / adaptability',
+    'Unicode CLDR — locale data',
+  ],
+  'The L10N follow-up: the multi-language support / internationalization '
+  'approach for the user interface.',
+)
+@SectionId('XLFU')
+class ExperienceLocalizationFollowUp extends DocSpecsSection {
+  @ContentType('description', 'Summarize the localization follow-up: the '
+      'multi-language / internationalization approach.')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 10.3.1. Multi-language Support.
+  @SerializationOrder(1)
+  MultiLanguageSupport multiLanguageSupport = MultiLanguageSupport();
+}
+
+/// SBP.13 Experience & Interface Design — authorization-compliance CMP
+/// follow-up subtree.
+///
+/// Groups the UI authorization-compliance concern (how the interface adapts to
+/// roles and permissions as a compliance obligation), a **follow-up** (CMP)
+/// rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+/// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — information security management',
+    'SOC 2 — trust services criteria',
+  ],
+  'The CMP follow-up: UI authorization compliance — how the interface adapts to '
+  'user roles and permissions as a compliance obligation.',
+)
+@SectionId('XCFU')
+class AuthorizationComplianceFollowUp extends DocSpecsSection {
+  @ContentType('description', 'Summarize the authorization-compliance follow-up: '
+      'UI adaptation to roles and permissions.')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 10.4.1. Authorization Compliance.
+  @SerializationOrder(1)
+  TextSection authorizationCompliance = TextSection();
 }
 
 // ---------------------------------------------------------------------------
