@@ -44,37 +44,122 @@ access and authorization concerns.
   @SerializationOrder(0)
   String? content;
 
-  /// 9.1. User Management.
+  /// 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
+  @SerializationOrder(1)
+  AccessControlModel accessControl = AccessControlModel();
+
+  /// 9.2. Security Operations — OPS follow-up subtree.
+  @SerializationOrder(2)
+  SecurityOperationsFollowUp securityOperations = SecurityOperationsFollowUp();
+
+  /// 9.3. Compliance — CMP follow-up subtree.
+  @SerializationOrder(3)
+  SecurityComplianceFollowUp compliance = SecurityComplianceFollowUp();
+}
+
+/// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+///
+/// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+/// authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+/// authentication, resource protection, authorization, and the role matrix.
+/// The container itself carries no `@CodeSpecKind` — the mapped parts live on
+/// the child sections (e.g. `authentication`) — but the whole subtree is the
+/// CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+/// subtrees.
+@StandardReferences(
+  [
+    'ISO/IEC 24760 — IAM: a framework for identity management',
+    'ISO/IEC 27001:2022 — control A.5.16 identity management',
+    'SOC 2 — CC6.1 through CC6.3 logical access controls',
+  ],
+  'The CE-AZ access-control seed: user management, authentication, resource '
+  'protection, authorization, and the role matrix.',
+)
+@SectionId('ACCM')
+class AccessControlModel extends DocSpecsSection {
+  @ContentType('description', 'Summarize the access-control model: identities, '
+      'authentication, resource protection, authorization, and roles.')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 9.1.1. User Management.
   @SerializationOrder(1)
   UserManagement userManagement = UserManagement();
 
-  /// 9.2. Identification and Authentication.
+  /// 9.1.2. Identification and Authentication.
   @SerializationOrder(2)
   IdentificationAndAuthentication authentication =
       IdentificationAndAuthentication();
 
-  /// 9.3. Resource Protection.
+  /// 9.1.3. Resource Protection.
   @SerializationOrder(3)
   ResourceProtection resourceProtection = ResourceProtection();
 
-  /// 9.4. User Authorization.
+  /// 9.1.4. User Authorization.
   @SerializationOrder(4)
   UserAuthorization authorization = UserAuthorization();
 
-  /// 9.5. Sensitive Data Encryption.
+  /// 9.1.5. Role Matrix.
   @SerializationOrder(5)
+  RoleMatrix roleMatrix = RoleMatrix();
+}
+
+/// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+///
+/// Groups the operational security concerns that are **follow-up** (key
+/// management and audit/logging operations), not CodeSpecs-generated behaviour
+/// (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+/// whole subtree is generation-owned-out.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging',
+    'NIST SP 800-57 — key management',
+  ],
+  'The OPS follow-up: sensitive-data encryption (key management) and audit / '
+  'logging operations, consumed operationally rather than generated.',
+)
+@SectionId('SCOF')
+class SecurityOperationsFollowUp extends DocSpecsSection {
+  @ContentType('description', 'Summarize the operational security follow-up: '
+      'encryption / key management and audit / logging.')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 9.2.1. Sensitive Data Encryption.
+  @SerializationOrder(1)
   SensitiveDataEncryption encryption = SensitiveDataEncryption();
 
-  /// 9.6. Audit and Logging.
-  @SerializationOrder(6)
+  /// 9.2.2. Audit and Logging.
+  @SerializationOrder(2)
   AuditAndLogging auditAndLogging = AuditAndLogging();
+}
 
-  /// 9.7. Role Matrix..
-  @SerializationOrder(7)
-  RoleMatrix roleMatrix = RoleMatrix();
+/// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+///
+/// Groups the compliance-framework concern, a **follow-up** (compliance
+/// governance) rather than CodeSpecs-generated behaviour (§4.5 of
+/// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+/// subtree is generation-owned-out.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — information security management',
+    'SOC 2 — trust services criteria',
+  ],
+  'The CMP follow-up: the compliance framework governing regulatory and audit '
+  'obligations, consumed as compliance documentation rather than generated.',
+)
+@SectionId('SCCF')
+class SecurityComplianceFollowUp extends DocSpecsSection {
+  @ContentType('description', 'Summarize the compliance follow-up: the '
+      'regulatory and audit compliance framework.')
+  @override
+  @SerializationOrder(0)
+  String? content;
 
-  /// 9.8. Compliance Framework.
-  @SerializationOrder(8)
+  /// 9.3.1. Compliance Framework.
+  @SerializationOrder(1)
   ComplianceFramework complianceFramework = ComplianceFramework();
 }
 

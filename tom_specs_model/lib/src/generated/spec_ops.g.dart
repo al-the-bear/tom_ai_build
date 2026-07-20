@@ -313,6 +313,29 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as AccessConstraintPolicies).content,
   ));
+  SpecRegistry.register(AccessControlModel, SpecClassOps(
+    slots: (o) {
+      final n = o as AccessControlModel;
+      return [
+        SpecSlot.node(() => n.userManagement, (v) => n.userManagement = v as UserManagement, label: 'userManagement'),
+        SpecSlot.node(() => n.authentication, (v) => n.authentication = v as IdentificationAndAuthentication, label: 'authentication'),
+        SpecSlot.node(() => n.resourceProtection, (v) => n.resourceProtection = v as ResourceProtection, label: 'resourceProtection'),
+        SpecSlot.node(() => n.authorization, (v) => n.authorization = v as UserAuthorization, label: 'authorization'),
+        SpecSlot.node(() => n.roleMatrix, (v) => n.roleMatrix = v as RoleMatrix, label: 'roleMatrix'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as AccessControlModel;
+      return AccessControlModel()
+        ..content = n.content
+        ..userManagement = n.userManagement
+        ..authentication = n.authentication
+        ..resourceProtection = n.resourceProtection
+        ..authorization = n.authorization
+        ..roleMatrix = n.roleMatrix;
+    },
+    yamlScalar: (o) => (o as AccessControlModel).content,
+  ));
   SpecRegistry.register(AccessControlModelSelection, SpecClassOps(
     slots: (o) {
       final n = o as AccessControlModelSelection;
@@ -17164,28 +17187,18 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as SecurityAndAccessModel;
       return [
-        SpecSlot.node(() => n.userManagement, (v) => n.userManagement = v as UserManagement, label: 'userManagement'),
-        SpecSlot.node(() => n.authentication, (v) => n.authentication = v as IdentificationAndAuthentication, label: 'authentication'),
-        SpecSlot.node(() => n.resourceProtection, (v) => n.resourceProtection = v as ResourceProtection, label: 'resourceProtection'),
-        SpecSlot.node(() => n.authorization, (v) => n.authorization = v as UserAuthorization, label: 'authorization'),
-        SpecSlot.node(() => n.encryption, (v) => n.encryption = v as SensitiveDataEncryption, label: 'encryption'),
-        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
-        SpecSlot.node(() => n.roleMatrix, (v) => n.roleMatrix = v as RoleMatrix, label: 'roleMatrix'),
-        SpecSlot.node(() => n.complianceFramework, (v) => n.complianceFramework = v as ComplianceFramework, label: 'complianceFramework'),
+        SpecSlot.node(() => n.accessControl, (v) => n.accessControl = v as AccessControlModel, label: 'accessControl'),
+        SpecSlot.node(() => n.securityOperations, (v) => n.securityOperations = v as SecurityOperationsFollowUp, label: 'securityOperations'),
+        SpecSlot.node(() => n.compliance, (v) => n.compliance = v as SecurityComplianceFollowUp, label: 'compliance'),
       ];
     },
     cloneShallow: (o) {
       final n = o as SecurityAndAccessModel;
       return SecurityAndAccessModel()
         ..content = n.content
-        ..userManagement = n.userManagement
-        ..authentication = n.authentication
-        ..resourceProtection = n.resourceProtection
-        ..authorization = n.authorization
-        ..encryption = n.encryption
-        ..auditAndLogging = n.auditAndLogging
-        ..roleMatrix = n.roleMatrix
-        ..complianceFramework = n.complianceFramework;
+        ..accessControl = n.accessControl
+        ..securityOperations = n.securityOperations
+        ..compliance = n.compliance;
     },
     yamlScalar: (o) => (o as SecurityAndAccessModel).content,
   ));
@@ -17296,6 +17309,21 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SecurityCodeReviewPolicy).content,
   ));
+  SpecRegistry.register(SecurityComplianceFollowUp, SpecClassOps(
+    slots: (o) {
+      final n = o as SecurityComplianceFollowUp;
+      return [
+        SpecSlot.node(() => n.complianceFramework, (v) => n.complianceFramework = v as ComplianceFramework, label: 'complianceFramework'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SecurityComplianceFollowUp;
+      return SecurityComplianceFollowUp()
+        ..content = n.content
+        ..complianceFramework = n.complianceFramework;
+    },
+    yamlScalar: (o) => (o as SecurityComplianceFollowUp).content,
+  ));
   SpecRegistry.register(SecurityControlEntry, SpecClassOps(
     slots: (o) {
       final n = o as SecurityControlEntry;
@@ -17395,6 +17423,23 @@ void registerSpecOps() {
         ..customEvents = n.customEvents;
     },
     yamlScalar: (o) => (o as SecurityEventsDefinition).content,
+  ));
+  SpecRegistry.register(SecurityOperationsFollowUp, SpecClassOps(
+    slots: (o) {
+      final n = o as SecurityOperationsFollowUp;
+      return [
+        SpecSlot.node(() => n.encryption, (v) => n.encryption = v as SensitiveDataEncryption, label: 'encryption'),
+        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SecurityOperationsFollowUp;
+      return SecurityOperationsFollowUp()
+        ..content = n.content
+        ..encryption = n.encryption
+        ..auditAndLogging = n.auditAndLogging;
+    },
+    yamlScalar: (o) => (o as SecurityOperationsFollowUp).content,
   ));
   SpecRegistry.register(SecurityRequirementEntry, SpecClassOps(
     slots: (o) {
