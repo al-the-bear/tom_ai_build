@@ -1,0 +1,328 @@
+# Security Access Specification Outline
+
+  - content
+  - header: `DocumentHeader`
+    - content @Form(documentId, project, version, date, author, status)
+  - `UserManagement`
+    - content
+    - userCategories: `AccessUserCategories`
+      - content
+      - items: `UserCategoryDefinition`
+        - content @Form(categoryName, description, accessLevel, estimatedCount)
+    - `UserLifecycle`
+      - content, overview @text
+      - accountStates: `UserAccountStatesDefinition`
+        - content, stateTransitionDiagram @mermaid
+      - registration: `UserRegistrationProcess`
+        - content, registrationFlowDescription @text, registrationFlowDiagram @mermaid-sequence
+      - activation: `AccountActivationPolicy`
+        - content, activationFlowDescription @text
+      - modification: `AccountModificationPolicy`
+        - content, modificationRulesDescription @text
+      - deactivation: `AccountDeactivationPolicy`
+        - content, deactivationProcessDescription @text
+      - deletion: `AccountDeletionPolicy`
+        - content, deletionProcessDescription @text
+      - transitions: `UserLifecycleTransitions`
+        - content, transitionRulesDescription @text, lifecycleStateDiagram @mermaid
+        - items: `UserLifecycleTransitionEntry`
+          - content @Form(transitionName, fromState, toState, trigger, triggerConditions), approval, effects, automation
+      - selfService: `SelfServiceAccountManagement`
+        - content, selfServiceDescription @text
+      - serviceAccounts: `ServiceAccountLifecycle`
+        - content, serviceAccountDescription @text
+    - `UserAttributes`
+      - content
+      - items: `UserAttributeEntry`
+        - content @Form(attributeName, dataType, source, required)
+  - `IdentificationAndAuthentication`
+    - content
+    - `Identification`
+      - content @Form(identityModelApproach, identityNamespace, primaryIdentifierType, uniqueIdentifierStrategy, identifierImmutability, identityLifecycleModel, identityTrustModel, maximumIdentitiesPerPerson, identityMergingPolicy, identityDataResidency)
+      - identitySources: `IdentitySourceEntry`
+        - content @Form(sourceName, sourceType, sourceProduct), connection, lifecycle, mapping, operations
+      - identityVerification: `IdentityVerificationPolicy`
+        - content @Form(verificationLevel, nistIalTarget, verificationMode), documents, methods, workflow, lifecycle,
+          failure, verificationDetails @text
+      - identityProviders: `IdentityProviderEntry`
+        - content @Form(providerName, providerType, enabled), mapping, trust, security
+        - details: `IdentityProviderDetails`
+          - content @Form(providerProduct, protocolVersion, description)
+        - endpoints: `IdentityProviderEndpoints`
+          - content @Form(endpointUrl, metadataUrl, issuerIdentifier, clientId, scopes)
+      - singleSignOn: `SingleSignOnPolicy`
+        - content @Form(ssoEnabled, ssoScope, ssoProtocol), federation, session, access, operations, ssoDetails @text
+      - selfRegistration: `SelfRegistrationPolicy`
+        - content @Form(selfRegistrationEnabled, registrationFlowType, requiredFields), fields, botProtection,
+          verification, approval, security, registrationDetails @text
+      - attributeMappings: `IdentityAttributeMappingEntry`
+        - content @Form(sourceAttribute, sourceSystem, targetAttribute, dataType), transformation, synchronization,
+          governance
+    - `Authentication`
+      - content
+      - `AuthenticationMethods`
+        - content, overview @text
+        - `MfaConfiguration`
+          - content
+          - mfaDetails: `String`
+        - `SsoPolicy`
+          - content, ssoDetails @text
+        - certificateAuthentication: `CertificateAuthenticationPolicy`
+          - content, certificateDetails @text
+        - biometricAuthentication: `BiometricAuthenticationPolicy`
+          - content, biometricDetails @text
+        - apiKeyManagement: `ApiKeyManagementPolicy`
+          - content, apiKeyDetails @text
+        - items: `AuthenticationMethodEntry`
+          - content @Form(methodName, methodType, authenticationFactor), security, applicability, enrollment, operations
+      - `AuthenticationFlow`
+        - content, overview @text, authenticationFlowDiagram @mermaid-sequence
+        - loginFlow: `LoginFlowConfiguration`
+          - content, loginFlowDetails @text
+        - tokenManagement: `TokenManagementPolicy`
+          - content, tokenManagementDetails @text
+        - sessionCreation: `SessionCreationPolicy`
+          - content, sessionCreationDetails @text
+        - redirectHandling: `RedirectHandlingPolicy`
+          - content, redirectDetails @text
+        - errorHandling: `AuthenticationErrorHandling`
+          - content, errorHandlingDetails @text
+        - stepUpAuthentication: `StepUpAuthenticationPolicy`
+          - content
+          - stepUpDetails: `String`
+        - loginFlowSteps: `LoginFlowStepEntry`
+          - content @Form(stepName, stepOrder, stepType, actor), validation, behavior, protocol
+      - `PasswordAndCredentialPolicy`
+        - content, overview @text
+        - passwordRequirements: `PasswordRequirementsPolicy`
+          - content, passwordRequirementsDetails @text
+        - passwordStorage: `PasswordStoragePolicy`
+          - content, passwordStorageDetails @text
+        - passwordLifecycle: `PasswordLifecyclePolicy`
+          - content, passwordLifecycleDetails @text
+        - accountLockout: `AccountLockoutPolicy`
+          - content, accountLockoutDetails @text
+        - credentialRecovery: `CredentialRecoveryPolicy`
+          - content, credentialRecoveryDetails @text
+        - compromiseDetection: `CredentialCompromiseDetectionPolicy`
+          - content, compromiseDetectionDetails @text
+        - serviceAccountCredentials: `ServiceAccountCredentialPolicy`
+          - content, serviceAccountDetails @text
+        - mfaCategoryRequirements: `MfaCategoryRequirementEntry`
+          - content @Form(userCategory, mfaRequired, targetAal), authenticators, timing, operations
+      - `SessionManagement`
+        - content, overview @text
+        - `SessionTimeoutPolicy`
+          - content, sessionTimeoutDetails @text
+        - `ConcurrentSessionPolicy`
+          - content, concurrentSessionDetails @text
+        - `SessionRevocationPolicy`
+          - content, sessionRevocationDetails @text
+        - `RememberMePolicy`
+          - content, rememberMeDetails @text
+        - `SessionSecurityPolicy`
+          - content, sessionSecurityDetails @text
+        - `SessionLifecycleMonitoring`
+          - content, sessionLifecycleDetails @text
+  - `ResourceProtection`
+    - content
+    - `DataLevelSecurity`
+      - content, overview @text
+      - `DatabaseAccessPolicy`
+        - content, databaseAccessDetails @text
+      - `RowLevelSecurityPolicy`
+        - content, rowLevelSecurityDetails @text
+      - `ColumnLevelSecurityPolicy`
+        - content, columnLevelSecurityDetails @text
+      - `TenantDataIsolationPolicy`
+        - content, tenantDataIsolationDetails @text
+      - `DataMaskingPolicy`
+        - content, dataMaskingDetails @text
+      - `DataAccessAuditPolicy`
+        - content, dataAccessAuditDetails @text
+    - `ApiSecurity`
+      - content, overview @text
+      - `ApiAuthenticationPolicy`
+        - content, apiAuthenticationDetails @text
+      - `ApiAuthorizationPolicy`
+        - content, apiAuthorizationDetails @text
+      - `ApiRequestValidationPolicy`
+        - content, requestValidationDetails @text
+      - `ApiCorsSecurity`
+        - content, corsSecurityDetails @text
+      - `ApiAbuseProtection`
+        - content, abuseProtectionDetails @text
+      - `ApiSecurityMonitoring`
+        - content, apiSecurityMonitoringDetails @text
+    - `FileAndStorageSecurity`
+      - content, overview @text
+      - `FileUploadValidationPolicy`
+        - content, uploadValidationDetails @text
+      - `StorageEncryptionPolicy`
+        - content, storageEncryptionDetails @text
+      - `FileAccessControlPolicy`
+        - content, fileAccessControlDetails @text
+      - `ContentScanningPolicy`
+        - content, contentScanningDetails @text
+      - `FileDownloadSecurityPolicy`
+        - content, downloadSecurityDetails @text
+      - `StorageLifecyclePolicy`
+        - content, storageLifecycleDetails @text
+  - `UserAuthorization`
+    - content
+    - `AuthorizationModel`
+      - content, authorizationModelNotes @text
+      - `AccessControlModelSelection`
+        - content, accessControlModelDetails @text
+      - permissionGranularity: `PermissionGranularityPolicy`
+        - content, permissionGranularityDetails @text
+      - permissionComposition: `PermissionCompositionStrategy`
+        - content, permissionCompositionDetails @text
+      - accessConstraints: `AccessConstraintPolicies`
+        - content, accessConstraintDetails @text
+      - permissionEvaluation: `PermissionEvaluationBehavior`
+        - content, permissionEvaluationDetails @text
+    - groups: `AuthorizationGroupEntry`
+      - content @Form(groupName, description, membershipCriteria)
+      - containedRoles: `RoleReferenceEntry`
+        - content @Form(roleName)
+    - [1,] roleDefinitions: `AuthorizationRoleEntry`
+      - content @Form(roleName, description, roleCategory), structure, governance, lifecycle, status
+      - responsibilities: `ResponsibilityReferenceEntry`
+        - content @Form(responsibility, description, scope, criticalityLevel)
+      - entitlementReferences: `EntitlementReferenceEntry`
+        - content @Form(entitlementName, grantType, conditions, scope)
+      - directPermissions: `RolePermissionEntry`
+        - content @Form(permissionKey, accessType, resourceScope, conditions)
+      - dataScopes: `RoleDataScopeEntry`
+        - content @Form(dataCategory, accessLevel, filterCriteria, maskingRules)
+      - mutualExclusions: `RoleExclusionEntry`
+        - content @Form(excludedRole, reason, exclusionType, severity)
+      - typicalHolders: `RoleHolderEntry`
+        - content @Form(holderDescription, department, organizationalUnit, estimatedCount, assignmentBasis)
+    - [1,] entitlements: `EntitlementEntry`
+      - content @Form(entitlementName, description, accessType, conditions)
+      - resourceKeyReferences: `ResourceKeyReferenceEntry`
+        - content @Form(resourceKey)
+    - resourceKeys: `ResourceKeyEntry`
+      - content @Form(resourceKey, resourceType, description, protectionLevel)
+    - `RoleHierarchy`
+      - content, roleHierarchyNotes @text
+      - hierarchyPolicy: `RoleHierarchyPolicy`
+        - content, roleHierarchyPolicyDetails @text
+      - inheritanceRules: `RoleInheritanceRuleEntry`
+        - content @Form(parentRole, childRole, inheritanceType, excludedPermissions, additionalConditions, overridable)
+      - combinationConstraints: `RoleCombinationConstraintEntry`
+        - content @Form(constraintType, roleA, roleB, enforcement, severity, businessReason, exemptionProcess)
+      - globalExclusions: `GlobalRoleExclusionEntry`
+        - content @Form(excludedRoleA, excludedRoleB, reason, enforcementLevel, complianceReference)
+      - roleCertification: `RoleCertificationPolicy`
+        - content, roleCertificationDetails @text
+    - `TenantIsolation`
+      - content, tenantIsolationNotes @text
+      - `TenantContextPolicy`
+        - content, tenantContextPolicyDetails @text
+      - `CrossTenantAccessPolicy`
+        - content, crossTenantAccessPolicyDetails @text
+      - tenantCustomizations: `TenantCustomizationEntry`
+        - content @Form(customizationType, scopingMechanism, customRolesAllowed, customPermissionsAllowed, customPoliciesAllowed, inheritFromGlobal, customizationApproval, customizationAudit, notes)
+      - `TenantOnboardingPolicy`
+        - content, tenantOnboardingPolicyDetails @text
+      - boundaryEnforcement: `TenantBoundaryEnforcementPolicy`
+        - content, boundaryEnforcementDetails @text
+  - `SensitiveDataEncryption`
+    - content
+    - `EncryptionAtRest`
+      - content, encryptionAtRestNotes @text
+      - encryptionPolicy: `EncryptionAtRestPolicy`
+        - content, encryptionAtRestPolicyDetails @text
+      - encryptedDataCategories: `EncryptedDataCategoryEntry`
+        - content @Form(categoryName, dataClassification, encryptionApproach, algorithmOverride, encryptedFields, tokenizationUsed, dataRetentionDays, notes)
+      - databaseEncryption: `DatabaseEncryptionPolicy`
+        - content, databaseEncryptionDetails @text
+      - fileStorageEncryption: `FileStorageEncryptionPolicy`
+        - content, fileStorageEncryptionDetails @text
+      - backupEncryption: `BackupEncryptionPolicy`
+        - content, backupEncryptionDetails @text
+    - `EncryptionInTransit`
+      - content, encryptionInTransitNotes @text
+      - `TlsProtocolPolicy`
+        - content, tlsProtocolPolicyDetails @text
+      - certificateManagement: `CertificateManagementPolicy`
+        - content, certificateManagementDetails @text
+      - communicationChannels: `CommunicationChannelEncryptionEntry`
+        - content @Form(channelName, channelType, tlsRequired, minimumTlsVersionOverride, mutualTlsRequired, certificatePinning, pinningStrategy, notes)
+      - `MutualTlsPolicy`
+        - content, mutualTlsPolicyDetails @text
+      - `TransportSecurityPolicy`
+        - content, transportSecurityPolicyDetails @text
+    - `KeyManagement`
+      - content, notes @text
+      - `KeyGenerationPolicy`
+        - content @Form(generationMethod, cryptographicModuleCompliance, randomNumberGenerator, minimumKeyStrength, approvedAlgorithms, keyPurposeSeparation, quantumReadinessStrategy),
+          notes @text
+      - `KeyStoragePolicy`
+        - content @Form(storageMethod, keyEncryptionKeyPolicy, plaintextKeyProhibition, integrityProtection, accessControl, memoryProtection, trustStorePolicy),
+          notes @text
+      - `KeyRotationPolicy`
+        - content @Form(rotationSchedule, automaticRotation, rotationTriggers, gracePeriod, keyVersioning, distributionMethod),
+          notes @text
+      - `KeyEscrowAndBackupPolicy`
+        - content @Form(escrowEnabled, escrowProvider, escrowScope, backupEncryption, backupStorageLocation, backupFrequency),
+          notes @text
+      - `KeyCompromiseRecoveryPolicy`
+        - content @Form(compromiseDetection, notificationProcedure, recoveryPersonnel, rekeyingMethod, revocationProcess, keyInventoryMaintenance, impactAssessment, compromiseRecoveryPlanReference),
+          notes @text
+  - `AuditAndLogging`
+    - content
+    - securityEvents: `SecurityEventsDefinition`
+      - content
+      - loggingPolicy: `SecurityEventLoggingPolicy`
+        - content @Form(defaultLoggingLevel, piiHandling, eventClassificationScheme, severityLevels, timeSynchronization, correlationIdentifiers),
+          notes @text
+      - authenticationEvents: `AuthenticationEventPolicy`
+        - content @Form(logSuccessfulLogins, logFailedLogins, logPasswordChanges, logMfaEvents, logSessionEvents, logAccountLockouts, logTokenEvents),
+          notes @text
+      - authorizationEvents: `AuthorizationEventPolicy`
+        - content @Form(logAccessGranted, logAccessDenied, logPrivilegeEscalation, logRoleChanges, logPermissionChanges, logResourceAccessPatterns),
+          notes @text
+      - dataAccessEvents: `DataAccessEventPolicy`
+        - content @Form(logDataCreation, logDataModification, logDataDeletion, logDataExport, logDataImport, logBulkOperations, logSensitiveDataAccess),
+          notes @text
+      - administrativeEvents: `AdministrativeEventPolicy`
+        - content @Form(logConfigurationChanges, logUserAdministration, logSystemStartStop, logBackupRestoreOperations, logSecurityPolicyChanges, logAuditLogAccess, logBreakGlassUsage),
+          notes @text
+      - customEvents: `SecurityEventEntry`
+        - content @Form(eventName, eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
+    - `AuditLogFormat`
+      - content, notes @text
+      - eventAttributes: `EventAttributePolicy`
+        - content @Form(timestampFormat, applicationIdentifier, sourceAddress, userIdentity, eventType, eventSeverity, actionAndObject, resultStatus, extendedDetails),
+          notes @text
+      - logStorage: `LogStoragePolicy`
+        - content @Form(primaryStorage, storageFormat, storageLocation, centralizedLogging, storageEncryption, accessPermissions),
+          notes @text
+      - logProtection: `LogProtectionPolicy`
+        - content @Form(tamperDetection, integrityVerification, writeProtection, deletionControls, transmissionProtection, originVerification),
+          notes @text
+      - logRetention: `LogRetentionPolicy`
+        - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
+          notes @text
+    - `ComplianceReporting`
+      - content, notes @text
+      - periodicReviews: `PeriodicReviewPolicy`
+        - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
+          notes @text
+      - privilegeUsageReports: `PrivilegeUsageReporting`
+        - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),
+          notes @text
+      - anomalyDetection: `AnomalyDetectionPolicy`
+        - content @Form(behaviorBaseline, anomalyTypes, detectionMechanism, alertThresholds, alertRecipients, responseActions),
+          notes @text
+      - `RegulatoryAuditSupport`
+        - content @Form(applicableRegulations, auditTrailAvailability, reportGeneration, evidencePreservation, auditorAccess, complianceCertifications),
+          notes @text
+  - `RoleMatrix`
+    - content
+  - `ComplianceFramework`
+    - content

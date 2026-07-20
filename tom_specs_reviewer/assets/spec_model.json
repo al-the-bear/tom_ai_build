@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-20T09:13:45.534074Z",
+  "generatedAt": "2026-07-20T09:45:06.431961Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1232,
+  "classCount": 1233,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -195839,14 +195839,14 @@
     "Requirements": {
       "name": "Requirements",
       "sectionId": "REQS",
-      "doc": "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection currently carries the framework-uncovered NFR sub-areas re-homed in\nIP-6. Functional-requirement modelling is expanded in a later IP step.",
+      "doc": "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed\nstays purely CodeSpecs-relevant.",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 29148:2018 — SRS / SyRS",
           "ISO/IEC 25010:2023 — portability",
           "ISO/IEC/IEEE 26511/26514/26515 — information for use"
         ],
-        "connotation": "The functional and non-functional requirements of the system; currently homes the framework-uncovered NFR sub-areas (localization, information-for-use, training)."
+        "connotation": "The functional and non-functional requirements of the system; the CodeSpecs seed subtree. Framework-uncovered follow-up NFR sub-areas (localization, information-for-use, training) are grouped under the follow-up subtree."
       },
       "annotations": [
         {
@@ -195857,7 +195857,7 @@
               "ISO/IEC 25010:2023 — portability",
               "ISO/IEC/IEEE 26511/26514/26515 — information for use"
             ],
-            "connotation": "The functional and non-functional requirements of the system; currently homes the framework-uncovered NFR sub-areas (localization, information-for-use, training)."
+            "connotation": "The functional and non-functional requirements of the system; the CodeSpecs seed subtree. Framework-uncovered follow-up NFR sub-areas (localization, information-for-use, training) are grouped under the follow-up subtree."
           }
         },
         {
@@ -195878,6 +195878,74 @@
               "arguments": {
                 "type": "description",
                 "description": "Summarize the functional and non-functional requirement landscape; seeds the Requirements Specification (RSP)."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "description"
+        },
+        {
+          "name": "requirementsFollowUp",
+          "kind": "complex",
+          "doc": "Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "type": "RequirementsFollowUp"
+        }
+      ]
+    },
+    "RequirementsFollowUp": {
+      "name": "RequirementsFollowUp",
+      "sectionId": "REQFU",
+      "doc": "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — portability",
+          "ISO/IEC/IEEE 26511/26514/26515 — information for use"
+        ],
+        "connotation": "The framework-uncovered follow-up NFR sub-areas — localization, information-for-use, and training — grouped out of the CodeSpecs seed subtree as non-generated requirements."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — portability",
+              "ISO/IEC/IEEE 26511/26514/26515 — information for use"
+            ],
+            "connotation": "The framework-uncovered follow-up NFR sub-areas — localization, information-for-use, and training — grouped out of the CodeSpecs seed subtree as non-generated requirements."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "REQFU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "description",
+                "description": "Summarize the follow-up (non-generated) NFR sub-areas: localization, information-for-use, and training."
               }
             },
             {

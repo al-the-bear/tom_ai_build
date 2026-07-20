@@ -25,22 +25,62 @@ import 'experience_and_interface_design.dart'
 /// SBP.9 Requirements.
 ///
 /// Functional requirements seed the Requirements Specification (RSP); this
-/// section currently carries the framework-uncovered NFR sub-areas re-homed in
-/// IP-6. Functional-requirement modelling is expanded in a later IP step.
+/// section is the CodeSpecs **seed** subtree — its functional requirements plus
+/// the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+/// requirements*, not generated. Functional-requirement modelling is expanded
+/// in a later IP step.
+///
+/// The framework-uncovered NFR follow-up sub-areas (localization,
+/// information-for-use, training) are grouped out of the seed subtree into
+/// [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+/// stays purely CodeSpecs-relevant.
 @StandardReferences(
   [
     'ISO/IEC/IEEE 29148:2018 — SRS / SyRS',
     'ISO/IEC 25010:2023 — portability',
     'ISO/IEC/IEEE 26511/26514/26515 — information for use',
   ],
-  'The functional and non-functional requirements of the system; currently '
-  'homes the framework-uncovered NFR sub-areas (localization, '
-  'information-for-use, training).',
+  'The functional and non-functional requirements of the system; the CodeSpecs '
+  'seed subtree. Framework-uncovered follow-up NFR sub-areas (localization, '
+  'information-for-use, training) are grouped under the follow-up subtree.',
 )
 @SectionId('REQS')
 class Requirements extends DocSpecsSection {
   @ContentType('description', 'Summarize the functional and non-functional '
       'requirement landscape; seeds the Requirements Specification (RSP).')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+  @SerializationOrder(1)
+  RequirementsFollowUp requirementsFollowUp = RequirementsFollowUp();
+}
+
+/// SBP.9 Requirements — follow-up NFR sub-areas.
+///
+/// Groups the framework-uncovered non-functional requirement sub-areas that are
+/// **follow-up** concerns (documentation, training, localization) rather than
+/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+/// is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+/// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+///
+///  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+///  * Information for Use         → [InformationForUseRequirements] (DOC)
+///  * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — portability',
+    'ISO/IEC/IEEE 26511/26514/26515 — information for use',
+  ],
+  'The framework-uncovered follow-up NFR sub-areas — localization, '
+  'information-for-use, and training — grouped out of the CodeSpecs seed '
+  'subtree as non-generated requirements.',
+)
+@SectionId('REQFU')
+class RequirementsFollowUp extends DocSpecsSection {
+  @ContentType('description', 'Summarize the follow-up (non-generated) NFR '
+      'sub-areas: localization, information-for-use, and training.')
   @override
   @SerializationOrder(0)
   String? content;

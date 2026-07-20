@@ -1,0 +1,331 @@
+# Current Landscape Assessment Outline
+
+  - content
+  - header: `DocumentHeader`
+    - content @Form(documentId, project, version, date, author, status)
+  - `ExistingSystemsLandscape`
+    - content @description
+    - `SystemInventory`
+      - content @description
+      - [1,] systems: `ExistingSystemEntry`
+        - content @Form(systemName, systemId, systemVersion, systemType, vendor, licenseType), technology,
+          businessContext, usage, lifecycle, integrationProfile, infrastructure, quality
+        - knownLimitations: `LimitationEntry`
+          - content @Form(limitation, impact)
+    - `CurrentArchitecture`
+      - content, architectureDiagram, deploymentTopology
+      - integrationPatterns: `String`
+      - sharedServices: `String`
+    - `DependenciesAndIntegrations`
+      - content, dependencyDiagram
+      - `InternalDependencies` ← (Dependencies between internal systems)
+        - content @description
+        - items: `SystemDependencyEntry`
+          - content @Form(dependencyName, dependencyType, direction), mechanism, dataExchange, reliability, operations
+          - sourceSystem: `ExistingSystemEntry` (ref: Source System)
+          - targetSystem: `ExistingSystemEntry` (ref: Target System)
+      - `ExternalServiceDependencies` ← (Dependencies on external/third-party services)
+        - content @description
+        - items: `ExternalServiceDependencyEntry`
+          - content @Form(serviceName, serviceProvider, serviceType), relationship, operations, risk
+          - primaryDependentSystem: `ExistingSystemEntry` (ref: Primary Dependent System)
+      - `SharedInfrastructureDependencies` ← (Dependencies on shared infrastructure components)
+        - content @description
+        - items: `SharedInfrastructureEntry`
+          - content @Form(componentName, componentType, dependentSystemCount, dependentSystemList), resilience,
+            capacity, operations
+      - `Integrations` ← (Active integrations between systems)
+        - content @description
+        - items: `SystemIntegrationEntry`
+          - content @Form(integrationName, integrationType, integrationPattern), protocol, dataExchange, errorHandling,
+            throughput, monitoring, ownership
+          - sourceSystem: `ExistingSystemEntry` (ref: Source System)
+          - targetSystem: `ExistingSystemEntry` (ref: Target System)
+      - healthSummary: `IntegrationHealthSummary` ← (Overall assessment of integration landscape health)
+        - content @Form(overallHealthRating, totalDependencies, criticalDependencies, highRiskDependencies, singlePointsOfFailure, undocumentedIntegrations, technicalDebtSummary, priorityRemediationAreas, impactOnProject)
+        - fragilePoints: `String`
+  - `CurrentBusinessProcesses`
+    - content, processLandscapeDiagram
+    - scopeSummary: `ProcessScopeSummary` ← (Defines which processes are in/out of scope)
+      - content @Form(totalProcessesIdentified, processesInScope, processesOutOfScope, scopeRationale, deferredProcesses)
+      - inScopeProcesses: `ProcessScopeEntry`
+        - content @Form(processName, scopeStatus, rationale, impactIfExcluded, phase)
+      - outOfScopeProcesses: `ProcessScopeEntry`
+        - content @Form(processName, scopeStatus, rationale, impactIfExcluded, phase)
+    - interdependencyMatrix: `ProcessInterdependencyMatrix` ← (How processes depend on and interact with each other)
+      - content, dependencyDiagram
+      - dependencies: `ProcessDependencyEntry`
+        - content @Form(sourceProcess, targetProcess, dependencyType, artifactExchanged, couplingStrength, frequency, timing, failureImpact)
+    - performanceSummary: `ProcessPerformanceSummary` ← (High-level summary of process performance)
+      - content @Form(overallMaturity, automationLevel, manualStepsCount, errorProneStepsCount, bottleneckCount, duplicatedEffortAreas, complianceGaps, estimatedAnnualWaste)
+      - keyMetrics: `ProcessMetricEntry`
+        - content @Form(metricName, metricId, metricCategory, currentValue, unit), measurement, targets
+        - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+    - [1,] processes: `CurrentBusinessProcess`
+      - content @Form(processName, processOwner, processCategory, processScope, processMaturity), processContext
+      - `WorkflowDescriptions`
+        - content, workflowOverviewDiagram
+        - summaryTable: `WorkflowSummaryTable` ← (Quick reference summary of all workflows)
+          - content @Form(totalWorkflows, primaryWorkflows, exceptionWorkflows, averageCycleTime, automationPotential)
+          - entries: `WorkflowSummaryEntry`
+            - content @Form(workflowName, workflowType, frequency, averageCycleTime, stepCount, manualStepCount, errorProneStepCount, primaryActors, automationPotential)
+        - [1,] workflows: `CurrentWorkflowEntry`
+          - content @Form(workflowName, workflowId, workflowType, frequency, averageVolume, criticality),
+            workflowDiagram, timing
+          - triggers: `WorkflowTriggers`
+            - content @description
+            - triggers: `WorkflowTriggerEntry`
+              - content @Form(triggerName, triggerType, triggerSource, triggerCondition, frequency)
+          - steps: `WorkflowStepEntry`
+            - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
+            - systemsUsed: `WorkflowStepSystem`
+              - name
+            - inputs: `WorkflowInputEntry`
+              - content @Form(inputName, inputType, source, format, isRequired, validationRules)
+            - outputs: `WorkflowOutputEntry`
+              - content @Form(outputName, outputType, destination, format, retentionRequirements)
+            - businessRules: `WorkflowBusinessRule`
+              - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
+            - knownIssues: `WorkflowStepIssue`
+              - content @Form(issueName, issueDescription, frequency, impact, currentWorkaround)
+          - actors: `WorkflowActorEntry`
+            - content @Form(actorName, actorType, role, responsibilities, authorizationLevel, availabilityRequirements, skillRequirements, headcount)
+            - participatingSteps: `WorkflowStepEntry`
+              - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
+              - systemsUsed: `WorkflowStepSystem`
+                - name
+              - inputs: `WorkflowInputEntry`
+                - content @Form(inputName, inputType, source, format, isRequired, validationRules)
+              - outputs: `WorkflowOutputEntry`
+                - content @Form(outputName, outputType, destination, format, retentionRequirements)
+              - businessRules: `WorkflowBusinessRule`
+                - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
+              - knownIssues: `WorkflowStepIssue`
+                - content @Form(issueName, issueDescription, frequency, impact, currentWorkaround)
+          - inputs: `WorkflowInputEntry`
+            - content @Form(inputName, inputType, source, format, isRequired, validationRules)
+          - outputs: `WorkflowOutputEntry`
+            - content @Form(outputName, outputType, destination, format, retentionRequirements)
+          - decisionPoints: `WorkflowDecisionPoint`
+            - content @Form(decisionName, decisionCriteria, decisionMaker, outcomes, escalationPath, slaForDecision)
+          - businessRules: `WorkflowBusinessRule`
+            - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
+          - manualSteps: `WorkflowStepEntry`
+            - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
+            - systemsUsed: `WorkflowStepSystem`
+              - name
+            - inputs: `WorkflowInputEntry`
+              - content @Form(inputName, inputType, source, format, isRequired, validationRules)
+            - outputs: `WorkflowOutputEntry`
+              - content @Form(outputName, outputType, destination, format, retentionRequirements)
+            - businessRules: `WorkflowBusinessRule`
+              - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
+            - knownIssues: `WorkflowStepIssue`
+              - content @Form(issueName, issueDescription, frequency, impact, currentWorkaround)
+          - errorProneSteps: `WorkflowStepEntry`
+            - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
+            - systemsUsed: `WorkflowStepSystem`
+              - name
+            - inputs: `WorkflowInputEntry`
+              - content @Form(inputName, inputType, source, format, isRequired, validationRules)
+            - outputs: `WorkflowOutputEntry`
+              - content @Form(outputName, outputType, destination, format, retentionRequirements)
+            - businessRules: `WorkflowBusinessRule`
+              - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
+            - knownIssues: `WorkflowStepIssue`
+              - content @Form(issueName, issueDescription, frequency, impact, currentWorkaround)
+          - exceptions: `WorkflowExceptions`
+            - content @description
+            - exceptions: `WorkflowExceptionEntry`
+              - content @Form(exceptionName, exceptionType, frequency, handlingProcedure, escalationPath, recoveryTime)
+      - `ProcessMetrics`
+        - content @description
+        - dashboardSummary: `MetricsDashboardSummary` ← (Executive summary of key metrics)
+          - content @Form(measurementPeriod, dataQuality, keyThroughput, averageCycleTime, overallErrorRate, manualInterventionRate, processEfficiency, capacityUtilization, complianceRate, trendSummary)
+        - efficiencyMetrics: `ProcessMetricCategory` ← (Throughput, cycle times, utilization)
+          - content @description
+          - metrics: `ProcessMetricEntry`
+            - content @Form(metricName, metricId, metricCategory, currentValue, unit), measurement, targets
+            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+        - qualityMetrics: `ProcessMetricCategory` ← (Error rates, defect rates, rework rates)
+          - content @description
+          - metrics: `ProcessMetricEntry`
+            - content @Form(metricName, metricId, metricCategory, currentValue, unit), measurement, targets
+            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+        - volumeMetrics: `ProcessMetricCategory` ← (Transaction counts, throughput volumes)
+          - content @description
+          - metrics: `ProcessMetricEntry`
+            - content @Form(metricName, metricId, metricCategory, currentValue, unit), measurement, targets
+            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+        - costMetrics: `ProcessMetricCategory` ← (Cost per transaction, resource costs)
+          - content @description
+          - metrics: `ProcessMetricEntry`
+            - content @Form(metricName, metricId, metricCategory, currentValue, unit), measurement, targets
+            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+        - manualInterventionMetrics: `ProcessMetricCategory` ← (Manual steps, human intervention frequency)
+          - content @description
+          - metrics: `ProcessMetricEntry`
+            - content @Form(metricName, metricId, metricCategory, currentValue, unit), measurement, targets
+            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+        - items: `ProcessMetricEntry`
+          - content @Form(metricName, metricId, metricCategory, currentValue, unit), measurement, targets
+          - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+        - baselineTable: `MetricsBaselineTable` ← (Summary table for baseline tracking)
+          - content @description
+          - entries: `MetricsBaselineEntry`
+            - content @Form(metricName, baselineValue, baselineDate, targetValue, targetDate, improvementTarget, trackingFrequency)
+      - `ProcessPainPoints`
+        - content @description
+        - improvements: `CurrentProcessImprovementEntry`
+          - content @Form(improvementArea, currentState, desiredState, estimatedBenefit, implementationEffort, priority)
+  - `PainPointsAndGaps`
+    - content, painPointsOverviewDiagram, painPointsPriorityMatrix, painPointsSummary
+    - `OperationalPainPoints`
+      - content, categorySummary
+      - items: `PainPointEntry`
+        - content @Form(painPointId, painPoint, severity), classification, rootCause, impact, evidence, workaround,
+          resolution
+        - relationships: `PainPointRelationships`
+          - content @Form(relatedPainPoints, relatedGaps, dependsOn)
+    - `BusinessPainPoints`
+      - content, categorySummary
+      - items: `PainPointEntry`
+        - content @Form(painPointId, painPoint, severity), classification, rootCause, impact, evidence, workaround,
+          resolution
+        - relationships: `PainPointRelationships`
+          - content @Form(relatedPainPoints, relatedGaps, dependsOn)
+    - `TechnicalPainPoints`
+      - content, categorySummary
+      - items: `PainPointEntry`
+        - content @Form(painPointId, painPoint, severity), classification, rootCause, impact, evidence, workaround,
+          resolution
+        - relationships: `PainPointRelationships`
+          - content @Form(relatedPainPoints, relatedGaps, dependsOn)
+    - gaps: `GapEntry`
+      - content @Form(gapName, gapCategory, severity), description, discovery, workaround, resolution
+    - `PainPointGapCorrelation`
+      - content, correlationDiagram
+      - [1,] correlationEntries: `PainPointGapCorrelationEntry`
+        - content @Form(painPointId, gapId, correlationType, correlationStrength, notes)
+  - `CurrentDataLandscape`
+    - content, dataLandscapeOverviewDiagram, dataArchitectureDiagram, dataLandscapeSummary
+    - `DataSourceInventory`
+      - content, dataSourceMapDiagram
+      - dataSources: `DataSourceEntry`
+        - content @Form(dataSourceId, dataStoreName, criticality), classification, technical, volume, quality,
+          ownership, integration, lifecycle, retentionPolicy
+        - [1,] keyEntities: `DataSourceEntityEntry`
+          - content @Form(entityName, description, recordCount, primaryKey, relationships, sensitiveFields)
+    - `DataQualityAssessment`
+      - content, dimensionsSummary, qualityIssuesSeverityChart
+      - [1,] qualityIssues: `DataQualityIssueEntry`
+        - content @Form(issueId, issueTitle, description, affectedDataSource), classification, impact, resolution
+      - improvementInitiatives: `DataQualityInitiativeEntry`
+        - content @Form(initiativeId, initiativeName, description, targetIssues, status, expectedCompletion, expectedImprovement)
+    - `DataDuplicationAnalysis`
+      - content, duplicationSummary, duplicationDiagram
+      - duplicationInstances: `DataDuplicationEntry`
+        - content @Form(duplicationId, description, dataElement), sources, synchronization, governance
+    - `DataOwnership`
+      - content, ownershipSummary, ownershipMatrixDiagram
+      - [1,] ownershipAssignments: `DataOwnershipEntry`
+        - content @Form(dataDomain, dataAssets, businessOwner, businessOwnerRole), stewardship, governance
+    - `DataVolumesAndGrowth`
+      - content, growthTrendChart
+      - volumeSummary: `DataVolumeSummary`
+        - content @Form(totalCurrentVolume, structuredDataVolume, unstructuredDataVolume), growth, projection, capacity
+      - [1,] volumeBySource: `DataVolumeEntry`
+        - content @Form(dataSource, currentVolume, recordCount, averageRecordSize, historicalGrowth, projectedGrowth, growthDrivers, archivalRate, purgeRate)
+    - retentionPolicies: `DataRetentionPolicies`
+      - content, policySummary
+      - [1,] retentionPolicies: `RetentionPolicyEntry`
+        - content @Form(policyId, dataCategory, appliesTo), requirements, lifecycle, governance
+    - `DataGovernance`
+      - content, governanceMaturity, governanceOrgChart
+      - [1,] governancePolicies: `DataGovernancePolicyEntry`
+        - content @Form(policyId, policyName, policyArea, description), lifecycle, governance
+    - dataClassification: `CurrentDataClassification`
+      - content, classificationSummary
+      - [1,] classificationLevels: `DataClassificationLevelEntry`
+        - content @Form(levelName, levelOrder, description, dataExamples, handlingRequirements, accessRestrictions, storageRequirements, transmissionRequirements, disposalRequirements, incidentResponseLevel)
+      - classificationStatus: `DataClassificationStatusEntry`
+        - content @Form(dataDomain, classificationStatus, percentageClassified, highestSensitivityLevel, classificationOwner, lastReview)
+    - `DataIntegrationPoints`
+      - content, integrationSummary, dataFlowDiagram
+      - [1,] integrationPoints: `DataIntegrationEntry`
+        - content @Form(integrationId, integrationName, description), endpoints, transport, reliabilityInfo, ownership
+    - `MasterDataManagement`
+      - content, mdmSummary
+      - [1,] masterDataDomains: `MasterDataDomainEntry`
+        - content @Form(domainName, description, goldenRecordSource), quality, usage, governance
+  - operationalMetrics: `CurrentOperationalMetric`
+    - content
+  - currentStateRisks: `CurrentStateRiskAssessment`
+    - content
+  - `ReplacementInventory`
+    - portfolioSummary @text, prioritizationCriteria @text
+    - systems: `SystemToReplaceEntry`
+      - identificationContent, profile, vendor
+      - technicalAssessment: `SystemTechnicalAssessment`
+        - content @Form(primaryTechnology, technologyVersion, databasePlatform, hostingEnvironment), platform,
+          lifecycle, quality
+        - knownIssues: `String`
+        - securityConcerns: `String`
+      - businessCriticality: `SystemBusinessCriticality`
+        - content @Form(criticalityRating, businessValueScore, timeModelClassification, activeUsers), operations,
+          governance
+        - businessUnits: `SystemBusinessUnitEntry`
+          - content @Form(unitName, userCount, usagePattern, dependencyLevel, impactIfRemoved)
+        - supportedProcesses: `SystemBusinessProcessEntry`
+          - content @Form(processName, processId, systemRole, automationLevel, processFrequency)
+      - replacementStrategy: `SystemReplacementStrategy`
+        - content @Form(strategyType, strategyRationale, targetSolution, targetSolutionType), timeline, cutover,
+          successCriteria @text
+        - phases: `ReplacementPhaseEntry`
+          - content @Form(phaseNumber, phaseName, phaseScope, startDate, endDate, exitCriteria)
+        - predecessorDependencies: `String`
+      - dataScope: `SystemDataScope`
+        - content @Form(totalRecords, dataSize, growthRate, dataTypes), governance, migration
+        - entities: `DataEntityMigrationEntry`
+          - content @Form(entityName, recordCount, targetMapping, transformationNotes, validationRules, migrationPriority)
+        - knownQualityIssues: `String`
+      - dependencies: `ReplacementSystemDependencyEntry`
+        - content @Form(integrationId, connectedSystem, systemStatus, direction, integrationType, protocol, dataExchanged, frequency, volume, criticality, impactIfBroken, owningSystem, replacementMapping, migrationApproach)
+      - userImpact: `SystemUserImpact`
+        - content @Form(totalUserCount, activeUserCount, powerUsers, userLocations), changeProfile, enablement, adoption
+        - userGroups: `UserGroupImpactEntry`
+          - content @Form(groupName, userCount, impactLevel, specialConsiderations, trainingNeeds)
+      - costAnalysis: `SystemCostAnalysis`
+        - content @Form(annualLicenseCost, annualMaintenanceCost, annualOperationsCost), currentCosts, migration,
+          benefits, costBreakdown @text
+        - nonFinancialBenefits: `String`
+      - migrationPlan: `SystemMigrationPlan`
+        - content @Form(migrationApproach, dataTransformationNeeds, estimatedEffort, teamSize), execution, cutover,
+          rollbackStrategy @text, postMigrationValidation @text
+        - risks: `SystemMigrationRiskEntry`
+          - content @Form(riskId, riskDescription, probability, impact, riskScore, mitigation, contingency, owner)
+      - knowledgeTransfer: `SystemKnowledgeTransfer`
+        - content @Form(technicalDocStatus, businessDocStatus, dataDocStatus, primarySme, smeAvailability, smeRiskLevel, backupSme, knowledgeCaptureNeeded, captureApproach, captureDeadline),
+          knowledgeTransferPlan @text
+        - criticalKnowledgeAreas: `String`
+  - `MigrationConsiderations`
+    - strategyContent, strategyNarrative @text, timeline @text, dataMapping @text, masterDataApproach @text,
+      rollbackStrategy @text, goNoGosCriteria @text, communicationPlan @text
+    - resources: `MigrationResources`
+      - content @Form(migrationLead, technicalResources, businessResources, testingResources, vendorSupport, consultingSupport, contractorNeeds, migrationEnvironments, dataStorageNeeds, networkBandwidth),
+        resourceTimeline @text
+    - `MigrationRisks`
+      - governanceContent, governance, assessment, thresholds, reporting, riskOverview @text,
+        assessmentMethodology @text, riskAggregation @text, riskMatrix @mermaid, riskTimeline @mermaid-gantt
+      - riskCategories: `String`
+      - riskBasedDecisions: `String`
+      - monitoringProcedures: `String`
+      - responseStrategies: `String`
+      - items: `MigrationRiskEntry`
+        - content @Form(riskId, riskTitle, riskOwner), identification, probability, impact, quantification, mitigation,
+          contingency, tracking, related, history, analysisNarrative @text, mitigationDetails @text
+        - indicators: `MigrationRiskIndicators`
+          - content @Form(earlyWarningIndicators, riskTriggers, keyRiskIndicators, monitoringFrequency, thresholdValues)
+    - milestones: `MigrationMilestoneEntry`
+      - content @Form(milestoneName, targetDate, systemsIncluded, deliverables, successCriteria, gateName)
+    - escalationProcedures: `String`

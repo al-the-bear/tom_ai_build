@@ -1212,15 +1212,9 @@
   - `InformationAndDataModel`
     - content
     - `DataModel`
-      - content, erDiagram @mermaid-er
+      - content
       - [1,] entities: `DataEntityEntry`
         - identity, classification, lifecyclePolicy, relationshipSummary
-        - volumeMetrics: `VolumeMetricEntry`
-          - content @Form(estimatedRecordCount, growthRate, peakTransactionVolume, averageRecordSize, storageEstimate, partitioningStrategy)
-        - complianceRequirements: `ComplianceRequirementEntry`
-          - content @Form(sensitivityLevel, containsPii, containsPhi, complianceFrameworks, encryptionRequirements, accessRestrictions)
-        - technicalCharacteristics: `TechnicalCharacteristicEntry`
-          - content @Form(indexingStrategy, cachingStrategy, consistencyRequirements, replicationStrategy, backupRequirements, scalingApproach)
         - attributes: `DataAttributeEntry`
           - identity, dataTypeSpec, derivation, securityClassification, migrationLineage
           - constraints: `DataAttributeConstraintEntry`
@@ -1234,8 +1228,6 @@
           - content @Form(indexName, indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
         - constraints: `EntityConstraintEntry`
           - content @Form(constraintName, constraintType, expression, errorMessage, enforcementLevel, isDeferred, businessRule)
-        - migrationMappings: `MigrationMappingEntry`
-          - content @Form(sourceSystem, sourceTable, sourceField, targetAttribute, transformationType, transformationLogic, defaultOnMissing, validationRule, migrationPriority, notes)
       - `EntityRelationships`
         - content
         - items: `EntityRelationshipEntry`
@@ -1320,24 +1312,38 @@
         - content @Form(key, defaultCopy, placeholders, description)
         - localeVariants: `MessageLocaleVariantEntry`
           - content @Form(locale, copy)
+    - `DataModelFollowUp`
+      - content, erDiagram @mermaid-er
+      - entityFollowUps: `EntityFollowUpEntry`
+        - entityRef
+        - volumeMetrics: `VolumeMetricEntry`
+          - content @Form(estimatedRecordCount, growthRate, peakTransactionVolume, averageRecordSize, storageEstimate, partitioningStrategy)
+        - complianceRequirements: `ComplianceRequirementEntry`
+          - content @Form(sensitivityLevel, containsPii, containsPhi, complianceFrameworks, encryptionRequirements, accessRestrictions)
+        - technicalCharacteristics: `TechnicalCharacteristicEntry`
+          - content @Form(indexingStrategy, cachingStrategy, consistencyRequirements, replicationStrategy, backupRequirements, scalingApproach)
+        - migrationMappings: `MigrationMappingEntry`
+          - content @Form(sourceSystem, sourceTable, sourceField, targetAttribute, transformationType, transformationLogic, defaultOnMissing, validationRule, migrationPriority, notes)
   - `Requirements`
     - content @description
-    - localizationTranslation: `LocalizationTranslationRequirements`
+    - `RequirementsFollowUp`
       - content @description
-      - `TranslationRequirements`
-        - translationRequirementsContent, rtl, formatting, variants, technical, requirementsNarrative @text
-      - localeHandling: `LocaleHandlingRequirements`
-        - content @Form(localeFormat, countryVariants, localeDetection, localeFallbackChain)
-    - informationForUse: `InformationForUseRequirements`
-      - content @description
-      - userDocumentation: `UserDocumentationRequirements`
-        - documentationContent, deliverables, localization, documentationNarrative @text
-    - trainingEnablement: `TrainingEnablementRequirements`
-      - content @Form(targetAudiences, competencyOutcomes, certificationRequired, ongoingEnablement)
-      - trainingDeliverables: `TrainingDeliverableRequirements`
-        - trainingContent, trainingNarrative @text
-        - trainingModules: `TrainingModuleEntry`
-          - content @Form(moduleId, moduleName, targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
+      - localizationTranslation: `LocalizationTranslationRequirements`
+        - content @description
+        - `TranslationRequirements`
+          - translationRequirementsContent, rtl, formatting, variants, technical, requirementsNarrative @text
+        - localeHandling: `LocaleHandlingRequirements`
+          - content @Form(localeFormat, countryVariants, localeDetection, localeFallbackChain)
+      - informationForUse: `InformationForUseRequirements`
+        - content @description
+        - userDocumentation: `UserDocumentationRequirements`
+          - documentationContent, deliverables, localization, documentationNarrative @text
+      - trainingEnablement: `TrainingEnablementRequirements`
+        - content @Form(targetAudiences, competencyOutcomes, certificationRequired, ongoingEnablement)
+        - trainingDeliverables: `TrainingDeliverableRequirements`
+          - trainingContent, trainingNarrative @text
+          - trainingModules: `TrainingModuleEntry`
+            - content @Form(moduleId, moduleName, targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
   - `SolutionArchitectureAndTechnology`
     - content
     - technicalFramework: `TechnicalFrameworkConcept`

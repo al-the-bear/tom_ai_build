@@ -15709,20 +15709,35 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as Requirements;
       return [
-        SpecSlot.node(() => n.localizationTranslation, (v) => n.localizationTranslation = v as LocalizationTranslationRequirements, label: 'localizationTranslation'),
-        SpecSlot.node(() => n.informationForUse, (v) => n.informationForUse = v as InformationForUseRequirements, label: 'informationForUse'),
-        SpecSlot.node(() => n.trainingEnablement, (v) => n.trainingEnablement = v as TrainingEnablementRequirements, label: 'trainingEnablement'),
+        SpecSlot.node(() => n.requirementsFollowUp, (v) => n.requirementsFollowUp = v as RequirementsFollowUp, label: 'requirementsFollowUp'),
       ];
     },
     cloneShallow: (o) {
       final n = o as Requirements;
       return Requirements()
         ..content = n.content
+        ..requirementsFollowUp = n.requirementsFollowUp;
+    },
+    yamlScalar: (o) => (o as Requirements).content,
+  ));
+  SpecRegistry.register(RequirementsFollowUp, SpecClassOps(
+    slots: (o) {
+      final n = o as RequirementsFollowUp;
+      return [
+        SpecSlot.node(() => n.localizationTranslation, (v) => n.localizationTranslation = v as LocalizationTranslationRequirements, label: 'localizationTranslation'),
+        SpecSlot.node(() => n.informationForUse, (v) => n.informationForUse = v as InformationForUseRequirements, label: 'informationForUse'),
+        SpecSlot.node(() => n.trainingEnablement, (v) => n.trainingEnablement = v as TrainingEnablementRequirements, label: 'trainingEnablement'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as RequirementsFollowUp;
+      return RequirementsFollowUp()
+        ..content = n.content
         ..localizationTranslation = n.localizationTranslation
         ..informationForUse = n.informationForUse
         ..trainingEnablement = n.trainingEnablement;
     },
-    yamlScalar: (o) => (o as Requirements).content,
+    yamlScalar: (o) => (o as RequirementsFollowUp).content,
   ));
   SpecRegistry.register(RequirementsOverview, SpecClassOps(
     slots: (o) {

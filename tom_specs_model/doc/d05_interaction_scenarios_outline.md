@@ -1,0 +1,60 @@
+# Interaction Scenarios Outline
+
+  - content
+  - header: `DocumentHeader`
+    - content @Form(documentId, project, version, date, author, status)
+  - `ProcessStepsOverview`
+    - content @Form(useCaseScope, primaryActorFocus, interactionCoverage, scenarioCoverage, useCaseNamingConvention, traceabilityApproach, detailLevel, notationStandard)
+  - `ActorOverview`
+    - content, overview, categorization
+    - [1,] actors: `ActorEntry`
+      - identification, technology, interactions
+      - characteristics: `ActorCharacteristics`
+        - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
+      - goals: `ActorGoals`
+        - content @Form(summaryGoals, userGoals, subfunctionGoals, successMeasures, failureConcerns, motivations, painPoints, desiredImprovements)
+      - permissions: `ActorPermissions`
+        - content @Form(securityClearance, roleBasedPermissions, dataAccessScope, functionalPermissions, approvalLimits, delegationRights, temporaryElevation, auditRequirements)
+  - `InteractionCatalog`
+    - content, overview, prioritization
+    - [1,] interactions: `InteractionEntry`
+      - identification, scopeContext, performance, security, traceability
+      - stakeholders: `StakeholdersAndInterests`
+        - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
+      - preconditions: `PreconditionsAndTriggers`
+        - content @Form(precondition, trigger, triggerType, triggerSource, triggerData, frequencyOfTrigger, validationBeforeStart)
+      - postconditions: `PostconditionsAndGuarantees`
+        - content @Form(minimalGuarantees, successGuarantees, primaryActorPostcondition, systemPostcondition, dataPostcondition, notificationsGenerated, auditTrail)
+      - mainScenario: `MainSuccessScenario`
+        - content @Form(scenarioSummary, estimatedDuration, stepCount)
+        - [1,] steps: `MainScenarioStepEntry`
+          - content @Form(stepNumber, actorAction, systemResponse, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
+      - extensions: `UseCaseExtensions`
+        - content @Form(extensionSummary, extensionCount)
+        - extensions: `ExtensionEntry`
+          - content @Form(extensionId, branchPoint, condition, extensionType, description, outcome, returnPoint, frequency, severity)
+          - steps: `ExtensionStepEntry`
+            - content @Form(stepNumber, action, response)
+      - variations: `TechnologyDataVariations`
+        - content @Form(dataVariations, technologyVariations, channelVariations, localizationVariations, accessibilityVariations, offlineVariations)
+      - uiPreview: `UIRequirementsPreview`
+        - content @Form(primaryScreen, screenFlow, keyFormFields, keyActions, keyDisplayElements, feedbackMechanisms, layoutConsiderations, interactionPatterns),
+          screenMockup @mermaid-flow
+      - businessRules: `InteractionBusinessRules`
+        - content @Form(validationRules, calculationRules, authorizationRules, workflowRules, notificationRules, integrationRules)
+  - `KeyScenarios`
+    - content, overview
+    - [1,] scenarios: `ScenarioEntry`
+      - identification, context, scenarioData, timing, validation
+      - [1,] steps: `ScenarioStepEntry`
+        - content @Form(stepNumber, actor, action, systemResponse), context, execution
+      - alternativeFlows: `AlternativeFlowEntry`
+        - content @Form(flowId, flowName, flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
+        - steps: `AlternativeStepEntry`
+          - content @Form(stepNumber, action, response, expectedResult)
+  - `ActorRelationshipDiagram`
+    - overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
+  - endToEndTestScenarios: `EndToEndTestScenario`
+    - content
+  - `UseCaseTraceability`
+    - content
