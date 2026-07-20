@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-19T18:05:20.352246Z",
+  "generatedAt": "2026-07-20T09:13:45.534074Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1230,
+  "classCount": 1232,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -61472,7 +61472,7 @@
           "Domain-Driven Design — aggregates/entities/value objects",
           "ISO/IEC 11179 — metadata registries / data element definitions"
         ],
-        "connotation": "A single data entity with its identity, classification, volume, lifecycle, compliance, and technical characteristics."
+        "connotation": "A single data entity with its identity, classification, lifecycle, relationships, attributes, keys, indexes, and constraints."
       },
       "annotations": [
         {
@@ -61483,7 +61483,7 @@
               "Domain-Driven Design — aggregates/entities/value objects",
               "ISO/IEC 11179 — metadata registries / data element definitions"
             ],
-            "connotation": "A single data entity with its identity, classification, volume, lifecycle, compliance, and technical characteristics."
+            "connotation": "A single data entity with its identity, classification, lifecycle, relationships, attributes, keys, indexes, and constraints."
           }
         },
         {
@@ -61636,63 +61636,10 @@
           ]
         },
         {
-          "name": "volumeMetrics",
-          "kind": "list",
-          "help": "Add one entry per volume metric.",
-          "sectionId": "VOLUM-VOLU-LST",
-          "sectionIdPattern": "VOLUM-VOLU-xxx",
-          "standardReferences": {
-            "standards": [
-              "DAMA-DMBOK2 — data management body of knowledge",
-              "ISO/IEC 25012 — data quality"
-            ],
-            "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."
-          },
-          "serializationOrder": 2,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "DAMA-DMBOK2 — data management body of knowledge",
-                  "ISO/IEC 25012 — data quality"
-                ],
-                "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "VOLUM-VOLU-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "VOLUM-VOLU-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per volume metric."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 2
-              }
-            }
-          ],
-          "elementType": "VolumeMetricEntry",
-          "elementIsComplex": true
-        },
-        {
           "name": "lifecyclePolicy",
           "kind": "form",
           "sectionId": "DAENT-LIFE",
-          "serializationOrder": 3,
+          "serializationOrder": 2,
           "annotations": [
             {
               "name": "SectionId",
@@ -61709,7 +61656,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 2
               }
             }
           ],
@@ -61773,63 +61720,10 @@
           ]
         },
         {
-          "name": "complianceRequirements",
-          "kind": "list",
-          "help": "Add one entry per compliance requirement.",
-          "sectionId": "CRE-COMP-LST",
-          "sectionIdPattern": "CRE-COMP-xxx",
-          "standardReferences": {
-            "standards": [
-              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)",
-              "ISO/IEC 27001 / NIST — data classification"
-            ],
-            "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."
-          },
-          "serializationOrder": 4,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)",
-                  "ISO/IEC 27001 / NIST — data classification"
-                ],
-                "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "CRE-COMP-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "CRE-COMP-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per compliance requirement."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 4
-              }
-            }
-          ],
-          "elementType": "ComplianceRequirementEntry",
-          "elementIsComplex": true
-        },
-        {
           "name": "relationshipSummary",
           "kind": "form",
           "sectionId": "DAENT-RELA",
-          "serializationOrder": 5,
+          "serializationOrder": 3,
           "annotations": [
             {
               "name": "SectionId",
@@ -61846,7 +61740,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 5
+                "order": 3
               }
             }
           ],
@@ -61882,59 +61776,6 @@
           ]
         },
         {
-          "name": "technicalCharacteristics",
-          "kind": "list",
-          "help": "Add one entry per technical characteristic.",
-          "sectionId": "TECHN-TECH-LST",
-          "sectionIdPattern": "TECHN-TECH-xxx",
-          "standardReferences": {
-            "standards": [
-              "DAMA-DMBOK2 — data management body of knowledge",
-              "ISO/IEC 25012 — data quality"
-            ],
-            "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."
-          },
-          "serializationOrder": 6,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "DAMA-DMBOK2 — data management body of knowledge",
-                  "ISO/IEC 25012 — data quality"
-                ],
-                "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "TECHN-TECH-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "TECHN-TECH-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per technical characteristic."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 6
-              }
-            }
-          ],
-          "elementType": "TechnicalCharacteristicEntry",
-          "elementIsComplex": true
-        },
-        {
           "name": "attributes",
           "kind": "list",
           "doc": "Contains 0+× DataAttribute.",
@@ -61948,7 +61789,7 @@
             ],
             "connotation": "The data attributes (fields) that belong to this entity."
           },
-          "serializationOrder": 7,
+          "serializationOrder": 4,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -61981,7 +61822,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 4
               }
             }
           ],
@@ -62002,7 +61843,7 @@
             ],
             "connotation": "The key attributes (primary, foreign, alternate, composite) that identify or reference this entity."
           },
-          "serializationOrder": 8,
+          "serializationOrder": 5,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -62035,7 +61876,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 5
               }
             }
           ],
@@ -62056,7 +61897,7 @@
             ],
             "connotation": "The database indexes defined on this entity for query optimization."
           },
-          "serializationOrder": 9,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -62089,7 +61930,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 6
               }
             }
           ],
@@ -62110,7 +61951,7 @@
             ],
             "connotation": "Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints."
           },
-          "serializationOrder": 10,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -62143,65 +61984,11 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 7
               }
             }
           ],
           "elementType": "EntityConstraintEntry",
-          "elementIsComplex": true
-        },
-        {
-          "name": "migrationMappings",
-          "kind": "list",
-          "doc": "Contains 0+× MigrationMapping for data migration planning.",
-          "help": "Add one entry per migration mapping.",
-          "sectionId": "MIGME-MIGR-LST",
-          "sectionIdPattern": "MIGME-MIGR-xxx",
-          "standardReferences": {
-            "standards": [
-              "DAMA-DMBOK2 — data management body of knowledge",
-              "ISO/IEC 25012 — data quality"
-            ],
-            "connotation": "Source-to-target field mappings for planning the migration of data into this entity."
-          },
-          "serializationOrder": 11,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "DAMA-DMBOK2 — data management body of knowledge",
-                  "ISO/IEC 25012 — data quality"
-                ],
-                "connotation": "Source-to-target field mappings for planning the migration of data into this entity."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "MIGME-MIGR-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "MIGME-MIGR-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per migration mapping."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 11
-              }
-            }
-          ],
-          "elementType": "MigrationMappingEntry",
           "elementIsComplex": true
         }
       ]
@@ -65613,13 +65400,13 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with 7 form groups (41+ fields per entity)\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Volume Metrics (record count, growth rate, storage estimates)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Compliance Requirements (sensitivity, PII/PHI, encryption, access)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Technical Characteristics (indexing, caching, consistency, scaling)\n",
+          "help": "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Attributes, key attributes, indexes, and constraints\n\nPer-entity operational facets (volume metrics, compliance requirements,\ntechnical characteristics, migration mappings) and the model-wide ER diagram\nare authored in the Data Model Follow-up Facets section (7.9).\n",
           "serializationOrder": 0,
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with 7 form groups (41+ fields per entity)\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Volume Metrics (record count, growth rate, storage estimates)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Compliance Requirements (sensitivity, PII/PHI, encryption, access)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Technical Characteristics (indexing, caching, consistency, scaling)\n"
+                "guidance": "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Attributes, key attributes, indexes, and constraints\n\nPer-entity operational facets (volume metrics, compliance requirements,\ntechnical characteristics, migration mappings) and the model-wide ER diagram\nare authored in the Data Model Follow-up Facets section (7.9).\n"
               }
             },
             {
@@ -65708,9 +65495,9 @@
           "type": "EntityRelationships"
         },
         {
-          "name": "erDiagram",
-          "kind": "section",
-          "doc": "7.1.3. Entity-Relationship Diagram (mermaid).",
+          "name": "dataClassification",
+          "kind": "complex",
+          "doc": "7.1.3. Data Classification.",
           "serializationOrder": 3,
           "annotations": [
             {
@@ -65720,13 +65507,12 @@
               }
             }
           ],
-          "contentType": "mermaid-er",
-          "sectionType": "ErDiagramSection"
+          "type": "DataClassification"
         },
         {
-          "name": "dataClassification",
+          "name": "dataDictionary",
           "kind": "complex",
-          "doc": "7.1.4. Data Classification.",
+          "doc": "7.1.4. Data Dictionary..",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -65736,12 +65522,12 @@
               }
             }
           ],
-          "type": "DataClassification"
+          "type": "DataDictionary"
         },
         {
-          "name": "dataDictionary",
+          "name": "validationConstraints",
           "kind": "complex",
-          "doc": "7.1.5. Data Dictionary..",
+          "doc": "7.1.5. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -65751,12 +65537,12 @@
               }
             }
           ],
-          "type": "DataDictionary"
+          "type": "ValidationConstraints"
         },
         {
-          "name": "validationConstraints",
+          "name": "integrityConstraints",
           "kind": "complex",
-          "doc": "7.1.6. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).",
+          "doc": "7.1.6. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -65766,22 +65552,130 @@
               }
             }
           ],
-          "type": "ValidationConstraints"
+          "type": "IntegrityConstraints"
+        }
+      ]
+    },
+    "DataModelFollowUp": {
+      "name": "DataModelFollowUp",
+      "sectionId": "DMFU",
+      "doc": "7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge",
+          "ER modeling (Chen / Barker notation)"
+        ],
+        "connotation": "Per-entity operational/governance follow-up facets and the model-wide ER diagram, kept separate from the generation-owned data model."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ER modeling (Chen / Barker notation)"
+            ],
+            "connotation": "Per-entity operational/governance follow-up facets and the model-wide ER diagram, kept separate from the generation-owned data model."
+          }
         },
         {
-          "name": "integrityConstraints",
-          "kind": "complex",
-          "doc": "7.1.7. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).",
-          "serializationOrder": 7,
+          "name": "SectionId",
+          "arguments": {
+            "id": "DMFU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "erDiagram",
+          "kind": "section",
+          "doc": "7.9.1. Entity-Relationship Diagram (mermaid).",
+          "serializationOrder": 1,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 1
               }
             }
           ],
-          "type": "IntegrityConstraints"
+          "contentType": "mermaid-er",
+          "sectionType": "ErDiagramSection"
+        },
+        {
+          "name": "entityFollowUps",
+          "kind": "list",
+          "doc": "7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.",
+          "help": "Add one entry per entity that carries follow-up facets.",
+          "sectionId": "DMFUE-ENFU-LST",
+          "sectionIdPattern": "DMFUE-ENFU-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Per-entity operational, compliance, technical, and migration facets keyed to the source entity."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — data management body of knowledge",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Per-entity operational, compliance, technical, and migration facets keyed to the source entity."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DMFUE-ENFU-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "DMFUE-ENFU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per entity that carries follow-up facets."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "elementType": "EntityFollowUpEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -90630,6 +90524,292 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "EntityFollowUpEntry": {
+      "name": "EntityFollowUpEntry",
+      "sectionId": "DMFUE",
+      "doc": "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge",
+          "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+        ],
+        "connotation": "The operational, compliance, technical, and migration follow-up facets for one data entity."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+            ],
+            "connotation": "The operational, compliance, technical, and migration follow-up facets for one data entity."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DMFUE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "entityRef",
+          "kind": "form",
+          "sectionId": "DMFUE-ENTI",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DMFUE-ENTI"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "entityName",
+              "label": "Entity Name",
+              "hint": "Name of the data entity these facets apply to (matches dataModel.entities)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "entityAlias",
+              "label": "Alias/Abbreviation",
+              "hint": "Short alias of the referenced entity (e.g., CUST, ORD)",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "volumeMetrics",
+          "kind": "list",
+          "help": "Add one entry per volume metric.",
+          "sectionId": "VOLUM-VOLU-LST",
+          "sectionIdPattern": "VOLUM-VOLU-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — data management body of knowledge",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "VOLUM-VOLU-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "VOLUM-VOLU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per volume metric."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "VolumeMetricEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "complianceRequirements",
+          "kind": "list",
+          "help": "Add one entry per compliance requirement.",
+          "sectionId": "CRE-COMP-LST",
+          "sectionIdPattern": "CRE-COMP-xxx",
+          "standardReferences": {
+            "standards": [
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)",
+              "ISO/IEC 27001 / NIST — data classification"
+            ],
+            "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)",
+                  "ISO/IEC 27001 / NIST — data classification"
+                ],
+                "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CRE-COMP-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "CRE-COMP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per compliance requirement."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "elementType": "ComplianceRequirementEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "technicalCharacteristics",
+          "kind": "list",
+          "help": "Add one entry per technical characteristic.",
+          "sectionId": "TECHN-TECH-LST",
+          "sectionIdPattern": "TECHN-TECH-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — data management body of knowledge",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TECHN-TECH-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "TECHN-TECH-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per technical characteristic."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "elementType": "TechnicalCharacteristicEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "migrationMappings",
+          "kind": "list",
+          "help": "Add one entry per migration mapping.",
+          "sectionId": "MIGME-MIGR-LST",
+          "sectionIdPattern": "MIGME-MIGR-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Source-to-target field mappings for planning the migration of data into this entity."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — data management body of knowledge",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Source-to-target field mappings for planning the migration of data into this entity."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MIGME-MIGR-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "MIGME-MIGR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration mapping."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "elementType": "MigrationMappingEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -116904,6 +117084,21 @@
             }
           ],
           "type": "MessageKeyRegistry"
+        },
+        {
+          "name": "dataModelFollowUp",
+          "kind": "complex",
+          "doc": "7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.",
+          "serializationOrder": 9,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 9
+              }
+            }
+          ],
+          "type": "DataModelFollowUp"
         }
       ]
     },

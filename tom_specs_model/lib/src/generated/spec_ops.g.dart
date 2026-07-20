@@ -5268,16 +5268,12 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.identity, (v) => n.identity = v as DocSpecsSection?, label: 'identity'),
         SpecSlot.node(() => n.classification, (v) => n.classification = v as DocSpecsSection?, label: 'classification'),
-        SpecSlot.list(() => n.volumeMetrics, (v) => n.volumeMetrics = v.cast<VolumeMetricEntry>(), label: 'volumeMetrics'),
         SpecSlot.node(() => n.lifecyclePolicy, (v) => n.lifecyclePolicy = v as DocSpecsSection?, label: 'lifecyclePolicy'),
-        SpecSlot.list(() => n.complianceRequirements, (v) => n.complianceRequirements = v.cast<ComplianceRequirementEntry>(), label: 'complianceRequirements'),
         SpecSlot.node(() => n.relationshipSummary, (v) => n.relationshipSummary = v as DocSpecsSection?, label: 'relationshipSummary'),
-        SpecSlot.list(() => n.technicalCharacteristics, (v) => n.technicalCharacteristics = v.cast<TechnicalCharacteristicEntry>(), label: 'technicalCharacteristics'),
         SpecSlot.list(() => n.attributes, (v) => n.attributes = v.cast<DataAttributeEntry>(), label: 'attributes'),
         SpecSlot.list(() => n.keyAttributes, (v) => n.keyAttributes = v.cast<KeyAttributeEntry>(), label: 'keyAttributes'),
         SpecSlot.list(() => n.indexes, (v) => n.indexes = v.cast<EntityIndexEntry>(), label: 'indexes'),
         SpecSlot.list(() => n.constraints, (v) => n.constraints = v.cast<EntityConstraintEntry>(), label: 'constraints'),
-        SpecSlot.list(() => n.migrationMappings, (v) => n.migrationMappings = v.cast<MigrationMappingEntry>(), label: 'migrationMappings'),
       ];
     },
     cloneShallow: (o) {
@@ -5285,16 +5281,12 @@ void registerSpecOps() {
       return DataEntityEntry()
         ..identity = n.identity
         ..classification = n.classification
-        ..volumeMetrics = n.volumeMetrics
         ..lifecyclePolicy = n.lifecyclePolicy
-        ..complianceRequirements = n.complianceRequirements
         ..relationshipSummary = n.relationshipSummary
-        ..technicalCharacteristics = n.technicalCharacteristics
         ..attributes = n.attributes
         ..keyAttributes = n.keyAttributes
         ..indexes = n.indexes
-        ..constraints = n.constraints
-        ..migrationMappings = n.migrationMappings;
+        ..constraints = n.constraints;
     },
   ));
   SpecRegistry.register(DataEntityMigrationEntry, SpecClassOps(
@@ -5532,7 +5524,6 @@ void registerSpecOps() {
       return [
         SpecSlot.list(() => n.entities, (v) => n.entities = v.cast<DataEntityEntry>(), label: 'entities'),
         SpecSlot.node(() => n.entityRelationships, (v) => n.entityRelationships = v as EntityRelationships, label: 'entityRelationships'),
-        SpecSlot.node(() => n.erDiagram, (v) => n.erDiagram = v as ErDiagramSection, label: 'erDiagram'),
         SpecSlot.node(() => n.dataClassification, (v) => n.dataClassification = v as DataClassification, label: 'dataClassification'),
         SpecSlot.node(() => n.dataDictionary, (v) => n.dataDictionary = v as DataDictionary, label: 'dataDictionary'),
         SpecSlot.node(() => n.validationConstraints, (v) => n.validationConstraints = v as ValidationConstraints, label: 'validationConstraints'),
@@ -5545,13 +5536,29 @@ void registerSpecOps() {
         ..content = n.content
         ..entities = n.entities
         ..entityRelationships = n.entityRelationships
-        ..erDiagram = n.erDiagram
         ..dataClassification = n.dataClassification
         ..dataDictionary = n.dataDictionary
         ..validationConstraints = n.validationConstraints
         ..integrityConstraints = n.integrityConstraints;
     },
     yamlScalar: (o) => (o as DataModel).content,
+  ));
+  SpecRegistry.register(DataModelFollowUp, SpecClassOps(
+    slots: (o) {
+      final n = o as DataModelFollowUp;
+      return [
+        SpecSlot.node(() => n.erDiagram, (v) => n.erDiagram = v as ErDiagramSection, label: 'erDiagram'),
+        SpecSlot.list(() => n.entityFollowUps, (v) => n.entityFollowUps = v.cast<EntityFollowUpEntry>(), label: 'entityFollowUps'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as DataModelFollowUp;
+      return DataModelFollowUp()
+        ..content = n.content
+        ..erDiagram = n.erDiagram
+        ..entityFollowUps = n.entityFollowUps;
+    },
+    yamlScalar: (o) => (o as DataModelFollowUp).content,
   ));
   SpecRegistry.register(DataOwnership, SpecClassOps(
     slots: (o) {
@@ -7542,6 +7549,27 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as EntityConstraintEntry).content,
   ));
+  SpecRegistry.register(EntityFollowUpEntry, SpecClassOps(
+    slots: (o) {
+      final n = o as EntityFollowUpEntry;
+      return [
+        SpecSlot.node(() => n.entityRef, (v) => n.entityRef = v as DocSpecsSection?, label: 'entityRef'),
+        SpecSlot.list(() => n.volumeMetrics, (v) => n.volumeMetrics = v.cast<VolumeMetricEntry>(), label: 'volumeMetrics'),
+        SpecSlot.list(() => n.complianceRequirements, (v) => n.complianceRequirements = v.cast<ComplianceRequirementEntry>(), label: 'complianceRequirements'),
+        SpecSlot.list(() => n.technicalCharacteristics, (v) => n.technicalCharacteristics = v.cast<TechnicalCharacteristicEntry>(), label: 'technicalCharacteristics'),
+        SpecSlot.list(() => n.migrationMappings, (v) => n.migrationMappings = v.cast<MigrationMappingEntry>(), label: 'migrationMappings'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as EntityFollowUpEntry;
+      return EntityFollowUpEntry()
+        ..entityRef = n.entityRef
+        ..volumeMetrics = n.volumeMetrics
+        ..complianceRequirements = n.complianceRequirements
+        ..technicalCharacteristics = n.technicalCharacteristics
+        ..migrationMappings = n.migrationMappings;
+    },
+  ));
   SpecRegistry.register(EntityIndexEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -9514,6 +9542,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
         SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
         SpecSlot.node(() => n.messageKeyRegistry, (v) => n.messageKeyRegistry = v as MessageKeyRegistry, label: 'messageKeyRegistry'),
+        SpecSlot.node(() => n.dataModelFollowUp, (v) => n.dataModelFollowUp = v as DataModelFollowUp, label: 'dataModelFollowUp'),
       ];
     },
     cloneShallow: (o) {
@@ -9527,7 +9556,8 @@ void registerSpecOps() {
         ..domainEnumRegistry = n.domainEnumRegistry
         ..errorCodeRegistry = n.errorCodeRegistry
         ..resultEnvelope = n.resultEnvelope
-        ..messageKeyRegistry = n.messageKeyRegistry;
+        ..messageKeyRegistry = n.messageKeyRegistry
+        ..dataModelFollowUp = n.dataModelFollowUp;
     },
     yamlScalar: (o) => (o as InformationAndDataModel).content,
   ));
@@ -12683,6 +12713,23 @@ void registerSpecOps() {
         ..activities = n.activities;
     },
     yamlScalar: (o) => (o as OrgRequirementImplementationPlan).content,
+  ));
+  SpecRegistry.register(OrganizationAndProcessConcept, SpecClassOps(
+    slots: (o) {
+      final n = o as OrganizationAndProcessConcept;
+      return [
+        SpecSlot.node(() => n.organizationalFramework, (v) => n.organizationalFramework = v as OrganizationalFramework, label: 'organizationalFramework'),
+        SpecSlot.node(() => n.businessProcessDescriptions, (v) => n.businessProcessDescriptions = v as BusinessProcessDescriptions, label: 'businessProcessDescriptions'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as OrganizationAndProcessConcept;
+      return OrganizationAndProcessConcept()
+        ..content = n.content
+        ..organizationalFramework = n.organizationalFramework
+        ..businessProcessDescriptions = n.businessProcessDescriptions;
+    },
+    yamlScalar: (o) => (o as OrganizationAndProcessConcept).content,
   ));
   SpecRegistry.register(OrganizationStructure, SpecClassOps(
     slots: (o) {
@@ -19684,37 +19731,20 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as TabItemEntry).content,
   ));
-  SpecRegistry.register(TargetBusinessProcessModel, SpecClassOps(
-    slots: (o) {
-      final n = o as TargetBusinessProcessModel;
-      return [
-        SpecSlot.node(() => n.businessProcessDescriptions, (v) => n.businessProcessDescriptions = v as BusinessProcessDescriptions, label: 'businessProcessDescriptions'),
-        SpecSlot.node(() => n.processStepsAndActorInteractions, (v) => n.processStepsAndActorInteractions = v as ProcessStepsAndActorInteractions, label: 'processStepsAndActorInteractions'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as TargetBusinessProcessModel;
-      return TargetBusinessProcessModel()
-        ..content = n.content
-        ..businessProcessDescriptions = n.businessProcessDescriptions
-        ..processStepsAndActorInteractions = n.processStepsAndActorInteractions;
-    },
-    yamlScalar: (o) => (o as TargetBusinessProcessModel).content,
-  ));
   SpecRegistry.register(TargetOperatingModel, SpecClassOps(
     slots: (o) {
       final n = o as TargetOperatingModel;
       return [
-        SpecSlot.node(() => n.organizationalFramework, (v) => n.organizationalFramework = v as OrganizationalFramework, label: 'organizationalFramework'),
-        SpecSlot.node(() => n.targetBusinessProcess, (v) => n.targetBusinessProcess = v as TargetBusinessProcessModel, label: 'targetBusinessProcess'),
+        SpecSlot.node(() => n.organizationAndProcess, (v) => n.organizationAndProcess = v as OrganizationAndProcessConcept, label: 'organizationAndProcess'),
+        SpecSlot.node(() => n.processStepsAndActorInteractions, (v) => n.processStepsAndActorInteractions = v as ProcessStepsAndActorInteractions, label: 'processStepsAndActorInteractions'),
       ];
     },
     cloneShallow: (o) {
       final n = o as TargetOperatingModel;
       return TargetOperatingModel()
         ..content = n.content
-        ..organizationalFramework = n.organizationalFramework
-        ..targetBusinessProcess = n.targetBusinessProcess;
+        ..organizationAndProcess = n.organizationAndProcess
+        ..processStepsAndActorInteractions = n.processStepsAndActorInteractions;
     },
     yamlScalar: (o) => (o as TargetOperatingModel).content,
   ));

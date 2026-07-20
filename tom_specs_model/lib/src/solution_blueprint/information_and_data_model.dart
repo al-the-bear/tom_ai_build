@@ -80,6 +80,16 @@ IFM (Information Model) document.
   /// 7.8. Message Key Registry.
   @SerializationOrder(8)
   MessageKeyRegistry messageKeyRegistry = MessageKeyRegistry();
+
+  /// 7.9. Data Model Follow-up Facets.
+  ///
+  /// Per-entity operational/governance facets (volume, compliance, technical
+  /// characteristics, migration mappings) and the model-wide ER diagram —
+  /// separated from `dataModel` so the entity/attribute subtree stays purely
+  /// CE-DB / CE-VA generation-owned while these follow-up facets are authored
+  /// alongside, keyed back to their source entity.
+  @SerializationOrder(9)
+  DataModelFollowUp dataModelFollowUp = DataModelFollowUp();
 }
 
 // ---------------------------------------------------------------------------
@@ -104,19 +114,20 @@ Conceptual data model from a business perspective. Defines the entities,
 attributes, relationships, and constraints that represent core business data.
 
 **Subsections:**
-- Entity Overview — Comprehensive entity definitions with 7 form groups (41+ fields per entity)
+- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints
 - Entity Relationships — Relationship specifications with cardinality and referential integrity
-- ER Diagram — Visual entity-relationship diagram (Mermaid)
 - Data Classification — Security classification framework with handling requirements
 
 **Entity Coverage per Entry:**
 - Core Identity (name, table, alias, description, stereotype)
 - Classification (category, bounded context, domain, ownership)
-- Volume Metrics (record count, growth rate, storage estimates)
 - Lifecycle Policy (retention, archival, anonymization, audit)
-- Compliance Requirements (sensitivity, PII/PHI, encryption, access)
 - Relationships Summary (parent, child, referenced, cross-domain)
-- Technical Characteristics (indexing, caching, consistency, scaling)
+- Attributes, key attributes, indexes, and constraints
+
+Per-entity operational facets (volume metrics, compliance requirements,
+technical characteristics, migration mappings) and the model-wide ER diagram
+are authored in the Data Model Follow-up Facets section (7.9).
 ''')
   @override
   @SerializationOrder(0)
@@ -138,31 +149,179 @@ attributes, relationships, and constraints that represent core business data.
   @SerializationOrder(2)
   EntityRelationships entityRelationships = EntityRelationships();
 
-  /// 7.1.3. Entity-Relationship Diagram (mermaid).
+  /// 7.1.3. Data Classification.
   @SerializationOrder(3)
-  ErDiagramSection erDiagram = ErDiagramSection();
-
-  /// 7.1.4. Data Classification.
-  @SerializationOrder(4)
   DataClassification dataClassification = DataClassification();
 
-  /// 7.1.5. Data Dictionary..
-  @SerializationOrder(5)
+  /// 7.1.4. Data Dictionary..
+  @SerializationOrder(4)
   DataDictionary dataDictionary = DataDictionary();
 
-  /// 7.1.6. Validation Constraints.
+  /// 7.1.5. Validation Constraints.
   ///
   /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
   /// from `List<ValidationConstraints>` (L34C-12 SR-25).
-  @SerializationOrder(6)
+  @SerializationOrder(5)
   ValidationConstraints validationConstraints = ValidationConstraints();
 
-  /// 7.1.7. Integrity Constraints.
+  /// 7.1.6. Integrity Constraints.
   ///
   /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
   /// from `List<IntegrityConstraints>` (L34C-12 SR-25).
-  @SerializationOrder(7)
+  @SerializationOrder(6)
   IntegrityConstraints integrityConstraints = IntegrityConstraints();
+}
+
+// ---------------------------------------------------------------------------
+// 7.9 Data Model Follow-up Facets
+// ---------------------------------------------------------------------------
+
+/// 7.9. Data Model Follow-up Facets.
+///
+/// Operational and governance facets that accompany the data model but are not
+/// part of the generation-owned entity/attribute schema: the model-wide ER
+/// diagram plus per-entity volume, compliance, technical, and migration
+/// facets. Each per-entity block references its source entity by name/alias so
+/// the facets stay correlated with `dataModel.entities` without being nested
+/// inside the generation-owned `DataEntityEntry`.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'ER modeling (Chen / Barker notation)',
+  ],
+  'Per-entity operational/governance follow-up facets and the model-wide ER diagram, kept separate from the generation-owned data model.',
+)
+@SectionId('DMFU')
+class DataModelFollowUp extends DocSpecsSection {
+  @ContentHelp('''
+Follow-up facets for the data model. These describe operational, capacity,
+compliance, and migration concerns that accompany — but are not part of — the
+core entity/attribute schema.
+
+**Subsections:**
+- ER Diagram — Visual entity-relationship diagram (Mermaid)
+- Per-entity follow-up facets — Volume, compliance, technical characteristics,
+  and migration mappings for each entity in the data model
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.9.1. Entity-Relationship Diagram (mermaid).
+  @SerializationOrder(1)
+  ErDiagramSection erDiagram = ErDiagramSection();
+
+  /// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+  @StandardReferences([
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'ISO/IEC 25012 — data quality',
+  ], 'Per-entity operational, compliance, technical, and migration facets keyed to the source entity.')
+  @SectionId('DMFUE-ENFU-LST')
+  @SectionIdPattern('DMFUE-ENFU-xxx')
+  @ContentHelp('Add one entry per entity that carries follow-up facets.')
+  @SerializationOrder(2)
+  List<EntityFollowUpEntry> entityFollowUps = [];
+}
+
+/// A per-entity follow-up facet block (form + lists).
+///
+/// Groups the volume, compliance, technical, and migration facets for a single
+/// data entity, correlated back to `dataModel.entities` by name/alias.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+  ],
+  'The operational, compliance, technical, and migration follow-up facets for one data entity.',
+)
+@SectionId('DMFUE')
+class EntityFollowUpEntry extends DocSpecsSection {
+  // ---------------------------------------------------------------------------
+  // Entity reference (2 fields)
+  // ---------------------------------------------------------------------------
+  @SectionId('DMFUE-ENTI')
+  @Form([
+    Field(
+      'entityName',
+      String,
+      'Entity Name',
+      required: true,
+      hint:
+          'Name of the data entity these facets apply to (matches dataModel.entities)',
+    ),
+    Field(
+      'entityAlias',
+      String,
+      'Alias/Abbreviation',
+      hint: 'Short alias of the referenced entity (e.g., CUST, ORD)',
+    ),
+  ])
+  @SerializationOrder(0)
+  DocSpecsSection? entityRef;
+
+  // ---------------------------------------------------------------------------
+  // Volume and Growth
+  // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data management body of knowledge',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates.',
+  )
+  @SectionId('VOLUM-VOLU-LST')
+  @SectionIdPattern('VOLUM-VOLU-xxx')
+  @ContentHelp('Add one entry per volume metric.')
+  @SerializationOrder(1)
+  List<VolumeMetricEntry> volumeMetrics = [];
+
+  // ---------------------------------------------------------------------------
+  // Compliance and Security
+  // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+      'ISO/IEC 27001 / NIST — data classification',
+    ],
+    'Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access.',
+  )
+  @SectionId('CRE-COMP-LST')
+  @SectionIdPattern('CRE-COMP-xxx')
+  @ContentHelp('Add one entry per compliance requirement.')
+  @SerializationOrder(2)
+  List<ComplianceRequirementEntry> complianceRequirements = [];
+
+  // ---------------------------------------------------------------------------
+  // Technical Characteristics
+  // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data management body of knowledge',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior.',
+  )
+  @SectionId('TECHN-TECH-LST')
+  @SectionIdPattern('TECHN-TECH-xxx')
+  @ContentHelp('Add one entry per technical characteristic.')
+  @SerializationOrder(3)
+  List<TechnicalCharacteristicEntry> technicalCharacteristics = [];
+
+  // ---------------------------------------------------------------------------
+  // Migration Mappings
+  // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data management body of knowledge',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Source-to-target field mappings for planning the migration of data into this entity.',
+  )
+  @SectionId('MIGME-MIGR-LST')
+  @SectionIdPattern('MIGME-MIGR-xxx')
+  @ContentHelp('Add one entry per migration mapping.')
+  @SerializationOrder(4)
+  List<MigrationMappingEntry> migrationMappings = [];
 }
 
 /// A data entity entry (form).
@@ -175,7 +334,7 @@ attributes, relationships, and constraints that represent core business data.
     'Domain-Driven Design — aggregates/entities/value objects',
     'ISO/IEC 11179 — metadata registries / data element definitions',
   ],
-  'A single data entity with its identity, classification, volume, lifecycle, compliance, and technical characteristics.',
+  'A single data entity with its identity, classification, lifecycle, relationships, attributes, keys, indexes, and constraints.',
 )
 @SectionId('DAENT')
 @CodeSpecKind([CodeSpecPart.dataAccess])
@@ -268,22 +427,6 @@ class DataEntityEntry extends DocSpecsSection {
   DocSpecsSection? classification;
 
   // ---------------------------------------------------------------------------
-  // Volume and Growth (6 fields)
-  // ---------------------------------------------------------------------------
-  @StandardReferences(
-    [
-      'DAMA-DMBOK2 — data management body of knowledge',
-      'ISO/IEC 25012 — data quality',
-    ],
-    'Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates.',
-  )
-  @SectionId('VOLUM-VOLU-LST')
-  @SectionIdPattern('VOLUM-VOLU-xxx')
-  @ContentHelp('Add one entry per volume metric.')
-  @SerializationOrder(2)
-  List<VolumeMetricEntry> volumeMetrics = [];
-
-  // ---------------------------------------------------------------------------
   // Lifecycle and Retention (8 fields)
   // ---------------------------------------------------------------------------
   @SectionId('DAENT-LIFE')
@@ -341,24 +484,8 @@ class DataEntityEntry extends DocSpecsSection {
       hint: 'How long audit records are kept',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(2)
   DocSpecsSection? lifecyclePolicy;
-
-  // ---------------------------------------------------------------------------
-  // Compliance and Security (6 fields)
-  // ---------------------------------------------------------------------------
-  @StandardReferences(
-    [
-      'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
-      'ISO/IEC 27001 / NIST — data classification',
-    ],
-    'Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access.',
-  )
-  @SectionId('CRE-COMP-LST')
-  @SectionIdPattern('CRE-COMP-xxx')
-  @ContentHelp('Add one entry per compliance requirement.')
-  @SerializationOrder(4)
-  List<ComplianceRequirementEntry> complianceRequirements = [];
 
   // ---------------------------------------------------------------------------
   // Relationships Summary (4 fields)
@@ -390,24 +517,8 @@ class DataEntityEntry extends DocSpecsSection {
       hint: 'Relationships that cross bounded context boundaries',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(3)
   DocSpecsSection? relationshipSummary;
-
-  // ---------------------------------------------------------------------------
-  // Technical Characteristics (6 fields)
-  // ---------------------------------------------------------------------------
-  @StandardReferences(
-    [
-      'DAMA-DMBOK2 — data management body of knowledge',
-      'ISO/IEC 25012 — data quality',
-    ],
-    'Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior.',
-  )
-  @SectionId('TECHN-TECH-LST')
-  @SectionIdPattern('TECHN-TECH-xxx')
-  @ContentHelp('Add one entry per technical characteristic.')
-  @SerializationOrder(6)
-  List<TechnicalCharacteristicEntry> technicalCharacteristics = [];
 
   /// Contains 0+× DataAttribute.
   @StandardReferences([
@@ -417,7 +528,7 @@ class DataEntityEntry extends DocSpecsSection {
   @SectionId('DAATT-ATTR-LST')
   @SectionIdPattern('DAATT-ATTR-xxx')
   @ContentHelp('Add one entry per data attribute.')
-  @SerializationOrder(7)
+  @SerializationOrder(4)
   List<DataAttributeEntry> attributes = [];
 
   /// Contains 0+× KeyAttribute.
@@ -431,7 +542,7 @@ class DataEntityEntry extends DocSpecsSection {
   @SectionId('KEATT-KEYA-LST')
   @SectionIdPattern('KEATT-KEYA-xxx')
   @ContentHelp('Add one entry per key attribute.')
-  @SerializationOrder(8)
+  @SerializationOrder(5)
   List<KeyAttributeEntry> keyAttributes = [];
 
   /// Contains 0+× EntityIndex.
@@ -442,7 +553,7 @@ class DataEntityEntry extends DocSpecsSection {
   @SectionId('ENIDX-INDE-LST')
   @SectionIdPattern('ENIDX-INDE-xxx')
   @ContentHelp('Add one entry per entity index.')
-  @SerializationOrder(9)
+  @SerializationOrder(6)
   List<EntityIndexEntry> indexes = [];
 
   /// Contains 0+× EntityConstraint.
@@ -453,22 +564,8 @@ class DataEntityEntry extends DocSpecsSection {
   @SectionId('ENCNS-CONS-LST')
   @SectionIdPattern('ENCNS-CONS-xxx')
   @ContentHelp('Add one entry per entity constraint.')
-  @SerializationOrder(10)
+  @SerializationOrder(7)
   List<EntityConstraintEntry> constraints = [];
-
-  /// Contains 0+× MigrationMapping for data migration planning.
-  @StandardReferences(
-    [
-      'DAMA-DMBOK2 — data management body of knowledge',
-      'ISO/IEC 25012 — data quality',
-    ],
-    'Source-to-target field mappings for planning the migration of data into this entity.',
-  )
-  @SectionId('MIGME-MIGR-LST')
-  @SectionIdPattern('MIGME-MIGR-xxx')
-  @ContentHelp('Add one entry per migration mapping.')
-  @SerializationOrder(11)
-  List<MigrationMappingEntry> migrationMappings = [];
 }
 
 /// A data attribute entry (form).
