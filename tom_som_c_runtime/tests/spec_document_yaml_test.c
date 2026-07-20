@@ -613,6 +613,50 @@ static void yaml_test_class_level_only_key(void) {
   spec_document_free(&doc);
 }
 
+/* csmc8 (§9.2): a stored codeSpec — the forward DocSpecs→CodeSpecs link,
+ * structurally a byte-for-byte mirror of the stored headline — survives the
+ * yaml round-trip and re-encode is byte-stable. Mirrors the Python
+ * `test_code_spec_round_trip` / `test_code_spec_byte_stable`. */
+static void yaml_test_code_spec(void) {
+  /* round-trip: a stored codeSpec survives the yaml round-trip. */
+  {
+    SpecDocument doc;
+    yaml_populated(&doc);
+    spec_document_set_code_spec(&doc, "D00/D00-OVR",
+                                "CsOrder,CsOrder.total,CsOrderRepository");
+    char *yaml = yaml_enc(&doc, "");
+    check("codeSpec.yaml.emitted", strstr(yaml, "codeSpec:") != NULL, yaml);
+    free(yaml);
+    SpecYamlContents rt;
+    yaml_round_trip(&doc, &rt);
+    check("codeSpec.yaml.restored",
+          str_eq(spec_document_code_spec(&rt.document, "D00/D00-OVR"),
+                 "CsOrder,CsOrder.total,CsOrderRepository"),
+          "");
+    /* Sibling without codeSpec keeps no codeSpec entry. */
+    check("codeSpec.yaml.sibling",
+          spec_document_code_spec(&rt.document, "D00/D00-PRI") == NULL, "");
+    spec_yaml_contents_free(&rt);
+    spec_document_free(&doc);
+  }
+
+  /* byte-stable: encode is byte-stable with codeSpec across decode→re-encode. */
+  {
+    SpecDocument doc;
+    yaml_populated(&doc);
+    spec_document_set_code_spec(&doc, "D00/D00-OVR", "CsOrder,CsOrder.total");
+    char *yaml1 = yaml_enc(&doc, "1.2");
+    SpecYamlContents c1;
+    yaml_dec(yaml1, &c1);
+    char *yaml2 = yaml_enc(&c1.document, "1.2");
+    check("codeSpec.yaml.byteStable", str_eq(yaml2, yaml1), "");
+    free(yaml2);
+    spec_yaml_contents_free(&c1);
+    free(yaml1);
+    spec_document_free(&doc);
+  }
+}
+
 int main(void) {
   char *err = NULL;
   g_model = spec_model_from_json_str(yaml_test_model_json, &err);
@@ -624,6 +668,7 @@ int main(void) {
   yaml_test_round_trip();
   yaml_test_strict_decode();
   yaml_test_class_level_only_key();
+  yaml_test_code_spec();
 
   som_meta_tree_free(g_tree);
   spec_model_free(g_model);

@@ -457,12 +457,40 @@ public final class SpecDocumentYamlTest {
     check("classKey.rt.owner", "the owner".equals(out.content("D00/control/owner")), "");
   }
 
+  // --- csmc8: stored codeSpec round-trips through yaml (§9.2) -----------------
+
+  private static void yamlTestCodeSpecRoundTrip(SomMetaTree tree) {
+    SpecDocument doc = populated();
+    doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+    String yaml = SpecDocumentYaml.encode(doc, tree, null);
+    check("codeSpec.yaml.emitted", yaml.contains("codeSpec:"), yaml);
+    SpecDocument out = roundTrip(tree, doc);
+    check("codeSpec.yaml.restored",
+        "CsOrder,CsOrder.total,CsOrderRepository".equals(out.codeSpec("D00/D00-OVR")),
+        quote(out.codeSpec("D00/D00-OVR")));
+    // Sibling without codeSpec keeps no codeSpec entry.
+    check("codeSpec.yaml.sibling",
+        out.codeSpec("D00/D00-PRI") == null,
+        quote(out.codeSpec("D00/D00-PRI")));
+  }
+
+  private static void yamlTestCodeSpecByteStable(SomMetaTree tree) {
+    SpecDocument doc = populated();
+    doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total");
+    String yaml1 = SpecDocumentYaml.encode(doc, tree, "1.2");
+    String yaml2 = SpecDocumentYaml.encode(
+        SpecDocumentYaml.decode(yaml1, tree).document, tree, "1.2");
+    check("codeSpec.yaml.byteStable", yaml2.equals(yaml1), byteDiff(yaml2, yaml1));
+  }
+
   public static void main(String[] args) {
     SomMetaTree tree = yamlTestTree();
     yamlTestEncode(tree);
     yamlTestRoundTrip(tree);
     yamlTestStrictDecode(tree);
     yamlTestClassLevelOnlyKey(tree);
+    yamlTestCodeSpecRoundTrip(tree);
+    yamlTestCodeSpecByteStable(tree);
 
     if (!failed.isEmpty()) {
       System.out.println("FAILED (" + failed.size() + " of " + (passed + failed.size()) + "):");

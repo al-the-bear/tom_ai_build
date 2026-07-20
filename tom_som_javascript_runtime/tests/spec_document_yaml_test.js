@@ -444,11 +444,42 @@ function testClassLevelOnlyKey() {
   _check('clskey.rt.owner', out.content('D00/control/owner') === 'the owner');
 }
 
+// --- csmc8: stored codeSpec survives the yaml round-trip (§9.2) --------------
+
+function testCodeSpecRoundTrip() {
+  const doc = _populated();
+  doc.setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total,CsOrderRepository');
+  const yaml = _enc(doc);
+  _check('codeSpec.yaml.emitted', yaml.includes('codeSpec:'), yaml);
+  const out = _roundTrip(doc);
+  _check(
+    'codeSpec.yaml.restored',
+    out.codeSpec('D00/D00-OVR') === 'CsOrder,CsOrder.total,CsOrderRepository',
+    String(out.codeSpec('D00/D00-OVR')),
+  );
+  // Sibling without codeSpec keeps no codeSpec entry.
+  _check(
+    'codeSpec.yaml.sibling',
+    out.codeSpec('D00/D00-PRI') === null,
+    String(out.codeSpec('D00/D00-PRI')),
+  );
+}
+
+function testCodeSpecByteStable() {
+  const doc = _populated();
+  doc.setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total');
+  const yaml1 = _enc(doc, '1.2');
+  const yaml2 = _enc(_dec(yaml1).document, '1.2');
+  _check('codeSpec.yaml.byteStable', yaml2 === yaml1);
+}
+
 function main() {
   testEncode();
   testRoundTrip();
   testStrictDecode();
   testClassLevelOnlyKey();
+  testCodeSpecRoundTrip();
+  testCodeSpecByteStable();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

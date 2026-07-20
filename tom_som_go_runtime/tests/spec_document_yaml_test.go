@@ -399,3 +399,37 @@ func yamlTestClassLevelOnlyKey(c *checker, t *testing.T, tree *som.SomMetaTree) 
 	c.check("clskey.rt.owner",
 		out.ContentOr("D00/control/owner") == "the owner", "")
 }
+
+// --- csmc8: stored codeSpec (§9.2) --------------------------------------------
+
+// TestSpecDocumentYamlCodeSpecRoundTrip verifies a stored codeSpec survives the
+// yaml round-trip and a sibling without one keeps no entry.
+func TestSpecDocumentYamlCodeSpecRoundTrip(t *testing.T) {
+	tree := yamlTestTree(t)
+	doc := yamlPopulated(t)
+	doc.SetCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository")
+	yaml := yamlEnc(t, tree, doc, "")
+	if !strings.Contains(yaml, "codeSpec:") {
+		t.Errorf("codeSpec.yaml.emitted: %s", yaml)
+	}
+	out := yamlRoundTrip(t, tree, doc)
+	if got := out.CodeSpecOr("D00/D00-OVR"); got != "CsOrder,CsOrder.total,CsOrderRepository" {
+		t.Errorf("codeSpec.yaml.restored: %q", got)
+	}
+	if _, ok := out.CodeSpec("D00/D00-PRI"); ok {
+		t.Errorf("codeSpec.yaml.sibling: sibling unexpectedly has a codeSpec")
+	}
+}
+
+// TestSpecDocumentYamlCodeSpecByteStable verifies encode is byte-stable with a
+// codeSpec across decode → re-encode.
+func TestSpecDocumentYamlCodeSpecByteStable(t *testing.T) {
+	tree := yamlTestTree(t)
+	doc := yamlPopulated(t)
+	doc.SetCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total")
+	yaml1 := yamlEnc(t, tree, doc, "1.2")
+	yaml2 := yamlEnc(t, tree, yamlDec(t, tree, yaml1).Document, "1.2")
+	if yaml2 != yaml1 {
+		t.Errorf("codeSpec.yaml.byteStable: %s", byteDiff("codeSpec.yaml.byteStable", yaml2, yaml1))
+	}
+}

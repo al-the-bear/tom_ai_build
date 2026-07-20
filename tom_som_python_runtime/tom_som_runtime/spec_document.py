@@ -46,6 +46,11 @@ class SpecDocument:
         self._list_seq: dict[str, int] = {}
         self._item_section_id: dict[str, str] = {}
         self._headline: dict[str, str] = {}
+        #: The concrete instance-level forward DocSpecs→CodeSpecs link (§9.2):
+        #: any section path → the comma-joined list of CodeSpecs code locations
+        #: that section maps to. Sparse like :attr:`_headline`: unset means
+        #: "no code mapping".
+        self._code_spec: dict[str, str] = {}
         #: The authoring object-model version (``major.minor``) this document was
         #: loaded from, or ``None`` for a brand-new / unstamped document. Retained
         #: here by :meth:`from_yaml` so a consumer need not thread
@@ -173,6 +178,29 @@ class SpecDocument:
         snapshot)."""
         return self._headline.keys()
 
+    # --- codeSpec (§9.2) ----------------------------------------------------
+
+    def code_spec(self, path: str) -> Optional[str]:
+        """The stored codeSpec mapping at *path* as the comma-joined list of
+        CodeSpecs code locations, or ``None`` when the section carries no
+        mapping (§9.2 — codeSpec is sparse like the headline)."""
+        return self._code_spec.get(path)
+
+    def set_code_spec(self, path: str, value: str) -> None:
+        """Sets the stored codeSpec mapping at *path* (the comma-joined list of
+        CodeSpecs code locations). An empty value clears it, returning the
+        section to "no code mapping" (§9.2)."""
+        if value == "":
+            self._code_spec.pop(path, None)
+        else:
+            self._code_spec[path] = value
+
+    @property
+    def code_spec_paths(self) -> Iterable[str]:
+        """All section paths currently carrying a stored codeSpec mapping
+        (unordered snapshot)."""
+        return self._code_spec.keys()
+
     # --- forms --------------------------------------------------------------
 
     def form_field(self, path: str, field_name: str) -> Optional[str]:
@@ -295,6 +323,7 @@ class SpecDocument:
             self._list_seq,
             self._item_section_id,
             self._headline,
+            self._code_spec,
         ):
             for key in [k for k in store if is_under(k)]:
                 store.pop(key, None)
@@ -308,6 +337,7 @@ class SpecDocument:
             and not self._form
             and not self._list_items
             and not self._headline
+            and not self._code_spec
         )
 
     def has_values_under(self, prefix: str) -> bool:
@@ -327,6 +357,7 @@ class SpecDocument:
             or any(is_under(k) for k in self._form)
             or any(is_under(k) for k in self._list_items)
             or any(is_under(k) for k in self._headline)
+            or any(is_under(k) for k in self._code_spec)
         )
 
     @property
@@ -382,6 +413,10 @@ class SpecDocument:
             out["headlines"] = {
                 k: self._headline[k] for k in sorted(self._headline)
             }
+        if self._code_spec:
+            out["codeSpecs"] = {
+                k: self._code_spec[k] for k in sorted(self._code_spec)
+            }
         return out
 
     def load_json(self, json: dict[str, Any]) -> None:
@@ -393,6 +428,7 @@ class SpecDocument:
         self._list_seq.clear()
         self._item_section_id.clear()
         self._headline.clear()
+        self._code_spec.clear()
 
         content = json.get("content")
         if isinstance(content, dict):
@@ -434,3 +470,9 @@ class SpecDocument:
             for k, v in headlines.items():
                 if v is not None and str(v) != "":
                     self._headline[str(k)] = str(v)
+
+        code_specs = json.get("codeSpecs")
+        if isinstance(code_specs, dict):
+            for k, v in code_specs.items():
+                if v is not None and str(v) != "":
+                    self._code_spec[str(k)] = str(v)

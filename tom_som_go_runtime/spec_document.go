@@ -42,6 +42,7 @@ type DocumentJson struct {
 	Forms     map[string]map[string]string `json:"forms,omitempty"`
 	Lists     map[string]ListJson          `json:"lists,omitempty"`
 	Headlines map[string]string            `json:"headlines,omitempty"`
+	CodeSpecs map[string]string            `json:"codeSpecs,omitempty"`
 }
 
 // SpecDocument is the sparse in-memory document.
@@ -60,6 +61,11 @@ type SpecDocument struct {
 	listSeq       map[string]int
 	itemSectionID map[string]string
 	headline      map[string]string
+	// codeSpec is the concrete instance-level forward DocSpecs→CodeSpecs link
+	// (§9.2): any section path → the comma-joined list of CodeSpecs code
+	// locations that section maps to. Sparse like headline: unset means "no code
+	// mapping".
+	codeSpec map[string]string
 
 	// ModelVersion is the authoring object-model version (major.minor) this
 	// document was loaded from, or "" for a brand-new / unstamped document. Go's
@@ -81,6 +87,7 @@ func NewSpecDocument() *SpecDocument {
 		listSeq:       map[string]int{},
 		itemSectionID: map[string]string{},
 		headline:      map[string]string{},
+		codeSpec:      map[string]string{},
 	}
 }
 
@@ -126,6 +133,9 @@ func (d *SpecDocument) ensure() {
 	}
 	if d.headline == nil {
 		d.headline = map[string]string{}
+	}
+	if d.codeSpec == nil {
+		d.codeSpec = map[string]string{}
 	}
 }
 
@@ -229,6 +239,43 @@ func (d *SpecDocument) SetHeadline(path, value string) {
 func (d *SpecDocument) HeadlinePaths() []string {
 	out := make([]string, 0, len(d.headline))
 	for k := range d.headline {
+		out = append(out, k)
+	}
+	return out
+}
+
+// --- codeSpec (§9.2) --------------------------------------------------------
+
+// CodeSpec returns the stored codeSpec mapping at path (the comma-joined list of
+// CodeSpecs code locations), and ok=false when the section carries no mapping
+// (§9.2 — codeSpec is sparse like the headline).
+func (d *SpecDocument) CodeSpec(path string) (string, bool) {
+	v, ok := d.codeSpec[path]
+	return v, ok
+}
+
+// CodeSpecOr returns the stored codeSpec mapping at path, or "" when none.
+func (d *SpecDocument) CodeSpecOr(path string) string {
+	return d.codeSpec[path]
+}
+
+// SetCodeSpec sets the stored codeSpec mapping at path (the comma-joined list of
+// CodeSpecs code locations). An empty value clears it, returning the section to
+// "no code mapping" (§9.2).
+func (d *SpecDocument) SetCodeSpec(path, value string) {
+	d.ensure()
+	if value == "" {
+		delete(d.codeSpec, path)
+	} else {
+		d.codeSpec[path] = value
+	}
+}
+
+// CodeSpecPaths returns the set of paths carrying a stored codeSpec mapping
+// (unordered).
+func (d *SpecDocument) CodeSpecPaths() []string {
+	out := make([]string, 0, len(d.codeSpec))
+	for k := range d.codeSpec {
 		out = append(out, k)
 	}
 	return out
@@ -425,6 +472,11 @@ func (d *SpecDocument) purgeUnder(prefix string) {
 			delete(d.headline, k)
 		}
 	}
+	for k := range d.codeSpec {
+		if isUnder(k, prefix) {
+			delete(d.codeSpec, k)
+		}
+	}
 }
 
 // errNotLiveItem describes an attempt to set a section id on a path that is not
@@ -509,7 +561,7 @@ func (e *ambiguousRootError) Error() string {
 // IsEmpty reports whether the document holds no values at all.
 func (d *SpecDocument) IsEmpty() bool {
 	return len(d.content) == 0 && len(d.form) == 0 && len(d.listItems) == 0 &&
-		len(d.headline) == 0
+		len(d.headline) == 0 && len(d.codeSpec) == 0
 }
 
 // HasValuesUnder reports whether any value exists at prefix or nested beneath it
@@ -532,6 +584,11 @@ func (d *SpecDocument) HasValuesUnder(prefix string) bool {
 		}
 	}
 	for k := range d.headline {
+		if isUnder(k, prefix) {
+			return true
+		}
+	}
+	for k := range d.codeSpec {
 		if isUnder(k, prefix) {
 			return true
 		}
@@ -636,6 +693,13 @@ func (d *SpecDocument) ToJSON() *DocumentJson {
 		}
 		out.Headlines = headlines
 	}
+	if len(d.codeSpec) > 0 {
+		codeSpecs := map[string]string{}
+		for k, v := range d.codeSpec {
+			codeSpecs[k] = v
+		}
+		out.CodeSpecs = codeSpecs
+	}
 	return out
 }
 
@@ -655,6 +719,7 @@ func (d *SpecDocument) LoadJSON(j *DocumentJson) {
 	d.listSeq = map[string]int{}
 	d.itemSectionID = map[string]string{}
 	d.headline = map[string]string{}
+	d.codeSpec = map[string]string{}
 	if j == nil {
 		return
 	}
@@ -689,6 +754,11 @@ func (d *SpecDocument) LoadJSON(j *DocumentJson) {
 	for k, v := range j.Headlines {
 		if v != "" {
 			d.headline[k] = v
+		}
+	}
+	for k, v := range j.CodeSpecs {
+		if v != "" {
+			d.codeSpec[k] = v
 		}
 	}
 }

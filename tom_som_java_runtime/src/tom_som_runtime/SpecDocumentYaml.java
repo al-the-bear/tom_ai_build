@@ -370,6 +370,7 @@ public final class SpecDocumentYaml {
     private final Map<String, Map<String, String>> forms = new LinkedHashMap<>();
     private final Set<String> lists = new HashSet<>();
     private final Map<String, String> headlines = new LinkedHashMap<>();
+    private final Map<String, String> codeSpecs = new LinkedHashMap<>();
 
     YamlEncoder(SpecDocument doc) {
       this.doc = doc;
@@ -379,6 +380,10 @@ public final class SpecDocumentYaml {
       for (String p : doc.headlinePaths()) {
         String h = doc.headline(p);
         headlines.put(p, h != null ? h : "");
+      }
+      for (String p : doc.codeSpecPaths()) {
+        String cs = doc.codeSpec(p);
+        codeSpecs.put(p, cs != null ? cs : "");
       }
       for (String p : doc.formPaths()) {
         Map<String, String> fields = new LinkedHashMap<>();
@@ -426,6 +431,19 @@ public final class SpecDocumentYaml {
         writeText(b, indent, "headline", ownHeadline);
       }
 
+      // The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+      if (codeSpecs.containsKey(path)) {
+        String ownCodeSpec = codeSpecs.remove(path);
+        for (SomMetaNode c : node.children) {
+          if (nodeKey(c).equals("codeSpec")) {
+            throw new SpecYamlFormatException(
+                "cannot emit the stored codeSpec at `" + path + "`: a child of "
+                    + node.debugName() + " also serializes as key `codeSpec`");
+          }
+        }
+        writeText(b, indent, "codeSpec", ownCodeSpec);
+      }
+
       // The node's own body text — the literal `content` key (DR1 §2.2).
       if (content.containsKey(path)) {
         String own = content.remove(path);
@@ -448,8 +466,10 @@ public final class SpecDocumentYaml {
             String v = hasV ? content.remove(childPath) : null;
             boolean hasH = headlines.containsKey(childPath);
             String h = hasH ? headlines.remove(childPath) : null;
-            if (hasH) {
-              writeScalarWithHeadline(b, indent, key, h, v, true);
+            boolean hasCs = codeSpecs.containsKey(childPath);
+            String cs = hasCs ? codeSpecs.remove(childPath) : null;
+            if (hasH || hasCs) {
+              writeScalarWithMeta(b, indent, key, h, cs, v, true);
             } else if (hasV) {
               writeText(b, indent, key, v);
             }
@@ -461,8 +481,10 @@ public final class SpecDocumentYaml {
             String v = hasV ? content.remove(childPath) : null;
             boolean hasH = headlines.containsKey(childPath);
             String h = hasH ? headlines.remove(childPath) : null;
-            if (hasH) {
-              writeScalarWithHeadline(b, indent, key, h, v, false);
+            boolean hasCs = codeSpecs.containsKey(childPath);
+            String cs = hasCs ? codeSpecs.remove(childPath) : null;
+            if (hasH || hasCs) {
+              writeScalarWithMeta(b, indent, key, h, cs, v, false);
             } else if (hasV) {
               writeValue(b, indent, key, v);
             }
@@ -491,13 +513,21 @@ public final class SpecDocumentYaml {
 
     /**
      * Emits a scalar-valued node (content/scalar/enum leaf or scalar list
-     * item) that carries a stored headline as a {@code {headline: …,
-     * content: …}} mapping (YRD3). {@code value == null} means "no content".
+     * item) that carries a stored headline and/or a codeSpec mapping as a
+     * {@code {headline?: …, codeSpec?: …, content?: …}} mapping (YRD3 + §9.2).
+     * At least one of {@code headline}/{@code codeSpec} is non-null at every
+     * call site; {@code null} means "absent". {@code value == null} means "no
+     * content".
      */
-    private void writeScalarWithHeadline(
-        StringBuilder b, int indent, String key, String headline, String value, boolean text) {
+    private void writeScalarWithMeta(StringBuilder b, int indent, String key,
+        String headline, String codeSpec, String value, boolean text) {
       b.append(pad(indent)).append(plainKey(key)).append(":\n");
-      writeText(b, indent + 2, "headline", headline);
+      if (headline != null) {
+        writeText(b, indent + 2, "headline", headline);
+      }
+      if (codeSpec != null) {
+        writeText(b, indent + 2, "codeSpec", codeSpec);
+      }
       if (value != null) {
         if (text) {
           writeText(b, indent + 2, "content", value);
@@ -512,7 +542,9 @@ public final class SpecDocumentYaml {
       Map<String, String> fields = forms.remove(path);
       boolean hasHeadline = headlines.containsKey(path);
       String headline = hasHeadline ? headlines.remove(path) : null;
-      if ((fields == null || fields.isEmpty()) && !hasHeadline) {
+      boolean hasCodeSpec = codeSpecs.containsKey(path);
+      String codeSpec = hasCodeSpec ? codeSpecs.remove(path) : null;
+      if ((fields == null || fields.isEmpty()) && !hasHeadline && !hasCodeSpec) {
         return;
       }
       if (fields == null) {
@@ -531,9 +563,17 @@ public final class SpecDocumentYaml {
             "cannot emit the stored headline at `" + path + "`: the form declares a "
                 + "field literally named `headline`");
       }
+      if (hasCodeSpec && meta.fieldNamed("codeSpec") != null) {
+        throw new SpecYamlFormatException(
+            "cannot emit the stored codeSpec at `" + path + "`: the form declares a "
+                + "field literally named `codeSpec`");
+      }
       b.append(pad(indent)).append(plainKey(key)).append(":\n");
       if (hasHeadline) {
         writeText(b, indent + 2, "headline", headline);
+      }
+      if (hasCodeSpec) {
+        writeText(b, indent + 2, "codeSpec", codeSpec);
       }
       for (SomFormFieldMeta f : meta.fields) {
         if (!fields.containsKey(f.name)) {
@@ -553,16 +593,22 @@ public final class SpecDocumentYaml {
       lists.remove(path);
       boolean hasHeadline = headlines.containsKey(path);
       String headline = hasHeadline ? headlines.remove(path) : null;
+      boolean hasCodeSpec = codeSpecs.containsKey(path);
+      String codeSpec = hasCodeSpec ? codeSpecs.remove(path) : null;
       List<String> items = doc.listItems(path);
-      if (items.isEmpty() && !hasHeadline) {
+      if (items.isEmpty() && !hasHeadline && !hasCodeSpec) {
         return;
       }
       b.append(pad(indent)).append(plainKey(key)).append(":\n");
       if (hasHeadline) {
         writeText(b, indent + 2, "headline", headline);
       }
+      if (hasCodeSpec) {
+        writeText(b, indent + 2, "codeSpec", codeSpec);
+      }
       Set<String> used = new HashSet<>();
       used.add("headline");
+      used.add("codeSpec");
       int pos = 0;
       for (String itemPath : items) {
         pos++;
@@ -592,8 +638,10 @@ public final class SpecDocumentYaml {
           String v = hasV ? content.remove(itemPath) : null;
           boolean hasIh = headlines.containsKey(itemPath);
           String ih = hasIh ? headlines.remove(itemPath) : null;
-          if (hasIh) {
-            writeScalarWithHeadline(b, indent + 2, itemKey, ih, v, false);
+          boolean hasIcs = codeSpecs.containsKey(itemPath);
+          String ics = hasIcs ? codeSpecs.remove(itemPath) : null;
+          if (hasIh || hasIcs) {
+            writeScalarWithMeta(b, indent + 2, itemKey, ih, ics, v, false);
           } else {
             writeValue(b, indent + 2, itemKey, hasV ? v : "");
           }
@@ -640,6 +688,9 @@ public final class SpecDocumentYaml {
       }
       for (String p : headlines.keySet()) {
         leftovers.add("headline at `" + p + "`");
+      }
+      for (String p : codeSpecs.keySet()) {
+        leftovers.add("codeSpec at `" + p + "`");
       }
       if (leftovers.isEmpty()) {
         return;
@@ -773,6 +824,10 @@ public final class SpecDocumentYaml {
           doc.setHeadline(path, scalarOf(value, path + " (headline)"));
           continue;
         }
+        if (key.equals("codeSpec")) {
+          doc.setCodeSpec(path, scalarOf(value, path + " (codeSpec)"));
+          continue;
+        }
         throw new SpecYamlFormatException(
             "key `" + key + "` under `" + path + "` matches no member of "
                 + node.debugName() + " (expected one of: "
@@ -796,6 +851,7 @@ public final class SpecDocumentYaml {
       }
       out.add("`content`");
       out.add("`headline`");
+      out.add("`codeSpec`");
       return out;
     }
 
@@ -810,7 +866,7 @@ public final class SpecDocumentYaml {
           // EMPTY mapping in the hand-rolled parser, which stays the empty
           // scalar).
           if (value instanceof Map && !((Map<?, ?>) value).isEmpty()) {
-            loadScalarWithHeadline(path, key, (Map<String, Object>) value);
+            loadScalarWithMeta(path, key, (Map<String, Object>) value);
             return;
           }
           doc.setContent(path, scalarOf(value, path));
@@ -829,6 +885,12 @@ public final class SpecDocumentYaml {
                 // The form's own stored headline (YRD3) — only reachable when
                 // the model declares no field literally named `headline`.
                 doc.setHeadline(path, scalarOf(fe.getValue(), path + " (headline)"));
+                continue;
+              }
+              if (name.equals("codeSpec")) {
+                // The form's own codeSpec mapping (§9.2) — only reachable when
+                // the model declares no field literally named `codeSpec`.
+                doc.setCodeSpec(path, scalarOf(fe.getValue(), path + " (codeSpec)"));
                 continue;
               }
               throw new SpecYamlFormatException(
@@ -876,6 +938,11 @@ public final class SpecDocumentYaml {
           doc.setHeadline(path, scalarOf(value, path + " (headline)"));
           continue;
         }
+        if (key.equals("codeSpec")) {
+          // The list container's own codeSpec mapping (§9.2), not an item.
+          doc.setCodeSpec(path, scalarOf(value, path + " (codeSpec)"));
+          continue;
+        }
         String itemPath =
             anonymous.matcher(key).matches()
                 ? doc.addListItem(path)
@@ -892,9 +959,9 @@ public final class SpecDocumentYaml {
           }
           if (value instanceof Map) {
             if (!((Map<?, ?>) value).isEmpty()) {
-              // A populated mapping is the YRD3 `{headline: …, content: …}`
-              // extension for scalar list items.
-              loadScalarWithHeadline(itemPath, key, (Map<String, Object>) value);
+              // A populated mapping is the YRD3 + §9.2 `{headline?: …,
+              // codeSpec?: …, content?: …}` extension for scalar list items.
+              loadScalarWithMeta(itemPath, key, (Map<String, Object>) value);
               continue;
             }
             continue;
@@ -917,15 +984,20 @@ public final class SpecDocumentYaml {
     }
 
     /**
-     * Loads a scalar-valued node written as the YRD3 {@code {headline: …,
-     * content: …}} mapping — only those two keys are legal.
+     * Loads a scalar-valued node written as the YRD3 + §9.2
+     * {@code {headline?: …, codeSpec?: …, content?: …}} mapping — only those
+     * three keys are legal.
      */
-    private void loadScalarWithHeadline(String path, String key, Map<String, Object> value) {
+    private void loadScalarWithMeta(String path, String key, Map<String, Object> value) {
       for (Map.Entry<String, Object> entry : value.entrySet()) {
         String name = entry.getKey();
         Object v = entry.getValue();
         if (name.equals("headline")) {
           doc.setHeadline(path, scalarOf(v, path + " (headline)"));
+          continue;
+        }
+        if (name.equals("codeSpec")) {
+          doc.setCodeSpec(path, scalarOf(v, path + " (codeSpec)"));
           continue;
         }
         if (name.equals("content")) {
@@ -934,7 +1006,7 @@ public final class SpecDocumentYaml {
         }
         throw new SpecYamlFormatException(
             "scalar node `" + key + "` at `" + path + "` may only hold "
-                + "`headline`/`content` keys when written as a mapping, found `"
+                + "`headline`/`codeSpec`/`content` keys when written as a mapping, found `"
                 + name + "`");
       }
     }

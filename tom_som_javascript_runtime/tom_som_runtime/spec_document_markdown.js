@@ -105,6 +105,10 @@ class SpecMarkdownResult {
      *  staged, so a default-rendered document stays byte-stable.
      *  @type {Object<string, string>} */
     this.headlines = {};
+    /** Stored codeSpecs recovered from heading comments (csmc8, §9.2):
+     *  path → codeSpec. Structural mirror of {@link headlines}.
+     *  @type {Object<string, string>} */
+    this.codeSpecs = {};
     /** Every rejected block, in source order.
      *  @type {SpecMarkdownRejection[]} */
     this.rejections = [];
@@ -435,6 +439,7 @@ class SpecDocumentMarkdown {
       1,
       rootSeg,
       this.document.headline(rootSeg) || node.headline || root.title,
+      this.document.codeSpec(rootSeg),
     );
     this._writeSectionBody(b, node, rootSeg);
     this._writeChildren(b, node, rootSeg, 2);
@@ -481,6 +486,7 @@ class SpecDocumentMarkdown {
           depth,
           this._headingIdOf(child),
           this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
+          this.document.codeSpec(path),
         );
         this._writeBody(b, value, path);
       } else if (kind === SomMetaKind.FORM) {
@@ -492,6 +498,7 @@ class SpecDocumentMarkdown {
           depth,
           this._headingIdOf(child),
           this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
+          this.document.codeSpec(path),
         );
         this._writeForm(b, child, path);
       } else if (kind === SomMetaKind.SECTION || kind === SomMetaKind.COMPLEX) {
@@ -500,6 +507,7 @@ class SpecDocumentMarkdown {
           depth,
           this._headingIdOf(child),
           this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
+          this.document.codeSpec(path),
         );
         this._writeSectionBody(b, child, path);
         this._writeChildren(b, child, path, depth + 1);
@@ -526,6 +534,7 @@ class SpecDocumentMarkdown {
       depth,
       this._headingIdOf(node),
       this.document.headline(listPath) || SpecDocumentMarkdown._titleOf(node),
+      this.document.codeSpec(listPath),
     );
     // Item heading stem. Complex lists derive it from the element class name
     // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class
@@ -563,6 +572,7 @@ class SpecDocumentMarkdown {
         depth + 1,
         itemId,
         this.document.headline(itemPath) || `${stem} ${pos}`,
+        this.document.codeSpec(itemPath),
       );
       if (element === null || element === undefined) {
         // Scalar list: the item's value is its body.
@@ -611,9 +621,30 @@ class SpecDocumentMarkdown {
    * grammar accepts `#{7,}` accordingly. Capping would silently flatten
    * distinct nesting positions into siblings and break schema validation.
    */
-  static _writeHeading(b, depth, id, title) {
-    b.writeln(`${'#'.repeat(depth)} <!--[${id}]--> ${title}`);
+  static _writeHeading(b, depth, id, title, codeSpec) {
+    // csmc8 (§9.2): a stored codeSpec rides inside the heading comment as
+    // `codeSpec="A,B"`. Byte-stable: when there is none, the comment is
+    // emitted exactly as before (`<!--[ID]-->`).
+    const meta =
+      codeSpec !== null && codeSpec !== undefined && codeSpec !== ''
+        ? ` codeSpec="${codeSpec}"`
+        : '';
+    b.writeln(`${'#'.repeat(depth)} <!--[${id}]${meta}--> ${title}`);
     b.writeln();
+  }
+
+  /**
+   * Extracts the `codeSpec="..."` value from a heading-comment key=value region
+   * (group 2 of {@link headlineComment}), or `null` when absent (csmc8, §9.2).
+   *
+   * @returns {string|null}
+   */
+  static codeSpecOf(region) {
+    if (region === null || region === undefined) return null;
+    const m = SpecDocumentMarkdown._codeSpecPattern.exec(region);
+    if (m === null) return null;
+    const v = m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3];
+    return v !== undefined ? v : null;
   }
 
   /**
@@ -703,6 +734,7 @@ class SpecDocumentMarkdown {
     result.forms = p.forms;
     result.lists = p.listsJson();
     result.headlines = p.headlines;
+    result.codeSpecs = p.codeSpecs;
     result.rejections = p.rejections;
     result.rootPrefixes = p.rootPrefixes;
     return result;
@@ -711,7 +743,12 @@ class SpecDocumentMarkdown {
 
 // Shared with the parser and the DocSpecs validator.
 SpecDocumentMarkdown.headingLine = /^(#+)\s+(.*)$/;
-SpecDocumentMarkdown.headlineComment = /^<!--\[([^\]]+)\]-->\s*(.*)$/;
+// 3-group (csmc8, §9.2): group 1 = section id, group 2 = the optional key=value
+// meta region inside the comment (e.g. ` codeSpec="A,B"`), group 3 = title.
+SpecDocumentMarkdown.headlineComment = /^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$/;
+// The `codeSpec=` value inside the meta region: double-quoted, single-quoted,
+// or a bare comma/space/`>`-terminated token.
+SpecDocumentMarkdown._codeSpecPattern = /codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))/;
 SpecDocumentMarkdown.docspecComment = /^<!--\s*docspec:.*-->\s*$/;
 
 /**
@@ -757,6 +794,9 @@ class _Parser {
     /** Stored headlines staged from heading text (YRD3): path → headline.
      *  @type {Object<string, string>} */
     this.headlines = {};
+    /** Stored codeSpecs staged from heading comments (csmc8, §9.2).
+     *  @type {Object<string, string>} */
+    this.codeSpecs = {};
     /** @type {SpecMarkdownRejection[]} */
     this.rejections = [];
     /** @type {Set<string>} */
@@ -835,10 +875,13 @@ class _Parser {
       return;
     }
     const id = m[1];
-    const title = m[2].trim();
+    // csmc8 (§9.2): group 2 is the meta region (codeSpec="..."); group 3 the
+    // title.
+    const codeSpec = SpecDocumentMarkdown.codeSpecOf(m[2]);
+    const title = m[3].trim();
 
     if (this._stack.length === 0) {
-      this._openRoot(level, id, title, lineNo);
+      this._openRoot(level, id, title, codeSpec, lineNo);
       return;
     }
 
@@ -872,7 +915,7 @@ class _Parser {
     // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
     //    of that list's items — resolved positionally, not by the schema tree.
     if (pNode.kind === SomMetaKind.LIST) {
-      this._openItemHeading(level, parent, pNode, id, title, lineNo);
+      this._openItemHeading(level, parent, pNode, id, title, codeSpec, lineNo);
       return;
     }
 
@@ -889,6 +932,10 @@ class _Parser {
         // from the effective default title (YRD3 §8.7 — byte-stability).
         if (title && title !== SpecDocumentMarkdown._titleOf(c)) {
           this.headlines[`${parent.path}/${rel}`] = title;
+        }
+        // csmc8 (§9.2): stage any codeSpec ridden in the heading comment.
+        if (codeSpec) {
+          this.codeSpecs[`${parent.path}/${rel}`] = codeSpec;
         }
         this._stack.push(
           new _Frame(level, c, `${parent.path}/${rel}`, lineNo),
@@ -916,14 +963,14 @@ class _Parser {
    * (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored id, or
    * — for any other id — an anonymous next item carrying the stored id.
    */
-  _openItemHeading(level, container, listNode, id, title, lineNo) {
+  _openItemHeading(level, container, listNode, id, title, codeSpec, lineNo) {
     const listPath = container.path;
     const anon = new RegExp(
       '^' + _escapeRegExp(listNode.memberName || listNode.segment) + '-([0-9]+)$',
     ).exec(id);
     if (anon !== null) {
       this._openItem(
-        level, listPath, listNode, parseInt(anon[1], 10), null, title, lineNo,
+        level, listPath, listNode, parseInt(anon[1], 10), null, title, codeSpec, lineNo,
       );
       return;
     }
@@ -950,22 +997,23 @@ class _Parser {
             parseInt(numbered[1], 10),
             null,
             title,
+            codeSpec,
             lineNo,
           );
           return;
         }
       }
       if (_Parser._patternMatches(pattern, id)) {
-        this._openItem(level, listPath, listNode, null, id, title, lineNo);
+        this._openItem(level, listPath, listNode, null, id, title, codeSpec, lineNo);
         return;
       }
     }
     // Any other id under the container is an anonymous next item carrying the
     // stored id — stored ids round-trip through Markdown too (YRD3).
-    this._openItem(level, listPath, listNode, null, id, title, lineNo);
+    this._openItem(level, listPath, listNode, null, id, title, codeSpec, lineNo);
   }
 
-  _openRoot(level, id, title, lineNo) {
+  _openRoot(level, id, title, codeSpec, lineNo) {
     for (const root of this.codec.model.roots) {
       const seg = root.sectionId || root.type;
       if (seg === id) {
@@ -976,6 +1024,10 @@ class _Parser {
         // default, else the `@Document` title).
         if (title && title !== (tree.root.headline || root.title)) {
           this.headlines[seg] = title;
+        }
+        // csmc8 (§9.2): stage any codeSpec ridden in the root heading comment.
+        if (codeSpec) {
+          this.codeSpecs[seg] = codeSpec;
         }
         this._stack.push(new _Frame(level, tree.root, seg, lineNo));
         return;
@@ -999,7 +1051,7 @@ class _Parser {
    * Opens a list-item frame. `n` is the anonymous heading number (also the
    * path number); a stored-id item gets the next free number instead.
    */
-  _openItem(level, listPath, listNode, n, storedId, title, lineNo) {
+  _openItem(level, listPath, listNode, n, storedId, title, codeSpec, lineNo) {
     let state = this.lists.get(listPath);
     if (!state) {
       state = new _ListState();
@@ -1016,6 +1068,10 @@ class _Parser {
     const stem = SpecDocumentMarkdown._itemStemOf(listNode);
     if (title && title !== `${stem} ${number}`) {
       this.headlines[itemPath] = title;
+    }
+    // csmc8 (§9.2): stage any codeSpec ridden in the item heading comment.
+    if (codeSpec) {
+      this.codeSpecs[itemPath] = codeSpec;
     }
     if (storedId !== null) {
       state.ids[itemPath] = storedId;

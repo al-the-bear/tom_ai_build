@@ -80,10 +80,12 @@ document:
         FR functionalRequirements:
           headline: |2-
             Functional Requirements (FR)
+          codeSpec: CsFunctionalRequirements
           FRE-REQU-LST requirements:
             FRE-REQU-ORDER-CAPTURE:
               headline: |2-
                 FR-01 — Capture orders from EDI and REST channels
+              codeSpec: CsOrder,CsOrder.captureFromEdi,CsOrderRepository
               content:
                 status: |2-
                   Approved

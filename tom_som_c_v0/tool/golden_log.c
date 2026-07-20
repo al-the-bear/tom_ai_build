@@ -271,7 +271,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t7");
+  som_strlist_push_copy(&out, "FORMAT\t8");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);
@@ -355,6 +355,22 @@ int main(int argc, char **argv) {
       const char *v = spec_document_headline(doc, p);
       char *e = esc(v != NULL ? v : "");
       som_strlist_push(&out, fmt("H\t%s\t%s", p, e));
+      free(e);
+    }
+    som_strlist_free(&paths);
+  }
+
+  /* Generic: stored codeSpecs, sorted by path (FORMAT 8, §9.2 mirror of headline). */
+  som_strlist_push_copy(&out, "SECTION\tgeneric-codespecs");
+  {
+    SomStrList paths;
+    som_strlist_init(&paths);
+    spec_document_code_spec_paths(doc, &paths);
+    for (size_t i = 0; i < paths.len; i++) {
+      const char *p = paths.items[i];
+      const char *v = spec_document_code_spec(doc, p);
+      char *e = esc(v != NULL ? v : "");
+      som_strlist_push(&out, fmt("CS\t%s\t%s", p, e));
       free(e);
     }
     som_strlist_free(&paths);

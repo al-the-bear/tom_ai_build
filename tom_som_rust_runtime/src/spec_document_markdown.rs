@@ -127,6 +127,10 @@ pub struct SpecMarkdownResult {
     /// effective default derivation (byte-stability — a default title stages
     /// nothing).
     pub headlines: BTreeMap<String, String>,
+    /// Stored codeSpec mappings staged from the `codeSpec="…"` key in the
+    /// heading comment (§9.2): path → comma-joined code locations, populated
+    /// whenever present (codeSpec has no effective default).
+    pub code_specs: BTreeMap<String, String>,
 }
 
 impl SpecMarkdownResult {
@@ -148,6 +152,7 @@ impl SpecMarkdownResult {
             forms: self.forms.clone(),
             lists: self.lists.clone(),
             headlines: self.headlines.clone(),
+            code_specs: self.code_specs.clone(),
         }
     }
 }
@@ -263,17 +268,66 @@ pub(crate) fn md_heading_line(line: &str) -> Option<(usize, &str)> {
     Some((n, stripped))
 }
 
-/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]-->\s*(.*)$` — returns the id and
-/// the heading title text after the comment (YRD3 §8.7).
-pub(crate) fn md_headline_comment(rest: &str) -> Option<(&str, &str)> {
+/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$` — returns g1 the
+/// id, g2 the raw key=value region between the id bracket and the closing
+/// `-->` (§9.2 `codeSpec`), and g3 the heading title text after the comment
+/// (YRD3 §8.7). `[^>]*` means the region cannot itself contain `>`.
+pub(crate) fn md_headline_comment(rest: &str) -> Option<(&str, &str, &str)> {
     let r = rest.strip_prefix("<!--[")?;
     let close = r.find(']')?;
     if close == 0 {
         return None;
     }
-    let after = &r[close..];
-    let title = after.strip_prefix("]-->")?;
-    Some((&r[..close], title.trim_start_matches(is_go_space)))
+    let id = &r[..close];
+    let after = &r[close + 1..]; // skip the `]`.
+    // g2 = `[^>]*` up to the closing `-->`. The region cannot contain `>`.
+    let end = after.find("-->")?;
+    let region = &after[..end];
+    if region.contains('>') {
+        return None;
+    }
+    let title = &after[end + 3..];
+    Some((id, region, title.trim_start_matches(is_go_space)))
+}
+
+/// Extracts the `codeSpec="…"` value from a heading-comment key=value region
+/// (`mdCodeSpecRE`: `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`), the first
+/// matching group trimmed; the empty string when the region carries no
+/// `codeSpec` key (§9.2).
+pub(crate) fn md_code_spec_of(region: &str) -> String {
+    // Find `codeSpec=` then read a double-quoted, single-quoted, or bare value.
+    let mut search = region;
+    while let Some(pos) = search.find("codeSpec=") {
+        let after = &search[pos + "codeSpec=".len()..];
+        let b = after.as_bytes();
+        if b.first() == Some(&b'"') {
+            if let Some(end) = after[1..].find('"') {
+                return after[1..1 + end].trim().to_string();
+            }
+        } else if b.first() == Some(&b'\'') {
+            if let Some(end) = after[1..].find('\'') {
+                return after[1..1 + end].trim().to_string();
+            }
+        } else {
+            // Bare: `[^,\s>]+` — one or more chars that are not comma,
+            // whitespace, or `>`.
+            let mut i = 0;
+            let ab = after.as_bytes();
+            while i < ab.len() {
+                let c = ab[i] as char;
+                if c == ',' || c == '>' || is_go_space(c) {
+                    break;
+                }
+                i += 1;
+            }
+            if i > 0 {
+                return after[..i].trim().to_string();
+            }
+        }
+        // No value matched at this occurrence; advance past it.
+        search = after;
+    }
+    String::new()
 }
 
 /// `mdDocspecCommentRE`: `^<!--\s*docspec:.*-->\s*$` (on a right-trimmed line).
@@ -626,7 +680,13 @@ impl<'a> SpecDocumentMarkdown<'a> {
         if root_title.is_empty() {
             root_title = root.title.clone();
         }
-        md_write_heading(&mut b, 1, &root_seg, &root_title);
+        md_write_heading(
+            &mut b,
+            1,
+            &root_seg,
+            &root_title,
+            &self.document.code_spec_or(&root_seg),
+        );
         self.write_section_body(&mut b, &node, &root_seg)?;
         self.write_children(&mut b, &node, &root_seg, 2)?;
         Ok(b.out)
@@ -681,6 +741,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         depth,
                         &self.heading_id_of(child),
                         &self.heading_title(&path, child),
+                        &self.document.code_spec_or(&path),
                     );
                     self.write_body(b, &value, &path)?;
                 }
@@ -693,6 +754,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         depth,
                         &self.heading_id_of(child),
                         &self.heading_title(&path, child),
+                        &self.document.code_spec_or(&path),
                     );
                     self.write_form(b, child, &path)?;
                 }
@@ -702,6 +764,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         depth,
                         &self.heading_id_of(child),
                         &self.heading_title(&path, child),
+                        &self.document.code_spec_or(&path),
                     );
                     self.write_section_body(b, child, &path)?;
                     self.write_children(b, child, &path, depth + 1)?;
@@ -744,7 +807,13 @@ impl<'a> SpecDocumentMarkdown<'a> {
         // The container heading: its id is the list's `-LST` `@SectionId` (else
         // the member segment for a pattern-less list); its title is the member
         // name.
-        md_write_heading(b, depth, &self.heading_id_of(node), &self.heading_title(list_path, node));
+        md_write_heading(
+            b,
+            depth,
+            &self.heading_id_of(node),
+            &self.heading_title(list_path, node),
+            &self.document.code_spec_or(list_path),
+        );
         // Item heading stem. Complex lists derive it from the element class
         // name (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no
         // element class - its element `type_name` is literally `String`, which
@@ -783,7 +852,13 @@ impl<'a> SpecDocumentMarkdown<'a> {
             if item_title.is_empty() {
                 item_title = format!("{} {}", stem, pos);
             }
-            md_write_heading(b, depth + 1, &item_id, &item_title);
+            md_write_heading(
+                b,
+                depth + 1,
+                &item_id,
+                &item_title,
+                &self.document.code_spec_or(item_path),
+            );
             match element {
                 None => {
                     // Scalar list: the item's value is its body.
@@ -893,6 +968,7 @@ it cannot be represented in the DocSpecs markdown format",
             forms: p.forms,
             lists: md_lists_json(&p.list_order, &p.lists),
             headlines: p.headlines,
+            code_specs: p.code_specs,
             rejections: p.rejections,
             root_prefixes: p.root_prefixes,
         }
@@ -904,8 +980,22 @@ it cannot be represented in the DocSpecs markdown format",
 /// past markdown's native 6 levels) keep their structure; the parse grammar
 /// accepts `#{7,}` accordingly. Capping would silently flatten distinct
 /// nesting positions into siblings and break schema validation.
-fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str) {
-    b.writeln(&format!("{} <!--[{}]--> {}", "#".repeat(depth), id, title));
+fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str, code_spec: &str) {
+    // §9.2: when a codeSpec mapping is present it rides inside the same
+    // headline comment as a `codeSpec="…"` key: `## <!--[ID] codeSpec="A,B"-->
+    // Title`. Byte-identical to the id-only form when empty.
+    let code = if code_spec.is_empty() {
+        String::new()
+    } else {
+        format!(" codeSpec=\"{}\"", code_spec)
+    };
+    b.writeln(&format!(
+        "{} <!--[{}]{}--> {}",
+        "#".repeat(depth),
+        id,
+        code,
+        title
+    ));
     b.writeln("");
 }
 
@@ -1068,6 +1158,9 @@ struct MdParser<'c, 'a> {
     /// Stored headlines staged from heading titles that differ from their
     /// effective default (YRD3 §8.7) — path → headline.
     headlines: BTreeMap<String, String>,
+    /// Stored codeSpec mappings staged from the `codeSpec="…"` heading-comment
+    /// key (§9.2) — path → comma-joined code locations, staged whenever present.
+    code_specs: BTreeMap<String, String>,
     rejections: Vec<SpecMarkdownRejection>,
     root_prefixes: BTreeSet<String>,
     stack: Vec<MdFrame>,
@@ -1083,6 +1176,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
             lists: HashMap::new(),
             list_order: Vec::new(),
             headlines: BTreeMap::new(),
+            code_specs: BTreeMap::new(),
             rejections: Vec::new(),
             root_prefixes: BTreeSet::new(),
             stack: Vec::new(),
@@ -1132,8 +1226,10 @@ impl<'c, 'a> MdParser<'c, 'a> {
     }
 
     fn open_heading(&mut self, level: usize, rest: &str, line_no: usize) {
-        let (id, title) = match md_headline_comment(rest.trim()) {
-            Some((id, title)) => (id.to_string(), title.to_string()),
+        let (id, code_spec, title) = match md_headline_comment(rest.trim()) {
+            Some((id, region, title)) => {
+                (id.to_string(), md_code_spec_of(region), title.to_string())
+            }
             None => {
                 self.rejections.push(SpecMarkdownRejection {
                     line: line_no,
@@ -1148,7 +1244,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
         };
 
         if self.stack.is_empty() {
-            self.open_root(level, &id, &title, line_no);
+            self.open_root(level, &id, &title, &code_spec, line_no);
             return;
         }
 
@@ -1184,7 +1280,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
         //    one of that list's items — resolved positionally, not by the
         //    schema tree.
         if p_node.kind == SOM_META_KIND_LIST {
-            self.open_item_heading(level, &parent_path, p_node, &id, &title, line_no);
+            self.open_item_heading(level, &parent_path, p_node, &id, &title, &code_spec, line_no);
             return;
         }
 
@@ -1201,6 +1297,10 @@ impl<'c, 'a> MdParser<'c, 'a> {
                 // differs from the effective default (YRD3 §8.7).
                 if !title.is_empty() && title != md_title_of(&entry.node) {
                     self.headlines.insert(path.clone(), title);
+                }
+                // §9.2: stage the codeSpec mapping whenever present (no default).
+                if !code_spec.is_empty() {
+                    self.code_specs.insert(path.clone(), code_spec.clone());
                 }
                 self.stack.push(MdFrame {
                     level,
@@ -1227,7 +1327,7 @@ position (under \"{}\")",
         self.stack.push(MdFrame::ignored(level, line_no));
     }
 
-    fn open_root(&mut self, level: usize, id: &str, title: &str, line_no: usize) {
+    fn open_root(&mut self, level: usize, id: &str, title: &str, code_spec: &str, line_no: usize) {
         for root in &self.codec.model.roots {
             let seg = if root.section_id.is_empty() {
                 root.type_.as_str()
@@ -1249,6 +1349,10 @@ position (under \"{}\")",
                 };
                 if !title.is_empty() && title != default_title {
                     self.headlines.insert(seg.to_string(), title.to_string());
+                }
+                // §9.2: stage the root codeSpec mapping whenever present.
+                if !code_spec.is_empty() {
+                    self.code_specs.insert(seg.to_string(), code_spec.to_string());
                 }
                 self.root_prefixes.insert(seg.to_string());
                 self.stack.push(MdFrame {
@@ -1293,6 +1397,7 @@ position (under \"{}\")",
     /// number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped
     /// stored id, or — for any other id — an anonymous next item carrying the
     /// stored id.
+    #[allow(clippy::too_many_arguments)]
     fn open_item_heading(
         &mut self,
         level: usize,
@@ -1300,6 +1405,7 @@ position (under \"{}\")",
         list_node: Rc<SomMetaNode>,
         id: &str,
         title: &str,
+        code_spec: &str,
         line_no: usize,
     ) {
         let member = if list_node.member_name.is_empty() {
@@ -1308,7 +1414,7 @@ position (under \"{}\")",
             list_node.member_name.clone()
         };
         if let Some(n) = md_anon_item_number(&member, id) {
-            self.open_item(level, list_path, list_node, n, "", true, title, line_no);
+            self.open_item(level, list_path, list_node, n, "", true, title, code_spec, line_no);
             return;
         }
         let mut pattern = list_node.section_id_pattern.clone();
@@ -1323,19 +1429,19 @@ position (under \"{}\")",
             let parts: Vec<&str> = pattern.split("xxx").collect();
             if parts.len() == 2 {
                 if let Some(n) = md_pattern_numbered(parts[0], parts[1], id) {
-                    self.open_item(level, list_path, list_node, n, "", true, title, line_no);
+                    self.open_item(level, list_path, list_node, n, "", true, title, code_spec, line_no);
                     return;
                 }
             }
             if md_pattern_matches(&pattern, id) {
-                self.open_item(level, list_path, list_node, 0, id, false, title, line_no);
+                self.open_item(level, list_path, list_node, 0, id, false, title, code_spec, line_no);
                 return;
             }
         }
         // Any other id under the container is a stored-id item: the id is kept
         // as the item's stored `@SectionId` and round-trips through md (YRD3,
         // supersedes DRC5).
-        self.open_item(level, list_path, list_node, 0, id, false, title, line_no);
+        self.open_item(level, list_path, list_node, 0, id, false, title, code_spec, line_no);
     }
 
     /// Opens a list-item frame. `n` (with `has_n = true`) is the anonymous
@@ -1351,6 +1457,7 @@ position (under \"{}\")",
         stored_id: &str,
         has_n: bool,
         title: &str,
+        code_spec: &str,
         line_no: usize,
     ) {
         if !self.lists.contains_key(list_path) {
@@ -1372,6 +1479,10 @@ position (under \"{}\")",
         let stem = md_item_stem_of(&list_node);
         if !title.is_empty() && title != format!("{} {}", stem, number) {
             self.headlines.insert(item_path.clone(), title.to_string());
+        }
+        // §9.2: stage the item codeSpec mapping whenever present (no default).
+        if !code_spec.is_empty() {
+            self.code_specs.insert(item_path.clone(), code_spec.to_string());
         }
         self.stack.push(MdFrame {
             level,

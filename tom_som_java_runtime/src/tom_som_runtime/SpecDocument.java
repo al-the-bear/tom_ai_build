@@ -37,6 +37,10 @@ public final class SpecDocument {
   // that section. Sparse like content — absent means "render the effective
   // default title".
   private final Map<String, String> headline = new LinkedHashMap<>();
+  // The concrete instance-level forward DocSpecs→CodeSpecs link (§9.2): any
+  // section path → the comma-joined list of CodeSpecs code locations that
+  // section maps to. Sparse like `headline`: absent means "no code mapping".
+  private final Map<String, String> codeSpec = new LinkedHashMap<>();
 
   // The authoring object-model version (`major.minor`) this document was loaded
   // from, or null for a brand-new / unstamped document. Retained here by
@@ -219,6 +223,35 @@ public final class SpecDocument {
     return headline.keySet();
   }
 
+  // --- codeSpecs (§9.2) -----------------------------------------------------
+
+  /**
+   * The stored codeSpec mapping at {@code path} as the comma-joined list of
+   * CodeSpecs code locations, or {@code null} when the section carries no
+   * mapping (§9.2 — codeSpec is sparse like the headline).
+   */
+  public String codeSpec(String path) {
+    return codeSpec.get(path);
+  }
+
+  /**
+   * Sets the stored codeSpec mapping at {@code path} (the comma-joined list of
+   * CodeSpecs code locations). An empty value clears it, returning the section
+   * to carrying no mapping.
+   */
+  public void setCodeSpec(String path, String value) {
+    if (value.isEmpty()) {
+      codeSpec.remove(path);
+    } else {
+      codeSpec.put(path, value);
+    }
+  }
+
+  /** All section paths currently carrying a stored codeSpec mapping. */
+  public Set<String> codeSpecPaths() {
+    return codeSpec.keySet();
+  }
+
   // --- forms --------------------------------------------------------------
 
   public String formField(String path, String fieldName) {
@@ -386,13 +419,14 @@ public final class SpecDocument {
     listSeq.keySet().removeIf(k -> isUnder(k, prefix));
     itemSectionId.keySet().removeIf(k -> isUnder(k, prefix));
     headline.keySet().removeIf(k -> isUnder(k, prefix));
+    codeSpec.keySet().removeIf(k -> isUnder(k, prefix));
   }
 
   // --- queries ------------------------------------------------------------
 
   public boolean isEmpty() {
     return content.isEmpty() && form.isEmpty() && listItems.isEmpty()
-        && headline.isEmpty();
+        && headline.isEmpty() && codeSpec.isEmpty();
   }
 
   /**
@@ -417,6 +451,11 @@ public final class SpecDocument {
       }
     }
     for (String k : headline.keySet()) {
+      if (isUnder(k, prefix)) {
+        return true;
+      }
+    }
+    for (String k : codeSpec.keySet()) {
       if (isUnder(k, prefix)) {
         return true;
       }
@@ -488,6 +527,9 @@ public final class SpecDocument {
     if (!headline.isEmpty()) {
       out.put("headlines", new TreeMap<>(headline));
     }
+    if (!codeSpec.isEmpty()) {
+      out.put("codeSpecs", new TreeMap<>(codeSpec));
+    }
     return out;
   }
 
@@ -503,6 +545,7 @@ public final class SpecDocument {
     listSeq.clear();
     itemSectionId.clear();
     headline.clear();
+    codeSpec.clear();
 
     Object rawContent = json.get("content");
     if (rawContent instanceof Map) {
@@ -571,6 +614,15 @@ public final class SpecDocument {
       for (Map.Entry<String, Object> e : ((Map<String, Object>) rawHeadlines).entrySet()) {
         if (e.getValue() != null && !e.getValue().toString().isEmpty()) {
           headline.put(e.getKey(), e.getValue().toString());
+        }
+      }
+    }
+
+    Object rawCodeSpecs = json.get("codeSpecs");
+    if (rawCodeSpecs instanceof Map) {
+      for (Map.Entry<String, Object> e : ((Map<String, Object>) rawCodeSpecs).entrySet()) {
+        if (e.getValue() != null && !e.getValue().toString().isEmpty()) {
+          codeSpec.put(e.getKey(), e.getValue().toString());
         }
       }
     }

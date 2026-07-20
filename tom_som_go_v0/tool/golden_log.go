@@ -80,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t7")
+	out = append(out, "FORMAT\t8")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -127,6 +127,14 @@ func main() {
 	sort.Strings(headlinePaths)
 	for _, p := range headlinePaths {
 		out = append(out, "H\t"+p+"\t"+esc(doc.HeadlineOr(p)))
+	}
+
+	// Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2 mirror of headline).
+	out = append(out, "SECTION\tgeneric-codespecs")
+	codeSpecPaths := doc.CodeSpecPaths()
+	sort.Strings(codeSpecPaths)
+	for _, p := range codeSpecPaths {
+		out = append(out, "CS\t"+p+"\t"+esc(doc.CodeSpecOr(p)))
 	}
 
 	// Typed: curated traversal that must agree with the generic reads.

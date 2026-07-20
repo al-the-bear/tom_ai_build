@@ -153,7 +153,7 @@ export class DocSpecsDocument {
           if (c) {
             section = new DocSpecsSection(
               c[1] || null,
-              (c[2] || '').trim() || rest,
+              (c[3] || '').trim() || rest,
               level,
               lineNo,
             );

@@ -82,7 +82,7 @@ function main(): void {
   const out: string[] = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t7');
+  out.push('FORMAT\t8');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   out.push('SECTION\tgeneric-content');
@@ -116,6 +116,12 @@ function main(): void {
   out.push('SECTION\tgeneric-headlines');
   for (const p of Array.from(doc.headlinePaths).sort()) {
     out.push('H\t' + p + '\t' + esc(doc.headline(p) || ''));
+  }
+
+  // Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2 mirror of headline).
+  out.push('SECTION\tgeneric-codespecs');
+  for (const p of Array.from(doc.codeSpecPaths).sort()) {
+    out.push('CS\t' + p + '\t' + esc(doc.codeSpec(p) || ''));
   }
 
   out.push('SECTION\ttyped');

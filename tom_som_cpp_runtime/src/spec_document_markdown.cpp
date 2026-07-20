@@ -139,10 +139,13 @@ bool matchHeadingLine(const std::string& s, int* level, std::string* rest) {
   return true;
 }
 
-/* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]-->\s*(.*)$`. `s` should already be
- * TrimSpace'd. */
+/* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`. Three-group
+ * (§9.2): group 1 = the section id, group 2 = the raw key=value region between
+ * the id bracket and the closing `-->` (possibly empty), group 3 = the heading
+ * title. The middle region is `[^>]*` — safe because its only values are quoted
+ * code locations. `s` should already be TrimSpace'd. */
 bool matchHeadlineComment(const std::string& s, std::string* id,
-                          std::string* title) {
+                          std::string* region, std::string* title) {
   if (s.compare(0, 5, "<!--[") != 0) {
     return false;
   }
@@ -151,19 +154,63 @@ bool matchHeadlineComment(const std::string& s, std::string* id,
   if (close == std::string::npos || close == p) {
     return false;  // [^\]]+ requires at least one char
   }
-  if (s.compare(close, 4, "]-->") != 0) {
+  // `([^>]*)-->` — the region runs from after `]` up to a `-->` that contains
+  // no `>` before it.
+  std::size_t r = close + 1;
+  std::size_t end = s.find("-->", r);
+  if (end == std::string::npos) {
+    return false;
+  }
+  // The `[^>]*` region must not contain a `>` before the closing `-->`.
+  if (s.find('>', r) != end + 2) {
     return false;
   }
   *id = s.substr(p, close - p);
+  if (region != nullptr) {
+    *region = s.substr(r, end - r);
+  }
   if (title != nullptr) {
-    // `\s*(.*)$` — skip leading whitespace after `]-->`, then TrimSpace.
-    std::size_t t = close + 4;
+    // `\s*(.*)$` — skip leading whitespace after `-->`, then TrimSpace.
+    std::size_t t = end + 3;
     while (t < s.size() && isWs(s[t])) {
       t++;
     }
     *title = trimSpace(s.substr(t));
   }
   return true;
+}
+
+/* mdCodeSpecPattern = `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`. Extracts
+ * the `codeSpec="…"` value from a heading-comment key=value region (§9.2),
+ * mirroring the tom_doc_scanner key=value grammar. Returns "" when the region
+ * carries no `codeSpec` key. */
+std::string codeSpecOf(const std::string& region) {
+  std::size_t pos = region.find("codeSpec=");
+  if (pos == std::string::npos) {
+    return "";
+  }
+  std::size_t v = pos + 9;  // past `codeSpec=`
+  if (v >= region.size()) {
+    return "";
+  }
+  char q = region[v];
+  if (q == '"' || q == '\'') {
+    std::size_t close = region.find(q, v + 1);
+    if (close == std::string::npos) {
+      return "";
+    }
+    return trimSpace(region.substr(v + 1, close - (v + 1)));
+  }
+  // Bare `([^,\s>]+)` run.
+  std::size_t e = v;
+  while (e < region.size() && region[e] != ',' && !isWs(region[e]) &&
+         region[e] != '>') {
+    e++;
+  }
+  if (e == v) {
+    return "";
+  }
+  return trimSpace(region.substr(v, e - v));
 }
 
 /* mdFenceOpenRE = "^ {0,3}(`{3,}|~{3,})". */
@@ -607,14 +654,25 @@ std::string headingTitle(MdCodec& c, const std::string& path,
   return mdTitleOf(node);
 }
 
+/* Emits `#… <!--[ID]--> Title`. When `codeSpec` is non-empty it is emitted as a
+ * `codeSpec="…"` key inside the same headline comment (§9.2):
+ * `## <!--[ID] codeSpec="A,B"--> Title`. Byte-identical to the id-only form when
+ * `codeSpec` is empty. */
 void mdWriteHeading(std::string& b, int depth, const std::string& id,
-                    const std::string& title) {
+                    const std::string& title,
+                    const std::string& codeSpec = "") {
   for (int i = 0; i < depth; i++) {
     b.push_back('#');
   }
   b += " <!--[";
   b += id;
-  b += "]--> ";
+  b.push_back(']');
+  if (!codeSpec.empty()) {
+    b += " codeSpec=\"";
+    b += codeSpec;
+    b.push_back('"');
+  }
+  b += "--> ";
   b += title;
   b.push_back('\n');
   b.push_back('\n');
@@ -760,7 +818,7 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   // The container heading: its id is the list's `-LST` @SectionId (else the
   // member segment for a pattern-less list); its title is the member name.
   mdWriteHeading(b, depth, headingIdOf(c, node),
-                 headingTitle(c, listPath, node));
+                 headingTitle(c, listPath, node), doc.codeSpec(listPath));
   // Item heading stem. Complex lists derive it from the element class name
   // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class —
   // its element typeName is literally `String`, which would render "String 1",
@@ -806,7 +864,7 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
     if (title.empty()) {
       title = stem + " " + formatI64(pos);
     }
-    mdWriteHeading(b, depth + 1, itemId, title);
+    mdWriteHeading(b, depth + 1, itemId, title, doc.codeSpec(itemPath));
     if (element == nullptr) {
       bool present = false;
       std::string v = contentOf(doc, itemPath, &present);
@@ -840,19 +898,19 @@ void writeChildren(MdCodec& c, std::string& b, const SomMetaNode& node,
         continue;
       }
       mdWriteHeading(b, depth, headingIdOf(c, *child),
-                     headingTitle(c, path, *child));
+                     headingTitle(c, path, *child), doc.codeSpec(path));
       writeBody(b, value, path);
     } else if (kindEq(kind, kSomMetaKindForm)) {
       if (!formHasValues(doc, *child, path)) {
         continue;
       }
       mdWriteHeading(b, depth, headingIdOf(c, *child),
-                     headingTitle(c, path, *child));
+                     headingTitle(c, path, *child), doc.codeSpec(path));
       writeForm(b, doc, *child, path);
     } else if (kindEq(kind, kSomMetaKindSection) ||
                kindEq(kind, kSomMetaKindComplex)) {
       mdWriteHeading(b, depth, headingIdOf(c, *child),
-                     headingTitle(c, path, *child));
+                     headingTitle(c, path, *child), doc.codeSpec(path));
       writeSectionBody(c, b, *child, path);
       writeChildren(c, b, *child, path, depth + 1);
     } else if (kindEq(kind, kSomMetaKindList)) {
@@ -885,7 +943,7 @@ std::string exportRootImpl(MdCodec& c, const SpecRoot& root) {
   if (rootTitle.empty()) {
     rootTitle = !node->headline.empty() ? node->headline : root.title;
   }
-  mdWriteHeading(b, 1, rootSeg, rootTitle);
+  mdWriteHeading(b, 1, rootSeg, rootTitle, c.document()->codeSpec(rootSeg));
   writeSectionBody(c, b, *node, rootSeg);
   writeChildren(c, b, *node, rootSeg, 2);
   return b;
@@ -1010,13 +1068,15 @@ class MdParser {
   void openItem(int level, const std::string& listPath,
                 const SomMetaNode& listNode, long long n,
                 const std::string& storedId, bool hasN,
-                const std::string& title, std::size_t line);
+                const std::string& title, const std::string& codeSpec,
+                std::size_t line);
   void openItemHeading(int level, const std::string& listPath,
                        const SomMetaNode& listNode, const std::string& id,
-                       const std::string& title, std::size_t line);
+                       const std::string& title, const std::string& codeSpec,
+                       std::size_t line);
   void openHeading(int level, const std::string& rest, std::size_t line);
   void openRoot(int level, const std::string& id, const std::string& title,
-                std::size_t line);
+                const std::string& codeSpec, std::size_t line);
   void emitLists();
 };
 
@@ -1247,7 +1307,8 @@ void MdParser::closeTo(int level) {
 void MdParser::openItem(int level, const std::string& listPath,
                         const SomMetaNode& listNode, long long n,
                         const std::string& storedId, bool hasN,
-                        const std::string& title, std::size_t line) {
+                        const std::string& title, const std::string& codeSpec,
+                        std::size_t line) {
   MdListState& state = listState(listPath);
   long long number = n;
   if (!hasN) {
@@ -1266,6 +1327,10 @@ void MdParser::openItem(int level, const std::string& listPath,
   std::string stem = mdItemStemOf(listNode);
   if (!title.empty() && title != stem + " " + formatI64(number)) {
     staged_.headlines[itemPath] = title;
+  }
+  // §9.2: stage the item codeSpec mapping whenever present (no default).
+  if (!codeSpec.empty()) {
+    staged_.codeSpecs[itemPath] = codeSpec;
   }
   MdFrame f;
   f.level = level;
@@ -1395,12 +1460,12 @@ bool numberedPatternMatch(const std::string& pattern, const std::string& id,
 void MdParser::openItemHeading(int level, const std::string& listPath,
                                const SomMetaNode& listNode,
                                const std::string& id, const std::string& title,
-                               std::size_t line) {
+                               const std::string& codeSpec, std::size_t line) {
   std::string member =
       !listNode.memberName.empty() ? listNode.memberName : listNode.segment();
   long long n = 0;
   if (anonMemberMatch(member, id, &n)) {
-    openItem(level, listPath, listNode, n, "", true, title, line);
+    openItem(level, listPath, listNode, n, "", true, title, codeSpec, line);
     return;
   }
   const SomMetaNode* element = listNode.elementNode.get();
@@ -1411,34 +1476,38 @@ void MdParser::openItemHeading(int level, const std::string& listPath,
   if (!pattern.empty()) {
     long long num = 0;
     if (numberedPatternMatch(pattern, id, &num)) {
-      openItem(level, listPath, listNode, num, "", true, title, line);
+      openItem(level, listPath, listNode, num, "", true, title, codeSpec, line);
       return;
     }
     if (patternMatches(pattern, id)) {
-      openItem(level, listPath, listNode, 0, id, false, title, line);
+      openItem(level, listPath, listNode, 0, id, false, title, codeSpec, line);
       return;
     }
   }
   // Any other id under the container is an anonymous next item carrying the
   // stored id — stored ids round-trip through Markdown too (YRD3).
-  openItem(level, listPath, listNode, 0, id, false, title, line);
+  openItem(level, listPath, listNode, 0, id, false, title, codeSpec, line);
 }
 
 void MdParser::openHeading(int level, const std::string& rest,
                            std::size_t line) {
   std::string trimmed = trimSpace(rest);
   std::string id;
+  std::string region;
   std::string title;
-  if (!matchHeadlineComment(trimmed, &id, &title)) {
+  if (!matchHeadlineComment(trimmed, &id, &region, &title)) {
     pushRejection(line, kSpecMarkdownRejectMalformedHeading,
                   "heading carries no <!--[SECTION-ID]--> headline comment",
                   trimmed);
     pushIgnoredFrame(level, line);
     return;
   }
+  // §9.2: the codeSpec mapping parsed from the heading comment's key=value
+  // region, "" when the heading carries no `codeSpec` key.
+  std::string codeSpec = codeSpecOf(region);
 
   if (stack_.empty()) {
-    openRoot(level, id, title, line);
+    openRoot(level, id, title, codeSpec, line);
     return;
   }
 
@@ -1461,7 +1530,7 @@ void MdParser::openHeading(int level, const std::string& rest,
   // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one of
   //    that list's items — resolved positionally, not by the schema tree.
   if (kindEq(pNode->kind, kSomMetaKindList)) {
-    openItemHeading(level, parentPath, *pNode, id, title, line);
+    openItemHeading(level, parentPath, *pNode, id, title, codeSpec, line);
     return;
   }
 
@@ -1478,6 +1547,10 @@ void MdParser::openHeading(int level, const std::string& rest,
       // differs from the derived default (byte-stability).
       if (!title.empty() && title != mdTitleOf(*en)) {
         staged_.headlines[path] = title;
+      }
+      // §9.2: stage the codeSpec mapping whenever present (no default).
+      if (!codeSpec.empty()) {
+        staged_.codeSpecs[path] = codeSpec;
       }
       MdFrame f;
       f.level = level;
@@ -1505,7 +1578,8 @@ void MdParser::openHeading(int level, const std::string& rest,
 }
 
 void MdParser::openRoot(int level, const std::string& id,
-                        const std::string& title, std::size_t line) {
+                        const std::string& title, const std::string& codeSpec,
+                        std::size_t line) {
   const SpecModel& model = codec_.model();
   for (const auto& root : model.roots) {
     std::string seg = !root.sectionId.empty() ? root.sectionId : root.type;
@@ -1523,6 +1597,10 @@ void MdParser::openRoot(int level, const std::string& id,
                                            : root.title;
       if (!title.empty() && title != rootDefault) {
         staged_.headlines[seg] = title;
+      }
+      // §9.2: stage the root codeSpec mapping whenever present (no default).
+      if (!codeSpec.empty()) {
+        staged_.codeSpecs[seg] = codeSpec;
       }
       rootPrefixes_.insert(seg);
       MdFrame f;

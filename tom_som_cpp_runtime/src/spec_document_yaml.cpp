@@ -333,6 +333,7 @@ class YamlEncoder {
   std::vector<std::string> formPaths;            // remaining unconsumed
   std::vector<std::string> listPaths;            // remaining unconsumed
   std::map<std::string, std::string> headlines;  // consumed as the walk places
+  std::map<std::string, std::string> codeSpecs;  // consumed as the walk places
 
   void init(const SpecDocument* d) {
     doc = d;
@@ -344,6 +345,9 @@ class YamlEncoder {
     listPaths = d->listPaths();
     for (const std::string& path : d->headlinePaths()) {
       headlines[path] = d->headline(path);
+    }
+    for (const std::string& path : d->codeSpecPaths()) {
+      codeSpecs[path] = d->codeSpec(path);
     }
   }
 
@@ -369,6 +373,17 @@ class YamlEncoder {
     return true;
   }
 
+  /* Consumes the codeSpec snapshot entry at `path`; true when present. */
+  bool takeCodeSpec(const std::string& path, std::string* out) {
+    auto it = codeSpecs.find(path);
+    if (it == codeSpecs.end()) {
+      return false;
+    }
+    *out = it->second;
+    codeSpecs.erase(it);
+    return true;
+  }
+
   void writeText(std::string& b, std::size_t indent, const std::string& key,
                  const std::string& value) {
     std::string repr = scalarRepr(specYamlDedupEmptyLines(value));
@@ -389,17 +404,24 @@ class YamlEncoder {
   }
 
   /* Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
-   * that carries a stored headline as a `{headline: …, content: …}` mapping
-   * (YRD3). The content entry is omitted when hasValue is false. */
-  void writeScalarWithHeadline(std::string& b, std::size_t indent,
-                               const std::string& key,
-                               const std::string& headline,
-                               const std::string& value, bool hasValue,
-                               bool text) {
+   * that carries a stored headline and/or a codeSpec mapping as a
+   * `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 + §9.2). At least
+   * one of headline/codeSpec is present at every call site. The content entry is
+   * omitted when hasValue is false. */
+  void writeScalarWithMeta(std::string& b, std::size_t indent,
+                           const std::string& key, bool hasHeadline,
+                           const std::string& headline, bool hasCodeSpec,
+                           const std::string& codeSpec, const std::string& value,
+                           bool hasValue, bool text) {
     b.append(indent, ' ');
     b += specYamlPlainKey(key);
     b += ":\n";
-    writeText(b, indent + 2, "headline", headline);
+    if (hasHeadline) {
+      writeText(b, indent + 2, "headline", headline);
+    }
+    if (hasCodeSpec) {
+      writeText(b, indent + 2, "codeSpec", codeSpec);
+    }
     if (hasValue) {
       if (text) {
         writeText(b, indent + 2, "content", value);
@@ -416,7 +438,9 @@ class YamlEncoder {
     std::vector<std::string> names = doc->formFieldNames(path);
     std::string headline;
     bool hasHeadline = takeHeadline(path, &headline);
-    if ((!present || names.empty()) && !hasHeadline) {
+    std::string codeSpec;
+    bool hasCodeSpec = takeCodeSpec(path, &codeSpec);
+    if ((!present || names.empty()) && !hasHeadline && !hasCodeSpec) {
       return true;
     }
     for (const std::string& name : names) {
@@ -435,11 +459,21 @@ class YamlEncoder {
                       "`headline`");
       return false;
     }
+    if (hasCodeSpec && node.form.has_value() &&
+        node.form->fieldNamed("codeSpec") != nullptr) {
+      setErr(err, "cannot emit the stored codeSpec at `" + path +
+                      "`: the form declares a field literally named "
+                      "`codeSpec`");
+      return false;
+    }
     b.append(indent, ' ');
     b += specYamlPlainKey(key);
     b += ":\n";
     if (hasHeadline) {
       writeText(b, indent + 2, "headline", headline);
+    }
+    if (hasCodeSpec) {
+      writeText(b, indent + 2, "codeSpec", codeSpec);
     }
     if (node.form.has_value()) {
       for (const SomFormFieldMeta& f : node.form->fields) {
@@ -463,8 +497,10 @@ class YamlEncoder {
     removeValue(listPaths, path);
     std::string headline;
     bool hasHeadline = takeHeadline(path, &headline);
+    std::string codeSpec;
+    bool hasCodeSpec = takeCodeSpec(path, &codeSpec);
     const std::vector<std::string>* items = doc->listItemsPtr(path);
-    if ((items == nullptr || items->empty()) && !hasHeadline) {
+    if ((items == nullptr || items->empty()) && !hasHeadline && !hasCodeSpec) {
       return true;
     }
     b.append(indent, ' ');
@@ -473,8 +509,12 @@ class YamlEncoder {
     if (hasHeadline) {
       writeText(b, indent + 2, "headline", headline);
     }
+    if (hasCodeSpec) {
+      writeText(b, indent + 2, "codeSpec", codeSpec);
+    }
     std::vector<std::string> used;
     used.push_back("headline");
+    used.push_back("codeSpec");
     long long pos = 0;
     static const std::vector<std::string> kNoItems;
     for (const std::string& itemPath : (items != nullptr ? *items : kNoItems)) {
@@ -500,16 +540,20 @@ class YamlEncoder {
       }
       if (!node.elementNode) {
         // Scalar list: the item is a direct value — unless it carries a
-        // stored headline, in which case it becomes a
-        // `{headline: …, content: …}` mapping (YRD3).
+        // stored headline and/or codeSpec, in which case it becomes a
+        // `{headline?: …, codeSpec?: …, content: …}` mapping (YRD3 + §9.2).
         std::string v;
         bool hasV = takeContent(itemPath, &v);
         if (!hasV) {
           v = "";
         }
         std::string ih;
-        if (takeHeadline(itemPath, &ih)) {
-          writeScalarWithHeadline(b, indent + 2, itemKey, ih, v, hasV, false);
+        bool hasIh = takeHeadline(itemPath, &ih);
+        std::string ics;
+        bool hasIcs = takeCodeSpec(itemPath, &ics);
+        if (hasIh || hasIcs) {
+          writeScalarWithMeta(b, indent + 2, itemKey, hasIh, ih, hasIcs, ics, v,
+                              hasV, false);
         } else {
           writeValue(b, indent + 2, itemKey, v);
         }
@@ -554,6 +598,20 @@ class YamlEncoder {
       writeText(b, indent, "headline", ownHeadline);
     }
 
+    // The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+    std::string ownCodeSpec;
+    if (takeCodeSpec(path, &ownCodeSpec)) {
+      for (const auto& child : node.children) {
+        if (specYamlNodeKey(*child) == "codeSpec") {
+          setErr(err, "cannot emit the stored codeSpec at `" + path +
+                          "`: a child of " + node.debugName() +
+                          " also serializes as key `codeSpec`");
+          return false;
+        }
+      }
+      writeText(b, indent, "codeSpec", ownCodeSpec);
+    }
+
     // The node's own body text — the literal `content` key (DR1 §2.2).
     std::string own;
     if (takeContent(path, &own)) {
@@ -578,8 +636,11 @@ class YamlEncoder {
         std::string v;
         bool hasV = takeContent(childPath, &v);
         std::string h;
-        if (takeHeadline(childPath, &h)) {
-          writeScalarWithHeadline(b, indent, key, h, v, hasV, true);
+        bool hasH = takeHeadline(childPath, &h);
+        std::string cs;
+        bool hasCs = takeCodeSpec(childPath, &cs);
+        if (hasH || hasCs) {
+          writeScalarWithMeta(b, indent, key, hasH, h, hasCs, cs, v, hasV, true);
         } else if (hasV) {
           writeText(b, indent, key, v);
         }
@@ -587,8 +648,11 @@ class YamlEncoder {
         std::string v;
         bool hasV = takeContent(childPath, &v);
         std::string h;
-        if (takeHeadline(childPath, &h)) {
-          writeScalarWithHeadline(b, indent, key, h, v, hasV, false);
+        bool hasH = takeHeadline(childPath, &h);
+        std::string cs;
+        bool hasCs = takeCodeSpec(childPath, &cs);
+        if (hasH || hasCs) {
+          writeScalarWithMeta(b, indent, key, hasH, h, hasCs, cs, v, hasV, false);
         } else if (hasV) {
           writeValue(b, indent, key, v);
         }
@@ -627,6 +691,9 @@ class YamlEncoder {
     }
     for (const auto& kv : headlines) {
       leftovers.push_back("headline at `" + kv.first + "`");
+    }
+    for (const auto& kv : codeSpecs) {
+      leftovers.push_back("codeSpec at `" + kv.first + "`");
     }
     if (leftovers.empty()) {
       return true;
@@ -741,14 +808,14 @@ class YamlDecoder {
     if (!joined.empty()) {
       joined += ", ";
     }
-    joined += "`content`, `headline`";
+    joined += "`content`, `headline`, `codeSpec`";
     return joined;
   }
 
-  /* Loads a headline-extended scalar node (YRD3): a mapping holding only the
-   * literal keys `headline` and `content`. */
-  bool loadScalarWithHeadline(const std::string& path, const std::string& key,
-                              const YamlRef& value, std::string* err) {
+  /* Loads a headline-/codeSpec-extended scalar node (YRD3 + §9.2): a mapping
+   * holding only the literal keys `headline`, `codeSpec`, and `content`. */
+  bool loadScalarWithMeta(const std::string& path, const std::string& key,
+                          const YamlRef& value, std::string* err) {
     for (const auto& kv : value->map) {
       const std::string& name = kv.first;
       YamlRef v = std::const_pointer_cast<const YamlValue>(kv.second);
@@ -758,6 +825,12 @@ class YamlDecoder {
           return false;
         }
         doc->setHeadline(path, s);
+      } else if (name == "codeSpec") {
+        std::string s;
+        if (!decoderScalarOf(v, path + " (codeSpec)", &s, err)) {
+          return false;
+        }
+        doc->setCodeSpec(path, s);
       } else if (name == "content") {
         std::string s;
         if (!decoderScalarOf(v, path + "/content", &s, err)) {
@@ -766,8 +839,8 @@ class YamlDecoder {
         doc->setContent(path, s);
       } else {
         setErr(err, "scalar node `" + key + "` at `" + path +
-                        "` may only hold `headline`/`content` keys when "
-                        "written as a mapping, found `" + name + "`");
+                        "` may only hold `headline`/`codeSpec`/`content` keys "
+                        "when written as a mapping, found `" + name + "`");
         return false;
       }
     }
@@ -787,6 +860,15 @@ class YamlDecoder {
           return false;
         }
         doc->setHeadline(path, v);
+        continue;
+      }
+      if (key == "codeSpec") {
+        // The list container's own codeSpec mapping (§9.2), not an item.
+        std::string v;
+        if (!decoderScalarOf(value, path + " (codeSpec)", &v, err)) {
+          return false;
+        }
+        doc->setCodeSpec(path, v);
         continue;
       }
       // anonymous: ^<memberName>-[0-9]+$
@@ -809,10 +891,10 @@ class YamlDecoder {
       }
       if (!node.elementNode) {
         // Scalar list item: the value is the item itself — or a
-        // `{headline: …, content: …}` mapping when it carries a stored
-        // headline (YRD3). The hand-rolled parser cannot distinguish a bare
-        // `key:` (null) from `key: {}`, so an empty mapping counts as
-        // "no value" here.
+        // `{headline?: …, codeSpec?: …, content: …}` mapping when it carries a
+        // stored headline and/or codeSpec (YRD3 + §9.2). The hand-rolled parser
+        // cannot distinguish a bare `key:` (null) from `key: {}`, so an empty
+        // mapping counts as "no value" here.
         if (value != nullptr && value->type == YamlType::Seq) {
           setErr(err, "scalar list item `" + key + "` at `" + path +
                           "` must hold a scalar");
@@ -820,7 +902,7 @@ class YamlDecoder {
         }
         if (value != nullptr && value->type == YamlType::Map) {
           if (!value->map.empty() &&
-              !loadScalarWithHeadline(itemPath, key, value, err)) {
+              !loadScalarWithMeta(itemPath, key, value, err)) {
             return false;
           }
           continue;
@@ -848,12 +930,13 @@ class YamlDecoder {
     const std::string& kind = child.kind;
     if (kind == kSomMetaKindContent || kind == kSomMetaKindScalar ||
         kind == kSomMetaKindEnumValue) {
-      // A populated mapping is a headline-extended scalar node (YRD3):
-      // `{headline: …, content: …}`. An empty mapping is the hand-rolled
-      // parser's spelling of a bare `key:` and stays the empty scalar.
+      // A populated mapping is a headline-/codeSpec-extended scalar node (YRD3 +
+      // §9.2): `{headline?: …, codeSpec?: …, content: …}`. An empty mapping is
+      // the hand-rolled parser's spelling of a bare `key:` and stays the empty
+      // scalar.
       if (value != nullptr && value->type == YamlType::Map &&
           !value->map.empty()) {
-        return loadScalarWithHeadline(path, key, value, err);
+        return loadScalarWithMeta(path, key, value, err);
       }
       std::string v;
       if (!decoderScalarOf(value, path, &v, err)) {
@@ -881,6 +964,16 @@ class YamlDecoder {
               return false;
             }
             doc->setHeadline(path, v);
+            continue;
+          }
+          if (name == "codeSpec") {
+            std::string v;
+            if (!decoderScalarOf(
+                    std::const_pointer_cast<const YamlValue>(fv.second),
+                    path + " (codeSpec)", &v, err)) {
+              return false;
+            }
+            doc->setCodeSpec(path, v);
             continue;
           }
           setErr(err, "form `" + path + "` has no field `" + name +
@@ -944,6 +1037,14 @@ class YamlDecoder {
           return false;
         }
         doc->setHeadline(path, v);
+        continue;
+      }
+      if (key == "codeSpec") {
+        std::string v;
+        if (!decoderScalarOf(value, path + " (codeSpec)", &v, err)) {
+          return false;
+        }
+        doc->setCodeSpec(path, v);
         continue;
       }
       setErr(err, "key `" + key + "` under `" + path + "` matches no member of " +

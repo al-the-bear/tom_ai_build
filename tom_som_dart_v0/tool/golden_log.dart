@@ -57,7 +57,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t7');
+  out.add('FORMAT\t8');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -97,6 +97,16 @@ void main(List<String> args) {
   final headlinePaths = doc.headlinePaths.toList()..sort();
   for (final p in headlinePaths) {
     out.add('H\t$p\t${esc(doc.headline(p) ?? '')}');
+  }
+
+  // --- Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2). The
+  // codeSpec is the §9.2 DocSpecs→CodeSpecs forward link — a byte-for-byte
+  // structural mirror of the stored headline (YRD3), stored per path as a
+  // comma-joined list of CodeSpecs code locations. ---
+  out.add('SECTION\tgeneric-codespecs');
+  final codeSpecPaths = doc.codeSpecPaths.toList()..sort();
+  for (final p in codeSpecPaths) {
+    out.add('CS\t$p\t${esc(doc.codeSpec(p) ?? '')}');
   }
 
   // --- Typed: a curated traversal of the facade that must agree with the

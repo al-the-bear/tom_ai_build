@@ -133,7 +133,9 @@ class DocSpecsDocument {
           if (c) {
             section = new DocSpecsSection(
               c[1] || null,
-              (c[2] || '').trim() || rest,
+              // csmc8 (§9.2): the heading-comment regex is now 3-group
+              // (id, meta region, title) — the title is group 3.
+              (c[3] || '').trim() || rest,
               level,
               lineNo,
             );

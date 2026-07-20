@@ -439,6 +439,39 @@ void yamlTestStrictDecode() {
   }
 }
 
+/* ---- §9.2 codeSpec forward-link (mirror of stored headline) -------------- */
+
+void yamlTestCodeSpecRoundTrip() {
+  // csmc8 (§9.2): a stored codeSpec survives the yaml round-trip.
+  som::SpecDocument doc = yamlPopulated();
+  doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+  std::string yaml = yamlEnc(doc, "");
+  check("codeSpec.yaml.emitted", contains(yaml, "codeSpec:"), yaml);
+  som::SpecYamlContents rt = yamlRoundTrip(doc);
+  check("codeSpec.yaml.restored",
+        rt.document.codeSpec("D00/D00-OVR") ==
+            "CsOrder,CsOrder.total,CsOrderRepository",
+        rt.document.codeSpec("D00/D00-OVR"));
+  // Sibling without codeSpec keeps no codeSpec entry.
+  check("codeSpec.yaml.sibling",
+        rt.document.codeSpecOpt("D00/D00-PRI") == nullptr,
+        rt.document.codeSpec("D00/D00-PRI"));
+}
+
+void yamlTestCodeSpecByteStable() {
+  // csmc8 (§9.2): encode is byte-stable with codeSpec across decode → re-encode.
+  som::SpecDocument doc = yamlPopulated();
+  doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total");
+  std::string yaml1 = yamlEnc(doc, "1.2");
+  std::string err;
+  som::SpecYamlContents c = yamlDec(yaml1);
+  auto out = som::encodeYaml(c.document, *g_tree, "1.2", &err);
+  if (!out.has_value()) {
+    fatal("encode", err);
+  }
+  check("codeSpec.yaml.byteStable", *out == yaml1);
+}
+
 }  // namespace
 
 int main() {
@@ -456,6 +489,8 @@ int main() {
   yamlTestClassLevelOnlyKey();
   yamlTestRoundTrip();
   yamlTestStrictDecode();
+  yamlTestCodeSpecRoundTrip();
+  yamlTestCodeSpecByteStable();
 
   if (g_failures == 0) {
     std::printf("spec_document_yaml_test: %d checks passed\n", g_checks);

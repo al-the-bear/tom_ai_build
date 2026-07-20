@@ -159,6 +159,16 @@ DocumentJson documentJsonFromJson(const JsonRef& v) {
     }
   }
 
+  JsonRef codeSpecs = jsonGet(v, "codeSpecs");
+  if (codeSpecs != nullptr && codeSpecs->type == JsonType::Object) {
+    for (const auto& m : codeSpecs->object) {
+      const std::string* s = jsonAsStr(m.second);
+      if (s != nullptr) {
+        out.codeSpecs[m.first] = *s;
+      }
+    }
+  }
+
   return out;
 }
 
@@ -264,6 +274,25 @@ std::string documentJsonToCanonicalJson(const DocumentJson& d) {
     b += "\"headlines\":{";
     bool inner = true;
     for (const auto& kv : d.headlines) {
+      if (!inner) {
+        b.push_back(',');
+      }
+      inner = false;
+      b += jsonEncodeStr(kv.first);
+      b.push_back(':');
+      b += jsonEncodeStr(kv.second);
+    }
+    b.push_back('}');
+  }
+
+  if (!d.codeSpecs.empty()) {
+    if (!first) {
+      b.push_back(',');
+    }
+    first = false;
+    b += "\"codeSpecs\":{";
+    bool inner = true;
+    for (const auto& kv : d.codeSpecs) {
       if (!inner) {
         b.push_back(',');
       }
@@ -480,6 +509,35 @@ std::vector<std::string> SpecDocument::headlinePaths() const {
   return out;
 }
 
+/* --- stored codeSpec mappings (§9.2) — mirror of stored headlines --- */
+
+const std::string* SpecDocument::codeSpecOpt(const std::string& path) const {
+  auto it = codeSpec_.find(path);
+  return it != codeSpec_.end() ? &it->second : nullptr;
+}
+
+std::string SpecDocument::codeSpec(const std::string& path) const {
+  const std::string* v = codeSpecOpt(path);
+  return v != nullptr ? *v : std::string();
+}
+
+void SpecDocument::setCodeSpec(const std::string& path,
+                               const std::string& value) {
+  if (value.empty()) {
+    codeSpec_.erase(path);
+  } else {
+    codeSpec_[path] = value;
+  }
+}
+
+std::vector<std::string> SpecDocument::codeSpecPaths() const {
+  std::vector<std::string> out;
+  for (const auto& kv : codeSpec_) {
+    out.push_back(kv.first);
+  }
+  return out;
+}
+
 void SpecDocument::purgeUnder(const std::string& prefix) {
   for (auto it = content_.begin(); it != content_.end();) {
     if (isUnder(it->first, prefix)) {
@@ -523,6 +581,13 @@ void SpecDocument::purgeUnder(const std::string& prefix) {
       ++it;
     }
   }
+  for (auto it = codeSpec_.begin(); it != codeSpec_.end();) {
+    if (isUnder(it->first, prefix)) {
+      it = codeSpec_.erase(it);
+    } else {
+      ++it;
+    }
+  }
 }
 
 bool SpecDocument::removeListItem(const std::string& itemPath) {
@@ -561,7 +626,7 @@ bool SpecDocument::removeListItem(const std::string& itemPath) {
 
 bool SpecDocument::isEmpty() const {
   return content_.empty() && forms_.empty() && listItems_.empty() &&
-         headline_.empty();
+         headline_.empty() && codeSpec_.empty();
 }
 
 bool SpecDocument::hasValuesUnder(const std::string& prefix) const {
@@ -581,6 +646,11 @@ bool SpecDocument::hasValuesUnder(const std::string& prefix) const {
     }
   }
   for (const auto& kv : headline_) {
+    if (isUnder(kv.first, prefix)) {
+      return true;
+    }
+  }
+  for (const auto& kv : codeSpec_) {
     if (isUnder(kv.first, prefix)) {
       return true;
     }
@@ -654,6 +724,7 @@ DocumentJson SpecDocument::toJson() const {
     out.lists[kv.first] = std::move(e);
   }
   out.headlines = headline_;
+  out.codeSpecs = codeSpec_;
   return out;
 }
 
@@ -664,6 +735,7 @@ void SpecDocument::loadJson(const DocumentJson& j) {
   listSeq_.clear();
   itemSectionId_.clear();
   headline_.clear();
+  codeSpec_.clear();
 
   content_ = j.content;
   for (const auto& kv : j.forms) {
@@ -690,6 +762,12 @@ void SpecDocument::loadJson(const DocumentJson& j) {
       continue;
     }
     headline_[kv.first] = kv.second;
+  }
+  for (const auto& kv : j.codeSpecs) {
+    if (kv.second.empty()) {
+      continue;
+    }
+    codeSpec_[kv.first] = kv.second;
   }
 }
 

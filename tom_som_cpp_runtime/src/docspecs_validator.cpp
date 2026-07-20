@@ -342,10 +342,12 @@ bool matchHeadingLine(const std::string& s, int* level, std::string* rest) {
   return true;
 }
 
-/* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]-->\s*(.*)$`. Writes group 1 (id) to
- * `id` and group 2 (rest-title) to `rest`, returns true. */
+/* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`. Three-group
+ * (§9.2): group 1 = the section id, group 2 = the optional key=value region
+ * (`codeSpec`), group 3 = the heading title. Writes group 1 to `id` and group 3
+ * (the title) to `title`; the middle region is skipped. Returns true. */
 bool matchHeadlineComment(const std::string& s, std::string* id,
-                          std::string* rest) {
+                          std::string* title) {
   if (s.compare(0, 5, "<!--[") != 0) {
     return false;
   }
@@ -354,15 +356,22 @@ bool matchHeadlineComment(const std::string& s, std::string* id,
   if (close == std::string::npos || close == p) {
     return false;
   }
-  if (s.compare(close, 4, "]-->") != 0) {
+  // `([^>]*)-->` — the region runs from after `]` up to a `-->` with no `>`
+  // before it.
+  std::size_t r = close + 1;
+  std::size_t end = s.find("-->", r);
+  if (end == std::string::npos) {
+    return false;
+  }
+  if (s.find('>', r) != end + 2) {
     return false;
   }
   *id = s.substr(p, close - p);
-  std::size_t after = close + 4;
+  std::size_t after = end + 3;
   while (after < s.size() && isAsciiWs(s[after])) {
     after++;
   }
-  *rest = s.substr(after);
+  *title = s.substr(after);
   return true;
 }
 
@@ -689,9 +698,10 @@ DocSpecsDocument docspecsParseDocument(const std::string& text) {
           std::string cid;
           std::string ctitle;
           if (matchHeadlineComment(rest, &cid, &ctitle)) {
-            std::string title = ctitle.empty() ? rest : ctitle;
+            // §9.2: the title is group 3 (the region between `]…-->` is the
+            // optional codeSpec key=value, not part of the title).
             section->id = cid;
-            section->title = title;
+            section->title = ctitle;
             section->level = level;
             section->line = lineNo;
           } else {

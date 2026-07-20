@@ -535,6 +535,58 @@ def test_fence_shielded_headings_stay_body() -> None:
     _check("fenceShield.noStatus", "D00/D00-ST" not in report.content)
 
 
+# --- csmc8: stored codeSpec rides in the headline comment (§9.2) -------------
+
+
+def test_code_spec_rides_in_headline_comment() -> None:
+    doc = _populated()
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository")
+    md = _export(doc)
+    _check(
+        "codeSpec.md.attribute",
+        '## <!--[D00-OVR] codeSpec="CsOrder,CsOrder.total,'
+        'CsOrderRepository"--> Overview' in md,
+        md,
+    )
+    # Untouched sections stay byte-stable (no empty codeSpec attribute).
+    _check("codeSpec.md.untouched", "## <!--[D00-ST]--> Status" in md)
+
+
+def test_code_spec_parsed_back_out() -> None:
+    doc = _populated()
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total")
+    md = _export(doc)
+    report = _parse(md)
+    _check(
+        "codeSpec.md.parsed",
+        report.code_specs.get("D00/D00-OVR") == "CsOrder,CsOrder.total",
+        str(report.code_specs),
+    )
+
+
+def test_code_spec_and_headline_round_trip_byte_stable() -> None:
+    doc = _populated()
+    doc.set_headline("D00/D00-OVR", "Custom Overview")
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository")
+    md = _export(doc)
+    target = SpecDocument()
+    report = SpecDocumentMarkdown(_model(), target).parse(md)
+    target.load_json({
+        "content": report.content,
+        "forms": report.forms,
+        "lists": report.lists,
+        "headlines": report.headlines,
+        "codeSpecs": report.code_specs,
+    })
+    _check("codeSpec.md.byteStable", _export(target) == md)
+    _check(
+        "codeSpec.md.stored",
+        target.code_spec("D00/D00-OVR")
+        == "CsOrder,CsOrder.total,CsOrderRepository",
+        str(target.code_spec("D00/D00-OVR")),
+    )
+
+
 def main() -> int:
     test_export_format()
     test_export_stored_item_id()
@@ -553,6 +605,9 @@ def main() -> int:
     test_reject_missing_value()
     test_case_insensitive_labels()
     test_fence_shielded_headings_stay_body()
+    test_code_spec_rides_in_headline_comment()
+    test_code_spec_parsed_back_out()
+    test_code_spec_and_headline_round_trip_byte_stable()
 
     total = _passed + len(_failed)
     if _failed:

@@ -80,6 +80,7 @@ func mdReload(t *testing.T, md string) (*som.SpecDocument, *som.SpecMarkdownResu
 		Forms:     report.Forms,
 		Lists:     report.Lists,
 		Headlines: report.Headlines,
+		CodeSpecs: report.CodeSpecs,
 	})
 	return target, report
 }
@@ -450,4 +451,40 @@ func TestMarkdownFenceShieldedHeadingsStayBody(t *testing.T) {
 		fmt.Sprintf("%q", report.Content["D00/D00-OVR"]))
 	_, hasStatus := report.Content["D00/D00-ST"]
 	mdCheck(t, "fenceShield.noStatus", !hasStatus)
+}
+
+// --- csmc8: stored codeSpec rides in the headline comment (§9.2) --------------
+
+func TestMarkdownCodeSpecRidesInHeadlineComment(t *testing.T) {
+	doc := populatedDemoDoc()
+	doc.SetCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository")
+	md := mdExport(t, doc)
+	mdCheck(t, "codeSpec.md.attribute",
+		strings.Contains(md,
+			`## <!--[D00-OVR] codeSpec="CsOrder,CsOrder.total,CsOrderRepository"--> Overview`),
+		md)
+	// Untouched sections stay byte-stable (no empty codeSpec attribute).
+	mdCheck(t, "codeSpec.md.untouched", strings.Contains(md, "## <!--[D00-ST]--> Status"))
+}
+
+func TestMarkdownCodeSpecParsedBackOut(t *testing.T) {
+	doc := populatedDemoDoc()
+	doc.SetCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total")
+	md := mdExport(t, doc)
+	report := mdParse(t, md)
+	mdCheck(t, "codeSpec.md.parsed",
+		report.CodeSpecs["D00/D00-OVR"] == "CsOrder,CsOrder.total",
+		fmt.Sprintf("%v", report.CodeSpecs))
+}
+
+func TestMarkdownCodeSpecAndHeadlineRoundTripByteStable(t *testing.T) {
+	doc := populatedDemoDoc()
+	doc.SetHeadline("D00/D00-OVR", "Custom Overview")
+	doc.SetCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository")
+	md := mdExport(t, doc)
+	target, _ := mdReload(t, md)
+	mdCheck(t, "codeSpec.md.byteStable", mdExport(t, target) == md)
+	mdCheck(t, "codeSpec.md.stored",
+		target.CodeSpecOr("D00/D00-OVR") == "CsOrder,CsOrder.total,CsOrderRepository",
+		target.CodeSpecOr("D00/D00-OVR"))
 }

@@ -152,16 +152,24 @@ fn dv_docspec_header(line: &str) -> Option<&str> {
     Some(token)
 }
 
-/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]-->\s*(.*)$` — returns
-/// `(id, rest-after-comment)`.
+/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$` — returns g1 the
+/// id, g2 the optional key=value region (§9.2 `codeSpec`), and g3 the title
+/// text after the comment. The validator only needs the id and title; g2 is
+/// discarded here (the codec stages the codeSpec).
 fn dv_headline_comment(rest: &str) -> Option<(&str, &str)> {
     let r = rest.strip_prefix("<!--[")?;
     let close = r.find(']')?;
     if close == 0 {
         return None;
     }
-    let after = r[close..].strip_prefix("]-->")?;
-    Some((&r[..close], after.trim_start_matches(is_go_space)))
+    let id = &r[..close];
+    let after = &r[close + 1..]; // skip the `]`.
+    let end = after.find("-->")?; // g2 = `[^>]*` up to the closing `-->`.
+    if after[..end].contains('>') {
+        return None;
+    }
+    let title = &after[end + 3..];
+    Some((id, title.trim_start_matches(is_go_space)))
 }
 
 /// `mdFieldLabelRE`: `^([A-Za-z][A-Za-z0-9_]*): ?(.*)$` — returns

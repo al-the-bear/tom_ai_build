@@ -59,7 +59,7 @@ public final class DocSpecsDocument {
           DocSpecsSection section;
           Matcher c = SpecDocumentMarkdown.HEADLINE_COMMENT.matcher(rest);
           if (c.matches()) {
-            String title = c.group(2).trim();
+            String title = c.group(3).trim();
             if (title.isEmpty()) {
               title = rest;
             }

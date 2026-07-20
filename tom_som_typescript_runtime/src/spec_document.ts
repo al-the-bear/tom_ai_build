@@ -47,6 +47,7 @@ export interface DocumentJson {
   forms?: Record<string, Record<string, string>>;
   lists?: Record<string, ListJson>;
   headlines?: Record<string, string>;
+  codeSpecs?: Record<string, string>;
 }
 
 export class SpecDocument {
@@ -56,6 +57,13 @@ export class SpecDocument {
   private _listSeq: Map<string, number> = new Map();
   private _itemSectionId: Map<string, string> = new Map();
   private _headline: Map<string, string> = new Map();
+
+  /**
+   * The concrete instance-level forward DocSpecs→CodeSpecs link (§9.2): any
+   * section path → the comma-joined list of CodeSpecs code locations that
+   * section maps to. Sparse like `_headline`: unset means "no code mapping".
+   */
+  private _codeSpec: Map<string, string> = new Map();
 
   /**
    * The authoring object-model version (`major.minor`) this document was loaded
@@ -221,6 +229,37 @@ export class SpecDocument {
     return this._headline.keys();
   }
 
+  // --- codeSpec (§9.2) ------------------------------------------------------
+
+  /**
+   * The stored codeSpec mapping at `path` as the comma-joined list of
+   * CodeSpecs code locations, or `null` when the section carries no mapping
+   * (§9.2 — codeSpec is sparse like the headline).
+   */
+  codeSpec(path: string): string | null {
+    return this._codeSpec.has(path)
+      ? (this._codeSpec.get(path) as string)
+      : null;
+  }
+
+  /**
+   * Sets the stored codeSpec mapping at `path` (the comma-joined list of
+   * CodeSpecs code locations). An empty value clears it, returning the section
+   * to "no code mapping" (§9.2).
+   */
+  setCodeSpec(path: string, value: string): void {
+    if (value === '') {
+      this._codeSpec.delete(path);
+    } else {
+      this._codeSpec.set(path, value);
+    }
+  }
+
+  /** Every path with a stored codeSpec mapping. */
+  get codeSpecPaths(): Iterable<string> {
+    return this._codeSpec.keys();
+  }
+
   // --- lists --------------------------------------------------------------
 
   listItems(listPath: string): string[] {
@@ -370,6 +409,7 @@ export class SpecDocument {
       this._listSeq,
       this._itemSectionId,
       this._headline,
+      this._codeSpec,
     ];
     for (const store of stores) {
       for (const key of Array.from(store.keys())) {
@@ -387,7 +427,8 @@ export class SpecDocument {
       this._content.size === 0 &&
       this._form.size === 0 &&
       this._listItems.size === 0 &&
-      this._headline.size === 0
+      this._headline.size === 0 &&
+      this._codeSpec.size === 0
     );
   }
 
@@ -411,6 +452,9 @@ export class SpecDocument {
       if (isUnder(k)) return true;
     }
     for (const k of this._headline.keys()) {
+      if (isUnder(k)) return true;
+    }
+    for (const k of this._codeSpec.keys()) {
       if (isUnder(k)) return true;
     }
     return false;
@@ -498,6 +542,13 @@ export class SpecDocument {
       }
       out.headlines = headlines;
     }
+    if (this._codeSpec.size > 0) {
+      const codeSpecs: Record<string, string> = {};
+      for (const k of Array.from(this._codeSpec.keys()).sort()) {
+        codeSpecs[k] = this._codeSpec.get(k) as string;
+      }
+      out.codeSpecs = codeSpecs;
+    }
     return out;
   }
 
@@ -512,6 +563,7 @@ export class SpecDocument {
     this._listSeq.clear();
     this._itemSectionId.clear();
     this._headline.clear();
+    this._codeSpec.clear();
 
     const content = json ? json.content : null;
     if (content && typeof content === 'object') {
@@ -577,6 +629,15 @@ export class SpecDocument {
       for (const [k, v] of Object.entries(headlines)) {
         if (v !== null && v !== undefined && String(v) !== '') {
           this._headline.set(String(k), String(v));
+        }
+      }
+    }
+
+    const codeSpecs = json ? json.codeSpecs : null;
+    if (codeSpecs && typeof codeSpecs === 'object') {
+      for (const [k, v] of Object.entries(codeSpecs)) {
+        if (v !== null && v !== undefined && String(v) !== '') {
+          this._codeSpec.set(String(k), String(v));
         }
       }
     }

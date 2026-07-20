@@ -469,6 +469,7 @@ struct YamlEncoder<'a> {
     forms: BTreeMap<String, BTreeMap<String, String>>,
     lists: BTreeSet<String>,
     headlines: BTreeMap<String, String>,
+    code_specs: BTreeMap<String, String>,
 }
 
 impl<'a> YamlEncoder<'a> {
@@ -479,6 +480,7 @@ impl<'a> YamlEncoder<'a> {
             forms: BTreeMap::new(),
             lists: BTreeSet::new(),
             headlines: BTreeMap::new(),
+            code_specs: BTreeMap::new(),
         };
         for p in doc.content_paths() {
             let v = doc.content_or(&p);
@@ -498,6 +500,10 @@ impl<'a> YamlEncoder<'a> {
         for p in doc.headline_paths() {
             let v = doc.headline_or(&p);
             e.headlines.insert(p, v);
+        }
+        for p in doc.code_spec_paths() {
+            let v = doc.code_spec_or(&p);
+            e.code_specs.insert(p, v);
         }
         e
     }
@@ -546,6 +552,20 @@ impl<'a> YamlEncoder<'a> {
             self.write_text(&mut b, indent, "headline", &own_headline);
         }
 
+        // The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+        if let Some(own_code_spec) = self.code_specs.remove(path) {
+            for c in &node.children {
+                if node_key(c) == "codeSpec" {
+                    return Err(yaml_format_err(format!(
+                        "cannot emit the stored codeSpec at `{}`: a child of {} also serializes as key `codeSpec`",
+                        path,
+                        node.debug_name()
+                    )));
+                }
+            }
+            self.write_text(&mut b, indent, "codeSpec", &own_code_spec);
+        }
+
         // The node's own body text — the literal `content` key (DR1 §2.2).
         if let Some(own) = self.content.remove(path) {
             for c in &node.children {
@@ -567,8 +587,9 @@ impl<'a> YamlEncoder<'a> {
                 SOM_META_KIND_CONTENT => {
                     let v = self.content.remove(&child_path);
                     let h = self.headlines.remove(&child_path);
-                    if let Some(h) = h {
-                        self.write_scalar_with_headline(&mut b, indent, &key, &h, &v, true);
+                    let cs = self.code_specs.remove(&child_path);
+                    if h.is_some() || cs.is_some() {
+                        self.write_scalar_with_meta(&mut b, indent, &key, &h, &cs, &v, true);
                     } else if let Some(v) = v {
                         self.write_text(&mut b, indent, &key, &v);
                     }
@@ -576,8 +597,9 @@ impl<'a> YamlEncoder<'a> {
                 SOM_META_KIND_SCALAR | SOM_META_KIND_ENUM_VALUE => {
                     let v = self.content.remove(&child_path);
                     let h = self.headlines.remove(&child_path);
-                    if let Some(h) = h {
-                        self.write_scalar_with_headline(&mut b, indent, &key, &h, &v, false);
+                    let cs = self.code_specs.remove(&child_path);
+                    if h.is_some() || cs.is_some() {
+                        self.write_scalar_with_meta(&mut b, indent, &key, &h, &cs, &v, false);
                     } else if let Some(v) = v {
                         self.write_value(&mut b, indent, &key, &v);
                     }
@@ -602,19 +624,28 @@ impl<'a> YamlEncoder<'a> {
     }
 
     /// Emits a scalar-valued node (content/scalar/enum leaf or scalar list
-    /// item) that carries a stored headline as a `{headline: …, content: …}`
-    /// mapping (YRD3). The content entry is omitted when `value` is `None`.
-    fn write_scalar_with_headline(
+    /// item) that carries a stored headline and/or a codeSpec mapping as a
+    /// `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 + §9.2). Each
+    /// entry is emitted only when its value is `Some`; at least one of
+    /// `headline`/`code_spec` is `Some` at every call.
+    #[allow(clippy::too_many_arguments)]
+    fn write_scalar_with_meta(
         &self,
         b: &mut YamlBuffer,
         indent: usize,
         key: &str,
-        headline: &str,
+        headline: &Option<String>,
+        code_spec: &Option<String>,
         value: &Option<String>,
         text: bool,
     ) {
         b.writeln(&format!("{}{}:", " ".repeat(indent), plain_key(key)));
-        self.write_text(b, indent + 2, "headline", headline);
+        if let Some(h) = headline {
+            self.write_text(b, indent + 2, "headline", h);
+        }
+        if let Some(cs) = code_spec {
+            self.write_text(b, indent + 2, "codeSpec", cs);
+        }
         if let Some(v) = value {
             if text {
                 self.write_text(b, indent + 2, "content", v);
@@ -634,7 +665,8 @@ impl<'a> YamlEncoder<'a> {
     ) -> Result<(), SpecYamlError> {
         let fields = self.forms.remove(path).unwrap_or_default();
         let headline = self.headlines.remove(path);
-        if fields.is_empty() && headline.is_none() {
+        let code_spec = self.code_specs.remove(path);
+        if fields.is_empty() && headline.is_none() && code_spec.is_none() {
             return Ok(());
         }
         let empty_meta = SomFormMeta::default();
@@ -653,9 +685,18 @@ impl<'a> YamlEncoder<'a> {
                 path
             )));
         }
+        if code_spec.is_some() && meta.field_named("codeSpec").is_some() {
+            return Err(yaml_format_err(format!(
+                "cannot emit the stored codeSpec at `{}`: the form declares a field literally named `codeSpec`",
+                path
+            )));
+        }
         b.writeln(&format!("{}{}:", " ".repeat(indent), plain_key(key)));
         if let Some(h) = &headline {
             self.write_text(b, indent + 2, "headline", h);
+        }
+        if let Some(cs) = &code_spec {
+            self.write_text(b, indent + 2, "codeSpec", cs);
         }
         for f in &meta.fields {
             let v = match fields.get(&f.name) {
@@ -681,16 +722,21 @@ impl<'a> YamlEncoder<'a> {
     ) -> Result<(), SpecYamlError> {
         self.lists.remove(path);
         let headline = self.headlines.remove(path);
+        let code_spec = self.code_specs.remove(path);
         let items = self.doc.list_items(path);
-        if items.is_empty() && headline.is_none() {
+        if items.is_empty() && headline.is_none() && code_spec.is_none() {
             return Ok(());
         }
         b.writeln(&format!("{}{}:", " ".repeat(indent), plain_key(key)));
         if let Some(h) = &headline {
             self.write_text(b, indent + 2, "headline", h);
         }
+        if let Some(cs) = &code_spec {
+            self.write_text(b, indent + 2, "codeSpec", cs);
+        }
         let mut used: HashSet<String> = HashSet::new();
         used.insert("headline".to_string());
+        used.insert("codeSpec".to_string());
         let mut pos = 0usize;
         for item_path in &items {
             pos += 1;
@@ -737,8 +783,9 @@ impl<'a> YamlEncoder<'a> {
                 // `{headline: …, content: …}` mapping (YRD3).
                 let v = self.content.remove(item_path);
                 let h = self.headlines.remove(item_path);
-                if let Some(h) = h {
-                    self.write_scalar_with_headline(b, indent + 2, item_key, &h, &v, false);
+                let cs = self.code_specs.remove(item_path);
+                if h.is_some() || cs.is_some() {
+                    self.write_scalar_with_meta(b, indent + 2, item_key, &h, &cs, &v, false);
                 } else {
                     self.write_value(b, indent + 2, item_key, &v.unwrap_or_default());
                 }
@@ -789,6 +836,9 @@ impl<'a> YamlEncoder<'a> {
         }
         for p in self.headlines.keys() {
             leftovers.push(format!("headline at `{}`", p));
+        }
+        for p in self.code_specs.keys() {
+            leftovers.push(format!("codeSpec at `{}`", p));
         }
         if leftovers.is_empty() {
             return Ok(());
@@ -940,6 +990,11 @@ impl YamlDecoder<'_> {
                 self.doc.set_headline(path, &v);
                 continue;
             }
+            if key == "codeSpec" {
+                let v = decoder_scalar_of(value, &format!("{} (codeSpec)", path))?;
+                self.doc.set_code_spec(path, &v);
+                continue;
+            }
             return Err(yaml_format_err(format!(
                 "key `{}` under `{}` matches no member of {} (expected one of: {})",
                 key,
@@ -960,13 +1015,13 @@ impl YamlDecoder<'_> {
     ) -> Result<(), SpecYamlError> {
         match child.kind.as_str() {
             SOM_META_KIND_CONTENT | SOM_META_KIND_SCALAR | SOM_META_KIND_ENUM_VALUE => {
-                // A populated mapping is a headline-extended scalar node
-                // (YRD3): `{headline: …, content: …}`. An empty mapping is the
-                // hand-rolled parser's spelling of a bare `key:` and stays the
-                // empty scalar.
+                // A populated mapping is a headline-/codeSpec-extended scalar
+                // node (YRD3 + §9.2): `{headline?: …, codeSpec?: …, content: …}`.
+                // An empty mapping is the hand-rolled parser's spelling of a
+                // bare `key:` and stays the empty scalar.
                 if let Some(m) = value.as_map() {
                     if !m.is_empty() {
-                        return self.load_scalar_with_headline(path, key, m);
+                        return self.load_scalar_with_meta(path, key, m);
                     }
                 }
                 let v = decoder_scalar_of(value, path)?;
@@ -990,6 +1045,11 @@ impl YamlDecoder<'_> {
                         if name == "headline" {
                             let v = decoder_scalar_of(raw, &format!("{} (headline)", path))?;
                             self.doc.set_headline(path, &v);
+                            continue;
+                        }
+                        if name == "codeSpec" {
+                            let v = decoder_scalar_of(raw, &format!("{} (codeSpec)", path))?;
+                            self.doc.set_code_spec(path, &v);
                             continue;
                         }
                         return Err(yaml_format_err(format!(
@@ -1043,6 +1103,12 @@ impl YamlDecoder<'_> {
                 self.doc.set_headline(path, &v);
                 continue;
             }
+            if key == "codeSpec" {
+                // The list container's own codeSpec mapping (§9.2), not an item.
+                let v = decoder_scalar_of(value, &format!("{} (codeSpec)", path))?;
+                self.doc.set_code_spec(path, &v);
+                continue;
+            }
             let item_path = if is_anonymous_item_key(&node.member_name, key) {
                 self.doc.add_list_item(path)
             } else {
@@ -1053,10 +1119,11 @@ impl YamlDecoder<'_> {
             match &node.element_node {
                 None => {
                     // Scalar list item: the value is the item itself — or a
-                    // `{headline: …, content: …}` mapping when it carries a
-                    // stored headline (YRD3). The hand-rolled parser cannot
-                    // distinguish a bare `key:` (null) from `key: {}`, so an
-                    // empty mapping counts as "no value" here.
+                    // `{headline?: …, codeSpec?: …, content: …}` mapping when it
+                    // carries a stored headline and/or codeSpec (YRD3 + §9.2).
+                    // The hand-rolled parser cannot distinguish a bare `key:`
+                    // (null) from `key: {}`, so an empty mapping counts as "no
+                    // value" here.
                     match value {
                         YamlValue::Seq(_) => {
                             return Err(yaml_format_err(format!(
@@ -1066,7 +1133,7 @@ impl YamlDecoder<'_> {
                         }
                         YamlValue::Map(m) => {
                             if !m.is_empty() {
-                                self.load_scalar_with_headline(&item_path, key, m)?;
+                                self.load_scalar_with_meta(&item_path, key, m)?;
                             }
                             continue;
                         }
@@ -1092,9 +1159,9 @@ impl YamlDecoder<'_> {
         Ok(())
     }
 
-    /// Loads a headline-extended scalar node (YRD3): a mapping holding only
-    /// the literal keys `headline` and `content`.
-    fn load_scalar_with_headline(
+    /// Loads a headline-/codeSpec-extended scalar node (YRD3 + §9.2): a mapping
+    /// holding only the literal keys `headline`, `codeSpec` and `content`.
+    fn load_scalar_with_meta(
         &mut self,
         path: &str,
         key: &str,
@@ -1106,13 +1173,17 @@ impl YamlDecoder<'_> {
                     let s = decoder_scalar_of(v, &format!("{} (headline)", path))?;
                     self.doc.set_headline(path, &s);
                 }
+                "codeSpec" => {
+                    let s = decoder_scalar_of(v, &format!("{} (codeSpec)", path))?;
+                    self.doc.set_code_spec(path, &s);
+                }
                 "content" => {
                     let s = decoder_scalar_of(v, &format!("{}/content", path))?;
                     self.doc.set_content(path, &s);
                 }
                 _ => {
                     return Err(yaml_format_err(format!(
-                        "scalar node `{}` at `{}` may only hold `headline`/`content` keys when written as a mapping, found `{}`",
+                        "scalar node `{}` at `{}` may only hold `headline`/`codeSpec`/`content` keys when written as a mapping, found `{}`",
                         key, path, name
                     )));
                 }
@@ -1143,6 +1214,7 @@ fn decoder_expected_keys(node: &SomMetaNode) -> Vec<String> {
         .collect();
     out.push("`content`".to_string());
     out.push("`headline`".to_string());
+    out.push("`codeSpec`".to_string());
     out
 }
 

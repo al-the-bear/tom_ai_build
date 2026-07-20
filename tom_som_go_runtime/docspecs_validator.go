@@ -131,7 +131,10 @@ func ParseDocSpecsDocument(text string) *DocSpecsDocument {
 				rest := m[2]
 				var section *DocSpecsSection
 				if c := mdHeadlineCommentRE.FindStringSubmatch(rest); c != nil {
-					title := strings.TrimSpace(c[2])
+					// c[2] is the optional key=value region (§9.2 codeSpec); the
+					// title is c[3]. For a bare heading comment with no title,
+					// fall back to the whole heading text.
+					title := strings.TrimSpace(c[3])
 					if title == "" {
 						title = rest
 					}

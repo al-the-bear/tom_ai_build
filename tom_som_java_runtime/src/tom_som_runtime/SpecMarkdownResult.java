@@ -21,6 +21,13 @@ public final class SpecMarkdownResult {
    * effective default (YRD3 §8.7) — path → headline.
    */
   public final Map<String, String> headlines = new LinkedHashMap<>();
+
+  /**
+   * Stored codeSpec mappings staged from the {@code codeSpec="…"} key in
+   * heading comments (§9.2) — path → comma-joined code locations. Staged
+   * whenever present (codeSpec has no effective default).
+   */
+  public final Map<String, String> codeSpecs = new LinkedHashMap<>();
   public final List<SpecMarkdownRejection> rejections = new ArrayList<>();
   public final Set<String> rootPrefixes = new LinkedHashSet<>();
 
@@ -43,6 +50,7 @@ public final class SpecMarkdownResult {
     out.put("forms", forms);
     out.put("lists", lists);
     out.put("headlines", headlines);
+    out.put("codeSpecs", codeSpecs);
     return out;
   }
 }

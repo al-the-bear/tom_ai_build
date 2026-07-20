@@ -109,6 +109,11 @@ class SpecMarkdownResult:
     #: parsed heading text differs from the effective default title (keeping
     #: untouched documents byte-stable).
     headlines: dict[str, str] = dataclass_field(default_factory=dict)
+    #: Stored codeSpec mappings (§9.2): path → the comma-joined list of
+    #: CodeSpecs code locations parsed from the ``codeSpec="…"`` key in the
+    #: heading comment. Staged whenever present (codeSpec has no effective
+    #: default).
+    code_specs: dict[str, str] = dataclass_field(default_factory=dict)
     #: Every rejected block, in source order.
     rejections: list[SpecMarkdownRejection] = dataclass_field(
         default_factory=list
@@ -184,8 +189,19 @@ class SpecDocumentMarkdown:
 
     # Shared with the parser and the DocSpecs validator.
     heading_line = re.compile(r"^(#+)\s+(.*)$")
-    headline_comment = re.compile(r"^<!--\[([^\]]+)\]-->\s*(.*)$")
+    #: The heading HTML comment: ``<!--[ID]--> Title`` with an optional
+    #: key=value region between the id bracket and the closing ``-->`` (§9.2
+    #: ``codeSpec``). Group 1 = the section id, group 2 = the raw key=value
+    #: region (possibly empty), group 3 = the heading title. The middle group
+    #: is ``[^>]*`` — safe because the region's only values are quoted code
+    #: locations / identifiers, never a raw ``>``.
+    headline_comment = re.compile(r"^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$")
     docspec_comment = re.compile(r"^<!--\s*docspec:.*-->\s*$")
+    #: Extracts the ``codeSpec="…"`` value from a heading-comment key=value
+    #: region (§9.2), mirroring the tom_doc_scanner key=value grammar.
+    _code_spec_pattern = re.compile(
+        r"""codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))"""
+    )
 
     # A line the emitter must escape: an optional run of backslashes followed
     # by `#` at column 0 (the escape itself must survive the round-trip).
@@ -254,6 +270,16 @@ class SpecDocumentMarkdown:
         if not field_name:
             return field_name
         return field_name[0].upper() + field_name[1:]
+
+    @staticmethod
+    def code_spec_of(region: str) -> str:
+        """Extracts the ``codeSpec="…"`` value from a heading-comment key=value
+        region (§9.2). Returns the empty string when the region carries no
+        ``codeSpec`` key."""
+        m = SpecDocumentMarkdown._code_spec_pattern.search(region)
+        if m is None:
+            return ""
+        return (m.group(1) or m.group(2) or m.group(3) or "").strip()
 
     # --- Export (DR1 §1.1–§1.6) ----------------------------------------------
 
@@ -381,6 +407,7 @@ class SpecDocumentMarkdown:
             1,
             root_seg,
             self.document.headline(root_seg) or node.headline or root.title,
+            code_spec=self.document.code_spec(root_seg),
         )
         self._write_section_body(b, node, root_seg)
         self._write_children(b, node, root_seg, 2)
@@ -423,6 +450,7 @@ class SpecDocumentMarkdown:
                     depth,
                     self._heading_id_of(child),
                     self.document.headline(path) or self._title_of(child),
+                    code_spec=self.document.code_spec(path),
                 )
                 self._write_body(b, value, path)
             elif kind == SomMetaKind.FORM:
@@ -433,6 +461,7 @@ class SpecDocumentMarkdown:
                     depth,
                     self._heading_id_of(child),
                     self.document.headline(path) or self._title_of(child),
+                    code_spec=self.document.code_spec(path),
                 )
                 self._write_form(b, child, path)
             elif kind in (SomMetaKind.SECTION, SomMetaKind.COMPLEX):
@@ -441,6 +470,7 @@ class SpecDocumentMarkdown:
                     depth,
                     self._heading_id_of(child),
                     self.document.headline(path) or self._title_of(child),
+                    code_spec=self.document.code_spec(path),
                 )
                 self._write_section_body(b, child, path)
                 self._write_children(b, child, path, depth + 1)
@@ -467,6 +497,7 @@ class SpecDocumentMarkdown:
             depth,
             self._heading_id_of(node),
             self.document.headline(list_path) or self._title_of(node),
+            code_spec=self.document.code_spec(list_path),
         )
         # Item heading stem. Complex lists derive it from the element class name
         # (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element
@@ -502,6 +533,7 @@ class SpecDocumentMarkdown:
                 depth + 1,
                 item_id,
                 self.document.headline(item_path) or f"{stem} {pos}",
+                code_spec=self.document.code_spec(item_path),
             )
             if element is None:
                 # Scalar list: the item's value is its body.
@@ -538,14 +570,21 @@ class SpecDocumentMarkdown:
         b.writeln()
 
     @staticmethod
-    def _write_heading(b: _Buffer, depth: int, id: str, title: str) -> None:
+    def _write_heading(
+        b: _Buffer, depth: int, id: str, title: str, code_spec: Optional[str] = None
+    ) -> None:
         """``## <!--[ID]--> Title`` at *depth*. DR1 §1.2 is normative —
         heading level = 1 + section depth, **uncapped**: deep models (the
         Solution Blueprint nests past markdown's native 6 levels) keep their
         structure; the parse grammar accepts ``#{7,}`` accordingly. Capping
         would silently flatten distinct nesting positions into siblings and
-        break schema validation."""
-        b.writeln(f"{'#' * depth} <!--[{id}]--> {title}")
+        break schema validation.
+
+        When *code_spec* is non-empty it is emitted as a ``codeSpec="…"`` key
+        inside the same headline comment (§9.2):
+        ``## <!--[ID] codeSpec="A,B"--> Title``."""
+        code = f' codeSpec="{code_spec}"' if code_spec else ""
+        b.writeln(f"{'#' * depth} <!--[{id}]{code}--> {title}")
         b.writeln()
 
     def _write_body(
@@ -624,6 +663,7 @@ class SpecDocumentMarkdown:
             forms=p.forms,
             lists=p.lists_json(),
             headlines=p.headlines,
+            code_specs=p.code_specs,
             rejections=p.rejections,
             root_prefixes=p.root_prefixes,
         )
@@ -673,6 +713,7 @@ class _Parser:
         self.forms: dict[str, dict[str, str]] = {}
         self.lists: dict[str, _ListState] = {}
         self.headlines: dict[str, str] = {}
+        self.code_specs: dict[str, str] = {}
         self.rejections: list[SpecMarkdownRejection] = []
         self.root_prefixes: set[str] = set()
         self._stack: list[_Frame] = []
@@ -738,10 +779,11 @@ class _Parser:
             )
             return
         id = m.group(1)
-        title = m.group(2).strip()
+        code_spec = SpecDocumentMarkdown.code_spec_of(m.group(2))
+        title = m.group(3).strip()
 
         if not self._stack:
-            self._open_root(level, id, title, line_no)
+            self._open_root(level, id, title, code_spec, line_no)
             return
 
         parent = self._stack[-1]
@@ -779,7 +821,9 @@ class _Parser:
         #    one of that list's items — resolved positionally, not by the
         #    schema tree.
         if p_node.kind == SomMetaKind.LIST:
-            self._open_item_heading(level, parent, p_node, id, title, line_no)
+            self._open_item_heading(
+                level, parent, p_node, id, title, code_spec, line_no
+            )
             return
 
         # 2. A regular (non-list) or list-**container** *effective* child —
@@ -797,6 +841,10 @@ class _Parser:
                 # (byte-stability).
                 if title and title != SpecDocumentMarkdown._title_of(c):
                     self.headlines[path] = title
+                # §9.2: stage the codeSpec mapping whenever present (no
+                # default).
+                if code_spec:
+                    self.code_specs[path] = code_spec
                 self._stack.append(
                     _Frame(level=level, node=c, path=path, line=line_no)
                 )
@@ -824,6 +872,7 @@ class _Parser:
         list_node: SomMetaNode,
         id: str,
         title: str,
+        code_spec: str,
         line_no: int,
     ) -> None:
         """Opens a list-item frame under a ``-LST`` container frame (DR1 §1.2).
@@ -847,6 +896,7 @@ class _Parser:
                 int(anon.group(1)),
                 None,
                 title,
+                code_spec,
                 line_no,
             )
             return
@@ -872,21 +922,31 @@ class _Parser:
                     int(numbered.group(1)),
                     None,
                     title,
+                    code_spec,
                     line_no,
                 )
                 return
             if self._pattern_matches(pattern, id):
                 self._open_item(
-                    level, list_path, list_node, None, id, title, line_no
+                    level,
+                    list_path,
+                    list_node,
+                    None,
+                    id,
+                    title,
+                    code_spec,
+                    line_no,
                 )
                 return
         # Any other id under the container is an anonymous next item carrying
         # the stored id (YRD3: stored ids round-trip through md as well as
         # yaml).
-        self._open_item(level, list_path, list_node, None, id, title, line_no)
+        self._open_item(
+            level, list_path, list_node, None, id, title, code_spec, line_no
+        )
 
     def _open_root(
-        self, level: int, id: str, title: str, line_no: int
+        self, level: int, id: str, title: str, code_spec: str, line_no: int
     ) -> None:
         for root in self.codec.model.roots:
             seg = root.section_id or root.type
@@ -898,6 +958,9 @@ class _Parser:
                 # `@Headline` default, else the `@Document` title).
                 if title and title != (tree.root.headline or root.title):
                     self.headlines[seg] = title
+                # §9.2: stage the root codeSpec mapping whenever present.
+                if code_spec:
+                    self.code_specs[seg] = code_spec
                 self._stack.append(
                     _Frame(level=level, node=tree.root, path=seg, line=line_no)
                 )
@@ -927,6 +990,7 @@ class _Parser:
         n: Optional[int],
         stored_id: Optional[str],
         title: str,
+        code_spec: str,
         line_no: int,
     ) -> None:
         """Opens a list-item frame. *n* is the anonymous heading number (also
@@ -947,6 +1011,9 @@ class _Parser:
         stem = SpecDocumentMarkdown._item_stem_of(list_node)
         if title and title != f"{stem} {number}":
             self.headlines[item_path] = title
+        # §9.2: stage the item codeSpec mapping whenever present.
+        if code_spec:
+            self.code_specs[item_path] = code_spec
         self._stack.append(
             _Frame(
                 level=level,

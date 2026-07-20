@@ -88,11 +88,11 @@ The requirements below are the contract MOM is built and accepted against.
 IDs are stable and referenced from the use cases, screens, and data model so
 every downstream artifact traces back to a requirement.
 
-#### <!--[FR]--> Functional Requirements (FR)
+#### <!--[FR] codeSpec="CsFunctionalRequirements"--> Functional Requirements (FR)
 
 ##### <!--[FRE-REQU-LST]--> Requirements
 
-###### <!--[FRE-REQU-ORDER-CAPTURE]--> FR-01 — Capture orders from EDI and REST channels
+###### <!--[FRE-REQU-ORDER-CAPTURE] codeSpec="CsOrder,CsOrder.captureFromEdi,CsOrderRepository"--> FR-01 — Capture orders from EDI and REST channels
 
 Status: Approved
 

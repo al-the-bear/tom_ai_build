@@ -53,7 +53,7 @@ fn main() {
     let mut out: Vec<String> = Vec::new();
     out.push("# TomSpecs SOM golden log — canonical cross-language reading.".to_string());
     out.push("# All nine per-language generators must emit byte-identical output.".to_string());
-    out.push("FORMAT\t7".to_string());
+    out.push("FORMAT\t8".to_string());
     out.push(format!("MODELVERSION\t{}", esc(&doc.model_version)));
 
     // Generic: content leaves, sorted by path.
@@ -99,6 +99,14 @@ fn main() {
     headline_paths.sort();
     for p in &headline_paths {
         out.push(format!("H\t{}\t{}", p, esc(&doc.headline_or(p))));
+    }
+
+    // Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2 mirror of headline).
+    out.push("SECTION\tgeneric-codespecs".to_string());
+    let mut code_spec_paths = doc.code_spec_paths();
+    code_spec_paths.sort();
+    for p in &code_spec_paths {
+        out.push(format!("CS\t{}\t{}", p, esc(&doc.code_spec_or(p))));
     }
 
     // Typed: curated traversal that must agree with the generic reads.

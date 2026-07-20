@@ -542,6 +542,41 @@ public final class SpecDocumentMarkdownTest {
     check("fenceShield.noStatus", !report.content.containsKey("D00/D00-ST"));
   }
 
+  // --- csmc8: stored codeSpec rides in the headline comment (§9.2) -----------
+
+  private static void testCodeSpecRidesInHeadlineComment() {
+    SpecDocument doc = populatedDemoDoc();
+    doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+    String md = mdExport(doc);
+    check("codeSpec.md.attribute",
+        md.contains("## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,"
+            + "CsOrderRepository\"--> Overview"), md);
+    // Untouched sections stay byte-stable (no empty codeSpec attribute).
+    check("codeSpec.md.untouched", md.contains("## <!--[D00-ST]--> Status"));
+  }
+
+  private static void testCodeSpecParsedBackOut() {
+    SpecDocument doc = populatedDemoDoc();
+    doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total");
+    String md = mdExport(doc);
+    SpecMarkdownResult report = mdParse(md);
+    check("codeSpec.md.parsed",
+        "CsOrder,CsOrder.total".equals(report.codeSpecs.get("D00/D00-OVR")),
+        report.codeSpecs.toString());
+  }
+
+  private static void testCodeSpecAndHeadlineRoundTripByteStable() {
+    SpecDocument doc = populatedDemoDoc();
+    doc.setHeadline("D00/D00-OVR", "Custom Overview");
+    doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+    String md = mdExport(doc);
+    SpecDocument target = (SpecDocument) mdReload(md)[0];
+    check("codeSpec.md.byteStable", mdExport(target).equals(md));
+    check("codeSpec.md.stored",
+        "CsOrder,CsOrder.total,CsOrderRepository".equals(target.codeSpec("D00/D00-OVR")),
+        or(target.codeSpec("D00/D00-OVR")));
+  }
+
   public static void main(String[] args) {
     testExportFormat();
     testExportStoredItemId();
@@ -560,6 +595,9 @@ public final class SpecDocumentMarkdownTest {
     testRejectMissingValue();
     testCaseInsensitiveLabels();
     testFenceShieldedHeadingsStayBody();
+    testCodeSpecRidesInHeadlineComment();
+    testCodeSpecParsedBackOut();
+    testCodeSpecAndHeadlineRoundTripByteStable();
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {

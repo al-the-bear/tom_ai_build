@@ -45,6 +45,10 @@ pub struct DocumentJson {
     /// heading was customised; omitted (empty) otherwise so byte-stable output
     /// stays identical for headline-less documents.
     pub headlines: BTreeMap<String, String>,
+    /// Stored codeSpec forward-links (§9.2): path → comma-joined code locations.
+    /// Present only for sections that carry a mapping; omitted (empty) otherwise
+    /// so byte-stable output stays identical for codeSpec-less documents.
+    pub code_specs: BTreeMap<String, String>,
 }
 
 impl DocumentJson {
@@ -97,6 +101,13 @@ impl DocumentJson {
             for (k, val) in headlines {
                 if let Some(s) = val.as_str() {
                     out.headlines.insert(k.clone(), s.to_string());
+                }
+            }
+        }
+        if let Some(code_specs) = v.get("codeSpecs").and_then(|j| j.as_object()) {
+            for (k, val) in code_specs {
+                if let Some(s) = val.as_str() {
+                    out.code_specs.insert(k.clone(), s.to_string());
                 }
             }
         }
@@ -197,6 +208,7 @@ impl DocumentJson {
             if !first {
                 out.push(',');
             }
+            first = false;
             out.push_str("\"headlines\":{");
             let mut headline_first = true;
             for (k, v) in &self.headlines {
@@ -204,6 +216,23 @@ impl DocumentJson {
                     out.push(',');
                 }
                 headline_first = false;
+                out.push_str(&encode_str(k));
+                out.push(':');
+                out.push_str(&encode_str(v));
+            }
+            out.push('}');
+        }
+        if !self.code_specs.is_empty() {
+            if !first {
+                out.push(',');
+            }
+            out.push_str("\"codeSpecs\":{");
+            let mut code_spec_first = true;
+            for (k, v) in &self.code_specs {
+                if !code_spec_first {
+                    out.push(',');
+                }
+                code_spec_first = false;
                 out.push_str(&encode_str(k));
                 out.push(':');
                 out.push_str(&encode_str(v));
@@ -233,6 +262,7 @@ pub struct SpecDocument {
     list_seq: BTreeMap<String, i64>,
     item_section_id: BTreeMap<String, String>,
     headline: BTreeMap<String, String>,
+    code_spec: BTreeMap<String, String>,
     /// The authoring object-model version (`major.minor`) this document was
     /// loaded from, or `""` for a brand-new / unstamped document. Retained here
     /// by [`SpecDocument::from_yaml`] so a consumer need not thread
@@ -544,6 +574,7 @@ impl SpecDocument {
         self.list_seq.retain(|k, _| !is_under(k, prefix));
         self.item_section_id.retain(|k, _| !is_under(k, prefix));
         self.headline.retain(|k, _| !is_under(k, prefix));
+        self.code_spec.retain(|k, _| !is_under(k, prefix));
     }
 
     // --- headlines (YRD3) ---------------------------------------------------
@@ -575,6 +606,35 @@ impl SpecDocument {
         self.headline.keys().cloned().collect()
     }
 
+    // --- codeSpec (§9.2) ----------------------------------------------------
+
+    /// Returns the stored codeSpec mapping of the section at `path` (the
+    /// comma-joined list of CodeSpecs code locations), or `None` when the
+    /// section carries no mapping (§9.2 — codeSpec is sparse like the headline).
+    pub fn code_spec(&self, path: &str) -> Option<&String> {
+        self.code_spec.get(path)
+    }
+
+    /// Returns the stored codeSpec mapping at `path`, or `""` when none.
+    pub fn code_spec_or(&self, path: &str) -> String {
+        self.code_spec.get(path).cloned().unwrap_or_default()
+    }
+
+    /// Stores a codeSpec mapping for the section at `path` (§9.2). An empty
+    /// value clears the stored mapping.
+    pub fn set_code_spec(&mut self, path: &str, value: &str) {
+        if value.is_empty() {
+            self.code_spec.remove(path);
+        } else {
+            self.code_spec.insert(path.to_string(), value.to_string());
+        }
+    }
+
+    /// Returns the paths that carry a stored codeSpec mapping (sorted).
+    pub fn code_spec_paths(&self) -> Vec<String> {
+        self.code_spec.keys().cloned().collect()
+    }
+
     // --- queries -----------------------------------------------------------
 
     /// Reports whether the document holds no values at all.
@@ -583,6 +643,7 @@ impl SpecDocument {
             && self.form.is_empty()
             && self.list_items.is_empty()
             && self.headline.is_empty()
+            && self.code_spec.is_empty()
     }
 
     /// Reports whether any value exists at `prefix` or nested beneath it — the
@@ -593,6 +654,7 @@ impl SpecDocument {
             || self.form.keys().any(|k| is_under(k, prefix))
             || self.list_items.keys().any(|k| is_under(k, prefix))
             || self.headline.keys().any(|k| is_under(k, prefix))
+            || self.code_spec.keys().any(|k| is_under(k, prefix))
     }
 
     /// Returns the content paths (sorted).
@@ -664,6 +726,9 @@ impl SpecDocument {
         for (k, v) in &self.headline {
             out.headlines.insert(k.clone(), v.clone());
         }
+        for (k, v) in &self.code_spec {
+            out.code_specs.insert(k.clone(), v.clone());
+        }
         out
     }
 
@@ -676,6 +741,7 @@ impl SpecDocument {
         self.list_seq.clear();
         self.item_section_id.clear();
         self.headline.clear();
+        self.code_spec.clear();
         for (k, v) in &j.content {
             self.content.insert(k.clone(), v.clone());
         }
@@ -704,6 +770,12 @@ impl SpecDocument {
                 continue;
             }
             self.headline.insert(k.clone(), v.clone());
+        }
+        for (k, v) in &j.code_specs {
+            if v.is_empty() {
+                continue;
+            }
+            self.code_spec.insert(k.clone(), v.clone());
         }
     }
 }

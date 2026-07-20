@@ -157,6 +157,7 @@ function _reload(md: string): [SpecDocument, SpecMarkdownResult] {
     forms: report.forms,
     lists: report.lists,
     headlines: report.headlines,
+    codeSpecs: report.codeSpecs,
   });
   return [target, report];
 }
@@ -522,6 +523,54 @@ function testFenceShieldedHeadingsStayBody(): void {
   _check('fenceShield.noStatus', !('D00/D00-ST' in report.content));
 }
 
+// --- §9.2 codeSpec forward-link (csmc8) --------------------------------------
+
+const _CODE_SPEC = 'CsOrder,CsOrder.total,CsOrderRepository';
+
+function testCodeSpecRidesInHeadlineComment(): void {
+  const doc = _populated();
+  doc.setCodeSpec('D00/D00-OVR', _CODE_SPEC);
+  const md = _export(doc);
+  // The codeSpec is emitted as a `codeSpec="…"` key inside the same heading
+  // comment as the section id, next to (before) the derived title.
+  _check(
+    'codeSpec.md.inHeading',
+    md.includes(`## <!--[D00-OVR] codeSpec="${_CODE_SPEC}"--> Overview`),
+    md,
+  );
+  // A sibling heading with no codeSpec is untouched — no key emitted.
+  _check('codeSpec.md.siblingUntouched', md.includes('## <!--[D00-ST]--> Status'), md);
+}
+
+function testCodeSpecParsedBackOut(): void {
+  const doc = _populated();
+  doc.setCodeSpec('D00/D00-OVR', _CODE_SPEC);
+  const md = _export(doc);
+  const [reloaded, report] = _reload(md);
+  _check('codeSpec.md.clean', report.isClean, _rejStr(report));
+  _check('codeSpec.md.staged', report.codeSpecs['D00/D00-OVR'] === _CODE_SPEC,
+    JSON.stringify(report.codeSpecs));
+  _check(
+    'codeSpec.md.restored',
+    reloaded.codeSpec('D00/D00-OVR') === _CODE_SPEC,
+    String(reloaded.codeSpec('D00/D00-OVR')),
+  );
+  // Sections without a codeSpec stay null.
+  _check('codeSpec.md.siblingNull', reloaded.codeSpec('D00/D00-ST') === null);
+}
+
+function testCodeSpecAndHeadlineRoundTripByteStable(): void {
+  const doc = _populated();
+  doc.setCodeSpec('D00/D00-OVR', _CODE_SPEC);
+  doc.setHeadline('D00/D00-OVR', 'Custom Overview');
+  const md1 = _export(doc);
+  const [reloaded] = _reload(md1);
+  const md2 = _export(reloaded);
+  _check('codeSpec.md.byteStable', md2 === md1, md2);
+  _check('codeSpec.md.headlineKept', reloaded.headline('D00/D00-OVR') === 'Custom Overview');
+  _check('codeSpec.md.codeSpecKept', reloaded.codeSpec('D00/D00-OVR') === _CODE_SPEC);
+}
+
 function main(): number {
   testExportFormat();
   testExportStoredItemId();
@@ -540,6 +589,9 @@ function main(): number {
   testRejectMissingValue();
   testCaseInsensitiveLabels();
   testFenceShieldedHeadingsStayBody();
+  testCodeSpecRidesInHeadlineComment();
+  testCodeSpecParsedBackOut();
+  testCodeSpecAndHeadlineRoundTripByteStable();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

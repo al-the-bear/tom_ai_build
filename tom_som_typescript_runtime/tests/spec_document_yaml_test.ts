@@ -444,11 +444,48 @@ function testClassLevelOnlyKey(): void {
   _check('clskey.rt.owner', out.content('D00/control/owner') === 'the owner');
 }
 
+// --- §9.2 codeSpec forward-link (csmc8) --------------------------------------
+
+const _CODE_SPEC = 'CsOrder,CsOrder.total,CsOrderRepository';
+
+function testCodeSpecRoundTrip(): void {
+  // A stored codeSpec is emitted as a literal `codeSpec:` key mirroring the
+  // stored headline — on the section's own mapping, next to `content`.
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-OVR', 'the overview body');
+  doc.setCodeSpec('D00/D00-OVR', _CODE_SPEC);
+  const yaml = _enc(doc);
+  // The content leaf now serialises as a `{codeSpec: …, content: …}` mapping.
+  _check('cs.enc.key', yaml.includes('codeSpec: |2-\n'), yaml);
+  _check('cs.enc.value', yaml.includes(_CODE_SPEC), yaml);
+  const out = _roundTrip(doc);
+  _check('cs.rt.value', out.codeSpec('D00/D00-OVR') === _CODE_SPEC,
+    String(out.codeSpec('D00/D00-OVR')));
+  _check('cs.rt.content', out.content('D00/D00-OVR') === 'the overview body');
+  // A sibling with no codeSpec stays null.
+  _check('cs.rt.siblingNull', out.codeSpec('D00/D00-PRI') === null);
+}
+
+function testCodeSpecByteStable(): void {
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-OVR', 'body');
+  doc.setCodeSpec('D00/D00-OVR', _CODE_SPEC);
+  doc.setHeadline('D00/D00-OVR', 'Custom Overview');
+  const yaml1 = _enc(doc, '1.0');
+  const yaml2 = yamlEncode(_dec(yaml1).document, _TREE, '1.0');
+  _check('cs.byteStable', yaml2 === yaml1, yaml2);
+  const out = _dec(yaml1).document;
+  _check('cs.byteStable.headline', out.headline('D00/D00-OVR') === 'Custom Overview');
+  _check('cs.byteStable.codeSpec', out.codeSpec('D00/D00-OVR') === _CODE_SPEC);
+}
+
 function main(): number {
   testEncode();
   testRoundTrip();
   testStrictDecode();
   testClassLevelOnlyKey();
+  testCodeSpecRoundTrip();
+  testCodeSpecByteStable();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

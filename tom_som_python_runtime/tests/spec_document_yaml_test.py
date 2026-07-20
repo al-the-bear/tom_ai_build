@@ -454,11 +454,44 @@ def test_class_level_only_key() -> None:
     _check("clskey.rt.owner", out.content("D00/control/owner") == "the owner")
 
 
+def test_code_spec_round_trip() -> None:
+    # csmc8 (§9.2): a stored codeSpec survives the yaml round-trip.
+    doc = _populated()
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository")
+    yaml = _enc(doc)
+    _check("codeSpec.yaml.emitted", "codeSpec:" in yaml, yaml)
+    out = _round_trip(doc)
+    _check(
+        "codeSpec.yaml.restored",
+        out.code_spec("D00/D00-OVR")
+        == "CsOrder,CsOrder.total,CsOrderRepository",
+        str(out.code_spec("D00/D00-OVR")),
+    )
+    # Sibling without codeSpec keeps no codeSpec entry.
+    _check(
+        "codeSpec.yaml.sibling",
+        out.code_spec("D00/D00-PRI") is None,
+        str(out.code_spec("D00/D00-PRI")),
+    )
+
+
+def test_code_spec_byte_stable() -> None:
+    # csmc8 (§9.2): encode is byte-stable with codeSpec across
+    # decode → re-encode.
+    doc = _populated()
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total")
+    yaml1 = _enc(doc, stamp="1.2")
+    yaml2 = yaml_encode(_dec(yaml1).document, _TREE, model_version="1.2")
+    _check("codeSpec.yaml.byteStable", yaml2 == yaml1)
+
+
 def main() -> int:
     test_encode()
     test_round_trip()
     test_strict_decode()
     test_class_level_only_key()
+    test_code_spec_round_trip()
+    test_code_spec_byte_stable()
 
     total = _passed + len(_failed)
     if _failed:

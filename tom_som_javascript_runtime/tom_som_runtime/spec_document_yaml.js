@@ -393,6 +393,13 @@ class _Encoder {
       const h = doc.headline(p);
       this._headlines.set(p, h !== null ? h : '');
     }
+    /** csmc8 (§9.2): the stored codeSpec per path — mirror of _headlines.
+     *  @type {Map<string, string>} */
+    this._codeSpecs = new Map();
+    for (const p of doc.codeSpecPaths) {
+      const cs = doc.codeSpec(p);
+      this._codeSpecs.set(p, cs !== null ? cs : '');
+    }
   }
 
   writeDocumentPass(b) {
@@ -429,6 +436,20 @@ class _Encoder {
       this._writeText(b, indent, 'headline', ownHeadline);
     }
 
+    // The node's own stored codeSpec — the literal `codeSpec` key (csmc8,
+    // §9.2). Mirror of the own-headline branch above.
+    if (this._codeSpecs.has(path)) {
+      const ownCodeSpec = this._codeSpecs.get(path);
+      this._codeSpecs.delete(path);
+      if (node.children.some((c) => nodeKey(c) === 'codeSpec')) {
+        throw new SpecYamlFormatException(
+          `cannot emit the stored codeSpec at \`${path}\`: a child of ` +
+            `${node.debugName} also serializes as key \`codeSpec\``,
+        );
+      }
+      this._writeText(b, indent, 'codeSpec', ownCodeSpec);
+    }
+
     // The node's own body text — the literal `content` key (DR1 §2.2).
     if (this._content.has(path)) {
       const own = this._content.get(path);
@@ -452,8 +473,13 @@ class _Encoder {
         const hasH = this._headlines.has(childPath);
         const h = hasH ? this._headlines.get(childPath) : null;
         this._headlines.delete(childPath);
-        if (hasH) {
-          this._writeScalarWithHeadline(b, indent, key, h, hasV ? v : null, true);
+        const hasCs = this._codeSpecs.has(childPath);
+        const cs = hasCs ? this._codeSpecs.get(childPath) : null;
+        this._codeSpecs.delete(childPath);
+        if (hasH || hasCs) {
+          this._writeScalarWithMeta(
+            b, indent, key, hasH ? h : null, hasCs ? cs : null, hasV ? v : null, true,
+          );
         } else if (hasV) {
           this._writeText(b, indent, key, v);
         }
@@ -467,8 +493,13 @@ class _Encoder {
         const hasH = this._headlines.has(childPath);
         const h = hasH ? this._headlines.get(childPath) : null;
         this._headlines.delete(childPath);
-        if (hasH) {
-          this._writeScalarWithHeadline(b, indent, key, h, hasV ? v : null, false);
+        const hasCs = this._codeSpecs.has(childPath);
+        const cs = hasCs ? this._codeSpecs.get(childPath) : null;
+        this._codeSpecs.delete(childPath);
+        if (hasH || hasCs) {
+          this._writeScalarWithMeta(
+            b, indent, key, hasH ? h : null, hasCs ? cs : null, hasV ? v : null, false,
+          );
         } else if (hasV) {
           this._writeValue(b, indent, key, v);
         }
@@ -492,12 +523,17 @@ class _Encoder {
 
   /**
    * Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
-   * that carries a stored headline as a `{headline: …, content: …}` mapping
-   * (YRD3).
+   * that carries a stored headline and/or codeSpec (csmc8, §9.2) as a
+   * `{headline: …, codeSpec: …, content: …}` mapping (YRD3).
    */
-  _writeScalarWithHeadline(b, indent, key, headline, value, text) {
+  _writeScalarWithMeta(b, indent, key, headline, codeSpec, value, text) {
     b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
-    this._writeText(b, indent + 2, 'headline', headline);
+    if (headline !== null && headline !== undefined) {
+      this._writeText(b, indent + 2, 'headline', headline);
+    }
+    if (codeSpec !== null && codeSpec !== undefined) {
+      this._writeText(b, indent + 2, 'codeSpec', codeSpec);
+    }
     if (value !== null && value !== undefined) {
       if (text) {
         this._writeText(b, indent + 2, 'content', value);
@@ -513,7 +549,10 @@ class _Encoder {
     const hasHeadline = this._headlines.has(path);
     const headline = hasHeadline ? this._headlines.get(path) : null;
     this._headlines.delete(path);
-    if (fields.size === 0 && !hasHeadline) {
+    const hasCodeSpec = this._codeSpecs.has(path);
+    const codeSpec = hasCodeSpec ? this._codeSpecs.get(path) : null;
+    this._codeSpecs.delete(path);
+    if (fields.size === 0 && !hasHeadline && !hasCodeSpec) {
       return;
     }
     const meta = node.form !== null && node.form !== undefined
@@ -533,9 +572,18 @@ class _Encoder {
           'field literally named `headline`',
       );
     }
+    if (hasCodeSpec && meta.fieldNamed('codeSpec') !== null) {
+      throw new SpecYamlFormatException(
+        `cannot emit the stored codeSpec at \`${path}\`: the form declares a ` +
+          'field literally named `codeSpec`',
+      );
+    }
     b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
     if (hasHeadline) {
       this._writeText(b, indent + 2, 'headline', headline);
+    }
+    if (hasCodeSpec) {
+      this._writeText(b, indent + 2, 'codeSpec', codeSpec);
     }
     for (const f of meta.fields) {
       if (!fields.has(f.name)) {
@@ -555,15 +603,23 @@ class _Encoder {
     const hasHeadline = this._headlines.has(path);
     const headline = hasHeadline ? this._headlines.get(path) : null;
     this._headlines.delete(path);
+    const hasCodeSpec = this._codeSpecs.has(path);
+    const codeSpec = hasCodeSpec ? this._codeSpecs.get(path) : null;
+    this._codeSpecs.delete(path);
     const items = this.doc.listItems(path);
-    if (items.length === 0 && !hasHeadline) {
+    if (items.length === 0 && !hasHeadline && !hasCodeSpec) {
       return;
     }
     b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
     if (hasHeadline) {
       this._writeText(b, indent + 2, 'headline', headline);
     }
-    const used = new Set(['headline']);
+    if (hasCodeSpec) {
+      this._writeText(b, indent + 2, 'codeSpec', codeSpec);
+    }
+    // Seed with both literal container keys so a list item can never collide
+    // with the `headline`/`codeSpec` container keys (csmc8, §9.2).
+    const used = new Set(['headline', 'codeSpec']);
     let pos = 0;
     for (const itemPath of items) {
       pos += 1;
@@ -595,9 +651,13 @@ class _Encoder {
         const hasIh = this._headlines.has(itemPath);
         const ih = hasIh ? this._headlines.get(itemPath) : null;
         this._headlines.delete(itemPath);
-        if (hasIh) {
-          this._writeScalarWithHeadline(
-            b, indent + 2, itemKey, ih, hasV ? v : null, false,
+        const hasIcs = this._codeSpecs.has(itemPath);
+        const ics = hasIcs ? this._codeSpecs.get(itemPath) : null;
+        this._codeSpecs.delete(itemPath);
+        if (hasIh || hasIcs) {
+          this._writeScalarWithMeta(
+            b, indent + 2, itemKey, hasIh ? ih : null, hasIcs ? ics : null,
+            hasV ? v : null, false,
           );
         } else {
           this._writeValue(b, indent + 2, itemKey, hasV ? v : '');
@@ -638,6 +698,7 @@ class _Encoder {
       ...Array.from(this._forms.keys()).map((p) => `form values at \`${p}\``),
       ...Array.from(this._lists).map((p) => `list items at \`${p}\``),
       ...Array.from(this._headlines.keys()).map((p) => `headline at \`${p}\``),
+      ...Array.from(this._codeSpecs.keys()).map((p) => `codeSpec at \`${p}\``),
     ].sort();
     if (leftovers.length > 0) {
       throw new SpecYamlFormatException(
@@ -758,6 +819,12 @@ class _Decoder {
         );
         continue;
       }
+      if (key === 'codeSpec') {
+        this.doc.setCodeSpec(
+          path, _Decoder._scalarOf(value, `${path} (codeSpec)`),
+        );
+        continue;
+      }
       const expected = _Decoder._expectedKeys(node).join(', ');
       throw new SpecYamlFormatException(
         `key \`${key}\` under \`${path}\` matches no member of ` +
@@ -773,7 +840,7 @@ class _Decoder {
   static _expectedKeys(node) {
     return node.children
       .map((c) => `\`${nodeKey(c)}\``)
-      .concat(['`content`', '`headline`']);
+      .concat(['`content`', '`headline`', '`codeSpec`']);
   }
 
   _loadChild(child, path, key, value) {
@@ -786,7 +853,7 @@ class _Decoder {
       // `{headline: …, content: …}`. An empty mapping is the hand-rolled
       // parser's spelling of a bare `key:` and stays the empty scalar.
       if (_isMapping(value) && Object.keys(value).length > 0) {
-        this._loadScalarWithHeadline(path, key, value);
+        this._loadScalarWithMeta(path, key, value);
       } else {
         this.doc.setContent(path, _Decoder._scalarOf(value, path));
       }
@@ -806,6 +873,12 @@ class _Decoder {
           if (name === 'headline') {
             this.doc.setHeadline(
               path, _Decoder._scalarOf(v, `${path} (headline)`),
+            );
+            continue;
+          }
+          if (name === 'codeSpec') {
+            this.doc.setCodeSpec(
+              path, _Decoder._scalarOf(v, `${path} (codeSpec)`),
             );
             continue;
           }
@@ -857,6 +930,13 @@ class _Decoder {
         );
         continue;
       }
+      if (key === 'codeSpec') {
+        // The list container's own stored codeSpec (csmc8, §9.2), not an item.
+        this.doc.setCodeSpec(
+          path, _Decoder._scalarOf(value, `${path} (codeSpec)`),
+        );
+        continue;
+      }
       const itemPath = this.doc.addListItem(
         path,
         anonymous.test(key) ? null : key,
@@ -874,7 +954,7 @@ class _Decoder {
           );
         }
         if (_isMapping(value) && Object.keys(value).length > 0) {
-          this._loadScalarWithHeadline(itemPath, key, value);
+          this._loadScalarWithMeta(itemPath, key, value);
           continue;
         }
         if (value !== null && value !== undefined && !_isMapping(value)) {
@@ -896,23 +976,27 @@ class _Decoder {
   }
 
   /**
-   * Loads a headline-extended scalar node (YRD3): a mapping holding only the
-   * literal keys `headline` and `content`.
+   * Loads a meta-extended scalar node (YRD3 / csmc8 §9.2): a mapping holding
+   * only the literal keys `headline`, `codeSpec` and `content`.
    */
-  _loadScalarWithHeadline(path, key, value) {
+  _loadScalarWithMeta(path, key, value) {
     for (const [k, v] of Object.entries(value)) {
       const name = String(k);
       if (name === 'headline') {
         this.doc.setHeadline(
           path, _Decoder._scalarOf(v, `${path} (headline)`),
         );
+      } else if (name === 'codeSpec') {
+        this.doc.setCodeSpec(
+          path, _Decoder._scalarOf(v, `${path} (codeSpec)`),
+        );
       } else if (name === 'content') {
         this.doc.setContent(path, _Decoder._scalarOf(v, `${path}/content`));
       } else {
         throw new SpecYamlFormatException(
           `scalar node \`${key}\` at \`${path}\` may only hold ` +
-            `\`headline\`/\`content\` keys when written as a mapping, ` +
-            `found \`${name}\``,
+            `\`headline\`/\`codeSpec\`/\`content\` keys when written as a ` +
+            `mapping, found \`${name}\``,
         );
       }
     }

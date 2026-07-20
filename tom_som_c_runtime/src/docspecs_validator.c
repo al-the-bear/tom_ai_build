@@ -515,8 +515,12 @@ static int match_heading_line(const char *s, int *level, char **rest) {
   return 1;
 }
 
-/* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]-->\s*(.*)$`. Writes owned group 1
- * (id) to `*id` and owned group 2 (rest-title) to `*rest`, returns 1. */
+/* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`. Writes owned
+ * group 1 (id) to `*id` and owned group 3 (the heading title) to `*rest`,
+ * returns 1. Group 2 — the optional key=value region (§9.2 `codeSpec`) between
+ * the id bracket and the closing `-->` — is skipped; the validator only needs
+ * the title, which is now the third part. The middle group is `[^>]*` (the
+ * closing `-->` is the first `>` after the id bracket). */
 static int match_headline_comment(const char *s, char **id, char **rest) {
   if (strncmp(s, "<!--[", 5) != 0) {
     return 0;
@@ -526,11 +530,13 @@ static int match_headline_comment(const char *s, char **id, char **rest) {
   if (close == NULL || close == p) {
     return 0;
   }
-  if (strncmp(close, "]-->", 4) != 0) {
+  const char *region_start = close + 1;
+  const char *gt = strchr(region_start, '>');
+  if (gt == NULL || gt < region_start + 2 || gt[-1] != '-' || gt[-2] != '-') {
     return 0;
   }
   *id = som_strdup_n(p, (size_t)(close - p));
-  const char *after = close + 4;
+  const char *after = gt + 1;
   while (is_ascii_ws(*after)) {
     after++;
   }

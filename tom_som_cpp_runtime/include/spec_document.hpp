@@ -47,10 +47,14 @@ struct DocumentJson {
   /* path -> stored headline (YRD3). Emitted in canonical JSON only when
    * non-empty, after `lists`. */
   std::map<std::string, std::string> headlines;
+  /* path -> stored codeSpec mapping (§9.2), the comma-joined list of code
+   * locations. Byte-for-byte structural mirror of `headlines`: emitted in
+   * canonical JSON only when non-empty, after `headlines`. */
+  std::map<std::string, std::string> codeSpecs;
 
   bool empty() const {
     return content.empty() && forms.empty() && lists.empty() &&
-           headlines.empty();
+           headlines.empty() && codeSpecs.empty();
   }
 };
 
@@ -162,6 +166,16 @@ class SpecDocument {
   /* All paths carrying a stored headline, byte-sorted. */
   std::vector<std::string> headlinePaths() const;
 
+  // stored codeSpec mappings (§9.2) — structural mirror of stored headlines
+  /* The stored codeSpec mapping at `path`, or "" when unset. */
+  std::string codeSpec(const std::string& path) const;
+  /* NULL-aware companion: nullptr when no codeSpec is stored at `path`. */
+  const std::string* codeSpecOpt(const std::string& path) const;
+  /* Stores a codeSpec mapping at `path`; an empty value clears it. */
+  void setCodeSpec(const std::string& path, const std::string& value);
+  /* All paths carrying a stored codeSpec mapping, byte-sorted. */
+  std::vector<std::string> codeSpecPaths() const;
+
   bool isEmpty() const;
   bool hasValuesUnder(const std::string& prefix) const;
 
@@ -182,6 +196,7 @@ class SpecDocument {
   std::map<std::string, long long> listSeq_;
   std::map<std::string, std::string> itemSectionId_;  // item path -> section id
   std::map<std::string, std::string> headline_;       // path -> stored headline
+  std::map<std::string, std::string> codeSpec_;       // path -> stored codeSpec
 
   void purgeUnder(const std::string& prefix);
 

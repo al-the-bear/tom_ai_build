@@ -858,6 +858,79 @@ static void test_markdown_fence_shielded_headings_stay_body(void) {
   spec_model_free(m);
 }
 
+/* ---- codeSpec (§9.2, csmc8) ---------------------------------------------- */
+
+/* A stored codeSpec rides inside the heading comment as a ` codeSpec="…"`
+ * attribute; untouched sections stay byte-stable (no empty attribute).
+ * Mirrors Python test_code_spec_rides_in_headline_comment. */
+static void test_markdown_code_spec_rides_in_comment(void) {
+  SpecModel *m = demo_model();
+  SpecDocument doc;
+  populate_demo_doc(&doc);
+  spec_document_set_code_spec(&doc, "D00/D00-OVR",
+                              "CsOrder,CsOrder.total,CsOrderRepository");
+  char *md = md_export(m, &doc);
+  md_check("codeSpec.md.attribute",
+           contains(md,
+                    "## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,"
+                    "CsOrderRepository\"--> Overview"),
+           md);
+  md_check("codeSpec.md.untouched",
+           contains(md, "## <!--[D00-ST]--> Status"), md);
+  free(md);
+  spec_document_free(&doc);
+  spec_model_free(m);
+}
+
+/* The codeSpec attribute parses back out into the result's codeSpecs store.
+ * Mirrors Python test_code_spec_parsed_back_out. */
+static void test_markdown_code_spec_parsed_back_out(void) {
+  SpecModel *m = demo_model();
+  SpecDocument doc;
+  populate_demo_doc(&doc);
+  spec_document_set_code_spec(&doc, "D00/D00-OVR", "CsOrder,CsOrder.total");
+  char *md = md_export(m, &doc);
+  SpecMarkdownResult report;
+  md_parse(m, md, &report);
+  const char *got = som_map_get(&report.staged.code_specs, "D00/D00-OVR");
+  md_check("codeSpec.md.parsed",
+           got != NULL && strcmp(got, "CsOrder,CsOrder.total") == 0,
+           got != NULL ? got : "(null)");
+  spec_markdown_result_free(&report);
+  free(md);
+  spec_document_free(&doc);
+  spec_model_free(m);
+}
+
+/* A headline + codeSpec together survive parse → load → re-export byte-stably,
+ * and the codeSpec lands in the reloaded document.
+ * Mirrors Python test_code_spec_and_headline_round_trip_byte_stable. */
+static void test_markdown_code_spec_and_headline_byte_stable(void) {
+  SpecModel *m = demo_model();
+  SpecDocument doc;
+  populate_demo_doc(&doc);
+  spec_document_set_headline(&doc, "D00/D00-OVR", "Custom Overview");
+  spec_document_set_code_spec(&doc, "D00/D00-OVR",
+                              "CsOrder,CsOrder.total,CsOrderRepository");
+  char *md1 = md_export(m, &doc);
+  SpecDocument target;
+  SpecMarkdownResult report;
+  md_reload(m, md1, &target, &report);
+  char *md2 = md_export(m, &target);
+  md_check("codeSpec.md.byteStable", strcmp(md2, md1) == 0, md2);
+  const char *stored = spec_document_code_spec(&target, "D00/D00-OVR");
+  md_check("codeSpec.md.stored",
+           stored != NULL &&
+               strcmp(stored, "CsOrder,CsOrder.total,CsOrderRepository") == 0,
+           stored != NULL ? stored : "(null)");
+  free(md2);
+  free(md1);
+  spec_markdown_result_free(&report);
+  spec_document_free(&target);
+  spec_document_free(&doc);
+  spec_model_free(m);
+}
+
 int main(void) {
   test_markdown_export_format();
   test_markdown_export_stored_item_id();
@@ -876,6 +949,9 @@ int main(void) {
   test_markdown_reject_missing_value();
   test_markdown_case_insensitive_labels();
   test_markdown_fence_shielded_headings_stay_body();
+  test_markdown_code_spec_rides_in_comment();
+  test_markdown_code_spec_parsed_back_out();
+  test_markdown_code_spec_and_headline_byte_stable();
 
   if (g_failures == 0) {
     printf("spec_document_markdown: all %d checks passed\n", g_checks);

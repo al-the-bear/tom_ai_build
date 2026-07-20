@@ -146,6 +146,7 @@ fn md_reload(md: &str) -> (SpecDocument, SpecMarkdownResult) {
         forms: report.forms.clone(),
         lists: report.lists.clone(),
         headlines: report.headlines.clone(),
+        code_specs: report.code_specs.clone(),
     });
     (target, report)
 }
@@ -652,6 +653,56 @@ fn test_markdown_fence_shielded_headings_stay_body(c: &mut Checker) {
     );
 }
 
+/// §9.2: a stored codeSpec mapping rides inside the same headline comment as a
+/// `codeSpec="…"` key; untouched sections stay byte-stable (no empty attr).
+fn test_markdown_code_spec_rides_in_headline_comment(c: &mut Checker) {
+    let mut doc = populated_demo_doc();
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+    let md = md_export(&doc);
+    c.check(
+        "codeSpec.md.attribute",
+        md.contains(
+            "## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,CsOrderRepository\"--> Overview",
+        ),
+        &md,
+    );
+    // Untouched sections stay byte-stable (no empty codeSpec attribute).
+    c.check(
+        "codeSpec.md.untouched",
+        md.contains("## <!--[D00-ST]--> Status"),
+        &md,
+    );
+}
+
+/// §9.2: the codeSpec mapping is parsed back out of the heading comment.
+fn test_markdown_code_spec_parsed_back_out(c: &mut Checker) {
+    let mut doc = populated_demo_doc();
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total");
+    let md = md_export(&doc);
+    let (_, report) = md_reload(&md);
+    c.check(
+        "codeSpec.md.parsed",
+        report.code_specs.get("D00/D00-OVR").map(String::as_str) == Some("CsOrder,CsOrder.total"),
+        &format!("{:?}", report.code_specs),
+    );
+}
+
+/// §9.2: a stored codeSpec + headline round-trips byte-identically through
+/// `load_json` (with the `code_specs` store) and re-export.
+fn test_markdown_code_spec_and_headline_round_trip_byte_stable(c: &mut Checker) {
+    let mut doc = populated_demo_doc();
+    doc.set_headline("D00/D00-OVR", "Custom Overview");
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+    let md1 = md_export(&doc);
+    let (reloaded, _) = md_reload(&md1);
+    c.check("codeSpec.md.byteStable", md_export(&reloaded) == md1, &md1);
+    c.check(
+        "codeSpec.md.stored",
+        reloaded.code_spec_or("D00/D00-OVR") == "CsOrder,CsOrder.total,CsOrderRepository",
+        &reloaded.code_spec_or("D00/D00-OVR"),
+    );
+}
+
 #[test]
 fn spec_document_markdown() {
     let mut c = Checker::new();
@@ -672,5 +723,8 @@ fn spec_document_markdown() {
     test_markdown_reject_missing_value(&mut c);
     test_markdown_case_insensitive_labels(&mut c);
     test_markdown_fence_shielded_headings_stay_body(&mut c);
+    test_markdown_code_spec_rides_in_headline_comment(&mut c);
+    test_markdown_code_spec_parsed_back_out(&mut c);
+    test_markdown_code_spec_and_headline_round_trip_byte_stable(&mut c);
     c.finish();
 }

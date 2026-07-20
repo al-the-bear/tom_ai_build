@@ -651,6 +651,56 @@ void testMarkdownFenceShieldedHeadingsStayBody() {
           stagedContent(report, "D00/D00-ST") == nullptr);
 }
 
+/* ---- §9.2 codeSpec forward-link (mirror of stored headline) -------------- */
+
+/* The stored codeSpec of a section rides inside its heading comment as a
+ * `codeSpec="…"` key, and untouched sections stay byte-stable. */
+void testMarkdownCodeSpecRidesInHeadlineComment() {
+  auto m = demoModel();
+  som::SpecDocument doc = populateDemoDoc();
+  doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+  std::string md = mdExport(*m, doc);
+  mdCheck("codeSpec.md.attribute",
+          contains(md,
+                   "## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,"
+                   "CsOrderRepository\"--> Overview"),
+          md);
+  // Untouched sections stay byte-stable (no empty codeSpec attribute).
+  mdCheck("codeSpec.md.untouched", contains(md, "## <!--[D00-ST]--> Status"));
+}
+
+/* The codeSpec parses back out of the heading comment into the staged map. */
+void testMarkdownCodeSpecParsedBackOut() {
+  auto m = demoModel();
+  som::SpecDocument doc = populateDemoDoc();
+  doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total");
+  std::string md = mdExport(*m, doc);
+  som::SpecMarkdownResult report = mdParse(*m, md);
+  auto it = report.staged.codeSpecs.find("D00/D00-OVR");
+  mdCheck("codeSpec.md.parsed",
+          it != report.staged.codeSpecs.end() &&
+              it->second == "CsOrder,CsOrder.total",
+          it != report.staged.codeSpecs.end() ? it->second
+                                              : std::string("(absent)"));
+}
+
+/* A headline + codeSpec together round-trip byte-stably through export/parse. */
+void testMarkdownCodeSpecAndHeadlineRoundTripByteStable() {
+  auto m = demoModel();
+  som::SpecDocument doc = populateDemoDoc();
+  doc.setHeadline("D00/D00-OVR", "Custom Overview");
+  doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+  std::string md = mdExport(*m, doc);
+  som::SpecMarkdownResult report;
+  som::SpecDocument target = mdReload(*m, md, report);
+  mdCheck("codeSpec.md.byteStable", mdExport(*m, target) == md,
+          mdExport(*m, target));
+  mdCheck("codeSpec.md.stored",
+          target.codeSpec("D00/D00-OVR") ==
+              "CsOrder,CsOrder.total,CsOrderRepository",
+          target.codeSpec("D00/D00-OVR"));
+}
+
 }  // namespace
 
 int main() {
@@ -671,6 +721,9 @@ int main() {
   testMarkdownRejectMissingValue();
   testMarkdownCaseInsensitiveLabels();
   testMarkdownFenceShieldedHeadingsStayBody();
+  testMarkdownCodeSpecRidesInHeadlineComment();
+  testMarkdownCodeSpecParsedBackOut();
+  testMarkdownCodeSpecAndHeadlineRoundTripByteStable();
 
   if (g_failures == 0) {
     std::printf("spec_document_markdown: all %d checks passed\n", g_checks);

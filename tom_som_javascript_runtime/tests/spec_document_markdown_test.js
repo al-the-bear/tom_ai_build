@@ -157,6 +157,7 @@ function _reload(md) {
     forms: report.forms,
     lists: report.lists,
     headlines: report.headlines,
+    codeSpecs: report.codeSpecs,
   });
   return [target, report];
 }
@@ -523,6 +524,50 @@ function testFenceShieldedHeadingsStayBody() {
   _check('fenceShield.noStatus', !('D00/D00-ST' in report.content));
 }
 
+// --- csmc8: stored codeSpec rides in the headline comment (§9.2) -------------
+
+function testCodeSpecRidesInHeadlineComment() {
+  const doc = _populated();
+  doc.setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total,CsOrderRepository');
+  const md = _export(doc);
+  _check(
+    'codeSpec.md.attribute',
+    md.includes(
+      '## <!--[D00-OVR] codeSpec="CsOrder,CsOrder.total,' +
+        'CsOrderRepository"--> Overview',
+    ),
+    md,
+  );
+  // Untouched sections stay byte-stable (no empty codeSpec attribute).
+  _check('codeSpec.md.untouched', md.includes('## <!--[D00-ST]--> Status'));
+}
+
+function testCodeSpecParsedBackOut() {
+  const doc = _populated();
+  doc.setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total');
+  const md = _export(doc);
+  const report = _parse(md);
+  _check(
+    'codeSpec.md.parsed',
+    report.codeSpecs['D00/D00-OVR'] === 'CsOrder,CsOrder.total',
+    JSON.stringify(report.codeSpecs),
+  );
+}
+
+function testCodeSpecAndHeadlineRoundTripByteStable() {
+  const doc = _populated();
+  doc.setHeadline('D00/D00-OVR', 'Custom Overview');
+  doc.setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total,CsOrderRepository');
+  const md = _export(doc);
+  const [target] = _reload(md);
+  _check('codeSpec.md.byteStable', _export(target) === md);
+  _check(
+    'codeSpec.md.stored',
+    target.codeSpec('D00/D00-OVR') === 'CsOrder,CsOrder.total,CsOrderRepository',
+    String(target.codeSpec('D00/D00-OVR')),
+  );
+}
+
 function main() {
   testExportFormat();
   testExportStoredItemId();
@@ -541,6 +586,9 @@ function main() {
   testRejectMissingValue();
   testCaseInsensitiveLabels();
   testFenceShieldedHeadingsStayBody();
+  testCodeSpecRidesInHeadlineComment();
+  testCodeSpecParsedBackOut();
+  testCodeSpecAndHeadlineRoundTripByteStable();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

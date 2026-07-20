@@ -46,6 +46,12 @@ class SpecDocument {
     /** @type {Map<string, string>} */
     this._headline = new Map();
     /**
+     * The stored `codeSpec` forward-link per path (csmc8, §9.2): a comma-joined
+     * list of code locations. Structural mirror of {@link _headline}.
+     * @type {Map<string, string>}
+     */
+    this._codeSpec = new Map();
+    /**
      * The authoring object-model version (`major.minor`) this document was
      * loaded from, or `null` for a brand-new / unstamped document. Retained
      * here by {@link SpecDocument.fromYaml} so a consumer need not thread
@@ -236,6 +242,30 @@ class SpecDocument {
     return this._headline.keys();
   }
 
+  /**
+   * The stored `codeSpec` at `path`, or `null` when none is stored (csmc8,
+   * §9.2). Structural mirror of {@link headline}.
+   *
+   * @returns {string|null}
+   */
+  codeSpec(path) {
+    return this._codeSpec.has(path) ? this._codeSpec.get(path) : null;
+  }
+
+  /** Sets the stored codeSpec at `path`. An empty value clears it. */
+  setCodeSpec(path, value) {
+    if (value === '') {
+      this._codeSpec.delete(path);
+    } else {
+      this._codeSpec.set(path, value);
+    }
+  }
+
+  /** @returns {Iterable<string>} */
+  get codeSpecPaths() {
+    return this._codeSpec.keys();
+  }
+
   // --- lists --------------------------------------------------------------
 
   /** @returns {string[]} */
@@ -404,6 +434,7 @@ class SpecDocument {
       this._listSeq,
       this._itemSectionId,
       this._headline,
+      this._codeSpec,
     ]) {
       for (const key of Array.from(store.keys())) {
         if (isUnder(key)) {
@@ -420,7 +451,8 @@ class SpecDocument {
       this._content.size === 0 &&
       this._form.size === 0 &&
       this._listItems.size === 0 &&
-      this._headline.size === 0
+      this._headline.size === 0 &&
+      this._codeSpec.size === 0
     );
   }
 
@@ -444,6 +476,9 @@ class SpecDocument {
       if (isUnder(k)) return true;
     }
     for (const k of this._headline.keys()) {
+      if (isUnder(k)) return true;
+    }
+    for (const k of this._codeSpec.keys()) {
       if (isUnder(k)) return true;
     }
     return false;
@@ -536,6 +571,13 @@ class SpecDocument {
       }
       out.headlines = headlines;
     }
+    if (this._codeSpec.size > 0) {
+      const codeSpecs = {};
+      for (const k of Array.from(this._codeSpec.keys()).sort()) {
+        codeSpecs[k] = this._codeSpec.get(k);
+      }
+      out.codeSpecs = codeSpecs;
+    }
     return out;
   }
 
@@ -550,6 +592,7 @@ class SpecDocument {
     this._listSeq.clear();
     this._itemSectionId.clear();
     this._headline.clear();
+    this._codeSpec.clear();
 
     const content = json ? json.content : null;
     if (content && typeof content === 'object') {
@@ -611,6 +654,15 @@ class SpecDocument {
       for (const [k, v] of Object.entries(headlines)) {
         if (v !== null && v !== undefined && String(v) !== '') {
           this._headline.set(String(k), String(v));
+        }
+      }
+    }
+
+    const codeSpecs = json ? json.codeSpecs : null;
+    if (codeSpecs && typeof codeSpecs === 'object') {
+      for (const [k, v] of Object.entries(codeSpecs)) {
+        if (v !== null && v !== undefined && String(v) !== '') {
+          this._codeSpec.set(String(k), String(v));
         }
       }
     }

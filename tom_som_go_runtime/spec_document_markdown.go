@@ -111,6 +111,11 @@ type SpecMarkdownResult struct {
 	// differs from the effective default derivation (byte-stability — a
 	// default title stages nothing).
 	Headlines map[string]string
+	// CodeSpecs holds stored codeSpec mappings (§9.2): path → the comma-joined
+	// list of CodeSpecs code locations parsed from the `codeSpec="…"` key in
+	// the heading comment. Staged whenever present (codeSpec has no effective
+	// default).
+	CodeSpecs map[string]string
 }
 
 // IsClean reports whether the parse was clean (no rejections).
@@ -179,9 +184,18 @@ func (b *mdBuffer) String() string {
 
 // Shared with the parser and the DocSpecs validator.
 var (
-	mdHeadingLineRE     = regexp.MustCompile(`^(#+)\s+(.*)$`)
-	mdHeadlineCommentRE = regexp.MustCompile(`^<!--\[([^\]]+)\]-->\s*(.*)$`)
+	mdHeadingLineRE = regexp.MustCompile(`^(#+)\s+(.*)$`)
+	// The heading HTML comment: `<!--[ID]--> Title` with an optional key=value
+	// region between the id bracket and the closing `-->` (§9.2 codeSpec).
+	// Group 1 = the section id, group 2 = the raw key=value region (possibly
+	// empty), group 3 = the heading title. The middle group is `[^>]*` — safe
+	// because the region's only values are quoted code locations / identifiers,
+	// never a raw `>`.
+	mdHeadlineCommentRE = regexp.MustCompile(`^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`)
 	mdDocspecCommentRE  = regexp.MustCompile(`^<!--\s*docspec:.*-->\s*$`)
+	// Extracts the `codeSpec="…"` value from a heading-comment key=value region
+	// (§9.2), mirroring the tom_doc_scanner key=value grammar.
+	mdCodeSpecRE = regexp.MustCompile(`codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`)
 )
 
 var (
@@ -297,6 +311,22 @@ func SpecMarkdownItemTitleStem(elementClassName string) string {
 		stem = stem[:len(stem)-5]
 	}
 	return SpecMarkdownTitleCase(stem)
+}
+
+// mdCodeSpecOf extracts the `codeSpec="…"` value from a heading-comment
+// key=value region (§9.2). Returns the empty string when the region carries no
+// `codeSpec` key (first non-empty submatch, trimmed).
+func mdCodeSpecOf(region string) string {
+	m := mdCodeSpecRE.FindStringSubmatch(region)
+	if m == nil {
+		return ""
+	}
+	for _, g := range m[1:] {
+		if g != "" {
+			return strings.TrimSpace(g)
+		}
+	}
+	return ""
 }
 
 // SpecMarkdownFormLabel is the `FieldName` label written for a form field:
@@ -458,7 +488,7 @@ func (c *SpecDocumentMarkdown) ExportRoot(root *SpecRoot) (string, error) {
 	if rootTitle == "" {
 		rootTitle = root.Title
 	}
-	mdWriteHeading(b, 1, rootSeg, rootTitle)
+	mdWriteHeading(b, 1, rootSeg, rootTitle, c.Document.CodeSpecOr(rootSeg))
 	if err := c.writeSectionBody(b, node, rootSeg); err != nil {
 		return "", err
 	}
@@ -509,7 +539,7 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !ok {
 				continue
 			}
-			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child))
+			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), c.Document.CodeSpecOr(path))
 			if err := c.writeBody(b, value, path); err != nil {
 				return err
 			}
@@ -517,12 +547,12 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !c.formHasValues(child, path) {
 				continue
 			}
-			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child))
+			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), c.Document.CodeSpecOr(path))
 			if err := c.writeForm(b, child, path); err != nil {
 				return err
 			}
 		case SomMetaKindSection, SomMetaKindComplex:
-			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child))
+			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), c.Document.CodeSpecOr(path))
 			if err := c.writeSectionBody(b, child, path); err != nil {
 				return err
 			}
@@ -552,7 +582,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	}
 	// The container heading: its id is the list's `-LST` `@SectionId` (else the
 	// member segment for a pattern-less list); its title is the member name.
-	mdWriteHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node))
+	mdWriteHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node), c.Document.CodeSpecOr(listPath))
 	// Item heading stem. Complex lists derive it from the element class name
 	// (DR1 §1.5, `Entry` dropped). A scalar list (`[]string`, shape 6) has no
 	// element class — its element type name is literally `String`, which would
@@ -590,7 +620,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 		if itemTitle == "" {
 			itemTitle = stem + " " + itoa(pos)
 		}
-		mdWriteHeading(b, depth+1, itemID, itemTitle)
+		mdWriteHeading(b, depth+1, itemID, itemTitle, c.Document.CodeSpecOr(itemPath))
 		if element == nil {
 			// Scalar list: the item's value is its body.
 			value, _ := c.Document.Content(itemPath)
@@ -659,8 +689,16 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 // structure; the parse grammar accepts `#{7,}` accordingly. Capping would
 // silently flatten distinct nesting positions into siblings and break schema
 // validation.
-func mdWriteHeading(b *mdBuffer, depth int, id, title string) {
-	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]--> " + title)
+//
+// When codeSpec is non-empty it is emitted as a `codeSpec="…"` key inside the
+// same headline comment (§9.2): `## <!--[ID] codeSpec="A,B"--> Title`.
+// Byte-identical to before when empty.
+func mdWriteHeading(b *mdBuffer, depth int, id, title, codeSpec string) {
+	code := ""
+	if codeSpec != "" {
+		code = ` codeSpec="` + codeSpec + `"`
+	}
+	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]" + code + "--> " + title)
 	b.writeln("")
 }
 
@@ -768,6 +806,7 @@ func (c *SpecDocumentMarkdown) Parse(text string) *SpecMarkdownResult {
 		Rejections:   p.rejections,
 		RootPrefixes: p.rootPrefixes,
 		Headlines:    p.headlines,
+		CodeSpecs:    p.codeSpecs,
 	}
 }
 
@@ -800,7 +839,10 @@ type mdParser struct {
 	// headlines stages stored headlines (YRD3 §8.7): a heading's title is
 	// stored ONLY when it differs from the effective default derivation, so
 	// default-titled documents stay byte-stable.
-	headlines    map[string]string
+	headlines map[string]string
+	// codeSpecs stages stored codeSpec mappings (§9.2): a heading's
+	// `codeSpec="…"` key is staged whenever present (no effective default).
+	codeSpecs    map[string]string
 	listOrder    []string
 	rejections   []*SpecMarkdownRejection
 	rootPrefixes map[string]bool
@@ -820,6 +862,7 @@ func newMdParser(codec *SpecDocumentMarkdown) *mdParser {
 		forms:        map[string]map[string]string{},
 		lists:        map[string]*mdListState{},
 		headlines:    map[string]string{},
+		codeSpecs:    map[string]string{},
 		rootPrefixes: map[string]bool{},
 		fence:        &MarkdownFenceTracker{},
 	}
@@ -884,10 +927,11 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 		return
 	}
 	id := m[1]
-	title := strings.TrimSpace(m[2])
+	codeSpec := mdCodeSpecOf(m[2])
+	title := strings.TrimSpace(m[3])
 
 	if len(p.stack) == 0 {
-		p.openRoot(level, id, title, lineNo)
+		p.openRoot(level, id, title, codeSpec, lineNo)
 		return
 	}
 
@@ -917,7 +961,7 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	// 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
 	//    of that list's items — resolved positionally, not by the schema tree.
 	if pNode.Kind == SomMetaKindList {
-		p.openItemHeading(level, parent, pNode, id, title, lineNo)
+		p.openItemHeading(level, parent, pNode, id, title, codeSpec, lineNo)
 		return
 	}
 
@@ -931,13 +975,18 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 		if p.codec.headingIdOf(entry.node) == id {
 			// YRD3 §8.7: stage the heading text as a stored headline ONLY when
 			// it differs from the derived default (byte-stability).
+			path := parent.path + "/" + entry.rel
 			if title != "" && title != mdTitleOf(entry.node) {
-				p.headlines[parent.path+"/"+entry.rel] = title
+				p.headlines[path] = title
+			}
+			// §9.2: stage the codeSpec mapping whenever present (no default).
+			if codeSpec != "" {
+				p.codeSpecs[path] = codeSpec
 			}
 			p.stack = append(p.stack, &mdFrame{
 				level: level,
 				node:  entry.node,
-				path:  parent.path + "/" + entry.rel,
+				path:  path,
 				line:  lineNo,
 			})
 			return
@@ -960,7 +1009,7 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 // number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored
 // id, or — for any other id — an anonymous next item carrying the stored id.
 func (p *mdParser) openItemHeading(
-	level int, container *mdFrame, listNode *SomMetaNode, id, title string, lineNo int,
+	level int, container *mdFrame, listNode *SomMetaNode, id, title, codeSpec string, lineNo int,
 ) {
 	listPath := container.path
 	member := listNode.MemberName
@@ -970,7 +1019,7 @@ func (p *mdParser) openItemHeading(
 	anonRE, err := regexp.Compile("^" + regexp.QuoteMeta(member) + "-([0-9]+)$")
 	if err == nil {
 		if anon := anonRE.FindStringSubmatch(id); anon != nil {
-			p.openItem(level, listPath, listNode, atoi(anon[1]), "", true, title, lineNo)
+			p.openItem(level, listPath, listNode, atoi(anon[1]), "", true, title, codeSpec, lineNo)
 			return
 		}
 	}
@@ -988,22 +1037,22 @@ func (p *mdParser) openItemHeading(
 				"([0-9]+)" + regexp.QuoteMeta(parts[1]) + "$")
 			if err == nil {
 				if numbered := numberedRE.FindStringSubmatch(id); numbered != nil {
-					p.openItem(level, listPath, listNode, atoi(numbered[1]), "", true, title, lineNo)
+					p.openItem(level, listPath, listNode, atoi(numbered[1]), "", true, title, codeSpec, lineNo)
 					return
 				}
 			}
 		}
 		if mdPatternMatches(pattern, id) {
-			p.openItem(level, listPath, listNode, 0, id, false, title, lineNo)
+			p.openItem(level, listPath, listNode, 0, id, false, title, codeSpec, lineNo)
 			return
 		}
 	}
 	// Any other id under the container is an anonymous next item carrying the
 	// stored id — stored ids round-trip through Markdown too (YRD3).
-	p.openItem(level, listPath, listNode, 0, id, false, title, lineNo)
+	p.openItem(level, listPath, listNode, 0, id, false, title, codeSpec, lineNo)
 }
 
-func (p *mdParser) openRoot(level int, id, title string, lineNo int) {
+func (p *mdParser) openRoot(level int, id, title, codeSpec string, lineNo int) {
 	for _, root := range p.codec.Model.Roots {
 		seg := root.SectionID
 		if seg == "" {
@@ -1023,6 +1072,10 @@ func (p *mdParser) openRoot(level int, id, title string, lineNo int) {
 			}
 			if title != "" && title != defaultTitle {
 				p.headlines[seg] = title
+			}
+			// §9.2: stage the root codeSpec mapping whenever present.
+			if codeSpec != "" {
+				p.codeSpecs[seg] = codeSpec
 			}
 			p.rootPrefixes[seg] = true
 			p.stack = append(p.stack, &mdFrame{
@@ -1057,7 +1110,7 @@ func (p *mdParser) openRoot(level int, id, title string, lineNo int) {
 // number instead.
 func (p *mdParser) openItem(
 	level int, listPath string, listNode *SomMetaNode,
-	n int, storedID string, hasN bool, title string, lineNo int,
+	n int, storedID string, hasN bool, title, codeSpec string, lineNo int,
 ) {
 	state, ok := p.lists[listPath]
 	if !ok {
@@ -1082,6 +1135,10 @@ func (p *mdParser) openItem(
 	stem := mdItemStemOf(listNode)
 	if title != "" && title != stem+" "+itoa(number) {
 		p.headlines[itemPath] = title
+	}
+	// §9.2: stage the item codeSpec mapping whenever present.
+	if codeSpec != "" {
+		p.codeSpecs[itemPath] = codeSpec
 	}
 	p.stack = append(p.stack, &mdFrame{
 		level: level,

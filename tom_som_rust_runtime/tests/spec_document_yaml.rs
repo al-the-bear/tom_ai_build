@@ -531,6 +531,37 @@ fn yaml_test_class_level_only_key(c: &mut Checker, tree: &SomMetaTree) {
     );
 }
 
+/// csmc8 (§9.2): a stored codeSpec survives the yaml round-trip; a sibling
+/// without a codeSpec keeps no entry.
+fn yaml_test_code_spec_round_trip(c: &mut Checker, tree: &SomMetaTree) {
+    let mut doc = yaml_populated();
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
+    let yaml = yaml_enc(tree, &doc, "");
+    c.check("codeSpec.yaml.emitted", yaml.contains("codeSpec:"), &yaml);
+    let out = yaml_round_trip(tree, &doc);
+    c.check(
+        "codeSpec.yaml.restored",
+        out.code_spec_or("D00/D00-OVR") == "CsOrder,CsOrder.total,CsOrderRepository",
+        &out.code_spec_or("D00/D00-OVR"),
+    );
+    // Sibling without codeSpec keeps no codeSpec entry.
+    c.check(
+        "codeSpec.yaml.sibling",
+        out.code_spec("D00/D00-PRI").is_none(),
+        &format!("{:?}", out.code_spec("D00/D00-PRI")),
+    );
+}
+
+/// csmc8 (§9.2): encode is byte-stable with codeSpec across decode → re-encode.
+fn yaml_test_code_spec_byte_stable(c: &mut Checker, tree: &SomMetaTree) {
+    let mut doc = yaml_populated();
+    doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total");
+    let yaml1 = yaml_enc(tree, &doc, "1.2");
+    let decoded = yaml_dec(tree, &yaml1).document;
+    let yaml2 = encode_yaml(&decoded, tree, "1.2").expect("re-encode");
+    c.check("codeSpec.yaml.byteStable", yaml2 == yaml1, &yaml2);
+}
+
 /// Runs the shared DR5 hierarchical-codec suite.
 #[test]
 fn spec_document_yaml() {
@@ -540,5 +571,7 @@ fn spec_document_yaml() {
     yaml_test_round_trip(&mut c, &tree);
     yaml_test_strict_decode(&mut c, &tree);
     yaml_test_class_level_only_key(&mut c, &tree);
+    yaml_test_code_spec_round_trip(&mut c, &tree);
+    yaml_test_code_spec_byte_stable(&mut c, &tree);
     c.finish();
 }

@@ -82,7 +82,7 @@ def main() -> None:
     out: list[str] = []
     out.append("# TomSpecs SOM golden log — canonical cross-language reading.")
     out.append("# All nine per-language generators must emit byte-identical output.")
-    out.append("FORMAT\t7")
+    out.append("FORMAT\t8")
     out.append("MODELVERSION\t" + esc(doc.model_version or ""))
 
     # Generic: content leaves, sorted by path.
@@ -113,6 +113,11 @@ def main() -> None:
     out.append("SECTION\tgeneric-headlines")
     for p in sorted(doc.headline_paths):
         out.append("H\t%s\t%s" % (p, esc(doc.headline(p) or "")))
+
+    # Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2 mirror of headline).
+    out.append("SECTION\tgeneric-codespecs")
+    for p in sorted(doc.code_spec_paths):
+        out.append("CS\t%s\t%s" % (p, esc(doc.code_spec(p) or "")))
 
     # Typed: curated traversal that must agree with the generic reads.
     out.append("SECTION\ttyped")
