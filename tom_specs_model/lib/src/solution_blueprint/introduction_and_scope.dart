@@ -15,6 +15,7 @@ import '../document_stubs.dart';
 /// High-level overview of the system to be built: its purpose, goals,
 /// scope boundaries, and the environment it operates in. This section
 /// establishes the foundation for all subsequent specification work.
+@FollowUpKind([FollowUpProcess.doc])
 @SectionId('INSC')
 class IntroductionAndScope extends DocSpecsSection {
   @ContentHelp('''

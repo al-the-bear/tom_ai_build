@@ -191,6 +191,12 @@ are authored in the Data Model Follow-up Facets section (7.9).
   ],
   'Per-entity operational/governance follow-up facets and the model-wide ER diagram, kept separate from the generation-owned data model.',
 )
+@FollowUpKind([
+  FollowUpProcess.doc,
+  FollowUpProcess.cap,
+  FollowUpProcess.cmp,
+  FollowUpProcess.mig,
+])
 @SectionId('DMFU')
 class DataModelFollowUp extends DocSpecsSection {
   @ContentHelp('''

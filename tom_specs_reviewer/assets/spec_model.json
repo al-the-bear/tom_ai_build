@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T10:25:20.401526Z",
+  "generatedAt": "2026-07-20T10:43:24.099071Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -13935,6 +13935,14 @@
           }
         },
         {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ]
+          }
+        },
+        {
           "name": "SectionId",
           "arguments": {
             "id": "ACDP"
@@ -15847,6 +15855,14 @@
               "SOC 2 — trust services criteria"
             ],
             "connotation": "The CMP follow-up: UI authorization compliance — how the interface adapts to user roles and permissions as a compliance obligation."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp"
+            ]
           }
         },
         {
@@ -53611,6 +53627,14 @@
           }
         },
         {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ]
+          }
+        },
+        {
           "name": "SectionId",
           "arguments": {
             "id": "CULA"
@@ -65778,6 +65802,17 @@
           }
         },
         {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc",
+              "FollowUpProcess.cap",
+              "FollowUpProcess.cmp",
+              "FollowUpProcess.mig"
+            ]
+          }
+        },
+        {
           "name": "SectionId",
           "arguments": {
             "id": "DMFU"
@@ -74634,6 +74669,17 @@
               "ISO/IEC/IEEE 29148:2018 — transition requirements"
             ],
             "connotation": "How the solution is delivered, transitioned into operation, and rolled out in stages."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ]
           }
         },
         {
@@ -85170,6 +85216,14 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Fill in the document header, then maintain the revision history, approvals, and reference-document catalogue as the specification evolves. This section governs the document — not the system it describes."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ]
           }
         },
         {
@@ -97921,6 +97975,14 @@
           }
         },
         {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ]
+          }
+        },
+        {
           "name": "SectionId",
           "arguments": {
             "id": "XDFU"
@@ -98061,6 +98123,14 @@
               "Unicode CLDR — locale data"
             ],
             "connotation": "The L10N follow-up: the multi-language support / internationalization approach for the user interface."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.l10n"
+            ]
           }
         },
         {
@@ -110762,6 +110832,14 @@
               "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
             ],
             "connotation": "The controlled vocabulary — terms, acronyms, and abbreviations — used consistently throughout the specification."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ]
           }
         },
         {
@@ -127540,6 +127618,14 @@
       "sectionId": "INSC",
       "doc": "4. Introduction & Scope.\n\nHigh-level overview of the system to be built: its purpose, goals,\nscope boundaries, and the environment it operates in. This section\nestablishes the foundation for all subsequent specification work.",
       "annotations": [
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ]
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158374,6 +158460,15 @@
           }
         },
         {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ]
+          }
+        },
+        {
           "name": "SectionId",
           "arguments": {
             "id": "OAPC"
@@ -182437,6 +182532,14 @@
           }
         },
         {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ]
+          }
+        },
+        {
           "name": "SectionId",
           "arguments": {
             "id": "QACM"
@@ -196330,6 +196433,16 @@
               "ISO/IEC/IEEE 26511/26514/26515 — information for use"
             ],
             "connotation": "The framework-uncovered follow-up NFR sub-areas — localization, information-for-use, and training — grouped out of the CodeSpecs seed subtree as non-generated requirements."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.l10n",
+              "FollowUpProcess.doc",
+              "FollowUpProcess.trn"
+            ]
           }
         },
         {
@@ -216848,6 +216961,14 @@
           }
         },
         {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp"
+            ]
+          }
+        },
+        {
           "name": "SectionId",
           "arguments": {
             "id": "SCCF"
@@ -217981,6 +218102,14 @@
               "NIST SP 800-57 — key management"
             ],
             "connotation": "The OPS follow-up: sensitive-data encryption (key management) and audit / logging operations, consumed operationally rather than generated."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ]
           }
         },
         {
@@ -227573,6 +227702,14 @@
           }
         },
         {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ]
+          }
+        },
+        {
           "name": "SectionId",
           "arguments": {
             "id": "SATF"
@@ -234986,6 +235123,14 @@
               "PMBOK — project governance"
             ],
             "connotation": "Who has a stake in the project and how it is governed: steering, RACI, communication, change control, and legal/contractual framing."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org"
+            ]
           }
         },
         {

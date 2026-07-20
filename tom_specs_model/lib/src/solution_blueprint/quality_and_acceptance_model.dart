@@ -18,6 +18,7 @@ import 'quality_model.dart';
   'The product-quality goals the solution is measured against, together with '
   'the scope and criteria for accepting delivery.',
 )
+@FollowUpKind([FollowUpProcess.acc])
 @SectionId('QACM')
 class QualityAndAcceptanceModel extends DocSpecsSection {
   @Unused()

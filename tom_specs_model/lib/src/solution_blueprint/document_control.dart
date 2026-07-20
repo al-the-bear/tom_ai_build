@@ -25,6 +25,7 @@ import '../common/document_header.dart';
   'approvals, and reference-document catalogue as the specification evolves. '
   'This section governs the document — not the system it describes.',
 )
+@FollowUpKind([FollowUpProcess.doc])
 @SectionId('DOCTL')
 class DocumentControl extends DocSpecsSection {
   @Unused()

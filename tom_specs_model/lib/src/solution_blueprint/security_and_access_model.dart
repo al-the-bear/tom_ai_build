@@ -119,6 +119,7 @@ class AccessControlModel extends DocSpecsSection {
   'The OPS follow-up: sensitive-data encryption (key management) and audit / '
   'logging operations, consumed operationally rather than generated.',
 )
+@FollowUpKind([FollowUpProcess.ops])
 @SectionId('SCOF')
 class SecurityOperationsFollowUp extends DocSpecsSection {
   @ContentType('description', 'Summarize the operational security follow-up: '
@@ -150,6 +151,7 @@ class SecurityOperationsFollowUp extends DocSpecsSection {
   'The CMP follow-up: the compliance framework governing regulatory and audit '
   'obligations, consumed as compliance documentation rather than generated.',
 )
+@FollowUpKind([FollowUpProcess.cmp])
 @SectionId('SCCF')
 class SecurityComplianceFollowUp extends DocSpecsSection {
   @ContentType('description', 'Summarize the compliance follow-up: the '

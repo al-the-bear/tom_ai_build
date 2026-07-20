@@ -60,6 +60,7 @@ class SolutionArchitectureAndTechnology extends DocSpecsSection {
   'The descriptive-architecture follow-up: component-reuse rationale (component '
   'catalogue and dependency strategy) consumed as documentation, not generated.',
 )
+@FollowUpKind([FollowUpProcess.doc])
 @SectionId('SATF')
 class SolutionArchitectureFollowUp extends DocSpecsSection {
   @ContentType('description', 'Summarize the descriptive-architecture follow-up: '

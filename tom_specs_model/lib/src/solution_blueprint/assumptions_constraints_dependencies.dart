@@ -14,6 +14,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
   'The single register of assumptions the solution relies on, constraints it '
   'must operate within, and external dependencies.',
 )
+@FollowUpKind([FollowUpProcess.doc])
 @SectionId('ACDP')
 class AssumptionsConstraintsDependencies extends DocSpecsSection {
   @ContentType('description', 'Summarize the key assumptions the solution '

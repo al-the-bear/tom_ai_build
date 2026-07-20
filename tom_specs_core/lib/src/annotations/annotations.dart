@@ -10,6 +10,7 @@ export 'content_help.dart';
 export 'content_type.dart';
 export 'detailed_in.dart';
 export 'document.dart';
+export 'follow_up_kind.dart';
 export 'for_each.dart';
 export 'form.dart';
 export 'headline.dart';

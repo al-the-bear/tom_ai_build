@@ -22,6 +22,12 @@ import 'transition_and_rollout_plan.dart';
   'How the solution is delivered, transitioned into operation, and rolled out '
   'in stages.',
 )
+@FollowUpKind([
+  FollowUpProcess.mig,
+  FollowUpProcess.ops,
+  FollowUpProcess.org,
+  FollowUpProcess.l10n,
+])
 @SectionId('DTRO')
 class DeliveryTransitionAndRollout extends DocSpecsSection {
   @Unused()

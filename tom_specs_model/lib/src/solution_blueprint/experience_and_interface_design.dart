@@ -215,6 +215,7 @@ class ExperienceCodeSpecs extends DocSpecsSection {
   'The DOC design follow-up: design vision, print / export layout, user '
   'assistance, accessibility, prototype, and wireframes & mockups.',
 )
+@FollowUpKind([FollowUpProcess.doc])
 @SectionId('XDFU')
 class ExperienceDesignFollowUp extends DocSpecsSection {
   @ContentType('description', 'Summarize the design follow-up: vision, print '
@@ -264,6 +265,7 @@ class ExperienceDesignFollowUp extends DocSpecsSection {
   'The L10N follow-up: the multi-language support / internationalization '
   'approach for the user interface.',
 )
+@FollowUpKind([FollowUpProcess.l10n])
 @SectionId('XLFU')
 class ExperienceLocalizationFollowUp extends DocSpecsSection {
   @ContentType('description', 'Summarize the localization follow-up: the '
@@ -292,6 +294,7 @@ class ExperienceLocalizationFollowUp extends DocSpecsSection {
   'The CMP follow-up: UI authorization compliance — how the interface adapts to '
   'user roles and permissions as a compliance obligation.',
 )
+@FollowUpKind([FollowUpProcess.cmp])
 @SectionId('XCFU')
 class AuthorizationComplianceFollowUp extends DocSpecsSection {
   @ContentType('description', 'Summarize the authorization-compliance follow-up: '

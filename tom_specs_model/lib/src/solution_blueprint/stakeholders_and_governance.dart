@@ -21,6 +21,7 @@ import 'project_process_adjustments.dart';
   'Who has a stake in the project and how it is governed: steering, RACI, '
   'communication, change control, and legal/contractual framing.',
 )
+@FollowUpKind([FollowUpProcess.org])
 @SectionId('STKG')
 class StakeholdersAndGovernance extends DocSpecsSection {
   @ContentHelp('''

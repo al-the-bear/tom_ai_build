@@ -63,6 +63,7 @@ class TargetOperatingModel extends DocSpecsSection {
   'The organizational and process-narrative facets of the future-state '
   'operating model — organization structure, roles, and process descriptions.',
 )
+@FollowUpKind([FollowUpProcess.org, FollowUpProcess.ops])
 @SectionId('OAPC')
 @Comment('Seeds → TOM')
 class OrganizationAndProcessConcept extends DocSpecsSection {

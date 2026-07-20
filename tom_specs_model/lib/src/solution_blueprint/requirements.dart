@@ -77,6 +77,7 @@ class Requirements extends DocSpecsSection {
   'information-for-use, and training — grouped out of the CodeSpecs seed '
   'subtree as non-generated requirements.',
 )
+@FollowUpKind([FollowUpProcess.l10n, FollowUpProcess.doc, FollowUpProcess.trn])
 @SectionId('REQFU')
 class RequirementsFollowUp extends DocSpecsSection {
   @ContentType('description', 'Summarize the follow-up (non-generated) NFR '

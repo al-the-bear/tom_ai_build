@@ -13,6 +13,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
   'The controlled vocabulary — terms, acronyms, and abbreviations — used '
   'consistently throughout the specification.',
 )
+@FollowUpKind([FollowUpProcess.doc])
 @SectionId('GLAB')
 class GlossaryAndAbbreviations extends DocSpecsSection {
   @ContentType(
