@@ -13,7 +13,7 @@ document roots to generate.
 tom-spec-object-model:
   version-label: v0            # optional, default "v0" — suffix on tom_som_<slug>_<label>
   output-base: tom_ai/ai_build # optional, default "."  — base for default output roots
-  document-roots:              # optional — absent/empty ⇒ generate ALL 13 document roots
+  document-roots:              # optional — absent/empty ⇒ generate ALL 14 document roots
     - D00SolutionBlueprint
     - D01CurrentLandscapeAssessment
   languages:                   # required, non-empty
@@ -29,7 +29,7 @@ tom-spec-object-model:
 | --- | --- | --- | --- |
 | `version-label` | String | `v0` | Version suffix on generated project names (`_v0`, `_v1`, …). |
 | `output-base` | String | `.` | Base dir for **default** per-language output roots. |
-| `document-roots` | List\<String\> | *all 13 roots* | Document root type names to generate; empty/absent means every root. |
+| `document-roots` | List\<String\> | *all 14 roots* | Document root type names to generate; empty/absent means every root. |
 | `languages` | List | *(required)* | Generation targets, in order. Each entry is a **token string** or a `{language, output}` **map**. |
 
 ### Languages

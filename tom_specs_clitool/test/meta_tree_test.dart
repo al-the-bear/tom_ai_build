@@ -248,8 +248,8 @@ void main() {
           .buildAllDocumentRoots();
     });
 
-    test('DR2-E1: all 13 document roots build a tree [2026-07-07]', () {
-      expect(roots, hasLength(13));
+    test('DR2-E1: all 14 document roots build a tree [2026-07-07]', () {
+      expect(roots, hasLength(14));
       expect(roots.keys, contains('D00SolutionBlueprint'));
       final sbp = roots['D00SolutionBlueprint']!;
       expect(sbp.sectionId, 'SBP');
@@ -260,7 +260,7 @@ void main() {
 
     test(
         'DR2-E2: every annotation on every reachable class/field is '
-        'represented on its node (all 13 roots) [2026-07-07]', () {
+        'represented on its node (all 14 roots) [2026-07-07]', () {
       final problems = <String>[];
 
       void check(MetaNode node, {ModelField? sourceField, String path = ''}) {

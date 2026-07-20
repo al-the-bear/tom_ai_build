@@ -5061,6 +5061,39 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as D12TransitionRolloutPlan).content,
   ));
+  SpecRegistry.register(D13CodeSpecsProjection, SpecClassOps(
+    slots: (o) {
+      final n = o as D13CodeSpecsProjection;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.domainEnumRegistry, (v) => n.domainEnumRegistry = v as DomainEnumRegistry, label: 'domainEnumRegistry'),
+        SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
+        SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
+        SpecSlot.node(() => n.messageKeyRegistry, (v) => n.messageKeyRegistry = v as MessageKeyRegistry, label: 'messageKeyRegistry'),
+        SpecSlot.node(() => n.dataModel, (v) => n.dataModel = v as DataModel, label: 'dataModel'),
+        SpecSlot.node(() => n.technicalFramework, (v) => n.technicalFramework = v as TechnicalFrameworkConcept, label: 'technicalFramework'),
+        SpecSlot.node(() => n.accessControl, (v) => n.accessControl = v as AccessControlModel, label: 'accessControl'),
+        SpecSlot.node(() => n.processStepsAndActorInteractions, (v) => n.processStepsAndActorInteractions = v as ProcessStepsAndActorInteractions, label: 'processStepsAndActorInteractions'),
+        SpecSlot.node(() => n.experienceCodeSpecs, (v) => n.experienceCodeSpecs = v as ExperienceCodeSpecs, label: 'experienceCodeSpecs'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as D13CodeSpecsProjection;
+      return D13CodeSpecsProjection()
+        ..content = n.content
+        ..header = n.header
+        ..domainEnumRegistry = n.domainEnumRegistry
+        ..errorCodeRegistry = n.errorCodeRegistry
+        ..resultEnvelope = n.resultEnvelope
+        ..messageKeyRegistry = n.messageKeyRegistry
+        ..dataModel = n.dataModel
+        ..technicalFramework = n.technicalFramework
+        ..accessControl = n.accessControl
+        ..processStepsAndActorInteractions = n.processStepsAndActorInteractions
+        ..experienceCodeSpecs = n.experienceCodeSpecs;
+    },
+    yamlScalar: (o) => (o as D13CodeSpecsProjection).content,
+  ));
   SpecRegistry.register(DashboardEntry, SpecClassOps(
     slots: (o) {
       final n = o as DashboardEntry;
@@ -7048,6 +7081,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.architectureTechnologySpecification, (v) => n.architectureTechnologySpecification = v as D06ArchitectureTechnologySpecification, label: 'architectureTechnologySpecification'),
         SpecSlot.node(() => n.interactionScenarios, (v) => n.interactionScenarios = v as D05InteractionScenarios, label: 'interactionScenarios'),
         SpecSlot.node(() => n.experienceDesignSpecification, (v) => n.experienceDesignSpecification = v as D09ExperienceDesignSpecification, label: 'experienceDesignSpecification'),
+        SpecSlot.node(() => n.codeSpecsProjection, (v) => n.codeSpecsProjection = v as D13CodeSpecsProjection, label: 'codeSpecsProjection'),
       ];
     },
     cloneShallow: (o) {
@@ -7065,7 +7099,8 @@ void registerSpecOps() {
         ..transitionRolloutPlan = n.transitionRolloutPlan
         ..architectureTechnologySpecification = n.architectureTechnologySpecification
         ..interactionScenarios = n.interactionScenarios
-        ..experienceDesignSpecification = n.experienceDesignSpecification;
+        ..experienceDesignSpecification = n.experienceDesignSpecification
+        ..codeSpecsProjection = n.codeSpecsProjection;
     },
   ));
   SpecRegistry.register(DocumentControl, SpecClassOps(

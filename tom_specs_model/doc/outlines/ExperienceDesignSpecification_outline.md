@@ -46,13 +46,13 @@
                 - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut),
                   execution, navigation
               - fieldSpec: `ScreenElementFieldSpec`
-                - content @Form(fieldName, dataType, placeholderResource), formatting, constraints, validation,
-                  selection
+                - content @Form(fieldName, dataType, placeholderResource), formatting, numberOptions, dateOptions,
+                  textOptions, validation, selectOptions
               - dataDisplay: `ScreenElementDataDisplay`
                 - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
                   behavior, options
               - validationRules: `ElementValidationRuleEntry`
-                - content @Form(ruleType, ruleExpression, errorMessageResource, severity, validateOn)
+                - content @Form(ruleType, ruleExpression, errorCode, errorMessageResource, severity, validateOn)
         - actions: `ScreenActions`
           - content
           - items: `ScreenActionEntry`
@@ -191,9 +191,7 @@
       - breakpoints: `BreakpointEntry`
         - content @Form(breakpointId, breakpointName, minWidth, maxWidth), layout, scaling
     - `ResponsiveBehavior`
-      - layoutAdaptation, navigation, visibility, touch, behaviorNarrative @text
-      - contentReflow: `ResponsiveBehaviorContent`
-        - content @Form(contentReflowStrategy, imageScaling, tableResponsiveness, formLayout)
+      - layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
       - screenRules: `ResponsiveScreenRuleEntry`
         - content @Form(screenId, screenName, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
   - `UiComponents`

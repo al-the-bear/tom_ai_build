@@ -409,7 +409,7 @@ void main() {
   });
 
   // -------------------------------------------------------------------------
-  // End-to-end against the real tom_specs_model (S1: 13 schemas).
+  // End-to-end against the real tom_specs_model (S1: 14 schemas).
   // -------------------------------------------------------------------------
 
   group('DocSpecsSchemaGenerator — real tom_specs_model', () {
@@ -428,9 +428,9 @@ void main() {
     setUp(() => dir = Directory.systemTemp.createTempSync('specs_schema_e2e_'));
     tearDown(() => dir.deleteSync(recursive: true));
 
-    test('S1: generates exactly 13 schemas (1 global SBP + 12 projections)', () {
+    test('S1: generates exactly 14 schemas (1 global SBP + 13 projections)', () {
       final schemas = DocSpecsSchemaGenerator(classes).generateAll();
-      expect(schemas.length, 13);
+      expect(schemas.length, 14);
       expect(schemas.keys, contains('solution-blueprint'));
     });
 

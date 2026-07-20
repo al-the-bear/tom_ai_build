@@ -5,6 +5,7 @@ export 'access_key.dart';
 export 'allowed_tags.dart';
 export 'case_of.dart';
 export 'code_spec_kind.dart';
+export 'code_specs_projection.dart';
 export 'comment.dart';
 export 'content_help.dart';
 export 'content_type.dart';

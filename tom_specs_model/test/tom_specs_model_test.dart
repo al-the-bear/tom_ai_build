@@ -49,10 +49,11 @@ void main() {
   });
 
   group('DocSpecsProject (canonical container root, V2/N9)', () {
-    test('default-constructs the full tree with all 13 document roots', () {
+    test('default-constructs the full tree with all 14 document roots', () {
       final spec = DocSpecsProject();
 
-      // Solution Blueprint master + the 12 Phase 3 projection roots.
+      // Solution Blueprint master + the 12 Phase 3 projection roots + the
+      // D13 CodeSpecs generation projection.
       expect(spec.solutionBlueprint, isA<D00SolutionBlueprint>());
       expect(spec.securityAccessSpecification,
           isA<D08SecurityAccessSpecification>());
@@ -74,6 +75,7 @@ void main() {
       expect(spec.interactionScenarios, isA<D05InteractionScenarios>());
       expect(spec.experienceDesignSpecification,
           isA<D09ExperienceDesignSpecification>());
+      expect(spec.codeSpecsProjection, isA<D13CodeSpecsProjection>());
     });
 
     test('is not a document node — carries no @Document / @SectionId (N9)', () {

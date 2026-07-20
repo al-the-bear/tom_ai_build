@@ -21,4 +21,4 @@ tom-spec-object-model:
     - rust
     - c
     - cpp
-  # document-roots: omitted ⇒ generate every document root (all 13).
+  # document-roots: omitted ⇒ generate every document root (all 14).

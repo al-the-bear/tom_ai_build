@@ -91,8 +91,8 @@ void main() {
         contains('SpecDocument.fromYaml(yaml, '
             'TomSomV0Meta.D00SolutionBlueprintMetaTree)'));
 
-    // One DocSpecs schema per @Document root (13).
-    expect(result.schemaPaths.length, 13);
+    // One DocSpecs schema per @Document root (14).
+    expect(result.schemaPaths.length, 14);
     for (final s in result.schemaPaths) {
       expect(File(s).existsSync(), isTrue);
     }

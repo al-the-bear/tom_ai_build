@@ -3,9 +3,10 @@
 ///
 /// ## What this provides
 ///
-/// A spec is **one document** with thirteen entry points: the Solution
-/// Blueprint master plus twelve Phase 3 *projection* roots that reference the
-/// same SBP sections (§14). Two serialization rules follow from that:
+/// A spec is **one document** with fourteen entry points: the Solution
+/// Blueprint master, twelve Phase 3 *projection* roots, and the D13 CodeSpecs
+/// generation projection — all views that reference the same SBP sections
+/// (§14). Two serialization rules follow from that:
 ///
 ///  - **Global save (`*.docspecs.yaml`) writes only the Solution Blueprint.**
 ///    Because every projection is a view over the same SBP sections, serializing

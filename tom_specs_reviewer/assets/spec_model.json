@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-20T10:43:24.099071Z",
+  "generatedAt": "2026-07-20T11:16:59.638Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1241,
-  "rootCount": 13,
+  "classCount": 1242,
+  "rootCount": 14,
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -97,6 +97,13 @@
       "sectionId": "TRP",
       "description": "End-to-end rollout specification — localization, translation, documentation and training, rollout plan, migration plan, user manuals, training materials, pilot, cutover, knowledge transfer, and warranty/support.",
       "doc": "TRP00 Transition & Rollout Plan.\n\nEnd-to-end rollout specification — localization, translation,\ndocumentation and training, plus rollout plan, migration plan,\nuser manuals, training materials, pilot, cutover, knowledge\ntransfer, and warranty/support."
+    },
+    {
+      "type": "D13CodeSpecsProjection",
+      "title": "CodeSpecs Generation Projection",
+      "sectionId": "CGP",
+      "description": "The Phase-4 CodeSpecs generation input — a projection over the Solution Blueprint that reaches only the isolated CodeSpecs subtrees, grouped by the shared/client/server locus of their CE-parts.",
+      "doc": "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed."
     }
   ],
   "classes": {
@@ -58385,6 +58392,276 @@
         }
       ]
     },
+    "D13CodeSpecsProjection": {
+      "name": "D13CodeSpecsProjection",
+      "sectionId": "CGP",
+      "doc": "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description (the generation input as an architecture view over the blueprint)",
+          "Model-driven engineering — platform-independent model → code generation"
+        ],
+        "connotation": "The Phase-4 CodeSpecs generation input: the isolated CodeSpecs subtrees routed across the shared / client / server three-way split by locus."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (the generation input as an architecture view over the blueprint)",
+              "Model-driven engineering — platform-independent model → code generation"
+            ],
+            "connotation": "The Phase-4 CodeSpecs generation input: the isolated CodeSpecs subtrees routed across the shared / client / server three-way split by locus."
+          }
+        },
+        {
+          "name": "Document",
+          "arguments": {
+            "name": "CodeSpecs Generation Projection",
+            "description": "The Phase-4 CodeSpecs generation input — a projection over the Solution Blueprint that reaches only the isolated CodeSpecs subtrees, grouped by the shared/client/server locus of their CE-parts.",
+            "basedOn": [
+              "D00SolutionBlueprint"
+            ]
+          }
+        },
+        {
+          "name": "CodeSpecsProjection"
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CGP"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "header",
+          "kind": "complex",
+          "doc": "Standard TomSpecs document header.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "type": "DocumentHeader"
+        },
+        {
+          "name": "domainEnumRegistry",
+          "kind": "complex",
+          "doc": "Domain enum registry — CE-EN closed value sets, shared by client & server.",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: shared — CE-EN"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "type": "DomainEnumRegistry"
+        },
+        {
+          "name": "errorCodeRegistry",
+          "kind": "complex",
+          "doc": "Error code registry — CE-ER shared error-code vocabulary.",
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: shared — CE-ER"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "type": "ErrorCodeRegistry"
+        },
+        {
+          "name": "resultEnvelope",
+          "kind": "complex",
+          "doc": "Result envelope — CE-ER canonical §7 success-or-error contract, shared.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: shared — CE-ER"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "type": "ResultEnvelope"
+        },
+        {
+          "name": "messageKeyRegistry",
+          "kind": "complex",
+          "doc": "Message key registry — CE-TX author-copy-once keys, shared.",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: shared — CE-TX"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "type": "MessageKeyRegistry"
+        },
+        {
+          "name": "dataModel",
+          "kind": "complex",
+          "doc": "Data model — CE-DB persistence + CE-VA server-side rules.",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-DB/CE-VA"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "type": "DataModel"
+        },
+        {
+          "name": "technicalFramework",
+          "kind": "complex",
+          "doc": "Technical framework — CE-CF platform/config foundation.",
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-CF"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
+              }
+            }
+          ],
+          "type": "TechnicalFrameworkConcept"
+        },
+        {
+          "name": "accessControl",
+          "kind": "complex",
+          "doc": "Access control model — CE-AZ authorization/identity seed.",
+          "serializationOrder": 8,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-AZ"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 8
+              }
+            }
+          ],
+          "type": "AccessControlModel"
+        },
+        {
+          "name": "processStepsAndActorInteractions",
+          "kind": "complex",
+          "doc": "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
+          "serializationOrder": 9,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server(CE-SU)+client(CE-SC)"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 9
+              }
+            }
+          ],
+          "type": "ProcessStepsAndActorInteractions"
+        },
+        {
+          "name": "experienceCodeSpecs",
+          "kind": "complex",
+          "doc": "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
+          "serializationOrder": 10,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 10
+              }
+            }
+          ],
+          "type": "ExperienceCodeSpecs"
+        }
+      ]
+    },
     "DashboardEntry": {
       "name": "DashboardEntry",
       "sectionId": "DASENT",
@@ -84992,7 +85269,7 @@
     },
     "DocSpecsProject": {
       "name": "DocSpecsProject",
-      "doc": "Canonical container root for the whole TomSpecs object model (V2, N9).\n\nA spec is **one document** with thirteen entry points: the\n[D00SolutionBlueprint] master plus the twelve Phase 3 projection roots. This\nclass gives that document a **single true root** — every document root hangs\noff one object, so the editor can load, serialize, snapshot, and undo the\nentire spec by operating on a single [DocSpecsProject] instance instead of\nthirteen disconnected entry points.\n\n**Not a document node (N9).** The container carries **no `@SectionId`** and\n**no `@Document`** annotation: it is the tree root the tooling walks, *not* a\nfourteenth sibling document. It never renders in the root navigator as\ncontent — the navigator lists [solutionBlueprint] first, then the twelve\nprojection roots. Tooling (`ModelJsonExporter`, the §8.6 validator, the\noutliner) treats it as the canonical root and exempts it from `@SectionId`\ncoverage/uniqueness (T1).\n\n**The D00SolutionBlueprint is the source of truth.** The twelve Phase 3 roots\nare `@Document(basedOn: [D00SolutionBlueprint])` *projections* that reference\nthe same SBP sections through their `@MapsTo` / `@DetailedIn` links; they do\nnot own copies. Editing through any projection edits the shared underlying\nSolution Blueprint sections (§14).\n\nThis class is the structural anchor only. The global `toYaml` save\n(Solution-Blueprint-only, §15.1) and the projection connect pass (N11) are\nadded in a later step; here the container simply wires the thirteen roots\nonto one tree.",
+      "doc": "Canonical container root for the whole TomSpecs object model (V2, N9).\n\nA spec is **one document** with fourteen entry points: the\n[D00SolutionBlueprint] master, the twelve Phase 3 projection roots, and the\n[D13CodeSpecsProjection] Phase-4 generation projection. This class gives that\ndocument a **single true root** — every document root hangs off one object,\nso the editor can load, serialize, snapshot, and undo the entire spec by\noperating on a single [DocSpecsProject] instance instead of fourteen\ndisconnected entry points.\n\n**Not a document node (N9).** The container carries **no `@SectionId`** and\n**no `@Document`** annotation: it is the tree root the tooling walks, *not* a\nfifteenth sibling document. It never renders in the root navigator as\ncontent — the navigator lists [solutionBlueprint] first, then the twelve\nPhase-3 projection roots, then the [D13CodeSpecsProjection]. Tooling\n(`ModelJsonExporter`, the §8.6 validator, the outliner) treats it as the\ncanonical root and exempts it from `@SectionId` coverage/uniqueness (T1).\n\n**The D00SolutionBlueprint is the source of truth.** The twelve Phase 3 roots\nand the [D13CodeSpecsProjection] are `@Document(basedOn: [D00SolutionBlueprint])`\n*projections* that reference the same SBP sections through their `@MapsTo` /\n`@DetailedIn` links (Phase-3) or `@CodeSpecKind` tags (D13); they do not own\ncopies. Editing through any projection edits the shared underlying Solution\nBlueprint sections (§14).\n\nThis class is the structural anchor only. The global `toYaml` save\n(Solution-Blueprint-only, §15.1) and the projection connect pass (N11) are\nadded in a later step; here the container simply wires the fourteen roots\nonto one tree.",
       "fields": [
         {
           "name": "solutionBlueprint",
@@ -85188,6 +85465,21 @@
             }
           ],
           "type": "D09ExperienceDesignSpecification"
+        },
+        {
+          "name": "codeSpecsProjection",
+          "kind": "complex",
+          "doc": "D13 — CodeSpecs Generation Projection (Phase 4 generation input).\n\nA `@Document(basedOn: [D00SolutionBlueprint])` projection like the twelve\nPhase-3 roots, but `@CodeSpecKind`-driven: it reaches only the isolated\nCodeSpecs subtrees the Phase-4 generator consumes, grouped by\nshared/client/server locus. Marked `@CodeSpecsProjection()`.",
+          "serializationOrder": 13,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 13
+              }
+            }
+          ],
+          "type": "D13CodeSpecsProjection"
         }
       ]
     },

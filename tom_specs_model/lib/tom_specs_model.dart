@@ -6,6 +6,7 @@
 library;
 
 export 'src/architecture_technology_specification/architecture_technology_specification.dart';
+export 'src/codespecs_projection/codespecs_projection.dart';
 export 'src/common/common.dart';
 export 'src/current_landscape_assessment/current_landscape_assessment.dart';
 export 'src/delivery_roadmap/delivery_roadmap.dart';

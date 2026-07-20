@@ -7,7 +7,7 @@
 #
 # Keeping this as a single script means the committed outlines cannot silently
 # drift from the model (YRE1): re-run it after any model-shape change and commit
-# the diff. Each root is one of the D00..D12 @Document classes; the output file
+# the diff. Each root is one of the D00..D13 @Document classes; the output file
 # name drops the D<nn> code (matching the established doc/outlines/ convention).
 set -euo pipefail
 
@@ -29,6 +29,7 @@ ROOTS=(
   "D10QualityAcceptancePlan:QualityAcceptancePlan"
   "D11DeliveryRoadmap:DeliveryRoadmap"
   "D12TransitionRolloutPlan:TransitionRolloutPlan"
+  "D13CodeSpecsProjection:CodeSpecsProjection"
 )
 
 for entry in "${ROOTS[@]}"; do

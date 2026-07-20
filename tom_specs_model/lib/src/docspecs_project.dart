@@ -14,34 +14,37 @@ import 'transition_rollout_plan/transition_rollout_plan.dart';
 import 'architecture_technology_specification/architecture_technology_specification.dart';
 import 'interaction_scenarios/interaction_scenarios.dart';
 import 'experience_design_specification/experience_design_specification.dart';
+import 'codespecs_projection/codespecs_projection.dart';
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 /// Canonical container root for the whole TomSpecs object model (V2, N9).
 ///
-/// A spec is **one document** with thirteen entry points: the
-/// [D00SolutionBlueprint] master plus the twelve Phase 3 projection roots. This
-/// class gives that document a **single true root** — every document root hangs
-/// off one object, so the editor can load, serialize, snapshot, and undo the
-/// entire spec by operating on a single [DocSpecsProject] instance instead of
-/// thirteen disconnected entry points.
+/// A spec is **one document** with fourteen entry points: the
+/// [D00SolutionBlueprint] master, the twelve Phase 3 projection roots, and the
+/// [D13CodeSpecsProjection] Phase-4 generation projection. This class gives that
+/// document a **single true root** — every document root hangs off one object,
+/// so the editor can load, serialize, snapshot, and undo the entire spec by
+/// operating on a single [DocSpecsProject] instance instead of fourteen
+/// disconnected entry points.
 ///
 /// **Not a document node (N9).** The container carries **no `@SectionId`** and
 /// **no `@Document`** annotation: it is the tree root the tooling walks, *not* a
-/// fourteenth sibling document. It never renders in the root navigator as
+/// fifteenth sibling document. It never renders in the root navigator as
 /// content — the navigator lists [solutionBlueprint] first, then the twelve
-/// projection roots. Tooling (`ModelJsonExporter`, the §8.6 validator, the
-/// outliner) treats it as the canonical root and exempts it from `@SectionId`
-/// coverage/uniqueness (T1).
+/// Phase-3 projection roots, then the [D13CodeSpecsProjection]. Tooling
+/// (`ModelJsonExporter`, the §8.6 validator, the outliner) treats it as the
+/// canonical root and exempts it from `@SectionId` coverage/uniqueness (T1).
 ///
 /// **The D00SolutionBlueprint is the source of truth.** The twelve Phase 3 roots
-/// are `@Document(basedOn: [D00SolutionBlueprint])` *projections* that reference
-/// the same SBP sections through their `@MapsTo` / `@DetailedIn` links; they do
-/// not own copies. Editing through any projection edits the shared underlying
-/// Solution Blueprint sections (§14).
+/// and the [D13CodeSpecsProjection] are `@Document(basedOn: [D00SolutionBlueprint])`
+/// *projections* that reference the same SBP sections through their `@MapsTo` /
+/// `@DetailedIn` links (Phase-3) or `@CodeSpecKind` tags (D13); they do not own
+/// copies. Editing through any projection edits the shared underlying Solution
+/// Blueprint sections (§14).
 ///
 /// This class is the structural anchor only. The global `toYaml` save
 /// (Solution-Blueprint-only, §15.1) and the projection connect pass (N11) are
-/// added in a later step; here the container simply wires the thirteen roots
+/// added in a later step; here the container simply wires the fourteen roots
 /// onto one tree.
 class DocSpecsProject extends DocSpecsSection {
   /// Constructs the container and ensures the generated snapshot/serialization
@@ -109,6 +112,15 @@ class DocSpecsProject extends DocSpecsSection {
   @SerializationOrder(12)
   D09ExperienceDesignSpecification experienceDesignSpecification =
       D09ExperienceDesignSpecification();
+
+  /// D13 — CodeSpecs Generation Projection (Phase 4 generation input).
+  ///
+  /// A `@Document(basedOn: [D00SolutionBlueprint])` projection like the twelve
+  /// Phase-3 roots, but `@CodeSpecKind`-driven: it reaches only the isolated
+  /// CodeSpecs subtrees the Phase-4 generator consumes, grouped by
+  /// shared/client/server locus. Marked `@CodeSpecsProjection()`.
+  @SerializationOrder(13)
+  D13CodeSpecsProjection codeSpecsProjection = D13CodeSpecsProjection();
 
   /// The global `document:` save (§15.1): serializes the [solutionBlueprint]
   /// master alone. Because the twelve projection roots are views over the same

@@ -75,13 +75,14 @@ void main() {
     );
 
     test(
-      '§8.6: @SectionId coverage is complete from every one of the 13 roots '
+      '§8.6: @SectionId coverage is complete from every one of the 14 roots '
       '(dsa5 CS-02) — including D00SolutionBlueprint and the container',
       () {
         // The SBP-anchored warning path only proves coverage from
         // D00SolutionBlueprint. Assert it independently from every @Document
-        // root (D00 + D01..D12) and the canonical container, so the guarantee
-        // does not silently depend on the pure-projection invariant.
+        // root (D00 + D01..D12 + D13 CodeSpecs projection) and the canonical
+        // container, so the guarantee does not silently depend on the
+        // pure-projection invariant.
         const roots = <String>[
           'DocSpecsProject', // canonical container (union of all roots)
           'D00SolutionBlueprint',
@@ -97,6 +98,7 @@ void main() {
           'D10QualityAcceptancePlan',
           'D11DeliveryRoadmap',
           'D12TransitionRolloutPlan',
+          'D13CodeSpecsProjection',
         ];
         final gapReport = <String>[];
         for (final root in roots) {
@@ -199,13 +201,13 @@ void main() {
 
     test(
       'CS-03 (dsa6): validateModel yields ZERO errors from every one of the '
-      '13 roots + the container — @ContentType / §2.1 field-shape clean',
+      '14 roots + the container — @ContentType / §2.1 field-shape clean',
       () {
         // This is exactly the gate bin/outliner.dart applies (it exit(1)s on
         // any validateModel error). Asserting zero errors from every root —
         // including D00SolutionBlueprint, which historically errored out on the
         // CS-03 @ContentType violations — locks the fix in and guards the
-        // outliner's "runs with zero errors for all 13 roots" contract.
+        // outliner's "runs with zero errors for all 14 roots" contract.
         const roots = <String>[
           'DocSpecsProject', // canonical container
           'D00SolutionBlueprint',
@@ -221,6 +223,7 @@ void main() {
           'D10QualityAcceptancePlan',
           'D11DeliveryRoadmap',
           'D12TransitionRolloutPlan',
+          'D13CodeSpecsProjection',
         ];
         final report = <String>[];
         for (final root in roots) {

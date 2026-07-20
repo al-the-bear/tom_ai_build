@@ -65,8 +65,8 @@ void main() {
     expect(lib, contains('class D00SolutionBlueprint extends SomNode'));
     expect(result.libPath, endsWith('lib/tom_som_dart_v0.dart'));
 
-    // One DocSpecs schema per @Document root (13).
-    expect(result.schemaPaths.length, 13);
+    // One DocSpecs schema per @Document root (14).
+    expect(result.schemaPaths.length, 14);
     for (final s in result.schemaPaths) {
       expect(File(s).existsSync(), isTrue);
     }

@@ -57,7 +57,7 @@ tom-spec-object-model:
   version-label: v0            # optional, default "v0" — suffix on tom_som_<slug>_<label>
   output-base: ..              # optional, default "." — base for default output roots,
                                #   resolved RELATIVE TO THE CONFIG FILE'S DIRECTORY.
-  document-roots:              # optional — absent/empty ⇒ generate ALL 13 document roots
+  document-roots:              # optional — absent/empty ⇒ generate ALL 14 document roots
     - D00SolutionBlueprint
     - D01CurrentLandscapeAssessment
   languages:                   # required, non-empty
@@ -72,7 +72,7 @@ tom-spec-object-model:
 | --- | --- | --- | --- |
 | `version-label` | String | `v0` | Version suffix on generated project names (`_v0`, `_v1`, …). |
 | `output-base` | String | `.` | Base dir for **default** per-language output roots, resolved relative to the config file. The shipped `..` places generated projects as siblings of `tom_specs_clitool` under `tom_ai/ai_build/`. |
-| `document-roots` | List\<String\> | *all 13 roots* | Document root type names to generate; empty/absent means every root. |
+| `document-roots` | List\<String\> | *all 14 roots* | Document root type names to generate; empty/absent means every root. |
 | `languages` | List | *(required)* | Generation targets, in order. Each entry is a token string or a `{language, output}` map. |
 
 **Language tokens** are case-insensitive and alias-aware (`js`→`javascript`,
@@ -255,7 +255,7 @@ value-free:
 final meta = File('meta/spec_model.meta.json').readAsStringSync();
 final model = SpecModel.fromJson(json.decode(meta));
 final reflection = SpecReflection(model);
-for (final root in model.roots) { /* 13 roots: type, title, sectionId, doc */ }
+for (final root in model.roots) { /* 14 roots: type, title, sectionId, doc */ }
 reflection.fieldsOf('D00SolutionBlueprint'); // each SpecField: kind, type, …
 reflection.resolve('SBP/currentLandscape');  // path → model node
 ```

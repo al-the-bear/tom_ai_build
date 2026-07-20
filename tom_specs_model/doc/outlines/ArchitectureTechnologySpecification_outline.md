@@ -282,6 +282,8 @@
       - securityRequirements: `ClientSecurityRequirements`
         - content @Form(localDataEncryption, secureStorage, cacheClearing), authentication, device, network,
           codeProtection
+      - `ClientConfiguration`
+        - content @Form(apiBaseUrl, environment, deviceOptions, featureToggles, updateChannel)
     - networkRequirements: `NetworkRequirementsSection`
       - content, overview @text
       - internalNetwork: `InternalNetworkRequirements`

@@ -5,12 +5,6 @@
     - content @Form(documentId, project, version, date, author, status)
   - [1,] entities: `DataEntityEntry`
     - identity, classification, lifecyclePolicy, relationshipSummary
-    - volumeMetrics: `VolumeMetricEntry`
-      - content @Form(estimatedRecordCount, growthRate, peakTransactionVolume, averageRecordSize, storageEstimate, partitioningStrategy)
-    - complianceRequirements: `ComplianceRequirementEntry`
-      - content @Form(sensitivityLevel, containsPii, containsPhi, complianceFrameworks, encryptionRequirements, accessRestrictions)
-    - technicalCharacteristics: `TechnicalCharacteristicEntry`
-      - content @Form(indexingStrategy, cachingStrategy, consistencyRequirements, replicationStrategy, backupRequirements, scalingApproach)
     - attributes: `DataAttributeEntry`
       - identity, dataTypeSpec, derivation, securityClassification, migrationLineage
       - constraints: `DataAttributeConstraintEntry`
@@ -23,8 +17,6 @@
       - content @Form(indexName, indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
     - constraints: `EntityConstraintEntry`
       - content @Form(constraintName, constraintType, expression, errorMessage, enforcementLevel, isDeferred, businessRule)
-    - migrationMappings: `MigrationMappingEntry`
-      - content @Form(sourceSystem, sourceTable, sourceField, targetAttribute, transformationType, transformationLogic, defaultOnMissing, validationRule, migrationPriority, notes)
   - `EntityRelationships`
     - content
     - items: `EntityRelationshipEntry`
@@ -80,3 +72,23 @@
     - content
   - `IntegrityConstraints`
     - content
+  - `DomainEnumRegistry`
+    - content
+    - enums: `DomainEnumEntry`
+      - content @Form(enumName, description, backingType, defaultValue)
+      - [1,] values: `DomainEnumValueEntry`
+        - content @Form(valueId, backingValue, copyKey, description)
+  - `ErrorCodeRegistry`
+    - content
+    - errorCodes: `ErrorCodeEntry`
+      - content @Form(code, category, severity, retryable, httpStatusHint, copyKey)
+  - `ResultEnvelope`
+    - content @Form(discriminatorField, successArm, errorArm, retryable, severity)
+    - fieldDetails: `ResultFieldDetailEntry`
+      - content @Form(fieldPath, errorCodeRef, message)
+  - `MessageKeyRegistry`
+    - content
+    - messageKeys: `MessageKeyEntry`
+      - content @Form(key, defaultCopy, placeholders, description)
+      - localeVariants: `MessageLocaleVariantEntry`
+        - content @Form(locale, copy)

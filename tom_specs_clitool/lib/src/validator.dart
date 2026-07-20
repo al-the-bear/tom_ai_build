@@ -619,6 +619,15 @@ void _validateStructuralInvariants(
 
   for (final docClassName in documentClasses) {
     if (docClassName == sbpRoot) continue; // SBP is the root, not a target
+    // A CodeSpecs generation projection is `@CodeSpecKind`-driven, not
+    // `@DetailedIn`-driven: the single-valued `@DetailedIn`/`@MapsTo` pair on
+    // each subtree root is already spent on its Phase-3 document, so no SBP
+    // section carries `@DetailedIn(<projection>)`. The `@CodeSpecsProjection()`
+    // marker exempts such a projection from the detail-count check (it still
+    // satisfies the §8.6 pure-projection invariant checked below).
+    if (classes[docClassName]?.getAnnotation('CodeSpecsProjection') != null) {
+      continue;
+    }
     final count = reachable
         .where((c) => detailedInByClass[c]?.contains(docClassName) ?? false)
         .length;

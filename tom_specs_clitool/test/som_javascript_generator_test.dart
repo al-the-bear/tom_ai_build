@@ -84,8 +84,8 @@ void main() {
         contains(
             'const d00SolutionBlueprintMetaTree = new SomMetaTree('));
 
-    // One DocSpecs schema per @Document root (13).
-    expect(result.schemaPaths.length, 13);
+    // One DocSpecs schema per @Document root (14).
+    expect(result.schemaPaths.length, 14);
     for (final s in result.schemaPaths) {
       expect(File(s).existsSync(), isTrue);
     }

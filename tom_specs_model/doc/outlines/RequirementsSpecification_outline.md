@@ -6,7 +6,7 @@
   - `FunctionalRequirements`
     - content, summaryForm
     - [1,] requirements: `FunctionalRequirementEntry`
-      - content @Form(requirementId, title, status), details, priority, source, verification, constraints, metadata
+      - content @Form(status), details, priority, source, verification, constraints, metadata
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
@@ -25,7 +25,7 @@
         - fields: `ScreenFieldEntry`
           - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, layout
           - validationRules: `FieldValidationRule`
-            - content @Form(ruleType, ruleExpression, errorMessage, severity, triggerEvent)
+            - content @Form(ruleType, ruleExpression, errorCode, errorMessage, severity, triggerEvent)
         - actions: `RequirementScreenActionEntry`
           - content @Form(actionId, actionLabel, actionType, icon, iconPosition, buttonStyle, placement, keyboardShortcut, enabled, enabledCondition, visible, visibilityCondition, confirmationRequired, confirmationMessage, successMessage, errorMessage, navigationTarget, apiEndpoint, requiredPermission, auditLogging)
           - parameters: `ActionParameterEntry`
