@@ -185,10 +185,24 @@ error.
 
 Per `docspecs_section_model_decisions.md` §4, the model is refactored so that:
 
-- A `DocSpecsSection` class holds **headline, id, content and an optional
-  parsed `DocSpecsForm form`** — representing a simple section with no
-  subsections. `DocSpecsForm` holds the pre-form-field content (already split
-  off) plus one parsed value per `@Form` field.
+- A `DocSpecsSection` class holds **headline, id, content, an optional
+  `codeSpec` forward link, and an optional parsed `DocSpecsForm form`** —
+  representing a simple section with no subsections. `DocSpecsForm` holds the
+  pre-form-field content (already split off) plus one parsed value per `@Form`
+  field.
+- **`List<String> codeSpec` — the concrete DocSpecs→CodeSpecs forward link.**
+  A per-section member recording the CodeSpec code location(s) a concrete
+  section maps to (e.g. `["CsOrder", "CsOrder.total", "CsOrderRepository"]`).
+  This is the *instance-level* half of the bidirectional DocSpecs↔CodeSpecs
+  link defined in the quest-folder `codespecs_mapping.md` §9.2 — the
+  type-level `@CodeSpecKind` SOM annotation (§9.1 there) is its general
+  counterpart, and the code-side `@DocSpec` annotation (§9.3 there) is its
+  backward counterpart. It is **sparse and optional** (empty ⇒ no section
+  maps to code), and it serializes exactly parallel to the stored `headline`:
+  the runtime holds it in a sparse per-section store (comma-joined in state,
+  fingerprint, json, yaml, md), it has **no effective default** (staged
+  whenever present), and it is emitted in md and yaml as documented in §8.2
+  and §9.2 below.
 - **Home (decision):** both types live in
   `tom_specs_core/lib/src/sections/docspecs_section.dart` — like `TextSection`
   and the other section leaves, the base type is metamodel infrastructure and
@@ -615,6 +629,23 @@ Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
 - Parse resolves a heading's id against the schema tree *at its nesting
   position* (ids resolve within their parent chain); a non-resolving id is a
   structured rejection.
+- **`codeSpec` forward link (§2.2):** a section carrying a non-empty
+  `codeSpec` list rides in the **same headline comment** as one quoted
+  `key=value` field between the id bracket and the closing `-->`:
+
+  ```markdown
+  ### <!--[IMO-014] codeSpec="CsOrder,CsOrder.total,CsOrderRepository"--> Order entity
+  ```
+
+  The comment grammar is therefore **three groups** —
+  `<!--[<id>]<key=value region>--> <title>` — where the middle region is a
+  possibly-empty run of key=value pairs (mirroring the tom_doc_scanner
+  key=value grammar; today `codeSpec` is the only key). The emitter writes it
+  double-quoted as ` codeSpec="a,b,c"` immediately after the id bracket; the
+  parser accepts double-quoted, single-quoted, or bare (comma/whitespace-free)
+  values. The list is comma-separated with no spaces. Like a stored headline it
+  is **sparse** — staged only when present, so untouched documents stay
+  byte-stable. See `codespecs_mapping.md` §9.2.
 
 ### 8.3 Content sections
 
@@ -796,6 +827,7 @@ path segment is the bare `introductionAndScope`.
 | Form field value | literal field name | `approvedBy` |
 | Scalar/enum field | `<id> <fieldName>` when the field carries an id, else the field name | `reviewCount` |
 | Stored headline | literal key `headline`, emitted **first** in its section/form/list-item mapping (IMPLEMENTED — YRD3) | `headline` |
+| Stored `codeSpec` (§2.2) | literal key `codeSpec`, the comma-joined code-location list, emitted right after `headline` in its mapping (§9.3.6) | `codeSpec` |
 
 ### 9.3 Structure rules
 
@@ -808,15 +840,17 @@ path segment is the bare `introductionAndScope`.
    position is a structured load error.
 5. **The `*-LST` container is a pure structural level** — it never carries a
    `content` key; its mapping holds only the item keys.
-6. Stored list-item ids and stored headlines persist here losslessly
-   (yaml has always carried stored item ids; stored headlines are
-   IMPLEMENTED — YRD3). A section whose value would otherwise be a plain
-   scalar (a content leaf, or a scalar-keyed field) but which carries a
-   stored headline is emitted as a **`{headline: …, content: …}` mapping**
-   instead of the bare scalar; decoders accept both shapes. Collision
-   guards are errors: a model child key literally named `headline`, a form
-   field named `headline`, or a list-item key `headline` all refuse to
-   serialize.
+6. Stored list-item ids, stored headlines, and stored `codeSpec` links persist
+   here losslessly (yaml has always carried stored item ids; stored headlines
+   are IMPLEMENTED — YRD3; `codeSpec` follows the same shape). A section whose
+   value would otherwise be a plain scalar (a content leaf, or a scalar-keyed
+   field) but which carries a stored headline **and/or** a stored `codeSpec`
+   is emitted as a **`{headline?: …, codeSpec?: …, content?: …}` mapping**
+   instead of the bare scalar (at least one of the optional keys present);
+   decoders accept both shapes. `codeSpec`'s value is the same comma-joined
+   code-location list as the md form (§8.2). Collision guards are errors: a
+   model child key literally named `headline` or `codeSpec`, a form field of
+   that name, or a list-item key of that name all refuse to serialize.
 
 ### 9.4 Text values
 
@@ -1034,7 +1068,11 @@ implemented 2026-07-16 across all nine runtimes, including the schema
 the §1 list-as-outer-section rule, §2.6) was completed 2026-07-18: the census
 and collapse codemods confirm zero collapsible pure single-list wrappers and
 the validator emits zero `§6.1c collapsible-wrapper` warnings — the model is at
-steady state, no collapse required.
+steady state, no collapse required. The **`codeSpec` forward link** (§2.2 member,
+§8.2 md headline-comment field, §9.2/§9.3.6 yaml key) is likewise implemented:
+the concrete `codeSpec` member and its Dart-reference md/yaml codec landed with
+quest todo csmb1, and the codec was ported to the eight non-Dart runtimes with
+FORMAT 8 golden-log parity by csmc8 (2026-07-20).
 
 ---
 
