@@ -70,8 +70,8 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **29 values**: the **22 active parts** (§4.1), the **member
-/// kind [domainEnum]**, and the **6 deferred candidates** (§4.3). A
+/// The enum holds **28 values**: the **22 active parts** (§4.1), the **member
+/// kind [domainEnum]**, and the **5 deferred candidates** (§4.3). A
 /// deferred value is *mapping-only* — a SOM section may carry
 /// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
 /// annotation, no built-on `tom_core` class and no generated code until
@@ -190,13 +190,13 @@ enum CodeSpecPart {
   // ---------------------------------------------------------------------------
   // Deferred candidates — MAPPING-ONLY (§4.3, csm2r8).
   //
-  // These six values are RESERVED so a SOM section can carry `@CodeSpecKind`
+  // These five values are RESERVED so a SOM section can carry `@CodeSpecKind`
   // now, but they are NOT active parts: each has NO `@Cs<Id>` annotation, NO
   // built-on `tom_core` class and NO generated code until promoted into §4.1
   // (the promotion criterion: a concrete `tom_core`-family built-on class — or a
   // decided `tom_core_codespecs` gap — plus a `Cs*` annotation are chosen). They
   // are distinct and collision-free against the 22 active values, bringing
-  // the enum to 29 kind values.
+  // the enum to 28 kind values.
   // ---------------------------------------------------------------------------
 
   /// CE-WF — multi-step process / workflow orchestration (state machines,
@@ -214,10 +214,6 @@ enum CodeSpecPart {
   /// CE-LG — logging & audit trail: who did what, when (a cross-cutting effect on
   /// operations). Deferred (§4.3).
   auditLog,
-
-  /// CE-FS — file / blob storage abstraction (upload/download, references from
-  /// the data model). Deferred (§4.3).
-  fileStorage,
 
   /// CE-RP — reporting / read-models / analytics projections over the domain
   /// model. Deferred (§4.3).
