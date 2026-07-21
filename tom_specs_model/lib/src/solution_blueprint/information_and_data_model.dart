@@ -4126,8 +4126,11 @@ class RelationshipAttributeEntry extends DocSpecsSection {
 )
 @SectionId('SCHMG')
 @CodeSpecKind([CodeSpecPart.schemaMigration],
-    note: 'CE-MG — DB schema versioning / migration steps derived from the '
-        'data model evolution. Deferred (§4.3), mapping-only until §4.1.')
+    note: 'CE-MG — schema migration artifacts derived from the data model '
+        'evolution: @CsMigration-marked SQL files (initial DDL, base/seed '
+        'data, iteration scripts), server locus, built on the '
+        'tom_core_server migration engine (TomDbMigrations, mapping doc '
+        '§5.27).')
 class SchemaVersioningAndMigration extends DocSpecsSection {
   @ContentHelp('''
 Describe how the database schema is versioned and how migrations are authored,
@@ -4139,8 +4142,16 @@ ordered, and applied as the data model evolves across releases.
 - Whether down/rollback migrations are supported (forward-only vs reversible)
 - The baseline schema version and any zero-downtime approach (expand/contract)
 
+The migration artifact set spans three kinds:
+- **Initial DDL** — the baseline schema (tables, indexes, constraints)
+- **Base/seed data** — the initial reference data of the NEW system (lookup
+  tables, defaults, built-in roles)
+- **Iteration scripts** — the append-only schema evolution steps per release
+
 This section is derived from the evolution of the entities in the Data Model
-(7.1). It is NOT business-data migration between systems.
+(7.1). It is NOT business-data migration between systems: base/seed data is
+the new system's own initial reference data, while old→new data mapping and
+cutover from legacy systems stay in the migration-mapping sections (MIGME).
 ''')
   @Form([
     Field(
