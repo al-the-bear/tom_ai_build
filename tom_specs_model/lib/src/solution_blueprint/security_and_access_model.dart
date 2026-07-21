@@ -8386,9 +8386,11 @@ class ApiSecurityMonitoring extends DocSpecsSection {
   'Covers end-to-end file and storage security including upload validation, encryption, access control, scanning, and lifecycle.',
 )
 @SectionId('FASS')
-@CodeSpecKind([CodeSpecPart.fileStorage],
-    note: 'CE-FS — file/blob storage abstraction (upload/download, references '
-        'from the data model). Deferred (§4.3), mapping-only until §4.1.')
+@CodeSpecKind([CodeSpecPart.serverConfiguration],
+    note: 'CE-CF — file/blob storage is a tom_core capability (server '
+        'persistence-model storage + tom_flutter_ui file components), not a '
+        'CodeSpecs part; these sections author the CE-CF configuration of '
+        'that capability (operator-set storage-security policies).')
 class FileAndStorageSecurity extends DocSpecsSection {
   @ContentHelp('''
 Define security controls for user-uploaded files, generated documents,
@@ -8623,7 +8625,7 @@ and all stored media.
   'Defines how uploaded files are validated for type, size, and content before acceptance to prevent malicious uploads.',
 )
 @SectionId('FUVP')
-@CodeSpecKind([CodeSpecPart.fileStorage])
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class FileUploadValidationPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -8738,7 +8740,7 @@ class FileUploadValidationPolicy extends DocSpecsSection {
   'Defines how files and storage volumes are encrypted at rest and in transit, including key management scope.',
 )
 @SectionId('STENPO')
-@CodeSpecKind([CodeSpecPart.fileStorage])
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class StorageEncryptionPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9016,7 +9018,7 @@ class FileAccessControlPolicy extends DocSpecsSection {
   'Defines how uploaded and stored files are scanned for malware, sensitive data, and policy-violating content.',
 )
 @SectionId('COSCPO')
-@CodeSpecKind([CodeSpecPart.fileStorage])
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class ContentScanningPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9127,7 +9129,7 @@ class ContentScanningPolicy extends DocSpecsSection {
   'Defines how file downloads are protected through authentication, rate limiting, content disposition, and audit logging.',
 )
 @SectionId('FDSP')
-@CodeSpecKind([CodeSpecPart.fileStorage])
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class FileDownloadSecurityPolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
@@ -9273,7 +9275,7 @@ class FileDownloadSecurityPolicy extends DocSpecsSection {
   'Defines retention, archiving, versioning, backup, and secure deletion rules across the lifecycle of stored files.',
 )
 @SectionId('STLIPO')
-@CodeSpecKind([CodeSpecPart.fileStorage])
+@CodeSpecKind([CodeSpecPart.serverConfiguration])
 class StorageLifecyclePolicy extends DocSpecsSection {
   @override
   @SerializationOrder(0)
