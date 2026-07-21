@@ -70,8 +70,8 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **28 values**: the **22 active parts** (§4.1), the **member
-/// kind [domainEnum]**, and the **5 deferred candidates** (§4.3). A
+/// The enum holds **28 values**: the **23 active parts** (§4.1), the **member
+/// kind [domainEnum]**, and the **4 deferred candidates** (§4.3). A
 /// deferred value is *mapping-only* — a SOM section may carry
 /// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
 /// annotation, no built-on `tom_core` class and no generated code until
@@ -190,13 +190,14 @@ enum CodeSpecPart {
   // ---------------------------------------------------------------------------
   // Deferred candidates — MAPPING-ONLY (§4.3, csm2r8).
   //
-  // These five values are RESERVED so a SOM section can carry `@CodeSpecKind`
+  // These four values are RESERVED so a SOM section can carry `@CodeSpecKind`
   // now, but they are NOT active parts: each has NO `@Cs<Id>` annotation, NO
   // built-on `tom_core` class and NO generated code until promoted into §4.1
   // (the promotion criterion: a concrete `tom_core`-family built-on class — or a
   // decided `tom_core_codespecs` gap — plus a `Cs*` annotation are chosen). They
-  // are distinct and collision-free against the 22 active values, bringing
-  // the enum to 28 kind values.
+  // are distinct and collision-free against the 23 active values, bringing
+  // the enum to 28 kind values. The active [reporting] value follows below
+  // them: kind values keep their enum position for enum-order stability.
   // ---------------------------------------------------------------------------
 
   /// CE-WF — multi-step process / workflow orchestration (state machines,
@@ -215,7 +216,13 @@ enum CodeSpecPart {
   /// operations). Deferred (§4.3).
   auditLog,
 
-  /// CE-RP — reporting / read-models / analytics projections over the domain
-  /// model. Deferred (§4.3).
+  /// CE-RP — reporting: report definitions over the domain model — `@CsReport`
+  /// names a query/projection (built on the CE-DB query substrate:
+  /// `TomQueryBuilder` / `TomQuerySentenceCompiler` + the crud repositories,
+  /// `tom_core_server`), an output shape (tabular sections/columns, charts),
+  /// filters/parameters, an abstract delivery channel
+  /// (apiResponse | email | fileExport) and an optional schedule; delivered
+  /// via ordinary [serverApi] operations. Server (definition + execution) +
+  /// shared (tabular result envelope, parameter DTOs) (§5.28).
   reporting,
 }
