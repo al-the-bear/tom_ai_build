@@ -6,8 +6,9 @@
 /// other markers they annotate a class **built on** an existing
 /// `tom_core`-family class; there is no `Cs*` base class to extend.
 ///
-/// This file covers the two shared part markers. Client/UI markers live in
-/// `element_annotations.dart`; server-side markers in `service_annotations.dart`.
+/// This file covers the shared part marker `@CsError` and the member marker
+/// `@CsEnum`. Client/UI markers live in `element_annotations.dart`;
+/// server-side markers in `service_annotations.dart`.
 library;
 
 /// CE-ER — a processing error (a shared error type crossing the wire).
@@ -18,9 +19,16 @@ class CsError {
   const CsError({this.note});
 }
 
-/// CE-EN — an enumeration (a shared closed value set).
+/// A domain enum — a **member marker**, not a part marker
+/// (`codespecs_mapping.md` §4.1): annotates a plain Dart `enum` declaration
+/// authored within its owning part (a data-access entity, a
+/// configuration/settings holder, a view model, or an API contract type). It
+/// keeps the `@DocSpec` back-trace to the enum's SOM `DMENE` entry and keeps
+/// the enum discoverable as an `@OneOf` discriminator source. Placement: the
+/// shared project iff a shared contract type references the enum, else the
+/// owning part's project.
 class CsEnum {
-  /// Optional part-specific note.
+  /// Optional note.
   final String? note;
 
   const CsEnum({this.note});

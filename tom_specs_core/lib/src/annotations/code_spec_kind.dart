@@ -70,11 +70,12 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **29 values**: the **20 active parts** (§4.1) followed by the
-/// **9 deferred candidates** (§4.3, csm2r8). A deferred value is *mapping-only* —
-/// a SOM section may carry `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the
-/// part has no `Cs*` annotation, no built-on `tom_core` class and no generated
-/// code until promoted into §4.1.
+/// The enum holds **29 values**: the **19 active parts** (§4.1), the **member
+/// kind [domainEnum]**, and the **9 deferred candidates** (§4.3, csm2r8). A
+/// deferred value is *mapping-only* — a SOM section may carry
+/// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
+/// annotation, no built-on `tom_core` class and no generated code until
+/// promoted into §4.1.
 enum CodeSpecPart {
   /// CE-EL — screen element by semantic type, then concrete implementation.
   screenElement,
@@ -120,7 +121,14 @@ enum CodeSpecPart {
   /// CE-ER — the single canonical structured error-result envelope.
   errorResult,
 
-  /// CE-EN — domain enums / value types.
+  /// Domain enums / value types — a **member kind**, not a part
+  /// (`codespecs_mapping.md` §4.1): a domain enum is a member declaration of
+  /// the part that introduces it (a `dataAccess` entity column, a
+  /// `serverConfiguration`/`clientConfiguration`/`userSettings` setting, a
+  /// `viewState` field, or a `serverApi` contract member), authored once as a
+  /// plain Dart `enum` marked `@CsEnum`. Placed in the shared project iff a
+  /// shared contract type references it, else in the owning part's project.
+  /// SOM sections (`DMENE`, `OBST`) carry this kind like any other value.
   domainEnum,
 
   /// CE-CF — **server / system** configuration (narrowed, csm2r5). No longer

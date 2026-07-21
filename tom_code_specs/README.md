@@ -23,7 +23,7 @@ whose every element carries traceability annotations back to its source spec.
 | `@CodeSpec(id, {source, requirements})` | Identity + forward doc → code trace (CE-TR) on a CodeSpec class | `codespecs_mapping.md` §9 |
 | `@DocSpec([DocRef(sectionId, description), …])` | Code → doc back-trace on a CodeSpec class/member | §9.3 |
 | `DocRef(sectionId, description)` | One back-trace entry | §9.3 |
-| `Cs*` annotation family (no base classes) — 24 markers | The catalogue's part markers: client/UI (`@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsAction`, `@CsTrigger`, `@CsServerCall`, `@CsViewModel`, `@CsRoute`), server (`@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn`, `@CsRepository`, `@CsAuthorize`, `@CsServerConfig`), shared (`@CsError`, `@CsEnum`), and the csm2r5 client/config/settings/auth group (`@CsClient`, `@CsClientConfig`, `@CsUserSetting` *(with `SettingsPersistence`)*, `@CsAuth`) | §4.1 |
+| `Cs*` annotation family (no base classes) — 24 markers | The catalogue's part markers: client/UI (`@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsAction`, `@CsTrigger`, `@CsServerCall`, `@CsViewModel`, `@CsRoute`), server (`@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn`, `@CsRepository`, `@CsAuthorize`, `@CsServerConfig`), shared (`@CsError`), the member marker `@CsEnum` (domain enums authored within their owning part, `codespecs_mapping.md` §4.1), and the csm2r5 client/config/settings/auth group (`@CsClient`, `@CsClientConfig`, `@CsUserSetting` *(with `SettingsPersistence`)*, `@CsAuth`) | §4.1 |
 
 ## What lives in `tom_specs_core` instead
 
