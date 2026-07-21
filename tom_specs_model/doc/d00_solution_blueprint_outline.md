@@ -2043,7 +2043,7 @@
         - `UserAttributes`
           - content
           - items: `UserAttributeEntry`
-            - content @Form(attributeName, dataType, source, required)
+            - content @Form(attributeName, dataType, placement, accessGuard, source, required)
       - authentication: `IdentificationAndAuthentication`
         - content
         - `Identification`

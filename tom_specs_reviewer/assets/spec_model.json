@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T11:16:59.638Z",
+  "generatedAt": "2026-07-21T11:24:59.140979Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -271875,7 +271875,7 @@
           "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
           "ISO/IEC 24760 — IAM: a framework for identity management"
         ],
-        "connotation": "Defines a single user profile attribute together with its data type, source, and whether it is mandatory."
+        "connotation": "Defines a single user profile attribute together with its data type, source, placement, access guard, and whether it is mandatory."
       },
       "annotations": [
         {
@@ -271885,7 +271885,7 @@
               "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
               "ISO/IEC 24760 — IAM: a framework for identity management"
             ],
-            "connotation": "Defines a single user profile attribute together with its data type, source, and whether it is mandatory."
+            "connotation": "Defines a single user profile attribute together with its data type, source, placement, access guard, and whether it is mandatory."
           }
         },
         {
@@ -271934,6 +271934,24 @@
               "name": "dataType",
               "label": "Data Type",
               "hint": "Data type of the attribute value.",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "placement",
+              "label": "Placement",
+              "hint": "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).",
+              "type": "UserAttributePlacement",
+              "required": false,
+              "enumValues": [
+                "public",
+                "encrypted"
+              ]
+            },
+            {
+              "name": "accessGuard",
+              "label": "Access Guard",
+              "hint": "Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.",
               "type": "String",
               "required": false
             },
@@ -274999,7 +275017,7 @@
             "kinds": [
               "CodeSpecPart.identity"
             ],
-            "note": "CE-ID — principal/identity model (users, groups, service principals). Deferred (§4.3), mapping-only until promoted into §4.1."
+            "note": "CE-ID — identity: app-declared identity-attribute extensions over the fixed principal core (users, groups, service principals)."
           }
         }
       ],

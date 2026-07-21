@@ -177,8 +177,8 @@ class SecurityComplianceFollowUp extends DocSpecsSection {
 @SectionId('USMGT')
 @DetailedIn(D08SecurityAccessSpecification)
 @CodeSpecKind([CodeSpecPart.identity],
-    note: 'CE-ID — principal/identity model (users, groups, service '
-        'principals). Deferred (§4.3), mapping-only until promoted into §4.1.')
+    note: 'CE-ID — identity: app-declared identity-attribute extensions over '
+        'the fixed principal core (users, groups, service principals).')
 class UserManagement extends DocSpecsSection {
   @ContentHelp('''
 Describe how users are organized, categorized, and managed throughout their
@@ -1610,13 +1610,29 @@ compliance requirements.
   List<UserAttributeEntry> items = [];
 }
 
+/// The closed set of identity-attribute placements (CE-ID).
+///
+/// Where an identity-attribute extension rides on the authorization token:
+/// the **public** token payload (readable by any layer, read access guardable
+/// by a resource key) or the **encrypted** payload (readable only by
+/// token-decrypting layers).
+enum UserAttributePlacement {
+  /// Rides the public token payload; read access may be guarded by a
+  /// resource key.
+  public,
+
+  /// Rides the encrypted token payload; readable only by token-decrypting
+  /// layers.
+  encrypted,
+}
+
 /// A user attribute entry (form).
 @StandardReferences(
   [
     'SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning',
     'ISO/IEC 24760 — IAM: a framework for identity management',
   ],
-  'Defines a single user profile attribute together with its data type, source, and whether it is mandatory.',
+  'Defines a single user profile attribute together with its data type, source, placement, access guard, and whether it is mandatory.',
 )
 @SectionId('USATE')
 @CodeSpecKind([CodeSpecPart.identity])
@@ -1634,6 +1650,21 @@ class UserAttributeEntry extends DocSpecsSection {
       String,
       'Data Type',
       hint: 'Data type of the attribute value.',
+    ),
+    Field(
+      'placement',
+      UserAttributePlacement,
+      'Placement',
+      hint: 'public (token public payload, resource-key guardable) or '
+          'encrypted (authorization-token encrypted payload).',
+    ),
+    Field(
+      'accessGuard',
+      String,
+      'Access Guard',
+      hint: 'Resource key guarding read access to a public attribute; '
+          'encrypted attributes are readable only by token-decrypting '
+          'layers.',
     ),
     Field(
       'source',
