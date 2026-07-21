@@ -70,8 +70,8 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **29 values**: the **21 active parts** (§4.1), the **member
-/// kind [domainEnum]**, and the **7 deferred candidates** (§4.3). A
+/// The enum holds **29 values**: the **22 active parts** (§4.1), the **member
+/// kind [domainEnum]**, and the **6 deferred candidates** (§4.3). A
 /// deferred value is *mapping-only* — a SOM section may carry
 /// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
 /// annotation, no built-on `tom_core` class and no generated code until
@@ -179,21 +179,25 @@ enum CodeSpecPart {
   /// (population).
   identity,
 
+  /// CE-MG — database schema versioning / migration artifacts derived from the
+  /// data model's evolution: `@CsMigration`-marked SQL artifacts (initial DDL,
+  /// base/seed data, iteration scripts) in the
+  /// `<databaseMigrationsDirectory>/<datasource>/<schema>/` tree, driven by the
+  /// `tom_core_server` migration engine (`TomDbMigrations` / `TomDbMigrator` /
+  /// `TomMigrationFileName`) — pure reuse (§5.27).
+  schemaMigration,
+
   // ---------------------------------------------------------------------------
   // Deferred candidates — MAPPING-ONLY (§4.3, csm2r8).
   //
-  // These seven values are RESERVED so a SOM section can carry `@CodeSpecKind`
+  // These six values are RESERVED so a SOM section can carry `@CodeSpecKind`
   // now, but they are NOT active parts: each has NO `@Cs<Id>` annotation, NO
   // built-on `tom_core` class and NO generated code until promoted into §4.1
   // (the promotion criterion: a concrete `tom_core`-family built-on class — or a
   // decided `tom_core_codespecs` gap — plus a `Cs*` annotation are chosen). They
-  // are distinct and collision-free against the 21 active values above, bringing
+  // are distinct and collision-free against the 22 active values, bringing
   // the enum to 29 kind values.
   // ---------------------------------------------------------------------------
-
-  /// CE-MG — database schema versioning / migration steps derived from the data
-  /// model's evolution. Deferred (§4.3).
-  schemaMigration,
 
   /// CE-WF — multi-step process / workflow orchestration (state machines,
   /// long-running processes). Deferred (§4.3).
