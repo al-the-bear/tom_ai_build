@@ -124,27 +124,36 @@ enum CodeSpecPart {
   /// Domain enums / value types — a **member kind**, not a part
   /// (`codespecs_mapping.md` §4.1): a domain enum is a member declaration of
   /// the part that introduces it (a `dataAccess` entity column, a
-  /// `serverConfiguration`/`clientConfiguration`/`userSettings` setting, a
+  /// `serverConfiguration`/`clientConfiguration`/`deviceSettings`/`userSettings`
+  /// setting, a
   /// `viewState` field, or a `serverApi` contract member), authored once as a
   /// plain Dart `enum` marked `@CsEnum`. Placed in the shared project iff a
   /// shared contract type references it, else in the owning part's project.
   /// SOM sections (`DMENE`, `OBST`) carry this kind like any other value.
   domainEnum,
 
-  /// CE-CF — **server / system** configuration (narrowed, csm2r5). No longer
-  /// carries user or client-machine settings — those are [clientConfiguration]
-  /// and [userSettings].
+  /// CE-CF — **server / system** configuration; carries no user or
+  /// client-machine settings — those are [clientConfiguration],
+  /// [deviceSettings] and [userSettings]. (csm2r5)
   serverConfiguration,
 
   /// CE-CC — client configuration: per-machine settings of a client app
   /// (API base URL, device options, per-install toggles), keyed by
-  /// (client app, machine). (csm2r5)
+  /// (client app, machine) — no user identity in the key (values that differ
+  /// per signed-in user are [deviceSettings]). (csm2r5)
   clientConfiguration,
 
-  /// CE-UP — user settings / profile. A `@CsUserSetting` carries a
-  /// `persistence` discriminator: `local` (machine-persisted, does not follow
-  /// the user) vs `roaming` (server-persisted, restored on any machine). (csm2r5)
+  /// CE-UP — user settings: user-scoped, server-persisted preferences that
+  /// follow the user, restored on any device via the `TomGetSettings*`
+  /// round-trip. Device-bound user settings are [deviceSettings]. (csm2r5)
   userSettings,
+
+  /// CE-DS — device settings: user-specific settings of a user-owned device,
+  /// keyed by (user, device) and persisted on the device (window layout,
+  /// last-opened, machine-local cache preferences). Distinct from
+  /// [clientConfiguration] (no user in the key) and [userSettings]
+  /// (follows the user).
+  deviceSettings,
 
   /// CE-CL — client application: which clients exist (Flutter app, CLI,
   /// other server). (csm2r5)
