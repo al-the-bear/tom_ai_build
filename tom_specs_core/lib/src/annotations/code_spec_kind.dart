@@ -151,7 +151,13 @@ enum CodeSpecPart {
   client,
 
   /// CE-AU — authentication / session: credential exchange, token, session —
-  /// distinct from [authorization]; spans shared + client + server. (csm2r5)
+  /// distinct from [authorization]; spans shared + client + server. The
+  /// mechanics (two-token JWT model, login orchestration, stateless Bearer
+  /// verification, token store) are framework-fixed pure reuse of the
+  /// `tom_core` auth stack; the spec-authorable surface is the service
+  /// binding, enabled methods/flows, and session/token/credential policies —
+  /// the app's `TomAuthenticationService` implementation is the `@CsAuth`
+  /// CodeSpec. (csm2r5)
   authentication,
 
   /// CE-ID — identity: app-declared **identity-attribute extensions** over the
