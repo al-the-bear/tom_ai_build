@@ -94,7 +94,9 @@ enum CodeSpecPart {
   /// CE-AC — actions and their triggers.
   action,
 
-  /// CE-SC — actions that issue a server call.
+  /// CE-SC — server call: the client call-site binding of a CE-API operation
+  /// (references the operation by name, never authors contract members; owns
+  /// request assembly, response handling, error surfacing, the trigger edge).
   serverCall,
 
   /// CE-API — server API (operation name + request/response + error contract).
