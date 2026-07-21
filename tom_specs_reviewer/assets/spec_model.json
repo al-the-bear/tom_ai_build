@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T12:26:21.520621Z",
+  "generatedAt": "2026-07-21T16:12:20.171791Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -189029,9 +189029,9 @@
               "name": "CodeSpecKind",
               "arguments": {
                 "kinds": [
-                  "CodeSpecPart.featureFlag"
+                  "CodeSpecPart.serverConfiguration"
                 ],
-                "note": "CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1."
+                "note": "CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc §5.26). The deploy-from-release flag itself is deployment tooling."
               }
             },
             {
