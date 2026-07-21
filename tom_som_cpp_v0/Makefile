@@ -24,6 +24,17 @@ STATIC := $(BUILD)/lib$(NAME).a
 SHARED := $(BUILD)/lib$(NAME).so
 # soname carries only the major version (ABI compatibility boundary).
 SONAME := lib$(NAME).so.$(firstword $(subst ., ,$(VERSION)))
+# Apple's ld spells the soname option -install_name; GNU ld uses -soname.
+# Apple's ld also rejects undefined symbols in a dylib by default, while GNU
+# ld allows them for -shared — the facade deliberately leaves the runtime
+# symbols undefined (the consumer links the runtime), so ask for dynamic lookup.
+ifeq ($(shell uname -s),Darwin)
+SONAME_FLAG := -Wl,-install_name,$(SONAME)
+UNDEF_FLAG  := -Wl,-undefined,dynamic_lookup
+else
+SONAME_FLAG := -Wl,-soname,$(SONAME)
+UNDEF_FLAG  :=
+endif
 PC     := $(BUILD)/$(NAME).pc
 OBJ    := $(BUILD)/tom_som_cpp_v0.o $(BUILD)/tom_som_cpp_v0_meta.o
 PICOBJ := $(BUILD)/tom_som_cpp_v0.pic.o $(BUILD)/tom_som_cpp_v0_meta.pic.o
@@ -53,7 +64,7 @@ $(STATIC): $(OBJ)
 # The shared facade leaves the runtime symbols undefined; they are resolved
 # when the consumer links the runtime library (matching the static path).
 $(SHARED): $(PICOBJ)
-	$(CXX) -shared -Wl,-soname,$(SONAME) -o $@ $^
+	$(CXX) -shared $(SONAME_FLAG) $(UNDEF_FLAG) -o $@ $^
 
 # pkg-config metadata; Version tracks the model version, Requires pulls the
 # runtime .pc so consumers get its include/link flags too. Regenerated on

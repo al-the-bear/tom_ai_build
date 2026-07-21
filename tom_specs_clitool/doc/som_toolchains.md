@@ -11,7 +11,8 @@ together with the versions in use and how each toolchain is obtained.
 > host: it runs the generator (`tom_specs_clitool/bin/generate_som.dart`) and is
 > where the generated trees are built and tested. Other fleet hosts
 > (`mbp` macOS, `bigbeast` Linux, `legiondary01` Windows) are secondary; record
-> their versions here as the component is brought up on them.
+> their versions here as the component is brought up on them. `mbp` is fully
+> brought up — see the "Secondary host `mbp`" section below.
 
 ## Status matrix (reference host `bomber`)
 
@@ -40,6 +41,50 @@ together with the versions in use and how each toolchain is obtained.
 - **"`v0` project exists?"** tracks plan item #10 (typed emitters). All nine
   emitters now exist (Dart, Python, Java, JavaScript, TypeScript, Go, Rust, C,
   C++); no language remains emitter-pending.
+
+## Secondary host `mbp` (macOS arm64)
+
+The full nine-language stack is also installed and verified on **`mbp`**
+(macOS, Apple Silicon `arm64`). The conformance harness
+(`tom_som_conformance/tool/regenerate_golden.sh`) passes end-to-end: all nine
+golden logs are byte-identical to `dart.log`. Versions were matched to
+`bomber` where the install channel allows pinning; compiler-suite versions
+(Dart, Go, Apple clang) follow their own channels and are equal-or-newer.
+
+| Language | Toolchain on `mbp` | Version | vs `bomber` | How obtained |
+| --- | --- | --- | --- | --- |
+| **Dart** | Dart SDK | `3.12.2 (stable)` | newer (3.11.4) | fleet-managed SDK on `PATH` |
+| **Python** | CPython (Homebrew `python@3.12`) | `3.12.13` (PyYAML `6.0.3`) | same minor (3.12.3) | `brew install python@3.12`; PyYAML via `python3.12 -m pip install --user --break-system-packages PyYAML` |
+| **JavaScript** | Node.js (nvm) | `22.22.3` (npm `10.9.8`) | **exact** | `nvm install 22.22.3 && nvm alias default 22.22.3` |
+| **TypeScript** | project-local `tsc` | pinned `6.0.3` | **exact** (by design) | devDependency of the `v0` project — never a host install |
+| **C** | Apple clang (via `cc`) | `17.0.0 (clang-1700.6.3.2)` | different suite (gcc 13.3.0) | Xcode Command Line Tools |
+| **C++** | Apple clang (via `c++`/`g++` shims) | `17.0.0 (clang-1700.6.3.2)` | different suite (g++ 13.3.0 / clang++ 18.1.3) | Xcode Command Line Tools |
+| **Java** | JDK (Homebrew `openjdk@21`, keg-only) | `javac 21.0.11` | **exact** | `brew install openjdk@21`; `PATH` + `JAVA_HOME` exported in `~/.zshrc` |
+| **Go** | Go toolchain (Homebrew) | `1.26.5` | newer (1.26.4) | `brew install go` |
+| **Rust** | rustc / cargo (rustup) | `1.96.0` | **exact** | `rustup` per-user (`~/.cargo`); `. "$HOME/.cargo/env"` in `~/.zshrc` |
+
+Packaging tools (PGK parity): **Maven `3.9.16`** (`brew install maven`, runs on
+JDK 21 via `JAVA_HOME`; bomber has 3.9.11) and **Python `build 1.5.0`**
+(`--user --break-system-packages`, exact match).
+
+macOS-specific notes:
+
+- **`python3` on `mbp` is a framework Python 3.11**, not the 3.12 toolchain.
+  The harness and any `python3`-invoking script must run with
+  `/opt/homebrew/opt/python@3.12/libexec/bin` prepended to `PATH` so
+  unversioned `python3` resolves to 3.12 (bomber parity). The global `python3`
+  is deliberately left untouched.
+- **`cc`/`g++`/`c++` all resolve to Apple clang** — there is no GNU GCC on the
+  host and none is needed; the C/C++ Makefiles use `CC ?= cc` / `CXX ?= g++`
+  and build clean under clang.
+- **Darwin shared-lib linking** differs from GNU ld: the C/C++ runtime and `v0`
+  Makefiles (and the clitool generators that emit them) select
+  `-Wl,-install_name` vs `-Wl,-soname` per `uname -s`, and the `v0` facades add
+  `-Wl,-undefined,dynamic_lookup` on Darwin because Apple's ld rejects the
+  facade's intentionally-undefined runtime symbols that GNU ld permits in a
+  `-shared` link (todo `qr1-20260720-cc-soname`).
+- Toolchain wiring lives in `~/.zshrc` (nvm block, cargo env, openjdk@21
+  `PATH`/`JAVA_HOME`) — the macOS mirror of bomber's `.bashrc`/`.profile`.
 
 ## All nine languages are "Done"
 

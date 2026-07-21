@@ -41,6 +41,12 @@ STATIC := build/lib$(NAME).a
 SHARED := build/lib$(NAME).so
 # soname carries only the major version (ABI compatibility boundary).
 SONAME := lib$(NAME).so.$(firstword $(subst ., ,$(VERSION)))
+# Apple's ld spells the soname option -install_name; GNU ld uses -soname.
+ifeq ($(shell uname -s),Darwin)
+SONAME_FLAG := -Wl,-install_name,$(SONAME)
+else
+SONAME_FLAG := -Wl,-soname,$(SONAME)
+endif
 PC     := build/$(NAME).pc
 
 HARNESS := build/conformance
@@ -71,7 +77,7 @@ $(STATIC): $(OBJ)
 	$(AR) rcs $@ $(OBJ)
 
 $(SHARED): $(PICOBJ)
-	$(CC) -shared -Wl,-soname,$(SONAME) -o $@ $(PICOBJ)
+	$(CC) -shared $(SONAME_FLAG) -o $@ $(PICOBJ)
 
 # pkg-config metadata; Version tracks the TomSpecs model version. Regenerated on
 # every build (FORCE) so an install-time PREFIX override is reflected in the .pc.
