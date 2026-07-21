@@ -254,7 +254,12 @@ void main() {
       final source = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
       final metaSource =
           SomJavaScriptMetaEmitter(_fixtureModel()).generateLibrary();
-      final dir = Directory.systemTemp.createTempSync('som_js_emit_');
+      // Physical path: package.json carries a relative tomSom.runtimePath, and
+      // node resolves it from the physical module dir — a symlinked temp path
+      // (macOS /var/folders → /private/var) would break the `..` walk.
+      final dir = Directory(Directory.systemTemp
+          .createTempSync('som_js_emit_')
+          .resolveSymbolicLinksSync());
       try {
         const moduleName = 'tom_som_javascript_v0';
         File(p.join(dir.path, '$moduleName.js')).writeAsStringSync(source);

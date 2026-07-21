@@ -228,7 +228,12 @@ void main() {
       markTestSkipped('tom_som_rust_runtime not found');
       return;
     }
-    final dir = Directory.systemTemp.createTempSync('som_rust_compile_');
+    // Physical path: Cargo.toml carries a relative runtime `path` dependency,
+    // and cargo resolves it from the physical crate dir — a symlinked temp
+    // path (macOS /var/folders → /private/var) would break the `..` walk.
+    final dir = Directory(Directory.systemTemp
+        .createTempSync('som_rust_compile_')
+        .resolveSymbolicLinksSync());
     addTearDown(() => dir.deleteSync(recursive: true));
     writeInto(dir);
 

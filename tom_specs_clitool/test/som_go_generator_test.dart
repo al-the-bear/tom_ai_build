@@ -175,7 +175,12 @@ void main() {
       markTestSkipped('tom_som_go_runtime not found');
       return;
     }
-    final dir = Directory.systemTemp.createTempSync('som_go_compile_');
+    // Physical path: the emitted go.mod carries a relative runtime `replace`,
+    // and `go build` resolves it from the physical module dir — a symlinked
+    // temp path (macOS /var/folders → /private/var) would break the `..` walk.
+    final dir = Directory(Directory.systemTemp
+        .createTempSync('som_go_compile_')
+        .resolveSymbolicLinksSync());
     addTearDown(() => dir.deleteSync(recursive: true));
     writeInto(dir);
 

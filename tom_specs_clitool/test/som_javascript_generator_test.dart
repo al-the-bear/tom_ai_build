@@ -226,7 +226,12 @@ void main() {
       markTestSkipped('tom_som_javascript_runtime not found');
       return;
     }
-    final dir = Directory.systemTemp.createTempSync('som_js_load_');
+    // Physical path: package.json carries a relative tomSom.runtimePath, and
+    // node resolves it from the physical module dir — a symlinked temp path
+    // (macOS /var/folders → /private/var) would break the `..` walk.
+    final dir = Directory(Directory.systemTemp
+        .createTempSync('som_js_load_')
+        .resolveSymbolicLinksSync());
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
 

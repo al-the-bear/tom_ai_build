@@ -305,7 +305,12 @@ void main() {
         markTestSkipped('no node on PATH');
         return;
       }
-      final dir = await Directory.systemTemp.createTemp('som_js_meta_emit_');
+      // Physical path: package.json carries a relative tomSom.runtimePath, and
+      // node resolves it from the physical module dir — a symlinked temp path
+      // (macOS /var/folders → /private/var) would break the `..` walk.
+      final dir = Directory(
+          (await Directory.systemTemp.createTemp('som_js_meta_emit_'))
+              .resolveSymbolicLinksSync());
       try {
         final runtimePath = p.normalize(p.join(
             Directory.current.path, '..', 'tom_som_javascript_runtime'));
