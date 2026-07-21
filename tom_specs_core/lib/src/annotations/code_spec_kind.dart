@@ -70,8 +70,8 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **29 values**: the **19 active parts** (§4.1), the **member
-/// kind [domainEnum]**, and the **9 deferred candidates** (§4.3, csm2r8). A
+/// The enum holds **29 values**: the **20 active parts** (§4.1), the **member
+/// kind [domainEnum]**, and the **8 deferred candidates** (§4.3, csm2r8). A
 /// deferred value is *mapping-only* — a SOM section may carry
 /// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
 /// annotation, no built-on `tom_core` class and no generated code until
@@ -154,21 +154,27 @@ enum CodeSpecPart {
   /// distinct from [authorization]; spans shared + client + server. (csm2r5)
   authentication,
 
+  /// CE-ID — identity: app-declared **identity-attribute extensions** over the
+  /// fixed principal core (`TomUser` + `TomPrincipal`, `tom_core_kernel`) —
+  /// `@CsIdentity` declares the extension holder, `@CsIdentityAttribute`
+  /// marks each attribute with a `placement` discriminator (`public` — rides
+  /// the public token payload — vs `encrypted` — rides the encrypted context).
+  /// Distinct from [authentication] (establishment / token projection) and
+  /// [authorization] (access decisions). Spans shared (declaration) + server
+  /// (population).
+  identity,
+
   // ---------------------------------------------------------------------------
   // Deferred candidates — MAPPING-ONLY (§4.3, csm2r8).
   //
-  // These nine values are RESERVED so a SOM section can carry `@CodeSpecKind`
+  // These eight values are RESERVED so a SOM section can carry `@CodeSpecKind`
   // now, but they are NOT active parts: each has NO `@Cs<Id>` annotation, NO
   // built-on `tom_core` class and NO generated code until promoted into §4.1
   // (the promotion criterion: a concrete `tom_core`-family built-on class — or a
   // decided `tom_core_codespecs` gap — plus a `Cs*` annotation are chosen). They
-  // are distinct and collision-free against the 20 active values above, bringing
+  // are distinct and collision-free against the 21 active values above, bringing
   // the enum to 29 kind values.
   // ---------------------------------------------------------------------------
-
-  /// CE-ID — principal / identity model (users, groups, service principals);
-  /// distinct from [authentication] and [authorization]. Deferred (§4.3).
-  identity,
 
   /// CE-MG — database schema versioning / migration steps derived from the data
   /// model's evolution. Deferred (§4.3).
