@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T16:12:20.171791Z",
+  "generatedAt": "2026-07-21T16:30:05.479834Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -49909,7 +49909,7 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.fileStorage"
+              "CodeSpecPart.serverConfiguration"
             ]
           }
         }
@@ -106693,9 +106693,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.fileStorage"
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-FS — file/blob storage abstraction (upload/download, references from the data model). Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-CF — file/blob storage is a tom_core capability (server persistence-model storage + tom_flutter_ui file components), not a CodeSpecs part; these sections author the CE-CF configuration of that capability (operator-set storage-security policies)."
           }
         }
       ],
@@ -106869,7 +106869,7 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.fileStorage"
+              "CodeSpecPart.serverConfiguration"
             ]
           }
         }
@@ -107023,7 +107023,7 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.fileStorage"
+              "CodeSpecPart.serverConfiguration"
             ]
           }
         }
@@ -210483,7 +210483,7 @@
             "kinds": [
               "CodeSpecPart.schemaMigration"
             ],
-            "note": "CE-MG — DB schema versioning / migration steps derived from the data model evolution. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-MG — schema migration artifacts derived from the data model evolution: @CsMigration-marked SQL files (initial DDL, base/seed data, iteration scripts), server locus, built on the tom_core_server migration engine (TomDbMigrations, mapping doc §5.27)."
           }
         }
       ],
@@ -210491,13 +210491,13 @@
         {
           "name": "content",
           "kind": "form",
-          "help": "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n",
+          "help": "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n",
           "serializationOrder": 0,
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n"
+                "guidance": "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n"
               }
             },
             {
@@ -236815,7 +236815,7 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.fileStorage"
+              "CodeSpecPart.serverConfiguration"
             ]
           }
         }
@@ -236893,7 +236893,7 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.fileStorage"
+              "CodeSpecPart.serverConfiguration"
             ]
           }
         }
