@@ -21549,11 +21549,12 @@ class ReleaseStrategy extends DocSpecsSection {
     ),
   ])
   @CodeSpecKind(
-    [CodeSpecPart.featureFlag],
+    [CodeSpecPart.serverConfiguration],
     note:
-        'CE-FF — feature flags / toggles as an explicit part, distinct '
-        'from serverConfiguration values. Deferred (§4.3), mapping-only '
-        'until §4.1.',
+        'CE-CF — feature flags are config toggles authored as server '
+        'configuration values; authorization-derived feature grants are '
+        'server-level entitlements (mapping doc §5.26). The '
+        'deploy-from-release flag itself is deployment tooling.',
   )
   @SerializationOrder(3)
   DocSpecsSection? featureFlags;
