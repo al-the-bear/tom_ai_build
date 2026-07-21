@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-21T11:24:59.140979Z",
+  "generatedAt": "2026-07-21T12:26:21.520621Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
-  "classCount": 1242,
+  "classCount": 1243,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -35118,6 +35118,21 @@
             }
           ],
           "type": "ClientConfiguration"
+        },
+        {
+          "name": "deviceSettings",
+          "kind": "complex",
+          "doc": "User-specific settings of a user-owned device (CE-DS).",
+          "serializationOrder": 13,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 13
+              }
+            }
+          ],
+          "type": "DeviceSettings"
         }
       ]
     },
@@ -82236,6 +82251,96 @@
               "label": "Notes",
               "hint": "Additional quality gate notes",
               "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "DeviceSettings": {
+      "name": "DeviceSettings",
+      "sectionId": "DEVSET",
+      "doc": "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+          "ISO/IEC 25010 — usability / operability"
+        ],
+        "connotation": "The user-specific settings of a user-owned device — window layout, last-opened items, and machine-local preferences keyed by (user, device) and persisted on the device."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+              "ISO/IEC 25010 — usability / operability"
+            ],
+            "connotation": "The user-specific settings of a user-owned device — window layout, last-opened items, and machine-local preferences keyed by (user, device) and persisted on the device."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DEVSET"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.deviceSettings"
+            ],
+            "note": "CE-DS — user-specific device settings, keyed by (user, device) and persisted on the device; distinct from CE-CC client configuration (no user in the key) and CE-UP user settings (follow the user)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "settingKey",
+              "label": "Setting Key",
+              "hint": "The dotted key of the device setting, e.g. window.layout",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "valueType",
+              "label": "Value Type",
+              "hint": "string / int / double / bool / enum",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "defaultValue",
+              "label": "Default Value",
+              "hint": "The value used until the user changes the setting on this device",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "deviceOverridable",
+              "label": "Shadows a Wider-Scope Key",
+              "hint": "Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)",
+              "type": "bool",
               "required": false
             }
           ]
@@ -131773,7 +131878,7 @@
             "kinds": [
               "CodeSpecPart.userSettings"
             ],
-            "note": "CE-UP — a user language/country preference persisted per user and restored across devices (roaming persistence, §11)."
+            "note": "CE-UP — a user language/country preference, a server-persisted user setting restored on any device the user signs into (§11)."
           }
         }
       ],

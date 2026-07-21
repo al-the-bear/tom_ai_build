@@ -284,6 +284,8 @@
           codeProtection
       - `ClientConfiguration`
         - content @Form(apiBaseUrl, environment, deviceOptions, featureToggles, updateChannel)
+      - `DeviceSettings`
+        - content @Form(settingKey, valueType, defaultValue, deviceOverridable)
     - networkRequirements: `NetworkRequirementsSection`
       - content, overview @text
       - internalNetwork: `InternalNetworkRequirements`

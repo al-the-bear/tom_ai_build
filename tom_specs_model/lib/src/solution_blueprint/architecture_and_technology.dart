@@ -16184,6 +16184,10 @@ Provide an overview of client requirements and support strategy.
   /// Per-machine configuration of a client application (CE-CC).
   @SerializationOrder(12)
   ClientConfiguration clientConfiguration = ClientConfiguration();
+
+  /// User-specific settings of a user-owned device (CE-DS).
+  @SerializationOrder(13)
+  DeviceSettings deviceSettings = DeviceSettings();
 }
 
 /// Client configuration — per-machine settings of a client application (CE-CC).
@@ -16238,6 +16242,65 @@ class ClientConfiguration extends DocSpecsSection {
       String,
       'Update Channel',
       hint: 'stable / beta / canary for this install',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+/// Device settings — user-specific settings of a user-owned device (CE-DS).
+///
+/// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+/// identity in the key) and from user settings (CE-UP — server-persisted,
+/// follow the user): a device setting is keyed by the (user, device) pair and
+/// persisted on the device itself (window layout, last-opened items,
+/// machine-local cache preferences). The same user gets independent values on
+/// each device; another user on the same device gets their own values
+/// (`codespecs_mapping.md` §11).
+@StandardReferences(
+  [
+    'ISO 9241-110 — suitability for individualization (user-tailored settings)',
+    'ISO/IEC 25010 — usability / operability',
+  ],
+  'The user-specific settings of a user-owned device — window layout, last-opened items, and machine-local preferences keyed by (user, device) and persisted on the device.',
+)
+@SectionId('DEVSET')
+@CodeSpecKind(
+  [CodeSpecPart.deviceSettings],
+  note:
+      'CE-DS — user-specific device settings, keyed by (user, device) and '
+      'persisted on the device; distinct from CE-CC client configuration '
+      '(no user in the key) and CE-UP user settings (follow the user).',
+)
+class DeviceSettings extends DocSpecsSection {
+  @Form([
+    Field(
+      'settingKey',
+      String,
+      'Setting Key',
+      required: true,
+      hint: 'The dotted key of the device setting, e.g. window.layout',
+    ),
+    Field(
+      'valueType',
+      String,
+      'Value Type',
+      hint: 'string / int / double / bool / enum',
+    ),
+    Field(
+      'defaultValue',
+      String,
+      'Default Value',
+      hint: 'The value used until the user changes the setting on this device',
+    ),
+    Field(
+      'deviceOverridable',
+      bool,
+      'Shadows a Wider-Scope Key',
+      hint:
+          'Whether this key shadows a device-overridable wider-scope setting '
+          '(CE-UP user setting or CE-CC client configuration)',
     ),
   ])
   @override

@@ -3052,6 +3052,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.nativeAppRequirements, (v) => n.nativeAppRequirements = v as NativeAppRequirements, label: 'nativeAppRequirements'),
         SpecSlot.node(() => n.securityRequirements, (v) => n.securityRequirements = v as ClientSecurityRequirements, label: 'securityRequirements'),
         SpecSlot.node(() => n.clientConfiguration, (v) => n.clientConfiguration = v as ClientConfiguration, label: 'clientConfiguration'),
+        SpecSlot.node(() => n.deviceSettings, (v) => n.deviceSettings = v as DeviceSettings, label: 'deviceSettings'),
       ];
     },
     cloneShallow: (o) {
@@ -3069,7 +3070,8 @@ void registerSpecOps() {
         ..pwaRequirements = n.pwaRequirements
         ..nativeAppRequirements = n.nativeAppRequirements
         ..securityRequirements = n.securityRequirements
-        ..clientConfiguration = n.clientConfiguration;
+        ..clientConfiguration = n.clientConfiguration
+        ..deviceSettings = n.deviceSettings;
     },
     yamlScalar: (o) => (o as ClientRequirementsSection).content,
   ));
@@ -6836,6 +6838,15 @@ void registerSpecOps() {
         ..performance = n.performance;
     },
     yamlScalar: (o) => (o as DevelopmentQualityGates).content,
+  ));
+  SpecRegistry.register(DeviceSettings, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as DeviceSettings;
+      return DeviceSettings()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as DeviceSettings).content,
   ));
   SpecRegistry.register(DisasterRecoveryRequirements, SpecClassOps(
     slots: (o) {
