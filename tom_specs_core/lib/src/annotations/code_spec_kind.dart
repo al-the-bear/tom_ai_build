@@ -70,8 +70,8 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **28 values**: the **23 active parts** (§4.1), the **member
-/// kind [domainEnum]**, and the **4 deferred candidates** (§4.3). A
+/// The enum holds **28 values**: the **24 active parts** (§4.1), the **member
+/// kind [domainEnum]**, and the **3 deferred candidates** (§4.3). A
 /// deferred value is *mapping-only* — a SOM section may carry
 /// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
 /// annotation, no built-on `tom_core` class and no generated code until
@@ -190,14 +190,18 @@ enum CodeSpecPart {
   // ---------------------------------------------------------------------------
   // Deferred candidates — MAPPING-ONLY (§4.3, csm2r8).
   //
-  // These four values are RESERVED so a SOM section can carry `@CodeSpecKind`
-  // now, but they are NOT active parts: each has NO `@Cs<Id>` annotation, NO
-  // built-on `tom_core` class and NO generated code until promoted into §4.1
-  // (the promotion criterion: a concrete `tom_core`-family built-on class — or a
-  // decided `tom_core_codespecs` gap — plus a `Cs*` annotation are chosen). They
-  // are distinct and collision-free against the 23 active values, bringing
-  // the enum to 28 kind values. The active [reporting] value follows below
-  // them: kind values keep their enum position for enum-order stability.
+  // Three values here — [workflow], [notification], [auditLog] — are RESERVED so
+  // a SOM section can carry `@CodeSpecKind` now, but they are NOT active parts:
+  // each has NO `@Cs<Id>` annotation, NO built-on `tom_core` class and NO
+  // generated code until promoted into §4.1 (the promotion criterion: a concrete
+  // `tom_core`-family built-on class — or a decided `tom_core_codespecs` gap —
+  // plus a `Cs*` annotation are chosen). They are distinct and collision-free
+  // against the 24 active values, keeping the enum at 28 kind values.
+  //
+  // [backgroundJob] and [reporting] below are ALREADY PROMOTED (active §4.1)
+  // but physically stay in their original enum position — kind values keep their
+  // enum position for enum-order stability (never reordered on promotion). Their
+  // doc comments carry the active mapping.
   // ---------------------------------------------------------------------------
 
   /// CE-WF — multi-step process / workflow orchestration (state machines,
@@ -208,8 +212,14 @@ enum CodeSpecPart {
   /// first-class effect. Deferred (§4.3).
   notification,
 
-  /// CE-JB — scheduled / background / queued jobs (cron, workers), distinct from
-  /// request-driven [serverApi]. Deferred (§4.3).
+  /// CE-JB — background jobs: scheduled / background / queued work over the
+  /// operational model — `@CsJob` names a trigger (cron | calendar | event), a
+  /// work definition (the `TomCommand` body on the `tom_core_kernel`
+  /// isolate-pooling substrate: `TomExecutor` / `TomWorker`), target refs
+  /// (CE-DB entities / CE-RP reports) and retry/backoff/timeout/alerting,
+  /// distinct from request-driven [serverApi]. Server-only; the typed
+  /// job-definition holder is a `tom_core_codespecs` gap; scheduler runtime /
+  /// job queue / multi-node locking are framework roadmap (§5.29).
   backgroundJob,
 
   /// CE-LG — logging & audit trail: who did what, when (a cross-cutting effect on
