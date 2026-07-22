@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T16:30:05.479834Z",
+  "generatedAt": "2026-07-22T04:40:13.176440Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -98610,7 +98610,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -98984,7 +98984,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -99707,7 +99707,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -99790,7 +99790,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -169718,7 +169718,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -190552,7 +190552,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -190691,7 +190691,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -191113,7 +191113,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -191576,7 +191576,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -191916,7 +191916,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-models / analytics projections over the domain model. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-models / analytics projections over the domain model. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -193084,7 +193084,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -193426,7 +193426,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -193731,7 +193731,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
@@ -194129,7 +194129,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
           }
         }
       ],
