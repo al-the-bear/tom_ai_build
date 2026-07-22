@@ -27873,9 +27873,14 @@ class UserProvisioningTools extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.backgroundJob],
   note:
-      'CE-JB — scheduled / background / queued jobs (cron, workers), '
-      'distinct from request-driven serverApi. Deferred (§4.3), '
-      'mapping-only until §4.1.',
+      'CE-JB — scheduled / background / queued jobs (cron | calendar | event '
+      'triggers), distinct from request-driven serverApi. Active (§4.1): '
+      '@CsJob, server locus; work bodies are TomCommand on the '
+      'tom_core_kernel isolate-pooling substrate (TomExecutor/TomWorker); '
+      'the typed job-definition holder is a tom_core_codespecs gap; execution '
+      'runs under the server principal; scheduled reports (CE-RP) are realized '
+      'as CE-JB jobs; scheduler runtime / job queue / multi-node locking are '
+      'framework roadmap (§5.29).',
 )
 class BatchJobManagement extends DocSpecsSection {
   @Form([
