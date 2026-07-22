@@ -281,6 +281,57 @@ class AccessConstraintPolicies(SomNode):
     def accessConstraintDetails(self):
         return None  # (skipped: no target type)
 
+class AccessControlModel(SomNode):
+    """SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+    
+    Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+    authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+    authentication, resource protection, authorization, and the role matrix.
+    The container itself carries no `@CodeSpecKind` — the mapped parts live on
+    the child sections (e.g. `authentication`) — but the whole subtree is the
+    CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+    subtrees.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 9.1.1. User Management.
+    @property
+    def userManagement(self):
+        return UserManagement(self.doc, f"{self.path}/userManagement")
+
+    # 9.1.2. Identification and Authentication.
+    @property
+    def authentication(self):
+        return IdentificationAndAuthentication(self.doc, f"{self.path}/authentication")
+
+    # 9.1.3. Resource Protection.
+    @property
+    def resourceProtection(self):
+        return ResourceProtection(self.doc, f"{self.path}/resourceProtection")
+
+    # 9.1.4. User Authorization.
+    @property
+    def authorization(self):
+        return UserAuthorization(self.doc, f"{self.path}/authorization")
+
+    # 9.1.5. Role Matrix.
+    @property
+    def roleMatrix(self):
+        return RoleMatrix(self.doc, f"{self.path}/roleMatrix")
+
 class AccessControlModelSelection(SomNode):
     """Access Control Model Selection (form).
     
@@ -2234,6 +2285,35 @@ class AuthenticationMethods(SomNode):
     @property
     def items(self):
         return SomList(self.doc, f"{self.path}/ATME-ITEM-LST", lambda d, p: AuthenticationMethodEntry(d, p), pattern="ATME-ITEM-xxx")
+
+class AuthorizationComplianceFollowUp(SomNode):
+    """SBP.13 Experience & Interface Design — authorization-compliance CMP
+    follow-up subtree.
+    
+    Groups the UI authorization-compliance concern (how the interface adapts to
+    roles and permissions as a compliance obligation), a **follow-up** (CMP)
+    rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+    Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 10.4.1. Authorization Compliance.
+    @property
+    def authorizationCompliance(self):
+        return None  # (skipped: no target type)
 
 class AuthorizationEventPolicy(SomNode):
     """Authorization event policy (form).
@@ -4507,6 +4587,11 @@ class ClientRequirementsSection(SomNode):
     @property
     def clientConfiguration(self):
         return ClientConfiguration(self.doc, f"{self.path}/clientConfiguration")
+
+    # User-specific settings of a user-owned device (CE-DS).
+    @property
+    def deviceSettings(self):
+        return DeviceSettings(self.doc, f"{self.path}/deviceSettings")
 
 class ClientSecurityRequirements(SomNode):
     """Client security requirements."""
@@ -8475,6 +8560,111 @@ class D12TransitionRolloutPlan(SomNode):
     def warrantyAndSupport(self):
         return WarrantyAndSupport(self.doc, f"{self.path}/warrantyAndSupport")
 
+class D13CodeSpecsProjection(SomNode):
+    """CGP00 CodeSpecs Generation Projection.
+    
+    The residual `@CodeSpecKind`-tagged content after the Band-F follow-up
+    splits: the shared registries, the server-side data / framework / access
+    models, the process-step interactions, and the client-side experience seed.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '1.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "CGP")
+        check_som_model_version(D13CodeSpecsProjection.model_version, document_version)
+
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml, d13CodeSpecsProjectionMetaTree)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path, d13CodeSpecsProjectionMetaTree)
+        return cls(doc, document_version=doc.model_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D13CodeSpecsProjection.model_version
+
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Domain enum registry — CE-EN closed value sets, shared by client & server.
+    @property
+    def domainEnumRegistry(self):
+        return DomainEnumRegistry(self.doc, f"{self.path}/domainEnumRegistry")
+
+    # Error code registry — CE-ER shared error-code vocabulary.
+    @property
+    def errorCodeRegistry(self):
+        return ErrorCodeRegistry(self.doc, f"{self.path}/errorCodeRegistry")
+
+    # Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+    @property
+    def resultEnvelope(self):
+        return ResultEnvelope(self.doc, f"{self.path}/resultEnvelope")
+
+    # Message key registry — CE-TX author-copy-once keys, shared.
+    @property
+    def messageKeyRegistry(self):
+        return MessageKeyRegistry(self.doc, f"{self.path}/messageKeyRegistry")
+
+    # Data model — CE-DB persistence + CE-VA server-side rules.
+    @property
+    def dataModel(self):
+        return DataModel(self.doc, f"{self.path}/dataModel")
+
+    # Technical framework — CE-CF platform/config foundation.
+    @property
+    def technicalFramework(self):
+        return TechnicalFrameworkConcept(self.doc, f"{self.path}/technicalFramework")
+
+    # Access control model — CE-AZ authorization/identity seed.
+    @property
+    def accessControl(self):
+        return AccessControlModel(self.doc, f"{self.path}/accessControl")
+
+    # Process steps & actor interactions — CE-SU server-use + CE-SC client-side
+    # interaction; a single subtree whose parts split across both loci.
+    @property
+    def processStepsAndActorInteractions(self):
+        return ProcessStepsAndActorInteractions(self.doc, f"{self.path}/processStepsAndActorInteractions")
+
+    # Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
+    @property
+    def experienceCodeSpecs(self):
+        return ExperienceCodeSpecs(self.doc, f"{self.path}/experienceCodeSpecs")
+
 class DashboardEntry(SomNode):
     """A dashboard entry."""
     def __init__(self, doc, path):
@@ -8827,24 +9017,12 @@ class DataEntityEntry(SomNode):
         return DataEntityEntryClassificationForm(self.doc, f"{self.path}/DAENT-CLAS")
 
     @property
-    def volumeMetrics(self):
-        return SomList(self.doc, f"{self.path}/VOLUM-VOLU-LST", lambda d, p: VolumeMetricEntry(d, p), pattern="VOLUM-VOLU-xxx")
-
-    @property
     def lifecyclePolicy(self):
         return DataEntityEntryLifecyclePolicyForm(self.doc, f"{self.path}/DAENT-LIFE")
 
     @property
-    def complianceRequirements(self):
-        return SomList(self.doc, f"{self.path}/CRE-COMP-LST", lambda d, p: ComplianceRequirementEntry(d, p), pattern="CRE-COMP-xxx")
-
-    @property
     def relationshipSummary(self):
         return DataEntityEntryRelationshipSummaryForm(self.doc, f"{self.path}/DAENT-RELA")
-
-    @property
-    def technicalCharacteristics(self):
-        return SomList(self.doc, f"{self.path}/TECHN-TECH-LST", lambda d, p: TechnicalCharacteristicEntry(d, p), pattern="TECHN-TECH-xxx")
 
     # Contains 0+× DataAttribute.
     @property
@@ -8865,11 +9043,6 @@ class DataEntityEntry(SomNode):
     @property
     def constraints(self):
         return SomList(self.doc, f"{self.path}/ENCNS-CONS-LST", lambda d, p: EntityConstraintEntry(d, p), pattern="ENCNS-CONS-xxx")
-
-    # Contains 0+× MigrationMapping for data migration planning.
-    @property
-    def migrationMappings(self):
-        return SomList(self.doc, f"{self.path}/MIGME-MIGR-LST", lambda d, p: MigrationMappingEntry(d, p), pattern="MIGME-MIGR-xxx")
 
 class DataEntityMigrationEntry(SomNode):
     """A data entity migration entry."""
@@ -9290,22 +9463,17 @@ class DataModel(SomNode):
     def entityRelationships(self):
         return EntityRelationships(self.doc, f"{self.path}/entityRelationships")
 
-    # 7.1.3. Entity-Relationship Diagram (mermaid).
-    @property
-    def erDiagram(self):
-        return None  # (skipped: no target type)
-
-    # 7.1.4. Data Classification.
+    # 7.1.3. Data Classification.
     @property
     def dataClassification(self):
         return DataClassification(self.doc, f"{self.path}/dataClassification")
 
-    # 7.1.5. Data Dictionary..
+    # 7.1.4. Data Dictionary..
     @property
     def dataDictionary(self):
         return DataDictionary(self.doc, f"{self.path}/dataDictionary")
 
-    # 7.1.6. Validation Constraints.
+    # 7.1.5. Validation Constraints.
     #
     # One whole-catalog content section (mirrors `dataDictionary`); collapsed
     # from `List<ValidationConstraints>` (L34C-12 SR-25).
@@ -9313,13 +9481,48 @@ class DataModel(SomNode):
     def validationConstraints(self):
         return ValidationConstraints(self.doc, f"{self.path}/validationConstraints")
 
-    # 7.1.7. Integrity Constraints.
+    # 7.1.6. Integrity Constraints.
     #
     # One whole-catalog content section (mirrors `dataDictionary`); collapsed
     # from `List<IntegrityConstraints>` (L34C-12 SR-25).
     @property
     def integrityConstraints(self):
         return IntegrityConstraints(self.doc, f"{self.path}/integrityConstraints")
+
+class DataModelFollowUp(SomNode):
+    """7.9. Data Model Follow-up Facets.
+    
+    Operational and governance facets that accompany the data model but are not
+    part of the generation-owned entity/attribute schema: the model-wide ER
+    diagram plus per-entity volume, compliance, technical, and migration
+    facets. Each per-entity block references its source entity by name/alias so
+    the facets stay correlated with `dataModel.entities` without being nested
+    inside the generation-owned `DataEntityEntry`.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 7.9.1. Entity-Relationship Diagram (mermaid).
+    @property
+    def erDiagram(self):
+        return None  # (skipped: no target type)
+
+    # 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+    @property
+    def entityFollowUps(self):
+        return SomList(self.doc, f"{self.path}/DMFUE-ENFU-LST", lambda d, p: EntityFollowUpEntry(d, p), pattern="DMFUE-ENFU-xxx")
 
 class DataOwnership(SomNode):
     """1.4.4. Data Ownership and Stewardship.
@@ -11283,6 +11486,24 @@ class DevelopmentQualityGates(SomNode):
     def performance(self):
         return DevelopmentQualityGatesPerformanceForm(self.doc, f"{self.path}/DQGP")
 
+class DeviceSettings(SomNode):
+    """Device settings — user-specific settings of a user-owned device (CE-DS).
+    
+    Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+    identity in the key) and from user settings (CE-UP — server-persisted,
+    follow the user): a device setting is keyed by the (user, device) pair and
+    persisted on the device itself (window layout, last-opened items,
+    machine-local cache preferences). The same user gets independent values on
+    each device; another user on the same device gets their own values
+    (`codespecs_mapping.md` §11).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return DeviceSettingsContentForm(self.doc, f"{self.path}/content")
+
 class DisasterRecoveryRequirements(SomNode):
     """Disaster recovery requirements."""
     def __init__(self, doc, path):
@@ -12455,6 +12676,35 @@ class EntityConstraintEntry(SomNode):
     def content(self):
         return EntityConstraintEntryContentForm(self.doc, f"{self.path}/content")
 
+class EntityFollowUpEntry(SomNode):
+    """A per-entity follow-up facet block (form + lists).
+    
+    Groups the volume, compliance, technical, and migration facets for a single
+    data entity, correlated back to `dataModel.entities` by name/alias.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def entityRef(self):
+        return EntityFollowUpEntryEntityRefForm(self.doc, f"{self.path}/DMFUE-ENTI")
+
+    @property
+    def volumeMetrics(self):
+        return SomList(self.doc, f"{self.path}/VOLUM-VOLU-LST", lambda d, p: VolumeMetricEntry(d, p), pattern="VOLUM-VOLU-xxx")
+
+    @property
+    def complianceRequirements(self):
+        return SomList(self.doc, f"{self.path}/CRE-COMP-LST", lambda d, p: ComplianceRequirementEntry(d, p), pattern="CRE-COMP-xxx")
+
+    @property
+    def technicalCharacteristics(self):
+        return SomList(self.doc, f"{self.path}/TECHN-TECH-LST", lambda d, p: TechnicalCharacteristicEntry(d, p), pattern="TECHN-TECH-xxx")
+
+    @property
+    def migrationMappings(self):
+        return SomList(self.doc, f"{self.path}/MIGME-MIGR-LST", lambda d, p: MigrationMappingEntry(d, p), pattern="MIGME-MIGR-xxx")
+
 class EntityIndexEntry(SomNode):
     """An entity index entry (form).
     
@@ -13186,78 +13436,167 @@ class ExperienceAndInterfaceDesign(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.1. Design Vision. Seeds → XDS.
+    # 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
     @property
-    def designVision(self):
-        return DesignVision(self.doc, f"{self.path}/designVision")
+    def experienceCodeSpecs(self):
+        return ExperienceCodeSpecs(self.doc, f"{self.path}/experienceCodeSpecs")
 
-    # 10.2. Screen Descriptions. Seeds → XDS.
+    # 10.2. Experience Design — DOC follow-up subtree.
+    @property
+    def designFollowUp(self):
+        return ExperienceDesignFollowUp(self.doc, f"{self.path}/designFollowUp")
+
+    # 10.3. Experience Localization — L10N follow-up subtree.
+    @property
+    def localizationFollowUp(self):
+        return ExperienceLocalizationFollowUp(self.doc, f"{self.path}/localizationFollowUp")
+
+    # 10.4. Authorization Compliance — CMP follow-up subtree.
+    @property
+    def authorizationComplianceFollowUp(self):
+        return AuthorizationComplianceFollowUp(self.doc, f"{self.path}/authorizationComplianceFollowUp")
+
+class ExperienceCodeSpecs(SomNode):
+    """SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+    
+    Groups the UI concerns CodeSpecs generates (§4.6 of
+    `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+    CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+    cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+    reusable UI component library (CE-EL/CE-LO). The container itself carries no
+    `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+    subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+    follow-up subtrees.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 10.1.1. Screen Descriptions. Seeds → XDS.
     @property
     def screens(self):
         return ScreenDescriptions(self.doc, f"{self.path}/screens")
 
-    # 10.3. Screen Flow Structure. Seeds → XDS.
+    # 10.1.2. Screen Flow Structure. Seeds → XDS.
     @property
     def screenFlow(self):
         return ScreenFlowStructure(self.doc, f"{self.path}/screenFlow")
 
-    # 10.4. Print Layout. Seeds → XDS.
-    @property
-    def printLayout(self):
-        return PrintAndExportLayout(self.doc, f"{self.path}/printLayout")
-
-    # Data Structure Alignment.
+    # 10.1.3. Data Structure Alignment.
     @property
     def dataStructureAlignment(self):
         return None  # (skipped: no target type)
 
-    # Authorization Compliance.
-    @property
-    def authorizationCompliance(self):
-        return None  # (skipped: no target type)
-
-    # 10.7. Error Handling. Seeds → XDS.
+    # 10.1.4. Error Handling. Seeds → XDS.
     @property
     def errorHandling(self):
         return ErrorHandling(self.doc, f"{self.path}/errorHandling")
 
-    # 10.8. User Assistance. Seeds → XDS.
-    @property
-    def userAssistance(self):
-        return UserAssistance(self.doc, f"{self.path}/userAssistance")
-
-    # 10.9. Accessibility. Seeds → XDS.
-    @property
-    def accessibility(self):
-        return Accessibility(self.doc, f"{self.path}/accessibility")
-
-    # 10.10. Responsive Design. Seeds → XDS.
+    # 10.1.5. Responsive Design. Seeds → XDS.
     @property
     def responsiveDesign(self):
         return ResponsiveDesign(self.doc, f"{self.path}/responsiveDesign")
 
-    # 10.11. UI Components. Seeds → XDS.
+    # 10.1.6. UI Components. Seeds → XDS.
     @property
     def uiComponents(self):
         return UiComponents(self.doc, f"{self.path}/uiComponents")
 
-    # 10.12. Multi-language Support.
-    @property
-    def multiLanguageSupport(self):
-        return MultiLanguageSupport(self.doc, f"{self.path}/multiLanguageSupport")
+class ExperienceDesignFollowUp(SomNode):
+    """SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+    
+    Groups the design / documentation concerns that are **follow-up** (design
+    vision, print & export layout, user assistance, accessibility, prototype,
+    wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+    `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+    is generation-owned-out. Accessibility's operational (OPS) facet is a
+    secondary concern refined by the follow-up taxonomy pass.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
 
-    # 10.13. Prototype. Seeds → XDS.
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 10.2.1. Design Vision. Seeds → XDS.
+    @property
+    def designVision(self):
+        return DesignVision(self.doc, f"{self.path}/designVision")
+
+    # 10.2.2. Print Layout. Seeds → XDS.
+    @property
+    def printLayout(self):
+        return PrintAndExportLayout(self.doc, f"{self.path}/printLayout")
+
+    # 10.2.3. User Assistance. Seeds → XDS.
+    @property
+    def userAssistance(self):
+        return UserAssistance(self.doc, f"{self.path}/userAssistance")
+
+    # 10.2.4. Accessibility. Seeds → XDS.
+    @property
+    def accessibility(self):
+        return Accessibility(self.doc, f"{self.path}/accessibility")
+
+    # 10.2.5. Prototype. Seeds → XDS.
     @property
     def prototype(self):
         return Prototype(self.doc, f"{self.path}/prototype")
 
-    # 10.14. Wireframes and Mockups.
+    # 10.2.6. Wireframes and Mockups.
     #
     # One whole-catalog content section; collapsed from
     # `List<WireframesAndMockups>` (L34C-12 SR-52).
     @property
     def wireframesAndMockups(self):
         return WireframesAndMockups(self.doc, f"{self.path}/wireframesAndMockups")
+
+class ExperienceLocalizationFollowUp(SomNode):
+    """SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+    
+    Groups the internationalization concern, a **follow-up** (L10N) rather than
+    CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+    `@CodeSpecKind` — the whole subtree is generation-owned-out.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 10.3.1. Multi-language Support.
+    @property
+    def multiLanguageSupport(self):
+        return MultiLanguageSupport(self.doc, f"{self.path}/multiLanguageSupport")
 
 class ExportFieldMappingEntry(SomNode):
     """A field mapping within an export (form)."""
@@ -15616,6 +15955,17 @@ class InformationAndDataModel(SomNode):
     @property
     def messageKeyRegistry(self):
         return MessageKeyRegistry(self.doc, f"{self.path}/messageKeyRegistry")
+
+    # 7.9. Data Model Follow-up Facets.
+    #
+    # Per-entity operational/governance facets (volume, compliance, technical
+    # characteristics, migration mappings) and the model-wide ER diagram —
+    # separated from `dataModel` so the entity/attribute subtree stays purely
+    # CE-DB / CE-VA generation-owned while these follow-up facets are authored
+    # alongside, keyed back to their source entity.
+    @property
+    def dataModelFollowUp(self):
+        return DataModelFollowUp(self.doc, f"{self.path}/dataModelFollowUp")
 
 class InformationArchitecture(SomNode):
     """10.2.2. Information Architecture.
@@ -20518,6 +20868,41 @@ class OrgRequirementImplementationPlan(SomNode):
     def activities(self):
         return SomList(self.doc, f"{self.path}/ORGIM-ACTI-LST", lambda d, p: OrgImplementationActivity(d, p), pattern="ORGIM-ACTI-xxx")
 
+class OrganizationAndProcessConcept(SomNode):
+    """SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.
+    
+    Groups the two purely-follow-up facets of the Target Operating Model into a
+    single branch that is routed to organizational-change (ORG) and
+    operational-routine (OPS) follow-up processes rather than to code
+    generation: the target organizational structure/roles
+    ([OrganizationalFramework]) and the business-process narrative
+    ([BusinessProcessDescriptions], which seeds the TOM document).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Target organizational structure and roles.
+    @property
+    def organizationalFramework(self):
+        return OrganizationalFramework(self.doc, f"{self.path}/organizationalFramework")
+
+    # Business-process descriptions and narrative. Seeds → TOM.
+    @property
+    def businessProcessDescriptions(self):
+        return BusinessProcessDescriptions(self.doc, f"{self.path}/businessProcessDescriptions")
+
 class OrganizationStructure(SomNode):
     """3.1.1. Organization Structure."""
     def __init__(self, doc, path):
@@ -24961,8 +25346,48 @@ class Requirements(SomNode):
     """SBP.9 Requirements.
     
     Functional requirements seed the Requirements Specification (RSP); this
-    section currently carries the framework-uncovered NFR sub-areas re-homed in
-    IP-6. Functional-requirement modelling is expanded in a later IP step.
+    section is the CodeSpecs **seed** subtree — its functional requirements plus
+    the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+    requirements*, not generated. Functional-requirement modelling is expanded
+    in a later IP step.
+    
+    The framework-uncovered NFR follow-up sub-areas (localization,
+    information-for-use, training) are grouped out of the seed subtree into
+    [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+    stays purely CodeSpecs-relevant.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+    @property
+    def requirementsFollowUp(self):
+        return RequirementsFollowUp(self.doc, f"{self.path}/requirementsFollowUp")
+
+class RequirementsFollowUp(SomNode):
+    """SBP.9 Requirements — follow-up NFR sub-areas.
+    
+    Groups the framework-uncovered non-functional requirement sub-areas that are
+    **follow-up** concerns (documentation, training, localization) rather than
+    CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+    is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+    parent [Requirements] seed subtree purely CodeSpecs-relevant:
+    
+     * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+     * Information for Use         → [InformationForUseRequirements] (DOC)
+     * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -27200,45 +27625,20 @@ class SecurityAndAccessModel(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 9.1. User Management.
+    # 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
     @property
-    def userManagement(self):
-        return UserManagement(self.doc, f"{self.path}/userManagement")
+    def accessControl(self):
+        return AccessControlModel(self.doc, f"{self.path}/accessControl")
 
-    # 9.2. Identification and Authentication.
+    # 9.2. Security Operations — OPS follow-up subtree.
     @property
-    def authentication(self):
-        return IdentificationAndAuthentication(self.doc, f"{self.path}/authentication")
+    def securityOperations(self):
+        return SecurityOperationsFollowUp(self.doc, f"{self.path}/securityOperations")
 
-    # 9.3. Resource Protection.
+    # 9.3. Compliance — CMP follow-up subtree.
     @property
-    def resourceProtection(self):
-        return ResourceProtection(self.doc, f"{self.path}/resourceProtection")
-
-    # 9.4. User Authorization.
-    @property
-    def authorization(self):
-        return UserAuthorization(self.doc, f"{self.path}/authorization")
-
-    # 9.5. Sensitive Data Encryption.
-    @property
-    def encryption(self):
-        return SensitiveDataEncryption(self.doc, f"{self.path}/encryption")
-
-    # 9.6. Audit and Logging.
-    @property
-    def auditAndLogging(self):
-        return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
-
-    # 9.7. Role Matrix..
-    @property
-    def roleMatrix(self):
-        return RoleMatrix(self.doc, f"{self.path}/roleMatrix")
-
-    # 9.8. Compliance Framework.
-    @property
-    def complianceFramework(self):
-        return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
+    def compliance(self):
+        return SecurityComplianceFollowUp(self.doc, f"{self.path}/compliance")
 
 class SecurityAuditEntry(SomNode):
     """A security audit requirement entry (form)."""
@@ -27413,6 +27813,34 @@ class SecurityCodeReviewPolicy(SomNode):
     def findings(self):
         return SecurityCodeReviewPolicyFindingsForm(self.doc, f"{self.path}/SCRPF")
 
+class SecurityComplianceFollowUp(SomNode):
+    """SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+    
+    Groups the compliance-framework concern, a **follow-up** (compliance
+    governance) rather than CodeSpecs-generated behaviour (§4.5 of
+    `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+    subtree is generation-owned-out.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 9.3.1. Compliance Framework.
+    @property
+    def complianceFramework(self):
+        return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
+
 class SecurityControlEntry(SomNode):
     """A security control entry (form)."""
     def __init__(self, doc, path):
@@ -27563,6 +27991,39 @@ class SecurityEventsDefinition(SomNode):
     @property
     def customEvents(self):
         return SomList(self.doc, f"{self.path}/SEVT-CUST-LST", lambda d, p: SecurityEventEntry(d, p), pattern="SEVT-CUST-xxx")
+
+class SecurityOperationsFollowUp(SomNode):
+    """SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+    
+    Groups the operational security concerns that are **follow-up** (key
+    management and audit/logging operations), not CodeSpecs-generated behaviour
+    (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+    whole subtree is generation-owned-out.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 9.2.1. Sensitive Data Encryption.
+    @property
+    def encryption(self):
+        return SensitiveDataEncryption(self.doc, f"{self.path}/encryption")
+
+    # 9.2.2. Audit and Logging.
+    @property
+    def auditAndLogging(self):
+        return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
 
 class SecurityRequirementEntry(SomNode):
     """A security requirement entry.
@@ -28779,10 +29240,41 @@ class SolutionArchitectureAndTechnology(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Technical framework and platform concept.
+    # Technical framework and platform concept — the CodeSpecs-relevant
+    # (CE-CF configuration-bearing) subtree.
     @property
     def technicalFramework(self):
         return TechnicalFrameworkConcept(self.doc, f"{self.path}/technicalFramework")
+
+    # Architecture / component-reuse DOC follow-up subtree.
+    @property
+    def architectureFollowUp(self):
+        return SolutionArchitectureFollowUp(self.doc, f"{self.path}/architectureFollowUp")
+
+class SolutionArchitectureFollowUp(SomNode):
+    """SBP.11 Solution Architecture & Technology — DOC follow-up subtree.
+    
+    Groups the descriptive-architecture concern that is **not** CodeSpecs-
+    generated: the component-reuse rationale (component catalogue, third-party
+    and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
+    generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+    sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
+    CodeSpecs subtree.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
 
     # Components, libraries, and services to reuse.
     @property
@@ -31512,8 +32004,13 @@ class TabItemEntry(SomNode):
     def content(self):
         return TabItemEntryContentForm(self.doc, f"{self.path}/content")
 
-class TargetBusinessProcessModel(SomNode):
-    """6. Target Business Process Model."""
+class TargetOperatingModel(SomNode):
+    """SBP.7 Target Operating Model concept.
+    
+    Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
+    and a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)
+    so each whole branch is owned by a single downstream process.
+    """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31529,42 +32026,15 @@ class TargetBusinessProcessModel(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 6.1. Business Process Descriptions. Seeds → TOM.
+    # ORG/OPS follow-up subtree: target organization + process narrative.
     @property
-    def businessProcessDescriptions(self):
-        return BusinessProcessDescriptions(self.doc, f"{self.path}/businessProcessDescriptions")
+    def organizationAndProcess(self):
+        return OrganizationAndProcessConcept(self.doc, f"{self.path}/organizationAndProcess")
 
-    # 6.2. Process Steps and Actor Interactions. Seeds → ISC.
+    # CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
     @property
     def processStepsAndActorInteractions(self):
         return ProcessStepsAndActorInteractions(self.doc, f"{self.path}/processStepsAndActorInteractions")
-
-class TargetOperatingModel(SomNode):
-    """SBP.7 Target Operating Model concept."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Target organizational structure and roles.
-    @property
-    def organizationalFramework(self):
-        return OrganizationalFramework(self.doc, f"{self.path}/organizationalFramework")
-
-    # Target business process model.
-    @property
-    def targetBusinessProcess(self):
-        return TargetBusinessProcessModel(self.doc, f"{self.path}/targetBusinessProcess")
 
 class TargetPlatformEntry(SomNode):
     """Target platform entry (operating system, runtime, container)."""
@@ -73664,6 +74134,56 @@ class DevelopmentQualityGatesSecurityForm(SomNode):
     def licenseCompliance(self, value):
         self.doc.set_form_field(self.path, "licenseCompliance", value)
 
+class DeviceSettingsContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def settingKey(self) -> str:
+        return self.doc.form_field(self.path, "settingKey") or ""
+
+    @settingKey.setter
+    def settingKey(self, value):
+        self.doc.set_form_field(self.path, "settingKey", value)
+
+    @property
+    def valueType(self) -> str:
+        return self.doc.form_field(self.path, "valueType") or ""
+
+    @valueType.setter
+    def valueType(self, value):
+        self.doc.set_form_field(self.path, "valueType", value)
+
+    @property
+    def defaultValue(self) -> str:
+        return self.doc.form_field(self.path, "defaultValue") or ""
+
+    @defaultValue.setter
+    def defaultValue(self, value):
+        self.doc.set_form_field(self.path, "defaultValue", value)
+
+    @property
+    def deviceOverridable(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "deviceOverridable")
+        return None if v is None else (v == "true")
+
+    @deviceOverridable.setter
+    def deviceOverridable(self, value):
+        self.doc.set_form_field(self.path, "deviceOverridable", "" if value is None else ("true" if value else "false"))
+
 class DisasterRecoveryRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -77826,6 +78346,39 @@ class EntityConstraintEntryContentForm(SomNode):
     @businessRule.setter
     def businessRule(self, value):
         self.doc.set_form_field(self.path, "businessRule", value)
+
+class EntityFollowUpEntryEntityRefForm(SomNode):
+    """Generated section facade for the `entityRef` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def entityName(self) -> str:
+        return self.doc.form_field(self.path, "entityName") or ""
+
+    @entityName.setter
+    def entityName(self, value):
+        self.doc.set_form_field(self.path, "entityName", value)
+
+    @property
+    def entityAlias(self) -> str:
+        return self.doc.form_field(self.path, "entityAlias") or ""
+
+    @entityAlias.setter
+    def entityAlias(self, value):
+        self.doc.set_form_field(self.path, "entityAlias", value)
 
 class EntityIndexEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -168241,6 +168794,22 @@ class UserAttributeEntryContentForm(SomNode):
     @dataType.setter
     def dataType(self, value):
         self.doc.set_form_field(self.path, "dataType", value)
+
+    @property
+    def placement(self) -> str:
+        return self.doc.form_field(self.path, "placement") or ""
+
+    @placement.setter
+    def placement(self, value):
+        self.doc.set_form_field(self.path, "placement", value)
+
+    @property
+    def accessGuard(self) -> str:
+        return self.doc.form_field(self.path, "accessGuard") or ""
+
+    @accessGuard.setter
+    def accessGuard(self, value):
+        self.doc.set_form_field(self.path, "accessGuard", value)
 
     @property
     def source(self) -> str:

@@ -409,6 +409,83 @@ def _mc_AccessConstraintPolicies(s):
     ]
 
 
+def _mc_AccessControlModel(s):
+    return [
+         SomMetaNode(
+            class_name="AccessControlModel",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the access-control model: identities, authentication, resource protection, authorization, and roles.")),
+         _cx("UserManagement", s, _mc_UserManagement,
+            lambda r, c: SomMetaNode(
+                class_name="UserManagement",
+                member_name="userManagement",
+                class_section_id="USMGT",
+                kind=SomMetaKind.COMPLEX,
+                type_name="UserManagement",
+                serialization_order=1,
+                doc_comment="9.1.1. User Management.",
+                class_doc_comment="9.1. User Management.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
+         _cx("IdentificationAndAuthentication", s, _mc_IdentificationAndAuthentication,
+            lambda r, c: SomMetaNode(
+                class_name="IdentificationAndAuthentication",
+                member_name="authentication",
+                class_section_id="IDAUT",
+                kind=SomMetaKind.COMPLEX,
+                type_name="IdentificationAndAuthentication",
+                serialization_order=2,
+                doc_comment="9.1.2. Identification and Authentication.",
+                class_doc_comment="9.2. Identification and Authentication.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
+         _cx("ResourceProtection", s, _mc_ResourceProtection,
+            lambda r, c: SomMetaNode(
+                class_name="ResourceProtection",
+                member_name="resourceProtection",
+                class_section_id="RESPRO",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ResourceProtection",
+                serialization_order=3,
+                doc_comment="9.1.3. Resource Protection.",
+                class_doc_comment="9.3. Resource Protection.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
+         _cx("UserAuthorization", s, _mc_UserAuthorization,
+            lambda r, c: SomMetaNode(
+                class_name="UserAuthorization",
+                member_name="authorization",
+                class_section_id="USAU",
+                kind=SomMetaKind.COMPLEX,
+                type_name="UserAuthorization",
+                serialization_order=4,
+                doc_comment="9.1.4. User Authorization.",
+                class_doc_comment="9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
+         _cx("RoleMatrix", s, _mc_RoleMatrix,
+            lambda r, c: SomMetaNode(
+                class_name="RoleMatrix",
+                member_name="roleMatrix",
+                class_section_id="ROMA",
+                kind=SomMetaKind.COMPLEX,
+                type_name="RoleMatrix",
+                serialization_order=5,
+                doc_comment="9.1.5. Role Matrix.",
+                class_doc_comment="9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
+    ]
+
+
 def _mc_AccessControlModelSelection(s):
     return [
          SomMetaNode(
@@ -3187,6 +3264,26 @@ def _mc_AuthenticationMethods(s):
             doc_comment="Contains 0+× AuthenticationMethod.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["NIST SP 800-63B — authentication and authenticator lifecycle", "ISO/IEC 29115 — entity authentication assurance framework"], "connotation": "The catalog of supported authentication method entries."})],
             element_node=_cx("AuthenticationMethodEntry", s, _mc_AuthenticationMethodEntry, lambda r, c: SomMetaNode(class_name="AuthenticationMethodEntry", class_section_id="ATME", kind=SomMetaKind.COMPLEX, type_name="AuthenticationMethodEntry", doc_comment="An authentication method entry (form).\n\nDetailed per-method specification aligned with NIST SP 800-63B\nauthenticator types (password, OTP, cryptographic, out-of-band).", class_doc_comment="An authentication method entry (form).\n\nDetailed per-method specification aligned with NIST SP 800-63B\nauthenticator types (password, OTP, cryptographic, out-of-band).", recursive=r, children=c))),
+    ]
+
+
+def _mc_AuthorizationComplianceFollowUp(s):
+    return [
+         SomMetaNode(
+            class_name="AuthorizationComplianceFollowUp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the authorization-compliance follow-up: UI adaptation to roles and permissions.")),
+         SomMetaNode(
+            class_name="AuthorizationComplianceFollowUp",
+            member_name="authorizationCompliance",
+            kind=SomMetaKind.SECTION,
+            type_name="String",
+            serialization_order=1,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            doc_comment="10.4.1. Authorization Compliance."),
     ]
 
 
@@ -6950,6 +7047,18 @@ def _mc_ClientRequirementsSection(s):
                 class_doc_comment="Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).",
                 recursive=r,
                 children=c)),
+         _cx("DeviceSettings", s, _mc_DeviceSettings,
+            lambda r, c: SomMetaNode(
+                class_name="DeviceSettings",
+                member_name="deviceSettings",
+                class_section_id="DEVSET",
+                kind=SomMetaKind.COMPLEX,
+                type_name="DeviceSettings",
+                serialization_order=13,
+                doc_comment="User-specific settings of a user-owned device (CE-DS).",
+                class_doc_comment="Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).",
+                recursive=r,
+                children=c)),
     ]
 
 
@@ -10704,7 +10813,7 @@ def _mc_D00SolutionBlueprint(s):
                 type_name="TargetOperatingModel",
                 serialization_order=7,
                 doc_comment="SBP.7 Target Operating Model concept. Seeds → TOM.",
-                class_doc_comment="SBP.7 Target Operating Model concept.",
+                class_doc_comment="SBP.7 Target Operating Model concept.\n\nSplit into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)\nand a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)\nso each whole branch is owned by a single downstream process.",
                 recursive=r,
                 children=c)),
          _cx("InformationAndDataModel", s, _mc_InformationAndDataModel,
@@ -10729,7 +10838,7 @@ def _mc_D00SolutionBlueprint(s):
                 type_name="Requirements",
                 serialization_order=9,
                 doc_comment="SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.",
-                class_doc_comment="SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection currently carries the framework-uncovered NFR sub-areas re-homed in\nIP-6. Functional-requirement modelling is expanded in a later IP step.",
+                class_doc_comment="SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed\nstays purely CodeSpecs-relevant.",
                 recursive=r,
                 children=c)),
          _cx("SolutionArchitectureAndTechnology", s, _mc_SolutionArchitectureAndTechnology,
@@ -12749,6 +12858,151 @@ def _mc_D12TransitionRolloutPlan(s):
     ]
 
 
+def _mc_D13CodeSpecsProjection(s):
+    return [
+         SomMetaNode(
+            class_name="D13CodeSpecsProjection",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split."),
+         _cx("DocumentHeader", s, _mc_DocumentHeader,
+            lambda r, c: SomMetaNode(
+                class_name="DocumentHeader",
+                member_name="header",
+                class_section_id="DOCHD",
+                kind=SomMetaKind.COMPLEX,
+                type_name="DocumentHeader",
+                serialization_order=1,
+                doc_comment="Standard TomSpecs document header.",
+                class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
+                recursive=r,
+                children=c)),
+         _cx("DomainEnumRegistry", s, _mc_DomainEnumRegistry,
+            lambda r, c: SomMetaNode(
+                class_name="DomainEnumRegistry",
+                member_name="domainEnumRegistry",
+                class_section_id="DOMEN",
+                kind=SomMetaKind.COMPLEX,
+                type_name="DomainEnumRegistry",
+                serialization_order=2,
+                comment="locus: shared — CE-EN",
+                doc_comment="Domain enum registry — CE-EN closed value sets, shared by client & server.",
+                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+                recursive=r,
+                children=c)),
+         _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
+            lambda r, c: SomMetaNode(
+                class_name="ErrorCodeRegistry",
+                member_name="errorCodeRegistry",
+                class_section_id="ERCRG",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ErrorCodeRegistry",
+                serialization_order=3,
+                comment="locus: shared — CE-ER",
+                doc_comment="Error code registry — CE-ER shared error-code vocabulary.",
+                class_doc_comment="7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+                recursive=r,
+                children=c)),
+         _cx("ResultEnvelope", s, _mc_ResultEnvelope,
+            lambda r, c: SomMetaNode(
+                class_name="ResultEnvelope",
+                member_name="resultEnvelope",
+                class_section_id="RSLTE",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ResultEnvelope",
+                serialization_order=4,
+                comment="locus: shared — CE-ER",
+                doc_comment="Result envelope — CE-ER canonical §7 success-or-error contract, shared.",
+                class_doc_comment="7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+                recursive=r,
+                children=c)),
+         _cx("MessageKeyRegistry", s, _mc_MessageKeyRegistry,
+            lambda r, c: SomMetaNode(
+                class_name="MessageKeyRegistry",
+                member_name="messageKeyRegistry",
+                class_section_id="MSGKR",
+                kind=SomMetaKind.COMPLEX,
+                type_name="MessageKeyRegistry",
+                serialization_order=5,
+                comment="locus: shared — CE-TX",
+                doc_comment="Message key registry — CE-TX author-copy-once keys, shared.",
+                class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+                recursive=r,
+                children=c)),
+         _cx("DataModel", s, _mc_DataModel,
+            lambda r, c: SomMetaNode(
+                class_name="DataModel",
+                member_name="dataModel",
+                class_section_id="DATMD",
+                kind=SomMetaKind.COMPLEX,
+                type_name="DataModel",
+                serialization_order=6,
+                comment="locus: server — CE-DB/CE-VA",
+                doc_comment="Data model — CE-DB persistence + CE-VA server-side rules.",
+                class_doc_comment="7.1. Data Model.",
+                maps_to="D03InformationModel",
+                recursive=r,
+                children=c)),
+         _cx("TechnicalFrameworkConcept", s, _mc_TechnicalFrameworkConcept,
+            lambda r, c: SomMetaNode(
+                class_name="TechnicalFrameworkConcept",
+                member_name="technicalFramework",
+                class_section_id="TECH",
+                kind=SomMetaKind.COMPLEX,
+                type_name="TechnicalFrameworkConcept",
+                serialization_order=7,
+                comment="locus: server — CE-CF",
+                doc_comment="Technical framework — CE-CF platform/config foundation.",
+                class_doc_comment="8. Technical Framework Concept. Seeds → ATS.",
+                maps_to="D06ArchitectureTechnologySpecification",
+                recursive=r,
+                children=c)),
+         _cx("AccessControlModel", s, _mc_AccessControlModel,
+            lambda r, c: SomMetaNode(
+                class_name="AccessControlModel",
+                member_name="accessControl",
+                class_section_id="ACCM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AccessControlModel",
+                serialization_order=8,
+                comment="locus: server — CE-AZ",
+                doc_comment="Access control model — CE-AZ authorization/identity seed.",
+                class_doc_comment="SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
+                recursive=r,
+                children=c)),
+         _cx("ProcessStepsAndActorInteractions", s, _mc_ProcessStepsAndActorInteractions,
+            lambda r, c: SomMetaNode(
+                class_name="ProcessStepsAndActorInteractions",
+                member_name="processStepsAndActorInteractions",
+                class_section_id="PSAAI",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ProcessStepsAndActorInteractions",
+                serialization_order=9,
+                comment="locus: server(CE-SU)+client(CE-SC)",
+                doc_comment="Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
+                class_doc_comment="6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
+                maps_to="D05InteractionScenarios",
+                recursive=r,
+                children=c)),
+         _cx("ExperienceCodeSpecs", s, _mc_ExperienceCodeSpecs,
+            lambda r, c: SomMetaNode(
+                class_name="ExperienceCodeSpecs",
+                member_name="experienceCodeSpecs",
+                class_section_id="XCS",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ExperienceCodeSpecs",
+                serialization_order=10,
+                comment="locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER",
+                doc_comment="Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
+                class_doc_comment="SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.",
+                recursive=r,
+                children=c)),
+    ]
+
+
 def _mc_DashboardEntry(s):
     return [
          SomMetaNode(
@@ -13263,53 +13517,20 @@ def _mc_DataEntityEntry(s):
             form=SomFormMeta(fields=[SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData", order=0), SomFormFieldMeta(name="boundedContext", type_name="String", description="Bounded Context", hint="Domain-driven design bounded context this entity belongs to", order=1), SomFormFieldMeta(name="owningDomain", type_name="String", description="Owning Domain", hint="Business domain responsible for this entity", order=2), SomFormFieldMeta(name="dataOwner", type_name="String", description="Data Owner", hint="Role or team accountable for data quality", order=3), SomFormFieldMeta(name="dataSteward", type_name="String", description="Data Steward", hint="Person or role responsible for data governance", order=4), SomFormFieldMeta(name="sourceSystem", type_name="String", description="Source System", hint="System of record or originating system for migration", order=5)])),
          SomMetaNode(
             class_name="DataEntityEntry",
-            member_name="volumeMetrics",
-            section_id="VOLUM-VOLU-LST",
-            section_id_pattern="VOLUM-VOLU-xxx",
-            kind=SomMetaKind.LIST,
-            type_name="VolumeMetricEntry",
-            serialization_order=2,
-            content_help="Add one entry per volume metric.",
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."})],
-            element_node=_cx("VolumeMetricEntry", s, _mc_VolumeMetricEntry, lambda r, c: SomMetaNode(class_name="VolumeMetricEntry", class_section_id="VOLUM", kind=SomMetaKind.COMPLEX, type_name="VolumeMetricEntry", doc_comment="A single volume metric entry.", class_doc_comment="A single volume metric entry.", recursive=r, children=c))),
-         SomMetaNode(
-            class_name="DataEntityEntry",
             member_name="lifecyclePolicy",
             section_id="DAENT-LIFE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=2,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="lifecyclePhases", type_name="String", description="Lifecycle Phases", hint="Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted", order=0), SomFormFieldMeta(name="retentionPolicy", type_name="String", description="Retention Policy", hint="How long data is retained and why (e.g., 7 years per tax regulations)", order=1), SomFormFieldMeta(name="archivalTrigger", type_name="String", description="Archival Trigger", hint="Condition for moving to archive (e.g., 2 years after last activity)", order=2), SomFormFieldMeta(name="archivalDestination", type_name="String", description="Archival Destination", hint="Where archived data goes: ColdStorage | Archive | DataLake", order=3), SomFormFieldMeta(name="purgePolicy", type_name="String", description="Purge Policy", hint="When and how data is permanently deleted", order=4), SomFormFieldMeta(name="anonymizationPolicy", type_name="String", description="Anonymization Policy", hint="PII anonymization rules (e.g., hash email after deletion)", order=5), SomFormFieldMeta(name="auditRequirements", type_name="String", description="Audit Requirements", hint="What changes must be tracked: None | KeyFields | AllFields | FullHistory", order=6), SomFormFieldMeta(name="auditRetention", type_name="String", description="Audit Retention", hint="How long audit records are kept", order=7)])),
-         SomMetaNode(
-            class_name="DataEntityEntry",
-            member_name="complianceRequirements",
-            section_id="CRE-COMP-LST",
-            section_id_pattern="CRE-COMP-xxx",
-            kind=SomMetaKind.LIST,
-            type_name="ComplianceRequirementEntry",
-            serialization_order=4,
-            content_help="Add one entry per compliance requirement.",
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)", "ISO/IEC 27001 / NIST — data classification"], "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."})],
-            element_node=_cx("ComplianceRequirementEntry", s, _mc_ComplianceRequirementEntry, lambda r, c: SomMetaNode(class_name="ComplianceRequirementEntry", class_section_id="CRE", kind=SomMetaKind.COMPLEX, type_name="ComplianceRequirementEntry", doc_comment="A single compliance requirement entry.", class_doc_comment="A single compliance requirement entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="DataEntityEntry",
             member_name="relationshipSummary",
             section_id="DAENT-RELA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=3,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="parentEntities", type_name="String", description="Parent Entities", hint="Entities this depends on (e.g., Order depends on Customer)", order=0), SomFormFieldMeta(name="childEntities", type_name="String", description="Child Entities", hint="Entities that depend on this (e.g., OrderItem depends on Order)", order=1), SomFormFieldMeta(name="referencedEntities", type_name="String", description="Referenced Entities", hint="Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)", order=2), SomFormFieldMeta(name="crossDomainRelationships", type_name="String", description="Cross-Domain Relationships", hint="Relationships that cross bounded context boundaries", order=3)])),
-         SomMetaNode(
-            class_name="DataEntityEntry",
-            member_name="technicalCharacteristics",
-            section_id="TECHN-TECH-LST",
-            section_id_pattern="TECHN-TECH-xxx",
-            kind=SomMetaKind.LIST,
-            type_name="TechnicalCharacteristicEntry",
-            serialization_order=6,
-            content_help="Add one entry per technical characteristic.",
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."})],
-            element_node=_cx("TechnicalCharacteristicEntry", s, _mc_TechnicalCharacteristicEntry, lambda r, c: SomMetaNode(class_name="TechnicalCharacteristicEntry", class_section_id="TECHN", kind=SomMetaKind.COMPLEX, type_name="TechnicalCharacteristicEntry", doc_comment="A single technical characteristic entry.", class_doc_comment="A single technical characteristic entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="DataEntityEntry",
             member_name="attributes",
@@ -13317,7 +13538,7 @@ def _mc_DataEntityEntry(s):
             section_id_pattern="DAATT-ATTR-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataAttributeEntry",
-            serialization_order=7,
+            serialization_order=4,
             content_help="Add one entry per data attribute.",
             doc_comment="Contains 0+× DataAttribute.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions", "DAMA-DMBOK2 — data management body of knowledge"], "connotation": "The data attributes (fields) that belong to this entity."})],
@@ -13329,7 +13550,7 @@ def _mc_DataEntityEntry(s):
             section_id_pattern="KEATT-KEYA-xxx",
             kind=SomMetaKind.LIST,
             type_name="KeyAttributeEntry",
-            serialization_order=8,
+            serialization_order=5,
             content_help="Add one entry per key attribute.",
             doc_comment="Contains 0+× KeyAttribute.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ER modeling (Chen / Barker notation)", "ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "The key attributes (primary, foreign, alternate, composite) that identify or reference this entity."})],
@@ -13341,7 +13562,7 @@ def _mc_DataEntityEntry(s):
             section_id_pattern="ENIDX-INDE-xxx",
             kind=SomMetaKind.LIST,
             type_name="EntityIndexEntry",
-            serialization_order=9,
+            serialization_order=6,
             content_help="Add one entry per entity index.",
             doc_comment="Contains 0+× EntityIndex.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "The database indexes defined on this entity for query optimization."})],
@@ -13353,23 +13574,11 @@ def _mc_DataEntityEntry(s):
             section_id_pattern="ENCNS-CONS-xxx",
             kind=SomMetaKind.LIST,
             type_name="EntityConstraintEntry",
-            serialization_order=10,
+            serialization_order=7,
             content_help="Add one entry per entity constraint.",
             doc_comment="Contains 0+× EntityConstraint.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "ISO/IEC 25012 — data quality"], "connotation": "Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints."})],
             element_node=_cx("EntityConstraintEntry", s, _mc_EntityConstraintEntry, lambda r, c: SomMetaNode(class_name="EntityConstraintEntry", class_section_id="ENCNS", kind=SomMetaKind.COMPLEX, type_name="EntityConstraintEntry", doc_comment="An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.", class_doc_comment="An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.", recursive=r, children=c))),
-         SomMetaNode(
-            class_name="DataEntityEntry",
-            member_name="migrationMappings",
-            section_id="MIGME-MIGR-LST",
-            section_id_pattern="MIGME-MIGR-xxx",
-            kind=SomMetaKind.LIST,
-            type_name="MigrationMappingEntry",
-            serialization_order=11,
-            content_help="Add one entry per migration mapping.",
-            doc_comment="Contains 0+× MigrationMapping for data migration planning.",
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Source-to-target field mappings for planning the migration of data into this entity."})],
-            element_node=_cx("MigrationMappingEntry", s, _mc_MigrationMappingEntry, lambda r, c: SomMetaNode(class_name="MigrationMappingEntry", class_section_id="MIGME", kind=SomMetaKind.COMPLEX, type_name="MigrationMappingEntry", doc_comment="A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", class_doc_comment="A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", recursive=r, children=c))),
     ]
 
 
@@ -13989,7 +14198,7 @@ def _mc_DataModel(s):
             type_name="String",
             serialization_order=0,
             content_type=SomContentTypeMeta(type="text", description=""),
-            content_help="Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with 7 form groups (41+ fields per entity)\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Volume Metrics (record count, growth rate, storage estimates)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Compliance Requirements (sensitivity, PII/PHI, encryption, access)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Technical Characteristics (indexing, caching, consistency, scaling)\n"),
+            content_help="Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Attributes, key attributes, indexes, and constraints\n\nPer-entity operational facets (volume metrics, compliance requirements,\ntechnical characteristics, migration mappings) and the model-wide ER diagram\nare authored in the Data Model Follow-up Facets section (7.9).\n"),
          SomMetaNode(
             class_name="DataModel",
             member_name="entities",
@@ -14016,14 +14225,6 @@ def _mc_DataModel(s):
                 detailed_in="D03InformationModel",
                 recursive=r,
                 children=c)),
-         SomMetaNode(
-            class_name="DataModel",
-            member_name="erDiagram",
-            kind=SomMetaKind.SECTION,
-            type_name="String",
-            serialization_order=3,
-            content_type=SomContentTypeMeta(type="mermaid-er", description=""),
-            doc_comment="7.1.3. Entity-Relationship Diagram (mermaid)."),
          _cx("DataClassification", s, _mc_DataClassification,
             lambda r, c: SomMetaNode(
                 class_name="DataClassification",
@@ -14031,8 +14232,8 @@ def _mc_DataModel(s):
                 class_section_id="DATCL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DataClassification",
-                serialization_order=4,
-                doc_comment="7.1.4. Data Classification.",
+                serialization_order=3,
+                doc_comment="7.1.3. Data Classification.",
                 class_doc_comment="7.1.4. Data Classification.",
                 detailed_in="D03InformationModel",
                 recursive=r,
@@ -14044,8 +14245,8 @@ def _mc_DataModel(s):
                 class_section_id="DADI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DataDictionary",
-                serialization_order=5,
-                doc_comment="7.1.5. Data Dictionary..",
+                serialization_order=4,
+                doc_comment="7.1.4. Data Dictionary..",
                 class_doc_comment="7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..",
                 detailed_in="D03InformationModel",
                 recursive=r,
@@ -14057,8 +14258,8 @@ def _mc_DataModel(s):
                 class_section_id="VACO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ValidationConstraints",
-                serialization_order=6,
-                doc_comment="7.1.6. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).",
+                serialization_order=5,
+                doc_comment="7.1.5. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).",
                 class_doc_comment="7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.",
                 detailed_in="D03InformationModel",
                 recursive=r,
@@ -14070,12 +14271,45 @@ def _mc_DataModel(s):
                 class_section_id="INCO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="IntegrityConstraints",
-                serialization_order=7,
-                doc_comment="7.1.7. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).",
+                serialization_order=6,
+                doc_comment="7.1.6. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).",
                 class_doc_comment="7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.",
                 detailed_in="D03InformationModel",
                 recursive=r,
                 children=c)),
+    ]
+
+
+def _mc_DataModelFollowUp(s):
+    return [
+         SomMetaNode(
+            class_name="DataModelFollowUp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n"),
+         SomMetaNode(
+            class_name="DataModelFollowUp",
+            member_name="erDiagram",
+            kind=SomMetaKind.SECTION,
+            type_name="String",
+            serialization_order=1,
+            content_type=SomContentTypeMeta(type="mermaid-er", description=""),
+            doc_comment="7.9.1. Entity-Relationship Diagram (mermaid)."),
+         SomMetaNode(
+            class_name="DataModelFollowUp",
+            member_name="entityFollowUps",
+            section_id="DMFUE-ENFU-LST",
+            section_id_pattern="DMFUE-ENFU-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="EntityFollowUpEntry",
+            serialization_order=2,
+            content_help="Add one entry per entity that carries follow-up facets.",
+            doc_comment="7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Per-entity operational, compliance, technical, and migration facets keyed to the source entity."})],
+            element_node=_cx("EntityFollowUpEntry", s, _mc_EntityFollowUpEntry, lambda r, c: SomMetaNode(class_name="EntityFollowUpEntry", class_section_id="DMFUE", kind=SomMetaKind.COMPLEX, type_name="EntityFollowUpEntry", doc_comment="A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.", class_doc_comment="A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.", recursive=r, children=c))),
     ]
 
 
@@ -17112,6 +17346,18 @@ def _mc_DevelopmentQualityGates(s):
     ]
 
 
+def _mc_DeviceSettings(s):
+    return [
+         SomMetaNode(
+            class_name="DeviceSettings",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="settingKey", type_name="String", description="Setting Key", required=True, hint="The dotted key of the device setting, e.g. window.layout", order=0), SomFormFieldMeta(name="valueType", type_name="String", description="Value Type", hint="string / int / double / bool / enum", order=1), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="The value used until the user changes the setting on this device", order=2), SomFormFieldMeta(name="deviceOverridable", type_name="bool", description="Shadows a Wider-Scope Key", hint="Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)", order=3)])),
+    ]
+
+
 def _mc_DisasterRecoveryRequirements(s):
     return [
          SomMetaNode(
@@ -17776,6 +18022,18 @@ def _mc_DocSpecsProject(s):
                 serialization_order=12,
                 doc_comment="D09 — Experience Design Specification (Phase 3 projection).",
                 class_doc_comment="XDS00 Experience Design Specification.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups.",
+                recursive=r,
+                children=c)),
+         _cx("D13CodeSpecsProjection", s, _mc_D13CodeSpecsProjection,
+            lambda r, c: SomMetaNode(
+                class_name="D13CodeSpecsProjection",
+                member_name="codeSpecsProjection",
+                class_section_id="CGP",
+                kind=SomMetaKind.COMPLEX,
+                type_name="D13CodeSpecsProjection",
+                serialization_order=13,
+                doc_comment="D13 — CodeSpecs Generation Projection (Phase 4 generation input).\n\nA `@Document(basedOn: [D00SolutionBlueprint])` projection like the twelve\nPhase-3 roots, but `@CodeSpecKind`-driven: it reaches only the isolated\nCodeSpecs subtrees the Phase-4 generator consumes, grouped by\nshared/client/server locus. Marked `@CodeSpecsProjection()`.",
+                class_doc_comment="CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.",
                 recursive=r,
                 children=c)),
     ]
@@ -18868,6 +19126,63 @@ def _mc_EntityConstraintEntry(s):
             type_name="String",
             serialization_order=0,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="constraintName", type_name="String", description="Constraint Name", required=True, hint="Unique identifier for the constraint", order=0), SomFormFieldMeta(name="constraintType", type_name="String", description="Constraint Type", hint="Check | Unique | Exclusion | Custom", order=1), SomFormFieldMeta(name="expression", type_name="String", description="Expression", hint="Constraint expression or rule", order=2), SomFormFieldMeta(name="errorMessage", type_name="String", description="Error Message", hint="User-friendly message when constraint violated", order=3), SomFormFieldMeta(name="enforcementLevel", type_name="String", description="Enforcement Level", hint="Database | Application | Both", order=4), SomFormFieldMeta(name="isDeferred", type_name="String", description="Is Deferred", hint="Whether check can be deferred to transaction end: Yes | No", order=5), SomFormFieldMeta(name="businessRule", type_name="String", description="Business Rule Reference", hint="Related business rule ID", order=6)])),
+    ]
+
+
+def _mc_EntityFollowUpEntry(s):
+    return [
+         SomMetaNode(
+            class_name="EntityFollowUpEntry",
+            member_name="entityRef",
+            section_id="DMFUE-ENTI",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Name of the data entity these facets apply to (matches dataModel.entities)", order=0), SomFormFieldMeta(name="entityAlias", type_name="String", description="Alias/Abbreviation", hint="Short alias of the referenced entity (e.g., CUST, ORD)", order=1)])),
+         SomMetaNode(
+            class_name="EntityFollowUpEntry",
+            member_name="volumeMetrics",
+            section_id="VOLUM-VOLU-LST",
+            section_id_pattern="VOLUM-VOLU-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="VolumeMetricEntry",
+            serialization_order=1,
+            content_help="Add one entry per volume metric.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."})],
+            element_node=_cx("VolumeMetricEntry", s, _mc_VolumeMetricEntry, lambda r, c: SomMetaNode(class_name="VolumeMetricEntry", class_section_id="VOLUM", kind=SomMetaKind.COMPLEX, type_name="VolumeMetricEntry", doc_comment="A single volume metric entry.", class_doc_comment="A single volume metric entry.", recursive=r, children=c))),
+         SomMetaNode(
+            class_name="EntityFollowUpEntry",
+            member_name="complianceRequirements",
+            section_id="CRE-COMP-LST",
+            section_id_pattern="CRE-COMP-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="ComplianceRequirementEntry",
+            serialization_order=2,
+            content_help="Add one entry per compliance requirement.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)", "ISO/IEC 27001 / NIST — data classification"], "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."})],
+            element_node=_cx("ComplianceRequirementEntry", s, _mc_ComplianceRequirementEntry, lambda r, c: SomMetaNode(class_name="ComplianceRequirementEntry", class_section_id="CRE", kind=SomMetaKind.COMPLEX, type_name="ComplianceRequirementEntry", doc_comment="A single compliance requirement entry.", class_doc_comment="A single compliance requirement entry.", recursive=r, children=c))),
+         SomMetaNode(
+            class_name="EntityFollowUpEntry",
+            member_name="technicalCharacteristics",
+            section_id="TECHN-TECH-LST",
+            section_id_pattern="TECHN-TECH-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="TechnicalCharacteristicEntry",
+            serialization_order=3,
+            content_help="Add one entry per technical characteristic.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."})],
+            element_node=_cx("TechnicalCharacteristicEntry", s, _mc_TechnicalCharacteristicEntry, lambda r, c: SomMetaNode(class_name="TechnicalCharacteristicEntry", class_section_id="TECHN", kind=SomMetaKind.COMPLEX, type_name="TechnicalCharacteristicEntry", doc_comment="A single technical characteristic entry.", class_doc_comment="A single technical characteristic entry.", recursive=r, children=c))),
+         SomMetaNode(
+            class_name="EntityFollowUpEntry",
+            member_name="migrationMappings",
+            section_id="MIGME-MIGR-LST",
+            section_id_pattern="MIGME-MIGR-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="MigrationMappingEntry",
+            serialization_order=4,
+            content_help="Add one entry per migration mapping.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Source-to-target field mappings for planning the migration of data into this entity."})],
+            element_node=_cx("MigrationMappingEntry", s, _mc_MigrationMappingEntry, lambda r, c: SomMetaNode(class_name="MigrationMappingEntry", class_section_id="MIGME", kind=SomMetaKind.COMPLEX, type_name="MigrationMappingEntry", doc_comment="A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", class_doc_comment="A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", recursive=r, children=c))),
     ]
 
 
@@ -19968,20 +20283,66 @@ def _mc_ExperienceAndInterfaceDesign(s):
             serialization_order=0,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n"),
-         _cx("DesignVision", s, _mc_DesignVision,
+         _cx("ExperienceCodeSpecs", s, _mc_ExperienceCodeSpecs,
             lambda r, c: SomMetaNode(
-                class_name="DesignVision",
-                member_name="designVision",
-                class_section_id="DEVIZ",
+                class_name="ExperienceCodeSpecs",
+                member_name="experienceCodeSpecs",
+                class_section_id="XCS",
                 kind=SomMetaKind.COMPLEX,
-                type_name="DesignVision",
+                type_name="ExperienceCodeSpecs",
                 serialization_order=1,
-                doc_comment="10.1. Design Vision. Seeds → XDS.",
-                class_doc_comment="10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.",
-                maps_to="D09ExperienceDesignSpecification",
-                detailed_in="D09ExperienceDesignSpecification",
+                doc_comment="10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.",
+                class_doc_comment="SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.",
                 recursive=r,
                 children=c)),
+         _cx("ExperienceDesignFollowUp", s, _mc_ExperienceDesignFollowUp,
+            lambda r, c: SomMetaNode(
+                class_name="ExperienceDesignFollowUp",
+                member_name="designFollowUp",
+                class_section_id="XDFU",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ExperienceDesignFollowUp",
+                serialization_order=2,
+                doc_comment="10.2. Experience Design — DOC follow-up subtree.",
+                class_doc_comment="SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.",
+                recursive=r,
+                children=c)),
+         _cx("ExperienceLocalizationFollowUp", s, _mc_ExperienceLocalizationFollowUp,
+            lambda r, c: SomMetaNode(
+                class_name="ExperienceLocalizationFollowUp",
+                member_name="localizationFollowUp",
+                class_section_id="XLFU",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ExperienceLocalizationFollowUp",
+                serialization_order=3,
+                doc_comment="10.3. Experience Localization — L10N follow-up subtree.",
+                class_doc_comment="SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.",
+                recursive=r,
+                children=c)),
+         _cx("AuthorizationComplianceFollowUp", s, _mc_AuthorizationComplianceFollowUp,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationComplianceFollowUp",
+                member_name="authorizationComplianceFollowUp",
+                class_section_id="XCFU",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationComplianceFollowUp",
+                serialization_order=4,
+                doc_comment="10.4. Authorization Compliance — CMP follow-up subtree.",
+                class_doc_comment="SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.",
+                recursive=r,
+                children=c)),
+    ]
+
+
+def _mc_ExperienceCodeSpecs(s):
+    return [
+         SomMetaNode(
+            class_name="ExperienceCodeSpecs",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the CodeSpecs UI-generation subtree: screens, navigation, error handling, responsive design, and components.")),
          _cx("ScreenDescriptions", s, _mc_ScreenDescriptions,
             lambda r, c: SomMetaNode(
                 class_name="ScreenDescriptions",
@@ -19989,8 +20350,8 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="SCRDZ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ScreenDescriptions",
-                serialization_order=2,
-                doc_comment="10.2. Screen Descriptions. Seeds → XDS.",
+                serialization_order=1,
+                doc_comment="10.1.1. Screen Descriptions. Seeds → XDS.",
                 class_doc_comment="10.2. Screen Descriptions.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20003,43 +20364,21 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="SCFLST",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ScreenFlowStructure",
-                serialization_order=3,
-                doc_comment="10.3. Screen Flow Structure. Seeds → XDS.",
+                serialization_order=2,
+                doc_comment="10.1.2. Screen Flow Structure. Seeds → XDS.",
                 class_doc_comment="10.3. Screen Flow Structure.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
                 recursive=r,
                 children=c)),
-         _cx("PrintAndExportLayout", s, _mc_PrintAndExportLayout,
-            lambda r, c: SomMetaNode(
-                class_name="PrintAndExportLayout",
-                member_name="printLayout",
-                class_section_id="PRLA",
-                kind=SomMetaKind.COMPLEX,
-                type_name="PrintAndExportLayout",
-                serialization_order=4,
-                doc_comment="10.4. Print Layout. Seeds → XDS.",
-                class_doc_comment="10.4. Print Layout.",
-                maps_to="D09ExperienceDesignSpecification",
-                detailed_in="D09ExperienceDesignSpecification",
-                recursive=r,
-                children=c)),
          SomMetaNode(
-            class_name="ExperienceAndInterfaceDesign",
+            class_name="ExperienceCodeSpecs",
             member_name="dataStructureAlignment",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=3,
             content_type=SomContentTypeMeta(type="text", description=""),
-            doc_comment="Data Structure Alignment."),
-         SomMetaNode(
-            class_name="ExperienceAndInterfaceDesign",
-            member_name="authorizationCompliance",
-            kind=SomMetaKind.SECTION,
-            type_name="String",
-            serialization_order=6,
-            content_type=SomContentTypeMeta(type="text", description=""),
-            doc_comment="Authorization Compliance."),
+            doc_comment="10.1.3. Data Structure Alignment."),
          _cx("ErrorHandling", s, _mc_ErrorHandling,
             lambda r, c: SomMetaNode(
                 class_name="ErrorHandling",
@@ -20047,37 +20386,9 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="ERHACO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ErrorHandling",
-                serialization_order=7,
-                doc_comment="10.7. Error Handling. Seeds → XDS.",
+                serialization_order=4,
+                doc_comment="10.1.4. Error Handling. Seeds → XDS.",
                 class_doc_comment="10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.",
-                maps_to="D09ExperienceDesignSpecification",
-                detailed_in="D09ExperienceDesignSpecification",
-                recursive=r,
-                children=c)),
-         _cx("UserAssistance", s, _mc_UserAssistance,
-            lambda r, c: SomMetaNode(
-                class_name="UserAssistance",
-                member_name="userAssistance",
-                class_section_id="USAS",
-                kind=SomMetaKind.COMPLEX,
-                type_name="UserAssistance",
-                serialization_order=8,
-                doc_comment="10.8. User Assistance. Seeds → XDS.",
-                class_doc_comment="10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
-                maps_to="D09ExperienceDesignSpecification",
-                detailed_in="D09ExperienceDesignSpecification",
-                recursive=r,
-                children=c)),
-         _cx("Accessibility", s, _mc_Accessibility,
-            lambda r, c: SomMetaNode(
-                class_name="Accessibility",
-                member_name="accessibility",
-                class_section_id="ACCESS",
-                kind=SomMetaKind.COMPLEX,
-                type_name="Accessibility",
-                serialization_order=9,
-                doc_comment="10.9. Accessibility. Seeds → XDS.",
-                class_doc_comment="10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
                 recursive=r,
@@ -20089,8 +20400,8 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="REDE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ResponsiveDesign",
-                serialization_order=10,
-                doc_comment="10.10. Responsive Design. Seeds → XDS.",
+                serialization_order=5,
+                doc_comment="10.1.5. Responsive Design. Seeds → XDS.",
                 class_doc_comment="10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20103,23 +20414,79 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="UICO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UiComponents",
-                serialization_order=11,
-                doc_comment="10.11. UI Components. Seeds → XDS.",
+                serialization_order=6,
+                doc_comment="10.1.6. UI Components. Seeds → XDS.",
                 class_doc_comment="10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
                 recursive=r,
                 children=c)),
-         _cx("MultiLanguageSupport", s, _mc_MultiLanguageSupport,
+    ]
+
+
+def _mc_ExperienceDesignFollowUp(s):
+    return [
+         SomMetaNode(
+            class_name="ExperienceDesignFollowUp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the design follow-up: vision, print layout, user assistance, accessibility, prototype, and wireframes.")),
+         _cx("DesignVision", s, _mc_DesignVision,
             lambda r, c: SomMetaNode(
-                class_name="MultiLanguageSupport",
-                member_name="multiLanguageSupport",
-                class_section_id="MLAR",
+                class_name="DesignVision",
+                member_name="designVision",
+                class_section_id="DEVIZ",
                 kind=SomMetaKind.COMPLEX,
-                type_name="MultiLanguageSupport",
-                serialization_order=12,
-                doc_comment="10.12. Multi-language Support.",
-                class_doc_comment="10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.",
+                type_name="DesignVision",
+                serialization_order=1,
+                doc_comment="10.2.1. Design Vision. Seeds → XDS.",
+                class_doc_comment="10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.",
+                maps_to="D09ExperienceDesignSpecification",
+                detailed_in="D09ExperienceDesignSpecification",
+                recursive=r,
+                children=c)),
+         _cx("PrintAndExportLayout", s, _mc_PrintAndExportLayout,
+            lambda r, c: SomMetaNode(
+                class_name="PrintAndExportLayout",
+                member_name="printLayout",
+                class_section_id="PRLA",
+                kind=SomMetaKind.COMPLEX,
+                type_name="PrintAndExportLayout",
+                serialization_order=2,
+                doc_comment="10.2.2. Print Layout. Seeds → XDS.",
+                class_doc_comment="10.4. Print Layout.",
+                maps_to="D09ExperienceDesignSpecification",
+                detailed_in="D09ExperienceDesignSpecification",
+                recursive=r,
+                children=c)),
+         _cx("UserAssistance", s, _mc_UserAssistance,
+            lambda r, c: SomMetaNode(
+                class_name="UserAssistance",
+                member_name="userAssistance",
+                class_section_id="USAS",
+                kind=SomMetaKind.COMPLEX,
+                type_name="UserAssistance",
+                serialization_order=3,
+                doc_comment="10.2.3. User Assistance. Seeds → XDS.",
+                class_doc_comment="10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
+                maps_to="D09ExperienceDesignSpecification",
+                detailed_in="D09ExperienceDesignSpecification",
+                recursive=r,
+                children=c)),
+         _cx("Accessibility", s, _mc_Accessibility,
+            lambda r, c: SomMetaNode(
+                class_name="Accessibility",
+                member_name="accessibility",
+                class_section_id="ACCESS",
+                kind=SomMetaKind.COMPLEX,
+                type_name="Accessibility",
+                serialization_order=4,
+                doc_comment="10.2.4. Accessibility. Seeds → XDS.",
+                class_doc_comment="10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
+                maps_to="D09ExperienceDesignSpecification",
+                detailed_in="D09ExperienceDesignSpecification",
                 recursive=r,
                 children=c)),
          _cx("Prototype", s, _mc_Prototype,
@@ -20129,8 +20496,8 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="PROTOT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Prototype",
-                serialization_order=13,
-                doc_comment="10.13. Prototype. Seeds → XDS.",
+                serialization_order=5,
+                doc_comment="10.2.5. Prototype. Seeds → XDS.",
                 class_doc_comment="10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20143,11 +20510,35 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="WIANMO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WireframesAndMockups",
-                serialization_order=14,
-                doc_comment="10.14. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+                serialization_order=6,
+                doc_comment="10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
                 class_doc_comment="10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
+                recursive=r,
+                children=c)),
+    ]
+
+
+def _mc_ExperienceLocalizationFollowUp(s):
+    return [
+         SomMetaNode(
+            class_name="ExperienceLocalizationFollowUp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the localization follow-up: the multi-language / internationalization approach.")),
+         _cx("MultiLanguageSupport", s, _mc_MultiLanguageSupport,
+            lambda r, c: SomMetaNode(
+                class_name="MultiLanguageSupport",
+                member_name="multiLanguageSupport",
+                class_section_id="MLAR",
+                kind=SomMetaKind.COMPLEX,
+                type_name="MultiLanguageSupport",
+                serialization_order=1,
+                doc_comment="10.3.1. Multi-language Support.",
+                class_doc_comment="10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.",
                 recursive=r,
                 children=c)),
     ]
@@ -23793,6 +24184,18 @@ def _mc_InformationAndDataModel(s):
                 serialization_order=8,
                 doc_comment="7.8. Message Key Registry.",
                 class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+                recursive=r,
+                children=c)),
+         _cx("DataModelFollowUp", s, _mc_DataModelFollowUp,
+            lambda r, c: SomMetaNode(
+                class_name="DataModelFollowUp",
+                member_name="dataModelFollowUp",
+                class_section_id="DMFU",
+                kind=SomMetaKind.COMPLEX,
+                type_name="DataModelFollowUp",
+                serialization_order=9,
+                doc_comment="7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.",
+                class_doc_comment="7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.",
                 recursive=r,
                 children=c)),
     ]
@@ -31274,6 +31677,45 @@ def _mc_OrgRequirementImplementationPlan(s):
     ]
 
 
+def _mc_OrganizationAndProcessConcept(s):
+    return [
+         SomMetaNode(
+            class_name="OrganizationAndProcessConcept",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            unused=True,
+            content_type=SomContentTypeMeta(type="text", description="")),
+         _cx("OrganizationalFramework", s, _mc_OrganizationalFramework,
+            lambda r, c: SomMetaNode(
+                class_name="OrganizationalFramework",
+                member_name="organizationalFramework",
+                class_section_id="ORGF",
+                kind=SomMetaKind.COMPLEX,
+                type_name="OrganizationalFramework",
+                serialization_order=1,
+                doc_comment="Target organizational structure and roles.",
+                class_doc_comment="5. Organizational Framework.\n\nOrganizational changes and structures required for the new system.\nCovers organization structure changes, new and changed roles, staffing\nplans, competency frameworks, and workplace requirements. Follows\norganizational design best practices (McKinsey 7-S, Galbraith Star Model)\nand HR management standards (SHRM, CIPD).",
+                recursive=r,
+                children=c)),
+         _cx("BusinessProcessDescriptions", s, _mc_BusinessProcessDescriptions,
+            lambda r, c: SomMetaNode(
+                class_name="BusinessProcessDescriptions",
+                member_name="businessProcessDescriptions",
+                class_section_id="BPDSC",
+                kind=SomMetaKind.COMPLEX,
+                type_name="BusinessProcessDescriptions",
+                serialization_order=2,
+                comment="Seeds → TOM",
+                doc_comment="Business-process descriptions and narrative. Seeds → TOM.",
+                class_doc_comment="6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.",
+                maps_to="D02TargetOperatingModel",
+                recursive=r,
+                children=c)),
+    ]
+
+
 def _mc_OrganizationStructure(s):
     return [
          SomMetaNode(
@@ -36775,7 +37217,7 @@ def _mc_ReleaseStrategy(s):
             serialization_order=3,
             doc_comment="Feature flags configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="featureFlagsEnabled", type_name="bool", description="Feature Flags Enabled", hint="Uses feature flags", order=0), SomFormFieldMeta(name="featureFlagProvider", type_name="String", description="Feature Flag Provider", hint="LaunchDarkly, Flagsmith, custom", order=1), SomFormFieldMeta(name="flagStrategy", type_name="String", description="Flag Strategy", hint="How flags are managed", order=2)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"], "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}), SomMetaExtra(annotation="CodeSpecKind", args={"kinds": ["CodeSpecPart.featureFlag"], "note": "CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1."})]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"], "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}), SomMetaExtra(annotation="CodeSpecKind", args={"kinds": ["CodeSpecPart.serverConfiguration"], "note": "CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc §5.26). The deploy-from-release flag itself is deployment tooling."})]),
          SomMetaNode(
             class_name="ReleaseStrategy",
             member_name="management",
@@ -38008,6 +38450,30 @@ def _mc_Requirements(s):
             type_name="String",
             serialization_order=0,
             content_type=SomContentTypeMeta(type="description", description="Summarize the functional and non-functional requirement landscape; seeds the Requirements Specification (RSP).")),
+         _cx("RequirementsFollowUp", s, _mc_RequirementsFollowUp,
+            lambda r, c: SomMetaNode(
+                class_name="RequirementsFollowUp",
+                member_name="requirementsFollowUp",
+                class_section_id="REQFU",
+                kind=SomMetaKind.COMPLEX,
+                type_name="RequirementsFollowUp",
+                serialization_order=1,
+                doc_comment="Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.",
+                class_doc_comment="SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)",
+                recursive=r,
+                children=c)),
+    ]
+
+
+def _mc_RequirementsFollowUp(s):
+    return [
+         SomMetaNode(
+            class_name="RequirementsFollowUp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the follow-up (non-generated) NFR sub-areas: localization, information-for-use, and training.")),
          _cx("LocalizationTranslationRequirements", s, _mc_LocalizationTranslationRequirements,
             lambda r, c: SomMetaNode(
                 class_name="LocalizationTranslationRequirements",
@@ -40325,7 +40791,7 @@ def _mc_SchemaVersioningAndMigration(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            content_help="Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n",
+            content_help="Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="migrationTooling", type_name="String", description="Migration Tooling", hint="Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", order=0), SomFormFieldMeta(name="versioningStrategy", type_name="String", description="Versioning Strategy", hint="Sequential numbered | Timestamped | Semantic", order=1), SomFormFieldMeta(name="forwardOnly", type_name="bool", description="Forward-Only", hint="Whether migrations are forward-only (no down migrations)", order=2), SomFormFieldMeta(name="baselineVersion", type_name="String", description="Baseline Version", hint="The initial/baseline schema version migrations build on", order=3), SomFormFieldMeta(name="zeroDowntimeApproach", type_name="String", description="Zero-Downtime Approach", hint="Expand/contract, online DDL, blue-green schema, or None", order=4)])),
          SomMetaNode(
             class_name="SchemaVersioningAndMigration",
@@ -41277,108 +41743,40 @@ def _mc_SecurityAndAccessModel(s):
             serialization_order=0,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Provide a high-level overview of the application's security architecture for\nprotecting data and functions. This section serves as the entry point for all\naccess and authorization concerns.\n\n**Key topics to address:**\n- Overall security philosophy (zero trust, defense in depth, least privilege)\n- Applicable security frameworks (NIST, ISO 27001, SOC 2, OWASP)\n- Regulatory requirements affecting access control (GDPR, HIPAA, PCI DSS)\n- Integration points with enterprise identity and access management (IAM)\n- Risk-based approach to authorization decisions\n\n**Cross-references:**\n- User Management → defines who accesses the system\n- Authentication → proves user identity\n- Authorization → controls what authenticated users can do\n- Resource Protection → secures data and APIs\n- Encryption → protects sensitive data\n- Audit → logs security events for compliance\n"),
-         _cx("UserManagement", s, _mc_UserManagement,
+         _cx("AccessControlModel", s, _mc_AccessControlModel,
             lambda r, c: SomMetaNode(
-                class_name="UserManagement",
-                member_name="userManagement",
-                class_section_id="USMGT",
+                class_name="AccessControlModel",
+                member_name="accessControl",
+                class_section_id="ACCM",
                 kind=SomMetaKind.COMPLEX,
-                type_name="UserManagement",
+                type_name="AccessControlModel",
                 serialization_order=1,
-                doc_comment="9.1. User Management.",
-                class_doc_comment="9.1. User Management.",
-                detailed_in="D08SecurityAccessSpecification",
+                doc_comment="9.1. Access Control Model — the CE-AZ CodeSpecs subtree.",
+                class_doc_comment="SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
                 recursive=r,
                 children=c)),
-         _cx("IdentificationAndAuthentication", s, _mc_IdentificationAndAuthentication,
+         _cx("SecurityOperationsFollowUp", s, _mc_SecurityOperationsFollowUp,
             lambda r, c: SomMetaNode(
-                class_name="IdentificationAndAuthentication",
-                member_name="authentication",
-                class_section_id="IDAUT",
+                class_name="SecurityOperationsFollowUp",
+                member_name="securityOperations",
+                class_section_id="SCOF",
                 kind=SomMetaKind.COMPLEX,
-                type_name="IdentificationAndAuthentication",
+                type_name="SecurityOperationsFollowUp",
                 serialization_order=2,
-                doc_comment="9.2. Identification and Authentication.",
-                class_doc_comment="9.2. Identification and Authentication.",
-                detailed_in="D08SecurityAccessSpecification",
+                doc_comment="9.2. Security Operations — OPS follow-up subtree.",
+                class_doc_comment="SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.",
                 recursive=r,
                 children=c)),
-         _cx("ResourceProtection", s, _mc_ResourceProtection,
+         _cx("SecurityComplianceFollowUp", s, _mc_SecurityComplianceFollowUp,
             lambda r, c: SomMetaNode(
-                class_name="ResourceProtection",
-                member_name="resourceProtection",
-                class_section_id="RESPRO",
+                class_name="SecurityComplianceFollowUp",
+                member_name="compliance",
+                class_section_id="SCCF",
                 kind=SomMetaKind.COMPLEX,
-                type_name="ResourceProtection",
+                type_name="SecurityComplianceFollowUp",
                 serialization_order=3,
-                doc_comment="9.3. Resource Protection.",
-                class_doc_comment="9.3. Resource Protection.",
-                detailed_in="D08SecurityAccessSpecification",
-                recursive=r,
-                children=c)),
-         _cx("UserAuthorization", s, _mc_UserAuthorization,
-            lambda r, c: SomMetaNode(
-                class_name="UserAuthorization",
-                member_name="authorization",
-                class_section_id="USAU",
-                kind=SomMetaKind.COMPLEX,
-                type_name="UserAuthorization",
-                serialization_order=4,
-                doc_comment="9.4. User Authorization.",
-                class_doc_comment="9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.",
-                detailed_in="D08SecurityAccessSpecification",
-                recursive=r,
-                children=c)),
-         _cx("SensitiveDataEncryption", s, _mc_SensitiveDataEncryption,
-            lambda r, c: SomMetaNode(
-                class_name="SensitiveDataEncryption",
-                member_name="encryption",
-                class_section_id="SEDAEN",
-                kind=SomMetaKind.COMPLEX,
-                type_name="SensitiveDataEncryption",
-                serialization_order=5,
-                doc_comment="9.5. Sensitive Data Encryption.",
-                class_doc_comment="9.5. Sensitive Data Encryption.",
-                detailed_in="D08SecurityAccessSpecification",
-                recursive=r,
-                children=c)),
-         _cx("AuditAndLogging", s, _mc_AuditAndLogging,
-            lambda r, c: SomMetaNode(
-                class_name="AuditAndLogging",
-                member_name="auditAndLogging",
-                class_section_id="AUANLO",
-                kind=SomMetaKind.COMPLEX,
-                type_name="AuditAndLogging",
-                serialization_order=6,
-                doc_comment="9.6. Audit and Logging.",
-                class_doc_comment="9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
-                detailed_in="D08SecurityAccessSpecification",
-                recursive=r,
-                children=c)),
-         _cx("RoleMatrix", s, _mc_RoleMatrix,
-            lambda r, c: SomMetaNode(
-                class_name="RoleMatrix",
-                member_name="roleMatrix",
-                class_section_id="ROMA",
-                kind=SomMetaKind.COMPLEX,
-                type_name="RoleMatrix",
-                serialization_order=7,
-                doc_comment="9.7. Role Matrix..",
-                class_doc_comment="9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.",
-                detailed_in="D08SecurityAccessSpecification",
-                recursive=r,
-                children=c)),
-         _cx("ComplianceFramework", s, _mc_ComplianceFramework,
-            lambda r, c: SomMetaNode(
-                class_name="ComplianceFramework",
-                member_name="complianceFramework",
-                class_section_id="CF",
-                kind=SomMetaKind.COMPLEX,
-                type_name="ComplianceFramework",
-                serialization_order=8,
-                doc_comment="9.8. Compliance Framework.",
-                class_doc_comment="9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
-                detailed_in="D08SecurityAccessSpecification",
+                doc_comment="9.3. Compliance — CMP follow-up subtree.",
+                class_doc_comment="SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.",
                 recursive=r,
                 children=c)),
     ]
@@ -41671,6 +42069,31 @@ def _mc_SecurityCodeReviewPolicy(s):
     ]
 
 
+def _mc_SecurityComplianceFollowUp(s):
+    return [
+         SomMetaNode(
+            class_name="SecurityComplianceFollowUp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the compliance follow-up: the regulatory and audit compliance framework.")),
+         _cx("ComplianceFramework", s, _mc_ComplianceFramework,
+            lambda r, c: SomMetaNode(
+                class_name="ComplianceFramework",
+                member_name="complianceFramework",
+                class_section_id="CF",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ComplianceFramework",
+                serialization_order=1,
+                doc_comment="9.3.1. Compliance Framework.",
+                class_doc_comment="9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
+    ]
+
+
 def _mc_SecurityControlEntry(s):
     return [
          SomMetaNode(
@@ -41883,6 +42306,44 @@ def _mc_SecurityEventsDefinition(s):
             doc_comment="Custom Security Events — contains 0+× Security Event Entry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["NIST SP 800-53 — control AU-2 event logging"], "connotation": "The catalog of application-specific custom security events to be captured beyond the standard categories."})],
             element_node=_cx("SecurityEventEntry", s, _mc_SecurityEventEntry, lambda r, c: SomMetaNode(class_name="SecurityEventEntry", class_section_id="SEVT", kind=SomMetaKind.COMPLEX, type_name="SecurityEventEntry", doc_comment="A custom security event entry (form).\n\nAllows defining additional application-specific security events\nbeyond the standard categories.", class_doc_comment="A custom security event entry (form).\n\nAllows defining additional application-specific security events\nbeyond the standard categories.", recursive=r, children=c))),
+    ]
+
+
+def _mc_SecurityOperationsFollowUp(s):
+    return [
+         SomMetaNode(
+            class_name="SecurityOperationsFollowUp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the operational security follow-up: encryption / key management and audit / logging.")),
+         _cx("SensitiveDataEncryption", s, _mc_SensitiveDataEncryption,
+            lambda r, c: SomMetaNode(
+                class_name="SensitiveDataEncryption",
+                member_name="encryption",
+                class_section_id="SEDAEN",
+                kind=SomMetaKind.COMPLEX,
+                type_name="SensitiveDataEncryption",
+                serialization_order=1,
+                doc_comment="9.2.1. Sensitive Data Encryption.",
+                class_doc_comment="9.5. Sensitive Data Encryption.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
+         _cx("AuditAndLogging", s, _mc_AuditAndLogging,
+            lambda r, c: SomMetaNode(
+                class_name="AuditAndLogging",
+                member_name="auditAndLogging",
+                class_section_id="AUANLO",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuditAndLogging",
+                serialization_order=2,
+                doc_comment="9.2.2. Audit and Logging.",
+                class_doc_comment="9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
     ]
 
 
@@ -43695,11 +44156,35 @@ def _mc_SolutionArchitectureAndTechnology(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="TechnicalFrameworkConcept",
                 serialization_order=1,
-                doc_comment="Technical framework and platform concept.",
+                doc_comment="Technical framework and platform concept — the CodeSpecs-relevant\n(CE-CF configuration-bearing) subtree.",
                 class_doc_comment="8. Technical Framework Concept. Seeds → ATS.",
                 maps_to="D06ArchitectureTechnologySpecification",
                 recursive=r,
                 children=c)),
+         _cx("SolutionArchitectureFollowUp", s, _mc_SolutionArchitectureFollowUp,
+            lambda r, c: SomMetaNode(
+                class_name="SolutionArchitectureFollowUp",
+                member_name="architectureFollowUp",
+                class_section_id="SATF",
+                kind=SomMetaKind.COMPLEX,
+                type_name="SolutionArchitectureFollowUp",
+                serialization_order=2,
+                doc_comment="Architecture / component-reuse DOC follow-up subtree.",
+                class_doc_comment="SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.",
+                recursive=r,
+                children=c)),
+    ]
+
+
+def _mc_SolutionArchitectureFollowUp(s):
+    return [
+         SomMetaNode(
+            class_name="SolutionArchitectureFollowUp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the descriptive-architecture follow-up: the component-reuse rationale and dependency strategy.")),
          _cx("ComponentsAndDependencies", s, _mc_ComponentsAndDependencies,
             lambda r, c: SomMetaNode(
                 class_name="ComponentsAndDependencies",
@@ -43707,7 +44192,7 @@ def _mc_SolutionArchitectureAndTechnology(s):
                 class_section_id="COMP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ComponentsAndDependencies",
-                serialization_order=2,
+                serialization_order=1,
                 doc_comment="Components, libraries, and services to reuse.",
                 class_doc_comment="12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.",
                 maps_to="D06ArchitectureTechnologySpecification",
@@ -48123,28 +48608,26 @@ def _mc_TabItemEntry(s):
     ]
 
 
-def _mc_TargetBusinessProcessModel(s):
+def _mc_TargetOperatingModel(s):
     return [
          SomMetaNode(
-            class_name="TargetBusinessProcessModel",
+            class_name="TargetOperatingModel",
             member_name="content",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description=""),
-            content_help="Overview of target business processes the system will support. This section\nestablishes the process vision, documents key processes with their triggers,\nactors, inputs/outputs, and performance expectations, and defines actor\ninteractions that seed use case development.\n\n**Key Activities:**\n- Define process vision and design principles\n- Create process catalog with comprehensive process definitions\n- Identify actors and their goals, permissions, and technology profiles\n- Document key interactions following Cockburn use case patterns\n- Map end-to-end scenarios showing user journeys\n\n**Best Practices:**\n- Follow BPMN 2.0 notation for process diagrams\n- Use APQC Process Classification Framework for process categorization\n- Apply Cockburn-style goal levels (summary/user/subfunction)\n- Define RACI for all process roles\n- Include performance KPIs and SLAs for each process\n"),
-         _cx("BusinessProcessDescriptions", s, _mc_BusinessProcessDescriptions,
+            unused=True,
+            content_type=SomContentTypeMeta(type="text", description="")),
+         _cx("OrganizationAndProcessConcept", s, _mc_OrganizationAndProcessConcept,
             lambda r, c: SomMetaNode(
-                class_name="BusinessProcessDescriptions",
-                member_name="businessProcessDescriptions",
-                class_section_id="BPDSC",
+                class_name="OrganizationAndProcessConcept",
+                member_name="organizationAndProcess",
+                class_section_id="OAPC",
                 kind=SomMetaKind.COMPLEX,
-                type_name="BusinessProcessDescriptions",
+                type_name="OrganizationAndProcessConcept",
                 serialization_order=1,
-                comment="Seeds → TOM",
-                doc_comment="6.1. Business Process Descriptions. Seeds → TOM.",
-                class_doc_comment="6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.",
-                maps_to="D02TargetOperatingModel",
+                doc_comment="ORG/OPS follow-up subtree: target organization + process narrative.",
+                class_doc_comment="SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.\n\nGroups the two purely-follow-up facets of the Target Operating Model into a\nsingle branch that is routed to organizational-change (ORG) and\noperational-routine (OPS) follow-up processes rather than to code\ngeneration: the target organizational structure/roles\n([OrganizationalFramework]) and the business-process narrative\n([BusinessProcessDescriptions], which seeds the TOM document).",
                 recursive=r,
                 children=c)),
          _cx("ProcessStepsAndActorInteractions", s, _mc_ProcessStepsAndActorInteractions,
@@ -48156,46 +48639,9 @@ def _mc_TargetBusinessProcessModel(s):
                 type_name="ProcessStepsAndActorInteractions",
                 serialization_order=2,
                 comment="Seeds → ISC",
-                doc_comment="6.2. Process Steps and Actor Interactions. Seeds → ISC.",
+                doc_comment="CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).",
                 class_doc_comment="6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
                 maps_to="D05InteractionScenarios",
-                recursive=r,
-                children=c)),
-    ]
-
-
-def _mc_TargetOperatingModel(s):
-    return [
-         SomMetaNode(
-            class_name="TargetOperatingModel",
-            member_name="content",
-            kind=SomMetaKind.CONTENT,
-            type_name="String",
-            serialization_order=0,
-            unused=True,
-            content_type=SomContentTypeMeta(type="text", description="")),
-         _cx("OrganizationalFramework", s, _mc_OrganizationalFramework,
-            lambda r, c: SomMetaNode(
-                class_name="OrganizationalFramework",
-                member_name="organizationalFramework",
-                class_section_id="ORGF",
-                kind=SomMetaKind.COMPLEX,
-                type_name="OrganizationalFramework",
-                serialization_order=1,
-                doc_comment="Target organizational structure and roles.",
-                class_doc_comment="5. Organizational Framework.\n\nOrganizational changes and structures required for the new system.\nCovers organization structure changes, new and changed roles, staffing\nplans, competency frameworks, and workplace requirements. Follows\norganizational design best practices (McKinsey 7-S, Galbraith Star Model)\nand HR management standards (SHRM, CIPD).",
-                recursive=r,
-                children=c)),
-         _cx("TargetBusinessProcessModel", s, _mc_TargetBusinessProcessModel,
-            lambda r, c: SomMetaNode(
-                class_name="TargetBusinessProcessModel",
-                member_name="targetBusinessProcess",
-                class_section_id="TBPM",
-                kind=SomMetaKind.COMPLEX,
-                type_name="TargetBusinessProcessModel",
-                serialization_order=2,
-                doc_comment="Target business process model.",
-                class_doc_comment="6. Target Business Process Model.",
                 recursive=r,
                 children=c)),
     ]
@@ -52089,7 +52535,7 @@ def _mc_UserAttributeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="attributeName", type_name="String", description="Attribute Name", required=True, hint="Name of the user attribute.", order=0), SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="Data type of the attribute value.", order=1), SomFormFieldMeta(name="source", type_name="String", description="Source", hint="System of record that supplies this attribute.", order=2), SomFormFieldMeta(name="required", type_name="String", description="Required", hint="Whether this attribute is mandatory.", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="attributeName", type_name="String", description="Attribute Name", required=True, hint="Name of the user attribute.", order=0), SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="Data type of the attribute value.", order=1), SomFormFieldMeta(name="placement", type_name="UserAttributePlacement", description="Placement", hint="public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", order=2, enum_values=["public", "encrypted"]), SomFormFieldMeta(name="accessGuard", type_name="String", description="Access Guard", hint="Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.", order=3), SomFormFieldMeta(name="source", type_name="String", description="Source", hint="System of record that supplies this attribute.", order=4), SomFormFieldMeta(name="required", type_name="String", description="Required", hint="Whether this attribute is mandatory.", order=5)])),
     ]
 
 
@@ -54509,6 +54955,37 @@ class AccessConstraintPoliciesNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/accessConstraintDetails")
 
 
+class AccessControlModelNav(SomMetaRef):
+    """Dot-notation accessors of ``AccessControlModel`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def userManagement(self):
+        return UserManagementNav(self.tree, f"{self.path}/userManagement")
+
+    @property
+    def authentication(self):
+        return IdentificationAndAuthenticationNav(self.tree, f"{self.path}/authentication")
+
+    @property
+    def resourceProtection(self):
+        return ResourceProtectionNav(self.tree, f"{self.path}/resourceProtection")
+
+    @property
+    def authorization(self):
+        return UserAuthorizationNav(self.tree, f"{self.path}/authorization")
+
+    @property
+    def roleMatrix(self):
+        return RoleMatrixNav(self.tree, f"{self.path}/roleMatrix")
+
+
 class AccessControlModelSelectionNav(SomMetaRef):
     """Dot-notation accessors of ``AccessControlModelSelection`` (DR1 §4.1). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -56034,6 +56511,21 @@ class AuthenticationMethodsNav(SomMetaRef):
     @property
     def items(self):
         return SomListMetaRef(self.tree, f"{self.path}/ATME-ITEM-LST", AuthenticationMethodEntryNav)
+
+
+class AuthorizationComplianceFollowUpNav(SomMetaRef):
+    """Dot-notation accessors of ``AuthorizationComplianceFollowUp`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def authorizationCompliance(self):
+        return SomMetaRef(self.tree, f"{self.path}/authorizationCompliance")
 
 
 class AuthorizationEventPolicyNav(SomMetaRef):
@@ -57905,6 +58397,10 @@ class ClientRequirementsSectionNav(SomMetaRef):
     @property
     def clientConfiguration(self):
         return ClientConfigurationNav(self.tree, f"{self.path}/clientConfiguration")
+
+    @property
+    def deviceSettings(self):
+        return DeviceSettingsNav(self.tree, f"{self.path}/deviceSettings")
 
 
 class ClientSecurityRequirementsNav(SomMetaRef):
@@ -60605,6 +61101,57 @@ class D12TransitionRolloutPlanNav(SomMetaRef):
         return WarrantyAndSupportNav(self.tree, f"{self.path}/warrantyAndSupport")
 
 
+class D13CodeSpecsProjectionNav(SomMetaRef):
+    """Dot-notation accessors of ``D13CodeSpecsProjection`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def header(self):
+        return DocumentHeaderNav(self.tree, f"{self.path}/header")
+
+    @property
+    def domainEnumRegistry(self):
+        return DomainEnumRegistryNav(self.tree, f"{self.path}/domainEnumRegistry")
+
+    @property
+    def errorCodeRegistry(self):
+        return ErrorCodeRegistryNav(self.tree, f"{self.path}/errorCodeRegistry")
+
+    @property
+    def resultEnvelope(self):
+        return ResultEnvelopeNav(self.tree, f"{self.path}/resultEnvelope")
+
+    @property
+    def messageKeyRegistry(self):
+        return MessageKeyRegistryNav(self.tree, f"{self.path}/messageKeyRegistry")
+
+    @property
+    def dataModel(self):
+        return DataModelNav(self.tree, f"{self.path}/dataModel")
+
+    @property
+    def technicalFramework(self):
+        return TechnicalFrameworkConceptNav(self.tree, f"{self.path}/technicalFramework")
+
+    @property
+    def accessControl(self):
+        return AccessControlModelNav(self.tree, f"{self.path}/accessControl")
+
+    @property
+    def processStepsAndActorInteractions(self):
+        return ProcessStepsAndActorInteractionsNav(self.tree, f"{self.path}/processStepsAndActorInteractions")
+
+    @property
+    def experienceCodeSpecs(self):
+        return ExperienceCodeSpecsNav(self.tree, f"{self.path}/experienceCodeSpecs")
+
+
 class DashboardEntryNav(SomMetaRef):
     """Dot-notation accessors of ``DashboardEntry`` (DR1 §4.1). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -60913,24 +61460,12 @@ class DataEntityEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/DAENT-CLAS")
 
     @property
-    def volumeMetrics(self):
-        return SomListMetaRef(self.tree, f"{self.path}/VOLUM-VOLU-LST", VolumeMetricEntryNav)
-
-    @property
     def lifecyclePolicy(self):
         return SomMetaRef(self.tree, f"{self.path}/DAENT-LIFE")
 
     @property
-    def complianceRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CRE-COMP-LST", ComplianceRequirementEntryNav)
-
-    @property
     def relationshipSummary(self):
         return SomMetaRef(self.tree, f"{self.path}/DAENT-RELA")
-
-    @property
-    def technicalCharacteristics(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TECHN-TECH-LST", TechnicalCharacteristicEntryNav)
 
     @property
     def attributes(self):
@@ -60947,10 +61482,6 @@ class DataEntityEntryNav(SomMetaRef):
     @property
     def constraints(self):
         return SomListMetaRef(self.tree, f"{self.path}/ENCNS-CONS-LST", EntityConstraintEntryNav)
-
-    @property
-    def migrationMappings(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MIGME-MIGR-LST", MigrationMappingEntryNav)
 
 
 class DataEntityMigrationEntryNav(SomMetaRef):
@@ -61273,10 +61804,6 @@ class DataModelNav(SomMetaRef):
         return EntityRelationshipsNav(self.tree, f"{self.path}/entityRelationships")
 
     @property
-    def erDiagram(self):
-        return SomMetaRef(self.tree, f"{self.path}/erDiagram")
-
-    @property
     def dataClassification(self):
         return DataClassificationNav(self.tree, f"{self.path}/dataClassification")
 
@@ -61291,6 +61818,25 @@ class DataModelNav(SomMetaRef):
     @property
     def integrityConstraints(self):
         return IntegrityConstraintsNav(self.tree, f"{self.path}/integrityConstraints")
+
+
+class DataModelFollowUpNav(SomMetaRef):
+    """Dot-notation accessors of ``DataModelFollowUp`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def erDiagram(self):
+        return SomMetaRef(self.tree, f"{self.path}/erDiagram")
+
+    @property
+    def entityFollowUps(self):
+        return SomListMetaRef(self.tree, f"{self.path}/DMFUE-ENFU-LST", EntityFollowUpEntryNav)
 
 
 class DataOwnershipNav(SomMetaRef):
@@ -62849,6 +63395,17 @@ class DevelopmentQualityGatesNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/DQGP")
 
 
+class DeviceSettingsNav(SomMetaRef):
+    """Dot-notation accessors of ``DeviceSettings`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+
 class DisasterRecoveryRequirementsNav(SomMetaRef):
     """Dot-notation accessors of ``DisasterRecoveryRequirements`` (DR1 §4.1). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -63189,6 +63746,10 @@ class DocSpecsProjectNav(SomMetaRef):
     @property
     def experienceDesignSpecification(self):
         return D09ExperienceDesignSpecificationNav(self.tree, f"{self.path}/experienceDesignSpecification")
+
+    @property
+    def codeSpecsProjection(self):
+        return D13CodeSpecsProjectionNav(self.tree, f"{self.path}/codeSpecsProjection")
 
 
 class DocumentControlNav(SomMetaRef):
@@ -63817,6 +64378,33 @@ class EntityConstraintEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
 
+class EntityFollowUpEntryNav(SomMetaRef):
+    """Dot-notation accessors of ``EntityFollowUpEntry`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def entityRef(self):
+        return SomMetaRef(self.tree, f"{self.path}/DMFUE-ENTI")
+
+    @property
+    def volumeMetrics(self):
+        return SomListMetaRef(self.tree, f"{self.path}/VOLUM-VOLU-LST", VolumeMetricEntryNav)
+
+    @property
+    def complianceRequirements(self):
+        return SomListMetaRef(self.tree, f"{self.path}/CRE-COMP-LST", ComplianceRequirementEntryNav)
+
+    @property
+    def technicalCharacteristics(self):
+        return SomListMetaRef(self.tree, f"{self.path}/TECHN-TECH-LST", TechnicalCharacteristicEntryNav)
+
+    @property
+    def migrationMappings(self):
+        return SomListMetaRef(self.tree, f"{self.path}/MIGME-MIGR-LST", MigrationMappingEntryNav)
+
+
 class EntityIndexEntryNav(SomMetaRef):
     """Dot-notation accessors of ``EntityIndexEntry`` (DR1 §4.1). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -64386,8 +64974,31 @@ class ExperienceAndInterfaceDesignNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
-    def designVision(self):
-        return DesignVisionNav(self.tree, f"{self.path}/designVision")
+    def experienceCodeSpecs(self):
+        return ExperienceCodeSpecsNav(self.tree, f"{self.path}/experienceCodeSpecs")
+
+    @property
+    def designFollowUp(self):
+        return ExperienceDesignFollowUpNav(self.tree, f"{self.path}/designFollowUp")
+
+    @property
+    def localizationFollowUp(self):
+        return ExperienceLocalizationFollowUpNav(self.tree, f"{self.path}/localizationFollowUp")
+
+    @property
+    def authorizationComplianceFollowUp(self):
+        return AuthorizationComplianceFollowUpNav(self.tree, f"{self.path}/authorizationComplianceFollowUp")
+
+
+class ExperienceCodeSpecsNav(SomMetaRef):
+    """Dot-notation accessors of ``ExperienceCodeSpecs`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def screens(self):
@@ -64398,20 +65009,39 @@ class ExperienceAndInterfaceDesignNav(SomMetaRef):
         return ScreenFlowStructureNav(self.tree, f"{self.path}/screenFlow")
 
     @property
-    def printLayout(self):
-        return PrintAndExportLayoutNav(self.tree, f"{self.path}/printLayout")
-
-    @property
     def dataStructureAlignment(self):
         return SomMetaRef(self.tree, f"{self.path}/dataStructureAlignment")
 
     @property
-    def authorizationCompliance(self):
-        return SomMetaRef(self.tree, f"{self.path}/authorizationCompliance")
-
-    @property
     def errorHandling(self):
         return ErrorHandlingNav(self.tree, f"{self.path}/errorHandling")
+
+    @property
+    def responsiveDesign(self):
+        return ResponsiveDesignNav(self.tree, f"{self.path}/responsiveDesign")
+
+    @property
+    def uiComponents(self):
+        return UiComponentsNav(self.tree, f"{self.path}/uiComponents")
+
+
+class ExperienceDesignFollowUpNav(SomMetaRef):
+    """Dot-notation accessors of ``ExperienceDesignFollowUp`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def designVision(self):
+        return DesignVisionNav(self.tree, f"{self.path}/designVision")
+
+    @property
+    def printLayout(self):
+        return PrintAndExportLayoutNav(self.tree, f"{self.path}/printLayout")
 
     @property
     def userAssistance(self):
@@ -64422,24 +65052,27 @@ class ExperienceAndInterfaceDesignNav(SomMetaRef):
         return AccessibilityNav(self.tree, f"{self.path}/accessibility")
 
     @property
-    def responsiveDesign(self):
-        return ResponsiveDesignNav(self.tree, f"{self.path}/responsiveDesign")
-
-    @property
-    def uiComponents(self):
-        return UiComponentsNav(self.tree, f"{self.path}/uiComponents")
-
-    @property
-    def multiLanguageSupport(self):
-        return MultiLanguageSupportNav(self.tree, f"{self.path}/multiLanguageSupport")
-
-    @property
     def prototype(self):
         return PrototypeNav(self.tree, f"{self.path}/prototype")
 
     @property
     def wireframesAndMockups(self):
         return WireframesAndMockupsNav(self.tree, f"{self.path}/wireframesAndMockups")
+
+
+class ExperienceLocalizationFollowUpNav(SomMetaRef):
+    """Dot-notation accessors of ``ExperienceLocalizationFollowUp`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def multiLanguageSupport(self):
+        return MultiLanguageSupportNav(self.tree, f"{self.path}/multiLanguageSupport")
 
 
 class ExportFieldMappingEntryNav(SomMetaRef):
@@ -66348,6 +66981,10 @@ class InformationAndDataModelNav(SomMetaRef):
     @property
     def messageKeyRegistry(self):
         return MessageKeyRegistryNav(self.tree, f"{self.path}/messageKeyRegistry")
+
+    @property
+    def dataModelFollowUp(self):
+        return DataModelFollowUpNav(self.tree, f"{self.path}/dataModelFollowUp")
 
 
 class InformationArchitectureNav(SomMetaRef):
@@ -70321,6 +70958,25 @@ class OrgRequirementImplementationPlanNav(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/ORGIM-ACTI-LST", OrgImplementationActivityNav)
 
 
+class OrganizationAndProcessConceptNav(SomMetaRef):
+    """Dot-notation accessors of ``OrganizationAndProcessConcept`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def organizationalFramework(self):
+        return OrganizationalFrameworkNav(self.tree, f"{self.path}/organizationalFramework")
+
+    @property
+    def businessProcessDescriptions(self):
+        return BusinessProcessDescriptionsNav(self.tree, f"{self.path}/businessProcessDescriptions")
+
+
 class OrganizationStructureNav(SomMetaRef):
     """Dot-notation accessors of ``OrganizationStructure`` (DR1 §4.1). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -73994,6 +74650,21 @@ class RequirementsNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
+    def requirementsFollowUp(self):
+        return RequirementsFollowUpNav(self.tree, f"{self.path}/requirementsFollowUp")
+
+
+class RequirementsFollowUpNav(SomMetaRef):
+    """Dot-notation accessors of ``RequirementsFollowUp`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def localizationTranslation(self):
         return LocalizationTranslationRequirementsNav(self.tree, f"{self.path}/localizationTranslation")
 
@@ -75807,36 +76478,16 @@ class SecurityAndAccessModelNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
-    def userManagement(self):
-        return UserManagementNav(self.tree, f"{self.path}/userManagement")
+    def accessControl(self):
+        return AccessControlModelNav(self.tree, f"{self.path}/accessControl")
 
     @property
-    def authentication(self):
-        return IdentificationAndAuthenticationNav(self.tree, f"{self.path}/authentication")
+    def securityOperations(self):
+        return SecurityOperationsFollowUpNav(self.tree, f"{self.path}/securityOperations")
 
     @property
-    def resourceProtection(self):
-        return ResourceProtectionNav(self.tree, f"{self.path}/resourceProtection")
-
-    @property
-    def authorization(self):
-        return UserAuthorizationNav(self.tree, f"{self.path}/authorization")
-
-    @property
-    def encryption(self):
-        return SensitiveDataEncryptionNav(self.tree, f"{self.path}/encryption")
-
-    @property
-    def auditAndLogging(self):
-        return AuditAndLoggingNav(self.tree, f"{self.path}/auditAndLogging")
-
-    @property
-    def roleMatrix(self):
-        return RoleMatrixNav(self.tree, f"{self.path}/roleMatrix")
-
-    @property
-    def complianceFramework(self):
-        return ComplianceFrameworkNav(self.tree, f"{self.path}/complianceFramework")
+    def compliance(self):
+        return SecurityComplianceFollowUpNav(self.tree, f"{self.path}/compliance")
 
 
 class SecurityAuditEntryNav(SomMetaRef):
@@ -75978,6 +76629,21 @@ class SecurityCodeReviewPolicyNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/SCRPF")
 
 
+class SecurityComplianceFollowUpNav(SomMetaRef):
+    """Dot-notation accessors of ``SecurityComplianceFollowUp`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def complianceFramework(self):
+        return ComplianceFrameworkNav(self.tree, f"{self.path}/complianceFramework")
+
+
 class SecurityControlEntryNav(SomMetaRef):
     """Dot-notation accessors of ``SecurityControlEntry`` (DR1 §4.1). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -76094,6 +76760,25 @@ class SecurityEventsDefinitionNav(SomMetaRef):
     @property
     def customEvents(self):
         return SomListMetaRef(self.tree, f"{self.path}/SEVT-CUST-LST", SecurityEventEntryNav)
+
+
+class SecurityOperationsFollowUpNav(SomMetaRef):
+    """Dot-notation accessors of ``SecurityOperationsFollowUp`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def encryption(self):
+        return SensitiveDataEncryptionNav(self.tree, f"{self.path}/encryption")
+
+    @property
+    def auditAndLogging(self):
+        return AuditAndLoggingNav(self.tree, f"{self.path}/auditAndLogging")
 
 
 class SecurityRequirementEntryNav(SomMetaRef):
@@ -77050,6 +77735,21 @@ class SolutionArchitectureAndTechnologyNav(SomMetaRef):
     @property
     def technicalFramework(self):
         return TechnicalFrameworkConceptNav(self.tree, f"{self.path}/technicalFramework")
+
+    @property
+    def architectureFollowUp(self):
+        return SolutionArchitectureFollowUpNav(self.tree, f"{self.path}/architectureFollowUp")
+
+
+class SolutionArchitectureFollowUpNav(SomMetaRef):
+    """Dot-notation accessors of ``SolutionArchitectureFollowUp`` (DR1 §4.1). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def componentsToUse(self):
@@ -79194,25 +79894,6 @@ class TabItemEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
 
-class TargetBusinessProcessModelNav(SomMetaRef):
-    """Dot-notation accessors of ``TargetBusinessProcessModel`` (DR1 §4.1). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-    @property
-    def businessProcessDescriptions(self):
-        return BusinessProcessDescriptionsNav(self.tree, f"{self.path}/businessProcessDescriptions")
-
-    @property
-    def processStepsAndActorInteractions(self):
-        return ProcessStepsAndActorInteractionsNav(self.tree, f"{self.path}/processStepsAndActorInteractions")
-
-
 class TargetOperatingModelNav(SomMetaRef):
     """Dot-notation accessors of ``TargetOperatingModel`` (DR1 §4.1). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -79224,12 +79905,12 @@ class TargetOperatingModelNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
-    def organizationalFramework(self):
-        return OrganizationalFrameworkNav(self.tree, f"{self.path}/organizationalFramework")
+    def organizationAndProcess(self):
+        return OrganizationAndProcessConceptNav(self.tree, f"{self.path}/organizationAndProcess")
 
     @property
-    def targetBusinessProcess(self):
-        return TargetBusinessProcessModelNav(self.tree, f"{self.path}/targetBusinessProcess")
+    def processStepsAndActorInteractions(self):
+        return ProcessStepsAndActorInteractionsNav(self.tree, f"{self.path}/processStepsAndActorInteractions")
 
 
 class TargetPlatformEntryNav(SomMetaRef):
@@ -85124,227 +85805,227 @@ class D00SolutionBlueprintId(SomMetaRef):
 
     @property
     def OCCHG_OVER(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER")
 
     @property
     def ORGCE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST", OrganizationalChangeEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST", OrganizationalChangeEntryId)
 
     @property
     def TROML(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML")
 
     @property
     def TROGV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/overview/TROGV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROGV")
 
     @property
     def TRPHE_PHAS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRPHE-PHAS-LST", TransitionPhaseEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRPHE-PHAS-LST", TransitionPhaseEntryId)
 
     @property
     def TRMIL_MILE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRMIL-MILE-LST", TransitionMilestoneEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRMIL-MILE-LST", TransitionMilestoneEntryId)
 
     @property
     def CHREOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/CHREOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/CHREOV")
 
     @property
     def RDRCE_READ_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/RDRCE-READ-LST", ReadinessCriteriaEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/RDRCE-READ-LST", ReadinessCriteriaEntryId)
 
     @property
     def TRCOST(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOST")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOST")
 
     @property
     def COEV_COMM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/COEV-COMM-LST", CommunicationEventEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/COEV-COMM-LST", CommunicationEventEntryId)
 
     @property
     def TRCOCH_CHAN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOCH-CHAN-LST", TransitionCommunicationChannelsId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOCH-CHAN-LST", TransitionCommunicationChannelsId)
 
     @property
     def TRSUOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSUOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSUOV")
 
     @property
     def TRSPRE_SUPP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSPRE-SUPP-LST", TransitionSupportResourceEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSPRE-SUPP-LST", TransitionSupportResourceEntryId)
 
     @property
     def TRESPA_ESCA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRESPA-ESCA-LST", TransitionEscalationPathsId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRESPA-ESCA-LST", TransitionEscalationPathsId)
 
     @property
     def TRMEOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRMEOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRMEOV")
 
     @property
     def TRME_METR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST", TransitionMetricEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST", TransitionMetricEntryId)
 
     @property
     def TRRS_TRAN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST", TransitionRiskEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST", TransitionRiskEntryId)
 
     @property
     def JODEOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/JODEOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV")
 
     @property
     def NWROL_NEWR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", NewRoleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", NewRoleEntryId)
 
     @property
     def CHAROL_CHAN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST", ChangedRoleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST", ChangedRoleEntryId)
 
     @property
     def REMROL_REMO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/REMROL-REMO-LST", RemovedRoleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/REMROL-REMO-LST", RemovedRoleEntryId)
 
     @property
     def STPLOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/STPLOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STPLOV")
 
     @property
     def STBUAL(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUAL")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUAL")
 
     @property
     def STBUGO(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUGO")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUGO")
 
     @property
     def STFE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/STFE-ITEM-LST", StaffingEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STFE-ITEM-LST", StaffingEntryId)
 
     @property
     def RETI(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/RETI")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/RETI")
 
     @property
     def COFROV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COFROV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COFROV")
 
     @property
     def COMPE_CORE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-CORE-LST", CompetencyEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-CORE-LST", CompetencyEntryId)
 
     @property
     def COMPE_TECH_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-TECH-LST", CompetencyEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-TECH-LST", CompetencyEntryId)
 
     @property
     def COMPE_LEAD_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-LEAD-LST", CompetencyEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-LEAD-LST", CompetencyEntryId)
 
     @property
     def WPDE_WORK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationalFramework/WPDE-WORK-LST", WorkplaceDescriptionEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/WPDE-WORK-LST", WorkplaceDescriptionEntryId)
 
     @property
     def PVOVW(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/PVOVW")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PVOVW")
 
     @property
     def EXIPR_EXPE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/EXIPR-EXPE-LST", ExpectedImprovementsId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/EXIPR-EXPE-LST", ExpectedImprovementsId)
 
     @property
     def PRSUC(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/PRSUC")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PRSUC")
 
     @property
     def DPOVW(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/designPrinciples/DPOVW")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples/DPOVW")
 
     @property
     def PDPEN_PRIN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/designPrinciples/PDPEN-PRIN-LST", ProcessDesignPrincipleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples/PDPEN-PRIN-LST", ProcessDesignPrincipleEntryId)
 
     @property
     def PCOVW(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/PCOVW")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/PCOVW")
 
     @property
     def PRCCL(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/PRCCL")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/PRCCL")
 
     @property
     def BPREN_PROC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/BPREN-PROC-LST", BusinessProcessEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/BPREN-PROC-LST", BusinessProcessEntryId)
 
     @property
     def PRDIOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processOverviewDiagram/PRDIOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processOverviewDiagram/PRDIOV")
 
     @property
     def IMOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/IMOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/IMOV")
 
     @property
     def PCIMV_IMPR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/PCIMV-IMPR-LST", ProcessImprovementEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/PCIMV-IMPR-LST", ProcessImprovementEntryId)
 
     @property
     def IMBUCA(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/IMBUCA")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/IMBUCA")
 
     @property
     def PCRLT_RELA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processRelationships/PCRLT-RELA-LST", ProcessRelationshipEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processRelationships/PCRLT-RELA-LST", ProcessRelationshipEntryId)
 
     @property
     def DEPRWO_DETA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/DEPRWO-DETA-LST", DetailedProcessWorkflowId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/DEPRWO-DETA-LST", DetailedProcessWorkflowId)
 
     @property
     def PMAK_PROC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/PMAK-PROC-LST", ProcessMetricId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/PMAK-PROC-LST", ProcessMetricId)
 
     @property
     def ACOVNA(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACOVNA")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACOVNA")
 
     @property
     def ACEN_ACTO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", ActorEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", ActorEntryId)
 
     @property
     def ACCASU(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACCASU")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACCASU")
 
     @property
     def INCAOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INCAOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INCAOV")
 
     @property
     def INEN_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", InteractionEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", InteractionEntryId)
 
     @property
     def INPR(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INPR")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INPR")
 
     @property
     def SCOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCOV")
 
     @property
     def SCNRY_SCEN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", ScenarioEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", ScenarioEntryId)
 
     @property
     def ACDIOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV")
+        return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV")
 
     @property
     def ETETS_ENDT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/ETETS-ENDT-LST", EndToEndTestScenarioId)
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/processStepsAndActorInteractions/ETETS-ENDT-LST", EndToEndTestScenarioId)
 
     @property
     def DAENT_ENTI_LST(self):
@@ -85407,44 +86088,48 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST", MessageKeyEntryId)
 
     @property
+    def DMFUE_ENFU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/informationAndDataModel/dataModelFollowUp/DMFUE-ENFU-LST", EntityFollowUpEntryId)
+
+    @property
     def TRAREQ_TRAN(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRAREQ-TRAN")
 
     @property
     def TRRERT(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/localizationTranslation/translationRequirements/TRRERT")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRERT")
 
     @property
     def TRREFO(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/localizationTranslation/translationRequirements/TRREFO")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRREFO")
 
     @property
     def TRREVA(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/localizationTranslation/translationRequirements/TRREVA")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRREVA")
 
     @property
     def TRRETE(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/localizationTranslation/translationRequirements/TRRETE")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRETE")
 
     @property
     def DOANTR_DOCU(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/informationForUse/userDocumentation/DOANTR-DOCU")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/informationForUse/userDocumentation/DOANTR-DOCU")
 
     @property
     def DATD(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/informationForUse/userDocumentation/DATD")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/informationForUse/userDocumentation/DATD")
 
     @property
     def DATL(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/informationForUse/userDocumentation/DATL")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/informationForUse/userDocumentation/DATL")
 
     @property
     def TRMAT_TRAI(self):
-        return SomMetaRef(self.tree, f"{self.path}/requirements/trainingEnablement/trainingDeliverables/TRMAT-TRAI")
+        return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI")
 
     @property
     def TRMOEN_TRAI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/requirements/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", TrainingModuleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", TrainingModuleEntryId)
 
     @property
     def TGPLT_TARG_LST(self):
@@ -87920,739 +88605,739 @@ class D00SolutionBlueprintId(SomMetaRef):
 
     @property
     def CSVND(self):
-        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/strategy/CSVND")
+        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSVND")
 
     @property
     def CSGOV(self):
-        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/strategy/CSGOV")
+        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSGOV")
 
     @property
     def CSPRT(self):
-        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPRT")
+        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPRT")
 
     @property
     def CSPOL(self):
-        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPOL")
+        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPOL")
 
     @property
     def CSPLN(self):
-        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPLN")
+        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPLN")
 
     @property
     def RGUSE_REUS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/strategy/RGUSE-REUS-LST", ReuseGoalEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/RGUSE-REUS-LST", ReuseGoalEntryId)
 
     @property
     def EVCEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/strategy/evaluationCriteria/EVCEN-ITEM-LST", EvaluationCriterionEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/evaluationCriteria/EVCEN-ITEM-LST", EvaluationCriterionEntryId)
 
     @property
     def CMPNT_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/CMPNT-COMP-LST", ComponentEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/CMPNT-COMP-LST", ComponentEntryId)
 
     @property
     def RNDEP_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/runtimeDependencies/RNDEP-ITEM-LST", RuntimeDependencyEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/runtimeDependencies/RNDEP-ITEM-LST", RuntimeDependencyEntryId)
 
     @property
     def MNDEP_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/maintenanceDependencies/MNDEP-ITEM-LST", MaintenanceDependencyEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/maintenanceDependencies/MNDEP-ITEM-LST", MaintenanceDependencyEntryId)
 
     @property
     def CMRS_RISK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/riskAssessment/CMRS-RISK-LST", ComponentRiskEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/riskAssessment/CMRS-RISK-LST", ComponentRiskEntryId)
 
     @property
     def COPL_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST", ContingencyPlanEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST", ContingencyPlanEntryId)
 
     @property
     def USCDF_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/userManagement/userCategories/USCDF-ITEM-LST", UserCategoryDefinitionId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/userManagement/userCategories/USCDF-ITEM-LST", UserCategoryDefinitionId)
 
     @property
     def ULTRE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", UserLifecycleTransitionEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", UserLifecycleTransitionEntryId)
 
     @property
     def SACLC_SERV_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/userManagement/userLifecycle/SACLC-SERV-LST", ServiceAccountLifecycleId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/userManagement/userLifecycle/SACLC-SERV-LST", ServiceAccountLifecycleId)
 
     @property
     def USATE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/userManagement/userAttributes/USATE-ITEM-LST", UserAttributeEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/userManagement/userAttributes/USATE-ITEM-LST", UserAttributeEntryId)
 
     @property
     def IDTSR_IDEN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/IDTSR-IDEN-LST", IdentitySourceEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/IDTSR-IDEN-LST", IdentitySourceEntryId)
 
     @property
     def IVPD(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/identityVerification/IVPD")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPD")
 
     @property
     def IVPM(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/identityVerification/IVPM")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPM")
 
     @property
     def IVPW(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/identityVerification/IVPW")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPW")
 
     @property
     def IVPL(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/identityVerification/IVPL")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPL")
 
     @property
     def IVPF(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/identityVerification/IVPF")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPF")
 
     @property
     def IDTPV_IDEN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/IDTPV-IDEN-LST", IdentityProviderEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/IDTPV-IDEN-LST", IdentityProviderEntryId)
 
     @property
     def SSOPF(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/singleSignOn/SSOPF")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPF")
 
     @property
     def SSOPS(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/singleSignOn/SSOPS")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPS")
 
     @property
     def SSOPA(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/singleSignOn/SSOPA")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPA")
 
     @property
     def SSOPO(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/singleSignOn/SSOPO")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPO")
 
     @property
     def SRPF(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/selfRegistration/SRPF")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPF")
 
     @property
     def SRPBP(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/selfRegistration/SRPBP")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPBP")
 
     @property
     def SRPV(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/selfRegistration/SRPV")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPV")
 
     @property
     def SRPA(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/selfRegistration/SRPA")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPA")
 
     @property
     def SRPS(self):
-        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/selfRegistration/SRPS")
+        return SomMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPS")
 
     @property
     def IDTAM_ATTR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/identification/IDTAM-ATTR-LST", IdentityAttributeMappingEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/IDTAM-ATTR-LST", IdentityAttributeMappingEntryId)
 
     @property
     def MFADE_MFAD_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", SomMetaRef)
 
     @property
     def ATME_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/authentication/authenticationMethods/ATME-ITEM-LST", AuthenticationMethodEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", AuthenticationMethodEntryId)
 
     @property
     def STEPU_STEP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", SomMetaRef)
 
     @property
     def LGFLS_LOGI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", LoginFlowStepEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", LoginFlowStepEntryId)
 
     @property
     def MFACRQ_MFAC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", MfaCategoryRequirementEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", MfaCategoryRequirementEntryId)
 
     @property
     def AZGR_GROU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authorization/AZGR-GROU-LST", AuthorizationGroupEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/AZGR-GROU-LST", AuthorizationGroupEntryId)
 
     @property
     def AZRO_ROLE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authorization/AZRO-ROLE-LST", AuthorizationRoleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/AZRO-ROLE-LST", AuthorizationRoleEntryId)
 
     @property
     def ENT_ENTI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authorization/ENT-ENTI-LST", EntitlementEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST", EntitlementEntryId)
 
     @property
     def RESKEY_RESO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authorization/RESKEY-RESO-LST", ResourceKeyEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/RESKEY-RESO-LST", ResourceKeyEntryId)
 
     @property
     def RLINH_INHE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authorization/roleHierarchy/RLINH-INHE-LST", RoleInheritanceRuleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/roleHierarchy/RLINH-INHE-LST", RoleInheritanceRuleEntryId)
 
     @property
     def RLCMB_COMB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authorization/roleHierarchy/RLCMB-COMB-LST", RoleCombinationConstraintEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST", RoleCombinationConstraintEntryId)
 
     @property
     def GBRLX_GLOB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authorization/roleHierarchy/GBRLX-GLOB-LST", GlobalRoleExclusionEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST", GlobalRoleExclusionEntryId)
 
     @property
     def TNCS_TENA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/authorization/tenantIsolation/TNCS-TENA-LST", TenantCustomizationEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", TenantCustomizationEntryId)
 
     @property
     def ENDACA_ENCR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/encryption/encryptionAtRest/ENDACA-ENCR-LST", EncryptedDataCategoryEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST", EncryptedDataCategoryEntryId)
 
     @property
     def COCHEN_COMM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/encryption/encryptionInTransit/COCHEN-COMM-LST", CommunicationChannelEncryptionEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST", CommunicationChannelEncryptionEntryId)
 
     @property
     def SEVT_CUST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST", SecurityEventEntryId)
-
-    @property
-    def DGOEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designVision/designGoals/DGOEN-ITEM-LST", DesignGoalEntryId)
-
-    @property
-    def DPEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST", DesignPrincipleEntryId)
-
-    @property
-    def PEREN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designVision/personas/PEREN-ITEM-LST", PersonaEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST", SecurityEventEntryId)
 
     @property
     def SCREN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST", ScreenEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", ScreenEntryId)
 
     @property
     def GLOBA_GLOB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", SomMetaRef)
 
     @property
     def NAVGRP_GROU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", NavigationGroupEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", NavigationGroupEntryId)
 
     @property
     def PRNADR(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PRNADR")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR")
 
     @property
     def PNBN(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PNBN")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN")
 
     @property
     def PRNASI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PRNASI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI")
 
     @property
     def TBDE_TABB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", TabBarDefinitionEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", TabBarDefinitionEntryId)
 
     @property
     def UNIE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", UtilityNavigationItemEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", UtilityNavigationItemEntryId)
 
     @property
     def BRCO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/contextualNavigation/BRCO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO")
 
     @property
     def DELNPT_PATT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", DeepLinkPatternEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", DeepLinkPatternEntryId)
 
     @property
     def NAVGRD_GUAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", NavigationGuardEntryId)
-
-    @property
-    def PLPS(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/printLayout/PLPS")
-
-    @property
-    def PRLABR(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/printLayout/PRLABR")
-
-    @property
-    def PRLAWA(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/printLayout/PRLAWA")
-
-    @property
-    def PLHF(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/printLayout/PLHF")
-
-    @property
-    def PRLAAR(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/printLayout/PRLAAR")
-
-    @property
-    def REEN_REPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/printLayout/REEN-REPO-LST", ReportEntryId)
-
-    @property
-    def EXFOEN_EXPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/printLayout/EXFOEN-EXPO-LST", ExportFormatEntryId)
-
-    @property
-    def EXTEEN_EXPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/printLayout/EXTEEN-EXPO-LST", ExportTemplateEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", NavigationGuardEntryId)
 
     @property
     def ERHACO_ERRO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/ERHACO-ERRO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO")
 
     @property
     def EHCC(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/EHCC")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCC")
 
     @property
     def EHCA(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/EHCA")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCA")
 
     @property
     def EHCO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/EHCO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCO")
 
     @property
     def VAFE_VALI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFE-VALI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-VALI")
 
     @property
     def VAFEPL(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEPL")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEPL")
 
     @property
     def VAFEME(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEME")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME")
 
     @property
     def VAFEGU(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEGU")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU")
 
     @property
     def VAFEBE(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEBE")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE")
 
     @property
     def VAMETE_MESS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAMETE-MESS-LST", ValidationMessageTemplateId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", ValidationMessageTemplateId)
 
     @property
     def FIELD_FIEL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", SomMetaRef)
 
     @property
     def SYERDI_SYST(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SYERDI-SYST")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST")
 
     @property
     def SEDET(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDET")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET")
 
     @property
     def SEDM(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDM")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM")
 
     @property
     def SEDC(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDC")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC")
 
     @property
     def SEDF(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDF")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF")
 
     @property
     def EPDE_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", SomMetaRef)
 
     @property
     def SECE_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SECE-ERRO-LST", SystemErrorCodeEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
     def ERRE_RECO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRE-RECO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO")
 
     @property
     def ERDP(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERDP")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERDP")
 
     @property
     def ERRM(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRM")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRM")
 
     @property
     def ERGR(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERGR")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERGR")
 
     @property
     def ERSC(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSC")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSC")
 
     @property
     def ERSH(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSH")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH")
 
     @property
     def RECOV_RECO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", SomMetaRef)
 
     @property
     def RCVSCN_RECO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/errorHandling/errorRecovery/RCVSCN-RECO-LST", RecoveryScenarioEntryId)
-
-    @property
-    def USAS_HELP(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/USAS-HELP")
-
-    @property
-    def USASDE(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/USASDE")
-
-    @property
-    def USASIN(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/USASIN")
-
-    @property
-    def COHE_CONT(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHE-CONT")
-
-    @property
-    def COHEIN(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHEIN")
-
-    @property
-    def COHEPA(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHEPA")
-
-    @property
-    def CHWT(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/contextualHelp/CHWT")
-
-    @property
-    def COHERI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHERI")
-
-    @property
-    def FLDHP_FIEL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/contextualHelp/FLDHP-FIEL-LST", FieldHelpEntryId)
-
-    @property
-    def ONHE_ONBO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/onboarding/ONHE-ONBO")
-
-    @property
-    def ONHETO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/onboarding/ONHETO")
-
-    @property
-    def OHSD(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/onboarding/OHSD")
-
-    @property
-    def ONHECH(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/onboarding/ONHECH")
-
-    @property
-    def ONHEDI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/onboarding/ONHEDI")
-
-    @property
-    def ONHERE(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/onboarding/ONHERE")
-
-    @property
-    def FTRTUR_FEAT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/onboarding/FTRTUR-FEAT-LST", FeatureTourEntryId)
-
-    @property
-    def SUAC_SUPP(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/supportAccess/SUAC-SUPP")
-
-    @property
-    def SAHC(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/supportAccess/SAHC")
-
-    @property
-    def SALS(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/supportAccess/SALS")
-
-    @property
-    def SUACTI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/supportAccess/SUACTI")
-
-    @property
-    def SACM(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/supportAccess/SACM")
-
-    @property
-    def SASS(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/userAssistance/supportAccess/SASS")
-
-    @property
-    def ACCESS_ACCE(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/ACCESS-ACCE")
-
-    @property
-    def ACSTGY(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/ACSTGY")
-
-    @property
-    def ACTE(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/ACTE")
-
-    @property
-    def ACSU(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/ACSU")
-
-    @property
-    def WCCO_WCAG(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCO-WCAG")
-
-    @property
-    def WCCOOP(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCOOP")
-
-    @property
-    def WCCOUN(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCOUN")
-
-    @property
-    def WCCORO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCORO")
-
-    @property
-    def WSCE_SUCC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", WcagSuccessCriterionEntryId)
-
-    @property
-    def ACCHLS_CHEC(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCHLS-CHEC")
-
-    @property
-    def ACCH_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCH-ITEM-LST", AccessibilityCheckEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST", RecoveryScenarioEntryId)
 
     @property
     def REDE_RESP(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/REDE-RESP")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/REDE-RESP")
 
     @property
     def BC_BREA(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BC-BREA")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA")
 
     @property
     def BRE_BREA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BRE-BREA-LST", BreakpointEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", BreakpointEntryId)
 
     @property
     def REBE_LAYO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBE-LAYO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO")
 
     @property
     def REBENA(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBENA")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA")
 
     @property
     def REBEVI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBEVI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI")
 
     @property
     def REBETO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBETO")
 
     @property
     def REBECO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBECO")
 
     @property
     def RESPSR_SCRE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", ResponsiveScreenRuleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", ResponsiveScreenRuleEntryId)
 
     @property
     def UICO_COMP(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/UICO-COMP")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICO-COMP")
 
     @property
     def UCVL(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/UCVL")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UCVL")
 
     @property
     def UCCA(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/UCCA")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UCCA")
 
     @property
     def UICOCU(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/UICOCU")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOCU")
 
     @property
     def DESIG_DESI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/componentLibrary/DESIG-DESI-LST", DesignFoundationEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/DESIG-DESI-LST", DesignFoundationEntryId)
 
     @property
     def COLICO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLICO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLICO")
 
     @property
     def COLITY(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLITY")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLITY")
 
     @property
     def COLISP(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLISP")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLISP")
 
     @property
     def COLIBO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLIBO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIBO")
 
     @property
     def COLIVI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLIVI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI")
 
     @property
     def COPA_COLO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/componentLibrary/COPA-COLO-LST", ColorPaletteEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST", ColorPaletteEntryId)
 
     @property
     def TYST_TYPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
 
     @property
     def UICOEN_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/UICOEN-COMP-LST", UiComponentEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", UiComponentEntryId)
 
     @property
     def CMFA_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/uiComponents/CMFA-COMP-LST", ComponentFamilyEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", ComponentFamilyEntryId)
 
     @property
-    def MLAR_MULT(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/multiLanguageSupport/MLAR-MULT")
+    def DGOEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST", DesignGoalEntryId)
 
     @property
-    def LACOSE_LANG(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LACOSE-LANG")
+    def DPEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/designVision/designPrinciples/DPEN-ITEM-LST", DesignPrincipleEntryId)
 
     @property
-    def LCSD(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSD")
+    def PEREN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/designVision/personas/PEREN-ITEM-LST", PersonaEntryId)
 
     @property
-    def LCSP(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSP")
+    def PLPS(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/PLPS")
 
     @property
-    def LCSF(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSF")
+    def PRLABR(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLABR")
 
     @property
-    def LCSU(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSU")
+    def PRLAWA(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAWA")
 
     @property
-    def SULOEN_SUPP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/multiLanguageSupport/SULOEN-SUPP-LST", SupportedLocaleEntryId)
+    def PLHF(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/PLHF")
+
+    @property
+    def PRLAAR(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR")
+
+    @property
+    def REEN_REPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST", ReportEntryId)
+
+    @property
+    def EXFOEN_EXPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST", ExportFormatEntryId)
+
+    @property
+    def EXTEEN_EXPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST", ExportTemplateEntryId)
+
+    @property
+    def USAS_HELP(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/USAS-HELP")
+
+    @property
+    def USASDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/USASDE")
+
+    @property
+    def USASIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/USASIN")
+
+    @property
+    def COHE_CONT(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHE-CONT")
+
+    @property
+    def COHEIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHEIN")
+
+    @property
+    def COHEPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHEPA")
+
+    @property
+    def CHWT(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/CHWT")
+
+    @property
+    def COHERI(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHERI")
+
+    @property
+    def FLDHP_FIEL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/FLDHP-FIEL-LST", FieldHelpEntryId)
+
+    @property
+    def ONHE_ONBO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHE-ONBO")
+
+    @property
+    def ONHETO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHETO")
+
+    @property
+    def OHSD(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/OHSD")
+
+    @property
+    def ONHECH(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHECH")
+
+    @property
+    def ONHEDI(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHEDI")
+
+    @property
+    def ONHERE(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHERE")
+
+    @property
+    def FTRTUR_FEAT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/FTRTUR-FEAT-LST", FeatureTourEntryId)
+
+    @property
+    def SUAC_SUPP(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SUAC-SUPP")
+
+    @property
+    def SAHC(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SAHC")
+
+    @property
+    def SALS(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SALS")
+
+    @property
+    def SUACTI(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SUACTI")
+
+    @property
+    def SACM(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SACM")
+
+    @property
+    def SASS(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SASS")
+
+    @property
+    def ACCESS_ACCE(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/ACCESS-ACCE")
+
+    @property
+    def ACSTGY(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/ACSTGY")
+
+    @property
+    def ACTE(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/ACTE")
+
+    @property
+    def ACSU(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/ACSU")
+
+    @property
+    def WCCO_WCAG(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCO-WCAG")
+
+    @property
+    def WCCOOP(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOOP")
+
+    @property
+    def WCCOUN(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOUN")
+
+    @property
+    def WCCORO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO")
+
+    @property
+    def WSCE_SUCC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", WcagSuccessCriterionEntryId)
+
+    @property
+    def ACCHLS_CHEC(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCHLS-CHEC")
+
+    @property
+    def ACCH_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCH-ITEM-LST", AccessibilityCheckEntryId)
 
     @property
     def PROTOT_PROT(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/PROTOT-PROT")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/PROTOT-PROT")
 
     @property
     def PRTI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/PRTI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/PRTI")
 
     @property
     def PRORES(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/PRORES")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/PRORES")
 
     @property
     def PRGO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/PRGO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/PRGO")
 
     @property
     def PG_GOAL(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeGoals/PG-GOAL")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PG-GOAL")
 
     @property
     def PRGORI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGORI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGORI")
 
     @property
     def PRGOFE(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOFE")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE")
 
     @property
     def PRGOEN_GOAL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOEN-GOAL-LST", PrototypeGoalEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST", PrototypeGoalEntryId)
 
     @property
     def PRFESU_FEAT(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/featureSubset/PRFESU-FEAT")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFESU-FEAT")
 
     @property
     def PFSS(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/featureSubset/PFSS")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSS")
 
     @property
     def PFSF(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/featureSubset/PFSF")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF")
 
     @property
     def PRFEEN_FEAT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/featureSubset/PRFEEN-FEAT-LST", PrototypeFeatureEntryId)
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST", PrototypeFeatureEntryId)
 
     @property
     def PRTYSE_PROT(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/PRTYSE-PROT")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/PRTYSE-PROT")
 
     @property
     def REUPRO_REUS(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REUPRO-REUS")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REUPRO-REUS")
 
     @property
     def REPRAR(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRAR")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRAR")
 
     @property
     def REPRIN(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRIN")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRIN")
 
     @property
     def REPRTR(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRTR")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRTR")
 
     @property
     def TP_TRAI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TP-TRAI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TP-TRAI")
 
     @property
     def TRPRDI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TRPRDI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TRPRDI")
 
     @property
     def TRPROU(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TRPROU")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TRPROU")
 
     @property
     def THPR_THRO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPR-THRO")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPR-THRO")
 
     @property
     def THPRFI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRFI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRFI")
 
     @property
     def THPRDI(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRDI")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRDI")
 
     @property
     def THPRVA(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRVA")
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRVA")
+
+    @property
+    def MLAR_MULT(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/MLAR-MULT")
+
+    @property
+    def LACOSE_LANG(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LACOSE-LANG")
+
+    @property
+    def LCSD(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSD")
+
+    @property
+    def LCSP(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSP")
+
+    @property
+    def LCSF(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSF")
+
+    @property
+    def LCSU(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU")
+
+    @property
+    def SULOEN_SUPP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST", SupportedLocaleEntryId)
 
     @property
     def SYQG_GOVE(self):
@@ -94075,6 +94760,2933 @@ class D12TransitionRolloutPlanId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/trainingDeliverables/TRMOEN-TRAI-LST", TrainingModuleEntryId)
 
 
+class D13CodeSpecsProjectionId(SomMetaRef):
+    """ID-tree accessors of ``D13CodeSpecsProjection`` (DR1 §4.2): getters named by
+    section id (``-`` → ``_``), hoisted through id-less members so every
+    reachable id is one step. ``.path`` and ``.meta`` agree with the
+    dot-notation surface."""
+
+    @property
+    def DMENE_ENUM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/domainEnumRegistry/DMENE-ENUM-LST", DomainEnumEntryId)
+
+    @property
+    def ERCEN_CODE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/errorCodeRegistry/ERCEN-CODE-LST", ErrorCodeEntryId)
+
+    @property
+    def RSFDE_FLDD_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/resultEnvelope/RSFDE-FLDD-LST", ResultFieldDetailEntryId)
+
+    @property
+    def MSGKE_MKEY_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/messageKeyRegistry/MSGKE-MKEY-LST", MessageKeyEntryId)
+
+    @property
+    def DAENT_ENTI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataModel/DAENT-ENTI-LST", DataEntityEntryId)
+
+    @property
+    def ENRLE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataModel/entityRelationships/ENRLE-ITEM-LST", EntityRelationshipEntryId)
+
+    @property
+    def DATCL_OVER(self):
+        return SomMetaRef(self.tree, f"{self.path}/dataModel/dataClassification/DATCL-OVER")
+
+    @property
+    def DCLSE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataModel/dataClassification/DCLSE-ITEM-LST", DataClassificationEntryId)
+
+    @property
+    def TGPLT_TARG_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/TGPLT-TARG-LST", TargetPlatformEntryId)
+
+    @property
+    def PLGEN_PROG_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST", ProgrammingLanguageEntryId)
+
+    @property
+    def FWREN_FRAM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", FrameworkRequirementEntryId)
+
+    @property
+    def BTCEN_BUIL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", BuildToolchainEntryId)
+
+    @property
+    def DETAEN_DEPL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", DeploymentTargetEntryId)
+
+    @property
+    def DEMAVE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAVE")
+
+    @property
+    def DEMASE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMASE")
+
+    @property
+    def DEMAIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAIN")
+
+    @property
+    def DEMAOP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAOP")
+
+    @property
+    def RUENME(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENME")
+
+    @property
+    def RUENCP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENCP")
+
+    @property
+    def RUENST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENST")
+
+    @property
+    def RUENNE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENNE")
+
+    @property
+    def RUENVA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENVA")
+
+    @property
+    def RUENDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENDE")
+
+    @property
+    def RUENSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENSC")
+
+    @property
+    def RUENNO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENNO")
+
+    @property
+    def AROVDR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/overview/AROVDR")
+
+    @property
+    def AOTO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/overview/AOTO")
+
+    @property
+    def AROVEV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/overview/AROVEV")
+
+    @property
+    def AROVCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/overview/AROVCO")
+
+    @property
+    def ARPR_PRIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/ARPR-PRIN-LST", ArchitecturePrincipleEntryId)
+
+    @property
+    def COORLA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORLA")
+
+    @property
+    def COORDO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDO")
+
+    @property
+    def COORCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORCO")
+
+    @property
+    def COORDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDE")
+
+    @property
+    def ARCM_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST", ArchitectureComponentEntryId)
+
+    @property
+    def COPASY(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY")
+
+    @property
+    def COPAAS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAAS")
+
+    @property
+    def CPDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/CPDE")
+
+    @property
+    def COPARE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPARE")
+
+    @property
+    def COPAOB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAOB")
+
+    @property
+    def DAARST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARST")
+
+    @property
+    def DAARAC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARAC")
+
+    @property
+    def DAARCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARCO")
+
+    @property
+    def DAARLI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARLI")
+
+    @property
+    def DAARSE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARSE")
+
+    @property
+    def SCARCA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARCA")
+
+    @property
+    def SCARTA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARTA")
+
+    @property
+    def SCARPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARPA")
+
+    @property
+    def SCAROP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCAROP")
+
+    @property
+    def SCARTE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARTE")
+
+    @property
+    def INARSY(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARSY")
+
+    @property
+    def INARDA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARDA")
+
+    @property
+    def INARSE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARSE")
+
+    @property
+    def INARRE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARRE")
+
+    @property
+    def INAROP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INAROP")
+
+    @property
+    def DETOIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOIN")
+
+    @property
+    def DETOEN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOEN")
+
+    @property
+    def DETOAV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOAV")
+
+    @property
+    def DETOGE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOGE")
+
+    @property
+    def DTIAC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DTIAC")
+
+    @property
+    def ARDE_DECI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/architectureStyle/ARDE-DECI-LST", ArchitectureDecisionRecordId)
+
+    @property
+    def DSPT_DESI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST", DesignPatternEntryId)
+
+    @property
+    def COSTEN_CODI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", CodingStandardEntryId)
+
+    @property
+    def DECOEN_DEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", DevelopmentConventionEntryId)
+
+    @property
+    def INSTEN_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", IndustryStandardEntryId)
+
+    @property
+    def CQMC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMC")
+
+    @property
+    def COQUMECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/COQUMECO")
+
+    @property
+    def CQMD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMD")
+
+    @property
+    def CQMSA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMSA")
+
+    @property
+    def CQMT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMT")
+
+    @property
+    def DSCD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DSCD")
+
+    @property
+    def DOSTCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTCO")
+
+    @property
+    def DOSTAR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTAR")
+
+    @property
+    def DOSTVE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTVE")
+
+    @property
+    def DOSTPR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTPR")
+
+    @property
+    def EHSE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSE")
+
+    @property
+    def EHSP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSP")
+
+    @property
+    def EHSR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSR")
+
+    @property
+    def EHSUC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSUC")
+
+    @property
+    def ERHASTRE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/ERHASTRE")
+
+    @property
+    def TESTOR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTOR")
+
+    @property
+    def TESTPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTPA")
+
+    @property
+    def TESTQU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTQU")
+
+    @property
+    def TESTTO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO")
+
+    @property
+    def SOLAEN_SOFT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", SoftwareLayerEntryId)
+
+    @property
+    def LCRI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRI")
+
+    @property
+    def LCRF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRF")
+
+    @property
+    def LCRG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG")
+
+    @property
+    def BOCOEN_BOUN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", BoundedContextEntryId)
+
+    @property
+    def PAORST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORST")
+
+    @property
+    def PAORTY(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORTY")
+
+    @property
+    def PAORDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDE")
+
+    @property
+    def PAORDO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO")
+
+    @property
+    def MOEN1_MODU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", ModuleEntryId)
+
+    @property
+    def SHLIB_SHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", SharedLibraryEntryId)
+
+    @property
+    def DISR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISR")
+
+    @property
+    def DISB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISB")
+
+    @property
+    def DISC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISC")
+
+    @property
+    def DIST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DIST")
+
+    @property
+    def CCCE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCE")
+
+    @property
+    def CCCS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCS")
+
+    @property
+    def CCCC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCC")
+
+    @property
+    def CCCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCO")
+
+    @property
+    def CRCUCOSH(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CRCUCOSH")
+
+    @property
+    def FTRMOD_FEAT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/FTRMOD-FEAT-LST", FeatureModuleEntryId)
+
+    @property
+    def MVSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSC")
+
+    @property
+    def MVSRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSRM")
+
+    @property
+    def MVSD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSD")
+
+    @property
+    def MOVESTCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO")
+
+    @property
+    def IDREEN_IDER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", IdeRequirementEntryId)
+
+    @property
+    def BTCBS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCBS")
+
+    @property
+    def BTCC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCC")
+
+    @property
+    def BTCS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCS")
+
+    @property
+    def BTCA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCA")
+
+    @property
+    def VCCR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCR")
+
+    @property
+    def VCCB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCB")
+
+    @property
+    def VCCC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCC")
+
+    @property
+    def VCCM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM")
+
+    @property
+    def PISTEN_STAG_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", PipelineStageEntryId)
+
+    @property
+    def PIJOEN_JOBS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", PipelineJobEntryId)
+
+    @property
+    def DEENEN_ENVI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", DeploymentEnvironmentEntryId)
+
+    @property
+    def CRPR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPR")
+
+    @property
+    def CRPW(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPW")
+
+    @property
+    def CRPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPA")
+
+    @property
+    def CRPM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPM")
+
+    @property
+    def LDSW(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSW")
+
+    @property
+    def LDSD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSD")
+
+    @property
+    def LDSR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSR")
+
+    @property
+    def LDST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDST")
+
+    @property
+    def LODESETR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LODESETR")
+
+    @property
+    def DECOBR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOBR")
+
+    @property
+    def DECOLO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOLO")
+
+    @property
+    def DECOIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOIN")
+
+    @property
+    def DECOFL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOFL")
+
+    @property
+    def DECOER(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOER")
+
+    @property
+    def ENMACO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMACO")
+
+    @property
+    def ENMASE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMASE")
+
+    @property
+    def ENMASW(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMASW")
+
+    @property
+    def ENMAPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMAPA")
+
+    @property
+    def DEONSE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONSE")
+
+    @property
+    def DEONAC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONAC")
+
+    @property
+    def DEONLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONLE")
+
+    @property
+    def DOFT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DOFT")
+
+    @property
+    def DEONVE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONVE")
+
+    @property
+    def DQGC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGC")
+
+    @property
+    def DEQUGACO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DEQUGACO")
+
+    @property
+    def DQGS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGS")
+
+    @property
+    def DQGD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGD")
+
+    @property
+    def DQGP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGP")
+
+    @property
+    def REPRAB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/principles/REPRAB")
+
+    @property
+    def REPRQU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/principles/REPRQU")
+
+    @property
+    def REPRVE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/principles/REPRVE")
+
+    @property
+    def REPROW(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/principles/REPROW")
+
+    @property
+    def SHLCP_SHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST", SharedLibraryComponentEntryId)
+
+    @property
+    def RUICMP_UICO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", ReusableUiComponentEntryId)
+
+    @property
+    def BUCOEN_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", BusinessComponentEntryId)
+
+    @property
+    def INCOEN_INFR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", InfrastructureComponentEntryId)
+
+    @property
+    def THPALI_THIR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/THPALI-THIR-LST", ThirdPartyLibraryEntryId)
+
+    @property
+    def COGOCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/governance/COGOCO")
+
+    @property
+    def COGOQU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/governance/COGOQU")
+
+    @property
+    def COGOLI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/governance/COGOLI")
+
+    @property
+    def COGOME(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/governance/COGOME")
+
+    @property
+    def COREME(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/registry/COREME")
+
+    @property
+    def COREDI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/registry/COREDI")
+
+    @property
+    def COREDO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/registry/COREDO")
+
+    @property
+    def COREUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/registry/COREUP")
+
+    @property
+    def OSCOEN_OSCO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", OsCompatibilityEntryId)
+
+    @property
+    def BRCOEN_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", BrowserCompatibilityEntryId)
+
+    @property
+    def DACOEN_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", DatabaseCompatibilityEntryId)
+
+    @property
+    def ESCE_ENTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
+
+    @property
+    def APCP_APIC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST", ApiCompatibilityEntryId)
+
+    @property
+    def LECOEN_LEGA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", LegacyCompatibilityEntryId)
+
+    @property
+    def MOCOEN_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", MobileCompatibilityEntryId)
+
+    @property
+    def TPCE_THIR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", ThirdPartyCompatibilityEntryId)
+
+    @property
+    def DFCF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCF")
+
+    @property
+    def DFCDT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCDT")
+
+    @property
+    def DFCN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCN")
+
+    @property
+    def DFCL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCL")
+
+    @property
+    def BCRD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRD")
+
+    @property
+    def BCRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRA")
+
+    @property
+    def BACOREDA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BACOREDA")
+
+    @property
+    def BCRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRC")
+
+    @property
+    def IRDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/IRDE")
+
+    @property
+    def INREST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREST")
+
+    @property
+    def INRETE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INRETE")
+
+    @property
+    def INREGO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO")
+
+    @property
+    def ISCE_ITST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", ItStandardComplianceEntryId)
+
+    @property
+    def IPCE_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", IndustryProtocolComplianceEntryId)
+
+    @property
+    def INSPEN_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", InterfaceSpecificationEntryId)
+
+    @property
+    def RECOEN_REGU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", RegulatoryComplianceEntryId)
+
+    @property
+    def SSCE_SECU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", SecurityStandardComplianceEntryId)
+
+    @property
+    def ACCSTD_ACCE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/ACCSTD-ACCE-LST", AccessibilityStandardEntryId)
+
+    @property
+    def QLSTD_QUAL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/QLSTD-QUAL-LST", QualityStandardEntryId)
+
+    @property
+    def DSST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSST")
+
+    @property
+    def DSSU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSU")
+
+    @property
+    def DSSP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSP")
+
+    @property
+    def DSSQ(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSQ")
+
+    @property
+    def CSSF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSF")
+
+    @property
+    def CSSN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSN")
+
+    @property
+    def CSSQ(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSQ")
+
+    @property
+    def CSSP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSP")
+
+    @property
+    def CSSR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSR")
+
+    @property
+    def CRSP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSP")
+
+    @property
+    def CRST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRST")
+
+    @property
+    def CRSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSC")
+
+    @property
+    def CRSM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSM")
+
+    @property
+    def CVSR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSR")
+
+    @property
+    def CVST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVST")
+
+    @property
+    def CVSA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSA")
+
+    @property
+    def COVESERE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/COVESERE")
+
+    @property
+    def CVSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC")
+
+    @property
+    def SEENEN_ENVI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", ServerEnvironmentEntryId)
+
+    @property
+    def SEROEN_SERV_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", ServerRoleEntryId)
+
+    @property
+    def CRRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/computeResources/CRRM")
+
+    @property
+    def CRRG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/computeResources/CRRG")
+
+    @property
+    def CRRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/computeResources/CRRS")
+
+    @property
+    def SSRD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/storageRequirements/SSRD")
+
+    @property
+    def SSRFS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/storageRequirements/SSRFS")
+
+    @property
+    def SSRB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/storageRequirements/SSRB")
+
+    @property
+    def SSRP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/storageRequirements/SSRP")
+
+    @property
+    def LPRRL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/loadProfile/LPRRL")
+
+    @property
+    def LPRP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/loadProfile/LPRP")
+
+    @property
+    def LPRPT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/loadProfile/LPRPT")
+
+    @property
+    def SCREHO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/scalingRequirements/SCREHO")
+
+    @property
+    def SCREVE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/scalingRequirements/SCREVE")
+
+    @property
+    def SRAS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/scalingRequirements/SRAS")
+
+    @property
+    def SCRECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/scalingRequirements/SCRECO")
+
+    @property
+    def HARR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/highAvailability/HARR")
+
+    @property
+    def HARF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/highAvailability/HARF")
+
+    @property
+    def HARLB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/highAvailability/HARLB")
+
+    @property
+    def HARDR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/highAvailability/HARDR")
+
+    @property
+    def VIREVM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/virtualization/VIREVM")
+
+    @property
+    def VIRECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/virtualization/VIRECO")
+
+    @property
+    def VIREKU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/virtualization/VIREKU")
+
+    @property
+    def VIRENE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/virtualization/VIRENE")
+
+    @property
+    def CPRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/cloudProvider/CPRA")
+
+    @property
+    def CPRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/cloudProvider/CPRS")
+
+    @property
+    def CPRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/cloudProvider/CPRC")
+
+    @property
+    def CPRG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/cloudProvider/CPRG")
+
+    @property
+    def SORH(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/osRequirements/SORH")
+
+    @property
+    def SORS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/osRequirements/SORS")
+
+    @property
+    def SORM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/osRequirements/SORM")
+
+    @property
+    def SORL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/osRequirements/SORL")
+
+    @property
+    def BRREEN_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", BrowserRequirementEntryId)
+
+    @property
+    def DORE1_DESK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", DesktopOsRequirementEntryId)
+
+    @property
+    def MDRE_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", MobileDeviceRequirementEntryId)
+
+    @property
+    def DIRELA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/displayRequirements/DIRELA")
+
+    @property
+    def DIRESC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/displayRequirements/DIRESC")
+
+    @property
+    def DIREC1(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/displayRequirements/DIREC1")
+
+    @property
+    def DRMD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/displayRequirements/DRMD")
+
+    @property
+    def CNRL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/networkRequirements/CNRL")
+
+    @property
+    def CNRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/networkRequirements/CNRC")
+
+    @property
+    def CNRP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/networkRequirements/CNRP")
+
+    @property
+    def CLNEREPR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/networkRequirements/CLNEREPR")
+
+    @property
+    def CHRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRM")
+
+    @property
+    def CHRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRS")
+
+    @property
+    def CHRG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRG")
+
+    @property
+    def CHRP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRP")
+
+    @property
+    def CARV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARV")
+
+    @property
+    def CARM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARM")
+
+    @property
+    def CARC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARC")
+
+    @property
+    def CARS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARS")
+
+    @property
+    def PWREIC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREIC")
+
+    @property
+    def PWREIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREIN")
+
+    @property
+    def PWREOF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREOF")
+
+    @property
+    def PWREUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREUP")
+
+    @property
+    def NARS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARS")
+
+    @property
+    def NARV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARV")
+
+    @property
+    def NARP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARP")
+
+    @property
+    def NARL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARL")
+
+    @property
+    def CSRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/securityRequirements/CSRA")
+
+    @property
+    def CSRD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/securityRequirements/CSRD")
+
+    @property
+    def CSRN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/securityRequirements/CSRN")
+
+    @property
+    def CSRCP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP")
+
+    @property
+    def INRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/internalNetwork/INRS")
+
+    @property
+    def INRR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/internalNetwork/INRR")
+
+    @property
+    def INRIS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/internalNetwork/INRIS")
+
+    @property
+    def INRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/internalNetwork/INRM")
+
+    @property
+    def ENRP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/externalNetwork/ENRP")
+
+    @property
+    def EXNEREPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/externalNetwork/EXNEREPA")
+
+    @property
+    def ENRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/externalNetwork/ENRC")
+
+    @property
+    def ENRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/externalNetwork/ENRS")
+
+    @property
+    def BAREDI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BAREDI")
+
+    @property
+    def BARECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BARECO")
+
+    @property
+    def BARETR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BARETR")
+
+    @property
+    def BAREQO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BAREQO")
+
+    @property
+    def NLRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRS")
+
+    @property
+    def NLRG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRG")
+
+    @property
+    def NELAREST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/latencyRequirements/NELAREST")
+
+    @property
+    def NLRO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRO")
+
+    @property
+    def NARR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/availabilityRequirements/NARR")
+
+    @property
+    def NARF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/availabilityRequirements/NARF")
+
+    @property
+    def NEAVRERE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/availabilityRequirements/NEAVRERE")
+
+    @property
+    def NART(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART")
+
+    @property
+    def VPREEN_VPNR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", VpnRequirementEntryId)
+
+    @property
+    def FIRERU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/firewallRequirements/FIRERU")
+
+    @property
+    def FIREPO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREPO")
+
+    @property
+    def FIREAD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREAD")
+
+    @property
+    def FIRELO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/firewallRequirements/FIRELO")
+
+    @property
+    def GDRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRC")
+
+    @property
+    def GDRR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRR")
+
+    @property
+    def GDRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRA")
+
+    @property
+    def GDRP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRP")
+
+    @property
+    def DNREZO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/dnsRequirements/DNREZO")
+
+    @property
+    def DNRERE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/dnsRequirements/DNRERE")
+
+    @property
+    def DNREAV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/dnsRequirements/DNREAV")
+
+    @property
+    def DRHC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/dnsRequirements/DRHC")
+
+    @property
+    def NLBRR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRR")
+
+    @property
+    def NLBRHC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRHC")
+
+    @property
+    def NLBRT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRT")
+
+    @property
+    def NLBRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRA")
+
+    @property
+    def NSRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/networkSecurity/NSRA")
+
+    @property
+    def NSRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/networkSecurity/NSRM")
+
+    @property
+    def NSRD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/networkSecurity/NSRD")
+
+    @property
+    def NSRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/networkSecurity/NSRC")
+
+    @property
+    def BDCC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/dataClassification/BDCC")
+
+    @property
+    def BDCE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE")
+
+    @property
+    def BAPOEN_BACK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", BackupPolicyEntryId)
+
+    @property
+    def RRRBT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRBT")
+
+    @property
+    def RRRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRS")
+
+    @property
+    def RRRD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRD")
+
+    @property
+    def BAINST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/infrastructure/BAINST")
+
+    @property
+    def BAINSO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/infrastructure/BAINSO")
+
+    @property
+    def BAINNE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/infrastructure/BAINNE")
+
+    @property
+    def BAINSE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/infrastructure/BAINSE")
+
+    @property
+    def REPRDA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRDA")
+
+    @property
+    def REPRAP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRAP")
+
+    @property
+    def REPRAU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRAU")
+
+    @property
+    def REPRVA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRVA")
+
+    @property
+    def DRRF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRF")
+
+    @property
+    def DIREREFA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/disasterRecovery/DIREREFA")
+
+    @property
+    def DRRR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRR")
+
+    @property
+    def DRRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRC")
+
+    @property
+    def BAVERE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/verification/BAVERE")
+
+    @property
+    def BAVEEN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/verification/BAVEEN")
+
+    @property
+    def BAVEDO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/verification/BAVEDO")
+
+    @property
+    def BACOAU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/compliance/BACOAU")
+
+    @property
+    def BACOR1(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/compliance/BACOR1")
+
+    @property
+    def BCLH(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/compliance/BCLH")
+
+    @property
+    def DMRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRC")
+
+    @property
+    def DMRR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRR")
+
+    @property
+    def DMRN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRN")
+
+    @property
+    def DMRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRS")
+
+    @property
+    def ENSTDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/environments/ENSTDE")
+
+    @property
+    def ENSTTE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/environments/ENSTTE")
+
+    @property
+    def ENSTST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/environments/ENSTST")
+
+    @property
+    def ENSTPR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/environments/ENSTPR")
+
+    @property
+    def ENSTEP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/environments/ENSTEP")
+
+    @property
+    def CCPRB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRB")
+
+    @property
+    def CCPRQ(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRQ")
+
+    @property
+    def CCPRD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRD")
+
+    @property
+    def CCPRN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRN")
+
+    @property
+    def RSBG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/releaseStrategy/RSBG")
+
+    @property
+    def RESTCA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/releaseStrategy/RESTCA")
+
+    @property
+    def RSFF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/releaseStrategy/RSFF")
+
+    @property
+    def RESTMA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/releaseStrategy/RESTMA")
+
+    @property
+    def ROSTTR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTTR")
+
+    @property
+    def ROSTHE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTHE")
+
+    @property
+    def ROSTTA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTTA")
+
+    @property
+    def ROSTDA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTDA")
+
+    @property
+    def ROSTOP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTOP")
+
+    @property
+    def COMAEN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAEN")
+
+    @property
+    def COMAIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAIN")
+
+    @property
+    def COMAFE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAFE")
+
+    @property
+    def COMASE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/configurationManagement/COMASE")
+
+    @property
+    def IACS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACS")
+
+    @property
+    def IACE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACE")
+
+    @property
+    def IACD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACD")
+
+    @property
+    def INASCOSE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/INASCOSE")
+
+    @property
+    def DSSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DSSC")
+
+    @property
+    def DESERU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DESERU")
+
+    @property
+    def DESEAC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DESEAC")
+
+    @property
+    def MOINDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINDE")
+
+    @property
+    def MOINCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINCO")
+
+    @property
+    def MOINAC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINAC")
+
+    @property
+    def MCRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRC")
+
+    @property
+    def MCRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRA")
+
+    @property
+    def MCRB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRB")
+
+    @property
+    def MECORECU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MECORECU")
+
+    @property
+    def APMT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/apm/APMT")
+
+    @property
+    def APMP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/apm/APMP")
+
+    @property
+    def APME(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/apm/APME")
+
+    @property
+    def APMUS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/apm/APMUS")
+
+    @property
+    def LMRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRC")
+
+    @property
+    def LMRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRS")
+
+    @property
+    def LMRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRA")
+
+    @property
+    def LOMARECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/logManagement/LOMARECO")
+
+    @property
+    def ALRERO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERO")
+
+    @property
+    def ALREDE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/alerting/ALREDE")
+
+    @property
+    def ALRESU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/alerting/ALRESU")
+
+    @property
+    def ALRERE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE")
+
+    @property
+    def ALDEEN_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", AlertDefinitionEntryId)
+
+    @property
+    def DAREST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREST")
+
+    @property
+    def DAREAC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREAC")
+
+    @property
+    def DAREFE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREFE")
+
+    @property
+    def DAREMO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREMO")
+
+    @property
+    def OCPT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPT")
+
+    @property
+    def OCPS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPS")
+
+    @property
+    def OCPE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPE")
+
+    @property
+    def OCPD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPD")
+
+    @property
+    def IMRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRC")
+
+    @property
+    def IMRWR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRWR")
+
+    @property
+    def IMRPI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRPI")
+
+    @property
+    def IMRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRM")
+
+    @property
+    def SLMOREMO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMOREMO")
+
+    @property
+    def SMREB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SMREB")
+
+    @property
+    def SLMORECU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMORECU")
+
+    @property
+    def SLMORERE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMORERE")
+
+    @property
+    def SMPS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPS")
+
+    @property
+    def SMPD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPD")
+
+    @property
+    def SMPN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPN")
+
+    @property
+    def SMPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA")
+
+    @property
+    def MAWIEN_MAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", MaintenanceWindowEntryId)
+
+    @property
+    def EMPG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPG")
+
+    @property
+    def EMPC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPC")
+
+    @property
+    def EMPE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPE")
+
+    @property
+    def MCMG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/changeManagement/MCMG")
+
+    @property
+    def MCMD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/changeManagement/MCMD")
+
+    @property
+    def MCMT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/changeManagement/MCMT")
+
+    @property
+    def MCMA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/changeManagement/MCMA")
+
+    @property
+    def MUID(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/userImpact/MUID")
+
+    @property
+    def MUIGD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/userImpact/MUIGD")
+
+    @property
+    def MUIP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/userImpact/MUIP")
+
+    @property
+    def PMVM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVM")
+
+    @property
+    def PMVC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC")
+
+    @property
+    def PREN_PROT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", ProtocolEntryId)
+
+    @property
+    def TRCS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCS")
+
+    @property
+    def TRCV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCV")
+
+    @property
+    def TLRETE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRETE")
+
+    @property
+    def TLRECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRECO")
+
+    @property
+    def CEMAKE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAKE")
+
+    @property
+    def CEMALI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMALI")
+
+    @property
+    def CEMAST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAST")
+
+    @property
+    def CEMAMO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAMO")
+
+    @property
+    def AVSS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSS")
+
+    @property
+    def AVSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSC")
+
+    @property
+    def AVSD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSD")
+
+    @property
+    def MFSS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSS")
+
+    @property
+    def MFSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSC")
+
+    @property
+    def MFSR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSR")
+
+    @property
+    def MFST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/messageFormats/MFST")
+
+    @property
+    def RLPL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPL")
+
+    @property
+    def RLPB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPB")
+
+    @property
+    def RLPQ(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPQ")
+
+    @property
+    def PCRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/compliance/PCRC")
+
+    @property
+    def PCRO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/compliance/PCRO")
+
+    @property
+    def PCRE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/compliance/PCRE")
+
+    @property
+    def EPCE_PART_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", ExternalPartnerConnectionEntryId)
+
+    @property
+    def CSIS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/cloudServices/CSIS")
+
+    @property
+    def CSIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/cloudServices/CSIN")
+
+    @property
+    def CSIC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/cloudServices/CSIC")
+
+    @property
+    def TPAIA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIA")
+
+    @property
+    def TPAIC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIC")
+
+    @property
+    def TPAIL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIL")
+
+    @property
+    def TPAIM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIM")
+
+    @property
+    def THPAAPINAI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/thirdPartyApis/THPAAPINAI")
+
+    @property
+    def TPAIO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIO")
+
+    @property
+    def NSPF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/networkSecurity/NSPF")
+
+    @property
+    def NSPIM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/networkSecurity/NSPIM")
+
+    @property
+    def NSPV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/networkSecurity/NSPV")
+
+    @property
+    def NSPD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/networkSecurity/NSPD")
+
+    @property
+    def NESEPODN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/networkSecurity/NESEPODN")
+
+    @property
+    def SMAGM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/serviceMeshAndGateway/SMAGM")
+
+    @property
+    def SMAGLB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/serviceMeshAndGateway/SMAGLB")
+
+    @property
+    def COREP1(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/resilience/COREP1")
+
+    @property
+    def COREOF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/resilience/COREOF")
+
+    @property
+    def COREOP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/resilience/COREOP")
+
+    @property
+    def AIRD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/AIRD")
+
+    @property
+    def ADINREDA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/ADINREDA")
+
+    @property
+    def AIRO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/AIRO")
+
+    @property
+    def SCMD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMD")
+
+    @property
+    def SCME(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCME")
+
+    @property
+    def SCMG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG")
+
+    @property
+    def UPTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL")
+
+    @property
+    def UPTRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTRM")
+
+    @property
+    def UPTDI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTDI")
+
+    @property
+    def BJMJT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMJT")
+
+    @property
+    def BJME(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJME")
+
+    @property
+    def BJMM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM")
+
+    @property
+    def ADENMA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/ADENMA")
+
+    @property
+    def SDTT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTT")
+
+    @property
+    def SDTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTL")
+
+    @property
+    def SDTSS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS")
+
+    @property
+    def MAINT_MAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", SomMetaRef)
+
+    @property
+    def MONITO_MONI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/MONITO-MONI")
+
+    @property
+    def HCEC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCEC")
+
+    @property
+    def HCET(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCET")
+
+    @property
+    def HECHENCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HECHENCO")
+
+    @property
+    def APDIPE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/APDIPE")
+
+    @property
+    def APDIRU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/APDIRU")
+
+    @property
+    def ADFS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/ADFS")
+
+    @property
+    def LARC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARC")
+
+    @property
+    def LARR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARR")
+
+    @property
+    def LARA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARA")
+
+    @property
+    def TRCARU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCARU")
+
+    @property
+    def TRCAAC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCAAC")
+
+    @property
+    def TRCACO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCACO")
+
+    @property
+    def DHMC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMC")
+
+    @property
+    def DHMQ(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMQ")
+
+    @property
+    def DHME(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHME")
+
+    @property
+    def DHMT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMT")
+
+    @property
+    def ALCO_ALER(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALCO-ALER")
+
+    @property
+    def ANCD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCD")
+
+    @property
+    def ANCR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCR")
+
+    @property
+    def ANCF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF")
+
+    @property
+    def ALRUEN_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", AlertRuleEntryId)
+
+    @property
+    def AEPT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPT")
+
+    @property
+    def AEPB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPB")
+
+    @property
+    def AEPS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPS")
+
+    @property
+    def ALSURU_SUPP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALSURU-SUPP-LST", AlertSuppressionRulesId)
+
+    @property
+    def OCSCC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/onCallSchedule/OCSCC")
+
+    @property
+    def OCSCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/onCallSchedule/OCSCO")
+
+    @property
+    def MEANOB_METR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/MEANOB-METR")
+
+    @property
+    def AMSR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSR")
+
+    @property
+    def AMSA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSA")
+
+    @property
+    def AMSL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSL")
+
+    @property
+    def IMSK(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/IMSK")
+
+    @property
+    def IMSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/IMSC")
+
+    @property
+    def INMESPCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/INMESPCO")
+
+    @property
+    def BMST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMST")
+
+    @property
+    def BMSFU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSFU")
+
+    @property
+    def BMSK(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSK")
+
+    @property
+    def BMSO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSO")
+
+    @property
+    def DTSS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSS")
+
+    @property
+    def DITRSPSP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DITRSPSP")
+
+    @property
+    def DTSO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO")
+
+    @property
+    def CUMEEN_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", CustomMetricEntryId)
+
+    @property
+    def MODA_DASH(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH")
+
+    @property
+    def DAEN_DASH_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", DashboardEntryId)
+
+    @property
+    def DATE_DASH_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST", DashboardTemplatesId)
+
+    @property
+    def SASM_SLAO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO")
+
+    @property
+    def SLIP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIP")
+
+    @property
+    def SLIQ(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIQ")
+
+    @property
+    def SLIM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM")
+
+    @property
+    def SLEN_SLOS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", SloEntryId)
+
+    @property
+    def EBTM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTM")
+
+    @property
+    def EBTG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTG")
+
+    @property
+    def UGPF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPF")
+
+    @property
+    def UGPS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPS")
+
+    @property
+    def UGPT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPT")
+
+    @property
+    def DGPG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPG")
+
+    @property
+    def DGPP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPP")
+
+    @property
+    def DGPL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPL")
+
+    @property
+    def DGPT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPT")
+
+    @property
+    def PLPM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPM")
+
+    @property
+    def PLPC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPC")
+
+    @property
+    def PLPT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPT")
+
+    @property
+    def STATM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATM")
+
+    @property
+    def STATR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATR")
+
+    @property
+    def STATB(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATB")
+
+    @property
+    def STATT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATT")
+
+    @property
+    def RCBS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBS")
+
+    @property
+    def RCBN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBN")
+
+    @property
+    def RCBD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBD")
+
+    @property
+    def RCBC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBC")
+
+    @property
+    def CAREPRMO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/capacityReview/CAREPRMO")
+
+    @property
+    def CRPE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPE")
+
+    @property
+    def CRPP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP")
+
+    @property
+    def SESTEN_STAN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", SecurityStandardEntryId)
+
+    @property
+    def ASRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRC")
+
+    @property
+    def ASRV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRV")
+
+    @property
+    def ASRA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRA")
+
+    @property
+    def ISHC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHC")
+
+    @property
+    def ISHN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHN")
+
+    @property
+    def ISHA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHA")
+
+    @property
+    def SDLD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLD")
+
+    @property
+    def SDLT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLT")
+
+    @property
+    def SDLR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLR")
+
+    @property
+    def VMPC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPC")
+
+    @property
+    def VMPP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPP")
+
+    @property
+    def VMPR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPR")
+
+    @property
+    def IRPP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/incidentResponse/IRPP")
+
+    @property
+    def IRPC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/incidentResponse/IRPC")
+
+    @property
+    def IRPPI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/incidentResponse/IRPPI")
+
+    @property
+    def PRCG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCG")
+
+    @property
+    def PRCD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCD")
+
+    @property
+    def PRCR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCR")
+
+    @property
+    def PRCT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCT")
+
+    @property
+    def DRRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DRRS")
+
+    @property
+    def DARERERE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DARERERE")
+
+    @property
+    def DRRV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DRRV")
+
+    @property
+    def CMRC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRC")
+
+    @property
+    def COMAREST(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/COMAREST")
+
+    @property
+    def CMRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRM")
+
+    @property
+    def CMRT(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRT")
+
+    @property
+    def COMARECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/COMARECO")
+
+    @property
+    def DSRMA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMA")
+
+    @property
+    def DSRME(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRME")
+
+    @property
+    def DSRMP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMP")
+
+    @property
+    def DSRMR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMR")
+
+    @property
+    def DASURIMAAU(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DASURIMAAU")
+
+    @property
+    def DSRMO(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMO")
+
+    @property
+    def PIAPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPA")
+
+    @property
+    def PIAPM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPM")
+
+    @property
+    def PIAPR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPR")
+
+    @property
+    def DPARM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARM")
+
+    @property
+    def DPARH(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARH")
+
+    @property
+    def DPARS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARS")
+
+    @property
+    def DPART(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPART")
+
+    @property
+    def DPCH(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCH")
+
+    @property
+    def DPCR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCR")
+
+    @property
+    def DPCM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCM")
+
+    @property
+    def DPCI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCI")
+
+    @property
+    def PTRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRS")
+
+    @property
+    def PTRE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRE")
+
+    @property
+    def PTRR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRR")
+
+    @property
+    def SCRPR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPR")
+
+    @property
+    def SCRPP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPP")
+
+    @property
+    def SCRPF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPF")
+
+    @property
+    def DSRV(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRV")
+
+    @property
+    def DSRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRS")
+
+    @property
+    def DSRL(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRL")
+
+    @property
+    def DSRSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRSC")
+
+    @property
+    def SCRI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRI")
+
+    @property
+    def SCRS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRS")
+
+    @property
+    def SECEREIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityCertifications/SECEREIN")
+
+    @property
+    def SCRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRM")
+
+    @property
+    def CASP(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASP")
+
+    @property
+    def CASE(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASE")
+
+    @property
+    def CASR(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASR")
+
+    @property
+    def STAD(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAD")
+
+    @property
+    def STAI(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAI")
+
+    @property
+    def STAF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAF")
+
+    @property
+    def STAS(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAS")
+
+    @property
+    def STAG(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG")
+
+    @property
+    def SEAUEN_AUDI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", SecurityAuditEntryId)
+
+    @property
+    def USCDF_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/userManagement/userCategories/USCDF-ITEM-LST", UserCategoryDefinitionId)
+
+    @property
+    def ULTRE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", UserLifecycleTransitionEntryId)
+
+    @property
+    def SACLC_SERV_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/userManagement/userLifecycle/SACLC-SERV-LST", ServiceAccountLifecycleId)
+
+    @property
+    def USATE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/userManagement/userAttributes/USATE-ITEM-LST", UserAttributeEntryId)
+
+    @property
+    def IDTSR_IDEN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/IDTSR-IDEN-LST", IdentitySourceEntryId)
+
+    @property
+    def IVPD(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/identityVerification/IVPD")
+
+    @property
+    def IVPM(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/identityVerification/IVPM")
+
+    @property
+    def IVPW(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/identityVerification/IVPW")
+
+    @property
+    def IVPL(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/identityVerification/IVPL")
+
+    @property
+    def IVPF(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/identityVerification/IVPF")
+
+    @property
+    def IDTPV_IDEN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/IDTPV-IDEN-LST", IdentityProviderEntryId)
+
+    @property
+    def SSOPF(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/singleSignOn/SSOPF")
+
+    @property
+    def SSOPS(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/singleSignOn/SSOPS")
+
+    @property
+    def SSOPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/singleSignOn/SSOPA")
+
+    @property
+    def SSOPO(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/singleSignOn/SSOPO")
+
+    @property
+    def SRPF(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/selfRegistration/SRPF")
+
+    @property
+    def SRPBP(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/selfRegistration/SRPBP")
+
+    @property
+    def SRPV(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/selfRegistration/SRPV")
+
+    @property
+    def SRPA(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/selfRegistration/SRPA")
+
+    @property
+    def SRPS(self):
+        return SomMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/selfRegistration/SRPS")
+
+    @property
+    def IDTAM_ATTR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/IDTAM-ATTR-LST", IdentityAttributeMappingEntryId)
+
+    @property
+    def MFADE_MFAD_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", SomMetaRef)
+
+    @property
+    def ATME_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", AuthenticationMethodEntryId)
+
+    @property
+    def STEPU_STEP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", SomMetaRef)
+
+    @property
+    def LGFLS_LOGI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", LoginFlowStepEntryId)
+
+    @property
+    def MFACRQ_MFAC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", MfaCategoryRequirementEntryId)
+
+    @property
+    def AZGR_GROU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/AZGR-GROU-LST", AuthorizationGroupEntryId)
+
+    @property
+    def AZRO_ROLE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/AZRO-ROLE-LST", AuthorizationRoleEntryId)
+
+    @property
+    def ENT_ENTI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/ENT-ENTI-LST", EntitlementEntryId)
+
+    @property
+    def RESKEY_RESO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/RESKEY-RESO-LST", ResourceKeyEntryId)
+
+    @property
+    def RLINH_INHE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/roleHierarchy/RLINH-INHE-LST", RoleInheritanceRuleEntryId)
+
+    @property
+    def RLCMB_COMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST", RoleCombinationConstraintEntryId)
+
+    @property
+    def GBRLX_GLOB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST", GlobalRoleExclusionEntryId)
+
+    @property
+    def TNCS_TENA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", TenantCustomizationEntryId)
+
+    @property
+    def ACOVNA(self):
+        return SomMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/actorOverview/ACOVNA")
+
+    @property
+    def ACEN_ACTO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", ActorEntryId)
+
+    @property
+    def ACCASU(self):
+        return SomMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/actorOverview/ACCASU")
+
+    @property
+    def INCAOV(self):
+        return SomMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/interactionCatalog/INCAOV")
+
+    @property
+    def INEN_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", InteractionEntryId)
+
+    @property
+    def INPR(self):
+        return SomMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/interactionCatalog/INPR")
+
+    @property
+    def SCOV(self):
+        return SomMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/keyScenarios/SCOV")
+
+    @property
+    def SCNRY_SCEN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", ScenarioEntryId)
+
+    @property
+    def ACDIOV(self):
+        return SomMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV")
+
+    @property
+    def ETETS_ENDT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/processStepsAndActorInteractions/ETETS-ENDT-LST", EndToEndTestScenarioId)
+
+    @property
+    def SCREN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", ScreenEntryId)
+
+    @property
+    def GLOBA_GLOB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", SomMetaRef)
+
+    @property
+    def NAVGRP_GROU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", NavigationGroupEntryId)
+
+    @property
+    def PRNADR(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR")
+
+    @property
+    def PNBN(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN")
+
+    @property
+    def PRNASI(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI")
+
+    @property
+    def TBDE_TABB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", TabBarDefinitionEntryId)
+
+    @property
+    def UNIE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", UtilityNavigationItemEntryId)
+
+    @property
+    def BRCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO")
+
+    @property
+    def DELNPT_PATT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", DeepLinkPatternEntryId)
+
+    @property
+    def NAVGRD_GUAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", NavigationGuardEntryId)
+
+    @property
+    def ERHACO_ERRO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/ERHACO-ERRO")
+
+    @property
+    def EHCC(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/EHCC")
+
+    @property
+    def EHCA(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/EHCA")
+
+    @property
+    def EHCO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/EHCO")
+
+    @property
+    def VAFE_VALI(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-VALI")
+
+    @property
+    def VAFEPL(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAFEPL")
+
+    @property
+    def VAFEME(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME")
+
+    @property
+    def VAFEGU(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU")
+
+    @property
+    def VAFEBE(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE")
+
+    @property
+    def VAMETE_MESS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", ValidationMessageTemplateId)
+
+    @property
+    def FIELD_FIEL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", SomMetaRef)
+
+    @property
+    def SYERDI_SYST(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST")
+
+    @property
+    def SEDET(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET")
+
+    @property
+    def SEDM(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM")
+
+    @property
+    def SEDC(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC")
+
+    @property
+    def SEDF(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF")
+
+    @property
+    def EPDE_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", SomMetaRef)
+
+    @property
+    def SECE_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", SystemErrorCodeEntryId)
+
+    @property
+    def ERRE_RECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO")
+
+    @property
+    def ERDP(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERDP")
+
+    @property
+    def ERRM(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERRM")
+
+    @property
+    def ERGR(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERGR")
+
+    @property
+    def ERSC(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERSC")
+
+    @property
+    def ERSH(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERSH")
+
+    @property
+    def RECOV_RECO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", SomMetaRef)
+
+    @property
+    def RCVSCN_RECO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST", RecoveryScenarioEntryId)
+
+    @property
+    def REDE_RESP(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/REDE-RESP")
+
+    @property
+    def BC_BREA(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA")
+
+    @property
+    def BRE_BREA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", BreakpointEntryId)
+
+    @property
+    def REBE_LAYO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO")
+
+    @property
+    def REBENA(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA")
+
+    @property
+    def REBEVI(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI")
+
+    @property
+    def REBETO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBETO")
+
+    @property
+    def REBECO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBECO")
+
+    @property
+    def RESPSR_SCRE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", ResponsiveScreenRuleEntryId)
+
+    @property
+    def UICO_COMP(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UICO-COMP")
+
+    @property
+    def UCVL(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UCVL")
+
+    @property
+    def UCCA(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UCCA")
+
+    @property
+    def UICOCU(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UICOCU")
+
+    @property
+    def DESIG_DESI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/DESIG-DESI-LST", DesignFoundationEntryId)
+
+    @property
+    def COLICO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/COLICO")
+
+    @property
+    def COLITY(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/COLITY")
+
+    @property
+    def COLISP(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/COLISP")
+
+    @property
+    def COLIBO(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/COLIBO")
+
+    @property
+    def COLIVI(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI")
+
+    @property
+    def COPA_COLO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST", ColorPaletteEntryId)
+
+    @property
+    def TYST_TYPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
+
+    @property
+    def UICOEN_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", UiComponentEntryId)
+
+    @property
+    def CMFA_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", ComponentFamilyEntryId)
+
+
 class DashboardEntryId(SomMetaRef):
     """ID-tree accessors of ``DashboardEntry`` (DR1 §4.2): getters named by
     section id (``-`` → ``_``), hoisted through id-less members so every
@@ -94222,24 +97834,12 @@ class DataEntityEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/DAENT-CLAS")
 
     @property
-    def VOLUM_VOLU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/VOLUM-VOLU-LST", VolumeMetricEntryId)
-
-    @property
     def DAENT_LIFE(self):
         return SomMetaRef(self.tree, f"{self.path}/DAENT-LIFE")
 
     @property
-    def CRE_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CRE-COMP-LST", ComplianceRequirementEntryId)
-
-    @property
     def DAENT_RELA(self):
         return SomMetaRef(self.tree, f"{self.path}/DAENT-RELA")
-
-    @property
-    def TECHN_TECH_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TECHN-TECH-LST", TechnicalCharacteristicEntryId)
 
     @property
     def DAATT_ATTR_LST(self):
@@ -94256,10 +97856,6 @@ class DataEntityEntryId(SomMetaRef):
     @property
     def ENCNS_CONS_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/ENCNS-CONS-LST", EntityConstraintEntryId)
-
-    @property
-    def MIGME_MIGR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MIGME-MIGR-LST", MigrationMappingEntryId)
 
 
 class DataEntityMigrationEntryId(SomMetaRef):
@@ -94944,6 +98540,33 @@ class EntityConstraintEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+
+class EntityFollowUpEntryId(SomMetaRef):
+    """ID-tree accessors of ``EntityFollowUpEntry`` (DR1 §4.2): getters named by
+    section id (``-`` → ``_``), hoisted through id-less members so every
+    reachable id is one step. ``.path`` and ``.meta`` agree with the
+    dot-notation surface."""
+
+    @property
+    def DMFUE_ENTI(self):
+        return SomMetaRef(self.tree, f"{self.path}/DMFUE-ENTI")
+
+    @property
+    def VOLUM_VOLU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/VOLUM-VOLU-LST", VolumeMetricEntryId)
+
+    @property
+    def CRE_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/CRE-COMP-LST", ComplianceRequirementEntryId)
+
+    @property
+    def TECHN_TECH_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/TECHN-TECH-LST", TechnicalCharacteristicEntryId)
+
+    @property
+    def MIGME_MIGR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/MIGME-MIGR-LST", MigrationMappingEntryId)
 
 
 class EntityIndexEntryId(SomMetaRef):
@@ -101154,4 +104777,26 @@ d12TransitionRolloutPlan = D12TransitionRolloutPlanNav(d12TransitionRolloutPlanM
 #: ID-tree access root of `D12TransitionRolloutPlan` (DR1 §4.2):
 #: `TRP.<SECTION-ID>….path` / `.meta`.
 TRP = D12TransitionRolloutPlanId(d12TransitionRolloutPlanMetaTree, "TRP")
+
+#: The populated metadata tree of the `D13CodeSpecsProjection` document root (DR1 §3.2).
+d13CodeSpecsProjectionMetaTree = SomMetaTree(SomMetaNode(
+    class_name="D13CodeSpecsProjection",
+    section_id="CGP",
+    class_section_id="CGP",
+    kind=SomMetaKind.SECTION,
+    type_name="D13CodeSpecsProjection",
+    doc_comment="CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.",
+    class_doc_comment="CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.",
+    document=SomDocMeta(name="CodeSpecs Generation Projection", description="The Phase-4 CodeSpecs generation input — a projection over the Solution Blueprint that reaches only the isolated CodeSpecs subtrees, grouped by the shared/client/server locus of their CE-parts.", based_on=["D00SolutionBlueprint"]),
+    extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 42010 — architecture description (the generation input as an architecture view over the blueprint)", "Model-driven engineering — platform-independent model → code generation"], "connotation": "The Phase-4 CodeSpecs generation input: the isolated CodeSpecs subtrees routed across the shared / client / server three-way split by locus."}), SomMetaExtra(annotation="CodeSpecsProjection", args={})],
+    children=_mc_D13CodeSpecsProjection({"D13CodeSpecsProjection"}),
+))
+
+#: Dot-notation access root of `D13CodeSpecsProjection` (DR1 §4.1):
+#: `d13CodeSpecsProjection.<member>….path` / `.meta`.
+d13CodeSpecsProjection = D13CodeSpecsProjectionNav(d13CodeSpecsProjectionMetaTree, "CGP")
+
+#: ID-tree access root of `D13CodeSpecsProjection` (DR1 §4.2):
+#: `CGP.<SECTION-ID>….path` / `.meta`.
+CGP = D13CodeSpecsProjectionId(d13CodeSpecsProjectionMetaTree, "CGP")
 

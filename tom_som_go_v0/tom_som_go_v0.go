@@ -329,6 +329,63 @@ func (x *AccessConstraintPolicies) SetContent(value string) {
 // Access Constraint Details (text).
 // (skipped: accessConstraintDetails has no target type)
 
+// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+//
+// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+// authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+// authentication, resource protection, authorization, and the role matrix.
+// The container itself carries no `@CodeSpecKind` — the mapped parts live on
+// the child sections (e.g. `authentication`) — but the whole subtree is the
+// CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+// subtrees.
+type AccessControlModel struct {
+	som.SomNode
+}
+
+// NewAccessControlModel binds a AccessControlModel facade to a document and a path.
+func NewAccessControlModel(doc *som.SpecDocument, path string) *AccessControlModel {
+	return &AccessControlModel{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *AccessControlModel) CanHaveContent() bool {
+	return true
+}
+
+func (x *AccessControlModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *AccessControlModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 9.1.1. User Management.
+func (x *AccessControlModel) UserManagement() *UserManagement {
+	return NewUserManagement(x.Doc(), x.Path()+"/userManagement")
+}
+
+// 9.1.2. Identification and Authentication.
+func (x *AccessControlModel) Authentication() *IdentificationAndAuthentication {
+	return NewIdentificationAndAuthentication(x.Doc(), x.Path()+"/authentication")
+}
+
+// 9.1.3. Resource Protection.
+func (x *AccessControlModel) ResourceProtection() *ResourceProtection {
+	return NewResourceProtection(x.Doc(), x.Path()+"/resourceProtection")
+}
+
+// 9.1.4. User Authorization.
+func (x *AccessControlModel) Authorization() *UserAuthorization {
+	return NewUserAuthorization(x.Doc(), x.Path()+"/authorization")
+}
+
+// 9.1.5. Role Matrix.
+func (x *AccessControlModel) RoleMatrix() *RoleMatrix {
+	return NewRoleMatrix(x.Doc(), x.Path()+"/roleMatrix")
+}
+
 // Access Control Model Selection (form).
 //
 // Defines the primary access control paradigm — RBAC, ABAC, ReBAC, or a
@@ -2646,6 +2703,39 @@ func (x *AuthenticationMethods) Items() *som.SomList[*AuthenticationMethodEntry]
 		return NewAuthenticationMethodEntry(d, p)
 	}, "ATME-ITEM-xxx")
 }
+
+// SBP.13 Experience & Interface Design — authorization-compliance CMP
+// follow-up subtree.
+//
+// Groups the UI authorization-compliance concern (how the interface adapts to
+// roles and permissions as a compliance obligation), a **follow-up** (CMP)
+// rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+type AuthorizationComplianceFollowUp struct {
+	som.SomNode
+}
+
+// NewAuthorizationComplianceFollowUp binds a AuthorizationComplianceFollowUp facade to a document and a path.
+func NewAuthorizationComplianceFollowUp(doc *som.SpecDocument, path string) *AuthorizationComplianceFollowUp {
+	return &AuthorizationComplianceFollowUp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *AuthorizationComplianceFollowUp) CanHaveContent() bool {
+	return true
+}
+
+func (x *AuthorizationComplianceFollowUp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *AuthorizationComplianceFollowUp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 10.4.1. Authorization Compliance.
+// (skipped: authorizationCompliance has no target type)
 
 // Authorization event policy (form).
 //
@@ -5347,6 +5437,11 @@ func (x *ClientRequirementsSection) SecurityRequirements() *ClientSecurityRequir
 // Per-machine configuration of a client application (CE-CC).
 func (x *ClientRequirementsSection) ClientConfiguration() *ClientConfiguration {
 	return NewClientConfiguration(x.Doc(), x.Path()+"/clientConfiguration")
+}
+
+// User-specific settings of a user-owned device (CE-DS).
+func (x *ClientRequirementsSection) DeviceSettings() *DeviceSettings {
+	return NewDeviceSettings(x.Doc(), x.Path()+"/deviceSettings")
 }
 
 // Client security requirements.
@@ -10112,6 +10207,134 @@ func (x *D12TransitionRolloutPlan) WarrantyAndSupport() *WarrantyAndSupport {
 	return NewWarrantyAndSupport(x.Doc(), x.Path()+"/warrantyAndSupport")
 }
 
+// CGP00 CodeSpecs Generation Projection.
+//
+// The residual `@CodeSpecKind`-tagged content after the Band-F follow-up
+// splits: the shared registries, the server-side data / framework / access
+// models, the process-step interactions, and the client-side experience seed.
+type D13CodeSpecsProjection struct {
+	som.SomNode
+}
+
+// D13CodeSpecsProjectionModelVersion is the model version this object model was generated
+// against (§2.1).
+const D13CodeSpecsProjectionModelVersion = "1.0"
+
+// NewD13CodeSpecsProjection creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD13CodeSpecsProjection(doc *som.SpecDocument, documentVersion string) (*D13CodeSpecsProjection, error) {
+	if err := som.CheckSomModelVersion(D13CodeSpecsProjectionModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D13CodeSpecsProjection{SomNode: som.NewSomNode(doc, "CGP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D13CodeSpecsProjection) ObjectModelVersion() string {
+	return D13CodeSpecsProjectionModelVersion
+}
+
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD13CodeSpecsProjection's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D13CodeSpecsProjection) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D13CodeSpecsProjectionModelVersion, documentVersion)
+}
+
+// LoadYamlD13CodeSpecsProjection loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
+// against the generated D13CodeSpecsProjectionMetaTree, so v2 hierarchical documents
+// resolve their section paths through the metadata tree (DR8/DR21).
+func LoadYamlD13CodeSpecsProjection(yaml string) (*D13CodeSpecsProjection, error) {
+	doc, err := som.FromYaml(yaml, D13CodeSpecsProjectionMetaTree)
+	if err != nil {
+		return nil, err
+	}
+	return NewD13CodeSpecsProjection(doc, doc.ModelVersion)
+}
+
+// LoadFileD13CodeSpecsProjection loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD13CodeSpecsProjection. A read or decode error is returned
+// to the caller.
+func LoadFileD13CodeSpecsProjection(path string) (*D13CodeSpecsProjection, error) {
+	doc, err := som.FromFile(path, D13CodeSpecsProjectionMetaTree)
+	if err != nil {
+		return nil, err
+	}
+	return NewD13CodeSpecsProjection(doc, doc.ModelVersion)
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *D13CodeSpecsProjection) CanHaveContent() bool {
+	return true
+}
+
+func (x *D13CodeSpecsProjection) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D13CodeSpecsProjection) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D13CodeSpecsProjection) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
+}
+
+// Domain enum registry — CE-EN closed value sets, shared by client & server.
+func (x *D13CodeSpecsProjection) DomainEnumRegistry() *DomainEnumRegistry {
+	return NewDomainEnumRegistry(x.Doc(), x.Path()+"/domainEnumRegistry")
+}
+
+// Error code registry — CE-ER shared error-code vocabulary.
+func (x *D13CodeSpecsProjection) ErrorCodeRegistry() *ErrorCodeRegistry {
+	return NewErrorCodeRegistry(x.Doc(), x.Path()+"/errorCodeRegistry")
+}
+
+// Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+func (x *D13CodeSpecsProjection) ResultEnvelope() *ResultEnvelope {
+	return NewResultEnvelope(x.Doc(), x.Path()+"/resultEnvelope")
+}
+
+// Message key registry — CE-TX author-copy-once keys, shared.
+func (x *D13CodeSpecsProjection) MessageKeyRegistry() *MessageKeyRegistry {
+	return NewMessageKeyRegistry(x.Doc(), x.Path()+"/messageKeyRegistry")
+}
+
+// Data model — CE-DB persistence + CE-VA server-side rules.
+func (x *D13CodeSpecsProjection) DataModel() *DataModel {
+	return NewDataModel(x.Doc(), x.Path()+"/dataModel")
+}
+
+// Technical framework — CE-CF platform/config foundation.
+func (x *D13CodeSpecsProjection) TechnicalFramework() *TechnicalFrameworkConcept {
+	return NewTechnicalFrameworkConcept(x.Doc(), x.Path()+"/technicalFramework")
+}
+
+// Access control model — CE-AZ authorization/identity seed.
+func (x *D13CodeSpecsProjection) AccessControl() *AccessControlModel {
+	return NewAccessControlModel(x.Doc(), x.Path()+"/accessControl")
+}
+
+// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
+// interaction; a single subtree whose parts split across both loci.
+func (x *D13CodeSpecsProjection) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractions {
+	return NewProcessStepsAndActorInteractions(x.Doc(), x.Path()+"/processStepsAndActorInteractions")
+}
+
+// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
+func (x *D13CodeSpecsProjection) ExperienceCodeSpecs() *ExperienceCodeSpecs {
+	return NewExperienceCodeSpecs(x.Doc(), x.Path()+"/experienceCodeSpecs")
+}
+
 // A dashboard entry.
 type DashboardEntry struct {
 	som.SomNode
@@ -10550,30 +10773,12 @@ func (x *DataEntityEntry) Classification() *DataEntityEntryClassificationForm {
 	return NewDataEntityEntryClassificationForm(x.Doc(), x.Path()+"/DAENT-CLAS")
 }
 
-func (x *DataEntityEntry) VolumeMetrics() *som.SomList[*VolumeMetricEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/VOLUM-VOLU-LST", func(d *som.SpecDocument, p string) *VolumeMetricEntry {
-		return NewVolumeMetricEntry(d, p)
-	}, "VOLUM-VOLU-xxx")
-}
-
 func (x *DataEntityEntry) LifecyclePolicy() *DataEntityEntryLifecyclePolicyForm {
 	return NewDataEntityEntryLifecyclePolicyForm(x.Doc(), x.Path()+"/DAENT-LIFE")
 }
 
-func (x *DataEntityEntry) ComplianceRequirements() *som.SomList[*ComplianceRequirementEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/CRE-COMP-LST", func(d *som.SpecDocument, p string) *ComplianceRequirementEntry {
-		return NewComplianceRequirementEntry(d, p)
-	}, "CRE-COMP-xxx")
-}
-
 func (x *DataEntityEntry) RelationshipSummary() *DataEntityEntryRelationshipSummaryForm {
 	return NewDataEntityEntryRelationshipSummaryForm(x.Doc(), x.Path()+"/DAENT-RELA")
-}
-
-func (x *DataEntityEntry) TechnicalCharacteristics() *som.SomList[*TechnicalCharacteristicEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/TECHN-TECH-LST", func(d *som.SpecDocument, p string) *TechnicalCharacteristicEntry {
-		return NewTechnicalCharacteristicEntry(d, p)
-	}, "TECHN-TECH-xxx")
 }
 
 // Contains 0+× DataAttribute.
@@ -10602,13 +10807,6 @@ func (x *DataEntityEntry) Constraints() *som.SomList[*EntityConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/ENCNS-CONS-LST", func(d *som.SpecDocument, p string) *EntityConstraintEntry {
 		return NewEntityConstraintEntry(d, p)
 	}, "ENCNS-CONS-xxx")
-}
-
-// Contains 0+× MigrationMapping for data migration planning.
-func (x *DataEntityEntry) MigrationMappings() *som.SomList[*MigrationMappingEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/MIGME-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationMappingEntry {
-		return NewMigrationMappingEntry(d, p)
-	}, "MIGME-MIGR-xxx")
 }
 
 // A data entity migration entry.
@@ -11103,20 +11301,17 @@ func (x *DataModel) EntityRelationships() *EntityRelationships {
 	return NewEntityRelationships(x.Doc(), x.Path()+"/entityRelationships")
 }
 
-// 7.1.3. Entity-Relationship Diagram (mermaid).
-// (skipped: erDiagram has no target type)
-
-// 7.1.4. Data Classification.
+// 7.1.3. Data Classification.
 func (x *DataModel) DataClassification() *DataClassification {
 	return NewDataClassification(x.Doc(), x.Path()+"/dataClassification")
 }
 
-// 7.1.5. Data Dictionary..
+// 7.1.4. Data Dictionary..
 func (x *DataModel) DataDictionary() *DataDictionary {
 	return NewDataDictionary(x.Doc(), x.Path()+"/dataDictionary")
 }
 
-// 7.1.6. Validation Constraints.
+// 7.1.5. Validation Constraints.
 //
 // One whole-catalog content section (mirrors `dataDictionary`); collapsed
 // from `List<ValidationConstraints>` (L34C-12 SR-25).
@@ -11124,12 +11319,53 @@ func (x *DataModel) ValidationConstraints() *ValidationConstraints {
 	return NewValidationConstraints(x.Doc(), x.Path()+"/validationConstraints")
 }
 
-// 7.1.7. Integrity Constraints.
+// 7.1.6. Integrity Constraints.
 //
 // One whole-catalog content section (mirrors `dataDictionary`); collapsed
 // from `List<IntegrityConstraints>` (L34C-12 SR-25).
 func (x *DataModel) IntegrityConstraints() *IntegrityConstraints {
 	return NewIntegrityConstraints(x.Doc(), x.Path()+"/integrityConstraints")
+}
+
+// 7.9. Data Model Follow-up Facets.
+//
+// Operational and governance facets that accompany the data model but are not
+// part of the generation-owned entity/attribute schema: the model-wide ER
+// diagram plus per-entity volume, compliance, technical, and migration
+// facets. Each per-entity block references its source entity by name/alias so
+// the facets stay correlated with `dataModel.entities` without being nested
+// inside the generation-owned `DataEntityEntry`.
+type DataModelFollowUp struct {
+	som.SomNode
+}
+
+// NewDataModelFollowUp binds a DataModelFollowUp facade to a document and a path.
+func NewDataModelFollowUp(doc *som.SpecDocument, path string) *DataModelFollowUp {
+	return &DataModelFollowUp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DataModelFollowUp) CanHaveContent() bool {
+	return true
+}
+
+func (x *DataModelFollowUp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DataModelFollowUp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 7.9.1. Entity-Relationship Diagram (mermaid).
+// (skipped: erDiagram has no target type)
+
+// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+func (x *DataModelFollowUp) EntityFollowUps() *som.SomList[*EntityFollowUpEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/DMFUE-ENFU-LST", func(d *som.SpecDocument, p string) *EntityFollowUpEntry {
+		return NewEntityFollowUpEntry(d, p)
+	}, "DMFUE-ENFU-xxx")
 }
 
 // 1.4.4. Data Ownership and Stewardship.
@@ -13438,6 +13674,28 @@ func (x *DevelopmentQualityGates) Performance() *DevelopmentQualityGatesPerforma
 	return NewDevelopmentQualityGatesPerformanceForm(x.Doc(), x.Path()+"/DQGP")
 }
 
+// Device settings — user-specific settings of a user-owned device (CE-DS).
+//
+// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+// identity in the key) and from user settings (CE-UP — server-persisted,
+// follow the user): a device setting is keyed by the (user, device) pair and
+// persisted on the device itself (window layout, last-opened items,
+// machine-local cache preferences). The same user gets independent values on
+// each device; another user on the same device gets their own values
+// (`codespecs_mapping.md` §11).
+type DeviceSettings struct {
+	som.SomNode
+}
+
+// NewDeviceSettings binds a DeviceSettings facade to a document and a path.
+func NewDeviceSettings(doc *som.SpecDocument, path string) *DeviceSettings {
+	return &DeviceSettings{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DeviceSettings) Content() *DeviceSettingsContentForm {
+	return NewDeviceSettingsContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // Disaster recovery requirements.
 type DisasterRecoveryRequirements struct {
 	som.SomNode
@@ -14871,6 +15129,47 @@ func (x *EntityConstraintEntry) Content() *EntityConstraintEntryContentForm {
 	return NewEntityConstraintEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
+// A per-entity follow-up facet block (form + lists).
+//
+// Groups the volume, compliance, technical, and migration facets for a single
+// data entity, correlated back to `dataModel.entities` by name/alias.
+type EntityFollowUpEntry struct {
+	som.SomNode
+}
+
+// NewEntityFollowUpEntry binds a EntityFollowUpEntry facade to a document and a path.
+func NewEntityFollowUpEntry(doc *som.SpecDocument, path string) *EntityFollowUpEntry {
+	return &EntityFollowUpEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *EntityFollowUpEntry) EntityRef() *EntityFollowUpEntryEntityRefForm {
+	return NewEntityFollowUpEntryEntityRefForm(x.Doc(), x.Path()+"/DMFUE-ENTI")
+}
+
+func (x *EntityFollowUpEntry) VolumeMetrics() *som.SomList[*VolumeMetricEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/VOLUM-VOLU-LST", func(d *som.SpecDocument, p string) *VolumeMetricEntry {
+		return NewVolumeMetricEntry(d, p)
+	}, "VOLUM-VOLU-xxx")
+}
+
+func (x *EntityFollowUpEntry) ComplianceRequirements() *som.SomList[*ComplianceRequirementEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/CRE-COMP-LST", func(d *som.SpecDocument, p string) *ComplianceRequirementEntry {
+		return NewComplianceRequirementEntry(d, p)
+	}, "CRE-COMP-xxx")
+}
+
+func (x *EntityFollowUpEntry) TechnicalCharacteristics() *som.SomList[*TechnicalCharacteristicEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/TECHN-TECH-LST", func(d *som.SpecDocument, p string) *TechnicalCharacteristicEntry {
+		return NewTechnicalCharacteristicEntry(d, p)
+	}, "TECHN-TECH-xxx")
+}
+
+func (x *EntityFollowUpEntry) MigrationMappings() *som.SomList[*MigrationMappingEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MIGME-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationMappingEntry {
+		return NewMigrationMappingEntry(d, p)
+	}, "MIGME-MIGR-xxx")
+}
+
 // An entity index entry (form).
 //
 // Database index specification for query optimization.
@@ -15736,73 +16035,182 @@ func (x *ExperienceAndInterfaceDesign) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// 10.1. Design Vision. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) DesignVision() *DesignVision {
-	return NewDesignVision(x.Doc(), x.Path()+"/designVision")
+// 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+func (x *ExperienceAndInterfaceDesign) ExperienceCodeSpecs() *ExperienceCodeSpecs {
+	return NewExperienceCodeSpecs(x.Doc(), x.Path()+"/experienceCodeSpecs")
 }
 
-// 10.2. Screen Descriptions. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) Screens() *ScreenDescriptions {
+// 10.2. Experience Design — DOC follow-up subtree.
+func (x *ExperienceAndInterfaceDesign) DesignFollowUp() *ExperienceDesignFollowUp {
+	return NewExperienceDesignFollowUp(x.Doc(), x.Path()+"/designFollowUp")
+}
+
+// 10.3. Experience Localization — L10N follow-up subtree.
+func (x *ExperienceAndInterfaceDesign) LocalizationFollowUp() *ExperienceLocalizationFollowUp {
+	return NewExperienceLocalizationFollowUp(x.Doc(), x.Path()+"/localizationFollowUp")
+}
+
+// 10.4. Authorization Compliance — CMP follow-up subtree.
+func (x *ExperienceAndInterfaceDesign) AuthorizationComplianceFollowUp() *AuthorizationComplianceFollowUp {
+	return NewAuthorizationComplianceFollowUp(x.Doc(), x.Path()+"/authorizationComplianceFollowUp")
+}
+
+// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+//
+// Groups the UI concerns CodeSpecs generates (§4.6 of
+// `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+// reusable UI component library (CE-EL/CE-LO). The container itself carries no
+// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+// follow-up subtrees.
+type ExperienceCodeSpecs struct {
+	som.SomNode
+}
+
+// NewExperienceCodeSpecs binds a ExperienceCodeSpecs facade to a document and a path.
+func NewExperienceCodeSpecs(doc *som.SpecDocument, path string) *ExperienceCodeSpecs {
+	return &ExperienceCodeSpecs{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ExperienceCodeSpecs) CanHaveContent() bool {
+	return true
+}
+
+func (x *ExperienceCodeSpecs) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ExperienceCodeSpecs) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 10.1.1. Screen Descriptions. Seeds → XDS.
+func (x *ExperienceCodeSpecs) Screens() *ScreenDescriptions {
 	return NewScreenDescriptions(x.Doc(), x.Path()+"/screens")
 }
 
-// 10.3. Screen Flow Structure. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) ScreenFlow() *ScreenFlowStructure {
+// 10.1.2. Screen Flow Structure. Seeds → XDS.
+func (x *ExperienceCodeSpecs) ScreenFlow() *ScreenFlowStructure {
 	return NewScreenFlowStructure(x.Doc(), x.Path()+"/screenFlow")
 }
 
-// 10.4. Print Layout. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) PrintLayout() *PrintAndExportLayout {
-	return NewPrintAndExportLayout(x.Doc(), x.Path()+"/printLayout")
-}
-
-// Data Structure Alignment.
+// 10.1.3. Data Structure Alignment.
 // (skipped: dataStructureAlignment has no target type)
 
-// Authorization Compliance.
-// (skipped: authorizationCompliance has no target type)
-
-// 10.7. Error Handling. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) ErrorHandling() *ErrorHandling {
+// 10.1.4. Error Handling. Seeds → XDS.
+func (x *ExperienceCodeSpecs) ErrorHandling() *ErrorHandling {
 	return NewErrorHandling(x.Doc(), x.Path()+"/errorHandling")
 }
 
-// 10.8. User Assistance. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) UserAssistance() *UserAssistance {
-	return NewUserAssistance(x.Doc(), x.Path()+"/userAssistance")
-}
-
-// 10.9. Accessibility. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) Accessibility() *Accessibility {
-	return NewAccessibility(x.Doc(), x.Path()+"/accessibility")
-}
-
-// 10.10. Responsive Design. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) ResponsiveDesign() *ResponsiveDesign {
+// 10.1.5. Responsive Design. Seeds → XDS.
+func (x *ExperienceCodeSpecs) ResponsiveDesign() *ResponsiveDesign {
 	return NewResponsiveDesign(x.Doc(), x.Path()+"/responsiveDesign")
 }
 
-// 10.11. UI Components. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) UiComponents() *UiComponents {
+// 10.1.6. UI Components. Seeds → XDS.
+func (x *ExperienceCodeSpecs) UiComponents() *UiComponents {
 	return NewUiComponents(x.Doc(), x.Path()+"/uiComponents")
 }
 
-// 10.12. Multi-language Support.
-func (x *ExperienceAndInterfaceDesign) MultiLanguageSupport() *MultiLanguageSupport {
-	return NewMultiLanguageSupport(x.Doc(), x.Path()+"/multiLanguageSupport")
+// SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+//
+// Groups the design / documentation concerns that are **follow-up** (design
+// vision, print & export layout, user assistance, accessibility, prototype,
+// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+// is generation-owned-out. Accessibility's operational (OPS) facet is a
+// secondary concern refined by the follow-up taxonomy pass.
+type ExperienceDesignFollowUp struct {
+	som.SomNode
 }
 
-// 10.13. Prototype. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) Prototype() *Prototype {
+// NewExperienceDesignFollowUp binds a ExperienceDesignFollowUp facade to a document and a path.
+func NewExperienceDesignFollowUp(doc *som.SpecDocument, path string) *ExperienceDesignFollowUp {
+	return &ExperienceDesignFollowUp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ExperienceDesignFollowUp) CanHaveContent() bool {
+	return true
+}
+
+func (x *ExperienceDesignFollowUp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ExperienceDesignFollowUp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 10.2.1. Design Vision. Seeds → XDS.
+func (x *ExperienceDesignFollowUp) DesignVision() *DesignVision {
+	return NewDesignVision(x.Doc(), x.Path()+"/designVision")
+}
+
+// 10.2.2. Print Layout. Seeds → XDS.
+func (x *ExperienceDesignFollowUp) PrintLayout() *PrintAndExportLayout {
+	return NewPrintAndExportLayout(x.Doc(), x.Path()+"/printLayout")
+}
+
+// 10.2.3. User Assistance. Seeds → XDS.
+func (x *ExperienceDesignFollowUp) UserAssistance() *UserAssistance {
+	return NewUserAssistance(x.Doc(), x.Path()+"/userAssistance")
+}
+
+// 10.2.4. Accessibility. Seeds → XDS.
+func (x *ExperienceDesignFollowUp) Accessibility() *Accessibility {
+	return NewAccessibility(x.Doc(), x.Path()+"/accessibility")
+}
+
+// 10.2.5. Prototype. Seeds → XDS.
+func (x *ExperienceDesignFollowUp) Prototype() *Prototype {
 	return NewPrototype(x.Doc(), x.Path()+"/prototype")
 }
 
-// 10.14. Wireframes and Mockups.
+// 10.2.6. Wireframes and Mockups.
 //
 // One whole-catalog content section; collapsed from
 // `List<WireframesAndMockups>` (L34C-12 SR-52).
-func (x *ExperienceAndInterfaceDesign) WireframesAndMockups() *WireframesAndMockups {
+func (x *ExperienceDesignFollowUp) WireframesAndMockups() *WireframesAndMockups {
 	return NewWireframesAndMockups(x.Doc(), x.Path()+"/wireframesAndMockups")
+}
+
+// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+//
+// Groups the internationalization concern, a **follow-up** (L10N) rather than
+// CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+type ExperienceLocalizationFollowUp struct {
+	som.SomNode
+}
+
+// NewExperienceLocalizationFollowUp binds a ExperienceLocalizationFollowUp facade to a document and a path.
+func NewExperienceLocalizationFollowUp(doc *som.SpecDocument, path string) *ExperienceLocalizationFollowUp {
+	return &ExperienceLocalizationFollowUp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ExperienceLocalizationFollowUp) CanHaveContent() bool {
+	return true
+}
+
+func (x *ExperienceLocalizationFollowUp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ExperienceLocalizationFollowUp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 10.3.1. Multi-language Support.
+func (x *ExperienceLocalizationFollowUp) MultiLanguageSupport() *MultiLanguageSupport {
+	return NewMultiLanguageSupport(x.Doc(), x.Path()+"/multiLanguageSupport")
 }
 
 // A field mapping within an export (form).
@@ -18614,6 +19022,17 @@ func (x *InformationAndDataModel) ResultEnvelope() *ResultEnvelope {
 // 7.8. Message Key Registry.
 func (x *InformationAndDataModel) MessageKeyRegistry() *MessageKeyRegistry {
 	return NewMessageKeyRegistry(x.Doc(), x.Path()+"/messageKeyRegistry")
+}
+
+// 7.9. Data Model Follow-up Facets.
+//
+// Per-entity operational/governance facets (volume, compliance, technical
+// characteristics, migration mappings) and the model-wide ER diagram —
+// separated from `dataModel` so the entity/attribute subtree stays purely
+// CE-DB / CE-VA generation-owned while these follow-up facets are authored
+// alongside, keyed back to their source entity.
+func (x *InformationAndDataModel) DataModelFollowUp() *DataModelFollowUp {
+	return NewDataModelFollowUp(x.Doc(), x.Path()+"/dataModelFollowUp")
 }
 
 // 10.2.2. Information Architecture.
@@ -24427,6 +24846,47 @@ func (x *OrgRequirementImplementationPlan) Activities() *som.SomList[*OrgImpleme
 	}, "ORGIM-ACTI-xxx")
 }
 
+// SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.
+//
+// Groups the two purely-follow-up facets of the Target Operating Model into a
+// single branch that is routed to organizational-change (ORG) and
+// operational-routine (OPS) follow-up processes rather than to code
+// generation: the target organizational structure/roles
+// ([OrganizationalFramework]) and the business-process narrative
+// ([BusinessProcessDescriptions], which seeds the TOM document).
+type OrganizationAndProcessConcept struct {
+	som.SomNode
+}
+
+// NewOrganizationAndProcessConcept binds a OrganizationAndProcessConcept facade to a document and a path.
+func NewOrganizationAndProcessConcept(doc *som.SpecDocument, path string) *OrganizationAndProcessConcept {
+	return &OrganizationAndProcessConcept{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *OrganizationAndProcessConcept) CanHaveContent() bool {
+	return true
+}
+
+func (x *OrganizationAndProcessConcept) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *OrganizationAndProcessConcept) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// Target organizational structure and roles.
+func (x *OrganizationAndProcessConcept) OrganizationalFramework() *OrganizationalFramework {
+	return NewOrganizationalFramework(x.Doc(), x.Path()+"/organizationalFramework")
+}
+
+// Business-process descriptions and narrative. Seeds → TOM.
+func (x *OrganizationAndProcessConcept) BusinessProcessDescriptions() *BusinessProcessDescriptions {
+	return NewBusinessProcessDescriptions(x.Doc(), x.Path()+"/businessProcessDescriptions")
+}
+
 // 3.1.1. Organization Structure.
 type OrganizationStructure struct {
 	som.SomNode
@@ -29851,8 +30311,15 @@ func (x *RequirementUiSpecification) Behaviors() *som.SomList[*ScreenBehaviorEnt
 // SBP.9 Requirements.
 //
 // Functional requirements seed the Requirements Specification (RSP); this
-// section currently carries the framework-uncovered NFR sub-areas re-homed in
-// IP-6. Functional-requirement modelling is expanded in a later IP step.
+// section is the CodeSpecs **seed** subtree — its functional requirements plus
+// the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+// requirements*, not generated. Functional-requirement modelling is expanded
+// in a later IP step.
+//
+// The framework-uncovered NFR follow-up sub-areas (localization,
+// information-for-use, training) are grouped out of the seed subtree into
+// [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+// stays purely CodeSpecs-relevant.
 type Requirements struct {
 	som.SomNode
 }
@@ -29876,18 +30343,57 @@ func (x *Requirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
+// Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+func (x *Requirements) RequirementsFollowUp() *RequirementsFollowUp {
+	return NewRequirementsFollowUp(x.Doc(), x.Path()+"/requirementsFollowUp")
+}
+
+// SBP.9 Requirements — follow-up NFR sub-areas.
+//
+// Groups the framework-uncovered non-functional requirement sub-areas that are
+// **follow-up** concerns (documentation, training, localization) rather than
+// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+// is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+//
+//  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+//  * Information for Use         → [InformationForUseRequirements] (DOC)
+//  * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
+type RequirementsFollowUp struct {
+	som.SomNode
+}
+
+// NewRequirementsFollowUp binds a RequirementsFollowUp facade to a document and a path.
+func NewRequirementsFollowUp(doc *som.SpecDocument, path string) *RequirementsFollowUp {
+	return &RequirementsFollowUp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *RequirementsFollowUp) CanHaveContent() bool {
+	return true
+}
+
+func (x *RequirementsFollowUp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *RequirementsFollowUp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Localization & Translation requirements (NFR-L10N-NNN).
-func (x *Requirements) LocalizationTranslation() *LocalizationTranslationRequirements {
+func (x *RequirementsFollowUp) LocalizationTranslation() *LocalizationTranslationRequirements {
 	return NewLocalizationTranslationRequirements(x.Doc(), x.Path()+"/localizationTranslation")
 }
 
 // Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
-func (x *Requirements) InformationForUse() *InformationForUseRequirements {
+func (x *RequirementsFollowUp) InformationForUse() *InformationForUseRequirements {
 	return NewInformationForUseRequirements(x.Doc(), x.Path()+"/informationForUse")
 }
 
 // Training & Enablement requirements (NFR-TRN-NNN).
-func (x *Requirements) TrainingEnablement() *TrainingEnablementRequirements {
+func (x *RequirementsFollowUp) TrainingEnablement() *TrainingEnablementRequirements {
 	return NewTrainingEnablementRequirements(x.Doc(), x.Path()+"/trainingEnablement")
 }
 
@@ -32577,44 +33083,19 @@ func (x *SecurityAndAccessModel) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// 9.1. User Management.
-func (x *SecurityAndAccessModel) UserManagement() *UserManagement {
-	return NewUserManagement(x.Doc(), x.Path()+"/userManagement")
+// 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
+func (x *SecurityAndAccessModel) AccessControl() *AccessControlModel {
+	return NewAccessControlModel(x.Doc(), x.Path()+"/accessControl")
 }
 
-// 9.2. Identification and Authentication.
-func (x *SecurityAndAccessModel) Authentication() *IdentificationAndAuthentication {
-	return NewIdentificationAndAuthentication(x.Doc(), x.Path()+"/authentication")
+// 9.2. Security Operations — OPS follow-up subtree.
+func (x *SecurityAndAccessModel) SecurityOperations() *SecurityOperationsFollowUp {
+	return NewSecurityOperationsFollowUp(x.Doc(), x.Path()+"/securityOperations")
 }
 
-// 9.3. Resource Protection.
-func (x *SecurityAndAccessModel) ResourceProtection() *ResourceProtection {
-	return NewResourceProtection(x.Doc(), x.Path()+"/resourceProtection")
-}
-
-// 9.4. User Authorization.
-func (x *SecurityAndAccessModel) Authorization() *UserAuthorization {
-	return NewUserAuthorization(x.Doc(), x.Path()+"/authorization")
-}
-
-// 9.5. Sensitive Data Encryption.
-func (x *SecurityAndAccessModel) Encryption() *SensitiveDataEncryption {
-	return NewSensitiveDataEncryption(x.Doc(), x.Path()+"/encryption")
-}
-
-// 9.6. Audit and Logging.
-func (x *SecurityAndAccessModel) AuditAndLogging() *AuditAndLogging {
-	return NewAuditAndLogging(x.Doc(), x.Path()+"/auditAndLogging")
-}
-
-// 9.7. Role Matrix..
-func (x *SecurityAndAccessModel) RoleMatrix() *RoleMatrix {
-	return NewRoleMatrix(x.Doc(), x.Path()+"/roleMatrix")
-}
-
-// 9.8. Compliance Framework.
-func (x *SecurityAndAccessModel) ComplianceFramework() *ComplianceFramework {
-	return NewComplianceFramework(x.Doc(), x.Path()+"/complianceFramework")
+// 9.3. Compliance — CMP follow-up subtree.
+func (x *SecurityAndAccessModel) Compliance() *SecurityComplianceFollowUp {
+	return NewSecurityComplianceFollowUp(x.Doc(), x.Path()+"/compliance")
 }
 
 // A security audit requirement entry (form).
@@ -32812,6 +33293,40 @@ func (x *SecurityCodeReviewPolicy) Findings() *SecurityCodeReviewPolicyFindingsF
 	return NewSecurityCodeReviewPolicyFindingsForm(x.Doc(), x.Path()+"/SCRPF")
 }
 
+// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+//
+// Groups the compliance-framework concern, a **follow-up** (compliance
+// governance) rather than CodeSpecs-generated behaviour (§4.5 of
+// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+// subtree is generation-owned-out.
+type SecurityComplianceFollowUp struct {
+	som.SomNode
+}
+
+// NewSecurityComplianceFollowUp binds a SecurityComplianceFollowUp facade to a document and a path.
+func NewSecurityComplianceFollowUp(doc *som.SpecDocument, path string) *SecurityComplianceFollowUp {
+	return &SecurityComplianceFollowUp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *SecurityComplianceFollowUp) CanHaveContent() bool {
+	return true
+}
+
+func (x *SecurityComplianceFollowUp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SecurityComplianceFollowUp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 9.3.1. Compliance Framework.
+func (x *SecurityComplianceFollowUp) ComplianceFramework() *ComplianceFramework {
+	return NewComplianceFramework(x.Doc(), x.Path()+"/complianceFramework")
+}
+
 // A security control entry (form).
 type SecurityControlEntry struct {
 	som.SomNode
@@ -32993,6 +33508,45 @@ func (x *SecurityEventsDefinition) CustomEvents() *som.SomList[*SecurityEventEnt
 	return som.NewSomList(x.Doc(), x.Path()+"/SEVT-CUST-LST", func(d *som.SpecDocument, p string) *SecurityEventEntry {
 		return NewSecurityEventEntry(d, p)
 	}, "SEVT-CUST-xxx")
+}
+
+// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+//
+// Groups the operational security concerns that are **follow-up** (key
+// management and audit/logging operations), not CodeSpecs-generated behaviour
+// (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+// whole subtree is generation-owned-out.
+type SecurityOperationsFollowUp struct {
+	som.SomNode
+}
+
+// NewSecurityOperationsFollowUp binds a SecurityOperationsFollowUp facade to a document and a path.
+func NewSecurityOperationsFollowUp(doc *som.SpecDocument, path string) *SecurityOperationsFollowUp {
+	return &SecurityOperationsFollowUp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *SecurityOperationsFollowUp) CanHaveContent() bool {
+	return true
+}
+
+func (x *SecurityOperationsFollowUp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SecurityOperationsFollowUp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 9.2.1. Sensitive Data Encryption.
+func (x *SecurityOperationsFollowUp) Encryption() *SensitiveDataEncryption {
+	return NewSensitiveDataEncryption(x.Doc(), x.Path()+"/encryption")
+}
+
+// 9.2.2. Audit and Logging.
+func (x *SecurityOperationsFollowUp) AuditAndLogging() *AuditAndLogging {
+	return NewAuditAndLogging(x.Doc(), x.Path()+"/auditAndLogging")
 }
 
 // A security requirement entry.
@@ -34403,13 +34957,50 @@ func (x *SolutionArchitectureAndTechnology) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// Technical framework and platform concept.
+// Technical framework and platform concept — the CodeSpecs-relevant
+// (CE-CF configuration-bearing) subtree.
 func (x *SolutionArchitectureAndTechnology) TechnicalFramework() *TechnicalFrameworkConcept {
 	return NewTechnicalFrameworkConcept(x.Doc(), x.Path()+"/technicalFramework")
 }
 
+// Architecture / component-reuse DOC follow-up subtree.
+func (x *SolutionArchitectureAndTechnology) ArchitectureFollowUp() *SolutionArchitectureFollowUp {
+	return NewSolutionArchitectureFollowUp(x.Doc(), x.Path()+"/architectureFollowUp")
+}
+
+// SBP.11 Solution Architecture & Technology — DOC follow-up subtree.
+//
+// Groups the descriptive-architecture concern that is **not** CodeSpecs-
+// generated: the component-reuse rationale (component catalogue, third-party
+// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
+// generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
+// CodeSpecs subtree.
+type SolutionArchitectureFollowUp struct {
+	som.SomNode
+}
+
+// NewSolutionArchitectureFollowUp binds a SolutionArchitectureFollowUp facade to a document and a path.
+func NewSolutionArchitectureFollowUp(doc *som.SpecDocument, path string) *SolutionArchitectureFollowUp {
+	return &SolutionArchitectureFollowUp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *SolutionArchitectureFollowUp) CanHaveContent() bool {
+	return true
+}
+
+func (x *SolutionArchitectureFollowUp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SolutionArchitectureFollowUp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Components, libraries, and services to reuse.
-func (x *SolutionArchitectureAndTechnology) ComponentsToUse() *ComponentsAndDependencies {
+func (x *SolutionArchitectureFollowUp) ComponentsToUse() *ComponentsAndDependencies {
 	return NewComponentsAndDependencies(x.Doc(), x.Path()+"/componentsToUse")
 }
 
@@ -37580,41 +38171,11 @@ func (x *TabItemEntry) Content() *TabItemEntryContentForm {
 	return NewTabItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// 6. Target Business Process Model.
-type TargetBusinessProcessModel struct {
-	som.SomNode
-}
-
-// NewTargetBusinessProcessModel binds a TargetBusinessProcessModel facade to a document and a path.
-func NewTargetBusinessProcessModel(doc *som.SpecDocument, path string) *TargetBusinessProcessModel {
-	return &TargetBusinessProcessModel{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *TargetBusinessProcessModel) CanHaveContent() bool {
-	return true
-}
-
-func (x *TargetBusinessProcessModel) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TargetBusinessProcessModel) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// 6.1. Business Process Descriptions. Seeds → TOM.
-func (x *TargetBusinessProcessModel) BusinessProcessDescriptions() *BusinessProcessDescriptions {
-	return NewBusinessProcessDescriptions(x.Doc(), x.Path()+"/businessProcessDescriptions")
-}
-
-// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
-func (x *TargetBusinessProcessModel) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractions {
-	return NewProcessStepsAndActorInteractions(x.Doc(), x.Path()+"/processStepsAndActorInteractions")
-}
-
 // SBP.7 Target Operating Model concept.
+//
+// Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
+// and a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)
+// so each whole branch is owned by a single downstream process.
 type TargetOperatingModel struct {
 	som.SomNode
 }
@@ -37638,14 +38199,14 @@ func (x *TargetOperatingModel) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// Target organizational structure and roles.
-func (x *TargetOperatingModel) OrganizationalFramework() *OrganizationalFramework {
-	return NewOrganizationalFramework(x.Doc(), x.Path()+"/organizationalFramework")
+// ORG/OPS follow-up subtree: target organization + process narrative.
+func (x *TargetOperatingModel) OrganizationAndProcess() *OrganizationAndProcessConcept {
+	return NewOrganizationAndProcessConcept(x.Doc(), x.Path()+"/organizationAndProcess")
 }
 
-// Target business process model.
-func (x *TargetOperatingModel) TargetBusinessProcess() *TargetBusinessProcessModel {
-	return NewTargetBusinessProcessModel(x.Doc(), x.Path()+"/targetBusinessProcess")
+// CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
+func (x *TargetOperatingModel) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractions {
+	return NewProcessStepsAndActorInteractions(x.Doc(), x.Path()+"/processStepsAndActorInteractions")
 }
 
 // Target platform entry (operating system, runtime, container).
@@ -90008,6 +90569,77 @@ func (x *DevelopmentQualityGatesSecurityForm) SetLicenseCompliance(value string)
 	x.Doc().SetFormField(x.Path(), "licenseCompliance", value)
 }
 
+// DeviceSettingsContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type DeviceSettingsContentForm struct {
+	som.SomNode
+}
+
+// NewDeviceSettingsContentForm binds a DeviceSettingsContentForm facade to a document and a path.
+func NewDeviceSettingsContentForm(doc *som.SpecDocument, path string) *DeviceSettingsContentForm {
+	return &DeviceSettingsContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DeviceSettingsContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DeviceSettingsContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DeviceSettingsContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DeviceSettingsContentForm) SettingKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "settingKey")
+}
+
+func (x *DeviceSettingsContentForm) SetSettingKey(value string) {
+	x.Doc().SetFormField(x.Path(), "settingKey", value)
+}
+
+func (x *DeviceSettingsContentForm) ValueType() string {
+	return x.Doc().FormFieldOr(x.Path(), "valueType")
+}
+
+func (x *DeviceSettingsContentForm) SetValueType(value string) {
+	x.Doc().SetFormField(x.Path(), "valueType", value)
+}
+
+func (x *DeviceSettingsContentForm) DefaultValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultValue")
+}
+
+func (x *DeviceSettingsContentForm) SetDefaultValue(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultValue", value)
+}
+
+func (x *DeviceSettingsContentForm) DeviceOverridable() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "deviceOverridable")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *DeviceSettingsContentForm) SetDeviceOverridable(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "deviceOverridable", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "deviceOverridable", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "deviceOverridable", "false")
+	}
+}
+
 // DisasterRecoveryRequirementsContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type DisasterRecoveryRequirementsContentForm struct {
@@ -95258,6 +95890,48 @@ func (x *EntityConstraintEntryContentForm) BusinessRule() string {
 
 func (x *EntityConstraintEntryContentForm) SetBusinessRule(value string) {
 	x.Doc().SetFormField(x.Path(), "businessRule", value)
+}
+
+// EntityFollowUpEntryEntityRefForm is the generated section facade for the `entityRef` @Form section: its own
+// content text followed by one typed member per form field.
+type EntityFollowUpEntryEntityRefForm struct {
+	som.SomNode
+}
+
+// NewEntityFollowUpEntryEntityRefForm binds a EntityFollowUpEntryEntityRefForm facade to a document and a path.
+func NewEntityFollowUpEntryEntityRefForm(doc *som.SpecDocument, path string) *EntityFollowUpEntryEntityRefForm {
+	return &EntityFollowUpEntryEntityRefForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *EntityFollowUpEntryEntityRefForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *EntityFollowUpEntryEntityRefForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *EntityFollowUpEntryEntityRefForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *EntityFollowUpEntryEntityRefForm) EntityName() string {
+	return x.Doc().FormFieldOr(x.Path(), "entityName")
+}
+
+func (x *EntityFollowUpEntryEntityRefForm) SetEntityName(value string) {
+	x.Doc().SetFormField(x.Path(), "entityName", value)
+}
+
+func (x *EntityFollowUpEntryEntityRefForm) EntityAlias() string {
+	return x.Doc().FormFieldOr(x.Path(), "entityAlias")
+}
+
+func (x *EntityFollowUpEntryEntityRefForm) SetEntityAlias(value string) {
+	x.Doc().SetFormField(x.Path(), "entityAlias", value)
 }
 
 // EntityIndexEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -205740,6 +206414,22 @@ func (x *UserAttributeEntryContentForm) DataType() string {
 
 func (x *UserAttributeEntryContentForm) SetDataType(value string) {
 	x.Doc().SetFormField(x.Path(), "dataType", value)
+}
+
+func (x *UserAttributeEntryContentForm) Placement() string {
+	return x.Doc().FormFieldOr(x.Path(), "placement")
+}
+
+func (x *UserAttributeEntryContentForm) SetPlacement(value string) {
+	x.Doc().SetFormField(x.Path(), "placement", value)
+}
+
+func (x *UserAttributeEntryContentForm) AccessGuard() string {
+	return x.Doc().FormFieldOr(x.Path(), "accessGuard")
+}
+
+func (x *UserAttributeEntryContentForm) SetAccessGuard(value string) {
+	x.Doc().SetFormField(x.Path(), "accessGuard", value)
 }
 
 func (x *UserAttributeEntryContentForm) Source() string {

@@ -20,6 +20,7 @@ class AcceptanceProcess;
 class AcceptanceStepEntry;
 class AccessChannels;
 class AccessConstraintPolicies;
+class AccessControlModel;
 class AccessControlModelSelection;
 class AccessLevelEntry;
 class AccessLevels;
@@ -93,6 +94,7 @@ class AuthenticationEventPolicy;
 class AuthenticationFlow;
 class AuthenticationMethodEntry;
 class AuthenticationMethods;
+class AuthorizationComplianceFollowUp;
 class AuthorizationEventPolicy;
 class AuthorizationGroupEntry;
 class AuthorizationModel;
@@ -264,6 +266,7 @@ class D09ExperienceDesignSpecification;
 class D10QualityAcceptancePlan;
 class D11DeliveryRoadmap;
 class D12TransitionRolloutPlan;
+class D13CodeSpecsProjection;
 class DashboardEntry;
 class DashboardRequirements;
 class DashboardTemplates;
@@ -292,6 +295,7 @@ class DataLevelSecurity;
 class DataMaskingPolicy;
 class DataMigrationStrategy;
 class DataModel;
+class DataModelFollowUp;
 class DataOwnership;
 class DataOwnershipEntry;
 class DataProcessingAgreementRequirements;
@@ -356,6 +360,7 @@ class DeveloperOnboarding;
 class DevelopmentConventionEntry;
 class DevelopmentEnvironment;
 class DevelopmentQualityGates;
+class DeviceSettings;
 class DisasterRecoveryRequirements;
 class DisplayEquipmentEntry;
 class DisplayPropertyEntry;
@@ -403,6 +408,7 @@ class EnterpriseSystemCompatibilityEntry;
 class EntitlementEntry;
 class EntitlementReferenceEntry;
 class EntityConstraintEntry;
+class EntityFollowUpEntry;
 class EntityIndexEntry;
 class EntityRelationshipEntry;
 class EntityRelationships;
@@ -426,6 +432,9 @@ class ExistingSystemEntry;
 class ExistingSystemsLandscape;
 class ExpectedImprovements;
 class ExperienceAndInterfaceDesign;
+class ExperienceCodeSpecs;
+class ExperienceDesignFollowUp;
+class ExperienceLocalizationFollowUp;
 class ExportFieldMappingEntry;
 class ExportFormatEntry;
 class ExportSizeSettings;
@@ -687,6 +696,7 @@ class OpportunityStatement;
 class OrgChangeRisks;
 class OrgImplementationActivity;
 class OrgRequirementImplementationPlan;
+class OrganizationAndProcessConcept;
 class OrganizationStructure;
 class OrganizationalChangeEntry;
 class OrganizationalContext;
@@ -861,6 +871,7 @@ class RequirementTestCases;
 class RequirementTraceability;
 class RequirementUiSpecification;
 class Requirements;
+class RequirementsFollowUp;
 class RequirementsOverview;
 class ResourceAllocationEntry;
 class ResourceCapacityBaselines;
@@ -954,12 +965,14 @@ class SecurityAuditRequirementsSection;
 class SecurityCertificationRequirements;
 class SecurityCharacteristic;
 class SecurityCodeReviewPolicy;
+class SecurityComplianceFollowUp;
 class SecurityControlEntry;
 class SecurityControls;
 class SecurityDevelopmentLifecycle;
 class SecurityEventEntry;
 class SecurityEventLoggingPolicy;
 class SecurityEventsDefinition;
+class SecurityOperationsFollowUp;
 class SecurityRequirementEntry;
 class SecurityRequirements;
 class SecurityStandardComplianceEntry;
@@ -999,6 +1012,7 @@ class SoftwareDeliverables;
 class SoftwareDesignRequirements;
 class SoftwareLayerEntry;
 class SolutionArchitectureAndTechnology;
+class SolutionArchitectureFollowUp;
 class SpecializedEquipmentEntry;
 class SsoPolicy;
 class StaffingBudget;
@@ -1077,7 +1091,6 @@ class SystemUserImpact;
 class SystemsToReplace;
 class TabBarDefinitionEntry;
 class TabItemEntry;
-class TargetBusinessProcessModel;
 class TargetOperatingModel;
 class TargetPlatformEntry;
 class TeamMemberEntry;
@@ -2002,6 +2015,7 @@ class DevelopmentQualityGatesCoverageForm;
 class DevelopmentQualityGatesDocumentationForm;
 class DevelopmentQualityGatesPerformanceForm;
 class DevelopmentQualityGatesSecurityForm;
+class DeviceSettingsContentForm;
 class DisasterRecoveryRequirementsContentForm;
 class DisasterRecoveryRequirementsContinuityForm;
 class DisasterRecoveryRequirementsFailbackForm;
@@ -2085,6 +2099,7 @@ class EnterpriseSystemCompatibilityEntryTestingForm;
 class EntitlementEntryContentForm;
 class EntitlementReferenceEntryContentForm;
 class EntityConstraintEntryContentForm;
+class EntityFollowUpEntryEntityRefForm;
 class EntityIndexEntryContentForm;
 class EntityRelationshipEntryCardinalityForm;
 class EntityRelationshipEntryIdentityForm;
@@ -4064,6 +4079,36 @@ class AccessConstraintPolicies : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
+// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+//
+// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+// authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+// authentication, resource protection, authorization, and the role matrix.
+// The container itself carries no `@CodeSpecKind` — the mapped parts live on
+// the child sections (e.g. `authentication`) — but the whole subtree is the
+// CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+// subtrees.
+class AccessControlModel : public som::SomNode {
+ public:
+  AccessControlModel(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 9.1.1. User Management.
+  UserManagement userManagement() const;
+  // 9.1.2. Identification and Authentication.
+  IdentificationAndAuthentication authentication() const;
+  // 9.1.3. Resource Protection.
+  ResourceProtection resourceProtection() const;
+  // 9.1.4. User Authorization.
+  UserAuthorization authorization() const;
+  // 9.1.5. Role Matrix.
+  RoleMatrix roleMatrix() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
 // Access Control Model Selection (form).
 //
 // Defines the primary access control paradigm — RBAC, ABAC, ReBAC, or a
@@ -5212,6 +5257,26 @@ class AuthenticationMethods : public som::SomNode {
   // Contains 0+× AuthenticationMethod.
   // Returns the list view; element type: AuthenticationMethodEntry (construct from item paths).
   som::SomList items() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// SBP.13 Experience & Interface Design — authorization-compliance CMP
+// follow-up subtree.
+//
+// Groups the UI authorization-compliance concern (how the interface adapts to
+// roles and permissions as a compliance obligation), a **follow-up** (CMP)
+// rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+class AuthorizationComplianceFollowUp : public som::SomNode {
+ public:
+  AuthorizationComplianceFollowUp(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 10.4.1. Authorization Compliance.
+  // (skipped: authorizationCompliance has no target type)
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -6496,6 +6561,8 @@ class ClientRequirementsSection : public som::SomNode {
   ClientSecurityRequirements securityRequirements() const;
   // Per-machine configuration of a client application (CE-CC).
   ClientConfiguration clientConfiguration() const;
+  // User-specific settings of a user-owned device (CE-DS).
+  DeviceSettings deviceSettings() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -8777,6 +8844,65 @@ class D12TransitionRolloutPlan : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
+// CGP00 CodeSpecs Generation Projection.
+//
+// The residual `@CodeSpecKind`-tagged content after the Band-F follow-up
+// splits: the shared registries, the server-side data / framework / access
+// models, the process-step interactions, and the client-side experience seed.
+class D13CodeSpecsProjection : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "1.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D13CodeSpecsProjection(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D13CodeSpecsProjection loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D13CodeSpecsProjection loadFile(som::SpecDocument& doc, const std::string& path);
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Domain enum registry — CE-EN closed value sets, shared by client & server.
+  DomainEnumRegistry domainEnumRegistry() const;
+  // Error code registry — CE-ER shared error-code vocabulary.
+  ErrorCodeRegistry errorCodeRegistry() const;
+  // Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+  ResultEnvelope resultEnvelope() const;
+  // Message key registry — CE-TX author-copy-once keys, shared.
+  MessageKeyRegistry messageKeyRegistry() const;
+  // Data model — CE-DB persistence + CE-VA server-side rules.
+  DataModel dataModel() const;
+  // Technical framework — CE-CF platform/config foundation.
+  TechnicalFrameworkConcept technicalFramework() const;
+  // Access control model — CE-AZ authorization/identity seed.
+  AccessControlModel accessControl() const;
+  // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
+  // interaction; a single subtree whose parts split across both loci.
+  ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
+  // Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
+  ExperienceCodeSpecs experienceCodeSpecs() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
 // A dashboard entry.
 class DashboardEntry : public som::SomNode {
  public:
@@ -8982,14 +9108,8 @@ class DataEntityEntry : public som::SomNode {
   DataEntityEntry(som::SpecDocument& doc, std::string path);
   DataEntityEntryIdentityForm identity() const;
   DataEntityEntryClassificationForm classification() const;
-  // Returns the list view; element type: VolumeMetricEntry (construct from item paths).
-  som::SomList volumeMetrics() const;
   DataEntityEntryLifecyclePolicyForm lifecyclePolicy() const;
-  // Returns the list view; element type: ComplianceRequirementEntry (construct from item paths).
-  som::SomList complianceRequirements() const;
   DataEntityEntryRelationshipSummaryForm relationshipSummary() const;
-  // Returns the list view; element type: TechnicalCharacteristicEntry (construct from item paths).
-  som::SomList technicalCharacteristics() const;
   // Contains 0+× DataAttribute.
   // Returns the list view; element type: DataAttributeEntry (construct from item paths).
   som::SomList attributes() const;
@@ -9002,9 +9122,6 @@ class DataEntityEntry : public som::SomNode {
   // Contains 0+× EntityConstraint.
   // Returns the list view; element type: EntityConstraintEntry (construct from item paths).
   som::SomList constraints() const;
-  // Contains 0+× MigrationMapping for data migration planning.
-  // Returns the list view; element type: MigrationMappingEntry (construct from item paths).
-  som::SomList migrationMappings() const;
 };
 
 // A data entity migration entry.
@@ -9233,22 +9350,44 @@ class DataModel : public som::SomNode {
   som::SomList entities() const;
   // 7.1.2. Entity Relationships.
   EntityRelationships entityRelationships() const;
-  // 7.1.3. Entity-Relationship Diagram (mermaid).
-  // (skipped: erDiagram has no target type)
-  // 7.1.4. Data Classification.
+  // 7.1.3. Data Classification.
   DataClassification dataClassification() const;
-  // 7.1.5. Data Dictionary..
+  // 7.1.4. Data Dictionary..
   DataDictionary dataDictionary() const;
-  // 7.1.6. Validation Constraints.
+  // 7.1.5. Validation Constraints.
   //
   // One whole-catalog content section (mirrors `dataDictionary`); collapsed
   // from `List<ValidationConstraints>` (L34C-12 SR-25).
   ValidationConstraints validationConstraints() const;
-  // 7.1.7. Integrity Constraints.
+  // 7.1.6. Integrity Constraints.
   //
   // One whole-catalog content section (mirrors `dataDictionary`); collapsed
   // from `List<IntegrityConstraints>` (L34C-12 SR-25).
   IntegrityConstraints integrityConstraints() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// 7.9. Data Model Follow-up Facets.
+//
+// Operational and governance facets that accompany the data model but are not
+// part of the generation-owned entity/attribute schema: the model-wide ER
+// diagram plus per-entity volume, compliance, technical, and migration
+// facets. Each per-entity block references its source entity by name/alias so
+// the facets stay correlated with `dataModel.entities` without being nested
+// inside the generation-owned `DataEntityEntry`.
+class DataModelFollowUp : public som::SomNode {
+ public:
+  DataModelFollowUp(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 7.9.1. Entity-Relationship Diagram (mermaid).
+  // (skipped: erDiagram has no target type)
+  // 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+  // Returns the list view; element type: EntityFollowUpEntry (construct from item paths).
+  som::SomList entityFollowUps() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -10360,6 +10499,21 @@ class DevelopmentQualityGates : public som::SomNode {
   DevelopmentQualityGatesPerformanceForm performance() const;
 };
 
+// Device settings — user-specific settings of a user-owned device (CE-DS).
+//
+// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+// identity in the key) and from user settings (CE-UP — server-persisted,
+// follow the user): a device setting is keyed by the (user, device) pair and
+// persisted on the device itself (window layout, last-opened items,
+// machine-local cache preferences). The same user gets independent values on
+// each device; another user on the same device gets their own values
+// (`codespecs_mapping.md` §11).
+class DeviceSettings : public som::SomNode {
+ public:
+  DeviceSettings(som::SpecDocument& doc, std::string path);
+  DeviceSettingsContentForm content() const;
+};
+
 // Disaster recovery requirements.
 class DisasterRecoveryRequirements : public som::SomNode {
  public:
@@ -11084,6 +11238,24 @@ class EntityConstraintEntry : public som::SomNode {
   EntityConstraintEntryContentForm content() const;
 };
 
+// A per-entity follow-up facet block (form + lists).
+//
+// Groups the volume, compliance, technical, and migration facets for a single
+// data entity, correlated back to `dataModel.entities` by name/alias.
+class EntityFollowUpEntry : public som::SomNode {
+ public:
+  EntityFollowUpEntry(som::SpecDocument& doc, std::string path);
+  EntityFollowUpEntryEntityRefForm entityRef() const;
+  // Returns the list view; element type: VolumeMetricEntry (construct from item paths).
+  som::SomList volumeMetrics() const;
+  // Returns the list view; element type: ComplianceRequirementEntry (construct from item paths).
+  som::SomList complianceRequirements() const;
+  // Returns the list view; element type: TechnicalCharacteristicEntry (construct from item paths).
+  som::SomList technicalCharacteristics() const;
+  // Returns the list view; element type: MigrationMappingEntry (construct from item paths).
+  som::SomList migrationMappings() const;
+};
+
 // An entity index entry (form).
 //
 // Database index specification for query optimization.
@@ -11503,37 +11675,99 @@ class ExperienceAndInterfaceDesign : public som::SomNode {
   ExperienceAndInterfaceDesign(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.1. Design Vision. Seeds → XDS.
-  DesignVision designVision() const;
-  // 10.2. Screen Descriptions. Seeds → XDS.
+  // 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+  ExperienceCodeSpecs experienceCodeSpecs() const;
+  // 10.2. Experience Design — DOC follow-up subtree.
+  ExperienceDesignFollowUp designFollowUp() const;
+  // 10.3. Experience Localization — L10N follow-up subtree.
+  ExperienceLocalizationFollowUp localizationFollowUp() const;
+  // 10.4. Authorization Compliance — CMP follow-up subtree.
+  AuthorizationComplianceFollowUp authorizationComplianceFollowUp() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+//
+// Groups the UI concerns CodeSpecs generates (§4.6 of
+// `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+// reusable UI component library (CE-EL/CE-LO). The container itself carries no
+// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+// follow-up subtrees.
+class ExperienceCodeSpecs : public som::SomNode {
+ public:
+  ExperienceCodeSpecs(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 10.1.1. Screen Descriptions. Seeds → XDS.
   ScreenDescriptions screens() const;
-  // 10.3. Screen Flow Structure. Seeds → XDS.
+  // 10.1.2. Screen Flow Structure. Seeds → XDS.
   ScreenFlowStructure screenFlow() const;
-  // 10.4. Print Layout. Seeds → XDS.
-  PrintAndExportLayout printLayout() const;
-  // Data Structure Alignment.
+  // 10.1.3. Data Structure Alignment.
   // (skipped: dataStructureAlignment has no target type)
-  // Authorization Compliance.
-  // (skipped: authorizationCompliance has no target type)
-  // 10.7. Error Handling. Seeds → XDS.
+  // 10.1.4. Error Handling. Seeds → XDS.
   ErrorHandling errorHandling() const;
-  // 10.8. User Assistance. Seeds → XDS.
-  UserAssistance userAssistance() const;
-  // 10.9. Accessibility. Seeds → XDS.
-  Accessibility accessibility() const;
-  // 10.10. Responsive Design. Seeds → XDS.
+  // 10.1.5. Responsive Design. Seeds → XDS.
   ResponsiveDesign responsiveDesign() const;
-  // 10.11. UI Components. Seeds → XDS.
+  // 10.1.6. UI Components. Seeds → XDS.
   UiComponents uiComponents() const;
-  // 10.12. Multi-language Support.
-  MultiLanguageSupport multiLanguageSupport() const;
-  // 10.13. Prototype. Seeds → XDS.
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+//
+// Groups the design / documentation concerns that are **follow-up** (design
+// vision, print & export layout, user assistance, accessibility, prototype,
+// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+// is generation-owned-out. Accessibility's operational (OPS) facet is a
+// secondary concern refined by the follow-up taxonomy pass.
+class ExperienceDesignFollowUp : public som::SomNode {
+ public:
+  ExperienceDesignFollowUp(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 10.2.1. Design Vision. Seeds → XDS.
+  DesignVision designVision() const;
+  // 10.2.2. Print Layout. Seeds → XDS.
+  PrintAndExportLayout printLayout() const;
+  // 10.2.3. User Assistance. Seeds → XDS.
+  UserAssistance userAssistance() const;
+  // 10.2.4. Accessibility. Seeds → XDS.
+  Accessibility accessibility() const;
+  // 10.2.5. Prototype. Seeds → XDS.
   Prototype prototype() const;
-  // 10.14. Wireframes and Mockups.
+  // 10.2.6. Wireframes and Mockups.
   //
   // One whole-catalog content section; collapsed from
   // `List<WireframesAndMockups>` (L34C-12 SR-52).
   WireframesAndMockups wireframesAndMockups() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+//
+// Groups the internationalization concern, a **follow-up** (L10N) rather than
+// CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+class ExperienceLocalizationFollowUp : public som::SomNode {
+ public:
+  ExperienceLocalizationFollowUp(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 10.3.1. Multi-language Support.
+  MultiLanguageSupport multiLanguageSupport() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -12904,6 +13138,14 @@ class InformationAndDataModel : public som::SomNode {
   ResultEnvelope resultEnvelope() const;
   // 7.8. Message Key Registry.
   MessageKeyRegistry messageKeyRegistry() const;
+  // 7.9. Data Model Follow-up Facets.
+  //
+  // Per-entity operational/governance facets (volume, compliance, technical
+  // characteristics, migration mappings) and the model-wide ER diagram —
+  // separated from `dataModel` so the entity/attribute subtree stays purely
+  // CE-DB / CE-VA generation-owned while these follow-up facets are authored
+  // alongside, keyed back to their source entity.
+  DataModelFollowUp dataModelFollowUp() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -15781,6 +16023,29 @@ class OrgRequirementImplementationPlan : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
+// SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.
+//
+// Groups the two purely-follow-up facets of the Target Operating Model into a
+// single branch that is routed to organizational-change (ORG) and
+// operational-routine (OPS) follow-up processes rather than to code
+// generation: the target organizational structure/roles
+// ([OrganizationalFramework]) and the business-process narrative
+// ([BusinessProcessDescriptions], which seeds the TOM document).
+class OrganizationAndProcessConcept : public som::SomNode {
+ public:
+  OrganizationAndProcessConcept(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Target organizational structure and roles.
+  OrganizationalFramework organizationalFramework() const;
+  // Business-process descriptions and narrative. Seeds → TOM.
+  BusinessProcessDescriptions businessProcessDescriptions() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
 // 3.1.1. Organization Structure.
 class OrganizationStructure : public som::SomNode {
  public:
@@ -18435,11 +18700,42 @@ class RequirementUiSpecification : public som::SomNode {
 // SBP.9 Requirements.
 //
 // Functional requirements seed the Requirements Specification (RSP); this
-// section currently carries the framework-uncovered NFR sub-areas re-homed in
-// IP-6. Functional-requirement modelling is expanded in a later IP step.
+// section is the CodeSpecs **seed** subtree — its functional requirements plus
+// the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+// requirements*, not generated. Functional-requirement modelling is expanded
+// in a later IP step.
+//
+// The framework-uncovered NFR follow-up sub-areas (localization,
+// information-for-use, training) are grouped out of the seed subtree into
+// [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+// stays purely CodeSpecs-relevant.
 class Requirements : public som::SomNode {
  public:
   Requirements(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+  RequirementsFollowUp requirementsFollowUp() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// SBP.9 Requirements — follow-up NFR sub-areas.
+//
+// Groups the framework-uncovered non-functional requirement sub-areas that are
+// **follow-up** concerns (documentation, training, localization) rather than
+// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+// is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+//
+//  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+//  * Information for Use         → [InformationForUseRequirements] (DOC)
+//  * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
+class RequirementsFollowUp : public som::SomNode {
+ public:
+  RequirementsFollowUp(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
   // Localization & Translation requirements (NFR-L10N-NNN).
@@ -19797,22 +20093,12 @@ class SecurityAndAccessModel : public som::SomNode {
   SecurityAndAccessModel(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 9.1. User Management.
-  UserManagement userManagement() const;
-  // 9.2. Identification and Authentication.
-  IdentificationAndAuthentication authentication() const;
-  // 9.3. Resource Protection.
-  ResourceProtection resourceProtection() const;
-  // 9.4. User Authorization.
-  UserAuthorization authorization() const;
-  // 9.5. Sensitive Data Encryption.
-  SensitiveDataEncryption encryption() const;
-  // 9.6. Audit and Logging.
-  AuditAndLogging auditAndLogging() const;
-  // 9.7. Role Matrix..
-  RoleMatrix roleMatrix() const;
-  // 9.8. Compliance Framework.
-  ComplianceFramework complianceFramework() const;
+  // 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
+  AccessControlModel accessControl() const;
+  // 9.2. Security Operations — OPS follow-up subtree.
+  SecurityOperationsFollowUp securityOperations() const;
+  // 9.3. Compliance — CMP follow-up subtree.
+  SecurityComplianceFollowUp compliance() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -19914,6 +20200,25 @@ class SecurityCodeReviewPolicy : public som::SomNode {
   SecurityCodeReviewPolicyFindingsForm findings() const;
 };
 
+// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+//
+// Groups the compliance-framework concern, a **follow-up** (compliance
+// governance) rather than CodeSpecs-generated behaviour (§4.5 of
+// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+// subtree is generation-owned-out.
+class SecurityComplianceFollowUp : public som::SomNode {
+ public:
+  SecurityComplianceFollowUp(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 9.3.1. Compliance Framework.
+  ComplianceFramework complianceFramework() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
 // A security control entry (form).
 class SecurityControlEntry : public som::SomNode {
  public:
@@ -20000,6 +20305,27 @@ class SecurityEventsDefinition : public som::SomNode {
   // Custom Security Events — contains 0+× Security Event Entry.
   // Returns the list view; element type: SecurityEventEntry (construct from item paths).
   som::SomList customEvents() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+//
+// Groups the operational security concerns that are **follow-up** (key
+// management and audit/logging operations), not CodeSpecs-generated behaviour
+// (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+// whole subtree is generation-owned-out.
+class SecurityOperationsFollowUp : public som::SomNode {
+ public:
+  SecurityOperationsFollowUp(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 9.2.1. Sensitive Data Encryption.
+  SensitiveDataEncryption encryption() const;
+  // 9.2.2. Audit and Logging.
+  AuditAndLogging auditAndLogging() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -20689,8 +21015,30 @@ class SolutionArchitectureAndTechnology : public som::SomNode {
   SolutionArchitectureAndTechnology(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Technical framework and platform concept.
+  // Technical framework and platform concept — the CodeSpecs-relevant
+  // (CE-CF configuration-bearing) subtree.
   TechnicalFrameworkConcept technicalFramework() const;
+  // Architecture / component-reuse DOC follow-up subtree.
+  SolutionArchitectureFollowUp architectureFollowUp() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// SBP.11 Solution Architecture & Technology — DOC follow-up subtree.
+//
+// Groups the descriptive-architecture concern that is **not** CodeSpecs-
+// generated: the component-reuse rationale (component catalogue, third-party
+// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
+// generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
+// CodeSpecs subtree.
+class SolutionArchitectureFollowUp : public som::SomNode {
+ public:
+  SolutionArchitectureFollowUp(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
   // Components, libraries, and services to reuse.
   ComponentsAndDependencies componentsToUse() const;
   // This section type declares the standard `content` text leaf (§ item 10):
@@ -22235,32 +22583,20 @@ class TabItemEntry : public som::SomNode {
   TabItemEntryContentForm content() const;
 };
 
-// 6. Target Business Process Model.
-class TargetBusinessProcessModel : public som::SomNode {
- public:
-  TargetBusinessProcessModel(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // 6.1. Business Process Descriptions. Seeds → TOM.
-  BusinessProcessDescriptions businessProcessDescriptions() const;
-  // 6.2. Process Steps and Actor Interactions. Seeds → ISC.
-  ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
-};
-
 // SBP.7 Target Operating Model concept.
+//
+// Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
+// and a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)
+// so each whole branch is owned by a single downstream process.
 class TargetOperatingModel : public som::SomNode {
  public:
   TargetOperatingModel(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Target organizational structure and roles.
-  OrganizationalFramework organizationalFramework() const;
-  // Target business process model.
-  TargetBusinessProcessModel targetBusinessProcess() const;
+  // ORG/OPS follow-up subtree: target organization + process narrative.
+  OrganizationAndProcessConcept organizationAndProcess() const;
+  // CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
+  ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -38530,6 +38866,24 @@ class DevelopmentQualityGatesSecurityForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class DeviceSettingsContentForm : public som::SomNode {
+ public:
+  DeviceSettingsContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string settingKey() const;
+  void setSettingKey(const std::string& value);
+  std::string valueType() const;
+  void setValueType(const std::string& value);
+  std::string defaultValue() const;
+  void setDefaultValue(const std::string& value);
+  std::optional<bool> deviceOverridable() const;
+  void setDeviceOverridable(std::optional<bool> value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class DisasterRecoveryRequirementsContentForm : public som::SomNode {
  public:
   DisasterRecoveryRequirementsContentForm(som::SpecDocument& doc, std::string path);
@@ -40031,6 +40385,20 @@ class EntityConstraintEntryContentForm : public som::SomNode {
   void setIsDeferred(const std::string& value);
   std::string businessRule() const;
   void setBusinessRule(const std::string& value);
+};
+
+// Generated section facade for the `entityRef` @Form section: its own `content` text followed by one typed member per form field.
+class EntityFollowUpEntryEntityRefForm : public som::SomNode {
+ public:
+  EntityFollowUpEntryEntityRefForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string entityName() const;
+  void setEntityName(const std::string& value);
+  std::string entityAlias() const;
+  void setEntityAlias(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -72215,6 +72583,10 @@ class UserAttributeEntryContentForm : public som::SomNode {
   void setAttributeName(const std::string& value);
   std::string dataType() const;
   void setDataType(const std::string& value);
+  std::string placement() const;
+  void setPlacement(const std::string& value);
+  std::string accessGuard() const;
+  void setAccessGuard(const std::string& value);
   std::string source() const;
   void setSource(const std::string& value);
   std::string required() const;

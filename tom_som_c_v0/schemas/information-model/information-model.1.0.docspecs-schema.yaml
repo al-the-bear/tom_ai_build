@@ -198,14 +198,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per lifecycle transition.
-  migme-migr-lst:
-    prefix: MIGME_MIGR_LST
+  msgke-mkey-lst:
+    prefix: MSGKE_MKEY_LST
     subsection-types:
-      migme-migr:
+      msgke-mkey:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per migration mapping.
+    description: Add one entry per message key (author-once copy string).
+  msglv-locv-lst:
+    prefix: MSGLV_LOCV_LST
+    subsection-types:
+      msglv-locv:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per non-default locale.
   obinv-inva-lst:
     prefix: OBINV_INVA_LST
     subsection-types:
@@ -238,22 +246,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per field-level detail the error arm may report.
-  techn-tech-lst:
-    prefix: TECHN_TECH_LST
-    subsection-types:
-      techn-tech:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per technical characteristic.
-  volum-volu-lst:
-    prefix: VOLUM_VOLU_LST
-    subsection-types:
-      volum-volu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per volume metric.
   affn-affe-lst:
     prefix: AFFN_AFFE_LST
     subsection-types:
@@ -329,14 +321,6 @@ section-types:
       pattern: ^BIRURE-KEYB-.+$
       error-message: IDs of this section must match BIRURE-KEYB-xxx
     description: Add one entry per business rule reference.
-  cre-comp-lst:
-    prefix: CRE_COMP_LST
-    subsection-types:
-      cre-comp:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per compliance requirement.
   rulexm-exam:
     prefix: RULEXM_EXAM_
     pattern-check-id:
@@ -414,15 +398,9 @@ section-types:
         max-count: 1
       daent-clas:
         max-count: 1
-      volum-volu-lst:
-        max-count: 1
       daent-life:
         max-count: 1
-      cre-comp-lst:
-        max-count: 1
       daent-rela:
-        max-count: 1
-      techn-tech-lst:
         max-count: 1
       daatt-attr-lst:
         max-count: 1
@@ -431,8 +409,6 @@ section-types:
       enidx-inde-lst:
         max-count: 1
       encns-cons-lst:
-        max-count: 1
-      migme-migr-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^DAENT-ENTI-.+$
@@ -589,12 +565,21 @@ section-types:
       pattern: ^LFTRS-LIFE-.+$
       error-message: IDs of this section must match LFTRS-LIFE-xxx
     description: Add one entry per lifecycle transition.
-  migme-migr:
-    prefix: MIGME_MIGR_
+  msgke-mkey:
+    prefix: MSGKE_MKEY_
+    subsection-types:
+      msglv-locv-lst:
+        max-count: 1
     pattern-check-id:
-      pattern: ^MIGME-MIGR-.+$
-      error-message: IDs of this section must match MIGME-MIGR-xxx
-    description: Add one entry per migration mapping.
+      pattern: ^MSGKE-MKEY-.+$
+      error-message: IDs of this section must match MSGKE-MKEY-xxx
+    description: Add one entry per message key (author-once copy string).
+  msglv-locv:
+    prefix: MSGLV_LOCV_
+    pattern-check-id:
+      pattern: ^MSGLV-LOCV-.+$
+      error-message: IDs of this section must match MSGLV-LOCV-xxx
+    description: Add one entry per non-default locale.
   obinv-inva:
     prefix: OBINV_INVA_
     pattern-check-id:
@@ -619,18 +604,6 @@ section-types:
       pattern: ^RSFDE-FLDD-.+$
       error-message: IDs of this section must match RSFDE-FLDD-xxx
     description: Add one entry per field-level detail the error arm may report.
-  techn-tech:
-    prefix: TECHN_TECH_
-    pattern-check-id:
-      pattern: ^TECHN-TECH-.+$
-      error-message: IDs of this section must match TECHN-TECH-xxx
-    description: Add one entry per technical characteristic.
-  volum-volu:
-    prefix: VOLUM_VOLU_
-    pattern-check-id:
-      pattern: ^VOLUM-VOLU-.+$
-      error-message: IDs of this section must match VOLUM-VOLU-xxx
-    description: Add one entry per volume metric.
   affn-affe:
     prefix: AFFN_AFFE_
     subsection-types:
@@ -786,12 +759,6 @@ section-types:
   biru-rule:
     prefix: BIRU_RULE
     format: biru-rule-form
-  cre-comp:
-    prefix: CRE_COMP_
-    pattern-check-id:
-      pattern: ^CRE-COMP-.+$
-      error-message: IDs of this section must match CRE-COMP-xxx
-    description: Add one entry per compliance requirement.
   fuencl:
     prefix: FUENCL
     format: fuencl-form
@@ -857,6 +824,12 @@ section-types:
     prefix: KEARF
     format: kearf-form
     description: Foreign-key reference and cascade behavior.
+  msgkr:
+    prefix: MSGKR
+    subsection-types:
+      msgke-mkey-lst:
+        max-count: 1
+    description: Message key registry — the single author-copy-once home for user-facing
   rslte:
     prefix: RSLTE
     subsection-types:
@@ -1418,4 +1391,7 @@ document:
       optional: true
     rslte:
       section-type: rslte
+      optional: true
+    msgkr:
+      section-type: msgkr
       optional: true

@@ -174,7 +174,7 @@ public final class GoldenLog {
     // lines are byte-identical across languages regardless of native types. ---
     out.add("SECTION\ttyped-form");
     ActorOverviewOverviewForm actorOverview = sbp.targetOperatingModelConcept()
-        .targetBusinessProcess().processStepsAndActorInteractions()
+        .processStepsAndActorInteractions()
         .actorOverview().overview();
     typedForm(doc, out, actorOverview.path, "totalActorCount",
         somFormatInt(actorOverview.totalActorCount()));
@@ -186,7 +186,7 @@ public final class GoldenLog {
         somFormatInt(actorOverview.externalActorCount()));
 
     AccessibilityAccessibilityOverviewContentForm accessibilityOverview =
-        sbp.experienceAndInterfaceDesign().accessibility()
+        sbp.experienceAndInterfaceDesign().designFollowUp().accessibility()
             .accessibilityOverviewContent();
     typedForm(doc, out, accessibilityOverview.path, "accessibilityStatement",
         somFormatBool(accessibilityOverview.accessibilityStatement()));

@@ -478,10 +478,8 @@ int main(int argc, char **argv) {
   {
     TargetOperatingModel s_tomc =
         d00_solution_blueprint_target_operating_model_concept(&sbp);
-    TargetBusinessProcessModel s_tbp =
-        target_operating_model_target_business_process(&s_tomc);
     ProcessStepsAndActorInteractions s_psai =
-        target_business_process_model_process_steps_and_actor_interactions(&s_tbp);
+        target_operating_model_process_steps_and_actor_interactions(&s_tomc);
     ActorOverview s_ao = process_steps_and_actor_interactions_actor_overview(&s_psai);
     ActorOverviewOverviewForm ao_form = actor_overview_overview(&s_ao);
     const char *ao_path = som_node_path(&ao_form.node);
@@ -497,7 +495,9 @@ int main(int argc, char **argv) {
 
     ExperienceAndInterfaceDesign s_xdsf =
         d00_solution_blueprint_experience_and_interface_design(&sbp);
-    Accessibility s_acc = experience_and_interface_design_accessibility(&s_xdsf);
+    ExperienceDesignFollowUp s_xdfu =
+        experience_and_interface_design_design_follow_up(&s_xdsf);
+    Accessibility s_acc = experience_design_follow_up_accessibility(&s_xdfu);
     AccessibilityAccessibilityOverviewContentForm acc_form =
         accessibility_accessibility_overview_content(&s_acc);
     const char *acc_path = som_node_path(&acc_form.node);

@@ -290,6 +290,60 @@ public final class TomSomV0 {
     // (skipped: accessConstraintDetails has no target type)
   }
 
+  // SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+  //
+  // Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+  // authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+  // authentication, resource protection, authorization, and the role matrix.
+  // The container itself carries no `@CodeSpecKind` — the mapped parts live on
+  // the child sections (e.g. `authentication`) — but the whole subtree is the
+  // CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+  // subtrees.
+  public static final class AccessControlModel extends SomNode {
+    public AccessControlModel(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 9.1.1. User Management.
+    public UserManagement userManagement() {
+      return new UserManagement(doc, path + "/userManagement");
+    }
+
+    // 9.1.2. Identification and Authentication.
+    public IdentificationAndAuthentication authentication() {
+      return new IdentificationAndAuthentication(doc, path + "/authentication");
+    }
+
+    // 9.1.3. Resource Protection.
+    public ResourceProtection resourceProtection() {
+      return new ResourceProtection(doc, path + "/resourceProtection");
+    }
+
+    // 9.1.4. User Authorization.
+    public UserAuthorization authorization() {
+      return new UserAuthorization(doc, path + "/authorization");
+    }
+
+    // 9.1.5. Role Matrix.
+    public RoleMatrix roleMatrix() {
+      return new RoleMatrix(doc, path + "/roleMatrix");
+    }
+  }
+
   // Access Control Model Selection (form).
   //
   // Defines the primary access control paradigm — RBAC, ABAC, ReBAC, or a
@@ -2351,6 +2405,36 @@ public final class TomSomV0 {
     public SomList<AuthenticationMethodEntry> items() {
       return new SomList<>(doc, path + "/ATME-ITEM-LST", (d, p) -> new AuthenticationMethodEntry(d, p), "ATME-ITEM-xxx");
     }
+  }
+
+  // SBP.13 Experience & Interface Design — authorization-compliance CMP
+  // follow-up subtree.
+  //
+  // Groups the UI authorization-compliance concern (how the interface adapts to
+  // roles and permissions as a compliance obligation), a **follow-up** (CMP)
+  // rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+  // Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+  public static final class AuthorizationComplianceFollowUp extends SomNode {
+    public AuthorizationComplianceFollowUp(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 10.4.1. Authorization Compliance.
+    // (skipped: authorizationCompliance has no target type)
   }
 
   // Authorization event policy (form).
@@ -4740,6 +4824,11 @@ public final class TomSomV0 {
     // Per-machine configuration of a client application (CE-CC).
     public ClientConfiguration clientConfiguration() {
       return new ClientConfiguration(doc, path + "/clientConfiguration");
+    }
+
+    // User-specific settings of a user-owned device (CE-DS).
+    public DeviceSettings deviceSettings() {
+      return new DeviceSettings(doc, path + "/deviceSettings");
     }
   }
 
@@ -8995,6 +9084,122 @@ public final class TomSomV0 {
     }
   }
 
+  // CGP00 CodeSpecs Generation Projection.
+  //
+  // The residual `@CodeSpecKind`-tagged content after the Band-F follow-up
+  // splits: the shared registries, the server-side data / framework / access
+  // models, the process-step interactions, and the client-side experience seed.
+  public static final class D13CodeSpecsProjection extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "1.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D13CodeSpecsProjection(SpecDocument doc, String documentVersion) {
+      super(doc, "CGP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D13CodeSpecsProjection(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence. The
+    // root's generated metadata tree is threaded into the runtime (DR22),
+    // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
+    public static D13CodeSpecsProjection loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D13CodeSpecsProjectionMetaTree);
+      return new D13CodeSpecsProjection(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D13CodeSpecsProjection loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path, TomSomV0Meta.D13CodeSpecsProjectionMetaTree);
+      return new D13CodeSpecsProjection(doc, doc.modelVersion());
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    // Classifies whether a document authored under documentVersion is
+    // editable by this object model, without throwing (§ item 8) — the
+    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // viewer can branch instead of catching SomVersionError.
+    public static SomEditability editabilityFor(String documentVersion) {
+      return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Domain enum registry — CE-EN closed value sets, shared by client & server.
+    public DomainEnumRegistry domainEnumRegistry() {
+      return new DomainEnumRegistry(doc, path + "/domainEnumRegistry");
+    }
+
+    // Error code registry — CE-ER shared error-code vocabulary.
+    public ErrorCodeRegistry errorCodeRegistry() {
+      return new ErrorCodeRegistry(doc, path + "/errorCodeRegistry");
+    }
+
+    // Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+    public ResultEnvelope resultEnvelope() {
+      return new ResultEnvelope(doc, path + "/resultEnvelope");
+    }
+
+    // Message key registry — CE-TX author-copy-once keys, shared.
+    public MessageKeyRegistry messageKeyRegistry() {
+      return new MessageKeyRegistry(doc, path + "/messageKeyRegistry");
+    }
+
+    // Data model — CE-DB persistence + CE-VA server-side rules.
+    public DataModel dataModel() {
+      return new DataModel(doc, path + "/dataModel");
+    }
+
+    // Technical framework — CE-CF platform/config foundation.
+    public TechnicalFrameworkConcept technicalFramework() {
+      return new TechnicalFrameworkConcept(doc, path + "/technicalFramework");
+    }
+
+    // Access control model — CE-AZ authorization/identity seed.
+    public AccessControlModel accessControl() {
+      return new AccessControlModel(doc, path + "/accessControl");
+    }
+
+    // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
+    // interaction; a single subtree whose parts split across both loci.
+    public ProcessStepsAndActorInteractions processStepsAndActorInteractions() {
+      return new ProcessStepsAndActorInteractions(doc, path + "/processStepsAndActorInteractions");
+    }
+
+    // Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
+    public ExperienceCodeSpecs experienceCodeSpecs() {
+      return new ExperienceCodeSpecs(doc, path + "/experienceCodeSpecs");
+    }
+  }
+
   // A dashboard entry.
   public static final class DashboardEntry extends SomNode {
     public DashboardEntry(SpecDocument doc, String path) {
@@ -9373,24 +9578,12 @@ public final class TomSomV0 {
       return new DataEntityEntryClassificationForm(doc, path + "/DAENT-CLAS");
     }
 
-    public SomList<VolumeMetricEntry> volumeMetrics() {
-      return new SomList<>(doc, path + "/VOLUM-VOLU-LST", (d, p) -> new VolumeMetricEntry(d, p), "VOLUM-VOLU-xxx");
-    }
-
     public DataEntityEntryLifecyclePolicyForm lifecyclePolicy() {
       return new DataEntityEntryLifecyclePolicyForm(doc, path + "/DAENT-LIFE");
     }
 
-    public SomList<ComplianceRequirementEntry> complianceRequirements() {
-      return new SomList<>(doc, path + "/CRE-COMP-LST", (d, p) -> new ComplianceRequirementEntry(d, p), "CRE-COMP-xxx");
-    }
-
     public DataEntityEntryRelationshipSummaryForm relationshipSummary() {
       return new DataEntityEntryRelationshipSummaryForm(doc, path + "/DAENT-RELA");
-    }
-
-    public SomList<TechnicalCharacteristicEntry> technicalCharacteristics() {
-      return new SomList<>(doc, path + "/TECHN-TECH-LST", (d, p) -> new TechnicalCharacteristicEntry(d, p), "TECHN-TECH-xxx");
     }
 
     // Contains 0+× DataAttribute.
@@ -9411,11 +9604,6 @@ public final class TomSomV0 {
     // Contains 0+× EntityConstraint.
     public SomList<EntityConstraintEntry> constraints() {
       return new SomList<>(doc, path + "/ENCNS-CONS-LST", (d, p) -> new EntityConstraintEntry(d, p), "ENCNS-CONS-xxx");
-    }
-
-    // Contains 0+× MigrationMapping for data migration planning.
-    public SomList<MigrationMappingEntry> migrationMappings() {
-      return new SomList<>(doc, path + "/MIGME-MIGR-LST", (d, p) -> new MigrationMappingEntry(d, p), "MIGME-MIGR-xxx");
     }
   }
 
@@ -9863,20 +10051,17 @@ public final class TomSomV0 {
       return new EntityRelationships(doc, path + "/entityRelationships");
     }
 
-    // 7.1.3. Entity-Relationship Diagram (mermaid).
-    // (skipped: erDiagram has no target type)
-
-    // 7.1.4. Data Classification.
+    // 7.1.3. Data Classification.
     public DataClassification dataClassification() {
       return new DataClassification(doc, path + "/dataClassification");
     }
 
-    // 7.1.5. Data Dictionary..
+    // 7.1.4. Data Dictionary..
     public DataDictionary dataDictionary() {
       return new DataDictionary(doc, path + "/dataDictionary");
     }
 
-    // 7.1.6. Validation Constraints.
+    // 7.1.5. Validation Constraints.
     //
     // One whole-catalog content section (mirrors `dataDictionary`); collapsed
     // from `List<ValidationConstraints>` (L34C-12 SR-25).
@@ -9884,12 +10069,48 @@ public final class TomSomV0 {
       return new ValidationConstraints(doc, path + "/validationConstraints");
     }
 
-    // 7.1.7. Integrity Constraints.
+    // 7.1.6. Integrity Constraints.
     //
     // One whole-catalog content section (mirrors `dataDictionary`); collapsed
     // from `List<IntegrityConstraints>` (L34C-12 SR-25).
     public IntegrityConstraints integrityConstraints() {
       return new IntegrityConstraints(doc, path + "/integrityConstraints");
+    }
+  }
+
+  // 7.9. Data Model Follow-up Facets.
+  //
+  // Operational and governance facets that accompany the data model but are not
+  // part of the generation-owned entity/attribute schema: the model-wide ER
+  // diagram plus per-entity volume, compliance, technical, and migration
+  // facets. Each per-entity block references its source entity by name/alias so
+  // the facets stay correlated with `dataModel.entities` without being nested
+  // inside the generation-owned `DataEntityEntry`.
+  public static final class DataModelFollowUp extends SomNode {
+    public DataModelFollowUp(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 7.9.1. Entity-Relationship Diagram (mermaid).
+    // (skipped: erDiagram has no target type)
+
+    // 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+    public SomList<EntityFollowUpEntry> entityFollowUps() {
+      return new SomList<>(doc, path + "/DMFUE-ENFU-LST", (d, p) -> new EntityFollowUpEntry(d, p), "DMFUE-ENFU-xxx");
     }
   }
 
@@ -11976,6 +12197,25 @@ public final class TomSomV0 {
     }
   }
 
+  // Device settings — user-specific settings of a user-owned device (CE-DS).
+  //
+  // Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+  // identity in the key) and from user settings (CE-UP — server-persisted,
+  // follow the user): a device setting is keyed by the (user, device) pair and
+  // persisted on the device itself (window layout, last-opened items,
+  // machine-local cache preferences). The same user gets independent values on
+  // each device; another user on the same device gets their own values
+  // (`codespecs_mapping.md` §11).
+  public static final class DeviceSettings extends SomNode {
+    public DeviceSettings(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public DeviceSettingsContentForm content() {
+      return new DeviceSettingsContentForm(doc, path + "/content");
+    }
+  }
+
   // Disaster recovery requirements.
   public static final class DisasterRecoveryRequirements extends SomNode {
     public DisasterRecoveryRequirements(SpecDocument doc, String path) {
@@ -13238,6 +13478,36 @@ public final class TomSomV0 {
     }
   }
 
+  // A per-entity follow-up facet block (form + lists).
+  //
+  // Groups the volume, compliance, technical, and migration facets for a single
+  // data entity, correlated back to `dataModel.entities` by name/alias.
+  public static final class EntityFollowUpEntry extends SomNode {
+    public EntityFollowUpEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public EntityFollowUpEntryEntityRefForm entityRef() {
+      return new EntityFollowUpEntryEntityRefForm(doc, path + "/DMFUE-ENTI");
+    }
+
+    public SomList<VolumeMetricEntry> volumeMetrics() {
+      return new SomList<>(doc, path + "/VOLUM-VOLU-LST", (d, p) -> new VolumeMetricEntry(d, p), "VOLUM-VOLU-xxx");
+    }
+
+    public SomList<ComplianceRequirementEntry> complianceRequirements() {
+      return new SomList<>(doc, path + "/CRE-COMP-LST", (d, p) -> new ComplianceRequirementEntry(d, p), "CRE-COMP-xxx");
+    }
+
+    public SomList<TechnicalCharacteristicEntry> technicalCharacteristics() {
+      return new SomList<>(doc, path + "/TECHN-TECH-LST", (d, p) -> new TechnicalCharacteristicEntry(d, p), "TECHN-TECH-xxx");
+    }
+
+    public SomList<MigrationMappingEntry> migrationMappings() {
+      return new SomList<>(doc, path + "/MIGME-MIGR-LST", (d, p) -> new MigrationMappingEntry(d, p), "MIGME-MIGR-xxx");
+    }
+  }
+
   // An entity index entry (form).
   //
   // Database index specification for query optimization.
@@ -14003,73 +14273,173 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 10.1. Design Vision. Seeds → XDS.
-    public DesignVision designVision() {
-      return new DesignVision(doc, path + "/designVision");
+    // 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+    public ExperienceCodeSpecs experienceCodeSpecs() {
+      return new ExperienceCodeSpecs(doc, path + "/experienceCodeSpecs");
     }
 
-    // 10.2. Screen Descriptions. Seeds → XDS.
+    // 10.2. Experience Design — DOC follow-up subtree.
+    public ExperienceDesignFollowUp designFollowUp() {
+      return new ExperienceDesignFollowUp(doc, path + "/designFollowUp");
+    }
+
+    // 10.3. Experience Localization — L10N follow-up subtree.
+    public ExperienceLocalizationFollowUp localizationFollowUp() {
+      return new ExperienceLocalizationFollowUp(doc, path + "/localizationFollowUp");
+    }
+
+    // 10.4. Authorization Compliance — CMP follow-up subtree.
+    public AuthorizationComplianceFollowUp authorizationComplianceFollowUp() {
+      return new AuthorizationComplianceFollowUp(doc, path + "/authorizationComplianceFollowUp");
+    }
+  }
+
+  // SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+  //
+  // Groups the UI concerns CodeSpecs generates (§4.6 of
+  // `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+  // CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+  // cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+  // reusable UI component library (CE-EL/CE-LO). The container itself carries no
+  // `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+  // subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+  // follow-up subtrees.
+  public static final class ExperienceCodeSpecs extends SomNode {
+    public ExperienceCodeSpecs(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 10.1.1. Screen Descriptions. Seeds → XDS.
     public ScreenDescriptions screens() {
       return new ScreenDescriptions(doc, path + "/screens");
     }
 
-    // 10.3. Screen Flow Structure. Seeds → XDS.
+    // 10.1.2. Screen Flow Structure. Seeds → XDS.
     public ScreenFlowStructure screenFlow() {
       return new ScreenFlowStructure(doc, path + "/screenFlow");
     }
 
-    // 10.4. Print Layout. Seeds → XDS.
-    public PrintAndExportLayout printLayout() {
-      return new PrintAndExportLayout(doc, path + "/printLayout");
-    }
-
-    // Data Structure Alignment.
+    // 10.1.3. Data Structure Alignment.
     // (skipped: dataStructureAlignment has no target type)
 
-    // Authorization Compliance.
-    // (skipped: authorizationCompliance has no target type)
-
-    // 10.7. Error Handling. Seeds → XDS.
+    // 10.1.4. Error Handling. Seeds → XDS.
     public ErrorHandling errorHandling() {
       return new ErrorHandling(doc, path + "/errorHandling");
     }
 
-    // 10.8. User Assistance. Seeds → XDS.
-    public UserAssistance userAssistance() {
-      return new UserAssistance(doc, path + "/userAssistance");
-    }
-
-    // 10.9. Accessibility. Seeds → XDS.
-    public Accessibility accessibility() {
-      return new Accessibility(doc, path + "/accessibility");
-    }
-
-    // 10.10. Responsive Design. Seeds → XDS.
+    // 10.1.5. Responsive Design. Seeds → XDS.
     public ResponsiveDesign responsiveDesign() {
       return new ResponsiveDesign(doc, path + "/responsiveDesign");
     }
 
-    // 10.11. UI Components. Seeds → XDS.
+    // 10.1.6. UI Components. Seeds → XDS.
     public UiComponents uiComponents() {
       return new UiComponents(doc, path + "/uiComponents");
     }
+  }
 
-    // 10.12. Multi-language Support.
-    public MultiLanguageSupport multiLanguageSupport() {
-      return new MultiLanguageSupport(doc, path + "/multiLanguageSupport");
+  // SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+  //
+  // Groups the design / documentation concerns that are **follow-up** (design
+  // vision, print & export layout, user assistance, accessibility, prototype,
+  // wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+  // `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+  // is generation-owned-out. Accessibility's operational (OPS) facet is a
+  // secondary concern refined by the follow-up taxonomy pass.
+  public static final class ExperienceDesignFollowUp extends SomNode {
+    public ExperienceDesignFollowUp(SpecDocument doc, String path) {
+      super(doc, path);
     }
 
-    // 10.13. Prototype. Seeds → XDS.
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 10.2.1. Design Vision. Seeds → XDS.
+    public DesignVision designVision() {
+      return new DesignVision(doc, path + "/designVision");
+    }
+
+    // 10.2.2. Print Layout. Seeds → XDS.
+    public PrintAndExportLayout printLayout() {
+      return new PrintAndExportLayout(doc, path + "/printLayout");
+    }
+
+    // 10.2.3. User Assistance. Seeds → XDS.
+    public UserAssistance userAssistance() {
+      return new UserAssistance(doc, path + "/userAssistance");
+    }
+
+    // 10.2.4. Accessibility. Seeds → XDS.
+    public Accessibility accessibility() {
+      return new Accessibility(doc, path + "/accessibility");
+    }
+
+    // 10.2.5. Prototype. Seeds → XDS.
     public Prototype prototype() {
       return new Prototype(doc, path + "/prototype");
     }
 
-    // 10.14. Wireframes and Mockups.
+    // 10.2.6. Wireframes and Mockups.
     //
     // One whole-catalog content section; collapsed from
     // `List<WireframesAndMockups>` (L34C-12 SR-52).
     public WireframesAndMockups wireframesAndMockups() {
       return new WireframesAndMockups(doc, path + "/wireframesAndMockups");
+    }
+  }
+
+  // SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+  //
+  // Groups the internationalization concern, a **follow-up** (L10N) rather than
+  // CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+  // `@CodeSpecKind` — the whole subtree is generation-owned-out.
+  public static final class ExperienceLocalizationFollowUp extends SomNode {
+    public ExperienceLocalizationFollowUp(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 10.3.1. Multi-language Support.
+    public MultiLanguageSupport multiLanguageSupport() {
+      return new MultiLanguageSupport(doc, path + "/multiLanguageSupport");
     }
   }
 
@@ -16564,6 +16934,17 @@ public final class TomSomV0 {
     // 7.8. Message Key Registry.
     public MessageKeyRegistry messageKeyRegistry() {
       return new MessageKeyRegistry(doc, path + "/messageKeyRegistry");
+    }
+
+    // 7.9. Data Model Follow-up Facets.
+    //
+    // Per-entity operational/governance facets (volume, compliance, technical
+    // characteristics, migration mappings) and the model-wide ER diagram —
+    // separated from `dataModel` so the entity/attribute subtree stays purely
+    // CE-DB / CE-VA generation-owned while these follow-up facets are authored
+    // alongside, keyed back to their source entity.
+    public DataModelFollowUp dataModelFollowUp() {
+      return new DataModelFollowUp(doc, path + "/dataModelFollowUp");
     }
   }
 
@@ -21701,6 +22082,44 @@ public final class TomSomV0 {
     }
   }
 
+  // SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.
+  //
+  // Groups the two purely-follow-up facets of the Target Operating Model into a
+  // single branch that is routed to organizational-change (ORG) and
+  // operational-routine (OPS) follow-up processes rather than to code
+  // generation: the target organizational structure/roles
+  // ([OrganizationalFramework]) and the business-process narrative
+  // ([BusinessProcessDescriptions], which seeds the TOM document).
+  public static final class OrganizationAndProcessConcept extends SomNode {
+    public OrganizationAndProcessConcept(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Target organizational structure and roles.
+    public OrganizationalFramework organizationalFramework() {
+      return new OrganizationalFramework(doc, path + "/organizationalFramework");
+    }
+
+    // Business-process descriptions and narrative. Seeds → TOM.
+    public BusinessProcessDescriptions businessProcessDescriptions() {
+      return new BusinessProcessDescriptions(doc, path + "/businessProcessDescriptions");
+    }
+  }
+
   // 3.1.1. Organization Structure.
   public static final class OrganizationStructure extends SomNode {
     public OrganizationStructure(SpecDocument doc, String path) {
@@ -26432,10 +26851,53 @@ public final class TomSomV0 {
   // SBP.9 Requirements.
   //
   // Functional requirements seed the Requirements Specification (RSP); this
-  // section currently carries the framework-uncovered NFR sub-areas re-homed in
-  // IP-6. Functional-requirement modelling is expanded in a later IP step.
+  // section is the CodeSpecs **seed** subtree — its functional requirements plus
+  // the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+  // requirements*, not generated. Functional-requirement modelling is expanded
+  // in a later IP step.
+  //
+  // The framework-uncovered NFR follow-up sub-areas (localization,
+  // information-for-use, training) are grouped out of the seed subtree into
+  // [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+  // stays purely CodeSpecs-relevant.
   public static final class Requirements extends SomNode {
     public Requirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+    public RequirementsFollowUp requirementsFollowUp() {
+      return new RequirementsFollowUp(doc, path + "/requirementsFollowUp");
+    }
+  }
+
+  // SBP.9 Requirements — follow-up NFR sub-areas.
+  //
+  // Groups the framework-uncovered non-functional requirement sub-areas that are
+  // **follow-up** concerns (documentation, training, localization) rather than
+  // CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+  // is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+  // parent [Requirements] seed subtree purely CodeSpecs-relevant:
+  //
+  //  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+  //  * Information for Use         → [InformationForUseRequirements] (DOC)
+  //  * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
+  public static final class RequirementsFollowUp extends SomNode {
+    public RequirementsFollowUp(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -28820,44 +29282,19 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 9.1. User Management.
-    public UserManagement userManagement() {
-      return new UserManagement(doc, path + "/userManagement");
+    // 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
+    public AccessControlModel accessControl() {
+      return new AccessControlModel(doc, path + "/accessControl");
     }
 
-    // 9.2. Identification and Authentication.
-    public IdentificationAndAuthentication authentication() {
-      return new IdentificationAndAuthentication(doc, path + "/authentication");
+    // 9.2. Security Operations — OPS follow-up subtree.
+    public SecurityOperationsFollowUp securityOperations() {
+      return new SecurityOperationsFollowUp(doc, path + "/securityOperations");
     }
 
-    // 9.3. Resource Protection.
-    public ResourceProtection resourceProtection() {
-      return new ResourceProtection(doc, path + "/resourceProtection");
-    }
-
-    // 9.4. User Authorization.
-    public UserAuthorization authorization() {
-      return new UserAuthorization(doc, path + "/authorization");
-    }
-
-    // 9.5. Sensitive Data Encryption.
-    public SensitiveDataEncryption encryption() {
-      return new SensitiveDataEncryption(doc, path + "/encryption");
-    }
-
-    // 9.6. Audit and Logging.
-    public AuditAndLogging auditAndLogging() {
-      return new AuditAndLogging(doc, path + "/auditAndLogging");
-    }
-
-    // 9.7. Role Matrix..
-    public RoleMatrix roleMatrix() {
-      return new RoleMatrix(doc, path + "/roleMatrix");
-    }
-
-    // 9.8. Compliance Framework.
-    public ComplianceFramework complianceFramework() {
-      return new ComplianceFramework(doc, path + "/complianceFramework");
+    // 9.3. Compliance — CMP follow-up subtree.
+    public SecurityComplianceFollowUp compliance() {
+      return new SecurityComplianceFollowUp(doc, path + "/compliance");
     }
   }
 
@@ -29039,6 +29476,37 @@ public final class TomSomV0 {
     }
   }
 
+  // SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+  //
+  // Groups the compliance-framework concern, a **follow-up** (compliance
+  // governance) rather than CodeSpecs-generated behaviour (§4.5 of
+  // `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+  // subtree is generation-owned-out.
+  public static final class SecurityComplianceFollowUp extends SomNode {
+    public SecurityComplianceFollowUp(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 9.3.1. Compliance Framework.
+    public ComplianceFramework complianceFramework() {
+      return new ComplianceFramework(doc, path + "/complianceFramework");
+    }
+  }
+
   // A security control entry (form).
   public static final class SecurityControlEntry extends SomNode {
     public SecurityControlEntry(SpecDocument doc, String path) {
@@ -29197,6 +29665,42 @@ public final class TomSomV0 {
     // Custom Security Events — contains 0+× Security Event Entry.
     public SomList<SecurityEventEntry> customEvents() {
       return new SomList<>(doc, path + "/SEVT-CUST-LST", (d, p) -> new SecurityEventEntry(d, p), "SEVT-CUST-xxx");
+    }
+  }
+
+  // SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+  //
+  // Groups the operational security concerns that are **follow-up** (key
+  // management and audit/logging operations), not CodeSpecs-generated behaviour
+  // (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+  // whole subtree is generation-owned-out.
+  public static final class SecurityOperationsFollowUp extends SomNode {
+    public SecurityOperationsFollowUp(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 9.2.1. Sensitive Data Encryption.
+    public SensitiveDataEncryption encryption() {
+      return new SensitiveDataEncryption(doc, path + "/encryption");
+    }
+
+    // 9.2.2. Audit and Logging.
+    public AuditAndLogging auditAndLogging() {
+      return new AuditAndLogging(doc, path + "/auditAndLogging");
     }
   }
 
@@ -30476,9 +30980,43 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Technical framework and platform concept.
+    // Technical framework and platform concept — the CodeSpecs-relevant
+    // (CE-CF configuration-bearing) subtree.
     public TechnicalFrameworkConcept technicalFramework() {
       return new TechnicalFrameworkConcept(doc, path + "/technicalFramework");
+    }
+
+    // Architecture / component-reuse DOC follow-up subtree.
+    public SolutionArchitectureFollowUp architectureFollowUp() {
+      return new SolutionArchitectureFollowUp(doc, path + "/architectureFollowUp");
+    }
+  }
+
+  // SBP.11 Solution Architecture & Technology — DOC follow-up subtree.
+  //
+  // Groups the descriptive-architecture concern that is **not** CodeSpecs-
+  // generated: the component-reuse rationale (component catalogue, third-party
+  // and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
+  // generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+  // sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
+  // CodeSpecs subtree.
+  public static final class SolutionArchitectureFollowUp extends SomNode {
+    public SolutionArchitectureFollowUp(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Components, libraries, and services to reuse.
@@ -33319,38 +33857,11 @@ public final class TomSomV0 {
     }
   }
 
-  // 6. Target Business Process Model.
-  public static final class TargetBusinessProcessModel extends SomNode {
-    public TargetBusinessProcessModel(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // 6.1. Business Process Descriptions. Seeds → TOM.
-    public BusinessProcessDescriptions businessProcessDescriptions() {
-      return new BusinessProcessDescriptions(doc, path + "/businessProcessDescriptions");
-    }
-
-    // 6.2. Process Steps and Actor Interactions. Seeds → ISC.
-    public ProcessStepsAndActorInteractions processStepsAndActorInteractions() {
-      return new ProcessStepsAndActorInteractions(doc, path + "/processStepsAndActorInteractions");
-    }
-  }
-
   // SBP.7 Target Operating Model concept.
+  //
+  // Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
+  // and a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)
+  // so each whole branch is owned by a single downstream process.
   public static final class TargetOperatingModel extends SomNode {
     public TargetOperatingModel(SpecDocument doc, String path) {
       super(doc, path);
@@ -33370,14 +33881,14 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Target organizational structure and roles.
-    public OrganizationalFramework organizationalFramework() {
-      return new OrganizationalFramework(doc, path + "/organizationalFramework");
+    // ORG/OPS follow-up subtree: target organization + process narrative.
+    public OrganizationAndProcessConcept organizationAndProcess() {
+      return new OrganizationAndProcessConcept(doc, path + "/organizationAndProcess");
     }
 
-    // Target business process model.
-    public TargetBusinessProcessModel targetBusinessProcess() {
-      return new TargetBusinessProcessModel(doc, path + "/targetBusinessProcess");
+    // CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
+    public ProcessStepsAndActorInteractions processStepsAndActorInteractions() {
+      return new ProcessStepsAndActorInteractions(doc, path + "/processStepsAndActorInteractions");
     }
   }
 
@@ -82429,6 +82940,65 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class DeviceSettingsContentForm extends SomNode {
+    public DeviceSettingsContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String settingKey() {
+      String v = doc.formField(path, "settingKey");
+      return v == null ? "" : v;
+    }
+
+    public void settingKey(String value) {
+      doc.setFormField(path, "settingKey", value);
+    }
+
+    public String valueType() {
+      String v = doc.formField(path, "valueType");
+      return v == null ? "" : v;
+    }
+
+    public void valueType(String value) {
+      doc.setFormField(path, "valueType", value);
+    }
+
+    public String defaultValue() {
+      String v = doc.formField(path, "defaultValue");
+      return v == null ? "" : v;
+    }
+
+    public void defaultValue(String value) {
+      doc.setFormField(path, "defaultValue", value);
+    }
+
+    public Boolean deviceOverridable() {
+      String v = doc.formField(path, "deviceOverridable");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void deviceOverridable(Boolean value) {
+      doc.setFormField(path, "deviceOverridable", value == null ? "" : (value ? "true" : "false"));
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class DisasterRecoveryRequirementsContentForm extends SomNode {
     public DisasterRecoveryRequirementsContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -87314,6 +87884,46 @@ public final class TomSomV0 {
 
     public void businessRule(String value) {
       doc.setFormField(path, "businessRule", value);
+    }
+  }
+
+  // Generated section facade for the `entityRef` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class EntityFollowUpEntryEntityRefForm extends SomNode {
+    public EntityFollowUpEntryEntityRefForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String entityName() {
+      String v = doc.formField(path, "entityName");
+      return v == null ? "" : v;
+    }
+
+    public void entityName(String value) {
+      doc.setFormField(path, "entityName", value);
+    }
+
+    public String entityAlias() {
+      String v = doc.formField(path, "entityAlias");
+      return v == null ? "" : v;
+    }
+
+    public void entityAlias(String value) {
+      doc.setFormField(path, "entityAlias", value);
     }
   }
 
@@ -192891,6 +193501,24 @@ public final class TomSomV0 {
 
     public void dataType(String value) {
       doc.setFormField(path, "dataType", value);
+    }
+
+    public String placement() {
+      String v = doc.formField(path, "placement");
+      return v == null ? "" : v;
+    }
+
+    public void placement(String value) {
+      doc.setFormField(path, "placement", value);
+    }
+
+    public String accessGuard() {
+      String v = doc.formField(path, "accessGuard");
+      return v == null ? "" : v;
+    }
+
+    public void accessGuard(String value) {
+      doc.setFormField(path, "accessGuard", value);
     }
 
     public String source() {

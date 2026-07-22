@@ -237,7 +237,6 @@ int main(int argc, char** argv) {
     };
 
     auto actorOverview = sbp.targetOperatingModelConcept()
-                             .targetBusinessProcess()
                              .processStepsAndActorInteractions()
                              .actorOverview()
                              .overview();
@@ -252,6 +251,7 @@ int main(int argc, char** argv) {
               somFormatInt(actorOverview.externalActorCount()));
 
     auto accForm = sbp.experienceAndInterfaceDesign()
+                       .designFollowUp()
                        .accessibility()
                        .accessibilityOverviewContent();
     typedForm(accForm.path(), "accessibilityStatement",

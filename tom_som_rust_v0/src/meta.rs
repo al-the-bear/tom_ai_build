@@ -159,6 +159,32 @@ fn meta_children_access_constraint_policies(_s: &mut HashSet<String>) -> Vec<Rc<
     ]
 }
 
+fn meta_children_access_control_model(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "AccessControlModel".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the access-control model: identities, authentication, resource protection, authorization, and roles.".to_string() }), ..som::SomMetaNode::default() }),
+        meta_cx("UserManagement", s, meta_children_user_management, |r, c| som::SomMetaNode {
+            class_name: "UserManagement".to_string(), member_name: "userManagement".to_string(), class_section_id: "USMGT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserManagement".to_string(), serialization_order: Some(1), doc_comment: "9.1.1. User Management.".to_string(), class_doc_comment: "9.1. User Management.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("IdentificationAndAuthentication", s, meta_children_identification_and_authentication, |r, c| som::SomMetaNode {
+            class_name: "IdentificationAndAuthentication".to_string(), member_name: "authentication".to_string(), class_section_id: "IDAUT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IdentificationAndAuthentication".to_string(), serialization_order: Some(2), doc_comment: "9.1.2. Identification and Authentication.".to_string(), class_doc_comment: "9.2. Identification and Authentication.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ResourceProtection", s, meta_children_resource_protection, |r, c| som::SomMetaNode {
+            class_name: "ResourceProtection".to_string(), member_name: "resourceProtection".to_string(), class_section_id: "RESPRO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResourceProtection".to_string(), serialization_order: Some(3), doc_comment: "9.1.3. Resource Protection.".to_string(), class_doc_comment: "9.3. Resource Protection.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("UserAuthorization", s, meta_children_user_authorization, |r, c| som::SomMetaNode {
+            class_name: "UserAuthorization".to_string(), member_name: "authorization".to_string(), class_section_id: "USAU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAuthorization".to_string(), serialization_order: Some(4), doc_comment: "9.1.4. User Authorization.".to_string(), class_doc_comment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("RoleMatrix", s, meta_children_role_matrix, |r, c| som::SomMetaNode {
+            class_name: "RoleMatrix".to_string(), member_name: "roleMatrix".to_string(), class_section_id: "ROMA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RoleMatrix".to_string(), serialization_order: Some(5), doc_comment: "9.1.5. Role Matrix.".to_string(), class_doc_comment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+    ]
+}
+
 fn meta_children_access_control_model_selection(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "AccessControlModelSelection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
@@ -1052,6 +1078,13 @@ fn meta_children_authentication_methods(s: &mut HashSet<String>) -> Vec<Rc<som::
             }));
             Rc::new(n)
         },
+    ]
+}
+
+fn meta_children_authorization_compliance_follow_up(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "AuthorizationComplianceFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the authorization-compliance follow-up: UI adaptation to roles and permissions.".to_string() }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "AuthorizationComplianceFollowUp".to_string(), member_name: "authorizationCompliance".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "10.4.1. Authorization Compliance.".to_string(), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -2281,6 +2314,10 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             class_name: "ClientConfiguration".to_string(), member_name: "clientConfiguration".to_string(), class_section_id: "CLICON".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientConfiguration".to_string(), serialization_order: Some(12), doc_comment: "Per-machine configuration of a client application (CE-CC).".to_string(), class_doc_comment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("DeviceSettings", s, meta_children_device_settings, |r, c| som::SomMetaNode {
+            class_name: "DeviceSettings".to_string(), member_name: "deviceSettings".to_string(), class_section_id: "DEVSET".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeviceSettings".to_string(), serialization_order: Some(13), doc_comment: "User-specific settings of a user-owned device (CE-DS).".to_string(), class_doc_comment: "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
     ]
 }
 
@@ -3461,7 +3498,7 @@ fn meta_children_d00_solution_blueprint(s: &mut HashSet<String>) -> Vec<Rc<som::
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TargetOperatingModel", s, meta_children_target_operating_model, |r, c| som::SomMetaNode {
-            class_name: "TargetOperatingModel".to_string(), member_name: "targetOperatingModelConcept".to_string(), class_section_id: "TOMC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TargetOperatingModel".to_string(), serialization_order: Some(7), doc_comment: "SBP.7 Target Operating Model concept. Seeds → TOM.".to_string(), class_doc_comment: "SBP.7 Target Operating Model concept.".to_string(),
+            class_name: "TargetOperatingModel".to_string(), member_name: "targetOperatingModelConcept".to_string(), class_section_id: "TOMC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TargetOperatingModel".to_string(), serialization_order: Some(7), doc_comment: "SBP.7 Target Operating Model concept. Seeds → TOM.".to_string(), class_doc_comment: "SBP.7 Target Operating Model concept.\n\nSplit into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)\nand a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)\nso each whole branch is owned by a single downstream process.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("InformationAndDataModel", s, meta_children_information_and_data_model, |r, c| som::SomMetaNode {
@@ -3469,7 +3506,7 @@ fn meta_children_d00_solution_blueprint(s: &mut HashSet<String>) -> Vec<Rc<som::
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("Requirements", s, meta_children_requirements, |r, c| som::SomMetaNode {
-            class_name: "Requirements".to_string(), member_name: "requirements".to_string(), class_section_id: "REQS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Requirements".to_string(), serialization_order: Some(9), doc_comment: "SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.".to_string(), class_doc_comment: "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection currently carries the framework-uncovered NFR sub-areas re-homed in\nIP-6. Functional-requirement modelling is expanded in a later IP step.".to_string(),
+            class_name: "Requirements".to_string(), member_name: "requirements".to_string(), class_section_id: "REQS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Requirements".to_string(), serialization_order: Some(9), doc_comment: "SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.".to_string(), class_doc_comment: "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed\nstays purely CodeSpecs-relevant.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SolutionArchitectureAndTechnology", s, meta_children_solution_architecture_and_technology, |r, c| som::SomMetaNode {
@@ -4182,6 +4219,52 @@ fn meta_children_d12_transition_rollout_plan(s: &mut HashSet<String>) -> Vec<Rc<
     ]
 }
 
+fn meta_children_d13_code_specs_projection(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "D13CodeSpecsProjection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split.".to_string(), ..som::SomMetaNode::default() }),
+        meta_cx("DocumentHeader", s, meta_children_document_header, |r, c| som::SomMetaNode {
+            class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("DomainEnumRegistry", s, meta_children_domain_enum_registry, |r, c| som::SomMetaNode {
+            class_name: "DomainEnumRegistry".to_string(), member_name: "domainEnumRegistry".to_string(), class_section_id: "DOMEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumRegistry".to_string(), serialization_order: Some(2), comment: "locus: shared — CE-EN".to_string(), doc_comment: "Domain enum registry — CE-EN closed value sets, shared by client & server.".to_string(), class_doc_comment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ErrorCodeRegistry", s, meta_children_error_code_registry, |r, c| som::SomMetaNode {
+            class_name: "ErrorCodeRegistry".to_string(), member_name: "errorCodeRegistry".to_string(), class_section_id: "ERCRG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorCodeRegistry".to_string(), serialization_order: Some(3), comment: "locus: shared — CE-ER".to_string(), doc_comment: "Error code registry — CE-ER shared error-code vocabulary.".to_string(), class_doc_comment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ResultEnvelope", s, meta_children_result_envelope, |r, c| som::SomMetaNode {
+            class_name: "ResultEnvelope".to_string(), member_name: "resultEnvelope".to_string(), class_section_id: "RSLTE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResultEnvelope".to_string(), serialization_order: Some(4), comment: "locus: shared — CE-ER".to_string(), doc_comment: "Result envelope — CE-ER canonical §7 success-or-error contract, shared.".to_string(), class_doc_comment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("MessageKeyRegistry", s, meta_children_message_key_registry, |r, c| som::SomMetaNode {
+            class_name: "MessageKeyRegistry".to_string(), member_name: "messageKeyRegistry".to_string(), class_section_id: "MSGKR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MessageKeyRegistry".to_string(), serialization_order: Some(5), comment: "locus: shared — CE-TX".to_string(), doc_comment: "Message key registry — CE-TX author-copy-once keys, shared.".to_string(), class_doc_comment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("DataModel", s, meta_children_data_model, |r, c| som::SomMetaNode {
+            class_name: "DataModel".to_string(), member_name: "dataModel".to_string(), class_section_id: "DATMD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataModel".to_string(), serialization_order: Some(6), comment: "locus: server — CE-DB/CE-VA".to_string(), doc_comment: "Data model — CE-DB persistence + CE-VA server-side rules.".to_string(), class_doc_comment: "7.1. Data Model.".to_string(), maps_to: "D03InformationModel".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("TechnicalFrameworkConcept", s, meta_children_technical_framework_concept, |r, c| som::SomMetaNode {
+            class_name: "TechnicalFrameworkConcept".to_string(), member_name: "technicalFramework".to_string(), class_section_id: "TECH".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalFrameworkConcept".to_string(), serialization_order: Some(7), comment: "locus: server — CE-CF".to_string(), doc_comment: "Technical framework — CE-CF platform/config foundation.".to_string(), class_doc_comment: "8. Technical Framework Concept. Seeds → ATS.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("AccessControlModel", s, meta_children_access_control_model, |r, c| som::SomMetaNode {
+            class_name: "AccessControlModel".to_string(), member_name: "accessControl".to_string(), class_section_id: "ACCM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AccessControlModel".to_string(), serialization_order: Some(8), comment: "locus: server — CE-AZ".to_string(), doc_comment: "Access control model — CE-AZ authorization/identity seed.".to_string(), class_doc_comment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ProcessStepsAndActorInteractions", s, meta_children_process_steps_and_actor_interactions, |r, c| som::SomMetaNode {
+            class_name: "ProcessStepsAndActorInteractions".to_string(), member_name: "processStepsAndActorInteractions".to_string(), class_section_id: "PSAAI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsAndActorInteractions".to_string(), serialization_order: Some(9), comment: "locus: server(CE-SU)+client(CE-SC)".to_string(), doc_comment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.".to_string(), class_doc_comment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.".to_string(), maps_to: "D05InteractionScenarios".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ExperienceCodeSpecs", s, meta_children_experience_code_specs, |r, c| som::SomMetaNode {
+            class_name: "ExperienceCodeSpecs".to_string(), member_name: "experienceCodeSpecs".to_string(), class_section_id: "XCS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExperienceCodeSpecs".to_string(), serialization_order: Some(10), comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER".to_string(), doc_comment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+    ]
+}
+
 fn meta_children_dashboard_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "DashboardEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dashboardId".to_string(), type_name: "String".to_string(), description: "Dashboard ID".to_string(), required: true, hint: "Unique dashboard identifier".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "dashboardName".to_string(), type_name: "String".to_string(), description: "Dashboard Name".to_string(), required: true, hint: "Human-readable dashboard name".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "dashboardCategory".to_string(), type_name: "String".to_string(), description: "Dashboard Category".to_string(), required: false, hint: "Executive, operational, service, infrastructure".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "targetAudience".to_string(), type_name: "String".to_string(), description: "Target Audience".to_string(), required: false, hint: "Who uses this dashboard".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -4350,34 +4433,10 @@ fn meta_children_data_entity_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
     vec![
         Rc::new(som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "identity".to_string(), section_id: "DAENT-IDEN".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "entityName".to_string(), type_name: "String".to_string(), description: "Entity Name".to_string(), required: true, hint: "Singular noun or noun phrase (e.g., Customer, OrderItem)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "tableName".to_string(), type_name: "String".to_string(), description: "Physical Table Name".to_string(), required: false, hint: "Database table name if different from logical name".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "entityAlias".to_string(), type_name: "String".to_string(), description: "Alias/Abbreviation".to_string(), required: false, hint: "Short alias for diagrams and references (e.g., CUST, ORD)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "Clear definition of what this entity represents".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "entityStereoType".to_string(), type_name: "String".to_string(), description: "Stereotype".to_string(), required: false, hint: "Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "classification".to_string(), section_id: "DAENT-CLAS".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "category".to_string(), type_name: "String".to_string(), description: "Category".to_string(), required: false, hint: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "boundedContext".to_string(), type_name: "String".to_string(), description: "Bounded Context".to_string(), required: false, hint: "Domain-driven design bounded context this entity belongs to".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "owningDomain".to_string(), type_name: "String".to_string(), description: "Owning Domain".to_string(), required: false, hint: "Business domain responsible for this entity".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "dataOwner".to_string(), type_name: "String".to_string(), description: "Data Owner".to_string(), required: false, hint: "Role or team accountable for data quality".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "dataSteward".to_string(), type_name: "String".to_string(), description: "Data Steward".to_string(), required: false, hint: "Person or role responsible for data governance".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "sourceSystem".to_string(), type_name: "String".to_string(), description: "Source System".to_string(), required: false, hint: "System of record or originating system for migration".to_string(), order: 5, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "lifecyclePolicy".to_string(), section_id: "DAENT-LIFE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "lifecyclePhases".to_string(), type_name: "String".to_string(), description: "Lifecycle Phases".to_string(), required: false, hint: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "retentionPolicy".to_string(), type_name: "String".to_string(), description: "Retention Policy".to_string(), required: false, hint: "How long data is retained and why (e.g., 7 years per tax regulations)".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "archivalTrigger".to_string(), type_name: "String".to_string(), description: "Archival Trigger".to_string(), required: false, hint: "Condition for moving to archive (e.g., 2 years after last activity)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "archivalDestination".to_string(), type_name: "String".to_string(), description: "Archival Destination".to_string(), required: false, hint: "Where archived data goes: ColdStorage | Archive | DataLake".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "purgePolicy".to_string(), type_name: "String".to_string(), description: "Purge Policy".to_string(), required: false, hint: "When and how data is permanently deleted".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "anonymizationPolicy".to_string(), type_name: "String".to_string(), description: "Anonymization Policy".to_string(), required: false, hint: "PII anonymization rules (e.g., hash email after deletion)".to_string(), order: 5, enum_values: vec![] }, som::SomFormFieldMeta { name: "auditRequirements".to_string(), type_name: "String".to_string(), description: "Audit Requirements".to_string(), required: false, hint: "What changes must be tracked: None | KeyFields | AllFields | FullHistory".to_string(), order: 6, enum_values: vec![] }, som::SomFormFieldMeta { name: "auditRetention".to_string(), type_name: "String".to_string(), description: "Audit Retention".to_string(), required: false, hint: "How long audit records are kept".to_string(), order: 7, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "relationshipSummary".to_string(), section_id: "DAENT-RELA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "parentEntities".to_string(), type_name: "String".to_string(), description: "Parent Entities".to_string(), required: false, hint: "Entities this depends on (e.g., Order depends on Customer)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "childEntities".to_string(), type_name: "String".to_string(), description: "Child Entities".to_string(), required: false, hint: "Entities that depend on this (e.g., OrderItem depends on Order)".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "referencedEntities".to_string(), type_name: "String".to_string(), description: "Referenced Entities".to_string(), required: false, hint: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "crossDomainRelationships".to_string(), type_name: "String".to_string(), description: "Cross-Domain Relationships".to_string(), required: false, hint: "Relationships that cross bounded context boundaries".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "volumeMetrics".to_string(), section_id: "VOLUM-VOLU-LST".to_string(), section_id_pattern: "VOLUM-VOLU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "VolumeMetricEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per volume metric.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates.".to_string()))] }], ..som::SomMetaNode::default() };
-            n.element_node = Some(meta_cx("VolumeMetricEntry", s, meta_children_volume_metric_entry, |r, c| som::SomMetaNode {
-                class_name: "VolumeMetricEntry".to_string(), class_section_id: "VOLUM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "VolumeMetricEntry".to_string(), doc_comment: "A single volume metric entry.".to_string(), class_doc_comment: "A single volume metric entry.".to_string(), recursive: r, children: c,
-                ..som::SomMetaNode::default()
-            }));
-            Rc::new(n)
-        },
-        Rc::new(som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "lifecyclePolicy".to_string(), section_id: "DAENT-LIFE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "lifecyclePhases".to_string(), type_name: "String".to_string(), description: "Lifecycle Phases".to_string(), required: false, hint: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "retentionPolicy".to_string(), type_name: "String".to_string(), description: "Retention Policy".to_string(), required: false, hint: "How long data is retained and why (e.g., 7 years per tax regulations)".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "archivalTrigger".to_string(), type_name: "String".to_string(), description: "Archival Trigger".to_string(), required: false, hint: "Condition for moving to archive (e.g., 2 years after last activity)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "archivalDestination".to_string(), type_name: "String".to_string(), description: "Archival Destination".to_string(), required: false, hint: "Where archived data goes: ColdStorage | Archive | DataLake".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "purgePolicy".to_string(), type_name: "String".to_string(), description: "Purge Policy".to_string(), required: false, hint: "When and how data is permanently deleted".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "anonymizationPolicy".to_string(), type_name: "String".to_string(), description: "Anonymization Policy".to_string(), required: false, hint: "PII anonymization rules (e.g., hash email after deletion)".to_string(), order: 5, enum_values: vec![] }, som::SomFormFieldMeta { name: "auditRequirements".to_string(), type_name: "String".to_string(), description: "Audit Requirements".to_string(), required: false, hint: "What changes must be tracked: None | KeyFields | AllFields | FullHistory".to_string(), order: 6, enum_values: vec![] }, som::SomFormFieldMeta { name: "auditRetention".to_string(), type_name: "String".to_string(), description: "Audit Retention".to_string(), required: false, hint: "How long audit records are kept".to_string(), order: 7, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
-        {
-            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "complianceRequirements".to_string(), section_id: "CRE-COMP-LST".to_string(), section_id_pattern: "CRE-COMP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ComplianceRequirementEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per compliance requirement.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)".to_string()), som::Json::Str("ISO/IEC 27001 / NIST — data classification".to_string())])), ("connotation".to_string(), som::Json::Str("Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access.".to_string()))] }], ..som::SomMetaNode::default() };
-            n.element_node = Some(meta_cx("ComplianceRequirementEntry", s, meta_children_compliance_requirement_entry, |r, c| som::SomMetaNode {
-                class_name: "ComplianceRequirementEntry".to_string(), class_section_id: "CRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceRequirementEntry".to_string(), doc_comment: "A single compliance requirement entry.".to_string(), class_doc_comment: "A single compliance requirement entry.".to_string(), recursive: r, children: c,
-                ..som::SomMetaNode::default()
-            }));
-            Rc::new(n)
-        },
-        Rc::new(som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "relationshipSummary".to_string(), section_id: "DAENT-RELA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "parentEntities".to_string(), type_name: "String".to_string(), description: "Parent Entities".to_string(), required: false, hint: "Entities this depends on (e.g., Order depends on Customer)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "childEntities".to_string(), type_name: "String".to_string(), description: "Child Entities".to_string(), required: false, hint: "Entities that depend on this (e.g., OrderItem depends on Order)".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "referencedEntities".to_string(), type_name: "String".to_string(), description: "Referenced Entities".to_string(), required: false, hint: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "crossDomainRelationships".to_string(), type_name: "String".to_string(), description: "Cross-Domain Relationships".to_string(), required: false, hint: "Relationships that cross bounded context boundaries".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
-        {
-            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "technicalCharacteristics".to_string(), section_id: "TECHN-TECH-LST".to_string(), section_id_pattern: "TECHN-TECH-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TechnicalCharacteristicEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per technical characteristic.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior.".to_string()))] }], ..som::SomMetaNode::default() };
-            n.element_node = Some(meta_cx("TechnicalCharacteristicEntry", s, meta_children_technical_characteristic_entry, |r, c| som::SomMetaNode {
-                class_name: "TechnicalCharacteristicEntry".to_string(), class_section_id: "TECHN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalCharacteristicEntry".to_string(), doc_comment: "A single technical characteristic entry.".to_string(), class_doc_comment: "A single technical characteristic entry.".to_string(), recursive: r, children: c,
-                ..som::SomMetaNode::default()
-            }));
-            Rc::new(n)
-        },
-        {
-            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "attributes".to_string(), section_id: "DAATT-ATTR-LST".to_string(), section_id_pattern: "DAATT-ATTR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DataAttributeEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per data attribute.".to_string(), doc_comment: "Contains 0+× DataAttribute.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 11179 — metadata registries / data element definitions".to_string()), som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string())])), ("connotation".to_string(), som::Json::Str("The data attributes (fields) that belong to this entity.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "attributes".to_string(), section_id: "DAATT-ATTR-LST".to_string(), section_id_pattern: "DAATT-ATTR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DataAttributeEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per data attribute.".to_string(), doc_comment: "Contains 0+× DataAttribute.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 11179 — metadata registries / data element definitions".to_string()), som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string())])), ("connotation".to_string(), som::Json::Str("The data attributes (fields) that belong to this entity.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DataAttributeEntry", s, meta_children_data_attribute_entry, |r, c| som::SomMetaNode {
                 class_name: "DataAttributeEntry".to_string(), class_section_id: "DAATT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataAttributeEntry".to_string(), doc_comment: "A data attribute entry (form).\n\nComprehensive attribute specification for data dictionary and schema design.".to_string(), class_doc_comment: "A data attribute entry (form).\n\nComprehensive attribute specification for data dictionary and schema design.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -4385,7 +4444,7 @@ fn meta_children_data_entity_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "keyAttributes".to_string(), section_id: "KEATT-KEYA-LST".to_string(), section_id_pattern: "KEATT-KEYA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "KeyAttributeEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per key attribute.".to_string(), doc_comment: "Contains 0+× KeyAttribute.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ER modeling (Chen / Barker notation)".to_string()), som::Json::Str("ISO/IEC 11179 — metadata registries / data element definitions".to_string())])), ("connotation".to_string(), som::Json::Str("The key attributes (primary, foreign, alternate, composite) that identify or reference this entity.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "keyAttributes".to_string(), section_id: "KEATT-KEYA-LST".to_string(), section_id_pattern: "KEATT-KEYA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "KeyAttributeEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per key attribute.".to_string(), doc_comment: "Contains 0+× KeyAttribute.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ER modeling (Chen / Barker notation)".to_string()), som::Json::Str("ISO/IEC 11179 — metadata registries / data element definitions".to_string())])), ("connotation".to_string(), som::Json::Str("The key attributes (primary, foreign, alternate, composite) that identify or reference this entity.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("KeyAttributeEntry", s, meta_children_key_attribute_entry, |r, c| som::SomMetaNode {
                 class_name: "KeyAttributeEntry".to_string(), class_section_id: "KEATT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "KeyAttributeEntry".to_string(), doc_comment: "A key attribute entry (form).\n\nSpecification for primary, foreign, alternate, and composite keys.".to_string(), class_doc_comment: "A key attribute entry (form).\n\nSpecification for primary, foreign, alternate, and composite keys.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -4393,7 +4452,7 @@ fn meta_children_data_entity_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "indexes".to_string(), section_id: "ENIDX-INDE-LST".to_string(), section_id_pattern: "ENIDX-INDE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EntityIndexEntry".to_string(), serialization_order: Some(9), content_help: "Add one entry per entity index.".to_string(), doc_comment: "Contains 0+× EntityIndex.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("The database indexes defined on this entity for query optimization.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "indexes".to_string(), section_id: "ENIDX-INDE-LST".to_string(), section_id_pattern: "ENIDX-INDE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EntityIndexEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per entity index.".to_string(), doc_comment: "Contains 0+× EntityIndex.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("The database indexes defined on this entity for query optimization.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("EntityIndexEntry", s, meta_children_entity_index_entry, |r, c| som::SomMetaNode {
                 class_name: "EntityIndexEntry".to_string(), class_section_id: "ENIDX".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EntityIndexEntry".to_string(), doc_comment: "An entity index entry (form).\n\nDatabase index specification for query optimization.".to_string(), class_doc_comment: "An entity index entry (form).\n\nDatabase index specification for query optimization.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -4401,17 +4460,9 @@ fn meta_children_data_entity_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "constraints".to_string(), section_id: "ENCNS-CONS-LST".to_string(), section_id_pattern: "ENCNS-CONS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EntityConstraintEntry".to_string(), serialization_order: Some(10), content_help: "Add one entry per entity constraint.".to_string(), doc_comment: "Contains 0+× EntityConstraint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("SBVR — business rule statements".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "constraints".to_string(), section_id: "ENCNS-CONS-LST".to_string(), section_id_pattern: "ENCNS-CONS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EntityConstraintEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per entity constraint.".to_string(), doc_comment: "Contains 0+× EntityConstraint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("SBVR — business rule statements".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("EntityConstraintEntry", s, meta_children_entity_constraint_entry, |r, c| som::SomMetaNode {
                 class_name: "EntityConstraintEntry".to_string(), class_section_id: "ENCNS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EntityConstraintEntry".to_string(), doc_comment: "An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.".to_string(), class_doc_comment: "An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.".to_string(), recursive: r, children: c,
-                ..som::SomMetaNode::default()
-            }));
-            Rc::new(n)
-        },
-        {
-            let mut n = som::SomMetaNode { class_name: "DataEntityEntry".to_string(), member_name: "migrationMappings".to_string(), section_id: "MIGME-MIGR-LST".to_string(), section_id_pattern: "MIGME-MIGR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MigrationMappingEntry".to_string(), serialization_order: Some(11), content_help: "Add one entry per migration mapping.".to_string(), doc_comment: "Contains 0+× MigrationMapping for data migration planning.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Source-to-target field mappings for planning the migration of data into this entity.".to_string()))] }], ..som::SomMetaNode::default() };
-            n.element_node = Some(meta_cx("MigrationMappingEntry", s, meta_children_migration_mapping_entry, |r, c| som::SomMetaNode {
-                class_name: "MigrationMappingEntry".to_string(), class_section_id: "MIGME".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MigrationMappingEntry".to_string(), doc_comment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.".to_string(), class_doc_comment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
@@ -4598,7 +4649,7 @@ fn meta_children_data_migration_strategy(s: &mut HashSet<String>) -> Vec<Rc<som:
 
 fn meta_children_data_model(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "DataModel".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with 7 form groups (41+ fields per entity)\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Volume Metrics (record count, growth rate, storage estimates)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Compliance Requirements (sensitivity, PII/PHI, encryption, access)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Technical Characteristics (indexing, caching, consistency, scaling)\n".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "DataModel".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Attributes, key attributes, indexes, and constraints\n\nPer-entity operational facets (volume metrics, compliance requirements,\ntechnical characteristics, migration mappings) and the model-wide ER diagram\nare authored in the Data Model Follow-up Facets section (7.9).\n".to_string(), ..som::SomMetaNode::default() }),
         {
             let mut n = som::SomMetaNode { class_name: "DataModel".to_string(), member_name: "entities".to_string(), section_id: "DAENT-ENTI-LST".to_string(), section_id_pattern: "DAENT-ENTI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DataEntityEntry".to_string(), serialization_order: Some(1), min: Some(1), content_help: "Add one entry per data entity.".to_string(), doc_comment: "7.1.1. Entity Overview — contains 1+× Data Entity.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ER modeling (Chen / Barker notation)".to_string()), som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string())])), ("connotation".to_string(), som::Json::Str("The data entities that make up the logical data model.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DataEntityEntry", s, meta_children_data_entity_entry, |r, c| som::SomMetaNode {
@@ -4611,23 +4662,37 @@ fn meta_children_data_model(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>
             class_name: "EntityRelationships".to_string(), member_name: "entityRelationships".to_string(), class_section_id: "ENREL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EntityRelationships".to_string(), serialization_order: Some(2), doc_comment: "7.1.2. Entity Relationships.".to_string(), class_doc_comment: "7.1.2. Entity Relationships.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        Rc::new(som::SomMetaNode { class_name: "DataModel".to_string(), member_name: "erDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-er".to_string(), description: "".to_string() }), doc_comment: "7.1.3. Entity-Relationship Diagram (mermaid).".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("DataClassification", s, meta_children_data_classification, |r, c| som::SomMetaNode {
-            class_name: "DataClassification".to_string(), member_name: "dataClassification".to_string(), class_section_id: "DATCL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataClassification".to_string(), serialization_order: Some(4), doc_comment: "7.1.4. Data Classification.".to_string(), class_doc_comment: "7.1.4. Data Classification.".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "DataClassification".to_string(), member_name: "dataClassification".to_string(), class_section_id: "DATCL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataClassification".to_string(), serialization_order: Some(3), doc_comment: "7.1.3. Data Classification.".to_string(), class_doc_comment: "7.1.4. Data Classification.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DataDictionary", s, meta_children_data_dictionary, |r, c| som::SomMetaNode {
-            class_name: "DataDictionary".to_string(), member_name: "dataDictionary".to_string(), class_section_id: "DADI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataDictionary".to_string(), serialization_order: Some(5), doc_comment: "7.1.5. Data Dictionary..".to_string(), class_doc_comment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "DataDictionary".to_string(), member_name: "dataDictionary".to_string(), class_section_id: "DADI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataDictionary".to_string(), serialization_order: Some(4), doc_comment: "7.1.4. Data Dictionary..".to_string(), class_doc_comment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ValidationConstraints", s, meta_children_validation_constraints, |r, c| som::SomMetaNode {
-            class_name: "ValidationConstraints".to_string(), member_name: "validationConstraints".to_string(), class_section_id: "VACO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ValidationConstraints".to_string(), serialization_order: Some(6), doc_comment: "7.1.6. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "ValidationConstraints".to_string(), member_name: "validationConstraints".to_string(), class_section_id: "VACO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ValidationConstraints".to_string(), serialization_order: Some(5), doc_comment: "7.1.5. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("IntegrityConstraints", s, meta_children_integrity_constraints, |r, c| som::SomMetaNode {
-            class_name: "IntegrityConstraints".to_string(), member_name: "integrityConstraints".to_string(), class_section_id: "INCO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrityConstraints".to_string(), serialization_order: Some(7), doc_comment: "7.1.7. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "IntegrityConstraints".to_string(), member_name: "integrityConstraints".to_string(), class_section_id: "INCO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrityConstraints".to_string(), serialization_order: Some(6), doc_comment: "7.1.6. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+    ]
+}
+
+fn meta_children_data_model_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "DataModelFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "DataModelFollowUp".to_string(), member_name: "erDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-er".to_string(), description: "".to_string() }), doc_comment: "7.9.1. Entity-Relationship Diagram (mermaid).".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "DataModelFollowUp".to_string(), member_name: "entityFollowUps".to_string(), section_id: "DMFUE-ENFU-LST".to_string(), section_id_pattern: "DMFUE-ENFU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EntityFollowUpEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per entity that carries follow-up facets.".to_string(), doc_comment: "7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Per-entity operational, compliance, technical, and migration facets keyed to the source entity.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("EntityFollowUpEntry", s, meta_children_entity_follow_up_entry, |r, c| som::SomMetaNode {
+                class_name: "EntityFollowUpEntry".to_string(), class_section_id: "DMFUE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EntityFollowUpEntry".to_string(), doc_comment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.".to_string(), class_doc_comment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -5495,6 +5560,12 @@ fn meta_children_development_quality_gates(_s: &mut HashSet<String>) -> Vec<Rc<s
     ]
 }
 
+fn meta_children_device_settings(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "DeviceSettings".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "settingKey".to_string(), type_name: "String".to_string(), description: "Setting Key".to_string(), required: true, hint: "The dotted key of the device setting, e.g. window.layout".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "valueType".to_string(), type_name: "String".to_string(), description: "Value Type".to_string(), required: false, hint: "string / int / double / bool / enum".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "defaultValue".to_string(), type_name: "String".to_string(), description: "Default Value".to_string(), required: false, hint: "The value used until the user changes the setting on this device".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "deviceOverridable".to_string(), type_name: "bool".to_string(), description: "Shadows a Wider-Scope Key".to_string(), required: false, hint: "Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_disaster_recovery_requirements(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "DisasterRecoveryRequirements".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "drStrategy".to_string(), type_name: "String".to_string(), description: "DR Strategy".to_string(), required: false, hint: "Hot, Warm, Cold standby".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "drSite".to_string(), type_name: "String".to_string(), description: "DR Site Location".to_string(), required: false, hint: "DR site location".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "drProvider".to_string(), type_name: "String".to_string(), description: "DR Provider".to_string(), required: false, hint: "DR service provider".to_string(), order: 2, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -5683,6 +5754,10 @@ fn meta_children_doc_specs_project(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
         }),
         meta_cx("D09ExperienceDesignSpecification", s, meta_children_d09_experience_design_specification, |r, c| som::SomMetaNode {
             class_name: "D09ExperienceDesignSpecification".to_string(), member_name: "experienceDesignSpecification".to_string(), class_section_id: "XDS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "D09ExperienceDesignSpecification".to_string(), serialization_order: Some(12), doc_comment: "D09 — Experience Design Specification (Phase 3 projection).".to_string(), class_doc_comment: "XDS00 Experience Design Specification.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("D13CodeSpecsProjection", s, meta_children_d13_code_specs_projection, |r, c| som::SomMetaNode {
+            class_name: "D13CodeSpecsProjection".to_string(), member_name: "codeSpecsProjection".to_string(), class_section_id: "CGP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "D13CodeSpecsProjection".to_string(), serialization_order: Some(13), doc_comment: "D13 — CodeSpecs Generation Projection (Phase 4 generation input).\n\nA `@Document(basedOn: [D00SolutionBlueprint])` projection like the twelve\nPhase-3 roots, but `@CodeSpecKind`-driven: it reaches only the isolated\nCodeSpecs subtrees the Phase-4 generator consumes, grouped by\nshared/client/server locus. Marked `@CodeSpecsProjection()`.".to_string(), class_doc_comment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -6102,6 +6177,44 @@ fn meta_children_entity_constraint_entry(_s: &mut HashSet<String>) -> Vec<Rc<som
     ]
 }
 
+fn meta_children_entity_follow_up_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "EntityFollowUpEntry".to_string(), member_name: "entityRef".to_string(), section_id: "DMFUE-ENTI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "entityName".to_string(), type_name: "String".to_string(), description: "Entity Name".to_string(), required: true, hint: "Name of the data entity these facets apply to (matches dataModel.entities)".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "entityAlias".to_string(), type_name: "String".to_string(), description: "Alias/Abbreviation".to_string(), required: false, hint: "Short alias of the referenced entity (e.g., CUST, ORD)".to_string(), order: 1, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "EntityFollowUpEntry".to_string(), member_name: "volumeMetrics".to_string(), section_id: "VOLUM-VOLU-LST".to_string(), section_id_pattern: "VOLUM-VOLU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "VolumeMetricEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per volume metric.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("VolumeMetricEntry", s, meta_children_volume_metric_entry, |r, c| som::SomMetaNode {
+                class_name: "VolumeMetricEntry".to_string(), class_section_id: "VOLUM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "VolumeMetricEntry".to_string(), doc_comment: "A single volume metric entry.".to_string(), class_doc_comment: "A single volume metric entry.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "EntityFollowUpEntry".to_string(), member_name: "complianceRequirements".to_string(), section_id: "CRE-COMP-LST".to_string(), section_id_pattern: "CRE-COMP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ComplianceRequirementEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per compliance requirement.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)".to_string()), som::Json::Str("ISO/IEC 27001 / NIST — data classification".to_string())])), ("connotation".to_string(), som::Json::Str("Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ComplianceRequirementEntry", s, meta_children_compliance_requirement_entry, |r, c| som::SomMetaNode {
+                class_name: "ComplianceRequirementEntry".to_string(), class_section_id: "CRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceRequirementEntry".to_string(), doc_comment: "A single compliance requirement entry.".to_string(), class_doc_comment: "A single compliance requirement entry.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "EntityFollowUpEntry".to_string(), member_name: "technicalCharacteristics".to_string(), section_id: "TECHN-TECH-LST".to_string(), section_id_pattern: "TECHN-TECH-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TechnicalCharacteristicEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per technical characteristic.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("TechnicalCharacteristicEntry", s, meta_children_technical_characteristic_entry, |r, c| som::SomMetaNode {
+                class_name: "TechnicalCharacteristicEntry".to_string(), class_section_id: "TECHN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalCharacteristicEntry".to_string(), doc_comment: "A single technical characteristic entry.".to_string(), class_doc_comment: "A single technical characteristic entry.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "EntityFollowUpEntry".to_string(), member_name: "migrationMappings".to_string(), section_id: "MIGME-MIGR-LST".to_string(), section_id_pattern: "MIGME-MIGR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MigrationMappingEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per migration mapping.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Source-to-target field mappings for planning the migration of data into this entity.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("MigrationMappingEntry", s, meta_children_migration_mapping_entry, |r, c| som::SomMetaNode {
+                class_name: "MigrationMappingEntry".to_string(), class_section_id: "MIGME".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MigrationMappingEntry".to_string(), doc_comment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.".to_string(), class_doc_comment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
 fn meta_children_entity_index_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "EntityIndexEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "indexName".to_string(), type_name: "String".to_string(), description: "Index Name".to_string(), required: true, hint: "Unique identifier for the index".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "indexType".to_string(), type_name: "String".to_string(), description: "Index Type".to_string(), required: false, hint: "BTree | Hash | GiST | GIN | FullText | Spatial".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "columns".to_string(), type_name: "String".to_string(), description: "Column(s)".to_string(), required: false, hint: "Indexed columns in order, with direction (e.g., \"created_at DESC\")".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "includeColumns".to_string(), type_name: "String".to_string(), description: "Include Columns".to_string(), required: false, hint: "Non-key columns to include (covering index)".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "isUnique".to_string(), type_name: "String".to_string(), description: "Is Unique".to_string(), required: false, hint: "Whether index enforces uniqueness: Yes | No".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "isClustered".to_string(), type_name: "String".to_string(), description: "Is Clustered".to_string(), required: false, hint: "Whether index determines physical row order: Yes | No".to_string(), order: 5, enum_values: vec![] }, som::SomFormFieldMeta { name: "filterCondition".to_string(), type_name: "String".to_string(), description: "Filter Condition".to_string(), required: false, hint: "Partial index WHERE clause".to_string(), order: 6, enum_values: vec![] }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: false, hint: "Query patterns this index optimizes".to_string(), order: 7, enum_values: vec![] }, som::SomFormFieldMeta { name: "estimatedSize".to_string(), type_name: "String".to_string(), description: "Estimated Size".to_string(), required: false, hint: "Expected index size".to_string(), order: 8, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -6442,54 +6555,87 @@ fn meta_children_expected_improvements(_s: &mut HashSet<String>) -> Vec<Rc<som::
 fn meta_children_experience_and_interface_design(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ExperienceAndInterfaceDesign".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n".to_string(), ..som::SomMetaNode::default() }),
-        meta_cx("DesignVision", s, meta_children_design_vision, |r, c| som::SomMetaNode {
-            class_name: "DesignVision".to_string(), member_name: "designVision".to_string(), class_section_id: "DEVIZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DesignVision".to_string(), serialization_order: Some(1), doc_comment: "10.1. Design Vision. Seeds → XDS.".to_string(), class_doc_comment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+        meta_cx("ExperienceCodeSpecs", s, meta_children_experience_code_specs, |r, c| som::SomMetaNode {
+            class_name: "ExperienceCodeSpecs".to_string(), member_name: "experienceCodeSpecs".to_string(), class_section_id: "XCS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExperienceCodeSpecs".to_string(), serialization_order: Some(1), doc_comment: "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ExperienceDesignFollowUp", s, meta_children_experience_design_follow_up, |r, c| som::SomMetaNode {
+            class_name: "ExperienceDesignFollowUp".to_string(), member_name: "designFollowUp".to_string(), class_section_id: "XDFU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExperienceDesignFollowUp".to_string(), serialization_order: Some(2), doc_comment: "10.2. Experience Design — DOC follow-up subtree.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ExperienceLocalizationFollowUp", s, meta_children_experience_localization_follow_up, |r, c| som::SomMetaNode {
+            class_name: "ExperienceLocalizationFollowUp".to_string(), member_name: "localizationFollowUp".to_string(), class_section_id: "XLFU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExperienceLocalizationFollowUp".to_string(), serialization_order: Some(3), doc_comment: "10.3. Experience Localization — L10N follow-up subtree.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("AuthorizationComplianceFollowUp", s, meta_children_authorization_compliance_follow_up, |r, c| som::SomMetaNode {
+            class_name: "AuthorizationComplianceFollowUp".to_string(), member_name: "authorizationComplianceFollowUp".to_string(), class_section_id: "XCFU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuthorizationComplianceFollowUp".to_string(), serialization_order: Some(4), doc_comment: "10.4. Authorization Compliance — CMP follow-up subtree.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+    ]
+}
+
+fn meta_children_experience_code_specs(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ExperienceCodeSpecs".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the CodeSpecs UI-generation subtree: screens, navigation, error handling, responsive design, and components.".to_string() }), ..som::SomMetaNode::default() }),
         meta_cx("ScreenDescriptions", s, meta_children_screen_descriptions, |r, c| som::SomMetaNode {
-            class_name: "ScreenDescriptions".to_string(), member_name: "screens".to_string(), class_section_id: "SCRDZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenDescriptions".to_string(), serialization_order: Some(2), doc_comment: "10.2. Screen Descriptions. Seeds → XDS.".to_string(), class_doc_comment: "10.2. Screen Descriptions.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "ScreenDescriptions".to_string(), member_name: "screens".to_string(), class_section_id: "SCRDZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenDescriptions".to_string(), serialization_order: Some(1), doc_comment: "10.1.1. Screen Descriptions. Seeds → XDS.".to_string(), class_doc_comment: "10.2. Screen Descriptions.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ScreenFlowStructure", s, meta_children_screen_flow_structure, |r, c| som::SomMetaNode {
-            class_name: "ScreenFlowStructure".to_string(), member_name: "screenFlow".to_string(), class_section_id: "SCFLST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenFlowStructure".to_string(), serialization_order: Some(3), doc_comment: "10.3. Screen Flow Structure. Seeds → XDS.".to_string(), class_doc_comment: "10.3. Screen Flow Structure.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "ScreenFlowStructure".to_string(), member_name: "screenFlow".to_string(), class_section_id: "SCFLST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenFlowStructure".to_string(), serialization_order: Some(2), doc_comment: "10.1.2. Screen Flow Structure. Seeds → XDS.".to_string(), class_doc_comment: "10.3. Screen Flow Structure.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("PrintAndExportLayout", s, meta_children_print_and_export_layout, |r, c| som::SomMetaNode {
-            class_name: "PrintAndExportLayout".to_string(), member_name: "printLayout".to_string(), class_section_id: "PRLA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PrintAndExportLayout".to_string(), serialization_order: Some(4), doc_comment: "10.4. Print Layout. Seeds → XDS.".to_string(), class_doc_comment: "10.4. Print Layout.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        Rc::new(som::SomMetaNode { class_name: "ExperienceAndInterfaceDesign".to_string(), member_name: "dataStructureAlignment".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Data Structure Alignment.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ExperienceAndInterfaceDesign".to_string(), member_name: "authorizationCompliance".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Authorization Compliance.".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ExperienceCodeSpecs".to_string(), member_name: "dataStructureAlignment".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "10.1.3. Data Structure Alignment.".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("ErrorHandling", s, meta_children_error_handling, |r, c| som::SomMetaNode {
-            class_name: "ErrorHandling".to_string(), member_name: "errorHandling".to_string(), class_section_id: "ERHACO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorHandling".to_string(), serialization_order: Some(7), doc_comment: "10.7. Error Handling. Seeds → XDS.".to_string(), class_doc_comment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("UserAssistance", s, meta_children_user_assistance, |r, c| som::SomMetaNode {
-            class_name: "UserAssistance".to_string(), member_name: "userAssistance".to_string(), class_section_id: "USAS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAssistance".to_string(), serialization_order: Some(8), doc_comment: "10.8. User Assistance. Seeds → XDS.".to_string(), class_doc_comment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("Accessibility", s, meta_children_accessibility, |r, c| som::SomMetaNode {
-            class_name: "Accessibility".to_string(), member_name: "accessibility".to_string(), class_section_id: "ACCESS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Accessibility".to_string(), serialization_order: Some(9), doc_comment: "10.9. Accessibility. Seeds → XDS.".to_string(), class_doc_comment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "ErrorHandling".to_string(), member_name: "errorHandling".to_string(), class_section_id: "ERHACO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorHandling".to_string(), serialization_order: Some(4), doc_comment: "10.1.4. Error Handling. Seeds → XDS.".to_string(), class_doc_comment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ResponsiveDesign", s, meta_children_responsive_design, |r, c| som::SomMetaNode {
-            class_name: "ResponsiveDesign".to_string(), member_name: "responsiveDesign".to_string(), class_section_id: "REDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResponsiveDesign".to_string(), serialization_order: Some(10), doc_comment: "10.10. Responsive Design. Seeds → XDS.".to_string(), class_doc_comment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "ResponsiveDesign".to_string(), member_name: "responsiveDesign".to_string(), class_section_id: "REDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResponsiveDesign".to_string(), serialization_order: Some(5), doc_comment: "10.1.5. Responsive Design. Seeds → XDS.".to_string(), class_doc_comment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("UiComponents", s, meta_children_ui_components, |r, c| som::SomMetaNode {
-            class_name: "UiComponents".to_string(), member_name: "uiComponents".to_string(), class_section_id: "UICO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UiComponents".to_string(), serialization_order: Some(11), doc_comment: "10.11. UI Components. Seeds → XDS.".to_string(), class_doc_comment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "UiComponents".to_string(), member_name: "uiComponents".to_string(), class_section_id: "UICO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UiComponents".to_string(), serialization_order: Some(6), doc_comment: "10.1.6. UI Components. Seeds → XDS.".to_string(), class_doc_comment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("MultiLanguageSupport", s, meta_children_multi_language_support, |r, c| som::SomMetaNode {
-            class_name: "MultiLanguageSupport".to_string(), member_name: "multiLanguageSupport".to_string(), class_section_id: "MLAR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MultiLanguageSupport".to_string(), serialization_order: Some(12), doc_comment: "10.12. Multi-language Support.".to_string(), class_doc_comment: "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.".to_string(),
+    ]
+}
+
+fn meta_children_experience_design_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ExperienceDesignFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the design follow-up: vision, print layout, user assistance, accessibility, prototype, and wireframes.".to_string() }), ..som::SomMetaNode::default() }),
+        meta_cx("DesignVision", s, meta_children_design_vision, |r, c| som::SomMetaNode {
+            class_name: "DesignVision".to_string(), member_name: "designVision".to_string(), class_section_id: "DEVIZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DesignVision".to_string(), serialization_order: Some(1), doc_comment: "10.2.1. Design Vision. Seeds → XDS.".to_string(), class_doc_comment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("PrintAndExportLayout", s, meta_children_print_and_export_layout, |r, c| som::SomMetaNode {
+            class_name: "PrintAndExportLayout".to_string(), member_name: "printLayout".to_string(), class_section_id: "PRLA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PrintAndExportLayout".to_string(), serialization_order: Some(2), doc_comment: "10.2.2. Print Layout. Seeds → XDS.".to_string(), class_doc_comment: "10.4. Print Layout.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("UserAssistance", s, meta_children_user_assistance, |r, c| som::SomMetaNode {
+            class_name: "UserAssistance".to_string(), member_name: "userAssistance".to_string(), class_section_id: "USAS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAssistance".to_string(), serialization_order: Some(3), doc_comment: "10.2.3. User Assistance. Seeds → XDS.".to_string(), class_doc_comment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("Accessibility", s, meta_children_accessibility, |r, c| som::SomMetaNode {
+            class_name: "Accessibility".to_string(), member_name: "accessibility".to_string(), class_section_id: "ACCESS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Accessibility".to_string(), serialization_order: Some(4), doc_comment: "10.2.4. Accessibility. Seeds → XDS.".to_string(), class_doc_comment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("Prototype", s, meta_children_prototype, |r, c| som::SomMetaNode {
-            class_name: "Prototype".to_string(), member_name: "prototype".to_string(), class_section_id: "PROTOT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Prototype".to_string(), serialization_order: Some(13), doc_comment: "10.13. Prototype. Seeds → XDS.".to_string(), class_doc_comment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "Prototype".to_string(), member_name: "prototype".to_string(), class_section_id: "PROTOT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Prototype".to_string(), serialization_order: Some(5), doc_comment: "10.2.5. Prototype. Seeds → XDS.".to_string(), class_doc_comment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("WireframesAndMockups", s, meta_children_wireframes_and_mockups, |r, c| som::SomMetaNode {
-            class_name: "WireframesAndMockups".to_string(), member_name: "wireframesAndMockups".to_string(), class_section_id: "WIANMO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WireframesAndMockups".to_string(), serialization_order: Some(14), doc_comment: "10.14. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).".to_string(), class_doc_comment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "WireframesAndMockups".to_string(), member_name: "wireframesAndMockups".to_string(), class_section_id: "WIANMO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WireframesAndMockups".to_string(), serialization_order: Some(6), doc_comment: "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).".to_string(), class_doc_comment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+    ]
+}
+
+fn meta_children_experience_localization_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ExperienceLocalizationFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the localization follow-up: the multi-language / internationalization approach.".to_string() }), ..som::SomMetaNode::default() }),
+        meta_cx("MultiLanguageSupport", s, meta_children_multi_language_support, |r, c| som::SomMetaNode {
+            class_name: "MultiLanguageSupport".to_string(), member_name: "multiLanguageSupport".to_string(), class_section_id: "MLAR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MultiLanguageSupport".to_string(), serialization_order: Some(1), doc_comment: "10.3.1. Multi-language Support.".to_string(), class_doc_comment: "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -7651,6 +7797,10 @@ fn meta_children_information_and_data_model(s: &mut HashSet<String>) -> Vec<Rc<s
         }),
         meta_cx("MessageKeyRegistry", s, meta_children_message_key_registry, |r, c| som::SomMetaNode {
             class_name: "MessageKeyRegistry".to_string(), member_name: "messageKeyRegistry".to_string(), class_section_id: "MSGKR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MessageKeyRegistry".to_string(), serialization_order: Some(8), doc_comment: "7.8. Message Key Registry.".to_string(), class_doc_comment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("DataModelFollowUp", s, meta_children_data_model_follow_up, |r, c| som::SomMetaNode {
+            class_name: "DataModelFollowUp".to_string(), member_name: "dataModelFollowUp".to_string(), class_section_id: "DMFU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataModelFollowUp".to_string(), serialization_order: Some(9), doc_comment: "7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.".to_string(), class_doc_comment: "7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -9950,6 +10100,20 @@ fn meta_children_org_requirement_implementation_plan(s: &mut HashSet<String>) ->
     ]
 }
 
+fn meta_children_organization_and_process_concept(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "OrganizationAndProcessConcept".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), unused: true, content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
+        meta_cx("OrganizationalFramework", s, meta_children_organizational_framework, |r, c| som::SomMetaNode {
+            class_name: "OrganizationalFramework".to_string(), member_name: "organizationalFramework".to_string(), class_section_id: "ORGF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OrganizationalFramework".to_string(), serialization_order: Some(1), doc_comment: "Target organizational structure and roles.".to_string(), class_doc_comment: "5. Organizational Framework.\n\nOrganizational changes and structures required for the new system.\nCovers organization structure changes, new and changed roles, staffing\nplans, competency frameworks, and workplace requirements. Follows\norganizational design best practices (McKinsey 7-S, Galbraith Star Model)\nand HR management standards (SHRM, CIPD).".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("BusinessProcessDescriptions", s, meta_children_business_process_descriptions, |r, c| som::SomMetaNode {
+            class_name: "BusinessProcessDescriptions".to_string(), member_name: "businessProcessDescriptions".to_string(), class_section_id: "BPDSC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BusinessProcessDescriptions".to_string(), serialization_order: Some(2), comment: "Seeds → TOM".to_string(), doc_comment: "Business-process descriptions and narrative. Seeds → TOM.".to_string(), class_doc_comment: "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.".to_string(), maps_to: "D02TargetOperatingModel".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+    ]
+}
+
 fn meta_children_organization_structure(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "OrganizationStructure".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Project organization chart with reporting lines, governance model, and escalation paths.".to_string() }), content_help: "Insert project organization chart showing reporting lines. Describe the governance model: who decides what, escalation paths, meeting cadence.".to_string(), ..som::SomMetaNode::default() }),
@@ -11852,7 +12016,7 @@ fn meta_children_release_strategy(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
         Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "releaseMethodology".to_string(), type_name: "String".to_string(), description: "Release Methodology".to_string(), required: false, hint: "Blue-green, Canary, Rolling, A/B".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "releaseFrequency".to_string(), type_name: "String".to_string(), description: "Release Frequency".to_string(), required: false, hint: "Daily, Weekly, Bi-weekly".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "releaseSchedule".to_string(), type_name: "String".to_string(), description: "Release Schedule".to_string(), required: false, hint: "When releases occur".to_string(), order: 2, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "blueGreen".to_string(), section_id: "RSBG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Blue-green deployment configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "releaseWindow".to_string(), type_name: "String".to_string(), description: "Release Window".to_string(), required: false, hint: "Allowed deployment times".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "blueGreenEnabled".to_string(), type_name: "bool".to_string(), description: "Blue-Green Enabled".to_string(), required: false, hint: "Uses blue-green deployment".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "trafficSwitching".to_string(), type_name: "String".to_string(), description: "Traffic Switching".to_string(), required: false, hint: "How traffic is switched".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "warmupPeriod".to_string(), type_name: "String".to_string(), description: "Warmup Period".to_string(), required: false, hint: "New version warmup time".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "greenRetention".to_string(), type_name: "String".to_string(), description: "Green Retention".to_string(), required: false, hint: "How long to keep old version".to_string(), order: 4, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous delivery pipelines".to_string()), som::Json::Str("Google SRE — site reliability engineering".to_string())])), ("connotation".to_string(), som::Json::Str("Defines blue-green deployment: traffic switching, warmup period, and retention of the old (green) version for fast switch-back.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "canary".to_string(), section_id: "RESTCA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Canary deployment configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "canaryEnabled".to_string(), type_name: "bool".to_string(), description: "Canary Enabled".to_string(), required: false, hint: "Uses canary deployment".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "canaryPercentage".to_string(), type_name: "String".to_string(), description: "Canary Percentage".to_string(), required: false, hint: "Initial canary traffic %".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "canaryRampUpSteps".to_string(), type_name: "String".to_string(), description: "Canary Ramp-Up Steps".to_string(), required: false, hint: "Percentage ramp-up steps".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "canaryMetrics".to_string(), type_name: "String".to_string(), description: "Canary Metrics".to_string(), required: false, hint: "Metrics for canary health".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "canaryDuration".to_string(), type_name: "String".to_string(), description: "Canary Duration".to_string(), required: false, hint: "Time at each step".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "autoRollbackCriteria".to_string(), type_name: "String".to_string(), description: "Auto-Rollback Criteria".to_string(), required: false, hint: "When to auto-rollback canary".to_string(), order: 5, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous delivery pipelines".to_string()), som::Json::Str("Google SRE — site reliability engineering".to_string())])), ("connotation".to_string(), som::Json::Str("Defines canary deployment: initial traffic percentage, ramp-up steps, health metrics, and auto-rollback criteria.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "featureFlags".to_string(), section_id: "RSFF".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Feature flags configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "featureFlagsEnabled".to_string(), type_name: "bool".to_string(), description: "Feature Flags Enabled".to_string(), required: false, hint: "Uses feature flags".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "featureFlagProvider".to_string(), type_name: "String".to_string(), description: "Feature Flag Provider".to_string(), required: false, hint: "LaunchDarkly, Flagsmith, custom".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "flagStrategy".to_string(), type_name: "String".to_string(), description: "Flag Strategy".to_string(), required: false, hint: "How flags are managed".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous delivery pipelines".to_string()), som::Json::Str("Twelve-Factor App — cloud-native ops".to_string())])), ("connotation".to_string(), som::Json::Str("Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.".to_string()))] }, som::SomMetaExtra { annotation: "CodeSpecKind".to_string(), args: vec![("kinds".to_string(), som::Json::Array(vec![som::Json::Str("CodeSpecPart.featureFlag".to_string())])), ("note".to_string(), som::Json::Str("CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "featureFlags".to_string(), section_id: "RSFF".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Feature flags configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "featureFlagsEnabled".to_string(), type_name: "bool".to_string(), description: "Feature Flags Enabled".to_string(), required: false, hint: "Uses feature flags".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "featureFlagProvider".to_string(), type_name: "String".to_string(), description: "Feature Flag Provider".to_string(), required: false, hint: "LaunchDarkly, Flagsmith, custom".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "flagStrategy".to_string(), type_name: "String".to_string(), description: "Flag Strategy".to_string(), required: false, hint: "How flags are managed".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous delivery pipelines".to_string()), som::Json::Str("Twelve-Factor App — cloud-native ops".to_string())])), ("connotation".to_string(), som::Json::Str("Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.".to_string()))] }, som::SomMetaExtra { annotation: "CodeSpecKind".to_string(), args: vec![("kinds".to_string(), som::Json::Array(vec![som::Json::Str("CodeSpecPart.serverConfiguration".to_string())])), ("note".to_string(), som::Json::Str("CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc §5.26). The deploy-from-release flag itself is deployment tooling.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ReleaseStrategy".to_string(), member_name: "management".to_string(), section_id: "RESTMA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Release management.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "releaseNotes".to_string(), type_name: "String".to_string(), description: "Release Notes".to_string(), required: false, hint: "Release notes process".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "changelogGeneration".to_string(), type_name: "String".to_string(), description: "Changelog Generation".to_string(), required: false, hint: "Auto or manual changelog".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "releaseApproval".to_string(), type_name: "String".to_string(), description: "Release Approval".to_string(), required: false, hint: "Who approves releases".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional release notes".to_string(), order: 3, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — IT service management".to_string()), som::Json::Str("CI/CD — continuous delivery pipelines".to_string())])), ("connotation".to_string(), som::Json::Str("Defines release management practices: release notes, changelog generation, and release approval.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
@@ -12264,6 +12428,16 @@ fn meta_children_requirement_ui_specification(s: &mut HashSet<String>) -> Vec<Rc
 fn meta_children_requirements(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "Requirements".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the functional and non-functional requirement landscape; seeds the Requirements Specification (RSP).".to_string() }), ..som::SomMetaNode::default() }),
+        meta_cx("RequirementsFollowUp", s, meta_children_requirements_follow_up, |r, c| som::SomMetaNode {
+            class_name: "RequirementsFollowUp".to_string(), member_name: "requirementsFollowUp".to_string(), class_section_id: "REQFU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RequirementsFollowUp".to_string(), serialization_order: Some(1), doc_comment: "Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.".to_string(), class_doc_comment: "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+    ]
+}
+
+fn meta_children_requirements_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "RequirementsFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the follow-up (non-generated) NFR sub-areas: localization, information-for-use, and training.".to_string() }), ..som::SomMetaNode::default() }),
         meta_cx("LocalizationTranslationRequirements", s, meta_children_localization_translation_requirements, |r, c| som::SomMetaNode {
             class_name: "LocalizationTranslationRequirements".to_string(), member_name: "localizationTranslation".to_string(), class_section_id: "LCTR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LocalizationTranslationRequirements".to_string(), serialization_order: Some(1), doc_comment: "Localization & Translation requirements (NFR-L10N-NNN).".to_string(), class_doc_comment: "Localization & Translation requirements (the requirement side of i18n).\n\nCross-mapped from SBP.14 via [Iso25010Coverage].".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
@@ -13013,7 +13187,7 @@ fn meta_children_schema_migration_step_entry(_s: &mut HashSet<String>) -> Vec<Rc
 
 fn meta_children_schema_versioning_and_migration(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "migrationTooling".to_string(), type_name: "String".to_string(), description: "Migration Tooling".to_string(), required: false, hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "versioningStrategy".to_string(), type_name: "String".to_string(), description: "Versioning Strategy".to_string(), required: false, hint: "Sequential numbered | Timestamped | Semantic".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "forwardOnly".to_string(), type_name: "bool".to_string(), description: "Forward-Only".to_string(), required: false, hint: "Whether migrations are forward-only (no down migrations)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "baselineVersion".to_string(), type_name: "String".to_string(), description: "Baseline Version".to_string(), required: false, hint: "The initial/baseline schema version migrations build on".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "zeroDowntimeApproach".to_string(), type_name: "String".to_string(), description: "Zero-Downtime Approach".to_string(), required: false, hint: "Expand/contract, online DDL, blue-green schema, or None".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "migrationTooling".to_string(), type_name: "String".to_string(), description: "Migration Tooling".to_string(), required: false, hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "versioningStrategy".to_string(), type_name: "String".to_string(), description: "Versioning Strategy".to_string(), required: false, hint: "Sequential numbered | Timestamped | Semantic".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "forwardOnly".to_string(), type_name: "bool".to_string(), description: "Forward-Only".to_string(), required: false, hint: "Whether migrations are forward-only (no down migrations)".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "baselineVersion".to_string(), type_name: "String".to_string(), description: "Baseline Version".to_string(), required: false, hint: "The initial/baseline schema version migrations build on".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "zeroDowntimeApproach".to_string(), type_name: "String".to_string(), description: "Zero-Downtime Approach".to_string(), required: false, hint: "Expand/contract, online DDL, blue-green schema, or None".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
         {
             let mut n = som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "migrationSteps".to_string(), section_id: "SCMST-STEP-LST".to_string(), section_id_pattern: "SCMST-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SchemaMigrationStepEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per versioned schema migration step.".to_string(), doc_comment: "7.4.1. Schema Migration Steps — one entry per versioned migration.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Evolutionary Database Design (Ambler & Sadalage) — database refactoring".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered schema migration steps that evolve the database over releases.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SchemaMigrationStepEntry", s, meta_children_schema_migration_step_entry, |r, c| som::SomMetaNode {
@@ -13351,36 +13525,16 @@ fn meta_children_security(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>>
 fn meta_children_security_and_access_model(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "SecurityAndAccessModel".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide a high-level overview of the application's security architecture for\nprotecting data and functions. This section serves as the entry point for all\naccess and authorization concerns.\n\n**Key topics to address:**\n- Overall security philosophy (zero trust, defense in depth, least privilege)\n- Applicable security frameworks (NIST, ISO 27001, SOC 2, OWASP)\n- Regulatory requirements affecting access control (GDPR, HIPAA, PCI DSS)\n- Integration points with enterprise identity and access management (IAM)\n- Risk-based approach to authorization decisions\n\n**Cross-references:**\n- User Management → defines who accesses the system\n- Authentication → proves user identity\n- Authorization → controls what authenticated users can do\n- Resource Protection → secures data and APIs\n- Encryption → protects sensitive data\n- Audit → logs security events for compliance\n".to_string(), ..som::SomMetaNode::default() }),
-        meta_cx("UserManagement", s, meta_children_user_management, |r, c| som::SomMetaNode {
-            class_name: "UserManagement".to_string(), member_name: "userManagement".to_string(), class_section_id: "USMGT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserManagement".to_string(), serialization_order: Some(1), doc_comment: "9.1. User Management.".to_string(), class_doc_comment: "9.1. User Management.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+        meta_cx("AccessControlModel", s, meta_children_access_control_model, |r, c| som::SomMetaNode {
+            class_name: "AccessControlModel".to_string(), member_name: "accessControl".to_string(), class_section_id: "ACCM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AccessControlModel".to_string(), serialization_order: Some(1), doc_comment: "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.".to_string(), class_doc_comment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("IdentificationAndAuthentication", s, meta_children_identification_and_authentication, |r, c| som::SomMetaNode {
-            class_name: "IdentificationAndAuthentication".to_string(), member_name: "authentication".to_string(), class_section_id: "IDAUT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IdentificationAndAuthentication".to_string(), serialization_order: Some(2), doc_comment: "9.2. Identification and Authentication.".to_string(), class_doc_comment: "9.2. Identification and Authentication.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+        meta_cx("SecurityOperationsFollowUp", s, meta_children_security_operations_follow_up, |r, c| som::SomMetaNode {
+            class_name: "SecurityOperationsFollowUp".to_string(), member_name: "securityOperations".to_string(), class_section_id: "SCOF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityOperationsFollowUp".to_string(), serialization_order: Some(2), doc_comment: "9.2. Security Operations — OPS follow-up subtree.".to_string(), class_doc_comment: "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("ResourceProtection", s, meta_children_resource_protection, |r, c| som::SomMetaNode {
-            class_name: "ResourceProtection".to_string(), member_name: "resourceProtection".to_string(), class_section_id: "RESPRO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResourceProtection".to_string(), serialization_order: Some(3), doc_comment: "9.3. Resource Protection.".to_string(), class_doc_comment: "9.3. Resource Protection.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("UserAuthorization", s, meta_children_user_authorization, |r, c| som::SomMetaNode {
-            class_name: "UserAuthorization".to_string(), member_name: "authorization".to_string(), class_section_id: "USAU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAuthorization".to_string(), serialization_order: Some(4), doc_comment: "9.4. User Authorization.".to_string(), class_doc_comment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("SensitiveDataEncryption", s, meta_children_sensitive_data_encryption, |r, c| som::SomMetaNode {
-            class_name: "SensitiveDataEncryption".to_string(), member_name: "encryption".to_string(), class_section_id: "SEDAEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SensitiveDataEncryption".to_string(), serialization_order: Some(5), doc_comment: "9.5. Sensitive Data Encryption.".to_string(), class_doc_comment: "9.5. Sensitive Data Encryption.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("AuditAndLogging", s, meta_children_audit_and_logging, |r, c| som::SomMetaNode {
-            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(6), doc_comment: "9.6. Audit and Logging.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("RoleMatrix", s, meta_children_role_matrix, |r, c| som::SomMetaNode {
-            class_name: "RoleMatrix".to_string(), member_name: "roleMatrix".to_string(), class_section_id: "ROMA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RoleMatrix".to_string(), serialization_order: Some(7), doc_comment: "9.7. Role Matrix..".to_string(), class_doc_comment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ComplianceFramework", s, meta_children_compliance_framework, |r, c| som::SomMetaNode {
-            class_name: "ComplianceFramework".to_string(), member_name: "complianceFramework".to_string(), class_section_id: "CF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceFramework".to_string(), serialization_order: Some(8), doc_comment: "9.8. Compliance Framework.".to_string(), class_doc_comment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+        meta_cx("SecurityComplianceFollowUp", s, meta_children_security_compliance_follow_up, |r, c| som::SomMetaNode {
+            class_name: "SecurityComplianceFollowUp".to_string(), member_name: "compliance".to_string(), class_section_id: "SCCF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityComplianceFollowUp".to_string(), serialization_order: Some(3), doc_comment: "9.3. Compliance — CMP follow-up subtree.".to_string(), class_doc_comment: "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -13468,6 +13622,16 @@ fn meta_children_security_code_review_policy(_s: &mut HashSet<String>) -> Vec<Rc
     ]
 }
 
+fn meta_children_security_compliance_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "SecurityComplianceFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the compliance follow-up: the regulatory and audit compliance framework.".to_string() }), ..som::SomMetaNode::default() }),
+        meta_cx("ComplianceFramework", s, meta_children_compliance_framework, |r, c| som::SomMetaNode {
+            class_name: "ComplianceFramework".to_string(), member_name: "complianceFramework".to_string(), class_section_id: "CF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceFramework".to_string(), serialization_order: Some(1), doc_comment: "9.3.1. Compliance Framework.".to_string(), class_doc_comment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+    ]
+}
+
 fn meta_children_security_control_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "SecurityControlEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "controlId".to_string(), type_name: "String".to_string(), description: "Control ID".to_string(), required: true, hint: "Stable unique identifier for the control".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "controlName".to_string(), type_name: "String".to_string(), description: "Control Name".to_string(), required: true, hint: "Short descriptive name for the control".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "controlType".to_string(), type_name: "String".to_string(), description: "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)".to_string(), required: true, hint: "Preventive, Detective, Corrective, Deterrent, or Compensating".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "implementationType".to_string(), type_name: "String".to_string(), description: "Implementation Type (Technical, Administrative, Physical)".to_string(), required: false, hint: "Technical, Administrative, or Physical".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -13543,6 +13707,20 @@ fn meta_children_security_events_definition(s: &mut HashSet<String>) -> Vec<Rc<s
             }));
             Rc::new(n)
         },
+    ]
+}
+
+fn meta_children_security_operations_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "SecurityOperationsFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the operational security follow-up: encryption / key management and audit / logging.".to_string() }), ..som::SomMetaNode::default() }),
+        meta_cx("SensitiveDataEncryption", s, meta_children_sensitive_data_encryption, |r, c| som::SomMetaNode {
+            class_name: "SensitiveDataEncryption".to_string(), member_name: "encryption".to_string(), class_section_id: "SEDAEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SensitiveDataEncryption".to_string(), serialization_order: Some(1), doc_comment: "9.2.1. Sensitive Data Encryption.".to_string(), class_doc_comment: "9.5. Sensitive Data Encryption.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("AuditAndLogging", s, meta_children_audit_and_logging, |r, c| som::SomMetaNode {
+            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(2), doc_comment: "9.2.2. Audit and Logging.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
     ]
 }
 
@@ -14039,11 +14217,21 @@ fn meta_children_solution_architecture_and_technology(s: &mut HashSet<String>) -
     vec![
         Rc::new(som::SomMetaNode { class_name: "SolutionArchitectureAndTechnology".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), unused: true, content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
         meta_cx("TechnicalFrameworkConcept", s, meta_children_technical_framework_concept, |r, c| som::SomMetaNode {
-            class_name: "TechnicalFrameworkConcept".to_string(), member_name: "technicalFramework".to_string(), class_section_id: "TECH".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalFrameworkConcept".to_string(), serialization_order: Some(1), doc_comment: "Technical framework and platform concept.".to_string(), class_doc_comment: "8. Technical Framework Concept. Seeds → ATS.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "TechnicalFrameworkConcept".to_string(), member_name: "technicalFramework".to_string(), class_section_id: "TECH".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalFrameworkConcept".to_string(), serialization_order: Some(1), doc_comment: "Technical framework and platform concept — the CodeSpecs-relevant\n(CE-CF configuration-bearing) subtree.".to_string(), class_doc_comment: "8. Technical Framework Concept. Seeds → ATS.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("SolutionArchitectureFollowUp", s, meta_children_solution_architecture_follow_up, |r, c| som::SomMetaNode {
+            class_name: "SolutionArchitectureFollowUp".to_string(), member_name: "architectureFollowUp".to_string(), class_section_id: "SATF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SolutionArchitectureFollowUp".to_string(), serialization_order: Some(2), doc_comment: "Architecture / component-reuse DOC follow-up subtree.".to_string(), class_doc_comment: "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+    ]
+}
+
+fn meta_children_solution_architecture_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "SolutionArchitectureFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the descriptive-architecture follow-up: the component-reuse rationale and dependency strategy.".to_string() }), ..som::SomMetaNode::default() }),
         meta_cx("ComponentsAndDependencies", s, meta_children_components_and_dependencies, |r, c| som::SomMetaNode {
-            class_name: "ComponentsAndDependencies".to_string(), member_name: "componentsToUse".to_string(), class_section_id: "COMP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComponentsAndDependencies".to_string(), serialization_order: Some(2), doc_comment: "Components, libraries, and services to reuse.".to_string(), class_doc_comment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "ComponentsAndDependencies".to_string(), member_name: "componentsToUse".to_string(), class_section_id: "COMP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComponentsAndDependencies".to_string(), serialization_order: Some(1), doc_comment: "Components, libraries, and services to reuse.".to_string(), class_doc_comment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -15388,29 +15576,15 @@ fn meta_children_tab_item_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
     ]
 }
 
-fn meta_children_target_business_process_model(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "TargetBusinessProcessModel".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Overview of target business processes the system will support. This section\nestablishes the process vision, documents key processes with their triggers,\nactors, inputs/outputs, and performance expectations, and defines actor\ninteractions that seed use case development.\n\n**Key Activities:**\n- Define process vision and design principles\n- Create process catalog with comprehensive process definitions\n- Identify actors and their goals, permissions, and technology profiles\n- Document key interactions following Cockburn use case patterns\n- Map end-to-end scenarios showing user journeys\n\n**Best Practices:**\n- Follow BPMN 2.0 notation for process diagrams\n- Use APQC Process Classification Framework for process categorization\n- Apply Cockburn-style goal levels (summary/user/subfunction)\n- Define RACI for all process roles\n- Include performance KPIs and SLAs for each process\n".to_string(), ..som::SomMetaNode::default() }),
-        meta_cx("BusinessProcessDescriptions", s, meta_children_business_process_descriptions, |r, c| som::SomMetaNode {
-            class_name: "BusinessProcessDescriptions".to_string(), member_name: "businessProcessDescriptions".to_string(), class_section_id: "BPDSC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BusinessProcessDescriptions".to_string(), serialization_order: Some(1), comment: "Seeds → TOM".to_string(), doc_comment: "6.1. Business Process Descriptions. Seeds → TOM.".to_string(), class_doc_comment: "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.".to_string(), maps_to: "D02TargetOperatingModel".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ProcessStepsAndActorInteractions", s, meta_children_process_steps_and_actor_interactions, |r, c| som::SomMetaNode {
-            class_name: "ProcessStepsAndActorInteractions".to_string(), member_name: "processStepsAndActorInteractions".to_string(), class_section_id: "PSAAI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsAndActorInteractions".to_string(), serialization_order: Some(2), comment: "Seeds → ISC".to_string(), doc_comment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.".to_string(), class_doc_comment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.".to_string(), maps_to: "D05InteractionScenarios".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-    ]
-}
-
 fn meta_children_target_operating_model(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "TargetOperatingModel".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), unused: true, content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
-        meta_cx("OrganizationalFramework", s, meta_children_organizational_framework, |r, c| som::SomMetaNode {
-            class_name: "OrganizationalFramework".to_string(), member_name: "organizationalFramework".to_string(), class_section_id: "ORGF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OrganizationalFramework".to_string(), serialization_order: Some(1), doc_comment: "Target organizational structure and roles.".to_string(), class_doc_comment: "5. Organizational Framework.\n\nOrganizational changes and structures required for the new system.\nCovers organization structure changes, new and changed roles, staffing\nplans, competency frameworks, and workplace requirements. Follows\norganizational design best practices (McKinsey 7-S, Galbraith Star Model)\nand HR management standards (SHRM, CIPD).".to_string(),
+        meta_cx("OrganizationAndProcessConcept", s, meta_children_organization_and_process_concept, |r, c| som::SomMetaNode {
+            class_name: "OrganizationAndProcessConcept".to_string(), member_name: "organizationAndProcess".to_string(), class_section_id: "OAPC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OrganizationAndProcessConcept".to_string(), serialization_order: Some(1), doc_comment: "ORG/OPS follow-up subtree: target organization + process narrative.".to_string(), class_doc_comment: "SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.\n\nGroups the two purely-follow-up facets of the Target Operating Model into a\nsingle branch that is routed to organizational-change (ORG) and\noperational-routine (OPS) follow-up processes rather than to code\ngeneration: the target organizational structure/roles\n([OrganizationalFramework]) and the business-process narrative\n([BusinessProcessDescriptions], which seeds the TOM document).".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("TargetBusinessProcessModel", s, meta_children_target_business_process_model, |r, c| som::SomMetaNode {
-            class_name: "TargetBusinessProcessModel".to_string(), member_name: "targetBusinessProcess".to_string(), class_section_id: "TBPM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TargetBusinessProcessModel".to_string(), serialization_order: Some(2), doc_comment: "Target business process model.".to_string(), class_doc_comment: "6. Target Business Process Model.".to_string(),
+        meta_cx("ProcessStepsAndActorInteractions", s, meta_children_process_steps_and_actor_interactions, |r, c| som::SomMetaNode {
+            class_name: "ProcessStepsAndActorInteractions".to_string(), member_name: "processStepsAndActorInteractions".to_string(), class_section_id: "PSAAI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsAndActorInteractions".to_string(), serialization_order: Some(2), comment: "Seeds → ISC".to_string(), doc_comment: "CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).".to_string(), class_doc_comment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.".to_string(), maps_to: "D05InteractionScenarios".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -16642,7 +16816,7 @@ fn meta_children_user_assistance(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
 
 fn meta_children_user_attribute_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "UserAttributeEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "attributeName".to_string(), type_name: "String".to_string(), description: "Attribute Name".to_string(), required: true, hint: "Name of the user attribute.".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "dataType".to_string(), type_name: "String".to_string(), description: "Data Type".to_string(), required: false, hint: "Data type of the attribute value.".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "source".to_string(), type_name: "String".to_string(), description: "Source".to_string(), required: false, hint: "System of record that supplies this attribute.".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "required".to_string(), type_name: "String".to_string(), description: "Required".to_string(), required: false, hint: "Whether this attribute is mandatory.".to_string(), order: 3, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "UserAttributeEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "attributeName".to_string(), type_name: "String".to_string(), description: "Attribute Name".to_string(), required: true, hint: "Name of the user attribute.".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "dataType".to_string(), type_name: "String".to_string(), description: "Data Type".to_string(), required: false, hint: "Data type of the attribute value.".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "placement".to_string(), type_name: "UserAttributePlacement".to_string(), description: "Placement".to_string(), required: false, hint: "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).".to_string(), order: 2, enum_values: vec!["public".to_string(), "encrypted".to_string()] }, som::SomFormFieldMeta { name: "accessGuard".to_string(), type_name: "String".to_string(), description: "Access Guard".to_string(), required: false, hint: "Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "source".to_string(), type_name: "String".to_string(), description: "Source".to_string(), required: false, hint: "System of record that supplies this attribute.".to_string(), order: 4, enum_values: vec![] }, som::SomFormFieldMeta { name: "required".to_string(), type_name: "String".to_string(), description: "Required".to_string(), required: false, hint: "Whether this attribute is mandatory.".to_string(), order: 5, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -17779,6 +17953,57 @@ impl<'a> AccessConstraintPoliciesNav<'a> {
 
     pub fn access_constraint_details(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessConstraintDetails"))
+    }
+}
+
+/// AccessControlModelNav holds the dot-notation accessors of `AccessControlModel` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct AccessControlModelNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> AccessControlModelNav<'a> {
+    /// Binds a AccessControlModelNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> AccessControlModelNav<'a> {
+        AccessControlModelNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn user_management(&self) -> UserManagementNav<'a> {
+        UserManagementNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userManagement"))
+    }
+
+    pub fn authentication(&self) -> IdentificationAndAuthenticationNav<'a> {
+        IdentificationAndAuthenticationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "authentication"))
+    }
+
+    pub fn resource_protection(&self) -> ResourceProtectionNav<'a> {
+        ResourceProtectionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resourceProtection"))
+    }
+
+    pub fn authorization(&self) -> UserAuthorizationNav<'a> {
+        UserAuthorizationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "authorization"))
+    }
+
+    pub fn role_matrix(&self) -> RoleMatrixNav<'a> {
+        RoleMatrixNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "roleMatrix"))
     }
 }
 
@@ -20766,6 +20991,41 @@ impl<'a> AuthenticationMethodsNav<'a> {
 
     pub fn items(&self) -> som::SomListMetaRef<'a, AuthenticationMethodEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ATME-ITEM-LST"), AuthenticationMethodEntryNav::new)
+    }
+}
+
+/// AuthorizationComplianceFollowUpNav holds the dot-notation accessors of `AuthorizationComplianceFollowUp` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct AuthorizationComplianceFollowUpNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> AuthorizationComplianceFollowUpNav<'a> {
+    /// Binds a AuthorizationComplianceFollowUpNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> AuthorizationComplianceFollowUpNav<'a> {
+        AuthorizationComplianceFollowUpNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn authorization_compliance(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "authorizationCompliance"))
     }
 }
 
@@ -24097,6 +24357,10 @@ impl<'a> ClientRequirementsSectionNav<'a> {
 
     pub fn client_configuration(&self) -> ClientConfigurationNav<'a> {
         ClientConfigurationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "clientConfiguration"))
+    }
+
+    pub fn device_settings(&self) -> DeviceSettingsNav<'a> {
+        DeviceSettingsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deviceSettings"))
     }
 }
 
@@ -28758,6 +29022,77 @@ impl<'a> D12TransitionRolloutPlanNav<'a> {
     }
 }
 
+/// D13CodeSpecsProjectionNav holds the dot-notation accessors of `D13CodeSpecsProjection` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct D13CodeSpecsProjectionNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> D13CodeSpecsProjectionNav<'a> {
+    /// Binds a D13CodeSpecsProjectionNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> D13CodeSpecsProjectionNav<'a> {
+        D13CodeSpecsProjectionNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn header(&self) -> DocumentHeaderNav<'a> {
+        DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
+    }
+
+    pub fn domain_enum_registry(&self) -> DomainEnumRegistryNav<'a> {
+        DomainEnumRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "domainEnumRegistry"))
+    }
+
+    pub fn error_code_registry(&self) -> ErrorCodeRegistryNav<'a> {
+        ErrorCodeRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorCodeRegistry"))
+    }
+
+    pub fn result_envelope(&self) -> ResultEnvelopeNav<'a> {
+        ResultEnvelopeNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resultEnvelope"))
+    }
+
+    pub fn message_key_registry(&self) -> MessageKeyRegistryNav<'a> {
+        MessageKeyRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "messageKeyRegistry"))
+    }
+
+    pub fn data_model(&self) -> DataModelNav<'a> {
+        DataModelNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataModel"))
+    }
+
+    pub fn technical_framework(&self) -> TechnicalFrameworkConceptNav<'a> {
+        TechnicalFrameworkConceptNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework"))
+    }
+
+    pub fn access_control(&self) -> AccessControlModelNav<'a> {
+        AccessControlModelNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl"))
+    }
+
+    pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractionsNav<'a> {
+        ProcessStepsAndActorInteractionsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions"))
+    }
+
+    pub fn experience_code_specs(&self) -> ExperienceCodeSpecsNav<'a> {
+        ExperienceCodeSpecsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs"))
+    }
+}
+
 /// DashboardEntryNav holds the dot-notation accessors of `DashboardEntry` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -29385,24 +29720,12 @@ impl<'a> DataEntityEntryNav<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENT-CLAS"))
     }
 
-    pub fn volume_metrics(&self) -> som::SomListMetaRef<'a, VolumeMetricEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VOLUM-VOLU-LST"), VolumeMetricEntryNav::new)
-    }
-
     pub fn lifecycle_policy(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENT-LIFE"))
     }
 
-    pub fn compliance_requirements(&self) -> som::SomListMetaRef<'a, ComplianceRequirementEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CRE-COMP-LST"), ComplianceRequirementEntryNav::new)
-    }
-
     pub fn relationship_summary(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENT-RELA"))
-    }
-
-    pub fn technical_characteristics(&self) -> som::SomListMetaRef<'a, TechnicalCharacteristicEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TECHN-TECH-LST"), TechnicalCharacteristicEntryNav::new)
     }
 
     pub fn attributes(&self) -> som::SomListMetaRef<'a, DataAttributeEntryNav<'a>> {
@@ -29419,10 +29742,6 @@ impl<'a> DataEntityEntryNav<'a> {
 
     pub fn constraints(&self) -> som::SomListMetaRef<'a, EntityConstraintEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ENCNS-CONS-LST"), EntityConstraintEntryNav::new)
-    }
-
-    pub fn migration_mappings(&self) -> som::SomListMetaRef<'a, MigrationMappingEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIGME-MIGR-LST"), MigrationMappingEntryNav::new)
     }
 }
 
@@ -29985,10 +30304,6 @@ impl<'a> DataModelNav<'a> {
         EntityRelationshipsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "entityRelationships"))
     }
 
-    pub fn er_diagram(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "erDiagram"))
-    }
-
     pub fn data_classification(&self) -> DataClassificationNav<'a> {
         DataClassificationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataClassification"))
     }
@@ -30003,6 +30318,45 @@ impl<'a> DataModelNav<'a> {
 
     pub fn integrity_constraints(&self) -> IntegrityConstraintsNav<'a> {
         IntegrityConstraintsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "integrityConstraints"))
+    }
+}
+
+/// DataModelFollowUpNav holds the dot-notation accessors of `DataModelFollowUp` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct DataModelFollowUpNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DataModelFollowUpNav<'a> {
+    /// Binds a DataModelFollowUpNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DataModelFollowUpNav<'a> {
+        DataModelFollowUpNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn er_diagram(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "erDiagram"))
+    }
+
+    pub fn entity_follow_ups(&self) -> som::SomListMetaRef<'a, EntityFollowUpEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DMFUE-ENFU-LST"), EntityFollowUpEntryNav::new)
     }
 }
 
@@ -32842,6 +33196,37 @@ impl<'a> DevelopmentQualityGatesNav<'a> {
     }
 }
 
+/// DeviceSettingsNav holds the dot-notation accessors of `DeviceSettings` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct DeviceSettingsNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DeviceSettingsNav<'a> {
+    /// Binds a DeviceSettingsNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DeviceSettingsNav<'a> {
+        DeviceSettingsNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// DisasterRecoveryRequirementsNav holds the dot-notation accessors of `DisasterRecoveryRequirements` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -33461,6 +33846,10 @@ impl<'a> DocSpecsProjectNav<'a> {
 
     pub fn experience_design_specification(&self) -> D09ExperienceDesignSpecificationNav<'a> {
         D09ExperienceDesignSpecificationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceDesignSpecification"))
+    }
+
+    pub fn code_specs_projection(&self) -> D13CodeSpecsProjectionNav<'a> {
+        D13CodeSpecsProjectionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "codeSpecsProjection"))
     }
 }
 
@@ -34770,6 +35159,53 @@ impl<'a> EntityConstraintEntryNav<'a> {
     }
 }
 
+/// EntityFollowUpEntryNav holds the dot-notation accessors of `EntityFollowUpEntry` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct EntityFollowUpEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> EntityFollowUpEntryNav<'a> {
+    /// Binds a EntityFollowUpEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> EntityFollowUpEntryNav<'a> {
+        EntityFollowUpEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn entity_ref(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DMFUE-ENTI"))
+    }
+
+    pub fn volume_metrics(&self) -> som::SomListMetaRef<'a, VolumeMetricEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VOLUM-VOLU-LST"), VolumeMetricEntryNav::new)
+    }
+
+    pub fn compliance_requirements(&self) -> som::SomListMetaRef<'a, ComplianceRequirementEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CRE-COMP-LST"), ComplianceRequirementEntryNav::new)
+    }
+
+    pub fn technical_characteristics(&self) -> som::SomListMetaRef<'a, TechnicalCharacteristicEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TECHN-TECH-LST"), TechnicalCharacteristicEntryNav::new)
+    }
+
+    pub fn migration_mappings(&self) -> som::SomListMetaRef<'a, MigrationMappingEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIGME-MIGR-LST"), MigrationMappingEntryNav::new)
+    }
+}
+
 /// EntityIndexEntryNav holds the dot-notation accessors of `EntityIndexEntry` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -35798,8 +36234,51 @@ impl<'a> ExperienceAndInterfaceDesignNav<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 
-    pub fn design_vision(&self) -> DesignVisionNav<'a> {
-        DesignVisionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "designVision"))
+    pub fn experience_code_specs(&self) -> ExperienceCodeSpecsNav<'a> {
+        ExperienceCodeSpecsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs"))
+    }
+
+    pub fn design_follow_up(&self) -> ExperienceDesignFollowUpNav<'a> {
+        ExperienceDesignFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "designFollowUp"))
+    }
+
+    pub fn localization_follow_up(&self) -> ExperienceLocalizationFollowUpNav<'a> {
+        ExperienceLocalizationFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "localizationFollowUp"))
+    }
+
+    pub fn authorization_compliance_follow_up(&self) -> AuthorizationComplianceFollowUpNav<'a> {
+        AuthorizationComplianceFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "authorizationComplianceFollowUp"))
+    }
+}
+
+/// ExperienceCodeSpecsNav holds the dot-notation accessors of `ExperienceCodeSpecs` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ExperienceCodeSpecsNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ExperienceCodeSpecsNav<'a> {
+    /// Binds a ExperienceCodeSpecsNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ExperienceCodeSpecsNav<'a> {
+        ExperienceCodeSpecsNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 
     pub fn screens(&self) -> ScreenDescriptionsNav<'a> {
@@ -35810,20 +36289,59 @@ impl<'a> ExperienceAndInterfaceDesignNav<'a> {
         ScreenFlowStructureNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow"))
     }
 
-    pub fn print_layout(&self) -> PrintAndExportLayoutNav<'a> {
-        PrintAndExportLayoutNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "printLayout"))
-    }
-
     pub fn data_structure_alignment(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataStructureAlignment"))
     }
 
-    pub fn authorization_compliance(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "authorizationCompliance"))
-    }
-
     pub fn error_handling(&self) -> ErrorHandlingNav<'a> {
         ErrorHandlingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling"))
+    }
+
+    pub fn responsive_design(&self) -> ResponsiveDesignNav<'a> {
+        ResponsiveDesignNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "responsiveDesign"))
+    }
+
+    pub fn ui_components(&self) -> UiComponentsNav<'a> {
+        UiComponentsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "uiComponents"))
+    }
+}
+
+/// ExperienceDesignFollowUpNav holds the dot-notation accessors of `ExperienceDesignFollowUp` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ExperienceDesignFollowUpNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ExperienceDesignFollowUpNav<'a> {
+    /// Binds a ExperienceDesignFollowUpNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ExperienceDesignFollowUpNav<'a> {
+        ExperienceDesignFollowUpNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn design_vision(&self) -> DesignVisionNav<'a> {
+        DesignVisionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "designVision"))
+    }
+
+    pub fn print_layout(&self) -> PrintAndExportLayoutNav<'a> {
+        PrintAndExportLayoutNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "printLayout"))
     }
 
     pub fn user_assistance(&self) -> UserAssistanceNav<'a> {
@@ -35834,24 +36352,47 @@ impl<'a> ExperienceAndInterfaceDesignNav<'a> {
         AccessibilityNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessibility"))
     }
 
-    pub fn responsive_design(&self) -> ResponsiveDesignNav<'a> {
-        ResponsiveDesignNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "responsiveDesign"))
-    }
-
-    pub fn ui_components(&self) -> UiComponentsNav<'a> {
-        UiComponentsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "uiComponents"))
-    }
-
-    pub fn multi_language_support(&self) -> MultiLanguageSupportNav<'a> {
-        MultiLanguageSupportNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "multiLanguageSupport"))
-    }
-
     pub fn prototype(&self) -> PrototypeNav<'a> {
         PrototypeNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "prototype"))
     }
 
     pub fn wireframes_and_mockups(&self) -> WireframesAndMockupsNav<'a> {
         WireframesAndMockupsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "wireframesAndMockups"))
+    }
+}
+
+/// ExperienceLocalizationFollowUpNav holds the dot-notation accessors of `ExperienceLocalizationFollowUp` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ExperienceLocalizationFollowUpNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ExperienceLocalizationFollowUpNav<'a> {
+    /// Binds a ExperienceLocalizationFollowUpNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ExperienceLocalizationFollowUpNav<'a> {
+        ExperienceLocalizationFollowUpNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn multi_language_support(&self) -> MultiLanguageSupportNav<'a> {
+        MultiLanguageSupportNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "multiLanguageSupport"))
     }
 }
 
@@ -39440,6 +39981,10 @@ impl<'a> InformationAndDataModelNav<'a> {
 
     pub fn message_key_registry(&self) -> MessageKeyRegistryNav<'a> {
         MessageKeyRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "messageKeyRegistry"))
+    }
+
+    pub fn data_model_follow_up(&self) -> DataModelFollowUpNav<'a> {
+        DataModelFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataModelFollowUp"))
     }
 }
 
@@ -46954,6 +47499,45 @@ impl<'a> OrgRequirementImplementationPlanNav<'a> {
     }
 }
 
+/// OrganizationAndProcessConceptNav holds the dot-notation accessors of `OrganizationAndProcessConcept` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct OrganizationAndProcessConceptNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> OrganizationAndProcessConceptNav<'a> {
+    /// Binds a OrganizationAndProcessConceptNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> OrganizationAndProcessConceptNav<'a> {
+        OrganizationAndProcessConceptNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn organizational_framework(&self) -> OrganizationalFrameworkNav<'a> {
+        OrganizationalFrameworkNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "organizationalFramework"))
+    }
+
+    pub fn business_process_descriptions(&self) -> BusinessProcessDescriptionsNav<'a> {
+        BusinessProcessDescriptionsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessProcessDescriptions"))
+    }
+}
+
 /// OrganizationStructureNav holds the dot-notation accessors of `OrganizationStructure` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -54206,6 +54790,41 @@ impl<'a> RequirementsNav<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 
+    pub fn requirements_follow_up(&self) -> RequirementsFollowUpNav<'a> {
+        RequirementsFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirementsFollowUp"))
+    }
+}
+
+/// RequirementsFollowUpNav holds the dot-notation accessors of `RequirementsFollowUp` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct RequirementsFollowUpNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> RequirementsFollowUpNav<'a> {
+    /// Binds a RequirementsFollowUpNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> RequirementsFollowUpNav<'a> {
+        RequirementsFollowUpNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
     pub fn localization_translation(&self) -> LocalizationTranslationRequirementsNav<'a> {
         LocalizationTranslationRequirementsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "localizationTranslation"))
     }
@@ -57839,36 +58458,16 @@ impl<'a> SecurityAndAccessModelNav<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 
-    pub fn user_management(&self) -> UserManagementNav<'a> {
-        UserManagementNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userManagement"))
+    pub fn access_control(&self) -> AccessControlModelNav<'a> {
+        AccessControlModelNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl"))
     }
 
-    pub fn authentication(&self) -> IdentificationAndAuthenticationNav<'a> {
-        IdentificationAndAuthenticationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "authentication"))
+    pub fn security_operations(&self) -> SecurityOperationsFollowUpNav<'a> {
+        SecurityOperationsFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityOperations"))
     }
 
-    pub fn resource_protection(&self) -> ResourceProtectionNav<'a> {
-        ResourceProtectionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resourceProtection"))
-    }
-
-    pub fn authorization(&self) -> UserAuthorizationNav<'a> {
-        UserAuthorizationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "authorization"))
-    }
-
-    pub fn encryption(&self) -> SensitiveDataEncryptionNav<'a> {
-        SensitiveDataEncryptionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "encryption"))
-    }
-
-    pub fn audit_and_logging(&self) -> AuditAndLoggingNav<'a> {
-        AuditAndLoggingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "auditAndLogging"))
-    }
-
-    pub fn role_matrix(&self) -> RoleMatrixNav<'a> {
-        RoleMatrixNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "roleMatrix"))
-    }
-
-    pub fn compliance_framework(&self) -> ComplianceFrameworkNav<'a> {
-        ComplianceFrameworkNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "complianceFramework"))
+    pub fn compliance(&self) -> SecurityComplianceFollowUpNav<'a> {
+        SecurityComplianceFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "compliance"))
     }
 }
 
@@ -58111,6 +58710,41 @@ impl<'a> SecurityCodeReviewPolicyNav<'a> {
     }
 }
 
+/// SecurityComplianceFollowUpNav holds the dot-notation accessors of `SecurityComplianceFollowUp` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct SecurityComplianceFollowUpNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> SecurityComplianceFollowUpNav<'a> {
+    /// Binds a SecurityComplianceFollowUpNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> SecurityComplianceFollowUpNav<'a> {
+        SecurityComplianceFollowUpNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn compliance_framework(&self) -> ComplianceFrameworkNav<'a> {
+        ComplianceFrameworkNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "complianceFramework"))
+    }
+}
+
 /// SecurityControlEntryNav holds the dot-notation accessors of `SecurityControlEntry` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -58346,6 +58980,45 @@ impl<'a> SecurityEventsDefinitionNav<'a> {
 
     pub fn custom_events(&self) -> som::SomListMetaRef<'a, SecurityEventEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEVT-CUST-LST"), SecurityEventEntryNav::new)
+    }
+}
+
+/// SecurityOperationsFollowUpNav holds the dot-notation accessors of `SecurityOperationsFollowUp` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct SecurityOperationsFollowUpNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> SecurityOperationsFollowUpNav<'a> {
+    /// Binds a SecurityOperationsFollowUpNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> SecurityOperationsFollowUpNav<'a> {
+        SecurityOperationsFollowUpNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn encryption(&self) -> SensitiveDataEncryptionNav<'a> {
+        SensitiveDataEncryptionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "encryption"))
+    }
+
+    pub fn audit_and_logging(&self) -> AuditAndLoggingNav<'a> {
+        AuditAndLoggingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "auditAndLogging"))
     }
 }
 
@@ -60102,6 +60775,41 @@ impl<'a> SolutionArchitectureAndTechnologyNav<'a> {
 
     pub fn technical_framework(&self) -> TechnicalFrameworkConceptNav<'a> {
         TechnicalFrameworkConceptNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework"))
+    }
+
+    pub fn architecture_follow_up(&self) -> SolutionArchitectureFollowUpNav<'a> {
+        SolutionArchitectureFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "architectureFollowUp"))
+    }
+}
+
+/// SolutionArchitectureFollowUpNav holds the dot-notation accessors of `SolutionArchitectureFollowUp` (DR1 §4.1).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct SolutionArchitectureFollowUpNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> SolutionArchitectureFollowUpNav<'a> {
+    /// Binds a SolutionArchitectureFollowUpNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> SolutionArchitectureFollowUpNav<'a> {
+        SolutionArchitectureFollowUpNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 
     pub fn components_to_use(&self) -> ComponentsAndDependenciesNav<'a> {
@@ -63807,45 +64515,6 @@ impl<'a> TabItemEntryNav<'a> {
     }
 }
 
-/// TargetBusinessProcessModelNav holds the dot-notation accessors of `TargetBusinessProcessModel` (DR1 §4.1).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct TargetBusinessProcessModelNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> TargetBusinessProcessModelNav<'a> {
-    /// Binds a TargetBusinessProcessModelNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> TargetBusinessProcessModelNav<'a> {
-        TargetBusinessProcessModelNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (§4 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-
-    pub fn business_process_descriptions(&self) -> BusinessProcessDescriptionsNav<'a> {
-        BusinessProcessDescriptionsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessProcessDescriptions"))
-    }
-
-    pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractionsNav<'a> {
-        ProcessStepsAndActorInteractionsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions"))
-    }
-}
-
 /// TargetOperatingModelNav holds the dot-notation accessors of `TargetOperatingModel` (DR1 §4.1).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -63876,12 +64545,12 @@ impl<'a> TargetOperatingModelNav<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 
-    pub fn organizational_framework(&self) -> OrganizationalFrameworkNav<'a> {
-        OrganizationalFrameworkNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "organizationalFramework"))
+    pub fn organization_and_process(&self) -> OrganizationAndProcessConceptNav<'a> {
+        OrganizationAndProcessConceptNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "organizationAndProcess"))
     }
 
-    pub fn target_business_process(&self) -> TargetBusinessProcessModelNav<'a> {
-        TargetBusinessProcessModelNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetBusinessProcess"))
+    pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractionsNav<'a> {
+        ProcessStepsAndActorInteractionsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions"))
     }
 }
 
@@ -74546,227 +75215,227 @@ impl<'a> D00SolutionBlueprintId<'a> {
     }
 
     pub fn OCCHG_OVER(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER"))
     }
 
     pub fn ORGCE_ITEM_LST(&self) -> som::SomListMetaRef<'a, OrganizationalChangeEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST"), OrganizationalChangeEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST"), OrganizationalChangeEntryId::new)
     }
 
     pub fn TROML(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML"))
     }
 
     pub fn TROGV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/overview/TROGV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROGV"))
     }
 
     pub fn TRPHE_PHAS_LST(&self) -> som::SomListMetaRef<'a, TransitionPhaseEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRPHE-PHAS-LST"), TransitionPhaseEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRPHE-PHAS-LST"), TransitionPhaseEntryId::new)
     }
 
     pub fn TRMIL_MILE_LST(&self) -> som::SomListMetaRef<'a, TransitionMilestoneEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRMIL-MILE-LST"), TransitionMilestoneEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRMIL-MILE-LST"), TransitionMilestoneEntryId::new)
     }
 
     pub fn CHREOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/CHREOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/CHREOV"))
     }
 
     pub fn RDRCE_READ_LST(&self) -> som::SomListMetaRef<'a, ReadinessCriteriaEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/RDRCE-READ-LST"), ReadinessCriteriaEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/RDRCE-READ-LST"), ReadinessCriteriaEntryId::new)
     }
 
     pub fn TRCOST(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOST"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOST"))
     }
 
     pub fn COEV_COMM_LST(&self) -> som::SomListMetaRef<'a, CommunicationEventEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/COEV-COMM-LST"), CommunicationEventEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/COEV-COMM-LST"), CommunicationEventEntryId::new)
     }
 
     pub fn TRCOCH_CHAN_LST(&self) -> som::SomListMetaRef<'a, TransitionCommunicationChannelsId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOCH-CHAN-LST"), TransitionCommunicationChannelsId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOCH-CHAN-LST"), TransitionCommunicationChannelsId::new)
     }
 
     pub fn TRSUOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSUOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSUOV"))
     }
 
     pub fn TRSPRE_SUPP_LST(&self) -> som::SomListMetaRef<'a, TransitionSupportResourceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSPRE-SUPP-LST"), TransitionSupportResourceEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSPRE-SUPP-LST"), TransitionSupportResourceEntryId::new)
     }
 
     pub fn TRESPA_ESCA_LST(&self) -> som::SomListMetaRef<'a, TransitionEscalationPathsId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRESPA-ESCA-LST"), TransitionEscalationPathsId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRESPA-ESCA-LST"), TransitionEscalationPathsId::new)
     }
 
     pub fn TRMEOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRMEOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRMEOV"))
     }
 
     pub fn TRME_METR_LST(&self) -> som::SomListMetaRef<'a, TransitionMetricEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST"), TransitionMetricEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST"), TransitionMetricEntryId::new)
     }
 
     pub fn TRRS_TRAN_LST(&self) -> som::SomListMetaRef<'a, TransitionRiskEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST"), TransitionRiskEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST"), TransitionRiskEntryId::new)
     }
 
     pub fn JODEOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/JODEOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV"))
     }
 
     pub fn NWROL_NEWR_LST(&self) -> som::SomListMetaRef<'a, NewRoleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/NWROL-NEWR-LST"), NewRoleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST"), NewRoleEntryId::new)
     }
 
     pub fn CHAROL_CHAN_LST(&self) -> som::SomListMetaRef<'a, ChangedRoleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST"), ChangedRoleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST"), ChangedRoleEntryId::new)
     }
 
     pub fn REMROL_REMO_LST(&self) -> som::SomListMetaRef<'a, RemovedRoleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/REMROL-REMO-LST"), RemovedRoleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/REMROL-REMO-LST"), RemovedRoleEntryId::new)
     }
 
     pub fn STPLOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/STPLOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STPLOV"))
     }
 
     pub fn STBUAL(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUAL"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUAL"))
     }
 
     pub fn STBUGO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUGO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUGO"))
     }
 
     pub fn STFE_ITEM_LST(&self) -> som::SomListMetaRef<'a, StaffingEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/STFE-ITEM-LST"), StaffingEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STFE-ITEM-LST"), StaffingEntryId::new)
     }
 
     pub fn RETI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/RETI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/RETI"))
     }
 
     pub fn COFROV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COFROV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COFROV"))
     }
 
     pub fn COMPE_CORE_LST(&self) -> som::SomListMetaRef<'a, CompetencyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-CORE-LST"), CompetencyEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-CORE-LST"), CompetencyEntryId::new)
     }
 
     pub fn COMPE_TECH_LST(&self) -> som::SomListMetaRef<'a, CompetencyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-TECH-LST"), CompetencyEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-TECH-LST"), CompetencyEntryId::new)
     }
 
     pub fn COMPE_LEAD_LST(&self) -> som::SomListMetaRef<'a, CompetencyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-LEAD-LST"), CompetencyEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-LEAD-LST"), CompetencyEntryId::new)
     }
 
     pub fn WPDE_WORK_LST(&self) -> som::SomListMetaRef<'a, WorkplaceDescriptionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationalFramework/WPDE-WORK-LST"), WorkplaceDescriptionEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/WPDE-WORK-LST"), WorkplaceDescriptionEntryId::new)
     }
 
     pub fn PVOVW(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/PVOVW"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PVOVW"))
     }
 
     pub fn EXIPR_EXPE_LST(&self) -> som::SomListMetaRef<'a, ExpectedImprovementsId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/EXIPR-EXPE-LST"), ExpectedImprovementsId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/EXIPR-EXPE-LST"), ExpectedImprovementsId::new)
     }
 
     pub fn PRSUC(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/PRSUC"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PRSUC"))
     }
 
     pub fn DPOVW(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/designPrinciples/DPOVW"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples/DPOVW"))
     }
 
     pub fn PDPEN_PRIN_LST(&self) -> som::SomListMetaRef<'a, ProcessDesignPrincipleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/designPrinciples/PDPEN-PRIN-LST"), ProcessDesignPrincipleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples/PDPEN-PRIN-LST"), ProcessDesignPrincipleEntryId::new)
     }
 
     pub fn PCOVW(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/PCOVW"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/PCOVW"))
     }
 
     pub fn PRCCL(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/PRCCL"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/PRCCL"))
     }
 
     pub fn BPREN_PROC_LST(&self) -> som::SomListMetaRef<'a, BusinessProcessEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/BPREN-PROC-LST"), BusinessProcessEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/BPREN-PROC-LST"), BusinessProcessEntryId::new)
     }
 
     pub fn PRDIOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processOverviewDiagram/PRDIOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processOverviewDiagram/PRDIOV"))
     }
 
     pub fn IMOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/IMOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/IMOV"))
     }
 
     pub fn PCIMV_IMPR_LST(&self) -> som::SomListMetaRef<'a, ProcessImprovementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/PCIMV-IMPR-LST"), ProcessImprovementEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/PCIMV-IMPR-LST"), ProcessImprovementEntryId::new)
     }
 
     pub fn IMBUCA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/IMBUCA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/IMBUCA"))
     }
 
     pub fn PCRLT_RELA_LST(&self) -> som::SomListMetaRef<'a, ProcessRelationshipEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processRelationships/PCRLT-RELA-LST"), ProcessRelationshipEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processRelationships/PCRLT-RELA-LST"), ProcessRelationshipEntryId::new)
     }
 
     pub fn DEPRWO_DETA_LST(&self) -> som::SomListMetaRef<'a, DetailedProcessWorkflowId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/DEPRWO-DETA-LST"), DetailedProcessWorkflowId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/DEPRWO-DETA-LST"), DetailedProcessWorkflowId::new)
     }
 
     pub fn PMAK_PROC_LST(&self) -> som::SomListMetaRef<'a, ProcessMetricId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/PMAK-PROC-LST"), ProcessMetricId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/PMAK-PROC-LST"), ProcessMetricId::new)
     }
 
     pub fn ACOVNA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACOVNA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACOVNA"))
     }
 
     pub fn ACEN_ACTO_LST(&self) -> som::SomListMetaRef<'a, ActorEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST"), ActorEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST"), ActorEntryId::new)
     }
 
     pub fn ACCASU(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACCASU"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACCASU"))
     }
 
     pub fn INCAOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INCAOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INCAOV"))
     }
 
     pub fn INEN_INTE_LST(&self) -> som::SomListMetaRef<'a, InteractionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST"), InteractionEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST"), InteractionEntryId::new)
     }
 
     pub fn INPR(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INPR"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INPR"))
     }
 
     pub fn SCOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCOV"))
     }
 
     pub fn SCNRY_SCEN_LST(&self) -> som::SomListMetaRef<'a, ScenarioEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST"), ScenarioEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST"), ScenarioEntryId::new)
     }
 
     pub fn ACDIOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV"))
     }
 
     pub fn ETETS_ENDT_LST(&self) -> som::SomListMetaRef<'a, EndToEndTestScenarioId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/ETETS-ENDT-LST"), EndToEndTestScenarioId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/processStepsAndActorInteractions/ETETS-ENDT-LST"), EndToEndTestScenarioId::new)
     }
 
     pub fn DAENT_ENTI_LST(&self) -> som::SomListMetaRef<'a, DataEntityEntryId<'a>> {
@@ -74829,44 +75498,48 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST"), MessageKeyEntryId::new)
     }
 
+    pub fn DMFUE_ENFU_LST(&self) -> som::SomListMetaRef<'a, EntityFollowUpEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/dataModelFollowUp/DMFUE-ENFU-LST"), EntityFollowUpEntryId::new)
+    }
+
     pub fn TRAREQ_TRAN(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRAREQ-TRAN"))
     }
 
     pub fn TRRERT(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/localizationTranslation/translationRequirements/TRRERT"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRERT"))
     }
 
     pub fn TRREFO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/localizationTranslation/translationRequirements/TRREFO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRREFO"))
     }
 
     pub fn TRREVA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/localizationTranslation/translationRequirements/TRREVA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRREVA"))
     }
 
     pub fn TRRETE(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/localizationTranslation/translationRequirements/TRRETE"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRETE"))
     }
 
     pub fn DOANTR_DOCU(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/informationForUse/userDocumentation/DOANTR-DOCU"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/informationForUse/userDocumentation/DOANTR-DOCU"))
     }
 
     pub fn DATD(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/informationForUse/userDocumentation/DATD"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/informationForUse/userDocumentation/DATD"))
     }
 
     pub fn DATL(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/informationForUse/userDocumentation/DATL"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/informationForUse/userDocumentation/DATL"))
     }
 
     pub fn TRMAT_TRAI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/trainingEnablement/trainingDeliverables/TRMAT-TRAI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI"))
     }
 
     pub fn TRMOEN_TRAI_LST(&self) -> som::SomListMetaRef<'a, TrainingModuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST"), TrainingModuleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST"), TrainingModuleEntryId::new)
     }
 
     pub fn TGPLT_TARG_LST(&self) -> som::SomListMetaRef<'a, TargetPlatformEntryId<'a>> {
@@ -77342,739 +78015,739 @@ impl<'a> D00SolutionBlueprintId<'a> {
     }
 
     pub fn CSVND(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/strategy/CSVND"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSVND"))
     }
 
     pub fn CSGOV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/strategy/CSGOV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSGOV"))
     }
 
     pub fn CSPRT(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/strategy/CSPRT"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPRT"))
     }
 
     pub fn CSPOL(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/strategy/CSPOL"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPOL"))
     }
 
     pub fn CSPLN(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/strategy/CSPLN"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPLN"))
     }
 
     pub fn RGUSE_REUS_LST(&self) -> som::SomListMetaRef<'a, ReuseGoalEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/strategy/RGUSE-REUS-LST"), ReuseGoalEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/RGUSE-REUS-LST"), ReuseGoalEntryId::new)
     }
 
     pub fn EVCEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, EvaluationCriterionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/strategy/evaluationCriteria/EVCEN-ITEM-LST"), EvaluationCriterionEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/evaluationCriteria/EVCEN-ITEM-LST"), EvaluationCriterionEntryId::new)
     }
 
     pub fn CMPNT_COMP_LST(&self) -> som::SomListMetaRef<'a, ComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/CMPNT-COMP-LST"), ComponentEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/CMPNT-COMP-LST"), ComponentEntryId::new)
     }
 
     pub fn RNDEP_ITEM_LST(&self) -> som::SomListMetaRef<'a, RuntimeDependencyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/runtimeDependencies/RNDEP-ITEM-LST"), RuntimeDependencyEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/runtimeDependencies/RNDEP-ITEM-LST"), RuntimeDependencyEntryId::new)
     }
 
     pub fn MNDEP_ITEM_LST(&self) -> som::SomListMetaRef<'a, MaintenanceDependencyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/maintenanceDependencies/MNDEP-ITEM-LST"), MaintenanceDependencyEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/maintenanceDependencies/MNDEP-ITEM-LST"), MaintenanceDependencyEntryId::new)
     }
 
     pub fn CMRS_RISK_LST(&self) -> som::SomListMetaRef<'a, ComponentRiskEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/riskAssessment/CMRS-RISK-LST"), ComponentRiskEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/riskAssessment/CMRS-RISK-LST"), ComponentRiskEntryId::new)
     }
 
     pub fn COPL_ITEM_LST(&self) -> som::SomListMetaRef<'a, ContingencyPlanEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST"), ContingencyPlanEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST"), ContingencyPlanEntryId::new)
     }
 
     pub fn USCDF_ITEM_LST(&self) -> som::SomListMetaRef<'a, UserCategoryDefinitionId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/userManagement/userCategories/USCDF-ITEM-LST"), UserCategoryDefinitionId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/userManagement/userCategories/USCDF-ITEM-LST"), UserCategoryDefinitionId::new)
     }
 
     pub fn ULTRE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UserLifecycleTransitionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST"), UserLifecycleTransitionEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST"), UserLifecycleTransitionEntryId::new)
     }
 
     pub fn SACLC_SERV_LST(&self) -> som::SomListMetaRef<'a, ServiceAccountLifecycleId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/userManagement/userLifecycle/SACLC-SERV-LST"), ServiceAccountLifecycleId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/userManagement/userLifecycle/SACLC-SERV-LST"), ServiceAccountLifecycleId::new)
     }
 
     pub fn USATE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UserAttributeEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/userManagement/userAttributes/USATE-ITEM-LST"), UserAttributeEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/userManagement/userAttributes/USATE-ITEM-LST"), UserAttributeEntryId::new)
     }
 
     pub fn IDTSR_IDEN_LST(&self) -> som::SomListMetaRef<'a, IdentitySourceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/IDTSR-IDEN-LST"), IdentitySourceEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/IDTSR-IDEN-LST"), IdentitySourceEntryId::new)
     }
 
     pub fn IVPD(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/identityVerification/IVPD"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPD"))
     }
 
     pub fn IVPM(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/identityVerification/IVPM"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPM"))
     }
 
     pub fn IVPW(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/identityVerification/IVPW"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPW"))
     }
 
     pub fn IVPL(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/identityVerification/IVPL"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPL"))
     }
 
     pub fn IVPF(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/identityVerification/IVPF"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPF"))
     }
 
     pub fn IDTPV_IDEN_LST(&self) -> som::SomListMetaRef<'a, IdentityProviderEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/IDTPV-IDEN-LST"), IdentityProviderEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/IDTPV-IDEN-LST"), IdentityProviderEntryId::new)
     }
 
     pub fn SSOPF(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/singleSignOn/SSOPF"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPF"))
     }
 
     pub fn SSOPS(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/singleSignOn/SSOPS"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPS"))
     }
 
     pub fn SSOPA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/singleSignOn/SSOPA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPA"))
     }
 
     pub fn SSOPO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/singleSignOn/SSOPO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPO"))
     }
 
     pub fn SRPF(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/selfRegistration/SRPF"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPF"))
     }
 
     pub fn SRPBP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/selfRegistration/SRPBP"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPBP"))
     }
 
     pub fn SRPV(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/selfRegistration/SRPV"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPV"))
     }
 
     pub fn SRPA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/selfRegistration/SRPA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPA"))
     }
 
     pub fn SRPS(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/selfRegistration/SRPS"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPS"))
     }
 
     pub fn IDTAM_ATTR_LST(&self) -> som::SomListMetaRef<'a, IdentityAttributeMappingEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/identification/IDTAM-ATTR-LST"), IdentityAttributeMappingEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/IDTAM-ATTR-LST"), IdentityAttributeMappingEntryId::new)
     }
 
     pub fn MFADE_MFAD_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), som::SomMetaRef::new)
     }
 
     pub fn ATME_ITEM_LST(&self) -> som::SomListMetaRef<'a, AuthenticationMethodEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/authentication/authenticationMethods/ATME-ITEM-LST"), AuthenticationMethodEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST"), AuthenticationMethodEntryId::new)
     }
 
     pub fn STEPU_STEP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), som::SomMetaRef::new)
     }
 
     pub fn LGFLS_LOGI_LST(&self) -> som::SomListMetaRef<'a, LoginFlowStepEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST"), LoginFlowStepEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST"), LoginFlowStepEntryId::new)
     }
 
     pub fn MFACRQ_MFAC_LST(&self) -> som::SomListMetaRef<'a, MfaCategoryRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST"), MfaCategoryRequirementEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST"), MfaCategoryRequirementEntryId::new)
     }
 
     pub fn AZGR_GROU_LST(&self) -> som::SomListMetaRef<'a, AuthorizationGroupEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authorization/AZGR-GROU-LST"), AuthorizationGroupEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/AZGR-GROU-LST"), AuthorizationGroupEntryId::new)
     }
 
     pub fn AZRO_ROLE_LST(&self) -> som::SomListMetaRef<'a, AuthorizationRoleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authorization/AZRO-ROLE-LST"), AuthorizationRoleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/AZRO-ROLE-LST"), AuthorizationRoleEntryId::new)
     }
 
     pub fn ENT_ENTI_LST(&self) -> som::SomListMetaRef<'a, EntitlementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authorization/ENT-ENTI-LST"), EntitlementEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST"), EntitlementEntryId::new)
     }
 
     pub fn RESKEY_RESO_LST(&self) -> som::SomListMetaRef<'a, ResourceKeyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authorization/RESKEY-RESO-LST"), ResourceKeyEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/RESKEY-RESO-LST"), ResourceKeyEntryId::new)
     }
 
     pub fn RLINH_INHE_LST(&self) -> som::SomListMetaRef<'a, RoleInheritanceRuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authorization/roleHierarchy/RLINH-INHE-LST"), RoleInheritanceRuleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/roleHierarchy/RLINH-INHE-LST"), RoleInheritanceRuleEntryId::new)
     }
 
     pub fn RLCMB_COMB_LST(&self) -> som::SomListMetaRef<'a, RoleCombinationConstraintEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authorization/roleHierarchy/RLCMB-COMB-LST"), RoleCombinationConstraintEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST"), RoleCombinationConstraintEntryId::new)
     }
 
     pub fn GBRLX_GLOB_LST(&self) -> som::SomListMetaRef<'a, GlobalRoleExclusionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authorization/roleHierarchy/GBRLX-GLOB-LST"), GlobalRoleExclusionEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST"), GlobalRoleExclusionEntryId::new)
     }
 
     pub fn TNCS_TENA_LST(&self) -> som::SomListMetaRef<'a, TenantCustomizationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/authorization/tenantIsolation/TNCS-TENA-LST"), TenantCustomizationEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), TenantCustomizationEntryId::new)
     }
 
     pub fn ENDACA_ENCR_LST(&self) -> som::SomListMetaRef<'a, EncryptedDataCategoryEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/encryption/encryptionAtRest/ENDACA-ENCR-LST"), EncryptedDataCategoryEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST"), EncryptedDataCategoryEntryId::new)
     }
 
     pub fn COCHEN_COMM_LST(&self) -> som::SomListMetaRef<'a, CommunicationChannelEncryptionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/encryption/encryptionInTransit/COCHEN-COMM-LST"), CommunicationChannelEncryptionEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST"), CommunicationChannelEncryptionEntryId::new)
     }
 
     pub fn SEVT_CUST_LST(&self) -> som::SomListMetaRef<'a, SecurityEventEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST"), SecurityEventEntryId::new)
-    }
-
-    pub fn DGOEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DesignGoalEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designVision/designGoals/DGOEN-ITEM-LST"), DesignGoalEntryId::new)
-    }
-
-    pub fn DPEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DesignPrincipleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST"), DesignPrincipleEntryId::new)
-    }
-
-    pub fn PEREN_ITEM_LST(&self) -> som::SomListMetaRef<'a, PersonaEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designVision/personas/PEREN-ITEM-LST"), PersonaEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST"), SecurityEventEntryId::new)
     }
 
     pub fn SCREN_ITEM_LST(&self) -> som::SomListMetaRef<'a, ScreenEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST"), ScreenEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST"), ScreenEntryId::new)
     }
 
     pub fn GLOBA_GLOB_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST"), som::SomMetaRef::new)
     }
 
     pub fn NAVGRP_GROU_LST(&self) -> som::SomListMetaRef<'a, NavigationGroupEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST"), NavigationGroupEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST"), NavigationGroupEntryId::new)
     }
 
     pub fn PRNADR(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PRNADR"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR"))
     }
 
     pub fn PNBN(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PNBN"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN"))
     }
 
     pub fn PRNASI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PRNASI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"))
     }
 
     pub fn TBDE_TABB_LST(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST"), TabBarDefinitionEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST"), TabBarDefinitionEntryId::new)
     }
 
     pub fn UNIE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST"), UtilityNavigationItemEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST"), UtilityNavigationItemEntryId::new)
     }
 
     pub fn BRCO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/contextualNavigation/BRCO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO"))
     }
 
     pub fn DELNPT_PATT_LST(&self) -> som::SomListMetaRef<'a, DeepLinkPatternEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST"), DeepLinkPatternEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST"), DeepLinkPatternEntryId::new)
     }
 
     pub fn NAVGRD_GUAR_LST(&self) -> som::SomListMetaRef<'a, NavigationGuardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), NavigationGuardEntryId::new)
-    }
-
-    pub fn PLPS(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/printLayout/PLPS"))
-    }
-
-    pub fn PRLABR(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/printLayout/PRLABR"))
-    }
-
-    pub fn PRLAWA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/printLayout/PRLAWA"))
-    }
-
-    pub fn PLHF(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/printLayout/PLHF"))
-    }
-
-    pub fn PRLAAR(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/printLayout/PRLAAR"))
-    }
-
-    pub fn REEN_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/printLayout/REEN-REPO-LST"), ReportEntryId::new)
-    }
-
-    pub fn EXFOEN_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportFormatEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/printLayout/EXFOEN-EXPO-LST"), ExportFormatEntryId::new)
-    }
-
-    pub fn EXTEEN_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportTemplateEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/printLayout/EXTEEN-EXPO-LST"), ExportTemplateEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), NavigationGuardEntryId::new)
     }
 
     pub fn ERHACO_ERRO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/ERHACO-ERRO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO"))
     }
 
     pub fn EHCC(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/EHCC"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCC"))
     }
 
     pub fn EHCA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/EHCA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCA"))
     }
 
     pub fn EHCO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/EHCO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCO"))
     }
 
     pub fn VAFE_VALI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFE-VALI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-VALI"))
     }
 
     pub fn VAFEPL(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEPL"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEPL"))
     }
 
     pub fn VAFEME(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEME"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME"))
     }
 
     pub fn VAFEGU(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEGU"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU"))
     }
 
     pub fn VAFEBE(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEBE"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE"))
     }
 
     pub fn VAMETE_MESS_LST(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAMETE-MESS-LST"), ValidationMessageTemplateId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST"), ValidationMessageTemplateId::new)
     }
 
     pub fn FIELD_FIEL_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST"), som::SomMetaRef::new)
     }
 
     pub fn SYERDI_SYST(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SYERDI-SYST"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST"))
     }
 
     pub fn SEDET(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDET"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET"))
     }
 
     pub fn SEDM(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDM"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM"))
     }
 
     pub fn SEDC(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDC"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC"))
     }
 
     pub fn SEDF(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDF"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF"))
     }
 
     pub fn EPDE_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), som::SomMetaRef::new)
     }
 
     pub fn SECE_ERRO_LST(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SECE-ERRO-LST"), SystemErrorCodeEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST"), SystemErrorCodeEntryId::new)
     }
 
     pub fn ERRE_RECO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRE-RECO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"))
     }
 
     pub fn ERDP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/ERDP"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERDP"))
     }
 
     pub fn ERRM(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRM"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRM"))
     }
 
     pub fn ERGR(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/ERGR"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERGR"))
     }
 
     pub fn ERSC(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSC"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSC"))
     }
 
     pub fn ERSH(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSH"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH"))
     }
 
     pub fn RECOV_RECO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST"), som::SomMetaRef::new)
     }
 
     pub fn RCVSCN_RECO_LST(&self) -> som::SomListMetaRef<'a, RecoveryScenarioEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/RCVSCN-RECO-LST"), RecoveryScenarioEntryId::new)
-    }
-
-    pub fn USAS_HELP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/USAS-HELP"))
-    }
-
-    pub fn USASDE(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/USASDE"))
-    }
-
-    pub fn USASIN(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/USASIN"))
-    }
-
-    pub fn COHE_CONT(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/contextualHelp/COHE-CONT"))
-    }
-
-    pub fn COHEIN(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/contextualHelp/COHEIN"))
-    }
-
-    pub fn COHEPA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/contextualHelp/COHEPA"))
-    }
-
-    pub fn CHWT(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/contextualHelp/CHWT"))
-    }
-
-    pub fn COHERI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/contextualHelp/COHERI"))
-    }
-
-    pub fn FLDHP_FIEL_LST(&self) -> som::SomListMetaRef<'a, FieldHelpEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/contextualHelp/FLDHP-FIEL-LST"), FieldHelpEntryId::new)
-    }
-
-    pub fn ONHE_ONBO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/onboarding/ONHE-ONBO"))
-    }
-
-    pub fn ONHETO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/onboarding/ONHETO"))
-    }
-
-    pub fn OHSD(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/onboarding/OHSD"))
-    }
-
-    pub fn ONHECH(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/onboarding/ONHECH"))
-    }
-
-    pub fn ONHEDI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/onboarding/ONHEDI"))
-    }
-
-    pub fn ONHERE(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/onboarding/ONHERE"))
-    }
-
-    pub fn FTRTUR_FEAT_LST(&self) -> som::SomListMetaRef<'a, FeatureTourEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/onboarding/FTRTUR-FEAT-LST"), FeatureTourEntryId::new)
-    }
-
-    pub fn SUAC_SUPP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/supportAccess/SUAC-SUPP"))
-    }
-
-    pub fn SAHC(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/supportAccess/SAHC"))
-    }
-
-    pub fn SALS(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/supportAccess/SALS"))
-    }
-
-    pub fn SUACTI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/supportAccess/SUACTI"))
-    }
-
-    pub fn SACM(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/supportAccess/SACM"))
-    }
-
-    pub fn SASS(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/userAssistance/supportAccess/SASS"))
-    }
-
-    pub fn ACCESS_ACCE(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/ACCESS-ACCE"))
-    }
-
-    pub fn ACSTGY(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/ACSTGY"))
-    }
-
-    pub fn ACTE(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/ACTE"))
-    }
-
-    pub fn ACSU(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/ACSU"))
-    }
-
-    pub fn WCCO_WCAG(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCO-WCAG"))
-    }
-
-    pub fn WCCOOP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCOOP"))
-    }
-
-    pub fn WCCOUN(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCOUN"))
-    }
-
-    pub fn WCCORO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCORO"))
-    }
-
-    pub fn WSCE_SUCC_LST(&self) -> som::SomListMetaRef<'a, WcagSuccessCriterionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WSCE-SUCC-LST"), WcagSuccessCriterionEntryId::new)
-    }
-
-    pub fn ACCHLS_CHEC(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCHLS-CHEC"))
-    }
-
-    pub fn ACCH_ITEM_LST(&self) -> som::SomListMetaRef<'a, AccessibilityCheckEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCH-ITEM-LST"), AccessibilityCheckEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST"), RecoveryScenarioEntryId::new)
     }
 
     pub fn REDE_RESP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/REDE-RESP"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/REDE-RESP"))
     }
 
     pub fn BC_BREA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BC-BREA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA"))
     }
 
     pub fn BRE_BREA_LST(&self) -> som::SomListMetaRef<'a, BreakpointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BRE-BREA-LST"), BreakpointEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST"), BreakpointEntryId::new)
     }
 
     pub fn REBE_LAYO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBE-LAYO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO"))
     }
 
     pub fn REBENA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBENA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA"))
     }
 
     pub fn REBEVI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBEVI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI"))
     }
 
     pub fn REBETO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBETO"))
     }
 
     pub fn REBECO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBECO"))
     }
 
     pub fn RESPSR_SCRE_LST(&self) -> som::SomListMetaRef<'a, ResponsiveScreenRuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST"), ResponsiveScreenRuleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST"), ResponsiveScreenRuleEntryId::new)
     }
 
     pub fn UICO_COMP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/UICO-COMP"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICO-COMP"))
     }
 
     pub fn UCVL(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/UCVL"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UCVL"))
     }
 
     pub fn UCCA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/UCCA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UCCA"))
     }
 
     pub fn UICOCU(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/UICOCU"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOCU"))
     }
 
     pub fn DESIG_DESI_LST(&self) -> som::SomListMetaRef<'a, DesignFoundationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/componentLibrary/DESIG-DESI-LST"), DesignFoundationEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/DESIG-DESI-LST"), DesignFoundationEntryId::new)
     }
 
     pub fn COLICO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/componentLibrary/COLICO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLICO"))
     }
 
     pub fn COLITY(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/componentLibrary/COLITY"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLITY"))
     }
 
     pub fn COLISP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/componentLibrary/COLISP"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLISP"))
     }
 
     pub fn COLIBO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/componentLibrary/COLIBO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIBO"))
     }
 
     pub fn COLIVI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/componentLibrary/COLIVI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI"))
     }
 
     pub fn COPA_COLO_LST(&self) -> som::SomListMetaRef<'a, ColorPaletteEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/componentLibrary/COPA-COLO-LST"), ColorPaletteEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST"), ColorPaletteEntryId::new)
     }
 
     pub fn TYST_TYPO_LST(&self) -> som::SomListMetaRef<'a, TypographyStyleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/componentLibrary/TYST-TYPO-LST"), TypographyStyleEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST"), TypographyStyleEntryId::new)
     }
 
     pub fn UICOEN_COMP_LST(&self) -> som::SomListMetaRef<'a, UiComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/UICOEN-COMP-LST"), UiComponentEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST"), UiComponentEntryId::new)
     }
 
     pub fn CMFA_COMP_LST(&self) -> som::SomListMetaRef<'a, ComponentFamilyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/uiComponents/CMFA-COMP-LST"), ComponentFamilyEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST"), ComponentFamilyEntryId::new)
     }
 
-    pub fn MLAR_MULT(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/MLAR-MULT"))
+    pub fn DGOEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DesignGoalEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST"), DesignGoalEntryId::new)
     }
 
-    pub fn LACOSE_LANG(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LACOSE-LANG"))
+    pub fn DPEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DesignPrincipleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/designVision/designPrinciples/DPEN-ITEM-LST"), DesignPrincipleEntryId::new)
     }
 
-    pub fn LCSD(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSD"))
+    pub fn PEREN_ITEM_LST(&self) -> som::SomListMetaRef<'a, PersonaEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/designVision/personas/PEREN-ITEM-LST"), PersonaEntryId::new)
     }
 
-    pub fn LCSP(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSP"))
+    pub fn PLPS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/PLPS"))
     }
 
-    pub fn LCSF(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSF"))
+    pub fn PRLABR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/PRLABR"))
     }
 
-    pub fn LCSU(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSU"))
+    pub fn PRLAWA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAWA"))
     }
 
-    pub fn SULOEN_SUPP_LST(&self) -> som::SomListMetaRef<'a, SupportedLocaleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/SULOEN-SUPP-LST"), SupportedLocaleEntryId::new)
+    pub fn PLHF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/PLHF"))
+    }
+
+    pub fn PRLAAR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR"))
+    }
+
+    pub fn REEN_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST"), ReportEntryId::new)
+    }
+
+    pub fn EXFOEN_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportFormatEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST"), ExportFormatEntryId::new)
+    }
+
+    pub fn EXTEEN_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportTemplateEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST"), ExportTemplateEntryId::new)
+    }
+
+    pub fn USAS_HELP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/USAS-HELP"))
+    }
+
+    pub fn USASDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/USASDE"))
+    }
+
+    pub fn USASIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/USASIN"))
+    }
+
+    pub fn COHE_CONT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHE-CONT"))
+    }
+
+    pub fn COHEIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHEIN"))
+    }
+
+    pub fn COHEPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHEPA"))
+    }
+
+    pub fn CHWT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/CHWT"))
+    }
+
+    pub fn COHERI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHERI"))
+    }
+
+    pub fn FLDHP_FIEL_LST(&self) -> som::SomListMetaRef<'a, FieldHelpEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/FLDHP-FIEL-LST"), FieldHelpEntryId::new)
+    }
+
+    pub fn ONHE_ONBO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHE-ONBO"))
+    }
+
+    pub fn ONHETO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHETO"))
+    }
+
+    pub fn OHSD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/OHSD"))
+    }
+
+    pub fn ONHECH(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHECH"))
+    }
+
+    pub fn ONHEDI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHEDI"))
+    }
+
+    pub fn ONHERE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHERE"))
+    }
+
+    pub fn FTRTUR_FEAT_LST(&self) -> som::SomListMetaRef<'a, FeatureTourEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/FTRTUR-FEAT-LST"), FeatureTourEntryId::new)
+    }
+
+    pub fn SUAC_SUPP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SUAC-SUPP"))
+    }
+
+    pub fn SAHC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SAHC"))
+    }
+
+    pub fn SALS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SALS"))
+    }
+
+    pub fn SUACTI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SUACTI"))
+    }
+
+    pub fn SACM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SACM"))
+    }
+
+    pub fn SASS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SASS"))
+    }
+
+    pub fn ACCESS_ACCE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/ACCESS-ACCE"))
+    }
+
+    pub fn ACSTGY(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/ACSTGY"))
+    }
+
+    pub fn ACTE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/ACTE"))
+    }
+
+    pub fn ACSU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/ACSU"))
+    }
+
+    pub fn WCCO_WCAG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCO-WCAG"))
+    }
+
+    pub fn WCCOOP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOOP"))
+    }
+
+    pub fn WCCOUN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOUN"))
+    }
+
+    pub fn WCCORO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO"))
+    }
+
+    pub fn WSCE_SUCC_LST(&self) -> som::SomListMetaRef<'a, WcagSuccessCriterionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST"), WcagSuccessCriterionEntryId::new)
+    }
+
+    pub fn ACCHLS_CHEC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCHLS-CHEC"))
+    }
+
+    pub fn ACCH_ITEM_LST(&self) -> som::SomListMetaRef<'a, AccessibilityCheckEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCH-ITEM-LST"), AccessibilityCheckEntryId::new)
     }
 
     pub fn PROTOT_PROT(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/PROTOT-PROT"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/PROTOT-PROT"))
     }
 
     pub fn PRTI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/PRTI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/PRTI"))
     }
 
     pub fn PRORES(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/PRORES"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/PRORES"))
     }
 
     pub fn PRGO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/PRGO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/PRGO"))
     }
 
     pub fn PG_GOAL(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeGoals/PG-GOAL"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PG-GOAL"))
     }
 
     pub fn PRGORI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeGoals/PRGORI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGORI"))
     }
 
     pub fn PRGOFE(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOFE"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE"))
     }
 
     pub fn PRGOEN_GOAL_LST(&self) -> som::SomListMetaRef<'a, PrototypeGoalEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOEN-GOAL-LST"), PrototypeGoalEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST"), PrototypeGoalEntryId::new)
     }
 
     pub fn PRFESU_FEAT(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/featureSubset/PRFESU-FEAT"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFESU-FEAT"))
     }
 
     pub fn PFSS(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/featureSubset/PFSS"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSS"))
     }
 
     pub fn PFSF(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/featureSubset/PFSF"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF"))
     }
 
     pub fn PRFEEN_FEAT_LST(&self) -> som::SomListMetaRef<'a, PrototypeFeatureEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/featureSubset/PRFEEN-FEAT-LST"), PrototypeFeatureEntryId::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST"), PrototypeFeatureEntryId::new)
     }
 
     pub fn PRTYSE_PROT(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/PRTYSE-PROT"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/PRTYSE-PROT"))
     }
 
     pub fn REUPRO_REUS(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REUPRO-REUS"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REUPRO-REUS"))
     }
 
     pub fn REPRAR(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRAR"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRAR"))
     }
 
     pub fn REPRIN(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRIN"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRIN"))
     }
 
     pub fn REPRTR(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRTR"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRTR"))
     }
 
     pub fn TP_TRAI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TP-TRAI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TP-TRAI"))
     }
 
     pub fn TRPRDI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TRPRDI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TRPRDI"))
     }
 
     pub fn TRPROU(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TRPROU"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TRPROU"))
     }
 
     pub fn THPR_THRO(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPR-THRO"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPR-THRO"))
     }
 
     pub fn THPRFI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRFI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRFI"))
     }
 
     pub fn THPRDI(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRDI"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRDI"))
     }
 
     pub fn THPRVA(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRVA"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRVA"))
+    }
+
+    pub fn MLAR_MULT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/MLAR-MULT"))
+    }
+
+    pub fn LACOSE_LANG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LACOSE-LANG"))
+    }
+
+    pub fn LCSD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSD"))
+    }
+
+    pub fn LCSP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSP"))
+    }
+
+    pub fn LCSF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSF"))
+    }
+
+    pub fn LCSU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU"))
+    }
+
+    pub fn SULOEN_SUPP_LST(&self) -> som::SomListMetaRef<'a, SupportedLocaleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST"), SupportedLocaleEntryId::new)
     }
 
     pub fn SYQG_GOVE(&self) -> som::SomMetaRef<'a> {
@@ -83726,6 +84399,2952 @@ impl<'a> D12TransitionRolloutPlanId<'a> {
     }
 }
 
+/// D13CodeSpecsProjectionId holds the ID-tree accessors of `D13CodeSpecsProjection` (DR1 §4.2):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct D13CodeSpecsProjectionId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> D13CodeSpecsProjectionId<'a> {
+    /// Binds a D13CodeSpecsProjectionId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> D13CodeSpecsProjectionId<'a> {
+        D13CodeSpecsProjectionId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn DMENE_ENUM_LST(&self) -> som::SomListMetaRef<'a, DomainEnumEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "domainEnumRegistry/DMENE-ENUM-LST"), DomainEnumEntryId::new)
+    }
+
+    pub fn ERCEN_CODE_LST(&self) -> som::SomListMetaRef<'a, ErrorCodeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorCodeRegistry/ERCEN-CODE-LST"), ErrorCodeEntryId::new)
+    }
+
+    pub fn RSFDE_FLDD_LST(&self) -> som::SomListMetaRef<'a, ResultFieldDetailEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resultEnvelope/RSFDE-FLDD-LST"), ResultFieldDetailEntryId::new)
+    }
+
+    pub fn MSGKE_MKEY_LST(&self) -> som::SomListMetaRef<'a, MessageKeyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "messageKeyRegistry/MSGKE-MKEY-LST"), MessageKeyEntryId::new)
+    }
+
+    pub fn DAENT_ENTI_LST(&self) -> som::SomListMetaRef<'a, DataEntityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataModel/DAENT-ENTI-LST"), DataEntityEntryId::new)
+    }
+
+    pub fn ENRLE_ITEM_LST(&self) -> som::SomListMetaRef<'a, EntityRelationshipEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataModel/entityRelationships/ENRLE-ITEM-LST"), EntityRelationshipEntryId::new)
+    }
+
+    pub fn DATCL_OVER(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataModel/dataClassification/DATCL-OVER"))
+    }
+
+    pub fn DCLSE_ITEM_LST(&self) -> som::SomListMetaRef<'a, DataClassificationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataModel/dataClassification/DCLSE-ITEM-LST"), DataClassificationEntryId::new)
+    }
+
+    pub fn TGPLT_TARG_LST(&self) -> som::SomListMetaRef<'a, TargetPlatformEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/TGPLT-TARG-LST"), TargetPlatformEntryId::new)
+    }
+
+    pub fn PLGEN_PROG_LST(&self) -> som::SomListMetaRef<'a, ProgrammingLanguageEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST"), ProgrammingLanguageEntryId::new)
+    }
+
+    pub fn FWREN_FRAM_LST(&self) -> som::SomListMetaRef<'a, FrameworkRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST"), FrameworkRequirementEntryId::new)
+    }
+
+    pub fn BTCEN_BUIL_LST(&self) -> som::SomListMetaRef<'a, BuildToolchainEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST"), BuildToolchainEntryId::new)
+    }
+
+    pub fn DETAEN_DEPL_LST(&self) -> som::SomListMetaRef<'a, DeploymentTargetEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST"), DeploymentTargetEntryId::new)
+    }
+
+    pub fn DEMAVE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAVE"))
+    }
+
+    pub fn DEMASE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMASE"))
+    }
+
+    pub fn DEMAIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAIN"))
+    }
+
+    pub fn DEMAOP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAOP"))
+    }
+
+    pub fn RUENME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENME"))
+    }
+
+    pub fn RUENCP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENCP"))
+    }
+
+    pub fn RUENST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENST"))
+    }
+
+    pub fn RUENNE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENNE"))
+    }
+
+    pub fn RUENVA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENVA"))
+    }
+
+    pub fn RUENDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENDE"))
+    }
+
+    pub fn RUENSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENSC"))
+    }
+
+    pub fn RUENNO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENNO"))
+    }
+
+    pub fn AROVDR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/overview/AROVDR"))
+    }
+
+    pub fn AOTO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/overview/AOTO"))
+    }
+
+    pub fn AROVEV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/overview/AROVEV"))
+    }
+
+    pub fn AROVCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/overview/AROVCO"))
+    }
+
+    pub fn ARPR_PRIN_LST(&self) -> som::SomListMetaRef<'a, ArchitecturePrincipleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/ARPR-PRIN-LST"), ArchitecturePrincipleEntryId::new)
+    }
+
+    pub fn COORLA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORLA"))
+    }
+
+    pub fn COORDO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDO"))
+    }
+
+    pub fn COORCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORCO"))
+    }
+
+    pub fn COORDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDE"))
+    }
+
+    pub fn ARCM_COMP_LST(&self) -> som::SomListMetaRef<'a, ArchitectureComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST"), ArchitectureComponentEntryId::new)
+    }
+
+    pub fn COPASY(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY"))
+    }
+
+    pub fn COPAAS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAAS"))
+    }
+
+    pub fn CPDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/communicationPatterns/CPDE"))
+    }
+
+    pub fn COPARE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPARE"))
+    }
+
+    pub fn COPAOB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAOB"))
+    }
+
+    pub fn DAARST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARST"))
+    }
+
+    pub fn DAARAC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARAC"))
+    }
+
+    pub fn DAARCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARCO"))
+    }
+
+    pub fn DAARLI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARLI"))
+    }
+
+    pub fn DAARSE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARSE"))
+    }
+
+    pub fn SCARCA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARCA"))
+    }
+
+    pub fn SCARTA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARTA"))
+    }
+
+    pub fn SCARPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARPA"))
+    }
+
+    pub fn SCAROP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCAROP"))
+    }
+
+    pub fn SCARTE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARTE"))
+    }
+
+    pub fn INARSY(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARSY"))
+    }
+
+    pub fn INARDA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARDA"))
+    }
+
+    pub fn INARSE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARSE"))
+    }
+
+    pub fn INARRE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARRE"))
+    }
+
+    pub fn INAROP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INAROP"))
+    }
+
+    pub fn DETOIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOIN"))
+    }
+
+    pub fn DETOEN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOEN"))
+    }
+
+    pub fn DETOAV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOAV"))
+    }
+
+    pub fn DETOGE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOGE"))
+    }
+
+    pub fn DTIAC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DTIAC"))
+    }
+
+    pub fn ARDE_DECI_LST(&self) -> som::SomListMetaRef<'a, ArchitectureDecisionRecordId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/ARDE-DECI-LST"), ArchitectureDecisionRecordId::new)
+    }
+
+    pub fn DSPT_DESI_LST(&self) -> som::SomListMetaRef<'a, DesignPatternEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST"), DesignPatternEntryId::new)
+    }
+
+    pub fn COSTEN_CODI_LST(&self) -> som::SomListMetaRef<'a, CodingStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST"), CodingStandardEntryId::new)
+    }
+
+    pub fn DECOEN_DEVE_LST(&self) -> som::SomListMetaRef<'a, DevelopmentConventionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST"), DevelopmentConventionEntryId::new)
+    }
+
+    pub fn INSTEN_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST"), IndustryStandardEntryId::new)
+    }
+
+    pub fn CQMC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMC"))
+    }
+
+    pub fn COQUMECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/COQUMECO"))
+    }
+
+    pub fn CQMD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMD"))
+    }
+
+    pub fn CQMSA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMSA"))
+    }
+
+    pub fn CQMT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMT"))
+    }
+
+    pub fn DSCD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DSCD"))
+    }
+
+    pub fn DOSTCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTCO"))
+    }
+
+    pub fn DOSTAR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTAR"))
+    }
+
+    pub fn DOSTVE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTVE"))
+    }
+
+    pub fn DOSTPR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTPR"))
+    }
+
+    pub fn EHSE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSE"))
+    }
+
+    pub fn EHSP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSP"))
+    }
+
+    pub fn EHSR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSR"))
+    }
+
+    pub fn EHSUC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSUC"))
+    }
+
+    pub fn ERHASTRE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/ERHASTRE"))
+    }
+
+    pub fn TESTOR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTOR"))
+    }
+
+    pub fn TESTPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTPA"))
+    }
+
+    pub fn TESTQU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTQU"))
+    }
+
+    pub fn TESTTO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO"))
+    }
+
+    pub fn SOLAEN_SOFT_LST(&self) -> som::SomListMetaRef<'a, SoftwareLayerEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST"), SoftwareLayerEntryId::new)
+    }
+
+    pub fn LCRI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRI"))
+    }
+
+    pub fn LCRF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRF"))
+    }
+
+    pub fn LCRG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG"))
+    }
+
+    pub fn BOCOEN_BOUN_LST(&self) -> som::SomListMetaRef<'a, BoundedContextEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST"), BoundedContextEntryId::new)
+    }
+
+    pub fn PAORST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORST"))
+    }
+
+    pub fn PAORTY(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORTY"))
+    }
+
+    pub fn PAORDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDE"))
+    }
+
+    pub fn PAORDO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO"))
+    }
+
+    pub fn MOEN1_MODU_LST(&self) -> som::SomListMetaRef<'a, ModuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST"), ModuleEntryId::new)
+    }
+
+    pub fn SHLIB_SHAR_LST(&self) -> som::SomListMetaRef<'a, SharedLibraryEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST"), SharedLibraryEntryId::new)
+    }
+
+    pub fn DISR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISR"))
+    }
+
+    pub fn DISB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISB"))
+    }
+
+    pub fn DISC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISC"))
+    }
+
+    pub fn DIST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DIST"))
+    }
+
+    pub fn CCCE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCE"))
+    }
+
+    pub fn CCCS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCS"))
+    }
+
+    pub fn CCCC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCC"))
+    }
+
+    pub fn CCCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCO"))
+    }
+
+    pub fn CRCUCOSH(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CRCUCOSH"))
+    }
+
+    pub fn FTRMOD_FEAT_LST(&self) -> som::SomListMetaRef<'a, FeatureModuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/FTRMOD-FEAT-LST"), FeatureModuleEntryId::new)
+    }
+
+    pub fn MVSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSC"))
+    }
+
+    pub fn MVSRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSRM"))
+    }
+
+    pub fn MVSD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSD"))
+    }
+
+    pub fn MOVESTCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO"))
+    }
+
+    pub fn IDREEN_IDER_LST(&self) -> som::SomListMetaRef<'a, IdeRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST"), IdeRequirementEntryId::new)
+    }
+
+    pub fn BTCBS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCBS"))
+    }
+
+    pub fn BTCC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCC"))
+    }
+
+    pub fn BTCS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCS"))
+    }
+
+    pub fn BTCA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCA"))
+    }
+
+    pub fn VCCR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCR"))
+    }
+
+    pub fn VCCB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCB"))
+    }
+
+    pub fn VCCC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCC"))
+    }
+
+    pub fn VCCM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM"))
+    }
+
+    pub fn PISTEN_STAG_LST(&self) -> som::SomListMetaRef<'a, PipelineStageEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST"), PipelineStageEntryId::new)
+    }
+
+    pub fn PIJOEN_JOBS_LST(&self) -> som::SomListMetaRef<'a, PipelineJobEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST"), PipelineJobEntryId::new)
+    }
+
+    pub fn DEENEN_ENVI_LST(&self) -> som::SomListMetaRef<'a, DeploymentEnvironmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST"), DeploymentEnvironmentEntryId::new)
+    }
+
+    pub fn CRPR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPR"))
+    }
+
+    pub fn CRPW(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPW"))
+    }
+
+    pub fn CRPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPA"))
+    }
+
+    pub fn CRPM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPM"))
+    }
+
+    pub fn LDSW(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSW"))
+    }
+
+    pub fn LDSD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSD"))
+    }
+
+    pub fn LDSR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSR"))
+    }
+
+    pub fn LDST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDST"))
+    }
+
+    pub fn LODESETR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LODESETR"))
+    }
+
+    pub fn DECOBR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOBR"))
+    }
+
+    pub fn DECOLO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOLO"))
+    }
+
+    pub fn DECOIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOIN"))
+    }
+
+    pub fn DECOFL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOFL"))
+    }
+
+    pub fn DECOER(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOER"))
+    }
+
+    pub fn ENMACO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMACO"))
+    }
+
+    pub fn ENMASE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMASE"))
+    }
+
+    pub fn ENMASW(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMASW"))
+    }
+
+    pub fn ENMAPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMAPA"))
+    }
+
+    pub fn DEONSE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONSE"))
+    }
+
+    pub fn DEONAC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONAC"))
+    }
+
+    pub fn DEONLE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONLE"))
+    }
+
+    pub fn DOFT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DOFT"))
+    }
+
+    pub fn DEONVE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONVE"))
+    }
+
+    pub fn DQGC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGC"))
+    }
+
+    pub fn DEQUGACO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DEQUGACO"))
+    }
+
+    pub fn DQGS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGS"))
+    }
+
+    pub fn DQGD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGD"))
+    }
+
+    pub fn DQGP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGP"))
+    }
+
+    pub fn REPRAB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/principles/REPRAB"))
+    }
+
+    pub fn REPRQU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/principles/REPRQU"))
+    }
+
+    pub fn REPRVE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/principles/REPRVE"))
+    }
+
+    pub fn REPROW(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/principles/REPROW"))
+    }
+
+    pub fn SHLCP_SHAR_LST(&self) -> som::SomListMetaRef<'a, SharedLibraryComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST"), SharedLibraryComponentEntryId::new)
+    }
+
+    pub fn RUICMP_UICO_LST(&self) -> som::SomListMetaRef<'a, ReusableUiComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST"), ReusableUiComponentEntryId::new)
+    }
+
+    pub fn BUCOEN_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST"), BusinessComponentEntryId::new)
+    }
+
+    pub fn INCOEN_INFR_LST(&self) -> som::SomListMetaRef<'a, InfrastructureComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST"), InfrastructureComponentEntryId::new)
+    }
+
+    pub fn THPALI_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyLibraryEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/THPALI-THIR-LST"), ThirdPartyLibraryEntryId::new)
+    }
+
+    pub fn COGOCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/governance/COGOCO"))
+    }
+
+    pub fn COGOQU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/governance/COGOQU"))
+    }
+
+    pub fn COGOLI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/governance/COGOLI"))
+    }
+
+    pub fn COGOME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/governance/COGOME"))
+    }
+
+    pub fn COREME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/registry/COREME"))
+    }
+
+    pub fn COREDI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/registry/COREDI"))
+    }
+
+    pub fn COREDO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/registry/COREDO"))
+    }
+
+    pub fn COREUP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/registry/COREUP"))
+    }
+
+    pub fn OSCOEN_OSCO_LST(&self) -> som::SomListMetaRef<'a, OsCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST"), OsCompatibilityEntryId::new)
+    }
+
+    pub fn BRCOEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST"), BrowserCompatibilityEntryId::new)
+    }
+
+    pub fn DACOEN_DATA_LST(&self) -> som::SomListMetaRef<'a, DatabaseCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST"), DatabaseCompatibilityEntryId::new)
+    }
+
+    pub fn ESCE_ENTE_LST(&self) -> som::SomListMetaRef<'a, EnterpriseSystemCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST"), EnterpriseSystemCompatibilityEntryId::new)
+    }
+
+    pub fn APCP_APIC_LST(&self) -> som::SomListMetaRef<'a, ApiCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST"), ApiCompatibilityEntryId::new)
+    }
+
+    pub fn LECOEN_LEGA_LST(&self) -> som::SomListMetaRef<'a, LegacyCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST"), LegacyCompatibilityEntryId::new)
+    }
+
+    pub fn MOCOEN_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST"), MobileCompatibilityEntryId::new)
+    }
+
+    pub fn TPCE_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST"), ThirdPartyCompatibilityEntryId::new)
+    }
+
+    pub fn DFCF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCF"))
+    }
+
+    pub fn DFCDT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCDT"))
+    }
+
+    pub fn DFCN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCN"))
+    }
+
+    pub fn DFCL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCL"))
+    }
+
+    pub fn BCRD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRD"))
+    }
+
+    pub fn BCRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRA"))
+    }
+
+    pub fn BACOREDA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BACOREDA"))
+    }
+
+    pub fn BCRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRC"))
+    }
+
+    pub fn IRDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/interoperability/IRDE"))
+    }
+
+    pub fn INREST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREST"))
+    }
+
+    pub fn INRETE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INRETE"))
+    }
+
+    pub fn INREGO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO"))
+    }
+
+    pub fn ISCE_ITST_LST(&self) -> som::SomListMetaRef<'a, ItStandardComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST"), ItStandardComplianceEntryId::new)
+    }
+
+    pub fn IPCE_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryProtocolComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST"), IndustryProtocolComplianceEntryId::new)
+    }
+
+    pub fn INSPEN_INTE_LST(&self) -> som::SomListMetaRef<'a, InterfaceSpecificationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST"), InterfaceSpecificationEntryId::new)
+    }
+
+    pub fn RECOEN_REGU_LST(&self) -> som::SomListMetaRef<'a, RegulatoryComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST"), RegulatoryComplianceEntryId::new)
+    }
+
+    pub fn SSCE_SECU_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST"), SecurityStandardComplianceEntryId::new)
+    }
+
+    pub fn ACCSTD_ACCE_LST(&self) -> som::SomListMetaRef<'a, AccessibilityStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/ACCSTD-ACCE-LST"), AccessibilityStandardEntryId::new)
+    }
+
+    pub fn QLSTD_QUAL_LST(&self) -> som::SomListMetaRef<'a, QualityStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/QLSTD-QUAL-LST"), QualityStandardEntryId::new)
+    }
+
+    pub fn DSST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSST"))
+    }
+
+    pub fn DSSU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSU"))
+    }
+
+    pub fn DSSP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSP"))
+    }
+
+    pub fn DSSQ(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSQ"))
+    }
+
+    pub fn CSSF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSF"))
+    }
+
+    pub fn CSSN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSN"))
+    }
+
+    pub fn CSSQ(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSQ"))
+    }
+
+    pub fn CSSP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSP"))
+    }
+
+    pub fn CSSR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSR"))
+    }
+
+    pub fn CRSP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSP"))
+    }
+
+    pub fn CRST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRST"))
+    }
+
+    pub fn CRSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSC"))
+    }
+
+    pub fn CRSM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSM"))
+    }
+
+    pub fn CVSR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSR"))
+    }
+
+    pub fn CVST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVST"))
+    }
+
+    pub fn CVSA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSA"))
+    }
+
+    pub fn COVESERE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/complianceVerification/COVESERE"))
+    }
+
+    pub fn CVSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC"))
+    }
+
+    pub fn SEENEN_ENVI_LST(&self) -> som::SomListMetaRef<'a, ServerEnvironmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST"), ServerEnvironmentEntryId::new)
+    }
+
+    pub fn SEROEN_SERV_LST(&self) -> som::SomListMetaRef<'a, ServerRoleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST"), ServerRoleEntryId::new)
+    }
+
+    pub fn CRRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/computeResources/CRRM"))
+    }
+
+    pub fn CRRG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/computeResources/CRRG"))
+    }
+
+    pub fn CRRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/computeResources/CRRS"))
+    }
+
+    pub fn SSRD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/storageRequirements/SSRD"))
+    }
+
+    pub fn SSRFS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/storageRequirements/SSRFS"))
+    }
+
+    pub fn SSRB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/storageRequirements/SSRB"))
+    }
+
+    pub fn SSRP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/storageRequirements/SSRP"))
+    }
+
+    pub fn LPRRL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/loadProfile/LPRRL"))
+    }
+
+    pub fn LPRP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/loadProfile/LPRP"))
+    }
+
+    pub fn LPRPT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/loadProfile/LPRPT"))
+    }
+
+    pub fn SCREHO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/scalingRequirements/SCREHO"))
+    }
+
+    pub fn SCREVE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/scalingRequirements/SCREVE"))
+    }
+
+    pub fn SRAS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/scalingRequirements/SRAS"))
+    }
+
+    pub fn SCRECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/scalingRequirements/SCRECO"))
+    }
+
+    pub fn HARR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/highAvailability/HARR"))
+    }
+
+    pub fn HARF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/highAvailability/HARF"))
+    }
+
+    pub fn HARLB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/highAvailability/HARLB"))
+    }
+
+    pub fn HARDR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/highAvailability/HARDR"))
+    }
+
+    pub fn VIREVM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/virtualization/VIREVM"))
+    }
+
+    pub fn VIRECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/virtualization/VIRECO"))
+    }
+
+    pub fn VIREKU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/virtualization/VIREKU"))
+    }
+
+    pub fn VIRENE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/virtualization/VIRENE"))
+    }
+
+    pub fn CPRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/cloudProvider/CPRA"))
+    }
+
+    pub fn CPRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/cloudProvider/CPRS"))
+    }
+
+    pub fn CPRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/cloudProvider/CPRC"))
+    }
+
+    pub fn CPRG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/cloudProvider/CPRG"))
+    }
+
+    pub fn SORH(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/osRequirements/SORH"))
+    }
+
+    pub fn SORS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/osRequirements/SORS"))
+    }
+
+    pub fn SORM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/osRequirements/SORM"))
+    }
+
+    pub fn SORL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/osRequirements/SORL"))
+    }
+
+    pub fn BRREEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST"), BrowserRequirementEntryId::new)
+    }
+
+    pub fn DORE1_DESK_LST(&self) -> som::SomListMetaRef<'a, DesktopOsRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/DORE1-DESK-LST"), DesktopOsRequirementEntryId::new)
+    }
+
+    pub fn MDRE_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileDeviceRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST"), MobileDeviceRequirementEntryId::new)
+    }
+
+    pub fn DIRELA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/displayRequirements/DIRELA"))
+    }
+
+    pub fn DIRESC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/displayRequirements/DIRESC"))
+    }
+
+    pub fn DIREC1(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/displayRequirements/DIREC1"))
+    }
+
+    pub fn DRMD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/displayRequirements/DRMD"))
+    }
+
+    pub fn CNRL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/networkRequirements/CNRL"))
+    }
+
+    pub fn CNRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/networkRequirements/CNRC"))
+    }
+
+    pub fn CNRP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/networkRequirements/CNRP"))
+    }
+
+    pub fn CLNEREPR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/networkRequirements/CLNEREPR"))
+    }
+
+    pub fn CHRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRM"))
+    }
+
+    pub fn CHRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRS"))
+    }
+
+    pub fn CHRG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRG"))
+    }
+
+    pub fn CHRP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRP"))
+    }
+
+    pub fn CARV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARV"))
+    }
+
+    pub fn CARM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARM"))
+    }
+
+    pub fn CARC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARC"))
+    }
+
+    pub fn CARS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARS"))
+    }
+
+    pub fn PWREIC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/pwaRequirements/PWREIC"))
+    }
+
+    pub fn PWREIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/pwaRequirements/PWREIN"))
+    }
+
+    pub fn PWREOF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/pwaRequirements/PWREOF"))
+    }
+
+    pub fn PWREUP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/pwaRequirements/PWREUP"))
+    }
+
+    pub fn NARS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARS"))
+    }
+
+    pub fn NARV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARV"))
+    }
+
+    pub fn NARP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARP"))
+    }
+
+    pub fn NARL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARL"))
+    }
+
+    pub fn CSRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/securityRequirements/CSRA"))
+    }
+
+    pub fn CSRD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/securityRequirements/CSRD"))
+    }
+
+    pub fn CSRN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/securityRequirements/CSRN"))
+    }
+
+    pub fn CSRCP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP"))
+    }
+
+    pub fn INRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/internalNetwork/INRS"))
+    }
+
+    pub fn INRR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/internalNetwork/INRR"))
+    }
+
+    pub fn INRIS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/internalNetwork/INRIS"))
+    }
+
+    pub fn INRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/internalNetwork/INRM"))
+    }
+
+    pub fn ENRP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/externalNetwork/ENRP"))
+    }
+
+    pub fn EXNEREPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/externalNetwork/EXNEREPA"))
+    }
+
+    pub fn ENRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/externalNetwork/ENRC"))
+    }
+
+    pub fn ENRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/externalNetwork/ENRS"))
+    }
+
+    pub fn BAREDI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/bandwidthRequirements/BAREDI"))
+    }
+
+    pub fn BARECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/bandwidthRequirements/BARECO"))
+    }
+
+    pub fn BARETR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/bandwidthRequirements/BARETR"))
+    }
+
+    pub fn BAREQO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/bandwidthRequirements/BAREQO"))
+    }
+
+    pub fn NLRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/latencyRequirements/NLRS"))
+    }
+
+    pub fn NLRG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/latencyRequirements/NLRG"))
+    }
+
+    pub fn NELAREST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/latencyRequirements/NELAREST"))
+    }
+
+    pub fn NLRO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/latencyRequirements/NLRO"))
+    }
+
+    pub fn NARR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/availabilityRequirements/NARR"))
+    }
+
+    pub fn NARF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/availabilityRequirements/NARF"))
+    }
+
+    pub fn NEAVRERE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/availabilityRequirements/NEAVRERE"))
+    }
+
+    pub fn NART(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/availabilityRequirements/NART"))
+    }
+
+    pub fn VPREEN_VPNR_LST(&self) -> som::SomListMetaRef<'a, VpnRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST"), VpnRequirementEntryId::new)
+    }
+
+    pub fn FIRERU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/firewallRequirements/FIRERU"))
+    }
+
+    pub fn FIREPO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/firewallRequirements/FIREPO"))
+    }
+
+    pub fn FIREAD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/firewallRequirements/FIREAD"))
+    }
+
+    pub fn FIRELO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/firewallRequirements/FIRELO"))
+    }
+
+    pub fn GDRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/geographicDistribution/GDRC"))
+    }
+
+    pub fn GDRR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/geographicDistribution/GDRR"))
+    }
+
+    pub fn GDRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/geographicDistribution/GDRA"))
+    }
+
+    pub fn GDRP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/geographicDistribution/GDRP"))
+    }
+
+    pub fn DNREZO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/dnsRequirements/DNREZO"))
+    }
+
+    pub fn DNRERE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/dnsRequirements/DNRERE"))
+    }
+
+    pub fn DNREAV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/dnsRequirements/DNREAV"))
+    }
+
+    pub fn DRHC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/dnsRequirements/DRHC"))
+    }
+
+    pub fn NLBRR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/loadBalancing/NLBRR"))
+    }
+
+    pub fn NLBRHC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/loadBalancing/NLBRHC"))
+    }
+
+    pub fn NLBRT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/loadBalancing/NLBRT"))
+    }
+
+    pub fn NLBRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/loadBalancing/NLBRA"))
+    }
+
+    pub fn NSRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/networkSecurity/NSRA"))
+    }
+
+    pub fn NSRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/networkSecurity/NSRM"))
+    }
+
+    pub fn NSRD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/networkSecurity/NSRD"))
+    }
+
+    pub fn NSRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/networkSecurity/NSRC"))
+    }
+
+    pub fn BDCC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/dataClassification/BDCC"))
+    }
+
+    pub fn BDCE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/dataClassification/BDCE"))
+    }
+
+    pub fn BAPOEN_BACK_LST(&self) -> som::SomListMetaRef<'a, BackupPolicyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST"), BackupPolicyEntryId::new)
+    }
+
+    pub fn RRRBT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRBT"))
+    }
+
+    pub fn RRRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRS"))
+    }
+
+    pub fn RRRD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRD"))
+    }
+
+    pub fn BAINST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/infrastructure/BAINST"))
+    }
+
+    pub fn BAINSO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/infrastructure/BAINSO"))
+    }
+
+    pub fn BAINNE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/infrastructure/BAINNE"))
+    }
+
+    pub fn BAINSE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/infrastructure/BAINSE"))
+    }
+
+    pub fn REPRDA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRDA"))
+    }
+
+    pub fn REPRAP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRAP"))
+    }
+
+    pub fn REPRAU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRAU"))
+    }
+
+    pub fn REPRVA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRVA"))
+    }
+
+    pub fn DRRF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRF"))
+    }
+
+    pub fn DIREREFA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/disasterRecovery/DIREREFA"))
+    }
+
+    pub fn DRRR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRR"))
+    }
+
+    pub fn DRRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRC"))
+    }
+
+    pub fn BAVERE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/verification/BAVERE"))
+    }
+
+    pub fn BAVEEN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/verification/BAVEEN"))
+    }
+
+    pub fn BAVEDO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/verification/BAVEDO"))
+    }
+
+    pub fn BACOAU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/compliance/BACOAU"))
+    }
+
+    pub fn BACOR1(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/compliance/BACOR1"))
+    }
+
+    pub fn BCLH(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/compliance/BCLH"))
+    }
+
+    pub fn DMRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/deploymentModel/DMRC"))
+    }
+
+    pub fn DMRR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/deploymentModel/DMRR"))
+    }
+
+    pub fn DMRN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/deploymentModel/DMRN"))
+    }
+
+    pub fn DMRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/deploymentModel/DMRS"))
+    }
+
+    pub fn ENSTDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/environments/ENSTDE"))
+    }
+
+    pub fn ENSTTE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/environments/ENSTTE"))
+    }
+
+    pub fn ENSTST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/environments/ENSTST"))
+    }
+
+    pub fn ENSTPR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/environments/ENSTPR"))
+    }
+
+    pub fn ENSTEP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/environments/ENSTEP"))
+    }
+
+    pub fn CCPRB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRB"))
+    }
+
+    pub fn CCPRQ(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRQ"))
+    }
+
+    pub fn CCPRD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRD"))
+    }
+
+    pub fn CCPRN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRN"))
+    }
+
+    pub fn RSBG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/releaseStrategy/RSBG"))
+    }
+
+    pub fn RESTCA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/releaseStrategy/RESTCA"))
+    }
+
+    pub fn RSFF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/releaseStrategy/RSFF"))
+    }
+
+    pub fn RESTMA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/releaseStrategy/RESTMA"))
+    }
+
+    pub fn ROSTTR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTTR"))
+    }
+
+    pub fn ROSTHE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTHE"))
+    }
+
+    pub fn ROSTTA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTTA"))
+    }
+
+    pub fn ROSTDA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTDA"))
+    }
+
+    pub fn ROSTOP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTOP"))
+    }
+
+    pub fn COMAEN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/configurationManagement/COMAEN"))
+    }
+
+    pub fn COMAIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/configurationManagement/COMAIN"))
+    }
+
+    pub fn COMAFE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/configurationManagement/COMAFE"))
+    }
+
+    pub fn COMASE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/configurationManagement/COMASE"))
+    }
+
+    pub fn IACS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACS"))
+    }
+
+    pub fn IACE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACE"))
+    }
+
+    pub fn IACD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACD"))
+    }
+
+    pub fn INASCOSE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/infrastructureAsCode/INASCOSE"))
+    }
+
+    pub fn DSSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/deploymentSecurity/DSSC"))
+    }
+
+    pub fn DESERU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/deploymentSecurity/DESERU"))
+    }
+
+    pub fn DESEAC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/deploymentStrategy/deploymentSecurity/DESEAC"))
+    }
+
+    pub fn MOINDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINDE"))
+    }
+
+    pub fn MOINCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINCO"))
+    }
+
+    pub fn MOINAC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINAC"))
+    }
+
+    pub fn MCRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRC"))
+    }
+
+    pub fn MCRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRA"))
+    }
+
+    pub fn MCRB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRB"))
+    }
+
+    pub fn MECORECU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/metricsCollection/MECORECU"))
+    }
+
+    pub fn APMT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/apm/APMT"))
+    }
+
+    pub fn APMP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/apm/APMP"))
+    }
+
+    pub fn APME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/apm/APME"))
+    }
+
+    pub fn APMUS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/apm/APMUS"))
+    }
+
+    pub fn LMRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/logManagement/LMRC"))
+    }
+
+    pub fn LMRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/logManagement/LMRS"))
+    }
+
+    pub fn LMRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/logManagement/LMRA"))
+    }
+
+    pub fn LOMARECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/logManagement/LOMARECO"))
+    }
+
+    pub fn ALRERO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/alerting/ALRERO"))
+    }
+
+    pub fn ALREDE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/alerting/ALREDE"))
+    }
+
+    pub fn ALRESU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/alerting/ALRESU"))
+    }
+
+    pub fn ALRERE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE"))
+    }
+
+    pub fn ALDEEN_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertDefinitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST"), AlertDefinitionEntryId::new)
+    }
+
+    pub fn DAREST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/dashboards/DAREST"))
+    }
+
+    pub fn DAREAC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/dashboards/DAREAC"))
+    }
+
+    pub fn DAREFE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/dashboards/DAREFE"))
+    }
+
+    pub fn DAREMO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/dashboards/DAREMO"))
+    }
+
+    pub fn OCPT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPT"))
+    }
+
+    pub fn OCPS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPS"))
+    }
+
+    pub fn OCPE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPE"))
+    }
+
+    pub fn OCPD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPD"))
+    }
+
+    pub fn IMRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRC"))
+    }
+
+    pub fn IMRWR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRWR"))
+    }
+
+    pub fn IMRPI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRPI"))
+    }
+
+    pub fn IMRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRM"))
+    }
+
+    pub fn SLMOREMO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMOREMO"))
+    }
+
+    pub fn SMREB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SMREB"))
+    }
+
+    pub fn SLMORECU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMORECU"))
+    }
+
+    pub fn SLMORERE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMORERE"))
+    }
+
+    pub fn SMPS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPS"))
+    }
+
+    pub fn SMPD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPD"))
+    }
+
+    pub fn SMPN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPN"))
+    }
+
+    pub fn SMPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA"))
+    }
+
+    pub fn MAWIEN_MAIN_LST(&self) -> som::SomListMetaRef<'a, MaintenanceWindowEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST"), MaintenanceWindowEntryId::new)
+    }
+
+    pub fn EMPG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPG"))
+    }
+
+    pub fn EMPC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPC"))
+    }
+
+    pub fn EMPE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPE"))
+    }
+
+    pub fn MCMG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/changeManagement/MCMG"))
+    }
+
+    pub fn MCMD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/changeManagement/MCMD"))
+    }
+
+    pub fn MCMT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/changeManagement/MCMT"))
+    }
+
+    pub fn MCMA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/changeManagement/MCMA"))
+    }
+
+    pub fn MUID(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/userImpact/MUID"))
+    }
+
+    pub fn MUIGD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/userImpact/MUIGD"))
+    }
+
+    pub fn MUIP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/userImpact/MUIP"))
+    }
+
+    pub fn PMVM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/postMaintenance/PMVM"))
+    }
+
+    pub fn PMVC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC"))
+    }
+
+    pub fn PREN_PROT_LST(&self) -> som::SomListMetaRef<'a, ProtocolEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST"), ProtocolEntryId::new)
+    }
+
+    pub fn TRCS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCS"))
+    }
+
+    pub fn TRCV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCV"))
+    }
+
+    pub fn TLRETE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRETE"))
+    }
+
+    pub fn TLRECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRECO"))
+    }
+
+    pub fn CEMAKE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAKE"))
+    }
+
+    pub fn CEMALI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMALI"))
+    }
+
+    pub fn CEMAST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAST"))
+    }
+
+    pub fn CEMAMO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAMO"))
+    }
+
+    pub fn AVSS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSS"))
+    }
+
+    pub fn AVSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSC"))
+    }
+
+    pub fn AVSD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSD"))
+    }
+
+    pub fn MFSS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/messageFormats/MFSS"))
+    }
+
+    pub fn MFSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/messageFormats/MFSC"))
+    }
+
+    pub fn MFSR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/messageFormats/MFSR"))
+    }
+
+    pub fn MFST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/messageFormats/MFST"))
+    }
+
+    pub fn RLPL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPL"))
+    }
+
+    pub fn RLPB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPB"))
+    }
+
+    pub fn RLPQ(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPQ"))
+    }
+
+    pub fn PCRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/compliance/PCRC"))
+    }
+
+    pub fn PCRO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/compliance/PCRO"))
+    }
+
+    pub fn PCRE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/compliance/PCRE"))
+    }
+
+    pub fn EPCE_PART_LST(&self) -> som::SomListMetaRef<'a, ExternalPartnerConnectionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/EPCE-PART-LST"), ExternalPartnerConnectionEntryId::new)
+    }
+
+    pub fn CSIS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/cloudServices/CSIS"))
+    }
+
+    pub fn CSIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/cloudServices/CSIN"))
+    }
+
+    pub fn CSIC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/cloudServices/CSIC"))
+    }
+
+    pub fn TPAIA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIA"))
+    }
+
+    pub fn TPAIC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIC"))
+    }
+
+    pub fn TPAIL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIL"))
+    }
+
+    pub fn TPAIM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIM"))
+    }
+
+    pub fn THPAAPINAI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/thirdPartyApis/THPAAPINAI"))
+    }
+
+    pub fn TPAIO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIO"))
+    }
+
+    pub fn NSPF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/networkSecurity/NSPF"))
+    }
+
+    pub fn NSPIM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/networkSecurity/NSPIM"))
+    }
+
+    pub fn NSPV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/networkSecurity/NSPV"))
+    }
+
+    pub fn NSPD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/networkSecurity/NSPD"))
+    }
+
+    pub fn NESEPODN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/networkSecurity/NESEPODN"))
+    }
+
+    pub fn SMAGM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/serviceMeshAndGateway/SMAGM"))
+    }
+
+    pub fn SMAGLB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/serviceMeshAndGateway/SMAGLB"))
+    }
+
+    pub fn COREP1(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/resilience/COREP1"))
+    }
+
+    pub fn COREOF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/resilience/COREOF"))
+    }
+
+    pub fn COREOP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/resilience/COREOP"))
+    }
+
+    pub fn AIRD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/AIRD"))
+    }
+
+    pub fn ADINREDA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/ADINREDA"))
+    }
+
+    pub fn AIRO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/AIRO"))
+    }
+
+    pub fn SCMD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMD"))
+    }
+
+    pub fn SCME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCME"))
+    }
+
+    pub fn SCMG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG"))
+    }
+
+    pub fn UPTL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL"))
+    }
+
+    pub fn UPTRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTRM"))
+    }
+
+    pub fn UPTDI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTDI"))
+    }
+
+    pub fn BJMJT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMJT"))
+    }
+
+    pub fn BJME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJME"))
+    }
+
+    pub fn BJMM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM"))
+    }
+
+    pub fn ADENMA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/ADENMA"))
+    }
+
+    pub fn SDTT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTT"))
+    }
+
+    pub fn SDTL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTL"))
+    }
+
+    pub fn SDTSS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"))
+    }
+
+    pub fn MAINT_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST"), som::SomMetaRef::new)
+    }
+
+    pub fn MONITO_MONI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/MONITO-MONI"))
+    }
+
+    pub fn HCEC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCEC"))
+    }
+
+    pub fn HCET(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCET"))
+    }
+
+    pub fn HECHENCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HECHENCO"))
+    }
+
+    pub fn APDIPE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/APDIPE"))
+    }
+
+    pub fn APDIRU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/APDIRU"))
+    }
+
+    pub fn ADFS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/ADFS"))
+    }
+
+    pub fn LARC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARC"))
+    }
+
+    pub fn LARR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARR"))
+    }
+
+    pub fn LARA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARA"))
+    }
+
+    pub fn TRCARU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCARU"))
+    }
+
+    pub fn TRCAAC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCAAC"))
+    }
+
+    pub fn TRCACO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCACO"))
+    }
+
+    pub fn DHMC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMC"))
+    }
+
+    pub fn DHMQ(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMQ"))
+    }
+
+    pub fn DHME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHME"))
+    }
+
+    pub fn DHMT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMT"))
+    }
+
+    pub fn ALCO_ALER(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALCO-ALER"))
+    }
+
+    pub fn ANCD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCD"))
+    }
+
+    pub fn ANCR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCR"))
+    }
+
+    pub fn ANCF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF"))
+    }
+
+    pub fn ALRUEN_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST"), AlertRuleEntryId::new)
+    }
+
+    pub fn AEPT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPT"))
+    }
+
+    pub fn AEPB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPB"))
+    }
+
+    pub fn AEPS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPS"))
+    }
+
+    pub fn ALSURU_SUPP_LST(&self) -> som::SomListMetaRef<'a, AlertSuppressionRulesId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALSURU-SUPP-LST"), AlertSuppressionRulesId::new)
+    }
+
+    pub fn OCSCC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/onCallSchedule/OCSCC"))
+    }
+
+    pub fn OCSCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/onCallSchedule/OCSCO"))
+    }
+
+    pub fn MEANOB_METR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/MEANOB-METR"))
+    }
+
+    pub fn AMSR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSR"))
+    }
+
+    pub fn AMSA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSA"))
+    }
+
+    pub fn AMSL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSL"))
+    }
+
+    pub fn IMSK(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/IMSK"))
+    }
+
+    pub fn IMSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/IMSC"))
+    }
+
+    pub fn INMESPCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/INMESPCO"))
+    }
+
+    pub fn BMST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMST"))
+    }
+
+    pub fn BMSFU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSFU"))
+    }
+
+    pub fn BMSK(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSK"))
+    }
+
+    pub fn BMSO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSO"))
+    }
+
+    pub fn DTSS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSS"))
+    }
+
+    pub fn DITRSPSP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DITRSPSP"))
+    }
+
+    pub fn DTSO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO"))
+    }
+
+    pub fn CUMEEN_CUST_LST(&self) -> som::SomListMetaRef<'a, CustomMetricEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST"), CustomMetricEntryId::new)
+    }
+
+    pub fn MODA_DASH(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"))
+    }
+
+    pub fn DAEN_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST"), DashboardEntryId::new)
+    }
+
+    pub fn DATE_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardTemplatesId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST"), DashboardTemplatesId::new)
+    }
+
+    pub fn SASM_SLAO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO"))
+    }
+
+    pub fn SLIP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIP"))
+    }
+
+    pub fn SLIQ(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIQ"))
+    }
+
+    pub fn SLIM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM"))
+    }
+
+    pub fn SLEN_SLOS_LST(&self) -> som::SomListMetaRef<'a, SloEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST"), SloEntryId::new)
+    }
+
+    pub fn EBTM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTM"))
+    }
+
+    pub fn EBTG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTG"))
+    }
+
+    pub fn UGPF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPF"))
+    }
+
+    pub fn UGPS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPS"))
+    }
+
+    pub fn UGPT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPT"))
+    }
+
+    pub fn DGPG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPG"))
+    }
+
+    pub fn DGPP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPP"))
+    }
+
+    pub fn DGPL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPL"))
+    }
+
+    pub fn DGPT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPT"))
+    }
+
+    pub fn PLPM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPM"))
+    }
+
+    pub fn PLPC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPC"))
+    }
+
+    pub fn PLPT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPT"))
+    }
+
+    pub fn STATM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATM"))
+    }
+
+    pub fn STATR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATR"))
+    }
+
+    pub fn STATB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATB"))
+    }
+
+    pub fn STATT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATT"))
+    }
+
+    pub fn RCBS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBS"))
+    }
+
+    pub fn RCBN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBN"))
+    }
+
+    pub fn RCBD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBD"))
+    }
+
+    pub fn RCBC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBC"))
+    }
+
+    pub fn CAREPRMO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/capacityReview/CAREPRMO"))
+    }
+
+    pub fn CRPE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPE"))
+    }
+
+    pub fn CRPP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP"))
+    }
+
+    pub fn SESTEN_STAN_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST"), SecurityStandardEntryId::new)
+    }
+
+    pub fn ASRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/applicationSecurity/ASRC"))
+    }
+
+    pub fn ASRV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/applicationSecurity/ASRV"))
+    }
+
+    pub fn ASRA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/applicationSecurity/ASRA"))
+    }
+
+    pub fn ISHC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHC"))
+    }
+
+    pub fn ISHN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHN"))
+    }
+
+    pub fn ISHA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHA"))
+    }
+
+    pub fn SDLD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLD"))
+    }
+
+    pub fn SDLT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLT"))
+    }
+
+    pub fn SDLR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLR"))
+    }
+
+    pub fn VMPC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPC"))
+    }
+
+    pub fn VMPP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPP"))
+    }
+
+    pub fn VMPR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPR"))
+    }
+
+    pub fn IRPP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/incidentResponse/IRPP"))
+    }
+
+    pub fn IRPC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/incidentResponse/IRPC"))
+    }
+
+    pub fn IRPPI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/incidentResponse/IRPPI"))
+    }
+
+    pub fn PRCG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCG"))
+    }
+
+    pub fn PRCD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCD"))
+    }
+
+    pub fn PRCR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCR"))
+    }
+
+    pub fn PRCT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCT"))
+    }
+
+    pub fn DRRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DRRS"))
+    }
+
+    pub fn DARERERE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DARERERE"))
+    }
+
+    pub fn DRRV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DRRV"))
+    }
+
+    pub fn CMRC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRC"))
+    }
+
+    pub fn COMAREST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/consentManagement/COMAREST"))
+    }
+
+    pub fn CMRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRM"))
+    }
+
+    pub fn CMRT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRT"))
+    }
+
+    pub fn COMARECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/consentManagement/COMARECO"))
+    }
+
+    pub fn DSRMA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMA"))
+    }
+
+    pub fn DSRME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRME"))
+    }
+
+    pub fn DSRMP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMP"))
+    }
+
+    pub fn DSRMR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMR"))
+    }
+
+    pub fn DASURIMAAU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DASURIMAAU"))
+    }
+
+    pub fn DSRMO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMO"))
+    }
+
+    pub fn PIAPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPA"))
+    }
+
+    pub fn PIAPM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPM"))
+    }
+
+    pub fn PIAPR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPR"))
+    }
+
+    pub fn DPARM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARM"))
+    }
+
+    pub fn DPARH(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARH"))
+    }
+
+    pub fn DPARS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARS"))
+    }
+
+    pub fn DPART(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPART"))
+    }
+
+    pub fn DPCH(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCH"))
+    }
+
+    pub fn DPCR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCR"))
+    }
+
+    pub fn DPCM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCM"))
+    }
+
+    pub fn DPCI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCI"))
+    }
+
+    pub fn PTRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRS"))
+    }
+
+    pub fn PTRE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRE"))
+    }
+
+    pub fn PTRR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRR"))
+    }
+
+    pub fn SCRPR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPR"))
+    }
+
+    pub fn SCRPP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPP"))
+    }
+
+    pub fn SCRPF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPF"))
+    }
+
+    pub fn DSRV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRV"))
+    }
+
+    pub fn DSRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRS"))
+    }
+
+    pub fn DSRL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRL"))
+    }
+
+    pub fn DSRSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRSC"))
+    }
+
+    pub fn SCRI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityCertifications/SCRI"))
+    }
+
+    pub fn SCRS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityCertifications/SCRS"))
+    }
+
+    pub fn SECEREIN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityCertifications/SECEREIN"))
+    }
+
+    pub fn SCRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityCertifications/SCRM"))
+    }
+
+    pub fn CASP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASP"))
+    }
+
+    pub fn CASE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASE"))
+    }
+
+    pub fn CASR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASR"))
+    }
+
+    pub fn STAD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAD"))
+    }
+
+    pub fn STAI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAI"))
+    }
+
+    pub fn STAF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAF"))
+    }
+
+    pub fn STAS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAS"))
+    }
+
+    pub fn STAG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG"))
+    }
+
+    pub fn SEAUEN_AUDI_LST(&self) -> som::SomListMetaRef<'a, SecurityAuditEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST"), SecurityAuditEntryId::new)
+    }
+
+    pub fn USCDF_ITEM_LST(&self) -> som::SomListMetaRef<'a, UserCategoryDefinitionId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/userManagement/userCategories/USCDF-ITEM-LST"), UserCategoryDefinitionId::new)
+    }
+
+    pub fn ULTRE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UserLifecycleTransitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST"), UserLifecycleTransitionEntryId::new)
+    }
+
+    pub fn SACLC_SERV_LST(&self) -> som::SomListMetaRef<'a, ServiceAccountLifecycleId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/userManagement/userLifecycle/SACLC-SERV-LST"), ServiceAccountLifecycleId::new)
+    }
+
+    pub fn USATE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UserAttributeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/userManagement/userAttributes/USATE-ITEM-LST"), UserAttributeEntryId::new)
+    }
+
+    pub fn IDTSR_IDEN_LST(&self) -> som::SomListMetaRef<'a, IdentitySourceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/IDTSR-IDEN-LST"), IdentitySourceEntryId::new)
+    }
+
+    pub fn IVPD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/identityVerification/IVPD"))
+    }
+
+    pub fn IVPM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/identityVerification/IVPM"))
+    }
+
+    pub fn IVPW(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/identityVerification/IVPW"))
+    }
+
+    pub fn IVPL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/identityVerification/IVPL"))
+    }
+
+    pub fn IVPF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/identityVerification/IVPF"))
+    }
+
+    pub fn IDTPV_IDEN_LST(&self) -> som::SomListMetaRef<'a, IdentityProviderEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/IDTPV-IDEN-LST"), IdentityProviderEntryId::new)
+    }
+
+    pub fn SSOPF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/singleSignOn/SSOPF"))
+    }
+
+    pub fn SSOPS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/singleSignOn/SSOPS"))
+    }
+
+    pub fn SSOPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/singleSignOn/SSOPA"))
+    }
+
+    pub fn SSOPO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/singleSignOn/SSOPO"))
+    }
+
+    pub fn SRPF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/selfRegistration/SRPF"))
+    }
+
+    pub fn SRPBP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/selfRegistration/SRPBP"))
+    }
+
+    pub fn SRPV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/selfRegistration/SRPV"))
+    }
+
+    pub fn SRPA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/selfRegistration/SRPA"))
+    }
+
+    pub fn SRPS(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/selfRegistration/SRPS"))
+    }
+
+    pub fn IDTAM_ATTR_LST(&self) -> som::SomListMetaRef<'a, IdentityAttributeMappingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/IDTAM-ATTR-LST"), IdentityAttributeMappingEntryId::new)
+    }
+
+    pub fn MFADE_MFAD_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), som::SomMetaRef::new)
+    }
+
+    pub fn ATME_ITEM_LST(&self) -> som::SomListMetaRef<'a, AuthenticationMethodEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST"), AuthenticationMethodEntryId::new)
+    }
+
+    pub fn STEPU_STEP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), som::SomMetaRef::new)
+    }
+
+    pub fn LGFLS_LOGI_LST(&self) -> som::SomListMetaRef<'a, LoginFlowStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST"), LoginFlowStepEntryId::new)
+    }
+
+    pub fn MFACRQ_MFAC_LST(&self) -> som::SomListMetaRef<'a, MfaCategoryRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST"), MfaCategoryRequirementEntryId::new)
+    }
+
+    pub fn AZGR_GROU_LST(&self) -> som::SomListMetaRef<'a, AuthorizationGroupEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/AZGR-GROU-LST"), AuthorizationGroupEntryId::new)
+    }
+
+    pub fn AZRO_ROLE_LST(&self) -> som::SomListMetaRef<'a, AuthorizationRoleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/AZRO-ROLE-LST"), AuthorizationRoleEntryId::new)
+    }
+
+    pub fn ENT_ENTI_LST(&self) -> som::SomListMetaRef<'a, EntitlementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/ENT-ENTI-LST"), EntitlementEntryId::new)
+    }
+
+    pub fn RESKEY_RESO_LST(&self) -> som::SomListMetaRef<'a, ResourceKeyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/RESKEY-RESO-LST"), ResourceKeyEntryId::new)
+    }
+
+    pub fn RLINH_INHE_LST(&self) -> som::SomListMetaRef<'a, RoleInheritanceRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/roleHierarchy/RLINH-INHE-LST"), RoleInheritanceRuleEntryId::new)
+    }
+
+    pub fn RLCMB_COMB_LST(&self) -> som::SomListMetaRef<'a, RoleCombinationConstraintEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/roleHierarchy/RLCMB-COMB-LST"), RoleCombinationConstraintEntryId::new)
+    }
+
+    pub fn GBRLX_GLOB_LST(&self) -> som::SomListMetaRef<'a, GlobalRoleExclusionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST"), GlobalRoleExclusionEntryId::new)
+    }
+
+    pub fn TNCS_TENA_LST(&self) -> som::SomListMetaRef<'a, TenantCustomizationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), TenantCustomizationEntryId::new)
+    }
+
+    pub fn ACOVNA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/actorOverview/ACOVNA"))
+    }
+
+    pub fn ACEN_ACTO_LST(&self) -> som::SomListMetaRef<'a, ActorEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST"), ActorEntryId::new)
+    }
+
+    pub fn ACCASU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/actorOverview/ACCASU"))
+    }
+
+    pub fn INCAOV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/interactionCatalog/INCAOV"))
+    }
+
+    pub fn INEN_INTE_LST(&self) -> som::SomListMetaRef<'a, InteractionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST"), InteractionEntryId::new)
+    }
+
+    pub fn INPR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/interactionCatalog/INPR"))
+    }
+
+    pub fn SCOV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/keyScenarios/SCOV"))
+    }
+
+    pub fn SCNRY_SCEN_LST(&self) -> som::SomListMetaRef<'a, ScenarioEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST"), ScenarioEntryId::new)
+    }
+
+    pub fn ACDIOV(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV"))
+    }
+
+    pub fn ETETS_ENDT_LST(&self) -> som::SomListMetaRef<'a, EndToEndTestScenarioId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsAndActorInteractions/ETETS-ENDT-LST"), EndToEndTestScenarioId::new)
+    }
+
+    pub fn SCREN_ITEM_LST(&self) -> som::SomListMetaRef<'a, ScreenEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST"), ScreenEntryId::new)
+    }
+
+    pub fn GLOBA_GLOB_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST"), som::SomMetaRef::new)
+    }
+
+    pub fn NAVGRP_GROU_LST(&self) -> som::SomListMetaRef<'a, NavigationGroupEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST"), NavigationGroupEntryId::new)
+    }
+
+    pub fn PRNADR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR"))
+    }
+
+    pub fn PNBN(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN"))
+    }
+
+    pub fn PRNASI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"))
+    }
+
+    pub fn TBDE_TABB_LST(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST"), TabBarDefinitionEntryId::new)
+    }
+
+    pub fn UNIE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST"), UtilityNavigationItemEntryId::new)
+    }
+
+    pub fn BRCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO"))
+    }
+
+    pub fn DELNPT_PATT_LST(&self) -> som::SomListMetaRef<'a, DeepLinkPatternEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST"), DeepLinkPatternEntryId::new)
+    }
+
+    pub fn NAVGRD_GUAR_LST(&self) -> som::SomListMetaRef<'a, NavigationGuardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), NavigationGuardEntryId::new)
+    }
+
+    pub fn ERHACO_ERRO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/ERHACO-ERRO"))
+    }
+
+    pub fn EHCC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/EHCC"))
+    }
+
+    pub fn EHCA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/EHCA"))
+    }
+
+    pub fn EHCO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/EHCO"))
+    }
+
+    pub fn VAFE_VALI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAFE-VALI"))
+    }
+
+    pub fn VAFEPL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAFEPL"))
+    }
+
+    pub fn VAFEME(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAFEME"))
+    }
+
+    pub fn VAFEGU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU"))
+    }
+
+    pub fn VAFEBE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE"))
+    }
+
+    pub fn VAMETE_MESS_LST(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST"), ValidationMessageTemplateId::new)
+    }
+
+    pub fn FIELD_FIEL_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST"), som::SomMetaRef::new)
+    }
+
+    pub fn SYERDI_SYST(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST"))
+    }
+
+    pub fn SEDET(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET"))
+    }
+
+    pub fn SEDM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM"))
+    }
+
+    pub fn SEDC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC"))
+    }
+
+    pub fn SEDF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF"))
+    }
+
+    pub fn EPDE_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), som::SomMetaRef::new)
+    }
+
+    pub fn SECE_ERRO_LST(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST"), SystemErrorCodeEntryId::new)
+    }
+
+    pub fn ERRE_RECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"))
+    }
+
+    pub fn ERDP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERDP"))
+    }
+
+    pub fn ERRM(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERRM"))
+    }
+
+    pub fn ERGR(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERGR"))
+    }
+
+    pub fn ERSC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERSC"))
+    }
+
+    pub fn ERSH(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERSH"))
+    }
+
+    pub fn RECOV_RECO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST"), som::SomMetaRef::new)
+    }
+
+    pub fn RCVSCN_RECO_LST(&self) -> som::SomListMetaRef<'a, RecoveryScenarioEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST"), RecoveryScenarioEntryId::new)
+    }
+
+    pub fn REDE_RESP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/REDE-RESP"))
+    }
+
+    pub fn BC_BREA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA"))
+    }
+
+    pub fn BRE_BREA_LST(&self) -> som::SomListMetaRef<'a, BreakpointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST"), BreakpointEntryId::new)
+    }
+
+    pub fn REBE_LAYO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO"))
+    }
+
+    pub fn REBENA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA"))
+    }
+
+    pub fn REBEVI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI"))
+    }
+
+    pub fn REBETO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBETO"))
+    }
+
+    pub fn REBECO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBECO"))
+    }
+
+    pub fn RESPSR_SCRE_LST(&self) -> som::SomListMetaRef<'a, ResponsiveScreenRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST"), ResponsiveScreenRuleEntryId::new)
+    }
+
+    pub fn UICO_COMP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/UICO-COMP"))
+    }
+
+    pub fn UCVL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/UCVL"))
+    }
+
+    pub fn UCCA(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/UCCA"))
+    }
+
+    pub fn UICOCU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/UICOCU"))
+    }
+
+    pub fn DESIG_DESI_LST(&self) -> som::SomListMetaRef<'a, DesignFoundationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/DESIG-DESI-LST"), DesignFoundationEntryId::new)
+    }
+
+    pub fn COLICO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/COLICO"))
+    }
+
+    pub fn COLITY(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/COLITY"))
+    }
+
+    pub fn COLISP(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/COLISP"))
+    }
+
+    pub fn COLIBO(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/COLIBO"))
+    }
+
+    pub fn COLIVI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/COLIVI"))
+    }
+
+    pub fn COPA_COLO_LST(&self) -> som::SomListMetaRef<'a, ColorPaletteEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST"), ColorPaletteEntryId::new)
+    }
+
+    pub fn TYST_TYPO_LST(&self) -> som::SomListMetaRef<'a, TypographyStyleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST"), TypographyStyleEntryId::new)
+    }
+
+    pub fn UICOEN_COMP_LST(&self) -> som::SomListMetaRef<'a, UiComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/UICOEN-COMP-LST"), UiComponentEntryId::new)
+    }
+
+    pub fn CMFA_COMP_LST(&self) -> som::SomListMetaRef<'a, ComponentFamilyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/CMFA-COMP-LST"), ComponentFamilyEntryId::new)
+    }
+}
+
 /// DashboardEntryId holds the ID-tree accessors of `DashboardEntry` (DR1 §4.2):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -84043,24 +87662,12 @@ impl<'a> DataEntityEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENT-CLAS"))
     }
 
-    pub fn VOLUM_VOLU_LST(&self) -> som::SomListMetaRef<'a, VolumeMetricEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VOLUM-VOLU-LST"), VolumeMetricEntryId::new)
-    }
-
     pub fn DAENT_LIFE(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENT-LIFE"))
     }
 
-    pub fn CRE_COMP_LST(&self) -> som::SomListMetaRef<'a, ComplianceRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CRE-COMP-LST"), ComplianceRequirementEntryId::new)
-    }
-
     pub fn DAENT_RELA(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENT-RELA"))
-    }
-
-    pub fn TECHN_TECH_LST(&self) -> som::SomListMetaRef<'a, TechnicalCharacteristicEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TECHN-TECH-LST"), TechnicalCharacteristicEntryId::new)
     }
 
     pub fn DAATT_ATTR_LST(&self) -> som::SomListMetaRef<'a, DataAttributeEntryId<'a>> {
@@ -84077,10 +87684,6 @@ impl<'a> DataEntityEntryId<'a> {
 
     pub fn ENCNS_CONS_LST(&self) -> som::SomListMetaRef<'a, EntityConstraintEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ENCNS-CONS-LST"), EntityConstraintEntryId::new)
-    }
-
-    pub fn MIGME_MIGR_LST(&self) -> som::SomListMetaRef<'a, MigrationMappingEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIGME-MIGR-LST"), MigrationMappingEntryId::new)
     }
 }
 
@@ -85677,6 +89280,52 @@ impl<'a> EntityConstraintEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+}
+
+/// EntityFollowUpEntryId holds the ID-tree accessors of `EntityFollowUpEntry` (DR1 §4.2):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct EntityFollowUpEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> EntityFollowUpEntryId<'a> {
+    /// Binds a EntityFollowUpEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> EntityFollowUpEntryId<'a> {
+        EntityFollowUpEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (§4 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn DMFUE_ENTI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DMFUE-ENTI"))
+    }
+
+    pub fn VOLUM_VOLU_LST(&self) -> som::SomListMetaRef<'a, VolumeMetricEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VOLUM-VOLU-LST"), VolumeMetricEntryId::new)
+    }
+
+    pub fn CRE_COMP_LST(&self) -> som::SomListMetaRef<'a, ComplianceRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CRE-COMP-LST"), ComplianceRequirementEntryId::new)
+    }
+
+    pub fn TECHN_TECH_LST(&self) -> som::SomListMetaRef<'a, TechnicalCharacteristicEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TECHN-TECH-LST"), TechnicalCharacteristicEntryId::new)
+    }
+
+    pub fn MIGME_MIGR_LST(&self) -> som::SomListMetaRef<'a, MigrationMappingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIGME-MIGR-LST"), MigrationMappingEntryId::new)
     }
 }
 
@@ -98469,4 +102118,31 @@ pub fn d12_transition_rollout_plan_meta(tree: &som::SomMetaTree) -> D12Transitio
 /// `TRP(&tree).<SECTION_ID>()….path` / `.meta()`.
 pub fn TRP(tree: &som::SomMetaTree) -> D12TransitionRolloutPlanId<'_> {
     D12TransitionRolloutPlanId::new(tree, "TRP".to_string())
+}
+
+/// The populated metadata tree of the `D13CodeSpecsProjection` document root (DR1 §3.2),
+/// built per call — `SomMetaTree` is `Rc`-based and not `Sync`, so it cannot be
+/// a `static`: construct once, keep the instance, and bind the access surfaces
+/// below to it. The generated data is correct by construction, so a wiring
+/// failure marks an emitter bug and panics instead of surfacing as a runtime
+/// condition.
+pub fn d13_code_specs_projection_meta_tree() -> som::SomMetaTree {
+    let mut stack: HashSet<String> = HashSet::new();
+    stack.insert("D13CodeSpecsProjection".to_string());
+    let children = meta_children_d13_code_specs_projection(&mut stack);
+    let root = som::SomMetaNode { class_name: "D13CodeSpecsProjection".to_string(), section_id: "CGP".to_string(), class_section_id: "CGP".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "D13CodeSpecsProjection".to_string(), doc_comment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.".to_string(), class_doc_comment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.".to_string(), document: Some(som::SomDocMeta { name: "CodeSpecs Generation Projection".to_string(), description: "The Phase-4 CodeSpecs generation input — a projection over the Solution Blueprint that reaches only the isolated CodeSpecs subtrees, grouped by the shared/client/server locus of their CE-parts.".to_string(), based_on: vec!["D00SolutionBlueprint".to_string()] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture description (the generation input as an architecture view over the blueprint)".to_string()), som::Json::Str("Model-driven engineering — platform-independent model → code generation".to_string())])), ("connotation".to_string(), som::Json::Str("The Phase-4 CodeSpecs generation input: the isolated CodeSpecs subtrees routed across the shared / client / server three-way split by locus.".to_string()))] }, som::SomMetaExtra { annotation: "CodeSpecsProjection".to_string(), args: vec![] }], children, ..som::SomMetaNode::default() };
+    som::SomMetaTree::new(Rc::new(root))
+        .expect("generated metadata tree failed to wire (emitter bug)")
+}
+
+/// The dot-notation access root of `D13CodeSpecsProjection` (DR1 §4.1):
+/// `d13_code_specs_projection_meta(&tree).<member>()….path` / `.meta()`.
+pub fn d13_code_specs_projection_meta(tree: &som::SomMetaTree) -> D13CodeSpecsProjectionNav<'_> {
+    D13CodeSpecsProjectionNav::new(tree, "CGP".to_string())
+}
+
+/// The ID-tree access root of `D13CodeSpecsProjection` (DR1 §4.2):
+/// `CGP(&tree).<SECTION_ID>()….path` / `.meta()`.
+pub fn CGP(tree: &som::SomMetaTree) -> D13CodeSpecsProjectionId<'_> {
+    D13CodeSpecsProjectionId::new(tree, "CGP".to_string())
 }

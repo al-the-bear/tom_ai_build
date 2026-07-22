@@ -150,6 +150,27 @@ func metaChildrenAccessConstraintPolicies(s map[string]bool) []*som.SomMetaNode 
 	}
 }
 
+func metaChildrenAccessControlModel(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "AccessControlModel", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the access-control model: identities, authentication, resource protection, authorization, and roles."}},
+		metaCx("UserManagement", s, metaChildrenUserManagement, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "UserManagement", MemberName: "userManagement", ClassSectionID: "USMGT", Kind: som.SomMetaKindComplex, TypeName: "UserManagement", SerializationOrder: metaIntPtr(1), DocComment: "9.1.1. User Management.", ClassDocComment: "9.1. User Management.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("IdentificationAndAuthentication", s, metaChildrenIdentificationAndAuthentication, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "IdentificationAndAuthentication", MemberName: "authentication", ClassSectionID: "IDAUT", Kind: som.SomMetaKindComplex, TypeName: "IdentificationAndAuthentication", SerializationOrder: metaIntPtr(2), DocComment: "9.1.2. Identification and Authentication.", ClassDocComment: "9.2. Identification and Authentication.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("ResourceProtection", s, metaChildrenResourceProtection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ResourceProtection", MemberName: "resourceProtection", ClassSectionID: "RESPRO", Kind: som.SomMetaKindComplex, TypeName: "ResourceProtection", SerializationOrder: metaIntPtr(3), DocComment: "9.1.3. Resource Protection.", ClassDocComment: "9.3. Resource Protection.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("UserAuthorization", s, metaChildrenUserAuthorization, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "UserAuthorization", MemberName: "authorization", ClassSectionID: "USAU", Kind: som.SomMetaKindComplex, TypeName: "UserAuthorization", SerializationOrder: metaIntPtr(4), DocComment: "9.1.4. User Authorization.", ClassDocComment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("RoleMatrix", s, metaChildrenRoleMatrix, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "RoleMatrix", MemberName: "roleMatrix", ClassSectionID: "ROMA", Kind: som.SomMetaKindComplex, TypeName: "RoleMatrix", SerializationOrder: metaIntPtr(5), DocComment: "9.1.5. Role Matrix.", ClassDocComment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
+	}
+}
+
 func metaChildrenAccessControlModelSelection(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "AccessControlModelSelection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
@@ -976,6 +997,13 @@ func metaChildrenAuthenticationMethods(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
+	}
+}
+
+func metaChildrenAuthorizationComplianceFollowUp(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "AuthorizationComplianceFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the authorization-compliance follow-up: UI adaptation to roles and permissions."}},
+		{ClassName: "AuthorizationComplianceFollowUp", MemberName: "authorizationCompliance", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "10.4.1. Authorization Compliance."},
 	}
 }
 
@@ -2093,6 +2121,9 @@ func metaChildrenClientRequirementsSection(s map[string]bool) []*som.SomMetaNode
 		metaCx("ClientConfiguration", s, metaChildrenClientConfiguration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ClientConfiguration", MemberName: "clientConfiguration", ClassSectionID: "CLICON", Kind: som.SomMetaKindComplex, TypeName: "ClientConfiguration", SerializationOrder: metaIntPtr(12), DocComment: "Per-machine configuration of a client application (CE-CC).", ClassDocComment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).", Recursive: r, Children: c}
 		}),
+		metaCx("DeviceSettings", s, metaChildrenDeviceSettings, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "DeviceSettings", MemberName: "deviceSettings", ClassSectionID: "DEVSET", Kind: som.SomMetaKindComplex, TypeName: "DeviceSettings", SerializationOrder: metaIntPtr(13), DocComment: "User-specific settings of a user-owned device (CE-DS).", ClassDocComment: "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).", Recursive: r, Children: c}
+		}),
 	}
 }
 
@@ -3189,13 +3220,13 @@ func metaChildrenD00SolutionBlueprint(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AssumptionsConstraintsDependencies", MemberName: "assumptionsConstraintsDependencies", ClassSectionID: "ACDP", Kind: som.SomMetaKindComplex, TypeName: "AssumptionsConstraintsDependencies", SerializationOrder: metaIntPtr(6), DocComment: "SBP.6 Assumptions, Constraints & Dependencies.", ClassDocComment: "SBP.6 Assumptions, Constraints & Dependencies.", Recursive: r, Children: c}
 		}),
 		metaCx("TargetOperatingModel", s, metaChildrenTargetOperatingModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TargetOperatingModel", MemberName: "targetOperatingModelConcept", ClassSectionID: "TOMC", Kind: som.SomMetaKindComplex, TypeName: "TargetOperatingModel", SerializationOrder: metaIntPtr(7), DocComment: "SBP.7 Target Operating Model concept. Seeds → TOM.", ClassDocComment: "SBP.7 Target Operating Model concept.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TargetOperatingModel", MemberName: "targetOperatingModelConcept", ClassSectionID: "TOMC", Kind: som.SomMetaKindComplex, TypeName: "TargetOperatingModel", SerializationOrder: metaIntPtr(7), DocComment: "SBP.7 Target Operating Model concept. Seeds → TOM.", ClassDocComment: "SBP.7 Target Operating Model concept.\n\nSplit into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)\nand a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)\nso each whole branch is owned by a single downstream process.", Recursive: r, Children: c}
 		}),
 		metaCx("InformationAndDataModel", s, metaChildrenInformationAndDataModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "InformationAndDataModel", MemberName: "informationAndDataModel", ClassSectionID: "INDM", Kind: som.SomMetaKindComplex, TypeName: "InformationAndDataModel", SerializationOrder: metaIntPtr(8), DocComment: "SBP.8 Information & Data Model. Seeds → IFM.", ClassDocComment: "7. Business Object and Data Model. Seeds → IFM.", MapsTo: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("Requirements", s, metaChildrenRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Requirements", MemberName: "requirements", ClassSectionID: "REQS", Kind: som.SomMetaKindComplex, TypeName: "Requirements", SerializationOrder: metaIntPtr(9), DocComment: "SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.", ClassDocComment: "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection currently carries the framework-uncovered NFR sub-areas re-homed in\nIP-6. Functional-requirement modelling is expanded in a later IP step.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "Requirements", MemberName: "requirements", ClassSectionID: "REQS", Kind: som.SomMetaKindComplex, TypeName: "Requirements", SerializationOrder: metaIntPtr(9), DocComment: "SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.", ClassDocComment: "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed\nstays purely CodeSpecs-relevant.", Recursive: r, Children: c}
 		}),
 		metaCx("SolutionArchitectureAndTechnology", s, metaChildrenSolutionArchitectureAndTechnology, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SolutionArchitectureAndTechnology", MemberName: "solutionArchitectureAndTechnology", ClassSectionID: "SOAT", Kind: som.SomMetaKindComplex, TypeName: "SolutionArchitectureAndTechnology", SerializationOrder: metaIntPtr(10), DocComment: "SBP.11 Solution Architecture & Technology. Seeds → ATS.", ClassDocComment: "SBP.11 Solution Architecture & Technology.", Recursive: r, Children: c}
@@ -3763,6 +3794,42 @@ func metaChildrenD12TransitionRolloutPlan(s map[string]bool) []*som.SomMetaNode 
 	}
 }
 
+func metaChildrenD13CodeSpecsProjection(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "D13CodeSpecsProjection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split."},
+		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
+		}),
+		metaCx("DomainEnumRegistry", s, metaChildrenDomainEnumRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "domainEnumRegistry", ClassSectionID: "DOMEN", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumRegistry", SerializationOrder: metaIntPtr(2), Comment: "locus: shared — CE-EN", DocComment: "Domain enum registry — CE-EN closed value sets, shared by client & server.", ClassDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.", Recursive: r, Children: c}
+		}),
+		metaCx("ErrorCodeRegistry", s, metaChildrenErrorCodeRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ErrorCodeRegistry", MemberName: "errorCodeRegistry", ClassSectionID: "ERCRG", Kind: som.SomMetaKindComplex, TypeName: "ErrorCodeRegistry", SerializationOrder: metaIntPtr(3), Comment: "locus: shared — CE-ER", DocComment: "Error code registry — CE-ER shared error-code vocabulary.", ClassDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.", Recursive: r, Children: c}
+		}),
+		metaCx("ResultEnvelope", s, metaChildrenResultEnvelope, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ResultEnvelope", MemberName: "resultEnvelope", ClassSectionID: "RSLTE", Kind: som.SomMetaKindComplex, TypeName: "ResultEnvelope", SerializationOrder: metaIntPtr(4), Comment: "locus: shared — CE-ER", DocComment: "Result envelope — CE-ER canonical §7 success-or-error contract, shared.", ClassDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.", Recursive: r, Children: c}
+		}),
+		metaCx("MessageKeyRegistry", s, metaChildrenMessageKeyRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "MessageKeyRegistry", MemberName: "messageKeyRegistry", ClassSectionID: "MSGKR", Kind: som.SomMetaKindComplex, TypeName: "MessageKeyRegistry", SerializationOrder: metaIntPtr(5), Comment: "locus: shared — CE-TX", DocComment: "Message key registry — CE-TX author-copy-once keys, shared.", ClassDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].", Recursive: r, Children: c}
+		}),
+		metaCx("DataModel", s, metaChildrenDataModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "DataModel", MemberName: "dataModel", ClassSectionID: "DATMD", Kind: som.SomMetaKindComplex, TypeName: "DataModel", SerializationOrder: metaIntPtr(6), Comment: "locus: server — CE-DB/CE-VA", DocComment: "Data model — CE-DB persistence + CE-VA server-side rules.", ClassDocComment: "7.1. Data Model.", MapsTo: "D03InformationModel", Recursive: r, Children: c}
+		}),
+		metaCx("TechnicalFrameworkConcept", s, metaChildrenTechnicalFrameworkConcept, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "TechnicalFrameworkConcept", MemberName: "technicalFramework", ClassSectionID: "TECH", Kind: som.SomMetaKindComplex, TypeName: "TechnicalFrameworkConcept", SerializationOrder: metaIntPtr(7), Comment: "locus: server — CE-CF", DocComment: "Technical framework — CE-CF platform/config foundation.", ClassDocComment: "8. Technical Framework Concept. Seeds → ATS.", MapsTo: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+		}),
+		metaCx("AccessControlModel", s, metaChildrenAccessControlModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "AccessControlModel", MemberName: "accessControl", ClassSectionID: "ACCM", Kind: som.SomMetaKindComplex, TypeName: "AccessControlModel", SerializationOrder: metaIntPtr(8), Comment: "locus: server — CE-AZ", DocComment: "Access control model — CE-AZ authorization/identity seed.", ClassDocComment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
+		}),
+		metaCx("ProcessStepsAndActorInteractions", s, metaChildrenProcessStepsAndActorInteractions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(9), Comment: "locus: server(CE-SU)+client(CE-SC)", DocComment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
+		}),
+		metaCx("ExperienceCodeSpecs", s, metaChildrenExperienceCodeSpecs, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(10), Comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER", DocComment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.", Recursive: r, Children: c}
+		}),
+	}
+}
+
 func metaChildrenDashboardEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DashboardEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dashboardId", TypeName: "String", Description: "Dashboard ID", Required: true, Hint: "Unique dashboard identifier", Order: 0}, {Name: "dashboardName", TypeName: "String", Description: "Dashboard Name", Required: true, Hint: "Human-readable dashboard name", Order: 1}, {Name: "dashboardCategory", TypeName: "String", Description: "Dashboard Category", Hint: "Executive, operational, service, infrastructure", Order: 2}, {Name: "targetAudience", TypeName: "String", Description: "Target Audience", Hint: "Who uses this dashboard", Order: 3}}}},
@@ -3925,61 +3992,33 @@ func metaChildrenDataEntityEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DataEntityEntry", MemberName: "identity", SectionID: "DAENT-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "entityName", TypeName: "String", Description: "Entity Name", Required: true, Hint: "Singular noun or noun phrase (e.g., Customer, OrderItem)", Order: 0}, {Name: "tableName", TypeName: "String", Description: "Physical Table Name", Hint: "Database table name if different from logical name", Order: 1}, {Name: "entityAlias", TypeName: "String", Description: "Alias/Abbreviation", Hint: "Short alias for diagrams and references (e.g., CUST, ORD)", Order: 2}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Clear definition of what this entity represents", Order: 3}, {Name: "entityStereoType", TypeName: "String", Description: "Stereotype", Hint: "Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge", Order: 4}}}},
 		{ClassName: "DataEntityEntry", MemberName: "classification", SectionID: "DAENT-CLAS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "category", TypeName: "String", Description: "Category", Hint: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData", Order: 0}, {Name: "boundedContext", TypeName: "String", Description: "Bounded Context", Hint: "Domain-driven design bounded context this entity belongs to", Order: 1}, {Name: "owningDomain", TypeName: "String", Description: "Owning Domain", Hint: "Business domain responsible for this entity", Order: 2}, {Name: "dataOwner", TypeName: "String", Description: "Data Owner", Hint: "Role or team accountable for data quality", Order: 3}, {Name: "dataSteward", TypeName: "String", Description: "Data Steward", Hint: "Person or role responsible for data governance", Order: 4}, {Name: "sourceSystem", TypeName: "String", Description: "Source System", Hint: "System of record or originating system for migration", Order: 5}}}},
+		{ClassName: "DataEntityEntry", MemberName: "lifecyclePolicy", SectionID: "DAENT-LIFE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "lifecyclePhases", TypeName: "String", Description: "Lifecycle Phases", Hint: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted", Order: 0}, {Name: "retentionPolicy", TypeName: "String", Description: "Retention Policy", Hint: "How long data is retained and why (e.g., 7 years per tax regulations)", Order: 1}, {Name: "archivalTrigger", TypeName: "String", Description: "Archival Trigger", Hint: "Condition for moving to archive (e.g., 2 years after last activity)", Order: 2}, {Name: "archivalDestination", TypeName: "String", Description: "Archival Destination", Hint: "Where archived data goes: ColdStorage | Archive | DataLake", Order: 3}, {Name: "purgePolicy", TypeName: "String", Description: "Purge Policy", Hint: "When and how data is permanently deleted", Order: 4}, {Name: "anonymizationPolicy", TypeName: "String", Description: "Anonymization Policy", Hint: "PII anonymization rules (e.g., hash email after deletion)", Order: 5}, {Name: "auditRequirements", TypeName: "String", Description: "Audit Requirements", Hint: "What changes must be tracked: None | KeyFields | AllFields | FullHistory", Order: 6}, {Name: "auditRetention", TypeName: "String", Description: "Audit Retention", Hint: "How long audit records are kept", Order: 7}}}},
+		{ClassName: "DataEntityEntry", MemberName: "relationshipSummary", SectionID: "DAENT-RELA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "parentEntities", TypeName: "String", Description: "Parent Entities", Hint: "Entities this depends on (e.g., Order depends on Customer)", Order: 0}, {Name: "childEntities", TypeName: "String", Description: "Child Entities", Hint: "Entities that depend on this (e.g., OrderItem depends on Order)", Order: 1}, {Name: "referencedEntities", TypeName: "String", Description: "Referenced Entities", Hint: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)", Order: 2}, {Name: "crossDomainRelationships", TypeName: "String", Description: "Cross-Domain Relationships", Hint: "Relationships that cross bounded context boundaries", Order: 3}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "volumeMetrics", SectionID: "VOLUM-VOLU-LST", SectionIDPattern: "VOLUM-VOLU-xxx", Kind: som.SomMetaKindList, TypeName: "VolumeMetricEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per volume metric.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."}}}}
-			n.ElementNode = metaCx("VolumeMetricEntry", s, metaChildrenVolumeMetricEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "VolumeMetricEntry", ClassSectionID: "VOLUM", Kind: som.SomMetaKindComplex, TypeName: "VolumeMetricEntry", DocComment: "A single volume metric entry.", ClassDocComment: "A single volume metric entry.", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-		{ClassName: "DataEntityEntry", MemberName: "lifecyclePolicy", SectionID: "DAENT-LIFE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "lifecyclePhases", TypeName: "String", Description: "Lifecycle Phases", Hint: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted", Order: 0}, {Name: "retentionPolicy", TypeName: "String", Description: "Retention Policy", Hint: "How long data is retained and why (e.g., 7 years per tax regulations)", Order: 1}, {Name: "archivalTrigger", TypeName: "String", Description: "Archival Trigger", Hint: "Condition for moving to archive (e.g., 2 years after last activity)", Order: 2}, {Name: "archivalDestination", TypeName: "String", Description: "Archival Destination", Hint: "Where archived data goes: ColdStorage | Archive | DataLake", Order: 3}, {Name: "purgePolicy", TypeName: "String", Description: "Purge Policy", Hint: "When and how data is permanently deleted", Order: 4}, {Name: "anonymizationPolicy", TypeName: "String", Description: "Anonymization Policy", Hint: "PII anonymization rules (e.g., hash email after deletion)", Order: 5}, {Name: "auditRequirements", TypeName: "String", Description: "Audit Requirements", Hint: "What changes must be tracked: None | KeyFields | AllFields | FullHistory", Order: 6}, {Name: "auditRetention", TypeName: "String", Description: "Audit Retention", Hint: "How long audit records are kept", Order: 7}}}},
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "complianceRequirements", SectionID: "CRE-COMP-LST", SectionIDPattern: "CRE-COMP-xxx", Kind: som.SomMetaKindList, TypeName: "ComplianceRequirementEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per compliance requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)", "ISO/IEC 27001 / NIST — data classification"}, "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."}}}}
-			n.ElementNode = metaCx("ComplianceRequirementEntry", s, metaChildrenComplianceRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "ComplianceRequirementEntry", ClassSectionID: "CRE", Kind: som.SomMetaKindComplex, TypeName: "ComplianceRequirementEntry", DocComment: "A single compliance requirement entry.", ClassDocComment: "A single compliance requirement entry.", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-		{ClassName: "DataEntityEntry", MemberName: "relationshipSummary", SectionID: "DAENT-RELA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "parentEntities", TypeName: "String", Description: "Parent Entities", Hint: "Entities this depends on (e.g., Order depends on Customer)", Order: 0}, {Name: "childEntities", TypeName: "String", Description: "Child Entities", Hint: "Entities that depend on this (e.g., OrderItem depends on Order)", Order: 1}, {Name: "referencedEntities", TypeName: "String", Description: "Referenced Entities", Hint: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)", Order: 2}, {Name: "crossDomainRelationships", TypeName: "String", Description: "Cross-Domain Relationships", Hint: "Relationships that cross bounded context boundaries", Order: 3}}}},
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "technicalCharacteristics", SectionID: "TECHN-TECH-LST", SectionIDPattern: "TECHN-TECH-xxx", Kind: som.SomMetaKindList, TypeName: "TechnicalCharacteristicEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per technical characteristic.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."}}}}
-			n.ElementNode = metaCx("TechnicalCharacteristicEntry", s, metaChildrenTechnicalCharacteristicEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "TechnicalCharacteristicEntry", ClassSectionID: "TECHN", Kind: som.SomMetaKindComplex, TypeName: "TechnicalCharacteristicEntry", DocComment: "A single technical characteristic entry.", ClassDocComment: "A single technical characteristic entry.", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "attributes", SectionID: "DAATT-ATTR-LST", SectionIDPattern: "DAATT-ATTR-xxx", Kind: som.SomMetaKindList, TypeName: "DataAttributeEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per data attribute.", DocComment: "Contains 0+× DataAttribute.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 11179 — metadata registries / data element definitions", "DAMA-DMBOK2 — data management body of knowledge"}, "connotation": "The data attributes (fields) that belong to this entity."}}}}
+			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "attributes", SectionID: "DAATT-ATTR-LST", SectionIDPattern: "DAATT-ATTR-xxx", Kind: som.SomMetaKindList, TypeName: "DataAttributeEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per data attribute.", DocComment: "Contains 0+× DataAttribute.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 11179 — metadata registries / data element definitions", "DAMA-DMBOK2 — data management body of knowledge"}, "connotation": "The data attributes (fields) that belong to this entity."}}}}
 			n.ElementNode = metaCx("DataAttributeEntry", s, metaChildrenDataAttributeEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DataAttributeEntry", ClassSectionID: "DAATT", Kind: som.SomMetaKindComplex, TypeName: "DataAttributeEntry", DocComment: "A data attribute entry (form).\n\nComprehensive attribute specification for data dictionary and schema design.", ClassDocComment: "A data attribute entry (form).\n\nComprehensive attribute specification for data dictionary and schema design.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "keyAttributes", SectionID: "KEATT-KEYA-LST", SectionIDPattern: "KEATT-KEYA-xxx", Kind: som.SomMetaKindList, TypeName: "KeyAttributeEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per key attribute.", DocComment: "Contains 0+× KeyAttribute.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ER modeling (Chen / Barker notation)", "ISO/IEC 11179 — metadata registries / data element definitions"}, "connotation": "The key attributes (primary, foreign, alternate, composite) that identify or reference this entity."}}}}
+			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "keyAttributes", SectionID: "KEATT-KEYA-LST", SectionIDPattern: "KEATT-KEYA-xxx", Kind: som.SomMetaKindList, TypeName: "KeyAttributeEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per key attribute.", DocComment: "Contains 0+× KeyAttribute.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ER modeling (Chen / Barker notation)", "ISO/IEC 11179 — metadata registries / data element definitions"}, "connotation": "The key attributes (primary, foreign, alternate, composite) that identify or reference this entity."}}}}
 			n.ElementNode = metaCx("KeyAttributeEntry", s, metaChildrenKeyAttributeEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "KeyAttributeEntry", ClassSectionID: "KEATT", Kind: som.SomMetaKindComplex, TypeName: "KeyAttributeEntry", DocComment: "A key attribute entry (form).\n\nSpecification for primary, foreign, alternate, and composite keys.", ClassDocComment: "A key attribute entry (form).\n\nSpecification for primary, foreign, alternate, and composite keys.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "indexes", SectionID: "ENIDX-INDE-LST", SectionIDPattern: "ENIDX-INDE-xxx", Kind: som.SomMetaKindList, TypeName: "EntityIndexEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per entity index.", DocComment: "Contains 0+× EntityIndex.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "The database indexes defined on this entity for query optimization."}}}}
+			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "indexes", SectionID: "ENIDX-INDE-LST", SectionIDPattern: "ENIDX-INDE-xxx", Kind: som.SomMetaKindList, TypeName: "EntityIndexEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per entity index.", DocComment: "Contains 0+× EntityIndex.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "The database indexes defined on this entity for query optimization."}}}}
 			n.ElementNode = metaCx("EntityIndexEntry", s, metaChildrenEntityIndexEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "EntityIndexEntry", ClassSectionID: "ENIDX", Kind: som.SomMetaKindComplex, TypeName: "EntityIndexEntry", DocComment: "An entity index entry (form).\n\nDatabase index specification for query optimization.", ClassDocComment: "An entity index entry (form).\n\nDatabase index specification for query optimization.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "constraints", SectionID: "ENCNS-CONS-LST", SectionIDPattern: "ENCNS-CONS-xxx", Kind: som.SomMetaKindList, TypeName: "EntityConstraintEntry", SerializationOrder: metaIntPtr(10), ContentHelp: "Add one entry per entity constraint.", DocComment: "Contains 0+× EntityConstraint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"SBVR — business rule statements", "ISO/IEC 25012 — data quality"}, "connotation": "Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints."}}}}
+			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "constraints", SectionID: "ENCNS-CONS-LST", SectionIDPattern: "ENCNS-CONS-xxx", Kind: som.SomMetaKindList, TypeName: "EntityConstraintEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per entity constraint.", DocComment: "Contains 0+× EntityConstraint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"SBVR — business rule statements", "ISO/IEC 25012 — data quality"}, "connotation": "Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints."}}}}
 			n.ElementNode = metaCx("EntityConstraintEntry", s, metaChildrenEntityConstraintEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "EntityConstraintEntry", ClassSectionID: "ENCNS", Kind: som.SomMetaKindComplex, TypeName: "EntityConstraintEntry", DocComment: "An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.", ClassDocComment: "An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "migrationMappings", SectionID: "MIGME-MIGR-LST", SectionIDPattern: "MIGME-MIGR-xxx", Kind: som.SomMetaKindList, TypeName: "MigrationMappingEntry", SerializationOrder: metaIntPtr(11), ContentHelp: "Add one entry per migration mapping.", DocComment: "Contains 0+× MigrationMapping for data migration planning.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Source-to-target field mappings for planning the migration of data into this entity."}}}}
-			n.ElementNode = metaCx("MigrationMappingEntry", s, metaChildrenMigrationMappingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "MigrationMappingEntry", ClassSectionID: "MIGME", Kind: som.SomMetaKindComplex, TypeName: "MigrationMappingEntry", DocComment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", ClassDocComment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
@@ -4151,7 +4190,7 @@ func metaChildrenDataMigrationStrategy(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDataModel(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DataModel", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with 7 form groups (41+ fields per entity)\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Volume Metrics (record count, growth rate, storage estimates)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Compliance Requirements (sensitivity, PII/PHI, encryption, access)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Technical Characteristics (indexing, caching, consistency, scaling)\n"},
+		{ClassName: "DataModel", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Attributes, key attributes, indexes, and constraints\n\nPer-entity operational facets (volume metrics, compliance requirements,\ntechnical characteristics, migration mappings) and the model-wide ER diagram\nare authored in the Data Model Follow-up Facets section (7.9).\n"},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataModel", MemberName: "entities", SectionID: "DAENT-ENTI-LST", SectionIDPattern: "DAENT-ENTI-xxx", Kind: som.SomMetaKindList, TypeName: "DataEntityEntry", SerializationOrder: metaIntPtr(1), Min: metaIntPtr(1), ContentHelp: "Add one entry per data entity.", DocComment: "7.1.1. Entity Overview — contains 1+× Data Entity.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ER modeling (Chen / Barker notation)", "DAMA-DMBOK2 — data management body of knowledge"}, "connotation": "The data entities that make up the logical data model."}}}}
 			n.ElementNode = metaCx("DataEntityEntry", s, metaChildrenDataEntityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -4162,19 +4201,32 @@ func metaChildrenDataModel(s map[string]bool) []*som.SomMetaNode {
 		metaCx("EntityRelationships", s, metaChildrenEntityRelationships, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "EntityRelationships", MemberName: "entityRelationships", ClassSectionID: "ENREL", Kind: som.SomMetaKindComplex, TypeName: "EntityRelationships", SerializationOrder: metaIntPtr(2), DocComment: "7.1.2. Entity Relationships.", ClassDocComment: "7.1.2. Entity Relationships.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
-		{ClassName: "DataModel", MemberName: "erDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "mermaid-er", Description: ""}, DocComment: "7.1.3. Entity-Relationship Diagram (mermaid)."},
 		metaCx("DataClassification", s, metaChildrenDataClassification, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DataClassification", MemberName: "dataClassification", ClassSectionID: "DATCL", Kind: som.SomMetaKindComplex, TypeName: "DataClassification", SerializationOrder: metaIntPtr(4), DocComment: "7.1.4. Data Classification.", ClassDocComment: "7.1.4. Data Classification.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DataClassification", MemberName: "dataClassification", ClassSectionID: "DATCL", Kind: som.SomMetaKindComplex, TypeName: "DataClassification", SerializationOrder: metaIntPtr(3), DocComment: "7.1.3. Data Classification.", ClassDocComment: "7.1.4. Data Classification.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("DataDictionary", s, metaChildrenDataDictionary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DataDictionary", MemberName: "dataDictionary", ClassSectionID: "DADI", Kind: som.SomMetaKindComplex, TypeName: "DataDictionary", SerializationOrder: metaIntPtr(5), DocComment: "7.1.5. Data Dictionary..", ClassDocComment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DataDictionary", MemberName: "dataDictionary", ClassSectionID: "DADI", Kind: som.SomMetaKindComplex, TypeName: "DataDictionary", SerializationOrder: metaIntPtr(4), DocComment: "7.1.4. Data Dictionary..", ClassDocComment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("ValidationConstraints", s, metaChildrenValidationConstraints, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ValidationConstraints", MemberName: "validationConstraints", ClassSectionID: "VACO", Kind: som.SomMetaKindComplex, TypeName: "ValidationConstraints", SerializationOrder: metaIntPtr(6), DocComment: "7.1.6. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).", ClassDocComment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ValidationConstraints", MemberName: "validationConstraints", ClassSectionID: "VACO", Kind: som.SomMetaKindComplex, TypeName: "ValidationConstraints", SerializationOrder: metaIntPtr(5), DocComment: "7.1.5. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).", ClassDocComment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("IntegrityConstraints", s, metaChildrenIntegrityConstraints, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "IntegrityConstraints", MemberName: "integrityConstraints", ClassSectionID: "INCO", Kind: som.SomMetaKindComplex, TypeName: "IntegrityConstraints", SerializationOrder: metaIntPtr(7), DocComment: "7.1.7. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).", ClassDocComment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "IntegrityConstraints", MemberName: "integrityConstraints", ClassSectionID: "INCO", Kind: som.SomMetaKindComplex, TypeName: "IntegrityConstraints", SerializationOrder: metaIntPtr(6), DocComment: "7.1.6. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).", ClassDocComment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
+	}
+}
+
+func metaChildrenDataModelFollowUp(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "DataModelFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n"},
+		{ClassName: "DataModelFollowUp", MemberName: "erDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-er", Description: ""}, DocComment: "7.9.1. Entity-Relationship Diagram (mermaid)."},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "DataModelFollowUp", MemberName: "entityFollowUps", SectionID: "DMFUE-ENFU-LST", SectionIDPattern: "DMFUE-ENFU-xxx", Kind: som.SomMetaKindList, TypeName: "EntityFollowUpEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per entity that carries follow-up facets.", DocComment: "7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Per-entity operational, compliance, technical, and migration facets keyed to the source entity."}}}}
+			n.ElementNode = metaCx("EntityFollowUpEntry", s, metaChildrenEntityFollowUpEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "EntityFollowUpEntry", ClassSectionID: "DMFUE", Kind: som.SomMetaKindComplex, TypeName: "EntityFollowUpEntry", DocComment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.", ClassDocComment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -4977,6 +5029,12 @@ func metaChildrenDevelopmentQualityGates(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenDeviceSettings(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "DeviceSettings", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "settingKey", TypeName: "String", Description: "Setting Key", Required: true, Hint: "The dotted key of the device setting, e.g. window.layout", Order: 0}, {Name: "valueType", TypeName: "String", Description: "Value Type", Hint: "string / int / double / bool / enum", Order: 1}, {Name: "defaultValue", TypeName: "String", Description: "Default Value", Hint: "The value used until the user changes the setting on this device", Order: 2}, {Name: "deviceOverridable", TypeName: "bool", Description: "Shadows a Wider-Scope Key", Hint: "Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)", Order: 3}}}},
+	}
+}
+
 func metaChildrenDisasterRecoveryRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DisasterRecoveryRequirements", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "drStrategy", TypeName: "String", Description: "DR Strategy", Hint: "Hot, Warm, Cold standby", Order: 0}, {Name: "drSite", TypeName: "String", Description: "DR Site Location", Hint: "DR site location", Order: 1}, {Name: "drProvider", TypeName: "String", Description: "DR Provider", Hint: "DR service provider", Order: 2}}}},
@@ -5148,6 +5206,9 @@ func metaChildrenDocSpecsProject(s map[string]bool) []*som.SomMetaNode {
 		}),
 		metaCx("D09ExperienceDesignSpecification", s, metaChildrenD09ExperienceDesignSpecification, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "D09ExperienceDesignSpecification", MemberName: "experienceDesignSpecification", ClassSectionID: "XDS", Kind: som.SomMetaKindComplex, TypeName: "D09ExperienceDesignSpecification", SerializationOrder: metaIntPtr(12), DocComment: "D09 — Experience Design Specification (Phase 3 projection).", ClassDocComment: "XDS00 Experience Design Specification.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups.", Recursive: r, Children: c}
+		}),
+		metaCx("D13CodeSpecsProjection", s, metaChildrenD13CodeSpecsProjection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "D13CodeSpecsProjection", MemberName: "codeSpecsProjection", ClassSectionID: "CGP", Kind: som.SomMetaKindComplex, TypeName: "D13CodeSpecsProjection", SerializationOrder: metaIntPtr(13), DocComment: "D13 — CodeSpecs Generation Projection (Phase 4 generation input).\n\nA `@Document(basedOn: [D00SolutionBlueprint])` projection like the twelve\nPhase-3 roots, but `@CodeSpecKind`-driven: it reaches only the isolated\nCodeSpecs subtrees the Phase-4 generator consumes, grouped by\nshared/client/server locus. Marked `@CodeSpecsProjection()`.", ClassDocComment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -5537,6 +5598,40 @@ func metaChildrenEntityConstraintEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenEntityFollowUpEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "EntityFollowUpEntry", MemberName: "entityRef", SectionID: "DMFUE-ENTI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "entityName", TypeName: "String", Description: "Entity Name", Required: true, Hint: "Name of the data entity these facets apply to (matches dataModel.entities)", Order: 0}, {Name: "entityAlias", TypeName: "String", Description: "Alias/Abbreviation", Hint: "Short alias of the referenced entity (e.g., CUST, ORD)", Order: 1}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "EntityFollowUpEntry", MemberName: "volumeMetrics", SectionID: "VOLUM-VOLU-LST", SectionIDPattern: "VOLUM-VOLU-xxx", Kind: som.SomMetaKindList, TypeName: "VolumeMetricEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per volume metric.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."}}}}
+			n.ElementNode = metaCx("VolumeMetricEntry", s, metaChildrenVolumeMetricEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "VolumeMetricEntry", ClassSectionID: "VOLUM", Kind: som.SomMetaKindComplex, TypeName: "VolumeMetricEntry", DocComment: "A single volume metric entry.", ClassDocComment: "A single volume metric entry.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "EntityFollowUpEntry", MemberName: "complianceRequirements", SectionID: "CRE-COMP-LST", SectionIDPattern: "CRE-COMP-xxx", Kind: som.SomMetaKindList, TypeName: "ComplianceRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per compliance requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)", "ISO/IEC 27001 / NIST — data classification"}, "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."}}}}
+			n.ElementNode = metaCx("ComplianceRequirementEntry", s, metaChildrenComplianceRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ComplianceRequirementEntry", ClassSectionID: "CRE", Kind: som.SomMetaKindComplex, TypeName: "ComplianceRequirementEntry", DocComment: "A single compliance requirement entry.", ClassDocComment: "A single compliance requirement entry.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "EntityFollowUpEntry", MemberName: "technicalCharacteristics", SectionID: "TECHN-TECH-LST", SectionIDPattern: "TECHN-TECH-xxx", Kind: som.SomMetaKindList, TypeName: "TechnicalCharacteristicEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per technical characteristic.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."}}}}
+			n.ElementNode = metaCx("TechnicalCharacteristicEntry", s, metaChildrenTechnicalCharacteristicEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "TechnicalCharacteristicEntry", ClassSectionID: "TECHN", Kind: som.SomMetaKindComplex, TypeName: "TechnicalCharacteristicEntry", DocComment: "A single technical characteristic entry.", ClassDocComment: "A single technical characteristic entry.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "EntityFollowUpEntry", MemberName: "migrationMappings", SectionID: "MIGME-MIGR-LST", SectionIDPattern: "MIGME-MIGR-xxx", Kind: som.SomMetaKindList, TypeName: "MigrationMappingEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per migration mapping.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Source-to-target field mappings for planning the migration of data into this entity."}}}}
+			n.ElementNode = metaCx("MigrationMappingEntry", s, metaChildrenMigrationMappingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "MigrationMappingEntry", ClassSectionID: "MIGME", Kind: som.SomMetaKindComplex, TypeName: "MigrationMappingEntry", DocComment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", ClassDocComment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
 func metaChildrenEntityIndexEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "EntityIndexEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "indexName", TypeName: "String", Description: "Index Name", Required: true, Hint: "Unique identifier for the index", Order: 0}, {Name: "indexType", TypeName: "String", Description: "Index Type", Hint: "BTree | Hash | GiST | GIN | FullText | Spatial", Order: 1}, {Name: "columns", TypeName: "String", Description: "Column(s)", Hint: "Indexed columns in order, with direction (e.g., \"created_at DESC\")", Order: 2}, {Name: "includeColumns", TypeName: "String", Description: "Include Columns", Hint: "Non-key columns to include (covering index)", Order: 3}, {Name: "isUnique", TypeName: "String", Description: "Is Unique", Hint: "Whether index enforces uniqueness: Yes | No", Order: 4}, {Name: "isClustered", TypeName: "String", Description: "Is Clustered", Hint: "Whether index determines physical row order: Yes | No", Order: 5}, {Name: "filterCondition", TypeName: "String", Description: "Filter Condition", Hint: "Partial index WHERE clause", Order: 6}, {Name: "purpose", TypeName: "String", Description: "Purpose", Hint: "Query patterns this index optimizes", Order: 7}, {Name: "estimatedSize", TypeName: "String", Description: "Estimated Size", Hint: "Expected index size", Order: 8}}}},
@@ -5855,43 +5950,72 @@ func metaChildrenExpectedImprovements(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenExperienceAndInterfaceDesign(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ExperienceAndInterfaceDesign", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n"},
-		metaCx("DesignVision", s, metaChildrenDesignVision, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DesignVision", MemberName: "designVision", ClassSectionID: "DEVIZ", Kind: som.SomMetaKindComplex, TypeName: "DesignVision", SerializationOrder: metaIntPtr(1), DocComment: "10.1. Design Vision. Seeds → XDS.", ClassDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+		metaCx("ExperienceCodeSpecs", s, metaChildrenExperienceCodeSpecs, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(1), DocComment: "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.", Recursive: r, Children: c}
 		}),
+		metaCx("ExperienceDesignFollowUp", s, metaChildrenExperienceDesignFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ExperienceDesignFollowUp", MemberName: "designFollowUp", ClassSectionID: "XDFU", Kind: som.SomMetaKindComplex, TypeName: "ExperienceDesignFollowUp", SerializationOrder: metaIntPtr(2), DocComment: "10.2. Experience Design — DOC follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.", Recursive: r, Children: c}
+		}),
+		metaCx("ExperienceLocalizationFollowUp", s, metaChildrenExperienceLocalizationFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ExperienceLocalizationFollowUp", MemberName: "localizationFollowUp", ClassSectionID: "XLFU", Kind: som.SomMetaKindComplex, TypeName: "ExperienceLocalizationFollowUp", SerializationOrder: metaIntPtr(3), DocComment: "10.3. Experience Localization — L10N follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.", Recursive: r, Children: c}
+		}),
+		metaCx("AuthorizationComplianceFollowUp", s, metaChildrenAuthorizationComplianceFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "AuthorizationComplianceFollowUp", MemberName: "authorizationComplianceFollowUp", ClassSectionID: "XCFU", Kind: som.SomMetaKindComplex, TypeName: "AuthorizationComplianceFollowUp", SerializationOrder: metaIntPtr(4), DocComment: "10.4. Authorization Compliance — CMP follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.", Recursive: r, Children: c}
+		}),
+	}
+}
+
+func metaChildrenExperienceCodeSpecs(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ExperienceCodeSpecs", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the CodeSpecs UI-generation subtree: screens, navigation, error handling, responsive design, and components."}},
 		metaCx("ScreenDescriptions", s, metaChildrenScreenDescriptions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ScreenDescriptions", MemberName: "screens", ClassSectionID: "SCRDZ", Kind: som.SomMetaKindComplex, TypeName: "ScreenDescriptions", SerializationOrder: metaIntPtr(2), DocComment: "10.2. Screen Descriptions. Seeds → XDS.", ClassDocComment: "10.2. Screen Descriptions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ScreenDescriptions", MemberName: "screens", ClassSectionID: "SCRDZ", Kind: som.SomMetaKindComplex, TypeName: "ScreenDescriptions", SerializationOrder: metaIntPtr(1), DocComment: "10.1.1. Screen Descriptions. Seeds → XDS.", ClassDocComment: "10.2. Screen Descriptions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ScreenFlowStructure", s, metaChildrenScreenFlowStructure, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ScreenFlowStructure", MemberName: "screenFlow", ClassSectionID: "SCFLST", Kind: som.SomMetaKindComplex, TypeName: "ScreenFlowStructure", SerializationOrder: metaIntPtr(3), DocComment: "10.3. Screen Flow Structure. Seeds → XDS.", ClassDocComment: "10.3. Screen Flow Structure.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ScreenFlowStructure", MemberName: "screenFlow", ClassSectionID: "SCFLST", Kind: som.SomMetaKindComplex, TypeName: "ScreenFlowStructure", SerializationOrder: metaIntPtr(2), DocComment: "10.1.2. Screen Flow Structure. Seeds → XDS.", ClassDocComment: "10.3. Screen Flow Structure.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
-		metaCx("PrintAndExportLayout", s, metaChildrenPrintAndExportLayout, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "printLayout", ClassSectionID: "PRLA", Kind: som.SomMetaKindComplex, TypeName: "PrintAndExportLayout", SerializationOrder: metaIntPtr(4), DocComment: "10.4. Print Layout. Seeds → XDS.", ClassDocComment: "10.4. Print Layout.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
-		}),
-		{ClassName: "ExperienceAndInterfaceDesign", MemberName: "dataStructureAlignment", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Data Structure Alignment."},
-		{ClassName: "ExperienceAndInterfaceDesign", MemberName: "authorizationCompliance", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Authorization Compliance."},
+		{ClassName: "ExperienceCodeSpecs", MemberName: "dataStructureAlignment", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "10.1.3. Data Structure Alignment."},
 		metaCx("ErrorHandling", s, metaChildrenErrorHandling, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ErrorHandling", MemberName: "errorHandling", ClassSectionID: "ERHACO", Kind: som.SomMetaKindComplex, TypeName: "ErrorHandling", SerializationOrder: metaIntPtr(7), DocComment: "10.7. Error Handling. Seeds → XDS.", ClassDocComment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("UserAssistance", s, metaChildrenUserAssistance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserAssistance", MemberName: "userAssistance", ClassSectionID: "USAS", Kind: som.SomMetaKindComplex, TypeName: "UserAssistance", SerializationOrder: metaIntPtr(8), DocComment: "10.8. User Assistance. Seeds → XDS.", ClassDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("Accessibility", s, metaChildrenAccessibility, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Accessibility", MemberName: "accessibility", ClassSectionID: "ACCESS", Kind: som.SomMetaKindComplex, TypeName: "Accessibility", SerializationOrder: metaIntPtr(9), DocComment: "10.9. Accessibility. Seeds → XDS.", ClassDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ErrorHandling", MemberName: "errorHandling", ClassSectionID: "ERHACO", Kind: som.SomMetaKindComplex, TypeName: "ErrorHandling", SerializationOrder: metaIntPtr(4), DocComment: "10.1.4. Error Handling. Seeds → XDS.", ClassDocComment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ResponsiveDesign", s, metaChildrenResponsiveDesign, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ResponsiveDesign", MemberName: "responsiveDesign", ClassSectionID: "REDE", Kind: som.SomMetaKindComplex, TypeName: "ResponsiveDesign", SerializationOrder: metaIntPtr(10), DocComment: "10.10. Responsive Design. Seeds → XDS.", ClassDocComment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ResponsiveDesign", MemberName: "responsiveDesign", ClassSectionID: "REDE", Kind: som.SomMetaKindComplex, TypeName: "ResponsiveDesign", SerializationOrder: metaIntPtr(5), DocComment: "10.1.5. Responsive Design. Seeds → XDS.", ClassDocComment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("UiComponents", s, metaChildrenUiComponents, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UiComponents", MemberName: "uiComponents", ClassSectionID: "UICO", Kind: som.SomMetaKindComplex, TypeName: "UiComponents", SerializationOrder: metaIntPtr(11), DocComment: "10.11. UI Components. Seeds → XDS.", ClassDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UiComponents", MemberName: "uiComponents", ClassSectionID: "UICO", Kind: som.SomMetaKindComplex, TypeName: "UiComponents", SerializationOrder: metaIntPtr(6), DocComment: "10.1.6. UI Components. Seeds → XDS.", ClassDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
-		metaCx("MultiLanguageSupport", s, metaChildrenMultiLanguageSupport, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "MultiLanguageSupport", MemberName: "multiLanguageSupport", ClassSectionID: "MLAR", Kind: som.SomMetaKindComplex, TypeName: "MultiLanguageSupport", SerializationOrder: metaIntPtr(12), DocComment: "10.12. Multi-language Support.", ClassDocComment: "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.", Recursive: r, Children: c}
+	}
+}
+
+func metaChildrenExperienceDesignFollowUp(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ExperienceDesignFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the design follow-up: vision, print layout, user assistance, accessibility, prototype, and wireframes."}},
+		metaCx("DesignVision", s, metaChildrenDesignVision, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "DesignVision", MemberName: "designVision", ClassSectionID: "DEVIZ", Kind: som.SomMetaKindComplex, TypeName: "DesignVision", SerializationOrder: metaIntPtr(1), DocComment: "10.2.1. Design Vision. Seeds → XDS.", ClassDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("PrintAndExportLayout", s, metaChildrenPrintAndExportLayout, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "printLayout", ClassSectionID: "PRLA", Kind: som.SomMetaKindComplex, TypeName: "PrintAndExportLayout", SerializationOrder: metaIntPtr(2), DocComment: "10.2.2. Print Layout. Seeds → XDS.", ClassDocComment: "10.4. Print Layout.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("UserAssistance", s, metaChildrenUserAssistance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "UserAssistance", MemberName: "userAssistance", ClassSectionID: "USAS", Kind: som.SomMetaKindComplex, TypeName: "UserAssistance", SerializationOrder: metaIntPtr(3), DocComment: "10.2.3. User Assistance. Seeds → XDS.", ClassDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("Accessibility", s, metaChildrenAccessibility, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "Accessibility", MemberName: "accessibility", ClassSectionID: "ACCESS", Kind: som.SomMetaKindComplex, TypeName: "Accessibility", SerializationOrder: metaIntPtr(4), DocComment: "10.2.4. Accessibility. Seeds → XDS.", ClassDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("Prototype", s, metaChildrenPrototype, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(13), DocComment: "10.13. Prototype. Seeds → XDS.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(5), DocComment: "10.2.5. Prototype. Seeds → XDS.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("WireframesAndMockups", s, metaChildrenWireframesAndMockups, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "WireframesAndMockups", MemberName: "wireframesAndMockups", ClassSectionID: "WIANMO", Kind: som.SomMetaKindComplex, TypeName: "WireframesAndMockups", SerializationOrder: metaIntPtr(14), DocComment: "10.14. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).", ClassDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "WireframesAndMockups", MemberName: "wireframesAndMockups", ClassSectionID: "WIANMO", Kind: som.SomMetaKindComplex, TypeName: "WireframesAndMockups", SerializationOrder: metaIntPtr(6), DocComment: "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).", ClassDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+		}),
+	}
+}
+
+func metaChildrenExperienceLocalizationFollowUp(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ExperienceLocalizationFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the localization follow-up: the multi-language / internationalization approach."}},
+		metaCx("MultiLanguageSupport", s, metaChildrenMultiLanguageSupport, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "MultiLanguageSupport", MemberName: "multiLanguageSupport", ClassSectionID: "MLAR", Kind: som.SomMetaKindComplex, TypeName: "MultiLanguageSupport", SerializationOrder: metaIntPtr(1), DocComment: "10.3.1. Multi-language Support.", ClassDocComment: "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -6960,6 +7084,9 @@ func metaChildrenInformationAndDataModel(s map[string]bool) []*som.SomMetaNode {
 		}),
 		metaCx("MessageKeyRegistry", s, metaChildrenMessageKeyRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "MessageKeyRegistry", MemberName: "messageKeyRegistry", ClassSectionID: "MSGKR", Kind: som.SomMetaKindComplex, TypeName: "MessageKeyRegistry", SerializationOrder: metaIntPtr(8), DocComment: "7.8. Message Key Registry.", ClassDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].", Recursive: r, Children: c}
+		}),
+		metaCx("DataModelFollowUp", s, metaChildrenDataModelFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "DataModelFollowUp", MemberName: "dataModelFollowUp", ClassSectionID: "DMFU", Kind: som.SomMetaKindComplex, TypeName: "DataModelFollowUp", SerializationOrder: metaIntPtr(9), DocComment: "7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.", ClassDocComment: "7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -9100,6 +9227,18 @@ func metaChildrenOrgRequirementImplementationPlan(s map[string]bool) []*som.SomM
 	}
 }
 
+func metaChildrenOrganizationAndProcessConcept(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "OrganizationAndProcessConcept", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		metaCx("OrganizationalFramework", s, metaChildrenOrganizationalFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "OrganizationalFramework", MemberName: "organizationalFramework", ClassSectionID: "ORGF", Kind: som.SomMetaKindComplex, TypeName: "OrganizationalFramework", SerializationOrder: metaIntPtr(1), DocComment: "Target organizational structure and roles.", ClassDocComment: "5. Organizational Framework.\n\nOrganizational changes and structures required for the new system.\nCovers organization structure changes, new and changed roles, staffing\nplans, competency frameworks, and workplace requirements. Follows\norganizational design best practices (McKinsey 7-S, Galbraith Star Model)\nand HR management standards (SHRM, CIPD).", Recursive: r, Children: c}
+		}),
+		metaCx("BusinessProcessDescriptions", s, metaChildrenBusinessProcessDescriptions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "BusinessProcessDescriptions", MemberName: "businessProcessDescriptions", ClassSectionID: "BPDSC", Kind: som.SomMetaKindComplex, TypeName: "BusinessProcessDescriptions", SerializationOrder: metaIntPtr(2), Comment: "Seeds → TOM", DocComment: "Business-process descriptions and narrative. Seeds → TOM.", ClassDocComment: "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.", MapsTo: "D02TargetOperatingModel", Recursive: r, Children: c}
+		}),
+	}
+}
+
 func metaChildrenOrganizationStructure(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "OrganizationStructure", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Project organization chart with reporting lines, governance model, and escalation paths."}, ContentHelp: "Insert project organization chart showing reporting lines. Describe the governance model: who decides what, escalation paths, meeting cadence."},
@@ -10869,7 +11008,7 @@ func metaChildrenReleaseStrategy(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ReleaseStrategy", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "releaseMethodology", TypeName: "String", Description: "Release Methodology", Hint: "Blue-green, Canary, Rolling, A/B", Order: 0}, {Name: "releaseFrequency", TypeName: "String", Description: "Release Frequency", Hint: "Daily, Weekly, Bi-weekly", Order: 1}, {Name: "releaseSchedule", TypeName: "String", Description: "Release Schedule", Hint: "When releases occur", Order: 2}}}},
 		{ClassName: "ReleaseStrategy", MemberName: "blueGreen", SectionID: "RSBG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Blue-green deployment configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "releaseWindow", TypeName: "String", Description: "Release Window", Hint: "Allowed deployment times", Order: 0}, {Name: "blueGreenEnabled", TypeName: "bool", Description: "Blue-Green Enabled", Hint: "Uses blue-green deployment", Order: 1}, {Name: "trafficSwitching", TypeName: "String", Description: "Traffic Switching", Hint: "How traffic is switched", Order: 2}, {Name: "warmupPeriod", TypeName: "String", Description: "Warmup Period", Hint: "New version warmup time", Order: 3}, {Name: "greenRetention", TypeName: "String", Description: "Green Retention", Hint: "How long to keep old version", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous delivery pipelines", "Google SRE — site reliability engineering"}, "connotation": "Defines blue-green deployment: traffic switching, warmup period, and retention of the old (green) version for fast switch-back."}}}},
 		{ClassName: "ReleaseStrategy", MemberName: "canary", SectionID: "RESTCA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Canary deployment configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "canaryEnabled", TypeName: "bool", Description: "Canary Enabled", Hint: "Uses canary deployment", Order: 0}, {Name: "canaryPercentage", TypeName: "String", Description: "Canary Percentage", Hint: "Initial canary traffic %", Order: 1}, {Name: "canaryRampUpSteps", TypeName: "String", Description: "Canary Ramp-Up Steps", Hint: "Percentage ramp-up steps", Order: 2}, {Name: "canaryMetrics", TypeName: "String", Description: "Canary Metrics", Hint: "Metrics for canary health", Order: 3}, {Name: "canaryDuration", TypeName: "String", Description: "Canary Duration", Hint: "Time at each step", Order: 4}, {Name: "autoRollbackCriteria", TypeName: "String", Description: "Auto-Rollback Criteria", Hint: "When to auto-rollback canary", Order: 5}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous delivery pipelines", "Google SRE — site reliability engineering"}, "connotation": "Defines canary deployment: initial traffic percentage, ramp-up steps, health metrics, and auto-rollback criteria."}}}},
-		{ClassName: "ReleaseStrategy", MemberName: "featureFlags", SectionID: "RSFF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Feature flags configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "featureFlagsEnabled", TypeName: "bool", Description: "Feature Flags Enabled", Hint: "Uses feature flags", Order: 0}, {Name: "featureFlagProvider", TypeName: "String", Description: "Feature Flag Provider", Hint: "LaunchDarkly, Flagsmith, custom", Order: 1}, {Name: "flagStrategy", TypeName: "String", Description: "Flag Strategy", Hint: "How flags are managed", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"}, "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}}, {Annotation: "CodeSpecKind", Args: map[string]interface{}{"kinds": []interface{}{"CodeSpecPart.featureFlag"}, "note": "CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1."}}}},
+		{ClassName: "ReleaseStrategy", MemberName: "featureFlags", SectionID: "RSFF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Feature flags configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "featureFlagsEnabled", TypeName: "bool", Description: "Feature Flags Enabled", Hint: "Uses feature flags", Order: 0}, {Name: "featureFlagProvider", TypeName: "String", Description: "Feature Flag Provider", Hint: "LaunchDarkly, Flagsmith, custom", Order: 1}, {Name: "flagStrategy", TypeName: "String", Description: "Flag Strategy", Hint: "How flags are managed", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"}, "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}}, {Annotation: "CodeSpecKind", Args: map[string]interface{}{"kinds": []interface{}{"CodeSpecPart.serverConfiguration"}, "note": "CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc §5.26). The deploy-from-release flag itself is deployment tooling."}}}},
 		{ClassName: "ReleaseStrategy", MemberName: "management", SectionID: "RESTMA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Release management.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "releaseNotes", TypeName: "String", Description: "Release Notes", Hint: "Release notes process", Order: 0}, {Name: "changelogGeneration", TypeName: "String", Description: "Changelog Generation", Hint: "Auto or manual changelog", Order: 1}, {Name: "releaseApproval", TypeName: "String", Description: "Release Approval", Hint: "Who approves releases", Order: 2}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional release notes", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — IT service management", "CI/CD — continuous delivery pipelines"}, "connotation": "Defines release management practices: release notes, changelog generation, and release approval."}}}},
 	}
 }
@@ -11259,6 +11398,15 @@ func metaChildrenRequirementUiSpecification(s map[string]bool) []*som.SomMetaNod
 func metaChildrenRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "Requirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the functional and non-functional requirement landscape; seeds the Requirements Specification (RSP)."}},
+		metaCx("RequirementsFollowUp", s, metaChildrenRequirementsFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "RequirementsFollowUp", MemberName: "requirementsFollowUp", ClassSectionID: "REQFU", Kind: som.SomMetaKindComplex, TypeName: "RequirementsFollowUp", SerializationOrder: metaIntPtr(1), DocComment: "Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.", ClassDocComment: "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)", Recursive: r, Children: c}
+		}),
+	}
+}
+
+func metaChildrenRequirementsFollowUp(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "RequirementsFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the follow-up (non-generated) NFR sub-areas: localization, information-for-use, and training."}},
 		metaCx("LocalizationTranslationRequirements", s, metaChildrenLocalizationTranslationRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "LocalizationTranslationRequirements", MemberName: "localizationTranslation", ClassSectionID: "LCTR", Kind: som.SomMetaKindComplex, TypeName: "LocalizationTranslationRequirements", SerializationOrder: metaIntPtr(1), DocComment: "Localization & Translation requirements (NFR-L10N-NNN).", ClassDocComment: "Localization & Translation requirements (the requirement side of i18n).\n\nCross-mapped from SBP.14 via [Iso25010Coverage].", Recursive: r, Children: c}
 		}),
@@ -11966,7 +12114,7 @@ func metaChildrenSchemaMigrationStepEntry(s map[string]bool) []*som.SomMetaNode 
 
 func metaChildrenSchemaVersioningAndMigration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SchemaVersioningAndMigration", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "migrationTooling", TypeName: "String", Description: "Migration Tooling", Hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", Order: 0}, {Name: "versioningStrategy", TypeName: "String", Description: "Versioning Strategy", Hint: "Sequential numbered | Timestamped | Semantic", Order: 1}, {Name: "forwardOnly", TypeName: "bool", Description: "Forward-Only", Hint: "Whether migrations are forward-only (no down migrations)", Order: 2}, {Name: "baselineVersion", TypeName: "String", Description: "Baseline Version", Hint: "The initial/baseline schema version migrations build on", Order: 3}, {Name: "zeroDowntimeApproach", TypeName: "String", Description: "Zero-Downtime Approach", Hint: "Expand/contract, online DDL, blue-green schema, or None", Order: 4}}}},
+		{ClassName: "SchemaVersioningAndMigration", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "migrationTooling", TypeName: "String", Description: "Migration Tooling", Hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", Order: 0}, {Name: "versioningStrategy", TypeName: "String", Description: "Versioning Strategy", Hint: "Sequential numbered | Timestamped | Semantic", Order: 1}, {Name: "forwardOnly", TypeName: "bool", Description: "Forward-Only", Hint: "Whether migrations are forward-only (no down migrations)", Order: 2}, {Name: "baselineVersion", TypeName: "String", Description: "Baseline Version", Hint: "The initial/baseline schema version migrations build on", Order: 3}, {Name: "zeroDowntimeApproach", TypeName: "String", Description: "Zero-Downtime Approach", Hint: "Expand/contract, online DDL, blue-green schema, or None", Order: 4}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "migrationSteps", SectionID: "SCMST-STEP-LST", SectionIDPattern: "SCMST-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "SchemaMigrationStepEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per versioned schema migration step.", DocComment: "7.4.1. Schema Migration Steps — one entry per versioned migration.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Evolutionary Database Design (Ambler & Sadalage) — database refactoring"}, "connotation": "The ordered schema migration steps that evolve the database over releases."}}}}
 			n.ElementNode = metaCx("SchemaMigrationStepEntry", s, metaChildrenSchemaMigrationStepEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -12280,29 +12428,14 @@ func metaChildrenSecurity(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenSecurityAndAccessModel(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SecurityAndAccessModel", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide a high-level overview of the application's security architecture for\nprotecting data and functions. This section serves as the entry point for all\naccess and authorization concerns.\n\n**Key topics to address:**\n- Overall security philosophy (zero trust, defense in depth, least privilege)\n- Applicable security frameworks (NIST, ISO 27001, SOC 2, OWASP)\n- Regulatory requirements affecting access control (GDPR, HIPAA, PCI DSS)\n- Integration points with enterprise identity and access management (IAM)\n- Risk-based approach to authorization decisions\n\n**Cross-references:**\n- User Management → defines who accesses the system\n- Authentication → proves user identity\n- Authorization → controls what authenticated users can do\n- Resource Protection → secures data and APIs\n- Encryption → protects sensitive data\n- Audit → logs security events for compliance\n"},
-		metaCx("UserManagement", s, metaChildrenUserManagement, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserManagement", MemberName: "userManagement", ClassSectionID: "USMGT", Kind: som.SomMetaKindComplex, TypeName: "UserManagement", SerializationOrder: metaIntPtr(1), DocComment: "9.1. User Management.", ClassDocComment: "9.1. User Management.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		metaCx("AccessControlModel", s, metaChildrenAccessControlModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "AccessControlModel", MemberName: "accessControl", ClassSectionID: "ACCM", Kind: som.SomMetaKindComplex, TypeName: "AccessControlModel", SerializationOrder: metaIntPtr(1), DocComment: "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.", ClassDocComment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
 		}),
-		metaCx("IdentificationAndAuthentication", s, metaChildrenIdentificationAndAuthentication, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "IdentificationAndAuthentication", MemberName: "authentication", ClassSectionID: "IDAUT", Kind: som.SomMetaKindComplex, TypeName: "IdentificationAndAuthentication", SerializationOrder: metaIntPtr(2), DocComment: "9.2. Identification and Authentication.", ClassDocComment: "9.2. Identification and Authentication.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		metaCx("SecurityOperationsFollowUp", s, metaChildrenSecurityOperationsFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "SecurityOperationsFollowUp", MemberName: "securityOperations", ClassSectionID: "SCOF", Kind: som.SomMetaKindComplex, TypeName: "SecurityOperationsFollowUp", SerializationOrder: metaIntPtr(2), DocComment: "9.2. Security Operations — OPS follow-up subtree.", ClassDocComment: "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.", Recursive: r, Children: c}
 		}),
-		metaCx("ResourceProtection", s, metaChildrenResourceProtection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ResourceProtection", MemberName: "resourceProtection", ClassSectionID: "RESPRO", Kind: som.SomMetaKindComplex, TypeName: "ResourceProtection", SerializationOrder: metaIntPtr(3), DocComment: "9.3. Resource Protection.", ClassDocComment: "9.3. Resource Protection.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("UserAuthorization", s, metaChildrenUserAuthorization, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserAuthorization", MemberName: "authorization", ClassSectionID: "USAU", Kind: som.SomMetaKindComplex, TypeName: "UserAuthorization", SerializationOrder: metaIntPtr(4), DocComment: "9.4. User Authorization.", ClassDocComment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("SensitiveDataEncryption", s, metaChildrenSensitiveDataEncryption, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SensitiveDataEncryption", MemberName: "encryption", ClassSectionID: "SEDAEN", Kind: som.SomMetaKindComplex, TypeName: "SensitiveDataEncryption", SerializationOrder: metaIntPtr(5), DocComment: "9.5. Sensitive Data Encryption.", ClassDocComment: "9.5. Sensitive Data Encryption.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("AuditAndLogging", s, metaChildrenAuditAndLogging, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(6), DocComment: "9.6. Audit and Logging.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("RoleMatrix", s, metaChildrenRoleMatrix, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "RoleMatrix", MemberName: "roleMatrix", ClassSectionID: "ROMA", Kind: som.SomMetaKindComplex, TypeName: "RoleMatrix", SerializationOrder: metaIntPtr(7), DocComment: "9.7. Role Matrix..", ClassDocComment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("ComplianceFramework", s, metaChildrenComplianceFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ComplianceFramework", MemberName: "complianceFramework", ClassSectionID: "CF", Kind: som.SomMetaKindComplex, TypeName: "ComplianceFramework", SerializationOrder: metaIntPtr(8), DocComment: "9.8. Compliance Framework.", ClassDocComment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		metaCx("SecurityComplianceFollowUp", s, metaChildrenSecurityComplianceFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "SecurityComplianceFollowUp", MemberName: "compliance", ClassSectionID: "SCCF", Kind: som.SomMetaKindComplex, TypeName: "SecurityComplianceFollowUp", SerializationOrder: metaIntPtr(3), DocComment: "9.3. Compliance — CMP follow-up subtree.", ClassDocComment: "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -12380,6 +12513,15 @@ func metaChildrenSecurityCodeReviewPolicy(s map[string]bool) []*som.SomMetaNode 
 	}
 }
 
+func metaChildrenSecurityComplianceFollowUp(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "SecurityComplianceFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the compliance follow-up: the regulatory and audit compliance framework."}},
+		metaCx("ComplianceFramework", s, metaChildrenComplianceFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ComplianceFramework", MemberName: "complianceFramework", ClassSectionID: "CF", Kind: som.SomMetaKindComplex, TypeName: "ComplianceFramework", SerializationOrder: metaIntPtr(1), DocComment: "9.3.1. Compliance Framework.", ClassDocComment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
+	}
+}
+
 func metaChildrenSecurityControlEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SecurityControlEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "controlId", TypeName: "String", Description: "Control ID", Required: true, Hint: "Stable unique identifier for the control", Order: 0}, {Name: "controlName", TypeName: "String", Description: "Control Name", Required: true, Hint: "Short descriptive name for the control", Order: 1}, {Name: "controlType", TypeName: "String", Description: "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)", Required: true, Hint: "Preventive, Detective, Corrective, Deterrent, or Compensating", Order: 2}, {Name: "implementationType", TypeName: "String", Description: "Implementation Type (Technical, Administrative, Physical)", Hint: "Technical, Administrative, or Physical", Order: 3}}}},
@@ -12448,6 +12590,18 @@ func metaChildrenSecurityEventsDefinition(s map[string]bool) []*som.SomMetaNode 
 			})
 			return n
 		}(),
+	}
+}
+
+func metaChildrenSecurityOperationsFollowUp(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "SecurityOperationsFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the operational security follow-up: encryption / key management and audit / logging."}},
+		metaCx("SensitiveDataEncryption", s, metaChildrenSensitiveDataEncryption, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "SensitiveDataEncryption", MemberName: "encryption", ClassSectionID: "SEDAEN", Kind: som.SomMetaKindComplex, TypeName: "SensitiveDataEncryption", SerializationOrder: metaIntPtr(1), DocComment: "9.2.1. Sensitive Data Encryption.", ClassDocComment: "9.5. Sensitive Data Encryption.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("AuditAndLogging", s, metaChildrenAuditAndLogging, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(2), DocComment: "9.2.2. Audit and Logging.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
 	}
 }
 
@@ -12911,10 +13065,19 @@ func metaChildrenSolutionArchitectureAndTechnology(s map[string]bool) []*som.Som
 	return []*som.SomMetaNode{
 		{ClassName: "SolutionArchitectureAndTechnology", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
 		metaCx("TechnicalFrameworkConcept", s, metaChildrenTechnicalFrameworkConcept, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TechnicalFrameworkConcept", MemberName: "technicalFramework", ClassSectionID: "TECH", Kind: som.SomMetaKindComplex, TypeName: "TechnicalFrameworkConcept", SerializationOrder: metaIntPtr(1), DocComment: "Technical framework and platform concept.", ClassDocComment: "8. Technical Framework Concept. Seeds → ATS.", MapsTo: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TechnicalFrameworkConcept", MemberName: "technicalFramework", ClassSectionID: "TECH", Kind: som.SomMetaKindComplex, TypeName: "TechnicalFrameworkConcept", SerializationOrder: metaIntPtr(1), DocComment: "Technical framework and platform concept — the CodeSpecs-relevant\n(CE-CF configuration-bearing) subtree.", ClassDocComment: "8. Technical Framework Concept. Seeds → ATS.", MapsTo: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
+		metaCx("SolutionArchitectureFollowUp", s, metaChildrenSolutionArchitectureFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "SolutionArchitectureFollowUp", MemberName: "architectureFollowUp", ClassSectionID: "SATF", Kind: som.SomMetaKindComplex, TypeName: "SolutionArchitectureFollowUp", SerializationOrder: metaIntPtr(2), DocComment: "Architecture / component-reuse DOC follow-up subtree.", ClassDocComment: "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.", Recursive: r, Children: c}
+		}),
+	}
+}
+
+func metaChildrenSolutionArchitectureFollowUp(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "SolutionArchitectureFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the descriptive-architecture follow-up: the component-reuse rationale and dependency strategy."}},
 		metaCx("ComponentsAndDependencies", s, metaChildrenComponentsAndDependencies, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ComponentsAndDependencies", MemberName: "componentsToUse", ClassSectionID: "COMP", Kind: som.SomMetaKindComplex, TypeName: "ComponentsAndDependencies", SerializationOrder: metaIntPtr(2), DocComment: "Components, libraries, and services to reuse.", ClassDocComment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.", MapsTo: "D06ArchitectureTechnologySpecification", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ComponentsAndDependencies", MemberName: "componentsToUse", ClassSectionID: "COMP", Kind: som.SomMetaKindComplex, TypeName: "ComponentsAndDependencies", SerializationOrder: metaIntPtr(1), DocComment: "Components, libraries, and services to reuse.", ClassDocComment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.", MapsTo: "D06ArchitectureTechnologySpecification", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -14129,26 +14292,14 @@ func metaChildrenTabItemEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
-func metaChildrenTargetBusinessProcessModel(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "TargetBusinessProcessModel", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of target business processes the system will support. This section\nestablishes the process vision, documents key processes with their triggers,\nactors, inputs/outputs, and performance expectations, and defines actor\ninteractions that seed use case development.\n\n**Key Activities:**\n- Define process vision and design principles\n- Create process catalog with comprehensive process definitions\n- Identify actors and their goals, permissions, and technology profiles\n- Document key interactions following Cockburn use case patterns\n- Map end-to-end scenarios showing user journeys\n\n**Best Practices:**\n- Follow BPMN 2.0 notation for process diagrams\n- Use APQC Process Classification Framework for process categorization\n- Apply Cockburn-style goal levels (summary/user/subfunction)\n- Define RACI for all process roles\n- Include performance KPIs and SLAs for each process\n"},
-		metaCx("BusinessProcessDescriptions", s, metaChildrenBusinessProcessDescriptions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "BusinessProcessDescriptions", MemberName: "businessProcessDescriptions", ClassSectionID: "BPDSC", Kind: som.SomMetaKindComplex, TypeName: "BusinessProcessDescriptions", SerializationOrder: metaIntPtr(1), Comment: "Seeds → TOM", DocComment: "6.1. Business Process Descriptions. Seeds → TOM.", ClassDocComment: "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.", MapsTo: "D02TargetOperatingModel", Recursive: r, Children: c}
-		}),
-		metaCx("ProcessStepsAndActorInteractions", s, metaChildrenProcessStepsAndActorInteractions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(2), Comment: "Seeds → ISC", DocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
-		}),
-	}
-}
-
 func metaChildrenTargetOperatingModel(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "TargetOperatingModel", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		metaCx("OrganizationalFramework", s, metaChildrenOrganizationalFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "OrganizationalFramework", MemberName: "organizationalFramework", ClassSectionID: "ORGF", Kind: som.SomMetaKindComplex, TypeName: "OrganizationalFramework", SerializationOrder: metaIntPtr(1), DocComment: "Target organizational structure and roles.", ClassDocComment: "5. Organizational Framework.\n\nOrganizational changes and structures required for the new system.\nCovers organization structure changes, new and changed roles, staffing\nplans, competency frameworks, and workplace requirements. Follows\norganizational design best practices (McKinsey 7-S, Galbraith Star Model)\nand HR management standards (SHRM, CIPD).", Recursive: r, Children: c}
+		metaCx("OrganizationAndProcessConcept", s, metaChildrenOrganizationAndProcessConcept, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "OrganizationAndProcessConcept", MemberName: "organizationAndProcess", ClassSectionID: "OAPC", Kind: som.SomMetaKindComplex, TypeName: "OrganizationAndProcessConcept", SerializationOrder: metaIntPtr(1), DocComment: "ORG/OPS follow-up subtree: target organization + process narrative.", ClassDocComment: "SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.\n\nGroups the two purely-follow-up facets of the Target Operating Model into a\nsingle branch that is routed to organizational-change (ORG) and\noperational-routine (OPS) follow-up processes rather than to code\ngeneration: the target organizational structure/roles\n([OrganizationalFramework]) and the business-process narrative\n([BusinessProcessDescriptions], which seeds the TOM document).", Recursive: r, Children: c}
 		}),
-		metaCx("TargetBusinessProcessModel", s, metaChildrenTargetBusinessProcessModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TargetBusinessProcessModel", MemberName: "targetBusinessProcess", ClassSectionID: "TBPM", Kind: som.SomMetaKindComplex, TypeName: "TargetBusinessProcessModel", SerializationOrder: metaIntPtr(2), DocComment: "Target business process model.", ClassDocComment: "6. Target Business Process Model.", Recursive: r, Children: c}
+		metaCx("ProcessStepsAndActorInteractions", s, metaChildrenProcessStepsAndActorInteractions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(2), Comment: "Seeds → ISC", DocComment: "CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -15301,7 +15452,7 @@ func metaChildrenUserAssistance(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenUserAttributeEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserAttributeEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "attributeName", TypeName: "String", Description: "Attribute Name", Required: true, Hint: "Name of the user attribute.", Order: 0}, {Name: "dataType", TypeName: "String", Description: "Data Type", Hint: "Data type of the attribute value.", Order: 1}, {Name: "source", TypeName: "String", Description: "Source", Hint: "System of record that supplies this attribute.", Order: 2}, {Name: "required", TypeName: "String", Description: "Required", Hint: "Whether this attribute is mandatory.", Order: 3}}}},
+		{ClassName: "UserAttributeEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "attributeName", TypeName: "String", Description: "Attribute Name", Required: true, Hint: "Name of the user attribute.", Order: 0}, {Name: "dataType", TypeName: "String", Description: "Data Type", Hint: "Data type of the attribute value.", Order: 1}, {Name: "placement", TypeName: "UserAttributePlacement", Description: "Placement", Hint: "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", Order: 2, EnumValues: []string{"public", "encrypted"}}, {Name: "accessGuard", TypeName: "String", Description: "Access Guard", Hint: "Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.", Order: 3}, {Name: "source", TypeName: "String", Description: "Source", Hint: "System of record that supplies this attribute.", Order: 4}, {Name: "required", TypeName: "String", Description: "Required", Hint: "Whether this attribute is mandatory.", Order: 5}}}},
 	}
 }
 
@@ -16281,6 +16432,44 @@ func (x *AccessConstraintPoliciesNav) Content() *som.SomMetaRef {
 
 func (x *AccessConstraintPoliciesNav) AccessConstraintDetails() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessConstraintDetails"}
+}
+
+// AccessControlModelNav holds the dot-notation accessors of `AccessControlModel` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type AccessControlModelNav struct {
+	som.SomMetaRef
+}
+
+// newAccessControlModelNav binds a AccessControlModelNav accessor to a tree and a path.
+func newAccessControlModelNav(tree *som.SomMetaTree, path string) *AccessControlModelNav {
+	return &AccessControlModelNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *AccessControlModelNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *AccessControlModelNav) UserManagement() *UserManagementNav {
+	return newUserManagementNav(x.Tree, x.Path+"/userManagement")
+}
+
+func (x *AccessControlModelNav) Authentication() *IdentificationAndAuthenticationNav {
+	return newIdentificationAndAuthenticationNav(x.Tree, x.Path+"/authentication")
+}
+
+func (x *AccessControlModelNav) ResourceProtection() *ResourceProtectionNav {
+	return newResourceProtectionNav(x.Tree, x.Path+"/resourceProtection")
+}
+
+func (x *AccessControlModelNav) Authorization() *UserAuthorizationNav {
+	return newUserAuthorizationNav(x.Tree, x.Path+"/authorization")
+}
+
+func (x *AccessControlModelNav) RoleMatrix() *RoleMatrixNav {
+	return newRoleMatrixNav(x.Tree, x.Path+"/roleMatrix")
 }
 
 // AccessControlModelSelectionNav holds the dot-notation accessors of `AccessControlModelSelection` (DR1 §4.1).
@@ -18359,6 +18548,28 @@ func (x *AuthenticationMethodsNav) Items() *som.SomListMetaRef[*AuthenticationMe
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/ATME-ITEM-LST", func(t *som.SomMetaTree, p string) *AuthenticationMethodEntryNav {
 		return newAuthenticationMethodEntryNav(t, p)
 	})
+}
+
+// AuthorizationComplianceFollowUpNav holds the dot-notation accessors of `AuthorizationComplianceFollowUp` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type AuthorizationComplianceFollowUpNav struct {
+	som.SomMetaRef
+}
+
+// newAuthorizationComplianceFollowUpNav binds a AuthorizationComplianceFollowUpNav accessor to a tree and a path.
+func newAuthorizationComplianceFollowUpNav(tree *som.SomMetaTree, path string) *AuthorizationComplianceFollowUpNav {
+	return &AuthorizationComplianceFollowUpNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *AuthorizationComplianceFollowUpNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *AuthorizationComplianceFollowUpNav) AuthorizationCompliance() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/authorizationCompliance"}
 }
 
 // AuthorizationEventPolicyNav holds the dot-notation accessors of `AuthorizationEventPolicy` (DR1 §4.1).
@@ -20835,6 +21046,10 @@ func (x *ClientRequirementsSectionNav) SecurityRequirements() *ClientSecurityReq
 
 func (x *ClientRequirementsSectionNav) ClientConfiguration() *ClientConfigurationNav {
 	return newClientConfigurationNav(x.Tree, x.Path+"/clientConfiguration")
+}
+
+func (x *ClientRequirementsSectionNav) DeviceSettings() *DeviceSettingsNav {
+	return newDeviceSettingsNav(x.Tree, x.Path+"/deviceSettings")
 }
 
 // ClientSecurityRequirementsNav holds the dot-notation accessors of `ClientSecurityRequirements` (DR1 §4.1).
@@ -24331,6 +24546,64 @@ func (x *D12TransitionRolloutPlanNav) WarrantyAndSupport() *WarrantyAndSupportNa
 	return newWarrantyAndSupportNav(x.Tree, x.Path+"/warrantyAndSupport")
 }
 
+// D13CodeSpecsProjectionNav holds the dot-notation accessors of `D13CodeSpecsProjection` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type D13CodeSpecsProjectionNav struct {
+	som.SomMetaRef
+}
+
+// newD13CodeSpecsProjectionNav binds a D13CodeSpecsProjectionNav accessor to a tree and a path.
+func newD13CodeSpecsProjectionNav(tree *som.SomMetaTree, path string) *D13CodeSpecsProjectionNav {
+	return &D13CodeSpecsProjectionNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *D13CodeSpecsProjectionNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *D13CodeSpecsProjectionNav) Header() *DocumentHeaderNav {
+	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
+}
+
+func (x *D13CodeSpecsProjectionNav) DomainEnumRegistry() *DomainEnumRegistryNav {
+	return newDomainEnumRegistryNav(x.Tree, x.Path+"/domainEnumRegistry")
+}
+
+func (x *D13CodeSpecsProjectionNav) ErrorCodeRegistry() *ErrorCodeRegistryNav {
+	return newErrorCodeRegistryNav(x.Tree, x.Path+"/errorCodeRegistry")
+}
+
+func (x *D13CodeSpecsProjectionNav) ResultEnvelope() *ResultEnvelopeNav {
+	return newResultEnvelopeNav(x.Tree, x.Path+"/resultEnvelope")
+}
+
+func (x *D13CodeSpecsProjectionNav) MessageKeyRegistry() *MessageKeyRegistryNav {
+	return newMessageKeyRegistryNav(x.Tree, x.Path+"/messageKeyRegistry")
+}
+
+func (x *D13CodeSpecsProjectionNav) DataModel() *DataModelNav {
+	return newDataModelNav(x.Tree, x.Path+"/dataModel")
+}
+
+func (x *D13CodeSpecsProjectionNav) TechnicalFramework() *TechnicalFrameworkConceptNav {
+	return newTechnicalFrameworkConceptNav(x.Tree, x.Path+"/technicalFramework")
+}
+
+func (x *D13CodeSpecsProjectionNav) AccessControl() *AccessControlModelNav {
+	return newAccessControlModelNav(x.Tree, x.Path+"/accessControl")
+}
+
+func (x *D13CodeSpecsProjectionNav) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractionsNav {
+	return newProcessStepsAndActorInteractionsNav(x.Tree, x.Path+"/processStepsAndActorInteractions")
+}
+
+func (x *D13CodeSpecsProjectionNav) ExperienceCodeSpecs() *ExperienceCodeSpecsNav {
+	return newExperienceCodeSpecsNav(x.Tree, x.Path+"/experienceCodeSpecs")
+}
+
 // DashboardEntryNav holds the dot-notation accessors of `DashboardEntry` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -24763,30 +25036,12 @@ func (x *DataEntityEntryNav) Classification() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-CLAS"}
 }
 
-func (x *DataEntityEntryNav) VolumeMetrics() *som.SomListMetaRef[*VolumeMetricEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/VOLUM-VOLU-LST", func(t *som.SomMetaTree, p string) *VolumeMetricEntryNav {
-		return newVolumeMetricEntryNav(t, p)
-	})
-}
-
 func (x *DataEntityEntryNav) LifecyclePolicy() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-LIFE"}
 }
 
-func (x *DataEntityEntryNav) ComplianceRequirements() *som.SomListMetaRef[*ComplianceRequirementEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CRE-COMP-LST", func(t *som.SomMetaTree, p string) *ComplianceRequirementEntryNav {
-		return newComplianceRequirementEntryNav(t, p)
-	})
-}
-
 func (x *DataEntityEntryNav) RelationshipSummary() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-RELA"}
-}
-
-func (x *DataEntityEntryNav) TechnicalCharacteristics() *som.SomListMetaRef[*TechnicalCharacteristicEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TECHN-TECH-LST", func(t *som.SomMetaTree, p string) *TechnicalCharacteristicEntryNav {
-		return newTechnicalCharacteristicEntryNav(t, p)
-	})
 }
 
 func (x *DataEntityEntryNav) Attributes() *som.SomListMetaRef[*DataAttributeEntryNav] {
@@ -24810,12 +25065,6 @@ func (x *DataEntityEntryNav) Indexes() *som.SomListMetaRef[*EntityIndexEntryNav]
 func (x *DataEntityEntryNav) Constraints() *som.SomListMetaRef[*EntityConstraintEntryNav] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/ENCNS-CONS-LST", func(t *som.SomMetaTree, p string) *EntityConstraintEntryNav {
 		return newEntityConstraintEntryNav(t, p)
-	})
-}
-
-func (x *DataEntityEntryNav) MigrationMappings() *som.SomListMetaRef[*MigrationMappingEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIGME-MIGR-LST", func(t *som.SomMetaTree, p string) *MigrationMappingEntryNav {
-		return newMigrationMappingEntryNav(t, p)
 	})
 }
 
@@ -25237,10 +25486,6 @@ func (x *DataModelNav) EntityRelationships() *EntityRelationshipsNav {
 	return newEntityRelationshipsNav(x.Tree, x.Path+"/entityRelationships")
 }
 
-func (x *DataModelNav) ErDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/erDiagram"}
-}
-
 func (x *DataModelNav) DataClassification() *DataClassificationNav {
 	return newDataClassificationNav(x.Tree, x.Path+"/dataClassification")
 }
@@ -25255,6 +25500,34 @@ func (x *DataModelNav) ValidationConstraints() *ValidationConstraintsNav {
 
 func (x *DataModelNav) IntegrityConstraints() *IntegrityConstraintsNav {
 	return newIntegrityConstraintsNav(x.Tree, x.Path+"/integrityConstraints")
+}
+
+// DataModelFollowUpNav holds the dot-notation accessors of `DataModelFollowUp` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type DataModelFollowUpNav struct {
+	som.SomMetaRef
+}
+
+// newDataModelFollowUpNav binds a DataModelFollowUpNav accessor to a tree and a path.
+func newDataModelFollowUpNav(tree *som.SomMetaTree, path string) *DataModelFollowUpNav {
+	return &DataModelFollowUpNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DataModelFollowUpNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *DataModelFollowUpNav) ErDiagram() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/erDiagram"}
+}
+
+func (x *DataModelFollowUpNav) EntityFollowUps() *som.SomListMetaRef[*EntityFollowUpEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DMFUE-ENFU-LST", func(t *som.SomMetaTree, p string) *EntityFollowUpEntryNav {
+		return newEntityFollowUpEntryNav(t, p)
+	})
 }
 
 // DataOwnershipNav holds the dot-notation accessors of `DataOwnership` (DR1 §4.1).
@@ -27297,6 +27570,24 @@ func (x *DevelopmentQualityGatesNav) Performance() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DQGP"}
 }
 
+// DeviceSettingsNav holds the dot-notation accessors of `DeviceSettings` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type DeviceSettingsNav struct {
+	som.SomMetaRef
+}
+
+// newDeviceSettingsNav binds a DeviceSettingsNav accessor to a tree and a path.
+func newDeviceSettingsNav(tree *som.SomMetaTree, path string) *DeviceSettingsNav {
+	return &DeviceSettingsNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DeviceSettingsNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // DisasterRecoveryRequirementsNav holds the dot-notation accessors of `DisasterRecoveryRequirements` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -27739,6 +28030,10 @@ func (x *DocSpecsProjectNav) InteractionScenarios() *D05InteractionScenariosNav 
 
 func (x *DocSpecsProjectNav) ExperienceDesignSpecification() *D09ExperienceDesignSpecificationNav {
 	return newD09ExperienceDesignSpecificationNav(x.Tree, x.Path+"/experienceDesignSpecification")
+}
+
+func (x *DocSpecsProjectNav) CodeSpecsProjection() *D13CodeSpecsProjectionNav {
+	return newD13CodeSpecsProjectionNav(x.Tree, x.Path+"/codeSpecsProjection")
 }
 
 // DocumentControlNav holds the dot-notation accessors of `DocumentControl` (DR1 §4.1).
@@ -28635,6 +28930,48 @@ func (x *EntityConstraintEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
+// EntityFollowUpEntryNav holds the dot-notation accessors of `EntityFollowUpEntry` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type EntityFollowUpEntryNav struct {
+	som.SomMetaRef
+}
+
+// newEntityFollowUpEntryNav binds a EntityFollowUpEntryNav accessor to a tree and a path.
+func newEntityFollowUpEntryNav(tree *som.SomMetaTree, path string) *EntityFollowUpEntryNav {
+	return &EntityFollowUpEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *EntityFollowUpEntryNav) EntityRef() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DMFUE-ENTI"}
+}
+
+func (x *EntityFollowUpEntryNav) VolumeMetrics() *som.SomListMetaRef[*VolumeMetricEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/VOLUM-VOLU-LST", func(t *som.SomMetaTree, p string) *VolumeMetricEntryNav {
+		return newVolumeMetricEntryNav(t, p)
+	})
+}
+
+func (x *EntityFollowUpEntryNav) ComplianceRequirements() *som.SomListMetaRef[*ComplianceRequirementEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CRE-COMP-LST", func(t *som.SomMetaTree, p string) *ComplianceRequirementEntryNav {
+		return newComplianceRequirementEntryNav(t, p)
+	})
+}
+
+func (x *EntityFollowUpEntryNav) TechnicalCharacteristics() *som.SomListMetaRef[*TechnicalCharacteristicEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TECHN-TECH-LST", func(t *som.SomMetaTree, p string) *TechnicalCharacteristicEntryNav {
+		return newTechnicalCharacteristicEntryNav(t, p)
+	})
+}
+
+func (x *EntityFollowUpEntryNav) MigrationMappings() *som.SomListMetaRef[*MigrationMappingEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIGME-MIGR-LST", func(t *som.SomMetaTree, p string) *MigrationMappingEntryNav {
+		return newMigrationMappingEntryNav(t, p)
+	})
+}
+
 // EntityIndexEntryNav holds the dot-notation accessors of `EntityIndexEntry` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -29397,60 +29734,126 @@ func (x *ExperienceAndInterfaceDesignNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-func (x *ExperienceAndInterfaceDesignNav) DesignVision() *DesignVisionNav {
-	return newDesignVisionNav(x.Tree, x.Path+"/designVision")
+func (x *ExperienceAndInterfaceDesignNav) ExperienceCodeSpecs() *ExperienceCodeSpecsNav {
+	return newExperienceCodeSpecsNav(x.Tree, x.Path+"/experienceCodeSpecs")
 }
 
-func (x *ExperienceAndInterfaceDesignNav) Screens() *ScreenDescriptionsNav {
+func (x *ExperienceAndInterfaceDesignNav) DesignFollowUp() *ExperienceDesignFollowUpNav {
+	return newExperienceDesignFollowUpNav(x.Tree, x.Path+"/designFollowUp")
+}
+
+func (x *ExperienceAndInterfaceDesignNav) LocalizationFollowUp() *ExperienceLocalizationFollowUpNav {
+	return newExperienceLocalizationFollowUpNav(x.Tree, x.Path+"/localizationFollowUp")
+}
+
+func (x *ExperienceAndInterfaceDesignNav) AuthorizationComplianceFollowUp() *AuthorizationComplianceFollowUpNav {
+	return newAuthorizationComplianceFollowUpNav(x.Tree, x.Path+"/authorizationComplianceFollowUp")
+}
+
+// ExperienceCodeSpecsNav holds the dot-notation accessors of `ExperienceCodeSpecs` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ExperienceCodeSpecsNav struct {
+	som.SomMetaRef
+}
+
+// newExperienceCodeSpecsNav binds a ExperienceCodeSpecsNav accessor to a tree and a path.
+func newExperienceCodeSpecsNav(tree *som.SomMetaTree, path string) *ExperienceCodeSpecsNav {
+	return &ExperienceCodeSpecsNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ExperienceCodeSpecsNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ExperienceCodeSpecsNav) Screens() *ScreenDescriptionsNav {
 	return newScreenDescriptionsNav(x.Tree, x.Path+"/screens")
 }
 
-func (x *ExperienceAndInterfaceDesignNav) ScreenFlow() *ScreenFlowStructureNav {
+func (x *ExperienceCodeSpecsNav) ScreenFlow() *ScreenFlowStructureNav {
 	return newScreenFlowStructureNav(x.Tree, x.Path+"/screenFlow")
 }
 
-func (x *ExperienceAndInterfaceDesignNav) PrintLayout() *PrintAndExportLayoutNav {
-	return newPrintAndExportLayoutNav(x.Tree, x.Path+"/printLayout")
-}
-
-func (x *ExperienceAndInterfaceDesignNav) DataStructureAlignment() *som.SomMetaRef {
+func (x *ExperienceCodeSpecsNav) DataStructureAlignment() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataStructureAlignment"}
 }
 
-func (x *ExperienceAndInterfaceDesignNav) AuthorizationCompliance() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/authorizationCompliance"}
-}
-
-func (x *ExperienceAndInterfaceDesignNav) ErrorHandling() *ErrorHandlingNav {
+func (x *ExperienceCodeSpecsNav) ErrorHandling() *ErrorHandlingNav {
 	return newErrorHandlingNav(x.Tree, x.Path+"/errorHandling")
 }
 
-func (x *ExperienceAndInterfaceDesignNav) UserAssistance() *UserAssistanceNav {
-	return newUserAssistanceNav(x.Tree, x.Path+"/userAssistance")
-}
-
-func (x *ExperienceAndInterfaceDesignNav) Accessibility() *AccessibilityNav {
-	return newAccessibilityNav(x.Tree, x.Path+"/accessibility")
-}
-
-func (x *ExperienceAndInterfaceDesignNav) ResponsiveDesign() *ResponsiveDesignNav {
+func (x *ExperienceCodeSpecsNav) ResponsiveDesign() *ResponsiveDesignNav {
 	return newResponsiveDesignNav(x.Tree, x.Path+"/responsiveDesign")
 }
 
-func (x *ExperienceAndInterfaceDesignNav) UiComponents() *UiComponentsNav {
+func (x *ExperienceCodeSpecsNav) UiComponents() *UiComponentsNav {
 	return newUiComponentsNav(x.Tree, x.Path+"/uiComponents")
 }
 
-func (x *ExperienceAndInterfaceDesignNav) MultiLanguageSupport() *MultiLanguageSupportNav {
-	return newMultiLanguageSupportNav(x.Tree, x.Path+"/multiLanguageSupport")
+// ExperienceDesignFollowUpNav holds the dot-notation accessors of `ExperienceDesignFollowUp` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ExperienceDesignFollowUpNav struct {
+	som.SomMetaRef
 }
 
-func (x *ExperienceAndInterfaceDesignNav) Prototype() *PrototypeNav {
+// newExperienceDesignFollowUpNav binds a ExperienceDesignFollowUpNav accessor to a tree and a path.
+func newExperienceDesignFollowUpNav(tree *som.SomMetaTree, path string) *ExperienceDesignFollowUpNav {
+	return &ExperienceDesignFollowUpNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ExperienceDesignFollowUpNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ExperienceDesignFollowUpNav) DesignVision() *DesignVisionNav {
+	return newDesignVisionNav(x.Tree, x.Path+"/designVision")
+}
+
+func (x *ExperienceDesignFollowUpNav) PrintLayout() *PrintAndExportLayoutNav {
+	return newPrintAndExportLayoutNav(x.Tree, x.Path+"/printLayout")
+}
+
+func (x *ExperienceDesignFollowUpNav) UserAssistance() *UserAssistanceNav {
+	return newUserAssistanceNav(x.Tree, x.Path+"/userAssistance")
+}
+
+func (x *ExperienceDesignFollowUpNav) Accessibility() *AccessibilityNav {
+	return newAccessibilityNav(x.Tree, x.Path+"/accessibility")
+}
+
+func (x *ExperienceDesignFollowUpNav) Prototype() *PrototypeNav {
 	return newPrototypeNav(x.Tree, x.Path+"/prototype")
 }
 
-func (x *ExperienceAndInterfaceDesignNav) WireframesAndMockups() *WireframesAndMockupsNav {
+func (x *ExperienceDesignFollowUpNav) WireframesAndMockups() *WireframesAndMockupsNav {
 	return newWireframesAndMockupsNav(x.Tree, x.Path+"/wireframesAndMockups")
+}
+
+// ExperienceLocalizationFollowUpNav holds the dot-notation accessors of `ExperienceLocalizationFollowUp` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ExperienceLocalizationFollowUpNav struct {
+	som.SomMetaRef
+}
+
+// newExperienceLocalizationFollowUpNav binds a ExperienceLocalizationFollowUpNav accessor to a tree and a path.
+func newExperienceLocalizationFollowUpNav(tree *som.SomMetaTree, path string) *ExperienceLocalizationFollowUpNav {
+	return &ExperienceLocalizationFollowUpNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ExperienceLocalizationFollowUpNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ExperienceLocalizationFollowUpNav) MultiLanguageSupport() *MultiLanguageSupportNav {
+	return newMultiLanguageSupportNav(x.Tree, x.Path+"/multiLanguageSupport")
 }
 
 // ExportFieldMappingEntryNav holds the dot-notation accessors of `ExportFieldMappingEntry` (DR1 §4.1).
@@ -32015,6 +32418,10 @@ func (x *InformationAndDataModelNav) ResultEnvelope() *ResultEnvelopeNav {
 
 func (x *InformationAndDataModelNav) MessageKeyRegistry() *MessageKeyRegistryNav {
 	return newMessageKeyRegistryNav(x.Tree, x.Path+"/messageKeyRegistry")
+}
+
+func (x *InformationAndDataModelNav) DataModelFollowUp() *DataModelFollowUpNav {
+	return newDataModelFollowUpNav(x.Tree, x.Path+"/dataModelFollowUp")
 }
 
 // InformationArchitectureNav holds the dot-notation accessors of `InformationArchitecture` (DR1 §4.1).
@@ -37377,6 +37784,32 @@ func (x *OrgRequirementImplementationPlanNav) Activities() *som.SomListMetaRef[*
 	})
 }
 
+// OrganizationAndProcessConceptNav holds the dot-notation accessors of `OrganizationAndProcessConcept` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type OrganizationAndProcessConceptNav struct {
+	som.SomMetaRef
+}
+
+// newOrganizationAndProcessConceptNav binds a OrganizationAndProcessConceptNav accessor to a tree and a path.
+func newOrganizationAndProcessConceptNav(tree *som.SomMetaTree, path string) *OrganizationAndProcessConceptNav {
+	return &OrganizationAndProcessConceptNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *OrganizationAndProcessConceptNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *OrganizationAndProcessConceptNav) OrganizationalFramework() *OrganizationalFrameworkNav {
+	return newOrganizationalFrameworkNav(x.Tree, x.Path+"/organizationalFramework")
+}
+
+func (x *OrganizationAndProcessConceptNav) BusinessProcessDescriptions() *BusinessProcessDescriptionsNav {
+	return newBusinessProcessDescriptionsNav(x.Tree, x.Path+"/businessProcessDescriptions")
+}
+
 // OrganizationStructureNav holds the dot-notation accessors of `OrganizationStructure` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -42489,15 +42922,37 @@ func (x *RequirementsNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-func (x *RequirementsNav) LocalizationTranslation() *LocalizationTranslationRequirementsNav {
+func (x *RequirementsNav) RequirementsFollowUp() *RequirementsFollowUpNav {
+	return newRequirementsFollowUpNav(x.Tree, x.Path+"/requirementsFollowUp")
+}
+
+// RequirementsFollowUpNav holds the dot-notation accessors of `RequirementsFollowUp` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type RequirementsFollowUpNav struct {
+	som.SomMetaRef
+}
+
+// newRequirementsFollowUpNav binds a RequirementsFollowUpNav accessor to a tree and a path.
+func newRequirementsFollowUpNav(tree *som.SomMetaTree, path string) *RequirementsFollowUpNav {
+	return &RequirementsFollowUpNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *RequirementsFollowUpNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *RequirementsFollowUpNav) LocalizationTranslation() *LocalizationTranslationRequirementsNav {
 	return newLocalizationTranslationRequirementsNav(x.Tree, x.Path+"/localizationTranslation")
 }
 
-func (x *RequirementsNav) InformationForUse() *InformationForUseRequirementsNav {
+func (x *RequirementsFollowUpNav) InformationForUse() *InformationForUseRequirementsNav {
 	return newInformationForUseRequirementsNav(x.Tree, x.Path+"/informationForUse")
 }
 
-func (x *RequirementsNav) TrainingEnablement() *TrainingEnablementRequirementsNav {
+func (x *RequirementsFollowUpNav) TrainingEnablement() *TrainingEnablementRequirementsNav {
 	return newTrainingEnablementRequirementsNav(x.Tree, x.Path+"/trainingEnablement")
 }
 
@@ -45011,36 +45466,16 @@ func (x *SecurityAndAccessModelNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-func (x *SecurityAndAccessModelNav) UserManagement() *UserManagementNav {
-	return newUserManagementNav(x.Tree, x.Path+"/userManagement")
+func (x *SecurityAndAccessModelNav) AccessControl() *AccessControlModelNav {
+	return newAccessControlModelNav(x.Tree, x.Path+"/accessControl")
 }
 
-func (x *SecurityAndAccessModelNav) Authentication() *IdentificationAndAuthenticationNav {
-	return newIdentificationAndAuthenticationNav(x.Tree, x.Path+"/authentication")
+func (x *SecurityAndAccessModelNav) SecurityOperations() *SecurityOperationsFollowUpNav {
+	return newSecurityOperationsFollowUpNav(x.Tree, x.Path+"/securityOperations")
 }
 
-func (x *SecurityAndAccessModelNav) ResourceProtection() *ResourceProtectionNav {
-	return newResourceProtectionNav(x.Tree, x.Path+"/resourceProtection")
-}
-
-func (x *SecurityAndAccessModelNav) Authorization() *UserAuthorizationNav {
-	return newUserAuthorizationNav(x.Tree, x.Path+"/authorization")
-}
-
-func (x *SecurityAndAccessModelNav) Encryption() *SensitiveDataEncryptionNav {
-	return newSensitiveDataEncryptionNav(x.Tree, x.Path+"/encryption")
-}
-
-func (x *SecurityAndAccessModelNav) AuditAndLogging() *AuditAndLoggingNav {
-	return newAuditAndLoggingNav(x.Tree, x.Path+"/auditAndLogging")
-}
-
-func (x *SecurityAndAccessModelNav) RoleMatrix() *RoleMatrixNav {
-	return newRoleMatrixNav(x.Tree, x.Path+"/roleMatrix")
-}
-
-func (x *SecurityAndAccessModelNav) ComplianceFramework() *ComplianceFrameworkNav {
-	return newComplianceFrameworkNav(x.Tree, x.Path+"/complianceFramework")
+func (x *SecurityAndAccessModelNav) Compliance() *SecurityComplianceFollowUpNav {
+	return newSecurityComplianceFollowUpNav(x.Tree, x.Path+"/compliance")
 }
 
 // SecurityAuditEntryNav holds the dot-notation accessors of `SecurityAuditEntry` (DR1 §4.1).
@@ -45219,6 +45654,28 @@ func (x *SecurityCodeReviewPolicyNav) Findings() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCRPF"}
 }
 
+// SecurityComplianceFollowUpNav holds the dot-notation accessors of `SecurityComplianceFollowUp` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type SecurityComplianceFollowUpNav struct {
+	som.SomMetaRef
+}
+
+// newSecurityComplianceFollowUpNav binds a SecurityComplianceFollowUpNav accessor to a tree and a path.
+func newSecurityComplianceFollowUpNav(tree *som.SomMetaTree, path string) *SecurityComplianceFollowUpNav {
+	return &SecurityComplianceFollowUpNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *SecurityComplianceFollowUpNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *SecurityComplianceFollowUpNav) ComplianceFramework() *ComplianceFrameworkNav {
+	return newComplianceFrameworkNav(x.Tree, x.Path+"/complianceFramework")
+}
+
 // SecurityControlEntryNav holds the dot-notation accessors of `SecurityControlEntry` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -45381,6 +45838,32 @@ func (x *SecurityEventsDefinitionNav) CustomEvents() *som.SomListMetaRef[*Securi
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/SEVT-CUST-LST", func(t *som.SomMetaTree, p string) *SecurityEventEntryNav {
 		return newSecurityEventEntryNav(t, p)
 	})
+}
+
+// SecurityOperationsFollowUpNav holds the dot-notation accessors of `SecurityOperationsFollowUp` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type SecurityOperationsFollowUpNav struct {
+	som.SomMetaRef
+}
+
+// newSecurityOperationsFollowUpNav binds a SecurityOperationsFollowUpNav accessor to a tree and a path.
+func newSecurityOperationsFollowUpNav(tree *som.SomMetaTree, path string) *SecurityOperationsFollowUpNav {
+	return &SecurityOperationsFollowUpNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *SecurityOperationsFollowUpNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *SecurityOperationsFollowUpNav) Encryption() *SensitiveDataEncryptionNav {
+	return newSensitiveDataEncryptionNav(x.Tree, x.Path+"/encryption")
+}
+
+func (x *SecurityOperationsFollowUpNav) AuditAndLogging() *AuditAndLoggingNav {
+	return newAuditAndLoggingNav(x.Tree, x.Path+"/auditAndLogging")
 }
 
 // SecurityRequirementEntryNav holds the dot-notation accessors of `SecurityRequirementEntry` (DR1 §4.1).
@@ -46633,7 +47116,29 @@ func (x *SolutionArchitectureAndTechnologyNav) TechnicalFramework() *TechnicalFr
 	return newTechnicalFrameworkConceptNav(x.Tree, x.Path+"/technicalFramework")
 }
 
-func (x *SolutionArchitectureAndTechnologyNav) ComponentsToUse() *ComponentsAndDependenciesNav {
+func (x *SolutionArchitectureAndTechnologyNav) ArchitectureFollowUp() *SolutionArchitectureFollowUpNav {
+	return newSolutionArchitectureFollowUpNav(x.Tree, x.Path+"/architectureFollowUp")
+}
+
+// SolutionArchitectureFollowUpNav holds the dot-notation accessors of `SolutionArchitectureFollowUp` (DR1 §4.1).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type SolutionArchitectureFollowUpNav struct {
+	som.SomMetaRef
+}
+
+// newSolutionArchitectureFollowUpNav binds a SolutionArchitectureFollowUpNav accessor to a tree and a path.
+func newSolutionArchitectureFollowUpNav(tree *som.SomMetaTree, path string) *SolutionArchitectureFollowUpNav {
+	return &SolutionArchitectureFollowUpNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *SolutionArchitectureFollowUpNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *SolutionArchitectureFollowUpNav) ComponentsToUse() *ComponentsAndDependenciesNav {
 	return newComponentsAndDependenciesNav(x.Tree, x.Path+"/componentsToUse")
 }
 
@@ -49431,32 +49936,6 @@ func (x *TabItemEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-// TargetBusinessProcessModelNav holds the dot-notation accessors of `TargetBusinessProcessModel` (DR1 §4.1).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type TargetBusinessProcessModelNav struct {
-	som.SomMetaRef
-}
-
-// newTargetBusinessProcessModelNav binds a TargetBusinessProcessModelNav accessor to a tree and a path.
-func newTargetBusinessProcessModelNav(tree *som.SomMetaTree, path string) *TargetBusinessProcessModelNav {
-	return &TargetBusinessProcessModelNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *TargetBusinessProcessModelNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-func (x *TargetBusinessProcessModelNav) BusinessProcessDescriptions() *BusinessProcessDescriptionsNav {
-	return newBusinessProcessDescriptionsNav(x.Tree, x.Path+"/businessProcessDescriptions")
-}
-
-func (x *TargetBusinessProcessModelNav) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractionsNav {
-	return newProcessStepsAndActorInteractionsNav(x.Tree, x.Path+"/processStepsAndActorInteractions")
-}
-
 // TargetOperatingModelNav holds the dot-notation accessors of `TargetOperatingModel` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -49475,12 +49954,12 @@ func (x *TargetOperatingModelNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-func (x *TargetOperatingModelNav) OrganizationalFramework() *OrganizationalFrameworkNav {
-	return newOrganizationalFrameworkNav(x.Tree, x.Path+"/organizationalFramework")
+func (x *TargetOperatingModelNav) OrganizationAndProcess() *OrganizationAndProcessConceptNav {
+	return newOrganizationAndProcessConceptNav(x.Tree, x.Path+"/organizationAndProcess")
 }
 
-func (x *TargetOperatingModelNav) TargetBusinessProcess() *TargetBusinessProcessModelNav {
-	return newTargetBusinessProcessModelNav(x.Tree, x.Path+"/targetBusinessProcess")
+func (x *TargetOperatingModelNav) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractionsNav {
+	return newProcessStepsAndActorInteractionsNav(x.Tree, x.Path+"/processStepsAndActorInteractions")
 }
 
 // TargetPlatformEntryNav holds the dot-notation accessors of `TargetPlatformEntry` (DR1 §4.1).
@@ -57534,283 +58013,283 @@ func (x *D00SolutionBlueprintID) ACRG_DEPS_LST() *som.SomListMetaRef[*Dependency
 }
 
 func (x *D00SolutionBlueprintID) OCCHG_OVER() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER"}
 }
 
 func (x *D00SolutionBlueprintID) ORGCE_ITEM_LST() *som.SomListMetaRef[*OrganizationalChangeEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST", func(t *som.SomMetaTree, p string) *OrganizationalChangeEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST", func(t *som.SomMetaTree, p string) *OrganizationalChangeEntryID {
 		return newOrganizationalChangeEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TROML() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML"}
 }
 
 func (x *D00SolutionBlueprintID) TROGV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/overview/TROGV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROGV"}
 }
 
 func (x *D00SolutionBlueprintID) TRPHE_PHAS_LST() *som.SomListMetaRef[*TransitionPhaseEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRPHE-PHAS-LST", func(t *som.SomMetaTree, p string) *TransitionPhaseEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRPHE-PHAS-LST", func(t *som.SomMetaTree, p string) *TransitionPhaseEntryID {
 		return newTransitionPhaseEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TRMIL_MILE_LST() *som.SomListMetaRef[*TransitionMilestoneEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRMIL-MILE-LST", func(t *som.SomMetaTree, p string) *TransitionMilestoneEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRMIL-MILE-LST", func(t *som.SomMetaTree, p string) *TransitionMilestoneEntryID {
 		return newTransitionMilestoneEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) CHREOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/CHREOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/CHREOV"}
 }
 
 func (x *D00SolutionBlueprintID) RDRCE_READ_LST() *som.SomListMetaRef[*ReadinessCriteriaEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/RDRCE-READ-LST", func(t *som.SomMetaTree, p string) *ReadinessCriteriaEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/RDRCE-READ-LST", func(t *som.SomMetaTree, p string) *ReadinessCriteriaEntryID {
 		return newReadinessCriteriaEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TRCOST() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOST"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOST"}
 }
 
 func (x *D00SolutionBlueprintID) COEV_COMM_LST() *som.SomListMetaRef[*CommunicationEventEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/COEV-COMM-LST", func(t *som.SomMetaTree, p string) *CommunicationEventEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/COEV-COMM-LST", func(t *som.SomMetaTree, p string) *CommunicationEventEntryID {
 		return newCommunicationEventEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TRCOCH_CHAN_LST() *som.SomListMetaRef[*TransitionCommunicationChannelsID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOCH-CHAN-LST", func(t *som.SomMetaTree, p string) *TransitionCommunicationChannelsID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOCH-CHAN-LST", func(t *som.SomMetaTree, p string) *TransitionCommunicationChannelsID {
 		return newTransitionCommunicationChannelsID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TRSUOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSUOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSUOV"}
 }
 
 func (x *D00SolutionBlueprintID) TRSPRE_SUPP_LST() *som.SomListMetaRef[*TransitionSupportResourceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSPRE-SUPP-LST", func(t *som.SomMetaTree, p string) *TransitionSupportResourceEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSPRE-SUPP-LST", func(t *som.SomMetaTree, p string) *TransitionSupportResourceEntryID {
 		return newTransitionSupportResourceEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TRESPA_ESCA_LST() *som.SomListMetaRef[*TransitionEscalationPathsID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRESPA-ESCA-LST", func(t *som.SomMetaTree, p string) *TransitionEscalationPathsID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRESPA-ESCA-LST", func(t *som.SomMetaTree, p string) *TransitionEscalationPathsID {
 		return newTransitionEscalationPathsID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TRMEOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRMEOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRMEOV"}
 }
 
 func (x *D00SolutionBlueprintID) TRME_METR_LST() *som.SomListMetaRef[*TransitionMetricEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST", func(t *som.SomMetaTree, p string) *TransitionMetricEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST", func(t *som.SomMetaTree, p string) *TransitionMetricEntryID {
 		return newTransitionMetricEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TRRS_TRAN_LST() *som.SomListMetaRef[*TransitionRiskEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST", func(t *som.SomMetaTree, p string) *TransitionRiskEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST", func(t *som.SomMetaTree, p string) *TransitionRiskEntryID {
 		return newTransitionRiskEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) JODEOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/JODEOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV"}
 }
 
 func (x *D00SolutionBlueprintID) NWROL_NEWR_LST() *som.SomListMetaRef[*NewRoleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", func(t *som.SomMetaTree, p string) *NewRoleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", func(t *som.SomMetaTree, p string) *NewRoleEntryID {
 		return newNewRoleEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) CHAROL_CHAN_LST() *som.SomListMetaRef[*ChangedRoleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST", func(t *som.SomMetaTree, p string) *ChangedRoleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST", func(t *som.SomMetaTree, p string) *ChangedRoleEntryID {
 		return newChangedRoleEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) REMROL_REMO_LST() *som.SomListMetaRef[*RemovedRoleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/jobDescriptions/REMROL-REMO-LST", func(t *som.SomMetaTree, p string) *RemovedRoleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/REMROL-REMO-LST", func(t *som.SomMetaTree, p string) *RemovedRoleEntryID {
 		return newRemovedRoleEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) STPLOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/STPLOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STPLOV"}
 }
 
 func (x *D00SolutionBlueprintID) STBUAL() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUAL"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUAL"}
 }
 
 func (x *D00SolutionBlueprintID) STBUGO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUGO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUGO"}
 }
 
 func (x *D00SolutionBlueprintID) STFE_ITEM_LST() *som.SomListMetaRef[*StaffingEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/STFE-ITEM-LST", func(t *som.SomMetaTree, p string) *StaffingEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STFE-ITEM-LST", func(t *som.SomMetaTree, p string) *StaffingEntryID {
 		return newStaffingEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) RETI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/RETI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/RETI"}
 }
 
 func (x *D00SolutionBlueprintID) COFROV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COFROV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COFROV"}
 }
 
 func (x *D00SolutionBlueprintID) COMPE_CORE_LST() *som.SomListMetaRef[*CompetencyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-CORE-LST", func(t *som.SomMetaTree, p string) *CompetencyEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-CORE-LST", func(t *som.SomMetaTree, p string) *CompetencyEntryID {
 		return newCompetencyEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) COMPE_TECH_LST() *som.SomListMetaRef[*CompetencyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-TECH-LST", func(t *som.SomMetaTree, p string) *CompetencyEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-TECH-LST", func(t *som.SomMetaTree, p string) *CompetencyEntryID {
 		return newCompetencyEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) COMPE_LEAD_LST() *som.SomListMetaRef[*CompetencyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-LEAD-LST", func(t *som.SomMetaTree, p string) *CompetencyEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-LEAD-LST", func(t *som.SomMetaTree, p string) *CompetencyEntryID {
 		return newCompetencyEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) WPDE_WORK_LST() *som.SomListMetaRef[*WorkplaceDescriptionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationalFramework/WPDE-WORK-LST", func(t *som.SomMetaTree, p string) *WorkplaceDescriptionEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/WPDE-WORK-LST", func(t *som.SomMetaTree, p string) *WorkplaceDescriptionEntryID {
 		return newWorkplaceDescriptionEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PVOVW() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/PVOVW"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PVOVW"}
 }
 
 func (x *D00SolutionBlueprintID) EXIPR_EXPE_LST() *som.SomListMetaRef[*ExpectedImprovementsID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/EXIPR-EXPE-LST", func(t *som.SomMetaTree, p string) *ExpectedImprovementsID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/EXIPR-EXPE-LST", func(t *som.SomMetaTree, p string) *ExpectedImprovementsID {
 		return newExpectedImprovementsID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PRSUC() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/PRSUC"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PRSUC"}
 }
 
 func (x *D00SolutionBlueprintID) DPOVW() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/designPrinciples/DPOVW"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples/DPOVW"}
 }
 
 func (x *D00SolutionBlueprintID) PDPEN_PRIN_LST() *som.SomListMetaRef[*ProcessDesignPrincipleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/designPrinciples/PDPEN-PRIN-LST", func(t *som.SomMetaTree, p string) *ProcessDesignPrincipleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples/PDPEN-PRIN-LST", func(t *som.SomMetaTree, p string) *ProcessDesignPrincipleEntryID {
 		return newProcessDesignPrincipleEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PCOVW() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/PCOVW"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/PCOVW"}
 }
 
 func (x *D00SolutionBlueprintID) PRCCL() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/PRCCL"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/PRCCL"}
 }
 
 func (x *D00SolutionBlueprintID) BPREN_PROC_LST() *som.SomListMetaRef[*BusinessProcessEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/BPREN-PROC-LST", func(t *som.SomMetaTree, p string) *BusinessProcessEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/BPREN-PROC-LST", func(t *som.SomMetaTree, p string) *BusinessProcessEntryID {
 		return newBusinessProcessEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PRDIOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processOverviewDiagram/PRDIOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processOverviewDiagram/PRDIOV"}
 }
 
 func (x *D00SolutionBlueprintID) IMOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/IMOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/IMOV"}
 }
 
 func (x *D00SolutionBlueprintID) PCIMV_IMPR_LST() *som.SomListMetaRef[*ProcessImprovementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/PCIMV-IMPR-LST", func(t *som.SomMetaTree, p string) *ProcessImprovementEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/PCIMV-IMPR-LST", func(t *som.SomMetaTree, p string) *ProcessImprovementEntryID {
 		return newProcessImprovementEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) IMBUCA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/IMBUCA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/IMBUCA"}
 }
 
 func (x *D00SolutionBlueprintID) PCRLT_RELA_LST() *som.SomListMetaRef[*ProcessRelationshipEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processRelationships/PCRLT-RELA-LST", func(t *som.SomMetaTree, p string) *ProcessRelationshipEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processRelationships/PCRLT-RELA-LST", func(t *som.SomMetaTree, p string) *ProcessRelationshipEntryID {
 		return newProcessRelationshipEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) DEPRWO_DETA_LST() *som.SomListMetaRef[*DetailedProcessWorkflowID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/DEPRWO-DETA-LST", func(t *som.SomMetaTree, p string) *DetailedProcessWorkflowID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/DEPRWO-DETA-LST", func(t *som.SomMetaTree, p string) *DetailedProcessWorkflowID {
 		return newDetailedProcessWorkflowID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PMAK_PROC_LST() *som.SomListMetaRef[*ProcessMetricID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/PMAK-PROC-LST", func(t *som.SomMetaTree, p string) *ProcessMetricID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/PMAK-PROC-LST", func(t *som.SomMetaTree, p string) *ProcessMetricID {
 		return newProcessMetricID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) ACOVNA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACOVNA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACOVNA"}
 }
 
 func (x *D00SolutionBlueprintID) ACEN_ACTO_LST() *som.SomListMetaRef[*ActorEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", func(t *som.SomMetaTree, p string) *ActorEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", func(t *som.SomMetaTree, p string) *ActorEntryID {
 		return newActorEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) ACCASU() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACCASU"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACCASU"}
 }
 
 func (x *D00SolutionBlueprintID) INCAOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INCAOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INCAOV"}
 }
 
 func (x *D00SolutionBlueprintID) INEN_INTE_LST() *som.SomListMetaRef[*InteractionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", func(t *som.SomMetaTree, p string) *InteractionEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", func(t *som.SomMetaTree, p string) *InteractionEntryID {
 		return newInteractionEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) INPR() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INPR"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INPR"}
 }
 
 func (x *D00SolutionBlueprintID) SCOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCOV"}
 }
 
 func (x *D00SolutionBlueprintID) SCNRY_SCEN_LST() *som.SomListMetaRef[*ScenarioEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", func(t *som.SomMetaTree, p string) *ScenarioEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", func(t *som.SomMetaTree, p string) *ScenarioEntryID {
 		return newScenarioEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) ACDIOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV"}
 }
 
 func (x *D00SolutionBlueprintID) ETETS_ENDT_LST() *som.SomListMetaRef[*EndToEndTestScenarioID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/ETETS-ENDT-LST", func(t *som.SomMetaTree, p string) *EndToEndTestScenarioID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/processStepsAndActorInteractions/ETETS-ENDT-LST", func(t *som.SomMetaTree, p string) *EndToEndTestScenarioID {
 		return newEndToEndTestScenarioID(t, p)
 	})
 }
@@ -57899,44 +58378,50 @@ func (x *D00SolutionBlueprintID) MSGKE_MKEY_LST() *som.SomListMetaRef[*MessageKe
 	})
 }
 
+func (x *D00SolutionBlueprintID) DMFUE_ENFU_LST() *som.SomListMetaRef[*EntityFollowUpEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/dataModelFollowUp/DMFUE-ENFU-LST", func(t *som.SomMetaTree, p string) *EntityFollowUpEntryID {
+		return newEntityFollowUpEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) TRAREQ_TRAN() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRAREQ-TRAN"}
 }
 
 func (x *D00SolutionBlueprintID) TRRERT() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/localizationTranslation/translationRequirements/TRRERT"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRERT"}
 }
 
 func (x *D00SolutionBlueprintID) TRREFO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/localizationTranslation/translationRequirements/TRREFO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRREFO"}
 }
 
 func (x *D00SolutionBlueprintID) TRREVA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/localizationTranslation/translationRequirements/TRREVA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRREVA"}
 }
 
 func (x *D00SolutionBlueprintID) TRRETE() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/localizationTranslation/translationRequirements/TRRETE"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRETE"}
 }
 
 func (x *D00SolutionBlueprintID) DOANTR_DOCU() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/informationForUse/userDocumentation/DOANTR-DOCU"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/informationForUse/userDocumentation/DOANTR-DOCU"}
 }
 
 func (x *D00SolutionBlueprintID) DATD() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/informationForUse/userDocumentation/DATD"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/informationForUse/userDocumentation/DATD"}
 }
 
 func (x *D00SolutionBlueprintID) DATL() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/informationForUse/userDocumentation/DATL"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/informationForUse/userDocumentation/DATL"}
 }
 
 func (x *D00SolutionBlueprintID) TRMAT_TRAI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/trainingEnablement/trainingDeliverables/TRMAT-TRAI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI"}
 }
 
 func (x *D00SolutionBlueprintID) TRMOEN_TRAI_LST() *som.SomListMetaRef[*TrainingModuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/requirements/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingModuleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingModuleEntryID {
 		return newTrainingModuleEntryID(t, p)
 	})
 }
@@ -60536,865 +61021,865 @@ func (x *D00SolutionBlueprintID) SEAUEN_AUDI_LST() *som.SomListMetaRef[*Security
 }
 
 func (x *D00SolutionBlueprintID) CSVND() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSVND"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSVND"}
 }
 
 func (x *D00SolutionBlueprintID) CSGOV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSGOV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSGOV"}
 }
 
 func (x *D00SolutionBlueprintID) CSPRT() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPRT"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPRT"}
 }
 
 func (x *D00SolutionBlueprintID) CSPOL() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPOL"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPOL"}
 }
 
 func (x *D00SolutionBlueprintID) CSPLN() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPLN"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPLN"}
 }
 
 func (x *D00SolutionBlueprintID) RGUSE_REUS_LST() *som.SomListMetaRef[*ReuseGoalEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/componentsToUse/strategy/RGUSE-REUS-LST", func(t *som.SomMetaTree, p string) *ReuseGoalEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/RGUSE-REUS-LST", func(t *som.SomMetaTree, p string) *ReuseGoalEntryID {
 		return newReuseGoalEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) EVCEN_ITEM_LST() *som.SomListMetaRef[*EvaluationCriterionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/componentsToUse/strategy/evaluationCriteria/EVCEN-ITEM-LST", func(t *som.SomMetaTree, p string) *EvaluationCriterionEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/evaluationCriteria/EVCEN-ITEM-LST", func(t *som.SomMetaTree, p string) *EvaluationCriterionEntryID {
 		return newEvaluationCriterionEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) CMPNT_COMP_LST() *som.SomListMetaRef[*ComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/componentsToUse/CMPNT-COMP-LST", func(t *som.SomMetaTree, p string) *ComponentEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/CMPNT-COMP-LST", func(t *som.SomMetaTree, p string) *ComponentEntryID {
 		return newComponentEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) RNDEP_ITEM_LST() *som.SomListMetaRef[*RuntimeDependencyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/componentsToUse/runtimeDependencies/RNDEP-ITEM-LST", func(t *som.SomMetaTree, p string) *RuntimeDependencyEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/runtimeDependencies/RNDEP-ITEM-LST", func(t *som.SomMetaTree, p string) *RuntimeDependencyEntryID {
 		return newRuntimeDependencyEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) MNDEP_ITEM_LST() *som.SomListMetaRef[*MaintenanceDependencyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/componentsToUse/maintenanceDependencies/MNDEP-ITEM-LST", func(t *som.SomMetaTree, p string) *MaintenanceDependencyEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/maintenanceDependencies/MNDEP-ITEM-LST", func(t *som.SomMetaTree, p string) *MaintenanceDependencyEntryID {
 		return newMaintenanceDependencyEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) CMRS_RISK_LST() *som.SomListMetaRef[*ComponentRiskEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/componentsToUse/riskAssessment/CMRS-RISK-LST", func(t *som.SomMetaTree, p string) *ComponentRiskEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/riskAssessment/CMRS-RISK-LST", func(t *som.SomMetaTree, p string) *ComponentRiskEntryID {
 		return newComponentRiskEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) COPL_ITEM_LST() *som.SomListMetaRef[*ContingencyPlanEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST", func(t *som.SomMetaTree, p string) *ContingencyPlanEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST", func(t *som.SomMetaTree, p string) *ContingencyPlanEntryID {
 		return newContingencyPlanEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) USCDF_ITEM_LST() *som.SomListMetaRef[*UserCategoryDefinitionID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/userManagement/userCategories/USCDF-ITEM-LST", func(t *som.SomMetaTree, p string) *UserCategoryDefinitionID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/userManagement/userCategories/USCDF-ITEM-LST", func(t *som.SomMetaTree, p string) *UserCategoryDefinitionID {
 		return newUserCategoryDefinitionID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) ULTRE_ITEM_LST() *som.SomListMetaRef[*UserLifecycleTransitionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", func(t *som.SomMetaTree, p string) *UserLifecycleTransitionEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", func(t *som.SomMetaTree, p string) *UserLifecycleTransitionEntryID {
 		return newUserLifecycleTransitionEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) SACLC_SERV_LST() *som.SomListMetaRef[*ServiceAccountLifecycleID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/userManagement/userLifecycle/SACLC-SERV-LST", func(t *som.SomMetaTree, p string) *ServiceAccountLifecycleID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/userManagement/userLifecycle/SACLC-SERV-LST", func(t *som.SomMetaTree, p string) *ServiceAccountLifecycleID {
 		return newServiceAccountLifecycleID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) USATE_ITEM_LST() *som.SomListMetaRef[*UserAttributeEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/userManagement/userAttributes/USATE-ITEM-LST", func(t *som.SomMetaTree, p string) *UserAttributeEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/userManagement/userAttributes/USATE-ITEM-LST", func(t *som.SomMetaTree, p string) *UserAttributeEntryID {
 		return newUserAttributeEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) IDTSR_IDEN_LST() *som.SomListMetaRef[*IdentitySourceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authentication/identification/IDTSR-IDEN-LST", func(t *som.SomMetaTree, p string) *IdentitySourceEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/identification/IDTSR-IDEN-LST", func(t *som.SomMetaTree, p string) *IdentitySourceEntryID {
 		return newIdentitySourceEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) IVPD() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPD"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPD"}
 }
 
 func (x *D00SolutionBlueprintID) IVPM() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPM"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPM"}
 }
 
 func (x *D00SolutionBlueprintID) IVPW() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPW"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPW"}
 }
 
 func (x *D00SolutionBlueprintID) IVPL() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPL"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPL"}
 }
 
 func (x *D00SolutionBlueprintID) IVPF() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPF"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPF"}
 }
 
 func (x *D00SolutionBlueprintID) IDTPV_IDEN_LST() *som.SomListMetaRef[*IdentityProviderEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authentication/identification/IDTPV-IDEN-LST", func(t *som.SomMetaTree, p string) *IdentityProviderEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/identification/IDTPV-IDEN-LST", func(t *som.SomMetaTree, p string) *IdentityProviderEntryID {
 		return newIdentityProviderEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) SSOPF() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/singleSignOn/SSOPF"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPF"}
 }
 
 func (x *D00SolutionBlueprintID) SSOPS() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/singleSignOn/SSOPS"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPS"}
 }
 
 func (x *D00SolutionBlueprintID) SSOPA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/singleSignOn/SSOPA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPA"}
 }
 
 func (x *D00SolutionBlueprintID) SSOPO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/singleSignOn/SSOPO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPO"}
 }
 
 func (x *D00SolutionBlueprintID) SRPF() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPF"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPF"}
 }
 
 func (x *D00SolutionBlueprintID) SRPBP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPBP"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPBP"}
 }
 
 func (x *D00SolutionBlueprintID) SRPV() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPV"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPV"}
 }
 
 func (x *D00SolutionBlueprintID) SRPA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPA"}
 }
 
 func (x *D00SolutionBlueprintID) SRPS() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPS"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPS"}
 }
 
 func (x *D00SolutionBlueprintID) IDTAM_ATTR_LST() *som.SomListMetaRef[*IdentityAttributeMappingEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authentication/identification/IDTAM-ATTR-LST", func(t *som.SomMetaTree, p string) *IdentityAttributeMappingEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/identification/IDTAM-ATTR-LST", func(t *som.SomMetaTree, p string) *IdentityAttributeMappingEntryID {
 		return newIdentityAttributeMappingEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) MFADE_MFAD_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *D00SolutionBlueprintID) ATME_ITEM_LST() *som.SomListMetaRef[*AuthenticationMethodEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authentication/authentication/authenticationMethods/ATME-ITEM-LST", func(t *som.SomMetaTree, p string) *AuthenticationMethodEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", func(t *som.SomMetaTree, p string) *AuthenticationMethodEntryID {
 		return newAuthenticationMethodEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) STEPU_STEP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *D00SolutionBlueprintID) LGFLS_LOGI_LST() *som.SomListMetaRef[*LoginFlowStepEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", func(t *som.SomMetaTree, p string) *LoginFlowStepEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", func(t *som.SomMetaTree, p string) *LoginFlowStepEntryID {
 		return newLoginFlowStepEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) MFACRQ_MFAC_LST() *som.SomListMetaRef[*MfaCategoryRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", func(t *som.SomMetaTree, p string) *MfaCategoryRequirementEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", func(t *som.SomMetaTree, p string) *MfaCategoryRequirementEntryID {
 		return newMfaCategoryRequirementEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) AZGR_GROU_LST() *som.SomListMetaRef[*AuthorizationGroupEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authorization/AZGR-GROU-LST", func(t *som.SomMetaTree, p string) *AuthorizationGroupEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/AZGR-GROU-LST", func(t *som.SomMetaTree, p string) *AuthorizationGroupEntryID {
 		return newAuthorizationGroupEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) AZRO_ROLE_LST() *som.SomListMetaRef[*AuthorizationRoleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authorization/AZRO-ROLE-LST", func(t *som.SomMetaTree, p string) *AuthorizationRoleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/AZRO-ROLE-LST", func(t *som.SomMetaTree, p string) *AuthorizationRoleEntryID {
 		return newAuthorizationRoleEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) ENT_ENTI_LST() *som.SomListMetaRef[*EntitlementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authorization/ENT-ENTI-LST", func(t *som.SomMetaTree, p string) *EntitlementEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST", func(t *som.SomMetaTree, p string) *EntitlementEntryID {
 		return newEntitlementEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) RESKEY_RESO_LST() *som.SomListMetaRef[*ResourceKeyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authorization/RESKEY-RESO-LST", func(t *som.SomMetaTree, p string) *ResourceKeyEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/RESKEY-RESO-LST", func(t *som.SomMetaTree, p string) *ResourceKeyEntryID {
 		return newResourceKeyEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) RLINH_INHE_LST() *som.SomListMetaRef[*RoleInheritanceRuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authorization/roleHierarchy/RLINH-INHE-LST", func(t *som.SomMetaTree, p string) *RoleInheritanceRuleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/roleHierarchy/RLINH-INHE-LST", func(t *som.SomMetaTree, p string) *RoleInheritanceRuleEntryID {
 		return newRoleInheritanceRuleEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) RLCMB_COMB_LST() *som.SomListMetaRef[*RoleCombinationConstraintEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authorization/roleHierarchy/RLCMB-COMB-LST", func(t *som.SomMetaTree, p string) *RoleCombinationConstraintEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST", func(t *som.SomMetaTree, p string) *RoleCombinationConstraintEntryID {
 		return newRoleCombinationConstraintEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) GBRLX_GLOB_LST() *som.SomListMetaRef[*GlobalRoleExclusionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authorization/roleHierarchy/GBRLX-GLOB-LST", func(t *som.SomMetaTree, p string) *GlobalRoleExclusionEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST", func(t *som.SomMetaTree, p string) *GlobalRoleExclusionEntryID {
 		return newGlobalRoleExclusionEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TNCS_TENA_LST() *som.SomListMetaRef[*TenantCustomizationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/authorization/tenantIsolation/TNCS-TENA-LST", func(t *som.SomMetaTree, p string) *TenantCustomizationEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", func(t *som.SomMetaTree, p string) *TenantCustomizationEntryID {
 		return newTenantCustomizationEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) ENDACA_ENCR_LST() *som.SomListMetaRef[*EncryptedDataCategoryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/encryption/encryptionAtRest/ENDACA-ENCR-LST", func(t *som.SomMetaTree, p string) *EncryptedDataCategoryEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST", func(t *som.SomMetaTree, p string) *EncryptedDataCategoryEntryID {
 		return newEncryptedDataCategoryEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) COCHEN_COMM_LST() *som.SomListMetaRef[*CommunicationChannelEncryptionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/encryption/encryptionInTransit/COCHEN-COMM-LST", func(t *som.SomMetaTree, p string) *CommunicationChannelEncryptionEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST", func(t *som.SomMetaTree, p string) *CommunicationChannelEncryptionEntryID {
 		return newCommunicationChannelEncryptionEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) SEVT_CUST_LST() *som.SomListMetaRef[*SecurityEventEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST", func(t *som.SomMetaTree, p string) *SecurityEventEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST", func(t *som.SomMetaTree, p string) *SecurityEventEntryID {
 		return newSecurityEventEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DGOEN_ITEM_LST() *som.SomListMetaRef[*DesignGoalEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designVision/designGoals/DGOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DesignGoalEntryID {
-		return newDesignGoalEntryID(t, p)
-	})
-}
-
-func (x *D00SolutionBlueprintID) DPEN_ITEM_LST() *som.SomListMetaRef[*DesignPrincipleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DesignPrincipleEntryID {
-		return newDesignPrincipleEntryID(t, p)
-	})
-}
-
-func (x *D00SolutionBlueprintID) PEREN_ITEM_LST() *som.SomListMetaRef[*PersonaEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designVision/personas/PEREN-ITEM-LST", func(t *som.SomMetaTree, p string) *PersonaEntryID {
-		return newPersonaEntryID(t, p)
-	})
-}
-
 func (x *D00SolutionBlueprintID) SCREN_ITEM_LST() *som.SomListMetaRef[*ScreenEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST", func(t *som.SomMetaTree, p string) *ScreenEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", func(t *som.SomMetaTree, p string) *ScreenEntryID {
 		return newScreenEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) GLOBA_GLOB_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *D00SolutionBlueprintID) NAVGRP_GROU_LST() *som.SomListMetaRef[*NavigationGroupEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", func(t *som.SomMetaTree, p string) *NavigationGroupEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", func(t *som.SomMetaTree, p string) *NavigationGroupEntryID {
 		return newNavigationGroupEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PRNADR() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PRNADR"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR"}
 }
 
 func (x *D00SolutionBlueprintID) PNBN() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PNBN"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN"}
 }
 
 func (x *D00SolutionBlueprintID) PRNASI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PRNASI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"}
 }
 
 func (x *D00SolutionBlueprintID) TBDE_TABB_LST() *som.SomListMetaRef[*TabBarDefinitionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
 		return newTabBarDefinitionEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) UNIE_ITEM_LST() *som.SomListMetaRef[*UtilityNavigationItemEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
 		return newUtilityNavigationItemEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) BRCO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/contextualNavigation/BRCO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO"}
 }
 
 func (x *D00SolutionBlueprintID) DELNPT_PATT_LST() *som.SomListMetaRef[*DeepLinkPatternEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", func(t *som.SomMetaTree, p string) *DeepLinkPatternEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", func(t *som.SomMetaTree, p string) *DeepLinkPatternEntryID {
 		return newDeepLinkPatternEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) NAVGRD_GUAR_LST() *som.SomListMetaRef[*NavigationGuardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", func(t *som.SomMetaTree, p string) *NavigationGuardEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", func(t *som.SomMetaTree, p string) *NavigationGuardEntryID {
 		return newNavigationGuardEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) PLPS() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/printLayout/PLPS"}
-}
-
-func (x *D00SolutionBlueprintID) PRLABR() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/printLayout/PRLABR"}
-}
-
-func (x *D00SolutionBlueprintID) PRLAWA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/printLayout/PRLAWA"}
-}
-
-func (x *D00SolutionBlueprintID) PLHF() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/printLayout/PLHF"}
-}
-
-func (x *D00SolutionBlueprintID) PRLAAR() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/printLayout/PRLAAR"}
-}
-
-func (x *D00SolutionBlueprintID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/printLayout/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
-		return newReportEntryID(t, p)
-	})
-}
-
-func (x *D00SolutionBlueprintID) EXFOEN_EXPO_LST() *som.SomListMetaRef[*ExportFormatEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/printLayout/EXFOEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryID {
-		return newExportFormatEntryID(t, p)
-	})
-}
-
-func (x *D00SolutionBlueprintID) EXTEEN_EXPO_LST() *som.SomListMetaRef[*ExportTemplateEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/printLayout/EXTEEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryID {
-		return newExportTemplateEntryID(t, p)
-	})
-}
-
 func (x *D00SolutionBlueprintID) ERHACO_ERRO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/ERHACO-ERRO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO"}
 }
 
 func (x *D00SolutionBlueprintID) EHCC() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/EHCC"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCC"}
 }
 
 func (x *D00SolutionBlueprintID) EHCA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/EHCA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCA"}
 }
 
 func (x *D00SolutionBlueprintID) EHCO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/EHCO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCO"}
 }
 
 func (x *D00SolutionBlueprintID) VAFE_VALI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFE-VALI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-VALI"}
 }
 
 func (x *D00SolutionBlueprintID) VAFEPL() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEPL"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEPL"}
 }
 
 func (x *D00SolutionBlueprintID) VAFEME() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEME"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME"}
 }
 
 func (x *D00SolutionBlueprintID) VAFEGU() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEGU"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU"}
 }
 
 func (x *D00SolutionBlueprintID) VAFEBE() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEBE"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE"}
 }
 
 func (x *D00SolutionBlueprintID) VAMETE_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
 		return newValidationMessageTemplateID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) FIELD_FIEL_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *D00SolutionBlueprintID) SYERDI_SYST() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SYERDI-SYST"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST"}
 }
 
 func (x *D00SolutionBlueprintID) SEDET() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDET"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET"}
 }
 
 func (x *D00SolutionBlueprintID) SEDM() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDM"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM"}
 }
 
 func (x *D00SolutionBlueprintID) SEDC() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDC"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC"}
 }
 
 func (x *D00SolutionBlueprintID) SEDF() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDF"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF"}
 }
 
 func (x *D00SolutionBlueprintID) EPDE_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *D00SolutionBlueprintID) SECE_ERRO_LST() *som.SomListMetaRef[*SystemErrorCodeEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SECE-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
 		return newSystemErrorCodeEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) ERRE_RECO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRE-RECO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"}
 }
 
 func (x *D00SolutionBlueprintID) ERDP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERDP"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERDP"}
 }
 
 func (x *D00SolutionBlueprintID) ERRM() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRM"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRM"}
 }
 
 func (x *D00SolutionBlueprintID) ERGR() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERGR"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERGR"}
 }
 
 func (x *D00SolutionBlueprintID) ERSC() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSC"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSC"}
 }
 
 func (x *D00SolutionBlueprintID) ERSH() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSH"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH"}
 }
 
 func (x *D00SolutionBlueprintID) RECOV_RECO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *D00SolutionBlueprintID) RCVSCN_RECO_LST() *som.SomListMetaRef[*RecoveryScenarioEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/errorRecovery/RCVSCN-RECO-LST", func(t *som.SomMetaTree, p string) *RecoveryScenarioEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST", func(t *som.SomMetaTree, p string) *RecoveryScenarioEntryID {
 		return newRecoveryScenarioEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) USAS_HELP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/USAS-HELP"}
-}
-
-func (x *D00SolutionBlueprintID) USASDE() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/USASDE"}
-}
-
-func (x *D00SolutionBlueprintID) USASIN() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/USASIN"}
-}
-
-func (x *D00SolutionBlueprintID) COHE_CONT() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHE-CONT"}
-}
-
-func (x *D00SolutionBlueprintID) COHEIN() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHEIN"}
-}
-
-func (x *D00SolutionBlueprintID) COHEPA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHEPA"}
-}
-
-func (x *D00SolutionBlueprintID) CHWT() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/CHWT"}
-}
-
-func (x *D00SolutionBlueprintID) COHERI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHERI"}
-}
-
-func (x *D00SolutionBlueprintID) FLDHP_FIEL_LST() *som.SomListMetaRef[*FieldHelpEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/userAssistance/contextualHelp/FLDHP-FIEL-LST", func(t *som.SomMetaTree, p string) *FieldHelpEntryID {
-		return newFieldHelpEntryID(t, p)
-	})
-}
-
-func (x *D00SolutionBlueprintID) ONHE_ONBO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHE-ONBO"}
-}
-
-func (x *D00SolutionBlueprintID) ONHETO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHETO"}
-}
-
-func (x *D00SolutionBlueprintID) OHSD() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/onboarding/OHSD"}
-}
-
-func (x *D00SolutionBlueprintID) ONHECH() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHECH"}
-}
-
-func (x *D00SolutionBlueprintID) ONHEDI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHEDI"}
-}
-
-func (x *D00SolutionBlueprintID) ONHERE() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHERE"}
-}
-
-func (x *D00SolutionBlueprintID) FTRTUR_FEAT_LST() *som.SomListMetaRef[*FeatureTourEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/userAssistance/onboarding/FTRTUR-FEAT-LST", func(t *som.SomMetaTree, p string) *FeatureTourEntryID {
-		return newFeatureTourEntryID(t, p)
-	})
-}
-
-func (x *D00SolutionBlueprintID) SUAC_SUPP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SUAC-SUPP"}
-}
-
-func (x *D00SolutionBlueprintID) SAHC() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SAHC"}
-}
-
-func (x *D00SolutionBlueprintID) SALS() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SALS"}
-}
-
-func (x *D00SolutionBlueprintID) SUACTI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SUACTI"}
-}
-
-func (x *D00SolutionBlueprintID) SACM() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SACM"}
-}
-
-func (x *D00SolutionBlueprintID) SASS() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SASS"}
-}
-
-func (x *D00SolutionBlueprintID) ACCESS_ACCE() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/ACCESS-ACCE"}
-}
-
-func (x *D00SolutionBlueprintID) ACSTGY() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/ACSTGY"}
-}
-
-func (x *D00SolutionBlueprintID) ACTE() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/ACTE"}
-}
-
-func (x *D00SolutionBlueprintID) ACSU() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/ACSU"}
-}
-
-func (x *D00SolutionBlueprintID) WCCO_WCAG() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCO-WCAG"}
-}
-
-func (x *D00SolutionBlueprintID) WCCOOP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCOOP"}
-}
-
-func (x *D00SolutionBlueprintID) WCCOUN() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCOUN"}
-}
-
-func (x *D00SolutionBlueprintID) WCCORO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCORO"}
-}
-
-func (x *D00SolutionBlueprintID) WSCE_SUCC_LST() *som.SomListMetaRef[*WcagSuccessCriterionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryID {
-		return newWcagSuccessCriterionEntryID(t, p)
-	})
-}
-
-func (x *D00SolutionBlueprintID) ACCHLS_CHEC() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCHLS-CHEC"}
-}
-
-func (x *D00SolutionBlueprintID) ACCH_ITEM_LST() *som.SomListMetaRef[*AccessibilityCheckEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCH-ITEM-LST", func(t *som.SomMetaTree, p string) *AccessibilityCheckEntryID {
-		return newAccessibilityCheckEntryID(t, p)
-	})
-}
-
 func (x *D00SolutionBlueprintID) REDE_RESP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/REDE-RESP"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/REDE-RESP"}
 }
 
 func (x *D00SolutionBlueprintID) BC_BREA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BC-BREA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA"}
 }
 
 func (x *D00SolutionBlueprintID) BRE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
 		return newBreakpointEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) REBE_LAYO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBE-LAYO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO"}
 }
 
 func (x *D00SolutionBlueprintID) REBENA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBENA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA"}
 }
 
 func (x *D00SolutionBlueprintID) REBEVI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBEVI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI"}
 }
 
 func (x *D00SolutionBlueprintID) REBETO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBETO"}
 }
 
 func (x *D00SolutionBlueprintID) REBECO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBECO"}
 }
 
 func (x *D00SolutionBlueprintID) RESPSR_SCRE_LST() *som.SomListMetaRef[*ResponsiveScreenRuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", func(t *som.SomMetaTree, p string) *ResponsiveScreenRuleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", func(t *som.SomMetaTree, p string) *ResponsiveScreenRuleEntryID {
 		return newResponsiveScreenRuleEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) UICO_COMP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/UICO-COMP"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICO-COMP"}
 }
 
 func (x *D00SolutionBlueprintID) UCVL() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/UCVL"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UCVL"}
 }
 
 func (x *D00SolutionBlueprintID) UCCA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/UCCA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UCCA"}
 }
 
 func (x *D00SolutionBlueprintID) UICOCU() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/UICOCU"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOCU"}
 }
 
 func (x *D00SolutionBlueprintID) DESIG_DESI_LST() *som.SomListMetaRef[*DesignFoundationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/uiComponents/componentLibrary/DESIG-DESI-LST", func(t *som.SomMetaTree, p string) *DesignFoundationEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/DESIG-DESI-LST", func(t *som.SomMetaTree, p string) *DesignFoundationEntryID {
 		return newDesignFoundationEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) COLICO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLICO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLICO"}
 }
 
 func (x *D00SolutionBlueprintID) COLITY() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLITY"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLITY"}
 }
 
 func (x *D00SolutionBlueprintID) COLISP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLISP"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLISP"}
 }
 
 func (x *D00SolutionBlueprintID) COLIBO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLIBO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIBO"}
 }
 
 func (x *D00SolutionBlueprintID) COLIVI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLIVI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI"}
 }
 
 func (x *D00SolutionBlueprintID) COPA_COLO_LST() *som.SomListMetaRef[*ColorPaletteEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/uiComponents/componentLibrary/COPA-COLO-LST", func(t *som.SomMetaTree, p string) *ColorPaletteEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST", func(t *som.SomMetaTree, p string) *ColorPaletteEntryID {
 		return newColorPaletteEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) TYST_TYPO_LST() *som.SomListMetaRef[*TypographyStyleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/uiComponents/componentLibrary/TYST-TYPO-LST", func(t *som.SomMetaTree, p string) *TypographyStyleEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", func(t *som.SomMetaTree, p string) *TypographyStyleEntryID {
 		return newTypographyStyleEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) UICOEN_COMP_LST() *som.SomListMetaRef[*UiComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/uiComponents/UICOEN-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
 		return newUiComponentEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) CMFA_COMP_LST() *som.SomListMetaRef[*ComponentFamilyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/uiComponents/CMFA-COMP-LST", func(t *som.SomMetaTree, p string) *ComponentFamilyEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", func(t *som.SomMetaTree, p string) *ComponentFamilyEntryID {
 		return newComponentFamilyEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) MLAR_MULT() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/multiLanguageSupport/MLAR-MULT"}
+func (x *D00SolutionBlueprintID) DGOEN_ITEM_LST() *som.SomListMetaRef[*DesignGoalEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DesignGoalEntryID {
+		return newDesignGoalEntryID(t, p)
+	})
 }
 
-func (x *D00SolutionBlueprintID) LACOSE_LANG() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LACOSE-LANG"}
+func (x *D00SolutionBlueprintID) DPEN_ITEM_LST() *som.SomListMetaRef[*DesignPrincipleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/designVision/designPrinciples/DPEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DesignPrincipleEntryID {
+		return newDesignPrincipleEntryID(t, p)
+	})
 }
 
-func (x *D00SolutionBlueprintID) LCSD() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSD"}
+func (x *D00SolutionBlueprintID) PEREN_ITEM_LST() *som.SomListMetaRef[*PersonaEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/designVision/personas/PEREN-ITEM-LST", func(t *som.SomMetaTree, p string) *PersonaEntryID {
+		return newPersonaEntryID(t, p)
+	})
 }
 
-func (x *D00SolutionBlueprintID) LCSP() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSP"}
+func (x *D00SolutionBlueprintID) PLPS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PLPS"}
 }
 
-func (x *D00SolutionBlueprintID) LCSF() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSF"}
+func (x *D00SolutionBlueprintID) PRLABR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLABR"}
 }
 
-func (x *D00SolutionBlueprintID) LCSU() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSU"}
+func (x *D00SolutionBlueprintID) PRLAWA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAWA"}
 }
 
-func (x *D00SolutionBlueprintID) SULOEN_SUPP_LST() *som.SomListMetaRef[*SupportedLocaleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/multiLanguageSupport/SULOEN-SUPP-LST", func(t *som.SomMetaTree, p string) *SupportedLocaleEntryID {
-		return newSupportedLocaleEntryID(t, p)
+func (x *D00SolutionBlueprintID) PLHF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PLHF"}
+}
+
+func (x *D00SolutionBlueprintID) PRLAAR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR"}
+}
+
+func (x *D00SolutionBlueprintID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
+		return newReportEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) EXFOEN_EXPO_LST() *som.SomListMetaRef[*ExportFormatEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryID {
+		return newExportFormatEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) EXTEEN_EXPO_LST() *som.SomListMetaRef[*ExportTemplateEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryID {
+		return newExportTemplateEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) USAS_HELP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/USAS-HELP"}
+}
+
+func (x *D00SolutionBlueprintID) USASDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/USASDE"}
+}
+
+func (x *D00SolutionBlueprintID) USASIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/USASIN"}
+}
+
+func (x *D00SolutionBlueprintID) COHE_CONT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHE-CONT"}
+}
+
+func (x *D00SolutionBlueprintID) COHEIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHEIN"}
+}
+
+func (x *D00SolutionBlueprintID) COHEPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHEPA"}
+}
+
+func (x *D00SolutionBlueprintID) CHWT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/CHWT"}
+}
+
+func (x *D00SolutionBlueprintID) COHERI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHERI"}
+}
+
+func (x *D00SolutionBlueprintID) FLDHP_FIEL_LST() *som.SomListMetaRef[*FieldHelpEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/FLDHP-FIEL-LST", func(t *som.SomMetaTree, p string) *FieldHelpEntryID {
+		return newFieldHelpEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) ONHE_ONBO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHE-ONBO"}
+}
+
+func (x *D00SolutionBlueprintID) ONHETO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHETO"}
+}
+
+func (x *D00SolutionBlueprintID) OHSD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/OHSD"}
+}
+
+func (x *D00SolutionBlueprintID) ONHECH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHECH"}
+}
+
+func (x *D00SolutionBlueprintID) ONHEDI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHEDI"}
+}
+
+func (x *D00SolutionBlueprintID) ONHERE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHERE"}
+}
+
+func (x *D00SolutionBlueprintID) FTRTUR_FEAT_LST() *som.SomListMetaRef[*FeatureTourEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/FTRTUR-FEAT-LST", func(t *som.SomMetaTree, p string) *FeatureTourEntryID {
+		return newFeatureTourEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) SUAC_SUPP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SUAC-SUPP"}
+}
+
+func (x *D00SolutionBlueprintID) SAHC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SAHC"}
+}
+
+func (x *D00SolutionBlueprintID) SALS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SALS"}
+}
+
+func (x *D00SolutionBlueprintID) SUACTI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SUACTI"}
+}
+
+func (x *D00SolutionBlueprintID) SACM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SACM"}
+}
+
+func (x *D00SolutionBlueprintID) SASS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SASS"}
+}
+
+func (x *D00SolutionBlueprintID) ACCESS_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/ACCESS-ACCE"}
+}
+
+func (x *D00SolutionBlueprintID) ACSTGY() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/ACSTGY"}
+}
+
+func (x *D00SolutionBlueprintID) ACTE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/ACTE"}
+}
+
+func (x *D00SolutionBlueprintID) ACSU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/ACSU"}
+}
+
+func (x *D00SolutionBlueprintID) WCCO_WCAG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCO-WCAG"}
+}
+
+func (x *D00SolutionBlueprintID) WCCOOP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOOP"}
+}
+
+func (x *D00SolutionBlueprintID) WCCOUN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOUN"}
+}
+
+func (x *D00SolutionBlueprintID) WCCORO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO"}
+}
+
+func (x *D00SolutionBlueprintID) WSCE_SUCC_LST() *som.SomListMetaRef[*WcagSuccessCriterionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryID {
+		return newWcagSuccessCriterionEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) ACCHLS_CHEC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCHLS-CHEC"}
+}
+
+func (x *D00SolutionBlueprintID) ACCH_ITEM_LST() *som.SomListMetaRef[*AccessibilityCheckEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCH-ITEM-LST", func(t *som.SomMetaTree, p string) *AccessibilityCheckEntryID {
+		return newAccessibilityCheckEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PROTOT_PROT() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/PROTOT-PROT"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/PROTOT-PROT"}
 }
 
 func (x *D00SolutionBlueprintID) PRTI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/PRTI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/PRTI"}
 }
 
 func (x *D00SolutionBlueprintID) PRORES() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/PRORES"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/PRORES"}
 }
 
 func (x *D00SolutionBlueprintID) PRGO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/PRGO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/PRGO"}
 }
 
 func (x *D00SolutionBlueprintID) PG_GOAL() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PG-GOAL"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PG-GOAL"}
 }
 
 func (x *D00SolutionBlueprintID) PRGORI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGORI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGORI"}
 }
 
 func (x *D00SolutionBlueprintID) PRGOFE() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOFE"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE"}
 }
 
 func (x *D00SolutionBlueprintID) PRGOEN_GOAL_LST() *som.SomListMetaRef[*PrototypeGoalEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOEN-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryID {
 		return newPrototypeGoalEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PRFESU_FEAT() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/featureSubset/PRFESU-FEAT"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFESU-FEAT"}
 }
 
 func (x *D00SolutionBlueprintID) PFSS() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/featureSubset/PFSS"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSS"}
 }
 
 func (x *D00SolutionBlueprintID) PFSF() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/featureSubset/PFSF"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF"}
 }
 
 func (x *D00SolutionBlueprintID) PRFEEN_FEAT_LST() *som.SomListMetaRef[*PrototypeFeatureEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/prototype/featureSubset/PRFEEN-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryID {
 		return newPrototypeFeatureEntryID(t, p)
 	})
 }
 
 func (x *D00SolutionBlueprintID) PRTYSE_PROT() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/PRTYSE-PROT"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/PRTYSE-PROT"}
 }
 
 func (x *D00SolutionBlueprintID) REUPRO_REUS() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REUPRO-REUS"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REUPRO-REUS"}
 }
 
 func (x *D00SolutionBlueprintID) REPRAR() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRAR"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRAR"}
 }
 
 func (x *D00SolutionBlueprintID) REPRIN() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRIN"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRIN"}
 }
 
 func (x *D00SolutionBlueprintID) REPRTR() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRTR"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRTR"}
 }
 
 func (x *D00SolutionBlueprintID) TP_TRAI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TP-TRAI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TP-TRAI"}
 }
 
 func (x *D00SolutionBlueprintID) TRPRDI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TRPRDI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TRPRDI"}
 }
 
 func (x *D00SolutionBlueprintID) TRPROU() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TRPROU"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TRPROU"}
 }
 
 func (x *D00SolutionBlueprintID) THPR_THRO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPR-THRO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPR-THRO"}
 }
 
 func (x *D00SolutionBlueprintID) THPRFI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRFI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRFI"}
 }
 
 func (x *D00SolutionBlueprintID) THPRDI() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRDI"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRDI"}
 }
 
 func (x *D00SolutionBlueprintID) THPRVA() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRVA"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRVA"}
+}
+
+func (x *D00SolutionBlueprintID) MLAR_MULT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/MLAR-MULT"}
+}
+
+func (x *D00SolutionBlueprintID) LACOSE_LANG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LACOSE-LANG"}
+}
+
+func (x *D00SolutionBlueprintID) LCSD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSD"}
+}
+
+func (x *D00SolutionBlueprintID) LCSP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSP"}
+}
+
+func (x *D00SolutionBlueprintID) LCSF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSF"}
+}
+
+func (x *D00SolutionBlueprintID) LCSU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU"}
+}
+
+func (x *D00SolutionBlueprintID) SULOEN_SUPP_LST() *som.SomListMetaRef[*SupportedLocaleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST", func(t *som.SomMetaTree, p string) *SupportedLocaleEntryID {
+		return newSupportedLocaleEntryID(t, p)
+	})
 }
 
 func (x *D00SolutionBlueprintID) SYQG_GOVE() *som.SomMetaRef {
@@ -67431,6 +67916,3163 @@ func (x *D12TransitionRolloutPlanID) TRMOEN_TRAI_LST() *som.SomListMetaRef[*Trai
 	})
 }
 
+// D13CodeSpecsProjectionID holds the ID-tree accessors of `D13CodeSpecsProjection` (DR1 §4.2): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type D13CodeSpecsProjectionID struct {
+	som.SomMetaRef
+}
+
+// newD13CodeSpecsProjectionID binds a D13CodeSpecsProjectionID accessor to a tree and a path.
+func newD13CodeSpecsProjectionID(tree *som.SomMetaTree, path string) *D13CodeSpecsProjectionID {
+	return &D13CodeSpecsProjectionID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *D13CodeSpecsProjectionID) DMENE_ENUM_LST() *som.SomListMetaRef[*DomainEnumEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/domainEnumRegistry/DMENE-ENUM-LST", func(t *som.SomMetaTree, p string) *DomainEnumEntryID {
+		return newDomainEnumEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ERCEN_CODE_LST() *som.SomListMetaRef[*ErrorCodeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorCodeRegistry/ERCEN-CODE-LST", func(t *som.SomMetaTree, p string) *ErrorCodeEntryID {
+		return newErrorCodeEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) RSFDE_FLDD_LST() *som.SomListMetaRef[*ResultFieldDetailEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/resultEnvelope/RSFDE-FLDD-LST", func(t *som.SomMetaTree, p string) *ResultFieldDetailEntryID {
+		return newResultFieldDetailEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MSGKE_MKEY_LST() *som.SomListMetaRef[*MessageKeyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/messageKeyRegistry/MSGKE-MKEY-LST", func(t *som.SomMetaTree, p string) *MessageKeyEntryID {
+		return newMessageKeyEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DAENT_ENTI_LST() *som.SomListMetaRef[*DataEntityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataModel/DAENT-ENTI-LST", func(t *som.SomMetaTree, p string) *DataEntityEntryID {
+		return newDataEntityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ENRLE_ITEM_LST() *som.SomListMetaRef[*EntityRelationshipEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataModel/entityRelationships/ENRLE-ITEM-LST", func(t *som.SomMetaTree, p string) *EntityRelationshipEntryID {
+		return newEntityRelationshipEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DATCL_OVER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataModel/dataClassification/DATCL-OVER"}
+}
+
+func (x *D13CodeSpecsProjectionID) DCLSE_ITEM_LST() *som.SomListMetaRef[*DataClassificationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataModel/dataClassification/DCLSE-ITEM-LST", func(t *som.SomMetaTree, p string) *DataClassificationEntryID {
+		return newDataClassificationEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) TGPLT_TARG_LST() *som.SomListMetaRef[*TargetPlatformEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/TGPLT-TARG-LST", func(t *som.SomMetaTree, p string) *TargetPlatformEntryID {
+		return newTargetPlatformEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) PLGEN_PROG_LST() *som.SomListMetaRef[*ProgrammingLanguageEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST", func(t *som.SomMetaTree, p string) *ProgrammingLanguageEntryID {
+		return newProgrammingLanguageEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) FWREN_FRAM_LST() *som.SomListMetaRef[*FrameworkRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryID {
+		return newFrameworkRequirementEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) BTCEN_BUIL_LST() *som.SomListMetaRef[*BuildToolchainEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", func(t *som.SomMetaTree, p string) *BuildToolchainEntryID {
+		return newBuildToolchainEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DETAEN_DEPL_LST() *som.SomListMetaRef[*DeploymentTargetEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryID {
+		return newDeploymentTargetEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DEMAVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAVE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DEMASE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMASE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DEMAIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAIN"}
+}
+
+func (x *D13CodeSpecsProjectionID) DEMAOP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAOP"}
+}
+
+func (x *D13CodeSpecsProjectionID) RUENME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENME"}
+}
+
+func (x *D13CodeSpecsProjectionID) RUENCP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENCP"}
+}
+
+func (x *D13CodeSpecsProjectionID) RUENST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENST"}
+}
+
+func (x *D13CodeSpecsProjectionID) RUENNE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENNE"}
+}
+
+func (x *D13CodeSpecsProjectionID) RUENVA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENVA"}
+}
+
+func (x *D13CodeSpecsProjectionID) RUENDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENDE"}
+}
+
+func (x *D13CodeSpecsProjectionID) RUENSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) RUENNO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENNO"}
+}
+
+func (x *D13CodeSpecsProjectionID) AROVDR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/overview/AROVDR"}
+}
+
+func (x *D13CodeSpecsProjectionID) AOTO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/overview/AOTO"}
+}
+
+func (x *D13CodeSpecsProjectionID) AROVEV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/overview/AROVEV"}
+}
+
+func (x *D13CodeSpecsProjectionID) AROVCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/overview/AROVCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) ARPR_PRIN_LST() *som.SomListMetaRef[*ArchitecturePrincipleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/architectureStyle/ARPR-PRIN-LST", func(t *som.SomMetaTree, p string) *ArchitecturePrincipleEntryID {
+		return newArchitecturePrincipleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) COORLA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORLA"}
+}
+
+func (x *D13CodeSpecsProjectionID) COORDO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDO"}
+}
+
+func (x *D13CodeSpecsProjectionID) COORCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) COORDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDE"}
+}
+
+func (x *D13CodeSpecsProjectionID) ARCM_COMP_LST() *som.SomListMetaRef[*ArchitectureComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST", func(t *som.SomMetaTree, p string) *ArchitectureComponentEntryID {
+		return newArchitectureComponentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) COPASY() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY"}
+}
+
+func (x *D13CodeSpecsProjectionID) COPAAS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAAS"}
+}
+
+func (x *D13CodeSpecsProjectionID) CPDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/CPDE"}
+}
+
+func (x *D13CodeSpecsProjectionID) COPARE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPARE"}
+}
+
+func (x *D13CodeSpecsProjectionID) COPAOB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAOB"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAARST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARST"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAARAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARAC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAARCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAARLI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARLI"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAARSE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARSE"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCARCA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARCA"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCARTA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARTA"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCARPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCAROP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCAROP"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCARTE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARTE"}
+}
+
+func (x *D13CodeSpecsProjectionID) INARSY() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARSY"}
+}
+
+func (x *D13CodeSpecsProjectionID) INARDA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARDA"}
+}
+
+func (x *D13CodeSpecsProjectionID) INARSE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARSE"}
+}
+
+func (x *D13CodeSpecsProjectionID) INARRE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARRE"}
+}
+
+func (x *D13CodeSpecsProjectionID) INAROP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INAROP"}
+}
+
+func (x *D13CodeSpecsProjectionID) DETOIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOIN"}
+}
+
+func (x *D13CodeSpecsProjectionID) DETOEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOEN"}
+}
+
+func (x *D13CodeSpecsProjectionID) DETOAV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOAV"}
+}
+
+func (x *D13CodeSpecsProjectionID) DETOGE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOGE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DTIAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DTIAC"}
+}
+
+func (x *D13CodeSpecsProjectionID) ARDE_DECI_LST() *som.SomListMetaRef[*ArchitectureDecisionRecordID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/architectureStyle/ARDE-DECI-LST", func(t *som.SomMetaTree, p string) *ArchitectureDecisionRecordID {
+		return newArchitectureDecisionRecordID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DSPT_DESI_LST() *som.SomListMetaRef[*DesignPatternEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST", func(t *som.SomMetaTree, p string) *DesignPatternEntryID {
+		return newDesignPatternEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) COSTEN_CODI_LST() *som.SomListMetaRef[*CodingStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryID {
+		return newCodingStandardEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DECOEN_DEVE_LST() *som.SomListMetaRef[*DevelopmentConventionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryID {
+		return newDevelopmentConventionEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) INSTEN_INDU_LST() *som.SomListMetaRef[*IndustryStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryID {
+		return newIndustryStandardEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) CQMC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMC"}
+}
+
+func (x *D13CodeSpecsProjectionID) COQUMECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/COQUMECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) CQMD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMD"}
+}
+
+func (x *D13CodeSpecsProjectionID) CQMSA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMSA"}
+}
+
+func (x *D13CodeSpecsProjectionID) CQMT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMT"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSCD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DSCD"}
+}
+
+func (x *D13CodeSpecsProjectionID) DOSTCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DOSTAR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTAR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DOSTVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTVE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DOSTPR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTPR"}
+}
+
+func (x *D13CodeSpecsProjectionID) EHSE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSE"}
+}
+
+func (x *D13CodeSpecsProjectionID) EHSP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSP"}
+}
+
+func (x *D13CodeSpecsProjectionID) EHSR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSR"}
+}
+
+func (x *D13CodeSpecsProjectionID) EHSUC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSUC"}
+}
+
+func (x *D13CodeSpecsProjectionID) ERHASTRE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/ERHASTRE"}
+}
+
+func (x *D13CodeSpecsProjectionID) TESTOR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTOR"}
+}
+
+func (x *D13CodeSpecsProjectionID) TESTPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) TESTQU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTQU"}
+}
+
+func (x *D13CodeSpecsProjectionID) TESTTO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO"}
+}
+
+func (x *D13CodeSpecsProjectionID) SOLAEN_SOFT_LST() *som.SomListMetaRef[*SoftwareLayerEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryID {
+		return newSoftwareLayerEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) LCRI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRI"}
+}
+
+func (x *D13CodeSpecsProjectionID) LCRF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRF"}
+}
+
+func (x *D13CodeSpecsProjectionID) LCRG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG"}
+}
+
+func (x *D13CodeSpecsProjectionID) BOCOEN_BOUN_LST() *som.SomListMetaRef[*BoundedContextEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryID {
+		return newBoundedContextEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) PAORST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORST"}
+}
+
+func (x *D13CodeSpecsProjectionID) PAORTY() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORTY"}
+}
+
+func (x *D13CodeSpecsProjectionID) PAORDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDE"}
+}
+
+func (x *D13CodeSpecsProjectionID) PAORDO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO"}
+}
+
+func (x *D13CodeSpecsProjectionID) MOEN1_MODU_LST() *som.SomListMetaRef[*ModuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryID {
+		return newModuleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SHLIB_SHAR_LST() *som.SomListMetaRef[*SharedLibraryEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryID {
+		return newSharedLibraryEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DISR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DISB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISB"}
+}
+
+func (x *D13CodeSpecsProjectionID) DISC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DIST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DIST"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCE"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCCS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCS"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCCC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCC"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRCUCOSH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CRCUCOSH"}
+}
+
+func (x *D13CodeSpecsProjectionID) FTRMOD_FEAT_LST() *som.SomListMetaRef[*FeatureModuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/FTRMOD-FEAT-LST", func(t *som.SomMetaTree, p string) *FeatureModuleEntryID {
+		return newFeatureModuleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MVSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) MVSRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) MVSD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSD"}
+}
+
+func (x *D13CodeSpecsProjectionID) MOVESTCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) IDREEN_IDER_LST() *som.SomListMetaRef[*IdeRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryID {
+		return newIdeRequirementEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) BTCBS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCBS"}
+}
+
+func (x *D13CodeSpecsProjectionID) BTCC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCC"}
+}
+
+func (x *D13CodeSpecsProjectionID) BTCS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCS"}
+}
+
+func (x *D13CodeSpecsProjectionID) BTCA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCA"}
+}
+
+func (x *D13CodeSpecsProjectionID) VCCR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCR"}
+}
+
+func (x *D13CodeSpecsProjectionID) VCCB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCB"}
+}
+
+func (x *D13CodeSpecsProjectionID) VCCC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCC"}
+}
+
+func (x *D13CodeSpecsProjectionID) VCCM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM"}
+}
+
+func (x *D13CodeSpecsProjectionID) PISTEN_STAG_LST() *som.SomListMetaRef[*PipelineStageEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryID {
+		return newPipelineStageEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) PIJOEN_JOBS_LST() *som.SomListMetaRef[*PipelineJobEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryID {
+		return newPipelineJobEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DEENEN_ENVI_LST() *som.SomListMetaRef[*DeploymentEnvironmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryID {
+		return newDeploymentEnvironmentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) CRPR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPR"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRPW() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPW"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRPM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPM"}
+}
+
+func (x *D13CodeSpecsProjectionID) LDSW() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSW"}
+}
+
+func (x *D13CodeSpecsProjectionID) LDSD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSD"}
+}
+
+func (x *D13CodeSpecsProjectionID) LDSR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSR"}
+}
+
+func (x *D13CodeSpecsProjectionID) LDST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDST"}
+}
+
+func (x *D13CodeSpecsProjectionID) LODESETR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LODESETR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DECOBR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOBR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DECOLO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOLO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DECOIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOIN"}
+}
+
+func (x *D13CodeSpecsProjectionID) DECOFL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOFL"}
+}
+
+func (x *D13CodeSpecsProjectionID) DECOER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOER"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENMACO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMACO"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENMASE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMASE"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENMASW() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMASW"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENMAPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMAPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) DEONSE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONSE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DEONAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONAC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DEONLE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONLE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DOFT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DOFT"}
+}
+
+func (x *D13CodeSpecsProjectionID) DEONVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONVE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DQGC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DEQUGACO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DEQUGACO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DQGS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGS"}
+}
+
+func (x *D13CodeSpecsProjectionID) DQGD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGD"}
+}
+
+func (x *D13CodeSpecsProjectionID) DQGP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGP"}
+}
+
+func (x *D13CodeSpecsProjectionID) REPRAB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/principles/REPRAB"}
+}
+
+func (x *D13CodeSpecsProjectionID) REPRQU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/principles/REPRQU"}
+}
+
+func (x *D13CodeSpecsProjectionID) REPRVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/principles/REPRVE"}
+}
+
+func (x *D13CodeSpecsProjectionID) REPROW() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/principles/REPROW"}
+}
+
+func (x *D13CodeSpecsProjectionID) SHLCP_SHAR_LST() *som.SomListMetaRef[*SharedLibraryComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryComponentEntryID {
+		return newSharedLibraryComponentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) RUICMP_UICO_LST() *som.SomListMetaRef[*ReusableUiComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryID {
+		return newReusableUiComponentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) BUCOEN_BUSI_LST() *som.SomListMetaRef[*BusinessComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryID {
+		return newBusinessComponentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) INCOEN_INFR_LST() *som.SomListMetaRef[*InfrastructureComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryID {
+		return newInfrastructureComponentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) THPALI_THIR_LST() *som.SomListMetaRef[*ThirdPartyLibraryEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/THPALI-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyLibraryEntryID {
+		return newThirdPartyLibraryEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) COGOCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/governance/COGOCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) COGOQU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/governance/COGOQU"}
+}
+
+func (x *D13CodeSpecsProjectionID) COGOLI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/governance/COGOLI"}
+}
+
+func (x *D13CodeSpecsProjectionID) COGOME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/governance/COGOME"}
+}
+
+func (x *D13CodeSpecsProjectionID) COREME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREME"}
+}
+
+func (x *D13CodeSpecsProjectionID) COREDI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREDI"}
+}
+
+func (x *D13CodeSpecsProjectionID) COREDO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREDO"}
+}
+
+func (x *D13CodeSpecsProjectionID) COREUP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREUP"}
+}
+
+func (x *D13CodeSpecsProjectionID) OSCOEN_OSCO_LST() *som.SomListMetaRef[*OsCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryID {
+		return newOsCompatibilityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) BRCOEN_BROW_LST() *som.SomListMetaRef[*BrowserCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryID {
+		return newBrowserCompatibilityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DACOEN_DATA_LST() *som.SomListMetaRef[*DatabaseCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryID {
+		return newDatabaseCompatibilityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ESCE_ENTE_LST() *som.SomListMetaRef[*EnterpriseSystemCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryID {
+		return newEnterpriseSystemCompatibilityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) APCP_APIC_LST() *som.SomListMetaRef[*ApiCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST", func(t *som.SomMetaTree, p string) *ApiCompatibilityEntryID {
+		return newApiCompatibilityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) LECOEN_LEGA_LST() *som.SomListMetaRef[*LegacyCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryID {
+		return newLegacyCompatibilityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MOCOEN_MOBI_LST() *som.SomListMetaRef[*MobileCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryID {
+		return newMobileCompatibilityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) TPCE_THIR_LST() *som.SomListMetaRef[*ThirdPartyCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryID {
+		return newThirdPartyCompatibilityEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DFCF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCF"}
+}
+
+func (x *D13CodeSpecsProjectionID) DFCDT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCDT"}
+}
+
+func (x *D13CodeSpecsProjectionID) DFCN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCN"}
+}
+
+func (x *D13CodeSpecsProjectionID) DFCL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCL"}
+}
+
+func (x *D13CodeSpecsProjectionID) BCRD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRD"}
+}
+
+func (x *D13CodeSpecsProjectionID) BCRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) BACOREDA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BACOREDA"}
+}
+
+func (x *D13CodeSpecsProjectionID) BCRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) IRDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/IRDE"}
+}
+
+func (x *D13CodeSpecsProjectionID) INREST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREST"}
+}
+
+func (x *D13CodeSpecsProjectionID) INRETE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INRETE"}
+}
+
+func (x *D13CodeSpecsProjectionID) INREGO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO"}
+}
+
+func (x *D13CodeSpecsProjectionID) ISCE_ITST_LST() *som.SomListMetaRef[*ItStandardComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryID {
+		return newItStandardComplianceEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) IPCE_INDU_LST() *som.SomListMetaRef[*IndustryProtocolComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryID {
+		return newIndustryProtocolComplianceEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) INSPEN_INTE_LST() *som.SomListMetaRef[*InterfaceSpecificationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryID {
+		return newInterfaceSpecificationEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) RECOEN_REGU_LST() *som.SomListMetaRef[*RegulatoryComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryID {
+		return newRegulatoryComplianceEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SSCE_SECU_LST() *som.SomListMetaRef[*SecurityStandardComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryID {
+		return newSecurityStandardComplianceEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ACCSTD_ACCE_LST() *som.SomListMetaRef[*AccessibilityStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/ACCSTD-ACCE-LST", func(t *som.SomMetaTree, p string) *AccessibilityStandardEntryID {
+		return newAccessibilityStandardEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) QLSTD_QUAL_LST() *som.SomListMetaRef[*QualityStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/QLSTD-QUAL-LST", func(t *som.SomMetaTree, p string) *QualityStandardEntryID {
+		return newQualityStandardEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DSST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSST"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSSU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSU"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSSP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSP"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSSQ() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSQ"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSSF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSF"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSSN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSN"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSSQ() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSQ"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSSP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSP"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSSR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSR"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRSP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSP"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRST"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRSM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSM"}
+}
+
+func (x *D13CodeSpecsProjectionID) CVSR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSR"}
+}
+
+func (x *D13CodeSpecsProjectionID) CVST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVST"}
+}
+
+func (x *D13CodeSpecsProjectionID) CVSA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSA"}
+}
+
+func (x *D13CodeSpecsProjectionID) COVESERE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/COVESERE"}
+}
+
+func (x *D13CodeSpecsProjectionID) CVSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) SEENEN_ENVI_LST() *som.SomListMetaRef[*ServerEnvironmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryID {
+		return newServerEnvironmentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SEROEN_SERV_LST() *som.SomListMetaRef[*ServerRoleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryID {
+		return newServerRoleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) CRRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/computeResources/CRRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRRG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/computeResources/CRRG"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/computeResources/CRRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) SSRD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/storageRequirements/SSRD"}
+}
+
+func (x *D13CodeSpecsProjectionID) SSRFS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/storageRequirements/SSRFS"}
+}
+
+func (x *D13CodeSpecsProjectionID) SSRB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/storageRequirements/SSRB"}
+}
+
+func (x *D13CodeSpecsProjectionID) SSRP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/storageRequirements/SSRP"}
+}
+
+func (x *D13CodeSpecsProjectionID) LPRRL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/loadProfile/LPRRL"}
+}
+
+func (x *D13CodeSpecsProjectionID) LPRP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/loadProfile/LPRP"}
+}
+
+func (x *D13CodeSpecsProjectionID) LPRPT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/loadProfile/LPRPT"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCREHO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/scalingRequirements/SCREHO"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCREVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/scalingRequirements/SCREVE"}
+}
+
+func (x *D13CodeSpecsProjectionID) SRAS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/scalingRequirements/SRAS"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCRECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/scalingRequirements/SCRECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) HARR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/highAvailability/HARR"}
+}
+
+func (x *D13CodeSpecsProjectionID) HARF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/highAvailability/HARF"}
+}
+
+func (x *D13CodeSpecsProjectionID) HARLB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/highAvailability/HARLB"}
+}
+
+func (x *D13CodeSpecsProjectionID) HARDR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/highAvailability/HARDR"}
+}
+
+func (x *D13CodeSpecsProjectionID) VIREVM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/virtualization/VIREVM"}
+}
+
+func (x *D13CodeSpecsProjectionID) VIRECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/virtualization/VIRECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) VIREKU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/virtualization/VIREKU"}
+}
+
+func (x *D13CodeSpecsProjectionID) VIRENE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/virtualization/VIRENE"}
+}
+
+func (x *D13CodeSpecsProjectionID) CPRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/cloudProvider/CPRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) CPRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/cloudProvider/CPRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) CPRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/cloudProvider/CPRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) CPRG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/cloudProvider/CPRG"}
+}
+
+func (x *D13CodeSpecsProjectionID) SORH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORH"}
+}
+
+func (x *D13CodeSpecsProjectionID) SORS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORS"}
+}
+
+func (x *D13CodeSpecsProjectionID) SORM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORM"}
+}
+
+func (x *D13CodeSpecsProjectionID) SORL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORL"}
+}
+
+func (x *D13CodeSpecsProjectionID) BRREEN_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
+		return newBrowserRequirementEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DORE1_DESK_LST() *som.SomListMetaRef[*DesktopOsRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryID {
+		return newDesktopOsRequirementEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MDRE_MOBI_LST() *som.SomListMetaRef[*MobileDeviceRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryID {
+		return newMobileDeviceRequirementEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DIRELA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/displayRequirements/DIRELA"}
+}
+
+func (x *D13CodeSpecsProjectionID) DIRESC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/displayRequirements/DIRESC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DIREC1() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/displayRequirements/DIREC1"}
+}
+
+func (x *D13CodeSpecsProjectionID) DRMD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/displayRequirements/DRMD"}
+}
+
+func (x *D13CodeSpecsProjectionID) CNRL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/networkRequirements/CNRL"}
+}
+
+func (x *D13CodeSpecsProjectionID) CNRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/networkRequirements/CNRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) CNRP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/networkRequirements/CNRP"}
+}
+
+func (x *D13CodeSpecsProjectionID) CLNEREPR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/networkRequirements/CLNEREPR"}
+}
+
+func (x *D13CodeSpecsProjectionID) CHRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) CHRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) CHRG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRG"}
+}
+
+func (x *D13CodeSpecsProjectionID) CHRP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRP"}
+}
+
+func (x *D13CodeSpecsProjectionID) CARV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARV"}
+}
+
+func (x *D13CodeSpecsProjectionID) CARM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARM"}
+}
+
+func (x *D13CodeSpecsProjectionID) CARC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARC"}
+}
+
+func (x *D13CodeSpecsProjectionID) CARS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARS"}
+}
+
+func (x *D13CodeSpecsProjectionID) PWREIC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREIC"}
+}
+
+func (x *D13CodeSpecsProjectionID) PWREIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREIN"}
+}
+
+func (x *D13CodeSpecsProjectionID) PWREOF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREOF"}
+}
+
+func (x *D13CodeSpecsProjectionID) PWREUP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREUP"}
+}
+
+func (x *D13CodeSpecsProjectionID) NARS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARS"}
+}
+
+func (x *D13CodeSpecsProjectionID) NARV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARV"}
+}
+
+func (x *D13CodeSpecsProjectionID) NARP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARP"}
+}
+
+func (x *D13CodeSpecsProjectionID) NARL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARL"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSRD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRD"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSRN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRN"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSRCP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP"}
+}
+
+func (x *D13CodeSpecsProjectionID) INRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/internalNetwork/INRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) INRR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/internalNetwork/INRR"}
+}
+
+func (x *D13CodeSpecsProjectionID) INRIS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/internalNetwork/INRIS"}
+}
+
+func (x *D13CodeSpecsProjectionID) INRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/internalNetwork/INRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENRP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/externalNetwork/ENRP"}
+}
+
+func (x *D13CodeSpecsProjectionID) EXNEREPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/externalNetwork/EXNEREPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/externalNetwork/ENRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/externalNetwork/ENRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAREDI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BAREDI"}
+}
+
+func (x *D13CodeSpecsProjectionID) BARECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BARECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) BARETR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BARETR"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAREQO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BAREQO"}
+}
+
+func (x *D13CodeSpecsProjectionID) NLRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) NLRG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRG"}
+}
+
+func (x *D13CodeSpecsProjectionID) NELAREST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/latencyRequirements/NELAREST"}
+}
+
+func (x *D13CodeSpecsProjectionID) NLRO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRO"}
+}
+
+func (x *D13CodeSpecsProjectionID) NARR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NARR"}
+}
+
+func (x *D13CodeSpecsProjectionID) NARF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NARF"}
+}
+
+func (x *D13CodeSpecsProjectionID) NEAVRERE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NEAVRERE"}
+}
+
+func (x *D13CodeSpecsProjectionID) NART() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART"}
+}
+
+func (x *D13CodeSpecsProjectionID) VPREEN_VPNR_LST() *som.SomListMetaRef[*VpnRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryID {
+		return newVpnRequirementEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) FIRERU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/firewallRequirements/FIRERU"}
+}
+
+func (x *D13CodeSpecsProjectionID) FIREPO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREPO"}
+}
+
+func (x *D13CodeSpecsProjectionID) FIREAD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREAD"}
+}
+
+func (x *D13CodeSpecsProjectionID) FIRELO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/firewallRequirements/FIRELO"}
+}
+
+func (x *D13CodeSpecsProjectionID) GDRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) GDRR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRR"}
+}
+
+func (x *D13CodeSpecsProjectionID) GDRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) GDRP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRP"}
+}
+
+func (x *D13CodeSpecsProjectionID) DNREZO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/dnsRequirements/DNREZO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DNRERE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/dnsRequirements/DNRERE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DNREAV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/dnsRequirements/DNREAV"}
+}
+
+func (x *D13CodeSpecsProjectionID) DRHC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/dnsRequirements/DRHC"}
+}
+
+func (x *D13CodeSpecsProjectionID) NLBRR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRR"}
+}
+
+func (x *D13CodeSpecsProjectionID) NLBRHC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRHC"}
+}
+
+func (x *D13CodeSpecsProjectionID) NLBRT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRT"}
+}
+
+func (x *D13CodeSpecsProjectionID) NLBRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) NSRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/networkSecurity/NSRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) NSRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/networkSecurity/NSRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) NSRD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/networkSecurity/NSRD"}
+}
+
+func (x *D13CodeSpecsProjectionID) NSRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/networkSecurity/NSRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) BDCC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/dataClassification/BDCC"}
+}
+
+func (x *D13CodeSpecsProjectionID) BDCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAPOEN_BACK_LST() *som.SomListMetaRef[*BackupPolicyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryID {
+		return newBackupPolicyEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) RRRBT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRBT"}
+}
+
+func (x *D13CodeSpecsProjectionID) RRRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) RRRD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRD"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAINST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/infrastructure/BAINST"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAINSO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/infrastructure/BAINSO"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAINNE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/infrastructure/BAINNE"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAINSE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/infrastructure/BAINSE"}
+}
+
+func (x *D13CodeSpecsProjectionID) REPRDA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRDA"}
+}
+
+func (x *D13CodeSpecsProjectionID) REPRAP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRAP"}
+}
+
+func (x *D13CodeSpecsProjectionID) REPRAU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRAU"}
+}
+
+func (x *D13CodeSpecsProjectionID) REPRVA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRVA"}
+}
+
+func (x *D13CodeSpecsProjectionID) DRRF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRF"}
+}
+
+func (x *D13CodeSpecsProjectionID) DIREREFA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/disasterRecovery/DIREREFA"}
+}
+
+func (x *D13CodeSpecsProjectionID) DRRR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DRRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAVERE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/verification/BAVERE"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAVEEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/verification/BAVEEN"}
+}
+
+func (x *D13CodeSpecsProjectionID) BAVEDO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/verification/BAVEDO"}
+}
+
+func (x *D13CodeSpecsProjectionID) BACOAU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/compliance/BACOAU"}
+}
+
+func (x *D13CodeSpecsProjectionID) BACOR1() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/compliance/BACOR1"}
+}
+
+func (x *D13CodeSpecsProjectionID) BCLH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/compliance/BCLH"}
+}
+
+func (x *D13CodeSpecsProjectionID) DMRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DMRR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DMRN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRN"}
+}
+
+func (x *D13CodeSpecsProjectionID) DMRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENSTDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTDE"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENSTTE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTTE"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENSTST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTST"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENSTPR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTPR"}
+}
+
+func (x *D13CodeSpecsProjectionID) ENSTEP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTEP"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCPRB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRB"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCPRQ() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRQ"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCPRD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRD"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCPRN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRN"}
+}
+
+func (x *D13CodeSpecsProjectionID) RSBG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/releaseStrategy/RSBG"}
+}
+
+func (x *D13CodeSpecsProjectionID) RESTCA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/releaseStrategy/RESTCA"}
+}
+
+func (x *D13CodeSpecsProjectionID) RSFF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/releaseStrategy/RSFF"}
+}
+
+func (x *D13CodeSpecsProjectionID) RESTMA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/releaseStrategy/RESTMA"}
+}
+
+func (x *D13CodeSpecsProjectionID) ROSTTR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTTR"}
+}
+
+func (x *D13CodeSpecsProjectionID) ROSTHE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTHE"}
+}
+
+func (x *D13CodeSpecsProjectionID) ROSTTA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTTA"}
+}
+
+func (x *D13CodeSpecsProjectionID) ROSTDA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTDA"}
+}
+
+func (x *D13CodeSpecsProjectionID) ROSTOP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTOP"}
+}
+
+func (x *D13CodeSpecsProjectionID) COMAEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAEN"}
+}
+
+func (x *D13CodeSpecsProjectionID) COMAIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAIN"}
+}
+
+func (x *D13CodeSpecsProjectionID) COMAFE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAFE"}
+}
+
+func (x *D13CodeSpecsProjectionID) COMASE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/configurationManagement/COMASE"}
+}
+
+func (x *D13CodeSpecsProjectionID) IACS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACS"}
+}
+
+func (x *D13CodeSpecsProjectionID) IACE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACE"}
+}
+
+func (x *D13CodeSpecsProjectionID) IACD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACD"}
+}
+
+func (x *D13CodeSpecsProjectionID) INASCOSE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/INASCOSE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DSSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DESERU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DESERU"}
+}
+
+func (x *D13CodeSpecsProjectionID) DESEAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DESEAC"}
+}
+
+func (x *D13CodeSpecsProjectionID) MOINDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINDE"}
+}
+
+func (x *D13CodeSpecsProjectionID) MOINCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) MOINAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINAC"}
+}
+
+func (x *D13CodeSpecsProjectionID) MCRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) MCRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) MCRB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRB"}
+}
+
+func (x *D13CodeSpecsProjectionID) MECORECU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MECORECU"}
+}
+
+func (x *D13CodeSpecsProjectionID) APMT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/apm/APMT"}
+}
+
+func (x *D13CodeSpecsProjectionID) APMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/apm/APMP"}
+}
+
+func (x *D13CodeSpecsProjectionID) APME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/apm/APME"}
+}
+
+func (x *D13CodeSpecsProjectionID) APMUS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/apm/APMUS"}
+}
+
+func (x *D13CodeSpecsProjectionID) LMRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) LMRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) LMRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) LOMARECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/logManagement/LOMARECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) ALRERO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERO"}
+}
+
+func (x *D13CodeSpecsProjectionID) ALREDE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALREDE"}
+}
+
+func (x *D13CodeSpecsProjectionID) ALRESU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALRESU"}
+}
+
+func (x *D13CodeSpecsProjectionID) ALRERE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE"}
+}
+
+func (x *D13CodeSpecsProjectionID) ALDEEN_ALER_LST() *som.SomListMetaRef[*AlertDefinitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryID {
+		return newAlertDefinitionEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DAREST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREST"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAREAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREAC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAREFE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREFE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAREMO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREMO"}
+}
+
+func (x *D13CodeSpecsProjectionID) OCPT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPT"}
+}
+
+func (x *D13CodeSpecsProjectionID) OCPS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPS"}
+}
+
+func (x *D13CodeSpecsProjectionID) OCPE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPE"}
+}
+
+func (x *D13CodeSpecsProjectionID) OCPD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPD"}
+}
+
+func (x *D13CodeSpecsProjectionID) IMRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) IMRWR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRWR"}
+}
+
+func (x *D13CodeSpecsProjectionID) IMRPI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRPI"}
+}
+
+func (x *D13CodeSpecsProjectionID) IMRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) SLMOREMO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMOREMO"}
+}
+
+func (x *D13CodeSpecsProjectionID) SMREB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SMREB"}
+}
+
+func (x *D13CodeSpecsProjectionID) SLMORECU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMORECU"}
+}
+
+func (x *D13CodeSpecsProjectionID) SLMORERE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMORERE"}
+}
+
+func (x *D13CodeSpecsProjectionID) SMPS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPS"}
+}
+
+func (x *D13CodeSpecsProjectionID) SMPD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPD"}
+}
+
+func (x *D13CodeSpecsProjectionID) SMPN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPN"}
+}
+
+func (x *D13CodeSpecsProjectionID) SMPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) MAWIEN_MAIN_LST() *som.SomListMetaRef[*MaintenanceWindowEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryID {
+		return newMaintenanceWindowEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) EMPG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPG"}
+}
+
+func (x *D13CodeSpecsProjectionID) EMPC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPC"}
+}
+
+func (x *D13CodeSpecsProjectionID) EMPE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPE"}
+}
+
+func (x *D13CodeSpecsProjectionID) MCMG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/changeManagement/MCMG"}
+}
+
+func (x *D13CodeSpecsProjectionID) MCMD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/changeManagement/MCMD"}
+}
+
+func (x *D13CodeSpecsProjectionID) MCMT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/changeManagement/MCMT"}
+}
+
+func (x *D13CodeSpecsProjectionID) MCMA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/changeManagement/MCMA"}
+}
+
+func (x *D13CodeSpecsProjectionID) MUID() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/userImpact/MUID"}
+}
+
+func (x *D13CodeSpecsProjectionID) MUIGD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/userImpact/MUIGD"}
+}
+
+func (x *D13CodeSpecsProjectionID) MUIP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/userImpact/MUIP"}
+}
+
+func (x *D13CodeSpecsProjectionID) PMVM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVM"}
+}
+
+func (x *D13CodeSpecsProjectionID) PMVC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC"}
+}
+
+func (x *D13CodeSpecsProjectionID) PREN_PROT_LST() *som.SomListMetaRef[*ProtocolEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryID {
+		return newProtocolEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) TRCS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCS"}
+}
+
+func (x *D13CodeSpecsProjectionID) TRCV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCV"}
+}
+
+func (x *D13CodeSpecsProjectionID) TLRETE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRETE"}
+}
+
+func (x *D13CodeSpecsProjectionID) TLRECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) CEMAKE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAKE"}
+}
+
+func (x *D13CodeSpecsProjectionID) CEMALI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMALI"}
+}
+
+func (x *D13CodeSpecsProjectionID) CEMAST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAST"}
+}
+
+func (x *D13CodeSpecsProjectionID) CEMAMO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAMO"}
+}
+
+func (x *D13CodeSpecsProjectionID) AVSS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSS"}
+}
+
+func (x *D13CodeSpecsProjectionID) AVSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) AVSD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSD"}
+}
+
+func (x *D13CodeSpecsProjectionID) MFSS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSS"}
+}
+
+func (x *D13CodeSpecsProjectionID) MFSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) MFSR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSR"}
+}
+
+func (x *D13CodeSpecsProjectionID) MFST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/messageFormats/MFST"}
+}
+
+func (x *D13CodeSpecsProjectionID) RLPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPL"}
+}
+
+func (x *D13CodeSpecsProjectionID) RLPB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPB"}
+}
+
+func (x *D13CodeSpecsProjectionID) RLPQ() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPQ"}
+}
+
+func (x *D13CodeSpecsProjectionID) PCRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/compliance/PCRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) PCRO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/compliance/PCRO"}
+}
+
+func (x *D13CodeSpecsProjectionID) PCRE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/compliance/PCRE"}
+}
+
+func (x *D13CodeSpecsProjectionID) EPCE_PART_LST() *som.SomListMetaRef[*ExternalPartnerConnectionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryID {
+		return newExternalPartnerConnectionEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) CSIS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/cloudServices/CSIS"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/cloudServices/CSIN"}
+}
+
+func (x *D13CodeSpecsProjectionID) CSIC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/cloudServices/CSIC"}
+}
+
+func (x *D13CodeSpecsProjectionID) TPAIA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIA"}
+}
+
+func (x *D13CodeSpecsProjectionID) TPAIC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIC"}
+}
+
+func (x *D13CodeSpecsProjectionID) TPAIL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIL"}
+}
+
+func (x *D13CodeSpecsProjectionID) TPAIM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIM"}
+}
+
+func (x *D13CodeSpecsProjectionID) THPAAPINAI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/THPAAPINAI"}
+}
+
+func (x *D13CodeSpecsProjectionID) TPAIO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIO"}
+}
+
+func (x *D13CodeSpecsProjectionID) NSPF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NSPF"}
+}
+
+func (x *D13CodeSpecsProjectionID) NSPIM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NSPIM"}
+}
+
+func (x *D13CodeSpecsProjectionID) NSPV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NSPV"}
+}
+
+func (x *D13CodeSpecsProjectionID) NSPD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NSPD"}
+}
+
+func (x *D13CodeSpecsProjectionID) NESEPODN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NESEPODN"}
+}
+
+func (x *D13CodeSpecsProjectionID) SMAGM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/serviceMeshAndGateway/SMAGM"}
+}
+
+func (x *D13CodeSpecsProjectionID) SMAGLB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/serviceMeshAndGateway/SMAGLB"}
+}
+
+func (x *D13CodeSpecsProjectionID) COREP1() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/resilience/COREP1"}
+}
+
+func (x *D13CodeSpecsProjectionID) COREOF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/resilience/COREOF"}
+}
+
+func (x *D13CodeSpecsProjectionID) COREOP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/externalConnectivity/resilience/COREOP"}
+}
+
+func (x *D13CodeSpecsProjectionID) AIRD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/AIRD"}
+}
+
+func (x *D13CodeSpecsProjectionID) ADINREDA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/ADINREDA"}
+}
+
+func (x *D13CodeSpecsProjectionID) AIRO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/AIRO"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCMD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMD"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCME"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCMG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG"}
+}
+
+func (x *D13CodeSpecsProjectionID) UPTL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL"}
+}
+
+func (x *D13CodeSpecsProjectionID) UPTRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) UPTDI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTDI"}
+}
+
+func (x *D13CodeSpecsProjectionID) BJMJT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMJT"}
+}
+
+func (x *D13CodeSpecsProjectionID) BJME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJME"}
+}
+
+func (x *D13CodeSpecsProjectionID) BJMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM"}
+}
+
+func (x *D13CodeSpecsProjectionID) ADENMA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/ADENMA"}
+}
+
+func (x *D13CodeSpecsProjectionID) SDTT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTT"}
+}
+
+func (x *D13CodeSpecsProjectionID) SDTL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTL"}
+}
+
+func (x *D13CodeSpecsProjectionID) SDTSS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"}
+}
+
+func (x *D13CodeSpecsProjectionID) MAINT_MAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+		return &som.SomMetaRef{Tree: t, Path: p}
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MONITO_MONI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/MONITO-MONI"}
+}
+
+func (x *D13CodeSpecsProjectionID) HCEC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCEC"}
+}
+
+func (x *D13CodeSpecsProjectionID) HCET() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCET"}
+}
+
+func (x *D13CodeSpecsProjectionID) HECHENCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HECHENCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) APDIPE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/APDIPE"}
+}
+
+func (x *D13CodeSpecsProjectionID) APDIRU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/APDIRU"}
+}
+
+func (x *D13CodeSpecsProjectionID) ADFS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/ADFS"}
+}
+
+func (x *D13CodeSpecsProjectionID) LARC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARC"}
+}
+
+func (x *D13CodeSpecsProjectionID) LARR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARR"}
+}
+
+func (x *D13CodeSpecsProjectionID) LARA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARA"}
+}
+
+func (x *D13CodeSpecsProjectionID) TRCARU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCARU"}
+}
+
+func (x *D13CodeSpecsProjectionID) TRCAAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCAAC"}
+}
+
+func (x *D13CodeSpecsProjectionID) TRCACO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCACO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DHMC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMC"}
+}
+
+func (x *D13CodeSpecsProjectionID) DHMQ() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMQ"}
+}
+
+func (x *D13CodeSpecsProjectionID) DHME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHME"}
+}
+
+func (x *D13CodeSpecsProjectionID) DHMT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMT"}
+}
+
+func (x *D13CodeSpecsProjectionID) ALCO_ALER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALCO-ALER"}
+}
+
+func (x *D13CodeSpecsProjectionID) ANCD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCD"}
+}
+
+func (x *D13CodeSpecsProjectionID) ANCR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCR"}
+}
+
+func (x *D13CodeSpecsProjectionID) ANCF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF"}
+}
+
+func (x *D13CodeSpecsProjectionID) ALRUEN_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
+		return newAlertRuleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) AEPT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPT"}
+}
+
+func (x *D13CodeSpecsProjectionID) AEPB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPB"}
+}
+
+func (x *D13CodeSpecsProjectionID) AEPS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPS"}
+}
+
+func (x *D13CodeSpecsProjectionID) ALSURU_SUPP_LST() *som.SomListMetaRef[*AlertSuppressionRulesID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALSURU-SUPP-LST", func(t *som.SomMetaTree, p string) *AlertSuppressionRulesID {
+		return newAlertSuppressionRulesID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) OCSCC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/onCallSchedule/OCSCC"}
+}
+
+func (x *D13CodeSpecsProjectionID) OCSCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/onCallSchedule/OCSCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) MEANOB_METR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/MEANOB-METR"}
+}
+
+func (x *D13CodeSpecsProjectionID) AMSR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSR"}
+}
+
+func (x *D13CodeSpecsProjectionID) AMSA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSA"}
+}
+
+func (x *D13CodeSpecsProjectionID) AMSL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSL"}
+}
+
+func (x *D13CodeSpecsProjectionID) IMSK() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/IMSK"}
+}
+
+func (x *D13CodeSpecsProjectionID) IMSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/IMSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) INMESPCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/INMESPCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) BMST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMST"}
+}
+
+func (x *D13CodeSpecsProjectionID) BMSFU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSFU"}
+}
+
+func (x *D13CodeSpecsProjectionID) BMSK() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSK"}
+}
+
+func (x *D13CodeSpecsProjectionID) BMSO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DTSS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSS"}
+}
+
+func (x *D13CodeSpecsProjectionID) DITRSPSP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DITRSPSP"}
+}
+
+func (x *D13CodeSpecsProjectionID) DTSO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO"}
+}
+
+func (x *D13CodeSpecsProjectionID) CUMEEN_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
+		return newCustomMetricEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MODA_DASH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"}
+}
+
+func (x *D13CodeSpecsProjectionID) DAEN_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryID {
+		return newDashboardEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DATE_DASH_LST() *som.SomListMetaRef[*DashboardTemplatesID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardTemplatesID {
+		return newDashboardTemplatesID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SASM_SLAO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO"}
+}
+
+func (x *D13CodeSpecsProjectionID) SLIP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIP"}
+}
+
+func (x *D13CodeSpecsProjectionID) SLIQ() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIQ"}
+}
+
+func (x *D13CodeSpecsProjectionID) SLIM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM"}
+}
+
+func (x *D13CodeSpecsProjectionID) SLEN_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryID {
+		return newSloEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) EBTM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTM"}
+}
+
+func (x *D13CodeSpecsProjectionID) EBTG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTG"}
+}
+
+func (x *D13CodeSpecsProjectionID) UGPF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPF"}
+}
+
+func (x *D13CodeSpecsProjectionID) UGPS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPS"}
+}
+
+func (x *D13CodeSpecsProjectionID) UGPT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPT"}
+}
+
+func (x *D13CodeSpecsProjectionID) DGPG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPG"}
+}
+
+func (x *D13CodeSpecsProjectionID) DGPP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPP"}
+}
+
+func (x *D13CodeSpecsProjectionID) DGPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPL"}
+}
+
+func (x *D13CodeSpecsProjectionID) DGPT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPT"}
+}
+
+func (x *D13CodeSpecsProjectionID) PLPM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPM"}
+}
+
+func (x *D13CodeSpecsProjectionID) PLPC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPC"}
+}
+
+func (x *D13CodeSpecsProjectionID) PLPT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPT"}
+}
+
+func (x *D13CodeSpecsProjectionID) STATM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATM"}
+}
+
+func (x *D13CodeSpecsProjectionID) STATR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATR"}
+}
+
+func (x *D13CodeSpecsProjectionID) STATB() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATB"}
+}
+
+func (x *D13CodeSpecsProjectionID) STATT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATT"}
+}
+
+func (x *D13CodeSpecsProjectionID) RCBS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBS"}
+}
+
+func (x *D13CodeSpecsProjectionID) RCBN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBN"}
+}
+
+func (x *D13CodeSpecsProjectionID) RCBD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBD"}
+}
+
+func (x *D13CodeSpecsProjectionID) RCBC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBC"}
+}
+
+func (x *D13CodeSpecsProjectionID) CAREPRMO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/capacityReview/CAREPRMO"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRPE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPE"}
+}
+
+func (x *D13CodeSpecsProjectionID) CRPP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP"}
+}
+
+func (x *D13CodeSpecsProjectionID) SESTEN_STAN_LST() *som.SomListMetaRef[*SecurityStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryID {
+		return newSecurityStandardEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ASRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) ASRV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRV"}
+}
+
+func (x *D13CodeSpecsProjectionID) ASRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRA"}
+}
+
+func (x *D13CodeSpecsProjectionID) ISHC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHC"}
+}
+
+func (x *D13CodeSpecsProjectionID) ISHN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHN"}
+}
+
+func (x *D13CodeSpecsProjectionID) ISHA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHA"}
+}
+
+func (x *D13CodeSpecsProjectionID) SDLD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLD"}
+}
+
+func (x *D13CodeSpecsProjectionID) SDLT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLT"}
+}
+
+func (x *D13CodeSpecsProjectionID) SDLR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLR"}
+}
+
+func (x *D13CodeSpecsProjectionID) VMPC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPC"}
+}
+
+func (x *D13CodeSpecsProjectionID) VMPP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPP"}
+}
+
+func (x *D13CodeSpecsProjectionID) VMPR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPR"}
+}
+
+func (x *D13CodeSpecsProjectionID) IRPP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/incidentResponse/IRPP"}
+}
+
+func (x *D13CodeSpecsProjectionID) IRPC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/incidentResponse/IRPC"}
+}
+
+func (x *D13CodeSpecsProjectionID) IRPPI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/itSecurityStandards/incidentResponse/IRPPI"}
+}
+
+func (x *D13CodeSpecsProjectionID) PRCG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCG"}
+}
+
+func (x *D13CodeSpecsProjectionID) PRCD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCD"}
+}
+
+func (x *D13CodeSpecsProjectionID) PRCR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCR"}
+}
+
+func (x *D13CodeSpecsProjectionID) PRCT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCT"}
+}
+
+func (x *D13CodeSpecsProjectionID) DRRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DRRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) DARERERE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DARERERE"}
+}
+
+func (x *D13CodeSpecsProjectionID) DRRV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DRRV"}
+}
+
+func (x *D13CodeSpecsProjectionID) CMRC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRC"}
+}
+
+func (x *D13CodeSpecsProjectionID) COMAREST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/COMAREST"}
+}
+
+func (x *D13CodeSpecsProjectionID) CMRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) CMRT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRT"}
+}
+
+func (x *D13CodeSpecsProjectionID) COMARECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/COMARECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRMA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMA"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRME"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMP"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRMR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DASURIMAAU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DASURIMAAU"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRMO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMO"}
+}
+
+func (x *D13CodeSpecsProjectionID) PIAPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) PIAPM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPM"}
+}
+
+func (x *D13CodeSpecsProjectionID) PIAPR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DPARM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARM"}
+}
+
+func (x *D13CodeSpecsProjectionID) DPARH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARH"}
+}
+
+func (x *D13CodeSpecsProjectionID) DPARS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARS"}
+}
+
+func (x *D13CodeSpecsProjectionID) DPART() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPART"}
+}
+
+func (x *D13CodeSpecsProjectionID) DPCH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCH"}
+}
+
+func (x *D13CodeSpecsProjectionID) DPCR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCR"}
+}
+
+func (x *D13CodeSpecsProjectionID) DPCM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCM"}
+}
+
+func (x *D13CodeSpecsProjectionID) DPCI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCI"}
+}
+
+func (x *D13CodeSpecsProjectionID) PTRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) PTRE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRE"}
+}
+
+func (x *D13CodeSpecsProjectionID) PTRR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRR"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCRPR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPR"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCRPP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPP"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCRPF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPF"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRV"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRL"}
+}
+
+func (x *D13CodeSpecsProjectionID) DSRSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCRI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRI"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCRS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRS"}
+}
+
+func (x *D13CodeSpecsProjectionID) SECEREIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityCertifications/SECEREIN"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) CASP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASP"}
+}
+
+func (x *D13CodeSpecsProjectionID) CASE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASE"}
+}
+
+func (x *D13CodeSpecsProjectionID) CASR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASR"}
+}
+
+func (x *D13CodeSpecsProjectionID) STAD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAD"}
+}
+
+func (x *D13CodeSpecsProjectionID) STAI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAI"}
+}
+
+func (x *D13CodeSpecsProjectionID) STAF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAF"}
+}
+
+func (x *D13CodeSpecsProjectionID) STAS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAS"}
+}
+
+func (x *D13CodeSpecsProjectionID) STAG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG"}
+}
+
+func (x *D13CodeSpecsProjectionID) SEAUEN_AUDI_LST() *som.SomListMetaRef[*SecurityAuditEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryID {
+		return newSecurityAuditEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) USCDF_ITEM_LST() *som.SomListMetaRef[*UserCategoryDefinitionID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/userManagement/userCategories/USCDF-ITEM-LST", func(t *som.SomMetaTree, p string) *UserCategoryDefinitionID {
+		return newUserCategoryDefinitionID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ULTRE_ITEM_LST() *som.SomListMetaRef[*UserLifecycleTransitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", func(t *som.SomMetaTree, p string) *UserLifecycleTransitionEntryID {
+		return newUserLifecycleTransitionEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SACLC_SERV_LST() *som.SomListMetaRef[*ServiceAccountLifecycleID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/userManagement/userLifecycle/SACLC-SERV-LST", func(t *som.SomMetaTree, p string) *ServiceAccountLifecycleID {
+		return newServiceAccountLifecycleID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) USATE_ITEM_LST() *som.SomListMetaRef[*UserAttributeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/userManagement/userAttributes/USATE-ITEM-LST", func(t *som.SomMetaTree, p string) *UserAttributeEntryID {
+		return newUserAttributeEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) IDTSR_IDEN_LST() *som.SomListMetaRef[*IdentitySourceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/identification/IDTSR-IDEN-LST", func(t *som.SomMetaTree, p string) *IdentitySourceEntryID {
+		return newIdentitySourceEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) IVPD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/identityVerification/IVPD"}
+}
+
+func (x *D13CodeSpecsProjectionID) IVPM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/identityVerification/IVPM"}
+}
+
+func (x *D13CodeSpecsProjectionID) IVPW() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/identityVerification/IVPW"}
+}
+
+func (x *D13CodeSpecsProjectionID) IVPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/identityVerification/IVPL"}
+}
+
+func (x *D13CodeSpecsProjectionID) IVPF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/identityVerification/IVPF"}
+}
+
+func (x *D13CodeSpecsProjectionID) IDTPV_IDEN_LST() *som.SomListMetaRef[*IdentityProviderEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/identification/IDTPV-IDEN-LST", func(t *som.SomMetaTree, p string) *IdentityProviderEntryID {
+		return newIdentityProviderEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SSOPF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/singleSignOn/SSOPF"}
+}
+
+func (x *D13CodeSpecsProjectionID) SSOPS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/singleSignOn/SSOPS"}
+}
+
+func (x *D13CodeSpecsProjectionID) SSOPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/singleSignOn/SSOPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) SSOPO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/singleSignOn/SSOPO"}
+}
+
+func (x *D13CodeSpecsProjectionID) SRPF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/selfRegistration/SRPF"}
+}
+
+func (x *D13CodeSpecsProjectionID) SRPBP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/selfRegistration/SRPBP"}
+}
+
+func (x *D13CodeSpecsProjectionID) SRPV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/selfRegistration/SRPV"}
+}
+
+func (x *D13CodeSpecsProjectionID) SRPA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/selfRegistration/SRPA"}
+}
+
+func (x *D13CodeSpecsProjectionID) SRPS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl/authentication/identification/selfRegistration/SRPS"}
+}
+
+func (x *D13CodeSpecsProjectionID) IDTAM_ATTR_LST() *som.SomListMetaRef[*IdentityAttributeMappingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/identification/IDTAM-ATTR-LST", func(t *som.SomMetaTree, p string) *IdentityAttributeMappingEntryID {
+		return newIdentityAttributeMappingEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MFADE_MFAD_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+		return &som.SomMetaRef{Tree: t, Path: p}
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ATME_ITEM_LST() *som.SomListMetaRef[*AuthenticationMethodEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", func(t *som.SomMetaTree, p string) *AuthenticationMethodEntryID {
+		return newAuthenticationMethodEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) STEPU_STEP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+		return &som.SomMetaRef{Tree: t, Path: p}
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) LGFLS_LOGI_LST() *som.SomListMetaRef[*LoginFlowStepEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", func(t *som.SomMetaTree, p string) *LoginFlowStepEntryID {
+		return newLoginFlowStepEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MFACRQ_MFAC_LST() *som.SomListMetaRef[*MfaCategoryRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", func(t *som.SomMetaTree, p string) *MfaCategoryRequirementEntryID {
+		return newMfaCategoryRequirementEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) AZGR_GROU_LST() *som.SomListMetaRef[*AuthorizationGroupEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/AZGR-GROU-LST", func(t *som.SomMetaTree, p string) *AuthorizationGroupEntryID {
+		return newAuthorizationGroupEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) AZRO_ROLE_LST() *som.SomListMetaRef[*AuthorizationRoleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/AZRO-ROLE-LST", func(t *som.SomMetaTree, p string) *AuthorizationRoleEntryID {
+		return newAuthorizationRoleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ENT_ENTI_LST() *som.SomListMetaRef[*EntitlementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/ENT-ENTI-LST", func(t *som.SomMetaTree, p string) *EntitlementEntryID {
+		return newEntitlementEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) RESKEY_RESO_LST() *som.SomListMetaRef[*ResourceKeyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/RESKEY-RESO-LST", func(t *som.SomMetaTree, p string) *ResourceKeyEntryID {
+		return newResourceKeyEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) RLINH_INHE_LST() *som.SomListMetaRef[*RoleInheritanceRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/roleHierarchy/RLINH-INHE-LST", func(t *som.SomMetaTree, p string) *RoleInheritanceRuleEntryID {
+		return newRoleInheritanceRuleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) RLCMB_COMB_LST() *som.SomListMetaRef[*RoleCombinationConstraintEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST", func(t *som.SomMetaTree, p string) *RoleCombinationConstraintEntryID {
+		return newRoleCombinationConstraintEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) GBRLX_GLOB_LST() *som.SomListMetaRef[*GlobalRoleExclusionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST", func(t *som.SomMetaTree, p string) *GlobalRoleExclusionEntryID {
+		return newGlobalRoleExclusionEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) TNCS_TENA_LST() *som.SomListMetaRef[*TenantCustomizationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", func(t *som.SomMetaTree, p string) *TenantCustomizationEntryID {
+		return newTenantCustomizationEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ACOVNA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processStepsAndActorInteractions/actorOverview/ACOVNA"}
+}
+
+func (x *D13CodeSpecsProjectionID) ACEN_ACTO_LST() *som.SomListMetaRef[*ActorEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", func(t *som.SomMetaTree, p string) *ActorEntryID {
+		return newActorEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ACCASU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processStepsAndActorInteractions/actorOverview/ACCASU"}
+}
+
+func (x *D13CodeSpecsProjectionID) INCAOV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processStepsAndActorInteractions/interactionCatalog/INCAOV"}
+}
+
+func (x *D13CodeSpecsProjectionID) INEN_INTE_LST() *som.SomListMetaRef[*InteractionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", func(t *som.SomMetaTree, p string) *InteractionEntryID {
+		return newInteractionEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) INPR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processStepsAndActorInteractions/interactionCatalog/INPR"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCOV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processStepsAndActorInteractions/keyScenarios/SCOV"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCNRY_SCEN_LST() *som.SomListMetaRef[*ScenarioEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", func(t *som.SomMetaTree, p string) *ScenarioEntryID {
+		return newScenarioEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ACDIOV() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV"}
+}
+
+func (x *D13CodeSpecsProjectionID) ETETS_ENDT_LST() *som.SomListMetaRef[*EndToEndTestScenarioID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/processStepsAndActorInteractions/ETETS-ENDT-LST", func(t *som.SomMetaTree, p string) *EndToEndTestScenarioID {
+		return newEndToEndTestScenarioID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SCREN_ITEM_LST() *som.SomListMetaRef[*ScreenEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", func(t *som.SomMetaTree, p string) *ScreenEntryID {
+		return newScreenEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) GLOBA_GLOB_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+		return &som.SomMetaRef{Tree: t, Path: p}
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) NAVGRP_GROU_LST() *som.SomListMetaRef[*NavigationGroupEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", func(t *som.SomMetaTree, p string) *NavigationGroupEntryID {
+		return newNavigationGroupEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) PRNADR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR"}
+}
+
+func (x *D13CodeSpecsProjectionID) PNBN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN"}
+}
+
+func (x *D13CodeSpecsProjectionID) PRNASI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"}
+}
+
+func (x *D13CodeSpecsProjectionID) TBDE_TABB_LST() *som.SomListMetaRef[*TabBarDefinitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
+		return newTabBarDefinitionEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) UNIE_ITEM_LST() *som.SomListMetaRef[*UtilityNavigationItemEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
+		return newUtilityNavigationItemEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) BRCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) DELNPT_PATT_LST() *som.SomListMetaRef[*DeepLinkPatternEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", func(t *som.SomMetaTree, p string) *DeepLinkPatternEntryID {
+		return newDeepLinkPatternEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) NAVGRD_GUAR_LST() *som.SomListMetaRef[*NavigationGuardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", func(t *som.SomMetaTree, p string) *NavigationGuardEntryID {
+		return newNavigationGuardEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ERHACO_ERRO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/ERHACO-ERRO"}
+}
+
+func (x *D13CodeSpecsProjectionID) EHCC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/EHCC"}
+}
+
+func (x *D13CodeSpecsProjectionID) EHCA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/EHCA"}
+}
+
+func (x *D13CodeSpecsProjectionID) EHCO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/EHCO"}
+}
+
+func (x *D13CodeSpecsProjectionID) VAFE_VALI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-VALI"}
+}
+
+func (x *D13CodeSpecsProjectionID) VAFEPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEPL"}
+}
+
+func (x *D13CodeSpecsProjectionID) VAFEME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME"}
+}
+
+func (x *D13CodeSpecsProjectionID) VAFEGU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU"}
+}
+
+func (x *D13CodeSpecsProjectionID) VAFEBE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE"}
+}
+
+func (x *D13CodeSpecsProjectionID) VAMETE_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
+		return newValidationMessageTemplateID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) FIELD_FIEL_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+		return &som.SomMetaRef{Tree: t, Path: p}
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SYERDI_SYST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST"}
+}
+
+func (x *D13CodeSpecsProjectionID) SEDET() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET"}
+}
+
+func (x *D13CodeSpecsProjectionID) SEDM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM"}
+}
+
+func (x *D13CodeSpecsProjectionID) SEDC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC"}
+}
+
+func (x *D13CodeSpecsProjectionID) SEDF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF"}
+}
+
+func (x *D13CodeSpecsProjectionID) EPDE_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+		return &som.SomMetaRef{Tree: t, Path: p}
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SECE_ERRO_LST() *som.SomListMetaRef[*SystemErrorCodeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
+		return newSystemErrorCodeEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) ERRE_RECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) ERDP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERDP"}
+}
+
+func (x *D13CodeSpecsProjectionID) ERRM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRM"}
+}
+
+func (x *D13CodeSpecsProjectionID) ERGR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERGR"}
+}
+
+func (x *D13CodeSpecsProjectionID) ERSC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERSC"}
+}
+
+func (x *D13CodeSpecsProjectionID) ERSH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERSH"}
+}
+
+func (x *D13CodeSpecsProjectionID) RECOV_RECO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+		return &som.SomMetaRef{Tree: t, Path: p}
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) RCVSCN_RECO_LST() *som.SomListMetaRef[*RecoveryScenarioEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST", func(t *som.SomMetaTree, p string) *RecoveryScenarioEntryID {
+		return newRecoveryScenarioEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) REDE_RESP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/responsiveDesign/REDE-RESP"}
+}
+
+func (x *D13CodeSpecsProjectionID) BC_BREA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA"}
+}
+
+func (x *D13CodeSpecsProjectionID) BRE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
+		return newBreakpointEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) REBE_LAYO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO"}
+}
+
+func (x *D13CodeSpecsProjectionID) REBENA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA"}
+}
+
+func (x *D13CodeSpecsProjectionID) REBEVI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI"}
+}
+
+func (x *D13CodeSpecsProjectionID) REBETO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBETO"}
+}
+
+func (x *D13CodeSpecsProjectionID) REBECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBECO"}
+}
+
+func (x *D13CodeSpecsProjectionID) RESPSR_SCRE_LST() *som.SomListMetaRef[*ResponsiveScreenRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", func(t *som.SomMetaTree, p string) *ResponsiveScreenRuleEntryID {
+		return newResponsiveScreenRuleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) UICO_COMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/UICO-COMP"}
+}
+
+func (x *D13CodeSpecsProjectionID) UCVL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/UCVL"}
+}
+
+func (x *D13CodeSpecsProjectionID) UCCA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/UCCA"}
+}
+
+func (x *D13CodeSpecsProjectionID) UICOCU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/UICOCU"}
+}
+
+func (x *D13CodeSpecsProjectionID) DESIG_DESI_LST() *som.SomListMetaRef[*DesignFoundationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/uiComponents/componentLibrary/DESIG-DESI-LST", func(t *som.SomMetaTree, p string) *DesignFoundationEntryID {
+		return newDesignFoundationEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) COLICO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLICO"}
+}
+
+func (x *D13CodeSpecsProjectionID) COLITY() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLITY"}
+}
+
+func (x *D13CodeSpecsProjectionID) COLISP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLISP"}
+}
+
+func (x *D13CodeSpecsProjectionID) COLIBO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLIBO"}
+}
+
+func (x *D13CodeSpecsProjectionID) COLIVI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI"}
+}
+
+func (x *D13CodeSpecsProjectionID) COPA_COLO_LST() *som.SomListMetaRef[*ColorPaletteEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST", func(t *som.SomMetaTree, p string) *ColorPaletteEntryID {
+		return newColorPaletteEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) TYST_TYPO_LST() *som.SomListMetaRef[*TypographyStyleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", func(t *som.SomMetaTree, p string) *TypographyStyleEntryID {
+		return newTypographyStyleEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) UICOEN_COMP_LST() *som.SomListMetaRef[*UiComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
+		return newUiComponentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) CMFA_COMP_LST() *som.SomListMetaRef[*ComponentFamilyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", func(t *som.SomMetaTree, p string) *ComponentFamilyEntryID {
+		return newComponentFamilyEntryID(t, p)
+	})
+}
+
 // DashboardEntryID holds the ID-tree accessors of `DashboardEntry` (DR1 §4.2): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -67640,30 +71282,12 @@ func (x *DataEntityEntryID) DAENT_CLAS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-CLAS"}
 }
 
-func (x *DataEntityEntryID) VOLUM_VOLU_LST() *som.SomListMetaRef[*VolumeMetricEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/VOLUM-VOLU-LST", func(t *som.SomMetaTree, p string) *VolumeMetricEntryID {
-		return newVolumeMetricEntryID(t, p)
-	})
-}
-
 func (x *DataEntityEntryID) DAENT_LIFE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-LIFE"}
 }
 
-func (x *DataEntityEntryID) CRE_COMP_LST() *som.SomListMetaRef[*ComplianceRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CRE-COMP-LST", func(t *som.SomMetaTree, p string) *ComplianceRequirementEntryID {
-		return newComplianceRequirementEntryID(t, p)
-	})
-}
-
 func (x *DataEntityEntryID) DAENT_RELA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-RELA"}
-}
-
-func (x *DataEntityEntryID) TECHN_TECH_LST() *som.SomListMetaRef[*TechnicalCharacteristicEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TECHN-TECH-LST", func(t *som.SomMetaTree, p string) *TechnicalCharacteristicEntryID {
-		return newTechnicalCharacteristicEntryID(t, p)
-	})
 }
 
 func (x *DataEntityEntryID) DAATT_ATTR_LST() *som.SomListMetaRef[*DataAttributeEntryID] {
@@ -67687,12 +71311,6 @@ func (x *DataEntityEntryID) ENIDX_INDE_LST() *som.SomListMetaRef[*EntityIndexEnt
 func (x *DataEntityEntryID) ENCNS_CONS_LST() *som.SomListMetaRef[*EntityConstraintEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/ENCNS-CONS-LST", func(t *som.SomMetaTree, p string) *EntityConstraintEntryID {
 		return newEntityConstraintEntryID(t, p)
-	})
-}
-
-func (x *DataEntityEntryID) MIGME_MIGR_LST() *som.SomListMetaRef[*MigrationMappingEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIGME-MIGR-LST", func(t *som.SomMetaTree, p string) *MigrationMappingEntryID {
-		return newMigrationMappingEntryID(t, p)
 	})
 }
 
@@ -68678,6 +72296,47 @@ type EntityConstraintEntryID struct {
 // newEntityConstraintEntryID binds a EntityConstraintEntryID accessor to a tree and a path.
 func newEntityConstraintEntryID(tree *som.SomMetaTree, path string) *EntityConstraintEntryID {
 	return &EntityConstraintEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// EntityFollowUpEntryID holds the ID-tree accessors of `EntityFollowUpEntry` (DR1 §4.2): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type EntityFollowUpEntryID struct {
+	som.SomMetaRef
+}
+
+// newEntityFollowUpEntryID binds a EntityFollowUpEntryID accessor to a tree and a path.
+func newEntityFollowUpEntryID(tree *som.SomMetaTree, path string) *EntityFollowUpEntryID {
+	return &EntityFollowUpEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *EntityFollowUpEntryID) DMFUE_ENTI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DMFUE-ENTI"}
+}
+
+func (x *EntityFollowUpEntryID) VOLUM_VOLU_LST() *som.SomListMetaRef[*VolumeMetricEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/VOLUM-VOLU-LST", func(t *som.SomMetaTree, p string) *VolumeMetricEntryID {
+		return newVolumeMetricEntryID(t, p)
+	})
+}
+
+func (x *EntityFollowUpEntryID) CRE_COMP_LST() *som.SomListMetaRef[*ComplianceRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CRE-COMP-LST", func(t *som.SomMetaTree, p string) *ComplianceRequirementEntryID {
+		return newComplianceRequirementEntryID(t, p)
+	})
+}
+
+func (x *EntityFollowUpEntryID) TECHN_TECH_LST() *som.SomListMetaRef[*TechnicalCharacteristicEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TECHN-TECH-LST", func(t *som.SomMetaTree, p string) *TechnicalCharacteristicEntryID {
+		return newTechnicalCharacteristicEntryID(t, p)
+	})
+}
+
+func (x *EntityFollowUpEntryID) MIGME_MIGR_LST() *som.SomListMetaRef[*MigrationMappingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIGME-MIGR-LST", func(t *som.SomMetaTree, p string) *MigrationMappingEntryID {
+		return newMigrationMappingEntryID(t, p)
+	})
 }
 
 // EntityIndexEntryID holds the ID-tree accessors of `EntityIndexEntry` (DR1 §4.2): methods
@@ -77120,3 +80779,15 @@ var D12TransitionRolloutPlanMeta = newD12TransitionRolloutPlanNav(D12TransitionR
 // TRP is the ID-tree access root of `D12TransitionRolloutPlan` (DR1 §4.2):
 // `TRP.<SECTION_ID>()….Path` / `.Meta()`.
 var TRP = newD12TransitionRolloutPlanID(D12TransitionRolloutPlanMetaTree, "TRP")
+
+// D13CodeSpecsProjectionMetaTree is the populated metadata tree of the `D13CodeSpecsProjection`
+// document root (DR1 §3.2).
+var D13CodeSpecsProjectionMetaTree = mustMetaTree(&som.SomMetaNode{ClassName: "D13CodeSpecsProjection", SectionID: "CGP", ClassSectionID: "CGP", Kind: som.SomMetaKindSection, TypeName: "D13CodeSpecsProjection", DocComment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.", ClassDocComment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.", Document: &som.SomDocMeta{Name: "CodeSpecs Generation Projection", Description: "The Phase-4 CodeSpecs generation input — a projection over the Solution Blueprint that reaches only the isolated CodeSpecs subtrees, grouped by the shared/client/server locus of their CE-parts.", BasedOn: []string{"D00SolutionBlueprint"}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture description (the generation input as an architecture view over the blueprint)", "Model-driven engineering — platform-independent model → code generation"}, "connotation": "The Phase-4 CodeSpecs generation input: the isolated CodeSpecs subtrees routed across the shared / client / server three-way split by locus."}}, {Annotation: "CodeSpecsProjection", Args: map[string]interface{}{}}}, Children: metaChildrenD13CodeSpecsProjection(map[string]bool{"D13CodeSpecsProjection": true})})
+
+// D13CodeSpecsProjectionMeta is the dot-notation access root of `D13CodeSpecsProjection` (DR1 §4.1):
+// `D13CodeSpecsProjectionMeta.<Member>()….Path` / `.Meta()`.
+var D13CodeSpecsProjectionMeta = newD13CodeSpecsProjectionNav(D13CodeSpecsProjectionMetaTree, "CGP")
+
+// CGP is the ID-tree access root of `D13CodeSpecsProjection` (DR1 §4.2):
+// `CGP.<SECTION_ID>()….Path` / `.Meta()`.
+var CGP = newD13CodeSpecsProjectionID(D13CodeSpecsProjectionMetaTree, "CGP")

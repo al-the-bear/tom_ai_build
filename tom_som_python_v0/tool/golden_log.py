@@ -192,7 +192,7 @@ def main() -> None:
             sys.exit(2)
         out.append("TF\t%s\t%s\t%s" % (form_path, field, esc(generic)))
 
-    actor_overview = (sbp.targetOperatingModelConcept.targetBusinessProcess
+    actor_overview = (sbp.targetOperatingModelConcept
                       .processStepsAndActorInteractions.actorOverview.overview)
     typed_form(actor_overview.path, "totalActorCount",
                som_format_int(actor_overview.totalActorCount))
@@ -203,7 +203,7 @@ def main() -> None:
     typed_form(actor_overview.path, "externalActorCount",
                som_format_int(actor_overview.externalActorCount))
 
-    accessibility_overview = (sbp.experienceAndInterfaceDesign
+    accessibility_overview = (sbp.experienceAndInterfaceDesign.designFollowUp
                               .accessibility.accessibilityOverviewContent)
     typed_form(accessibility_overview.path, "accessibilityStatement",
                som_format_bool(accessibility_overview.accessibilityStatement))

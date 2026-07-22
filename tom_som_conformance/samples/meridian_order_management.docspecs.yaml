@@ -716,414 +716,413 @@ document:
         An orthogonal Hold sub-state covers manual review. Every transition emits a
         domain event; operations staff work from one queue view filtered by state.
         Pricing becomes a synchronous call, eliminating the batch window.
-      TBPM targetBusinessProcess:
-        PSAAI processStepsAndActorInteractions:
-          ACOV actorOverview:
-            ACOVNA overview:
-              totalActorCount: 4
-              humanActorCount: 3
-              systemActorCount: 1
-              externalActorCount: 0
-            ACEN-ACTO-LST actors:
-              ACEN-ACTO-1:
-                ACID identification:
-                  actorId: |2-
-                    ACT-01
-                  actorName: |2-
-                    Order Clerk
-                  actorType: |2-
-                    Human
-                  category: |2-
-                    Primary
-                  description: |2-
-                    Clears the order work list, amends lines, and cancels orders before dispatch.
-                  organizationalUnit: |2-
-                    Order Operations
-                  estimatedCount: |2-
-                    25
-                  geographicDistribution: |2-
-                    Single distribution centre
-              ACEN-ACTO-2:
-                ACID identification:
-                  actorId: |2-
-                    ACT-02
-                  actorName: |2-
-                    Order Supervisor
-                  actorType: |2-
-                    Human
-                  category: |2-
-                    Primary
-                  description: |2-
-                    Reviews orders on Hold and releases them back into the lifecycle.
-                  organizationalUnit: |2-
-                    Order Operations
-                  estimatedCount: |2-
-                    4
-                  geographicDistribution: |2-
-                    Single distribution centre
-              ACEN-ACTO-3:
-                ACID identification:
-                  actorId: |2-
-                    ACT-03
-                  actorName: |2-
-                    Pricing Admin
-                  actorType: |2-
-                    Human
-                  category: |2-
-                    Supporting
-                  description: |2-
-                    Maintains the price lists that the synchronous pricing step consumes.
-                  organizationalUnit: |2-
-                    Commercial
-                  estimatedCount: |2-
-                    3
-                  geographicDistribution: |2-
-                    Single distribution centre
-              ACEN-ACTO-4:
-                ACID identification:
-                  actorId: |2-
-                    ACT-04
-                  actorName: |2-
-                    EDI Integration Account
-                  actorType: |2-
-                    System
-                  category: |2-
-                    Primary
-                  description: |2-
-                    Machine account through which the wholesale EDI adapter submits orders.
-                  organizationalUnit: |2-
-                    Integration
-                  estimatedCount: |2-
-                    1
-                  geographicDistribution: |2-
-                    Single distribution centre
-          INCA interactionCatalog:
-            INEN-INTE-LST interactions:
-              INEN-INTE-1:
-                INID identification:
-                  interactionId: |2-
-                    UC-01
-                  useCaseName: |2-
-                    Capture Wholesale Order (EDI)
-                  processReference: |2-
-                    BP-Order-Capture
-                  briefDescription: |2-
-                    A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.
-                  fullDescription: |2-
-                    The EDI adapter submits a translated purchase order to the capture command API. The system validates the customer and lines, prices each line synchronously, reserves stock, and confirms the order — emitting a domain event at every transition so the work list and public tracking page stay current.
-                  primaryActor: |2-
-                    ACT-04 EDI Integration Account
-                  supportingActors: |2-
-                    ACT-01 Order Clerk
-                  goalLevel: |2-
-                    User goal
-                  designScope: |2-
-                    System
-                PRANTR-PREC-LST preconditions:
-                  PRANTR-PREC-1:
-                    content:
-                      precondition: |2-
-                        The submitting Integration account is authenticated and scoped to the wholesale channel.
-                      trigger: |2-
-                        An EDI 850 purchase order arrives at the wholesale adapter.
-                      triggerType: |2-
-                        External
-                      triggerSource: |2-
-                        EDI gateway
-                      triggerData: |2-
-                        EDI 850 document
-                POANGU-POST-LST postconditions:
-                  POANGU-POST-1:
-                    content:
-                      minimalGuarantees: |2-
-                        Either an Order exists in a well-defined state or the submission is rejected with a reason; no partial order is persisted.
-                      successGuarantees: |2-
-                        The Order is in state Confirmed with priced, reserved lines and a full event history.
-                      dataPostcondition: |2-
-                        Order and OrderLine rows persisted; reservation recorded against Product stock.
-                MASUSC mainScenario:
-                  MNSST-STEP-LST steps:
-                    MNSST-STEP-1:
-                      content:
-                        stepNumber: 1
-                        actorAction: |2-
-                          EDI adapter submits the translated order to the capture API.
-                        systemResponse: |2-
-                          System creates the Order in state Captured and emits OrderCaptured.
-                        dataInvolved: |2-
-                          Order, OrderLine
-                        uiElementUsed: |2-
-                          —
-                    MNSST-STEP-2:
-                      content:
-                        stepNumber: 2
-                        actorAction: |2-
-                          System validates customer credit and line stock references.
-                        systemResponse: |2-
-                          Order moves to Validated; invalid references are flagged per line.
-                        dataInvolved: |2-
-                          Customer, Product
-                        businessRuleApplied: |2-
-                          Credit limit not exceeded
-                    MNSST-STEP-3:
-                      content:
-                        stepNumber: 3
-                        actorAction: |2-
-                          System prices each line against the active price list.
-                        systemResponse: |2-
-                          Unit price is snapshotted onto each line; Order moves to Priced.
-                        dataInvolved: |2-
-                          PriceList, OrderLine
-                        businessRuleApplied: |2-
-                          FR-02 price snapshot
-                    MNSST-STEP-4:
-                      content:
-                        stepNumber: 4
-                        actorAction: |2-
-                          System reserves stock for every line.
-                        systemResponse: |2-
-                          Reservations recorded; Order moves to Reserved.
-                        dataInvolved: |2-
-                          Product
-                        businessRuleApplied: |2-
-                          FR-03 reserve before confirm
-                    MNSST-STEP-5:
-                      content:
-                        stepNumber: 5
-                        actorAction: |2-
-                          System confirms the order.
-                        systemResponse: |2-
-                          Order moves to Confirmed within five minutes and appears on the work list.
-                        dataInvolved: |2-
-                          Order
-                        businessRuleApplied: |2-
-                          FR-04 five-minute confirmation
-                USCAEX extensions:
-                  EXTEN-EXTE-LST extensions:
-                    EXTEN-EXTE-1:
-                      content:
-                        extensionId: |2-
-                          2a
-                        branchPoint: |2-
-                          Step 2
-                        condition: |2-
-                          Customer credit limit would be exceeded
-                        extensionType: |2-
-                          Exception
-                        description: |2-
-                          Validation detects the order exceeds the customer credit limit.
-                        outcome: |2-
-                          Order is placed on Hold for supervisor review (see UC-02).
-                        returnPoint: |2-
-                          Step 3 after release
-                        severity: |2-
-                          High
-                      EXTST-STEP-LST steps:
-                        EXTST-STEP-1:
-                          content:
-                            stepNumber: |2-
-                              2a.1
-                            action: |2-
-                              System places the Order on Hold and emits OrderHeld.
-                            response: |2-
-                              Order appears in the Hold filter of the work list with reason "Credit exceeded".
-                    EXTEN-EXTE-2:
-                      content:
-                        extensionId: |2-
-                          4a
-                        branchPoint: |2-
-                          Step 4
-                        condition: |2-
-                          Insufficient stock for one or more lines
-                        extensionType: |2-
-                          Exception
-                        description: |2-
-                          Reservation cannot be fully satisfied for a line.
-                        outcome: |2-
-                          The affected line is placed on Hold; other lines proceed.
-                        returnPoint: |2-
-                          Step 5 for satisfiable lines
-                        severity: |2-
-                          Medium
-                      EXTST-STEP-LST steps:
-                        EXTST-STEP-1:
-                          content:
-                            stepNumber: |2-
-                              4a.1
-                            action: |2-
-                              System holds the unsatisfiable line and reserves the rest.
-                            response: |2-
-                              The order is partially reserved; the held line is flagged for follow-up.
-              INEN-INTE-2:
-                INID identification:
-                  interactionId: |2-
-                    UC-02
-                  useCaseName: |2-
-                    Release Order Hold
-                  processReference: |2-
-                    BP-Order-Exception
-                  briefDescription: |2-
-                    A supervisor reviews an order on Hold and releases it back into the lifecycle.
-                  fullDescription: |2-
-                    A supervisor opens an order on Hold from the work list, reviews the hold reason, and either releases it — resuming the lifecycle at the transition that placed it on Hold — or cancels it, recording a reason in both cases.
-                  primaryActor: |2-
-                    ACT-02 Order Supervisor
-                  goalLevel: |2-
-                    User goal
-                  designScope: |2-
-                    System
-                PRANTR-PREC-LST preconditions:
-                  PRANTR-PREC-1:
-                    content:
-                      precondition: |2-
-                        An order exists in state Hold and the actor holds the Order Supervisor role.
-                      trigger: |2-
-                        Supervisor selects a held order from the work list.
-                      triggerType: |2-
-                        User
-                      triggerSource: |2-
-                        Order Work List screen
-                POANGU-POST-LST postconditions:
-                  POANGU-POST-1:
-                    content:
-                      successGuarantees: |2-
-                        The order resumes at the transition that placed it on Hold, with the release reason audited.
-                      auditTrail: |2-
-                        Release attributed to the supervisor principal with timestamp and reason.
-                MASUSC mainScenario:
-                  MNSST-STEP-LST steps:
-                    MNSST-STEP-1:
-                      content:
-                        stepNumber: 1
-                        actorAction: |2-
-                          Supervisor opens the held order and reviews the reason.
-                        systemResponse: |2-
-                          System shows the lifecycle timeline and the hold reason.
-                        dataInvolved: |2-
-                          Order
-                        uiElementUsed: |2-
-                          Order Detail timeline
-                    MNSST-STEP-2:
-                      content:
-                        stepNumber: 2
-                        actorAction: |2-
-                          Supervisor releases the order with a reason.
-                        systemResponse: |2-
-                          System resumes the lifecycle and emits OrderHoldReleased.
-                        dataInvolved: |2-
-                          Order
-                        businessRuleApplied: |2-
-                          FR-06 hold release
-              INEN-INTE-3:
-                INID identification:
-                  interactionId: |2-
-                    UC-03
-                  useCaseName: |2-
-                    Amend Order Line Before Dispatch
-                  processReference: |2-
-                    BP-Order-Amendment
-                  briefDescription: |2-
-                    A clerk changes a line quantity before dispatch, re-running pricing and reservation.
-                  fullDescription: |2-
-                    A clerk edits the quantity of a line on a not-yet-dispatched order. The system re-prices and re-reserves only the affected line and records the amendment on the audit trail.
-                  primaryActor: |2-
-                    ACT-01 Order Clerk
-                  goalLevel: |2-
-                    User goal
-                  designScope: |2-
-                    System
-                PRANTR-PREC-LST preconditions:
-                  PRANTR-PREC-1:
-                    content:
-                      precondition: |2-
-                        The order is not yet dispatched and the actor holds the Order Clerk role.
-                      trigger: |2-
-                        Clerk edits a line quantity on the Order Detail screen.
-                      triggerType: |2-
-                        User
-                      triggerSource: |2-
-                        Order Detail screen
-                POANGU-POST-LST postconditions:
-                  POANGU-POST-1:
-                    content:
-                      successGuarantees: |2-
-                        The amended line carries a fresh price snapshot and reservation; the amendment is audited.
-                      dataPostcondition: |2-
-                        OrderLine updated; prior values retained in the event history.
-                MASUSC mainScenario:
-                  MNSST-STEP-LST steps:
-                    MNSST-STEP-1:
-                      content:
-                        stepNumber: 1
-                        actorAction: |2-
-                          Clerk changes the quantity of a line and saves.
-                        systemResponse: |2-
-                          System validates the new quantity and re-prices the line.
-                        dataInvolved: |2-
-                          OrderLine, PriceList
-                        businessRuleApplied: |2-
-                          FR-05 amend before dispatch
-                    MNSST-STEP-2:
-                      content:
-                        stepNumber: 2
-                        actorAction: |2-
-                          System re-reserves stock for the amended line.
-                        systemResponse: |2-
-                          Reservation is adjusted; the order returns to Confirmed if fully satisfied.
-                        dataInvolved: |2-
-                          Product
-                        businessRuleApplied: |2-
-                          FR-03 reserve before confirm
-          KESC keyScenarios:
-            SCNRY-SCEN-LST scenarios:
-              SCNRY-SCEN-1:
-                SCID identification:
-                  scenarioId: |2-
-                    SCN-01
-                  scenarioName: |2-
-                    Happy-path wholesale order, capture to fulfilment
-                  scenarioType: |2-
-                    End-to-end
-                  description: |2-
-                    A clean wholesale order flows from EDI capture through to fulfilment with no holds.
-                  businessGoal: |2-
-                    Confirm and fulfil a wholesale order without manual intervention.
-                  primaryActor: |2-
-                    ACT-04 EDI Integration Account
-                  supportingActors: |2-
-                    ACT-01 Order Clerk
-                  priority: |2-
-                    High
-                  complexity: |2-
-                    Medium
-                SCNST-STEP-LST steps:
-                  SCNST-STEP-1:
+      PSAAI processStepsAndActorInteractions:
+        ACOV actorOverview:
+          ACOVNA overview:
+            totalActorCount: 4
+            humanActorCount: 3
+            systemActorCount: 1
+            externalActorCount: 0
+          ACEN-ACTO-LST actors:
+            ACEN-ACTO-1:
+              ACID identification:
+                actorId: |2-
+                  ACT-01
+                actorName: |2-
+                  Order Clerk
+                actorType: |2-
+                  Human
+                category: |2-
+                  Primary
+                description: |2-
+                  Clears the order work list, amends lines, and cancels orders before dispatch.
+                organizationalUnit: |2-
+                  Order Operations
+                estimatedCount: |2-
+                  25
+                geographicDistribution: |2-
+                  Single distribution centre
+            ACEN-ACTO-2:
+              ACID identification:
+                actorId: |2-
+                  ACT-02
+                actorName: |2-
+                  Order Supervisor
+                actorType: |2-
+                  Human
+                category: |2-
+                  Primary
+                description: |2-
+                  Reviews orders on Hold and releases them back into the lifecycle.
+                organizationalUnit: |2-
+                  Order Operations
+                estimatedCount: |2-
+                  4
+                geographicDistribution: |2-
+                  Single distribution centre
+            ACEN-ACTO-3:
+              ACID identification:
+                actorId: |2-
+                  ACT-03
+                actorName: |2-
+                  Pricing Admin
+                actorType: |2-
+                  Human
+                category: |2-
+                  Supporting
+                description: |2-
+                  Maintains the price lists that the synchronous pricing step consumes.
+                organizationalUnit: |2-
+                  Commercial
+                estimatedCount: |2-
+                  3
+                geographicDistribution: |2-
+                  Single distribution centre
+            ACEN-ACTO-4:
+              ACID identification:
+                actorId: |2-
+                  ACT-04
+                actorName: |2-
+                  EDI Integration Account
+                actorType: |2-
+                  System
+                category: |2-
+                  Primary
+                description: |2-
+                  Machine account through which the wholesale EDI adapter submits orders.
+                organizationalUnit: |2-
+                  Integration
+                estimatedCount: |2-
+                  1
+                geographicDistribution: |2-
+                  Single distribution centre
+        INCA interactionCatalog:
+          INEN-INTE-LST interactions:
+            INEN-INTE-1:
+              INID identification:
+                interactionId: |2-
+                  UC-01
+                useCaseName: |2-
+                  Capture Wholesale Order (EDI)
+                processReference: |2-
+                  BP-Order-Capture
+                briefDescription: |2-
+                  A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.
+                fullDescription: |2-
+                  The EDI adapter submits a translated purchase order to the capture command API. The system validates the customer and lines, prices each line synchronously, reserves stock, and confirms the order — emitting a domain event at every transition so the work list and public tracking page stay current.
+                primaryActor: |2-
+                  ACT-04 EDI Integration Account
+                supportingActors: |2-
+                  ACT-01 Order Clerk
+                goalLevel: |2-
+                  User goal
+                designScope: |2-
+                  System
+              PRANTR-PREC-LST preconditions:
+                PRANTR-PREC-1:
+                  content:
+                    precondition: |2-
+                      The submitting Integration account is authenticated and scoped to the wholesale channel.
+                    trigger: |2-
+                      An EDI 850 purchase order arrives at the wholesale adapter.
+                    triggerType: |2-
+                      External
+                    triggerSource: |2-
+                      EDI gateway
+                    triggerData: |2-
+                      EDI 850 document
+              POANGU-POST-LST postconditions:
+                POANGU-POST-1:
+                  content:
+                    minimalGuarantees: |2-
+                      Either an Order exists in a well-defined state or the submission is rejected with a reason; no partial order is persisted.
+                    successGuarantees: |2-
+                      The Order is in state Confirmed with priced, reserved lines and a full event history.
+                    dataPostcondition: |2-
+                      Order and OrderLine rows persisted; reservation recorded against Product stock.
+              MASUSC mainScenario:
+                MNSST-STEP-LST steps:
+                  MNSST-STEP-1:
                     content:
                       stepNumber: 1
-                      actor: |2-
-                        ACT-04 EDI Integration Account
-                      action: |2-
-                        Submits a two-line wholesale order.
+                      actorAction: |2-
+                        EDI adapter submits the translated order to the capture API.
                       systemResponse: |2-
-                        Order captured, validated, priced, reserved, and confirmed within five minutes.
-                  SCNST-STEP-2:
+                        System creates the Order in state Captured and emits OrderCaptured.
+                      dataInvolved: |2-
+                        Order, OrderLine
+                      uiElementUsed: |2-
+                        —
+                  MNSST-STEP-2:
                     content:
                       stepNumber: 2
-                      actor: |2-
-                        ACT-01 Order Clerk
-                      action: |2-
-                        Observes the confirmed order on the work list.
+                      actorAction: |2-
+                        System validates customer credit and line stock references.
                       systemResponse: |2-
-                        Order shows state Confirmed with both lines priced and reserved.
-                  SCNST-STEP-3:
+                        Order moves to Validated; invalid references are flagged per line.
+                      dataInvolved: |2-
+                        Customer, Product
+                      businessRuleApplied: |2-
+                        Credit limit not exceeded
+                  MNSST-STEP-3:
                     content:
                       stepNumber: 3
-                      actor: |2-
-                        System
-                      action: |2-
-                        Receives the warehouse dispatch webhook.
+                      actorAction: |2-
+                        System prices each line against the active price list.
                       systemResponse: |2-
-                        Order moves to Fulfilled and the public tracking page updates.
+                        Unit price is snapshotted onto each line; Order moves to Priced.
+                      dataInvolved: |2-
+                        PriceList, OrderLine
+                      businessRuleApplied: |2-
+                        FR-02 price snapshot
+                  MNSST-STEP-4:
+                    content:
+                      stepNumber: 4
+                      actorAction: |2-
+                        System reserves stock for every line.
+                      systemResponse: |2-
+                        Reservations recorded; Order moves to Reserved.
+                      dataInvolved: |2-
+                        Product
+                      businessRuleApplied: |2-
+                        FR-03 reserve before confirm
+                  MNSST-STEP-5:
+                    content:
+                      stepNumber: 5
+                      actorAction: |2-
+                        System confirms the order.
+                      systemResponse: |2-
+                        Order moves to Confirmed within five minutes and appears on the work list.
+                      dataInvolved: |2-
+                        Order
+                      businessRuleApplied: |2-
+                        FR-04 five-minute confirmation
+              USCAEX extensions:
+                EXTEN-EXTE-LST extensions:
+                  EXTEN-EXTE-1:
+                    content:
+                      extensionId: |2-
+                        2a
+                      branchPoint: |2-
+                        Step 2
+                      condition: |2-
+                        Customer credit limit would be exceeded
+                      extensionType: |2-
+                        Exception
+                      description: |2-
+                        Validation detects the order exceeds the customer credit limit.
+                      outcome: |2-
+                        Order is placed on Hold for supervisor review (see UC-02).
+                      returnPoint: |2-
+                        Step 3 after release
+                      severity: |2-
+                        High
+                    EXTST-STEP-LST steps:
+                      EXTST-STEP-1:
+                        content:
+                          stepNumber: |2-
+                            2a.1
+                          action: |2-
+                            System places the Order on Hold and emits OrderHeld.
+                          response: |2-
+                            Order appears in the Hold filter of the work list with reason "Credit exceeded".
+                  EXTEN-EXTE-2:
+                    content:
+                      extensionId: |2-
+                        4a
+                      branchPoint: |2-
+                        Step 4
+                      condition: |2-
+                        Insufficient stock for one or more lines
+                      extensionType: |2-
+                        Exception
+                      description: |2-
+                        Reservation cannot be fully satisfied for a line.
+                      outcome: |2-
+                        The affected line is placed on Hold; other lines proceed.
+                      returnPoint: |2-
+                        Step 5 for satisfiable lines
+                      severity: |2-
+                        Medium
+                    EXTST-STEP-LST steps:
+                      EXTST-STEP-1:
+                        content:
+                          stepNumber: |2-
+                            4a.1
+                          action: |2-
+                            System holds the unsatisfiable line and reserves the rest.
+                          response: |2-
+                            The order is partially reserved; the held line is flagged for follow-up.
+            INEN-INTE-2:
+              INID identification:
+                interactionId: |2-
+                  UC-02
+                useCaseName: |2-
+                  Release Order Hold
+                processReference: |2-
+                  BP-Order-Exception
+                briefDescription: |2-
+                  A supervisor reviews an order on Hold and releases it back into the lifecycle.
+                fullDescription: |2-
+                  A supervisor opens an order on Hold from the work list, reviews the hold reason, and either releases it — resuming the lifecycle at the transition that placed it on Hold — or cancels it, recording a reason in both cases.
+                primaryActor: |2-
+                  ACT-02 Order Supervisor
+                goalLevel: |2-
+                  User goal
+                designScope: |2-
+                  System
+              PRANTR-PREC-LST preconditions:
+                PRANTR-PREC-1:
+                  content:
+                    precondition: |2-
+                      An order exists in state Hold and the actor holds the Order Supervisor role.
+                    trigger: |2-
+                      Supervisor selects a held order from the work list.
+                    triggerType: |2-
+                      User
+                    triggerSource: |2-
+                      Order Work List screen
+              POANGU-POST-LST postconditions:
+                POANGU-POST-1:
+                  content:
+                    successGuarantees: |2-
+                      The order resumes at the transition that placed it on Hold, with the release reason audited.
+                    auditTrail: |2-
+                      Release attributed to the supervisor principal with timestamp and reason.
+              MASUSC mainScenario:
+                MNSST-STEP-LST steps:
+                  MNSST-STEP-1:
+                    content:
+                      stepNumber: 1
+                      actorAction: |2-
+                        Supervisor opens the held order and reviews the reason.
+                      systemResponse: |2-
+                        System shows the lifecycle timeline and the hold reason.
+                      dataInvolved: |2-
+                        Order
+                      uiElementUsed: |2-
+                        Order Detail timeline
+                  MNSST-STEP-2:
+                    content:
+                      stepNumber: 2
+                      actorAction: |2-
+                        Supervisor releases the order with a reason.
+                      systemResponse: |2-
+                        System resumes the lifecycle and emits OrderHoldReleased.
+                      dataInvolved: |2-
+                        Order
+                      businessRuleApplied: |2-
+                        FR-06 hold release
+            INEN-INTE-3:
+              INID identification:
+                interactionId: |2-
+                  UC-03
+                useCaseName: |2-
+                  Amend Order Line Before Dispatch
+                processReference: |2-
+                  BP-Order-Amendment
+                briefDescription: |2-
+                  A clerk changes a line quantity before dispatch, re-running pricing and reservation.
+                fullDescription: |2-
+                  A clerk edits the quantity of a line on a not-yet-dispatched order. The system re-prices and re-reserves only the affected line and records the amendment on the audit trail.
+                primaryActor: |2-
+                  ACT-01 Order Clerk
+                goalLevel: |2-
+                  User goal
+                designScope: |2-
+                  System
+              PRANTR-PREC-LST preconditions:
+                PRANTR-PREC-1:
+                  content:
+                    precondition: |2-
+                      The order is not yet dispatched and the actor holds the Order Clerk role.
+                    trigger: |2-
+                      Clerk edits a line quantity on the Order Detail screen.
+                    triggerType: |2-
+                      User
+                    triggerSource: |2-
+                      Order Detail screen
+              POANGU-POST-LST postconditions:
+                POANGU-POST-1:
+                  content:
+                    successGuarantees: |2-
+                      The amended line carries a fresh price snapshot and reservation; the amendment is audited.
+                    dataPostcondition: |2-
+                      OrderLine updated; prior values retained in the event history.
+              MASUSC mainScenario:
+                MNSST-STEP-LST steps:
+                  MNSST-STEP-1:
+                    content:
+                      stepNumber: 1
+                      actorAction: |2-
+                        Clerk changes the quantity of a line and saves.
+                      systemResponse: |2-
+                        System validates the new quantity and re-prices the line.
+                      dataInvolved: |2-
+                        OrderLine, PriceList
+                      businessRuleApplied: |2-
+                        FR-05 amend before dispatch
+                  MNSST-STEP-2:
+                    content:
+                      stepNumber: 2
+                      actorAction: |2-
+                        System re-reserves stock for the amended line.
+                      systemResponse: |2-
+                        Reservation is adjusted; the order returns to Confirmed if fully satisfied.
+                      dataInvolved: |2-
+                        Product
+                      businessRuleApplied: |2-
+                        FR-03 reserve before confirm
+        KESC keyScenarios:
+          SCNRY-SCEN-LST scenarios:
+            SCNRY-SCEN-1:
+              SCID identification:
+                scenarioId: |2-
+                  SCN-01
+                scenarioName: |2-
+                  Happy-path wholesale order, capture to fulfilment
+                scenarioType: |2-
+                  End-to-end
+                description: |2-
+                  A clean wholesale order flows from EDI capture through to fulfilment with no holds.
+                businessGoal: |2-
+                  Confirm and fulfil a wholesale order without manual intervention.
+                primaryActor: |2-
+                  ACT-04 EDI Integration Account
+                supportingActors: |2-
+                  ACT-01 Order Clerk
+                priority: |2-
+                  High
+                complexity: |2-
+                  Medium
+              SCNST-STEP-LST steps:
+                SCNST-STEP-1:
+                  content:
+                    stepNumber: 1
+                    actor: |2-
+                      ACT-04 EDI Integration Account
+                    action: |2-
+                      Submits a two-line wholesale order.
+                    systemResponse: |2-
+                      Order captured, validated, priced, reserved, and confirmed within five minutes.
+                SCNST-STEP-2:
+                  content:
+                    stepNumber: 2
+                    actor: |2-
+                      ACT-01 Order Clerk
+                    action: |2-
+                      Observes the confirmed order on the work list.
+                    systemResponse: |2-
+                      Order shows state Confirmed with both lines priced and reserved.
+                SCNST-STEP-3:
+                  content:
+                    stepNumber: 3
+                    actor: |2-
+                      System
+                    action: |2-
+                      Receives the warehouse dispatch webhook.
+                    systemResponse: |2-
+                      Order moves to Fulfilled and the public tracking page updates.
     INDM informationAndDataModel:
       content: |2-
         Core aggregates: Order (with Lines), Customer, Product, PriceList, and
@@ -1711,280 +1710,282 @@ document:
 
         - keyboard-first navigation for high-volume clerks
         - an unambiguous status colour language shared with the public tracking page
-      SCRDZ screens:
-        SCRINV screenInventory:
-          SCREN-ITEM-LST items:
-            SCREN-ITEM-1:
-              content:
-                screenId: |2-
-                  SCR-01
-                screenName: |2-
-                  Order Work List
-                purpose: |2-
-                  The single, state-filtered queue from which clerks work every order.
-              SCECL classification:
-                screenCategory: |2-
-                  List
-                routePattern: |2-
-                  /orders
-              SCEAC access:
-                accessLevel: |2-
-                  Authenticated
-                requiredRoles: |2-
-                  Order Clerk, Order Supervisor
-                permissionEffect: |2-
-                  Allow
-              SCETR traceability:
-                relatedUseCases: |2-
-                  UC-01, UC-02
-                relatedRequirements: |2-
-                  FR-01, FR-04, FR-06
-                dataEntities: |2-
-                  Order
-                primaryAction: |2-
-                  Open selected order
-              SCENPR presentation:
-                pageTitleResource: |2-
-                  screen.orders.title
-                layout: |2-
-                  Master-detail
-              SCSE sections:
-                SCRSC-ITEM-LST items:
-                  SCRSC-ITEM-1:
-                    content:
-                      sectionId: |2-
-                        SCR-01-SEC-1
-                      sectionName: |2-
-                        State filter bar
-                      purpose: |2-
-                        Filter the queue by lifecycle state.
-                      sectionType: |2-
-                        Toolbar
-                    SSEL layout:
-                      layoutDirection: |2-
-                        Horizontal
-                      displayOrder: 1
-                    SCREL-ELEM-LST elements:
-                      SCREL-ELEM-1:
-                        content:
-                          elementId: |2-
-                            SCR-01-EL-1
-                          elementName: |2-
-                            State selector
-                          elementType: |2-
-                            SegmentedControl
-                        SEER resources:
-                          labelResource: |2-
-                            screen.orders.filter.state
-                          hintResource: |2-
-                            screen.orders.filter.state.hint
-                  SCRSC-ITEM-2:
-                    content:
-                      sectionId: |2-
-                        SCR-01-SEC-2
-                      sectionName: |2-
-                        Order table
-                      purpose: |2-
-                        The work list itself, keyboard-navigable for high-volume clerks.
-                      sectionType: |2-
-                        DataTable
-                    SSEL layout:
-                      layoutDirection: |2-
-                        Vertical
-                      displayOrder: 2
-                    SCREL-ELEM-LST elements:
-                      SCREL-ELEM-1:
-                        content:
-                          elementId: |2-
-                            SCR-01-EL-2
-                          elementName: |2-
-                            Order ID column
-                          elementType: |2-
-                            TextField
-                        SEFS fieldSpec:
+      XCS experienceCodeSpecs:
+        SCRDZ screens:
+          SCRINV screenInventory:
+            SCREN-ITEM-LST items:
+              SCREN-ITEM-1:
+                content:
+                  screenId: |2-
+                    SCR-01
+                  screenName: |2-
+                    Order Work List
+                  purpose: |2-
+                    The single, state-filtered queue from which clerks work every order.
+                SCECL classification:
+                  screenCategory: |2-
+                    List
+                  routePattern: |2-
+                    /orders
+                SCEAC access:
+                  accessLevel: |2-
+                    Authenticated
+                  requiredRoles: |2-
+                    Order Clerk, Order Supervisor
+                  permissionEffect: |2-
+                    Allow
+                SCETR traceability:
+                  relatedUseCases: |2-
+                    UC-01, UC-02
+                  relatedRequirements: |2-
+                    FR-01, FR-04, FR-06
+                  dataEntities: |2-
+                    Order
+                  primaryAction: |2-
+                    Open selected order
+                SCENPR presentation:
+                  pageTitleResource: |2-
+                    screen.orders.title
+                  layout: |2-
+                    Master-detail
+                SCSE sections:
+                  SCRSC-ITEM-LST items:
+                    SCRSC-ITEM-1:
+                      content:
+                        sectionId: |2-
+                          SCR-01-SEC-1
+                        sectionName: |2-
+                          State filter bar
+                        purpose: |2-
+                          Filter the queue by lifecycle state.
+                        sectionType: |2-
+                          Toolbar
+                      SSEL layout:
+                        layoutDirection: |2-
+                          Horizontal
+                        displayOrder: 1
+                      SCREL-ELEM-LST elements:
+                        SCREL-ELEM-1:
                           content:
-                            fieldName: |2-
-                              orderId
-                            dataType: |2-
-                              UUID
-                      SCREL-ELEM-2:
-                        content:
-                          elementId: |2-
-                            SCR-01-EL-3
-                          elementName: |2-
-                            Status column
-                          elementType: |2-
-                            StatusChip
-                        SEFS fieldSpec:
+                            elementId: |2-
+                              SCR-01-EL-1
+                            elementName: |2-
+                              State selector
+                            elementType: |2-
+                              SegmentedControl
+                          SEER resources:
+                            labelResource: |2-
+                              screen.orders.filter.state
+                            hintResource: |2-
+                              screen.orders.filter.state.hint
+                    SCRSC-ITEM-2:
+                      content:
+                        sectionId: |2-
+                          SCR-01-SEC-2
+                        sectionName: |2-
+                          Order table
+                        purpose: |2-
+                          The work list itself, keyboard-navigable for high-volume clerks.
+                        sectionType: |2-
+                          DataTable
+                      SSEL layout:
+                        layoutDirection: |2-
+                          Vertical
+                        displayOrder: 2
+                      SCREL-ELEM-LST elements:
+                        SCREL-ELEM-1:
                           content:
-                            fieldName: |2-
-                              status
-                            dataType: |2-
-                              Enum
-              SCAC actions:
-                SCRAC-ITEM-LST items:
-                  SCRAC-ITEM-1:
-                    content:
-                      actionId: |2-
-                        SCR-01-ACT-1
-                      actionName: |2-
-                        Open order
-                      actionType: |2-
-                        Navigate
-                    SAEV visual:
-                      labelResource: |2-
-                        screen.orders.action.open
-                      placement: |2-
-                        Row
-                      buttonStyle: |2-
-                        Primary
-              SCST states:
-                SCRST-ITEM-LST items:
-                  SCRST-ITEM-1:
-                    content:
-                      stateName: |2-
-                        Empty queue
-                      description: |2-
-                        No orders match the selected state filter.
-                      messageResource: |2-
-                        screen.orders.empty
-                      primaryActionLabel: |2-
-                        Clear filter
-                      primaryActionTarget: |2-
-                        SCR-01-EL-1
-            SCREN-ITEM-2:
-              content:
-                screenId: |2-
-                  SCR-02
-                screenName: |2-
-                  Order Detail
-                purpose: |2-
-                  The lifecycle timeline and inline actions for a single order.
-              SCECL classification:
-                screenCategory: |2-
-                  Detail
-                parentScreenId: |2-
-                  SCR-01
-                routePattern: |2-
-                  /orders/:orderId
-              SCEAC access:
-                accessLevel: |2-
-                  Authenticated
-                requiredRoles: |2-
-                  Order Clerk, Order Supervisor
-                permissionEffect: |2-
-                  Allow
-              SCETR traceability:
-                relatedUseCases: |2-
-                  UC-02, UC-03
-                relatedRequirements: |2-
-                  FR-05, FR-06
-                dataEntities: |2-
-                  Order, OrderLine
-                primaryAction: |2-
-                  Amend line
-              SCENPR presentation:
-                pageTitleResource: |2-
-                  screen.order.title
-                layout: |2-
-                  Single column
-              SCSE sections:
-                SCRSC-ITEM-LST items:
-                  SCRSC-ITEM-1:
-                    content:
-                      sectionId: |2-
-                        SCR-02-SEC-1
-                      sectionName: |2-
-                        Lifecycle timeline
-                      purpose: |2-
-                        Show every state transition with its authenticated actor.
-                      sectionType: |2-
-                        Timeline
-                    SSEL layout:
-                      layoutDirection: |2-
-                        Vertical
-                      displayOrder: 1
-                  SCRSC-ITEM-2:
-                    content:
-                      sectionId: |2-
-                        SCR-02-SEC-2
-                      sectionName: |2-
-                        Order lines
-                      purpose: |2-
-                        Editable list of lines with price and reservation status.
-                      sectionType: |2-
-                        EditableTable
-                    SSEL layout:
-                      layoutDirection: |2-
-                        Vertical
-                      displayOrder: 2
-                    SCREL-ELEM-LST elements:
-                      SCREL-ELEM-1:
-                        content:
-                          elementId: |2-
-                            SCR-02-EL-1
-                          elementName: |2-
-                            Quantity field
-                          elementType: |2-
-                            NumberField
-                        SEEB behavior:
-                          readonlyCondition: |2-
-                            order.status == "Dispatched"
-                        SEFS fieldSpec:
+                            elementId: |2-
+                              SCR-01-EL-2
+                            elementName: |2-
+                              Order ID column
+                            elementType: |2-
+                              TextField
+                          SEFS fieldSpec:
+                            content:
+                              fieldName: |2-
+                                orderId
+                              dataType: |2-
+                                UUID
+                        SCREL-ELEM-2:
                           content:
-                            fieldName: |2-
-                              quantity
-                            dataType: |2-
-                              Integer
-              SCAC actions:
-                SCRAC-ITEM-LST items:
-                  SCRAC-ITEM-1:
-                    content:
-                      actionId: |2-
-                        SCR-02-ACT-1
-                      actionName: |2-
-                        Amend line
-                      actionType: |2-
-                        Submit
-                    SAEV visual:
-                      labelResource: |2-
-                        screen.order.action.amend
-                      placement: |2-
-                        Row
-                      buttonStyle: |2-
-                        Primary
-                  SCRAC-ITEM-2:
-                    content:
-                      actionId: |2-
-                        SCR-02-ACT-2
-                      actionName: |2-
-                        Release hold
-                      actionType: |2-
-                        Submit
-                    SAEV visual:
-                      labelResource: |2-
-                        screen.order.action.release
-                      placement: |2-
-                        Header
-                      buttonStyle: |2-
-                        Secondary
-              SCST states:
-                SCRST-ITEM-LST items:
-                  SCRST-ITEM-1:
-                    content:
-                      stateName: |2-
-                        Amendment rejected
-                      description: |2-
-                        The new quantity failed validation or reservation.
-                      messageResource: |2-
-                        screen.order.amend.error
-                      primaryActionLabel: |2-
-                        Retry
-                      primaryActionTarget: |2-
-                        SCR-02-ACT-1
-      ACCESS accessibility:
-        ACCESS-ACCE accessibilityOverviewContent:
-          accessibilityStatement: true
+                            elementId: |2-
+                              SCR-01-EL-3
+                            elementName: |2-
+                              Status column
+                            elementType: |2-
+                              StatusChip
+                          SEFS fieldSpec:
+                            content:
+                              fieldName: |2-
+                                status
+                              dataType: |2-
+                                Enum
+                SCAC actions:
+                  SCRAC-ITEM-LST items:
+                    SCRAC-ITEM-1:
+                      content:
+                        actionId: |2-
+                          SCR-01-ACT-1
+                        actionName: |2-
+                          Open order
+                        actionType: |2-
+                          Navigate
+                      SAEV visual:
+                        labelResource: |2-
+                          screen.orders.action.open
+                        placement: |2-
+                          Row
+                        buttonStyle: |2-
+                          Primary
+                SCST states:
+                  SCRST-ITEM-LST items:
+                    SCRST-ITEM-1:
+                      content:
+                        stateName: |2-
+                          Empty queue
+                        description: |2-
+                          No orders match the selected state filter.
+                        messageResource: |2-
+                          screen.orders.empty
+                        primaryActionLabel: |2-
+                          Clear filter
+                        primaryActionTarget: |2-
+                          SCR-01-EL-1
+              SCREN-ITEM-2:
+                content:
+                  screenId: |2-
+                    SCR-02
+                  screenName: |2-
+                    Order Detail
+                  purpose: |2-
+                    The lifecycle timeline and inline actions for a single order.
+                SCECL classification:
+                  screenCategory: |2-
+                    Detail
+                  parentScreenId: |2-
+                    SCR-01
+                  routePattern: |2-
+                    /orders/:orderId
+                SCEAC access:
+                  accessLevel: |2-
+                    Authenticated
+                  requiredRoles: |2-
+                    Order Clerk, Order Supervisor
+                  permissionEffect: |2-
+                    Allow
+                SCETR traceability:
+                  relatedUseCases: |2-
+                    UC-02, UC-03
+                  relatedRequirements: |2-
+                    FR-05, FR-06
+                  dataEntities: |2-
+                    Order, OrderLine
+                  primaryAction: |2-
+                    Amend line
+                SCENPR presentation:
+                  pageTitleResource: |2-
+                    screen.order.title
+                  layout: |2-
+                    Single column
+                SCSE sections:
+                  SCRSC-ITEM-LST items:
+                    SCRSC-ITEM-1:
+                      content:
+                        sectionId: |2-
+                          SCR-02-SEC-1
+                        sectionName: |2-
+                          Lifecycle timeline
+                        purpose: |2-
+                          Show every state transition with its authenticated actor.
+                        sectionType: |2-
+                          Timeline
+                      SSEL layout:
+                        layoutDirection: |2-
+                          Vertical
+                        displayOrder: 1
+                    SCRSC-ITEM-2:
+                      content:
+                        sectionId: |2-
+                          SCR-02-SEC-2
+                        sectionName: |2-
+                          Order lines
+                        purpose: |2-
+                          Editable list of lines with price and reservation status.
+                        sectionType: |2-
+                          EditableTable
+                      SSEL layout:
+                        layoutDirection: |2-
+                          Vertical
+                        displayOrder: 2
+                      SCREL-ELEM-LST elements:
+                        SCREL-ELEM-1:
+                          content:
+                            elementId: |2-
+                              SCR-02-EL-1
+                            elementName: |2-
+                              Quantity field
+                            elementType: |2-
+                              NumberField
+                          SEEB behavior:
+                            readonlyCondition: |2-
+                              order.status == "Dispatched"
+                          SEFS fieldSpec:
+                            content:
+                              fieldName: |2-
+                                quantity
+                              dataType: |2-
+                                Integer
+                SCAC actions:
+                  SCRAC-ITEM-LST items:
+                    SCRAC-ITEM-1:
+                      content:
+                        actionId: |2-
+                          SCR-02-ACT-1
+                        actionName: |2-
+                          Amend line
+                        actionType: |2-
+                          Submit
+                      SAEV visual:
+                        labelResource: |2-
+                          screen.order.action.amend
+                        placement: |2-
+                          Row
+                        buttonStyle: |2-
+                          Primary
+                    SCRAC-ITEM-2:
+                      content:
+                        actionId: |2-
+                          SCR-02-ACT-2
+                        actionName: |2-
+                          Release hold
+                        actionType: |2-
+                          Submit
+                      SAEV visual:
+                        labelResource: |2-
+                          screen.order.action.release
+                        placement: |2-
+                          Header
+                        buttonStyle: |2-
+                          Secondary
+                SCST states:
+                  SCRST-ITEM-LST items:
+                    SCRST-ITEM-1:
+                      content:
+                        stateName: |2-
+                          Amendment rejected
+                        description: |2-
+                          The new quantity failed validation or reservation.
+                        messageResource: |2-
+                          screen.order.amend.error
+                        primaryActionLabel: |2-
+                          Retry
+                        primaryActionTarget: |2-
+                          SCR-02-ACT-1
+      XDFU designFollowUp:
+        ACCESS accessibility:
+          ACCESS-ACCE accessibilityOverviewContent:
+            accessibilityStatement: true
     QACM qualityAndAcceptanceModel:
       content: |2-
         Acceptance is gated on:

@@ -402,6 +402,67 @@ impl AccessConstraintPolicies {
     // (skipped: accessConstraintDetails has no target type)
 }
 
+/// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+///
+/// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+/// authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+/// authentication, resource protection, authorization, and the role matrix.
+/// The container itself carries no `@CodeSpecKind` — the mapped parts live on
+/// the child sections (e.g. `authentication`) — but the whole subtree is the
+/// CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+/// subtrees.
+pub struct AccessControlModel {
+    pub node: som::SomNode,
+}
+
+impl AccessControlModel {
+    /// Binds a AccessControlModel facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccessControlModel {
+        AccessControlModel { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 9.1.1. User Management.
+    pub fn user_management(&self) -> UserManagement {
+        UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
+    }
+
+    /// 9.1.2. Identification and Authentication.
+    pub fn authentication(&self) -> IdentificationAndAuthentication {
+        IdentificationAndAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "authentication"))
+    }
+
+    /// 9.1.3. Resource Protection.
+    pub fn resource_protection(&self) -> ResourceProtection {
+        ResourceProtection::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceProtection"))
+    }
+
+    /// 9.1.4. User Authorization.
+    pub fn authorization(&self) -> UserAuthorization {
+        UserAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorization"))
+    }
+
+    /// 9.1.5. Role Matrix.
+    pub fn role_matrix(&self) -> RoleMatrix {
+        RoleMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleMatrix"))
+    }
+}
+
 /// Access Control Model Selection (form).
 ///
 /// Defines the primary access control paradigm — RBAC, ABAC, ReBAC, or a
@@ -3299,6 +3360,43 @@ impl AuthenticationMethods {
             "ATME-ITEM-xxx".to_string(),
         )
     }
+}
+
+/// SBP.13 Experience & Interface Design — authorization-compliance CMP
+/// follow-up subtree.
+///
+/// Groups the UI authorization-compliance concern (how the interface adapts to
+/// roles and permissions as a compliance obligation), a **follow-up** (CMP)
+/// rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+/// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+pub struct AuthorizationComplianceFollowUp {
+    pub node: som::SomNode,
+}
+
+impl AuthorizationComplianceFollowUp {
+    /// Binds a AuthorizationComplianceFollowUp facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthorizationComplianceFollowUp {
+        AuthorizationComplianceFollowUp { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    // 10.4.1. Authorization Compliance.
+    // (skipped: authorizationCompliance has no target type)
 }
 
 /// Authorization event policy (form).
@@ -6709,6 +6807,11 @@ impl ClientRequirementsSection {
     /// Per-machine configuration of a client application (CE-CC).
     pub fn client_configuration(&self) -> ClientConfiguration {
         ClientConfiguration::new(self.node.doc(), format!("{}/{}", self.node.path(), "clientConfiguration"))
+    }
+
+    /// User-specific settings of a user-owned device (CE-DS).
+    pub fn device_settings(&self) -> DeviceSettings {
+        DeviceSettings::new(self.node.doc(), format!("{}/{}", self.node.path(), "deviceSettings"))
     }
 }
 
@@ -12220,6 +12323,129 @@ impl D12TransitionRolloutPlan {
     }
 }
 
+/// CGP00 CodeSpecs Generation Projection.
+///
+/// The residual `@CodeSpecKind`-tagged content after the Band-F follow-up
+/// splits: the shared registries, the server-side data / framework / access
+/// models, the process-step interactions, and the client-side experience seed.
+pub struct D13CodeSpecsProjection {
+    pub node: som::SomNode,
+}
+
+/// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.0";
+
+impl D13CodeSpecsProjection {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D13CodeSpecsProjection, som::SomVersionError> {
+        som::check_som_model_version(D13_CODE_SPECS_PROJECTION_MODEL_VERSION, document_version)?;
+        Ok(D13CodeSpecsProjection { node: som::SomNode::new(doc, "CGP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D13_CODE_SPECS_PROJECTION_MODEL_VERSION
+    }
+
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D13_CODE_SPECS_PROJECTION_MODEL_VERSION, document_version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// the tree-based codec.
+    pub fn load_yaml(yaml: &str) -> Result<D13CodeSpecsProjection, SomLoadError> {
+        let tree = meta::d13_code_specs_projection_meta_tree();
+        let doc = som::SpecDocument::from_yaml(yaml, &tree).map_err(SomLoadError::Yaml)?;
+        let version = doc.model_version.clone();
+        D13CodeSpecsProjection::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D13CodeSpecsProjection::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D13CodeSpecsProjection, SomLoadError> {
+        let tree = meta::d13_code_specs_projection_meta_tree();
+        let doc = som::SpecDocument::from_file(path, &tree).map_err(SomLoadError::Yaml)?;
+        let version = doc.model_version.clone();
+        D13CodeSpecsProjection::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Domain enum registry — CE-EN closed value sets, shared by client & server.
+    pub fn domain_enum_registry(&self) -> DomainEnumRegistry {
+        DomainEnumRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainEnumRegistry"))
+    }
+
+    /// Error code registry — CE-ER shared error-code vocabulary.
+    pub fn error_code_registry(&self) -> ErrorCodeRegistry {
+        ErrorCodeRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorCodeRegistry"))
+    }
+
+    /// Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+    pub fn result_envelope(&self) -> ResultEnvelope {
+        ResultEnvelope::new(self.node.doc(), format!("{}/{}", self.node.path(), "resultEnvelope"))
+    }
+
+    /// Message key registry — CE-TX author-copy-once keys, shared.
+    pub fn message_key_registry(&self) -> MessageKeyRegistry {
+        MessageKeyRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "messageKeyRegistry"))
+    }
+
+    /// Data model — CE-DB persistence + CE-VA server-side rules.
+    pub fn data_model(&self) -> DataModel {
+        DataModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataModel"))
+    }
+
+    /// Technical framework — CE-CF platform/config foundation.
+    pub fn technical_framework(&self) -> TechnicalFrameworkConcept {
+        TechnicalFrameworkConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFramework"))
+    }
+
+    /// Access control model — CE-AZ authorization/identity seed.
+    pub fn access_control(&self) -> AccessControlModel {
+        AccessControlModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessControl"))
+    }
+
+    /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
+    /// interaction; a single subtree whose parts split across both loci.
+    pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractions {
+        ProcessStepsAndActorInteractions::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsAndActorInteractions"))
+    }
+
+    /// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
+    pub fn experience_code_specs(&self) -> ExperienceCodeSpecs {
+        ExperienceCodeSpecs::new(self.node.doc(), format!("{}/{}", self.node.path(), "experienceCodeSpecs"))
+    }
+}
+
 /// A dashboard entry.
 pub struct DashboardEntry {
     pub node: som::SomNode,
@@ -12805,39 +13031,12 @@ impl DataEntityEntry {
         DataEntityEntryClassificationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENT-CLAS"))
     }
 
-    pub fn volume_metrics(&self) -> som::SomList<VolumeMetricEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "VOLUM-VOLU-LST"),
-            Box::new(VolumeMetricEntry::new),
-            "VOLUM-VOLU-xxx".to_string(),
-        )
-    }
-
     pub fn lifecycle_policy(&self) -> DataEntityEntryLifecyclePolicyForm {
         DataEntityEntryLifecyclePolicyForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENT-LIFE"))
     }
 
-    pub fn compliance_requirements(&self) -> som::SomList<ComplianceRequirementEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CRE-COMP-LST"),
-            Box::new(ComplianceRequirementEntry::new),
-            "CRE-COMP-xxx".to_string(),
-        )
-    }
-
     pub fn relationship_summary(&self) -> DataEntityEntryRelationshipSummaryForm {
         DataEntityEntryRelationshipSummaryForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENT-RELA"))
-    }
-
-    pub fn technical_characteristics(&self) -> som::SomList<TechnicalCharacteristicEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "TECHN-TECH-LST"),
-            Box::new(TechnicalCharacteristicEntry::new),
-            "TECHN-TECH-xxx".to_string(),
-        )
     }
 
     /// Contains 0+× DataAttribute.
@@ -12877,16 +13076,6 @@ impl DataEntityEntry {
             format!("{}/{}", self.node.path(), "ENCNS-CONS-LST"),
             Box::new(EntityConstraintEntry::new),
             "ENCNS-CONS-xxx".to_string(),
-        )
-    }
-
-    /// Contains 0+× MigrationMapping for data migration planning.
-    pub fn migration_mappings(&self) -> som::SomList<MigrationMappingEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "MIGME-MIGR-LST"),
-            Box::new(MigrationMappingEntry::new),
-            "MIGME-MIGR-xxx".to_string(),
         )
     }
 }
@@ -13489,20 +13678,17 @@ impl DataModel {
         EntityRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "entityRelationships"))
     }
 
-    // 7.1.3. Entity-Relationship Diagram (mermaid).
-    // (skipped: erDiagram has no target type)
-
-    /// 7.1.4. Data Classification.
+    /// 7.1.3. Data Classification.
     pub fn data_classification(&self) -> DataClassification {
         DataClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataClassification"))
     }
 
-    /// 7.1.5. Data Dictionary..
+    /// 7.1.4. Data Dictionary..
     pub fn data_dictionary(&self) -> DataDictionary {
         DataDictionary::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDictionary"))
     }
 
-    /// 7.1.6. Validation Constraints.
+    /// 7.1.5. Validation Constraints.
     ///
     /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
     /// from `List<ValidationConstraints>` (L34C-12 SR-25).
@@ -13510,12 +13696,60 @@ impl DataModel {
         ValidationConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "validationConstraints"))
     }
 
-    /// 7.1.7. Integrity Constraints.
+    /// 7.1.6. Integrity Constraints.
     ///
     /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
     /// from `List<IntegrityConstraints>` (L34C-12 SR-25).
     pub fn integrity_constraints(&self) -> IntegrityConstraints {
         IntegrityConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "integrityConstraints"))
+    }
+}
+
+/// 7.9. Data Model Follow-up Facets.
+///
+/// Operational and governance facets that accompany the data model but are not
+/// part of the generation-owned entity/attribute schema: the model-wide ER
+/// diagram plus per-entity volume, compliance, technical, and migration
+/// facets. Each per-entity block references its source entity by name/alias so
+/// the facets stay correlated with `dataModel.entities` without being nested
+/// inside the generation-owned `DataEntityEntry`.
+pub struct DataModelFollowUp {
+    pub node: som::SomNode,
+}
+
+impl DataModelFollowUp {
+    /// Binds a DataModelFollowUp facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataModelFollowUp {
+        DataModelFollowUp { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    // 7.9.1. Entity-Relationship Diagram (mermaid).
+    // (skipped: erDiagram has no target type)
+
+    /// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+    pub fn entity_follow_ups(&self) -> som::SomList<EntityFollowUpEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DMFUE-ENFU-LST"),
+            Box::new(EntityFollowUpEntry::new),
+            "DMFUE-ENFU-xxx".to_string(),
+        )
     }
 }
 
@@ -16355,6 +16589,37 @@ impl DevelopmentQualityGates {
     }
 }
 
+/// Device settings — user-specific settings of a user-owned device (CE-DS).
+///
+/// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+/// identity in the key) and from user settings (CE-UP — server-persisted,
+/// follow the user): a device setting is keyed by the (user, device) pair and
+/// persisted on the device itself (window layout, last-opened items,
+/// machine-local cache preferences). The same user gets independent values on
+/// each device; another user on the same device gets their own values
+/// (`codespecs_mapping.md` §11).
+pub struct DeviceSettings {
+    pub node: som::SomNode,
+}
+
+impl DeviceSettings {
+    /// Binds a DeviceSettings facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DeviceSettings {
+        DeviceSettings { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> DeviceSettingsContentForm {
+        DeviceSettingsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Disaster recovery requirements.
 pub struct DisasterRecoveryRequirements {
     pub node: som::SomNode,
@@ -18191,6 +18456,68 @@ impl EntityConstraintEntry {
     }
 }
 
+/// A per-entity follow-up facet block (form + lists).
+///
+/// Groups the volume, compliance, technical, and migration facets for a single
+/// data entity, correlated back to `dataModel.entities` by name/alias.
+pub struct EntityFollowUpEntry {
+    pub node: som::SomNode,
+}
+
+impl EntityFollowUpEntry {
+    /// Binds a EntityFollowUpEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EntityFollowUpEntry {
+        EntityFollowUpEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn entity_ref(&self) -> EntityFollowUpEntryEntityRefForm {
+        EntityFollowUpEntryEntityRefForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DMFUE-ENTI"))
+    }
+
+    pub fn volume_metrics(&self) -> som::SomList<VolumeMetricEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "VOLUM-VOLU-LST"),
+            Box::new(VolumeMetricEntry::new),
+            "VOLUM-VOLU-xxx".to_string(),
+        )
+    }
+
+    pub fn compliance_requirements(&self) -> som::SomList<ComplianceRequirementEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CRE-COMP-LST"),
+            Box::new(ComplianceRequirementEntry::new),
+            "CRE-COMP-xxx".to_string(),
+        )
+    }
+
+    pub fn technical_characteristics(&self) -> som::SomList<TechnicalCharacteristicEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "TECHN-TECH-LST"),
+            Box::new(TechnicalCharacteristicEntry::new),
+            "TECHN-TECH-xxx".to_string(),
+        )
+    }
+
+    pub fn migration_mappings(&self) -> som::SomList<MigrationMappingEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "MIGME-MIGR-LST"),
+            Box::new(MigrationMappingEntry::new),
+            "MIGME-MIGR-xxx".to_string(),
+        )
+    }
+}
+
 /// An entity index entry (form).
 ///
 /// Database index specification for query optimization.
@@ -19282,73 +19609,194 @@ impl ExperienceAndInterfaceDesign {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.1. Design Vision. Seeds → XDS.
-    pub fn design_vision(&self) -> DesignVision {
-        DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
+    /// 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+    pub fn experience_code_specs(&self) -> ExperienceCodeSpecs {
+        ExperienceCodeSpecs::new(self.node.doc(), format!("{}/{}", self.node.path(), "experienceCodeSpecs"))
     }
 
-    /// 10.2. Screen Descriptions. Seeds → XDS.
+    /// 10.2. Experience Design — DOC follow-up subtree.
+    pub fn design_follow_up(&self) -> ExperienceDesignFollowUp {
+        ExperienceDesignFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "designFollowUp"))
+    }
+
+    /// 10.3. Experience Localization — L10N follow-up subtree.
+    pub fn localization_follow_up(&self) -> ExperienceLocalizationFollowUp {
+        ExperienceLocalizationFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationFollowUp"))
+    }
+
+    /// 10.4. Authorization Compliance — CMP follow-up subtree.
+    pub fn authorization_compliance_follow_up(&self) -> AuthorizationComplianceFollowUp {
+        AuthorizationComplianceFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorizationComplianceFollowUp"))
+    }
+}
+
+/// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+///
+/// Groups the UI concerns CodeSpecs generates (§4.6 of
+/// `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+/// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+/// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+/// reusable UI component library (CE-EL/CE-LO). The container itself carries no
+/// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+/// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+/// follow-up subtrees.
+pub struct ExperienceCodeSpecs {
+    pub node: som::SomNode,
+}
+
+impl ExperienceCodeSpecs {
+    /// Binds a ExperienceCodeSpecs facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExperienceCodeSpecs {
+        ExperienceCodeSpecs { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 10.1.1. Screen Descriptions. Seeds → XDS.
     pub fn screens(&self) -> ScreenDescriptions {
         ScreenDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "screens"))
     }
 
-    /// 10.3. Screen Flow Structure. Seeds → XDS.
+    /// 10.1.2. Screen Flow Structure. Seeds → XDS.
     pub fn screen_flow(&self) -> ScreenFlowStructure {
         ScreenFlowStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenFlow"))
     }
 
-    /// 10.4. Print Layout. Seeds → XDS.
-    pub fn print_layout(&self) -> PrintAndExportLayout {
-        PrintAndExportLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
-    }
-
-    // Data Structure Alignment.
+    // 10.1.3. Data Structure Alignment.
     // (skipped: dataStructureAlignment has no target type)
 
-    // Authorization Compliance.
-    // (skipped: authorizationCompliance has no target type)
-
-    /// 10.7. Error Handling. Seeds → XDS.
+    /// 10.1.4. Error Handling. Seeds → XDS.
     pub fn error_handling(&self) -> ErrorHandling {
         ErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
     }
 
-    /// 10.8. User Assistance. Seeds → XDS.
-    pub fn user_assistance(&self) -> UserAssistance {
-        UserAssistance::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAssistance"))
-    }
-
-    /// 10.9. Accessibility. Seeds → XDS.
-    pub fn accessibility(&self) -> Accessibility {
-        Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
-    }
-
-    /// 10.10. Responsive Design. Seeds → XDS.
+    /// 10.1.5. Responsive Design. Seeds → XDS.
     pub fn responsive_design(&self) -> ResponsiveDesign {
         ResponsiveDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveDesign"))
     }
 
-    /// 10.11. UI Components. Seeds → XDS.
+    /// 10.1.6. UI Components. Seeds → XDS.
     pub fn ui_components(&self) -> UiComponents {
         UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
     }
+}
 
-    /// 10.12. Multi-language Support.
-    pub fn multi_language_support(&self) -> MultiLanguageSupport {
-        MultiLanguageSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageSupport"))
+/// SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+///
+/// Groups the design / documentation concerns that are **follow-up** (design
+/// vision, print & export layout, user assistance, accessibility, prototype,
+/// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+/// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+/// is generation-owned-out. Accessibility's operational (OPS) facet is a
+/// secondary concern refined by the follow-up taxonomy pass.
+pub struct ExperienceDesignFollowUp {
+    pub node: som::SomNode,
+}
+
+impl ExperienceDesignFollowUp {
+    /// Binds a ExperienceDesignFollowUp facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExperienceDesignFollowUp {
+        ExperienceDesignFollowUp { node: som::SomNode::new(doc, path) }
     }
 
-    /// 10.13. Prototype. Seeds → XDS.
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 10.2.1. Design Vision. Seeds → XDS.
+    pub fn design_vision(&self) -> DesignVision {
+        DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
+    }
+
+    /// 10.2.2. Print Layout. Seeds → XDS.
+    pub fn print_layout(&self) -> PrintAndExportLayout {
+        PrintAndExportLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
+    }
+
+    /// 10.2.3. User Assistance. Seeds → XDS.
+    pub fn user_assistance(&self) -> UserAssistance {
+        UserAssistance::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAssistance"))
+    }
+
+    /// 10.2.4. Accessibility. Seeds → XDS.
+    pub fn accessibility(&self) -> Accessibility {
+        Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
+    }
+
+    /// 10.2.5. Prototype. Seeds → XDS.
     pub fn prototype(&self) -> Prototype {
         Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
     }
 
-    /// 10.14. Wireframes and Mockups.
+    /// 10.2.6. Wireframes and Mockups.
     ///
     /// One whole-catalog content section; collapsed from
     /// `List<WireframesAndMockups>` (L34C-12 SR-52).
     pub fn wireframes_and_mockups(&self) -> WireframesAndMockups {
         WireframesAndMockups::new(self.node.doc(), format!("{}/{}", self.node.path(), "wireframesAndMockups"))
+    }
+}
+
+/// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+///
+/// Groups the internationalization concern, a **follow-up** (L10N) rather than
+/// CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+/// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+pub struct ExperienceLocalizationFollowUp {
+    pub node: som::SomNode,
+}
+
+impl ExperienceLocalizationFollowUp {
+    /// Binds a ExperienceLocalizationFollowUp facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExperienceLocalizationFollowUp {
+        ExperienceLocalizationFollowUp { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 10.3.1. Multi-language Support.
+    pub fn multi_language_support(&self) -> MultiLanguageSupport {
+        MultiLanguageSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageSupport"))
     }
 }
 
@@ -22911,6 +23359,17 @@ impl InformationAndDataModel {
     /// 7.8. Message Key Registry.
     pub fn message_key_registry(&self) -> MessageKeyRegistry {
         MessageKeyRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "messageKeyRegistry"))
+    }
+
+    /// 7.9. Data Model Follow-up Facets.
+    ///
+    /// Per-entity operational/governance facets (volume, compliance, technical
+    /// characteristics, migration mappings) and the model-wide ER diagram —
+    /// separated from `dataModel` so the entity/attribute subtree stays purely
+    /// CE-DB / CE-VA generation-owned while these follow-up facets are authored
+    /// alongside, keyed back to their source entity.
+    pub fn data_model_follow_up(&self) -> DataModelFollowUp {
+        DataModelFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataModelFollowUp"))
     }
 }
 
@@ -30327,6 +30786,51 @@ impl OrgRequirementImplementationPlan {
     }
 }
 
+/// SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.
+///
+/// Groups the two purely-follow-up facets of the Target Operating Model into a
+/// single branch that is routed to organizational-change (ORG) and
+/// operational-routine (OPS) follow-up processes rather than to code
+/// generation: the target organizational structure/roles
+/// ([OrganizationalFramework]) and the business-process narrative
+/// ([BusinessProcessDescriptions], which seeds the TOM document).
+pub struct OrganizationAndProcessConcept {
+    pub node: som::SomNode,
+}
+
+impl OrganizationAndProcessConcept {
+    /// Binds a OrganizationAndProcessConcept facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> OrganizationAndProcessConcept {
+        OrganizationAndProcessConcept { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Target organizational structure and roles.
+    pub fn organizational_framework(&self) -> OrganizationalFramework {
+        OrganizationalFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalFramework"))
+    }
+
+    /// Business-process descriptions and narrative. Seeds → TOM.
+    pub fn business_process_descriptions(&self) -> BusinessProcessDescriptions {
+        BusinessProcessDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessProcessDescriptions"))
+    }
+}
+
 /// 3.1.1. Organization Structure.
 pub struct OrganizationStructure {
     pub node: som::SomNode,
@@ -37359,8 +37863,15 @@ impl RequirementUiSpecification {
 /// SBP.9 Requirements.
 ///
 /// Functional requirements seed the Requirements Specification (RSP); this
-/// section currently carries the framework-uncovered NFR sub-areas re-homed in
-/// IP-6. Functional-requirement modelling is expanded in a later IP step.
+/// section is the CodeSpecs **seed** subtree — its functional requirements plus
+/// the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+/// requirements*, not generated. Functional-requirement modelling is expanded
+/// in a later IP step.
+///
+/// The framework-uncovered NFR follow-up sub-areas (localization,
+/// information-for-use, training) are grouped out of the seed subtree into
+/// [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+/// stays purely CodeSpecs-relevant.
 pub struct Requirements {
     pub node: som::SomNode,
 }
@@ -37369,6 +37880,49 @@ impl Requirements {
     /// Binds a Requirements facade to a document and a path.
     pub fn new(doc: som::DocRef, path: String) -> Requirements {
         Requirements { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+    pub fn requirements_follow_up(&self) -> RequirementsFollowUp {
+        RequirementsFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirementsFollowUp"))
+    }
+}
+
+/// SBP.9 Requirements — follow-up NFR sub-areas.
+///
+/// Groups the framework-uncovered non-functional requirement sub-areas that are
+/// **follow-up** concerns (documentation, training, localization) rather than
+/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+/// is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+/// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+///
+///  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+///  * Information for Use         → [InformationForUseRequirements] (DOC)
+///  * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
+pub struct RequirementsFollowUp {
+    pub node: som::SomNode,
+}
+
+impl RequirementsFollowUp {
+    /// Binds a RequirementsFollowUp facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RequirementsFollowUp {
+        RequirementsFollowUp { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -40885,44 +41439,19 @@ impl SecurityAndAccessModel {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.1. User Management.
-    pub fn user_management(&self) -> UserManagement {
-        UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
+    /// 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
+    pub fn access_control(&self) -> AccessControlModel {
+        AccessControlModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessControl"))
     }
 
-    /// 9.2. Identification and Authentication.
-    pub fn authentication(&self) -> IdentificationAndAuthentication {
-        IdentificationAndAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "authentication"))
+    /// 9.2. Security Operations — OPS follow-up subtree.
+    pub fn security_operations(&self) -> SecurityOperationsFollowUp {
+        SecurityOperationsFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityOperations"))
     }
 
-    /// 9.3. Resource Protection.
-    pub fn resource_protection(&self) -> ResourceProtection {
-        ResourceProtection::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceProtection"))
-    }
-
-    /// 9.4. User Authorization.
-    pub fn authorization(&self) -> UserAuthorization {
-        UserAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorization"))
-    }
-
-    /// 9.5. Sensitive Data Encryption.
-    pub fn encryption(&self) -> SensitiveDataEncryption {
-        SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "encryption"))
-    }
-
-    /// 9.6. Audit and Logging.
-    pub fn audit_and_logging(&self) -> AuditAndLogging {
-        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
-    }
-
-    /// 9.7. Role Matrix..
-    pub fn role_matrix(&self) -> RoleMatrix {
-        RoleMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleMatrix"))
-    }
-
-    /// 9.8. Compliance Framework.
-    pub fn compliance_framework(&self) -> ComplianceFramework {
-        ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
+    /// 9.3. Compliance — CMP follow-up subtree.
+    pub fn compliance(&self) -> SecurityComplianceFollowUp {
+        SecurityComplianceFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "compliance"))
     }
 }
 
@@ -41164,6 +41693,44 @@ impl SecurityCodeReviewPolicy {
     }
 }
 
+/// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+///
+/// Groups the compliance-framework concern, a **follow-up** (compliance
+/// governance) rather than CodeSpecs-generated behaviour (§4.5 of
+/// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+/// subtree is generation-owned-out.
+pub struct SecurityComplianceFollowUp {
+    pub node: som::SomNode,
+}
+
+impl SecurityComplianceFollowUp {
+    /// Binds a SecurityComplianceFollowUp facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityComplianceFollowUp {
+        SecurityComplianceFollowUp { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 9.3.1. Compliance Framework.
+    pub fn compliance_framework(&self) -> ComplianceFramework {
+        ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
+    }
+}
+
 /// A security control entry (form).
 pub struct SecurityControlEntry {
     pub node: som::SomNode,
@@ -41394,6 +41961,49 @@ impl SecurityEventsDefinition {
             Box::new(SecurityEventEntry::new),
             "SEVT-CUST-xxx".to_string(),
         )
+    }
+}
+
+/// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+///
+/// Groups the operational security concerns that are **follow-up** (key
+/// management and audit/logging operations), not CodeSpecs-generated behaviour
+/// (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+/// whole subtree is generation-owned-out.
+pub struct SecurityOperationsFollowUp {
+    pub node: som::SomNode,
+}
+
+impl SecurityOperationsFollowUp {
+    /// Binds a SecurityOperationsFollowUp facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityOperationsFollowUp {
+        SecurityOperationsFollowUp { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 9.2.1. Sensitive Data Encryption.
+    pub fn encryption(&self) -> SensitiveDataEncryption {
+        SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "encryption"))
+    }
+
+    /// 9.2.2. Audit and Logging.
+    pub fn audit_and_logging(&self) -> AuditAndLogging {
+        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
     }
 }
 
@@ -43091,9 +43701,50 @@ impl SolutionArchitectureAndTechnology {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Technical framework and platform concept.
+    /// Technical framework and platform concept — the CodeSpecs-relevant
+    /// (CE-CF configuration-bearing) subtree.
     pub fn technical_framework(&self) -> TechnicalFrameworkConcept {
         TechnicalFrameworkConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFramework"))
+    }
+
+    /// Architecture / component-reuse DOC follow-up subtree.
+    pub fn architecture_follow_up(&self) -> SolutionArchitectureFollowUp {
+        SolutionArchitectureFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "architectureFollowUp"))
+    }
+}
+
+/// SBP.11 Solution Architecture & Technology — DOC follow-up subtree.
+///
+/// Groups the descriptive-architecture concern that is **not** CodeSpecs-
+/// generated: the component-reuse rationale (component catalogue, third-party
+/// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
+/// generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+/// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
+/// CodeSpecs subtree.
+pub struct SolutionArchitectureFollowUp {
+    pub node: som::SomNode,
+}
+
+impl SolutionArchitectureFollowUp {
+    /// Binds a SolutionArchitectureFollowUp facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SolutionArchitectureFollowUp {
+        SolutionArchitectureFollowUp { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Components, libraries, and services to reuse.
@@ -47040,45 +47691,11 @@ impl TabItemEntry {
     }
 }
 
-/// 6. Target Business Process Model.
-pub struct TargetBusinessProcessModel {
-    pub node: som::SomNode,
-}
-
-impl TargetBusinessProcessModel {
-    /// Binds a TargetBusinessProcessModel facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TargetBusinessProcessModel {
-        TargetBusinessProcessModel { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// 6.1. Business Process Descriptions. Seeds → TOM.
-    pub fn business_process_descriptions(&self) -> BusinessProcessDescriptions {
-        BusinessProcessDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessProcessDescriptions"))
-    }
-
-    /// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
-    pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractions {
-        ProcessStepsAndActorInteractions::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsAndActorInteractions"))
-    }
-}
-
 /// SBP.7 Target Operating Model concept.
+///
+/// Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
+/// and a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)
+/// so each whole branch is owned by a single downstream process.
 pub struct TargetOperatingModel {
     pub node: som::SomNode,
 }
@@ -47105,14 +47722,14 @@ impl TargetOperatingModel {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Target organizational structure and roles.
-    pub fn organizational_framework(&self) -> OrganizationalFramework {
-        OrganizationalFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalFramework"))
+    /// ORG/OPS follow-up subtree: target organization + process narrative.
+    pub fn organization_and_process(&self) -> OrganizationAndProcessConcept {
+        OrganizationAndProcessConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationAndProcess"))
     }
 
-    /// Target business process model.
-    pub fn target_business_process(&self) -> TargetBusinessProcessModel {
-        TargetBusinessProcessModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetBusinessProcess"))
+    /// CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
+    pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractions {
+        ProcessStepsAndActorInteractions::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsAndActorInteractions"))
     }
 }
 
@@ -104531,6 +105148,74 @@ impl DevelopmentQualityGatesSecurityForm {
     }
 }
 
+/// DeviceSettingsContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DeviceSettingsContentForm {
+    pub node: som::SomNode,
+}
+
+impl DeviceSettingsContentForm {
+    /// Binds a DeviceSettingsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DeviceSettingsContentForm {
+        DeviceSettingsContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn setting_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "settingKey")
+    }
+
+    pub fn set_setting_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "settingKey", value);
+    }
+
+    pub fn value_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "valueType")
+    }
+
+    pub fn set_value_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "valueType", value);
+    }
+
+    pub fn default_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultValue")
+    }
+
+    pub fn set_default_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
+    }
+
+    pub fn device_overridable(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "deviceOverridable");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_device_overridable(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "deviceOverridable", &text);
+    }
+}
+
 /// DisasterRecoveryRequirementsContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct DisasterRecoveryRequirementsContentForm {
@@ -110113,6 +110798,54 @@ impl EntityConstraintEntryContentForm {
     pub fn set_business_rule(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "businessRule", value);
+    }
+}
+
+/// EntityFollowUpEntryEntityRefForm is the generated section facade for the `entityRef` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct EntityFollowUpEntryEntityRefForm {
+    pub node: som::SomNode,
+}
+
+impl EntityFollowUpEntryEntityRefForm {
+    /// Binds a EntityFollowUpEntryEntityRefForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EntityFollowUpEntryEntityRefForm {
+        EntityFollowUpEntryEntityRefForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn entity_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "entityName")
+    }
+
+    pub fn set_entity_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "entityName", value);
+    }
+
+    pub fn entity_alias(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "entityAlias")
+    }
+
+    pub fn set_entity_alias(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "entityAlias", value);
     }
 }
 
@@ -229976,6 +230709,24 @@ impl UserAttributeEntryContentForm {
     pub fn set_data_type(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
+    }
+
+    pub fn placement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "placement")
+    }
+
+    pub fn set_placement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "placement", value);
+    }
+
+    pub fn access_guard(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accessGuard")
+    }
+
+    pub fn set_access_guard(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accessGuard", value);
     }
 
     pub fn source(&self) -> String {

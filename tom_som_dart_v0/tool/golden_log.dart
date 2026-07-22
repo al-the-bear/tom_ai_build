@@ -191,7 +191,7 @@ void main(List<String> args) {
     out.add('TF\t$formPath\t$field\t${esc(generic)}');
   }
 
-  final actorOverview = sbp.targetOperatingModelConcept.targetBusinessProcess
+  final actorOverview = sbp.targetOperatingModelConcept
       .processStepsAndActorInteractions.actorOverview.overview;
   typedForm(actorOverview.path, 'totalActorCount',
       somFormatInt(actorOverview.totalActorCount));
@@ -203,7 +203,8 @@ void main(List<String> args) {
       somFormatInt(actorOverview.externalActorCount));
 
   final accessibilityOverview = sbp
-      .experienceAndInterfaceDesign.accessibility.accessibilityOverviewContent;
+      .experienceAndInterfaceDesign.designFollowUp.accessibility
+      .accessibilityOverviewContent;
   typedForm(accessibilityOverview.path, 'accessibilityStatement',
       somFormatBool(accessibilityOverview.accessibilityStatement));
 

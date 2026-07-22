@@ -220,7 +220,7 @@ func main() {
 		out = append(out, "TF\t"+formPath+"\t"+field+"\t"+esc(generic))
 	}
 
-	actorOverview := sbp.TargetOperatingModelConcept().TargetBusinessProcess().
+	actorOverview := sbp.TargetOperatingModelConcept().
 		ProcessStepsAndActorInteractions().ActorOverview().Overview()
 	typedForm(actorOverview.Path(), "totalActorCount",
 		somFormatInt(actorOverview.TotalActorCount()))
@@ -232,7 +232,7 @@ func main() {
 		somFormatInt(actorOverview.ExternalActorCount()))
 
 	accessibilityOverview := sbp.ExperienceAndInterfaceDesign().
-		Accessibility().AccessibilityOverviewContent()
+		DesignFollowUp().Accessibility().AccessibilityOverviewContent()
 	typedForm(accessibilityOverview.Path(), "accessibilityStatement",
 		somFormatBool(accessibilityOverview.AccessibilityStatement()))
 

@@ -417,6 +417,83 @@ function _mc_AccessConstraintPolicies(s) {
   ];
 }
 
+function _mc_AccessControlModel(s) {
+  return [
+     new SomMetaNode({
+      className: "AccessControlModel",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the access-control model: identities, authentication, resource protection, authorization, and roles.")}),
+     _cx("UserManagement", s, _mc_UserManagement,
+      (r, c) => new SomMetaNode({
+        className: "UserManagement",
+        memberName: "userManagement",
+        classSectionId: "USMGT",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "UserManagement",
+        serializationOrder: 1,
+        docComment: "9.1.1. User Management.",
+        classDocComment: "9.1. User Management.",
+        detailedIn: "D08SecurityAccessSpecification",
+        recursive: r,
+        children: c})),
+     _cx("IdentificationAndAuthentication", s, _mc_IdentificationAndAuthentication,
+      (r, c) => new SomMetaNode({
+        className: "IdentificationAndAuthentication",
+        memberName: "authentication",
+        classSectionId: "IDAUT",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "IdentificationAndAuthentication",
+        serializationOrder: 2,
+        docComment: "9.1.2. Identification and Authentication.",
+        classDocComment: "9.2. Identification and Authentication.",
+        detailedIn: "D08SecurityAccessSpecification",
+        recursive: r,
+        children: c})),
+     _cx("ResourceProtection", s, _mc_ResourceProtection,
+      (r, c) => new SomMetaNode({
+        className: "ResourceProtection",
+        memberName: "resourceProtection",
+        classSectionId: "RESPRO",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ResourceProtection",
+        serializationOrder: 3,
+        docComment: "9.1.3. Resource Protection.",
+        classDocComment: "9.3. Resource Protection.",
+        detailedIn: "D08SecurityAccessSpecification",
+        recursive: r,
+        children: c})),
+     _cx("UserAuthorization", s, _mc_UserAuthorization,
+      (r, c) => new SomMetaNode({
+        className: "UserAuthorization",
+        memberName: "authorization",
+        classSectionId: "USAU",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "UserAuthorization",
+        serializationOrder: 4,
+        docComment: "9.1.4. User Authorization.",
+        classDocComment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.",
+        detailedIn: "D08SecurityAccessSpecification",
+        recursive: r,
+        children: c})),
+     _cx("RoleMatrix", s, _mc_RoleMatrix,
+      (r, c) => new SomMetaNode({
+        className: "RoleMatrix",
+        memberName: "roleMatrix",
+        classSectionId: "ROMA",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "RoleMatrix",
+        serializationOrder: 5,
+        docComment: "9.1.5. Role Matrix.",
+        classDocComment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.",
+        detailedIn: "D08SecurityAccessSpecification",
+        recursive: r,
+        children: c})),
+  ];
+}
+
 function _mc_AccessControlModelSelection(s) {
   return [
      new SomMetaNode({
@@ -3195,6 +3272,26 @@ function _mc_AuthenticationMethods(s) {
       docComment: "Contains 0+× AuthenticationMethod.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["NIST SP 800-63B — authentication and authenticator lifecycle", "ISO/IEC 29115 — entity authentication assurance framework"], "connotation": "The catalog of supported authentication method entries."})],
       elementNode: _cx("AuthenticationMethodEntry", s, _mc_AuthenticationMethodEntry, (r, c) => new SomMetaNode({className: "AuthenticationMethodEntry", classSectionId: "ATME", kind: SomMetaKind.COMPLEX, typeName: "AuthenticationMethodEntry", docComment: "An authentication method entry (form).\n\nDetailed per-method specification aligned with NIST SP 800-63B\nauthenticator types (password, OTP, cryptographic, out-of-band).", classDocComment: "An authentication method entry (form).\n\nDetailed per-method specification aligned with NIST SP 800-63B\nauthenticator types (password, OTP, cryptographic, out-of-band).", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_AuthorizationComplianceFollowUp(s) {
+  return [
+     new SomMetaNode({
+      className: "AuthorizationComplianceFollowUp",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the authorization-compliance follow-up: UI adaptation to roles and permissions.")}),
+     new SomMetaNode({
+      className: "AuthorizationComplianceFollowUp",
+      memberName: "authorizationCompliance",
+      kind: SomMetaKind.SECTION,
+      typeName: "String",
+      serializationOrder: 1,
+      contentType: new SomContentTypeMeta("text", ""),
+      docComment: "10.4.1. Authorization Compliance."}),
   ];
 }
 
@@ -6958,6 +7055,18 @@ function _mc_ClientRequirementsSection(s) {
         classDocComment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).",
         recursive: r,
         children: c})),
+     _cx("DeviceSettings", s, _mc_DeviceSettings,
+      (r, c) => new SomMetaNode({
+        className: "DeviceSettings",
+        memberName: "deviceSettings",
+        classSectionId: "DEVSET",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "DeviceSettings",
+        serializationOrder: 13,
+        docComment: "User-specific settings of a user-owned device (CE-DS).",
+        classDocComment: "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).",
+        recursive: r,
+        children: c})),
   ];
 }
 
@@ -10712,7 +10821,7 @@ function _mc_D00SolutionBlueprint(s) {
         typeName: "TargetOperatingModel",
         serializationOrder: 7,
         docComment: "SBP.7 Target Operating Model concept. Seeds → TOM.",
-        classDocComment: "SBP.7 Target Operating Model concept.",
+        classDocComment: "SBP.7 Target Operating Model concept.\n\nSplit into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)\nand a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)\nso each whole branch is owned by a single downstream process.",
         recursive: r,
         children: c})),
      _cx("InformationAndDataModel", s, _mc_InformationAndDataModel,
@@ -10737,7 +10846,7 @@ function _mc_D00SolutionBlueprint(s) {
         typeName: "Requirements",
         serializationOrder: 9,
         docComment: "SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.",
-        classDocComment: "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection currently carries the framework-uncovered NFR sub-areas re-homed in\nIP-6. Functional-requirement modelling is expanded in a later IP step.",
+        classDocComment: "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed\nstays purely CodeSpecs-relevant.",
         recursive: r,
         children: c})),
      _cx("SolutionArchitectureAndTechnology", s, _mc_SolutionArchitectureAndTechnology,
@@ -12757,6 +12866,151 @@ function _mc_D12TransitionRolloutPlan(s) {
   ];
 }
 
+function _mc_D13CodeSpecsProjection(s) {
+  return [
+     new SomMetaNode({
+      className: "D13CodeSpecsProjection",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("text", ""),
+      contentHelp: "Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split."}),
+     _cx("DocumentHeader", s, _mc_DocumentHeader,
+      (r, c) => new SomMetaNode({
+        className: "DocumentHeader",
+        memberName: "header",
+        classSectionId: "DOCHD",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "DocumentHeader",
+        serializationOrder: 1,
+        docComment: "Standard TomSpecs document header.",
+        classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
+        recursive: r,
+        children: c})),
+     _cx("DomainEnumRegistry", s, _mc_DomainEnumRegistry,
+      (r, c) => new SomMetaNode({
+        className: "DomainEnumRegistry",
+        memberName: "domainEnumRegistry",
+        classSectionId: "DOMEN",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "DomainEnumRegistry",
+        serializationOrder: 2,
+        comment: "locus: shared — CE-EN",
+        docComment: "Domain enum registry — CE-EN closed value sets, shared by client & server.",
+        classDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+        recursive: r,
+        children: c})),
+     _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
+      (r, c) => new SomMetaNode({
+        className: "ErrorCodeRegistry",
+        memberName: "errorCodeRegistry",
+        classSectionId: "ERCRG",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ErrorCodeRegistry",
+        serializationOrder: 3,
+        comment: "locus: shared — CE-ER",
+        docComment: "Error code registry — CE-ER shared error-code vocabulary.",
+        classDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
+        recursive: r,
+        children: c})),
+     _cx("ResultEnvelope", s, _mc_ResultEnvelope,
+      (r, c) => new SomMetaNode({
+        className: "ResultEnvelope",
+        memberName: "resultEnvelope",
+        classSectionId: "RSLTE",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ResultEnvelope",
+        serializationOrder: 4,
+        comment: "locus: shared — CE-ER",
+        docComment: "Result envelope — CE-ER canonical §7 success-or-error contract, shared.",
+        classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+        recursive: r,
+        children: c})),
+     _cx("MessageKeyRegistry", s, _mc_MessageKeyRegistry,
+      (r, c) => new SomMetaNode({
+        className: "MessageKeyRegistry",
+        memberName: "messageKeyRegistry",
+        classSectionId: "MSGKR",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "MessageKeyRegistry",
+        serializationOrder: 5,
+        comment: "locus: shared — CE-TX",
+        docComment: "Message key registry — CE-TX author-copy-once keys, shared.",
+        classDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+        recursive: r,
+        children: c})),
+     _cx("DataModel", s, _mc_DataModel,
+      (r, c) => new SomMetaNode({
+        className: "DataModel",
+        memberName: "dataModel",
+        classSectionId: "DATMD",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "DataModel",
+        serializationOrder: 6,
+        comment: "locus: server — CE-DB/CE-VA",
+        docComment: "Data model — CE-DB persistence + CE-VA server-side rules.",
+        classDocComment: "7.1. Data Model.",
+        mapsTo: "D03InformationModel",
+        recursive: r,
+        children: c})),
+     _cx("TechnicalFrameworkConcept", s, _mc_TechnicalFrameworkConcept,
+      (r, c) => new SomMetaNode({
+        className: "TechnicalFrameworkConcept",
+        memberName: "technicalFramework",
+        classSectionId: "TECH",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "TechnicalFrameworkConcept",
+        serializationOrder: 7,
+        comment: "locus: server — CE-CF",
+        docComment: "Technical framework — CE-CF platform/config foundation.",
+        classDocComment: "8. Technical Framework Concept. Seeds → ATS.",
+        mapsTo: "D06ArchitectureTechnologySpecification",
+        recursive: r,
+        children: c})),
+     _cx("AccessControlModel", s, _mc_AccessControlModel,
+      (r, c) => new SomMetaNode({
+        className: "AccessControlModel",
+        memberName: "accessControl",
+        classSectionId: "ACCM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "AccessControlModel",
+        serializationOrder: 8,
+        comment: "locus: server — CE-AZ",
+        docComment: "Access control model — CE-AZ authorization/identity seed.",
+        classDocComment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
+        recursive: r,
+        children: c})),
+     _cx("ProcessStepsAndActorInteractions", s, _mc_ProcessStepsAndActorInteractions,
+      (r, c) => new SomMetaNode({
+        className: "ProcessStepsAndActorInteractions",
+        memberName: "processStepsAndActorInteractions",
+        classSectionId: "PSAAI",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ProcessStepsAndActorInteractions",
+        serializationOrder: 9,
+        comment: "locus: server(CE-SU)+client(CE-SC)",
+        docComment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
+        classDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
+        mapsTo: "D05InteractionScenarios",
+        recursive: r,
+        children: c})),
+     _cx("ExperienceCodeSpecs", s, _mc_ExperienceCodeSpecs,
+      (r, c) => new SomMetaNode({
+        className: "ExperienceCodeSpecs",
+        memberName: "experienceCodeSpecs",
+        classSectionId: "XCS",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ExperienceCodeSpecs",
+        serializationOrder: 10,
+        comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER",
+        docComment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
+        classDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.",
+        recursive: r,
+        children: c})),
+  ];
+}
+
 function _mc_DashboardEntry(s) {
   return [
      new SomMetaNode({
@@ -13271,53 +13525,20 @@ function _mc_DataEntityEntry(s) {
       form: new SomFormMeta([new SomFormFieldMeta({name: "category", typeName: "String", description: "Category", hint: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData", order: 0}), new SomFormFieldMeta({name: "boundedContext", typeName: "String", description: "Bounded Context", hint: "Domain-driven design bounded context this entity belongs to", order: 1}), new SomFormFieldMeta({name: "owningDomain", typeName: "String", description: "Owning Domain", hint: "Business domain responsible for this entity", order: 2}), new SomFormFieldMeta({name: "dataOwner", typeName: "String", description: "Data Owner", hint: "Role or team accountable for data quality", order: 3}), new SomFormFieldMeta({name: "dataSteward", typeName: "String", description: "Data Steward", hint: "Person or role responsible for data governance", order: 4}), new SomFormFieldMeta({name: "sourceSystem", typeName: "String", description: "Source System", hint: "System of record or originating system for migration", order: 5})])}),
      new SomMetaNode({
       className: "DataEntityEntry",
-      memberName: "volumeMetrics",
-      sectionId: "VOLUM-VOLU-LST",
-      sectionIdPattern: "VOLUM-VOLU-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "VolumeMetricEntry",
-      serializationOrder: 2,
-      contentHelp: "Add one entry per volume metric.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."})],
-      elementNode: _cx("VolumeMetricEntry", s, _mc_VolumeMetricEntry, (r, c) => new SomMetaNode({className: "VolumeMetricEntry", classSectionId: "VOLUM", kind: SomMetaKind.COMPLEX, typeName: "VolumeMetricEntry", docComment: "A single volume metric entry.", classDocComment: "A single volume metric entry.", recursive: r, children: c}))}),
-     new SomMetaNode({
-      className: "DataEntityEntry",
       memberName: "lifecyclePolicy",
       sectionId: "DAENT-LIFE",
       kind: SomMetaKind.FORM,
       typeName: "String",
-      serializationOrder: 3,
+      serializationOrder: 2,
       form: new SomFormMeta([new SomFormFieldMeta({name: "lifecyclePhases", typeName: "String", description: "Lifecycle Phases", hint: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted", order: 0}), new SomFormFieldMeta({name: "retentionPolicy", typeName: "String", description: "Retention Policy", hint: "How long data is retained and why (e.g., 7 years per tax regulations)", order: 1}), new SomFormFieldMeta({name: "archivalTrigger", typeName: "String", description: "Archival Trigger", hint: "Condition for moving to archive (e.g., 2 years after last activity)", order: 2}), new SomFormFieldMeta({name: "archivalDestination", typeName: "String", description: "Archival Destination", hint: "Where archived data goes: ColdStorage | Archive | DataLake", order: 3}), new SomFormFieldMeta({name: "purgePolicy", typeName: "String", description: "Purge Policy", hint: "When and how data is permanently deleted", order: 4}), new SomFormFieldMeta({name: "anonymizationPolicy", typeName: "String", description: "Anonymization Policy", hint: "PII anonymization rules (e.g., hash email after deletion)", order: 5}), new SomFormFieldMeta({name: "auditRequirements", typeName: "String", description: "Audit Requirements", hint: "What changes must be tracked: None | KeyFields | AllFields | FullHistory", order: 6}), new SomFormFieldMeta({name: "auditRetention", typeName: "String", description: "Audit Retention", hint: "How long audit records are kept", order: 7})])}),
-     new SomMetaNode({
-      className: "DataEntityEntry",
-      memberName: "complianceRequirements",
-      sectionId: "CRE-COMP-LST",
-      sectionIdPattern: "CRE-COMP-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "ComplianceRequirementEntry",
-      serializationOrder: 4,
-      contentHelp: "Add one entry per compliance requirement.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)", "ISO/IEC 27001 / NIST — data classification"], "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."})],
-      elementNode: _cx("ComplianceRequirementEntry", s, _mc_ComplianceRequirementEntry, (r, c) => new SomMetaNode({className: "ComplianceRequirementEntry", classSectionId: "CRE", kind: SomMetaKind.COMPLEX, typeName: "ComplianceRequirementEntry", docComment: "A single compliance requirement entry.", classDocComment: "A single compliance requirement entry.", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "DataEntityEntry",
       memberName: "relationshipSummary",
       sectionId: "DAENT-RELA",
       kind: SomMetaKind.FORM,
       typeName: "String",
-      serializationOrder: 5,
+      serializationOrder: 3,
       form: new SomFormMeta([new SomFormFieldMeta({name: "parentEntities", typeName: "String", description: "Parent Entities", hint: "Entities this depends on (e.g., Order depends on Customer)", order: 0}), new SomFormFieldMeta({name: "childEntities", typeName: "String", description: "Child Entities", hint: "Entities that depend on this (e.g., OrderItem depends on Order)", order: 1}), new SomFormFieldMeta({name: "referencedEntities", typeName: "String", description: "Referenced Entities", hint: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)", order: 2}), new SomFormFieldMeta({name: "crossDomainRelationships", typeName: "String", description: "Cross-Domain Relationships", hint: "Relationships that cross bounded context boundaries", order: 3})])}),
-     new SomMetaNode({
-      className: "DataEntityEntry",
-      memberName: "technicalCharacteristics",
-      sectionId: "TECHN-TECH-LST",
-      sectionIdPattern: "TECHN-TECH-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "TechnicalCharacteristicEntry",
-      serializationOrder: 6,
-      contentHelp: "Add one entry per technical characteristic.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."})],
-      elementNode: _cx("TechnicalCharacteristicEntry", s, _mc_TechnicalCharacteristicEntry, (r, c) => new SomMetaNode({className: "TechnicalCharacteristicEntry", classSectionId: "TECHN", kind: SomMetaKind.COMPLEX, typeName: "TechnicalCharacteristicEntry", docComment: "A single technical characteristic entry.", classDocComment: "A single technical characteristic entry.", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "DataEntityEntry",
       memberName: "attributes",
@@ -13325,7 +13546,7 @@ function _mc_DataEntityEntry(s) {
       sectionIdPattern: "DAATT-ATTR-xxx",
       kind: SomMetaKind.LIST,
       typeName: "DataAttributeEntry",
-      serializationOrder: 7,
+      serializationOrder: 4,
       contentHelp: "Add one entry per data attribute.",
       docComment: "Contains 0+× DataAttribute.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 11179 — metadata registries / data element definitions", "DAMA-DMBOK2 — data management body of knowledge"], "connotation": "The data attributes (fields) that belong to this entity."})],
@@ -13337,7 +13558,7 @@ function _mc_DataEntityEntry(s) {
       sectionIdPattern: "KEATT-KEYA-xxx",
       kind: SomMetaKind.LIST,
       typeName: "KeyAttributeEntry",
-      serializationOrder: 8,
+      serializationOrder: 5,
       contentHelp: "Add one entry per key attribute.",
       docComment: "Contains 0+× KeyAttribute.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ER modeling (Chen / Barker notation)", "ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "The key attributes (primary, foreign, alternate, composite) that identify or reference this entity."})],
@@ -13349,7 +13570,7 @@ function _mc_DataEntityEntry(s) {
       sectionIdPattern: "ENIDX-INDE-xxx",
       kind: SomMetaKind.LIST,
       typeName: "EntityIndexEntry",
-      serializationOrder: 9,
+      serializationOrder: 6,
       contentHelp: "Add one entry per entity index.",
       docComment: "Contains 0+× EntityIndex.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "The database indexes defined on this entity for query optimization."})],
@@ -13361,23 +13582,11 @@ function _mc_DataEntityEntry(s) {
       sectionIdPattern: "ENCNS-CONS-xxx",
       kind: SomMetaKind.LIST,
       typeName: "EntityConstraintEntry",
-      serializationOrder: 10,
+      serializationOrder: 7,
       contentHelp: "Add one entry per entity constraint.",
       docComment: "Contains 0+× EntityConstraint.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["SBVR — business rule statements", "ISO/IEC 25012 — data quality"], "connotation": "Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints."})],
       elementNode: _cx("EntityConstraintEntry", s, _mc_EntityConstraintEntry, (r, c) => new SomMetaNode({className: "EntityConstraintEntry", classSectionId: "ENCNS", kind: SomMetaKind.COMPLEX, typeName: "EntityConstraintEntry", docComment: "An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.", classDocComment: "An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.", recursive: r, children: c}))}),
-     new SomMetaNode({
-      className: "DataEntityEntry",
-      memberName: "migrationMappings",
-      sectionId: "MIGME-MIGR-LST",
-      sectionIdPattern: "MIGME-MIGR-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "MigrationMappingEntry",
-      serializationOrder: 11,
-      contentHelp: "Add one entry per migration mapping.",
-      docComment: "Contains 0+× MigrationMapping for data migration planning.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Source-to-target field mappings for planning the migration of data into this entity."})],
-      elementNode: _cx("MigrationMappingEntry", s, _mc_MigrationMappingEntry, (r, c) => new SomMetaNode({className: "MigrationMappingEntry", classSectionId: "MIGME", kind: SomMetaKind.COMPLEX, typeName: "MigrationMappingEntry", docComment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", classDocComment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", recursive: r, children: c}))}),
   ];
 }
 
@@ -13997,7 +14206,7 @@ function _mc_DataModel(s) {
       typeName: "String",
       serializationOrder: 0,
       contentType: new SomContentTypeMeta("text", ""),
-      contentHelp: "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with 7 form groups (41+ fields per entity)\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Volume Metrics (record count, growth rate, storage estimates)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Compliance Requirements (sensitivity, PII/PHI, encryption, access)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Technical Characteristics (indexing, caching, consistency, scaling)\n"}),
+      contentHelp: "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Attributes, key attributes, indexes, and constraints\n\nPer-entity operational facets (volume metrics, compliance requirements,\ntechnical characteristics, migration mappings) and the model-wide ER diagram\nare authored in the Data Model Follow-up Facets section (7.9).\n"}),
      new SomMetaNode({
       className: "DataModel",
       memberName: "entities",
@@ -14024,14 +14233,6 @@ function _mc_DataModel(s) {
         detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
-     new SomMetaNode({
-      className: "DataModel",
-      memberName: "erDiagram",
-      kind: SomMetaKind.SECTION,
-      typeName: "String",
-      serializationOrder: 3,
-      contentType: new SomContentTypeMeta("mermaid-er", ""),
-      docComment: "7.1.3. Entity-Relationship Diagram (mermaid)."}),
      _cx("DataClassification", s, _mc_DataClassification,
       (r, c) => new SomMetaNode({
         className: "DataClassification",
@@ -14039,8 +14240,8 @@ function _mc_DataModel(s) {
         classSectionId: "DATCL",
         kind: SomMetaKind.COMPLEX,
         typeName: "DataClassification",
-        serializationOrder: 4,
-        docComment: "7.1.4. Data Classification.",
+        serializationOrder: 3,
+        docComment: "7.1.3. Data Classification.",
         classDocComment: "7.1.4. Data Classification.",
         detailedIn: "D03InformationModel",
         recursive: r,
@@ -14052,8 +14253,8 @@ function _mc_DataModel(s) {
         classSectionId: "DADI",
         kind: SomMetaKind.COMPLEX,
         typeName: "DataDictionary",
-        serializationOrder: 5,
-        docComment: "7.1.5. Data Dictionary..",
+        serializationOrder: 4,
+        docComment: "7.1.4. Data Dictionary..",
         classDocComment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..",
         detailedIn: "D03InformationModel",
         recursive: r,
@@ -14065,8 +14266,8 @@ function _mc_DataModel(s) {
         classSectionId: "VACO",
         kind: SomMetaKind.COMPLEX,
         typeName: "ValidationConstraints",
-        serializationOrder: 6,
-        docComment: "7.1.6. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).",
+        serializationOrder: 5,
+        docComment: "7.1.5. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).",
         classDocComment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.",
         detailedIn: "D03InformationModel",
         recursive: r,
@@ -14078,12 +14279,45 @@ function _mc_DataModel(s) {
         classSectionId: "INCO",
         kind: SomMetaKind.COMPLEX,
         typeName: "IntegrityConstraints",
-        serializationOrder: 7,
-        docComment: "7.1.7. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).",
+        serializationOrder: 6,
+        docComment: "7.1.6. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).",
         classDocComment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.",
         detailedIn: "D03InformationModel",
         recursive: r,
         children: c})),
+  ];
+}
+
+function _mc_DataModelFollowUp(s) {
+  return [
+     new SomMetaNode({
+      className: "DataModelFollowUp",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("text", ""),
+      contentHelp: "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n"}),
+     new SomMetaNode({
+      className: "DataModelFollowUp",
+      memberName: "erDiagram",
+      kind: SomMetaKind.SECTION,
+      typeName: "String",
+      serializationOrder: 1,
+      contentType: new SomContentTypeMeta("mermaid-er", ""),
+      docComment: "7.9.1. Entity-Relationship Diagram (mermaid)."}),
+     new SomMetaNode({
+      className: "DataModelFollowUp",
+      memberName: "entityFollowUps",
+      sectionId: "DMFUE-ENFU-LST",
+      sectionIdPattern: "DMFUE-ENFU-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "EntityFollowUpEntry",
+      serializationOrder: 2,
+      contentHelp: "Add one entry per entity that carries follow-up facets.",
+      docComment: "7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Per-entity operational, compliance, technical, and migration facets keyed to the source entity."})],
+      elementNode: _cx("EntityFollowUpEntry", s, _mc_EntityFollowUpEntry, (r, c) => new SomMetaNode({className: "EntityFollowUpEntry", classSectionId: "DMFUE", kind: SomMetaKind.COMPLEX, typeName: "EntityFollowUpEntry", docComment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.", classDocComment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.", recursive: r, children: c}))}),
   ];
 }
 
@@ -17120,6 +17354,18 @@ function _mc_DevelopmentQualityGates(s) {
   ];
 }
 
+function _mc_DeviceSettings(s) {
+  return [
+     new SomMetaNode({
+      className: "DeviceSettings",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "settingKey", typeName: "String", description: "Setting Key", required: true, hint: "The dotted key of the device setting, e.g. window.layout", order: 0}), new SomFormFieldMeta({name: "valueType", typeName: "String", description: "Value Type", hint: "string / int / double / bool / enum", order: 1}), new SomFormFieldMeta({name: "defaultValue", typeName: "String", description: "Default Value", hint: "The value used until the user changes the setting on this device", order: 2}), new SomFormFieldMeta({name: "deviceOverridable", typeName: "bool", description: "Shadows a Wider-Scope Key", hint: "Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)", order: 3})])}),
+  ];
+}
+
 function _mc_DisasterRecoveryRequirements(s) {
   return [
      new SomMetaNode({
@@ -17784,6 +18030,18 @@ function _mc_DocSpecsProject(s) {
         serializationOrder: 12,
         docComment: "D09 — Experience Design Specification (Phase 3 projection).",
         classDocComment: "XDS00 Experience Design Specification.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups.",
+        recursive: r,
+        children: c})),
+     _cx("D13CodeSpecsProjection", s, _mc_D13CodeSpecsProjection,
+      (r, c) => new SomMetaNode({
+        className: "D13CodeSpecsProjection",
+        memberName: "codeSpecsProjection",
+        classSectionId: "CGP",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "D13CodeSpecsProjection",
+        serializationOrder: 13,
+        docComment: "D13 — CodeSpecs Generation Projection (Phase 4 generation input).\n\nA `@Document(basedOn: [D00SolutionBlueprint])` projection like the twelve\nPhase-3 roots, but `@CodeSpecKind`-driven: it reaches only the isolated\nCodeSpecs subtrees the Phase-4 generator consumes, grouped by\nshared/client/server locus. Marked `@CodeSpecsProjection()`.",
+        classDocComment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.",
         recursive: r,
         children: c})),
   ];
@@ -18876,6 +19134,63 @@ function _mc_EntityConstraintEntry(s) {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "constraintName", typeName: "String", description: "Constraint Name", required: true, hint: "Unique identifier for the constraint", order: 0}), new SomFormFieldMeta({name: "constraintType", typeName: "String", description: "Constraint Type", hint: "Check | Unique | Exclusion | Custom", order: 1}), new SomFormFieldMeta({name: "expression", typeName: "String", description: "Expression", hint: "Constraint expression or rule", order: 2}), new SomFormFieldMeta({name: "errorMessage", typeName: "String", description: "Error Message", hint: "User-friendly message when constraint violated", order: 3}), new SomFormFieldMeta({name: "enforcementLevel", typeName: "String", description: "Enforcement Level", hint: "Database | Application | Both", order: 4}), new SomFormFieldMeta({name: "isDeferred", typeName: "String", description: "Is Deferred", hint: "Whether check can be deferred to transaction end: Yes | No", order: 5}), new SomFormFieldMeta({name: "businessRule", typeName: "String", description: "Business Rule Reference", hint: "Related business rule ID", order: 6})])}),
+  ];
+}
+
+function _mc_EntityFollowUpEntry(s) {
+  return [
+     new SomMetaNode({
+      className: "EntityFollowUpEntry",
+      memberName: "entityRef",
+      sectionId: "DMFUE-ENTI",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      form: new SomFormMeta([new SomFormFieldMeta({name: "entityName", typeName: "String", description: "Entity Name", required: true, hint: "Name of the data entity these facets apply to (matches dataModel.entities)", order: 0}), new SomFormFieldMeta({name: "entityAlias", typeName: "String", description: "Alias/Abbreviation", hint: "Short alias of the referenced entity (e.g., CUST, ORD)", order: 1})])}),
+     new SomMetaNode({
+      className: "EntityFollowUpEntry",
+      memberName: "volumeMetrics",
+      sectionId: "VOLUM-VOLU-LST",
+      sectionIdPattern: "VOLUM-VOLU-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "VolumeMetricEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per volume metric.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."})],
+      elementNode: _cx("VolumeMetricEntry", s, _mc_VolumeMetricEntry, (r, c) => new SomMetaNode({className: "VolumeMetricEntry", classSectionId: "VOLUM", kind: SomMetaKind.COMPLEX, typeName: "VolumeMetricEntry", docComment: "A single volume metric entry.", classDocComment: "A single volume metric entry.", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "EntityFollowUpEntry",
+      memberName: "complianceRequirements",
+      sectionId: "CRE-COMP-LST",
+      sectionIdPattern: "CRE-COMP-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ComplianceRequirementEntry",
+      serializationOrder: 2,
+      contentHelp: "Add one entry per compliance requirement.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)", "ISO/IEC 27001 / NIST — data classification"], "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."})],
+      elementNode: _cx("ComplianceRequirementEntry", s, _mc_ComplianceRequirementEntry, (r, c) => new SomMetaNode({className: "ComplianceRequirementEntry", classSectionId: "CRE", kind: SomMetaKind.COMPLEX, typeName: "ComplianceRequirementEntry", docComment: "A single compliance requirement entry.", classDocComment: "A single compliance requirement entry.", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "EntityFollowUpEntry",
+      memberName: "technicalCharacteristics",
+      sectionId: "TECHN-TECH-LST",
+      sectionIdPattern: "TECHN-TECH-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "TechnicalCharacteristicEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per technical characteristic.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."})],
+      elementNode: _cx("TechnicalCharacteristicEntry", s, _mc_TechnicalCharacteristicEntry, (r, c) => new SomMetaNode({className: "TechnicalCharacteristicEntry", classSectionId: "TECHN", kind: SomMetaKind.COMPLEX, typeName: "TechnicalCharacteristicEntry", docComment: "A single technical characteristic entry.", classDocComment: "A single technical characteristic entry.", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "EntityFollowUpEntry",
+      memberName: "migrationMappings",
+      sectionId: "MIGME-MIGR-LST",
+      sectionIdPattern: "MIGME-MIGR-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "MigrationMappingEntry",
+      serializationOrder: 4,
+      contentHelp: "Add one entry per migration mapping.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Source-to-target field mappings for planning the migration of data into this entity."})],
+      elementNode: _cx("MigrationMappingEntry", s, _mc_MigrationMappingEntry, (r, c) => new SomMetaNode({className: "MigrationMappingEntry", classSectionId: "MIGME", kind: SomMetaKind.COMPLEX, typeName: "MigrationMappingEntry", docComment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", classDocComment: "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", recursive: r, children: c}))}),
   ];
 }
 
@@ -19976,20 +20291,66 @@ function _mc_ExperienceAndInterfaceDesign(s) {
       serializationOrder: 0,
       contentType: new SomContentTypeMeta("text", ""),
       contentHelp: "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n"}),
-     _cx("DesignVision", s, _mc_DesignVision,
+     _cx("ExperienceCodeSpecs", s, _mc_ExperienceCodeSpecs,
       (r, c) => new SomMetaNode({
-        className: "DesignVision",
-        memberName: "designVision",
-        classSectionId: "DEVIZ",
+        className: "ExperienceCodeSpecs",
+        memberName: "experienceCodeSpecs",
+        classSectionId: "XCS",
         kind: SomMetaKind.COMPLEX,
-        typeName: "DesignVision",
+        typeName: "ExperienceCodeSpecs",
         serializationOrder: 1,
-        docComment: "10.1. Design Vision. Seeds → XDS.",
-        classDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.",
-        mapsTo: "D09ExperienceDesignSpecification",
-        detailedIn: "D09ExperienceDesignSpecification",
+        docComment: "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.",
+        classDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.",
         recursive: r,
         children: c})),
+     _cx("ExperienceDesignFollowUp", s, _mc_ExperienceDesignFollowUp,
+      (r, c) => new SomMetaNode({
+        className: "ExperienceDesignFollowUp",
+        memberName: "designFollowUp",
+        classSectionId: "XDFU",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ExperienceDesignFollowUp",
+        serializationOrder: 2,
+        docComment: "10.2. Experience Design — DOC follow-up subtree.",
+        classDocComment: "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.",
+        recursive: r,
+        children: c})),
+     _cx("ExperienceLocalizationFollowUp", s, _mc_ExperienceLocalizationFollowUp,
+      (r, c) => new SomMetaNode({
+        className: "ExperienceLocalizationFollowUp",
+        memberName: "localizationFollowUp",
+        classSectionId: "XLFU",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ExperienceLocalizationFollowUp",
+        serializationOrder: 3,
+        docComment: "10.3. Experience Localization — L10N follow-up subtree.",
+        classDocComment: "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.",
+        recursive: r,
+        children: c})),
+     _cx("AuthorizationComplianceFollowUp", s, _mc_AuthorizationComplianceFollowUp,
+      (r, c) => new SomMetaNode({
+        className: "AuthorizationComplianceFollowUp",
+        memberName: "authorizationComplianceFollowUp",
+        classSectionId: "XCFU",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "AuthorizationComplianceFollowUp",
+        serializationOrder: 4,
+        docComment: "10.4. Authorization Compliance — CMP follow-up subtree.",
+        classDocComment: "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.",
+        recursive: r,
+        children: c})),
+  ];
+}
+
+function _mc_ExperienceCodeSpecs(s) {
+  return [
+     new SomMetaNode({
+      className: "ExperienceCodeSpecs",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the CodeSpecs UI-generation subtree: screens, navigation, error handling, responsive design, and components.")}),
      _cx("ScreenDescriptions", s, _mc_ScreenDescriptions,
       (r, c) => new SomMetaNode({
         className: "ScreenDescriptions",
@@ -19997,8 +20358,8 @@ function _mc_ExperienceAndInterfaceDesign(s) {
         classSectionId: "SCRDZ",
         kind: SomMetaKind.COMPLEX,
         typeName: "ScreenDescriptions",
-        serializationOrder: 2,
-        docComment: "10.2. Screen Descriptions. Seeds → XDS.",
+        serializationOrder: 1,
+        docComment: "10.1.1. Screen Descriptions. Seeds → XDS.",
         classDocComment: "10.2. Screen Descriptions.",
         mapsTo: "D09ExperienceDesignSpecification",
         detailedIn: "D09ExperienceDesignSpecification",
@@ -20011,43 +20372,21 @@ function _mc_ExperienceAndInterfaceDesign(s) {
         classSectionId: "SCFLST",
         kind: SomMetaKind.COMPLEX,
         typeName: "ScreenFlowStructure",
-        serializationOrder: 3,
-        docComment: "10.3. Screen Flow Structure. Seeds → XDS.",
+        serializationOrder: 2,
+        docComment: "10.1.2. Screen Flow Structure. Seeds → XDS.",
         classDocComment: "10.3. Screen Flow Structure.",
         mapsTo: "D09ExperienceDesignSpecification",
         detailedIn: "D09ExperienceDesignSpecification",
         recursive: r,
         children: c})),
-     _cx("PrintAndExportLayout", s, _mc_PrintAndExportLayout,
-      (r, c) => new SomMetaNode({
-        className: "PrintAndExportLayout",
-        memberName: "printLayout",
-        classSectionId: "PRLA",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "PrintAndExportLayout",
-        serializationOrder: 4,
-        docComment: "10.4. Print Layout. Seeds → XDS.",
-        classDocComment: "10.4. Print Layout.",
-        mapsTo: "D09ExperienceDesignSpecification",
-        detailedIn: "D09ExperienceDesignSpecification",
-        recursive: r,
-        children: c})),
      new SomMetaNode({
-      className: "ExperienceAndInterfaceDesign",
+      className: "ExperienceCodeSpecs",
       memberName: "dataStructureAlignment",
       kind: SomMetaKind.SECTION,
       typeName: "String",
-      serializationOrder: 5,
+      serializationOrder: 3,
       contentType: new SomContentTypeMeta("text", ""),
-      docComment: "Data Structure Alignment."}),
-     new SomMetaNode({
-      className: "ExperienceAndInterfaceDesign",
-      memberName: "authorizationCompliance",
-      kind: SomMetaKind.SECTION,
-      typeName: "String",
-      serializationOrder: 6,
-      contentType: new SomContentTypeMeta("text", ""),
-      docComment: "Authorization Compliance."}),
+      docComment: "10.1.3. Data Structure Alignment."}),
      _cx("ErrorHandling", s, _mc_ErrorHandling,
       (r, c) => new SomMetaNode({
         className: "ErrorHandling",
@@ -20055,37 +20394,9 @@ function _mc_ExperienceAndInterfaceDesign(s) {
         classSectionId: "ERHACO",
         kind: SomMetaKind.COMPLEX,
         typeName: "ErrorHandling",
-        serializationOrder: 7,
-        docComment: "10.7. Error Handling. Seeds → XDS.",
+        serializationOrder: 4,
+        docComment: "10.1.4. Error Handling. Seeds → XDS.",
         classDocComment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.",
-        mapsTo: "D09ExperienceDesignSpecification",
-        detailedIn: "D09ExperienceDesignSpecification",
-        recursive: r,
-        children: c})),
-     _cx("UserAssistance", s, _mc_UserAssistance,
-      (r, c) => new SomMetaNode({
-        className: "UserAssistance",
-        memberName: "userAssistance",
-        classSectionId: "USAS",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "UserAssistance",
-        serializationOrder: 8,
-        docComment: "10.8. User Assistance. Seeds → XDS.",
-        classDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
-        mapsTo: "D09ExperienceDesignSpecification",
-        detailedIn: "D09ExperienceDesignSpecification",
-        recursive: r,
-        children: c})),
-     _cx("Accessibility", s, _mc_Accessibility,
-      (r, c) => new SomMetaNode({
-        className: "Accessibility",
-        memberName: "accessibility",
-        classSectionId: "ACCESS",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "Accessibility",
-        serializationOrder: 9,
-        docComment: "10.9. Accessibility. Seeds → XDS.",
-        classDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
         mapsTo: "D09ExperienceDesignSpecification",
         detailedIn: "D09ExperienceDesignSpecification",
         recursive: r,
@@ -20097,8 +20408,8 @@ function _mc_ExperienceAndInterfaceDesign(s) {
         classSectionId: "REDE",
         kind: SomMetaKind.COMPLEX,
         typeName: "ResponsiveDesign",
-        serializationOrder: 10,
-        docComment: "10.10. Responsive Design. Seeds → XDS.",
+        serializationOrder: 5,
+        docComment: "10.1.5. Responsive Design. Seeds → XDS.",
         classDocComment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.",
         mapsTo: "D09ExperienceDesignSpecification",
         detailedIn: "D09ExperienceDesignSpecification",
@@ -20111,23 +20422,79 @@ function _mc_ExperienceAndInterfaceDesign(s) {
         classSectionId: "UICO",
         kind: SomMetaKind.COMPLEX,
         typeName: "UiComponents",
-        serializationOrder: 11,
-        docComment: "10.11. UI Components. Seeds → XDS.",
+        serializationOrder: 6,
+        docComment: "10.1.6. UI Components. Seeds → XDS.",
         classDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.",
         mapsTo: "D09ExperienceDesignSpecification",
         detailedIn: "D09ExperienceDesignSpecification",
         recursive: r,
         children: c})),
-     _cx("MultiLanguageSupport", s, _mc_MultiLanguageSupport,
+  ];
+}
+
+function _mc_ExperienceDesignFollowUp(s) {
+  return [
+     new SomMetaNode({
+      className: "ExperienceDesignFollowUp",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the design follow-up: vision, print layout, user assistance, accessibility, prototype, and wireframes.")}),
+     _cx("DesignVision", s, _mc_DesignVision,
       (r, c) => new SomMetaNode({
-        className: "MultiLanguageSupport",
-        memberName: "multiLanguageSupport",
-        classSectionId: "MLAR",
+        className: "DesignVision",
+        memberName: "designVision",
+        classSectionId: "DEVIZ",
         kind: SomMetaKind.COMPLEX,
-        typeName: "MultiLanguageSupport",
-        serializationOrder: 12,
-        docComment: "10.12. Multi-language Support.",
-        classDocComment: "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.",
+        typeName: "DesignVision",
+        serializationOrder: 1,
+        docComment: "10.2.1. Design Vision. Seeds → XDS.",
+        classDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.",
+        mapsTo: "D09ExperienceDesignSpecification",
+        detailedIn: "D09ExperienceDesignSpecification",
+        recursive: r,
+        children: c})),
+     _cx("PrintAndExportLayout", s, _mc_PrintAndExportLayout,
+      (r, c) => new SomMetaNode({
+        className: "PrintAndExportLayout",
+        memberName: "printLayout",
+        classSectionId: "PRLA",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "PrintAndExportLayout",
+        serializationOrder: 2,
+        docComment: "10.2.2. Print Layout. Seeds → XDS.",
+        classDocComment: "10.4. Print Layout.",
+        mapsTo: "D09ExperienceDesignSpecification",
+        detailedIn: "D09ExperienceDesignSpecification",
+        recursive: r,
+        children: c})),
+     _cx("UserAssistance", s, _mc_UserAssistance,
+      (r, c) => new SomMetaNode({
+        className: "UserAssistance",
+        memberName: "userAssistance",
+        classSectionId: "USAS",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "UserAssistance",
+        serializationOrder: 3,
+        docComment: "10.2.3. User Assistance. Seeds → XDS.",
+        classDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
+        mapsTo: "D09ExperienceDesignSpecification",
+        detailedIn: "D09ExperienceDesignSpecification",
+        recursive: r,
+        children: c})),
+     _cx("Accessibility", s, _mc_Accessibility,
+      (r, c) => new SomMetaNode({
+        className: "Accessibility",
+        memberName: "accessibility",
+        classSectionId: "ACCESS",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "Accessibility",
+        serializationOrder: 4,
+        docComment: "10.2.4. Accessibility. Seeds → XDS.",
+        classDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
+        mapsTo: "D09ExperienceDesignSpecification",
+        detailedIn: "D09ExperienceDesignSpecification",
         recursive: r,
         children: c})),
      _cx("Prototype", s, _mc_Prototype,
@@ -20137,8 +20504,8 @@ function _mc_ExperienceAndInterfaceDesign(s) {
         classSectionId: "PROTOT",
         kind: SomMetaKind.COMPLEX,
         typeName: "Prototype",
-        serializationOrder: 13,
-        docComment: "10.13. Prototype. Seeds → XDS.",
+        serializationOrder: 5,
+        docComment: "10.2.5. Prototype. Seeds → XDS.",
         classDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.",
         mapsTo: "D09ExperienceDesignSpecification",
         detailedIn: "D09ExperienceDesignSpecification",
@@ -20151,11 +20518,35 @@ function _mc_ExperienceAndInterfaceDesign(s) {
         classSectionId: "WIANMO",
         kind: SomMetaKind.COMPLEX,
         typeName: "WireframesAndMockups",
-        serializationOrder: 14,
-        docComment: "10.14. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+        serializationOrder: 6,
+        docComment: "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
         classDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.",
         mapsTo: "D09ExperienceDesignSpecification",
         detailedIn: "D09ExperienceDesignSpecification",
+        recursive: r,
+        children: c})),
+  ];
+}
+
+function _mc_ExperienceLocalizationFollowUp(s) {
+  return [
+     new SomMetaNode({
+      className: "ExperienceLocalizationFollowUp",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the localization follow-up: the multi-language / internationalization approach.")}),
+     _cx("MultiLanguageSupport", s, _mc_MultiLanguageSupport,
+      (r, c) => new SomMetaNode({
+        className: "MultiLanguageSupport",
+        memberName: "multiLanguageSupport",
+        classSectionId: "MLAR",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "MultiLanguageSupport",
+        serializationOrder: 1,
+        docComment: "10.3.1. Multi-language Support.",
+        classDocComment: "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.",
         recursive: r,
         children: c})),
   ];
@@ -23801,6 +24192,18 @@ function _mc_InformationAndDataModel(s) {
         serializationOrder: 8,
         docComment: "7.8. Message Key Registry.",
         classDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+        recursive: r,
+        children: c})),
+     _cx("DataModelFollowUp", s, _mc_DataModelFollowUp,
+      (r, c) => new SomMetaNode({
+        className: "DataModelFollowUp",
+        memberName: "dataModelFollowUp",
+        classSectionId: "DMFU",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "DataModelFollowUp",
+        serializationOrder: 9,
+        docComment: "7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.",
+        classDocComment: "7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.",
         recursive: r,
         children: c})),
   ];
@@ -31282,6 +31685,45 @@ function _mc_OrgRequirementImplementationPlan(s) {
   ];
 }
 
+function _mc_OrganizationAndProcessConcept(s) {
+  return [
+     new SomMetaNode({
+      className: "OrganizationAndProcessConcept",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      unused: true,
+      contentType: new SomContentTypeMeta("text", "")}),
+     _cx("OrganizationalFramework", s, _mc_OrganizationalFramework,
+      (r, c) => new SomMetaNode({
+        className: "OrganizationalFramework",
+        memberName: "organizationalFramework",
+        classSectionId: "ORGF",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "OrganizationalFramework",
+        serializationOrder: 1,
+        docComment: "Target organizational structure and roles.",
+        classDocComment: "5. Organizational Framework.\n\nOrganizational changes and structures required for the new system.\nCovers organization structure changes, new and changed roles, staffing\nplans, competency frameworks, and workplace requirements. Follows\norganizational design best practices (McKinsey 7-S, Galbraith Star Model)\nand HR management standards (SHRM, CIPD).",
+        recursive: r,
+        children: c})),
+     _cx("BusinessProcessDescriptions", s, _mc_BusinessProcessDescriptions,
+      (r, c) => new SomMetaNode({
+        className: "BusinessProcessDescriptions",
+        memberName: "businessProcessDescriptions",
+        classSectionId: "BPDSC",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "BusinessProcessDescriptions",
+        serializationOrder: 2,
+        comment: "Seeds → TOM",
+        docComment: "Business-process descriptions and narrative. Seeds → TOM.",
+        classDocComment: "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.",
+        mapsTo: "D02TargetOperatingModel",
+        recursive: r,
+        children: c})),
+  ];
+}
+
 function _mc_OrganizationStructure(s) {
   return [
      new SomMetaNode({
@@ -36783,7 +37225,7 @@ function _mc_ReleaseStrategy(s) {
       serializationOrder: 3,
       docComment: "Feature flags configuration.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "featureFlagsEnabled", typeName: "bool", description: "Feature Flags Enabled", hint: "Uses feature flags", order: 0}), new SomFormFieldMeta({name: "featureFlagProvider", typeName: "String", description: "Feature Flag Provider", hint: "LaunchDarkly, Flagsmith, custom", order: 1}), new SomFormFieldMeta({name: "flagStrategy", typeName: "String", description: "Flag Strategy", hint: "How flags are managed", order: 2})]),
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"], "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}), new SomMetaExtra("CodeSpecKind", {"kinds": ["CodeSpecPart.featureFlag"], "note": "CE-FF — feature flags / toggles as an explicit part, distinct from serverConfiguration values. Deferred (§4.3), mapping-only until §4.1."})]}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"], "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."}), new SomMetaExtra("CodeSpecKind", {"kinds": ["CodeSpecPart.serverConfiguration"], "note": "CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc §5.26). The deploy-from-release flag itself is deployment tooling."})]}),
      new SomMetaNode({
       className: "ReleaseStrategy",
       memberName: "management",
@@ -38016,6 +38458,30 @@ function _mc_Requirements(s) {
       typeName: "String",
       serializationOrder: 0,
       contentType: new SomContentTypeMeta("description", "Summarize the functional and non-functional requirement landscape; seeds the Requirements Specification (RSP).")}),
+     _cx("RequirementsFollowUp", s, _mc_RequirementsFollowUp,
+      (r, c) => new SomMetaNode({
+        className: "RequirementsFollowUp",
+        memberName: "requirementsFollowUp",
+        classSectionId: "REQFU",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "RequirementsFollowUp",
+        serializationOrder: 1,
+        docComment: "Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.",
+        classDocComment: "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)",
+        recursive: r,
+        children: c})),
+  ];
+}
+
+function _mc_RequirementsFollowUp(s) {
+  return [
+     new SomMetaNode({
+      className: "RequirementsFollowUp",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the follow-up (non-generated) NFR sub-areas: localization, information-for-use, and training.")}),
      _cx("LocalizationTranslationRequirements", s, _mc_LocalizationTranslationRequirements,
       (r, c) => new SomMetaNode({
         className: "LocalizationTranslationRequirements",
@@ -40333,7 +40799,7 @@ function _mc_SchemaVersioningAndMigration(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      contentHelp: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems.\n",
+      contentHelp: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n",
       form: new SomFormMeta([new SomFormFieldMeta({name: "migrationTooling", typeName: "String", description: "Migration Tooling", hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", order: 0}), new SomFormFieldMeta({name: "versioningStrategy", typeName: "String", description: "Versioning Strategy", hint: "Sequential numbered | Timestamped | Semantic", order: 1}), new SomFormFieldMeta({name: "forwardOnly", typeName: "bool", description: "Forward-Only", hint: "Whether migrations are forward-only (no down migrations)", order: 2}), new SomFormFieldMeta({name: "baselineVersion", typeName: "String", description: "Baseline Version", hint: "The initial/baseline schema version migrations build on", order: 3}), new SomFormFieldMeta({name: "zeroDowntimeApproach", typeName: "String", description: "Zero-Downtime Approach", hint: "Expand/contract, online DDL, blue-green schema, or None", order: 4})])}),
      new SomMetaNode({
       className: "SchemaVersioningAndMigration",
@@ -41285,108 +41751,40 @@ function _mc_SecurityAndAccessModel(s) {
       serializationOrder: 0,
       contentType: new SomContentTypeMeta("text", ""),
       contentHelp: "Provide a high-level overview of the application's security architecture for\nprotecting data and functions. This section serves as the entry point for all\naccess and authorization concerns.\n\n**Key topics to address:**\n- Overall security philosophy (zero trust, defense in depth, least privilege)\n- Applicable security frameworks (NIST, ISO 27001, SOC 2, OWASP)\n- Regulatory requirements affecting access control (GDPR, HIPAA, PCI DSS)\n- Integration points with enterprise identity and access management (IAM)\n- Risk-based approach to authorization decisions\n\n**Cross-references:**\n- User Management → defines who accesses the system\n- Authentication → proves user identity\n- Authorization → controls what authenticated users can do\n- Resource Protection → secures data and APIs\n- Encryption → protects sensitive data\n- Audit → logs security events for compliance\n"}),
-     _cx("UserManagement", s, _mc_UserManagement,
+     _cx("AccessControlModel", s, _mc_AccessControlModel,
       (r, c) => new SomMetaNode({
-        className: "UserManagement",
-        memberName: "userManagement",
-        classSectionId: "USMGT",
+        className: "AccessControlModel",
+        memberName: "accessControl",
+        classSectionId: "ACCM",
         kind: SomMetaKind.COMPLEX,
-        typeName: "UserManagement",
+        typeName: "AccessControlModel",
         serializationOrder: 1,
-        docComment: "9.1. User Management.",
-        classDocComment: "9.1. User Management.",
-        detailedIn: "D08SecurityAccessSpecification",
+        docComment: "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.",
+        classDocComment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
         recursive: r,
         children: c})),
-     _cx("IdentificationAndAuthentication", s, _mc_IdentificationAndAuthentication,
+     _cx("SecurityOperationsFollowUp", s, _mc_SecurityOperationsFollowUp,
       (r, c) => new SomMetaNode({
-        className: "IdentificationAndAuthentication",
-        memberName: "authentication",
-        classSectionId: "IDAUT",
+        className: "SecurityOperationsFollowUp",
+        memberName: "securityOperations",
+        classSectionId: "SCOF",
         kind: SomMetaKind.COMPLEX,
-        typeName: "IdentificationAndAuthentication",
+        typeName: "SecurityOperationsFollowUp",
         serializationOrder: 2,
-        docComment: "9.2. Identification and Authentication.",
-        classDocComment: "9.2. Identification and Authentication.",
-        detailedIn: "D08SecurityAccessSpecification",
+        docComment: "9.2. Security Operations — OPS follow-up subtree.",
+        classDocComment: "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.",
         recursive: r,
         children: c})),
-     _cx("ResourceProtection", s, _mc_ResourceProtection,
+     _cx("SecurityComplianceFollowUp", s, _mc_SecurityComplianceFollowUp,
       (r, c) => new SomMetaNode({
-        className: "ResourceProtection",
-        memberName: "resourceProtection",
-        classSectionId: "RESPRO",
+        className: "SecurityComplianceFollowUp",
+        memberName: "compliance",
+        classSectionId: "SCCF",
         kind: SomMetaKind.COMPLEX,
-        typeName: "ResourceProtection",
+        typeName: "SecurityComplianceFollowUp",
         serializationOrder: 3,
-        docComment: "9.3. Resource Protection.",
-        classDocComment: "9.3. Resource Protection.",
-        detailedIn: "D08SecurityAccessSpecification",
-        recursive: r,
-        children: c})),
-     _cx("UserAuthorization", s, _mc_UserAuthorization,
-      (r, c) => new SomMetaNode({
-        className: "UserAuthorization",
-        memberName: "authorization",
-        classSectionId: "USAU",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "UserAuthorization",
-        serializationOrder: 4,
-        docComment: "9.4. User Authorization.",
-        classDocComment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.",
-        detailedIn: "D08SecurityAccessSpecification",
-        recursive: r,
-        children: c})),
-     _cx("SensitiveDataEncryption", s, _mc_SensitiveDataEncryption,
-      (r, c) => new SomMetaNode({
-        className: "SensitiveDataEncryption",
-        memberName: "encryption",
-        classSectionId: "SEDAEN",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "SensitiveDataEncryption",
-        serializationOrder: 5,
-        docComment: "9.5. Sensitive Data Encryption.",
-        classDocComment: "9.5. Sensitive Data Encryption.",
-        detailedIn: "D08SecurityAccessSpecification",
-        recursive: r,
-        children: c})),
-     _cx("AuditAndLogging", s, _mc_AuditAndLogging,
-      (r, c) => new SomMetaNode({
-        className: "AuditAndLogging",
-        memberName: "auditAndLogging",
-        classSectionId: "AUANLO",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "AuditAndLogging",
-        serializationOrder: 6,
-        docComment: "9.6. Audit and Logging.",
-        classDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
-        detailedIn: "D08SecurityAccessSpecification",
-        recursive: r,
-        children: c})),
-     _cx("RoleMatrix", s, _mc_RoleMatrix,
-      (r, c) => new SomMetaNode({
-        className: "RoleMatrix",
-        memberName: "roleMatrix",
-        classSectionId: "ROMA",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "RoleMatrix",
-        serializationOrder: 7,
-        docComment: "9.7. Role Matrix..",
-        classDocComment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.",
-        detailedIn: "D08SecurityAccessSpecification",
-        recursive: r,
-        children: c})),
-     _cx("ComplianceFramework", s, _mc_ComplianceFramework,
-      (r, c) => new SomMetaNode({
-        className: "ComplianceFramework",
-        memberName: "complianceFramework",
-        classSectionId: "CF",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "ComplianceFramework",
-        serializationOrder: 8,
-        docComment: "9.8. Compliance Framework.",
-        classDocComment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
-        detailedIn: "D08SecurityAccessSpecification",
+        docComment: "9.3. Compliance — CMP follow-up subtree.",
+        classDocComment: "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.",
         recursive: r,
         children: c})),
   ];
@@ -41679,6 +42077,31 @@ function _mc_SecurityCodeReviewPolicy(s) {
   ];
 }
 
+function _mc_SecurityComplianceFollowUp(s) {
+  return [
+     new SomMetaNode({
+      className: "SecurityComplianceFollowUp",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the compliance follow-up: the regulatory and audit compliance framework.")}),
+     _cx("ComplianceFramework", s, _mc_ComplianceFramework,
+      (r, c) => new SomMetaNode({
+        className: "ComplianceFramework",
+        memberName: "complianceFramework",
+        classSectionId: "CF",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ComplianceFramework",
+        serializationOrder: 1,
+        docComment: "9.3.1. Compliance Framework.",
+        classDocComment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
+        detailedIn: "D08SecurityAccessSpecification",
+        recursive: r,
+        children: c})),
+  ];
+}
+
 function _mc_SecurityControlEntry(s) {
   return [
      new SomMetaNode({
@@ -41891,6 +42314,44 @@ function _mc_SecurityEventsDefinition(s) {
       docComment: "Custom Security Events — contains 0+× Security Event Entry.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["NIST SP 800-53 — control AU-2 event logging"], "connotation": "The catalog of application-specific custom security events to be captured beyond the standard categories."})],
       elementNode: _cx("SecurityEventEntry", s, _mc_SecurityEventEntry, (r, c) => new SomMetaNode({className: "SecurityEventEntry", classSectionId: "SEVT", kind: SomMetaKind.COMPLEX, typeName: "SecurityEventEntry", docComment: "A custom security event entry (form).\n\nAllows defining additional application-specific security events\nbeyond the standard categories.", classDocComment: "A custom security event entry (form).\n\nAllows defining additional application-specific security events\nbeyond the standard categories.", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_SecurityOperationsFollowUp(s) {
+  return [
+     new SomMetaNode({
+      className: "SecurityOperationsFollowUp",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the operational security follow-up: encryption / key management and audit / logging.")}),
+     _cx("SensitiveDataEncryption", s, _mc_SensitiveDataEncryption,
+      (r, c) => new SomMetaNode({
+        className: "SensitiveDataEncryption",
+        memberName: "encryption",
+        classSectionId: "SEDAEN",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "SensitiveDataEncryption",
+        serializationOrder: 1,
+        docComment: "9.2.1. Sensitive Data Encryption.",
+        classDocComment: "9.5. Sensitive Data Encryption.",
+        detailedIn: "D08SecurityAccessSpecification",
+        recursive: r,
+        children: c})),
+     _cx("AuditAndLogging", s, _mc_AuditAndLogging,
+      (r, c) => new SomMetaNode({
+        className: "AuditAndLogging",
+        memberName: "auditAndLogging",
+        classSectionId: "AUANLO",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "AuditAndLogging",
+        serializationOrder: 2,
+        docComment: "9.2.2. Audit and Logging.",
+        classDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
+        detailedIn: "D08SecurityAccessSpecification",
+        recursive: r,
+        children: c})),
   ];
 }
 
@@ -43703,11 +44164,35 @@ function _mc_SolutionArchitectureAndTechnology(s) {
         kind: SomMetaKind.COMPLEX,
         typeName: "TechnicalFrameworkConcept",
         serializationOrder: 1,
-        docComment: "Technical framework and platform concept.",
+        docComment: "Technical framework and platform concept — the CodeSpecs-relevant\n(CE-CF configuration-bearing) subtree.",
         classDocComment: "8. Technical Framework Concept. Seeds → ATS.",
         mapsTo: "D06ArchitectureTechnologySpecification",
         recursive: r,
         children: c})),
+     _cx("SolutionArchitectureFollowUp", s, _mc_SolutionArchitectureFollowUp,
+      (r, c) => new SomMetaNode({
+        className: "SolutionArchitectureFollowUp",
+        memberName: "architectureFollowUp",
+        classSectionId: "SATF",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "SolutionArchitectureFollowUp",
+        serializationOrder: 2,
+        docComment: "Architecture / component-reuse DOC follow-up subtree.",
+        classDocComment: "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.",
+        recursive: r,
+        children: c})),
+  ];
+}
+
+function _mc_SolutionArchitectureFollowUp(s) {
+  return [
+     new SomMetaNode({
+      className: "SolutionArchitectureFollowUp",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("description", "Summarize the descriptive-architecture follow-up: the component-reuse rationale and dependency strategy.")}),
      _cx("ComponentsAndDependencies", s, _mc_ComponentsAndDependencies,
       (r, c) => new SomMetaNode({
         className: "ComponentsAndDependencies",
@@ -43715,7 +44200,7 @@ function _mc_SolutionArchitectureAndTechnology(s) {
         classSectionId: "COMP",
         kind: SomMetaKind.COMPLEX,
         typeName: "ComponentsAndDependencies",
-        serializationOrder: 2,
+        serializationOrder: 1,
         docComment: "Components, libraries, and services to reuse.",
         classDocComment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.",
         mapsTo: "D06ArchitectureTechnologySpecification",
@@ -48131,28 +48616,26 @@ function _mc_TabItemEntry(s) {
   ];
 }
 
-function _mc_TargetBusinessProcessModel(s) {
+function _mc_TargetOperatingModel(s) {
   return [
      new SomMetaNode({
-      className: "TargetBusinessProcessModel",
+      className: "TargetOperatingModel",
       memberName: "content",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", ""),
-      contentHelp: "Overview of target business processes the system will support. This section\nestablishes the process vision, documents key processes with their triggers,\nactors, inputs/outputs, and performance expectations, and defines actor\ninteractions that seed use case development.\n\n**Key Activities:**\n- Define process vision and design principles\n- Create process catalog with comprehensive process definitions\n- Identify actors and their goals, permissions, and technology profiles\n- Document key interactions following Cockburn use case patterns\n- Map end-to-end scenarios showing user journeys\n\n**Best Practices:**\n- Follow BPMN 2.0 notation for process diagrams\n- Use APQC Process Classification Framework for process categorization\n- Apply Cockburn-style goal levels (summary/user/subfunction)\n- Define RACI for all process roles\n- Include performance KPIs and SLAs for each process\n"}),
-     _cx("BusinessProcessDescriptions", s, _mc_BusinessProcessDescriptions,
+      unused: true,
+      contentType: new SomContentTypeMeta("text", "")}),
+     _cx("OrganizationAndProcessConcept", s, _mc_OrganizationAndProcessConcept,
       (r, c) => new SomMetaNode({
-        className: "BusinessProcessDescriptions",
-        memberName: "businessProcessDescriptions",
-        classSectionId: "BPDSC",
+        className: "OrganizationAndProcessConcept",
+        memberName: "organizationAndProcess",
+        classSectionId: "OAPC",
         kind: SomMetaKind.COMPLEX,
-        typeName: "BusinessProcessDescriptions",
+        typeName: "OrganizationAndProcessConcept",
         serializationOrder: 1,
-        comment: "Seeds → TOM",
-        docComment: "6.1. Business Process Descriptions. Seeds → TOM.",
-        classDocComment: "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.",
-        mapsTo: "D02TargetOperatingModel",
+        docComment: "ORG/OPS follow-up subtree: target organization + process narrative.",
+        classDocComment: "SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.\n\nGroups the two purely-follow-up facets of the Target Operating Model into a\nsingle branch that is routed to organizational-change (ORG) and\noperational-routine (OPS) follow-up processes rather than to code\ngeneration: the target organizational structure/roles\n([OrganizationalFramework]) and the business-process narrative\n([BusinessProcessDescriptions], which seeds the TOM document).",
         recursive: r,
         children: c})),
      _cx("ProcessStepsAndActorInteractions", s, _mc_ProcessStepsAndActorInteractions,
@@ -48164,46 +48647,9 @@ function _mc_TargetBusinessProcessModel(s) {
         typeName: "ProcessStepsAndActorInteractions",
         serializationOrder: 2,
         comment: "Seeds → ISC",
-        docComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.",
+        docComment: "CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).",
         classDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
         mapsTo: "D05InteractionScenarios",
-        recursive: r,
-        children: c})),
-  ];
-}
-
-function _mc_TargetOperatingModel(s) {
-  return [
-     new SomMetaNode({
-      className: "TargetOperatingModel",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      unused: true,
-      contentType: new SomContentTypeMeta("text", "")}),
-     _cx("OrganizationalFramework", s, _mc_OrganizationalFramework,
-      (r, c) => new SomMetaNode({
-        className: "OrganizationalFramework",
-        memberName: "organizationalFramework",
-        classSectionId: "ORGF",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "OrganizationalFramework",
-        serializationOrder: 1,
-        docComment: "Target organizational structure and roles.",
-        classDocComment: "5. Organizational Framework.\n\nOrganizational changes and structures required for the new system.\nCovers organization structure changes, new and changed roles, staffing\nplans, competency frameworks, and workplace requirements. Follows\norganizational design best practices (McKinsey 7-S, Galbraith Star Model)\nand HR management standards (SHRM, CIPD).",
-        recursive: r,
-        children: c})),
-     _cx("TargetBusinessProcessModel", s, _mc_TargetBusinessProcessModel,
-      (r, c) => new SomMetaNode({
-        className: "TargetBusinessProcessModel",
-        memberName: "targetBusinessProcess",
-        classSectionId: "TBPM",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "TargetBusinessProcessModel",
-        serializationOrder: 2,
-        docComment: "Target business process model.",
-        classDocComment: "6. Target Business Process Model.",
         recursive: r,
         children: c})),
   ];
@@ -52097,7 +52543,7 @@ function _mc_UserAttributeEntry(s) {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "attributeName", typeName: "String", description: "Attribute Name", required: true, hint: "Name of the user attribute.", order: 0}), new SomFormFieldMeta({name: "dataType", typeName: "String", description: "Data Type", hint: "Data type of the attribute value.", order: 1}), new SomFormFieldMeta({name: "source", typeName: "String", description: "Source", hint: "System of record that supplies this attribute.", order: 2}), new SomFormFieldMeta({name: "required", typeName: "String", description: "Required", hint: "Whether this attribute is mandatory.", order: 3})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "attributeName", typeName: "String", description: "Attribute Name", required: true, hint: "Name of the user attribute.", order: 0}), new SomFormFieldMeta({name: "dataType", typeName: "String", description: "Data Type", hint: "Data type of the attribute value.", order: 1}), new SomFormFieldMeta({name: "placement", typeName: "UserAttributePlacement", description: "Placement", hint: "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", order: 2, enumValues: ["public", "encrypted"]}), new SomFormFieldMeta({name: "accessGuard", typeName: "String", description: "Access Guard", hint: "Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.", order: 3}), new SomFormFieldMeta({name: "source", typeName: "String", description: "Source", hint: "System of record that supplies this attribute.", order: 4}), new SomFormFieldMeta({name: "required", typeName: "String", description: "Required", hint: "Whether this attribute is mandatory.", order: 5})])}),
   ];
 }
 
@@ -54509,6 +54955,36 @@ class AccessConstraintPolicies$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `AccessControlModel` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class AccessControlModel$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get userManagement() {
+    return new UserManagement$Nav(this.tree, this.path + "/userManagement");
+  }
+
+  get authentication() {
+    return new IdentificationAndAuthentication$Nav(this.tree, this.path + "/authentication");
+  }
+
+  get resourceProtection() {
+    return new ResourceProtection$Nav(this.tree, this.path + "/resourceProtection");
+  }
+
+  get authorization() {
+    return new UserAuthorization$Nav(this.tree, this.path + "/authorization");
+  }
+
+  get roleMatrix() {
+    return new RoleMatrix$Nav(this.tree, this.path + "/roleMatrix");
+  }
+}
+
 // Dot-notation accessors of `AccessControlModelSelection` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -55960,6 +56436,20 @@ class AuthenticationMethods$Nav extends SomMetaRef {
 
   get items() {
     return new SomListMetaRef(this.tree, this.path + "/ATME-ITEM-LST", (t, p) => new AuthenticationMethodEntry$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `AuthorizationComplianceFollowUp` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class AuthorizationComplianceFollowUp$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get authorizationCompliance() {
+    return new SomMetaRef(this.tree, this.path + "/authorizationCompliance");
   }
 }
 
@@ -57758,6 +58248,10 @@ class ClientRequirementsSection$Nav extends SomMetaRef {
 
   get clientConfiguration() {
     return new ClientConfiguration$Nav(this.tree, this.path + "/clientConfiguration");
+  }
+
+  get deviceSettings() {
+    return new DeviceSettings$Nav(this.tree, this.path + "/deviceSettings");
   }
 }
 
@@ -60361,6 +60855,56 @@ class D12TransitionRolloutPlan$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `D13CodeSpecsProjection` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class D13CodeSpecsProjection$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get header() {
+    return new DocumentHeader$Nav(this.tree, this.path + "/header");
+  }
+
+  get domainEnumRegistry() {
+    return new DomainEnumRegistry$Nav(this.tree, this.path + "/domainEnumRegistry");
+  }
+
+  get errorCodeRegistry() {
+    return new ErrorCodeRegistry$Nav(this.tree, this.path + "/errorCodeRegistry");
+  }
+
+  get resultEnvelope() {
+    return new ResultEnvelope$Nav(this.tree, this.path + "/resultEnvelope");
+  }
+
+  get messageKeyRegistry() {
+    return new MessageKeyRegistry$Nav(this.tree, this.path + "/messageKeyRegistry");
+  }
+
+  get dataModel() {
+    return new DataModel$Nav(this.tree, this.path + "/dataModel");
+  }
+
+  get technicalFramework() {
+    return new TechnicalFrameworkConcept$Nav(this.tree, this.path + "/technicalFramework");
+  }
+
+  get accessControl() {
+    return new AccessControlModel$Nav(this.tree, this.path + "/accessControl");
+  }
+
+  get processStepsAndActorInteractions() {
+    return new ProcessStepsAndActorInteractions$Nav(this.tree, this.path + "/processStepsAndActorInteractions");
+  }
+
+  get experienceCodeSpecs() {
+    return new ExperienceCodeSpecs$Nav(this.tree, this.path + "/experienceCodeSpecs");
+  }
+}
+
 // Dot-notation accessors of `DashboardEntry` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -60652,24 +61196,12 @@ class DataEntityEntry$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/DAENT-CLAS");
   }
 
-  get volumeMetrics() {
-    return new SomListMetaRef(this.tree, this.path + "/VOLUM-VOLU-LST", (t, p) => new VolumeMetricEntry$Nav(t, p));
-  }
-
   get lifecyclePolicy() {
     return new SomMetaRef(this.tree, this.path + "/DAENT-LIFE");
   }
 
-  get complianceRequirements() {
-    return new SomListMetaRef(this.tree, this.path + "/CRE-COMP-LST", (t, p) => new ComplianceRequirementEntry$Nav(t, p));
-  }
-
   get relationshipSummary() {
     return new SomMetaRef(this.tree, this.path + "/DAENT-RELA");
-  }
-
-  get technicalCharacteristics() {
-    return new SomListMetaRef(this.tree, this.path + "/TECHN-TECH-LST", (t, p) => new TechnicalCharacteristicEntry$Nav(t, p));
   }
 
   get attributes() {
@@ -60686,10 +61218,6 @@ class DataEntityEntry$Nav extends SomMetaRef {
 
   get constraints() {
     return new SomListMetaRef(this.tree, this.path + "/ENCNS-CONS-LST", (t, p) => new EntityConstraintEntry$Nav(t, p));
-  }
-
-  get migrationMappings() {
-    return new SomListMetaRef(this.tree, this.path + "/MIGME-MIGR-LST", (t, p) => new MigrationMappingEntry$Nav(t, p));
   }
 }
 
@@ -61000,10 +61528,6 @@ class DataModel$Nav extends SomMetaRef {
     return new EntityRelationships$Nav(this.tree, this.path + "/entityRelationships");
   }
 
-  get erDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/erDiagram");
-  }
-
   get dataClassification() {
     return new DataClassification$Nav(this.tree, this.path + "/dataClassification");
   }
@@ -61018,6 +61542,24 @@ class DataModel$Nav extends SomMetaRef {
 
   get integrityConstraints() {
     return new IntegrityConstraints$Nav(this.tree, this.path + "/integrityConstraints");
+  }
+}
+
+// Dot-notation accessors of `DataModelFollowUp` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class DataModelFollowUp$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get erDiagram() {
+    return new SomMetaRef(this.tree, this.path + "/erDiagram");
+  }
+
+  get entityFollowUps() {
+    return new SomListMetaRef(this.tree, this.path + "/DMFUE-ENFU-LST", (t, p) => new EntityFollowUpEntry$Nav(t, p));
   }
 }
 
@@ -62513,6 +63055,16 @@ class DevelopmentQualityGates$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `DeviceSettings` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class DeviceSettings$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
 // Dot-notation accessors of `DisasterRecoveryRequirements` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -62838,6 +63390,10 @@ class DocSpecsProject$Nav extends SomMetaRef {
 
   get experienceDesignSpecification() {
     return new D09ExperienceDesignSpecification$Nav(this.tree, this.path + "/experienceDesignSpecification");
+  }
+
+  get codeSpecsProjection() {
+    return new D13CodeSpecsProjection$Nav(this.tree, this.path + "/codeSpecsProjection");
   }
 }
 
@@ -63433,6 +63989,32 @@ class EntityConstraintEntry$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `EntityFollowUpEntry` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class EntityFollowUpEntry$Nav extends SomMetaRef {
+  get entityRef() {
+    return new SomMetaRef(this.tree, this.path + "/DMFUE-ENTI");
+  }
+
+  get volumeMetrics() {
+    return new SomListMetaRef(this.tree, this.path + "/VOLUM-VOLU-LST", (t, p) => new VolumeMetricEntry$Nav(t, p));
+  }
+
+  get complianceRequirements() {
+    return new SomListMetaRef(this.tree, this.path + "/CRE-COMP-LST", (t, p) => new ComplianceRequirementEntry$Nav(t, p));
+  }
+
+  get technicalCharacteristics() {
+    return new SomListMetaRef(this.tree, this.path + "/TECHN-TECH-LST", (t, p) => new TechnicalCharacteristicEntry$Nav(t, p));
+  }
+
+  get migrationMappings() {
+    return new SomListMetaRef(this.tree, this.path + "/MIGME-MIGR-LST", (t, p) => new MigrationMappingEntry$Nav(t, p));
+  }
+}
+
 // Dot-notation accessors of `EntityIndexEntry` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -63978,8 +64560,30 @@ class ExperienceAndInterfaceDesign$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
 
-  get designVision() {
-    return new DesignVision$Nav(this.tree, this.path + "/designVision");
+  get experienceCodeSpecs() {
+    return new ExperienceCodeSpecs$Nav(this.tree, this.path + "/experienceCodeSpecs");
+  }
+
+  get designFollowUp() {
+    return new ExperienceDesignFollowUp$Nav(this.tree, this.path + "/designFollowUp");
+  }
+
+  get localizationFollowUp() {
+    return new ExperienceLocalizationFollowUp$Nav(this.tree, this.path + "/localizationFollowUp");
+  }
+
+  get authorizationComplianceFollowUp() {
+    return new AuthorizationComplianceFollowUp$Nav(this.tree, this.path + "/authorizationComplianceFollowUp");
+  }
+}
+
+// Dot-notation accessors of `ExperienceCodeSpecs` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class ExperienceCodeSpecs$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 
   get screens() {
@@ -63990,20 +64594,38 @@ class ExperienceAndInterfaceDesign$Nav extends SomMetaRef {
     return new ScreenFlowStructure$Nav(this.tree, this.path + "/screenFlow");
   }
 
-  get printLayout() {
-    return new PrintAndExportLayout$Nav(this.tree, this.path + "/printLayout");
-  }
-
   get dataStructureAlignment() {
     return new SomMetaRef(this.tree, this.path + "/dataStructureAlignment");
   }
 
-  get authorizationCompliance() {
-    return new SomMetaRef(this.tree, this.path + "/authorizationCompliance");
-  }
-
   get errorHandling() {
     return new ErrorHandling$Nav(this.tree, this.path + "/errorHandling");
+  }
+
+  get responsiveDesign() {
+    return new ResponsiveDesign$Nav(this.tree, this.path + "/responsiveDesign");
+  }
+
+  get uiComponents() {
+    return new UiComponents$Nav(this.tree, this.path + "/uiComponents");
+  }
+}
+
+// Dot-notation accessors of `ExperienceDesignFollowUp` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class ExperienceDesignFollowUp$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get designVision() {
+    return new DesignVision$Nav(this.tree, this.path + "/designVision");
+  }
+
+  get printLayout() {
+    return new PrintAndExportLayout$Nav(this.tree, this.path + "/printLayout");
   }
 
   get userAssistance() {
@@ -64014,24 +64636,26 @@ class ExperienceAndInterfaceDesign$Nav extends SomMetaRef {
     return new Accessibility$Nav(this.tree, this.path + "/accessibility");
   }
 
-  get responsiveDesign() {
-    return new ResponsiveDesign$Nav(this.tree, this.path + "/responsiveDesign");
-  }
-
-  get uiComponents() {
-    return new UiComponents$Nav(this.tree, this.path + "/uiComponents");
-  }
-
-  get multiLanguageSupport() {
-    return new MultiLanguageSupport$Nav(this.tree, this.path + "/multiLanguageSupport");
-  }
-
   get prototype() {
     return new Prototype$Nav(this.tree, this.path + "/prototype");
   }
 
   get wireframesAndMockups() {
     return new WireframesAndMockups$Nav(this.tree, this.path + "/wireframesAndMockups");
+  }
+}
+
+// Dot-notation accessors of `ExperienceLocalizationFollowUp` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class ExperienceLocalizationFollowUp$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get multiLanguageSupport() {
+    return new MultiLanguageSupport$Nav(this.tree, this.path + "/multiLanguageSupport");
   }
 }
 
@@ -65856,6 +66480,10 @@ class InformationAndDataModel$Nav extends SomMetaRef {
 
   get messageKeyRegistry() {
     return new MessageKeyRegistry$Nav(this.tree, this.path + "/messageKeyRegistry");
+  }
+
+  get dataModelFollowUp() {
+    return new DataModelFollowUp$Nav(this.tree, this.path + "/dataModelFollowUp");
   }
 }
 
@@ -69653,6 +70281,24 @@ class OrgRequirementImplementationPlan$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `OrganizationAndProcessConcept` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class OrganizationAndProcessConcept$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get organizationalFramework() {
+    return new OrganizationalFramework$Nav(this.tree, this.path + "/organizationalFramework");
+  }
+
+  get businessProcessDescriptions() {
+    return new BusinessProcessDescriptions$Nav(this.tree, this.path + "/businessProcessDescriptions");
+  }
+}
+
 // Dot-notation accessors of `OrganizationStructure` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -73146,6 +73792,20 @@ class Requirements$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
 
+  get requirementsFollowUp() {
+    return new RequirementsFollowUp$Nav(this.tree, this.path + "/requirementsFollowUp");
+  }
+}
+
+// Dot-notation accessors of `RequirementsFollowUp` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class RequirementsFollowUp$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
   get localizationTranslation() {
     return new LocalizationTranslationRequirements$Nav(this.tree, this.path + "/localizationTranslation");
   }
@@ -74868,36 +75528,16 @@ class SecurityAndAccessModel$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
 
-  get userManagement() {
-    return new UserManagement$Nav(this.tree, this.path + "/userManagement");
+  get accessControl() {
+    return new AccessControlModel$Nav(this.tree, this.path + "/accessControl");
   }
 
-  get authentication() {
-    return new IdentificationAndAuthentication$Nav(this.tree, this.path + "/authentication");
+  get securityOperations() {
+    return new SecurityOperationsFollowUp$Nav(this.tree, this.path + "/securityOperations");
   }
 
-  get resourceProtection() {
-    return new ResourceProtection$Nav(this.tree, this.path + "/resourceProtection");
-  }
-
-  get authorization() {
-    return new UserAuthorization$Nav(this.tree, this.path + "/authorization");
-  }
-
-  get encryption() {
-    return new SensitiveDataEncryption$Nav(this.tree, this.path + "/encryption");
-  }
-
-  get auditAndLogging() {
-    return new AuditAndLogging$Nav(this.tree, this.path + "/auditAndLogging");
-  }
-
-  get roleMatrix() {
-    return new RoleMatrix$Nav(this.tree, this.path + "/roleMatrix");
-  }
-
-  get complianceFramework() {
-    return new ComplianceFramework$Nav(this.tree, this.path + "/complianceFramework");
+  get compliance() {
+    return new SecurityComplianceFollowUp$Nav(this.tree, this.path + "/compliance");
   }
 }
 
@@ -75035,6 +75675,20 @@ class SecurityCodeReviewPolicy$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `SecurityComplianceFollowUp` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class SecurityComplianceFollowUp$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get complianceFramework() {
+    return new ComplianceFramework$Nav(this.tree, this.path + "/complianceFramework");
+  }
+}
+
 // Dot-notation accessors of `SecurityControlEntry` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -75144,6 +75798,24 @@ class SecurityEventsDefinition$Nav extends SomMetaRef {
 
   get customEvents() {
     return new SomListMetaRef(this.tree, this.path + "/SEVT-CUST-LST", (t, p) => new SecurityEventEntry$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `SecurityOperationsFollowUp` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class SecurityOperationsFollowUp$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get encryption() {
+    return new SensitiveDataEncryption$Nav(this.tree, this.path + "/encryption");
+  }
+
+  get auditAndLogging() {
+    return new AuditAndLogging$Nav(this.tree, this.path + "/auditAndLogging");
   }
 }
 
@@ -76060,6 +76732,20 @@ class SolutionArchitectureAndTechnology$Nav extends SomMetaRef {
 
   get technicalFramework() {
     return new TechnicalFrameworkConcept$Nav(this.tree, this.path + "/technicalFramework");
+  }
+
+  get architectureFollowUp() {
+    return new SolutionArchitectureFollowUp$Nav(this.tree, this.path + "/architectureFollowUp");
+  }
+}
+
+// Dot-notation accessors of `SolutionArchitectureFollowUp` (DR1 §4.1). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class SolutionArchitectureFollowUp$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 
   get componentsToUse() {
@@ -78127,24 +78813,6 @@ class TabItemEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `TargetBusinessProcessModel` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class TargetBusinessProcessModel$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-
-  get businessProcessDescriptions() {
-    return new BusinessProcessDescriptions$Nav(this.tree, this.path + "/businessProcessDescriptions");
-  }
-
-  get processStepsAndActorInteractions() {
-    return new ProcessStepsAndActorInteractions$Nav(this.tree, this.path + "/processStepsAndActorInteractions");
-  }
-}
-
 // Dot-notation accessors of `TargetOperatingModel` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -78154,12 +78822,12 @@ class TargetOperatingModel$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
 
-  get organizationalFramework() {
-    return new OrganizationalFramework$Nav(this.tree, this.path + "/organizationalFramework");
+  get organizationAndProcess() {
+    return new OrganizationAndProcessConcept$Nav(this.tree, this.path + "/organizationAndProcess");
   }
 
-  get targetBusinessProcess() {
-    return new TargetBusinessProcessModel$Nav(this.tree, this.path + "/targetBusinessProcess");
+  get processStepsAndActorInteractions() {
+    return new ProcessStepsAndActorInteractions$Nav(this.tree, this.path + "/processStepsAndActorInteractions");
   }
 }
 
@@ -83757,227 +84425,227 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get OCCHG_OVER() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER");
   }
 
   get ORGCE_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST", (t, p) => new OrganizationalChangeEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST", (t, p) => new OrganizationalChangeEntry$Id(t, p));
   }
 
   get TROML() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML");
   }
 
   get TROGV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/overview/TROGV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROGV");
   }
 
   get TRPHE_PHAS_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRPHE-PHAS-LST", (t, p) => new TransitionPhaseEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRPHE-PHAS-LST", (t, p) => new TransitionPhaseEntry$Id(t, p));
   }
 
   get TRMIL_MILE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRMIL-MILE-LST", (t, p) => new TransitionMilestoneEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRMIL-MILE-LST", (t, p) => new TransitionMilestoneEntry$Id(t, p));
   }
 
   get CHREOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/CHREOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/CHREOV");
   }
 
   get RDRCE_READ_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/RDRCE-READ-LST", (t, p) => new ReadinessCriteriaEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/changeReadiness/RDRCE-READ-LST", (t, p) => new ReadinessCriteriaEntry$Id(t, p));
   }
 
   get TRCOST() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOST");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOST");
   }
 
   get COEV_COMM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/COEV-COMM-LST", (t, p) => new CommunicationEventEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/COEV-COMM-LST", (t, p) => new CommunicationEventEntry$Id(t, p));
   }
 
   get TRCOCH_CHAN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOCH-CHAN-LST", (t, p) => new TransitionCommunicationChannels$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/communicationPlan/TRCOCH-CHAN-LST", (t, p) => new TransitionCommunicationChannels$Id(t, p));
   }
 
   get TRSUOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSUOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSUOV");
   }
 
   get TRSPRE_SUPP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSPRE-SUPP-LST", (t, p) => new TransitionSupportResourceEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRSPRE-SUPP-LST", (t, p) => new TransitionSupportResourceEntry$Id(t, p));
   }
 
   get TRESPA_ESCA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRESPA-ESCA-LST", (t, p) => new TransitionEscalationPaths$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/supportStructure/TRESPA-ESCA-LST", (t, p) => new TransitionEscalationPaths$Id(t, p));
   }
 
   get TRMEOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRMEOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRMEOV");
   }
 
   get TRME_METR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST", (t, p) => new TransitionMetricEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST", (t, p) => new TransitionMetricEntry$Id(t, p));
   }
 
   get TRRS_TRAN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST", (t, p) => new TransitionRiskEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST", (t, p) => new TransitionRiskEntry$Id(t, p));
   }
 
   get JODEOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/JODEOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV");
   }
 
   get NWROL_NEWR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", (t, p) => new NewRoleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", (t, p) => new NewRoleEntry$Id(t, p));
   }
 
   get CHAROL_CHAN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST", (t, p) => new ChangedRoleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST", (t, p) => new ChangedRoleEntry$Id(t, p));
   }
 
   get REMROL_REMO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/REMROL-REMO-LST", (t, p) => new RemovedRoleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/REMROL-REMO-LST", (t, p) => new RemovedRoleEntry$Id(t, p));
   }
 
   get STPLOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/STPLOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STPLOV");
   }
 
   get STBUAL() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUAL");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUAL");
   }
 
   get STBUGO() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUGO");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/budget/STBUGO");
   }
 
   get STFE_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/STFE-ITEM-LST", (t, p) => new StaffingEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STFE-ITEM-LST", (t, p) => new StaffingEntry$Id(t, p));
   }
 
   get RETI() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/staffingPlan/RETI");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/RETI");
   }
 
   get COFROV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COFROV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COFROV");
   }
 
   get COMPE_CORE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-CORE-LST", (t, p) => new CompetencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-CORE-LST", (t, p) => new CompetencyEntry$Id(t, p));
   }
 
   get COMPE_TECH_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-TECH-LST", (t, p) => new CompetencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-TECH-LST", (t, p) => new CompetencyEntry$Id(t, p));
   }
 
   get COMPE_LEAD_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/jobDescriptions/competencyFramework/COMPE-LEAD-LST", (t, p) => new CompetencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/competencyFramework/COMPE-LEAD-LST", (t, p) => new CompetencyEntry$Id(t, p));
   }
 
   get WPDE_WORK_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/WPDE-WORK-LST", (t, p) => new WorkplaceDescriptionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/WPDE-WORK-LST", (t, p) => new WorkplaceDescriptionEntry$Id(t, p));
   }
 
   get PVOVW() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/PVOVW");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PVOVW");
   }
 
   get EXIPR_EXPE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/EXIPR-EXPE-LST", (t, p) => new ExpectedImprovements$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/EXIPR-EXPE-LST", (t, p) => new ExpectedImprovements$Id(t, p));
   }
 
   get PRSUC() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processVision/PRSUC");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PRSUC");
   }
 
   get DPOVW() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/designPrinciples/DPOVW");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples/DPOVW");
   }
 
   get PDPEN_PRIN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/designPrinciples/PDPEN-PRIN-LST", (t, p) => new ProcessDesignPrincipleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/designPrinciples/PDPEN-PRIN-LST", (t, p) => new ProcessDesignPrincipleEntry$Id(t, p));
   }
 
   get PCOVW() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/PCOVW");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/PCOVW");
   }
 
   get PRCCL() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/PRCCL");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/PRCCL");
   }
 
   get BPREN_PROC_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processCatalog/BPREN-PROC-LST", (t, p) => new BusinessProcessEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processCatalog/BPREN-PROC-LST", (t, p) => new BusinessProcessEntry$Id(t, p));
   }
 
   get PRDIOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processOverviewDiagram/PRDIOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processOverviewDiagram/PRDIOV");
   }
 
   get IMOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/IMOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/IMOV");
   }
 
   get PCIMV_IMPR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/PCIMV-IMPR-LST", (t, p) => new ProcessImprovementEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/PCIMV-IMPR-LST", (t, p) => new ProcessImprovementEntry$Id(t, p));
   }
 
   get IMBUCA() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/improvementSummary/IMBUCA");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/improvementSummary/IMBUCA");
   }
 
   get PCRLT_RELA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/processRelationships/PCRLT-RELA-LST", (t, p) => new ProcessRelationshipEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processRelationships/PCRLT-RELA-LST", (t, p) => new ProcessRelationshipEntry$Id(t, p));
   }
 
   get DEPRWO_DETA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/DEPRWO-DETA-LST", (t, p) => new DetailedProcessWorkflow$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/DEPRWO-DETA-LST", (t, p) => new DetailedProcessWorkflow$Id(t, p));
   }
 
   get PMAK_PROC_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/businessProcessDescriptions/PMAK-PROC-LST", (t, p) => new ProcessMetric$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/PMAK-PROC-LST", (t, p) => new ProcessMetric$Id(t, p));
   }
 
   get ACOVNA() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACOVNA");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACOVNA");
   }
 
   get ACEN_ACTO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", (t, p) => new ActorEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", (t, p) => new ActorEntry$Id(t, p));
   }
 
   get ACCASU() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACCASU");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/actorOverview/ACCASU");
   }
 
   get INCAOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INCAOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INCAOV");
   }
 
   get INEN_INTE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", (t, p) => new InteractionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", (t, p) => new InteractionEntry$Id(t, p));
   }
 
   get INPR() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INPR");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INPR");
   }
 
   get SCOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCOV");
   }
 
   get SCNRY_SCEN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", (t, p) => new ScenarioEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", (t, p) => new ScenarioEntry$Id(t, p));
   }
 
   get ACDIOV() {
-    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV");
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV");
   }
 
   get ETETS_ENDT_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/ETETS-ENDT-LST", (t, p) => new EndToEndTestScenario$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/processStepsAndActorInteractions/ETETS-ENDT-LST", (t, p) => new EndToEndTestScenario$Id(t, p));
   }
 
   get DAENT_ENTI_LST() {
@@ -84040,44 +84708,48 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST", (t, p) => new MessageKeyEntry$Id(t, p));
   }
 
+  get DMFUE_ENFU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/dataModelFollowUp/DMFUE-ENFU-LST", (t, p) => new EntityFollowUpEntry$Id(t, p));
+  }
+
   get TRAREQ_TRAN() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRAREQ-TRAN");
   }
 
   get TRRERT() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/localizationTranslation/translationRequirements/TRRERT");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRERT");
   }
 
   get TRREFO() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/localizationTranslation/translationRequirements/TRREFO");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRREFO");
   }
 
   get TRREVA() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/localizationTranslation/translationRequirements/TRREVA");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRREVA");
   }
 
   get TRRETE() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/localizationTranslation/translationRequirements/TRRETE");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRETE");
   }
 
   get DOANTR_DOCU() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/informationForUse/userDocumentation/DOANTR-DOCU");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/informationForUse/userDocumentation/DOANTR-DOCU");
   }
 
   get DATD() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/informationForUse/userDocumentation/DATD");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/informationForUse/userDocumentation/DATD");
   }
 
   get DATL() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/informationForUse/userDocumentation/DATL");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/informationForUse/userDocumentation/DATL");
   }
 
   get TRMAT_TRAI() {
-    return new SomMetaRef(this.tree, this.path + "/requirements/trainingEnablement/trainingDeliverables/TRMAT-TRAI");
+    return new SomMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI");
   }
 
   get TRMOEN_TRAI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/requirements/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", (t, p) => new TrainingModuleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", (t, p) => new TrainingModuleEntry$Id(t, p));
   }
 
   get TGPLT_TARG_LST() {
@@ -86553,739 +87225,739 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get CSVND() {
-    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSVND");
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSVND");
   }
 
   get CSGOV() {
-    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSGOV");
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSGOV");
   }
 
   get CSPRT() {
-    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPRT");
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPRT");
   }
 
   get CSPOL() {
-    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPOL");
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPOL");
   }
 
   get CSPLN() {
-    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/CSPLN");
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPLN");
   }
 
   get RGUSE_REUS_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/RGUSE-REUS-LST", (t, p) => new ReuseGoalEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/RGUSE-REUS-LST", (t, p) => new ReuseGoalEntry$Id(t, p));
   }
 
   get EVCEN_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/strategy/evaluationCriteria/EVCEN-ITEM-LST", (t, p) => new EvaluationCriterionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/evaluationCriteria/EVCEN-ITEM-LST", (t, p) => new EvaluationCriterionEntry$Id(t, p));
   }
 
   get CMPNT_COMP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/CMPNT-COMP-LST", (t, p) => new ComponentEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/CMPNT-COMP-LST", (t, p) => new ComponentEntry$Id(t, p));
   }
 
   get RNDEP_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/runtimeDependencies/RNDEP-ITEM-LST", (t, p) => new RuntimeDependencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/runtimeDependencies/RNDEP-ITEM-LST", (t, p) => new RuntimeDependencyEntry$Id(t, p));
   }
 
   get MNDEP_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/maintenanceDependencies/MNDEP-ITEM-LST", (t, p) => new MaintenanceDependencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/maintenanceDependencies/MNDEP-ITEM-LST", (t, p) => new MaintenanceDependencyEntry$Id(t, p));
   }
 
   get CMRS_RISK_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/riskAssessment/CMRS-RISK-LST", (t, p) => new ComponentRiskEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/riskAssessment/CMRS-RISK-LST", (t, p) => new ComponentRiskEntry$Id(t, p));
   }
 
   get COPL_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST", (t, p) => new ContingencyPlanEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST", (t, p) => new ContingencyPlanEntry$Id(t, p));
   }
 
   get USCDF_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/userManagement/userCategories/USCDF-ITEM-LST", (t, p) => new UserCategoryDefinition$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/userManagement/userCategories/USCDF-ITEM-LST", (t, p) => new UserCategoryDefinition$Id(t, p));
   }
 
   get ULTRE_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", (t, p) => new UserLifecycleTransitionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", (t, p) => new UserLifecycleTransitionEntry$Id(t, p));
   }
 
   get SACLC_SERV_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/userManagement/userLifecycle/SACLC-SERV-LST", (t, p) => new ServiceAccountLifecycle$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/userManagement/userLifecycle/SACLC-SERV-LST", (t, p) => new ServiceAccountLifecycle$Id(t, p));
   }
 
   get USATE_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/userManagement/userAttributes/USATE-ITEM-LST", (t, p) => new UserAttributeEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/userManagement/userAttributes/USATE-ITEM-LST", (t, p) => new UserAttributeEntry$Id(t, p));
   }
 
   get IDTSR_IDEN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/IDTSR-IDEN-LST", (t, p) => new IdentitySourceEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/IDTSR-IDEN-LST", (t, p) => new IdentitySourceEntry$Id(t, p));
   }
 
   get IVPD() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPD");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPD");
   }
 
   get IVPM() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPM");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPM");
   }
 
   get IVPW() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPW");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPW");
   }
 
   get IVPL() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPL");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPL");
   }
 
   get IVPF() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/identityVerification/IVPF");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/identityVerification/IVPF");
   }
 
   get IDTPV_IDEN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/IDTPV-IDEN-LST", (t, p) => new IdentityProviderEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/IDTPV-IDEN-LST", (t, p) => new IdentityProviderEntry$Id(t, p));
   }
 
   get SSOPF() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/singleSignOn/SSOPF");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPF");
   }
 
   get SSOPS() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/singleSignOn/SSOPS");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPS");
   }
 
   get SSOPA() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/singleSignOn/SSOPA");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPA");
   }
 
   get SSOPO() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/singleSignOn/SSOPO");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/singleSignOn/SSOPO");
   }
 
   get SRPF() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPF");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPF");
   }
 
   get SRPBP() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPBP");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPBP");
   }
 
   get SRPV() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPV");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPV");
   }
 
   get SRPA() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPA");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPA");
   }
 
   get SRPS() {
-    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/selfRegistration/SRPS");
+    return new SomMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPS");
   }
 
   get IDTAM_ATTR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/identification/IDTAM-ATTR-LST", (t, p) => new IdentityAttributeMappingEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/identification/IDTAM-ATTR-LST", (t, p) => new IdentityAttributeMappingEntry$Id(t, p));
   }
 
   get MFADE_MFAD_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) => new SomMetaRef(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get ATME_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/authenticationMethods/ATME-ITEM-LST", (t, p) => new AuthenticationMethodEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", (t, p) => new AuthenticationMethodEntry$Id(t, p));
   }
 
   get STEPU_STEP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) => new SomMetaRef(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get LGFLS_LOGI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", (t, p) => new LoginFlowStepEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", (t, p) => new LoginFlowStepEntry$Id(t, p));
   }
 
   get MFACRQ_MFAC_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", (t, p) => new MfaCategoryRequirementEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", (t, p) => new MfaCategoryRequirementEntry$Id(t, p));
   }
 
   get AZGR_GROU_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authorization/AZGR-GROU-LST", (t, p) => new AuthorizationGroupEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/AZGR-GROU-LST", (t, p) => new AuthorizationGroupEntry$Id(t, p));
   }
 
   get AZRO_ROLE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authorization/AZRO-ROLE-LST", (t, p) => new AuthorizationRoleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/AZRO-ROLE-LST", (t, p) => new AuthorizationRoleEntry$Id(t, p));
   }
 
   get ENT_ENTI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authorization/ENT-ENTI-LST", (t, p) => new EntitlementEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/ENT-ENTI-LST", (t, p) => new EntitlementEntry$Id(t, p));
   }
 
   get RESKEY_RESO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authorization/RESKEY-RESO-LST", (t, p) => new ResourceKeyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/RESKEY-RESO-LST", (t, p) => new ResourceKeyEntry$Id(t, p));
   }
 
   get RLINH_INHE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authorization/roleHierarchy/RLINH-INHE-LST", (t, p) => new RoleInheritanceRuleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/roleHierarchy/RLINH-INHE-LST", (t, p) => new RoleInheritanceRuleEntry$Id(t, p));
   }
 
   get RLCMB_COMB_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authorization/roleHierarchy/RLCMB-COMB-LST", (t, p) => new RoleCombinationConstraintEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST", (t, p) => new RoleCombinationConstraintEntry$Id(t, p));
   }
 
   get GBRLX_GLOB_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authorization/roleHierarchy/GBRLX-GLOB-LST", (t, p) => new GlobalRoleExclusionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST", (t, p) => new GlobalRoleExclusionEntry$Id(t, p));
   }
 
   get TNCS_TENA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authorization/tenantIsolation/TNCS-TENA-LST", (t, p) => new TenantCustomizationEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", (t, p) => new TenantCustomizationEntry$Id(t, p));
   }
 
   get ENDACA_ENCR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/encryption/encryptionAtRest/ENDACA-ENCR-LST", (t, p) => new EncryptedDataCategoryEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST", (t, p) => new EncryptedDataCategoryEntry$Id(t, p));
   }
 
   get COCHEN_COMM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/encryption/encryptionInTransit/COCHEN-COMM-LST", (t, p) => new CommunicationChannelEncryptionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST", (t, p) => new CommunicationChannelEncryptionEntry$Id(t, p));
   }
 
   get SEVT_CUST_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST", (t, p) => new SecurityEventEntry$Id(t, p));
-  }
-
-  get DGOEN_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designVision/designGoals/DGOEN-ITEM-LST", (t, p) => new DesignGoalEntry$Id(t, p));
-  }
-
-  get DPEN_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST", (t, p) => new DesignPrincipleEntry$Id(t, p));
-  }
-
-  get PEREN_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designVision/personas/PEREN-ITEM-LST", (t, p) => new PersonaEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST", (t, p) => new SecurityEventEntry$Id(t, p));
   }
 
   get SCREN_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST", (t, p) => new ScreenEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", (t, p) => new ScreenEntry$Id(t, p));
   }
 
   get GLOBA_GLOB_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) => new SomMetaRef(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get NAVGRP_GROU_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", (t, p) => new NavigationGroupEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", (t, p) => new NavigationGroupEntry$Id(t, p));
   }
 
   get PRNADR() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PRNADR");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR");
   }
 
   get PNBN() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PNBN");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN");
   }
 
   get PRNASI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/primaryNavigation/PRNASI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI");
   }
 
   get TBDE_TABB_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", (t, p) => new TabBarDefinitionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", (t, p) => new TabBarDefinitionEntry$Id(t, p));
   }
 
   get UNIE_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", (t, p) => new UtilityNavigationItemEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", (t, p) => new UtilityNavigationItemEntry$Id(t, p));
   }
 
   get BRCO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/contextualNavigation/BRCO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO");
   }
 
   get DELNPT_PATT_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", (t, p) => new DeepLinkPatternEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", (t, p) => new DeepLinkPatternEntry$Id(t, p));
   }
 
   get NAVGRD_GUAR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", (t, p) => new NavigationGuardEntry$Id(t, p));
-  }
-
-  get PLPS() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/PLPS");
-  }
-
-  get PRLABR() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/PRLABR");
-  }
-
-  get PRLAWA() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/PRLAWA");
-  }
-
-  get PLHF() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/PLHF");
-  }
-
-  get PRLAAR() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/PRLAAR");
-  }
-
-  get REEN_REPO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/REEN-REPO-LST", (t, p) => new ReportEntry$Id(t, p));
-  }
-
-  get EXFOEN_EXPO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/EXFOEN-EXPO-LST", (t, p) => new ExportFormatEntry$Id(t, p));
-  }
-
-  get EXTEEN_EXPO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/EXTEEN-EXPO-LST", (t, p) => new ExportTemplateEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", (t, p) => new NavigationGuardEntry$Id(t, p));
   }
 
   get ERHACO_ERRO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/ERHACO-ERRO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO");
   }
 
   get EHCC() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/EHCC");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCC");
   }
 
   get EHCA() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/EHCA");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCA");
   }
 
   get EHCO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/EHCO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCO");
   }
 
   get VAFE_VALI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFE-VALI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-VALI");
   }
 
   get VAFEPL() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEPL");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEPL");
   }
 
   get VAFEME() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEME");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME");
   }
 
   get VAFEGU() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEGU");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU");
   }
 
   get VAFEBE() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFEBE");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE");
   }
 
   get VAMETE_MESS_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAMETE-MESS-LST", (t, p) => new ValidationMessageTemplate$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", (t, p) => new ValidationMessageTemplate$Id(t, p));
   }
 
   get FIELD_FIEL_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new SomMetaRef(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SYERDI_SYST() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SYERDI-SYST");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST");
   }
 
   get SEDET() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDET");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET");
   }
 
   get SEDM() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDM");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM");
   }
 
   get SEDC() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDC");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC");
   }
 
   get SEDF() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDF");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF");
   }
 
   get EPDE_ERRO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) => new SomMetaRef(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SECE_ERRO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SECE-ERRO-LST", (t, p) => new SystemErrorCodeEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", (t, p) => new SystemErrorCodeEntry$Id(t, p));
   }
 
   get ERRE_RECO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRE-RECO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO");
   }
 
   get ERDP() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERDP");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERDP");
   }
 
   get ERRM() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRM");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRM");
   }
 
   get ERGR() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERGR");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERGR");
   }
 
   get ERSC() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSC");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSC");
   }
 
   get ERSH() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSH");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH");
   }
 
   get RECOV_RECO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new SomMetaRef(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get RCVSCN_RECO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/RCVSCN-RECO-LST", (t, p) => new RecoveryScenarioEntry$Id(t, p));
-  }
-
-  get USAS_HELP() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/USAS-HELP");
-  }
-
-  get USASDE() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/USASDE");
-  }
-
-  get USASIN() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/USASIN");
-  }
-
-  get COHE_CONT() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHE-CONT");
-  }
-
-  get COHEIN() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHEIN");
-  }
-
-  get COHEPA() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHEPA");
-  }
-
-  get CHWT() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/CHWT");
-  }
-
-  get COHERI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHERI");
-  }
-
-  get FLDHP_FIEL_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/FLDHP-FIEL-LST", (t, p) => new FieldHelpEntry$Id(t, p));
-  }
-
-  get ONHE_ONBO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHE-ONBO");
-  }
-
-  get ONHETO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHETO");
-  }
-
-  get OHSD() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/OHSD");
-  }
-
-  get ONHECH() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHECH");
-  }
-
-  get ONHEDI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHEDI");
-  }
-
-  get ONHERE() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHERE");
-  }
-
-  get FTRTUR_FEAT_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/FTRTUR-FEAT-LST", (t, p) => new FeatureTourEntry$Id(t, p));
-  }
-
-  get SUAC_SUPP() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SUAC-SUPP");
-  }
-
-  get SAHC() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SAHC");
-  }
-
-  get SALS() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SALS");
-  }
-
-  get SUACTI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SUACTI");
-  }
-
-  get SACM() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SACM");
-  }
-
-  get SASS() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SASS");
-  }
-
-  get ACCESS_ACCE() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/ACCESS-ACCE");
-  }
-
-  get ACSTGY() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/ACSTGY");
-  }
-
-  get ACTE() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/ACTE");
-  }
-
-  get ACSU() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/ACSU");
-  }
-
-  get WCCO_WCAG() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCO-WCAG");
-  }
-
-  get WCCOOP() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCOOP");
-  }
-
-  get WCCOUN() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCOUN");
-  }
-
-  get WCCORO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCORO");
-  }
-
-  get WSCE_SUCC_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", (t, p) => new WcagSuccessCriterionEntry$Id(t, p));
-  }
-
-  get ACCHLS_CHEC() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCHLS-CHEC");
-  }
-
-  get ACCH_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCH-ITEM-LST", (t, p) => new AccessibilityCheckEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST", (t, p) => new RecoveryScenarioEntry$Id(t, p));
   }
 
   get REDE_RESP() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/REDE-RESP");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/REDE-RESP");
   }
 
   get BC_BREA() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BC-BREA");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA");
   }
 
   get BRE_BREA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BRE-BREA-LST", (t, p) => new BreakpointEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", (t, p) => new BreakpointEntry$Id(t, p));
   }
 
   get REBE_LAYO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBE-LAYO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO");
   }
 
   get REBENA() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBENA");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA");
   }
 
   get REBEVI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBEVI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI");
   }
 
   get REBETO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBETO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBETO");
   }
 
   get REBECO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBECO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBECO");
   }
 
   get RESPSR_SCRE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", (t, p) => new ResponsiveScreenRuleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", (t, p) => new ResponsiveScreenRuleEntry$Id(t, p));
   }
 
   get UICO_COMP() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/UICO-COMP");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICO-COMP");
   }
 
   get UCVL() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/UCVL");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UCVL");
   }
 
   get UCCA() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/UCCA");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UCCA");
   }
 
   get UICOCU() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/UICOCU");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOCU");
   }
 
   get DESIG_DESI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/DESIG-DESI-LST", (t, p) => new DesignFoundationEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/DESIG-DESI-LST", (t, p) => new DesignFoundationEntry$Id(t, p));
   }
 
   get COLICO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLICO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLICO");
   }
 
   get COLITY() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLITY");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLITY");
   }
 
   get COLISP() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLISP");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLISP");
   }
 
   get COLIBO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLIBO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIBO");
   }
 
   get COLIVI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COLIVI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI");
   }
 
   get COPA_COLO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/COPA-COLO-LST", (t, p) => new ColorPaletteEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST", (t, p) => new ColorPaletteEntry$Id(t, p));
   }
 
   get TYST_TYPO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/componentLibrary/TYST-TYPO-LST", (t, p) => new TypographyStyleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", (t, p) => new TypographyStyleEntry$Id(t, p));
   }
 
   get UICOEN_COMP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/UICOEN-COMP-LST", (t, p) => new UiComponentEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", (t, p) => new UiComponentEntry$Id(t, p));
   }
 
   get CMFA_COMP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/CMFA-COMP-LST", (t, p) => new ComponentFamilyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", (t, p) => new ComponentFamilyEntry$Id(t, p));
   }
 
-  get MLAR_MULT() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/MLAR-MULT");
+  get DGOEN_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST", (t, p) => new DesignGoalEntry$Id(t, p));
   }
 
-  get LACOSE_LANG() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LACOSE-LANG");
+  get DPEN_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/designVision/designPrinciples/DPEN-ITEM-LST", (t, p) => new DesignPrincipleEntry$Id(t, p));
   }
 
-  get LCSD() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSD");
+  get PEREN_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/designVision/personas/PEREN-ITEM-LST", (t, p) => new PersonaEntry$Id(t, p));
   }
 
-  get LCSP() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSP");
+  get PLPS() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PLPS");
   }
 
-  get LCSF() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSF");
+  get PRLABR() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLABR");
   }
 
-  get LCSU() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LCSU");
+  get PRLAWA() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAWA");
   }
 
-  get SULOEN_SUPP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/SULOEN-SUPP-LST", (t, p) => new SupportedLocaleEntry$Id(t, p));
+  get PLHF() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PLHF");
+  }
+
+  get PRLAAR() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR");
+  }
+
+  get REEN_REPO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST", (t, p) => new ReportEntry$Id(t, p));
+  }
+
+  get EXFOEN_EXPO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST", (t, p) => new ExportFormatEntry$Id(t, p));
+  }
+
+  get EXTEEN_EXPO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST", (t, p) => new ExportTemplateEntry$Id(t, p));
+  }
+
+  get USAS_HELP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/USAS-HELP");
+  }
+
+  get USASDE() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/USASDE");
+  }
+
+  get USASIN() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/USASIN");
+  }
+
+  get COHE_CONT() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHE-CONT");
+  }
+
+  get COHEIN() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHEIN");
+  }
+
+  get COHEPA() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHEPA");
+  }
+
+  get CHWT() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/CHWT");
+  }
+
+  get COHERI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/COHERI");
+  }
+
+  get FLDHP_FIEL_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/contextualHelp/FLDHP-FIEL-LST", (t, p) => new FieldHelpEntry$Id(t, p));
+  }
+
+  get ONHE_ONBO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHE-ONBO");
+  }
+
+  get ONHETO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHETO");
+  }
+
+  get OHSD() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/OHSD");
+  }
+
+  get ONHECH() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHECH");
+  }
+
+  get ONHEDI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHEDI");
+  }
+
+  get ONHERE() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/ONHERE");
+  }
+
+  get FTRTUR_FEAT_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/onboarding/FTRTUR-FEAT-LST", (t, p) => new FeatureTourEntry$Id(t, p));
+  }
+
+  get SUAC_SUPP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SUAC-SUPP");
+  }
+
+  get SAHC() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SAHC");
+  }
+
+  get SALS() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SALS");
+  }
+
+  get SUACTI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SUACTI");
+  }
+
+  get SACM() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SACM");
+  }
+
+  get SASS() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/userAssistance/supportAccess/SASS");
+  }
+
+  get ACCESS_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/ACCESS-ACCE");
+  }
+
+  get ACSTGY() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/ACSTGY");
+  }
+
+  get ACTE() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/ACTE");
+  }
+
+  get ACSU() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/ACSU");
+  }
+
+  get WCCO_WCAG() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCO-WCAG");
+  }
+
+  get WCCOOP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOOP");
+  }
+
+  get WCCOUN() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOUN");
+  }
+
+  get WCCORO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO");
+  }
+
+  get WSCE_SUCC_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", (t, p) => new WcagSuccessCriterionEntry$Id(t, p));
+  }
+
+  get ACCHLS_CHEC() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCHLS-CHEC");
+  }
+
+  get ACCH_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCH-ITEM-LST", (t, p) => new AccessibilityCheckEntry$Id(t, p));
   }
 
   get PROTOT_PROT() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/PROTOT-PROT");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/PROTOT-PROT");
   }
 
   get PRTI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/PRTI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/PRTI");
   }
 
   get PRORES() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/PRORES");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/PRORES");
   }
 
   get PRGO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/PRGO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/PRGO");
   }
 
   get PG_GOAL() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PG-GOAL");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PG-GOAL");
   }
 
   get PRGORI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGORI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGORI");
   }
 
   get PRGOFE() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOFE");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE");
   }
 
   get PRGOEN_GOAL_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOEN-GOAL-LST", (t, p) => new PrototypeGoalEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST", (t, p) => new PrototypeGoalEntry$Id(t, p));
   }
 
   get PRFESU_FEAT() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/featureSubset/PRFESU-FEAT");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFESU-FEAT");
   }
 
   get PFSS() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/featureSubset/PFSS");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSS");
   }
 
   get PFSF() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/featureSubset/PFSF");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF");
   }
 
   get PRFEEN_FEAT_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/featureSubset/PRFEEN-FEAT-LST", (t, p) => new PrototypeFeatureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST", (t, p) => new PrototypeFeatureEntry$Id(t, p));
   }
 
   get PRTYSE_PROT() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/PRTYSE-PROT");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/PRTYSE-PROT");
   }
 
   get REUPRO_REUS() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REUPRO-REUS");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REUPRO-REUS");
   }
 
   get REPRAR() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRAR");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRAR");
   }
 
   get REPRIN() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRIN");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRIN");
   }
 
   get REPRTR() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REPRTR");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRTR");
   }
 
   get TP_TRAI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TP-TRAI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TP-TRAI");
   }
 
   get TRPRDI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TRPRDI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TRPRDI");
   }
 
   get TRPROU() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TRPROU");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/trainingPrototype/TRPROU");
   }
 
   get THPR_THRO() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPR-THRO");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPR-THRO");
   }
 
   get THPRFI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRFI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRFI");
   }
 
   get THPRDI() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRDI");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRDI");
   }
 
   get THPRVA() {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPRVA");
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/throwawayPrototype/THPRVA");
+  }
+
+  get MLAR_MULT() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/MLAR-MULT");
+  }
+
+  get LACOSE_LANG() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LACOSE-LANG");
+  }
+
+  get LCSD() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSD");
+  }
+
+  get LCSP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSP");
+  }
+
+  get LCSF() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSF");
+  }
+
+  get LCSU() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU");
+  }
+
+  get SULOEN_SUPP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST", (t, p) => new SupportedLocaleEntry$Id(t, p));
   }
 
   get SYQG_GOVE() {
@@ -92685,6 +93357,2931 @@ class D12TransitionRolloutPlan$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `D13CodeSpecsProjection` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+class D13CodeSpecsProjection$Id extends SomMetaRef {
+  get DMENE_ENUM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/domainEnumRegistry/DMENE-ENUM-LST", (t, p) => new DomainEnumEntry$Id(t, p));
+  }
+
+  get ERCEN_CODE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/errorCodeRegistry/ERCEN-CODE-LST", (t, p) => new ErrorCodeEntry$Id(t, p));
+  }
+
+  get RSFDE_FLDD_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/resultEnvelope/RSFDE-FLDD-LST", (t, p) => new ResultFieldDetailEntry$Id(t, p));
+  }
+
+  get MSGKE_MKEY_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/messageKeyRegistry/MSGKE-MKEY-LST", (t, p) => new MessageKeyEntry$Id(t, p));
+  }
+
+  get DAENT_ENTI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/dataModel/DAENT-ENTI-LST", (t, p) => new DataEntityEntry$Id(t, p));
+  }
+
+  get ENRLE_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/dataModel/entityRelationships/ENRLE-ITEM-LST", (t, p) => new EntityRelationshipEntry$Id(t, p));
+  }
+
+  get DATCL_OVER() {
+    return new SomMetaRef(this.tree, this.path + "/dataModel/dataClassification/DATCL-OVER");
+  }
+
+  get DCLSE_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/dataModel/dataClassification/DCLSE-ITEM-LST", (t, p) => new DataClassificationEntry$Id(t, p));
+  }
+
+  get TGPLT_TARG_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/TGPLT-TARG-LST", (t, p) => new TargetPlatformEntry$Id(t, p));
+  }
+
+  get PLGEN_PROG_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST", (t, p) => new ProgrammingLanguageEntry$Id(t, p));
+  }
+
+  get FWREN_FRAM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", (t, p) => new FrameworkRequirementEntry$Id(t, p));
+  }
+
+  get BTCEN_BUIL_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", (t, p) => new BuildToolchainEntry$Id(t, p));
+  }
+
+  get DETAEN_DEPL_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", (t, p) => new DeploymentTargetEntry$Id(t, p));
+  }
+
+  get DEMAVE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAVE");
+  }
+
+  get DEMASE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMASE");
+  }
+
+  get DEMAIN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAIN");
+  }
+
+  get DEMAOP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAOP");
+  }
+
+  get RUENME() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENME");
+  }
+
+  get RUENCP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENCP");
+  }
+
+  get RUENST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENST");
+  }
+
+  get RUENNE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENNE");
+  }
+
+  get RUENVA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENVA");
+  }
+
+  get RUENDE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENDE");
+  }
+
+  get RUENSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENSC");
+  }
+
+  get RUENNO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/platformAndLanguage/runtimeEnvironment/RUENNO");
+  }
+
+  get AROVDR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/overview/AROVDR");
+  }
+
+  get AOTO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/overview/AOTO");
+  }
+
+  get AROVEV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/overview/AROVEV");
+  }
+
+  get AROVCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/overview/AROVCO");
+  }
+
+  get ARPR_PRIN_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/ARPR-PRIN-LST", (t, p) => new ArchitecturePrincipleEntry$Id(t, p));
+  }
+
+  get COORLA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORLA");
+  }
+
+  get COORDO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDO");
+  }
+
+  get COORCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORCO");
+  }
+
+  get COORDE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDE");
+  }
+
+  get ARCM_COMP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST", (t, p) => new ArchitectureComponentEntry$Id(t, p));
+  }
+
+  get COPASY() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY");
+  }
+
+  get COPAAS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAAS");
+  }
+
+  get CPDE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/CPDE");
+  }
+
+  get COPARE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPARE");
+  }
+
+  get COPAOB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAOB");
+  }
+
+  get DAARST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARST");
+  }
+
+  get DAARAC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARAC");
+  }
+
+  get DAARCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARCO");
+  }
+
+  get DAARLI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARLI");
+  }
+
+  get DAARSE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/dataArchitecture/DAARSE");
+  }
+
+  get SCARCA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARCA");
+  }
+
+  get SCARTA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARTA");
+  }
+
+  get SCARPA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARPA");
+  }
+
+  get SCAROP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCAROP");
+  }
+
+  get SCARTE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/scalabilityArchitecture/SCARTE");
+  }
+
+  get INARSY() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARSY");
+  }
+
+  get INARDA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARDA");
+  }
+
+  get INARSE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARSE");
+  }
+
+  get INARRE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INARRE");
+  }
+
+  get INAROP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/integrationArchitecture/INAROP");
+  }
+
+  get DETOIN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOIN");
+  }
+
+  get DETOEN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOEN");
+  }
+
+  get DETOAV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOAV");
+  }
+
+  get DETOGE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DETOGE");
+  }
+
+  get DTIAC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DTIAC");
+  }
+
+  get ARDE_DECI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/architectureStyle/ARDE-DECI-LST", (t, p) => new ArchitectureDecisionRecord$Id(t, p));
+  }
+
+  get DSPT_DESI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST", (t, p) => new DesignPatternEntry$Id(t, p));
+  }
+
+  get COSTEN_CODI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", (t, p) => new CodingStandardEntry$Id(t, p));
+  }
+
+  get DECOEN_DEVE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", (t, p) => new DevelopmentConventionEntry$Id(t, p));
+  }
+
+  get INSTEN_INDU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", (t, p) => new IndustryStandardEntry$Id(t, p));
+  }
+
+  get CQMC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMC");
+  }
+
+  get COQUMECO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/COQUMECO");
+  }
+
+  get CQMD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMD");
+  }
+
+  get CQMSA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMSA");
+  }
+
+  get CQMT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMT");
+  }
+
+  get DSCD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DSCD");
+  }
+
+  get DOSTCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTCO");
+  }
+
+  get DOSTAR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTAR");
+  }
+
+  get DOSTVE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTVE");
+  }
+
+  get DOSTPR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/documentationStandards/DOSTPR");
+  }
+
+  get EHSE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSE");
+  }
+
+  get EHSP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSP");
+  }
+
+  get EHSR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSR");
+  }
+
+  get EHSUC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/EHSUC");
+  }
+
+  get ERHASTRE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/errorHandlingStandards/ERHASTRE");
+  }
+
+  get TESTOR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTOR");
+  }
+
+  get TESTPA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTPA");
+  }
+
+  get TESTQU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTQU");
+  }
+
+  get TESTTO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO");
+  }
+
+  get SOLAEN_SOFT_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", (t, p) => new SoftwareLayerEntry$Id(t, p));
+  }
+
+  get LCRI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRI");
+  }
+
+  get LCRF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRF");
+  }
+
+  get LCRG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG");
+  }
+
+  get BOCOEN_BOUN_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", (t, p) => new BoundedContextEntry$Id(t, p));
+  }
+
+  get PAORST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORST");
+  }
+
+  get PAORTY() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORTY");
+  }
+
+  get PAORDE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDE");
+  }
+
+  get PAORDO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO");
+  }
+
+  get MOEN1_MODU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", (t, p) => new ModuleEntry$Id(t, p));
+  }
+
+  get SHLIB_SHAR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", (t, p) => new SharedLibraryEntry$Id(t, p));
+  }
+
+  get DISR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISR");
+  }
+
+  get DISB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISB");
+  }
+
+  get DISC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISC");
+  }
+
+  get DIST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DIST");
+  }
+
+  get CCCE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCE");
+  }
+
+  get CCCS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCS");
+  }
+
+  get CCCC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCC");
+  }
+
+  get CCCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CCCO");
+  }
+
+  get CRCUCOSH() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/crossCuttingConcerns/CRCUCOSH");
+  }
+
+  get FTRMOD_FEAT_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/FTRMOD-FEAT-LST", (t, p) => new FeatureModuleEntry$Id(t, p));
+  }
+
+  get MVSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSC");
+  }
+
+  get MVSRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSRM");
+  }
+
+  get MVSD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSD");
+  }
+
+  get MOVESTCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO");
+  }
+
+  get IDREEN_IDER_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", (t, p) => new IdeRequirementEntry$Id(t, p));
+  }
+
+  get BTCBS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCBS");
+  }
+
+  get BTCC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCC");
+  }
+
+  get BTCS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCS");
+  }
+
+  get BTCA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCA");
+  }
+
+  get VCCR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCR");
+  }
+
+  get VCCB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCB");
+  }
+
+  get VCCC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCC");
+  }
+
+  get VCCM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM");
+  }
+
+  get PISTEN_STAG_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", (t, p) => new PipelineStageEntry$Id(t, p));
+  }
+
+  get PIJOEN_JOBS_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", (t, p) => new PipelineJobEntry$Id(t, p));
+  }
+
+  get DEENEN_ENVI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", (t, p) => new DeploymentEnvironmentEntry$Id(t, p));
+  }
+
+  get CRPR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPR");
+  }
+
+  get CRPW() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPW");
+  }
+
+  get CRPA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPA");
+  }
+
+  get CRPM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPM");
+  }
+
+  get LDSW() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSW");
+  }
+
+  get LDSD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSD");
+  }
+
+  get LDSR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDSR");
+  }
+
+  get LDST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LDST");
+  }
+
+  get LODESETR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/localDevelopmentSetup/LODESETR");
+  }
+
+  get DECOBR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOBR");
+  }
+
+  get DECOLO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOLO");
+  }
+
+  get DECOIN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOIN");
+  }
+
+  get DECOFL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOFL");
+  }
+
+  get DECOER() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/debugging/DECOER");
+  }
+
+  get ENMACO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMACO");
+  }
+
+  get ENMASE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMASE");
+  }
+
+  get ENMASW() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMASW");
+  }
+
+  get ENMAPA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/environmentManagement/ENMAPA");
+  }
+
+  get DEONSE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONSE");
+  }
+
+  get DEONAC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONAC");
+  }
+
+  get DEONLE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONLE");
+  }
+
+  get DOFT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DOFT");
+  }
+
+  get DEONVE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/developerOnboarding/DEONVE");
+  }
+
+  get DQGC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGC");
+  }
+
+  get DEQUGACO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DEQUGACO");
+  }
+
+  get DQGS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGS");
+  }
+
+  get DQGD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGD");
+  }
+
+  get DQGP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/developmentEnvironment/qualityGates/DQGP");
+  }
+
+  get REPRAB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/principles/REPRAB");
+  }
+
+  get REPRQU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/principles/REPRQU");
+  }
+
+  get REPRVE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/principles/REPRVE");
+  }
+
+  get REPROW() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/principles/REPROW");
+  }
+
+  get SHLCP_SHAR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST", (t, p) => new SharedLibraryComponentEntry$Id(t, p));
+  }
+
+  get RUICMP_UICO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", (t, p) => new ReusableUiComponentEntry$Id(t, p));
+  }
+
+  get BUCOEN_BUSI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", (t, p) => new BusinessComponentEntry$Id(t, p));
+  }
+
+  get INCOEN_INFR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", (t, p) => new InfrastructureComponentEntry$Id(t, p));
+  }
+
+  get THPALI_THIR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/THPALI-THIR-LST", (t, p) => new ThirdPartyLibraryEntry$Id(t, p));
+  }
+
+  get COGOCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/governance/COGOCO");
+  }
+
+  get COGOQU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/governance/COGOQU");
+  }
+
+  get COGOLI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/governance/COGOLI");
+  }
+
+  get COGOME() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/governance/COGOME");
+  }
+
+  get COREME() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREME");
+  }
+
+  get COREDI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREDI");
+  }
+
+  get COREDO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREDO");
+  }
+
+  get COREUP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREUP");
+  }
+
+  get OSCOEN_OSCO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", (t, p) => new OsCompatibilityEntry$Id(t, p));
+  }
+
+  get BRCOEN_BROW_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", (t, p) => new BrowserCompatibilityEntry$Id(t, p));
+  }
+
+  get DACOEN_DATA_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", (t, p) => new DatabaseCompatibilityEntry$Id(t, p));
+  }
+
+  get ESCE_ENTE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", (t, p) => new EnterpriseSystemCompatibilityEntry$Id(t, p));
+  }
+
+  get APCP_APIC_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST", (t, p) => new ApiCompatibilityEntry$Id(t, p));
+  }
+
+  get LECOEN_LEGA_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", (t, p) => new LegacyCompatibilityEntry$Id(t, p));
+  }
+
+  get MOCOEN_MOBI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", (t, p) => new MobileCompatibilityEntry$Id(t, p));
+  }
+
+  get TPCE_THIR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", (t, p) => new ThirdPartyCompatibilityEntry$Id(t, p));
+  }
+
+  get DFCF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCF");
+  }
+
+  get DFCDT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCDT");
+  }
+
+  get DFCN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCN");
+  }
+
+  get DFCL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCL");
+  }
+
+  get BCRD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRD");
+  }
+
+  get BCRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRA");
+  }
+
+  get BACOREDA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BACOREDA");
+  }
+
+  get BCRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/backwardsCompatibility/BCRC");
+  }
+
+  get IRDE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/IRDE");
+  }
+
+  get INREST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREST");
+  }
+
+  get INRETE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INRETE");
+  }
+
+  get INREGO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO");
+  }
+
+  get ISCE_ITST_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", (t, p) => new ItStandardComplianceEntry$Id(t, p));
+  }
+
+  get IPCE_INDU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", (t, p) => new IndustryProtocolComplianceEntry$Id(t, p));
+  }
+
+  get INSPEN_INTE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", (t, p) => new InterfaceSpecificationEntry$Id(t, p));
+  }
+
+  get RECOEN_REGU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", (t, p) => new RegulatoryComplianceEntry$Id(t, p));
+  }
+
+  get SSCE_SECU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", (t, p) => new SecurityStandardComplianceEntry$Id(t, p));
+  }
+
+  get ACCSTD_ACCE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/ACCSTD-ACCE-LST", (t, p) => new AccessibilityStandardEntry$Id(t, p));
+  }
+
+  get QLSTD_QUAL_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/QLSTD-QUAL-LST", (t, p) => new QualityStandardEntry$Id(t, p));
+  }
+
+  get DSST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSST");
+  }
+
+  get DSSU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSU");
+  }
+
+  get DSSP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSP");
+  }
+
+  get DSSQ() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSSQ");
+  }
+
+  get CSSF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSF");
+  }
+
+  get CSSN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSN");
+  }
+
+  get CSSQ() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSQ");
+  }
+
+  get CSSP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSP");
+  }
+
+  get CSSR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/codingStandards/CSSR");
+  }
+
+  get CRSP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSP");
+  }
+
+  get CRST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRST");
+  }
+
+  get CRSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSC");
+  }
+
+  get CRSM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/certificationRequirements/CRSM");
+  }
+
+  get CVSR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSR");
+  }
+
+  get CVST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVST");
+  }
+
+  get CVSA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSA");
+  }
+
+  get COVESERE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/COVESERE");
+  }
+
+  get CVSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC");
+  }
+
+  get SEENEN_ENVI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", (t, p) => new ServerEnvironmentEntry$Id(t, p));
+  }
+
+  get SEROEN_SERV_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", (t, p) => new ServerRoleEntry$Id(t, p));
+  }
+
+  get CRRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/computeResources/CRRM");
+  }
+
+  get CRRG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/computeResources/CRRG");
+  }
+
+  get CRRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/computeResources/CRRS");
+  }
+
+  get SSRD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/storageRequirements/SSRD");
+  }
+
+  get SSRFS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/storageRequirements/SSRFS");
+  }
+
+  get SSRB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/storageRequirements/SSRB");
+  }
+
+  get SSRP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/storageRequirements/SSRP");
+  }
+
+  get LPRRL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/loadProfile/LPRRL");
+  }
+
+  get LPRP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/loadProfile/LPRP");
+  }
+
+  get LPRPT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/loadProfile/LPRPT");
+  }
+
+  get SCREHO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/scalingRequirements/SCREHO");
+  }
+
+  get SCREVE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/scalingRequirements/SCREVE");
+  }
+
+  get SRAS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/scalingRequirements/SRAS");
+  }
+
+  get SCRECO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/scalingRequirements/SCRECO");
+  }
+
+  get HARR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/highAvailability/HARR");
+  }
+
+  get HARF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/highAvailability/HARF");
+  }
+
+  get HARLB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/highAvailability/HARLB");
+  }
+
+  get HARDR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/highAvailability/HARDR");
+  }
+
+  get VIREVM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/virtualization/VIREVM");
+  }
+
+  get VIRECO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/virtualization/VIRECO");
+  }
+
+  get VIREKU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/virtualization/VIREKU");
+  }
+
+  get VIRENE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/virtualization/VIRENE");
+  }
+
+  get CPRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/cloudProvider/CPRA");
+  }
+
+  get CPRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/cloudProvider/CPRS");
+  }
+
+  get CPRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/cloudProvider/CPRC");
+  }
+
+  get CPRG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/cloudProvider/CPRG");
+  }
+
+  get SORH() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORH");
+  }
+
+  get SORS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORS");
+  }
+
+  get SORM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORM");
+  }
+
+  get SORL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORL");
+  }
+
+  get BRREEN_BROW_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", (t, p) => new BrowserRequirementEntry$Id(t, p));
+  }
+
+  get DORE1_DESK_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", (t, p) => new DesktopOsRequirementEntry$Id(t, p));
+  }
+
+  get MDRE_MOBI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", (t, p) => new MobileDeviceRequirementEntry$Id(t, p));
+  }
+
+  get DIRELA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/displayRequirements/DIRELA");
+  }
+
+  get DIRESC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/displayRequirements/DIRESC");
+  }
+
+  get DIREC1() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/displayRequirements/DIREC1");
+  }
+
+  get DRMD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/displayRequirements/DRMD");
+  }
+
+  get CNRL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/networkRequirements/CNRL");
+  }
+
+  get CNRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/networkRequirements/CNRC");
+  }
+
+  get CNRP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/networkRequirements/CNRP");
+  }
+
+  get CLNEREPR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/networkRequirements/CLNEREPR");
+  }
+
+  get CHRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRM");
+  }
+
+  get CHRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRS");
+  }
+
+  get CHRG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRG");
+  }
+
+  get CHRP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/hardwareRequirements/CHRP");
+  }
+
+  get CARV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARV");
+  }
+
+  get CARM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARM");
+  }
+
+  get CARC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARC");
+  }
+
+  get CARS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/accessibilityRequirements/CARS");
+  }
+
+  get PWREIC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREIC");
+  }
+
+  get PWREIN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREIN");
+  }
+
+  get PWREOF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREOF");
+  }
+
+  get PWREUP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/pwaRequirements/PWREUP");
+  }
+
+  get NARS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARS");
+  }
+
+  get NARV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARV");
+  }
+
+  get NARP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARP");
+  }
+
+  get NARL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/nativeAppRequirements/NARL");
+  }
+
+  get CSRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRA");
+  }
+
+  get CSRD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRD");
+  }
+
+  get CSRN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRN");
+  }
+
+  get CSRCP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP");
+  }
+
+  get INRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/internalNetwork/INRS");
+  }
+
+  get INRR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/internalNetwork/INRR");
+  }
+
+  get INRIS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/internalNetwork/INRIS");
+  }
+
+  get INRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/internalNetwork/INRM");
+  }
+
+  get ENRP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/externalNetwork/ENRP");
+  }
+
+  get EXNEREPA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/externalNetwork/EXNEREPA");
+  }
+
+  get ENRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/externalNetwork/ENRC");
+  }
+
+  get ENRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/externalNetwork/ENRS");
+  }
+
+  get BAREDI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BAREDI");
+  }
+
+  get BARECO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BARECO");
+  }
+
+  get BARETR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BARETR");
+  }
+
+  get BAREQO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/bandwidthRequirements/BAREQO");
+  }
+
+  get NLRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRS");
+  }
+
+  get NLRG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRG");
+  }
+
+  get NELAREST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/latencyRequirements/NELAREST");
+  }
+
+  get NLRO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/latencyRequirements/NLRO");
+  }
+
+  get NARR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NARR");
+  }
+
+  get NARF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NARF");
+  }
+
+  get NEAVRERE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NEAVRERE");
+  }
+
+  get NART() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART");
+  }
+
+  get VPREEN_VPNR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", (t, p) => new VpnRequirementEntry$Id(t, p));
+  }
+
+  get FIRERU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/firewallRequirements/FIRERU");
+  }
+
+  get FIREPO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREPO");
+  }
+
+  get FIREAD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREAD");
+  }
+
+  get FIRELO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/firewallRequirements/FIRELO");
+  }
+
+  get GDRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRC");
+  }
+
+  get GDRR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRR");
+  }
+
+  get GDRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRA");
+  }
+
+  get GDRP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/geographicDistribution/GDRP");
+  }
+
+  get DNREZO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/dnsRequirements/DNREZO");
+  }
+
+  get DNRERE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/dnsRequirements/DNRERE");
+  }
+
+  get DNREAV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/dnsRequirements/DNREAV");
+  }
+
+  get DRHC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/dnsRequirements/DRHC");
+  }
+
+  get NLBRR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRR");
+  }
+
+  get NLBRHC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRHC");
+  }
+
+  get NLBRT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRT");
+  }
+
+  get NLBRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/loadBalancing/NLBRA");
+  }
+
+  get NSRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/networkSecurity/NSRA");
+  }
+
+  get NSRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/networkSecurity/NSRM");
+  }
+
+  get NSRD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/networkSecurity/NSRD");
+  }
+
+  get NSRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/networkRequirements/networkSecurity/NSRC");
+  }
+
+  get BDCC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/dataClassification/BDCC");
+  }
+
+  get BDCE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE");
+  }
+
+  get BAPOEN_BACK_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", (t, p) => new BackupPolicyEntry$Id(t, p));
+  }
+
+  get RRRBT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRBT");
+  }
+
+  get RRRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRS");
+  }
+
+  get RRRD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRD");
+  }
+
+  get BAINST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/infrastructure/BAINST");
+  }
+
+  get BAINSO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/infrastructure/BAINSO");
+  }
+
+  get BAINNE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/infrastructure/BAINNE");
+  }
+
+  get BAINSE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/infrastructure/BAINSE");
+  }
+
+  get REPRDA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRDA");
+  }
+
+  get REPRAP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRAP");
+  }
+
+  get REPRAU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRAU");
+  }
+
+  get REPRVA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/recoveryProcedures/REPRVA");
+  }
+
+  get DRRF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRF");
+  }
+
+  get DIREREFA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/disasterRecovery/DIREREFA");
+  }
+
+  get DRRR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRR");
+  }
+
+  get DRRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/disasterRecovery/DRRC");
+  }
+
+  get BAVERE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/verification/BAVERE");
+  }
+
+  get BAVEEN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/verification/BAVEEN");
+  }
+
+  get BAVEDO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/verification/BAVEDO");
+  }
+
+  get BACOAU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/compliance/BACOAU");
+  }
+
+  get BACOR1() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/compliance/BACOR1");
+  }
+
+  get BCLH() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/backupAndRecovery/compliance/BCLH");
+  }
+
+  get DMRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRC");
+  }
+
+  get DMRR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRR");
+  }
+
+  get DMRN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRN");
+  }
+
+  get DMRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/deploymentModel/DMRS");
+  }
+
+  get ENSTDE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTDE");
+  }
+
+  get ENSTTE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTTE");
+  }
+
+  get ENSTST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTST");
+  }
+
+  get ENSTPR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTPR");
+  }
+
+  get ENSTEP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/environments/ENSTEP");
+  }
+
+  get CCPRB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRB");
+  }
+
+  get CCPRQ() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRQ");
+  }
+
+  get CCPRD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRD");
+  }
+
+  get CCPRN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/cicdPipeline/CCPRN");
+  }
+
+  get RSBG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/releaseStrategy/RSBG");
+  }
+
+  get RESTCA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/releaseStrategy/RESTCA");
+  }
+
+  get RSFF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/releaseStrategy/RSFF");
+  }
+
+  get RESTMA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/releaseStrategy/RESTMA");
+  }
+
+  get ROSTTR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTTR");
+  }
+
+  get ROSTHE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTHE");
+  }
+
+  get ROSTTA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTTA");
+  }
+
+  get ROSTDA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTDA");
+  }
+
+  get ROSTOP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/rollbackStrategy/ROSTOP");
+  }
+
+  get COMAEN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAEN");
+  }
+
+  get COMAIN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAIN");
+  }
+
+  get COMAFE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/configurationManagement/COMAFE");
+  }
+
+  get COMASE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/configurationManagement/COMASE");
+  }
+
+  get IACS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACS");
+  }
+
+  get IACE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACE");
+  }
+
+  get IACD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/IACD");
+  }
+
+  get INASCOSE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/infrastructureAsCode/INASCOSE");
+  }
+
+  get DSSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DSSC");
+  }
+
+  get DESERU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DESERU");
+  }
+
+  get DESEAC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/deploymentStrategy/deploymentSecurity/DESEAC");
+  }
+
+  get MOINDE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINDE");
+  }
+
+  get MOINCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINCO");
+  }
+
+  get MOINAC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/infrastructure/MOINAC");
+  }
+
+  get MCRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRC");
+  }
+
+  get MCRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRA");
+  }
+
+  get MCRB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MCRB");
+  }
+
+  get MECORECU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/metricsCollection/MECORECU");
+  }
+
+  get APMT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/apm/APMT");
+  }
+
+  get APMP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/apm/APMP");
+  }
+
+  get APME() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/apm/APME");
+  }
+
+  get APMUS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/apm/APMUS");
+  }
+
+  get LMRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRC");
+  }
+
+  get LMRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRS");
+  }
+
+  get LMRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/logManagement/LMRA");
+  }
+
+  get LOMARECO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/logManagement/LOMARECO");
+  }
+
+  get ALRERO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERO");
+  }
+
+  get ALREDE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALREDE");
+  }
+
+  get ALRESU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALRESU");
+  }
+
+  get ALRERE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE");
+  }
+
+  get ALDEEN_ALER_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", (t, p) => new AlertDefinitionEntry$Id(t, p));
+  }
+
+  get DAREST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREST");
+  }
+
+  get DAREAC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREAC");
+  }
+
+  get DAREFE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREFE");
+  }
+
+  get DAREMO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREMO");
+  }
+
+  get OCPT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPT");
+  }
+
+  get OCPS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPS");
+  }
+
+  get OCPE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPE");
+  }
+
+  get OCPD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/onCallProcedures/OCPD");
+  }
+
+  get IMRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRC");
+  }
+
+  get IMRWR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRWR");
+  }
+
+  get IMRPI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRPI");
+  }
+
+  get IMRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/incidentManagement/IMRM");
+  }
+
+  get SLMOREMO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMOREMO");
+  }
+
+  get SMREB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SMREB");
+  }
+
+  get SLMORECU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMORECU");
+  }
+
+  get SLMORERE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/monitoringAndAlerting/slaMonitoring/SLMORERE");
+  }
+
+  get SMPS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPS");
+  }
+
+  get SMPD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPD");
+  }
+
+  get SMPN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPN");
+  }
+
+  get SMPA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA");
+  }
+
+  get MAWIEN_MAIN_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", (t, p) => new MaintenanceWindowEntry$Id(t, p));
+  }
+
+  get EMPG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPG");
+  }
+
+  get EMPC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPC");
+  }
+
+  get EMPE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPE");
+  }
+
+  get MCMG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/changeManagement/MCMG");
+  }
+
+  get MCMD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/changeManagement/MCMD");
+  }
+
+  get MCMT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/changeManagement/MCMT");
+  }
+
+  get MCMA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/changeManagement/MCMA");
+  }
+
+  get MUID() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/userImpact/MUID");
+  }
+
+  get MUIGD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/userImpact/MUIGD");
+  }
+
+  get MUIP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/userImpact/MUIP");
+  }
+
+  get PMVM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVM");
+  }
+
+  get PMVC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC");
+  }
+
+  get PREN_PROT_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", (t, p) => new ProtocolEntry$Id(t, p));
+  }
+
+  get TRCS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCS");
+  }
+
+  get TRCV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCV");
+  }
+
+  get TLRETE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRETE");
+  }
+
+  get TLRECO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRECO");
+  }
+
+  get CEMAKE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAKE");
+  }
+
+  get CEMALI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMALI");
+  }
+
+  get CEMAST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAST");
+  }
+
+  get CEMAMO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/certificateManagement/CEMAMO");
+  }
+
+  get AVSS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSS");
+  }
+
+  get AVSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSC");
+  }
+
+  get AVSD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/apiVersioning/AVSD");
+  }
+
+  get MFSS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSS");
+  }
+
+  get MFSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSC");
+  }
+
+  get MFSR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/messageFormats/MFSR");
+  }
+
+  get MFST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/messageFormats/MFST");
+  }
+
+  get RLPL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPL");
+  }
+
+  get RLPB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPB");
+  }
+
+  get RLPQ() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/rateLimiting/RLPQ");
+  }
+
+  get PCRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/compliance/PCRC");
+  }
+
+  get PCRO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/compliance/PCRO");
+  }
+
+  get PCRE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/protocolsAndStandards/compliance/PCRE");
+  }
+
+  get EPCE_PART_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", (t, p) => new ExternalPartnerConnectionEntry$Id(t, p));
+  }
+
+  get CSIS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/cloudServices/CSIS");
+  }
+
+  get CSIN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/cloudServices/CSIN");
+  }
+
+  get CSIC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/cloudServices/CSIC");
+  }
+
+  get TPAIA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIA");
+  }
+
+  get TPAIC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIC");
+  }
+
+  get TPAIL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIL");
+  }
+
+  get TPAIM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIM");
+  }
+
+  get THPAAPINAI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/THPAAPINAI");
+  }
+
+  get TPAIO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/thirdPartyApis/TPAIO");
+  }
+
+  get NSPF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NSPF");
+  }
+
+  get NSPIM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NSPIM");
+  }
+
+  get NSPV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NSPV");
+  }
+
+  get NSPD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NSPD");
+  }
+
+  get NESEPODN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/networkSecurity/NESEPODN");
+  }
+
+  get SMAGM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/serviceMeshAndGateway/SMAGM");
+  }
+
+  get SMAGLB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/serviceMeshAndGateway/SMAGLB");
+  }
+
+  get COREP1() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/resilience/COREP1");
+  }
+
+  get COREOF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/resilience/COREOF");
+  }
+
+  get COREOP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/communication/externalConnectivity/resilience/COREOP");
+  }
+
+  get AIRD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/AIRD");
+  }
+
+  get ADINREDA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/ADINREDA");
+  }
+
+  get AIRO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/adminInterface/AIRO");
+  }
+
+  get SCMD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMD");
+  }
+
+  get SCME() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCME");
+  }
+
+  get SCMG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG");
+  }
+
+  get UPTL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL");
+  }
+
+  get UPTRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTRM");
+  }
+
+  get UPTDI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTDI");
+  }
+
+  get BJMJT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMJT");
+  }
+
+  get BJME() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJME");
+  }
+
+  get BJMM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM");
+  }
+
+  get ADENMA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/ADENMA");
+  }
+
+  get SDTT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTT");
+  }
+
+  get SDTL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTL");
+  }
+
+  get SDTSS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
+  }
+
+  get MAINT_MAIN_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", (t, p) => new SomMetaRef(t, p));
+  }
+
+  get MONITO_MONI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/MONITO-MONI");
+  }
+
+  get HCEC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCEC");
+  }
+
+  get HCET() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCET");
+  }
+
+  get HECHENCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HECHENCO");
+  }
+
+  get APDIPE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/APDIPE");
+  }
+
+  get APDIRU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/APDIRU");
+  }
+
+  get ADFS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/applicationDiagnostics/ADFS");
+  }
+
+  get LARC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARC");
+  }
+
+  get LARR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARR");
+  }
+
+  get LARA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/logAggregation/LARA");
+  }
+
+  get TRCARU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCARU");
+  }
+
+  get TRCAAC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCAAC");
+  }
+
+  get TRCACO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/troubleshooting/TRCACO");
+  }
+
+  get DHMC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMC");
+  }
+
+  get DHMQ() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMQ");
+  }
+
+  get DHME() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHME");
+  }
+
+  get DHMT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/dependencyHealth/DHMT");
+  }
+
+  get ALCO_ALER() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALCO-ALER");
+  }
+
+  get ANCD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCD");
+  }
+
+  get ANCR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCR");
+  }
+
+  get ANCF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF");
+  }
+
+  get ALRUEN_ALER_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", (t, p) => new AlertRuleEntry$Id(t, p));
+  }
+
+  get AEPT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPT");
+  }
+
+  get AEPB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPB");
+  }
+
+  get AEPS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPS");
+  }
+
+  get ALSURU_SUPP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALSURU-SUPP-LST", (t, p) => new AlertSuppressionRules$Id(t, p));
+  }
+
+  get OCSCC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/onCallSchedule/OCSCC");
+  }
+
+  get OCSCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/onCallSchedule/OCSCO");
+  }
+
+  get MEANOB_METR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/MEANOB-METR");
+  }
+
+  get AMSR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSR");
+  }
+
+  get AMSA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSA");
+  }
+
+  get AMSL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/applicationMetrics/AMSL");
+  }
+
+  get IMSK() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/IMSK");
+  }
+
+  get IMSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/IMSC");
+  }
+
+  get INMESPCO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/infrastructureMetrics/INMESPCO");
+  }
+
+  get BMST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMST");
+  }
+
+  get BMSFU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSFU");
+  }
+
+  get BMSK() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSK");
+  }
+
+  get BMSO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/businessMetrics/BMSO");
+  }
+
+  get DTSS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSS");
+  }
+
+  get DITRSPSP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DITRSPSP");
+  }
+
+  get DTSO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO");
+  }
+
+  get CUMEEN_CUST_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", (t, p) => new CustomMetricEntry$Id(t, p));
+  }
+
+  get MODA_DASH() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH");
+  }
+
+  get DAEN_DASH_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", (t, p) => new DashboardEntry$Id(t, p));
+  }
+
+  get DATE_DASH_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST", (t, p) => new DashboardTemplates$Id(t, p));
+  }
+
+  get SASM_SLAO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO");
+  }
+
+  get SLIP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIP");
+  }
+
+  get SLIQ() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIQ");
+  }
+
+  get SLIM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM");
+  }
+
+  get SLEN_SLOS_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", (t, p) => new SloEntry$Id(t, p));
+  }
+
+  get EBTM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTM");
+  }
+
+  get EBTG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTG");
+  }
+
+  get UGPF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPF");
+  }
+
+  get UGPS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPS");
+  }
+
+  get UGPT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPT");
+  }
+
+  get DGPG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPG");
+  }
+
+  get DGPP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPP");
+  }
+
+  get DGPL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPL");
+  }
+
+  get DGPT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/dataGrowth/DGPT");
+  }
+
+  get PLPM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPM");
+  }
+
+  get PLPC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPC");
+  }
+
+  get PLPT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/peakLoadPatterns/PLPT");
+  }
+
+  get STATM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATM");
+  }
+
+  get STATR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATR");
+  }
+
+  get STATB() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATB");
+  }
+
+  get STATT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/scalingTriggers/STATT");
+  }
+
+  get RCBS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBS");
+  }
+
+  get RCBN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBN");
+  }
+
+  get RCBD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBD");
+  }
+
+  get RCBC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/resourceCapacity/RCBC");
+  }
+
+  get CAREPRMO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/capacityReview/CAREPRMO");
+  }
+
+  get CRPE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPE");
+  }
+
+  get CRPP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP");
+  }
+
+  get SESTEN_STAN_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", (t, p) => new SecurityStandardEntry$Id(t, p));
+  }
+
+  get ASRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRC");
+  }
+
+  get ASRV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRV");
+  }
+
+  get ASRA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRA");
+  }
+
+  get ISHC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHC");
+  }
+
+  get ISHN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHN");
+  }
+
+  get ISHA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/infrastructureSecurity/ISHA");
+  }
+
+  get SDLD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLD");
+  }
+
+  get SDLT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLT");
+  }
+
+  get SDLR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/securityDevLifecycle/SDLR");
+  }
+
+  get VMPC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPC");
+  }
+
+  get VMPP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPP");
+  }
+
+  get VMPR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/vulnerabilityManagement/VMPR");
+  }
+
+  get IRPP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/incidentResponse/IRPP");
+  }
+
+  get IRPC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/incidentResponse/IRPC");
+  }
+
+  get IRPPI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/itSecurityStandards/incidentResponse/IRPPI");
+  }
+
+  get PRCG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCG");
+  }
+
+  get PRCD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCD");
+  }
+
+  get PRCR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCR");
+  }
+
+  get PRCT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/regulationCompliance/PRCT");
+  }
+
+  get DRRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DRRS");
+  }
+
+  get DARERERE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DARERERE");
+  }
+
+  get DRRV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataResidency/DRRV");
+  }
+
+  get CMRC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRC");
+  }
+
+  get COMAREST() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/COMAREST");
+  }
+
+  get CMRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRM");
+  }
+
+  get CMRT() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/CMRT");
+  }
+
+  get COMARECO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/consentManagement/COMARECO");
+  }
+
+  get DSRMA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMA");
+  }
+
+  get DSRME() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRME");
+  }
+
+  get DSRMP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMP");
+  }
+
+  get DSRMR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMR");
+  }
+
+  get DASURIMAAU() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DASURIMAAU");
+  }
+
+  get DSRMO() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataSubjectRights/DSRMO");
+  }
+
+  get PIAPA() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPA");
+  }
+
+  get PIAPM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPM");
+  }
+
+  get PIAPR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/privacyImpactAssessment/PIAPR");
+  }
+
+  get DPARM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARM");
+  }
+
+  get DPARH() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARH");
+  }
+
+  get DPARS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPARS");
+  }
+
+  get DPART() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataProcessingAgreements/DPART");
+  }
+
+  get DPCH() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCH");
+  }
+
+  get DPCR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCR");
+  }
+
+  get DPCM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCM");
+  }
+
+  get DPCI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/dataProtectionAndPrivacy/dataClassification/DPCI");
+  }
+
+  get PTRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRS");
+  }
+
+  get PTRE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRE");
+  }
+
+  get PTRR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/penetrationTesting/PTRR");
+  }
+
+  get SCRPR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPR");
+  }
+
+  get SCRPP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPP");
+  }
+
+  get SCRPF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityCodeReview/SCRPF");
+  }
+
+  get DSRV() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRV");
+  }
+
+  get DSRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRS");
+  }
+
+  get DSRL() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRL");
+  }
+
+  get DSRSC() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/dependencyScanning/DSRSC");
+  }
+
+  get SCRI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRI");
+  }
+
+  get SCRS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRS");
+  }
+
+  get SECEREIN() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityCertifications/SECEREIN");
+  }
+
+  get SCRM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityCertifications/SCRM");
+  }
+
+  get CASP() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASP");
+  }
+
+  get CASE() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASE");
+  }
+
+  get CASR() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/complianceAuditSchedule/CASR");
+  }
+
+  get STAD() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAD");
+  }
+
+  get STAI() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAI");
+  }
+
+  get STAF() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAF");
+  }
+
+  get STAS() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAS");
+  }
+
+  get STAG() {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG");
+  }
+
+  get SEAUEN_AUDI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", (t, p) => new SecurityAuditEntry$Id(t, p));
+  }
+
+  get USCDF_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/userManagement/userCategories/USCDF-ITEM-LST", (t, p) => new UserCategoryDefinition$Id(t, p));
+  }
+
+  get ULTRE_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST", (t, p) => new UserLifecycleTransitionEntry$Id(t, p));
+  }
+
+  get SACLC_SERV_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/userManagement/userLifecycle/SACLC-SERV-LST", (t, p) => new ServiceAccountLifecycle$Id(t, p));
+  }
+
+  get USATE_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/userManagement/userAttributes/USATE-ITEM-LST", (t, p) => new UserAttributeEntry$Id(t, p));
+  }
+
+  get IDTSR_IDEN_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authentication/identification/IDTSR-IDEN-LST", (t, p) => new IdentitySourceEntry$Id(t, p));
+  }
+
+  get IVPD() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/identityVerification/IVPD");
+  }
+
+  get IVPM() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/identityVerification/IVPM");
+  }
+
+  get IVPW() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/identityVerification/IVPW");
+  }
+
+  get IVPL() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/identityVerification/IVPL");
+  }
+
+  get IVPF() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/identityVerification/IVPF");
+  }
+
+  get IDTPV_IDEN_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authentication/identification/IDTPV-IDEN-LST", (t, p) => new IdentityProviderEntry$Id(t, p));
+  }
+
+  get SSOPF() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/singleSignOn/SSOPF");
+  }
+
+  get SSOPS() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/singleSignOn/SSOPS");
+  }
+
+  get SSOPA() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/singleSignOn/SSOPA");
+  }
+
+  get SSOPO() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/singleSignOn/SSOPO");
+  }
+
+  get SRPF() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/selfRegistration/SRPF");
+  }
+
+  get SRPBP() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/selfRegistration/SRPBP");
+  }
+
+  get SRPV() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/selfRegistration/SRPV");
+  }
+
+  get SRPA() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/selfRegistration/SRPA");
+  }
+
+  get SRPS() {
+    return new SomMetaRef(this.tree, this.path + "/accessControl/authentication/identification/selfRegistration/SRPS");
+  }
+
+  get IDTAM_ATTR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authentication/identification/IDTAM-ATTR-LST", (t, p) => new IdentityAttributeMappingEntry$Id(t, p));
+  }
+
+  get MFADE_MFAD_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) => new SomMetaRef(t, p));
+  }
+
+  get ATME_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", (t, p) => new AuthenticationMethodEntry$Id(t, p));
+  }
+
+  get STEPU_STEP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) => new SomMetaRef(t, p));
+  }
+
+  get LGFLS_LOGI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST", (t, p) => new LoginFlowStepEntry$Id(t, p));
+  }
+
+  get MFACRQ_MFAC_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST", (t, p) => new MfaCategoryRequirementEntry$Id(t, p));
+  }
+
+  get AZGR_GROU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/AZGR-GROU-LST", (t, p) => new AuthorizationGroupEntry$Id(t, p));
+  }
+
+  get AZRO_ROLE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/AZRO-ROLE-LST", (t, p) => new AuthorizationRoleEntry$Id(t, p));
+  }
+
+  get ENT_ENTI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/ENT-ENTI-LST", (t, p) => new EntitlementEntry$Id(t, p));
+  }
+
+  get RESKEY_RESO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/RESKEY-RESO-LST", (t, p) => new ResourceKeyEntry$Id(t, p));
+  }
+
+  get RLINH_INHE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/roleHierarchy/RLINH-INHE-LST", (t, p) => new RoleInheritanceRuleEntry$Id(t, p));
+  }
+
+  get RLCMB_COMB_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST", (t, p) => new RoleCombinationConstraintEntry$Id(t, p));
+  }
+
+  get GBRLX_GLOB_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST", (t, p) => new GlobalRoleExclusionEntry$Id(t, p));
+  }
+
+  get TNCS_TENA_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", (t, p) => new TenantCustomizationEntry$Id(t, p));
+  }
+
+  get ACOVNA() {
+    return new SomMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/actorOverview/ACOVNA");
+  }
+
+  get ACEN_ACTO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST", (t, p) => new ActorEntry$Id(t, p));
+  }
+
+  get ACCASU() {
+    return new SomMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/actorOverview/ACCASU");
+  }
+
+  get INCAOV() {
+    return new SomMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/interactionCatalog/INCAOV");
+  }
+
+  get INEN_INTE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST", (t, p) => new InteractionEntry$Id(t, p));
+  }
+
+  get INPR() {
+    return new SomMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/interactionCatalog/INPR");
+  }
+
+  get SCOV() {
+    return new SomMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/keyScenarios/SCOV");
+  }
+
+  get SCNRY_SCEN_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST", (t, p) => new ScenarioEntry$Id(t, p));
+  }
+
+  get ACDIOV() {
+    return new SomMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV");
+  }
+
+  get ETETS_ENDT_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/ETETS-ENDT-LST", (t, p) => new EndToEndTestScenario$Id(t, p));
+  }
+
+  get SCREN_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", (t, p) => new ScreenEntry$Id(t, p));
+  }
+
+  get GLOBA_GLOB_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) => new SomMetaRef(t, p));
+  }
+
+  get NAVGRP_GROU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST", (t, p) => new NavigationGroupEntry$Id(t, p));
+  }
+
+  get PRNADR() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR");
+  }
+
+  get PNBN() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN");
+  }
+
+  get PRNASI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI");
+  }
+
+  get TBDE_TABB_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", (t, p) => new TabBarDefinitionEntry$Id(t, p));
+  }
+
+  get UNIE_ITEM_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", (t, p) => new UtilityNavigationItemEntry$Id(t, p));
+  }
+
+  get BRCO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO");
+  }
+
+  get DELNPT_PATT_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST", (t, p) => new DeepLinkPatternEntry$Id(t, p));
+  }
+
+  get NAVGRD_GUAR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", (t, p) => new NavigationGuardEntry$Id(t, p));
+  }
+
+  get ERHACO_ERRO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/ERHACO-ERRO");
+  }
+
+  get EHCC() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/EHCC");
+  }
+
+  get EHCA() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/EHCA");
+  }
+
+  get EHCO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/EHCO");
+  }
+
+  get VAFE_VALI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-VALI");
+  }
+
+  get VAFEPL() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEPL");
+  }
+
+  get VAFEME() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME");
+  }
+
+  get VAFEGU() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU");
+  }
+
+  get VAFEBE() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE");
+  }
+
+  get VAMETE_MESS_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", (t, p) => new ValidationMessageTemplate$Id(t, p));
+  }
+
+  get FIELD_FIEL_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new SomMetaRef(t, p));
+  }
+
+  get SYERDI_SYST() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST");
+  }
+
+  get SEDET() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET");
+  }
+
+  get SEDM() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM");
+  }
+
+  get SEDC() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC");
+  }
+
+  get SEDF() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF");
+  }
+
+  get EPDE_ERRO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) => new SomMetaRef(t, p));
+  }
+
+  get SECE_ERRO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", (t, p) => new SystemErrorCodeEntry$Id(t, p));
+  }
+
+  get ERRE_RECO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO");
+  }
+
+  get ERDP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERDP");
+  }
+
+  get ERRM() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRM");
+  }
+
+  get ERGR() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERGR");
+  }
+
+  get ERSC() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERSC");
+  }
+
+  get ERSH() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERSH");
+  }
+
+  get RECOV_RECO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new SomMetaRef(t, p));
+  }
+
+  get RCVSCN_RECO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST", (t, p) => new RecoveryScenarioEntry$Id(t, p));
+  }
+
+  get REDE_RESP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/REDE-RESP");
+  }
+
+  get BC_BREA() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA");
+  }
+
+  get BRE_BREA_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", (t, p) => new BreakpointEntry$Id(t, p));
+  }
+
+  get REBE_LAYO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO");
+  }
+
+  get REBENA() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA");
+  }
+
+  get REBEVI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI");
+  }
+
+  get REBETO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBETO");
+  }
+
+  get REBECO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBECO");
+  }
+
+  get RESPSR_SCRE_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", (t, p) => new ResponsiveScreenRuleEntry$Id(t, p));
+  }
+
+  get UICO_COMP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/UICO-COMP");
+  }
+
+  get UCVL() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/UCVL");
+  }
+
+  get UCCA() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/UCCA");
+  }
+
+  get UICOCU() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/UICOCU");
+  }
+
+  get DESIG_DESI_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/componentLibrary/DESIG-DESI-LST", (t, p) => new DesignFoundationEntry$Id(t, p));
+  }
+
+  get COLICO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLICO");
+  }
+
+  get COLITY() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLITY");
+  }
+
+  get COLISP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLISP");
+  }
+
+  get COLIBO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLIBO");
+  }
+
+  get COLIVI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI");
+  }
+
+  get COPA_COLO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST", (t, p) => new ColorPaletteEntry$Id(t, p));
+  }
+
+  get TYST_TYPO_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", (t, p) => new TypographyStyleEntry$Id(t, p));
+  }
+
+  get UICOEN_COMP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", (t, p) => new UiComponentEntry$Id(t, p));
+  }
+
+  get CMFA_COMP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", (t, p) => new ComponentFamilyEntry$Id(t, p));
+  }
+}
+
 // ID-tree accessors of `DashboardEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -92817,24 +96414,12 @@ class DataEntityEntry$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/DAENT-CLAS");
   }
 
-  get VOLUM_VOLU_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/VOLUM-VOLU-LST", (t, p) => new VolumeMetricEntry$Id(t, p));
-  }
-
   get DAENT_LIFE() {
     return new SomMetaRef(this.tree, this.path + "/DAENT-LIFE");
   }
 
-  get CRE_COMP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/CRE-COMP-LST", (t, p) => new ComplianceRequirementEntry$Id(t, p));
-  }
-
   get DAENT_RELA() {
     return new SomMetaRef(this.tree, this.path + "/DAENT-RELA");
-  }
-
-  get TECHN_TECH_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/TECHN-TECH-LST", (t, p) => new TechnicalCharacteristicEntry$Id(t, p));
   }
 
   get DAATT_ATTR_LST() {
@@ -92851,10 +96436,6 @@ class DataEntityEntry$Id extends SomMetaRef {
 
   get ENCNS_CONS_LST() {
     return new SomListMetaRef(this.tree, this.path + "/ENCNS-CONS-LST", (t, p) => new EntityConstraintEntry$Id(t, p));
-  }
-
-  get MIGME_MIGR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/MIGME-MIGR-LST", (t, p) => new MigrationMappingEntry$Id(t, p));
   }
 }
 
@@ -93469,6 +97050,31 @@ class EntitlementReferenceEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class EntityConstraintEntry$Id extends SomMetaRef {
+}
+
+// ID-tree accessors of `EntityFollowUpEntry` (DR1 §4.2): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+class EntityFollowUpEntry$Id extends SomMetaRef {
+  get DMFUE_ENTI() {
+    return new SomMetaRef(this.tree, this.path + "/DMFUE-ENTI");
+  }
+
+  get VOLUM_VOLU_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/VOLUM-VOLU-LST", (t, p) => new VolumeMetricEntry$Id(t, p));
+  }
+
+  get CRE_COMP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/CRE-COMP-LST", (t, p) => new ComplianceRequirementEntry$Id(t, p));
+  }
+
+  get TECHN_TECH_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/TECHN-TECH-LST", (t, p) => new TechnicalCharacteristicEntry$Id(t, p));
+  }
+
+  get MIGME_MIGR_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/MIGME-MIGR-LST", (t, p) => new MigrationMappingEntry$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `EntityIndexEntry` (DR1 §4.2): getters named by section id
@@ -99173,6 +102779,28 @@ const d12TransitionRolloutPlan = new D12TransitionRolloutPlan$Nav(d12TransitionR
 // `TRP.<SECTION-ID>….path` / `.meta`.
 const TRP = new D12TransitionRolloutPlan$Id(d12TransitionRolloutPlanMetaTree, "TRP");
 
+// The populated metadata tree of the `D13CodeSpecsProjection` document root (DR1 §3.2).
+const d13CodeSpecsProjectionMetaTree = new SomMetaTree(new SomMetaNode({
+  className: "D13CodeSpecsProjection",
+  sectionId: "CGP",
+  classSectionId: "CGP",
+  kind: SomMetaKind.SECTION,
+  typeName: "D13CodeSpecsProjection",
+  docComment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.",
+  classDocComment: "CGP00 CodeSpecs Generation Projection.\n\nThe residual `@CodeSpecKind`-tagged content after the Band-F follow-up\nsplits: the shared registries, the server-side data / framework / access\nmodels, the process-step interactions, and the client-side experience seed.",
+  document: new SomDocMeta({name: "CodeSpecs Generation Projection", description: "The Phase-4 CodeSpecs generation input — a projection over the Solution Blueprint that reaches only the isolated CodeSpecs subtrees, grouped by the shared/client/server locus of their CE-parts.", basedOn: ["D00SolutionBlueprint"]}),
+  extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 42010 — architecture description (the generation input as an architecture view over the blueprint)", "Model-driven engineering — platform-independent model → code generation"], "connotation": "The Phase-4 CodeSpecs generation input: the isolated CodeSpecs subtrees routed across the shared / client / server three-way split by locus."}), new SomMetaExtra("CodeSpecsProjection", {})],
+  children: _mc_D13CodeSpecsProjection(new Set(["D13CodeSpecsProjection"])),
+}));
+
+// Dot-notation access root of `D13CodeSpecsProjection` (DR1 §4.1):
+// `d13CodeSpecsProjection.<member>….path` / `.meta`.
+const d13CodeSpecsProjection = new D13CodeSpecsProjection$Nav(d13CodeSpecsProjectionMetaTree, "CGP");
+
+// ID-tree access root of `D13CodeSpecsProjection` (DR1 §4.2):
+// `CGP.<SECTION-ID>….path` / `.meta`.
+const CGP = new D13CodeSpecsProjection$Id(d13CodeSpecsProjectionMetaTree, "CGP");
+
 module.exports = {
   AcceptanceCriteriaList$Nav,
   AcceptanceCriteriaSummary$Nav,
@@ -99182,6 +102810,7 @@ module.exports = {
   AcceptanceStepEntry$Nav,
   AccessChannels$Nav,
   AccessConstraintPolicies$Nav,
+  AccessControlModel$Nav,
   AccessControlModelSelection$Nav,
   AccessLevelEntry$Nav,
   AccessLevels$Nav,
@@ -99255,6 +102884,7 @@ module.exports = {
   AuthenticationFlow$Nav,
   AuthenticationMethodEntry$Nav,
   AuthenticationMethods$Nav,
+  AuthorizationComplianceFollowUp$Nav,
   AuthorizationEventPolicy$Nav,
   AuthorizationGroupEntry$Nav,
   AuthorizationModel$Nav,
@@ -99426,6 +103056,7 @@ module.exports = {
   D10QualityAcceptancePlan$Nav,
   D11DeliveryRoadmap$Nav,
   D12TransitionRolloutPlan$Nav,
+  D13CodeSpecsProjection$Nav,
   DashboardEntry$Nav,
   DashboardRequirements$Nav,
   DashboardTemplates$Nav,
@@ -99454,6 +103085,7 @@ module.exports = {
   DataMaskingPolicy$Nav,
   DataMigrationStrategy$Nav,
   DataModel$Nav,
+  DataModelFollowUp$Nav,
   DataOwnership$Nav,
   DataOwnershipEntry$Nav,
   DataProcessingAgreementRequirements$Nav,
@@ -99518,6 +103150,7 @@ module.exports = {
   DevelopmentConventionEntry$Nav,
   DevelopmentEnvironment$Nav,
   DevelopmentQualityGates$Nav,
+  DeviceSettings$Nav,
   DisasterRecoveryRequirements$Nav,
   DisplayEquipmentEntry$Nav,
   DisplayPropertyEntry$Nav,
@@ -99566,6 +103199,7 @@ module.exports = {
   EntitlementEntry$Nav,
   EntitlementReferenceEntry$Nav,
   EntityConstraintEntry$Nav,
+  EntityFollowUpEntry$Nav,
   EntityIndexEntry$Nav,
   EntityRelationshipEntry$Nav,
   EntityRelationships$Nav,
@@ -99589,6 +103223,9 @@ module.exports = {
   ExistingSystemsLandscape$Nav,
   ExpectedImprovements$Nav,
   ExperienceAndInterfaceDesign$Nav,
+  ExperienceCodeSpecs$Nav,
+  ExperienceDesignFollowUp$Nav,
+  ExperienceLocalizationFollowUp$Nav,
   ExportFieldMappingEntry$Nav,
   ExportFormatEntry$Nav,
   ExportSizeSettings$Nav,
@@ -99850,6 +103487,7 @@ module.exports = {
   OrgChangeRisks$Nav,
   OrgImplementationActivity$Nav,
   OrgRequirementImplementationPlan$Nav,
+  OrganizationAndProcessConcept$Nav,
   OrganizationStructure$Nav,
   OrganizationalChangeEntry$Nav,
   OrganizationalContext$Nav,
@@ -100029,6 +103667,7 @@ module.exports = {
   RequirementTraceability$Nav,
   RequirementUiSpecification$Nav,
   Requirements$Nav,
+  RequirementsFollowUp$Nav,
   RequirementsOverview$Nav,
   ResourceAllocationEntry$Nav,
   ResourceCapacityBaselines$Nav,
@@ -100125,12 +103764,14 @@ module.exports = {
   SecurityCertificationRequirements$Nav,
   SecurityCharacteristic$Nav,
   SecurityCodeReviewPolicy$Nav,
+  SecurityComplianceFollowUp$Nav,
   SecurityControlEntry$Nav,
   SecurityControls$Nav,
   SecurityDevelopmentLifecycle$Nav,
   SecurityEventEntry$Nav,
   SecurityEventLoggingPolicy$Nav,
   SecurityEventsDefinition$Nav,
+  SecurityOperationsFollowUp$Nav,
   SecurityRequirementEntry$Nav,
   SecurityRequirements$Nav,
   SecurityStandardComplianceEntry$Nav,
@@ -100171,6 +103812,7 @@ module.exports = {
   SoftwareDesignRequirements$Nav,
   SoftwareLayerEntry$Nav,
   SolutionArchitectureAndTechnology$Nav,
+  SolutionArchitectureFollowUp$Nav,
   SpecializedEquipmentEntry$Nav,
   SsoPolicy$Nav,
   StaffingBudget$Nav,
@@ -100249,7 +103891,6 @@ module.exports = {
   SystemsToReplace$Nav,
   TabBarDefinitionEntry$Nav,
   TabItemEntry$Nav,
-  TargetBusinessProcessModel$Nav,
   TargetOperatingModel$Nav,
   TargetPlatformEntry$Nav,
   TeamMemberEntry$Nav,
@@ -100506,6 +104147,7 @@ module.exports = {
   D10QualityAcceptancePlan$Id,
   D11DeliveryRoadmap$Id,
   D12TransitionRolloutPlan$Id,
+  D13CodeSpecsProjection$Id,
   DashboardEntry$Id,
   DashboardTemplates$Id,
   DataAttributeConstraintEntry$Id,
@@ -100563,6 +104205,7 @@ module.exports = {
   EntitlementEntry$Id,
   EntitlementReferenceEntry$Id,
   EntityConstraintEntry$Id,
+  EntityFollowUpEntry$Id,
   EntityIndexEntry$Id,
   EntityRelationshipEntry$Id,
   EntryPointEntry$Id,
@@ -100945,4 +104588,7 @@ module.exports = {
   d12TransitionRolloutPlanMetaTree,
   d12TransitionRolloutPlan,
   TRP,
+  d13CodeSpecsProjectionMetaTree,
+  d13CodeSpecsProjection,
+  CGP,
 };

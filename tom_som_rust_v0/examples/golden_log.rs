@@ -199,7 +199,6 @@ fn main() {
 
     let actor_overview = sbp
         .target_operating_model_concept()
-        .target_business_process()
         .process_steps_and_actor_interactions()
         .actor_overview()
         .overview();
@@ -215,6 +214,7 @@ fn main() {
 
     let accessibility_overview = sbp
         .experience_and_interface_design()
+        .design_follow_up()
         .accessibility()
         .accessibility_overview_content();
     let acc_path = accessibility_overview.node.path().to_string();

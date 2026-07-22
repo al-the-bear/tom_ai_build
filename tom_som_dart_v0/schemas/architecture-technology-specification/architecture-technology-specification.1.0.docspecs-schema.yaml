@@ -2369,6 +2369,8 @@ section-types:
         max-count: 1
       clicon:
         max-count: 1
+      devset:
+        max-count: 1
     description: |
       Specify client device requirements including browsers, operating systems,
       display specifications, and accessibility needs. Client requirements
@@ -2925,6 +2927,9 @@ section-types:
     prefix: DETOIN
     format: detoin-form
     description: Infrastructure layout.
+  devset:
+    prefix: DEVSET
+    description: User-specific settings of a user-owned device (CE-DS).
   direc1:
     prefix: DIREC1
     format: direc1-form

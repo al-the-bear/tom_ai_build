@@ -198,7 +198,7 @@ function main(): void {
     out.push('TF\t' + formPath + '\t' + field + '\t' + esc(generic));
   };
 
-  const actorOverview = sbp.targetOperatingModelConcept.targetBusinessProcess
+  const actorOverview = sbp.targetOperatingModelConcept
     .processStepsAndActorInteractions.actorOverview.overview;
   typedForm(actorOverview.path, 'totalActorCount',
     somFormatInt(actorOverview.totalActorCount));
@@ -210,7 +210,8 @@ function main(): void {
     somFormatInt(actorOverview.externalActorCount));
 
   const accessibilityOverview =
-    sbp.experienceAndInterfaceDesign.accessibility.accessibilityOverviewContent;
+    sbp.experienceAndInterfaceDesign.designFollowUp.accessibility
+      .accessibilityOverviewContent;
   typedForm(accessibilityOverview.path, 'accessibilityStatement',
     somFormatBool(accessibilityOverview.accessibilityStatement));
 

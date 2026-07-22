@@ -290,6 +290,58 @@ export class AccessConstraintPolicies extends SomNode {
   // (skipped: accessConstraintDetails has no target type)
 }
 
+// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+//
+// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+// authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+// authentication, resource protection, authorization, and the role matrix.
+// The container itself carries no `@CodeSpecKind` — the mapped parts live on
+// the child sections (e.g. `authentication`) — but the whole subtree is the
+// CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+// subtrees.
+export class AccessControlModel extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 9.1.1. User Management.
+  get userManagement(): UserManagement {
+    return new UserManagement(this.doc, this.path + "/userManagement");
+  }
+
+  // 9.1.2. Identification and Authentication.
+  get authentication(): IdentificationAndAuthentication {
+    return new IdentificationAndAuthentication(this.doc, this.path + "/authentication");
+  }
+
+  // 9.1.3. Resource Protection.
+  get resourceProtection(): ResourceProtection {
+    return new ResourceProtection(this.doc, this.path + "/resourceProtection");
+  }
+
+  // 9.1.4. User Authorization.
+  get authorization(): UserAuthorization {
+    return new UserAuthorization(this.doc, this.path + "/authorization");
+  }
+
+  // 9.1.5. Role Matrix.
+  get roleMatrix(): RoleMatrix {
+    return new RoleMatrix(this.doc, this.path + "/roleMatrix");
+  }
+}
+
 // Access Control Model Selection (form).
 //
 // Defines the primary access control paradigm — RBAC, ABAC, ReBAC, or a
@@ -2291,6 +2343,34 @@ export class AuthenticationMethods extends SomNode {
   get items(): SomList<AuthenticationMethodEntry> {
     return new SomList(this.doc, this.path + "/ATME-ITEM-LST", (d: SpecDocument, p: string) => new AuthenticationMethodEntry(d, p), "ATME-ITEM-xxx");
   }
+}
+
+// SBP.13 Experience & Interface Design — authorization-compliance CMP
+// follow-up subtree.
+//
+// Groups the UI authorization-compliance concern (how the interface adapts to
+// roles and permissions as a compliance obligation), a **follow-up** (CMP)
+// rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+export class AuthorizationComplianceFollowUp extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 10.4.1. Authorization Compliance.
+  // (skipped: authorizationCompliance has no target type)
 }
 
 // Authorization event policy (form).
@@ -4643,6 +4723,11 @@ export class ClientRequirementsSection extends SomNode {
   // Per-machine configuration of a client application (CE-CC).
   get clientConfiguration(): ClientConfiguration {
     return new ClientConfiguration(this.doc, this.path + "/clientConfiguration");
+  }
+
+  // User-specific settings of a user-owned device (CE-DS).
+  get deviceSettings(): DeviceSettings {
+    return new DeviceSettings(this.doc, this.path + "/deviceSettings");
   }
 }
 
@@ -8732,6 +8817,114 @@ export class D12TransitionRolloutPlan extends SomNode {
   }
 }
 
+// CGP00 CodeSpecs Generation Projection.
+//
+// The residual `@CodeSpecKind`-tagged content after the Band-F follow-up
+// splits: the shared registries, the server-side data / framework / access
+// models, the process-step interactions, and the client-side experience seed.
+export class D13CodeSpecsProjection extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "1.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "CGP");
+    checkSomModelVersion(D13CodeSpecsProjection.MODEL_VERSION, documentVersion);
+  }
+
+  // Loads a `*.docspecs.yaml` document and returns the typed root with the
+  // document's authoring stamp already applied (§ item 4) — one call for
+  // the former decode → loadJson → thread-`documentVersion` sequence.
+  static loadYaml(yaml: string): D13CodeSpecsProjection {
+    const doc = SpecDocument.fromYaml(yaml, _meta.d13CodeSpecsProjectionMetaTree);
+    return new D13CodeSpecsProjection(doc, doc.modelVersion);
+  }
+
+  // Loads a `*.docspecs.yaml` document from the file at `path` — the file
+  // companion to loadYaml.
+  static loadFile(path: string): D13CodeSpecsProjection {
+    const doc = SpecDocument.fromFile(path, _meta.d13CodeSpecsProjectionMetaTree);
+    return new D13CodeSpecsProjection(doc, doc.modelVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return D13CodeSpecsProjection.MODEL_VERSION;
+  }
+
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D13CodeSpecsProjection.MODEL_VERSION, documentVersion);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Domain enum registry — CE-EN closed value sets, shared by client & server.
+  get domainEnumRegistry(): DomainEnumRegistry {
+    return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
+  }
+
+  // Error code registry — CE-ER shared error-code vocabulary.
+  get errorCodeRegistry(): ErrorCodeRegistry {
+    return new ErrorCodeRegistry(this.doc, this.path + "/errorCodeRegistry");
+  }
+
+  // Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+  get resultEnvelope(): ResultEnvelope {
+    return new ResultEnvelope(this.doc, this.path + "/resultEnvelope");
+  }
+
+  // Message key registry — CE-TX author-copy-once keys, shared.
+  get messageKeyRegistry(): MessageKeyRegistry {
+    return new MessageKeyRegistry(this.doc, this.path + "/messageKeyRegistry");
+  }
+
+  // Data model — CE-DB persistence + CE-VA server-side rules.
+  get dataModel(): DataModel {
+    return new DataModel(this.doc, this.path + "/dataModel");
+  }
+
+  // Technical framework — CE-CF platform/config foundation.
+  get technicalFramework(): TechnicalFrameworkConcept {
+    return new TechnicalFrameworkConcept(this.doc, this.path + "/technicalFramework");
+  }
+
+  // Access control model — CE-AZ authorization/identity seed.
+  get accessControl(): AccessControlModel {
+    return new AccessControlModel(this.doc, this.path + "/accessControl");
+  }
+
+  // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
+  // interaction; a single subtree whose parts split across both loci.
+  get processStepsAndActorInteractions(): ProcessStepsAndActorInteractions {
+    return new ProcessStepsAndActorInteractions(this.doc, this.path + "/processStepsAndActorInteractions");
+  }
+
+  // Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
+  get experienceCodeSpecs(): ExperienceCodeSpecs {
+    return new ExperienceCodeSpecs(this.doc, this.path + "/experienceCodeSpecs");
+  }
+}
+
 // A dashboard entry.
 export class DashboardEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -9103,24 +9296,12 @@ export class DataEntityEntry extends SomNode {
     return new DataEntityEntryClassificationForm(this.doc, this.path + "/DAENT-CLAS");
   }
 
-  get volumeMetrics(): SomList<VolumeMetricEntry> {
-    return new SomList(this.doc, this.path + "/VOLUM-VOLU-LST", (d: SpecDocument, p: string) => new VolumeMetricEntry(d, p), "VOLUM-VOLU-xxx");
-  }
-
   get lifecyclePolicy(): DataEntityEntryLifecyclePolicyForm {
     return new DataEntityEntryLifecyclePolicyForm(this.doc, this.path + "/DAENT-LIFE");
   }
 
-  get complianceRequirements(): SomList<ComplianceRequirementEntry> {
-    return new SomList(this.doc, this.path + "/CRE-COMP-LST", (d: SpecDocument, p: string) => new ComplianceRequirementEntry(d, p), "CRE-COMP-xxx");
-  }
-
   get relationshipSummary(): DataEntityEntryRelationshipSummaryForm {
     return new DataEntityEntryRelationshipSummaryForm(this.doc, this.path + "/DAENT-RELA");
-  }
-
-  get technicalCharacteristics(): SomList<TechnicalCharacteristicEntry> {
-    return new SomList(this.doc, this.path + "/TECHN-TECH-LST", (d: SpecDocument, p: string) => new TechnicalCharacteristicEntry(d, p), "TECHN-TECH-xxx");
   }
 
   // Contains 0+× DataAttribute.
@@ -9141,11 +9322,6 @@ export class DataEntityEntry extends SomNode {
   // Contains 0+× EntityConstraint.
   get constraints(): SomList<EntityConstraintEntry> {
     return new SomList(this.doc, this.path + "/ENCNS-CONS-LST", (d: SpecDocument, p: string) => new EntityConstraintEntry(d, p), "ENCNS-CONS-xxx");
-  }
-
-  // Contains 0+× MigrationMapping for data migration planning.
-  get migrationMappings(): SomList<MigrationMappingEntry> {
-    return new SomList(this.doc, this.path + "/MIGME-MIGR-LST", (d: SpecDocument, p: string) => new MigrationMappingEntry(d, p), "MIGME-MIGR-xxx");
   }
 }
 
@@ -9580,20 +9756,17 @@ export class DataModel extends SomNode {
     return new EntityRelationships(this.doc, this.path + "/entityRelationships");
   }
 
-  // 7.1.3. Entity-Relationship Diagram (mermaid).
-  // (skipped: erDiagram has no target type)
-
-  // 7.1.4. Data Classification.
+  // 7.1.3. Data Classification.
   get dataClassification(): DataClassification {
     return new DataClassification(this.doc, this.path + "/dataClassification");
   }
 
-  // 7.1.5. Data Dictionary..
+  // 7.1.4. Data Dictionary..
   get dataDictionary(): DataDictionary {
     return new DataDictionary(this.doc, this.path + "/dataDictionary");
   }
 
-  // 7.1.6. Validation Constraints.
+  // 7.1.5. Validation Constraints.
   //
   // One whole-catalog content section (mirrors `dataDictionary`); collapsed
   // from `List<ValidationConstraints>` (L34C-12 SR-25).
@@ -9601,12 +9774,46 @@ export class DataModel extends SomNode {
     return new ValidationConstraints(this.doc, this.path + "/validationConstraints");
   }
 
-  // 7.1.7. Integrity Constraints.
+  // 7.1.6. Integrity Constraints.
   //
   // One whole-catalog content section (mirrors `dataDictionary`); collapsed
   // from `List<IntegrityConstraints>` (L34C-12 SR-25).
   get integrityConstraints(): IntegrityConstraints {
     return new IntegrityConstraints(this.doc, this.path + "/integrityConstraints");
+  }
+}
+
+// 7.9. Data Model Follow-up Facets.
+//
+// Operational and governance facets that accompany the data model but are not
+// part of the generation-owned entity/attribute schema: the model-wide ER
+// diagram plus per-entity volume, compliance, technical, and migration
+// facets. Each per-entity block references its source entity by name/alias so
+// the facets stay correlated with `dataModel.entities` without being nested
+// inside the generation-owned `DataEntityEntry`.
+export class DataModelFollowUp extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 7.9.1. Entity-Relationship Diagram (mermaid).
+  // (skipped: erDiagram has no target type)
+
+  // 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+  get entityFollowUps(): SomList<EntityFollowUpEntry> {
+    return new SomList(this.doc, this.path + "/DMFUE-ENFU-LST", (d: SpecDocument, p: string) => new EntityFollowUpEntry(d, p), "DMFUE-ENFU-xxx");
   }
 }
 
@@ -11646,6 +11853,25 @@ export class DevelopmentQualityGates extends SomNode {
   }
 }
 
+// Device settings — user-specific settings of a user-owned device (CE-DS).
+//
+// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+// identity in the key) and from user settings (CE-UP — server-persisted,
+// follow the user): a device setting is keyed by the (user, device) pair and
+// persisted on the device itself (window layout, last-opened items,
+// machine-local cache preferences). The same user gets independent values on
+// each device; another user on the same device gets their own values
+// (`codespecs_mapping.md` §11).
+export class DeviceSettings extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): DeviceSettingsContentForm {
+    return new DeviceSettingsContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Disaster recovery requirements.
 export class DisasterRecoveryRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -12874,6 +13100,36 @@ export class EntityConstraintEntry extends SomNode {
   }
 }
 
+// A per-entity follow-up facet block (form + lists).
+//
+// Groups the volume, compliance, technical, and migration facets for a single
+// data entity, correlated back to `dataModel.entities` by name/alias.
+export class EntityFollowUpEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get entityRef(): EntityFollowUpEntryEntityRefForm {
+    return new EntityFollowUpEntryEntityRefForm(this.doc, this.path + "/DMFUE-ENTI");
+  }
+
+  get volumeMetrics(): SomList<VolumeMetricEntry> {
+    return new SomList(this.doc, this.path + "/VOLUM-VOLU-LST", (d: SpecDocument, p: string) => new VolumeMetricEntry(d, p), "VOLUM-VOLU-xxx");
+  }
+
+  get complianceRequirements(): SomList<ComplianceRequirementEntry> {
+    return new SomList(this.doc, this.path + "/CRE-COMP-LST", (d: SpecDocument, p: string) => new ComplianceRequirementEntry(d, p), "CRE-COMP-xxx");
+  }
+
+  get technicalCharacteristics(): SomList<TechnicalCharacteristicEntry> {
+    return new SomList(this.doc, this.path + "/TECHN-TECH-LST", (d: SpecDocument, p: string) => new TechnicalCharacteristicEntry(d, p), "TECHN-TECH-xxx");
+  }
+
+  get migrationMappings(): SomList<MigrationMappingEntry> {
+    return new SomList(this.doc, this.path + "/MIGME-MIGR-LST", (d: SpecDocument, p: string) => new MigrationMappingEntry(d, p), "MIGME-MIGR-xxx");
+  }
+}
+
 // An entity index entry (form).
 //
 // Database index specification for query optimization.
@@ -13625,73 +13881,167 @@ export class ExperienceAndInterfaceDesign extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.1. Design Vision. Seeds → XDS.
-  get designVision(): DesignVision {
-    return new DesignVision(this.doc, this.path + "/designVision");
+  // 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+  get experienceCodeSpecs(): ExperienceCodeSpecs {
+    return new ExperienceCodeSpecs(this.doc, this.path + "/experienceCodeSpecs");
   }
 
-  // 10.2. Screen Descriptions. Seeds → XDS.
+  // 10.2. Experience Design — DOC follow-up subtree.
+  get designFollowUp(): ExperienceDesignFollowUp {
+    return new ExperienceDesignFollowUp(this.doc, this.path + "/designFollowUp");
+  }
+
+  // 10.3. Experience Localization — L10N follow-up subtree.
+  get localizationFollowUp(): ExperienceLocalizationFollowUp {
+    return new ExperienceLocalizationFollowUp(this.doc, this.path + "/localizationFollowUp");
+  }
+
+  // 10.4. Authorization Compliance — CMP follow-up subtree.
+  get authorizationComplianceFollowUp(): AuthorizationComplianceFollowUp {
+    return new AuthorizationComplianceFollowUp(this.doc, this.path + "/authorizationComplianceFollowUp");
+  }
+}
+
+// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+//
+// Groups the UI concerns CodeSpecs generates (§4.6 of
+// `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+// reusable UI component library (CE-EL/CE-LO). The container itself carries no
+// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+// follow-up subtrees.
+export class ExperienceCodeSpecs extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 10.1.1. Screen Descriptions. Seeds → XDS.
   get screens(): ScreenDescriptions {
     return new ScreenDescriptions(this.doc, this.path + "/screens");
   }
 
-  // 10.3. Screen Flow Structure. Seeds → XDS.
+  // 10.1.2. Screen Flow Structure. Seeds → XDS.
   get screenFlow(): ScreenFlowStructure {
     return new ScreenFlowStructure(this.doc, this.path + "/screenFlow");
   }
 
-  // 10.4. Print Layout. Seeds → XDS.
-  get printLayout(): PrintAndExportLayout {
-    return new PrintAndExportLayout(this.doc, this.path + "/printLayout");
-  }
-
-  // Data Structure Alignment.
+  // 10.1.3. Data Structure Alignment.
   // (skipped: dataStructureAlignment has no target type)
 
-  // Authorization Compliance.
-  // (skipped: authorizationCompliance has no target type)
-
-  // 10.7. Error Handling. Seeds → XDS.
+  // 10.1.4. Error Handling. Seeds → XDS.
   get errorHandling(): ErrorHandling {
     return new ErrorHandling(this.doc, this.path + "/errorHandling");
   }
 
-  // 10.8. User Assistance. Seeds → XDS.
-  get userAssistance(): UserAssistance {
-    return new UserAssistance(this.doc, this.path + "/userAssistance");
-  }
-
-  // 10.9. Accessibility. Seeds → XDS.
-  get accessibility(): Accessibility {
-    return new Accessibility(this.doc, this.path + "/accessibility");
-  }
-
-  // 10.10. Responsive Design. Seeds → XDS.
+  // 10.1.5. Responsive Design. Seeds → XDS.
   get responsiveDesign(): ResponsiveDesign {
     return new ResponsiveDesign(this.doc, this.path + "/responsiveDesign");
   }
 
-  // 10.11. UI Components. Seeds → XDS.
+  // 10.1.6. UI Components. Seeds → XDS.
   get uiComponents(): UiComponents {
     return new UiComponents(this.doc, this.path + "/uiComponents");
   }
+}
 
-  // 10.12. Multi-language Support.
-  get multiLanguageSupport(): MultiLanguageSupport {
-    return new MultiLanguageSupport(this.doc, this.path + "/multiLanguageSupport");
+// SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+//
+// Groups the design / documentation concerns that are **follow-up** (design
+// vision, print & export layout, user assistance, accessibility, prototype,
+// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+// is generation-owned-out. Accessibility's operational (OPS) facet is a
+// secondary concern refined by the follow-up taxonomy pass.
+export class ExperienceDesignFollowUp extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
   }
 
-  // 10.13. Prototype. Seeds → XDS.
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 10.2.1. Design Vision. Seeds → XDS.
+  get designVision(): DesignVision {
+    return new DesignVision(this.doc, this.path + "/designVision");
+  }
+
+  // 10.2.2. Print Layout. Seeds → XDS.
+  get printLayout(): PrintAndExportLayout {
+    return new PrintAndExportLayout(this.doc, this.path + "/printLayout");
+  }
+
+  // 10.2.3. User Assistance. Seeds → XDS.
+  get userAssistance(): UserAssistance {
+    return new UserAssistance(this.doc, this.path + "/userAssistance");
+  }
+
+  // 10.2.4. Accessibility. Seeds → XDS.
+  get accessibility(): Accessibility {
+    return new Accessibility(this.doc, this.path + "/accessibility");
+  }
+
+  // 10.2.5. Prototype. Seeds → XDS.
   get prototype_(): Prototype {
     return new Prototype(this.doc, this.path + "/prototype");
   }
 
-  // 10.14. Wireframes and Mockups.
+  // 10.2.6. Wireframes and Mockups.
   //
   // One whole-catalog content section; collapsed from
   // `List<WireframesAndMockups>` (L34C-12 SR-52).
   get wireframesAndMockups(): WireframesAndMockups {
     return new WireframesAndMockups(this.doc, this.path + "/wireframesAndMockups");
+  }
+}
+
+// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+//
+// Groups the internationalization concern, a **follow-up** (L10N) rather than
+// CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+export class ExperienceLocalizationFollowUp extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 10.3.1. Multi-language Support.
+  get multiLanguageSupport(): MultiLanguageSupport {
+    return new MultiLanguageSupport(this.doc, this.path + "/multiLanguageSupport");
   }
 }
 
@@ -16139,6 +16489,17 @@ export class InformationAndDataModel extends SomNode {
   // 7.8. Message Key Registry.
   get messageKeyRegistry(): MessageKeyRegistry {
     return new MessageKeyRegistry(this.doc, this.path + "/messageKeyRegistry");
+  }
+
+  // 7.9. Data Model Follow-up Facets.
+  //
+  // Per-entity operational/governance facets (volume, compliance, technical
+  // characteristics, migration mappings) and the model-wide ER diagram —
+  // separated from `dataModel` so the entity/attribute subtree stays purely
+  // CE-DB / CE-VA generation-owned while these follow-up facets are authored
+  // alongside, keyed back to their source entity.
+  get dataModelFollowUp(): DataModelFollowUp {
+    return new DataModelFollowUp(this.doc, this.path + "/dataModelFollowUp");
   }
 }
 
@@ -21184,6 +21545,42 @@ export class OrgRequirementImplementationPlan extends SomNode {
   }
 }
 
+// SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.
+//
+// Groups the two purely-follow-up facets of the Target Operating Model into a
+// single branch that is routed to organizational-change (ORG) and
+// operational-routine (OPS) follow-up processes rather than to code
+// generation: the target organizational structure/roles
+// ([OrganizationalFramework]) and the business-process narrative
+// ([BusinessProcessDescriptions], which seeds the TOM document).
+export class OrganizationAndProcessConcept extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Target organizational structure and roles.
+  get organizationalFramework(): OrganizationalFramework {
+    return new OrganizationalFramework(this.doc, this.path + "/organizationalFramework");
+  }
+
+  // Business-process descriptions and narrative. Seeds → TOM.
+  get businessProcessDescriptions(): BusinessProcessDescriptions {
+    return new BusinessProcessDescriptions(this.doc, this.path + "/businessProcessDescriptions");
+  }
+}
+
 // 3.1.1. Organization Structure.
 export class OrganizationStructure extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -25807,9 +26204,50 @@ export class RequirementUiSpecification extends SomNode {
 // SBP.9 Requirements.
 //
 // Functional requirements seed the Requirements Specification (RSP); this
-// section currently carries the framework-uncovered NFR sub-areas re-homed in
-// IP-6. Functional-requirement modelling is expanded in a later IP step.
+// section is the CodeSpecs **seed** subtree — its functional requirements plus
+// the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+// requirements*, not generated. Functional-requirement modelling is expanded
+// in a later IP step.
+//
+// The framework-uncovered NFR follow-up sub-areas (localization,
+// information-for-use, training) are grouped out of the seed subtree into
+// [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+// stays purely CodeSpecs-relevant.
 export class Requirements extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+  get requirementsFollowUp(): RequirementsFollowUp {
+    return new RequirementsFollowUp(this.doc, this.path + "/requirementsFollowUp");
+  }
+}
+
+// SBP.9 Requirements — follow-up NFR sub-areas.
+//
+// Groups the framework-uncovered non-functional requirement sub-areas that are
+// **follow-up** concerns (documentation, training, localization) rather than
+// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+// is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+//
+//  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+//  * Information for Use         → [InformationForUseRequirements] (DOC)
+//  * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
+export class RequirementsFollowUp extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }
@@ -28149,44 +28587,19 @@ export class SecurityAndAccessModel extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 9.1. User Management.
-  get userManagement(): UserManagement {
-    return new UserManagement(this.doc, this.path + "/userManagement");
+  // 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
+  get accessControl(): AccessControlModel {
+    return new AccessControlModel(this.doc, this.path + "/accessControl");
   }
 
-  // 9.2. Identification and Authentication.
-  get authentication(): IdentificationAndAuthentication {
-    return new IdentificationAndAuthentication(this.doc, this.path + "/authentication");
+  // 9.2. Security Operations — OPS follow-up subtree.
+  get securityOperations(): SecurityOperationsFollowUp {
+    return new SecurityOperationsFollowUp(this.doc, this.path + "/securityOperations");
   }
 
-  // 9.3. Resource Protection.
-  get resourceProtection(): ResourceProtection {
-    return new ResourceProtection(this.doc, this.path + "/resourceProtection");
-  }
-
-  // 9.4. User Authorization.
-  get authorization(): UserAuthorization {
-    return new UserAuthorization(this.doc, this.path + "/authorization");
-  }
-
-  // 9.5. Sensitive Data Encryption.
-  get encryption(): SensitiveDataEncryption {
-    return new SensitiveDataEncryption(this.doc, this.path + "/encryption");
-  }
-
-  // 9.6. Audit and Logging.
-  get auditAndLogging(): AuditAndLogging {
-    return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
-  }
-
-  // 9.7. Role Matrix..
-  get roleMatrix(): RoleMatrix {
-    return new RoleMatrix(this.doc, this.path + "/roleMatrix");
-  }
-
-  // 9.8. Compliance Framework.
-  get complianceFramework(): ComplianceFramework {
-    return new ComplianceFramework(this.doc, this.path + "/complianceFramework");
+  // 9.3. Compliance — CMP follow-up subtree.
+  get compliance(): SecurityComplianceFollowUp {
+    return new SecurityComplianceFollowUp(this.doc, this.path + "/compliance");
   }
 }
 
@@ -28366,6 +28779,35 @@ export class SecurityCodeReviewPolicy extends SomNode {
   }
 }
 
+// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+//
+// Groups the compliance-framework concern, a **follow-up** (compliance
+// governance) rather than CodeSpecs-generated behaviour (§4.5 of
+// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+// subtree is generation-owned-out.
+export class SecurityComplianceFollowUp extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 9.3.1. Compliance Framework.
+  get complianceFramework(): ComplianceFramework {
+    return new ComplianceFramework(this.doc, this.path + "/complianceFramework");
+  }
+}
+
 // A security control entry (form).
 export class SecurityControlEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -28520,6 +28962,40 @@ export class SecurityEventsDefinition extends SomNode {
   // Custom Security Events — contains 0+× Security Event Entry.
   get customEvents(): SomList<SecurityEventEntry> {
     return new SomList(this.doc, this.path + "/SEVT-CUST-LST", (d: SpecDocument, p: string) => new SecurityEventEntry(d, p), "SEVT-CUST-xxx");
+  }
+}
+
+// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+//
+// Groups the operational security concerns that are **follow-up** (key
+// management and audit/logging operations), not CodeSpecs-generated behaviour
+// (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+// whole subtree is generation-owned-out.
+export class SecurityOperationsFollowUp extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 9.2.1. Sensitive Data Encryption.
+  get encryption(): SensitiveDataEncryption {
+    return new SensitiveDataEncryption(this.doc, this.path + "/encryption");
+  }
+
+  // 9.2.2. Audit and Logging.
+  get auditAndLogging(): AuditAndLogging {
+    return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
   }
 }
 
@@ -29765,9 +30241,41 @@ export class SolutionArchitectureAndTechnology extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Technical framework and platform concept.
+  // Technical framework and platform concept — the CodeSpecs-relevant
+  // (CE-CF configuration-bearing) subtree.
   get technicalFramework(): TechnicalFrameworkConcept {
     return new TechnicalFrameworkConcept(this.doc, this.path + "/technicalFramework");
+  }
+
+  // Architecture / component-reuse DOC follow-up subtree.
+  get architectureFollowUp(): SolutionArchitectureFollowUp {
+    return new SolutionArchitectureFollowUp(this.doc, this.path + "/architectureFollowUp");
+  }
+}
+
+// SBP.11 Solution Architecture & Technology — DOC follow-up subtree.
+//
+// Groups the descriptive-architecture concern that is **not** CodeSpecs-
+// generated: the component-reuse rationale (component catalogue, third-party
+// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
+// generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
+// CodeSpecs subtree.
+export class SolutionArchitectureFollowUp extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Components, libraries, and services to reuse.
@@ -32558,36 +33066,11 @@ export class TabItemEntry extends SomNode {
   }
 }
 
-// 6. Target Business Process Model.
-export class TargetBusinessProcessModel extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // 6.1. Business Process Descriptions. Seeds → TOM.
-  get businessProcessDescriptions(): BusinessProcessDescriptions {
-    return new BusinessProcessDescriptions(this.doc, this.path + "/businessProcessDescriptions");
-  }
-
-  // 6.2. Process Steps and Actor Interactions. Seeds → ISC.
-  get processStepsAndActorInteractions(): ProcessStepsAndActorInteractions {
-    return new ProcessStepsAndActorInteractions(this.doc, this.path + "/processStepsAndActorInteractions");
-  }
-}
-
 // SBP.7 Target Operating Model concept.
+//
+// Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
+// and a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)
+// so each whole branch is owned by a single downstream process.
 export class TargetOperatingModel extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32605,14 +33088,14 @@ export class TargetOperatingModel extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Target organizational structure and roles.
-  get organizationalFramework(): OrganizationalFramework {
-    return new OrganizationalFramework(this.doc, this.path + "/organizationalFramework");
+  // ORG/OPS follow-up subtree: target organization + process narrative.
+  get organizationAndProcess(): OrganizationAndProcessConcept {
+    return new OrganizationAndProcessConcept(this.doc, this.path + "/organizationAndProcess");
   }
 
-  // Target business process model.
-  get targetBusinessProcess(): TargetBusinessProcessModel {
-    return new TargetBusinessProcessModel(this.doc, this.path + "/targetBusinessProcess");
+  // CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
+  get processStepsAndActorInteractions(): ProcessStepsAndActorInteractions {
+    return new ProcessStepsAndActorInteractions(this.doc, this.path + "/processStepsAndActorInteractions");
   }
 }
 
@@ -76194,6 +76677,58 @@ export class DevelopmentQualityGatesSecurityForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class DeviceSettingsContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get settingKey(): string {
+    return this.doc.formField(this.path, "settingKey") || '';
+  }
+
+  set settingKey(value: string) {
+    this.doc.setFormField(this.path, "settingKey", value);
+  }
+
+  get valueType(): string {
+    return this.doc.formField(this.path, "valueType") || '';
+  }
+
+  set valueType(value: string) {
+    this.doc.setFormField(this.path, "valueType", value);
+  }
+
+  get defaultValue(): string {
+    return this.doc.formField(this.path, "defaultValue") || '';
+  }
+
+  set defaultValue(value: string) {
+    this.doc.setFormField(this.path, "defaultValue", value);
+  }
+
+  get deviceOverridable(): boolean | null {
+    const v = this.doc.formField(this.path, "deviceOverridable");
+    return v == null ? null : v === 'true';
+  }
+
+  set deviceOverridable(value: boolean | null) {
+    this.doc.setFormField(this.path, "deviceOverridable", value == null ? '' : (value ? 'true' : 'false'));
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class DisasterRecoveryRequirementsContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -80494,6 +81029,41 @@ export class EntityConstraintEntryContentForm extends SomNode {
 
   set businessRule(value: string) {
     this.doc.setFormField(this.path, "businessRule", value);
+  }
+}
+
+// Generated section facade for the `entityRef` @Form section: its own content text followed by one typed member per form field.
+export class EntityFollowUpEntryEntityRefForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get entityName(): string {
+    return this.doc.formField(this.path, "entityName") || '';
+  }
+
+  set entityName(value: string) {
+    this.doc.setFormField(this.path, "entityName", value);
+  }
+
+  get entityAlias(): string {
+    return this.doc.formField(this.path, "entityAlias") || '';
+  }
+
+  set entityAlias(value: string) {
+    this.doc.setFormField(this.path, "entityAlias", value);
   }
 }
 
@@ -173433,6 +174003,22 @@ export class UserAttributeEntryContentForm extends SomNode {
 
   set dataType(value: string) {
     this.doc.setFormField(this.path, "dataType", value);
+  }
+
+  get placement(): string {
+    return this.doc.formField(this.path, "placement") || '';
+  }
+
+  set placement(value: string) {
+    this.doc.setFormField(this.path, "placement", value);
+  }
+
+  get accessGuard(): string {
+    return this.doc.formField(this.path, "accessGuard") || '';
+  }
+
+  set accessGuard(value: string) {
+    this.doc.setFormField(this.path, "accessGuard", value);
   }
 
   get source(): string {

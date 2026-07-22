@@ -34,6 +34,8 @@
 #define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.0"
 // D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (§2.1).
 #define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.0"
+// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (§2.1).
+#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.0"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;
@@ -44,6 +46,7 @@ typedef struct { SomNode node; } AcceptanceProcess;
 typedef struct { SomNode node; } AcceptanceStepEntry;
 typedef struct { SomNode node; } AccessChannels;
 typedef struct { SomNode node; } AccessConstraintPolicies;
+typedef struct { SomNode node; } AccessControlModel;
 typedef struct { SomNode node; } AccessControlModelSelection;
 typedef struct { SomNode node; } AccessLevelEntry;
 typedef struct { SomNode node; } AccessLevels;
@@ -117,6 +120,7 @@ typedef struct { SomNode node; } AuthenticationEventPolicy;
 typedef struct { SomNode node; } AuthenticationFlow;
 typedef struct { SomNode node; } AuthenticationMethodEntry;
 typedef struct { SomNode node; } AuthenticationMethods;
+typedef struct { SomNode node; } AuthorizationComplianceFollowUp;
 typedef struct { SomNode node; } AuthorizationEventPolicy;
 typedef struct { SomNode node; } AuthorizationGroupEntry;
 typedef struct { SomNode node; } AuthorizationModel;
@@ -288,6 +292,7 @@ typedef struct { SomNode node; } D09ExperienceDesignSpecification;
 typedef struct { SomNode node; } D10QualityAcceptancePlan;
 typedef struct { SomNode node; } D11DeliveryRoadmap;
 typedef struct { SomNode node; } D12TransitionRolloutPlan;
+typedef struct { SomNode node; } D13CodeSpecsProjection;
 typedef struct { SomNode node; } DashboardEntry;
 typedef struct { SomNode node; } DashboardRequirements;
 typedef struct { SomNode node; } DashboardTemplates;
@@ -316,6 +321,7 @@ typedef struct { SomNode node; } DataLevelSecurity;
 typedef struct { SomNode node; } DataMaskingPolicy;
 typedef struct { SomNode node; } DataMigrationStrategy;
 typedef struct { SomNode node; } DataModel;
+typedef struct { SomNode node; } DataModelFollowUp;
 typedef struct { SomNode node; } DataOwnership;
 typedef struct { SomNode node; } DataOwnershipEntry;
 typedef struct { SomNode node; } DataProcessingAgreementRequirements;
@@ -380,6 +386,7 @@ typedef struct { SomNode node; } DeveloperOnboarding;
 typedef struct { SomNode node; } DevelopmentConventionEntry;
 typedef struct { SomNode node; } DevelopmentEnvironment;
 typedef struct { SomNode node; } DevelopmentQualityGates;
+typedef struct { SomNode node; } DeviceSettings;
 typedef struct { SomNode node; } DisasterRecoveryRequirements;
 typedef struct { SomNode node; } DisplayEquipmentEntry;
 typedef struct { SomNode node; } DisplayPropertyEntry;
@@ -427,6 +434,7 @@ typedef struct { SomNode node; } EnterpriseSystemCompatibilityEntry;
 typedef struct { SomNode node; } EntitlementEntry;
 typedef struct { SomNode node; } EntitlementReferenceEntry;
 typedef struct { SomNode node; } EntityConstraintEntry;
+typedef struct { SomNode node; } EntityFollowUpEntry;
 typedef struct { SomNode node; } EntityIndexEntry;
 typedef struct { SomNode node; } EntityRelationshipEntry;
 typedef struct { SomNode node; } EntityRelationships;
@@ -450,6 +458,9 @@ typedef struct { SomNode node; } ExistingSystemEntry;
 typedef struct { SomNode node; } ExistingSystemsLandscape;
 typedef struct { SomNode node; } ExpectedImprovements;
 typedef struct { SomNode node; } ExperienceAndInterfaceDesign;
+typedef struct { SomNode node; } ExperienceCodeSpecs;
+typedef struct { SomNode node; } ExperienceDesignFollowUp;
+typedef struct { SomNode node; } ExperienceLocalizationFollowUp;
 typedef struct { SomNode node; } ExportFieldMappingEntry;
 typedef struct { SomNode node; } ExportFormatEntry;
 typedef struct { SomNode node; } ExportSizeSettings;
@@ -711,6 +722,7 @@ typedef struct { SomNode node; } OpportunityStatement;
 typedef struct { SomNode node; } OrgChangeRisks;
 typedef struct { SomNode node; } OrgImplementationActivity;
 typedef struct { SomNode node; } OrgRequirementImplementationPlan;
+typedef struct { SomNode node; } OrganizationAndProcessConcept;
 typedef struct { SomNode node; } OrganizationStructure;
 typedef struct { SomNode node; } OrganizationalChangeEntry;
 typedef struct { SomNode node; } OrganizationalContext;
@@ -885,6 +897,7 @@ typedef struct { SomNode node; } RequirementTestCases;
 typedef struct { SomNode node; } RequirementTraceability;
 typedef struct { SomNode node; } RequirementUiSpecification;
 typedef struct { SomNode node; } Requirements;
+typedef struct { SomNode node; } RequirementsFollowUp;
 typedef struct { SomNode node; } RequirementsOverview;
 typedef struct { SomNode node; } ResourceAllocationEntry;
 typedef struct { SomNode node; } ResourceCapacityBaselines;
@@ -978,12 +991,14 @@ typedef struct { SomNode node; } SecurityAuditRequirementsSection;
 typedef struct { SomNode node; } SecurityCertificationRequirements;
 typedef struct { SomNode node; } SecurityCharacteristic;
 typedef struct { SomNode node; } SecurityCodeReviewPolicy;
+typedef struct { SomNode node; } SecurityComplianceFollowUp;
 typedef struct { SomNode node; } SecurityControlEntry;
 typedef struct { SomNode node; } SecurityControls;
 typedef struct { SomNode node; } SecurityDevelopmentLifecycle;
 typedef struct { SomNode node; } SecurityEventEntry;
 typedef struct { SomNode node; } SecurityEventLoggingPolicy;
 typedef struct { SomNode node; } SecurityEventsDefinition;
+typedef struct { SomNode node; } SecurityOperationsFollowUp;
 typedef struct { SomNode node; } SecurityRequirementEntry;
 typedef struct { SomNode node; } SecurityRequirements;
 typedef struct { SomNode node; } SecurityStandardComplianceEntry;
@@ -1023,6 +1038,7 @@ typedef struct { SomNode node; } SoftwareDeliverables;
 typedef struct { SomNode node; } SoftwareDesignRequirements;
 typedef struct { SomNode node; } SoftwareLayerEntry;
 typedef struct { SomNode node; } SolutionArchitectureAndTechnology;
+typedef struct { SomNode node; } SolutionArchitectureFollowUp;
 typedef struct { SomNode node; } SpecializedEquipmentEntry;
 typedef struct { SomNode node; } SsoPolicy;
 typedef struct { SomNode node; } StaffingBudget;
@@ -1101,7 +1117,6 @@ typedef struct { SomNode node; } SystemUserImpact;
 typedef struct { SomNode node; } SystemsToReplace;
 typedef struct { SomNode node; } TabBarDefinitionEntry;
 typedef struct { SomNode node; } TabItemEntry;
-typedef struct { SomNode node; } TargetBusinessProcessModel;
 typedef struct { SomNode node; } TargetOperatingModel;
 typedef struct { SomNode node; } TargetPlatformEntry;
 typedef struct { SomNode node; } TeamMemberEntry;
@@ -2026,6 +2041,7 @@ typedef struct { SomNode node; } DevelopmentQualityGatesCoverageForm;
 typedef struct { SomNode node; } DevelopmentQualityGatesDocumentationForm;
 typedef struct { SomNode node; } DevelopmentQualityGatesPerformanceForm;
 typedef struct { SomNode node; } DevelopmentQualityGatesSecurityForm;
+typedef struct { SomNode node; } DeviceSettingsContentForm;
 typedef struct { SomNode node; } DisasterRecoveryRequirementsContentForm;
 typedef struct { SomNode node; } DisasterRecoveryRequirementsContinuityForm;
 typedef struct { SomNode node; } DisasterRecoveryRequirementsFailbackForm;
@@ -2109,6 +2125,7 @@ typedef struct { SomNode node; } EnterpriseSystemCompatibilityEntryTestingForm;
 typedef struct { SomNode node; } EntitlementEntryContentForm;
 typedef struct { SomNode node; } EntitlementReferenceEntryContentForm;
 typedef struct { SomNode node; } EntityConstraintEntryContentForm;
+typedef struct { SomNode node; } EntityFollowUpEntryEntityRefForm;
 typedef struct { SomNode node; } EntityIndexEntryContentForm;
 typedef struct { SomNode node; } EntityRelationshipEntryCardinalityForm;
 typedef struct { SomNode node; } EntityRelationshipEntryIdentityForm;
@@ -4080,6 +4097,33 @@ void access_constraint_policies_set_content(AccessConstraintPolicies *self, cons
 // Access Constraint Details (text).
 // (skipped: accessConstraintDetails has no target type)
 
+// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+//
+// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+// authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+// authentication, resource protection, authorization, and the role matrix.
+// The container itself carries no `@CodeSpecKind` — the mapped parts live on
+// the child sections (e.g. `authentication`) — but the whole subtree is the
+// CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+// subtrees.
+// Binds a AccessControlModel facade to a document and a path (path copied).
+void access_control_model_init(AccessControlModel *self, SpecDocument *doc, const char *path);
+void access_control_model_free(AccessControlModel *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int access_control_model_can_have_content(const AccessControlModel *self);
+char *access_control_model_content(const AccessControlModel *self);
+void access_control_model_set_content(AccessControlModel *self, const char *value);
+// 9.1.1. User Management.
+UserManagement access_control_model_user_management(const AccessControlModel *self);
+// 9.1.2. Identification and Authentication.
+IdentificationAndAuthentication access_control_model_authentication(const AccessControlModel *self);
+// 9.1.3. Resource Protection.
+ResourceProtection access_control_model_resource_protection(const AccessControlModel *self);
+// 9.1.4. User Authorization.
+UserAuthorization access_control_model_authorization(const AccessControlModel *self);
+// 9.1.5. Role Matrix.
+RoleMatrix access_control_model_role_matrix(const AccessControlModel *self);
+
 // Access Control Model Selection (form).
 //
 // Defines the primary access control paradigm — RBAC, ABAC, ReBAC, or a
@@ -5194,6 +5238,23 @@ ApiKeyManagementPolicy authentication_methods_api_key_management(const Authentic
 // Contains 0+× AuthenticationMethod.
 // Returns the list view; element type: AuthenticationMethodEntry (construct from item paths).
 SomList authentication_methods_items(const AuthenticationMethods *self);
+
+// SBP.13 Experience & Interface Design — authorization-compliance CMP
+// follow-up subtree.
+//
+// Groups the UI authorization-compliance concern (how the interface adapts to
+// roles and permissions as a compliance obligation), a **follow-up** (CMP)
+// rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+// Binds a AuthorizationComplianceFollowUp facade to a document and a path (path copied).
+void authorization_compliance_follow_up_init(AuthorizationComplianceFollowUp *self, SpecDocument *doc, const char *path);
+void authorization_compliance_follow_up_free(AuthorizationComplianceFollowUp *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int authorization_compliance_follow_up_can_have_content(const AuthorizationComplianceFollowUp *self);
+char *authorization_compliance_follow_up_content(const AuthorizationComplianceFollowUp *self);
+void authorization_compliance_follow_up_set_content(AuthorizationComplianceFollowUp *self, const char *value);
+// 10.4.1. Authorization Compliance.
+// (skipped: authorizationCompliance has no target type)
 
 // Authorization event policy (form).
 //
@@ -6479,6 +6540,8 @@ NativeAppRequirements client_requirements_section_native_app_requirements(const 
 ClientSecurityRequirements client_requirements_section_security_requirements(const ClientRequirementsSection *self);
 // Per-machine configuration of a client application (CE-CC).
 ClientConfiguration client_requirements_section_client_configuration(const ClientRequirementsSection *self);
+// User-specific settings of a user-owned device (CE-DS).
+DeviceSettings client_requirements_section_device_settings(const ClientRequirementsSection *self);
 
 // Client security requirements.
 // Binds a ClientSecurityRequirements facade to a document and a path (path copied).
@@ -8697,6 +8760,62 @@ KnowledgeTransfer d12_transition_rollout_plan_knowledge_transfer(const D12Transi
 // Warranty and support.
 WarrantyAndSupport d12_transition_rollout_plan_warranty_and_support(const D12TransitionRolloutPlan *self);
 
+// CGP00 CodeSpecs Generation Projection.
+//
+// The residual `@CodeSpecKind`-tagged content after the Band-F follow-up
+// splits: the shared registries, the server-side data / framework / access
+// models, the process-step interactions, and the client-side experience seed.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d13_code_specs_projection_new(D13CodeSpecsProjection *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d13_code_specs_projection_object_model_version(const D13CodeSpecsProjection *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d13_code_specs_projection_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d13_code_specs_projection_editability_for(const char *document_version);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d13_code_specs_projection_load_yaml(D13CodeSpecsProjection *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d13_code_specs_projection_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d13_code_specs_projection_load_file(D13CodeSpecsProjection *self, const char *path, SpecDocument **out_doc, char **err);
+void d13_code_specs_projection_free(D13CodeSpecsProjection *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int d13_code_specs_projection_can_have_content(const D13CodeSpecsProjection *self);
+char *d13_code_specs_projection_content(const D13CodeSpecsProjection *self);
+void d13_code_specs_projection_set_content(D13CodeSpecsProjection *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d13_code_specs_projection_header(const D13CodeSpecsProjection *self);
+// Domain enum registry — CE-EN closed value sets, shared by client & server.
+DomainEnumRegistry d13_code_specs_projection_domain_enum_registry(const D13CodeSpecsProjection *self);
+// Error code registry — CE-ER shared error-code vocabulary.
+ErrorCodeRegistry d13_code_specs_projection_error_code_registry(const D13CodeSpecsProjection *self);
+// Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+ResultEnvelope d13_code_specs_projection_result_envelope(const D13CodeSpecsProjection *self);
+// Message key registry — CE-TX author-copy-once keys, shared.
+MessageKeyRegistry d13_code_specs_projection_message_key_registry(const D13CodeSpecsProjection *self);
+// Data model — CE-DB persistence + CE-VA server-side rules.
+DataModel d13_code_specs_projection_data_model(const D13CodeSpecsProjection *self);
+// Technical framework — CE-CF platform/config foundation.
+TechnicalFrameworkConcept d13_code_specs_projection_technical_framework(const D13CodeSpecsProjection *self);
+// Access control model — CE-AZ authorization/identity seed.
+AccessControlModel d13_code_specs_projection_access_control(const D13CodeSpecsProjection *self);
+// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
+// interaction; a single subtree whose parts split across both loci.
+ProcessStepsAndActorInteractions d13_code_specs_projection_process_steps_and_actor_interactions(const D13CodeSpecsProjection *self);
+// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
+ExperienceCodeSpecs d13_code_specs_projection_experience_code_specs(const D13CodeSpecsProjection *self);
+
 // A dashboard entry.
 // Binds a DashboardEntry facade to a document and a path (path copied).
 void dashboard_entry_init(DashboardEntry *self, SpecDocument *doc, const char *path);
@@ -8907,14 +9026,8 @@ void data_entity_entry_free(DataEntityEntry *self);
 int data_entity_entry_can_have_content(const DataEntityEntry *self);
 DataEntityEntryIdentityForm data_entity_entry_identity(const DataEntityEntry *self);
 DataEntityEntryClassificationForm data_entity_entry_classification(const DataEntityEntry *self);
-// Returns the list view; element type: VolumeMetricEntry (construct from item paths).
-SomList data_entity_entry_volume_metrics(const DataEntityEntry *self);
 DataEntityEntryLifecyclePolicyForm data_entity_entry_lifecycle_policy(const DataEntityEntry *self);
-// Returns the list view; element type: ComplianceRequirementEntry (construct from item paths).
-SomList data_entity_entry_compliance_requirements(const DataEntityEntry *self);
 DataEntityEntryRelationshipSummaryForm data_entity_entry_relationship_summary(const DataEntityEntry *self);
-// Returns the list view; element type: TechnicalCharacteristicEntry (construct from item paths).
-SomList data_entity_entry_technical_characteristics(const DataEntityEntry *self);
 // Contains 0+× DataAttribute.
 // Returns the list view; element type: DataAttributeEntry (construct from item paths).
 SomList data_entity_entry_attributes(const DataEntityEntry *self);
@@ -8927,9 +9040,6 @@ SomList data_entity_entry_indexes(const DataEntityEntry *self);
 // Contains 0+× EntityConstraint.
 // Returns the list view; element type: EntityConstraintEntry (construct from item paths).
 SomList data_entity_entry_constraints(const DataEntityEntry *self);
-// Contains 0+× MigrationMapping for data migration planning.
-// Returns the list view; element type: MigrationMappingEntry (construct from item paths).
-SomList data_entity_entry_migration_mappings(const DataEntityEntry *self);
 
 // A data entity migration entry.
 // Binds a DataEntityMigrationEntry facade to a document and a path (path copied).
@@ -9154,22 +9264,41 @@ void data_model_set_content(DataModel *self, const char *value);
 SomList data_model_entities(const DataModel *self);
 // 7.1.2. Entity Relationships.
 EntityRelationships data_model_entity_relationships(const DataModel *self);
-// 7.1.3. Entity-Relationship Diagram (mermaid).
-// (skipped: erDiagram has no target type)
-// 7.1.4. Data Classification.
+// 7.1.3. Data Classification.
 DataClassification data_model_data_classification(const DataModel *self);
-// 7.1.5. Data Dictionary..
+// 7.1.4. Data Dictionary..
 DataDictionary data_model_data_dictionary(const DataModel *self);
-// 7.1.6. Validation Constraints.
+// 7.1.5. Validation Constraints.
 //
 // One whole-catalog content section (mirrors `dataDictionary`); collapsed
 // from `List<ValidationConstraints>` (L34C-12 SR-25).
 ValidationConstraints data_model_validation_constraints(const DataModel *self);
-// 7.1.7. Integrity Constraints.
+// 7.1.6. Integrity Constraints.
 //
 // One whole-catalog content section (mirrors `dataDictionary`); collapsed
 // from `List<IntegrityConstraints>` (L34C-12 SR-25).
 IntegrityConstraints data_model_integrity_constraints(const DataModel *self);
+
+// 7.9. Data Model Follow-up Facets.
+//
+// Operational and governance facets that accompany the data model but are not
+// part of the generation-owned entity/attribute schema: the model-wide ER
+// diagram plus per-entity volume, compliance, technical, and migration
+// facets. Each per-entity block references its source entity by name/alias so
+// the facets stay correlated with `dataModel.entities` without being nested
+// inside the generation-owned `DataEntityEntry`.
+// Binds a DataModelFollowUp facade to a document and a path (path copied).
+void data_model_follow_up_init(DataModelFollowUp *self, SpecDocument *doc, const char *path);
+void data_model_follow_up_free(DataModelFollowUp *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int data_model_follow_up_can_have_content(const DataModelFollowUp *self);
+char *data_model_follow_up_content(const DataModelFollowUp *self);
+void data_model_follow_up_set_content(DataModelFollowUp *self, const char *value);
+// 7.9.1. Entity-Relationship Diagram (mermaid).
+// (skipped: erDiagram has no target type)
+// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+// Returns the list view; element type: EntityFollowUpEntry (construct from item paths).
+SomList data_model_follow_up_entity_follow_ups(const DataModelFollowUp *self);
 
 // 1.4.4. Data Ownership and Stewardship.
 //
@@ -10256,6 +10385,22 @@ DevelopmentQualityGatesDocumentationForm development_quality_gates_documentation
 // Performance checks.
 DevelopmentQualityGatesPerformanceForm development_quality_gates_performance(const DevelopmentQualityGates *self);
 
+// Device settings — user-specific settings of a user-owned device (CE-DS).
+//
+// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+// identity in the key) and from user settings (CE-UP — server-persisted,
+// follow the user): a device setting is keyed by the (user, device) pair and
+// persisted on the device itself (window layout, last-opened items,
+// machine-local cache preferences). The same user gets independent values on
+// each device; another user on the same device gets their own values
+// (`codespecs_mapping.md` §11).
+// Binds a DeviceSettings facade to a document and a path (path copied).
+void device_settings_init(DeviceSettings *self, SpecDocument *doc, const char *path);
+void device_settings_free(DeviceSettings *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int device_settings_can_have_content(const DeviceSettings *self);
+DeviceSettingsContentForm device_settings_content(const DeviceSettings *self);
+
 // Disaster recovery requirements.
 // Binds a DisasterRecoveryRequirements facade to a document and a path (path copied).
 void disaster_recovery_requirements_init(DisasterRecoveryRequirements *self, SpecDocument *doc, const char *path);
@@ -10967,6 +11112,25 @@ void entity_constraint_entry_free(EntityConstraintEntry *self);
 int entity_constraint_entry_can_have_content(const EntityConstraintEntry *self);
 EntityConstraintEntryContentForm entity_constraint_entry_content(const EntityConstraintEntry *self);
 
+// A per-entity follow-up facet block (form + lists).
+//
+// Groups the volume, compliance, technical, and migration facets for a single
+// data entity, correlated back to `dataModel.entities` by name/alias.
+// Binds a EntityFollowUpEntry facade to a document and a path (path copied).
+void entity_follow_up_entry_init(EntityFollowUpEntry *self, SpecDocument *doc, const char *path);
+void entity_follow_up_entry_free(EntityFollowUpEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int entity_follow_up_entry_can_have_content(const EntityFollowUpEntry *self);
+EntityFollowUpEntryEntityRefForm entity_follow_up_entry_entity_ref(const EntityFollowUpEntry *self);
+// Returns the list view; element type: VolumeMetricEntry (construct from item paths).
+SomList entity_follow_up_entry_volume_metrics(const EntityFollowUpEntry *self);
+// Returns the list view; element type: ComplianceRequirementEntry (construct from item paths).
+SomList entity_follow_up_entry_compliance_requirements(const EntityFollowUpEntry *self);
+// Returns the list view; element type: TechnicalCharacteristicEntry (construct from item paths).
+SomList entity_follow_up_entry_technical_characteristics(const EntityFollowUpEntry *self);
+// Returns the list view; element type: MigrationMappingEntry (construct from item paths).
+SomList entity_follow_up_entry_migration_mappings(const EntityFollowUpEntry *self);
+
 // An entity index entry (form).
 //
 // Database index specification for query optimization.
@@ -11390,37 +11554,90 @@ void experience_and_interface_design_free(ExperienceAndInterfaceDesign *self);
 int experience_and_interface_design_can_have_content(const ExperienceAndInterfaceDesign *self);
 char *experience_and_interface_design_content(const ExperienceAndInterfaceDesign *self);
 void experience_and_interface_design_set_content(ExperienceAndInterfaceDesign *self, const char *value);
-// 10.1. Design Vision. Seeds → XDS.
-DesignVision experience_and_interface_design_design_vision(const ExperienceAndInterfaceDesign *self);
-// 10.2. Screen Descriptions. Seeds → XDS.
-ScreenDescriptions experience_and_interface_design_screens(const ExperienceAndInterfaceDesign *self);
-// 10.3. Screen Flow Structure. Seeds → XDS.
-ScreenFlowStructure experience_and_interface_design_screen_flow(const ExperienceAndInterfaceDesign *self);
-// 10.4. Print Layout. Seeds → XDS.
-PrintAndExportLayout experience_and_interface_design_print_layout(const ExperienceAndInterfaceDesign *self);
-// Data Structure Alignment.
+// 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+ExperienceCodeSpecs experience_and_interface_design_experience_code_specs(const ExperienceAndInterfaceDesign *self);
+// 10.2. Experience Design — DOC follow-up subtree.
+ExperienceDesignFollowUp experience_and_interface_design_design_follow_up(const ExperienceAndInterfaceDesign *self);
+// 10.3. Experience Localization — L10N follow-up subtree.
+ExperienceLocalizationFollowUp experience_and_interface_design_localization_follow_up(const ExperienceAndInterfaceDesign *self);
+// 10.4. Authorization Compliance — CMP follow-up subtree.
+AuthorizationComplianceFollowUp experience_and_interface_design_authorization_compliance_follow_up(const ExperienceAndInterfaceDesign *self);
+
+// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+//
+// Groups the UI concerns CodeSpecs generates (§4.6 of
+// `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+// reusable UI component library (CE-EL/CE-LO). The container itself carries no
+// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+// follow-up subtrees.
+// Binds a ExperienceCodeSpecs facade to a document and a path (path copied).
+void experience_code_specs_init(ExperienceCodeSpecs *self, SpecDocument *doc, const char *path);
+void experience_code_specs_free(ExperienceCodeSpecs *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int experience_code_specs_can_have_content(const ExperienceCodeSpecs *self);
+char *experience_code_specs_content(const ExperienceCodeSpecs *self);
+void experience_code_specs_set_content(ExperienceCodeSpecs *self, const char *value);
+// 10.1.1. Screen Descriptions. Seeds → XDS.
+ScreenDescriptions experience_code_specs_screens(const ExperienceCodeSpecs *self);
+// 10.1.2. Screen Flow Structure. Seeds → XDS.
+ScreenFlowStructure experience_code_specs_screen_flow(const ExperienceCodeSpecs *self);
+// 10.1.3. Data Structure Alignment.
 // (skipped: dataStructureAlignment has no target type)
-// Authorization Compliance.
-// (skipped: authorizationCompliance has no target type)
-// 10.7. Error Handling. Seeds → XDS.
-ErrorHandling experience_and_interface_design_error_handling(const ExperienceAndInterfaceDesign *self);
-// 10.8. User Assistance. Seeds → XDS.
-UserAssistance experience_and_interface_design_user_assistance(const ExperienceAndInterfaceDesign *self);
-// 10.9. Accessibility. Seeds → XDS.
-Accessibility experience_and_interface_design_accessibility(const ExperienceAndInterfaceDesign *self);
-// 10.10. Responsive Design. Seeds → XDS.
-ResponsiveDesign experience_and_interface_design_responsive_design(const ExperienceAndInterfaceDesign *self);
-// 10.11. UI Components. Seeds → XDS.
-UiComponents experience_and_interface_design_ui_components(const ExperienceAndInterfaceDesign *self);
-// 10.12. Multi-language Support.
-MultiLanguageSupport experience_and_interface_design_multi_language_support(const ExperienceAndInterfaceDesign *self);
-// 10.13. Prototype. Seeds → XDS.
-Prototype experience_and_interface_design_prototype(const ExperienceAndInterfaceDesign *self);
-// 10.14. Wireframes and Mockups.
+// 10.1.4. Error Handling. Seeds → XDS.
+ErrorHandling experience_code_specs_error_handling(const ExperienceCodeSpecs *self);
+// 10.1.5. Responsive Design. Seeds → XDS.
+ResponsiveDesign experience_code_specs_responsive_design(const ExperienceCodeSpecs *self);
+// 10.1.6. UI Components. Seeds → XDS.
+UiComponents experience_code_specs_ui_components(const ExperienceCodeSpecs *self);
+
+// SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+//
+// Groups the design / documentation concerns that are **follow-up** (design
+// vision, print & export layout, user assistance, accessibility, prototype,
+// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+// is generation-owned-out. Accessibility's operational (OPS) facet is a
+// secondary concern refined by the follow-up taxonomy pass.
+// Binds a ExperienceDesignFollowUp facade to a document and a path (path copied).
+void experience_design_follow_up_init(ExperienceDesignFollowUp *self, SpecDocument *doc, const char *path);
+void experience_design_follow_up_free(ExperienceDesignFollowUp *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int experience_design_follow_up_can_have_content(const ExperienceDesignFollowUp *self);
+char *experience_design_follow_up_content(const ExperienceDesignFollowUp *self);
+void experience_design_follow_up_set_content(ExperienceDesignFollowUp *self, const char *value);
+// 10.2.1. Design Vision. Seeds → XDS.
+DesignVision experience_design_follow_up_design_vision(const ExperienceDesignFollowUp *self);
+// 10.2.2. Print Layout. Seeds → XDS.
+PrintAndExportLayout experience_design_follow_up_print_layout(const ExperienceDesignFollowUp *self);
+// 10.2.3. User Assistance. Seeds → XDS.
+UserAssistance experience_design_follow_up_user_assistance(const ExperienceDesignFollowUp *self);
+// 10.2.4. Accessibility. Seeds → XDS.
+Accessibility experience_design_follow_up_accessibility(const ExperienceDesignFollowUp *self);
+// 10.2.5. Prototype. Seeds → XDS.
+Prototype experience_design_follow_up_prototype(const ExperienceDesignFollowUp *self);
+// 10.2.6. Wireframes and Mockups.
 //
 // One whole-catalog content section; collapsed from
 // `List<WireframesAndMockups>` (L34C-12 SR-52).
-WireframesAndMockups experience_and_interface_design_wireframes_and_mockups(const ExperienceAndInterfaceDesign *self);
+WireframesAndMockups experience_design_follow_up_wireframes_and_mockups(const ExperienceDesignFollowUp *self);
+
+// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+//
+// Groups the internationalization concern, a **follow-up** (L10N) rather than
+// CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+// Binds a ExperienceLocalizationFollowUp facade to a document and a path (path copied).
+void experience_localization_follow_up_init(ExperienceLocalizationFollowUp *self, SpecDocument *doc, const char *path);
+void experience_localization_follow_up_free(ExperienceLocalizationFollowUp *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int experience_localization_follow_up_can_have_content(const ExperienceLocalizationFollowUp *self);
+char *experience_localization_follow_up_content(const ExperienceLocalizationFollowUp *self);
+void experience_localization_follow_up_set_content(ExperienceLocalizationFollowUp *self, const char *value);
+// 10.3.1. Multi-language Support.
+MultiLanguageSupport experience_localization_follow_up_multi_language_support(const ExperienceLocalizationFollowUp *self);
 
 // A field mapping within an export (form).
 // Binds a ExportFieldMappingEntry facade to a document and a path (path copied).
@@ -12787,6 +13004,14 @@ ErrorCodeRegistry information_and_data_model_error_code_registry(const Informati
 ResultEnvelope information_and_data_model_result_envelope(const InformationAndDataModel *self);
 // 7.8. Message Key Registry.
 MessageKeyRegistry information_and_data_model_message_key_registry(const InformationAndDataModel *self);
+// 7.9. Data Model Follow-up Facets.
+//
+// Per-entity operational/governance facets (volume, compliance, technical
+// characteristics, migration mappings) and the model-wide ER diagram —
+// separated from `dataModel` so the entity/attribute subtree stays purely
+// CE-DB / CE-VA generation-owned while these follow-up facets are authored
+// alongside, keyed back to their source entity.
+DataModelFollowUp information_and_data_model_data_model_follow_up(const InformationAndDataModel *self);
 
 // 10.2.2. Information Architecture.
 //
@@ -15660,6 +15885,26 @@ OrgRequirementImplementationPlanPlanFormForm org_requirement_implementation_plan
 // Returns the list view; element type: OrgImplementationActivity (construct from item paths).
 SomList org_requirement_implementation_plan_activities(const OrgRequirementImplementationPlan *self);
 
+// SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.
+//
+// Groups the two purely-follow-up facets of the Target Operating Model into a
+// single branch that is routed to organizational-change (ORG) and
+// operational-routine (OPS) follow-up processes rather than to code
+// generation: the target organizational structure/roles
+// ([OrganizationalFramework]) and the business-process narrative
+// ([BusinessProcessDescriptions], which seeds the TOM document).
+// Binds a OrganizationAndProcessConcept facade to a document and a path (path copied).
+void organization_and_process_concept_init(OrganizationAndProcessConcept *self, SpecDocument *doc, const char *path);
+void organization_and_process_concept_free(OrganizationAndProcessConcept *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int organization_and_process_concept_can_have_content(const OrganizationAndProcessConcept *self);
+char *organization_and_process_concept_content(const OrganizationAndProcessConcept *self);
+void organization_and_process_concept_set_content(OrganizationAndProcessConcept *self, const char *value);
+// Target organizational structure and roles.
+OrganizationalFramework organization_and_process_concept_organizational_framework(const OrganizationAndProcessConcept *self);
+// Business-process descriptions and narrative. Seeds → TOM.
+BusinessProcessDescriptions organization_and_process_concept_business_process_descriptions(const OrganizationAndProcessConcept *self);
+
 // 3.1.1. Organization Structure.
 // Binds a OrganizationStructure facade to a document and a path (path copied).
 void organization_structure_init(OrganizationStructure *self, SpecDocument *doc, const char *path);
@@ -18295,8 +18540,15 @@ SomList requirement_ui_specification_behaviors(const RequirementUiSpecification 
 // SBP.9 Requirements.
 //
 // Functional requirements seed the Requirements Specification (RSP); this
-// section currently carries the framework-uncovered NFR sub-areas re-homed in
-// IP-6. Functional-requirement modelling is expanded in a later IP step.
+// section is the CodeSpecs **seed** subtree — its functional requirements plus
+// the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+// requirements*, not generated. Functional-requirement modelling is expanded
+// in a later IP step.
+//
+// The framework-uncovered NFR follow-up sub-areas (localization,
+// information-for-use, training) are grouped out of the seed subtree into
+// [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+// stays purely CodeSpecs-relevant.
 // Binds a Requirements facade to a document and a path (path copied).
 void requirements_init(Requirements *self, SpecDocument *doc, const char *path);
 void requirements_free(Requirements *self);
@@ -18304,12 +18556,33 @@ void requirements_free(Requirements *self);
 int requirements_can_have_content(const Requirements *self);
 char *requirements_content(const Requirements *self);
 void requirements_set_content(Requirements *self, const char *value);
+// Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+RequirementsFollowUp requirements_requirements_follow_up(const Requirements *self);
+
+// SBP.9 Requirements — follow-up NFR sub-areas.
+//
+// Groups the framework-uncovered non-functional requirement sub-areas that are
+// **follow-up** concerns (documentation, training, localization) rather than
+// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+// is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+//
+//  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+//  * Information for Use         → [InformationForUseRequirements] (DOC)
+//  * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
+// Binds a RequirementsFollowUp facade to a document and a path (path copied).
+void requirements_follow_up_init(RequirementsFollowUp *self, SpecDocument *doc, const char *path);
+void requirements_follow_up_free(RequirementsFollowUp *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int requirements_follow_up_can_have_content(const RequirementsFollowUp *self);
+char *requirements_follow_up_content(const RequirementsFollowUp *self);
+void requirements_follow_up_set_content(RequirementsFollowUp *self, const char *value);
 // Localization & Translation requirements (NFR-L10N-NNN).
-LocalizationTranslationRequirements requirements_localization_translation(const Requirements *self);
+LocalizationTranslationRequirements requirements_follow_up_localization_translation(const RequirementsFollowUp *self);
 // Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
-InformationForUseRequirements requirements_information_for_use(const Requirements *self);
+InformationForUseRequirements requirements_follow_up_information_for_use(const RequirementsFollowUp *self);
 // Training & Enablement requirements (NFR-TRN-NNN).
-TrainingEnablementRequirements requirements_training_enablement(const Requirements *self);
+TrainingEnablementRequirements requirements_follow_up_training_enablement(const RequirementsFollowUp *self);
 
 // 4.3. Requirements Overview. Seeds → RSP.
 //
@@ -19663,22 +19936,12 @@ void security_and_access_model_free(SecurityAndAccessModel *self);
 int security_and_access_model_can_have_content(const SecurityAndAccessModel *self);
 char *security_and_access_model_content(const SecurityAndAccessModel *self);
 void security_and_access_model_set_content(SecurityAndAccessModel *self, const char *value);
-// 9.1. User Management.
-UserManagement security_and_access_model_user_management(const SecurityAndAccessModel *self);
-// 9.2. Identification and Authentication.
-IdentificationAndAuthentication security_and_access_model_authentication(const SecurityAndAccessModel *self);
-// 9.3. Resource Protection.
-ResourceProtection security_and_access_model_resource_protection(const SecurityAndAccessModel *self);
-// 9.4. User Authorization.
-UserAuthorization security_and_access_model_authorization(const SecurityAndAccessModel *self);
-// 9.5. Sensitive Data Encryption.
-SensitiveDataEncryption security_and_access_model_encryption(const SecurityAndAccessModel *self);
-// 9.6. Audit and Logging.
-AuditAndLogging security_and_access_model_audit_and_logging(const SecurityAndAccessModel *self);
-// 9.7. Role Matrix..
-RoleMatrix security_and_access_model_role_matrix(const SecurityAndAccessModel *self);
-// 9.8. Compliance Framework.
-ComplianceFramework security_and_access_model_compliance_framework(const SecurityAndAccessModel *self);
+// 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
+AccessControlModel security_and_access_model_access_control(const SecurityAndAccessModel *self);
+// 9.2. Security Operations — OPS follow-up subtree.
+SecurityOperationsFollowUp security_and_access_model_security_operations(const SecurityAndAccessModel *self);
+// 9.3. Compliance — CMP follow-up subtree.
+SecurityComplianceFollowUp security_and_access_model_compliance(const SecurityAndAccessModel *self);
 
 // A security audit requirement entry (form).
 // Binds a SecurityAuditEntry facade to a document and a path (path copied).
@@ -19776,6 +20039,22 @@ SecurityCodeReviewPolicyProcessForm security_code_review_policy_process(const Se
 // Finding management and residual risk handling.
 SecurityCodeReviewPolicyFindingsForm security_code_review_policy_findings(const SecurityCodeReviewPolicy *self);
 
+// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+//
+// Groups the compliance-framework concern, a **follow-up** (compliance
+// governance) rather than CodeSpecs-generated behaviour (§4.5 of
+// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+// subtree is generation-owned-out.
+// Binds a SecurityComplianceFollowUp facade to a document and a path (path copied).
+void security_compliance_follow_up_init(SecurityComplianceFollowUp *self, SpecDocument *doc, const char *path);
+void security_compliance_follow_up_free(SecurityComplianceFollowUp *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int security_compliance_follow_up_can_have_content(const SecurityComplianceFollowUp *self);
+char *security_compliance_follow_up_content(const SecurityComplianceFollowUp *self);
+void security_compliance_follow_up_set_content(SecurityComplianceFollowUp *self, const char *value);
+// 9.3.1. Compliance Framework.
+ComplianceFramework security_compliance_follow_up_compliance_framework(const SecurityComplianceFollowUp *self);
+
 // A security control entry (form).
 // Binds a SecurityControlEntry facade to a document and a path (path copied).
 void security_control_entry_init(SecurityControlEntry *self, SpecDocument *doc, const char *path);
@@ -19865,6 +20144,24 @@ AdministrativeEventPolicy security_events_definition_administrative_events(const
 // Custom Security Events — contains 0+× Security Event Entry.
 // Returns the list view; element type: SecurityEventEntry (construct from item paths).
 SomList security_events_definition_custom_events(const SecurityEventsDefinition *self);
+
+// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+//
+// Groups the operational security concerns that are **follow-up** (key
+// management and audit/logging operations), not CodeSpecs-generated behaviour
+// (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+// whole subtree is generation-owned-out.
+// Binds a SecurityOperationsFollowUp facade to a document and a path (path copied).
+void security_operations_follow_up_init(SecurityOperationsFollowUp *self, SpecDocument *doc, const char *path);
+void security_operations_follow_up_free(SecurityOperationsFollowUp *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int security_operations_follow_up_can_have_content(const SecurityOperationsFollowUp *self);
+char *security_operations_follow_up_content(const SecurityOperationsFollowUp *self);
+void security_operations_follow_up_set_content(SecurityOperationsFollowUp *self, const char *value);
+// 9.2.1. Sensitive Data Encryption.
+SensitiveDataEncryption security_operations_follow_up_encryption(const SecurityOperationsFollowUp *self);
+// 9.2.2. Audit and Logging.
+AuditAndLogging security_operations_follow_up_audit_and_logging(const SecurityOperationsFollowUp *self);
 
 // A security requirement entry.
 //
@@ -20525,10 +20822,29 @@ void solution_architecture_and_technology_free(SolutionArchitectureAndTechnology
 int solution_architecture_and_technology_can_have_content(const SolutionArchitectureAndTechnology *self);
 char *solution_architecture_and_technology_content(const SolutionArchitectureAndTechnology *self);
 void solution_architecture_and_technology_set_content(SolutionArchitectureAndTechnology *self, const char *value);
-// Technical framework and platform concept.
+// Technical framework and platform concept — the CodeSpecs-relevant
+// (CE-CF configuration-bearing) subtree.
 TechnicalFrameworkConcept solution_architecture_and_technology_technical_framework(const SolutionArchitectureAndTechnology *self);
+// Architecture / component-reuse DOC follow-up subtree.
+SolutionArchitectureFollowUp solution_architecture_and_technology_architecture_follow_up(const SolutionArchitectureAndTechnology *self);
+
+// SBP.11 Solution Architecture & Technology — DOC follow-up subtree.
+//
+// Groups the descriptive-architecture concern that is **not** CodeSpecs-
+// generated: the component-reuse rationale (component catalogue, third-party
+// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
+// generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
+// CodeSpecs subtree.
+// Binds a SolutionArchitectureFollowUp facade to a document and a path (path copied).
+void solution_architecture_follow_up_init(SolutionArchitectureFollowUp *self, SpecDocument *doc, const char *path);
+void solution_architecture_follow_up_free(SolutionArchitectureFollowUp *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int solution_architecture_follow_up_can_have_content(const SolutionArchitectureFollowUp *self);
+char *solution_architecture_follow_up_content(const SolutionArchitectureFollowUp *self);
+void solution_architecture_follow_up_set_content(SolutionArchitectureFollowUp *self, const char *value);
 // Components, libraries, and services to reuse.
-ComponentsAndDependencies solution_architecture_and_technology_components_to_use(const SolutionArchitectureAndTechnology *self);
+ComponentsAndDependencies solution_architecture_follow_up_components_to_use(const SolutionArchitectureFollowUp *self);
 
 // Specialized equipment entry (form).
 // Binds a SpecializedEquipmentEntry facade to a document and a path (path copied).
@@ -22060,20 +22376,11 @@ void tab_item_entry_free(TabItemEntry *self);
 int tab_item_entry_can_have_content(const TabItemEntry *self);
 TabItemEntryContentForm tab_item_entry_content(const TabItemEntry *self);
 
-// 6. Target Business Process Model.
-// Binds a TargetBusinessProcessModel facade to a document and a path (path copied).
-void target_business_process_model_init(TargetBusinessProcessModel *self, SpecDocument *doc, const char *path);
-void target_business_process_model_free(TargetBusinessProcessModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int target_business_process_model_can_have_content(const TargetBusinessProcessModel *self);
-char *target_business_process_model_content(const TargetBusinessProcessModel *self);
-void target_business_process_model_set_content(TargetBusinessProcessModel *self, const char *value);
-// 6.1. Business Process Descriptions. Seeds → TOM.
-BusinessProcessDescriptions target_business_process_model_business_process_descriptions(const TargetBusinessProcessModel *self);
-// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
-ProcessStepsAndActorInteractions target_business_process_model_process_steps_and_actor_interactions(const TargetBusinessProcessModel *self);
-
 // SBP.7 Target Operating Model concept.
+//
+// Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
+// and a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)
+// so each whole branch is owned by a single downstream process.
 // Binds a TargetOperatingModel facade to a document and a path (path copied).
 void target_operating_model_init(TargetOperatingModel *self, SpecDocument *doc, const char *path);
 void target_operating_model_free(TargetOperatingModel *self);
@@ -22081,10 +22388,10 @@ void target_operating_model_free(TargetOperatingModel *self);
 int target_operating_model_can_have_content(const TargetOperatingModel *self);
 char *target_operating_model_content(const TargetOperatingModel *self);
 void target_operating_model_set_content(TargetOperatingModel *self, const char *value);
-// Target organizational structure and roles.
-OrganizationalFramework target_operating_model_organizational_framework(const TargetOperatingModel *self);
-// Target business process model.
-TargetBusinessProcessModel target_operating_model_target_business_process(const TargetOperatingModel *self);
+// ORG/OPS follow-up subtree: target organization + process narrative.
+OrganizationAndProcessConcept target_operating_model_organization_and_process(const TargetOperatingModel *self);
+// CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
+ProcessStepsAndActorInteractions target_operating_model_process_steps_and_actor_interactions(const TargetOperatingModel *self);
 
 // Target platform entry (operating system, runtime, container).
 // Binds a TargetPlatformEntry facade to a document and a path (path copied).
@@ -35999,6 +36306,21 @@ void development_quality_gates_security_form_set_secrets_scanning(DevelopmentQua
 char *development_quality_gates_security_form_license_compliance(const DevelopmentQualityGatesSecurityForm *self);
 void development_quality_gates_security_form_set_license_compliance(DevelopmentQualityGatesSecurityForm *self, const char *value);
 
+// DeviceSettingsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void device_settings_content_form_init(DeviceSettingsContentForm *self, SpecDocument *doc, const char *path);
+void device_settings_content_form_free(DeviceSettingsContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *device_settings_content_form_content(const DeviceSettingsContentForm *self);
+void device_settings_content_form_set_content(DeviceSettingsContentForm *self, const char *value);
+char *device_settings_content_form_setting_key(const DeviceSettingsContentForm *self);
+void device_settings_content_form_set_setting_key(DeviceSettingsContentForm *self, const char *value);
+char *device_settings_content_form_value_type(const DeviceSettingsContentForm *self);
+void device_settings_content_form_set_value_type(DeviceSettingsContentForm *self, const char *value);
+char *device_settings_content_form_default_value(const DeviceSettingsContentForm *self);
+void device_settings_content_form_set_default_value(DeviceSettingsContentForm *self, const char *value);
+bool device_settings_content_form_device_overridable(const DeviceSettingsContentForm *self);
+void device_settings_content_form_set_device_overridable(DeviceSettingsContentForm *self, bool value);
+
 // DisasterRecoveryRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void disaster_recovery_requirements_content_form_init(DisasterRecoveryRequirementsContentForm *self, SpecDocument *doc, const char *path);
 void disaster_recovery_requirements_content_form_free(DisasterRecoveryRequirementsContentForm *self);
@@ -37253,6 +37575,17 @@ char *entity_constraint_entry_content_form_is_deferred(const EntityConstraintEnt
 void entity_constraint_entry_content_form_set_is_deferred(EntityConstraintEntryContentForm *self, const char *value);
 char *entity_constraint_entry_content_form_business_rule(const EntityConstraintEntryContentForm *self);
 void entity_constraint_entry_content_form_set_business_rule(EntityConstraintEntryContentForm *self, const char *value);
+
+// EntityFollowUpEntryEntityRefForm is the generated section facade for the `entityRef` @Form section: its own `content` text followed by one typed member per form field.
+void entity_follow_up_entry_entity_ref_form_init(EntityFollowUpEntryEntityRefForm *self, SpecDocument *doc, const char *path);
+void entity_follow_up_entry_entity_ref_form_free(EntityFollowUpEntryEntityRefForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *entity_follow_up_entry_entity_ref_form_content(const EntityFollowUpEntryEntityRefForm *self);
+void entity_follow_up_entry_entity_ref_form_set_content(EntityFollowUpEntryEntityRefForm *self, const char *value);
+char *entity_follow_up_entry_entity_ref_form_entity_name(const EntityFollowUpEntryEntityRefForm *self);
+void entity_follow_up_entry_entity_ref_form_set_entity_name(EntityFollowUpEntryEntityRefForm *self, const char *value);
+char *entity_follow_up_entry_entity_ref_form_entity_alias(const EntityFollowUpEntryEntityRefForm *self);
+void entity_follow_up_entry_entity_ref_form_set_entity_alias(EntityFollowUpEntryEntityRefForm *self, const char *value);
 
 // EntityIndexEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void entity_index_entry_content_form_init(EntityIndexEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -64256,6 +64589,10 @@ char *user_attribute_entry_content_form_attribute_name(const UserAttributeEntryC
 void user_attribute_entry_content_form_set_attribute_name(UserAttributeEntryContentForm *self, const char *value);
 char *user_attribute_entry_content_form_data_type(const UserAttributeEntryContentForm *self);
 void user_attribute_entry_content_form_set_data_type(UserAttributeEntryContentForm *self, const char *value);
+char *user_attribute_entry_content_form_placement(const UserAttributeEntryContentForm *self);
+void user_attribute_entry_content_form_set_placement(UserAttributeEntryContentForm *self, const char *value);
+char *user_attribute_entry_content_form_access_guard(const UserAttributeEntryContentForm *self);
+void user_attribute_entry_content_form_set_access_guard(UserAttributeEntryContentForm *self, const char *value);
 char *user_attribute_entry_content_form_source(const UserAttributeEntryContentForm *self);
 void user_attribute_entry_content_form_set_source(UserAttributeEntryContentForm *self, const char *value);
 char *user_attribute_entry_content_form_required(const UserAttributeEntryContentForm *self);

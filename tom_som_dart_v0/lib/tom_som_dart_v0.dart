@@ -106,6 +106,21 @@ ScreenElementKind? _parseScreenElementKind(String? token) {
   return null;
 }
 
+/// Generated enum for `UserAttributePlacement` values.
+enum UserAttributePlacement {
+  public,
+  encrypted;
+}
+
+/// Parses a stored token into a [UserAttributePlacement], or `null`.
+UserAttributePlacement? _parseUserAttributePlacement(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in UserAttributePlacement.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// 14.2.1. Acceptance Criteria.
 class AcceptanceCriteriaList extends SomNode {
   AcceptanceCriteriaList(super.doc, super.path);
@@ -280,6 +295,40 @@ class AccessConstraintPolicies extends SomNode {
 
   /// Access Constraint Details (text).
   // (skipped: accessConstraintDetails has no target type)
+}
+
+/// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
+/// 
+/// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
+/// authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+/// authentication, resource protection, authorization, and the role matrix.
+/// The container itself carries no `@CodeSpecKind` — the mapped parts live on
+/// the child sections (e.g. `authentication`) — but the whole subtree is the
+/// CodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up
+/// subtrees.
+class AccessControlModel extends SomNode {
+  AccessControlModel(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 9.1.1. User Management.
+  UserManagement get userManagement => UserManagement(doc, '$path/userManagement');
+
+  /// 9.1.2. Identification and Authentication.
+  IdentificationAndAuthentication get authentication => IdentificationAndAuthentication(doc, '$path/authentication');
+
+  /// 9.1.3. Resource Protection.
+  ResourceProtection get resourceProtection => ResourceProtection(doc, '$path/resourceProtection');
+
+  /// 9.1.4. User Authorization.
+  UserAuthorization get authorization => UserAuthorization(doc, '$path/authorization');
+
+  /// 9.1.5. Role Matrix.
+  RoleMatrix get roleMatrix => RoleMatrix(doc, '$path/roleMatrix');
 }
 
 /// Access Control Model Selection (form).
@@ -1567,6 +1616,26 @@ class AuthenticationMethods extends SomNode {
 
   /// Contains 0+× AuthenticationMethod.
   SomList<AuthenticationMethodEntry> get items => SomList<AuthenticationMethodEntry>(doc, '$path/ATME-ITEM-LST', (d, p) => AuthenticationMethodEntry(d, p), pattern: 'ATME-ITEM-xxx');
+}
+
+/// SBP.13 Experience & Interface Design — authorization-compliance CMP
+/// follow-up subtree.
+/// 
+/// Groups the UI authorization-compliance concern (how the interface adapts to
+/// roles and permissions as a compliance obligation), a **follow-up** (CMP)
+/// rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+/// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+class AuthorizationComplianceFollowUp extends SomNode {
+  AuthorizationComplianceFollowUp(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 10.4.1. Authorization Compliance.
+  // (skipped: authorizationCompliance has no target type)
 }
 
 /// Authorization event policy (form).
@@ -3053,6 +3122,9 @@ class ClientRequirementsSection extends SomNode {
 
   /// Per-machine configuration of a client application (CE-CC).
   ClientConfiguration get clientConfiguration => ClientConfiguration(doc, '$path/clientConfiguration');
+
+  /// User-specific settings of a user-owned device (CE-DS).
+  DeviceSettings get deviceSettings => DeviceSettings(doc, '$path/deviceSettings');
 }
 
 /// Client security requirements.
@@ -5784,6 +5856,85 @@ class D12TransitionRolloutPlan extends SomNode {
   WarrantyAndSupport get warrantyAndSupport => WarrantyAndSupport(doc, '$path/warrantyAndSupport');
 }
 
+/// CGP00 CodeSpecs Generation Projection.
+/// 
+/// The residual `@CodeSpecKind`-tagged content after the Band-F follow-up
+/// splits: the shared registries, the server-side data / framework / access
+/// models, the process-step interactions, and the client-side experience seed.
+class D13CodeSpecsProjection extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '1.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D13CodeSpecsProjection(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'CGP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// document's authoring stamp already applied (§ item 4) — one call for
+  /// the former decode → loadJson → thread-`documentVersion` sequence.
+  static D13CodeSpecsProjection loadYaml(String yaml) {
+    final doc = SpecDocument.fromYaml(yaml, d13CodeSpecsProjectionMetaTree);
+    return D13CodeSpecsProjection(doc, documentVersion: doc.modelVersion);
+  }
+
+  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// companion to [loadYaml].
+  static D13CodeSpecsProjection loadFile(String path) {
+    final doc = SpecDocument.fromFile(path, d13CodeSpecsProjectionMetaTree);
+    return D13CodeSpecsProjection(doc, documentVersion: doc.modelVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Domain enum registry — CE-EN closed value sets, shared by client & server.
+  DomainEnumRegistry get domainEnumRegistry => DomainEnumRegistry(doc, '$path/domainEnumRegistry');
+
+  /// Error code registry — CE-ER shared error-code vocabulary.
+  ErrorCodeRegistry get errorCodeRegistry => ErrorCodeRegistry(doc, '$path/errorCodeRegistry');
+
+  /// Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+  ResultEnvelope get resultEnvelope => ResultEnvelope(doc, '$path/resultEnvelope');
+
+  /// Message key registry — CE-TX author-copy-once keys, shared.
+  MessageKeyRegistry get messageKeyRegistry => MessageKeyRegistry(doc, '$path/messageKeyRegistry');
+
+  /// Data model — CE-DB persistence + CE-VA server-side rules.
+  DataModel get dataModel => DataModel(doc, '$path/dataModel');
+
+  /// Technical framework — CE-CF platform/config foundation.
+  TechnicalFrameworkConcept get technicalFramework => TechnicalFrameworkConcept(doc, '$path/technicalFramework');
+
+  /// Access control model — CE-AZ authorization/identity seed.
+  AccessControlModel get accessControl => AccessControlModel(doc, '$path/accessControl');
+
+  /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
+  /// interaction; a single subtree whose parts split across both loci.
+  ProcessStepsAndActorInteractions get processStepsAndActorInteractions => ProcessStepsAndActorInteractions(doc, '$path/processStepsAndActorInteractions');
+
+  /// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
+  ExperienceCodeSpecs get experienceCodeSpecs => ExperienceCodeSpecs(doc, '$path/experienceCodeSpecs');
+}
+
 /// A dashboard entry.
 class DashboardEntry extends SomNode {
   DashboardEntry(super.doc, super.path);
@@ -6014,15 +6165,9 @@ class DataEntityEntry extends SomNode {
 
   DataEntityEntryClassificationForm get classification => DataEntityEntryClassificationForm(doc, '$path/DAENT-CLAS');
 
-  SomList<VolumeMetricEntry> get volumeMetrics => SomList<VolumeMetricEntry>(doc, '$path/VOLUM-VOLU-LST', (d, p) => VolumeMetricEntry(d, p), pattern: 'VOLUM-VOLU-xxx');
-
   DataEntityEntryLifecyclePolicyForm get lifecyclePolicy => DataEntityEntryLifecyclePolicyForm(doc, '$path/DAENT-LIFE');
 
-  SomList<ComplianceRequirementEntry> get complianceRequirements => SomList<ComplianceRequirementEntry>(doc, '$path/CRE-COMP-LST', (d, p) => ComplianceRequirementEntry(d, p), pattern: 'CRE-COMP-xxx');
-
   DataEntityEntryRelationshipSummaryForm get relationshipSummary => DataEntityEntryRelationshipSummaryForm(doc, '$path/DAENT-RELA');
-
-  SomList<TechnicalCharacteristicEntry> get technicalCharacteristics => SomList<TechnicalCharacteristicEntry>(doc, '$path/TECHN-TECH-LST', (d, p) => TechnicalCharacteristicEntry(d, p), pattern: 'TECHN-TECH-xxx');
 
   /// Contains 0+× DataAttribute.
   SomList<DataAttributeEntry> get attributes => SomList<DataAttributeEntry>(doc, '$path/DAATT-ATTR-LST', (d, p) => DataAttributeEntry(d, p), pattern: 'DAATT-ATTR-xxx');
@@ -6035,9 +6180,6 @@ class DataEntityEntry extends SomNode {
 
   /// Contains 0+× EntityConstraint.
   SomList<EntityConstraintEntry> get constraints => SomList<EntityConstraintEntry>(doc, '$path/ENCNS-CONS-LST', (d, p) => EntityConstraintEntry(d, p), pattern: 'ENCNS-CONS-xxx');
-
-  /// Contains 0+× MigrationMapping for data migration planning.
-  SomList<MigrationMappingEntry> get migrationMappings => SomList<MigrationMappingEntry>(doc, '$path/MIGME-MIGR-LST', (d, p) => MigrationMappingEntry(d, p), pattern: 'MIGME-MIGR-xxx');
 }
 
 /// A data entity migration entry.
@@ -6306,26 +6448,47 @@ class DataModel extends SomNode {
   /// 7.1.2. Entity Relationships.
   EntityRelationships get entityRelationships => EntityRelationships(doc, '$path/entityRelationships');
 
-  /// 7.1.3. Entity-Relationship Diagram (mermaid).
-  // (skipped: erDiagram has no target type)
-
-  /// 7.1.4. Data Classification.
+  /// 7.1.3. Data Classification.
   DataClassification get dataClassification => DataClassification(doc, '$path/dataClassification');
 
-  /// 7.1.5. Data Dictionary..
+  /// 7.1.4. Data Dictionary..
   DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
 
-  /// 7.1.6. Validation Constraints.
+  /// 7.1.5. Validation Constraints.
   /// 
   /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
   /// from `List<ValidationConstraints>` (L34C-12 SR-25).
   ValidationConstraints get validationConstraints => ValidationConstraints(doc, '$path/validationConstraints');
 
-  /// 7.1.7. Integrity Constraints.
+  /// 7.1.6. Integrity Constraints.
   /// 
   /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
   /// from `List<IntegrityConstraints>` (L34C-12 SR-25).
   IntegrityConstraints get integrityConstraints => IntegrityConstraints(doc, '$path/integrityConstraints');
+}
+
+/// 7.9. Data Model Follow-up Facets.
+/// 
+/// Operational and governance facets that accompany the data model but are not
+/// part of the generation-owned entity/attribute schema: the model-wide ER
+/// diagram plus per-entity volume, compliance, technical, and migration
+/// facets. Each per-entity block references its source entity by name/alias so
+/// the facets stay correlated with `dataModel.entities` without being nested
+/// inside the generation-owned `DataEntityEntry`.
+class DataModelFollowUp extends SomNode {
+  DataModelFollowUp(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 7.9.1. Entity-Relationship Diagram (mermaid).
+  // (skipped: erDiagram has no target type)
+
+  /// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+  SomList<EntityFollowUpEntry> get entityFollowUps => SomList<EntityFollowUpEntry>(doc, '$path/DMFUE-ENFU-LST', (d, p) => EntityFollowUpEntry(d, p), pattern: 'DMFUE-ENFU-xxx');
 }
 
 /// 1.4.4. Data Ownership and Stewardship.
@@ -7607,6 +7770,21 @@ class DevelopmentQualityGates extends SomNode {
   DevelopmentQualityGatesPerformanceForm get performance => DevelopmentQualityGatesPerformanceForm(doc, '$path/DQGP');
 }
 
+/// Device settings — user-specific settings of a user-owned device (CE-DS).
+/// 
+/// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
+/// identity in the key) and from user settings (CE-UP — server-persisted,
+/// follow the user): a device setting is keyed by the (user, device) pair and
+/// persisted on the device itself (window layout, last-opened items,
+/// machine-local cache preferences). The same user gets independent values on
+/// each device; another user on the same device gets their own values
+/// (`codespecs_mapping.md` §11).
+class DeviceSettings extends SomNode {
+  DeviceSettings(super.doc, super.path);
+
+  DeviceSettingsContentForm get content => DeviceSettingsContentForm(doc, '$path/content');
+}
+
 /// Disaster recovery requirements.
 class DisasterRecoveryRequirements extends SomNode {
   DisasterRecoveryRequirements(super.doc, super.path);
@@ -8397,6 +8575,24 @@ class EntityConstraintEntry extends SomNode {
   EntityConstraintEntryContentForm get content => EntityConstraintEntryContentForm(doc, '$path/content');
 }
 
+/// A per-entity follow-up facet block (form + lists).
+/// 
+/// Groups the volume, compliance, technical, and migration facets for a single
+/// data entity, correlated back to `dataModel.entities` by name/alias.
+class EntityFollowUpEntry extends SomNode {
+  EntityFollowUpEntry(super.doc, super.path);
+
+  EntityFollowUpEntryEntityRefForm get entityRef => EntityFollowUpEntryEntityRefForm(doc, '$path/DMFUE-ENTI');
+
+  SomList<VolumeMetricEntry> get volumeMetrics => SomList<VolumeMetricEntry>(doc, '$path/VOLUM-VOLU-LST', (d, p) => VolumeMetricEntry(d, p), pattern: 'VOLUM-VOLU-xxx');
+
+  SomList<ComplianceRequirementEntry> get complianceRequirements => SomList<ComplianceRequirementEntry>(doc, '$path/CRE-COMP-LST', (d, p) => ComplianceRequirementEntry(d, p), pattern: 'CRE-COMP-xxx');
+
+  SomList<TechnicalCharacteristicEntry> get technicalCharacteristics => SomList<TechnicalCharacteristicEntry>(doc, '$path/TECHN-TECH-LST', (d, p) => TechnicalCharacteristicEntry(d, p), pattern: 'TECHN-TECH-xxx');
+
+  SomList<MigrationMappingEntry> get migrationMappings => SomList<MigrationMappingEntry>(doc, '$path/MIGME-MIGR-LST', (d, p) => MigrationMappingEntry(d, p), pattern: 'MIGME-MIGR-xxx');
+}
+
 /// An entity index entry (form).
 /// 
 /// Database index specification for query optimization.
@@ -8878,50 +9074,112 @@ class ExperienceAndInterfaceDesign extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 10.1. Design Vision. Seeds → XDS.
-  DesignVision get designVision => DesignVision(doc, '$path/designVision');
+  /// 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+  ExperienceCodeSpecs get experienceCodeSpecs => ExperienceCodeSpecs(doc, '$path/experienceCodeSpecs');
 
-  /// 10.2. Screen Descriptions. Seeds → XDS.
+  /// 10.2. Experience Design — DOC follow-up subtree.
+  ExperienceDesignFollowUp get designFollowUp => ExperienceDesignFollowUp(doc, '$path/designFollowUp');
+
+  /// 10.3. Experience Localization — L10N follow-up subtree.
+  ExperienceLocalizationFollowUp get localizationFollowUp => ExperienceLocalizationFollowUp(doc, '$path/localizationFollowUp');
+
+  /// 10.4. Authorization Compliance — CMP follow-up subtree.
+  AuthorizationComplianceFollowUp get authorizationComplianceFollowUp => AuthorizationComplianceFollowUp(doc, '$path/authorizationComplianceFollowUp');
+}
+
+/// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
+/// 
+/// Groups the UI concerns CodeSpecs generates (§4.6 of
+/// `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+/// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
+/// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
+/// reusable UI component library (CE-EL/CE-LO). The container itself carries no
+/// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
+/// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
+/// follow-up subtrees.
+class ExperienceCodeSpecs extends SomNode {
+  ExperienceCodeSpecs(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 10.1.1. Screen Descriptions. Seeds → XDS.
   ScreenDescriptions get screens => ScreenDescriptions(doc, '$path/screens');
 
-  /// 10.3. Screen Flow Structure. Seeds → XDS.
+  /// 10.1.2. Screen Flow Structure. Seeds → XDS.
   ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
 
-  /// 10.4. Print Layout. Seeds → XDS.
-  PrintAndExportLayout get printLayout => PrintAndExportLayout(doc, '$path/printLayout');
-
-  /// Data Structure Alignment.
+  /// 10.1.3. Data Structure Alignment.
   // (skipped: dataStructureAlignment has no target type)
 
-  /// Authorization Compliance.
-  // (skipped: authorizationCompliance has no target type)
-
-  /// 10.7. Error Handling. Seeds → XDS.
+  /// 10.1.4. Error Handling. Seeds → XDS.
   ErrorHandling get errorHandling => ErrorHandling(doc, '$path/errorHandling');
 
-  /// 10.8. User Assistance. Seeds → XDS.
-  UserAssistance get userAssistance => UserAssistance(doc, '$path/userAssistance');
-
-  /// 10.9. Accessibility. Seeds → XDS.
-  Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
-
-  /// 10.10. Responsive Design. Seeds → XDS.
+  /// 10.1.5. Responsive Design. Seeds → XDS.
   ResponsiveDesign get responsiveDesign => ResponsiveDesign(doc, '$path/responsiveDesign');
 
-  /// 10.11. UI Components. Seeds → XDS.
+  /// 10.1.6. UI Components. Seeds → XDS.
   UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
+}
 
-  /// 10.12. Multi-language Support.
-  MultiLanguageSupport get multiLanguageSupport => MultiLanguageSupport(doc, '$path/multiLanguageSupport');
+/// SBP.13 Experience & Interface Design — design DOC follow-up subtree.
+/// 
+/// Groups the design / documentation concerns that are **follow-up** (design
+/// vision, print & export layout, user assistance, accessibility, prototype,
+/// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
+/// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+/// is generation-owned-out. Accessibility's operational (OPS) facet is a
+/// secondary concern refined by the follow-up taxonomy pass.
+class ExperienceDesignFollowUp extends SomNode {
+  ExperienceDesignFollowUp(super.doc, super.path);
 
-  /// 10.13. Prototype. Seeds → XDS.
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 10.2.1. Design Vision. Seeds → XDS.
+  DesignVision get designVision => DesignVision(doc, '$path/designVision');
+
+  /// 10.2.2. Print Layout. Seeds → XDS.
+  PrintAndExportLayout get printLayout => PrintAndExportLayout(doc, '$path/printLayout');
+
+  /// 10.2.3. User Assistance. Seeds → XDS.
+  UserAssistance get userAssistance => UserAssistance(doc, '$path/userAssistance');
+
+  /// 10.2.4. Accessibility. Seeds → XDS.
+  Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
+
+  /// 10.2.5. Prototype. Seeds → XDS.
   Prototype get prototype => Prototype(doc, '$path/prototype');
 
-  /// 10.14. Wireframes and Mockups.
+  /// 10.2.6. Wireframes and Mockups.
   /// 
   /// One whole-catalog content section; collapsed from
   /// `List<WireframesAndMockups>` (L34C-12 SR-52).
   WireframesAndMockups get wireframesAndMockups => WireframesAndMockups(doc, '$path/wireframesAndMockups');
+}
+
+/// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
+/// 
+/// Groups the internationalization concern, a **follow-up** (L10N) rather than
+/// CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+/// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+class ExperienceLocalizationFollowUp extends SomNode {
+  ExperienceLocalizationFollowUp(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 10.3.1. Multi-language Support.
+  MultiLanguageSupport get multiLanguageSupport => MultiLanguageSupport(doc, '$path/multiLanguageSupport');
 }
 
 /// A field mapping within an export (form).
@@ -10482,6 +10740,15 @@ class InformationAndDataModel extends SomNode {
 
   /// 7.8. Message Key Registry.
   MessageKeyRegistry get messageKeyRegistry => MessageKeyRegistry(doc, '$path/messageKeyRegistry');
+
+  /// 7.9. Data Model Follow-up Facets.
+  /// 
+  /// Per-entity operational/governance facets (volume, compliance, technical
+  /// characteristics, migration mappings) and the model-wide ER diagram —
+  /// separated from `dataModel` so the entity/attribute subtree stays purely
+  /// CE-DB / CE-VA generation-owned while these follow-up facets are authored
+  /// alongside, keyed back to their source entity.
+  DataModelFollowUp get dataModelFollowUp => DataModelFollowUp(doc, '$path/dataModelFollowUp');
 }
 
 /// 10.2.2. Information Architecture.
@@ -13742,6 +14009,30 @@ class OrgRequirementImplementationPlan extends SomNode {
   SomList<OrgImplementationActivity> get activities => SomList<OrgImplementationActivity>(doc, '$path/ORGIM-ACTI-LST', (d, p) => OrgImplementationActivity(d, p), pattern: 'ORGIM-ACTI-xxx');
 }
 
+/// SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.
+/// 
+/// Groups the two purely-follow-up facets of the Target Operating Model into a
+/// single branch that is routed to organizational-change (ORG) and
+/// operational-routine (OPS) follow-up processes rather than to code
+/// generation: the target organizational structure/roles
+/// ([OrganizationalFramework]) and the business-process narrative
+/// ([BusinessProcessDescriptions], which seeds the TOM document).
+class OrganizationAndProcessConcept extends SomNode {
+  OrganizationAndProcessConcept(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Target organizational structure and roles.
+  OrganizationalFramework get organizationalFramework => OrganizationalFramework(doc, '$path/organizationalFramework');
+
+  /// Business-process descriptions and narrative. Seeds → TOM.
+  BusinessProcessDescriptions get businessProcessDescriptions => BusinessProcessDescriptions(doc, '$path/businessProcessDescriptions');
+}
+
 /// 3.1.1. Organization Structure.
 class OrganizationStructure extends SomNode {
   OrganizationStructure(super.doc, super.path);
@@ -16681,10 +16972,41 @@ class RequirementUiSpecification extends SomNode {
 /// SBP.9 Requirements.
 /// 
 /// Functional requirements seed the Requirements Specification (RSP); this
-/// section currently carries the framework-uncovered NFR sub-areas re-homed in
-/// IP-6. Functional-requirement modelling is expanded in a later IP step.
+/// section is the CodeSpecs **seed** subtree — its functional requirements plus
+/// the validation/error NFRs drive CE-VA / CE-ER but are consumed *as
+/// requirements*, not generated. Functional-requirement modelling is expanded
+/// in a later IP step.
+/// 
+/// The framework-uncovered NFR follow-up sub-areas (localization,
+/// information-for-use, training) are grouped out of the seed subtree into
+/// [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+/// stays purely CodeSpecs-relevant.
 class Requirements extends SomNode {
   Requirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
+  RequirementsFollowUp get requirementsFollowUp => RequirementsFollowUp(doc, '$path/requirementsFollowUp');
+}
+
+/// SBP.9 Requirements — follow-up NFR sub-areas.
+/// 
+/// Groups the framework-uncovered non-functional requirement sub-areas that are
+/// **follow-up** concerns (documentation, training, localization) rather than
+/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
+/// is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+/// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+/// 
+///  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
+///  * Information for Use         → [InformationForUseRequirements] (DOC)
+///  * Training & Enablement       → [TrainingEnablementRequirements] (TRN)
+class RequirementsFollowUp extends SomNode {
+  RequirementsFollowUp(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;
@@ -18193,29 +18515,14 @@ class SecurityAndAccessModel extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.1. User Management.
-  UserManagement get userManagement => UserManagement(doc, '$path/userManagement');
+  /// 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
+  AccessControlModel get accessControl => AccessControlModel(doc, '$path/accessControl');
 
-  /// 9.2. Identification and Authentication.
-  IdentificationAndAuthentication get authentication => IdentificationAndAuthentication(doc, '$path/authentication');
+  /// 9.2. Security Operations — OPS follow-up subtree.
+  SecurityOperationsFollowUp get securityOperations => SecurityOperationsFollowUp(doc, '$path/securityOperations');
 
-  /// 9.3. Resource Protection.
-  ResourceProtection get resourceProtection => ResourceProtection(doc, '$path/resourceProtection');
-
-  /// 9.4. User Authorization.
-  UserAuthorization get authorization => UserAuthorization(doc, '$path/authorization');
-
-  /// 9.5. Sensitive Data Encryption.
-  SensitiveDataEncryption get encryption => SensitiveDataEncryption(doc, '$path/encryption');
-
-  /// 9.6. Audit and Logging.
-  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
-
-  /// 9.7. Role Matrix..
-  RoleMatrix get roleMatrix => RoleMatrix(doc, '$path/roleMatrix');
-
-  /// 9.8. Compliance Framework.
-  ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
+  /// 9.3. Compliance — CMP follow-up subtree.
+  SecurityComplianceFollowUp get compliance => SecurityComplianceFollowUp(doc, '$path/compliance');
 }
 
 /// A security audit requirement entry (form).
@@ -18332,6 +18639,25 @@ class SecurityCodeReviewPolicy extends SomNode {
   SecurityCodeReviewPolicyFindingsForm get findings => SecurityCodeReviewPolicyFindingsForm(doc, '$path/SCRPF');
 }
 
+/// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
+/// 
+/// Groups the compliance-framework concern, a **follow-up** (compliance
+/// governance) rather than CodeSpecs-generated behaviour (§4.5 of
+/// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+/// subtree is generation-owned-out.
+class SecurityComplianceFollowUp extends SomNode {
+  SecurityComplianceFollowUp(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 9.3.1. Compliance Framework.
+  ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
+}
+
 /// A security control entry (form).
 class SecurityControlEntry extends SomNode {
   SecurityControlEntry(super.doc, super.path);
@@ -18431,6 +18757,28 @@ class SecurityEventsDefinition extends SomNode {
 
   /// Custom Security Events — contains 0+× Security Event Entry.
   SomList<SecurityEventEntry> get customEvents => SomList<SecurityEventEntry>(doc, '$path/SEVT-CUST-LST', (d, p) => SecurityEventEntry(d, p), pattern: 'SEVT-CUST-xxx');
+}
+
+/// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
+/// 
+/// Groups the operational security concerns that are **follow-up** (key
+/// management and audit/logging operations), not CodeSpecs-generated behaviour
+/// (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+/// whole subtree is generation-owned-out.
+class SecurityOperationsFollowUp extends SomNode {
+  SecurityOperationsFollowUp(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 9.2.1. Sensitive Data Encryption.
+  SensitiveDataEncryption get encryption => SensitiveDataEncryption(doc, '$path/encryption');
+
+  /// 9.2.2. Audit and Logging.
+  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
 }
 
 /// A security requirement entry.
@@ -19225,8 +19573,30 @@ class SolutionArchitectureAndTechnology extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Technical framework and platform concept.
+  /// Technical framework and platform concept — the CodeSpecs-relevant
+  /// (CE-CF configuration-bearing) subtree.
   TechnicalFrameworkConcept get technicalFramework => TechnicalFrameworkConcept(doc, '$path/technicalFramework');
+
+  /// Architecture / component-reuse DOC follow-up subtree.
+  SolutionArchitectureFollowUp get architectureFollowUp => SolutionArchitectureFollowUp(doc, '$path/architectureFollowUp');
+}
+
+/// SBP.11 Solution Architecture & Technology — DOC follow-up subtree.
+/// 
+/// Groups the descriptive-architecture concern that is **not** CodeSpecs-
+/// generated: the component-reuse rationale (component catalogue, third-party
+/// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
+/// generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+/// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
+/// CodeSpecs subtree.
+class SolutionArchitectureFollowUp extends SomNode {
+  SolutionArchitectureFollowUp(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Components, libraries, and services to reuse.
   ComponentsAndDependencies get componentsToUse => ComponentsAndDependencies(doc, '$path/componentsToUse');
@@ -21012,24 +21382,11 @@ class TabItemEntry extends SomNode {
   TabItemEntryContentForm get content => TabItemEntryContentForm(doc, '$path/content');
 }
 
-/// 6. Target Business Process Model.
-class TargetBusinessProcessModel extends SomNode {
-  TargetBusinessProcessModel(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// 6.1. Business Process Descriptions. Seeds → TOM.
-  BusinessProcessDescriptions get businessProcessDescriptions => BusinessProcessDescriptions(doc, '$path/businessProcessDescriptions');
-
-  /// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
-  ProcessStepsAndActorInteractions get processStepsAndActorInteractions => ProcessStepsAndActorInteractions(doc, '$path/processStepsAndActorInteractions');
-}
-
 /// SBP.7 Target Operating Model concept.
+/// 
+/// Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
+/// and a CodeSpecs subtree ([ProcessStepsAndActorInteractions], CE-SU/CE-SC)
+/// so each whole branch is owned by a single downstream process.
 class TargetOperatingModel extends SomNode {
   TargetOperatingModel(super.doc, super.path);
 
@@ -21039,11 +21396,11 @@ class TargetOperatingModel extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Target organizational structure and roles.
-  OrganizationalFramework get organizationalFramework => OrganizationalFramework(doc, '$path/organizationalFramework');
+  /// ORG/OPS follow-up subtree: target organization + process narrative.
+  OrganizationAndProcessConcept get organizationAndProcess => OrganizationAndProcessConcept(doc, '$path/organizationAndProcess');
 
-  /// Target business process model.
-  TargetBusinessProcessModel get targetBusinessProcess => TargetBusinessProcessModel(doc, '$path/targetBusinessProcess');
+  /// CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
+  ProcessStepsAndActorInteractions get processStepsAndActorInteractions => ProcessStepsAndActorInteractions(doc, '$path/processStepsAndActorInteractions');
 }
 
 /// Target platform entry (operating system, runtime, container).
@@ -42958,6 +43315,31 @@ class DevelopmentQualityGatesSecurityForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class DeviceSettingsContentForm extends SomNode {
+  DeviceSettingsContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get settingKey => doc.formField(path, 'settingKey') ?? '';
+  set settingKey(String value) => doc.setFormField(path, 'settingKey', value);
+
+  String get valueType => doc.formField(path, 'valueType') ?? '';
+  set valueType(String value) => doc.setFormField(path, 'valueType', value);
+
+  String get defaultValue => doc.formField(path, 'defaultValue') ?? '';
+  set defaultValue(String value) => doc.setFormField(path, 'defaultValue', value);
+
+  bool? get deviceOverridable => somParseBool(doc.formField(path, 'deviceOverridable'));
+  set deviceOverridable(bool? value) => doc.setFormField(path, 'deviceOverridable', somFormatBool(value));
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class DisasterRecoveryRequirementsContentForm extends SomNode {
   DisasterRecoveryRequirementsContentForm(super.doc, super.path);
 
@@ -45044,6 +45426,25 @@ class EntityConstraintEntryContentForm extends SomNode {
 
   String get businessRule => doc.formField(path, 'businessRule') ?? '';
   set businessRule(String value) => doc.setFormField(path, 'businessRule', value);
+}
+
+/// Generated section facade for the `entityRef` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class EntityFollowUpEntryEntityRefForm extends SomNode {
+  EntityFollowUpEntryEntityRefForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get entityName => doc.formField(path, 'entityName') ?? '';
+  set entityName(String value) => doc.setFormField(path, 'entityName', value);
+
+  String get entityAlias => doc.formField(path, 'entityAlias') ?? '';
+  set entityAlias(String value) => doc.setFormField(path, 'entityAlias', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -89866,6 +90267,12 @@ class UserAttributeEntryContentForm extends SomNode {
 
   String get dataType => doc.formField(path, 'dataType') ?? '';
   set dataType(String value) => doc.setFormField(path, 'dataType', value);
+
+  UserAttributePlacement? get placement => _parseUserAttributePlacement(doc.formField(path, 'placement'));
+  set placement(UserAttributePlacement? value) => doc.setFormField(path, 'placement', value?.name ?? '');
+
+  String get accessGuard => doc.formField(path, 'accessGuard') ?? '';
+  set accessGuard(String value) => doc.setFormField(path, 'accessGuard', value);
 
   String get source => doc.formField(path, 'source') ?? '';
   set source(String value) => doc.setFormField(path, 'source', value);
