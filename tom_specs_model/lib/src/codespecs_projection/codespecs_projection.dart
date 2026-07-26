@@ -31,7 +31,7 @@
 /// **RSP requirements seed is intentionally excluded.** The RSP `Requirements`
 /// subtree is consumed by CodeSpecs as *requirements* (a generation seed /
 /// acceptance source), not emitted as generated code, so it is not part of the
-/// generation projection (`codespecs_followup_split.md` §5).
+/// generation projection (`codespecs_mapping.md` §8.3).
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';

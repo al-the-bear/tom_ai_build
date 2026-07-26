@@ -1,5 +1,5 @@
 /// Declares a **discriminated subsection group** (closed choice) on a
-/// container section class (`codespecs_coverage_gaps.md` §4.3, csm-7-4/csmb6).
+/// container section class (`codespecs_mapping.md` §8.2, csm-7-4/csmb6).
 ///
 /// A section that must resolve to **exactly one of a closed set of typed
 /// alternatives** carries `@OneOf` naming the `@Form` field whose value picks
@@ -20,7 +20,7 @@
 /// dedicated meta slot), so both enforcement tiers can read it without an
 /// analyzer.
 ///
-/// Two enforcement tiers act on it (`codespecs_coverage_gaps.md` §4.4):
+/// Two enforcement tiers act on it (`codespecs_mapping.md` §8.2):
 ///
 ///  * **Static** (`tom_specs_clitool/lib/src/validator.dart`): the discriminator
 ///    resolves to a model-enum `@Form` field; every `@Case` value is a constant

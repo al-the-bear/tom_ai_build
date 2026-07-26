@@ -60,7 +60,7 @@ access and authorization concerns.
 /// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
 ///
 /// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
-/// authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+/// authorization seed (§8.3 of `codespecs_mapping.md`): user management,
 /// authentication, resource protection, authorization, and the role matrix.
 /// The container itself carries no `@CodeSpecKind` — the mapped parts live on
 /// the child sections (e.g. `authentication`) — but the whole subtree is the
@@ -109,7 +109,7 @@ class AccessControlModel extends DocSpecsSection {
 ///
 /// Groups the operational security concerns that are **follow-up** (key
 /// management and audit/logging operations), not CodeSpecs-generated behaviour
-/// (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+/// (§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the
 /// whole subtree is generation-owned-out.
 @StandardReferences(
   [
@@ -141,7 +141,7 @@ class SecurityOperationsFollowUp extends DocSpecsSection {
 ///
 /// Groups the compliance-framework concern, a **follow-up** (compliance
 /// governance) rather than CodeSpecs-generated behaviour (§4.5 of
-/// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+/// `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
 /// subtree is generation-owned-out.
 @StandardReferences(
   [

@@ -1660,6 +1660,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per enum value.
+  dmfue-enfu-lst:
+    prefix: DMFUE_ENFU_LST
+    subsection-types:
+      dmfue-enfu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entity that carries follow-up facets.
   doctl-aprv-lst:
     prefix: DOCTL_APRV_LST
     subsection-types:
@@ -6763,15 +6771,9 @@ section-types:
         max-count: 1
       daent-clas:
         max-count: 1
-      volum-volu-lst:
-        max-count: 1
       daent-life:
         max-count: 1
-      cre-comp-lst:
-        max-count: 1
       daent-rela:
-        max-count: 1
-      techn-tech-lst:
         max-count: 1
       daatt-attr-lst:
         max-count: 1
@@ -6780,8 +6782,6 @@ section-types:
       enidx-inde-lst:
         max-count: 1
       encns-cons-lst:
-        max-count: 1
-      migme-migr-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^DAENT-ENTI-.+$
@@ -6919,6 +6919,23 @@ section-types:
       pattern: ^DMEVA-VALU-.+$
       error-message: IDs of this section must match DMEVA-VALU-xxx
     description: Add one entry per enum value.
+  dmfue-enfu:
+    prefix: DMFUE_ENFU_
+    subsection-types:
+      dmfue-enti:
+        max-count: 1
+      volum-volu-lst:
+        max-count: 1
+      cre-comp-lst:
+        max-count: 1
+      techn-tech-lst:
+        max-count: 1
+      migme-migr-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DMFUE-ENFU-.+$
+      error-message: IDs of this section must match DMFUE-ENFU-xxx
+    description: Add one entry per entity that carries follow-up facets.
   doantr-docu:
     prefix: DOANTR_DOCU
     format: doantr-docu-form
@@ -9551,6 +9568,9 @@ section-types:
       pattern: ^DGPE-GOVE-.+$
       error-message: IDs of this section must match DGPE-GOVE-xxx
     description: "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level."
+  dmfue-enti:
+    prefix: DMFUE_ENTI
+    format: dmfue-enti-form
   doev-even:
     prefix: DOEV_EVEN_
     pattern-check-id:
@@ -11637,7 +11657,7 @@ section-types:
         max-count: 1
       acchls:
         max-count: 1
-    description: 10.9. Accessibility. Seeds → XDS.
+    description: 10.2.4. Accessibility. Seeds → XDS.
   acchls:
     prefix: ACCHLS
     subsection-types:
@@ -11877,7 +11897,7 @@ section-types:
         max-count: 1
       comrep:
         max-count: 1
-    description: 9.6. Audit and Logging.
+    description: 9.2.2. Audit and Logging.
   auevp1:
     prefix: AUEVP1
     description: Authorization Events.
@@ -12266,6 +12286,8 @@ section-types:
       clsere:
         max-count: 1
       clicon:
+        max-count: 1
+      devset:
         max-count: 1
     description: |
       Specify client device requirements including browsers, operating systems,
@@ -13148,6 +13170,9 @@ section-types:
     prefix: DETOIN
     format: detoin-form
     description: Infrastructure layout.
+  devset:
+    prefix: DEVSET
+    description: User-specific settings of a user-owned device (CE-DS).
   digrsu:
     prefix: DIGRSU
     description: Executive distribution summary.
@@ -13407,7 +13432,7 @@ section-types:
         max-count: 1
       erre:
         max-count: 1
-    description: 10.7. Error Handling. Seeds → XDS.
+    description: 10.1.4. Error Handling. Seeds → XDS.
   erhast:
     prefix: ERHAST
     subsection-types:
@@ -14674,7 +14699,7 @@ section-types:
         max-count: 1
       prtyse:
         max-count: 1
-    description: 10.13. Prototype. Seeds → XDS.
+    description: 10.2.5. Prototype. Seeds → XDS.
   provdi:
     prefix: PROVDI
     subsection-types:
@@ -14974,7 +14999,7 @@ section-types:
         max-count: 1
       fass:
         max-count: 1
-    description: 9.3. Resource Protection.
+    description: 9.1.3. Resource Protection.
   restca:
     prefix: RESTCA
     format: restca-form
@@ -15175,7 +15200,7 @@ section-types:
     subsection-types:
       namo:
         max-count: 1
-    description: 10.3. Screen Flow Structure. Seeds → XDS.
+    description: 10.1.2. Screen Flow Structure. Seeds → XDS.
   scmapo:
     prefix: SCMAPO
     subsection-types:
@@ -15228,7 +15253,7 @@ section-types:
         max-count: 1
       kema:
         max-count: 1
-    description: 9.5. Sensitive Data Encryption.
+    description: 9.2.1. Sensitive Data Encryption.
   sedeli:
     prefix: SEDELI
     subsection-types:
@@ -16292,7 +16317,7 @@ section-types:
     description: 11.6.1. Weighted Quality Matrix.
   wianmo:
     prefix: WIANMO
-    description: 10.14. Wireframes and Mockups.
+    description: 10.2.6. Wireframes and Mockups.
   wosore:
     prefix: WOSORE
     subsection-types:
@@ -16435,7 +16460,7 @@ section-types:
         max-count: 1
       pmak-proc-lst:
         max-count: 1
-    description: 6.1. Business Process Descriptions. Seeds → TOM.
+    description: Business-process descriptions and narrative. Seeds → TOM.
   btcbs:
     prefix: BTCBS
     format: btcbs-form
@@ -16616,7 +16641,7 @@ section-types:
         max-count: 1
       dclse-item-lst:
         max-count: 1
-    description: 7.1.4. Data Classification.
+    description: 7.1.3. Data Classification.
   datmd:
     prefix: DATMD
     subsection-types:
@@ -16689,7 +16714,7 @@ section-types:
         max-count: 1
       usper:
         max-count: 1
-    description: 10.1. Design Vision. Seeds → XDS.
+    description: 10.2.1. Design Vision. Seeds → XDS.
   dfcdt:
     prefix: DFCDT
     format: dfcdt-form
@@ -17207,7 +17232,7 @@ section-types:
         max-count: 1
       authen:
         max-count: 1
-    description: 9.2. Identification and Authentication.
+    description: 9.1.2. Identification and Authentication.
   ident:
     prefix: IDENT
     subsection-types:
@@ -17772,7 +17797,7 @@ section-types:
         max-count: 1
       uscatr:
         max-count: 1
-    description: 6.2. Process Steps and Actor Interactions. Seeds → ISC.
+    description: "CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC)."
   pvovw:
     prefix: PVOVW
     format: pvovw-form
@@ -17867,6 +17892,16 @@ section-types:
       categ-cate-lst:
         max-count: 1
     description: 11.1. Quality Framework.
+  reqfu:
+    prefix: REQFU
+    subsection-types:
+      lctr:
+        max-count: 1
+      ifur:
+        max-count: 1
+      treq:
+        max-count: 1
+    description: Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
   requ1:
     prefix: REQU1
     subsection-types:
@@ -18004,7 +18039,7 @@ section-types:
         max-count: 1
       ia:
         max-count: 1
-    description: 10.2. Screen Descriptions. Seeds → XDS.
+    description: 10.1.1. Screen Descriptions. Seeds → XDS.
   scrpf:
     prefix: SCRPF
     format: scrpf-form
@@ -18714,7 +18749,7 @@ section-types:
         max-count: 1
       usatt:
         max-count: 1
-    description: 9.1. User Management.
+    description: 9.1.1. User Management.
   usper:
     prefix: USPER
     subsection-types:
@@ -18755,6 +18790,20 @@ section-types:
     prefix: WSRSS
     format: wsrss-form
     description: Self-service and feedback.
+  accm:
+    prefix: ACCM
+    subsection-types:
+      usmgt:
+        max-count: 1
+      idaut:
+        max-count: 1
+      respro:
+        max-count: 1
+      usau:
+        max-count: 1
+      roma:
+        max-count: 1
+    description: 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
   acdp:
     prefix: ACDP
     subsection-types:
@@ -20080,7 +20129,7 @@ section-types:
     description: Data management architecture.
   dadi:
     prefix: DADI
-    description: 7.1.5. Data Dictionary..
+    description: 7.1.4. Data Dictionary..
   daep:
     prefix: DAEP
     description: Data Access Events.
@@ -20446,6 +20495,12 @@ section-types:
       acpln:
         max-count: 1
     description: Delivery scope and acceptance criteria.
+  dmfu:
+    prefix: DMFU
+    subsection-types:
+      dmfue-enfu-lst:
+        max-count: 1
+    description: 7.9. Data Model Follow-up Facets.
   dmrc:
     prefix: DMRC
     format: dmrc-form
@@ -21371,7 +21426,7 @@ section-types:
     description: 6.2.2. Interaction Catalog — contains 1+× Interaction.
   inco:
     prefix: INCO
-    description: 7.1.7. Integrity Constraints.
+    description: 7.1.6. Integrity Constraints.
   incp:
     prefix: INCP
     subsection-types:
@@ -21398,6 +21453,8 @@ section-types:
       rslte:
         max-count: 1
       msgkr:
+        max-count: 1
+      dmfu:
         max-count: 1
     description: "SBP.8 Information & Data Model. Seeds → IFM."
   ingo:
@@ -22117,7 +22174,7 @@ section-types:
         max-count: 1
       suloen-supp-lst:
         max-count: 1
-    description: 10.12. Multi-language Support.
+    description: 10.3.1. Multi-language Support.
   mntc:
     prefix: MNTC
     subsection-types:
@@ -22363,6 +22420,14 @@ section-types:
     prefix: NSRM
     format: nsrm-form
     description: Monitoring controls.
+  oapc:
+    prefix: OAPC
+    subsection-types:
+      orgf:
+        max-count: 1
+      bpdsc:
+        max-count: 1
+    description: "ORG/OPS follow-up subtree: target organization + process narrative."
   ocel:
     prefix: OCEL
     format: ocel-form
@@ -22868,7 +22933,7 @@ section-types:
         max-count: 1
       exteen-expo-lst:
         max-count: 1
-    description: 10.4. Print Layout. Seeds → XDS.
+    description: 10.2.2. Print Layout. Seeds → XDS.
   prna:
     prefix: PRNA
     subsection-types:
@@ -23096,7 +23161,7 @@ section-types:
         max-count: 1
       rebe:
         max-count: 1
-    description: 10.10. Responsive Design. Seeds → XDS.
+    description: 10.1.5. Responsive Design. Seeds → XDS.
   refo:
     prefix: REFO
     format: refo-form
@@ -23158,11 +23223,7 @@ section-types:
   reqs:
     prefix: REQS
     subsection-types:
-      lctr:
-        max-count: 1
-      ifur:
-        max-count: 1
-      treq:
+      reqfu:
         max-count: 1
     description: SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
   requ:
@@ -23301,7 +23362,7 @@ section-types:
     description: Rollout and transition concept.
   roma:
     prefix: ROMA
-    description: 9.7. Role Matrix..
+    description: 9.1.5. Role Matrix.
   rost:
     prefix: ROST
     subsection-types:
@@ -23409,21 +23470,11 @@ section-types:
   saam:
     prefix: SAAM
     subsection-types:
-      usmgt:
+      accm:
         max-count: 1
-      idaut:
+      scof:
         max-count: 1
-      respro:
-        max-count: 1
-      usau:
-        max-count: 1
-      sedaen:
-        max-count: 1
-      auanlo:
-        max-count: 1
-      roma:
-        max-count: 1
-      cf:
+      sccf:
         max-count: 1
     description: "SBP.12 Security & Access Model. Seeds → SAS."
   sacm:
@@ -23533,6 +23584,12 @@ section-types:
     prefix: SASS
     format: sass-form
     description: Self-service and feedback options.
+  satf:
+    prefix: SATF
+    subsection-types:
+      comp:
+        max-count: 1
+    description: Architecture / component-reuse DOC follow-up subtree.
   sbcg:
     prefix: SBCG
     format: sbcg-form
@@ -23583,6 +23640,12 @@ section-types:
       scbc-proj:
         max-count: 1
     description: Success criteria by category.
+  sccf:
+    prefix: SCCF
+    subsection-types:
+      cf:
+        max-count: 1
+    description: 9.3. Compliance — CMP follow-up subtree.
   scco:
     prefix: SCCO
     format: scco-form
@@ -23615,6 +23678,14 @@ section-types:
     prefix: SCMG
     format: scmg-form
     description: "Validation, diffing, and audit controls."
+  scof:
+    prefix: SCOF
+    subsection-types:
+      sedaen:
+        max-count: 1
+      auanlo:
+        max-count: 1
+    description: 9.2. Security Operations — OPS follow-up subtree.
   scov:
     prefix: SCOV
     format: scov-form
@@ -24007,7 +24078,7 @@ section-types:
     subsection-types:
       tech:
         max-count: 1
-      comp:
+      satf:
         max-count: 1
     description: "SBP.11 Solution Architecture & Technology. Seeds → ATS."
   sopa:
@@ -24432,14 +24503,6 @@ section-types:
     prefix: TBEP
     format: tbep-form
     description: Tenant Boundary Enforcement Policy.
-  tbpm:
-    prefix: TBPM
-    subsection-types:
-      bpdsc:
-        max-count: 1
-      psaai:
-        max-count: 1
-    description: Target business process model.
   tdip:
     prefix: TDIP
     format: tdip-form
@@ -24593,9 +24656,9 @@ section-types:
   tomc:
     prefix: TOMC
     subsection-types:
-      orgf:
+      oapc:
         max-count: 1
-      tbpm:
+      psaai:
         max-count: 1
     description: SBP.7 Target Operating Model concept. Seeds → TOM.
   tpai:
@@ -24853,7 +24916,7 @@ section-types:
         max-count: 1
       cmfa-comp-lst:
         max-count: 1
-    description: 10.11. UI Components. Seeds → XDS.
+    description: 10.1.6. UI Components. Seeds → XDS.
   uims:
     prefix: UIMS
     format: uims-form
@@ -24892,7 +24955,7 @@ section-types:
         max-count: 1
       suac:
         max-count: 1
-    description: 10.8. User Assistance. Seeds → XDS.
+    description: 10.2.3. User Assistance. Seeds → XDS.
   usau:
     prefix: USAU
     subsection-types:
@@ -24912,7 +24975,7 @@ section-types:
         max-count: 1
       teis:
         max-count: 1
-    description: 9.4. User Authorization.
+    description: 9.1.4. User Authorization.
   utna:
     prefix: UTNA
     subsection-types:
@@ -24921,7 +24984,7 @@ section-types:
     description: 10.3.1.5. Utility Navigation.
   vaco:
     prefix: VACO
-    description: 7.1.6. Validation Constraints.
+    description: 7.1.5. Validation Constraints.
   vafe:
     prefix: VAFE
     subsection-types:
@@ -25085,6 +25148,31 @@ section-types:
     prefix: WSRP
     format: wsrp-form
     description: Security and collaboration software stack.
+  xcfu:
+    prefix: XCFU
+    description: 10.4. Authorization Compliance — CMP follow-up subtree.
+  xdfu:
+    prefix: XDFU
+    subsection-types:
+      deviz:
+        max-count: 1
+      prla:
+        max-count: 1
+      usas:
+        max-count: 1
+      access:
+        max-count: 1
+      protot:
+        max-count: 1
+      wianmo:
+        max-count: 1
+    description: 10.2. Experience Design — DOC follow-up subtree.
+  xlfu:
+    prefix: XLFU
+    subsection-types:
+      mlar:
+        max-count: 1
+    description: 10.3. Experience Localization — L10N follow-up subtree.
   aap:
     prefix: AAP
     format: aap-form
@@ -25935,32 +26023,30 @@ section-types:
       wostis-know-lst:
         max-count: 1
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
-  xid:
-    prefix: XID
+  xcs:
+    prefix: XCS
     subsection-types:
-      deviz:
-        max-count: 1
       scrdz:
         max-count: 1
       scflst:
         max-count: 1
-      prla:
-        max-count: 1
       erhaco:
-        max-count: 1
-      usas:
-        max-count: 1
-      access:
         max-count: 1
       rede:
         max-count: 1
       uico:
         max-count: 1
-      mlar:
+    description: 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
+  xid:
+    prefix: XID
+    subsection-types:
+      xcs:
         max-count: 1
-      protot:
+      xdfu:
         max-count: 1
-      wianmo:
+      xlfu:
+        max-count: 1
+      xcfu:
         max-count: 1
     description: "SBP.13 Experience & Interface Design. Seeds → XDS."
   al:
@@ -26075,7 +26161,7 @@ section-types:
     description: "Provide a context diagram showing the system as a black box with all external entities (users, systems, organizations) and the data/control flows between them."
   cf:
     prefix: CF
-    description: 9.8. Compliance Framework.
+    description: 9.3.1. Compliance Framework.
   cm:
     prefix: CM
     subsection-types:
@@ -32781,6 +32867,13 @@ form-types:
         description: When rule expires (if applicable)
       - fieldname: reviewFrequency
         description: "How often rule is reviewed: Annually | OnChange | Never"
+  dmfue-enti-form:
+    fields:
+      - fieldname: entityName
+        required: true
+        description: Name of the data entity these facets apply to (matches dataModel.entities)
+      - fieldname: entityAlias
+        description: "Short alias of the referenced entity (e.g., CUST, ORD)"
   trareq-tran-form:
     fields:
       - fieldname: i18nFramework
@@ -42527,34 +42620,6 @@ form-types:
         description: "NoCache | NoStore | Private | Default — cache-control headers for responses containing sensitive data (NoStore recommended per OWASP)"
       - fieldname: notes
         description: Additional transport security policy notes
-  peprf-form:
-    fields:
-      - fieldname: bio
-        description: Brief biographical context
-      - fieldname: technicalProficiency
-        description: Beginner/Intermediate/Advanced — with context
-      - fieldname: accessibilityNeeds
-        description: Visual/Motor/Cognitive/None
-  pectx-form:
-    fields:
-      - fieldname: typicalUsage
-        description: "Frequency, duration, and primary activities"
-      - fieldname: primaryDevice
-        description: Desktop/Laptop/Tablet/Mobile
-      - fieldname: additionalDevices
-        description: Secondary devices used
-      - fieldname: workEnvironment
-        description: Office/Remote/Field/Hybrid
-  pends-form:
-    fields:
-      - fieldname: motivations
-        description: What drives their behavior
-      - fieldname: frustrationsWithCurrent
-        description: Issues with existing solutions
-      - fieldname: successCriteria
-        description: How they measure success
-      - fieldname: quote
-        description: A quote that captures their perspective
   scecl-form:
     fields:
       - fieldname: screenCategory
@@ -42983,6 +43048,692 @@ form-types:
         description: Route to redirect to if guard blocks navigation
       - fieldname: priority
         description: Execution order when multiple guards apply
+  erhaco-erro-form:
+    fields:
+      - fieldname: errorPhilosophy
+        description: "Prevention-first, graceful degradation, user empowerment"
+      - fieldname: errorToneOfVoice
+        description: "Friendly, professional, apologetic, neutral"
+      - fieldname: errorLanguageStyle
+        description: "Plain language, technical, user-focused"
+      - fieldname: blameAvoidance
+        description: "Never blame user, focus on solutions"
+  ehcc-form:
+    fields:
+      - fieldname: errorCategories
+        description: "Validation, network, server, permission, data"
+      - fieldname: errorSeverityLevels
+        description: "Critical, warning, info, success"
+      - fieldname: errorPriorityDisplay
+        description: "Most severe first, chronological, by field"
+  ehca-form:
+    fields:
+      - fieldname: errorAccessibility
+        description: "Screen reader announcements, ARIA live regions"
+      - fieldname: colorContrastCompliance
+        description: "WCAG AA, AAA for error states"
+      - fieldname: nonColorIndicators
+        description: "Icons, text, patterns for colorblind users"
+  ehco-form:
+    fields:
+      - fieldname: errorLocalization
+        description: "All messages localized, fallback language"
+      - fieldname: dynamicContentHandling
+        description: How dynamic values are inserted into messages
+      - fieldname: errorTrackingApproach
+        description: "Analytics for user errors, trend analysis"
+      - fieldname: userFrustrationDetection
+        description: "Rage click detection, repeated errors"
+  vafe-vali-form:
+    fields:
+      - fieldname: validationTiming
+        description: "Real-time, on-blur, on-submit, debounced"
+      - fieldname: debounceDelay
+        description: Milliseconds before validation triggers
+      - fieldname: validationSequence
+        description: "Field-by-field, all-at-once, progressive"
+  vafepl-form:
+    fields:
+      - fieldname: errorMessagePlacement
+        description: "Inline below field, above field, tooltip, summary"
+      - fieldname: summaryPosition
+        description: "Top of form, bottom of form, modal"
+      - fieldname: fieldHighlighting
+        description: "Border color, background color, icon"
+      - fieldname: fieldErrorIcon
+        description: Icon displayed on invalid fields
+      - fieldname: fieldErrorIconPosition
+        description: "Leading, trailing, inside field, outside"
+  vafeme-form:
+    fields:
+      - fieldname: messageFormat
+        description: "Text only, icon + text, structured"
+      - fieldname: maxMessageLength
+        description: Character limit for inline messages
+      - fieldname: multipleErrorsDisplay
+        description: "First only, all, expandable list"
+      - fieldname: errorPersistence
+        description: "Until fixed, until field accessed, timed"
+  vafegu-form:
+    fields:
+      - fieldname: showRequirements
+        description: Display field requirements before error
+      - fieldname: showSuggestions
+        description: Suggest corrections for common errors
+      - fieldname: showExamples
+        description: Show example valid input
+  vafebe-form:
+    fields:
+      - fieldname: errorAnimation
+        description: "Shake, fade-in, bounce, none"
+      - fieldname: clearAnimation
+        description: Animation when error is resolved
+      - fieldname: scrollToError
+        description: Auto-scroll to first error on submit
+      - fieldname: focusOnError
+        description: Move focus to first invalid field
+  syerdi-syst-form:
+    fields:
+      - fieldname: networkErrorHandling
+        description: How connectivity issues are displayed
+      - fieldname: systemErrorDisplayMethod
+        description: "Modal, snackbar, banner, full-page"
+      - fieldname: gracefulDegradation
+        description: How features degrade on partial failure
+  sedet-form:
+    fields:
+      - fieldname: serverErrorHandling
+        description: How 5xx errors are presented
+      - fieldname: timeoutHandling
+        description: How request timeouts are displayed
+      - fieldname: authenticationErrorHandling
+        description: "Session expired, unauthorized"
+      - fieldname: permissionErrorHandling
+        description: Forbidden access display
+      - fieldname: maintenanceModeHandling
+        description: Scheduled downtime display
+  sedm-form:
+    fields:
+      - fieldname: errorModalStyle
+        description: Dialog design for error modals
+      - fieldname: snackbarPosition
+        description: "Bottom, top, bottom-left, top-right"
+      - fieldname: snackbarDuration
+        description: Auto-dismiss time or persistent
+      - fieldname: bannerPosition
+        description: "Top of page, top of content"
+      - fieldname: fullPageErrorTemplate
+        description: "Design for full-page errors (500, 503)"
+  sedc-form:
+    fields:
+      - fieldname: showTechnicalDetails
+        description: "Display error codes, request IDs"
+      - fieldname: showRetryOption
+        description: Offer a retry button on the error
+      - fieldname: showContactSupport
+        description: Show a link to contact support
+      - fieldname: showStatusPageLink
+        description: Show a link to the service status page
+      - fieldname: offlineModeMessage
+        description: Message when app detects offline state
+  sedf-form:
+    fields:
+      - fieldname: cachedDataFallback
+        description: Show stale data with indicator
+      - fieldname: retryStrategy
+        description: Automatic retry with backoff
+      - fieldname: maxRetryAttempts
+        description: Number of retries before giving up
+      - fieldname: retryDelaySeconds
+        description: Seconds to wait between retries
+  seceh-form:
+    fields:
+      - fieldname: technicalDescription
+        description: Developer-facing description
+      - fieldname: suggestedAction
+        description: What user should do
+      - fieldname: retryable
+        description: Whether retry is likely to help
+      - fieldname: autoRetry
+        description: System automatically retries
+      - fieldname: displayMethod
+        description: How this error is displayed
+  seceo-form:
+    fields:
+      - fieldname: notifySupport
+        description: Auto-notify support team
+      - fieldname: logLevel
+        description: "Error, warning, info"
+  erre-reco-form:
+    fields:
+      - fieldname: formDataPreservation
+        description: How unsaved form data is preserved on error
+      - fieldname: sessionRecovery
+        description: How expired sessions are handled
+      - fieldname: supportContactMethod
+        description: "Chat, email, phone, ticket"
+  erdp-form:
+    fields:
+      - fieldname: draftAutoSave
+        description: Automatic draft saving before submission
+      - fieldname: draftSaveInterval
+        description: How often drafts are auto-saved
+      - fieldname: draftStorageMethod
+        description: "LocalStorage, IndexedDB, server-side"
+      - fieldname: draftRetentionPeriod
+        description: How long drafts are kept
+      - fieldname: draftRecoveryPrompt
+        description: How users are notified of recoverable drafts
+  errm-form:
+    fields:
+      - fieldname: automaticRetryEnabled
+        description: Whether failed operations are retried automatically
+      - fieldname: retryBackoffStrategy
+        description: "Exponential, linear, fixed"
+      - fieldname: maxAutomaticRetries
+        description: Maximum number of automatic retry attempts
+      - fieldname: manualRetryButton
+        description: Whether a user-triggered retry button is shown
+      - fieldname: retryButtonLabel
+        description: "Button text (e.g., \"Try Again\")"
+      - fieldname: retryFeedback
+        description: How retry attempts are indicated
+  ergr-form:
+    fields:
+      - fieldname: stepByStepRecovery
+        description: Guided recovery wizard
+      - fieldname: alternativeActions
+        description: What else user can do
+      - fieldname: skipOption
+        description: Allow skipping failed operation
+      - fieldname: cancelOption
+        description: Allow canceling and returning
+  ersc-form:
+    fields:
+      - fieldname: supportAvailability
+        description: When support is available
+      - fieldname: errorReportSubmission
+        description: Allow user to submit error report
+      - fieldname: includeDebugInfo
+        description: Include technical details in report
+  ersh-form:
+    fields:
+      - fieldname: reauthenticationFlow
+        description: "Inline login, redirect, modal"
+      - fieldname: preserveContextOnReauth
+        description: Return to original location after reauth
+  rede-resp-form:
+    fields:
+      - fieldname: responsivePhilosophy
+        description: "Mobile-first, desktop-first, adaptive"
+      - fieldname: primaryTargetDevice
+        description: "Mobile phone, tablet, desktop"
+      - fieldname: deviceAssumptions
+        description: Assumptions about target devices
+      - fieldname: responsiveFramework
+        description: "LayoutBuilder, MediaQuery, responsive_framework"
+      - fieldname: breakpointPackage
+        description: "Custom, responsive_framework, flutter_screenutil"
+      - fieldname: orientationSupport
+        description: "Portrait only, landscape only, both"
+      - fieldname: responsiveTestingApproach
+        description: "Device lab, emulator matrix, golden tests"
+      - fieldname: targetDeviceMatrix
+        description: List of target devices for testing
+  bc-brea-form:
+    fields:
+      - fieldname: mobileMax
+        description: "Maximum width for mobile (e.g., 599)"
+      - fieldname: tabletMin
+        description: "Minimum width for tablet (e.g., 600)"
+      - fieldname: tabletMax
+        description: "Maximum width for tablet (e.g., 1023)"
+      - fieldname: desktopMin
+        description: "Minimum width for desktop (e.g., 1024)"
+      - fieldname: largeDesktopMin
+        description: "Minimum width for large screens (e.g., 1440)"
+      - fieldname: watchMax
+        description: Maximum width for wearables
+      - fieldname: foldableBreakpoint
+        description: Breakpoint for foldable devices
+      - fieldname: customBreakpoints
+        description: Additional app-specific breakpoints
+      - fieldname: breakpointUnit
+        description: "Logical pixels, device pixels"
+      - fieldname: densityHandling
+        description: How pixel density is handled
+  brenla-form:
+    fields:
+      - fieldname: columns
+        description: Number of grid columns at this breakpoint
+      - fieldname: gutterWidth
+        description: Space between columns
+      - fieldname: marginWidth
+        description: Edge margins
+      - fieldname: layoutBehavior
+        description: How layout changes at this breakpoint
+  brensc-form:
+    fields:
+      - fieldname: navigationPattern
+        description: "Bottom nav, drawer, rail, tabs"
+      - fieldname: typographyScale
+        description: Font size scaling factor
+      - fieldname: spacingScale
+        description: Spacing multiplier
+      - fieldname: iconScale
+        description: Icon size scaling factor
+  rebe-layo-form:
+    fields:
+      - fieldname: mobileColumnLayout
+        description: "Single column, stacked"
+      - fieldname: tabletColumnLayout
+        description: "2-column, master-detail"
+      - fieldname: desktopColumnLayout
+        description: "3-column, sidebar + main"
+  rebena-form:
+    fields:
+      - fieldname: mobileNavigation
+        description: "Bottom nav bar, hamburger drawer"
+      - fieldname: tabletNavigation
+        description: "Navigation rail, collapsible drawer"
+      - fieldname: desktopNavigation
+        description: "Full sidebar, top navigation"
+  rebevi-form:
+    fields:
+      - fieldname: mobileHiddenElements
+        description: Elements hidden on mobile
+      - fieldname: tabletHiddenElements
+        description: Elements hidden on tablet
+      - fieldname: desktopOnlyElements
+        description: Elements shown only on desktop
+  rebeto-form:
+    fields:
+      - fieldname: touchTargetMinSize
+        description: Minimum touch target (48dp recommended)
+      - fieldname: hoverEffects
+        description: When to show hover effects
+      - fieldname: gesturePriority
+        description: "Swipe, long-press on touch devices"
+  rebeco-form:
+    fields:
+      - fieldname: contentReflowStrategy
+        description: How content reflows across breakpoints
+      - fieldname: imageScaling
+        description: How images scale responsively
+      - fieldname: tableResponsiveness
+        description: "Horizontal scroll, cards, hide columns"
+      - fieldname: formLayout
+        description: "How forms adapt: single column, multi-column"
+  uico-comp-form:
+    fields:
+      - fieldname: designSystemName
+        description: "Name of the design system (e.g., \"Acme Design System\")"
+      - fieldname: designSystemVersion
+        description: "Semantic version of the design system (e.g., \"2.1.0\")"
+      - fieldname: basedOnFramework
+        description: "Material Design 3, Cupertino, Custom"
+      - fieldname: tomFlutterUiIntegration
+        description: Uses tom_flutter_ui component library
+  ucvl-form:
+    fields:
+      - fieldname: visualLanguage
+        description: "Clean, playful, professional, minimal"
+      - fieldname: brandAlignment
+        description: How design aligns with brand guidelines
+      - fieldname: motionPrinciples
+        description: "Animation philosophy: subtle, expressive, functional"
+  ucca-form:
+    fields:
+      - fieldname: componentGranularity
+        description: "Atomic design levels: atoms, molecules, organisms"
+      - fieldname: componentNaming
+        description: "PascalCase, kebab-case, prefix rules"
+      - fieldname: componentDocumentation
+        description: "Storybook, living style guide, doc site"
+  uicocu-form:
+    fields:
+      - fieldname: extensionModel
+        description: How components can be extended or themed
+      - fieldname: themingApproach
+        description: "Token-based, widget-level, theme data"
+      - fieldname: customizationBoundaries
+        description: What can vs. cannot be customized
+  colico-form:
+    fields:
+      - fieldname: secondaryColor
+        description: "Secondary brand colour hex value (e.g., \"#03DAC6\")"
+      - fieldname: tertiaryColor
+        description: "Tertiary accent colour hex value (e.g., \"#3700B3\")"
+      - fieldname: errorColor
+        description: "Colour for error states (e.g., \"#B00020\")"
+      - fieldname: warningColor
+        description: "Colour for warning states (e.g., \"#FF9800\")"
+      - fieldname: successColor
+        description: "Colour for success states (e.g., \"#4CAF50\")"
+      - fieldname: infoColor
+        description: "Colour for informational states (e.g., \"#2196F3\")"
+      - fieldname: surfaceColors
+        description: "Background, card, dialog surfaces"
+      - fieldname: colorTokenFormat
+        description: "CSS variables, Dart constants, theme data"
+  colity-form:
+    fields:
+      - fieldname: fontFamilySecondary
+        description: "Secondary typeface for accents (e.g., \"Roboto Slab\")"
+      - fieldname: fontFamilyMonospace
+        description: "Monospace typeface for code (e.g., \"JetBrains Mono\")"
+      - fieldname: typographyScale
+        description: "Material type scale, custom scale"
+      - fieldname: fontSizeUnit
+        description: "Logical pixels, rem, sp"
+  colisp-form:
+    fields:
+      - fieldname: spacingTokens
+        description: "xxs, xs, sm, md, lg, xl, xxl"
+      - fieldname: elevationLevels
+        description: Number of elevation levels
+      - fieldname: elevationImplementation
+        description: "Shadows, borders, color shifts"
+  colibo-form:
+    fields:
+      - fieldname: cornerRadiusScale
+        description: "Rounded levels: none, sm, md, lg, full"
+      - fieldname: borderStyleDefaults
+        description: "Default border width, style, and colour (e.g., \"1px solid outline\")"
+  colivi-form:
+    fields:
+      - fieldname: iconLibrary
+        description: "Material Icons, Cupertino, custom"
+      - fieldname: iconSizeScale
+        description: "Small, medium, large sizes"
+      - fieldname: animationDurations
+        description: "Fast, normal, slow durations"
+      - fieldname: animationCurves
+        description: "Easing curves: ease, easeInOut, custom"
+  uicoment-iden-form:
+    fields:
+      - fieldname: componentId
+        required: true
+        description: "Unique identifier (e.g., CMP-DTT-001)"
+      - fieldname: componentName
+        required: true
+        description: Human-readable name
+      - fieldname: componentFamily
+        description: "Button, Input, Table, Navigation, etc."
+      - fieldname: flutterWidgetBase
+        description: "Base Flutter widget (DataTable, TextField)"
+  ucep-form:
+    fields:
+      - fieldname: tomWrapperClass
+        description: "TomDataTable, TomTextField, etc."
+      - fieldname: purpose
+        required: true
+        description: What the component does
+      - fieldname: businessContext
+        description: Business scenarios where used
+      - fieldname: userGoals
+        description: What user accomplishes with this
+  ucec-form:
+    fields:
+      - fieldname: atomicLevel
+        description: "Atom, molecule, organism"
+      - fieldname: complexity
+        description: "Simple, moderate, complex"
+      - fieldname: reusability
+        description: "Generic, semi-generic, specialized"
+  uicoment-visu-form:
+    fields:
+      - fieldname: defaultAppearance
+        description: Visual description of default state
+      - fieldname: colorScheme
+        description: "Primary, secondary, surface colors used"
+      - fieldname: typography
+        description: Text styles used
+      - fieldname: iconography
+        description: Icons used and their placement
+  uced-form:
+    fields:
+      - fieldname: defaultWidth
+        description: Default width or width behavior
+      - fieldname: defaultHeight
+        description: Default height or height behavior
+      - fieldname: minDimensions
+        description: Smallest allowed size
+      - fieldname: maxDimensions
+        description: Largest allowed size
+  uces-form:
+    fields:
+      - fieldname: internalPadding
+        description: Padding inside the component
+      - fieldname: externalMargin
+        description: Margin around the component
+      - fieldname: contentSpacing
+        description: Spacing between internal elements
+  uicoensu-form:
+    fields:
+      - fieldname: borderStyle
+        description: "Solid, dashed, none"
+      - fieldname: cornerRadius
+        description: Rounding of component corners
+      - fieldname: elevation
+        description: Depth or z-level of the surface
+      - fieldname: shadowStyle
+        description: Drop shadow appearance
+  uicoment-inte-form:
+    fields:
+      - fieldname: tapBehavior
+        description: What happens on tap/click
+      - fieldname: longPressBehavior
+        description: What happens on long press
+      - fieldname: doubleTapBehavior
+        description: What happens on double tap
+      - fieldname: swipeBehavior
+        description: What happens on swipe gestures
+      - fieldname: dragBehavior
+        description: What happens on drag gestures
+      - fieldname: hoverBehavior
+  uceib-form:
+    fields:
+      - fieldname: focusBehavior
+        description: "Focus ring, highlight, navigation"
+      - fieldname: keyboardNavigation
+        description: "Tab order, arrow key behavior"
+      - fieldname: keyboardShortcuts
+        description: Key combinations the component handles
+  ucea-form:
+    fields:
+      - fieldname: entryAnimation
+        description: How the component appears
+      - fieldname: exitAnimation
+        description: How the component disappears
+      - fieldname: stateTransitions
+        description: Animation between states
+      - fieldname: feedbackAnimations
+        description: "Ripple, scale, color change"
+  uicoensc-form:
+    fields:
+      - fieldname: scrollBehavior
+        description: If component is scrollable
+      - fieldname: stickyBehavior
+        description: "Headers, columns that stick"
+  uicoment-resp-form:
+    fields:
+      - fieldname: mobileLayout
+        description: Layout on mobile (< 600dp)
+      - fieldname: tabletLayout
+        description: Layout on tablet (600-1024dp)
+      - fieldname: desktopLayout
+        description: "Layout on desktop (> 1024dp)"
+      - fieldname: breakpointBehavior
+        description: What changes at breakpoints
+      - fieldname: adaptiveContent
+        description: Content that appears/hides
+      - fieldname: touchTargets
+        description: Minimum touch target sizes
+      - fieldname: orientationBehavior
+        description: Portrait vs. landscape
+  uicoment-acce-form:
+    fields:
+      - fieldname: semanticRole
+        description: ARIA role or semantic meaning
+      - fieldname: screenReaderLabel
+        description: How screen readers announce
+      - fieldname: screenReaderHint
+        description: Additional context for screen readers
+      - fieldname: focusOrder
+        description: Tab order in context
+      - fieldname: ariaAttributes
+        description: Required ARIA attributes
+      - fieldname: colorContrastNotes
+        description: Contrast ratios and compliance notes
+      - fieldname: motionSensitivity
+        description: Reduced motion behavior
+      - fieldname: textScalingBehavior
+        description: How component responds to text scaling
+  uicoment-auth-form:
+    fields:
+      - fieldname: authBasePath
+        description: Base path for authorization lookup
+      - fieldname: authVisibilityBehavior
+        description: "Hidden, visible, conditionally visible"
+      - fieldname: authEnabledBehavior
+        description: "Disabled, enabled, conditionally enabled"
+      - fieldname: authReadonlyBehavior
+        description: Readonly state behavior
+      - fieldname: authActionControl
+        description: Which actions are auth-controlled
+      - fieldname: authFallbackBehavior
+        description: Behavior when auth unavailable
+      - fieldname: fourStateMapping
+        description: Mapping to TomAuthState four states
+  uicoment-reso-form:
+    fields:
+      - fieldname: resourceBasePath
+        description: Base path for resource lookup
+      - fieldname: labelResource
+        description: Message key (MSGKR registry) for label text
+      - fieldname: hintResource
+        description: Message key (MSGKR registry) for hint text
+      - fieldname: errorResource
+        description: Message key (MSGKR registry) for error messages
+      - fieldname: tooltipResource
+        description: Message key (MSGKR registry) for tooltip text
+      - fieldname: placeholderResource
+        description: Message key (MSGKR registry) for placeholder text
+      - fieldname: ariaLabelResource
+        description: Message key (MSGKR registry) for the ARIA label
+      - fieldname: iconResource
+        description: Resource key for icon selection
+      - fieldname: resourceFallbacks
+        description: Fallback behavior when resource missing
+  uicoment-data-form:
+    fields:
+      - fieldname: dataType
+        description: Type of data component displays/edits
+      - fieldname: bindingPattern
+        description: "Observable, form field, direct"
+      - fieldname: valueAccessor
+        description: How value is read/written
+      - fieldname: changeNotification
+        description: How changes are communicated
+      - fieldname: validationIntegration
+        description: How validation errors are displayed
+      - fieldname: dirtyTracking
+        description: How dirty state is tracked
+      - fieldname: undoRedoSupport
+        description: Whether edits can be undone and redone
+  csev-form:
+    fields:
+      - fieldname: visualChanges
+        description: How appearance changes in this state
+      - fieldname: colorOverrides
+        description: Colors replaced in this state
+      - fieldname: opacityChange
+        description: Opacity applied in this state
+      - fieldname: iconChange
+        description: Icon swapped in this state
+      - fieldname: textChange
+        description: Label or text shown in this state
+  cseb-form:
+    fields:
+      - fieldname: interactionChanges
+        description: How interactions change
+      - fieldname: accessibilityState
+        description: Screen reader announcements
+  cset-form:
+    fields:
+      - fieldname: entryTrigger
+        description: What causes entry to this state
+      - fieldname: exitTrigger
+        description: What causes exit from this state
+      - fieldname: transitionAnimation
+        description: Animation played during the transition
+  cvev-form:
+    fields:
+      - fieldname: colorSchemeVariant
+        description: Color palette applied to this variant
+      - fieldname: borderVariant
+        description: Border style for this variant
+      - fieldname: elevationVariant
+        description: Shadow or elevation level
+  cveb-form:
+    fields:
+      - fieldname: behaviorDifferences
+        description: How behavior differs from the base component
+      - fieldname: useCaseDifferences
+        description: When to use this variant
+      - fieldname: implementationNote
+        description: How variant is implemented
+      - fieldname: flutterVariant
+        description: Corresponding Flutter variant
+  caeg-form:
+    fields:
+      - fieldname: actionResult
+        description: Expected outcome
+      - fieldname: authRequired
+        description: Requires authorization
+      - fieldname: authPermission
+        description: Required permission
+      - fieldname: confirmationRequired
+        description: Whether a confirmation prompt is shown
+      - fieldname: confirmationMessage
+        description: Text shown in the confirmation prompt
+  caee-form:
+    fields:
+      - fieldname: asyncBehavior
+        description: Loading state during async
+      - fieldname: errorHandling
+        description: What happens when the action fails
+      - fieldname: successFeedback
+        description: Confirmation shown on success
+  peprf-form:
+    fields:
+      - fieldname: bio
+        description: Brief biographical context
+      - fieldname: technicalProficiency
+        description: Beginner/Intermediate/Advanced — with context
+      - fieldname: accessibilityNeeds
+        description: Visual/Motor/Cognitive/None
+  pectx-form:
+    fields:
+      - fieldname: typicalUsage
+        description: "Frequency, duration, and primary activities"
+      - fieldname: primaryDevice
+        description: Desktop/Laptop/Tablet/Mobile
+      - fieldname: additionalDevices
+        description: Secondary devices used
+      - fieldname: workEnvironment
+        description: Office/Remote/Field/Hybrid
+  pends-form:
+    fields:
+      - fieldname: motivations
+        description: What drives their behavior
+      - fieldname: frustrationsWithCurrent
+        description: Issues with existing solutions
+      - fieldname: successCriteria
+        description: How they measure success
+      - fieldname: quote
+        description: A quote that captures their perspective
   plps-form:
     fields:
       - fieldname: defaultMarginTop
@@ -43609,220 +44360,6 @@ form-types:
         description: "Template version, e.g. 1.0"
       - fieldname: notes
         description: Design notes
-  erhaco-erro-form:
-    fields:
-      - fieldname: errorPhilosophy
-        description: "Prevention-first, graceful degradation, user empowerment"
-      - fieldname: errorToneOfVoice
-        description: "Friendly, professional, apologetic, neutral"
-      - fieldname: errorLanguageStyle
-        description: "Plain language, technical, user-focused"
-      - fieldname: blameAvoidance
-        description: "Never blame user, focus on solutions"
-  ehcc-form:
-    fields:
-      - fieldname: errorCategories
-        description: "Validation, network, server, permission, data"
-      - fieldname: errorSeverityLevels
-        description: "Critical, warning, info, success"
-      - fieldname: errorPriorityDisplay
-        description: "Most severe first, chronological, by field"
-  ehca-form:
-    fields:
-      - fieldname: errorAccessibility
-        description: "Screen reader announcements, ARIA live regions"
-      - fieldname: colorContrastCompliance
-        description: "WCAG AA, AAA for error states"
-      - fieldname: nonColorIndicators
-        description: "Icons, text, patterns for colorblind users"
-  ehco-form:
-    fields:
-      - fieldname: errorLocalization
-        description: "All messages localized, fallback language"
-      - fieldname: dynamicContentHandling
-        description: How dynamic values are inserted into messages
-      - fieldname: errorTrackingApproach
-        description: "Analytics for user errors, trend analysis"
-      - fieldname: userFrustrationDetection
-        description: "Rage click detection, repeated errors"
-  vafe-vali-form:
-    fields:
-      - fieldname: validationTiming
-        description: "Real-time, on-blur, on-submit, debounced"
-      - fieldname: debounceDelay
-        description: Milliseconds before validation triggers
-      - fieldname: validationSequence
-        description: "Field-by-field, all-at-once, progressive"
-  vafepl-form:
-    fields:
-      - fieldname: errorMessagePlacement
-        description: "Inline below field, above field, tooltip, summary"
-      - fieldname: summaryPosition
-        description: "Top of form, bottom of form, modal"
-      - fieldname: fieldHighlighting
-        description: "Border color, background color, icon"
-      - fieldname: fieldErrorIcon
-        description: Icon displayed on invalid fields
-      - fieldname: fieldErrorIconPosition
-        description: "Leading, trailing, inside field, outside"
-  vafeme-form:
-    fields:
-      - fieldname: messageFormat
-        description: "Text only, icon + text, structured"
-      - fieldname: maxMessageLength
-        description: Character limit for inline messages
-      - fieldname: multipleErrorsDisplay
-        description: "First only, all, expandable list"
-      - fieldname: errorPersistence
-        description: "Until fixed, until field accessed, timed"
-  vafegu-form:
-    fields:
-      - fieldname: showRequirements
-        description: Display field requirements before error
-      - fieldname: showSuggestions
-        description: Suggest corrections for common errors
-      - fieldname: showExamples
-        description: Show example valid input
-  vafebe-form:
-    fields:
-      - fieldname: errorAnimation
-        description: "Shake, fade-in, bounce, none"
-      - fieldname: clearAnimation
-        description: Animation when error is resolved
-      - fieldname: scrollToError
-        description: Auto-scroll to first error on submit
-      - fieldname: focusOnError
-        description: Move focus to first invalid field
-  syerdi-syst-form:
-    fields:
-      - fieldname: networkErrorHandling
-        description: How connectivity issues are displayed
-      - fieldname: systemErrorDisplayMethod
-        description: "Modal, snackbar, banner, full-page"
-      - fieldname: gracefulDegradation
-        description: How features degrade on partial failure
-  sedet-form:
-    fields:
-      - fieldname: serverErrorHandling
-        description: How 5xx errors are presented
-      - fieldname: timeoutHandling
-        description: How request timeouts are displayed
-      - fieldname: authenticationErrorHandling
-        description: "Session expired, unauthorized"
-      - fieldname: permissionErrorHandling
-        description: Forbidden access display
-      - fieldname: maintenanceModeHandling
-        description: Scheduled downtime display
-  sedm-form:
-    fields:
-      - fieldname: errorModalStyle
-        description: Dialog design for error modals
-      - fieldname: snackbarPosition
-        description: "Bottom, top, bottom-left, top-right"
-      - fieldname: snackbarDuration
-        description: Auto-dismiss time or persistent
-      - fieldname: bannerPosition
-        description: "Top of page, top of content"
-      - fieldname: fullPageErrorTemplate
-        description: "Design for full-page errors (500, 503)"
-  sedc-form:
-    fields:
-      - fieldname: showTechnicalDetails
-        description: "Display error codes, request IDs"
-      - fieldname: showRetryOption
-        description: Offer a retry button on the error
-      - fieldname: showContactSupport
-        description: Show a link to contact support
-      - fieldname: showStatusPageLink
-        description: Show a link to the service status page
-      - fieldname: offlineModeMessage
-        description: Message when app detects offline state
-  sedf-form:
-    fields:
-      - fieldname: cachedDataFallback
-        description: Show stale data with indicator
-      - fieldname: retryStrategy
-        description: Automatic retry with backoff
-      - fieldname: maxRetryAttempts
-        description: Number of retries before giving up
-      - fieldname: retryDelaySeconds
-        description: Seconds to wait between retries
-  seceh-form:
-    fields:
-      - fieldname: technicalDescription
-        description: Developer-facing description
-      - fieldname: suggestedAction
-        description: What user should do
-      - fieldname: retryable
-        description: Whether retry is likely to help
-      - fieldname: autoRetry
-        description: System automatically retries
-      - fieldname: displayMethod
-        description: How this error is displayed
-  seceo-form:
-    fields:
-      - fieldname: notifySupport
-        description: Auto-notify support team
-      - fieldname: logLevel
-        description: "Error, warning, info"
-  erre-reco-form:
-    fields:
-      - fieldname: formDataPreservation
-        description: How unsaved form data is preserved on error
-      - fieldname: sessionRecovery
-        description: How expired sessions are handled
-      - fieldname: supportContactMethod
-        description: "Chat, email, phone, ticket"
-  erdp-form:
-    fields:
-      - fieldname: draftAutoSave
-        description: Automatic draft saving before submission
-      - fieldname: draftSaveInterval
-        description: How often drafts are auto-saved
-      - fieldname: draftStorageMethod
-        description: "LocalStorage, IndexedDB, server-side"
-      - fieldname: draftRetentionPeriod
-        description: How long drafts are kept
-      - fieldname: draftRecoveryPrompt
-        description: How users are notified of recoverable drafts
-  errm-form:
-    fields:
-      - fieldname: automaticRetryEnabled
-        description: Whether failed operations are retried automatically
-      - fieldname: retryBackoffStrategy
-        description: "Exponential, linear, fixed"
-      - fieldname: maxAutomaticRetries
-        description: Maximum number of automatic retry attempts
-      - fieldname: manualRetryButton
-        description: Whether a user-triggered retry button is shown
-      - fieldname: retryButtonLabel
-        description: "Button text (e.g., \"Try Again\")"
-      - fieldname: retryFeedback
-        description: How retry attempts are indicated
-  ergr-form:
-    fields:
-      - fieldname: stepByStepRecovery
-        description: Guided recovery wizard
-      - fieldname: alternativeActions
-        description: What else user can do
-      - fieldname: skipOption
-        description: Allow skipping failed operation
-      - fieldname: cancelOption
-        description: Allow canceling and returning
-  ersc-form:
-    fields:
-      - fieldname: supportAvailability
-        description: When support is available
-      - fieldname: errorReportSubmission
-        description: Allow user to submit error report
-      - fieldname: includeDebugInfo
-        description: Include technical details in report
-  ersh-form:
-    fields:
-      - fieldname: reauthenticationFlow
-        description: "Inline login, redirect, modal"
-      - fieldname: preserveContextOnReauth
-        description: Return to original location after reauth
   usas-help-form:
     fields:
       - fieldname: helpPhilosophy
@@ -44113,522 +44650,6 @@ form-types:
         description: Description of any issues
       - fieldname: remediationPlan
         description: How issues will be fixed
-  rede-resp-form:
-    fields:
-      - fieldname: responsivePhilosophy
-        description: "Mobile-first, desktop-first, adaptive"
-      - fieldname: primaryTargetDevice
-        description: "Mobile phone, tablet, desktop"
-      - fieldname: deviceAssumptions
-        description: Assumptions about target devices
-      - fieldname: responsiveFramework
-        description: "LayoutBuilder, MediaQuery, responsive_framework"
-      - fieldname: breakpointPackage
-        description: "Custom, responsive_framework, flutter_screenutil"
-      - fieldname: orientationSupport
-        description: "Portrait only, landscape only, both"
-      - fieldname: responsiveTestingApproach
-        description: "Device lab, emulator matrix, golden tests"
-      - fieldname: targetDeviceMatrix
-        description: List of target devices for testing
-  bc-brea-form:
-    fields:
-      - fieldname: mobileMax
-        description: "Maximum width for mobile (e.g., 599)"
-      - fieldname: tabletMin
-        description: "Minimum width for tablet (e.g., 600)"
-      - fieldname: tabletMax
-        description: "Maximum width for tablet (e.g., 1023)"
-      - fieldname: desktopMin
-        description: "Minimum width for desktop (e.g., 1024)"
-      - fieldname: largeDesktopMin
-        description: "Minimum width for large screens (e.g., 1440)"
-      - fieldname: watchMax
-        description: Maximum width for wearables
-      - fieldname: foldableBreakpoint
-        description: Breakpoint for foldable devices
-      - fieldname: customBreakpoints
-        description: Additional app-specific breakpoints
-      - fieldname: breakpointUnit
-        description: "Logical pixels, device pixels"
-      - fieldname: densityHandling
-        description: How pixel density is handled
-  brenla-form:
-    fields:
-      - fieldname: columns
-        description: Number of grid columns at this breakpoint
-      - fieldname: gutterWidth
-        description: Space between columns
-      - fieldname: marginWidth
-        description: Edge margins
-      - fieldname: layoutBehavior
-        description: How layout changes at this breakpoint
-  brensc-form:
-    fields:
-      - fieldname: navigationPattern
-        description: "Bottom nav, drawer, rail, tabs"
-      - fieldname: typographyScale
-        description: Font size scaling factor
-      - fieldname: spacingScale
-        description: Spacing multiplier
-      - fieldname: iconScale
-        description: Icon size scaling factor
-  rebe-layo-form:
-    fields:
-      - fieldname: mobileColumnLayout
-        description: "Single column, stacked"
-      - fieldname: tabletColumnLayout
-        description: "2-column, master-detail"
-      - fieldname: desktopColumnLayout
-        description: "3-column, sidebar + main"
-  rebena-form:
-    fields:
-      - fieldname: mobileNavigation
-        description: "Bottom nav bar, hamburger drawer"
-      - fieldname: tabletNavigation
-        description: "Navigation rail, collapsible drawer"
-      - fieldname: desktopNavigation
-        description: "Full sidebar, top navigation"
-  rebevi-form:
-    fields:
-      - fieldname: mobileHiddenElements
-        description: Elements hidden on mobile
-      - fieldname: tabletHiddenElements
-        description: Elements hidden on tablet
-      - fieldname: desktopOnlyElements
-        description: Elements shown only on desktop
-  rebeto-form:
-    fields:
-      - fieldname: touchTargetMinSize
-        description: Minimum touch target (48dp recommended)
-      - fieldname: hoverEffects
-        description: When to show hover effects
-      - fieldname: gesturePriority
-        description: "Swipe, long-press on touch devices"
-  rebeco-form:
-    fields:
-      - fieldname: contentReflowStrategy
-        description: How content reflows across breakpoints
-      - fieldname: imageScaling
-        description: How images scale responsively
-      - fieldname: tableResponsiveness
-        description: "Horizontal scroll, cards, hide columns"
-      - fieldname: formLayout
-        description: "How forms adapt: single column, multi-column"
-  uico-comp-form:
-    fields:
-      - fieldname: designSystemName
-        description: "Name of the design system (e.g., \"Acme Design System\")"
-      - fieldname: designSystemVersion
-        description: "Semantic version of the design system (e.g., \"2.1.0\")"
-      - fieldname: basedOnFramework
-        description: "Material Design 3, Cupertino, Custom"
-      - fieldname: tomFlutterUiIntegration
-        description: Uses tom_flutter_ui component library
-  ucvl-form:
-    fields:
-      - fieldname: visualLanguage
-        description: "Clean, playful, professional, minimal"
-      - fieldname: brandAlignment
-        description: How design aligns with brand guidelines
-      - fieldname: motionPrinciples
-        description: "Animation philosophy: subtle, expressive, functional"
-  ucca-form:
-    fields:
-      - fieldname: componentGranularity
-        description: "Atomic design levels: atoms, molecules, organisms"
-      - fieldname: componentNaming
-        description: "PascalCase, kebab-case, prefix rules"
-      - fieldname: componentDocumentation
-        description: "Storybook, living style guide, doc site"
-  uicocu-form:
-    fields:
-      - fieldname: extensionModel
-        description: How components can be extended or themed
-      - fieldname: themingApproach
-        description: "Token-based, widget-level, theme data"
-      - fieldname: customizationBoundaries
-        description: What can vs. cannot be customized
-  colico-form:
-    fields:
-      - fieldname: secondaryColor
-        description: "Secondary brand colour hex value (e.g., \"#03DAC6\")"
-      - fieldname: tertiaryColor
-        description: "Tertiary accent colour hex value (e.g., \"#3700B3\")"
-      - fieldname: errorColor
-        description: "Colour for error states (e.g., \"#B00020\")"
-      - fieldname: warningColor
-        description: "Colour for warning states (e.g., \"#FF9800\")"
-      - fieldname: successColor
-        description: "Colour for success states (e.g., \"#4CAF50\")"
-      - fieldname: infoColor
-        description: "Colour for informational states (e.g., \"#2196F3\")"
-      - fieldname: surfaceColors
-        description: "Background, card, dialog surfaces"
-      - fieldname: colorTokenFormat
-        description: "CSS variables, Dart constants, theme data"
-  colity-form:
-    fields:
-      - fieldname: fontFamilySecondary
-        description: "Secondary typeface for accents (e.g., \"Roboto Slab\")"
-      - fieldname: fontFamilyMonospace
-        description: "Monospace typeface for code (e.g., \"JetBrains Mono\")"
-      - fieldname: typographyScale
-        description: "Material type scale, custom scale"
-      - fieldname: fontSizeUnit
-        description: "Logical pixels, rem, sp"
-  colisp-form:
-    fields:
-      - fieldname: spacingTokens
-        description: "xxs, xs, sm, md, lg, xl, xxl"
-      - fieldname: elevationLevels
-        description: Number of elevation levels
-      - fieldname: elevationImplementation
-        description: "Shadows, borders, color shifts"
-  colibo-form:
-    fields:
-      - fieldname: cornerRadiusScale
-        description: "Rounded levels: none, sm, md, lg, full"
-      - fieldname: borderStyleDefaults
-        description: "Default border width, style, and colour (e.g., \"1px solid outline\")"
-  colivi-form:
-    fields:
-      - fieldname: iconLibrary
-        description: "Material Icons, Cupertino, custom"
-      - fieldname: iconSizeScale
-        description: "Small, medium, large sizes"
-      - fieldname: animationDurations
-        description: "Fast, normal, slow durations"
-      - fieldname: animationCurves
-        description: "Easing curves: ease, easeInOut, custom"
-  uicoment-iden-form:
-    fields:
-      - fieldname: componentId
-        required: true
-        description: "Unique identifier (e.g., CMP-DTT-001)"
-      - fieldname: componentName
-        required: true
-        description: Human-readable name
-      - fieldname: componentFamily
-        description: "Button, Input, Table, Navigation, etc."
-      - fieldname: flutterWidgetBase
-        description: "Base Flutter widget (DataTable, TextField)"
-  ucep-form:
-    fields:
-      - fieldname: tomWrapperClass
-        description: "TomDataTable, TomTextField, etc."
-      - fieldname: purpose
-        required: true
-        description: What the component does
-      - fieldname: businessContext
-        description: Business scenarios where used
-      - fieldname: userGoals
-        description: What user accomplishes with this
-  ucec-form:
-    fields:
-      - fieldname: atomicLevel
-        description: "Atom, molecule, organism"
-      - fieldname: complexity
-        description: "Simple, moderate, complex"
-      - fieldname: reusability
-        description: "Generic, semi-generic, specialized"
-  uicoment-visu-form:
-    fields:
-      - fieldname: defaultAppearance
-        description: Visual description of default state
-      - fieldname: colorScheme
-        description: "Primary, secondary, surface colors used"
-      - fieldname: typography
-        description: Text styles used
-      - fieldname: iconography
-        description: Icons used and their placement
-  uced-form:
-    fields:
-      - fieldname: defaultWidth
-        description: Default width or width behavior
-      - fieldname: defaultHeight
-        description: Default height or height behavior
-      - fieldname: minDimensions
-        description: Smallest allowed size
-      - fieldname: maxDimensions
-        description: Largest allowed size
-  uces-form:
-    fields:
-      - fieldname: internalPadding
-        description: Padding inside the component
-      - fieldname: externalMargin
-        description: Margin around the component
-      - fieldname: contentSpacing
-        description: Spacing between internal elements
-  uicoensu-form:
-    fields:
-      - fieldname: borderStyle
-        description: "Solid, dashed, none"
-      - fieldname: cornerRadius
-        description: Rounding of component corners
-      - fieldname: elevation
-        description: Depth or z-level of the surface
-      - fieldname: shadowStyle
-        description: Drop shadow appearance
-  uicoment-inte-form:
-    fields:
-      - fieldname: tapBehavior
-        description: What happens on tap/click
-      - fieldname: longPressBehavior
-        description: What happens on long press
-      - fieldname: doubleTapBehavior
-        description: What happens on double tap
-      - fieldname: swipeBehavior
-        description: What happens on swipe gestures
-      - fieldname: dragBehavior
-        description: What happens on drag gestures
-      - fieldname: hoverBehavior
-  uceib-form:
-    fields:
-      - fieldname: focusBehavior
-        description: "Focus ring, highlight, navigation"
-      - fieldname: keyboardNavigation
-        description: "Tab order, arrow key behavior"
-      - fieldname: keyboardShortcuts
-        description: Key combinations the component handles
-  ucea-form:
-    fields:
-      - fieldname: entryAnimation
-        description: How the component appears
-      - fieldname: exitAnimation
-        description: How the component disappears
-      - fieldname: stateTransitions
-        description: Animation between states
-      - fieldname: feedbackAnimations
-        description: "Ripple, scale, color change"
-  uicoensc-form:
-    fields:
-      - fieldname: scrollBehavior
-        description: If component is scrollable
-      - fieldname: stickyBehavior
-        description: "Headers, columns that stick"
-  uicoment-resp-form:
-    fields:
-      - fieldname: mobileLayout
-        description: Layout on mobile (< 600dp)
-      - fieldname: tabletLayout
-        description: Layout on tablet (600-1024dp)
-      - fieldname: desktopLayout
-        description: "Layout on desktop (> 1024dp)"
-      - fieldname: breakpointBehavior
-        description: What changes at breakpoints
-      - fieldname: adaptiveContent
-        description: Content that appears/hides
-      - fieldname: touchTargets
-        description: Minimum touch target sizes
-      - fieldname: orientationBehavior
-        description: Portrait vs. landscape
-  uicoment-acce-form:
-    fields:
-      - fieldname: semanticRole
-        description: ARIA role or semantic meaning
-      - fieldname: screenReaderLabel
-        description: How screen readers announce
-      - fieldname: screenReaderHint
-        description: Additional context for screen readers
-      - fieldname: focusOrder
-        description: Tab order in context
-      - fieldname: ariaAttributes
-        description: Required ARIA attributes
-      - fieldname: colorContrastNotes
-        description: Contrast ratios and compliance notes
-      - fieldname: motionSensitivity
-        description: Reduced motion behavior
-      - fieldname: textScalingBehavior
-        description: How component responds to text scaling
-  uicoment-auth-form:
-    fields:
-      - fieldname: authBasePath
-        description: Base path for authorization lookup
-      - fieldname: authVisibilityBehavior
-        description: "Hidden, visible, conditionally visible"
-      - fieldname: authEnabledBehavior
-        description: "Disabled, enabled, conditionally enabled"
-      - fieldname: authReadonlyBehavior
-        description: Readonly state behavior
-      - fieldname: authActionControl
-        description: Which actions are auth-controlled
-      - fieldname: authFallbackBehavior
-        description: Behavior when auth unavailable
-      - fieldname: fourStateMapping
-        description: Mapping to TomAuthState four states
-  uicoment-reso-form:
-    fields:
-      - fieldname: resourceBasePath
-        description: Base path for resource lookup
-      - fieldname: labelResource
-        description: Message key (MSGKR registry) for label text
-      - fieldname: hintResource
-        description: Message key (MSGKR registry) for hint text
-      - fieldname: errorResource
-        description: Message key (MSGKR registry) for error messages
-      - fieldname: tooltipResource
-        description: Message key (MSGKR registry) for tooltip text
-      - fieldname: placeholderResource
-        description: Message key (MSGKR registry) for placeholder text
-      - fieldname: ariaLabelResource
-        description: Message key (MSGKR registry) for the ARIA label
-      - fieldname: iconResource
-        description: Resource key for icon selection
-      - fieldname: resourceFallbacks
-        description: Fallback behavior when resource missing
-  uicoment-data-form:
-    fields:
-      - fieldname: dataType
-        description: Type of data component displays/edits
-      - fieldname: bindingPattern
-        description: "Observable, form field, direct"
-      - fieldname: valueAccessor
-        description: How value is read/written
-      - fieldname: changeNotification
-        description: How changes are communicated
-      - fieldname: validationIntegration
-        description: How validation errors are displayed
-      - fieldname: dirtyTracking
-        description: How dirty state is tracked
-      - fieldname: undoRedoSupport
-        description: Whether edits can be undone and redone
-  csev-form:
-    fields:
-      - fieldname: visualChanges
-        description: How appearance changes in this state
-      - fieldname: colorOverrides
-        description: Colors replaced in this state
-      - fieldname: opacityChange
-        description: Opacity applied in this state
-      - fieldname: iconChange
-        description: Icon swapped in this state
-      - fieldname: textChange
-        description: Label or text shown in this state
-  cseb-form:
-    fields:
-      - fieldname: interactionChanges
-        description: How interactions change
-      - fieldname: accessibilityState
-        description: Screen reader announcements
-  cset-form:
-    fields:
-      - fieldname: entryTrigger
-        description: What causes entry to this state
-      - fieldname: exitTrigger
-        description: What causes exit from this state
-      - fieldname: transitionAnimation
-        description: Animation played during the transition
-  cvev-form:
-    fields:
-      - fieldname: colorSchemeVariant
-        description: Color palette applied to this variant
-      - fieldname: borderVariant
-        description: Border style for this variant
-      - fieldname: elevationVariant
-        description: Shadow or elevation level
-  cveb-form:
-    fields:
-      - fieldname: behaviorDifferences
-        description: How behavior differs from the base component
-      - fieldname: useCaseDifferences
-        description: When to use this variant
-      - fieldname: implementationNote
-        description: How variant is implemented
-      - fieldname: flutterVariant
-        description: Corresponding Flutter variant
-  caeg-form:
-    fields:
-      - fieldname: actionResult
-        description: Expected outcome
-      - fieldname: authRequired
-        description: Requires authorization
-      - fieldname: authPermission
-        description: Required permission
-      - fieldname: confirmationRequired
-        description: Whether a confirmation prompt is shown
-      - fieldname: confirmationMessage
-        description: Text shown in the confirmation prompt
-  caee-form:
-    fields:
-      - fieldname: asyncBehavior
-        description: Loading state during async
-      - fieldname: errorHandling
-        description: What happens when the action fails
-      - fieldname: successFeedback
-        description: Confirmation shown on success
-  mlar-mult-form:
-    fields:
-      - fieldname: supportedLanguages
-        description: "List of supported languages (e.g., en, de, fr, es)"
-      - fieldname: primaryLanguage
-        description: Default/fallback language
-      - fieldname: futureLanguages
-        description: Languages planned for future support
-      - fieldname: rtlLanguages
-        description: Right-to-left languages supported
-  lacose-lang-form:
-    fields:
-      - fieldname: pickerLocation
-        description: "Header, footer, settings, onboarding"
-      - fieldname: pickerStyle
-        description: "Dropdown, modal, full page"
-      - fieldname: languageDisplay
-        description: "Native names, English names, flags"
-      - fieldname: countryDisplay
-        description: How countries are displayed
-      - fieldname: searchable
-        description: Can user search languages/countries
-  lcsd-form:
-    fields:
-      - fieldname: defaultLanguage
-        description: How default language is determined
-      - fieldname: defaultCountry
-        description: How default country is determined
-      - fieldname: autoDetection
-        description: "Browser, OS, geo-IP detection"
-  lcsp-form:
-    fields:
-      - fieldname: persistenceMethod
-        description: "Cookie, localStorage, user profile"
-      - fieldname: crossDeviceSync
-        description: Sync preference across devices
-      - fieldname: anonymousPersistence
-        description: How preference persists for guests
-  lcsf-form:
-    fields:
-      - fieldname: localeFallbackBehavior
-        description: What happens when locale unavailable
-      - fieldname: partialLocalSupport
-        description: "UI in one locale, content in another"
-      - fieldname: missingTranslationDisplay
-        description: How missing translations are shown
-  lcsu-form:
-    fields:
-      - fieldname: languageSwitchBehavior
-        description: "Page reload, inline update"
-      - fieldname: confirmationRequired
-        description: Confirm before switching
-      - fieldname: contentRetention
-        description: What happens to in-progress content
-  slef-form:
-    fields:
-      - fieldname: textDirection
-        description: "LTR, RTL"
-      - fieldname: dateFormat
-        description: Preferred date format
-      - fieldname: numberFormat
-        description: "Decimal separator, thousand separator"
-      - fieldname: currency
-        description: Default currency for locale
-  suloenro-form:
-    fields:
-      - fieldname: launchPhase
-        description: When locale will be available
-      - fieldname: translationCoverage
-        description: Percentage translated
-      - fieldname: localeOwner
-        description: Person responsible for locale
   protot-prot-form:
     fields:
       - fieldname: prototypePurpose
@@ -44824,6 +44845,78 @@ form-types:
         description: Key insights from prototype
       - fieldname: futureReference
         description: What to preserve for future
+  mlar-mult-form:
+    fields:
+      - fieldname: supportedLanguages
+        description: "List of supported languages (e.g., en, de, fr, es)"
+      - fieldname: primaryLanguage
+        description: Default/fallback language
+      - fieldname: futureLanguages
+        description: Languages planned for future support
+      - fieldname: rtlLanguages
+        description: Right-to-left languages supported
+  lacose-lang-form:
+    fields:
+      - fieldname: pickerLocation
+        description: "Header, footer, settings, onboarding"
+      - fieldname: pickerStyle
+        description: "Dropdown, modal, full page"
+      - fieldname: languageDisplay
+        description: "Native names, English names, flags"
+      - fieldname: countryDisplay
+        description: How countries are displayed
+      - fieldname: searchable
+        description: Can user search languages/countries
+  lcsd-form:
+    fields:
+      - fieldname: defaultLanguage
+        description: How default language is determined
+      - fieldname: defaultCountry
+        description: How default country is determined
+      - fieldname: autoDetection
+        description: "Browser, OS, geo-IP detection"
+  lcsp-form:
+    fields:
+      - fieldname: persistenceMethod
+        description: "Cookie, localStorage, user profile"
+      - fieldname: crossDeviceSync
+        description: Sync preference across devices
+      - fieldname: anonymousPersistence
+        description: How preference persists for guests
+  lcsf-form:
+    fields:
+      - fieldname: localeFallbackBehavior
+        description: What happens when locale unavailable
+      - fieldname: partialLocalSupport
+        description: "UI in one locale, content in another"
+      - fieldname: missingTranslationDisplay
+        description: How missing translations are shown
+  lcsu-form:
+    fields:
+      - fieldname: languageSwitchBehavior
+        description: "Page reload, inline update"
+      - fieldname: confirmationRequired
+        description: Confirm before switching
+      - fieldname: contentRetention
+        description: What happens to in-progress content
+  slef-form:
+    fields:
+      - fieldname: textDirection
+        description: "LTR, RTL"
+      - fieldname: dateFormat
+        description: Preferred date format
+      - fieldname: numberFormat
+        description: "Decimal separator, thousand separator"
+      - fieldname: currency
+        description: Default currency for locale
+  suloenro-form:
+    fields:
+      - fieldname: launchPhase
+        description: When locale will be available
+      - fieldname: translationCoverage
+        description: Percentage translated
+      - fieldname: localeOwner
+        description: Person responsible for locale
   syqg-gove-form:
     fields:
       - fieldname: qualityApproach

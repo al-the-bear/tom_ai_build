@@ -1,7 +1,7 @@
 /// SBP.11 — Solution Architecture & Technology.
 ///
 /// Consolidates the technical solution framing. Split (§4.4 of
-/// `codespecs_followup_split.md`) into two concerns:
+/// `codespecs_mapping.md` §8.3) into two concerns:
 ///
 ///  * [TechnicalFrameworkConcept] (`technicalFramework`) — the technology
 ///    framework and platform concept. This is the CodeSpecs-relevant subtree:
@@ -52,7 +52,7 @@ class SolutionArchitectureAndTechnology extends DocSpecsSection {
 /// Groups the descriptive-architecture concern that is **not** CodeSpecs-
 /// generated: the component-reuse rationale (component catalogue, third-party
 /// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
-/// generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+/// generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
 /// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
 /// CodeSpecs subtree.
 @StandardReferences(

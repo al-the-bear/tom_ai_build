@@ -28,7 +28,7 @@ enum SpecValidationCode {
 
   /// A `@OneOf` container carries a case-bound subsection that the chosen
   /// discriminator value does not select, or more than one subsection for the
-  /// chosen case (`codespecs_coverage_gaps.md` §4.4, csmb6).
+  /// chosen case (`codespecs_mapping.md` §8.2, csmb6).
   oneOfCaseMismatch,
 }
 
@@ -136,7 +136,7 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
   // A concrete `@OneOf` container must carry ONLY the subsections whose `@Case`
   // matches the chosen discriminator value (plus the common, un-`@Case`d ones),
   // and at most one case subsection for the chosen case
-  // (`codespecs_coverage_gaps.md` §4.4). The static tier (validator.dart) has
+  // (`codespecs_mapping.md` §8.2). The static tier (validator.dart) has
   // already checked the annotations are well-formed; here we check a document's
   // *values* against them.
   errors.addAll(_validateOneOfInstances(refl, doc));

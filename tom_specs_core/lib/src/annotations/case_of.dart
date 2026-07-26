@@ -1,5 +1,5 @@
 /// Binds one complex-subsection field of a [OneOf] container to a discriminator
-/// value (`codespecs_coverage_gaps.md` §4.3, csm-7-4/csmb6).
+/// value (`codespecs_mapping.md` §8.2, csm-7-4/csmb6).
 ///
 /// `@Case` is **repeatable**: a subsection that applies to several kinds carries
 /// one `@Case` per discriminator constant. A subsection field with **no**

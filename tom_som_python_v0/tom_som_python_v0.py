@@ -285,7 +285,7 @@ class AccessControlModel(SomNode):
     """SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
     
     Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
-    authorization seed (§4.5 of `codespecs_followup_split.md`): user management,
+    authorization seed (§8.3 of `codespecs_mapping.md`): user management,
     authentication, resource protection, authorization, and the role matrix.
     The container itself carries no `@CodeSpecKind` — the mapped parts live on
     the child sections (e.g. `authentication`) — but the whole subtree is the
@@ -2292,7 +2292,7 @@ class AuthorizationComplianceFollowUp(SomNode):
     
     Groups the UI authorization-compliance concern (how the interface adapts to
     roles and permissions as a compliance obligation), a **follow-up** (CMP)
-    rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+    rather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).
     Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
     """
     def __init__(self, doc, path):
@@ -13040,7 +13040,7 @@ class ErrorCodeRegistry(SomNode):
     The single, shared **application error-code vocabulary** — the spine that
     CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
     reference so they never invent divergent code strings (csm5 cross-cutting
-    finding #2; `codespecs_coverage_gaps.md` §3.1).
+    finding #2; `codespecs_mapping.md` §5.21).
     
     This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
     *system/network/display* error catalogue (HTTP status, presentation,
@@ -13460,7 +13460,7 @@ class ExperienceCodeSpecs(SomNode):
     """SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
     
     Groups the UI concerns CodeSpecs generates (§4.6 of
-    `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+    `codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
     CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
     cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
     reusable UI component library (CE-EL/CE-LO). The container itself carries no
@@ -13519,7 +13519,7 @@ class ExperienceDesignFollowUp(SomNode):
     Groups the design / documentation concerns that are **follow-up** (design
     vision, print & export layout, user assistance, accessibility, prototype,
     wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
-    `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+    `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree
     is generation-owned-out. Accessibility's operational (OPS) facet is a
     secondary concern refined by the follow-up taxonomy pass.
     """
@@ -13575,7 +13575,7 @@ class ExperienceLocalizationFollowUp(SomNode):
     """SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
     
     Groups the internationalization concern, a **follow-up** (L10N) rather than
-    CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+    CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no
     `@CodeSpecKind` — the whole subtree is generation-owned-out.
     """
     def __init__(self, doc, path):
@@ -18647,7 +18647,7 @@ class MessageKeyRegistry(SomNode):
     as unvalidated free text, so the "author once, reference everywhere"
     invariant could not hold and the same string could diverge between the
     screen element, the validation message and the error copy (csm5 cross-cutting
-    finding #1; `codespecs_coverage_gaps.md` §3.3).
+    finding #1; `codespecs_mapping.md` §5.21).
     
     Each [MessageKeyEntry] declares a stable message key, its default (base
     locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
@@ -25353,7 +25353,7 @@ class Requirements(SomNode):
     
     The framework-uncovered NFR follow-up sub-areas (localization,
     information-for-use, training) are grouped out of the seed subtree into
-    [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+    [RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed
     stays purely CodeSpecs-relevant.
     """
     def __init__(self, doc, path):
@@ -25382,7 +25382,7 @@ class RequirementsFollowUp(SomNode):
     Groups the framework-uncovered non-functional requirement sub-areas that are
     **follow-up** concerns (documentation, training, localization) rather than
     CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
-    is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+    is generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
     parent [Requirements] seed subtree purely CodeSpecs-relevant:
     
      * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
@@ -27818,7 +27818,7 @@ class SecurityComplianceFollowUp(SomNode):
     
     Groups the compliance-framework concern, a **follow-up** (compliance
     governance) rather than CodeSpecs-generated behaviour (§4.5 of
-    `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole
+    `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
     subtree is generation-owned-out.
     """
     def __init__(self, doc, path):
@@ -27997,7 +27997,7 @@ class SecurityOperationsFollowUp(SomNode):
     
     Groups the operational security concerns that are **follow-up** (key
     management and audit/logging operations), not CodeSpecs-generated behaviour
-    (§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the
+    (§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the
     whole subtree is generation-owned-out.
     """
     def __init__(self, doc, path):
@@ -29257,7 +29257,7 @@ class SolutionArchitectureFollowUp(SomNode):
     Groups the descriptive-architecture concern that is **not** CodeSpecs-
     generated: the component-reuse rationale (component catalogue, third-party
     and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
-    generation-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the
+    generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
     sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
     CodeSpecs subtree.
     """

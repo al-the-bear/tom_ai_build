@@ -1,7 +1,7 @@
 /// The follow-up taxonomy tag for a SOM follow-up subtree
-/// (`codespecs_followup_split.md` §3 + §5).
+/// (`codespecs_mapping.md` §8.3).
 ///
-/// The CodeSpecs split (`codespecs_followup_split.md` §3) partitions each SBP
+/// The CodeSpecs split (`codespecs_mapping.md` §8.3) partitions each SBP
 /// section into a **purely-CodeSpecs subtree** (which Phase 4 realises as
 /// generated code) and one-or-more **purely follow-up subtrees** — the
 /// non-CodeSpecs work that a system-creation process still owns (documentation,
@@ -43,7 +43,7 @@ class FollowUpKind {
   const FollowUpKind(this.processes, {this.note});
 }
 
-/// The follow-up-taxonomy vocabulary (`codespecs_followup_split.md` §3).
+/// The follow-up-taxonomy vocabulary (`codespecs_mapping.md` §8.3).
 ///
 /// The taxonomy is explicitly **extensible**: §3 lists the original eight codes
 /// (DOC/TRN/ORG/OPS/CAP/CMP/MIG/L10N); [acc] is an admissible extension for the

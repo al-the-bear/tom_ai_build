@@ -150,7 +150,7 @@ to pixel-perfect designs with exact typography and spacing.
 /// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
 ///
 /// Groups the UI concerns CodeSpecs generates (§4.6 of
-/// `codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
+/// `codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
 /// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
 /// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
 /// reusable UI component library (CE-EL/CE-LO). The container itself carries no
@@ -203,7 +203,7 @@ class ExperienceCodeSpecs extends DocSpecsSection {
 /// Groups the design / documentation concerns that are **follow-up** (design
 /// vision, print & export layout, user assistance, accessibility, prototype,
 /// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
-/// `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree
+/// `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree
 /// is generation-owned-out. Accessibility's operational (OPS) facet is a
 /// secondary concern refined by the follow-up taxonomy pass.
 @StandardReferences(
@@ -255,7 +255,7 @@ class ExperienceDesignFollowUp extends DocSpecsSection {
 /// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
 ///
 /// Groups the internationalization concern, a **follow-up** (L10N) rather than
-/// CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no
+/// CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no
 /// `@CodeSpecKind` — the whole subtree is generation-owned-out.
 @StandardReferences(
   [
@@ -284,7 +284,7 @@ class ExperienceLocalizationFollowUp extends DocSpecsSection {
 ///
 /// Groups the UI authorization-compliance concern (how the interface adapts to
 /// roles and permissions as a compliance obligation), a **follow-up** (CMP)
-/// rather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).
+/// rather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).
 /// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
 @StandardReferences(
   [

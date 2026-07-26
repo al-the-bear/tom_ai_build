@@ -18746,7 +18746,7 @@ void buildD00SolutionBlueprintChildren(som::SomMetaNode& parent, std::vector<std
         n.hasSerializationOrder = true;
         n.serializationOrder = 9;
         n.docComment = "SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.";
-        n.classDocComment = "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed\nstays purely CodeSpecs-relevant.";
+        n.classDocComment = "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed\nstays purely CodeSpecs-relevant.";
       },
       buildRequirementsChildren);
     parent.addChild(std::move(n));
@@ -19509,7 +19509,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.hasSerializationOrder = true;
         n.serializationOrder = 15;
         n.docComment = "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).";
-        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
       },
       buildErrorCodeRegistryChildren);
     parent.addChild(std::move(n));
@@ -19541,7 +19541,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.hasSerializationOrder = true;
         n.serializationOrder = 17;
         n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -21575,7 +21575,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.serializationOrder = 3;
         n.comment = "locus: shared — CE-ER";
         n.docComment = "Error code registry — CE-ER shared error-code vocabulary.";
-        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
       },
       buildErrorCodeRegistryChildren);
     parent.addChild(std::move(n));
@@ -21609,7 +21609,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.serializationOrder = 5;
         n.comment = "locus: shared — CE-TX";
         n.docComment = "Message key registry — CE-TX author-copy-once keys, shared.";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -21662,7 +21662,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.serializationOrder = 8;
         n.comment = "locus: server — CE-AZ";
         n.docComment = "Access control model — CE-AZ authorization/identity seed.";
-        n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
+        n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
       },
       buildAccessControlModelChildren);
     parent.addChild(std::move(n));
@@ -21697,7 +21697,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.serializationOrder = 10;
         n.comment = "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER";
         n.docComment = "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.";
       },
       buildExperienceCodeSpecsChildren);
     parent.addChild(std::move(n));
@@ -33481,7 +33481,7 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_followup_split.md`): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.";
       },
       buildExperienceCodeSpecsChildren);
     parent.addChild(std::move(n));
@@ -33497,7 +33497,7 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 2;
         n.docComment = "10.2. Experience Design — DOC follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.";
       },
       buildExperienceDesignFollowUpChildren);
     parent.addChild(std::move(n));
@@ -33513,7 +33513,7 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 3;
         n.docComment = "10.3. Experience Localization — L10N follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.";
       },
       buildExperienceLocalizationFollowUpChildren);
     parent.addChild(std::move(n));
@@ -33529,7 +33529,7 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 4;
         n.docComment = "10.4. Authorization Compliance — CMP follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§4.6 of `codespecs_followup_split.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.";
       },
       buildAuthorizationComplianceFollowUpChildren);
     parent.addChild(std::move(n));
@@ -39681,7 +39681,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 6;
         n.docComment = "7.6. Error Code Registry.";
-        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_coverage_gaps.md` §3.1).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
+        n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
       },
       buildErrorCodeRegistryChildren);
     parent.addChild(std::move(n));
@@ -39713,7 +39713,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 8;
         n.docComment = "7.8. Message Key Registry.";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_coverage_gaps.md` §3.3).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -63235,7 +63235,7 @@ void buildRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.";
-        n.classDocComment = "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)";
+        n.classDocComment = "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)";
       },
       buildRequirementsFollowUpChildren);
     parent.addChild(std::move(n));
@@ -68652,7 +68652,7 @@ void buildSecurityAndAccessModelChildren(som::SomMetaNode& parent, std::vector<s
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§4.5 of `codespecs_followup_split.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
+        n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
       },
       buildAccessControlModelChildren);
     parent.addChild(std::move(n));
@@ -68668,7 +68668,7 @@ void buildSecurityAndAccessModelChildren(som::SomMetaNode& parent, std::vector<s
         n.hasSerializationOrder = true;
         n.serializationOrder = 2;
         n.docComment = "9.2. Security Operations — OPS follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§4.5 of `codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.";
+        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.";
       },
       buildSecurityOperationsFollowUpChildren);
     parent.addChild(std::move(n));
@@ -68684,7 +68684,7 @@ void buildSecurityAndAccessModelChildren(som::SomMetaNode& parent, std::vector<s
         n.hasSerializationOrder = true;
         n.serializationOrder = 3;
         n.docComment = "9.3. Compliance — CMP follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_followup_split.md`). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.";
+        n.classDocComment = "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.";
       },
       buildSecurityComplianceFollowUpChildren);
     parent.addChild(std::move(n));
@@ -72415,7 +72415,7 @@ void buildSolutionArchitectureAndTechnologyChildren(som::SomMetaNode& parent, st
         n.hasSerializationOrder = true;
         n.serializationOrder = 2;
         n.docComment = "Architecture / component-reuse DOC follow-up subtree.";
-        n.classDocComment = "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§4.4 of `codespecs_followup_split.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.";
+        n.classDocComment = "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§8.3 of `codespecs_mapping.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.";
       },
       buildSolutionArchitectureFollowUpChildren);
     parent.addChild(std::move(n));

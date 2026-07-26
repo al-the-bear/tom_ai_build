@@ -827,7 +827,7 @@ void _validateStructuralInvariants(
   // alternatives carries `@OneOf(discriminator: '<formField>')`; each
   // alternative complex-subsection field carries one or more `@Case(<const>)`
   // bindings; un-@Case'd subsections are *common* (present for every case).
-  // The static tier checks (`codespecs_coverage_gaps.md` §4.4):
+  // The static tier checks (`codespecs_mapping.md` §8.2):
   //   (i)   the discriminator resolves to a `@Form` field of the container
   //         whose type is a model enum;
   //   (ii)  every `@Case` value is a constant of that discriminator enum;

@@ -32,7 +32,7 @@ import 'experience_and_interface_design.dart'
 ///
 /// The framework-uncovered NFR follow-up sub-areas (localization,
 /// information-for-use, training) are grouped out of the seed subtree into
-/// [RequirementsFollowUp] (§4.3 of `codespecs_followup_split.md`) so the seed
+/// [RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed
 /// stays purely CodeSpecs-relevant.
 @StandardReferences(
   [
@@ -62,7 +62,7 @@ class Requirements extends DocSpecsSection {
 /// Groups the framework-uncovered non-functional requirement sub-areas that are
 /// **follow-up** concerns (documentation, training, localization) rather than
 /// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
-/// is generation-owned-out (§4.3 of `codespecs_followup_split.md`), keeping the
+/// is generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
 /// parent [Requirements] seed subtree purely CodeSpecs-relevant:
 ///
 ///  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)

@@ -4440,7 +4440,7 @@ class DomainEnumValueEntry extends DocSpecsSection {
 /// The single, shared **application error-code vocabulary** — the spine that
 /// CE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all
 /// reference so they never invent divergent code strings (csm5 cross-cutting
-/// finding #2; `codespecs_coverage_gaps.md` §3.1).
+/// finding #2; `codespecs_mapping.md` §5.21).
 ///
 /// This is distinct from D09's `SystemErrorCodeEntry`, which is framed as a
 /// *system/network/display* error catalogue (HTTP status, presentation,
@@ -4695,7 +4695,7 @@ class ResultFieldDetailEntry extends DocSpecsSection {
 /// as unvalidated free text, so the "author once, reference everywhere"
 /// invariant could not hold and the same string could diverge between the
 /// screen element, the validation message and the error copy (csm5 cross-cutting
-/// finding #1; `codespecs_coverage_gaps.md` §3.3).
+/// finding #1; `codespecs_mapping.md` §5.21).
 ///
 /// Each [MessageKeyEntry] declares a stable message key, its default (base
 /// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
