@@ -16,7 +16,7 @@ include: package:lints/recommended.yaml
 # YRD5: every model class extends `DocSpecsSection`, whose stored `content`
 # field each section class re-declares (with @override) to carry its own
 # @Form/@ContentType annotations. Field-over-field override is the deliberate
-# design (docspecs_section_model_decisions.md §4), so the lint is disabled.
+# design (doc/som_mapping.md §2.2), so the lint is disabled.
 linter:
   rules:
     overridden_fields: false

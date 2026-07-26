@@ -21,8 +21,9 @@ derivation rules (`tom_specs_clitool/doc/comments_annotations_rules.md`)
 describe the one-time historical migration campaign and are non-normative.
 
 **Design authority.** This document describes the **decided target state**
-fixated in `_ai/quests/tom_specs/headline_id_storage_decisions.md` and
-`_ai/quests/tom_specs/docspecs_section_model_decisions.md`. Parts that are not
+fixated in `_ai/quests/tom_specs/headline_id_storage_decisions.md`; the
+model-authoring rules that follow from it are stated in
+`_ai/quests/tom_specs/tom_specs_som_guidelines.md`. Parts that are not
 yet implemented are marked with a status tag:
 
 | Tag | Meaning |
@@ -183,7 +184,7 @@ error.
 
 ### 2.2 `DocSpecsSection` base class *(IMPLEMENTED — YRD5)*
 
-Per `docspecs_section_model_decisions.md` §4, the model is refactored so that:
+The model is structured so that:
 
 - A `DocSpecsSection` class holds **headline, id, content, an optional
   `codeSpec` forward link, and an optional parsed `DocSpecsForm form`** —

@@ -1,6 +1,6 @@
 /// The universal section base type of the TomSpecs object model (YRD5).
 ///
-/// Per `docspecs_section_model_decisions.md` §4, every section of a DocSpecs
+/// Per `tom_specs_model/doc/som_mapping.md` §2.2, every section of a DocSpecs
 /// document follows one structural shape — headline (with an `<!--[ID]-->`
 /// comment), optional body content, subsections. `DocSpecsSection` is the
 /// object-model representation of the *simple* case: a section with no
