@@ -10,20 +10,20 @@ It consolidates and **supersedes**:
 
 - `_ai/quests/tom_specs/som_document_formats_redesign.md` (DR1 — byte-level
   md/yaml format, schema generation, embedded validator),
-- `tom_ai/ai_build/tom_som_conformance/som_file_mapping.md` (member-by-member
+- `som_file_mapping.md` (member-by-member
   mapping semantics),
 - `tom_ai/ai_build/tom_specs_model/doc/specs_model_outliner.md` §6–§7 (model
   design rules and annotation semantics; the outliner doc keeps only the
   outliner *tool* rendering specification),
 
 all three now reduced to redirect stubs. The doc-comment → annotation
-derivation rules (`tom_specs_clitool/doc/comments_annotations_rules.md`)
+derivation rules (`comments_annotations_rules.md`)
 describe the one-time historical migration campaign and are non-normative.
 
 **Design authority.** This document describes the **decided target state**
 fixated in `_ai/quests/tom_specs/headline_id_storage_decisions.md`; the
 model-authoring rules that follow from it are stated in
-`_ai/quests/tom_specs/tom_specs_som_guidelines.md`. Parts that are not
+`tom_specs_som_guidelines.md`. Parts that are not
 yet implemented are marked with a status tag:
 
 | Tag | Meaning |

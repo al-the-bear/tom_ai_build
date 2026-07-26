@@ -1,6 +1,6 @@
 /// In-memory representation of the exported TomSpecs class graph (the
 /// spec-model meta-data file produced by `tom_specs_clitool/bin/model_json.dart`,
-/// schema documented in `tom_specs_clitool/doc/spec_model_meta_schema.md`).
+/// schema documented in `tom_ai/ai_build/tom_specs_model/doc/spec_model_meta_schema.md`).
 ///
 /// The model is a *class graph*, not an expanded tree: each class appears once
 /// and field `elementType` / `type` references are followed on demand by a

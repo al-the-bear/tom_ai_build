@@ -4,7 +4,7 @@ description: >-
   scripting & LLM tooling: the D4rt scope registry, the restricted dcli file
   facade, the structural/lexical search index, and the Tom-Brain-backed RAG
   memory + agent substrate. Linked in-process by the TomSpecs editor; usable
-  headless (CLI/tests). See _ai/quests/tom_specs/d4rt_and_llm_tools.md.
+  headless (CLI/tests). See tom_ai/ai_build/tom_specs_model/doc/d4rt_and_llm_tools.md.
 version: 0.0.1
 # Internal engine consumed by path from the editor; depends by path on
 # unpublished sibling SOM packages. Never published to pub.dev.

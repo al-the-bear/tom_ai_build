@@ -11,10 +11,10 @@ any supported language from this file alone. It covers the config structure,
 how to run the generators, what is produced, how the generated code is used, and
 the versioning rules. Deeper references are linked inline.
 
-- Architecture & rationale: [`multiplatform_spec_model.md`](../../../_ai/quests/tom_specs/multiplatform_spec_model.md)
+- Architecture & rationale: [`multiplatform_spec_model.md`](../tom_specs_model/doc/multiplatform_spec_model.md)
   (the quest spec; section numbers below, e.g. *§2.2*, refer to it).
-- Config grammar in full: [`doc/spec_object_model_config.md`](doc/spec_object_model_config.md).
-- Toolchain inventory per language: [`doc/som_toolchains.md`](doc/som_toolchains.md).
+- Config grammar in full: [`../tom_specs_model/doc/spec_object_model_config.md`](../tom_specs_model/doc/spec_object_model_config.md).
+- Toolchain inventory per language: [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md).
 
 ---
 
@@ -39,7 +39,7 @@ runtime (`tom_som_<lang>_runtime`) and a generated typed facade
 (`tom_som_<lang>_v0`). `generate_som` has a typed emitter + generator for each;
 none is skipped. All nine build and run their generated `v0` projects against
 3079 classes and 13 document roots (see
-[`doc/som_toolchains.md`](doc/som_toolchains.md) for the per-language toolchain
+[`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md) for the per-language toolchain
 matrix). Dart and Python are the reference ports; the other seven were ported
 from them (quest decisions D32–D38).
 
@@ -49,7 +49,7 @@ from them (quest decisions D32–D38).
 
 The generator reads one top-level `tom-spec-object-model` block. The default
 config lives at [`tom_som.yaml`](tom_som.yaml) beside this README. Full grammar:
-[`doc/spec_object_model_config.md`](doc/spec_object_model_config.md); parser:
+[`../tom_specs_model/doc/spec_object_model_config.md`](../tom_specs_model/doc/spec_object_model_config.md); parser:
 [`lib/src/spec_object_model_config.dart`](lib/src/spec_object_model_config.dart).
 
 ```yaml
@@ -317,7 +317,7 @@ three access paths visibly converge across every language.
 | Generator + config | Complete; `dart run bin/generate_som.dart`, idempotent. |
 | Dart runtime + `v0` | Complete (reference); 3079 classes, 13 roots. |
 | Python runtime + `v0` | Complete (reference port); camelCase accessors preserved. |
-| Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3079 classes; see [`doc/som_toolchains.md`](doc/som_toolchains.md)). |
+| Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3079 classes; see [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)). |
 
 See the quest plan [`multiplatform_spec_model_plan.md`](../../../_ai/quests/tom_specs/multiplatform_spec_model_plan.md)
 and decisions [`multiplatform_spec_model_questions.md`](../../../_ai/quests/tom_specs/multiplatform_spec_model_questions.md)

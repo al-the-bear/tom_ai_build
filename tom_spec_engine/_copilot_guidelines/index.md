@@ -21,5 +21,5 @@
 
 ## Quick Reference
 
-See project README and `_ai/quests/tom_specs/d4rt_and_llm_tools.md` for the
+See project README and `../../tom_specs_model/doc/d4rt_and_llm_tools.md` for the
 engine's role behind the TomSpecs editor.

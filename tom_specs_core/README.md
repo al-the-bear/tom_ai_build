@@ -20,7 +20,7 @@ the meta-data file (`spec_model.meta.json`) that every language runtime loads.
 > [`tom_specs_model/doc/specs_model_outliner.md`](../tom_specs_model/doc/specs_model_outliner.md)
 > §4, §6, §7. The **comment → annotation derivation** rules (how each annotation
 > is inferred from a doc-comment convention) live in
-> [`tom_specs_clitool/doc/comments_annotations_rules.md`](../tom_specs_clitool/doc/comments_annotations_rules.md).
+> [`../tom_specs_model/doc/comments_annotations_rules.md`](../tom_specs_model/doc/comments_annotations_rules.md).
 > This README is the catalogue of *what each annotation is*; those documents own
 > *how it renders* and *how it is derived*.
 
@@ -152,7 +152,7 @@ maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
 ### DocSpecs ↔ CodeSpecs link (general, type-level)
 
 The general type-level half of the bidirectional DocSpecs↔CodeSpecs link
-(`_ai/quests/tom_specs/codespecs_mapping.md` §9.1/§9.5). It lives here because it
+(`../tom_specs_model/doc/codespecs_mapping.md` §9.1/§9.5). It lives here because it
 annotates SOM model classes — the concrete forward `codeSpec` member is a
 `DocSpecsSection` field, and the code-side back-trace `@DocSpec`/`DocRef` lives in
 `tom_code_specs`.

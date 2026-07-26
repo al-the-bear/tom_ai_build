@@ -1,5 +1,5 @@
 // Step 19 done-criterion: the worked examples in the agent guidelines
-// (`_ai/quests/tom_specs/guidelines_specification.md` §6) actually run against
+// (`tom_ai/ai_build/tom_specs_model/doc/guidelines_specification.md` §6) actually run against
 // the shipped engine surface.
 //
 // Each `const` source below is the **verbatim** script body printed in the
