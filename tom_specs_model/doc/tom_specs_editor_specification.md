@@ -483,17 +483,27 @@ The build is driven by the **`buildkit`** tool (N8), which can run **all** build
 - **T2 — Pure-projection validator invariant (was Q-N12, resolved by N12).** Add a §8.6 invariant that every Phase 3 projection root contains **no content absent from the Solution Blueprint**: every reachable content-bearing node must trace back via `@MapsTo`/`@DetailedIn` to a SBP section. The connect pass (§15.1) relies on this, so it only re-points references — never invents or drops content. The link mechanism is the existing `@MapsTo`/`@DetailedIn` annotations; a null target section is simply null in SBP too (one shared tree). (`tom_specs_clitool` validator.)
 - **T3 — Provider layer location (was Q-N13) — settled.** The provider abstraction (`LlmProvider`, `AgentSdkLlmProvider`, `AgentSdkSessionStrategy`/`AgentSdkSessionStore`) lives in `tom_core_agentic` (published, with the `tom_vscode_scripting_api` dependency); `tom_brain_*` consumes it and re-exports for back-compat, and the HTTP/stub providers remain in `tom_brain_substrate`. No `tom_assistant` consumer pins old `tom_brain` provider classes. The editor depends on `tom_core_agentic` for this layer.
 
-### 19.1 Realised consumption — generic runtime adoption (multiplatform plan item #15)
+### 19.1 Reviewer vs editor — scope boundary and runtime consumption
 
-> **Naming note (D90 / F3).** `tom_specs_reviewer` is the **read-only
-> tree/structure reviewer prototype** — it is **not** the canonical TomSpecs
-> editor. The canonical Flutter editor this specification describes is
-> **`tom_forge/tom_specs_editor`** (the live document controller + `AgentToolsModule`
-> + §8 tools), and `tom_spec_engine` links into *that* project. The paragraph
-> below documents the reviewer prototype's own generic-runtime adoption, not the
-> editor seed.
+> **Naming note.** `tom_specs_reviewer` is the **structure reviewer** over the
+> exported class graph: it browses the model as a tree and records structural
+> review observations, and is explicitly **not** a specification editor. The
+> canonical Flutter editor this specification describes is
+> **`tom_forge/tom_specs_editor`** (the live document controller +
+> `AgentToolsModule` + §8 tools), and `tom_spec_engine` links into *that*
+> project. The paragraph below describes the reviewer's own runtime
+> consumption, not the editor's.
 
-The early structure-reviewer prototype on disk (package **`tom_specs_reviewer`**) now consumes the **generic** meta-model access classes from the official `tom_som_dart_runtime` package (spec §7) instead of an in-tree copy. The prototype previously carried `lib/src/model/spec_model.dart`, a hand-maintained duplicate of the runtime's `SpecModel` / `SpecRoot` / `SpecClass` / `SpecField` / `FormFieldSpec` / `SpecFieldKind`. That duplicate is **deleted**; `pubspec.yaml` gains a `tom_som_dart_runtime` path dependency and the four import sites (`main.dart`, `start_page.dart`, `spec_tree.dart`, `test/widget_test.dart`) now import `package:tom_som_dart_runtime/tom_som_dart_runtime.dart`. Only the **generic** path is consumed; the typed `_v0` object model (`SolutionBlueprint` over a `SpecDocument`) remains an optional later adoption, taken up when the reviewer grows document *editing* (Stage D, §20). `flutter analyze` clean, 16 tests green (serial). See `multiplatform_spec_model.md` §10 (Relationship to the editor).
+`tom_specs_reviewer` consumes the **generic** meta-model access classes
+(`SpecModel` / `SpecRoot` / `SpecClass` / `SpecField` / `FormFieldSpec` /
+`SpecFieldKind`) from the official `tom_som_dart_runtime` package — see
+`multiplatform_spec_model.md` §7 *The fixed (non-generated) runtime* — rather
+than an in-tree copy, plus `tom_specs_core` for the canonical `CodeSpecPart`
+vocabulary it proposes mappings from. Only the **generic** path is consumed:
+the typed `_v0` object model (`SolutionBlueprint` over a `SpecDocument`) is a
+later adoption, taken up when the reviewer grows document *editing*.
+`multiplatform_spec_model.md` §10 *Relationship to the editor* is the authority
+for this arrangement.
 
 ---
 

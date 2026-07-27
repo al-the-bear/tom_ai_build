@@ -159,10 +159,10 @@ enforces these as hard errors:
 |---|-------|---------|
 | **(1)** | `String content` (plain) | The section's OWN content. The section id comes from the **class**, not the field. |
 | **(2)** | `String content` with `@Form` | The `content` value is the pre-form narrative, followed by the form's field members. |
-| **(3)** | `DocSpecsSection <name>` with a **field-level `@SectionId`** (optionally `@Form`) | An inline sub-section whose content IS this field (YRD5; formerly `String <name>`). A `@Reference` field is this shape (its id is required). |
+| **(3)** | `DocSpecsSection <name>` with a **field-level `@SectionId`** (optionally `@Form`) | An inline sub-section whose content IS this field (YRD5). A `@Reference` field is this shape (its id is required). |
 | **(4)** | `<SectionClass> field` | A sub-section class; the class owns the id (a field-level id may still override). |
 | **(5)** | `List<SectionClass>` with `@SectionId` + `@SectionIdPattern` | A list of sub-section classes; each element gets a per-instance id from the pattern. |
-| **(6)** | `List<DocSpecsSection>` with `@SectionId` + `@SectionIdPattern` (optionally `@Form`) | An inline list of content sub-sections (YRD5; formerly `List<String>`). |
+| **(6)** | `List<DocSpecsSection>` with `@SectionId` + `@SectionIdPattern` (optionally `@Form`) | An inline list of content sub-sections (YRD5). |
 
 Hard error cases:
 

@@ -150,11 +150,10 @@ being closed, and they constrain the whole design:
 | `tom_ai/ai_build/tom_specs_model/` | The **SOM**: 12 Phase 3 document roots `D01…D12` under the `D00SolutionBlueprint` master, plus the `D13CodeSpecsProjection` generation projection. The derivation *inputs*. |
 | `tom_core_kernel` / `_server` / `_flutter` / `_d4rt` / `tom_flutter_ui` | Direct source survey of the five core-family packages — the exact constructor/field/annotation signatures behind every §5 attribute-surface row. |
 
-**This document is self-contained.** The CodeSpecs analysis that used to live in
-eight separate `codespecs_*.md` notes is consolidated here; the per-part code
-basis, attribute surfaces, section→part coverage, closed-choice inventory,
-follow-up split and review decisions are all sections of this file. Remaining
-work is tracked as `csra*` quest todos (§10), not in prose.
+**This document is self-contained.** It is the single CodeSpecs document: the
+per-part code basis, attribute surfaces, section→part coverage, closed-choice
+inventory, follow-up split and review decisions are all sections of this file.
+Remaining work is tracked as `csra*` quest todos (§10), not in prose.
 
 ## 3. CodeSpecs in one paragraph
 
