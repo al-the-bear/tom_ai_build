@@ -195,7 +195,7 @@ block (`SpecObjectModelConfig`) defines:
   are emitted.
 
 The config file itself is documented in
-[`spec_object_model_config.md`](spec_object_model_config.md).
+[`som_generator_config.md`](som_generator_config.md).
 
 ### 5.2 Per-language outputs
 
@@ -246,7 +246,7 @@ name/type/description/hint/required), `@Headline`, `@ContentType`,
 `metaSchemaVersion: 1`.
 
 The meta-data schema is documented in
-[`spec_model_meta_schema.md`](spec_model_meta_schema.md)
+[`tom_specs_model_meta_schema.md`](tom_specs_model_meta_schema.md)
 and validated by `validateSpecModelMeta` (`spec_model_meta_validator.dart`).
 
 ### 5.4 Schemas

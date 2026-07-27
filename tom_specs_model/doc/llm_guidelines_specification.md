@@ -13,11 +13,11 @@ match the code — see the reconciliation record in §10.
 that briefs the in-editor LLM agent. It tells the model two things: *what it is*
 (a TomSpecs editor agent) and, above all, *how to create D4rt scripts that
 process the document*. It is loaded per-application as part of the AgentContext
-(§11 of [`d4rt_and_llm_tools.md`](d4rt_and_llm_tools.md)); selecting a different
+(§11 of [`llm_and_d4rt_tools.md`](llm_and_d4rt_tools.md)); selecting a different
 Forge application swaps in a different guidelines document, tool set, and scope
 profile.
 
-**Related specs:** [`d4rt_and_llm_tools.md`](d4rt_and_llm_tools.md) (the tooling
+**Related specs:** [`llm_and_d4rt_tools.md`](llm_and_d4rt_tools.md) (the tooling
 architecture — §5 document API, §6 search, §7 file facade, §8 tools, §9 memory,
 §10 agent), [`som_multiplatform_spec_model.md`](som_multiplatform_spec_model.md) (the
 `tom_som` document model the scripts manipulate),
@@ -271,7 +271,7 @@ not manage or refresh the index from a script.
 
 This guidelines document is **one application's** briefing (DocSpecs). Each Forge
 application (DocSpecs / CodeSpecs / Implementation) owns its own
-`guidelines_specification.md`, tool set, and scope profile. When the application
+`llm_guidelines_specification.md`, tool set, and scope profile. When the application
 changes, the agent's guidelines, available tools, and scripting scopes change
 with it — so do not assume capabilities beyond what the current context grants.
 

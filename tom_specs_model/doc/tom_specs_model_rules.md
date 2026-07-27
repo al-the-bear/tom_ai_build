@@ -1491,7 +1491,7 @@ class tree from any root), the **validator** (all §5 and §10.2 invariants), th
 generator** (`bin/generate_som.dart`). It runs against an embedded SDK summary,
 so no installed Dart SDK is required. Specs:
 `tom_specs_clitool/README.md`, `som_multiplatform_spec_model.md` (what it emits),
-`spec_object_model_config.md`, `spec_model_meta_schema.md`, `som_toolchains.md`.
+`som_generator_config.md`, `tom_specs_model_meta_schema.md`, `som_toolchains.md`.
 
 ### 12.2 Reviewer — `tom_specs_reviewer` (`tom_ai/ai_build/`)
 
@@ -1545,7 +1545,7 @@ runtime relationship).
 | **Mapping — object model ↔ md / yaml / schema, metadata tree, generated surfaces, parse+validate API, the multi-platform SOM component, packaging** | **`som_multiplatform_spec_model.md`** (the single mapping authority) |
 | Per-annotation reference | `tom_specs_core/README.md` |
 | Structural invariants (implementation) | `tom_specs_clitool/lib/src/validator.dart` (`validateStructuralInvariants()`) |
-| Generator config / meta-schema / toolchains | `spec_object_model_config.md`, `spec_model_meta_schema.md`, `som_toolchains.md` |
+| Generator config / meta-schema / toolchains | `som_generator_config.md`, `tom_specs_model_meta_schema.md`, `som_toolchains.md` |
 | DocSpecs format itself (schemas, section types, validation) | `_ai/quests/doc_specs/doc_specs_specification.md` |
 | DocSpecs ↔ CodeSpecs link, `@CodeSpecKind`, the parts catalogue | `codespecs_mapping.md` |
 | Creation process / phases | `tom_specs_project_flow.md` §PF-PHA, `overview.tom_specs.md` |

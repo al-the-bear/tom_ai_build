@@ -19,7 +19,7 @@ fast RAG memory that re-indexes after every prompt without extra LLM calls.
 editor; §8 tool surface, §7 agent integration),
 [`som_multiplatform_spec_model.md`](som_multiplatform_spec_model.md) (the
 `tom_som` document access API this scripting layer exposes),
-[`guidelines_specification.md`](guidelines_specification.md) (the agent
+[`llm_guidelines_specification.md`](llm_guidelines_specification.md) (the agent
 guidelines this layer briefs the model with, §11).
 
 ---
@@ -32,7 +32,7 @@ guidelines this layer briefs the model with, §11).
 | b | LLM tools to **run** D4rt scripts and capture their output | §8.1 |
 | c | Scripting API = **complete document access** via the same methods the tools use (one change log), fine-grained traversal of the **document and the object model**, node creation **limited to what the object model allows** — i.e. the full `tom_som` Dart document API (`som_multiplatform_spec_model.md`) made available to D4rt | §5 |
 | d | **grep-like** access — find sections by text / type / id and **iterate** over the results | §6 |
-| e | A **`guidelines_specification.md`** for the agent: scripting + the situation of being a TomSpecs editor agent; per-application context selects guidelines, tools, and scripting APIs | §11 |
+| e | An **`llm_guidelines_specification.md`** for the agent: scripting + the situation of being a TomSpecs editor agent; per-application context selects guidelines, tools, and scripting APIs | §11 |
 | f | **File access via `dcli`** through a **facade** that limits it: read-only anywhere, write only to a few whitelisted directories in the spec workspace | §7 |
 | g | A **complete tool set** for reading, writing, and searching the specification in memory | §8.2 |
 | h | A **memory system** that parses the spec into **vector + semantic** form — reuse `tom_brain_memory` if reasonable | §9, §10 |
@@ -120,7 +120,7 @@ their libraries/globals/grants forms the run environment. The three base scopes:
 
 - **Per application** (DocSpecs / CodeSpecs / Implementation): the active Forge
   application selects a **scope profile** — which scopes exist, which tools are
-  registered, and which `guidelines_specification.md` is loaded (§11). The
+  registered, and which `llm_guidelines_specification.md` is loaded (§11). The
   DocSpecs app enables all three base scopes; the other apps will define their
   own profiles later.
 - **Within an application**: distinct scopes coexist (the three above). A given
@@ -452,12 +452,12 @@ the agent edits. A `ConversationalAgentSubstrate` composes either base mode into
 
 ## 11. Agent guidelines specification (req e)
 
-The agent is briefed at runtime by a **`guidelines_specification.md`** — the
+The agent is briefed at runtime by an **`llm_guidelines_specification.md`** — the
 source for the system/context prompt that tells the model *it is a TomSpecs
 editor agent* and, above all, *how to create D4rt scripts for processing the
 document*. This spec defines its **required structure**.
 
-The `guidelines_specification.md` beside this spec matches the shipped scripting
+The `llm_guidelines_specification.md` beside this spec matches the shipped scripting
 surface: it briefs the model that it is a TomSpecs editor agent and documents how
 to author D4rt scripts against the object model. Its §6 worked examples run as
 tests against the real `spec` / `files` / `memory` scope bindings, so the
@@ -479,7 +479,7 @@ Required contents:
 5. **Memory guide** — how to recall (§9), and that the index self-refreshes.
 
 **Per-application context (req e).** Each Forge application owns its own
-`guidelines_specification.md` and scope profile (§4). **Selecting the
+`llm_guidelines_specification.md` and scope profile (§4). **Selecting the
 application** swaps the guidelines, the registered tools, and the available
 scripting scopes — so the CodeSpecs and Implementation apps brief the agent
 differently from the same shell. The mechanism is a per-application

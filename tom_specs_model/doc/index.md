@@ -42,7 +42,7 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | Document | Subject |
 |----------|---------|
 | [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | Normative md (§11) + yaml (§12) serialization of every construct, and schema generation (§13) |
-| [spec_model_meta_schema.md](spec_model_meta_schema.md) | Schema of the generated `spec_model.meta.json` |
+| [tom_specs_model_meta_schema.md](tom_specs_model_meta_schema.md) | Schema of the generated `spec_model.meta.json` |
 
 ## CodeSpecs
 
@@ -55,8 +55,8 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | Document | Subject |
 |----------|---------|
 | [tom_specs_project_flow.md](tom_specs_project_flow.md) | The eight-phase creation process (authority) |
-| [guidelines_specification.md](guidelines_specification.md) | Authoring D4rt scripts that process a TomSpecs document |
-| [d4rt_and_llm_tools.md](d4rt_and_llm_tools.md) | D4rt scripting and LLM tooling for the editor |
+| [llm_guidelines_specification.md](llm_guidelines_specification.md) | Authoring D4rt scripts that process a TomSpecs document |
+| [llm_and_d4rt_tools.md](llm_and_d4rt_tools.md) | D4rt scripting and LLM tooling for the editor |
 | [tom_specs_editor_specification.md](tom_specs_editor_specification.md) · [tom_specs_editor_specification_plan.md](tom_specs_editor_specification_plan.md) | The spec-authoring app and its follow-up items |
 | [tom_specs_reviewer_specification.md](tom_specs_reviewer_specification.md) | The object-model review app — the structural-review role, distinct from the editor |
 
@@ -65,7 +65,7 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | Document | Tool |
 |----------|------|
 | [tom_specs_model_rules.md](tom_specs_model_rules.md) §11 | `tom_specs_clitool/bin/outliner.dart` — notation, type expansion, output |
-| [spec_object_model_config.md](spec_object_model_config.md) | `tom_som.yaml` — the SOM generator configuration |
+| [som_generator_config.md](som_generator_config.md) | `tom_som.yaml` — the SOM generator configuration |
 
 ## Generated documentation
 
