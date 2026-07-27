@@ -233,6 +233,109 @@ void main() {
     });
   });
 
+  group('CodeSpecKind link (§9.1)', () {
+    /// A class optionally carrying `@CodeSpecKind`, with a field that may carry
+    /// its own — the two places the annotation can appear.
+    SpecModel modelWith({
+      Map<String, dynamic>? classArgs,
+      Map<String, dynamic>? fieldArgs,
+    }) =>
+        SpecModel.fromJson(<String, dynamic>{
+          'roots': <dynamic>[],
+          'classes': <String, dynamic>{
+            'Section': {
+              'name': 'Section',
+              'annotations': [
+                {'name': 'SectionId', 'arguments': {'id': 'SEC'}},
+                if (classArgs != null)
+                  {'name': 'CodeSpecKind', 'arguments': classArgs},
+              ],
+              'fields': [
+                {
+                  'name': 'body',
+                  'kind': 'content',
+                  'annotations': [
+                    if (fieldArgs != null)
+                      {'name': 'CodeSpecKind', 'arguments': fieldArgs},
+                  ],
+                },
+              ],
+            },
+          },
+        });
+
+    SpecClass classOf(SpecModel m) => m.classNamed('Section')!;
+
+    test('reads the kinds with the CodeSpecPart prefix stripped', () {
+      final link = classOf(modelWith(classArgs: {
+        'kinds': ['CodeSpecPart.validation'],
+      })).codeSpecKind;
+      expect(link, isNotNull);
+      expect(link!.kinds, <String>['validation']);
+      expect(link.note, isNull);
+    });
+
+    test('reads every kind, not just the first — the link is list-valued', () {
+      final link = classOf(modelWith(classArgs: {
+        'kinds': [
+          'CodeSpecPart.authorization',
+          'CodeSpecPart.authentication',
+          'CodeSpecPart.identity',
+        ],
+      })).codeSpecKind;
+      expect(
+          link!.kinds, <String>['authorization', 'authentication', 'identity']);
+    });
+
+    test('carries the optional note verbatim', () {
+      final link = classOf(modelWith(classArgs: {
+        'kinds': ['CodeSpecPart.serverConfiguration'],
+        'note': 'CE-CF — feature flags are config toggles',
+      })).codeSpecKind;
+      expect(link!.note, 'CE-CF — feature flags are config toggles');
+    });
+
+    test('an absent annotation and an empty kind list are different states',
+        () {
+      // Load-bearing for review: "not yet mapped" is an open question, while
+      // "mapped to nothing" is a decision someone already took.
+      expect(classOf(modelWith()).codeSpecKind, isNull);
+
+      final empty = classOf(modelWith(classArgs: {'kinds': <String>[]}));
+      expect(empty.codeSpecKind, isNotNull);
+      expect(empty.codeSpecKind!.kinds, isEmpty);
+    });
+
+    test('an annotation with no kinds argument reads as empty, not null', () {
+      // Present-but-argumentless is still a present annotation.
+      final link =
+          classOf(modelWith(classArgs: <String, dynamic>{})).codeSpecKind;
+      expect(link, isNotNull);
+      expect(link!.kinds, isEmpty);
+    });
+
+    test('a bare kind name without the prefix passes through unchanged', () {
+      final link = classOf(modelWith(classArgs: {
+        'kinds': ['validation'],
+      })).codeSpecKind;
+      expect(link!.kinds, <String>['validation']);
+    });
+
+    test('fields carry the link independently of their class', () {
+      final model = modelWith(fieldArgs: {
+        'kinds': ['CodeSpecPart.serverConfiguration'],
+      });
+      final cls = classOf(model);
+      expect(cls.codeSpecKind, isNull);
+      expect(cls.fieldNamed('body')!.codeSpecKind!.kinds,
+          <String>['serverConfiguration']);
+    });
+
+    test('a field without the annotation reports null', () {
+      expect(classOf(modelWith()).fieldNamed('body')!.codeSpecKind, isNull);
+    });
+  });
+
   group('SpecModel.rootByType (item 12)', () {
     SpecModel twoRootModel() => SpecModel.fromJson(<String, dynamic>{
           'roots': <dynamic>[

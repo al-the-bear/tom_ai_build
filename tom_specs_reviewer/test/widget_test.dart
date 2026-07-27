@@ -121,6 +121,61 @@ SpecModel _stampedModel({
       'containerRoot': 'DocSpecsProject',
     });
 
+/// A model exercising all three `@CodeSpecKind` states plus the field-level and
+/// collapsed-complex cases.
+///
+/// `KindDoc` is mapped to several kinds; `EmptyKinds` carries the annotation
+/// with no kinds (a recorded "maps to nothing"); `NoKinds` carries none at all.
+const _kindJson = '''
+{
+  "classCount": 3,
+  "rootCount": 1,
+  "roots": [
+    {"type": "KindDoc", "title": "Kind Document", "sectionId": "KD00"}
+  ],
+  "classes": {
+    "KindDoc": {
+      "name": "KindDoc", "sectionId": "KD00",
+      "annotations": [
+        {"name": "CodeSpecKind",
+         "arguments": {"kinds": ["CodeSpecPart.authorization",
+                                 "CodeSpecPart.authentication"],
+                       "note": "CE-AZ — access rules"}}
+      ],
+      "fields": [
+        {"name": "flags", "kind": "form",
+         "formFields": [{"name": "on", "label": "On", "type": "bool"}],
+         "annotations": [
+           {"name": "CodeSpecKind",
+            "arguments": {"kinds": ["CodeSpecPart.serverConfiguration"]}}
+         ]},
+        {"name": "plain", "kind": "content", "contentType": "text"},
+        {"name": "empty", "kind": "complex", "type": "EmptyKinds"},
+        {"name": "none", "kind": "complex", "type": "NoKinds"}
+      ]
+    },
+    "EmptyKinds": {
+      "name": "EmptyKinds", "sectionId": "KD01",
+      "annotations": [
+        {"name": "CodeSpecKind", "arguments": {"kinds": []}}
+      ],
+      "fields": [
+        {"name": "value", "kind": "scalar", "type": "String"}
+      ]
+    },
+    "NoKinds": {
+      "name": "NoKinds", "sectionId": "KD02",
+      "fields": [
+        {"name": "value", "kind": "scalar", "type": "String"}
+      ]
+    }
+  }
+}
+''';
+
+SpecModel _kindModel() =>
+    SpecModel.fromJson(json.decode(_kindJson) as Map<String, dynamic>);
+
 File _tempReviewFile(String name) {
   final dir = Directory(
       '${Directory.current.path}/.dart_tool/specs_reviewer_test');
@@ -458,6 +513,80 @@ void main() {
       // Root expands by default → its content field is visible.
       expect(find.text('intro'), findsOneWidget);
       expect(find.text('header'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('@CodeSpecKind rendering (TSRA2)', () {
+    Future<File> pumpTree(WidgetTester tester, String name) async {
+      final file = _tempReviewFile(name);
+      if (file.existsSync()) file.deleteSync();
+      final model = _kindModel();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: model.roots.single,
+            store: ReviewStore(file),
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      return file;
+    }
+
+    testWidgets('a mapped class shows one chip per kind, not just the first',
+        (tester) async {
+      final file = await pumpTree(tester, 'kind_multi.yaml');
+      // The root is expanded by default, so its own chips are on screen.
+      expect(find.text('cs:authorization'), findsOneWidget);
+      expect(find.text('cs:authentication'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the mapping note is available as a tooltip', (tester) async {
+      final file = await pumpTree(tester, 'kind_note.yaml');
+      final tooltip = tester.widget<Tooltip>(find.ancestor(
+        of: find.text('cs:authorization'),
+        matching: find.byType(Tooltip),
+      ));
+      expect(tooltip.message, 'CE-AZ — access rules');
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a field carries its own mapping, independent of its class',
+        (tester) async {
+      final file = await pumpTree(tester, 'kind_field.yaml');
+      expect(find.text('cs:serverConfiguration'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('an unmapped node shows the unmapped marker, not a blank',
+        (tester) async {
+      final file = await pumpTree(tester, 'kind_unmapped.yaml');
+      // `plain`, `empty`'s and `none`'s rows are all unannotated in their own
+      // right; the marker must be present rather than the row simply going
+      // quiet.
+      expect(find.text('cs?'), findsWidgets);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('an empty kind list is distinct from an absent annotation',
+        (tester) async {
+      final file = await pumpTree(tester, 'kind_empty.yaml');
+      // EmptyKinds collapses into the `empty` field row and states "no part";
+      // NoKinds collapses into `none` and states "not mapped yet".
+      expect(find.text('cs:none'), findsOneWidget);
+      expect(find.text('cs?'), findsWidgets);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a class without the annotation renders no kind chips',
+        (tester) async {
+      final file = await pumpTree(tester, 'kind_absent.yaml');
+      expect(find.textContaining('cs:authorization'), findsOneWidget);
+      // Nothing invented for the unannotated classes.
+      expect(find.text('cs:validation'), findsNothing);
       if (file.existsSync()) file.deleteSync();
     });
   });

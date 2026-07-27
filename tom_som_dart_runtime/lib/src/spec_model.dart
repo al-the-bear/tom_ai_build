@@ -99,8 +99,74 @@ class FormFieldSpec {
       );
 }
 
+/// The `@CodeSpecKind` link: which CodeSpecs part(s) a section *type* must be
+/// realised as (`codespecs_mapping.md` §9.1/§9.5).
+///
+/// Obtaining one at all means the annotation is present. That matters: a node
+/// with no link has not been mapped yet, whereas a link with empty [kinds] is
+/// a recorded decision that the section maps to no CodeSpecs part. The two are
+/// different statements, so they are different values rather than one nullable
+/// list.
+class CodeSpecKindLink {
+  /// The `CodeSpecPart` kind names with the enum prefix stripped —
+  /// `validation`, not `CodeSpecPart.validation`.
+  ///
+  /// The annotation is list-valued because one section can be realised as more
+  /// than one part; consumers must handle all of them, not just the first.
+  final List<String> kinds;
+
+  /// The annotation's free-text `note`, explaining the mapping choice.
+  final String? note;
+
+  const CodeSpecKindLink({this.kinds = const [], this.note});
+
+  /// Reads the link out of [annotation], which must be a `CodeSpecKind`.
+  factory CodeSpecKindLink.fromAnnotation(SpecAnnotation annotation) {
+    final raw = annotation.argument('kinds');
+    return CodeSpecKindLink(
+      kinds: raw is List
+          ? [
+              for (final k in raw)
+                if (k != null) _stripKindPrefix(k.toString()),
+            ]
+          : const [],
+      note: annotation.argument('note') as String?,
+    );
+  }
+
+  /// `CodeSpecPart.validation` → `validation`. A name already given bare is
+  /// returned unchanged, so the reader does not depend on how the exporter
+  /// chose to spell the enum constant.
+  static String _stripKindPrefix(String raw) {
+    const prefix = 'CodeSpecPart.';
+    return raw.startsWith(prefix) ? raw.substring(prefix.length) : raw;
+  }
+}
+
+/// Shared behaviour of the two model nodes that carry annotations — classes and
+/// fields. Keeps the annotation lookups defined once instead of per node type.
+mixin AnnotatedSpecNode {
+  /// The lossless annotation list captured on this node (§3.1).
+  List<SpecAnnotation> get annotations;
+
+  /// The annotation named [name], or `null` when absent.
+  SpecAnnotation? annotation(String name) {
+    for (final a in annotations) {
+      if (a.name == name) return a;
+    }
+    return null;
+  }
+
+  /// The `@CodeSpecKind` link, or `null` when this node carries no such
+  /// annotation. See [CodeSpecKindLink] for why absent and empty differ.
+  CodeSpecKindLink? get codeSpecKind {
+    final a = annotation('CodeSpecKind');
+    return a == null ? null : CodeSpecKindLink.fromAnnotation(a);
+  }
+}
+
 /// A single field of a [SpecClass].
-class SpecField {
+class SpecField with AnnotatedSpecNode {
   final String name;
   final SpecFieldKind kind;
   final String? doc;
@@ -193,18 +259,10 @@ class SpecField {
   /// Whether expanding this field reveals further tree nodes.
   bool get isExpandable =>
       kind == SpecFieldKind.list || kind == SpecFieldKind.complex;
-
-  /// The annotation named [name], or `null` when absent.
-  SpecAnnotation? annotation(String name) {
-    for (final a in annotations) {
-      if (a.name == name) return a;
-    }
-    return null;
-  }
 }
 
 /// A model class with its fields.
-class SpecClass {
+class SpecClass with AnnotatedSpecNode {
   final String name;
   final String? sectionId;
   final String? doc;
@@ -250,14 +308,6 @@ class SpecClass {
   SpecField? fieldNamed(String name) {
     for (final f in fields) {
       if (f.name == name) return f;
-    }
-    return null;
-  }
-
-  /// The annotation named [name], or `null` when absent.
-  SpecAnnotation? annotation(String name) {
-    for (final a in annotations) {
-      if (a.name == name) return a;
     }
     return null;
   }

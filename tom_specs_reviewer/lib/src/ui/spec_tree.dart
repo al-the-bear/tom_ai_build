@@ -129,6 +129,35 @@ Set<String> pathToType(SpecModel model, String rootType, String targetType) {
   return const {};
 }
 
+/// The three-state `@CodeSpecKind` marker (`codespecs_mapping.md` §9.1).
+///
+/// A section type either declares which CodeSpecs part(s) it must be realised
+/// as, declares that it becomes none, or carries no declaration at all. All
+/// three are rendered because the third is the open question a structural
+/// reviewer is looking for — a blank row would hide it among the mapped ones.
+///
+/// The link is list-valued (one section can become several parts), so every
+/// kind gets its own chip rather than only the first.
+List<_Chip> _codeSpecKindChips(CodeSpecKindLink? link) {
+  if (link == null) {
+    return const [
+      _Chip('cs?', Colors.grey,
+          tooltip: 'No @CodeSpecKind — not yet mapped to a CodeSpecs part'),
+    ];
+  }
+  if (link.kinds.isEmpty) {
+    return const [
+      _Chip('cs:none', Colors.orange,
+          tooltip: '@CodeSpecKind with no kinds — recorded as mapping to no '
+              'CodeSpecs part'),
+    ];
+  }
+  return [
+    for (final kind in link.kinds)
+      _Chip('cs:$kind', Colors.cyan.shade700, tooltip: link.note),
+  ];
+}
+
 /// Renders the structure tree for a single document root.
 class SpecTree extends StatefulWidget {
   final SpecModel model;
@@ -257,6 +286,13 @@ class _ClassNode extends StatefulWidget {
   /// Doc text to prefer over the class's own (the owning field's doc).
   final String? docOverride;
 
+  /// The owning field, when this class node is the collapsed field+class row.
+  ///
+  /// A field-level `@CodeSpecKind` overrides the class's for that one usage, so
+  /// the merged row must state the field's mapping when it has one and fall
+  /// back to the class's otherwise.
+  final SpecField? owningField;
+
   /// Render a `recursive` marker (this class re-enters an ancestor type).
   final bool recursive;
 
@@ -275,6 +311,7 @@ class _ClassNode extends StatefulWidget {
     this.titleOverride,
     this.sectionIdOverride,
     this.docOverride,
+    this.owningField,
     this.recursive = false,
     this.onNavPath = false,
   });
@@ -357,6 +394,8 @@ class _ClassNodeState extends State<_ClassNode> {
               ),
             if (widget.recursive) _Chip('recursive', Colors.red),
             if (cut) _Chip('cut', Colors.red),
+            ..._codeSpecKindChips(
+                widget.owningField?.codeSpecKind ?? cls.codeSpecKind),
           ],
           doc: widget.docOverride ?? cls.doc ?? cls.help,
           store: widget.store,
@@ -483,7 +522,7 @@ class _FieldNodeState extends State<_FieldNode> {
           typeLabel: 'List<${elementType ?? '?'}>'
               '${f.min != null ? '  min ${f.min}' : ''}',
           sectionId: f.sectionId ?? f.sectionIdPattern,
-          chips: const [],
+          chips: _codeSpecKindChips(f.codeSpecKind),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,
@@ -566,7 +605,7 @@ class _FieldNodeState extends State<_FieldNode> {
         label: f.name,
         typeLabel: '${f.type ?? '?'} (unresolved)',
         sectionId: f.sectionId,
-        chips: const [],
+        chips: _codeSpecKindChips(f.codeSpecKind),
         doc: f.doc ?? f.help,
         store: widget.store,
         path: widget.path,
@@ -589,6 +628,7 @@ class _FieldNodeState extends State<_FieldNode> {
       titleOverride: f.name,
       sectionIdOverride: f.sectionId,
       docOverride: f.doc ?? f.help,
+      owningField: f,
       recursive: recursive,
       onNavPath: childOnPath,
     );
@@ -609,7 +649,7 @@ class _FieldNodeState extends State<_FieldNode> {
           label: f.name,
           typeLabel: 'form · ${f.formFields.length} fields',
           sectionId: f.sectionId,
-          chips: const [],
+          chips: _codeSpecKindChips(f.codeSpecKind),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,
@@ -643,7 +683,7 @@ class _FieldNodeState extends State<_FieldNode> {
           label: f.name,
           typeLabel: 'content · ${f.contentType ?? 'text'}',
           sectionId: f.sectionId,
-          chips: const [],
+          chips: _codeSpecKindChips(f.codeSpecKind),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,
@@ -679,7 +719,7 @@ class _FieldNodeState extends State<_FieldNode> {
       label: f.name,
       typeLabel: 'section · ${f.contentType ?? 'text'}',
       sectionId: f.sectionId,
-      chips: const [],
+      chips: _codeSpecKindChips(f.codeSpecKind),
       doc: f.doc ?? f.help,
       store: widget.store,
       path: widget.path,
@@ -699,7 +739,7 @@ class _FieldNodeState extends State<_FieldNode> {
       label: f.name,
       typeLabel: 'enum · ${f.enumValues.join(', ')}',
       sectionId: f.sectionId,
-      chips: const [],
+      chips: _codeSpecKindChips(f.codeSpecKind),
       doc: f.doc ?? f.help,
       store: widget.store,
       path: widget.path,
@@ -719,7 +759,7 @@ class _FieldNodeState extends State<_FieldNode> {
       label: f.name,
       typeLabel: f.type ?? 'value',
       sectionId: f.sectionId,
-      chips: const [],
+      chips: _codeSpecKindChips(f.codeSpecKind),
       doc: f.doc ?? f.help,
       store: widget.store,
       path: widget.path,
@@ -731,11 +771,15 @@ class _FieldNodeState extends State<_FieldNode> {
 /// A small coloured chip used for annotations (mapsTo, recursive, …).
 ///
 /// When [onTap] is set the chip becomes clickable (used for hand-off markers).
+/// [tooltip] carries detail too long for the chip itself — the `@CodeSpecKind`
+/// mapping note, for instance, which explains *why* a section maps where it
+/// does and would otherwise have nowhere to go.
 class _Chip {
   final String text;
   final Color color;
   final VoidCallback? onTap;
-  const _Chip(this.text, this.color, {this.onTap});
+  final String? tooltip;
+  const _Chip(this.text, this.color, {this.onTap, this.tooltip});
 }
 
 /// The common single-line header used by every node kind.
@@ -889,12 +933,16 @@ class _ChipWidget extends StatelessWidget {
         ],
       ),
     );
-    if (chip.onTap == null) return body;
-    return InkWell(
-      borderRadius: BorderRadius.circular(3),
-      onTap: chip.onTap,
-      child: body,
-    );
+    final interactive = chip.onTap == null
+        ? body
+        : InkWell(
+            borderRadius: BorderRadius.circular(3),
+            onTap: chip.onTap,
+            child: body,
+          );
+    final tooltip = chip.tooltip;
+    if (tooltip == null || tooltip.trim().isEmpty) return interactive;
+    return Tooltip(message: tooltip, child: interactive);
   }
 }
 
