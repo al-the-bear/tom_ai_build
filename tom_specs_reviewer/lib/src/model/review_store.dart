@@ -7,9 +7,10 @@ import 'package:yaml/yaml.dart';
 
 /// Schema version written into the review file.
 ///
-/// Version 2 added the CodeSpecs-mapping feedback axis. The change is purely
-/// additive, so a version-1 file loads unchanged — an in-flight review is never
-/// lost to the bump.
+/// Version 2 covers the CodeSpecs-mapping, follow-up, destination and
+/// structural feedback axes. Every one of them is purely additive, so a
+/// version-1 file loads unchanged — an in-flight review is never lost to the
+/// bump.
 const int kReviewFileVersion = 2;
 
 /// The canonical CodeSpecs kind vocabulary, as persistence tokens.
@@ -53,6 +54,100 @@ String? tryNormalizeCodeSpecKindToken(String raw) {
     token = token.substring(_kindTokenPrefix.length);
   }
   return kCodeSpecPartTokens.contains(token) ? token : null;
+}
+
+/// The canonical follow-up process vocabulary, as persistence tokens.
+///
+/// Sourced from [FollowUpProcess], which the model declares to be an
+/// *extensible* taxonomy. That extensibility is why a proposal outside this set
+/// is warned about rather than rejected — see [normalizeFollowUpKindToken].
+final Set<String> kFollowUpProcessTokens = {
+  for (final process in FollowUpProcess.values) process.name,
+};
+
+/// Prefix a follow-up code may carry when copied from what the tree renders.
+const String _followUpTokenPrefix = 'FollowUpProcess.';
+
+/// Normalises a follow-up process code to its lower-case bare form.
+///
+/// Unlike [normalizeCodeSpecKindToken] this does *not* reject a code outside
+/// [kFollowUpProcessTokens]: the follow-up taxonomy is open, so "this belongs to
+/// a process we have not named yet" is a legitimate — and valuable — review
+/// finding. Only a blank code is rejected, since it carries no judgement at all.
+String normalizeFollowUpKindToken(String raw) {
+  var token = raw.trim();
+  if (token.startsWith(_followUpTokenPrefix)) {
+    token = token.substring(_followUpTokenPrefix.length);
+  }
+  token = token.toLowerCase();
+  if (token.isEmpty) {
+    throw ArgumentError.value(raw, 'kind', 'follow-up code must not be blank');
+  }
+  return token;
+}
+
+/// Where a reviewer thinks a subtree belongs.
+///
+/// The CodeSpecs / follow-up split is a *choice*, so it is recorded as one
+/// value rather than as competing booleans — two flags would admit the
+/// meaningless "not CodeSpecs and not follow-up, but also both" states.
+///
+/// [unset] and [neither] are deliberately distinct: [unset] means no judgement
+/// has been made, [neither] is the judgement that the subtree drives no
+/// downstream work at all.
+enum ReviewDestination {
+  unset,
+  codeSpecs,
+  followUp,
+  both,
+  neither;
+
+  /// The YAML / persistence token for this destination.
+  String get token {
+    switch (this) {
+      case ReviewDestination.unset:
+        return 'unset';
+      case ReviewDestination.codeSpecs:
+        return 'code_specs';
+      case ReviewDestination.followUp:
+        return 'follow_up';
+      case ReviewDestination.both:
+        return 'both';
+      case ReviewDestination.neither:
+        return 'neither';
+    }
+  }
+
+  /// Short human label for the UI.
+  String get label {
+    switch (this) {
+      case ReviewDestination.unset:
+        return 'Undecided';
+      case ReviewDestination.codeSpecs:
+        return 'CodeSpecs';
+      case ReviewDestination.followUp:
+        return 'Follow-up';
+      case ReviewDestination.both:
+        return 'Both';
+      case ReviewDestination.neither:
+        return 'Neither';
+    }
+  }
+
+  static ReviewDestination parse(String? raw) {
+    switch (raw) {
+      case 'code_specs':
+        return ReviewDestination.codeSpecs;
+      case 'follow_up':
+        return ReviewDestination.followUp;
+      case 'both':
+        return ReviewDestination.both;
+      case 'neither':
+        return ReviewDestination.neither;
+      default:
+        return ReviewDestination.unset;
+    }
+  }
 }
 
 /// Where a reviewed node belongs in the eventual document set.
@@ -145,12 +240,54 @@ class ReviewEntry {
   /// This node should not be realised as code at all.
   ///
   /// Distinct from [codeSpecKindWrong] (mapped, but to the wrong part) and from
-  /// the follow-up destination axis, which records where it belongs *instead*.
+  /// [destination], which records where it belongs *instead*.
   bool notCodeSpecs;
+
+  /// Where this subtree belongs — the single most consequential structural
+  /// judgement, so it is a first-class value rather than a comment.
+  ReviewDestination destination;
+
+  /// This node should carry a `@FollowUpKind` and does not.
+  bool followUpKindMissing;
+
+  /// The declared `@FollowUpKind` processes are wrong or incomplete. What they
+  /// should be instead goes in [suggestedFollowUpKinds].
+  bool followUpKindWrong;
+
+  /// These siblings are really alternatives and should be an `@OneOf` set.
+  bool shouldBeOneOf;
+
+  /// The `@OneOf` set is missing a `@Case`.
+  ///
+  /// Closure is the point of `@OneOf`, so an incomplete set is a defect rather
+  /// than a nit.
+  bool caseSetIncomplete;
+
+  /// The `@SectionId` / `@SectionIdPattern` on this node is wrong or collides.
+  bool idPatternWrong;
+
+  /// The `@MapsTo` / `@DetailedIn` handoff points at the wrong target.
+  bool handoffWrong;
+
+  /// The `@ContentType` is wrong for this content.
+  bool contentTypeWrong;
+
+  /// The `@StandardReferences` on this node name the wrong standards.
+  bool standardRefWrong;
+
+  /// This node should carry `@StandardReferences` and does not.
+  bool standardRefMissing;
 
   String comment;
 
   List<String> _suggestedCodeSpecKinds;
+  List<String> _suggestedFollowUpKinds;
+
+  /// The `@Unused` marking on this node is correct — the node can be dropped.
+  bool _unusedConfirmed;
+
+  /// The `@Unused` marking on this node is wrong — the node must be kept.
+  bool _unusedRejected;
 
   ReviewEntry({
     this.scope = ReviewScope.none,
@@ -164,10 +301,79 @@ class ReviewEntry {
     this.codeSpecKindMissing = false,
     this.codeSpecKindWrong = false,
     this.notCodeSpecs = false,
+    this.destination = ReviewDestination.unset,
+    this.followUpKindMissing = false,
+    this.followUpKindWrong = false,
+    this.shouldBeOneOf = false,
+    this.caseSetIncomplete = false,
+    this.idPatternWrong = false,
+    this.handoffWrong = false,
+    this.contentTypeWrong = false,
+    this.standardRefWrong = false,
+    this.standardRefMissing = false,
+    bool unusedConfirmed = false,
+    bool unusedRejected = false,
     List<String> suggestedCodeSpecKinds = const [],
+    List<String> suggestedFollowUpKinds = const [],
     this.comment = '',
-  }) : _suggestedCodeSpecKinds =
-            suggestedCodeSpecKinds.map(normalizeCodeSpecKindToken).toList();
+  })  : _suggestedCodeSpecKinds =
+            suggestedCodeSpecKinds.map(normalizeCodeSpecKindToken).toList(),
+        _suggestedFollowUpKinds =
+            suggestedFollowUpKinds.map(normalizeFollowUpKindToken).toList(),
+        // A source that states both verdicts is contradictory. Drop the
+        // confirmation rather than the rejection: confirming authorises a
+        // deletion, and an ambiguous source must never authorise one.
+        _unusedConfirmed = unusedConfirmed && !unusedRejected,
+        _unusedRejected = unusedRejected;
+
+  /// The `@Unused` marking on this node is correct — the node can be dropped.
+  ///
+  /// Mutually exclusive with [unusedRejected]: it is one verdict, so setting
+  /// either side clears the other everywhere, not just in the UI.
+  bool get unusedConfirmed => _unusedConfirmed;
+
+  set unusedConfirmed(bool value) {
+    _unusedConfirmed = value;
+    if (value) _unusedRejected = false;
+  }
+
+  /// The `@Unused` marking on this node is wrong — the node must be kept.
+  bool get unusedRejected => _unusedRejected;
+
+  set unusedRejected(bool value) {
+    _unusedRejected = value;
+    if (value) _unusedConfirmed = false;
+  }
+
+  /// The follow-up process codes the reviewer proposes for this node.
+  ///
+  /// Read-only by design, for the same reason as [suggestedCodeSpecKinds]: a
+  /// mutable list would let a raw value in behind [normalizeFollowUpKindToken].
+  List<String> get suggestedFollowUpKinds =>
+      List.unmodifiable(_suggestedFollowUpKinds);
+
+  set suggestedFollowUpKinds(List<String> kinds) {
+    _suggestedFollowUpKinds = kinds.map(normalizeFollowUpKindToken).toList();
+  }
+
+  /// Adds [kind] if absent, removes it if present.
+  void toggleSuggestedFollowUpKind(String kind) {
+    final token = normalizeFollowUpKindToken(kind);
+    if (!_suggestedFollowUpKinds.remove(token)) {
+      _suggestedFollowUpKinds.add(token);
+    }
+  }
+
+  /// The proposed codes that are not (yet) in [kFollowUpProcessTokens].
+  ///
+  /// Not an error — the taxonomy is extensible — but the UI surfaces them so
+  /// the reviewer sees that they are proposing to *extend* it, not to pick.
+  List<String> get unknownFollowUpKinds => [
+        for (final kind in _suggestedFollowUpKinds)
+          if (!kFollowUpProcessTokens.contains(kind)) kind,
+      ];
+
+  bool get hasUnknownFollowUpKind => unknownFollowUpKinds.isNotEmpty;
 
   /// The `CodeSpecPart` kinds the reviewer proposes for this node.
   ///
@@ -205,7 +411,20 @@ class ReviewEntry {
       !codeSpecKindMissing &&
       !codeSpecKindWrong &&
       !notCodeSpecs &&
+      destination == ReviewDestination.unset &&
+      !followUpKindMissing &&
+      !followUpKindWrong &&
+      !shouldBeOneOf &&
+      !caseSetIncomplete &&
+      !idPatternWrong &&
+      !handoffWrong &&
+      !contentTypeWrong &&
+      !standardRefWrong &&
+      !standardRefMissing &&
+      !_unusedConfirmed &&
+      !_unusedRejected &&
       _suggestedCodeSpecKinds.isEmpty &&
+      _suggestedFollowUpKinds.isEmpty &&
       comment.trim().isEmpty;
 
   Map<String, Object?> toMap() => {
@@ -220,8 +439,23 @@ class ReviewEntry {
         if (codeSpecKindMissing) 'code_spec_kind_missing': true,
         if (codeSpecKindWrong) 'code_spec_kind_wrong': true,
         if (notCodeSpecs) 'not_code_specs': true,
+        if (destination != ReviewDestination.unset)
+          'destination': destination.token,
+        if (followUpKindMissing) 'follow_up_kind_missing': true,
+        if (followUpKindWrong) 'follow_up_kind_wrong': true,
+        if (shouldBeOneOf) 'should_be_one_of': true,
+        if (caseSetIncomplete) 'case_set_incomplete': true,
+        if (idPatternWrong) 'id_pattern_wrong': true,
+        if (handoffWrong) 'handoff_wrong': true,
+        if (contentTypeWrong) 'content_type_wrong': true,
+        if (standardRefWrong) 'standard_ref_wrong': true,
+        if (standardRefMissing) 'standard_ref_missing': true,
+        if (_unusedConfirmed) 'unused_confirmed': true,
+        if (_unusedRejected) 'unused_rejected': true,
         if (_suggestedCodeSpecKinds.isNotEmpty)
           'suggested_code_spec_kinds': List<String>.of(_suggestedCodeSpecKinds),
+        if (_suggestedFollowUpKinds.isNotEmpty)
+          'suggested_follow_up_kinds': List<String>.of(_suggestedFollowUpKinds),
         if (comment.trim().isNotEmpty) 'comment': comment.trim(),
       };
 
@@ -237,7 +471,21 @@ class ReviewEntry {
         codeSpecKindMissing: map['code_spec_kind_missing'] == true,
         codeSpecKindWrong: map['code_spec_kind_wrong'] == true,
         notCodeSpecs: map['not_code_specs'] == true,
+        destination: ReviewDestination.parse(map['destination'] as String?),
+        followUpKindMissing: map['follow_up_kind_missing'] == true,
+        followUpKindWrong: map['follow_up_kind_wrong'] == true,
+        shouldBeOneOf: map['should_be_one_of'] == true,
+        caseSetIncomplete: map['case_set_incomplete'] == true,
+        idPatternWrong: map['id_pattern_wrong'] == true,
+        handoffWrong: map['handoff_wrong'] == true,
+        contentTypeWrong: map['content_type_wrong'] == true,
+        standardRefWrong: map['standard_ref_wrong'] == true,
+        standardRefMissing: map['standard_ref_missing'] == true,
+        unusedConfirmed: map['unused_confirmed'] == true,
+        unusedRejected: map['unused_rejected'] == true,
         suggestedCodeSpecKinds: _kindsFromYaml(map['suggested_code_spec_kinds']),
+        suggestedFollowUpKinds:
+            _followUpKindsFromYaml(map['suggested_follow_up_kinds']),
         comment: (map['comment'] as String?) ?? '',
       );
 
@@ -250,6 +498,19 @@ class ReviewEntry {
     if (raw is! Iterable) return const [];
     return [
       for (final item in raw) ?tryNormalizeCodeSpecKindToken(item.toString()),
+    ];
+  }
+
+  /// Reads the suggested follow-up list off a file.
+  ///
+  /// Only blanks are dropped — an unrecognised code is kept, because the
+  /// taxonomy is extensible and the proposal to extend it is the finding.
+  static List<String> _followUpKindsFromYaml(Object? raw) {
+    if (raw is! Iterable) return const [];
+    return [
+      for (final item in raw)
+        if (item.toString().trim().isNotEmpty)
+          normalizeFollowUpKindToken(item.toString()),
     ];
   }
 }
@@ -357,10 +618,41 @@ class ReviewStore extends ChangeNotifier {
         buffer.writeln('    code_spec_kind_wrong: true');
       }
       if (entry.notCodeSpecs) buffer.writeln('    not_code_specs: true');
+      if (entry.destination != ReviewDestination.unset) {
+        buffer.writeln('    destination: ${entry.destination.token}');
+      }
+      if (entry.followUpKindMissing) {
+        buffer.writeln('    follow_up_kind_missing: true');
+      }
+      if (entry.followUpKindWrong) {
+        buffer.writeln('    follow_up_kind_wrong: true');
+      }
+      if (entry.shouldBeOneOf) buffer.writeln('    should_be_one_of: true');
+      if (entry.caseSetIncomplete) {
+        buffer.writeln('    case_set_incomplete: true');
+      }
+      if (entry.idPatternWrong) buffer.writeln('    id_pattern_wrong: true');
+      if (entry.handoffWrong) buffer.writeln('    handoff_wrong: true');
+      if (entry.contentTypeWrong) {
+        buffer.writeln('    content_type_wrong: true');
+      }
+      if (entry.standardRefWrong) {
+        buffer.writeln('    standard_ref_wrong: true');
+      }
+      if (entry.standardRefMissing) {
+        buffer.writeln('    standard_ref_missing: true');
+      }
+      if (entry.unusedConfirmed) buffer.writeln('    unused_confirmed: true');
+      if (entry.unusedRejected) buffer.writeln('    unused_rejected: true');
       if (entry.suggestedCodeSpecKinds.isNotEmpty) {
         final kinds =
             entry.suggestedCodeSpecKinds.map(_yamlString).join(', ');
         buffer.writeln('    suggested_code_spec_kinds: [$kinds]');
+      }
+      if (entry.suggestedFollowUpKinds.isNotEmpty) {
+        final kinds =
+            entry.suggestedFollowUpKinds.map(_yamlString).join(', ');
+        buffer.writeln('    suggested_follow_up_kinds: [$kinds]');
       }
       if (entry.comment.trim().isNotEmpty) {
         buffer.writeln('    comment: ${_yamlString(entry.comment.trim())}');

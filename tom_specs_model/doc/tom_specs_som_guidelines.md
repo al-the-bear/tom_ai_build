@@ -672,14 +672,31 @@ so no installed Dart SDK is required. Specs:
 A Flutter app for **reviewing the object model itself**. It browses the exported
 class graph (`assets/spec_model.json`, produced by
 `tom_specs_clitool/bin/model_json.dart`) as a tree and records per-node
-observations on two axes — **structure** (scope flags, `stop here` /
-`add details` markers, list-vs-single, content-vs-form, free-text comment) and
-**CodeSpecs mapping** (kind missing, kind wrong/incomplete, the proposed
-`CodeSpecPart` kinds, or "not CodeSpecs at all") — persisted to YAML keyed by
-structural path (`TOM_SPECS_REVIEW_FILE` override; default
-`<cwd>/review/structure_review.yaml`). Proposed kinds are validated against the
-`CodeSpecPart` vocabulary at entry, so a recorded suggestion always maps back
-onto the model. Its output feeds further development of the model. It is
+observations, persisted to YAML keyed by structural path
+(`TOM_SPECS_REVIEW_FILE` override; default
+`<cwd>/review/structure_review.yaml`). The recordable axes are:
+
+- **destination** — CodeSpecs / follow-up / both / neither, as one choice with
+  an explicit undecided state, since the split is a decision rather than two
+  independent flags;
+- **scope and progress** — scope flags, `stop here` / `add details` markers, a
+  reviewed checkmark, free-text comment;
+- **structure** — list-vs-single, content-vs-form, and the closed-choice
+  judgements (`@OneOf` set warranted, `@Case` set incomplete);
+- **annotations** — section id / pattern wrong or colliding, `@MapsTo` /
+  `@DetailedIn` handoff pointing at the wrong target, wrong `@ContentType`,
+  wrong or missing `@StandardReferences`, and the keep-or-drop verdict on an
+  `@Unused` marking;
+- **CodeSpecs mapping** — kind missing, kind wrong/incomplete, the proposed
+  `CodeSpecPart` kinds, or "not CodeSpecs at all";
+- **follow-up mapping** — `@FollowUpKind` missing, declared processes
+  wrong/incomplete, and the proposed `FollowUpProcess` codes.
+
+The two vocabularies are validated differently, because they are different kinds
+of set: a proposed `CodeSpecPart` is **rejected** if it is not in the enum,
+whereas a proposed `FollowUpProcess` code outside the enum is **warned about and
+kept** — that taxonomy is explicitly extensible, so proposing to extend it is
+itself a finding. Its output feeds further development of the model. It is
 explicitly **not** a specification editor.
 
 ### 10.3 Editor — `tom_specs_editor` (`tom_forge/`)

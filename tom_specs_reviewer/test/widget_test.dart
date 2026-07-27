@@ -1630,6 +1630,10 @@ entries:
       await tester.pumpAndSettle();
 
       expect(find.text('CodeSpecs mapping'), findsOneWidget);
+      // The axis lives in a collapsible section, collapsed while it is empty.
+      await tester.ensureVisible(find.text(kCodeSpecsSectionLabel));
+      await tester.tap(find.text(kCodeSpecsSectionLabel));
+      await tester.pumpAndSettle();
       expect(find.text(kCodeSpecKindMissingLabel), findsOneWidget);
       expect(find.text(kCodeSpecKindWrongLabel), findsOneWidget);
       expect(find.text(kNotCodeSpecsLabel), findsOneWidget);
@@ -1654,7 +1658,11 @@ entries:
       await tester.tap(find.byIcon(Icons.edit_note).first);
       await tester.pumpAndSettle();
 
-      // The CodeSpecs section sits below the fold of the scrollable dialog.
+      // The CodeSpecs section sits below the fold of the scrollable dialog and
+      // starts collapsed while it holds nothing.
+      await tester.ensureVisible(find.text(kCodeSpecsSectionLabel));
+      await tester.tap(find.text(kCodeSpecsSectionLabel));
+      await tester.pumpAndSettle();
       await tester.ensureVisible(find.text(kCodeSpecKindMissingLabel));
       await tester.pumpAndSettle();
       await tester.tap(find.text(kCodeSpecKindMissingLabel));
@@ -1664,6 +1672,316 @@ entries:
       final reloaded = ReviewStore(file)..load();
       expect(reloaded.count, 1);
       expect(reloaded.entryFor('DemoDoc')!.codeSpecKindMissing, isTrue);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('Destination axis (TSRA7)', () {
+    test('unset is distinct from neither', () {
+      expect(ReviewDestination.unset, isNot(ReviewDestination.neither));
+      // Unset means "no judgement recorded"; neither is a judgement.
+      expect(ReviewEntry().destination, ReviewDestination.unset);
+      expect(ReviewEntry().isEmpty, isTrue);
+      expect(
+          ReviewEntry(destination: ReviewDestination.neither).isEmpty, isFalse);
+    });
+
+    test('every destination round-trips through YAML', () {
+      final file = _tempReviewFile('destination.yaml');
+      for (final destination in ReviewDestination.values) {
+        if (file.existsSync()) file.deleteSync();
+        final store = ReviewStore(file)
+          ..update('p', (e) => e.destination = destination);
+        if (destination == ReviewDestination.unset) {
+          // Nothing recorded, so nothing persisted.
+          expect(store.count, 0);
+          continue;
+        }
+        final reloaded = ReviewStore(file)..load();
+        expect(reloaded.entryFor('p')!.destination, destination);
+      }
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    test('an unreadable destination token degrades to unset', () {
+      expect(ReviewDestination.parse('not_a_destination'),
+          ReviewDestination.unset);
+      expect(ReviewDestination.parse(null), ReviewDestination.unset);
+    });
+  });
+
+  group('Follow-up feedback vocabulary (TSRA7)', () {
+    test('the known vocabulary is the FollowUpProcess enum', () {
+      expect(kFollowUpProcessTokens,
+          {for (final process in FollowUpProcess.values) process.name});
+      expect(kFollowUpProcessTokens, hasLength(9));
+      expect(kFollowUpProcessTokens,
+          containsAll(['doc', 'trn', 'org', 'ops', 'cap', 'cmp', 'mig',
+            'l10n', 'acc']));
+    });
+
+    test('an unknown code is warned about, not rejected', () {
+      // The taxonomy is explicitly extensible, so a reviewer proposing a new
+      // code must be able to record it — unlike a CodeSpecPart typo.
+      final entry = ReviewEntry(suggestedFollowUpKinds: const ['doc', 'sec']);
+      expect(entry.suggestedFollowUpKinds, ['doc', 'sec']);
+      expect(entry.unknownFollowUpKinds, ['sec']);
+      expect(entry.hasUnknownFollowUpKind, isTrue);
+
+      final known = ReviewEntry(suggestedFollowUpKinds: const ['doc']);
+      expect(known.unknownFollowUpKinds, isEmpty);
+      expect(known.hasUnknownFollowUpKind, isFalse);
+    });
+
+    test('tokens are normalised but a blank one is rejected', () {
+      expect(normalizeFollowUpKindToken('  DOC '), 'doc');
+      expect(normalizeFollowUpKindToken('FollowUpProcess.l10n'), 'l10n');
+      expect(normalizeFollowUpKindToken('L10N'), 'l10n');
+      expect(() => normalizeFollowUpKindToken('   '), throwsArgumentError);
+      expect(() => ReviewEntry(suggestedFollowUpKinds: const ['']),
+          throwsArgumentError);
+    });
+
+    test('toggling adds and removes, including an extension code', () {
+      final entry = ReviewEntry();
+      entry.toggleSuggestedFollowUpKind('doc');
+      entry.toggleSuggestedFollowUpKind('sec');
+      expect(entry.suggestedFollowUpKinds, ['doc', 'sec']);
+      entry.toggleSuggestedFollowUpKind('DOC');
+      expect(entry.suggestedFollowUpKinds, ['sec']);
+    });
+
+    test('the suggested list cannot be mutated behind the normaliser', () {
+      final entry = ReviewEntry(suggestedFollowUpKinds: const ['doc']);
+      expect(() => entry.suggestedFollowUpKinds.add('x'),
+          throwsUnsupportedError);
+    });
+
+    test('an unknown code survives a YAML round-trip', () {
+      final file = _tempReviewFile('followup_unknown.yaml');
+      if (file.existsSync()) file.deleteSync();
+      ReviewStore(file)
+          .update('p', (e) => e.suggestedFollowUpKinds = ['mig', 'sec']);
+      final reloaded = ReviewStore(file)..load();
+      final entry = reloaded.entryFor('p')!;
+      expect(entry.suggestedFollowUpKinds, ['mig', 'sec']);
+      expect(entry.unknownFollowUpKinds, ['sec']);
+      file.deleteSync();
+    });
+  });
+
+  group('Structural feedback axes (TSRA7)', () {
+    test('every new boolean axis round-trips through YAML', () {
+      final file = _tempReviewFile('tsra7_flags.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      store.update('DemoDoc/items', (e) {
+        e.followUpKindMissing = true;
+        e.followUpKindWrong = true;
+        e.shouldBeOneOf = true;
+        e.caseSetIncomplete = true;
+        e.idPatternWrong = true;
+        e.handoffWrong = true;
+        e.contentTypeWrong = true;
+        e.standardRefWrong = true;
+        e.standardRefMissing = true;
+        e.unusedConfirmed = true;
+        e.destination = ReviewDestination.both;
+        e.suggestedFollowUpKinds = ['doc', 'ops'];
+      });
+
+      final entry = (ReviewStore(file)..load()).entryFor('DemoDoc/items')!;
+      expect(entry.followUpKindMissing, isTrue);
+      expect(entry.followUpKindWrong, isTrue);
+      expect(entry.shouldBeOneOf, isTrue);
+      expect(entry.caseSetIncomplete, isTrue);
+      expect(entry.idPatternWrong, isTrue);
+      expect(entry.handoffWrong, isTrue);
+      expect(entry.contentTypeWrong, isTrue);
+      expect(entry.standardRefWrong, isTrue);
+      expect(entry.standardRefMissing, isTrue);
+      expect(entry.unusedConfirmed, isTrue);
+      expect(entry.unusedRejected, isFalse);
+      expect(entry.destination, ReviewDestination.both);
+      expect(entry.suggestedFollowUpKinds, ['doc', 'ops']);
+      file.deleteSync();
+    });
+
+    test('each new axis alone keeps the entry non-empty', () {
+      final file = _tempReviewFile('tsra7_nonempty.yaml');
+      final mutations = <String, void Function(ReviewEntry)>{
+        'followUpKindMissing': (e) => e.followUpKindMissing = true,
+        'followUpKindWrong': (e) => e.followUpKindWrong = true,
+        'shouldBeOneOf': (e) => e.shouldBeOneOf = true,
+        'caseSetIncomplete': (e) => e.caseSetIncomplete = true,
+        'idPatternWrong': (e) => e.idPatternWrong = true,
+        'handoffWrong': (e) => e.handoffWrong = true,
+        'contentTypeWrong': (e) => e.contentTypeWrong = true,
+        'standardRefWrong': (e) => e.standardRefWrong = true,
+        'standardRefMissing': (e) => e.standardRefMissing = true,
+        'unusedConfirmed': (e) => e.unusedConfirmed = true,
+        'unusedRejected': (e) => e.unusedRejected = true,
+        'destination': (e) => e.destination = ReviewDestination.neither,
+        'suggestedFollowUpKinds': (e) => e.suggestedFollowUpKinds = ['doc'],
+      };
+      mutations.forEach((name, mutate) {
+        if (file.existsSync()) file.deleteSync();
+        final store = ReviewStore(file)..update('p', mutate);
+        expect(store.count, 1, reason: '$name should be persisted');
+      });
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    test('the @Unused verdict is one decision, not two independent flags', () {
+      final entry = ReviewEntry()..unusedConfirmed = true;
+      entry.unusedRejected = true;
+      expect(entry.unusedConfirmed, isFalse);
+      expect(entry.unusedRejected, isTrue);
+      entry.unusedConfirmed = true;
+      expect(entry.unusedRejected, isFalse);
+
+      // The invariant holds through a hand-edited file that states both.
+      final loaded = ReviewEntry.fromMap(
+          {'unused_confirmed': true, 'unused_rejected': true});
+      expect(loaded.unusedConfirmed && loaded.unusedRejected, isFalse);
+    });
+
+    test('a version-1 file loads with every new axis unset', () {
+      final file = _tempReviewFile('tsra7_v1.yaml');
+      file.writeAsStringSync('''
+version: 1
+entries:
+  "DemoDoc/intro":
+    scope: global
+    must_be_list: true
+''');
+      final entry = (ReviewStore(file)..load()).entryFor('DemoDoc/intro')!;
+      expect(entry.scope, ReviewScope.global);
+      expect(entry.mustBeList, isTrue);
+      expect(entry.destination, ReviewDestination.unset);
+      expect(entry.followUpKindMissing, isFalse);
+      expect(entry.shouldBeOneOf, isFalse);
+      expect(entry.idPatternWrong, isFalse);
+      expect(entry.unusedConfirmed, isFalse);
+      expect(entry.suggestedFollowUpKinds, isEmpty);
+      file.deleteSync();
+    });
+  });
+
+  group('TSRA7 controls', () {
+    Future<File> pumpDialog(WidgetTester tester, String name,
+        {void Function(ReviewEntry)? seed}) async {
+      final file = _tempReviewFile(name);
+      if (file.existsSync()) file.deleteSync();
+      final model = _model();
+      final store = ReviewStore(file);
+      if (seed != null) store.update('DemoDoc', seed);
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: model.roots.single,
+            store: store,
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.edit_note).first);
+      await tester.pumpAndSettle();
+      return file;
+    }
+
+    testWidgets('the destination choice is offered without expanding anything',
+        (tester) async {
+      final file = await pumpDialog(tester, 'dest_visible.yaml');
+      expect(find.text(kDestinationLabel), findsOneWidget);
+      // Scoped to the destination group: scope and destination both offer an
+      // "Undecided" option, and both are legitimately worded that way.
+      final group = find.byKey(const ValueKey('destination-options'));
+      expect(group, findsOneWidget);
+      for (final destination in ReviewDestination.values) {
+        expect(find.descendant(of: group, matching: find.text(destination.label)),
+            findsOneWidget);
+      }
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('every axis has a control once its section is expanded',
+        (tester) async {
+      final file = await pumpDialog(tester, 'all_axes.yaml');
+      for (final section in [
+        kStructureSectionLabel,
+        kAnnotationsSectionLabel,
+        kCodeSpecsSectionLabel,
+        kFollowUpSectionLabel,
+      ]) {
+        await tester.ensureVisible(find.text(section));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text(section));
+        await tester.pumpAndSettle();
+      }
+
+      for (final label in [
+        // Structure.
+        kShouldBeOneOfLabel, kCaseSetIncompleteLabel,
+        // Annotations.
+        kIdPatternWrongLabel, kHandoffWrongLabel, kContentTypeWrongLabel,
+        kStandardRefWrongLabel, kStandardRefMissingLabel,
+        kUnusedConfirmedLabel, kUnusedRejectedLabel,
+        // CodeSpecs (TSRA6, now sectioned).
+        kCodeSpecKindMissingLabel, kCodeSpecKindWrongLabel, kNotCodeSpecsLabel,
+        kSuggestedKindsLabel,
+        // Follow-up.
+        kFollowUpKindMissingLabel, kFollowUpKindWrongLabel,
+        kSuggestedFollowUpKindsLabel,
+      ]) {
+        await tester.ensureVisible(find.text(label));
+        expect(find.text(label), findsOneWidget, reason: 'missing: $label');
+      }
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a section that already carries feedback starts expanded',
+        (tester) async {
+      // Collapsing a section that holds a recorded judgement would hide it —
+      // the one failure mode a collapsible dialog must not have.
+      final file = await pumpDialog(tester, 'section_expanded.yaml',
+          seed: (e) => e.idPatternWrong = true);
+      await tester.ensureVisible(find.text(kIdPatternWrongLabel));
+      expect(find.text(kIdPatternWrongLabel), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('an empty section starts collapsed', (tester) async {
+      final file = await pumpDialog(tester, 'section_collapsed.yaml');
+      expect(find.text(kIdPatternWrongLabel), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('checking a structural axis persists it', (tester) async {
+      final file = await pumpDialog(tester, 'tsra7_persist.yaml');
+      await tester.ensureVisible(find.text(kAnnotationsSectionLabel));
+      await tester.tap(find.text(kAnnotationsSectionLabel));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text(kHandoffWrongLabel));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(kHandoffWrongLabel));
+      await tester.pumpAndSettle();
+
+      final reloaded = ReviewStore(file)..load();
+      expect(reloaded.entryFor('DemoDoc')!.handoffWrong, isTrue);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('an unknown follow-up code is flagged in the summary',
+        (tester) async {
+      final file = await pumpDialog(tester, 'followup_warn.yaml',
+          seed: (e) => e.suggestedFollowUpKinds = ['doc', 'sec']);
+      // The dialog names the extension code as unrecognised rather than
+      // silently accepting or dropping it.
+      await tester.ensureVisible(find.text(kUnknownFollowUpWarning));
+      expect(find.text(kUnknownFollowUpWarning), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
     });
   });
