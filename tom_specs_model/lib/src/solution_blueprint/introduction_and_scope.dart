@@ -8383,7 +8383,7 @@ class FunctionalRequirementEntry extends DocSpecsSection {
   // requirement's title and id — the id lives solely in the item's stored
   // section id (the owning list's `@SectionIdPattern('FRE-REQU-xxx')`), the
   // title solely in the item heading. No form field restates either
-  // (som_mapping.md §4, YRD6 reversed).
+  // (tom_specs_model_rules.md §8, YRD6 reversed).
   @Form([
     Field(
       'status',

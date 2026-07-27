@@ -299,6 +299,24 @@ never affected.
 - **C++** — RAII classes (`class X : public som::SomNode`), a `.hpp`/`.cpp`
   split, a Doc/Path shadow guard, and `SomVersionError` on version mismatch.
 
+### 8.1 Per-language structural-accessor surface
+
+Rule 7 of `tom_specs_model_rules.md` §7.7 requires the structural accessor (the
+node's section id) to be **collision-proof against model member names**. Each
+language resolves that in its own idiomatic way; the names are fixed, not
+per-generator choices:
+
+| Language | Accessor | Note |
+|----------|----------|------|
+| Dart | `SomNode.$sectionId` | `$` prefix — illegal as a generated member name |
+| Python | `spec_section_id` | reserved `spec_` prefix |
+| Java | `$sectionId` | `$` prefix |
+| JavaScript / TypeScript | `$sectionId` getter + setter pair | `$` prefix |
+| Go | `SectionID()` / `SetSectionID()` | method pair |
+| Rust | named `node` field | struct field namespacing makes a guard unnecessary |
+| C | plain struct field | struct field namespacing makes a guard unnecessary |
+| C++ | `SomNode::sectionId()` / `setSectionId()` | method pair |
+
 ## 9. Scripting surface
 
 The generic runtime carries the surface a sandboxed scripting layer needs: query,

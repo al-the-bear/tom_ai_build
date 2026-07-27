@@ -1,23 +1,20 @@
 # TomSpecs Mapping — Object Model ↔ SOM Classes ↔ DocSpecs md/yaml
 
-**Status:** Normative. This is the **single authority** for how the document
-structure of a DocSpecs document is described as an object model in
-`tom_specs_model`, and how that model is mapped to the SOM classes — the
-generated concrete (editing) classes, the runtime access classes, and the
-meta-data classes — including the md/yaml serialization of every construct.
+**Status:** Normative. This is the **single authority** for how the
+`tom_specs_model` object model is mapped to the SOM classes — the generated
+concrete (editing) classes, the runtime access classes, and the meta-data
+classes — including the md/yaml serialization of every construct, schema
+generation, and the embedded validator.
 
-It also **supersedes**
-`tom_ai/ai_build/tom_specs_model/doc/specs_model_outliner.md` §6–§7 (model
-design rules and annotation semantics), which are reduced to redirect anchors
-into this document; the outliner doc keeps only the outliner *tool* rendering
-specification.
+The **model-authoring rules** — the universal section structure, legal member
+shapes, field classification, section identity, headlines, the annotation
+vocabulary, and the structural invariants — are stated in
+`tom_specs_model_rules.md`, which is the authority for how to write a class in
+`tom_specs_model`. This document maps that model outwards.
 
 **Design authority.** This document is where the **decided target state** is
-fixated — including the byte-level md/yaml format, schema generation, the
-embedded validator, and the headline/id storage decisions; the
-model-authoring rules that follow from it are stated in
-`tom_specs_som_guidelines.md`. Parts that are not
-yet implemented are marked with a status tag:
+fixated for the mapping surfaces. Parts that are not yet implemented are marked
+with a status tag:
 
 | Tag | Meaning |
 | --- | --- |
@@ -27,454 +24,6 @@ yet implemented are marked with a status tag:
 Where this document is silent, the Dart reference implementation
 (`tom_som_dart_runtime`, `tom_specs_clitool`) is the tiebreaker and this
 document must be amended to match it in the same change.
-
----
-
-## 1. The universal section structure
-
-A TomSpecs specification is a **document for human readers**; the DocSpecs
-`*.md` file is the logically primary target format. The SOM document format is
-compatible with the doc_scanner / doc_specs format and describable as a
-DocSpecs schema (`_ai/quests/doc_specs/doc_specs_specification.md`).
-
-Every document is a tree of **sections**. Always, at every level, a section is:
-
-```
-<headline (with <!--[ID]--> comment)>
-<content (optional body text)>
-<subsections…>
-```
-
-1. **Every section has a section id and a headline.** Both are first-class
-   *stored* values on every section — fixed sections and list items alike —
-   persisted in md and yaml, surviving modification through all three
-   representations (object model, yaml, md). *(IMPLEMENTED — YRD3, in all
-   nine runtimes: `SpecDocument` carries a sparse headline store; stored
-   headlines and stored list-item ids round-trip through md and yaml.)*
-2. **A list is always an outer section** containing the entry sections of the
-   list. The content of the outer (container) section has **no meaning defined
-   by the tom_specs description** — it may hold text, but the model assigns it
-   no semantics. Each list entry is itself a regular section. *(implemented —
-   the `*-LST` container level in model, md, and yaml; see §3.2, §8.5, §9.)*
-3. **Non-list sections and list entries follow the same uniform shape:**
-   content (with or without `@Form`) plus optional subsections. A `@Form`
-   structures the section's content; it does not change the section shape.
-4. **Nesting depth is unbounded.** There is no six-heading-level cap in the md
-   format (§8.2); DocSpecs and its tooling must accept arbitrary nesting
-   *(implemented — YRD2; `tom_doc_scanner` grammar is `#{1,}` and parses the
-   shared SOM sample, which nests to level 12, end-to-end)*.
-
-Terminology used throughout: *section id* = the `@SectionId` mnemonic
-(`INSC`); *member name* = the exact field/class identifier in the model;
-*path* = the runtime navigation path (`DEMO/introductionAndScope/GOAL-ITEM-1/content`);
-*kind* = one of the seven `SpecFieldKind` values (`list`, `form`, `section`,
-`content`, `enum`, `complex`, `scalar`).
-
-### 1.1 Running example
-
-All examples use this miniature model (a document root, a content section, a
-nested content child, a form, and a list):
-
-```dart
-@Document('Demo Document', 'A miniature document used by the format examples.',
-    basedOn: [])
-@SectionId('DEMO')
-class D99DemoDocument {
-  @SerializationOrder(1)
-  String? content; // document preamble
-
-  @SerializationOrder(2)
-  IntroductionAndScope introductionAndScope = IntroductionAndScope();
-
-  @SerializationOrder(3)
-  DocumentControl documentControl = DocumentControl();
-}
-
-@SectionId('INSC')
-@ContentHelp('Describe what the system covers and what it explicitly '
-    'does not cover.')
-class IntroductionAndScope {
-  @SerializationOrder(1)
-  @ContentType('markdown', 'Scope narrative')
-  String? content;
-
-  @SerializationOrder(2)
-  Goals goals = Goals();
-}
-
-@SectionId('GOAL')
-class Goals {
-  @SerializationOrder(1)
-  String? content;
-
-  @SerializationOrder(2)
-  @SectionId('GOAL-ITEM-LST')
-  @SectionIdPattern('GOAL-ITEM-xxx')
-  @Min(1)
-  List<GoalEntry> entries = [];
-}
-
-@SectionId('GOEN')
-class GoalEntry {
-  @SerializationOrder(1)
-  String? content;
-}
-
-@SectionId('DOCO')
-@Form([
-  Field('version', String, hint: 'e.g. 1.0'),
-  Field('approvedBy', String),
-  Field('reviewCount', int),
-])
-class DocumentControl {
-  String? version;
-  String? approvedBy;
-  int? reviewCount;
-}
-```
-
----
-
-## 2. The object model (`tom_specs_model`)
-
-A TomSpecs document *is* a class instance graph. One `@Document` root class is
-the top-level document section; each reachable class is a section; each member
-is either the section's own content, a child section, or a list of child
-sections. Serialization — to yaml or md — is a single depth-first walk of that
-tree in `@SerializationOrder` order.
-
-### 2.1 Canonical field shapes
-
-A model class may contain **only** the following six member shapes — nothing
-else. The clitool validator (`tom_specs_clitool/lib/src/validator.dart`)
-enforces these as hard errors:
-
-| # | Shape | Meaning |
-|---|-------|---------|
-| **(1)** | `String content` (plain) | The section's OWN content. The section id comes from the **class**, not the field. |
-| **(2)** | `String content` with `@Form` | The `content` value is the pre-form narrative, followed by the form's field members. |
-| **(3)** | `DocSpecsSection <name>` with a **field-level `@SectionId`** (optionally `@Form`) | An inline sub-section whose content IS this field (YRD5). A `@Reference` field is this shape (its id is required). |
-| **(4)** | `<SectionClass> field` | A sub-section class; the class owns the id (a field-level id may still override). |
-| **(5)** | `List<SectionClass>` with `@SectionId` + `@SectionIdPattern` | A list of sub-section classes; each element gets a per-instance id from the pattern. |
-| **(6)** | `List<DocSpecsSection>` with `@SectionId` + `@SectionIdPattern` (optionally `@Form`) | An inline list of content sub-sections (YRD5). |
-
-Hard error cases:
-
-- **Non-String scalar** — any free `int`/`bool`/`double`/`num`/`DateTime`
-  field. Typed scalars are legitimate only as `@Form` field members, never as
-  free model fields.
-- **Non-`content` section member without a field-level `@SectionId`** — every
-  descriptively-named `DocSpecsSection?` field (legacy `String?` in synthetic
-  fixtures) is an inline sub-section (shape (3)) and must be addressable.
-- **Misused reserved name `content`** — a field named `content` that is not a
-  plain `String`/`String?` value, or a `content` field carrying a field-level
-  `@SectionId`. The name `content` is reserved for the section's own content;
-  its id comes from the class.
-
-Enum fields are outside these rules — neither required to carry an id nor
-forbidden. Missing `content: String?` on a class is a **warning**, not an
-error.
-
-### 2.2 `DocSpecsSection` base class *(IMPLEMENTED — YRD5)*
-
-The model is structured so that:
-
-- A `DocSpecsSection` class holds **headline, id, content, an optional
-  `codeSpec` forward link, and an optional parsed `DocSpecsForm form`** —
-  representing a simple section with no subsections. `DocSpecsForm` holds the
-  pre-form-field content (already split off) plus one parsed value per `@Form`
-  field.
-- **`List<String> codeSpec` — the concrete DocSpecs→CodeSpecs forward link.**
-  A per-section member recording the CodeSpec code location(s) a concrete
-  section maps to (e.g. `["CsOrder", "CsOrder.total", "CsOrderRepository"]`).
-  This is the *instance-level* half of the bidirectional DocSpecs↔CodeSpecs
-  link defined in the quest-folder `codespecs_mapping.md` §9.2 — the
-  type-level `@CodeSpecKind` SOM annotation (§9.1 there) is its general
-  counterpart, and the code-side `@DocSpec` annotation (§9.3 there) is its
-  backward counterpart. It is **sparse and optional** (empty ⇒ no section
-  maps to code), and it serializes exactly parallel to the stored `headline`:
-  the runtime holds it in a sparse per-section store (comma-joined in state,
-  fingerprint, json, yaml, md), it has **no effective default** (staged
-  whenever present), and it is emitted in md and yaml as documented in §8.2
-  and §9.2 below.
-- **Home (decision):** both types live in
-  `tom_specs_core/lib/src/sections/docspecs_section.dart` — like `TextSection`
-  and the other section leaves, the base type is metamodel infrastructure and
-  must stay outside the analyzer-scanned `tom_specs_model` package.
-- All uses of `String` as section member type in `tom_specs_model` are
-  replaced with `DocSpecsSection` (shape (3) fields are typed sections; a
-  `@Form` or `@ContentType` annotation on the member continues to define
-  details). The reserved `content` member itself **stays `String?`** — it is
-  the section's own body, re-declared with `@override` on each class to carry
-  its per-class annotations.
-- All model classes (including the section leaves in `tom_specs_core` and the
-  `DocSpecsProject` container root) are **subclasses of `DocSpecsSection`**.
-  The clitool validator enforces this as a structural invariant once any
-  class in a model has adopted the base.
-- **Meta-tree stability contract:** `DocSpecsSection`-typed members classify
-  as `content` nodes and report `String`/`String?`/`List<String>` at the
-  meta/JSON/outline boundary (`ModelField.metaTypeName`), and subclasses stay
-  on the `complex` expansion path — so the exported meta tree, the DocSpecs
-  schemas, `spec_model.json`, the outlines and all nine SOM emitter outputs
-  are **byte-identical** to the pre-YRD5 String-member model. The engine
-  (`spec_ops.g.dart`) is the one consumer that sees the real types: section
-  members are `SpecSlot.node`/`SpecSlot.list` child slots, and
-  `DocSpecsSection` itself is registered as a content leaf.
-
-Consequence: `tom_specs_model` becomes an object model into which a `*.md`
-file can actually be **parsed** (headline/id/content stored per section node;
-`@Form` content mediated by `DocSpecsForm`; typed per-field members follow in
-YRD7).
-
-### 2.3 The three member shapes on the serialization walk
-
-Walking a class in serialization order, each member is exactly one of:
-
-1. **`String? content` (the content member).** The section's body text —
-   everything between the section's heading and its first sub-section. It is
-   *not* a sub-section. Serialized as the `content` yaml key (§9) / the prose
-   directly under the md heading (§8.3). `@Form` classes replace the free
-   content with `FieldName: value` lines (§8.4). Always emitted **above** any
-   child sections.
-2. **A singleton complex member (`Foo field;`).** One child section. Recurse
-   into `Foo`'s class, whose `@SectionId` becomes the child section id. One
-   nesting level deeper in both formats.
-3. **A list member (`List<Foo> field;`).** A **two-level** section hierarchy
-   (§3.2).
-
-### 2.4 Class style and naming
-
-| Rule | Description |
-|------|-------------|
-| No constructors | A default constructor is implied. |
-| No `final` / `const` | Plain mutable instance fields, like nested records. |
-| Non-nullable defaults | Non-nullable fields get a valid default; nullable fields stay null. |
-| No computed properties | Only concrete instance fields are model members. |
-| Singular match preferred | Singular complex field names should match their type name (`SystemOverview systemOverview`); mismatch is allowed, not an error. |
-| Inheritance | Subclasses fully re-declare their fields (replacement, not augmentation); the structure is what each class declares plus non-redeclared inherited fields. |
-| Reachability | Only types reachable from the document root are part of that document's structure. |
-
-### 2.5 Content documentation rules
-
-Every `String? content` field must be documented:
-
-| Class type | Documentation source |
-|------------|---------------------|
-| `*Section` class (`TextSection`, `DiagramSection`, …) | `@ContentType` on the `content` field inside the section class declares the format; the human-readable description is the doc-comment on the **using field**. |
-| Regular class with `String? content` | `@ContentType(type, 'description')` on the `content` field (mandatory description). |
-| Container class (content unused) | `@Unused()` on the `content` field — no narrative text expected. |
-
-A non-Form `@ContentType` (e.g. `DDL`, `SQL`, `Dart`, `Mermaid`) forbids other
-scalar fields on the class — the content occupies the full text.
-
-### 2.6 Keep-a-class and keep-a-level criteria
-
-Shapes (3)/(6) let a leaf sub-section be a *field* instead of a class, and a
-single-subsection wrapper level can be *collapsed* — but only when safe:
-
-- **A sub-section stays a class** when it is **shared** (referenced by more
-  than one parent field across the model — e.g. `DocumentHeader`) or is a
-  **form-bearing list element** (a `List<L>` element whose `L` carries
-  `@Form`; a scalar `List<String>` has no place for per-element form fields).
-  The validator never flags kept classes; collapse candidacy is a codemod
-  concern (`collapse_leaves.dart`, `collapse_list_leaves.dart`).
-- **A wrapper stays a level** when its own content has meaning by itself:
-  it (or a field) carries `@Form`; a leaf carries substantive `@ContentHelp` /
-  `@StandardReferences` / non-Form `@ContentType`; it is shared; or it declares
-  a named leaf besides `content`. Only when *none* of these hold is the
-  wrapper pure indirection — the validator emits a `§6.1c collapsible-wrapper`
-  **warning** for such candidates. The model is at the steady state: zero
-  candidates remain (census tools: `tom_specs_clitool/tool/keep_class_census.dart`,
-  `tool/tsma4_census.dart`).
-
-Note *(DONE — YRD10 audit)*: under the §1 list-as-outer-section rule, a
-pure single-list wrapper is doubly redundant (the list already provides its
-own section level). The YRD10 audit re-checked every wrapper against this rule
-via `tom_specs_clitool/tool/yrd10_list_wrapper_census.dart` (the LIST
-specialisation of the TSMA4/§6.1c single-subsection audit) and the collapse
-codemods (`tool/collapse_leaves.dart`, `tool/collapse_list_leaves.dart`): of
-the 82 pure single-list wrappers (`{content?}` + exactly one list), **zero are
-collapsible** — all are kept by a keep-a-level exemption (16 shared /
-list-element, 15 `@Form`-bearing, 51 substantive `@ContentHelp` /
-`@StandardReferences` / non-Form `@ContentType`). The model is at the steady
-state: the validator emits zero `§6.1c collapsible-wrapper` warnings and there
-are zero collapsible pure single-list wrappers.
-
----
-
-## 3. Section identity
-
-### 3.1 Section ids
-
-Section ids are short, flat mnemonics identifying the *type* of a section
-(not its position). Uppercase alphanumerics and `-` (`[A-Z0-9-]+`).
-
-**Class-level `@SectionId`** — every model class carries exactly one:
-
-- Document roots use their short document codes: `SBP`, `CLA`, `TOM`, `IFM`,
-  `RSP`, `ISC`, `ATS`, `IIS`, `SAS`, `XDS`, `QAP`, `DRM`, `TRP`.
-- Top-level section classes may use 3–4 letters (`SYOV`, `CURS`); all other
-  classes use up to 6 letters derived from the class name (`EXTSY` for
-  `ExistingSystemEntry`).
-- Class-level ids are **globally unique** across the model (validator §2).
-
-**Field-level `@SectionId` on a `List<T>` field** — the list **container** id,
-pattern `<elementId>-<FIELDSUFFIX>-LST` where `<FIELDSUFFIX>` is the field
-name uppercased and truncated to its first 4 alphanumerics (`systems` →
-`SYST`):
-
-```dart
-@SectionId('EXTSY-SYST-LST')
-@SectionIdPattern('EXTSY-SYST-xxx')
-List<ExistingSystemEntry> systems = [];
-```
-
-The field-name suffix guarantees two list fields of the same element type in
-one class get distinct container ids (`inScopeProcesses` → `PRSCEN-INSC-LST`,
-`outOfScopeProcesses` → `PRSCEN-OUTO-LST`). The element type is recoverable
-from any id by taking the first `-`-token.
-
-**Field-level `@SectionId` on a `String` field** — shape (3): an inline
-sub-section id, naming scheme `<PARENT_CLASS_SECTIONID>-<FIELD4>` (references:
-`…-REF` suffix, e.g. `KEATT-REFE-REF`).
-
-**Uniqueness namespaces** (validator §2/§2b):
-
-- Class-level ids: globally unique. Container ids occupy a *different*
-  namespace (never compared against class-level ids).
-- Container ids: unique **within a class**; cross-class sharing is legitimate
-  when both element type and field name coincide (addressing is
-  parent-path + local id).
-- A container id maps to exactly one element type.
-
-### 3.2 Lists — the `*-LST` container is a real section *(implemented)*
-
-A `List<Foo> field` with `@SectionId('FOO-FLD-LST')` +
-`@SectionIdPattern('FOO-FLD-xxx')` maps to **two** nesting levels:
-
-```
-<owning section>
-└── FOO-FLD-LST         ← the list CONTAINER section (one per list field)
-    ├── FOO-FLD-1       ← item 0, a full Foo sub-tree (1-based)
-    ├── FOO-FLD-2       ← item 1
-    └── …
-```
-
-- The container groups the whole list; a list is a distinct document section
-  that must have its own id.
-- Each item is a sub-section of the container, numbered from the
-  `@SectionIdPattern` with a **plain 1-based counter** (`FOO-FLD-xxx` →
-  `FOO-FLD-1`, `FOO-FLD-2`, … — **not** zero-padded; the earlier outliner-doc
-  `EXTSY-SYST-001` examples were wrong).
-- Per §1.2 the container's own content has no model-defined meaning. The
-  generated schema pins it as always-empty (min/max-text-length 0, §10), and
-  the yaml container mapping holds only the item keys (§9.3.5).
-- The md heading tree, the yaml tree, and the object model are structurally
-  isomorphic: the container is its own nesting level in all three.
-
-### 3.3 Stored per-item section ids
-
-List items can carry **stored** section ids: AA1 date-lettered generated ids
-(`GOAL-ITEM-GL1`) or explicit overrides (`SpecDocument.setItemSectionId`,
-`SomNode.$sectionId`, `SomList.add(sectionId:)`), validated for list-scoped
-uniqueness. Items without a stored id are **anonymous** — identified by their
-1-based positional pattern id.
-
-*(IMPLEMENTED — YRD3; reverses the earlier DRC5 rule)*: stored ids are
-persisted by **both** wire formats. The md exporter renders a stored id in the
-item's `<!--[id]-->` comment (positional pattern id only as fallback for
-anonymous items); the md parser accepts and keeps stored ids. Parse-side
-positional matching of anonymous items is kept: `<member>-<n>` and the
-`@SectionIdPattern` with `xxx` as a *number* both resolve to anonymous item
-`<n>` (never stored); any other id under the container opens the next item
-*with* that stored id.
-
-Schema interaction *(IMPLEMENTED — YRD3, superseding the DRC5-era `[0-9]+`)*:
-the generated `pattern-check-id` compiles `@SectionIdPattern` `xxx` to `.+` —
-a **stem check** (`^FOO-FLD-.+$`). Numbering and list-scoped uniqueness are
-runtime-owned, not schema-owned, so surfaced AA1 date-lettered ids and
-explicit overrides validate against their own schema (§10).
-
----
-
-## 4. Headlines *(DECIDED — YRD3/YRD4/YRD6/YRD9)*
-
-Headline storage and rendering are governed by four decisions:
-
-1. **Every section stores a headline** (fixed sections and list items),
-   persisted in md and yaml. For list entries the headline is per-instance
-   free text — the sections whose meaning cannot be predetermined.
-2. **`@Headline(String text)`** *(YRD4)* — predefines the headline for
-   fixed-meaning sections in the model. The predefined headline prefills the
-   editor on section creation and is the render fallback; the **stored
-   headline always wins** and remains editable.
-3. **Render precedence:** `stored headline > @Headline default > name
-   derivation`. The derivation fallback is the current behaviour: Title-Case
-   of the member name for fields/containers (`introductionAndScope` →
-   `Introduction And Scope`), `<ElementTitle> <seq>` for list items where the
-   element title is the Title-Case element class name with a trailing `Entry`
-   dropped.
-4. **No title/id form fields** *(YRD6 — reversed)* — the stored section
-   headline and the `@SectionId` (or, for list entries, the owning list's
-   `@SectionIdPattern` item id) are the **sole authoritative** title and id of
-   a section. Neither is ever duplicated inside a `@Form` field, a scalar, or
-   `content`. The earlier "title/id form-field role" binding (a `@Form` `Field`
-   whose value *is* the headline / section id — the "one storage slot, two
-   views" `TitleField`/`IdField` design) is **withdrawn**: there is exactly one
-   storage slot per value (the heading text; the id comment) and exactly one
-   way to read it, so no role marker is needed. A list entry's short human code
-   belongs in its heading (e.g. `FR-01 — Capture orders`), not in a form field.
-5. **Editor strict mode** *(YRD9)* — headlines and ids editable only for
-   list-entry sections; fixed sections show their stored/default headline
-   read-only.
-
-*Implementation state: headline storage (decision 1) and the full render
-precedence (decision 3) are IMPLEMENTED by YRD3 + YRD4 in all nine runtimes —
-`SpecDocument` carries a sparse per-section headline store
-(`headline`/`setHeadline`/`headlinePaths`, in state, fingerprint, json, yaml,
-md), and `@Headline` (YRD4) flows model → meta-JSON (`headline` key on classes
-and fields) → `SomMetaNode.headline` (field-level wins over the target class's
-class-level annotation, like `@SectionId`) → the md codec's shared
-title/item-stem helpers. The md parser compares parsed heading text against
-the *effective default* (stored > `@Headline` > derivation) and stages a
-stored headline only on difference, keeping untouched documents byte-stable
-(§8.7). A field-level `@Headline` on a scalar list titles the container only;
-item stems stay name-derived unless the element *class* carries a class-level
-`@Headline`. The DR3 schema `title-format` doc name resolves
-`root @Headline > @Document name > split-Pascal fallback`. Authoring
-`@Headline` across the ~3000 model sections is a separate follow-up wave;
-`IntroductionAndScope.goals` / `Goals` / `BusinessGoals` carry the
-representative authored subset. The title/id form-field roles (YRD6) are
-**withdrawn** (decision 4 above) — the model no longer carries any such field;
-editor strict mode (YRD9) remains open.*
-
----
-
-## 5. Annotations
-
-Annotations live in `tom_specs_core`; the complete per-annotation reference is
-[`tom_specs_core/README.md`](../../tom_specs_core/README.md). The
-mapping-relevant semantics:
-
-| Annotation | Applies to | Meaning in the mapping |
-|---|---|---|
-| `@Document(name, description, basedOn:)` | root class | Top-level document section; supplies the schema id (kebab-case `name`) and `major.minor` version. |
-| `@SectionId(id)` | class, `List<T>` field, or `String` field | §3.1: class id / `-LST` container id / inline sub-section id. |
-| `@SectionIdPattern(pattern)` | `List<T>` field | Per-item numbering template, mirrors the container id with `-LST` → `-xxx`; validator enforces the pairing. |
-| `@Headline(text)` | class or field | Predefined default headline (§4). *(DECIDED — YRD4)* |
-| `@Form([Field…])` | class or `content` field | Form section: scalar fields serialize as `FieldName: value` lines. `Field(name, type, hint:, required:)`. No field carries the section title or id (§4.4, YRD6 reversed). |
-| `@ContentType(type, description)` | `content` field | Content medium (`markdown`, `sql`, `dart`, …). Non-`form` types forbid sibling scalar fields. |
-| `@ContentHelp(text)` | class or member | Authoring guidance → schema `description`. |
-| `@Comment(text)` | class or field | Inline human note (outliner display; `Seeds → XX` provenance). |
-| `@Min(n)` / `@Max(n)` | `List<T>` field | Item-count bounds → schema `min-count`/`max-count`. |
-| `@Unused()` | `content` field | Structural container only; omitted from the schema, still walked for layout. |
-| `@SerializationOrder(n)` | every member | Sibling emission order in every observable surface. Stamped in bulk by `tom_specs_clitool/bin/stamp_serialization_order.dart`. |
-| `@Reference(description)` | field | Points at data owned elsewhere; renders as an ordinary content-kind inline sub-section keyed by its field-level `…-REF` id whose *value* is the referenced section id. Never followed in traversal; excluded from ownership/cycle/list coverage. |
-| `@MapsTo(Type)` | class | Seed node of a Phase 3 DocSpec in the master model — the whole subtree flows to that document. |
-| `@DetailedIn(Type)` | class | Promoted to a top-level entry of a Phase 3 DocSpec; must have a `@MapsTo` ancestor (§12). |
-| `@StandardReferences(standards, connotation)` | class or field | Public-standard provenance + meaning; carried in the meta-data. |
-| `@SeedFor(Type)` | class or field | Compile-time link for a single-target `Seeds → XX`. |
-| `@Prefix`, `@PatternCheckId`, `@PatternCheck`, `@TextRequired`, `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Position`, `@ForEach`, `@AccessKey` | various | Validation/schema constraints; captured into the meta tree's generic `extra` list and mapped by the schema generator where relevant (§10). |
 
 ---
 
@@ -611,7 +160,8 @@ Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
 - Every populated section becomes one heading:
   `## <!--[INSC]--> Introduction And Scope`. The machine identity is the
   DocSpecs headline comment `<!--[id]-->`; the heading text is the section's
-  headline (stored > `@Headline` default > derived, §4).
+  headline (stored > `@Headline` default > derived,
+  `tom_specs_model_rules.md` §8).
 - The heading id is the member's field-level `@SectionId` when present, else
   the target class's `@SectionId`; a member with neither is *transparent*
   (§8.6).
@@ -623,7 +173,7 @@ Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
 - Parse resolves a heading's id against the schema tree *at its nesting
   position* (ids resolve within their parent chain); a non-resolving id is a
   structured rejection.
-- **`codeSpec` forward link (§2.2):** a section carrying a non-empty
+- **`codeSpec` forward link (`tom_specs_model_rules.md` §5.2):** a section carrying a non-empty
   `codeSpec` list rides in the **same headline comment** as one quoted
   `key=value` field between the id bracket and the closing `-->`:
 
@@ -679,7 +229,7 @@ ReviewCount: 3
    shortest round-trip double).
 6. *(YRD6 — reversed)*: no form field carries the section title or id; the
    heading text and the id comment are the sole storage for those values, so a
-   form line can never restate them (§4.4).
+   form line can never restate them (`tom_specs_model_rules.md` §8 rule 4).
 7. Pre-form narrative content (shape (2)) precedes the first field line.
 
 ### 8.5 Lists
@@ -703,10 +253,12 @@ Remove the nightly batch window.
 ```
 
 - Container heading: the list's `-LST` id (member name for a pattern-less
-  list), Title-Case member name as default title, **empty body** (§3.2).
+  list), Title-Case member name as default title, **empty body**
+  (`tom_specs_model_rules.md` §7.5).
 - Item heading id: the item's **stored id** when one exists *(IMPLEMENTED — YRD3)*,
   else the positional pattern id (`GOAL-ITEM-<n>`, 1-based). Item heading
-  title: stored headline, else `<ElementTitle> <seq>` (§4.3).
+  title: stored headline, else `<ElementTitle> <seq>`
+  (`tom_specs_model_rules.md` §8 rule 3).
 - On parse, anonymous positional ids recover list membership and order from
   position; stored ids are kept as stored ids. Lists are never transparent.
 
@@ -732,7 +284,7 @@ Three canonicalisation losses are accepted and normative:
    binds to the first slot).
 2. Colliding transparent-form labels bind to the nearest form in slot order.
 3. *(retired)* — the former "list-item stored ids do not round-trip through
-   md" loss is reversed by YRD3 (§3.3).
+   md" loss is reversed by YRD3 (`tom_specs_model_rules.md` §7.6).
 
 ### 8.7 Parsing
 
@@ -821,7 +373,7 @@ path segment is the bare `introductionAndScope`.
 | Form field value | literal field name | `approvedBy` |
 | Scalar/enum field | `<id> <fieldName>` when the field carries an id, else the field name | `reviewCount` |
 | Stored headline | literal key `headline`, emitted **first** in its section/form/list-item mapping (IMPLEMENTED — YRD3) | `headline` |
-| Stored `codeSpec` (§2.2) | literal key `codeSpec`, the comma-joined code-location list, emitted right after `headline` in its mapping (§9.3.6) | `codeSpec` |
+| Stored `codeSpec` (`tom_specs_model_rules.md` §5.2) | literal key `codeSpec`, the comma-joined code-location list, emitted right after `headline` in its mapping (§9.3.6) | `codeSpec` |
 
 ### 9.3 Structure rules
 
@@ -952,7 +504,7 @@ One DocSpecs schema per document root, generated from the §6 tree:
    parseable by the existing DocSpecs schema consumer (`tom_doc_specs`).
 
 *(IMPLEMENTED — YRD3 reconciliation, fixed by the Dart reference)*: because
-stored ids now render in md (§3.3), the generated `pattern-check-id` compiles
+stored ids now render in md (`tom_specs_model_rules.md` §7.6), the generated `pattern-check-id` compiles
 `@SectionIdPattern` `xxx` to **`.+`** — a *stem check* (`^GOAL-ITEM-.+$`),
 mirroring the md parser's pattern matcher. Numbering of anonymous items and
 list-scoped id uniqueness are **runtime-owned**, not schema-owned. Every
@@ -999,44 +551,6 @@ Violation
 `validate` returns the full list (never fail-fast); a document is valid iff
 the list is empty. The Dart implementation's rule/section/line triples are the
 golden reference.
-
----
-
-## 12. Cross-cutting requirements and structural invariants
-
-**Cross-cutting** (enforced by the conformance golden harness):
-
-1. **Determinism** — same model + same document ⇒ byte-identical output in
-   all nine languages.
-2. **Sparseness** — nothing emitted for unpopulated subtrees, in any format.
-3. **Ordering** — `@SerializationOrder` everywhere sibling order is
-   observable.
-4. **Naming fidelity** — exact model identifiers and annotation values; no
-   case-mangling beyond documented per-language surface rules and headline
-   derivation.
-5. **Failure discipline** — structured errors everywhere (yaml load errors,
-   md rejections, schema violations); nothing silently dropped.
-
-**Structural invariants** (enforced by
-`tom_specs_clitool/lib/src/validator.dart`, exported as
-`validateStructuralInvariants()`):
-
-- `@SectionId` global uniqueness (class-level namespace).
-- `@SectionIdPattern` uniqueness / container-id pairing (§3.1).
-- `@SectionId` coverage — every reachable class carries one (transitive
-  `@SectionIdPattern` subtrees exempt).
-- `@DetailedIn` requires an ancestor `@MapsTo`.
-- Per-`@Document` detail-count budget (7–15 top-level entries).
-- Root-independent section-id resolution (dsa4) — a class reachable from more
-  than one `@Document` root resolves to the same id from every root. Both id
-  mechanisms are root-independent by construction (a class-level `@SectionId`
-  is fixed; a `@SectionIdPattern` list-instance id derives from the *element*
-  class's own `@SectionId`, so an element class carrying a class-level
-  `@SectionId` — the `<E>` prefix source — is by design, not a conflict). The
-  rejected case is *structural-mode mixing*: a class reached both as the direct
-  element of a `@SectionIdPattern` list and as a standalone complex section
-  field (`@Reference` edges excluded).
-- §2.1 field-shape legality; `@ContentType` compatibility; cycle detection.
 
 ---
 

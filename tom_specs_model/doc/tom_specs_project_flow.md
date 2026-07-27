@@ -1667,10 +1667,9 @@ are specified elsewhere; that is the division of labour.
 
 | Document | Authority for |
 |----------|---------------|
-| `tom_specs_model/doc/som_mapping.md` | The single mapping authority: object-model rules, field shapes, section IDs, annotations, markdown and YAML serialization, schema generation, structural invariants |
-| `tom_specs_model/doc/specs_model_outliner.md` | The outliner tool: notation, type expansion, output format |
+| `tom_specs_model_rules.md` | The model-authoring authority: object-model layout, field shapes, field classification, form decomposition, section IDs, headlines, annotations, structural invariants, and the outliner tool (§11) |
+| `som_mapping.md` | The mapping authority: the metadata tree, the generated SOM surfaces, markdown and YAML serialization, schema generation, the embedded validator |
 | `_ai/quests/doc_specs/doc_specs_specification.md` | The DocSpecs format itself: schemas, section types, validation |
-| `tom_specs_som_guidelines.md` | Working rules for authoring and evolving the specification object model |
 
 ### PF-REF-CSP CodeSpecs Mechanics
 

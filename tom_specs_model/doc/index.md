@@ -16,7 +16,8 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 
 | Document | Read it when you need |
 |----------|-----------------------|
-| [som_mapping.md](som_mapping.md) | **The mapping authority.** How a DocSpecs markdown document, the `tom_specs_model` Dart classes and the cross-language SOM relate — field shapes, section IDs, annotations, headline/id storage, md + yaml serialization, schema generation, structural invariants. |
+| [tom_specs_model_rules.md](tom_specs_model_rules.md) | **The model-authoring authority.** How to write a class in `tom_specs_model` — layout, member shapes, field classification, form decomposition, section identity, headlines, the annotation vocabulary, structural invariants, and the outliner. |
+| [som_mapping.md](som_mapping.md) | **The mapping authority.** How the `tom_specs_model` classes map outwards — the metadata tree, the generated SOM surfaces, md + yaml serialization, schema generation, the embedded validator. |
 | [tom_specs_project_flow.md](tom_specs_project_flow.md) | **The process authority.** The eight phases from project idea to production, their inputs/outputs, quality gates, roles, iteration rules and upgrade cycles. |
 | [codespecs_mapping.md](codespecs_mapping.md) | **The CodeSpecs authority.** The `Cs*` annotation family, the parts catalogue, per-part attribute surfaces, the `tom_core`-family basis, and the bidirectional DocSpecs↔CodeSpecs link. |
 
@@ -26,10 +27,8 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 
 | Document | Subject |
 |----------|---------|
-| [som_mapping.md](som_mapping.md) | The single mapping authority (see above) |
-| [tom_specs_som_guidelines.md](tom_specs_som_guidelines.md) | Consolidated SOM authoring guidelines — DocSpecs section model, field/list naming, id suffixes, multi-language API surface |
-| [field_classification.md](field_classification.md) | Field classification rules and worked examples |
-| [form_decomposition.md](form_decomposition.md) | When a form section decomposes into sub-sections |
+| [tom_specs_model_rules.md](tom_specs_model_rules.md) | The model-authoring authority (see above) — includes field classification (§6.1), form decomposition (§6.2) and the outliner (§11) |
+| [som_mapping.md](som_mapping.md) | The mapping authority (see above) |
 | [section_id_pattern_plan.md](section_id_pattern_plan.md) · [section_id_pattern_plan_decisions.md](section_id_pattern_plan_decisions.md) | The `@SectionIdPattern` campaign — plan and decisions log |
 | [field_suffix_list_id_plan.md](field_suffix_list_id_plan.md) | Field-name-derived suffixes for list section IDs |
 | [same_type_sibling_lists_analysis.md](same_type_sibling_lists_analysis.md) | Same-type sibling `List<T>` fields and section-ID collision |
@@ -68,7 +67,7 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 
 | Document | Tool |
 |----------|------|
-| [specs_model_outliner.md](specs_model_outliner.md) | `tom_specs_clitool/bin/outliner.dart` — notation, type expansion, output |
+| [tom_specs_model_rules.md](tom_specs_model_rules.md) §11 | `tom_specs_clitool/bin/outliner.dart` — notation, type expansion, output |
 | [spec_object_model_config.md](spec_object_model_config.md) | `tom_som.yaml` — the SOM generator configuration |
 | [analyzer_wo_sdk.md](analyzer_wo_sdk.md) | Running the Dart analyzer without a full SDK checkout |
 
