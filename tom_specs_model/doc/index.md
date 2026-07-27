@@ -2,70 +2,64 @@
 
 This is the **single folder for all TomSpecs subject-matter documentation** —
 the specification object model (SOM), the multi-language access API, the file
-formats, the CodeSpecs mapping, the creation process and all tooling docs.
-Documentation for tools that live in other projects (`tom_specs_clitool`,
-`tom_som_conformance`, …) is here too; only per-project `README.md` files stay
-with their projects.
+formats, the CodeSpecs mapping, the creation process and the applications built
+on them. Documentation for tools that live in other projects
+(`tom_specs_clitool`, `tom_spec_engine`, `tom_som_conformance`, …) is here too;
+only per-project `README.md` files stay with their projects.
+
+**Eleven documents plus this index.** Each holds exactly one authority and is
+listed exactly once below — if two documents could answer the same question, one
+of them is wrong. Read the *Authority for* column, not the title: the title says
+what a document is about, the authority says what it decides.
 
 Quest bookkeeping — progress logs, todo yamls, session trails — lives in
-`_ai/quests/tom_specs/` and is deliberately **not** part of this folder.
+`_ai/quests/tom_specs/` and is deliberately **not** part of this folder. So does
+campaign history: these documents state the current design only.
 
 ---
 
-## Start here
+## The object model and how it is generated
 
-| Document | Read it when you need |
-|----------|-----------------------|
-| [tom_specs_model_rules.md](tom_specs_model_rules.md) | **The model-authoring authority.** How to write a class in `tom_specs_model` — layout, member shapes, field classification, form decomposition, section identity, headlines, the annotation vocabulary, structural invariants, and the outliner. |
-| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | **The SOM authority.** How the `tom_specs_model` classes map outwards — the nine-language generation, the metadata tree, the generated SOM surfaces, md + yaml serialization, schema generation, the embedded validator, and packaging. |
-| [tom_specs_project_flow.md](tom_specs_project_flow.md) | **The process authority.** The eight phases from project idea to production, their inputs/outputs, quality gates, roles, iteration rules and upgrade cycles. |
-| [codespecs_mapping.md](codespecs_mapping.md) | **The CodeSpecs authority.** The `Cs*` annotation family, the parts catalogue, per-part attribute surfaces, the `tom_core`-family basis, and the bidirectional DocSpecs↔CodeSpecs link. |
+The chain runs: Dart classes in `tom_specs_model` → the SOM generator → nine
+generated language runtimes and two file formats.
 
----
-
-## Object model & guidelines
-
-| Document | Subject |
-|----------|---------|
-| [tom_specs_model_rules.md](tom_specs_model_rules.md) | The model-authoring authority (see above) — includes field classification (§6.1), form decomposition (§6.2) and the outliner (§11) |
-| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | The SOM authority (see above) — how the authored model becomes generated code and bytes |
-
-## Multi-language access API
-
-| Document | Subject |
-|----------|---------|
-| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | The SOM authority — why the model is generated into nine languages, the `v0` facade / runtime split, the two file formats, schema generation, the runtime API, and per-language packaging |
-| [som_toolchains.md](som_toolchains.md) | Per-language build and verify toolchains for the nine runtimes, and the Dart host requirement — running the analyzer with no installed SDK |
-
-## File formats
-
-| Document | Subject |
-|----------|---------|
-| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | Normative md (§11) + yaml (§12) serialization of every construct, and schema generation (§13) |
-| [tom_specs_model_meta_schema.md](tom_specs_model_meta_schema.md) | Schema of the generated `spec_model.meta.json` |
+| Document | Authority for |
+|----------|---------------|
+| [tom_specs_model_rules.md](tom_specs_model_rules.md) | **Authoring a class in `tom_specs_model`.** Object-model layout and member shapes, field classification (§6.1), form decomposition (§6.2), section identity, headlines, the annotation vocabulary, traceability and the structural invariants the validator enforces (§8.6) — and the outliner that renders the result (§11). |
+| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | **What the authored model becomes.** The nine-language generation and the `v0` facade / runtime split, the metadata tree, normative md (§11) and yaml (§12) serialization of every construct, schema generation (§13), the embedded validator, the scripting surface (§15) and per-language packaging (§17). |
+| [tom_specs_model_meta_schema.md](tom_specs_model_meta_schema.md) | **The on-disk shape of `spec_model.meta.json`** — the lossless resolved class graph the reflection path loads, its two independent version stamps, and the contract `validateSpecModelMeta` enforces. |
+| [som_generator_config.md](som_generator_config.md) | **The `tom-spec-object-model` config block** — which languages are generated, where each `tom_som_<slug>_<label>` project lands, the version label, and which document roots are generated. |
+| [som_toolchains.md](som_toolchains.md) | **What it takes to build and run the generated artefacts** — the per-language toolchains and versions per fleet host, and the host requirement of the tools that *produce* them: running the analyzer with no installed Dart SDK. |
 
 ## CodeSpecs
 
-| Document | Subject |
-|----------|---------|
-| [codespecs_mapping.md](codespecs_mapping.md) | The single CodeSpecs document — pillars (§1.1), glossary (§1.2), parts catalogue (§4), per-part gap analysis and attribute surfaces (§5), server contract (§7), SOM→CodeSpecs derivation (§8), the bidirectional link (§9), open work index (§10), config/architecture (§11–§12) |
+| Document | Authority for |
+|----------|---------------|
+| [codespecs_mapping.md](codespecs_mapping.md) | **Everything CodeSpecs.** The four pillars and the `tom_core`-family basis (§1.1), the neutral vocabulary (§1.2), the parts catalogue and the three generated projects (§4), the per-part gap analysis and spec-authorable attribute surfaces (§5), the server contract (§7), the SOM→CodeSpecs derivation and the CodeSpecs/follow-up split (§8), the bidirectional DocSpecs↔CodeSpecs link (§9), the config/settings scope split and the `code_spec` architecture principles (§11–§12). |
 
-## Process, editor & agent tooling
+## The creation process
 
-| Document | Subject |
-|----------|---------|
-| [tom_specs_project_flow.md](tom_specs_project_flow.md) | The eight-phase creation process (authority) |
-| [llm_guidelines_specification.md](llm_guidelines_specification.md) | Authoring D4rt scripts that process a TomSpecs document |
-| [llm_and_d4rt_tools.md](llm_and_d4rt_tools.md) | D4rt scripting and LLM tooling for the editor |
-| [tom_specs_editor_specification.md](tom_specs_editor_specification.md) | The spec-authoring app (authority) |
-| [tom_specs_reviewer_specification.md](tom_specs_reviewer_specification.md) | The object-model review app — the structural-review role, distinct from the editor |
+| Document | Authority for |
+|----------|---------------|
+| [tom_specs_project_flow.md](tom_specs_project_flow.md) | **How a system is created with TomSpecs.** The eight phases from project idea to production with their inputs and outputs, the quality-gate framework, the iteration and phase-re-entry rules, the role and decision-authority model, tooling, the issue workflow and upgrade cycles. |
 
-## CLI tooling
+## The applications and their agent
 
-| Document | Tool |
-|----------|------|
-| [tom_specs_model_rules.md](tom_specs_model_rules.md) §11 | `tom_specs_clitool/bin/outliner.dart` — notation, type expansion, output |
-| [som_generator_config.md](som_generator_config.md) | `tom_som.yaml` — the SOM generator configuration |
+| Document | Authority for |
+|----------|---------------|
+| [tom_specs_editor_specification.md](tom_specs_editor_specification.md) | **The spec-authoring app** (`tom_forge/tom_specs_editor`) — the three Forge applications, the four-region layout, the document/structure/agent/config modules, the two access layers, canonical paths, schema generation and the undo model. |
+| [tom_specs_reviewer_specification.md](tom_specs_reviewer_specification.md) | **The object-model review app** (`tom_ai/ai_build/tom_specs_reviewer`) — browsing the exported class graph and recording structural observations keyed by structural path. Explicitly not an editor; the two apps share readers and nothing else. |
+| [llm_and_d4rt_tools.md](llm_and_d4rt_tools.md) | **The `tom_spec_engine` scripting plane** — the D4rt host and its `spec` / `files` / `memory` scopes, the controller-bound editing facade, grep-like search, the audited file facade, the tool surface and the two-tier memory. |
+| [llm_guidelines_specification.md](llm_guidelines_specification.md) | **The agent's context prompt** — what the in-editor agent is, and how it authors D4rt scripts that process a TomSpecs document. Its worked examples are executed verbatim by `tom_spec_engine`'s test suite. |
+
+## Authorities outside this folder
+
+Two subjects this folder uses but does not own:
+
+| Where | Authority for |
+|-------|---------------|
+| [`_ai/quests/doc_specs/doc_specs_specification.md`](../../../../_ai/quests/doc_specs/doc_specs_specification.md) | The DocSpecs format itself — schemas, section types, validation. |
+| Per-project `README.md` files | Per-project usage: [`tom_specs_core`](../../tom_specs_core/README.md) (the annotation catalogue), [`tom_specs_clitool`](../../tom_specs_clitool/README.md) (CLI usage), `tom_code_specs`, `tom_core_codespecs`, [`tom_som_conformance`](../../tom_som_conformance) (the harness), and the nine `tom_som_*_v0` / `tom_som_*_runtime` pairs. |
 
 ## Generated documentation
 
@@ -75,7 +69,7 @@ leave a stale copy sitting among the hand-written docs.
 
 | Folder | Contents | Regenerate with |
 |--------|----------|-----------------|
-| [../generated-doc/outlines/](../generated-doc/outlines/index.md) | One outline per document root (D00–D13) plus the whole-model `DocSpecsProject` outline, rendered from the live Dart model | `tom_specs_clitool/tool/regenerate_outlines.sh` |
+| [../generated-doc/outlines/](../generated-doc/outlines/index.md) | One outline per document root (D00–D13) plus the whole-model `DocSpecsProject` outline and a compact `SolutionBlueprint` outline, rendered from the live Dart model | `tom_specs_clitool/tool/regenerate_outlines.sh` |
 
 Never edit anything under `generated-doc/` by hand — re-run the generator and
 commit the diff.

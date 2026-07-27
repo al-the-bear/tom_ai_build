@@ -85,36 +85,29 @@ macOS-specific notes:
   `-Wl,-install_name` vs `-Wl,-soname` per `uname -s`, and the `v0` facades add
   `-Wl,-undefined,dynamic_lookup` on Darwin because Apple's ld rejects the
   facade's intentionally-undefined runtime symbols that GNU ld permits in a
-  `-shared` link (todo `qr1-20260720-cc-soname`).
+  `-shared` link.
 - Toolchain wiring lives in `~/.zshrc` (nvm block, cargo env, openjdk@21
   `PATH`/`JAVA_HOME`) — the macOS mirror of bomber's `.bashrc`/`.profile`.
 
-## All nine languages are "Done"
+## Language coverage
 
-Step 12's done-condition — *each toolchain builds its `v0` project and runs its
-tests* — is now satisfied for **all nine languages**. Per
-**D24/D32/D33/D34/D35/D36/D37/D38** the `v0` projects landed one per follow-up
-item: Java (item 5), JavaScript (6), TypeScript (7), Go (8), Rust (9), C (10),
-and C++ (11), alongside the Dart + Python references. No language remains
-emitter-pending. The historical honest-delivery sequence was:
+**Every one of the nine target languages is covered:** its toolchain builds its
+`v0` project and runs that project's tests. Dart and Python are the reference
+pair; Java, JavaScript, TypeScript, Go, Rust, C and C++ stand alongside them. No
+language is emitter-pending.
 
-1. **Verify + record** the two toolchains that have projects (Dart, Python) — done.
-2. **Inventory + smoke-verify** the toolchains already present (Node, GCC, Clang,
-   JRE) and document their versions/provenance — done.
-3. **Document the install path** for each toolchain so a rebuild is a one-liner.
-   All language compilers/runtimes are now present on `bomber`, and **TypeScript**'s
-   project-local `tsc` route is pinned (`typescript@6.0.3`) and fixture-verified
-   (followup item 4). TypeScript stays a project-local devDependency that lands
-   with the TS `v0` project, not a host toolchain — so no host gaps remain.
+The install path for each toolchain is recorded in the *How obtained* column of
+the status matrix above, so a rebuild is a one-liner.
 
 > **Host-install posture.** The **Java** compiler (`openjdk-21-jdk-headless`,
 > `javac 21.0.11`), the **Rust** toolchain (`rustup` stable, `rustc`/`cargo`
 > `1.96.0`), and the **Go** toolchain (official tarball, `go 1.26.4`) are
 > installed on `bomber` as host toolchains. **TypeScript** is the one toolchain
 > that is intentionally **not** a host install: its `tsc` is a project-local
-> devDependency pinned to `typescript@6.0.3`, verified via the fixture smoke
-> below. With that, **every target language's build path is accounted for** —
-> eight host toolchains plus TypeScript's project-local `tsc`.
+> devDependency pinned to `typescript@6.0.3` that lands with the TS `v0`
+> project, verified via the fixture smoke below. So **every target language's
+> build path is accounted for** — eight host toolchains plus TypeScript's
+> project-local `tsc`.
 
 ## Dart host: the analyzer without an installed SDK
 

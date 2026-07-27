@@ -1067,7 +1067,7 @@ languages.
 - **Absence means one thing.** `SpecDocument.hasContent(path)` is leaf-exact —
   true iff a non-empty content leaf exists at exactly `path` — the null-free
   companion to `content(path)`. The typed section's `isEmpty` is subtree-wide.
-  Together they remove the former typed-`''` vs generic-`null` divergence, so
+  Together they close the typed-`''` vs generic-`null` divergence, so
   "is this section filled?" answers identically through both paths.
 - **Non-throwing editability.** `SomEditability` plus the pure
   `somEditabilityFor(...)` classifier is the single definition of the §4.2
