@@ -1,4 +1,4 @@
-/// The **fused recall** behind the two-tier memory (`d4rt_and_llm_tools.md`
+/// The **fused recall** behind the two-tier memory (`llm_and_d4rt_tools.md`
 /// §9.2 / §9.3, plan step 11).
 ///
 /// Step 9 built **tier 1** — the model-derived [StructuralLexicalIndex] (BM25 +

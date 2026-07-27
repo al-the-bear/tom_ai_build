@@ -3,7 +3,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 7 / `d4rt_and_llm_tools.md` §5: the `spec` base scope binds the
+/// Step 7 / `llm_and_d4rt_tools.md` §5: the `spec` base scope binds the
 /// document editing API to the **live controller**, so a script mutation is
 /// indistinguishable from a tool mutation — it produces the *same* change-log
 /// entry and undo snapshot.

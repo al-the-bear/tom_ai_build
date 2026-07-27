@@ -13,7 +13,7 @@ the versioning rules. Deeper references are linked inline.
 
 - Architecture & rationale: [`som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
   (the quest spec; section numbers below, e.g. *§2.2*, refer to it).
-- Config grammar in full: [`../tom_specs_model/doc/spec_object_model_config.md`](../tom_specs_model/doc/spec_object_model_config.md).
+- Config grammar in full: [`../tom_specs_model/doc/som_generator_config.md`](../tom_specs_model/doc/som_generator_config.md).
 - Toolchain inventory per language: [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md).
 
 ---
@@ -49,7 +49,7 @@ from them (quest decisions D32–D38).
 
 The generator reads one top-level `tom-spec-object-model` block. The default
 config lives at [`tom_som.yaml`](tom_som.yaml) beside this README. Full grammar:
-[`../tom_specs_model/doc/spec_object_model_config.md`](../tom_specs_model/doc/spec_object_model_config.md); parser:
+[`../tom_specs_model/doc/som_generator_config.md`](../tom_specs_model/doc/som_generator_config.md); parser:
 [`lib/src/spec_object_model_config.dart`](lib/src/spec_object_model_config.dart).
 
 ```yaml

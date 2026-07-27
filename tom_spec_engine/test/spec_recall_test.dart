@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 11 / `d4rt_and_llm_tools.md` §9.2 + §9.3 — **fused two-tier
+/// Step 11 / `llm_and_d4rt_tools.md` §9.2 + §9.3 — **fused two-tier
 /// recall**. These are the **host-independent** half: the tier-1
 /// [StructuralLexicalIndex] is real (built from the object model, zero LLM), the
 /// section graph is real, and the tier-2 vector mode is a **fake**

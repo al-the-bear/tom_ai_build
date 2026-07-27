@@ -4,7 +4,8 @@ description: >-
   scripting & LLM tooling: the D4rt scope registry, the restricted dcli file
   facade, the structural/lexical search index, and the Tom-Brain-backed RAG
   memory + agent substrate. Linked in-process by the TomSpecs editor; usable
-  headless (CLI/tests). See tom_ai/ai_build/tom_specs_model/doc/d4rt_and_llm_tools.md.
+  headless (CLI/tests). See
+  tom_ai/ai_build/tom_specs_model/doc/llm_and_d4rt_tools.md.
 version: 0.0.1
 # Internal engine consumed by path from the editor; depends by path on
 # unpublished sibling SOM packages. Never published to pub.dev.
@@ -18,7 +19,7 @@ dependencies:
   # latest published line (^1.10.1) — it carries the analyzer ^10 migration, so
   # there is no longer an analyzer ^8/^10 conflict with the Flutter editor's
   # tom_dart_editor. (The plan/Q4's earlier `^1.8.25` note is superseded — see
-  # tom_specs_model/doc/d4rt_and_llm_tools.md §14.)
+  # tom_specs_model/doc/llm_and_d4rt_tools.md §14.)
   tom_d4rt: ">=1.11.0"
   # dcli bridged into D4rt — the raw surface the `files` scope facade (step 8)
   # wraps. Pinned to the latest published line (^1.1.6 — F4).
@@ -49,7 +50,7 @@ dependencies:
   # of the editor's deterministic hash placeholder. `SpecProviderEmbedder`
   # (lib/src/memory/provider_embedder.dart) wraps it so the editor needs only
   # tom_spec_engine. publish_to: none → path (see
-  # tom_specs_model/doc/d4rt_and_llm_tools.md §9.3).
+  # tom_specs_model/doc/llm_and_d4rt_tools.md §9.3).
   tom_brain_substrate:
     path: ../../../tom_assistant/tom_brain_substrate
 

@@ -20,7 +20,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 /// How one section relates to another in the RAG graph.
 enum SpecRagEdgeKind {
   /// Structural membership — a child section is `part_of` its parent
-  /// (`d4rt_and_llm_tools.md` §9.1 "edges mirror the tree").
+  /// (`llm_and_d4rt_tools.md` §9.1 "edges mirror the tree").
   tree,
 
   /// A `@MapsTo` projection — the source class declares it maps to the

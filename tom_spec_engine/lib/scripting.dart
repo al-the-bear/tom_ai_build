@@ -17,7 +17,7 @@
 ///
 /// Beyond the scripting surface it also re-exports the **memory-free §8 tool
 /// classes** the editor's `AgentToolsModule` registers as MCP tools
-/// (`d4rt_and_llm_tools.md` §8): [DocTools] (the §6 `doc_*` search /
+/// (`llm_and_d4rt_tools.md` §8): [DocTools] (the §6 `doc_*` search /
 /// reflect / add-node logic over a [SpecController]) and [FileTools] (the audited
 /// `file_*` surface over a [SpecFileFacade]). The `mem_*` `MemoryTools` are
 /// **not** re-exported here — they depend on the server-only memory plane

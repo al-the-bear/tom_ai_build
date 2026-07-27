@@ -1,6 +1,6 @@
 // Step 19 done-criterion: the worked examples in the agent guidelines
-// (`tom_ai/ai_build/tom_specs_model/doc/guidelines_specification.md` §6) actually run against
-// the shipped engine surface.
+// (`tom_ai/ai_build/tom_specs_model/doc/llm_guidelines_specification.md` §6)
+// actually run against the shipped engine surface.
 //
 // Each `const` source below is the **verbatim** script body printed in the
 // guidelines. Running them here keeps the document honest: a signature drift in

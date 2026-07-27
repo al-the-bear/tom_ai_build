@@ -1,6 +1,6 @@
 /// The per-application **AgentContext** — `{guidelines doc, tool set, scope
 /// profile}` realised over Tom Brain profiles/sessions/memory
-/// (`d4rt_and_llm_tools.md` §11, plan step 17).
+/// (`llm_and_d4rt_tools.md` §11, plan step 17).
 ///
 /// §11 makes the *application* the unit of agent configuration: each
 /// application (DocSpecs / CodeSpecs / Implementation …) is a Tom Brain
@@ -14,7 +14,7 @@
 ///
 ///   * [application] → the Tom Brain **profile** name ([profileName]);
 ///   * [guidelinesName] → the profile **prompt** (the agent briefing document,
-///     e.g. `guidelines_specification.md`);
+///     e.g. `llm_guidelines_specification.md`);
 ///   * [toolset] → the [AgentToolGroup]s the profile exposes;
 ///   * [scopeProfile] → the D4rt [ScopeProfile] the profile enables.
 ///
@@ -93,7 +93,7 @@ const List<String> tomSpecsApplications = [
 
 /// The DocSpecs application's guidelines document — the agent briefing prompt
 /// the DocSpecs profile binds (§11, plan step 19).
-const String docSpecsGuidelinesName = 'guidelines_specification.md';
+const String docSpecsGuidelinesName = 'llm_guidelines_specification.md';
 
 /// The CodeSpecs application's guidelines document — the agent briefing prompt
 /// the CodeSpecs profile binds (§11, item 10). Like [docSpecsGuidelinesName] the

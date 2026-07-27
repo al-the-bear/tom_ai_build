@@ -1,4 +1,4 @@
-/// The pluggable **agent substrate** abstraction (`d4rt_and_llm_tools.md` §10,
+/// The pluggable **agent substrate** abstraction (`llm_and_d4rt_tools.md` §10,
 /// plan step 15).
 ///
 /// §10 calls for *two* interchangeable agent substrates behind one interface —

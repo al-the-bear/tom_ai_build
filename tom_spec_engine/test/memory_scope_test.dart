@@ -3,7 +3,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 12 / `d4rt_and_llm_tools.md` §4: the `memory` base scope binds a
+/// Step 12 / `llm_and_d4rt_tools.md` §4: the `memory` base scope binds a
 /// **read-only** recall surface (`memory`) over the document's fused two-tier
 /// recall ([SpecRecall], step 11). A script under this scope can *recall* but
 /// has **no mutation path** — the scope registers only the `memory_api` library

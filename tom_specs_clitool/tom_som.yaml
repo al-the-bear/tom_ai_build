@@ -1,6 +1,7 @@
 # Spec Object Model (SOM) generator configuration.
 #
-# Read by `bin/generate_som.dart` (see `tom_ai/ai_build/tom_specs_model/doc/spec_object_model_config.md`).
+# Read by `bin/generate_som.dart`
+# (see `tom_ai/ai_build/tom_specs_model/doc/som_generator_config.md`).
 # `output-base` is resolved **relative to this file's directory**, so `..`
 # places the generated projects as siblings of `tom_specs_clitool` under
 # `tom_ai/ai_build/` — e.g. `tom_ai/ai_build/tom_som_dart_v0`.

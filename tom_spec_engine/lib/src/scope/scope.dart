@@ -1,4 +1,5 @@
-/// The D4rt scripting **scope** model (`d4rt_and_llm_tools.md` §4, plan step 6).
+/// The D4rt scripting **scope** model
+/// (`llm_and_d4rt_tools.md` §4, plan step 6).
 ///
 /// A *scope* is a named, immutable set of three things a script run is granted:
 ///
@@ -19,7 +20,7 @@
 /// This `ScriptScope` is deliberately distinct from [MemoryScope] (the Tom Brain
 /// memory-addressing key) and from `tom_brain`'s own `Scope`: it names a *D4rt
 /// scripting surface*, not a memory partition. See
-/// `d4rt_and_llm_tools.md` §4.
+/// `llm_and_d4rt_tools.md` §4.
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';

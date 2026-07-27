@@ -53,7 +53,7 @@ void main() {
 
       expect(context.application, 'docspecs');
       expect(context.guidelinesName, docSpecsGuidelinesName);
-      expect(context.guidelinesName, 'guidelines_specification.md');
+      expect(context.guidelinesName, 'llm_guidelines_specification.md');
       expect(
         context.toolset,
         {
@@ -228,7 +228,7 @@ void main() {
       expect(registry.applications, containsAll(['docspecs', 'readonly']));
 
       final docspecs = registry.context('docspecs');
-      expect(docspecs.guidelinesName, 'guidelines_specification.md');
+      expect(docspecs.guidelinesName, 'llm_guidelines_specification.md');
       expect(docspecs.toolset, hasLength(4));
       expect(docspecs.scopeProfile.scopeNames, ['spec', 'files', 'memory']);
 

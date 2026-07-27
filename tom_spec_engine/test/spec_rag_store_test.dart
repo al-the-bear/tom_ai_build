@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 10 / `d4rt_and_llm_tools.md` §9.1 — the **in-process** half of
+/// Step 10 / `llm_and_d4rt_tools.md` §9.1 — the **in-process** half of
 /// the section-level RAG store: a document's [SpecRagGraph] (built in
 /// `spec_rag_graph_test.dart`) is persisted as section nodes + tree/projection
 /// edges into the document's profile-isolated Tom Brain **named memory**
@@ -164,7 +164,7 @@ void main() {
     }, skip: skipNoBinary);
   });
 
-  // Step 15 / `d4rt_and_llm_tools.md` §9.3 — a full-document index batch-
+  // Step 15 / `llm_and_d4rt_tools.md` §9.3 — a full-document index batch-
   // embeds when a `SpecBatchEmbedder` is bound: one fan-out for all sections
   // rather than one round-trip per section, and the batched vectors persist /
   // recall identically to the per-section path.

@@ -5,7 +5,7 @@ import 'fixture.dart';
 
 /// The flat node projection ([SpecQueryEngine.projectNodes] /
 /// [SpecQueryEngine.projectNode]) the tier-1 structural/lexical index
-/// (`d4rt_and_llm_tools.md` §9.2) is built from. It must surface, per node, the
+/// (`llm_and_d4rt_tools.md` §9.2) is built from. It must surface, per node, the
 /// same structural-closure walk the live query uses plus the searchable strings
 /// and structural facets, with **zero** model (LLM) calls.
 void main() {

@@ -3,8 +3,8 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/dartscript.b.dart';
 
-/// Step 5 / `d4rt_and_llm_tools.md` §13.1 / multiplatform item 7c: the generated
-/// D4rt bridge round-trip.
+/// Step 5 / `llm_and_d4rt_tools.md` §13.1 / multiplatform item 7c: the
+/// generated D4rt bridge round-trip.
 ///
 /// Proves a sandboxed D4rt script, importing only the generated bridge surface,
 /// can drive the SOM API end to end **against the same in-memory representation

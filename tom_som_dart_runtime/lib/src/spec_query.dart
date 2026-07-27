@@ -1,5 +1,5 @@
 /// Lexical/structural query + lazy cursor over a live [SpecDocument]
-/// (`d4rt_and_llm_tools.md` §6, `som_multiplatform_spec_model.md` §15).
+/// (`llm_and_d4rt_tools.md` §6, `som_multiplatform_spec_model.md` §15).
 ///
 /// This is the **grep-like** facility the downstream D4rt scripting layer and the
 /// editor's search tools reuse. It is **embedding-free** — exact substring/regex
@@ -59,11 +59,11 @@ class SpecMatchSpan {
 }
 
 /// A flat, value-bearing projection of one document node — everything the
-/// tier-1 structural/lexical index (`d4rt_and_llm_tools.md` §9.2) needs to index
-/// a section **without re-walking the model itself**: its path, kind, class, the
-/// structural facets (section id, `@MapsTo` / `@DetailedIn`), the doc-comment
-/// headline, the searchable strings (stored values + headline), and whether it
-/// currently holds a value.
+/// tier-1 structural/lexical index (`llm_and_d4rt_tools.md` §9.2) needs to
+/// index a section **without re-walking the model itself**: its path, kind,
+/// class, the structural facets (section id, `@MapsTo` / `@DetailedIn`), the
+/// doc-comment headline, the searchable strings (stored values + headline),
+/// and whether it currently holds a value.
 ///
 /// Produced by [SpecQueryEngine.projectNodes] / [SpecQueryEngine.projectNode],
 /// which reuse the same structural-closure walk and value-extraction the live

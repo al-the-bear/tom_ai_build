@@ -223,8 +223,9 @@ class ModelJsonExporter {
 
   /// Emits the full, lossless annotation list for a class or field: **every**
   /// annotation [ModelReader] captured, each as `{name, arguments}` with its
-  /// resolved argument map intact (`som_multiplatform_spec_model.md` §5.3 / spec
-  /// §3.1). The curated keys
+  /// resolved argument map intact (`som_multiplatform_spec_model.md` §5.3;
+  /// `tom_specs_model_meta_schema.md`, "`classes[name]` entry" /
+  /// "`fields[]` entry"). The curated keys
   /// above (`sectionId`, `mapsTo`, `min`, `contentType`, …) are a redundant
   /// projection of this same data, kept for existing consumers (the editor
   /// tree); this block is the lossless source the generic runtime's meta-model

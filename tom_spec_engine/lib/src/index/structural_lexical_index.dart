@@ -1,5 +1,5 @@
 /// The **tier-1 structural/lexical index** behind the §6 search facility
-/// (`d4rt_and_llm_tools.md` §9.2, plan step 9).
+/// (`llm_and_d4rt_tools.md` §9.2, plan step 9).
 ///
 /// An inverted text index (BM25) plus structural facets (section id, kind,
 /// class, `@MapsTo` / `@DetailedIn`, value state) built **directly from the

@@ -1,4 +1,4 @@
-/// The **change-log-driven incremental re-indexer** (`d4rt_and_llm_tools.md`
+/// The **change-log-driven incremental re-indexer** (`llm_and_d4rt_tools.md`
 /// §9.2; plan steps 9–11, item 14; closes D53).
 ///
 /// Steps 9–11 delivered the two incremental *mechanisms* — tier-1
