@@ -47,8 +47,6 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | Document | Subject |
 |----------|---------|
 | [som_mapping.md](som_mapping.md) | Normative md + yaml serialization of every construct |
-| [som_file_mapping.md](som_file_mapping.md) | Conformance file mapping — redirect stub into `som_mapping.md` |
-| [comments_annotations_rules.md](comments_annotations_rules.md) | Comment/annotation rules — redirect stub into `som_mapping.md` |
 | [spec_model_meta_schema.md](spec_model_meta_schema.md) | Schema of the generated `spec_model.meta.json` |
 
 ## CodeSpecs

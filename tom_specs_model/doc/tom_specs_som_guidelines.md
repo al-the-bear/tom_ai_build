@@ -557,10 +557,9 @@ error, so a clean outline is proof of a valid model.
 
 The annotation vocabulary lives in `tom_specs_core`. The **per-annotation
 reference** is `tom_specs_core/README.md`; the **mapping semantics** (what each
-annotation does to the emitted document/schema) are `som_mapping.md` §5; the
-**comment→annotation mapping rules and confidence levels** are
-`comments_annotations_rules.md`. This section catalogues
-them so an author knows what exists and when to reach for each.
+annotation does to the emitted document/schema) are `som_mapping.md` §5. This
+section catalogues them so an author knows what exists and when to reach for
+each.
 
 **Identity & structure:** `@Document`, `@SectionId`, `@SectionIdPattern`,
 `@Headline`, `@Form`, `@ContentType`, `@Unused`, `@Reference`,
@@ -664,8 +663,7 @@ generator** (`bin/generate_som.dart`). It runs against an embedded SDK summary,
 so no installed Dart SDK is required. Specs:
 `tom_specs_clitool/README.md`, `specs_model_outliner.md` (the outliner tool),
 `som_mapping.md` (what it emits), `spec_object_model_config.md`,
-`spec_model_meta_schema.md`, `comments_annotations_rules.md`,
-`analyzer_wo_sdk.md`.
+`spec_model_meta_schema.md`, `analyzer_wo_sdk.md`.
 
 ### 10.2 Reviewer — `tom_specs_reviewer` (`tom_ai/ai_build/`)
 
@@ -723,7 +721,6 @@ runtime relationship).
 | Form-decomposition targets | `tom_specs_model/doc/form_decomposition.md` |
 | How the section-ID scheme was arrived at (design record) | `section_id_pattern_plan.md`, `field_suffix_list_id_plan.md` (both COMPLETE) |
 | Structural invariants (implementation) | `tom_specs_clitool/lib/src/validator.dart` (`validateStructuralInvariants()`), `som_mapping.md` §12 |
-| Comment→annotation mapping | `comments_annotations_rules.md` |
 | Multi-platform SOM component | `multiplatform_spec_model.md` |
 | Generator config / meta-schema / toolchains | `spec_object_model_config.md`, `spec_model_meta_schema.md`, `som_toolchains.md` |
 | DocSpecs format itself (schemas, section types, validation) | `_ai/quests/doc_specs/doc_specs_specification.md` |

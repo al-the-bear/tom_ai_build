@@ -15,14 +15,15 @@ The model is the single source of truth; every annotation defined here is read
 by the analyzer-based `ModelReader` and flows through `ModelJsonExporter` into
 the meta-data file (`spec_model.meta.json`) that every language runtime loads.
 
-> **Cross-references.** The **outline rendering** semantics of each annotation
-> and the model-design rules live in
+> **Cross-references.** The **mapping semantics** of each annotation — what it
+> does to the emitted document, schema and meta-data — live in
+> [`tom_specs_model/doc/som_mapping.md`](../tom_specs_model/doc/som_mapping.md)
+> §5. The **model-authoring rules** (when to reach for which annotation) live in
+> [`tom_specs_model/doc/tom_specs_som_guidelines.md`](../tom_specs_model/doc/tom_specs_som_guidelines.md)
+> §8, and the **outline rendering** notation in
 > [`tom_specs_model/doc/specs_model_outliner.md`](../tom_specs_model/doc/specs_model_outliner.md)
-> §4, §6, §7. The **comment → annotation derivation** rules (how each annotation
-> is inferred from a doc-comment convention) live in
-> [`../tom_specs_model/doc/comments_annotations_rules.md`](../tom_specs_model/doc/comments_annotations_rules.md).
-> This README is the catalogue of *what each annotation is*; those documents own
-> *how it renders* and *how it is derived*.
+> §4. This README is the catalogue of *what each annotation is*; those documents
+> own *how it maps*, *when to use it*, and *how it renders*.
 
 ---
 

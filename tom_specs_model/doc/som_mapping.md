@@ -6,17 +6,11 @@ structure of a DocSpecs document is described as an object model in
 generated concrete (editing) classes, the runtime access classes, and the
 meta-data classes — including the md/yaml serialization of every construct.
 
-It consolidates and **supersedes**:
-
-- `som_file_mapping.md` (member-by-member
-  mapping semantics),
-- `tom_ai/ai_build/tom_specs_model/doc/specs_model_outliner.md` §6–§7 (model
-  design rules and annotation semantics; the outliner doc keeps only the
-  outliner *tool* rendering specification),
-
-both now reduced to redirect stubs. The doc-comment → annotation
-derivation rules (`comments_annotations_rules.md`)
-describe the one-time historical migration campaign and are non-normative.
+It also **supersedes**
+`tom_ai/ai_build/tom_specs_model/doc/specs_model_outliner.md` §6–§7 (model
+design rules and annotation semantics), which are reduced to redirect anchors
+into this document; the outliner doc keeps only the outliner *tool* rendering
+specification.
 
 **Design authority.** This document is where the **decided target state** is
 fixated — including the byte-level md/yaml format, schema generation, the
@@ -1078,24 +1072,15 @@ FORMAT 8 golden-log parity by csmc8 (2026-07-20).
 
 ## 14. Provenance and reconciliation notes
 
-Consolidated 2026-07-16 (quest todo YRD1) from the three superseded documents
-plus the fixated decisions. Staleness corrected during consolidation:
+Corrections carried over from the superseded sources this document consolidates:
 
-1. `som_file_mapping.md`'s status note ("the md emitter and schema generator
-   do not yet emit the `*-LST` container — DRA1–DRA9 pending") was **stale**:
-   the container heading is emitted and parsed (verified against
-   `spec_document_markdown.dart` and the conformance sample).
-2. The outliner doc §7.3's "zero-padded counter" (`EXTSY-SYST-001`) was
+1. The outliner doc §7.3's "zero-padded counter" (`EXTSY-SYST-001`) was
    **wrong**: item numbering is plain 1-based (`EXTSY-SYST-1`), per the DR1
    format spec and the implementation.
-3. DR1's DRC5 rule and §1.2.1 "loss 3" (md never surfaces stored list-item
+2. DR1's DRC5 rule and §1.2.1 "loss 3" (md never surfaces stored list-item
    ids) and the parse-side heading-title discard are **retired** as bugs by
    the headline/id storage decisions (YRD3); this document describes the
    decided target state with the current behaviour noted inline.
-4. `comments_annotations_rules.md` predates the current id scheme (it uses
-   hierarchical `[SBP-XXX-YYY]` ids, `-nn`/`-xx` patterns, and "entry classes
-   carry no `@SectionId`") — it documents the one-time derivation campaign and
-   is historical, not normative.
 
 Format history inherited from DR1: v1 2026-07-07 (initial normative version);
 2026-07-14 DRC3 (uncapped depth, transparency, rejection reasons), DRC5
