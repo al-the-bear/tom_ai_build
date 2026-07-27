@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 import '../model/review_store.dart';
+import 'review_controls.dart';
 import 'spec_tree.dart';
 
 /// The application start page. Hosts a tab bar whose first tab is the
@@ -240,17 +241,30 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
               itemBuilder: (context, i) {
                 final root = roots[i];
                 final selected = root == _selected;
+                final projection =
+                    widget.model.classNamed(root.type)?.isCodeSpecsProjection ??
+                        false;
                 return ListTile(
                   dense: true,
                   selected: selected,
                   leading: const Icon(Icons.description_outlined),
                   title: Text(root.title,
                       style: const TextStyle(fontWeight: FontWeight.w600)),
-                  subtitle: Text(
-                    root.sectionId != null
-                        ? '${root.sectionId} · ${root.type}'
-                        : root.type,
-                    style: const TextStyle(fontSize: 11),
+                  subtitle: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          root.sectionId != null
+                              ? '${root.sectionId} · ${root.type}'
+                              : root.type,
+                          style: const TextStyle(fontSize: 11),
+                        ),
+                      ),
+                      if (projection) ...[
+                        const SizedBox(width: 6),
+                        const _ProjectionBadge(),
+                      ],
+                    ],
                   ),
                   onTap: () => _selectRoot(root),
                 );
@@ -340,6 +354,36 @@ class _CutToggle extends StatelessWidget {
         const SizedBox(width: 4),
         Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
       ],
+    );
+  }
+}
+
+/// Badge marking a `@CodeSpecsProjection` root in the document list.
+///
+/// The tree shows the same word on the root node, so a reviewer meets the
+/// projection before opening it and again once inside.
+class _ProjectionBadge extends StatelessWidget {
+  const _ProjectionBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: kProjectionExplanation,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+        decoration: BoxDecoration(
+          color: Colors.teal.shade50,
+          border: Border.all(color: Colors.teal.shade300),
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Text(
+          kProjectionLabel,
+          style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: Colors.teal.shade800),
+        ),
+      ),
     );
   }
 }

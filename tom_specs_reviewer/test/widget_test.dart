@@ -176,6 +176,73 @@ const _kindJson = '''
 SpecModel _kindModel() =>
     SpecModel.fromJson(json.decode(_kindJson) as Map<String, dynamic>);
 
+/// Fixture for the `@FollowUpKind` / `@CodeSpecsProjection` split (TSRA3).
+///
+/// Two roots, because the projection marking is only meaningful next to an
+/// ordinary authoring document: `AuthoringDoc` holds a CodeSpecs-mapped section
+/// and a follow-up subtree; `ProjectionDoc` is the `@CodeSpecsProjection` root
+/// that re-references the former and is therefore *supposed* to be shallow.
+const _followUpJson = '''
+{
+  "classCount": 4,
+  "rootCount": 2,
+  "roots": [
+    {"type": "AuthoringDoc", "title": "Authoring Document", "sectionId": "AD00"},
+    {"type": "ProjectionDoc", "title": "Projection Document",
+     "sectionId": "PD00"}
+  ],
+  "classes": {
+    "AuthoringDoc": {
+      "name": "AuthoringDoc", "sectionId": "AD00",
+      "fields": [
+        {"name": "rules", "kind": "complex", "type": "MappedSection"},
+        {"name": "handbook", "kind": "complex", "type": "MultiProcess"},
+        {"name": "training", "kind": "complex", "type": "SingleProcess"}
+      ]
+    },
+    "MappedSection": {
+      "name": "MappedSection", "sectionId": "AD01",
+      "annotations": [
+        {"name": "CodeSpecKind",
+         "arguments": {"kinds": ["CodeSpecPart.validation"]}}
+      ],
+      "fields": [{"name": "value", "kind": "scalar", "type": "String"}]
+    },
+    "MultiProcess": {
+      "name": "MultiProcess", "sectionId": "AD02",
+      "annotations": [
+        {"name": "FollowUpKind",
+         "arguments": {"processes": ["FollowUpProcess.doc",
+                                     "FollowUpProcess.cap",
+                                     "FollowUpProcess.mig"],
+                       "note": "Feeds the data-migration handbook"}}
+      ],
+      "fields": [{"name": "value", "kind": "scalar", "type": "String"}]
+    },
+    "SingleProcess": {
+      "name": "SingleProcess", "sectionId": "AD03",
+      "annotations": [
+        {"name": "FollowUpKind",
+         "arguments": {"processes": ["FollowUpProcess.trn"]}}
+      ],
+      "fields": [{"name": "value", "kind": "scalar", "type": "String"}]
+    },
+    "ProjectionDoc": {
+      "name": "ProjectionDoc", "sectionId": "PD00",
+      "annotations": [
+        {"name": "CodeSpecsProjection"}
+      ],
+      "fields": [
+        {"name": "rules", "kind": "complex", "type": "MappedSection"}
+      ]
+    }
+  }
+}
+''';
+
+SpecModel _followUpModel() =>
+    SpecModel.fromJson(json.decode(_followUpJson) as Map<String, dynamic>);
+
 File _tempReviewFile(String name) {
   final dir = Directory(
       '${Directory.current.path}/.dart_tool/specs_reviewer_test');
@@ -587,6 +654,143 @@ void main() {
       expect(find.textContaining('cs:authorization'), findsOneWidget);
       // Nothing invented for the unannotated classes.
       expect(find.text('cs:validation'), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('@FollowUpKind rendering (TSRA3)', () {
+    Future<File> pumpTree(WidgetTester tester, String name) async {
+      final file = _tempReviewFile(name);
+      if (file.existsSync()) file.deleteSync();
+      final model = _followUpModel();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: model.rootByType('AuthoringDoc'),
+            store: ReviewStore(file),
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      return file;
+    }
+
+    testWidgets('a follow-up subtree shows every process code, not just the '
+        'first', (tester) async {
+      final file = await pumpTree(tester, 'fu_multi.yaml');
+      expect(find.text('fu:doc'), findsOneWidget);
+      expect(find.text('fu:cap'), findsOneWidget);
+      expect(find.text('fu:mig'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a single-process subtree shows its one code', (tester) async {
+      final file = await pumpTree(tester, 'fu_single.yaml');
+      expect(find.text('fu:trn'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the follow-up note is available as a tooltip', (tester) async {
+      final file = await pumpTree(tester, 'fu_note.yaml');
+      final tooltip = tester.widget<Tooltip>(find.ancestor(
+        of: find.text('fu:doc'),
+        matching: find.byType(Tooltip),
+      ));
+      expect(tooltip.message, 'Feeds the data-migration handbook');
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a follow-up subtree is not also reported as unmapped '
+        'CodeSpecs', (tester) async {
+      // The §8.3 split: a subtree tagged for a follow-up process *has* been
+      // classified. Showing "cs?" beside "fu:doc" would state the opposite and
+      // invite a reviewer to chase a mapping that must not exist.
+      final file = await pumpTree(tester, 'fu_split.yaml');
+      final row = find.ancestor(
+        of: find.text('fu:doc'),
+        matching: find.byType(Wrap),
+      );
+      expect(find.descendant(of: row.first, matching: find.text('cs?')),
+          findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a CodeSpecs-mapped section carries no follow-up chip',
+        (tester) async {
+      final file = await pumpTree(tester, 'fu_none.yaml');
+      expect(find.text('cs:validation'), findsOneWidget);
+      final row = find.ancestor(
+        of: find.text('cs:validation'),
+        matching: find.byType(Wrap),
+      );
+      expect(find.descendant(of: row.first, matching: find.textContaining('fu:')),
+          findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('@CodeSpecsProjection marking (TSRA3)', () {
+    Future<File> pumpStart(WidgetTester tester, String name) async {
+      final file = _tempReviewFile(name);
+      if (file.existsSync()) file.deleteSync();
+      await tester.pumpWidget(MaterialApp(
+        home: StartPage(model: _followUpModel(), store: ReviewStore(file)),
+      ));
+      await tester.pumpAndSettle();
+      return file;
+    }
+
+    testWidgets('the projection root is labelled in the root list',
+        (tester) async {
+      final file = await pumpStart(tester, 'proj_list.yaml');
+      // Exactly one of the two roots is a projection.
+      expect(find.text('projection'), findsOneWidget);
+      final tile = find.ancestor(
+        of: find.text('Projection Document'),
+        matching: find.byType(ListTile),
+      );
+      expect(find.descendant(of: tile, matching: find.text('projection')),
+          findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the projection root is labelled in the tree it opens',
+        (tester) async {
+      final file = await pumpStart(tester, 'proj_tree.yaml');
+      await tester.tap(find.text('Projection Document'));
+      await tester.pumpAndSettle();
+      // Once in the tree, both the root list badge and the root node chip say
+      // so — the reviewer sees it whichever they are looking at.
+      expect(find.text('projection'), findsNWidgets(2));
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the detail review controls are caveated inside a projection',
+        (tester) async {
+      final file = await pumpStart(tester, 'proj_caveat.yaml');
+      await tester.tap(find.text('Projection Document'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.edit_note).first);
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('CodeSpecs projection'), findsOneWidget);
+      expect(find.textContaining('Detail belongs on the source section'),
+          findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('an authoring document keeps the ordinary detail controls',
+        (tester) async {
+      final file = await pumpStart(tester, 'proj_authoring.yaml');
+      await tester.tap(find.text('Authoring Document'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.edit_note).first);
+      await tester.pumpAndSettle();
+
+      expect(find.text('This node needs further specification'), findsOneWidget);
+      expect(find.textContaining('CodeSpecs projection'), findsNothing);
       if (file.existsSync()) file.deleteSync();
     });
   });

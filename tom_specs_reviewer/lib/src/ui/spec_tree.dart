@@ -41,6 +41,12 @@ class SpecTreeScope extends InheritedWidget {
   /// marker points *away* from this document).
   final String rootType;
 
+  /// Whether [rootType] is a `@CodeSpecsProjection` (`codespecs_mapping.md`
+  /// §8.4). Carried on the scope rather than threaded through every node
+  /// because it is a property of the whole tree, and every node — down to the
+  /// synthetic content rows — needs it to caveat its review controls.
+  final bool isProjection;
+
   /// Class names on the navigation chain root→target (empty when not
   /// navigating).
   final Set<String> navPathTypes;
@@ -60,6 +66,7 @@ class SpecTreeScope extends InheritedWidget {
     required this.cutAtDetails,
     required this.cutAtMaps,
     required this.rootType,
+    required this.isProjection,
     required this.navPathTypes,
     required this.navTargetType,
     required this.navTargetKey,
@@ -86,6 +93,7 @@ class SpecTreeScope extends InheritedWidget {
       cutAtDetails != old.cutAtDetails ||
       cutAtMaps != old.cutAtMaps ||
       rootType != old.rootType ||
+      isProjection != old.isProjection ||
       navTargetType != old.navTargetType ||
       !setEquals(navPathTypes, old.navPathTypes);
 }
@@ -129,17 +137,38 @@ Set<String> pathToType(SpecModel model, String rootType, String targetType) {
   return const {};
 }
 
-/// The three-state `@CodeSpecKind` marker (`codespecs_mapping.md` §9.1).
+/// The chip row stating where a node's subject matter is headed.
 ///
-/// A section type either declares which CodeSpecs part(s) it must be realised
-/// as, declares that it becomes none, or carries no declaration at all. All
-/// three are rendered because the third is the open question a structural
-/// reviewer is looking for — a blank row would hide it among the mapped ones.
+/// The model splits that subject matter in two (`codespecs_mapping.md` §8.3):
+/// subtrees realised as CodeSpecs code, tagged `@CodeSpecKind` (§9.1), and
+/// subtrees that feed a downstream *process* — documentation, training,
+/// migration, … — tagged `@FollowUpKind`. Both are rendered from one function
+/// because they interact: a node tagged for a follow-up process **has** been
+/// classified, so it must not also carry the `cs?` "not yet mapped" marker,
+/// which would state the opposite and send a reviewer chasing a CodeSpecs
+/// mapping that by construction cannot exist.
 ///
-/// The link is list-valued (one section can become several parts), so every
-/// kind gets its own chip rather than only the first.
-List<_Chip> _codeSpecKindChips(CodeSpecKindLink? link) {
+/// `@CodeSpecKind` is three-state — mapped, explicitly mapped to nothing, or
+/// undeclared. All three are rendered because the third is the open question a
+/// structural reviewer is looking for; a blank row would hide it among the
+/// mapped ones. Both links are list-valued (one section can become several
+/// parts, or feed several processes), so every code gets its own chip.
+/// Marks the root of a `@CodeSpecsProjection` document in the tree, echoing the
+/// badge the root list shows, so the projection reads the same in both places.
+const _Chip _projectionChip =
+    _Chip(kProjectionLabel, Colors.teal, tooltip: kProjectionExplanation);
+
+List<_Chip> _kindChips(KindLink? codeSpec, KindLink? followUp) {
+  return [
+    ..._followUpKindChips(followUp),
+    ..._codeSpecKindChips(codeSpec, suppressUnmapped: followUp != null),
+  ];
+}
+
+List<_Chip> _codeSpecKindChips(KindLink? link,
+    {bool suppressUnmapped = false}) {
   if (link == null) {
+    if (suppressUnmapped) return const [];
     return const [
       _Chip('cs?', Colors.grey,
           tooltip: 'No @CodeSpecKind — not yet mapped to a CodeSpecs part'),
@@ -155,6 +184,30 @@ List<_Chip> _codeSpecKindChips(CodeSpecKindLink? link) {
   return [
     for (final kind in link.kinds)
       _Chip('cs:$kind', Colors.cyan.shade700, tooltip: link.note),
+  ];
+}
+
+/// `@FollowUpKind` process codes, in a colour deliberately far from the cyan
+/// `cs:` chips so the CodeSpecs/follow-up split reads at a glance.
+///
+/// There is no "not declared" chip here: the absence of a follow-up tag is not
+/// an open question — the overwhelming majority of the model is CodeSpecs-bound
+/// — so a `fu?` on every node would be noise, unlike its `cs?` counterpart.
+List<_Chip> _followUpKindChips(KindLink? link) {
+  if (link == null) return const [];
+  if (link.kinds.isEmpty) {
+    return const [
+      _Chip('fu:none', Colors.orange,
+          tooltip: '@FollowUpKind with no processes — recorded as feeding no '
+              'follow-up process'),
+    ];
+  }
+  return [
+    for (final process in link.kinds)
+      _Chip('fu:$process', Colors.deepPurple.shade400,
+          tooltip: link.note ??
+              'Follow-up process — this subtree becomes $process work, '
+                  'not CodeSpecs code'),
   ];
 }
 
@@ -242,6 +295,7 @@ class _SpecTreeState extends State<SpecTree> {
       cutAtDetails: widget.cutAtDetails,
       cutAtMaps: widget.cutAtMaps,
       rootType: widget.root.type,
+      isProjection: cls.isCodeSpecsProjection,
       navPathTypes: _navPathTypes,
       navTargetType: widget.navTargetType,
       navTargetKey: _targetKey,
@@ -394,8 +448,11 @@ class _ClassNodeState extends State<_ClassNode> {
               ),
             if (widget.recursive) _Chip('recursive', Colors.red),
             if (cut) _Chip('cut', Colors.red),
-            ..._codeSpecKindChips(
-                widget.owningField?.codeSpecKind ?? cls.codeSpecKind),
+            if (cls.isCodeSpecsProjection) _projectionChip,
+            ..._kindChips(
+              widget.owningField?.codeSpecKind ?? cls.codeSpecKind,
+              widget.owningField?.followUpKind ?? cls.followUpKind,
+            ),
           ],
           doc: widget.docOverride ?? cls.doc ?? cls.help,
           store: widget.store,
@@ -522,7 +579,7 @@ class _FieldNodeState extends State<_FieldNode> {
           typeLabel: 'List<${elementType ?? '?'}>'
               '${f.min != null ? '  min ${f.min}' : ''}',
           sectionId: f.sectionId ?? f.sectionIdPattern,
-          chips: _codeSpecKindChips(f.codeSpecKind),
+          chips: _kindChips(f.codeSpecKind, f.followUpKind),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,
@@ -605,7 +662,7 @@ class _FieldNodeState extends State<_FieldNode> {
         label: f.name,
         typeLabel: '${f.type ?? '?'} (unresolved)',
         sectionId: f.sectionId,
-        chips: _codeSpecKindChips(f.codeSpecKind),
+        chips: _kindChips(f.codeSpecKind, f.followUpKind),
         doc: f.doc ?? f.help,
         store: widget.store,
         path: widget.path,
@@ -649,7 +706,7 @@ class _FieldNodeState extends State<_FieldNode> {
           label: f.name,
           typeLabel: 'form · ${f.formFields.length} fields',
           sectionId: f.sectionId,
-          chips: _codeSpecKindChips(f.codeSpecKind),
+          chips: _kindChips(f.codeSpecKind, f.followUpKind),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,
@@ -683,7 +740,7 @@ class _FieldNodeState extends State<_FieldNode> {
           label: f.name,
           typeLabel: 'content · ${f.contentType ?? 'text'}',
           sectionId: f.sectionId,
-          chips: _codeSpecKindChips(f.codeSpecKind),
+          chips: _kindChips(f.codeSpecKind, f.followUpKind),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,
@@ -719,7 +776,7 @@ class _FieldNodeState extends State<_FieldNode> {
       label: f.name,
       typeLabel: 'section · ${f.contentType ?? 'text'}',
       sectionId: f.sectionId,
-      chips: _codeSpecKindChips(f.codeSpecKind),
+      chips: _kindChips(f.codeSpecKind, f.followUpKind),
       doc: f.doc ?? f.help,
       store: widget.store,
       path: widget.path,
@@ -739,7 +796,7 @@ class _FieldNodeState extends State<_FieldNode> {
       label: f.name,
       typeLabel: 'enum · ${f.enumValues.join(', ')}',
       sectionId: f.sectionId,
-      chips: _codeSpecKindChips(f.codeSpecKind),
+      chips: _kindChips(f.codeSpecKind, f.followUpKind),
       doc: f.doc ?? f.help,
       store: widget.store,
       path: widget.path,
@@ -759,7 +816,7 @@ class _FieldNodeState extends State<_FieldNode> {
       label: f.name,
       typeLabel: f.type ?? 'value',
       sectionId: f.sectionId,
-      chips: _codeSpecKindChips(f.codeSpecKind),
+      chips: _kindChips(f.codeSpecKind, f.followUpKind),
       doc: f.doc ?? f.help,
       store: widget.store,
       path: widget.path,
@@ -856,7 +913,11 @@ class _NodeRow extends StatelessWidget {
                             style: const TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 13)),
                         ReviewControls(
-                            store: store, path: path, nodeLabel: nodeLabel),
+                          store: store,
+                          path: path,
+                          nodeLabel: nodeLabel,
+                          isProjection: SpecTreeScope.of(context).isProjection,
+                        ),
                         Text(typeLabel,
                             style: TextStyle(
                                 fontSize: 11,
@@ -1066,6 +1127,7 @@ class _FormPanel extends StatelessWidget {
                               fontSize: 12, fontWeight: FontWeight.w600)),
                       ReviewControls(
                         store: store,
+                        isProjection: SpecTreeScope.of(context).isProjection,
                         path: '$basePath/${field.name}',
                         nodeLabel: 'form field: ${field.label}',
                       ),

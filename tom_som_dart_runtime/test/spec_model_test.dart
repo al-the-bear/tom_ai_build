@@ -336,6 +336,132 @@ void main() {
     });
   });
 
+  group('FollowUpKind link (§8.3)', () {
+    /// `@FollowUpKind` marks a subtree that becomes a downstream *process*
+    /// rather than CodeSpecs code. It is the same shape as `@CodeSpecKind` —
+    /// enum-code list plus optional note — so it is read through the same type.
+    SpecModel modelWith({Map<String, dynamic>? args}) =>
+        SpecModel.fromJson(<String, dynamic>{
+          'roots': <dynamic>[],
+          'classes': <String, dynamic>{
+            'Section': {
+              'name': 'Section',
+              'annotations': [
+                if (args != null) {'name': 'FollowUpKind', 'arguments': args},
+              ],
+              'fields': <dynamic>[],
+            },
+          },
+        });
+
+    SpecClass classOf(SpecModel m) => m.classNamed('Section')!;
+
+    test('reads the processes with the FollowUpProcess prefix stripped', () {
+      final link = classOf(modelWith(args: {
+        'processes': ['FollowUpProcess.doc'],
+      })).followUpKind;
+      expect(link, isNotNull);
+      expect(link!.kinds, <String>['doc']);
+    });
+
+    test('reads every process, not just the first — the link is list-valued',
+        () {
+      // DataModelFollowUp in the real model carries four.
+      final link = classOf(modelWith(args: {
+        'processes': [
+          'FollowUpProcess.doc',
+          'FollowUpProcess.cap',
+          'FollowUpProcess.cmp',
+          'FollowUpProcess.mig',
+        ],
+      })).followUpKind;
+      expect(link!.kinds, <String>['doc', 'cap', 'cmp', 'mig']);
+    });
+
+    test('carries the optional note verbatim', () {
+      final link = classOf(modelWith(args: {
+        'processes': ['FollowUpProcess.org'],
+        'note': 'Feeds the governance rollout',
+      })).followUpKind;
+      expect(link!.note, 'Feeds the governance rollout');
+    });
+
+    test('an absent annotation reports null', () {
+      expect(classOf(modelWith()).followUpKind, isNull);
+    });
+
+    test('the two links are read independently of one another', () {
+      // A subtree is CodeSpecs *or* follow-up; reading one must never satisfy
+      // the other, or the §8.3 split becomes invisible.
+      final model = SpecModel.fromJson(<String, dynamic>{
+        'roots': <dynamic>[],
+        'classes': <String, dynamic>{
+          'Section': {
+            'name': 'Section',
+            'annotations': [
+              {
+                'name': 'FollowUpKind',
+                'arguments': {
+                  'processes': ['FollowUpProcess.trn'],
+                },
+              },
+            ],
+            'fields': <dynamic>[],
+          },
+        },
+      });
+      expect(model.classNamed('Section')!.followUpKind!.kinds, <String>['trn']);
+      expect(model.classNamed('Section')!.codeSpecKind, isNull);
+    });
+  });
+
+  group('CodeSpecsProjection marker (§8.4)', () {
+    SpecModel modelWith({required bool projection}) =>
+        SpecModel.fromJson(<String, dynamic>{
+          'roots': <dynamic>[],
+          'classes': <String, dynamic>{
+            'Doc': {
+              'name': 'Doc',
+              'annotations': [
+                {'name': 'Document', 'arguments': <String, dynamic>{}},
+                if (projection)
+                  {'name': 'CodeSpecsProjection', 'arguments': <String, dynamic>{}},
+              ],
+              'fields': <dynamic>[],
+            },
+          },
+        });
+
+    test('an annotated document reports itself as a projection', () {
+      expect(
+          modelWith(projection: true).classNamed('Doc')!.isCodeSpecsProjection,
+          isTrue);
+    });
+
+    test('an ordinary authoring document does not', () {
+      expect(
+          modelWith(projection: false).classNamed('Doc')!.isCodeSpecsProjection,
+          isFalse);
+    });
+
+    test('the marker is argumentless — presence alone carries the meaning', () {
+      // Serialized with no `arguments` key at all, as the exporter emits it.
+      final model = SpecModel.fromJson(<String, dynamic>{
+        'roots': <dynamic>[],
+        'classes': <String, dynamic>{
+          'Doc': {
+            'name': 'Doc',
+            'annotations': [
+              {'name': 'CodeSpecsProjection'},
+            ],
+            'fields': <dynamic>[],
+          },
+        },
+      });
+      expect(model.classNamed('Doc')!.isCodeSpecsProjection, isTrue);
+    });
+  });
+
   group('SpecModel.rootByType (item 12)', () {
     SpecModel twoRootModel() => SpecModel.fromJson(<String, dynamic>{
           'roots': <dynamic>[

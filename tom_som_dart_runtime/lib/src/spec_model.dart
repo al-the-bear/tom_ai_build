@@ -99,35 +99,49 @@ class FormFieldSpec {
       );
 }
 
-/// The `@CodeSpecKind` link: which CodeSpecs part(s) a section *type* must be
-/// realised as (`codespecs_mapping.md` §9.1/§9.5).
+/// A list-valued taxonomy annotation: a set of enum codes plus an optional
+/// explanatory note.
 ///
-/// Obtaining one at all means the annotation is present. That matters: a node
-/// with no link has not been mapped yet, whereas a link with empty [kinds] is
-/// a recorded decision that the section maps to no CodeSpecs part. The two are
-/// different statements, so they are different values rather than one nullable
-/// list.
-class CodeSpecKindLink {
-  /// The `CodeSpecPart` kind names with the enum prefix stripped —
-  /// `validation`, not `CodeSpecPart.validation`.
+/// The model states where a subtree is headed with two such annotations, which
+/// share this shape exactly — `@CodeSpecKind(List<CodeSpecPart>, {note})` names
+/// the CodeSpecs part(s) a section type must be realised as
+/// (`codespecs_mapping.md` §9.1/§9.5), and `@FollowUpKind(List<FollowUpProcess>,
+/// {note})` names the downstream *process(es)* a non-code subtree feeds (§8.3).
+/// One reader serves both; which annotation a link came from is expressed by
+/// which accessor produced it.
+///
+/// Obtaining a link at all means the annotation is present. That matters: a
+/// node with no link has not been classified yet, whereas a link with empty
+/// [kinds] is a recorded decision that the section belongs to no member of that
+/// taxonomy. The two are different statements, so they are different values
+/// rather than one nullable list.
+class KindLink {
+  /// The enum code names with their type prefix stripped — `validation`, not
+  /// `CodeSpecPart.validation`; `doc`, not `FollowUpProcess.doc`.
   ///
-  /// The annotation is list-valued because one section can be realised as more
-  /// than one part; consumers must handle all of them, not just the first.
+  /// Both annotations are list-valued because one section can be realised as
+  /// several parts, or feed several processes; consumers must handle all of
+  /// them, not just the first.
   final List<String> kinds;
 
-  /// The annotation's free-text `note`, explaining the mapping choice.
+  /// The annotation's free-text `note`, explaining the classification.
   final String? note;
 
-  const CodeSpecKindLink({this.kinds = const [], this.note});
+  const KindLink({this.kinds = const [], this.note});
 
-  /// Reads the link out of [annotation], which must be a `CodeSpecKind`.
-  factory CodeSpecKindLink.fromAnnotation(SpecAnnotation annotation) {
-    final raw = annotation.argument('kinds');
-    return CodeSpecKindLink(
+  /// Reads a link out of [annotation], taking the code list from the argument
+  /// named [listArgument] — `kinds` for `@CodeSpecKind`, `processes` for
+  /// `@FollowUpKind`.
+  factory KindLink.fromAnnotation(
+    SpecAnnotation annotation, {
+    required String listArgument,
+  }) {
+    final raw = annotation.argument(listArgument);
+    return KindLink(
       kinds: raw is List
           ? [
               for (final k in raw)
-                if (k != null) _stripKindPrefix(k.toString()),
+                if (k != null) _stripEnumPrefix(k.toString()),
             ]
           : const [],
       note: annotation.argument('note') as String?,
@@ -136,10 +150,11 @@ class CodeSpecKindLink {
 
   /// `CodeSpecPart.validation` → `validation`. A name already given bare is
   /// returned unchanged, so the reader does not depend on how the exporter
-  /// chose to spell the enum constant.
-  static String _stripKindPrefix(String raw) {
-    const prefix = 'CodeSpecPart.';
-    return raw.startsWith(prefix) ? raw.substring(prefix.length) : raw;
+  /// chose to spell the enum constant. Splitting on the last dot rather than a
+  /// fixed prefix keeps the reader working for any code enum the model adds.
+  static String _stripEnumPrefix(String raw) {
+    final dot = raw.lastIndexOf('.');
+    return dot < 0 ? raw : raw.substring(dot + 1);
   }
 }
 
@@ -157,11 +172,24 @@ mixin AnnotatedSpecNode {
     return null;
   }
 
+  /// Whether the annotation named [name] is present. For markers that carry no
+  /// arguments, presence *is* the whole statement.
+  bool hasAnnotation(String name) => annotation(name) != null;
+
   /// The `@CodeSpecKind` link, or `null` when this node carries no such
-  /// annotation. See [CodeSpecKindLink] for why absent and empty differ.
-  CodeSpecKindLink? get codeSpecKind {
-    final a = annotation('CodeSpecKind');
-    return a == null ? null : CodeSpecKindLink.fromAnnotation(a);
+  /// annotation. See [KindLink] for why absent and empty differ.
+  KindLink? get codeSpecKind => _link('CodeSpecKind', 'kinds');
+
+  /// The `@FollowUpKind` link, or `null` when this node carries no such
+  /// annotation — which downstream process(es) this subtree feeds instead of
+  /// becoming CodeSpecs code (§8.3).
+  KindLink? get followUpKind => _link('FollowUpKind', 'processes');
+
+  KindLink? _link(String name, String listArgument) {
+    final a = annotation(name);
+    return a == null
+        ? null
+        : KindLink.fromAnnotation(a, listArgument: listArgument);
   }
 }
 
@@ -311,6 +339,20 @@ class SpecClass with AnnotatedSpecNode {
     }
     return null;
   }
+
+  /// Whether this class is a `@CodeSpecsProjection` — a flat re-reference of
+  /// subtrees authored elsewhere, not an authoring document of its own
+  /// (`codespecs_mapping.md` §8.4).
+  ///
+  /// The distinction is load-bearing for anything that judges a document's
+  /// depth: a projection is *supposed* to be shallow, which is why the
+  /// validator exempts it from the per-document detail count. Consumers that
+  /// ask "does this need more detail?" must ask this first.
+  ///
+  /// Classes only — a projection is a property of a whole document root, so
+  /// this does not belong on [AnnotatedSpecNode] alongside the field-capable
+  /// links.
+  bool get isCodeSpecsProjection => hasAnnotation('CodeSpecsProjection');
 }
 
 /// A document root (a class carrying `@Document`).

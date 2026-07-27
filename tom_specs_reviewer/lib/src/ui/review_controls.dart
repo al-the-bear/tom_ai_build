@@ -2,6 +2,28 @@ import 'package:flutter/material.dart';
 
 import '../model/review_store.dart';
 
+/// Badge text for a `@CodeSpecsProjection` root (`codespecs_mapping.md` §8.4).
+const String kProjectionLabel = 'projection';
+
+/// Why a projection is shallow, in the reviewer's own terms.
+///
+/// A projection re-references subtrees authored elsewhere rather than
+/// specifying anything itself, which is why the validator exempts it from the
+/// detail-count check. Stating that where the reviewer works turns the
+/// exemption from tribal knowledge into something visible on screen.
+const String kProjectionExplanation =
+    'CodeSpecs projection — this root re-references sections authored '
+    'elsewhere, so shallow nodes are correct by construction and the '
+    'detail-count check does not apply.';
+
+/// Replacement subtitle for the "Add details" control inside a projection.
+///
+/// The control stays usable — disabling it would trap a value recorded in an
+/// earlier session with no way to clear it — but it must not read as an
+/// invitation.
+const String kProjectionDetailSubtitle =
+    'Detail belongs on the source section, not on this re-reference';
+
 /// Colour associated with each review scope, used for the indicator dot.
 Color scopeColor(ReviewScope scope) {
   switch (scope) {
@@ -28,11 +50,16 @@ class ReviewControls extends StatelessWidget {
   final String path;
   final String nodeLabel;
 
+  /// Whether this node sits inside a `@CodeSpecsProjection` root, in which case
+  /// the detail-oriented controls are caveated rather than offered plainly.
+  final bool isProjection;
+
   const ReviewControls({
     super.key,
     required this.store,
     required this.path,
     required this.nodeLabel,
+    this.isProjection = false,
   });
 
   @override
@@ -151,6 +178,7 @@ class ReviewControls extends StatelessWidget {
         store: store,
         path: path,
         nodeLabel: nodeLabel,
+        isProjection: isProjection,
       ),
     );
   }
@@ -162,11 +190,13 @@ class _ReviewDialog extends StatefulWidget {
   final ReviewStore store;
   final String path;
   final String nodeLabel;
+  final bool isProjection;
 
   const _ReviewDialog({
     required this.store,
     required this.path,
     required this.nodeLabel,
+    required this.isProjection,
   });
 
   @override
@@ -191,6 +221,33 @@ class _ReviewDialogState extends State<_ReviewDialog> {
 
   ReviewEntry get _current =>
       widget.store.entryFor(widget.path) ?? ReviewEntry();
+
+  /// Banner shown above the detail controls inside a projection root.
+  Widget _projectionBanner() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.teal.shade50,
+        border: Border.all(color: Colors.teal.shade200),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.alt_route, size: 16, color: Colors.teal.shade700),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              kProjectionExplanation,
+              style: TextStyle(fontSize: 12, color: Colors.teal.shade900),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,13 +307,16 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                 ),
               ),
               const Divider(height: 20),
+              if (widget.isProjection) _projectionBanner(),
               CheckboxListTile(
                 dense: true,
                 contentPadding: EdgeInsets.zero,
                 controlAffinity: ListTileControlAffinity.leading,
                 value: entry.stopHere,
                 title: const Text('Stop here'),
-                subtitle: const Text('Do not descend further into this branch'),
+                subtitle: Text(widget.isProjection
+                    ? 'Do not descend further into this re-referenced branch'
+                    : 'Do not descend further into this branch'),
                 onChanged: (value) {
                   widget.store
                       .update(widget.path, (e) => e.stopHere = value ?? false);
@@ -269,7 +329,9 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                 controlAffinity: ListTileControlAffinity.leading,
                 value: entry.addDetails,
                 title: const Text('Add details'),
-                subtitle: const Text('This node needs further specification'),
+                subtitle: Text(widget.isProjection
+                    ? kProjectionDetailSubtitle
+                    : 'This node needs further specification'),
                 onChanged: (value) {
                   widget.store.update(
                       widget.path, (e) => e.addDetails = value ?? false);
