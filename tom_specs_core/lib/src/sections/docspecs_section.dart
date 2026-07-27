@@ -1,11 +1,11 @@
 /// The universal section base type of the TomSpecs object model (YRD5).
 ///
-/// Per `tom_specs_model/doc/som_mapping.md` §2.2, every section of a DocSpecs
-/// document follows one structural shape — headline (with an `<!--[ID]-->`
-/// comment), optional body content, subsections. `DocSpecsSection` is the
-/// object-model representation of the *simple* case: a section with no
-/// subsections, holding exactly the stored [headline], the stored [id] and the
-/// body [content].
+/// Per `tom_specs_model/doc/tom_specs_model_rules.md` §5.2, every section of a
+/// DocSpecs document follows one structural shape — headline (with an
+/// `<!--[ID]-->` comment), optional body content, subsections.
+/// `DocSpecsSection` is the object-model representation of the *simple* case:
+/// a section with no subsections, holding exactly the stored [headline], the
+/// stored [id] and the body [content].
 ///
 /// In `tom_specs_model` this type replaces every former `String` section
 /// member (`String? foo` → `DocSpecsSection? foo`, `List<String>` →

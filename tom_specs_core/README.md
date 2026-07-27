@@ -15,15 +15,14 @@ The model is the single source of truth; every annotation defined here is read
 by the analyzer-based `ModelReader` and flows through `ModelJsonExporter` into
 the meta-data file (`spec_model.meta.json`) that every language runtime loads.
 
-> **Cross-references.** The **mapping semantics** of each annotation — what it
-> does to the emitted document, schema and meta-data — live in
-> [`tom_specs_model/doc/som_mapping.md`](../tom_specs_model/doc/som_mapping.md)
-> §5. The **model-authoring rules** (when to reach for which annotation) live in
-> [`tom_specs_model/doc/tom_specs_som_guidelines.md`](../tom_specs_model/doc/tom_specs_som_guidelines.md)
-> §8, and the **outline rendering** notation in
-> [`tom_specs_model/doc/specs_model_outliner.md`](../tom_specs_model/doc/specs_model_outliner.md)
-> §4. This README is the catalogue of *what each annotation is*; those documents
-> own *how it maps*, *when to use it*, and *how it renders*.
+> **Cross-references.**
+> [`tom_specs_model/doc/tom_specs_model_rules.md`](../tom_specs_model/doc/tom_specs_model_rules.md)
+> owns the annotation **vocabulary and authoring rules** (§9 — when to reach for
+> which annotation), the **mapping semantics** of each annotation (§9.2 — what it
+> does to the emitted document, schema and meta-data) and the **outline
+> rendering** notation (§11.2). This README is the catalogue of *what each
+> annotation is*; that document owns *how it maps*, *when to use it*, and *how it
+> renders*.
 
 ---
 
@@ -47,8 +46,8 @@ value per `@Form` field). Every `tom_specs_model` class extends it, and model
 members formerly typed `String?` / `List<String>` are now
 `DocSpecsSection?` / `List<DocSpecsSection>` — so a `*.md` document can be
 parsed into the model with full headline/id fidelity. See
-`tom_specs_model/doc/som_mapping.md` §2.2 for the mapping contract (the
-exported meta tree still renders these members as `String` content nodes).
+`tom_specs_model/doc/tom_specs_model_rules.md` §5.2 for the mapping contract
+(the exported meta tree still renders these members as `String` content nodes).
 
 Each *content-typed* section base type below extends `DocSpecsSection` with a
 class-baked `@ContentType` on `content`. Model fields use the typed section

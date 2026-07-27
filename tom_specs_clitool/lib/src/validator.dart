@@ -121,7 +121,7 @@ import 'model_reader.dart';
   }
 
   // YRD5 — once the model has adopted the DocSpecsSection base class, EVERY
-  // model class must extend it (som_mapping.md §2.2). The
+  // model class must extend it (tom_specs_model_rules.md §5.2). The
   // check only activates when at least one class extends the base, so
   // synthetic test fixtures that predate YRD5 keep validating.
   if (classes.values.any((c) => c.extendsDocSpecsSection)) {
@@ -131,7 +131,7 @@ import 'model_reader.dart';
       if (!cls.extendsDocSpecsSection) {
         errors.add(
           'YRD5: $className must extend DocSpecsSection — every model class '
-          'is a section (som_mapping.md §2.2)',
+          'is a section (tom_specs_model_rules.md §5.2)',
         );
       }
     }
