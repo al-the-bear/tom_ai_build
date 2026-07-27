@@ -8,20 +8,19 @@ meta-data classes — including the md/yaml serialization of every construct.
 
 It consolidates and **supersedes**:
 
-- `_ai/quests/tom_specs/som_document_formats_redesign.md` (DR1 — byte-level
-  md/yaml format, schema generation, embedded validator),
 - `som_file_mapping.md` (member-by-member
   mapping semantics),
 - `tom_ai/ai_build/tom_specs_model/doc/specs_model_outliner.md` §6–§7 (model
   design rules and annotation semantics; the outliner doc keeps only the
   outliner *tool* rendering specification),
 
-all three now reduced to redirect stubs. The doc-comment → annotation
+both now reduced to redirect stubs. The doc-comment → annotation
 derivation rules (`comments_annotations_rules.md`)
 describe the one-time historical migration campaign and are non-normative.
 
-**Design authority.** This document describes the **decided target state**
-fixated in `_ai/quests/tom_specs/headline_id_storage_decisions.md`; the
+**Design authority.** This document is where the **decided target state** is
+fixated — including the byte-level md/yaml format, schema generation, the
+embedded validator, and the headline/id storage decisions; the
 model-authoring rules that follow from it are stated in
 `tom_specs_som_guidelines.md`. Parts that are not
 yet implemented are marked with a status tag:
@@ -406,7 +405,7 @@ explicit overrides validate against their own schema (§10).
 
 ## 4. Headlines *(DECIDED — YRD3/YRD4/YRD6/YRD9)*
 
-Per `headline_id_storage_decisions.md`:
+Headline storage and rendering are governed by four decisions:
 
 1. **Every section stores a headline** (fixed sections and list items),
    persisted in md and yaml. For list entries the headline is per-instance

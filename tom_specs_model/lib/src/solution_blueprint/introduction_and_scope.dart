@@ -8379,12 +8379,11 @@ class FunctionalRequirements extends DocSpecsSection {
 )
 @SectionId('FRE')
 class FunctionalRequirementEntry extends DocSpecsSection {
-  // YRD6 (reversed): the requirement's id lives solely in the item's stored
-  // section id (the owning list's `@SectionIdPattern('FRE-REQU-xxx')`) and its
-  // title solely in the item heading — no form field restates either. The
-  // earlier title/id role-field binding is removed so there is a single
-  // authoritative storage slot for each (headline_id_storage_decisions.md,
-  // decision (d) reversal).
+  // Why: there is a single authoritative storage slot for each of the
+  // requirement's title and id — the id lives solely in the item's stored
+  // section id (the owning list's `@SectionIdPattern('FRE-REQU-xxx')`), the
+  // title solely in the item heading. No form field restates either
+  // (som_mapping.md §4, YRD6 reversed).
   @Form([
     Field(
       'status',
