@@ -55,6 +55,6 @@ are two compiler-checked ways to obtain a path without a literal, both shown in
    This is how you build a *dynamic* path — a typed-navigation prefix plus a tail
    computed at runtime — which a bare constant cannot express.
 
-An evaluation of how convenient these access paths are in practice — and concrete
-suggestions for closing the friction — lives in the TomSpecs quest folder:
-`_ai/quests/tom_specs/som_convenience_feature_suggestions.md`.
+These access surfaces, and the other convenience features that shape the API you
+meet here, are described in "Convenience and correctness features" in
+`tom_specs_model/doc/multiplatform_spec_model.md`.

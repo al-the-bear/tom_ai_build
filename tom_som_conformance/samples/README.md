@@ -44,6 +44,7 @@ regeneration is byte-stable regardless of the build date and the ids satisfy
 the schema's `pattern-check-id` rules.
 
 The generated YAML stamps `modelVersion: "1.0"` — the real `tom_som_dart_v0`
-facade version, derived from the `tom_specs_model` project version (see
-`_ai/quests/tom_specs/som_convenience_feature_suggestions.md`, roadmap item 2,
-which fixed the earlier placeholder `0.0`).
+facade version. The facade derives it from the model's own version stamp rather
+than from the `_vN` project-naming suffix, so the sample carries the version it
+will actually be read back at. See "Convenience and correctness features" in
+`tom_specs_model/doc/multiplatform_spec_model.md`.

@@ -380,57 +380,87 @@ already gives read access to any-major documents. When a real `v1` lands with a
 concrete field-level delta, up-conversion becomes a scoped item against that
 delta.
 
-## 14. Upcoming features
+## 14. Convenience and correctness features
 
-The next implementation increment adds the convenience and correctness features
-below, in dependency order. The evidence and detailed proposals are in
-[`som_convenience_feature_suggestions.md`](som_convenience_feature_suggestions.md).
+The features below shape the API every consumer meets. They were derived from an
+evidence-based evaluation — authoring a broad, real-shaped sample Solution
+Blueprint and reading it back through both the typed and the generic path — and
+are grouped here by the friction each one removes. All of them ship in all nine
+languages.
 
-**Critical path (1–7):**
+**Model and generator correctness:**
 
-1. **Purge retired model naming.** Remove every remaining reference to the old
-   `ProjectDefinition` / `CsCurrentSituation` / `PD00` / `PD` naming from docs,
-   config examples, READMEs, and baselines. The current roots are
-   `D00SolutionBlueprint` … `D12TransitionRolloutPlan` over `DocSpecsProject`.
-2. **Derive the facade model version from the project version.** The generator
-   hard-codes `modelVersion '0.0'` while the model meta reports major `1`. Wire
-   the generator to read `TomSpecsModelVersionInfo`
-   (`tom_specs_model/lib/src/version.versioner.dart`, currently ~`0.5`) and emit
-   the real `major.minor` into every `_v0` facade and the meta file, then
-   regenerate all nine facades.
-3. **Auto-restamp serialization order on every generator run.** Make
-   `stamp_serialization_order.dart` the mandatory first step of the SOM language
-   generator, and have the generator **error** if any spec-model class member
-   lacks a current `@SerializationOrder` after the restamp. This makes "all nine
-   languages agree on emission order" an enforced invariant rather than a manual
-   discipline, and is a prerequisite for the item-7 byte-identical goal.
-4. **One-call document loading.** `SpecDocument.fromYaml` and generated
-   `D00SolutionBlueprint.loadYaml` / `loadFile`, applying the version stamp
-   automatically.
-5. **Align absence semantics.** A shared `hasContent(path)` so "is this section
-   filled?" answers identically through the typed (`''`) and generic (`null`)
-   paths — a prerequisite for the item-7 golden comparison.
-6. **Grow the shared sample into an implementable specification.** Replace the
-   single-paragraph-per-section sample with a real (small) system spec — several
-   use cases with full flows, several detailed screens, multiple requirement-list
-   types, a coherent data model — authored through the typed facade.
-7. **Comprehensive per-language tests + cross-language golden harness.** (7a)
-   bring every `tom_som_<lang>_v0` suite to comprehensive coverage; (7b) a golden
-   test that loads the shared sample in each language, extracts all sections
-   through both APIs into a canonical per-language log, and asserts every
-   language's log is byte-identical.
+- **A single current model naming.** The roots are `D00SolutionBlueprint` …
+  `D13CodeSpecsProjection` (14 `@Document` roots) over the `DocSpecsProject`
+  container. No retired naming (`ProjectDefinition`, `CsCurrentSituation`, the
+  `PD00` / `PD` prefix) survives anywhere in the docs, config examples or
+  generated output.
+- **The facade model version comes from the model's own stamp**, not from the
+  `_vN` project-naming suffix. The derivation is single-sourced in the runtime
+  (`somModelVersionString`), so every facade and every meta file reports the same
+  real `major.minor` and an authored document can be read back at its genuine
+  version.
+- **Serialization order is restamped on every generator run.** The generator
+  invokes the `@SerializationOrder` stamper against `tom_specs_model` as its
+  **first** step and then verifies coverage against the reflected members; an
+  un-stamped member is a hard error that fails the run. This makes "all nine
+  languages agree on emission order" an invariant the generator enforces rather
+  than a discipline the operator remembers — and it is what lets the
+  cross-language golden comparison be byte-exact.
 
-**Independent conveniences (8–12):**
+**Loading and reading:**
 
-8. **Non-throwing editability check.** `editabilityFor(documentVersion)` so
-   read-only viewers branch instead of catching `SomVersionException`.
-9. **Content-only list convenience.** `SomList<T>.addContent(String)` and an
-   `Iterable<String> get contents` view for content-only element lists.
-10. **Distinguish container-only from content classes at the type level** — a
-    marker base type, or a uniform nullable `content` plus `hasContent`.
-11. **Expose the typed→path bridge + generate path constants** (e.g.
-    `SbpPaths.currentLandscapeOperationalMetrics`) so generic consumers stop
-    hard-coding raw path strings.
-12. **`SpecModel.rootByType` + one-line markdown export**
-    (`SpecDocument.toMarkdown(model, …)`) to remove the meta-load / `firstWhere`
-    / `exportRoot` boilerplate.
+- **One-call loading.** `SpecDocument.fromYaml(text)` / `fromFile(path)` decode
+  and load in one call and retain the parsed stamp; every generated root carries
+  a matching `loadYaml` / `loadFile` that applies the document's own stamp
+  automatically. This removes the "forgot to thread `documentVersion`" class of
+  bug rather than documenting around it.
+- **Absence means one thing.** `SpecDocument.hasContent(path)` is leaf-exact —
+  true iff a non-empty content leaf exists at exactly `path` — the null-free
+  companion to `content(path)`. The typed section's `isEmpty` is subtree-wide.
+  Together they remove the former typed-`''` vs generic-`null` divergence, so
+  "is this section filled?" answers identically through both paths.
+- **Non-throwing editability.** `SomEditability` plus a pure
+  `somEditabilityFor(...)` classifier is the single definition of the §2.2
+  version rules; the throwing constructor check delegates to it. A read-only
+  viewer branches on the result instead of catching `SomVersionException`.
+
+**Authoring:**
+
+- **Content-only list convenience.** `SomList.addContent(content)` appends an
+  item and writes its nested `<item>/content` leaf in one call, and `contents` is
+  the ordered read-only view of those leaves — collapsing the recurring
+  `add().content = …` pair. Scalar lists are out of scope by contract: their
+  value is the item path itself, not a nested leaf.
+- **Container-only vs content-bearing is answerable.** `canHaveContent` is a
+  structural predicate on the `SomNode` base (default `false`, overridden by the
+  emitter on every content-bearing class), so "can this section hold text?" no
+  longer requires a compile-error probe. It is deliberately *not* a uniform
+  nullable `content`, which would have undone the non-null `.content` coalescing
+  above.
+
+**Navigating and exporting:**
+
+- **A discoverable typed→path bridge.** The generated metadata library exposes
+  two access surfaces over the same nodes — the **dot-notation tree** (member
+  names) and the **ID-tree** (section ids) — so a generic consumer obtains a real
+  `.path` by navigation instead of hard-coding a string literal like
+  `'SBP/currentLandscape/CUOPME-OPER-LST'`. This supersedes the earlier flat
+  path-constant holders (`SbpPaths.…`), which are retired: constants could not
+  express a *dynamic* path (a typed-navigation prefix plus a runtime-computed
+  tail), which is the case that actually needed help. See
+  `tom_som_dart_v0/example/f_sample_hybrid_access.dart`.
+- **One-line export.** `SpecModel.rootByType(type)` replaces the `firstWhere`
+  boilerplate and `SpecDocument.toMarkdown(model, …)` renders in one call,
+  defaulting to the single populated root and erroring on zero or several.
+
+**Verification.** The shared sample
+(`tom_som_conformance/samples/meridian_order_management.docspecs.yaml`) is a
+genuinely implementable specification — typed requirements across several list
+types, Cockburn-style use cases with extensions, a relational data model and
+fully-detailed screens — authored through the typed facade so the wire format
+stays valid. Every `tom_som_<lang>_v0` project ships a golden generator that
+reads essentially every section of it through **both** APIs into a canonical log,
+and `tom_som_conformance` asserts all nine logs are byte-identical. That is the
+standing proof that the nine language APIs yield exactly the same reading of the
+same specification.
