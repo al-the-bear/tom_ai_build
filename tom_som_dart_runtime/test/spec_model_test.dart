@@ -462,6 +462,206 @@ void main() {
     });
   });
 
+  group('OneOf / Case closed choice (§8.2)', () {
+    /// A container class shaped like the real `ScreenElementEntry`: a `@Form`
+    /// `content` section holding the discriminator form-field, some common
+    /// subsections, and the `@Case`-annotated alternatives.
+    SpecModel modelWith({
+      Map<String, dynamic>? oneOfArgs,
+      List<String> discriminatorValues = const ['action', 'input', 'display'],
+      Map<String, List<String>> cases = const {},
+      bool withDiscriminatorFormField = true,
+    }) =>
+        SpecModel.fromJson(<String, dynamic>{
+          'roots': <dynamic>[],
+          'classes': <String, dynamic>{
+            'Element': {
+              'name': 'Element',
+              'annotations': [
+                if (oneOfArgs != null)
+                  {'name': 'OneOf', 'arguments': oneOfArgs},
+              ],
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'formFields': [
+                    {'name': 'elementId', 'type': 'String'},
+                    if (withDiscriminatorFormField)
+                      {
+                        'name': 'elementType',
+                        'type': 'ElementKind',
+                        'enumValues': discriminatorValues,
+                      },
+                  ],
+                },
+                {'name': 'layout', 'kind': 'form'},
+                for (final entry in cases.entries)
+                  {
+                    'name': entry.key,
+                    'kind': 'complex',
+                    'annotations': [
+                      for (final v in entry.value)
+                        {
+                          'name': 'Case',
+                          'arguments': {'value': v},
+                        },
+                    ],
+                  },
+              ],
+            },
+          },
+        });
+
+    SpecClass classOf(SpecModel m) => m.classNamed('Element')!;
+
+    test('a class without @OneOf reports no group', () {
+      expect(classOf(modelWith()).oneOf, isNull);
+    });
+
+    test('reads the discriminator name and the optional note', () {
+      final group = classOf(modelWith(oneOfArgs: {
+        'discriminator': 'elementType',
+        'note': 'CE-EL closed choice',
+      })).oneOf;
+      expect(group, isNotNull);
+      expect(group!.discriminator, 'elementType');
+      expect(group.note, 'CE-EL closed choice');
+    });
+
+    test('resolves the discriminator through the content form fields', () {
+      // The discriminator is a `@Form` form-field, not a SpecField — reading it
+      // off `fields` alone would never find it.
+      final group = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+      )).oneOf!;
+      expect(group.discriminatorField, isNotNull);
+      expect(group.discriminatorField!.type, 'ElementKind');
+      expect(group.discriminatorValues, <String>['action', 'input', 'display']);
+    });
+
+    test('an unresolvable discriminator degrades rather than throwing', () {
+      final group = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        withDiscriminatorFormField: false,
+      )).oneOf!;
+      expect(group.discriminatorField, isNull);
+      expect(group.discriminatorValues, isEmpty);
+      expect(group.uncoveredValues, isEmpty);
+    });
+
+    test('collects every @Case on a field — the annotation is repeatable', () {
+      // The real model has 30 `@Case` annotations spread over 7 fields; a
+      // reader that returns only the first would misreport 6 of them.
+      final cls = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {
+          'elementAction': ['ElementKind.action'],
+          'fieldSpec': ['ElementKind.input', 'ElementKind.display'],
+        },
+      ));
+      expect(cls.fieldNamed('fieldSpec')!.caseValues,
+          <String>['input', 'display']);
+      expect(cls.fieldNamed('elementAction')!.caseValues, <String>['action']);
+    });
+
+    test('a field carrying no @Case is common to every case', () {
+      final cls = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {'elementAction': ['ElementKind.action']},
+      ));
+      expect(cls.fieldNamed('layout')!.caseValues, isEmpty);
+      expect(cls.fieldNamed('layout')!.isCase, isFalse);
+      expect(cls.fieldNamed('elementAction')!.isCase, isTrue);
+    });
+
+    test('case fields are listed in declaration order, common ones excluded',
+        () {
+      final group = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {
+          'elementAction': ['ElementKind.action'],
+          'fieldSpec': ['ElementKind.input'],
+        },
+      )).oneOf!;
+      expect(group.caseFields.map((f) => f.name),
+          <String>['elementAction', 'fieldSpec']);
+    });
+
+    test('covered and uncovered values partition the discriminator enum', () {
+      // The review question §8.2 poses — "is this set complete?" — is only
+      // answerable if the uncovered values are named.
+      final group = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {
+          'elementAction': ['ElementKind.action'],
+          'fieldSpec': ['ElementKind.input'],
+        },
+      )).oneOf!;
+      expect(group.coveredValues, <String>['action', 'input']);
+      expect(group.uncoveredValues, <String>['display']);
+      expect(group.isComplete, isFalse);
+    });
+
+    test('a fully covered group reports complete with no uncovered values', () {
+      final group = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {
+          'a': ['ElementKind.action'],
+          'b': ['ElementKind.input', 'ElementKind.display'],
+        },
+      )).oneOf!;
+      expect(group.uncoveredValues, isEmpty);
+      expect(group.isComplete, isTrue);
+    });
+
+    test('covered values follow enum order, not case-field order', () {
+      // So the coverage line reads against the enum a reviewer is checking.
+      final group = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {
+          'a': ['ElementKind.display'],
+          'b': ['ElementKind.action'],
+        },
+      )).oneOf!;
+      expect(group.coveredValues, <String>['action', 'display']);
+    });
+
+    test('a case value outside the enum contributes no coverage', () {
+      // Not an error state the model exhibits, but defining coverage as
+      // "enum values that are cased" keeps the count honest either way.
+      final group = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {
+          'a': ['ElementKind.action', 'ElementKind.bogus'],
+        },
+      )).oneOf!;
+      expect(group.coveredValues, <String>['action']);
+      expect(group.uncoveredValues, <String>['input', 'display']);
+    });
+
+    test('a bare case value without the enum prefix passes through', () {
+      final cls = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {'a': ['action']},
+      ));
+      expect(cls.fieldNamed('a')!.caseValues, <String>['action']);
+    });
+
+    test('annotationsNamed returns every occurrence, annotation only the first',
+        () {
+      final field = classOf(modelWith(
+        oneOfArgs: {'discriminator': 'elementType'},
+        cases: {
+          'a': ['ElementKind.action', 'ElementKind.input'],
+        },
+      )).fieldNamed('a')!;
+      expect(field.annotationsNamed('Case').length, 2);
+      expect(field.annotation('Case')!.argument('value'), 'ElementKind.action');
+      expect(field.annotationsNamed('Nope'), isEmpty);
+    });
+  });
+
   group('SpecModel.rootByType (item 12)', () {
     SpecModel twoRootModel() => SpecModel.fromJson(<String, dynamic>{
           'roots': <dynamic>[

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_specs_reviewer/src/model/review_store.dart';
+import 'package:tom_specs_reviewer/src/ui/review_controls.dart';
 import 'package:tom_specs_reviewer/src/ui/spec_tree.dart';
 import 'package:tom_specs_reviewer/src/ui/start_page.dart';
 
@@ -242,6 +243,85 @@ const _followUpJson = '''
 
 SpecModel _followUpModel() =>
     SpecModel.fromJson(json.decode(_followUpJson) as Map<String, dynamic>);
+
+/// Fixture for the `@OneOf` / `@Case` closed choice (TSRA4).
+///
+/// Shaped like the real `ScreenElementEntry`: a `@Form` `content` section
+/// carrying the discriminator form-field, one *common* subsection that applies
+/// to every case, and two `@Case` alternatives — one of which claims two values,
+/// so a reader that took only the first `@Case` would be caught. One
+/// discriminator value (`divider`) is deliberately left uncovered, which §8.2
+/// makes a warning rather than an error.
+const _oneOfJson = '''
+{
+  "classCount": 4,
+  "rootCount": 1,
+  "roots": [
+    {"type": "ChoiceDoc", "title": "Choice Document", "sectionId": "CD00"}
+  ],
+  "classes": {
+    "ChoiceDoc": {
+      "name": "ChoiceDoc", "sectionId": "CD00",
+      "fields": [
+        {"name": "element", "kind": "complex", "type": "Element"},
+        {"name": "plainSection", "kind": "complex", "type": "PlainSection"}
+      ]
+    },
+    "Element": {
+      "name": "Element", "sectionId": "CD01",
+      "annotations": [
+        {"name": "OneOf",
+         "arguments": {"discriminator": "elementType",
+                       "note": "The element kind selects its facet subsection"}}
+      ],
+      "fields": [
+        {"name": "content", "kind": "form",
+         "formFields": [
+           {"name": "elementId", "label": "Element id", "type": "String"},
+           {"name": "elementType", "label": "Element type",
+            "type": "ElementKind",
+            "enumValues": ["action", "input", "display", "divider"]}
+         ]},
+        {"name": "layout", "kind": "form",
+         "formFields": [{"name": "width", "label": "Width", "type": "String"}]},
+        {"name": "elementAction", "kind": "complex", "type": "ActionFacet",
+         "annotations": [
+           {"name": "Case", "arguments": {"value": "ElementKind.action"}}
+         ]},
+        {"name": "fieldSpec", "kind": "complex", "type": "InputFacet",
+         "annotations": [
+           {"name": "Case", "arguments": {"value": "ElementKind.input"}},
+           {"name": "Case", "arguments": {"value": "ElementKind.display"}}
+         ]}
+      ]
+    },
+    "ActionFacet": {
+      "name": "ActionFacet", "sectionId": "CD02",
+      "fields": [{"name": "target", "kind": "scalar", "type": "String"}]
+    },
+    "InputFacet": {
+      "name": "InputFacet", "sectionId": "CD03",
+      "fields": [{"name": "dataType", "kind": "scalar", "type": "String"}]
+    },
+    "PlainSection": {
+      "name": "PlainSection", "sectionId": "CD04",
+      "fields": [{"name": "value", "kind": "scalar", "type": "String"}]
+    }
+  }
+}
+''';
+
+SpecModel _oneOfModel() =>
+    SpecModel.fromJson(json.decode(_oneOfJson) as Map<String, dynamic>);
+
+/// The same fixture with `divider` removed from the discriminator enum, so the
+/// choice is fully covered.
+SpecModel _completeOneOfModel() => SpecModel.fromJson(
+      json.decode(_oneOfJson.replaceAll(
+        '"action", "input", "display", "divider"',
+        '"action", "input", "display"',
+      )) as Map<String, dynamic>,
+    );
 
 File _tempReviewFile(String name) {
   final dir = Directory(
@@ -793,6 +873,198 @@ void main() {
       expect(find.textContaining('CodeSpecs projection'), findsNothing);
       if (file.existsSync()) file.deleteSync();
     });
+  });
+
+  group('@OneOf / @Case rendering (TSRA4)', () {
+    Future<File> pumpTree(WidgetTester tester, String name,
+        {SpecModel? model}) async {
+      final file = _tempReviewFile(name);
+      if (file.existsSync()) file.deleteSync();
+      final m = model ?? _oneOfModel();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: m,
+            root: m.roots.single,
+            store: ReviewStore(file),
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      // `element` collapses the field and its class into one row, closed by
+      // default; the choice lives inside it.
+      await tester.tap(find.text('element'));
+      await tester.pumpAndSettle();
+      return file;
+    }
+
+    /// The left indent of the tree row whose headline is [label], as rendered
+    /// by `_NodeRow` (`16 * depth`).
+    double indentOf(WidgetTester tester, String label) {
+      final padding = tester.widget<Padding>(find
+          .ancestor(of: find.text(label), matching: find.byType(Padding))
+          .first);
+      return (padding.padding as EdgeInsets).left;
+    }
+
+    testWidgets('the closed choice renders as its own node naming the '
+        'discriminator', (tester) async {
+      final file = await pumpTree(tester, 'oneof_group.yaml');
+      expect(find.text('one of: elementType'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the alternatives sit inside the group, the common sections '
+        'outside it', (tester) async {
+      // This is the whole point: exclusivity has to be visible as *structure*,
+      // not inferred from a chip on an otherwise ordinary sibling row.
+      final file = await pumpTree(tester, 'oneof_indent.yaml');
+      final group = indentOf(tester, 'one of: elementType');
+      expect(indentOf(tester, 'layout'), group,
+          reason: 'a common section is a sibling of the group');
+      expect(indentOf(tester, 'elementAction'), greaterThan(group));
+      expect(indentOf(tester, 'fieldSpec'), greaterThan(group));
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('each alternative shows every case value, not just the first',
+        (tester) async {
+      // `@Case` is repeatable; `fieldSpec` claims two kinds.
+      final file = await pumpTree(tester, 'oneof_cases.yaml');
+      expect(find.text('case:action'), findsOneWidget);
+      expect(find.text('case:input'), findsOneWidget);
+      expect(find.text('case:display'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a common section carries no case chip', (tester) async {
+      final file = await pumpTree(tester, 'oneof_common.yaml');
+      final row =
+          find.ancestor(of: find.text('layout'), matching: find.byType(Wrap));
+      expect(
+          find.descendant(of: row.first, matching: find.textContaining('case:')),
+          findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the group states its coverage against the discriminator enum',
+        (tester) async {
+      final file = await pumpTree(tester, 'oneof_coverage.yaml');
+      expect(find.text('covers 3/4'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('uncovered discriminator values are named, not merely counted',
+        (tester) async {
+      // "Is this set complete?" is unanswerable unless the gap is spelled out.
+      final file = await pumpTree(tester, 'oneof_uncovered.yaml');
+      expect(find.text('uncovered: divider'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a fully covered choice shows no uncovered chip',
+        (tester) async {
+      final file = await pumpTree(tester, 'oneof_complete.yaml',
+          model: _completeOneOfModel());
+      expect(find.text('covers 3/3'), findsOneWidget);
+      expect(find.textContaining('uncovered:'), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the @OneOf note is shown on the group', (tester) async {
+      final file = await pumpTree(tester, 'oneof_note.yaml');
+      expect(find.text('The element kind selects its facet subsection'),
+          findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the closure decision is itself reviewable', (tester) async {
+      // The group gets its own path so "is closure right here?" can be
+      // answered without hijacking one of the alternatives' entries — which
+      // keep their existing paths.
+      final file = await pumpTree(tester, 'oneof_path.yaml');
+      final paths = tester
+          .widgetList<ReviewControls>(find.byType(ReviewControls))
+          .map((c) => c.path)
+          .toList();
+      expect(paths, contains('ChoiceDoc/element/§oneof'));
+      expect(paths, contains('ChoiceDoc/element/elementAction'));
+      expect(paths, contains('ChoiceDoc/element/fieldSpec'));
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a class without @OneOf renders no group', (tester) async {
+      final file = await pumpTree(tester, 'oneof_absent.yaml');
+      expect(find.textContaining('one of:'), findsOneWidget);
+      final row = find.ancestor(
+          of: find.text('plainSection'), matching: find.byType(Wrap));
+      expect(
+          find.descendant(of: row.first, matching: find.textContaining('one of')),
+          findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('@OneOf / @Case against the shipped model (TSRA4)', () {
+    // Asserted against the real `assets/spec_model.json` rather than a fixture,
+    // because the risk this guards is precisely that the renderer handles the
+    // hand-made shape and not the shipped one. Every expectation is derived
+    // from the snapshot, so refreshing it cannot make these tests wrong — only
+    // a renderer that stops covering the model can.
+    final model = SpecModel.fromJson(
+        json.decode(File('assets/spec_model.json').readAsStringSync())
+            as Map<String, dynamic>);
+    final choiceClasses = [
+      for (final c in model.classes.values)
+        if (c.oneOf != null) c,
+    ];
+
+    test('the shipped model declares closed choices at all', () {
+      // Without this the rendering tests below would pass vacuously.
+      expect(choiceClasses, isNotEmpty);
+    });
+
+    for (final cls in choiceClasses) {
+      testWidgets('${cls.name} renders as a choice group with every case',
+          (tester) async {
+        final group = cls.oneOf!;
+        final file = _tempReviewFile('asset_${cls.name}.yaml');
+        if (file.existsSync()) file.deleteSync();
+        await tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: SpecRoot(type: cls.name, title: cls.name),
+              store: ReviewStore(file),
+              onHandoffTap: (_, _) {},
+            ),
+          ),
+        ));
+        await tester.pumpAndSettle();
+
+        expect(find.text('one of: ${group.discriminator}'), findsOneWidget);
+        expect(
+            find.text('covers ${group.coveredValues.length}/'
+                '${group.discriminatorValues.length}'),
+            findsOneWidget);
+        expect(find.text('discriminator not found'), findsNothing,
+            reason: 'every shipped discriminator must resolve');
+
+        // Every `@Case` on every alternative reaches the screen — the count is
+        // what catches a reader that stopped at the first repeated annotation.
+        var cases = 0;
+        for (final f in group.caseFields) {
+          for (final value in f.caseValues) {
+            cases++;
+            expect(find.text('case:$value'), findsOneWidget);
+          }
+        }
+        expect(find.textContaining('case:'), findsNWidgets(cases));
+
+        if (file.existsSync()) file.deleteSync();
+      });
+    }
   });
 
   group('ModelStampBar (TSRA1)', () {

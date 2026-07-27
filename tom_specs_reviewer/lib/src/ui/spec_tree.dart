@@ -211,6 +211,36 @@ List<_Chip> _followUpKindChips(KindLink? link) {
   ];
 }
 
+/// The chips a field row carries: which alternative of a closed choice it is,
+/// then where its subtree is headed.
+///
+/// Case chips come first because they say *whether this row applies at all* —
+/// a stronger statement about the row than its CodeSpecs/follow-up mapping, and
+/// the one a reviewer scanning a choice group is reading for.
+List<_Chip> _fieldChips(SpecField f) => [
+      ..._caseChips(f),
+      ..._kindChips(f.codeSpecKind, f.followUpKind),
+    ];
+
+/// One chip per discriminator value the field is bound to by `@Case`.
+///
+/// One chip *per value* rather than one listing them all, matching the `cs:` /
+/// `fu:` convention — and because `@Case` is repeatable, so a single chip would
+/// have to invent a joining syntax for something the model states as a list.
+List<_Chip> _caseChips(SpecField f) => [
+      for (final value in f.caseValues)
+        _Chip('case:$value', Colors.amber.shade800,
+            tooltip: 'Applies when the discriminator is "$value"'),
+    ];
+
+/// Structural-path segment for the closed-choice group a class declares.
+///
+/// The group carries its own path so the *closure decision* — is this case set
+/// complete, and is closing it right here? — is reviewable in its own right,
+/// without hijacking the entry of one of the alternatives (which keep their
+/// ordinary field paths).
+const String kOneOfSegment = '§oneof';
+
 /// Renders the structure tree for a single document root.
 class SpecTree extends StatefulWidget {
   final SpecModel model;
@@ -449,6 +479,9 @@ class _ClassNodeState extends State<_ClassNode> {
             if (widget.recursive) _Chip('recursive', Colors.red),
             if (cut) _Chip('cut', Colors.red),
             if (cls.isCodeSpecsProjection) _projectionChip,
+            // A complex alternative collapses field and class into this one
+            // row, so its `@Case` binding has nowhere else to be stated.
+            if (widget.owningField != null) ..._caseChips(widget.owningField!),
             ..._kindChips(
               widget.owningField?.codeSpecKind ?? cls.codeSpecKind,
               widget.owningField?.followUpKind ?? cls.followUpKind,
@@ -467,17 +500,169 @@ class _ClassNodeState extends State<_ClassNode> {
               nodeLabel: '$label content',
               store: widget.store,
             ),
-          for (final field in visibleFields)
+          ..._buildFields(visibleFields),
+        ],
+      ],
+    );
+  }
+
+  /// The class's fields in declaration order, with the `@OneOf` alternatives
+  /// (if any) folded into a single choice-group node at the position of the
+  /// first of them.
+  ///
+  /// Grouping can pull a later alternative forward past a common section — in
+  /// the real model `selectOptions` moves ahead of `validation`. That is
+  /// accepted: this tree is a structural-review view, not a serialization view,
+  /// and showing which fields are mutually exclusive is worth more here than
+  /// preserving declaration order among fields that are not.
+  List<Widget> _buildFields(List<SpecField> visibleFields) {
+    final group = widget.cls.oneOf;
+    final caseNames = group == null
+        ? const <String>{}
+        : {for (final f in group.caseFields) f.name};
+    // Only the alternatives that survived the hand-off cut may be shown.
+    final groupedFields =
+        visibleFields.where((f) => caseNames.contains(f.name)).toList();
+
+    final widgets = <Widget>[];
+    var groupEmitted = false;
+    for (final field in visibleFields) {
+      if (caseNames.contains(field.name)) {
+        if (groupEmitted) continue;
+        groupEmitted = true;
+        widgets.add(_OneOfGroupNode(
+          model: widget.model,
+          store: widget.store,
+          group: group!,
+          caseFields: groupedFields,
+          path: '${widget.path}/$kOneOfSegment',
+          fieldPathBase: widget.path,
+          ancestors: widget.ancestors,
+          depth: widget.depth + 1,
+          parentOnNavPath: widget.onNavPath,
+        ));
+        continue;
+      }
+      widgets.add(_FieldNode(
+        model: widget.model,
+        store: widget.store,
+        field: field,
+        path: '${widget.path}/${field.name}',
+        ancestors: widget.ancestors,
+        depth: widget.depth + 1,
+        parentOnNavPath: widget.onNavPath,
+      ));
+    }
+    return widgets;
+  }
+}
+
+/// The `@OneOf` closed choice of a class, rendered as a group whose children
+/// are the mutually exclusive alternatives (`codespecs_mapping.md` §8.2).
+///
+/// It is a node rather than a chip on each alternative because exclusivity is a
+/// statement about the *set*: nesting the alternatives one level in is what
+/// separates them from the common sections that apply to every case, and the
+/// group header is the only place the discriminator and its coverage have to
+/// live.
+class _OneOfGroupNode extends StatefulWidget {
+  final SpecModel model;
+  final ReviewStore store;
+  final OneOfGroup group;
+
+  /// The alternatives actually rendered — [OneOfGroup.caseFields] minus any the
+  /// hand-off cut removed.
+  final List<SpecField> caseFields;
+
+  /// Review path of the group itself.
+  final String path;
+
+  /// Owning class path the alternatives' own paths are built from, so grouping
+  /// does not move an existing review entry.
+  final String fieldPathBase;
+
+  final Set<String> ancestors;
+  final int depth;
+  final bool parentOnNavPath;
+
+  const _OneOfGroupNode({
+    required this.model,
+    required this.store,
+    required this.group,
+    required this.caseFields,
+    required this.path,
+    required this.fieldPathBase,
+    required this.ancestors,
+    required this.depth,
+    required this.parentOnNavPath,
+  });
+
+  @override
+  State<_OneOfGroupNode> createState() => _OneOfGroupNodeState();
+}
+
+class _OneOfGroupNodeState extends State<_OneOfGroupNode> {
+  // Expanded by default: a collapsed group would hide the alternatives behind
+  // an extra click, making the choice *less* visible than the ungrouped list it
+  // replaces.
+  bool _expanded = true;
+
+  @override
+  Widget build(BuildContext context) {
+    final g = widget.group;
+    final total = g.discriminatorValues.length;
+    final uncovered = g.uncoveredValues;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _NodeRow(
+          depth: widget.depth,
+          expandable: true,
+          expanded: _expanded,
+          onToggle: () => setState(() => _expanded = !_expanded),
+          leadingIcon: Icons.alt_route,
+          iconColor: Colors.amber.shade800,
+          label: 'one of: ${g.discriminator}',
+          typeLabel: 'closed choice · ${widget.caseFields.length} alternatives',
+          sectionId: null,
+          chips: [
+            if (total > 0)
+              _Chip(
+                'covers ${g.coveredValues.length}/$total',
+                g.isComplete ? Colors.green.shade700 : Colors.orange.shade800,
+                tooltip: '${g.discriminator} admits $total values; '
+                    '${g.coveredValues.length} have a subsection of their own',
+              ),
+            if (uncovered.isNotEmpty)
+              _Chip(
+                'uncovered: ${uncovered.join(', ')}',
+                Colors.orange.shade800,
+                // §8.2 makes this a warning, not an error — the reviewer judges
+                // whether the gap is deliberate.
+                tooltip: 'These discriminator values carry only the common '
+                    'sections. Legal, but worth confirming it is intended.',
+              ),
+            if (g.discriminatorField == null)
+              _Chip('discriminator not found', Colors.red,
+                  tooltip: 'No form field named "${g.discriminator}" on this '
+                      'class — the choice cannot be checked for completeness'),
+          ],
+          doc: g.note,
+          store: widget.store,
+          path: widget.path,
+          nodeLabel: 'one of ${g.discriminator}',
+        ),
+        if (_expanded)
+          for (final field in widget.caseFields)
             _FieldNode(
               model: widget.model,
               store: widget.store,
               field: field,
-              path: '${widget.path}/${field.name}',
+              path: '${widget.fieldPathBase}/${field.name}',
               ancestors: widget.ancestors,
               depth: widget.depth + 1,
-              parentOnNavPath: widget.onNavPath,
+              parentOnNavPath: widget.parentOnNavPath,
             ),
-        ],
       ],
     );
   }
@@ -579,7 +764,7 @@ class _FieldNodeState extends State<_FieldNode> {
           typeLabel: 'List<${elementType ?? '?'}>'
               '${f.min != null ? '  min ${f.min}' : ''}',
           sectionId: f.sectionId ?? f.sectionIdPattern,
-          chips: _kindChips(f.codeSpecKind, f.followUpKind),
+          chips: _fieldChips(f),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,
@@ -706,7 +891,7 @@ class _FieldNodeState extends State<_FieldNode> {
           label: f.name,
           typeLabel: 'form · ${f.formFields.length} fields',
           sectionId: f.sectionId,
-          chips: _kindChips(f.codeSpecKind, f.followUpKind),
+          chips: _fieldChips(f),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,
@@ -740,7 +925,7 @@ class _FieldNodeState extends State<_FieldNode> {
           label: f.name,
           typeLabel: 'content · ${f.contentType ?? 'text'}',
           sectionId: f.sectionId,
-          chips: _kindChips(f.codeSpecKind, f.followUpKind),
+          chips: _fieldChips(f),
           doc: f.doc ?? f.help,
           store: widget.store,
           path: widget.path,

@@ -148,14 +148,15 @@ class KindLink {
     );
   }
 
-  /// `CodeSpecPart.validation` → `validation`. A name already given bare is
-  /// returned unchanged, so the reader does not depend on how the exporter
-  /// chose to spell the enum constant. Splitting on the last dot rather than a
-  /// fixed prefix keeps the reader working for any code enum the model adds.
-  static String _stripEnumPrefix(String raw) {
-    final dot = raw.lastIndexOf('.');
-    return dot < 0 ? raw : raw.substring(dot + 1);
-  }
+}
+
+/// `CodeSpecPart.validation` → `validation`. A name already given bare is
+/// returned unchanged, so readers do not depend on how the exporter chose to
+/// spell the enum constant. Splitting on the last dot rather than a fixed
+/// prefix keeps this working for any code enum the model adds.
+String _stripEnumPrefix(String raw) {
+  final dot = raw.lastIndexOf('.');
+  return dot < 0 ? raw : raw.substring(dot + 1);
 }
 
 /// Shared behaviour of the two model nodes that carry annotations — classes and
@@ -171,6 +172,14 @@ mixin AnnotatedSpecNode {
     }
     return null;
   }
+
+  /// Every annotation named [name], in source order — empty when absent.
+  ///
+  /// Distinct from [annotation] because some annotations are *repeatable*:
+  /// `@Case` is applied once per discriminator value, so a single field can
+  /// carry several. Reading only the first would silently drop the rest.
+  List<SpecAnnotation> annotationsNamed(String name) =>
+      [for (final a in annotations) if (a.name == name) a];
 
   /// Whether the annotation named [name] is present. For markers that carry no
   /// arguments, presence *is* the whole statement.
@@ -287,6 +296,90 @@ class SpecField with AnnotatedSpecNode {
   /// Whether expanding this field reveals further tree nodes.
   bool get isExpandable =>
       kind == SpecFieldKind.list || kind == SpecFieldKind.complex;
+
+  /// The discriminator values this subsection is bound to by `@Case`, with
+  /// their enum prefix stripped — empty when the field carries no `@Case`.
+  ///
+  /// `@Case` is repeatable, so this is a list rather than a single value: one
+  /// subsection may serve several kinds. Per `codespecs_mapping.md` §8.2 an
+  /// empty result means *common* — the subsection applies to every case — not
+  /// "unassigned".
+  List<String> get caseValues => [
+        for (final a in annotationsNamed('Case'))
+          if (a.argument('value') != null)
+            _stripEnumPrefix(a.argument('value').toString()),
+      ];
+
+  /// Whether this field is one alternative of a closed choice, as opposed to a
+  /// section common to every case.
+  bool get isCase => caseValues.isNotEmpty;
+}
+
+/// A closed choice declared by `@OneOf` on a container class
+/// (`codespecs_mapping.md` §8.2): a set of mutually exclusive subsections of
+/// which exactly one applies, selected by a discriminator form-field.
+///
+/// The group is the strongest structural statement the model makes about a set
+/// of sibling fields, and the question it invites — *is the case set complete,
+/// and is closure right here?* — is only answerable when the discriminator's
+/// full value set is visible next to the values actually covered. Hence
+/// [coveredValues] / [uncoveredValues] rather than just the case fields.
+class OneOfGroup {
+  /// The name of the `@Form` form-field whose value selects the alternative.
+  final String discriminator;
+
+  /// The annotation's free-text `note`, explaining the closed choice.
+  final String? note;
+
+  /// The resolved discriminator form-field, or `null` when the named field
+  /// cannot be found on the class.
+  final FormFieldSpec? discriminatorField;
+
+  /// The `@Case`-annotated fields, in declaration order. Common (uncased)
+  /// fields are deliberately excluded — they are not alternatives.
+  final List<SpecField> caseFields;
+
+  const OneOfGroup({
+    required this.discriminator,
+    required this.caseFields,
+    this.note,
+    this.discriminatorField,
+  });
+
+  /// Every value the discriminator enum admits, in enum order. Empty when the
+  /// discriminator could not be resolved or is not an enum.
+  List<String> get discriminatorValues =>
+      discriminatorField?.enumValues ?? const [];
+
+  /// The discriminator values some case field claims, in *enum* order so the
+  /// coverage reads against the enum a reviewer is checking.
+  ///
+  /// Defined as "enum values that are cased" rather than "case values seen":
+  /// a case value outside the enum then shows up as a coverage shortfall
+  /// instead of inflating the count.
+  List<String> get coveredValues {
+    final claimed = {for (final f in caseFields) ...f.caseValues};
+    return [
+      for (final v in discriminatorValues)
+        if (claimed.contains(v)) v,
+    ];
+  }
+
+  /// The discriminator values no case field claims, in enum order.
+  ///
+  /// §8.2 makes an uncovered case a *warning*, not an error — a kind with no
+  /// attributes yet is legal — so this is information for the reviewer to
+  /// judge, not a defect to flag.
+  List<String> get uncoveredValues {
+    final claimed = {for (final f in caseFields) ...f.caseValues};
+    return [
+      for (final v in discriminatorValues)
+        if (!claimed.contains(v)) v,
+    ];
+  }
+
+  /// Whether every discriminator value is covered by some case field.
+  bool get isComplete => uncoveredValues.isEmpty;
 }
 
 /// A model class with its fields.
@@ -336,6 +429,42 @@ class SpecClass with AnnotatedSpecNode {
   SpecField? fieldNamed(String name) {
     for (final f in fields) {
       if (f.name == name) return f;
+    }
+    return null;
+  }
+
+  /// The `@OneOf` closed choice this class declares, or `null` when it
+  /// declares none (`codespecs_mapping.md` §8.2).
+  ///
+  /// Classes only: the choice is a statement about a *set* of sibling fields,
+  /// so it has no meaning on a field and does not belong on
+  /// [AnnotatedSpecNode].
+  OneOfGroup? get oneOf {
+    final a = annotation('OneOf');
+    if (a == null) return null;
+    final discriminator = a.argument('discriminator')?.toString() ?? '';
+    return OneOfGroup(
+      discriminator: discriminator,
+      note: a.argument('note') as String?,
+      discriminatorField: formFieldNamed(discriminator),
+      caseFields: [
+        for (final f in fields)
+          if (f.isCase) f,
+      ],
+    );
+  }
+
+  /// The form-field named [name] from whichever `@Form` section of this class
+  /// declares it, or `null` when no section does.
+  ///
+  /// Form-fields are not [SpecField]s — they live inside a form section's
+  /// [SpecField.formFields] — so a lookup that only walked [fields] would
+  /// never find a discriminator.
+  FormFieldSpec? formFieldNamed(String name) {
+    for (final f in fields) {
+      for (final ff in f.formFields) {
+        if (ff.name == name) return ff;
+      }
     }
     return null;
   }
