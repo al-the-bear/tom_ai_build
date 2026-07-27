@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 9 (`d4rt_and_llm_tools_plan.md`) / §6 + §9.2: the **tier-1
+/// Step 9 / `d4rt_and_llm_tools.md` §6 + §9.2: the **tier-1
 /// structural/lexical index** — an inverted BM25 text index + structural facets
 /// (id, kind, mapsTo, state) built **directly from the object model with zero
 /// model (LLM) calls**, refreshed **incrementally** over changed sections.

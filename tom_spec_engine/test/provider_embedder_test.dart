@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:test/test.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 15 (`d4rt_and_llm_tools_followup.md`) — the provider-backed embedder
+/// Step 15 / `d4rt_and_llm_tools.md` §9.3 — the provider-backed embedder
 /// adapter. These tests bind against a **fake** [EmbeddingService] (re-exported
 /// from the engine), so they run on every platform — no Ollama daemon, no vec0
 /// binary. They lock the adapter's contract: the two engine surfaces map onto
@@ -141,7 +141,6 @@ void main() {
     // initialised (available in the Flutter editor host, not in a bare
     // `dart test`). The factory is pure composition over the defaults asserted
     // above; the editor (`SpecMemoryPlane`) covers the live wiring, gated on
-    // provider embeddings being enabled (see d4rt_and_llm_tools_decisions.md
-    // F15).
+    // provider embeddings being enabled (see d4rt_and_llm_tools.md §9.3).
   });
 }

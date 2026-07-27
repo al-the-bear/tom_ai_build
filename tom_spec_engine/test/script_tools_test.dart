@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 13 (`d4rt_and_llm_tools_plan.md`) / §8.1 — the **script tools**: the
+/// Step 13 / `d4rt_and_llm_tools.md` §8.1 — the **script tools**: the
 /// engine-side logic behind the editor's `script_author` / `script_validate` /
 /// `script_run` / `script_list` / `script_get` MCP tools.
 ///

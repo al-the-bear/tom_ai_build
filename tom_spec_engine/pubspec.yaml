@@ -18,7 +18,7 @@ dependencies:
   # latest published line (^1.10.1) — it carries the analyzer ^10 migration, so
   # there is no longer an analyzer ^8/^10 conflict with the Flutter editor's
   # tom_dart_editor. (The plan/Q4's earlier `^1.8.25` note is superseded — see
-  # d4rt_and_llm_tools_decisions.md D1 + F4.)
+  # tom_specs_model/doc/d4rt_and_llm_tools.md §14.)
   tom_d4rt: ">=1.11.0"
   # dcli bridged into D4rt — the raw surface the `files` scope facade (step 8)
   # wraps. Pinned to the latest published line (^1.1.6 — F4).
@@ -49,7 +49,7 @@ dependencies:
   # of the editor's deterministic hash placeholder. `SpecProviderEmbedder`
   # (lib/src/memory/provider_embedder.dart) wraps it so the editor needs only
   # tom_spec_engine. publish_to: none → path (see
-  # d4rt_and_llm_tools_decisions.md F15).
+  # tom_specs_model/doc/d4rt_and_llm_tools.md §9.3).
   tom_brain_substrate:
     path: ../../../tom_assistant/tom_brain_substrate
 

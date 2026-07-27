@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 14 (`d4rt_and_llm_tools_plan.md`) / §8.2 — the in-memory **document**
+/// Step 14 / `d4rt_and_llm_tools.md` §8.2 — the in-memory **document**
 /// tools: `doc_search` + `doc_search_iterate` (the §6 grep facility, cursor
 /// iteration), `doc_reflect` (meta-model facts: allowed children / types /
 /// annotations), and `doc_add_node` (the §5 meta-model-validated creation that

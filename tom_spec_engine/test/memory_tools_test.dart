@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 14 (`d4rt_and_llm_tools_plan.md`) / §8.2 — the **memory** tools:
+/// Step 14 / `d4rt_and_llm_tools.md` §8.2 — the **memory** tools:
 /// `mem_recall(query, {mode})` over the fused [SpecRecall] (§9) and
 /// `mem_refresh()` (the manual re-index). Both return compact JSON. The tier-1
 /// index is real (object-model derived, zero LLM); the tier-2 vector mode is a

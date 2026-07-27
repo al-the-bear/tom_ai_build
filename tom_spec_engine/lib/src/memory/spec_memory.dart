@@ -7,7 +7,7 @@
 /// ([MemoryScope]) and exposes the three operations the higher steps build on:
 /// **embed** a string, **remember** it, and **recall** it.
 ///
-/// Scope of step 2 (deliberately narrow — see `d4rt_and_llm_tools_decisions.md`):
+/// Scope of step 2 (deliberately narrow — see `d4rt_and_llm_tools.md` §9):
 ///   * The embedding surface is an injected [SpecEmbedder]; the provider-backed
 ///     Tom Brain embedding API is wired in at the tier-2 vector step (step 11).
 ///   * Remembered text is carried on the bootstrap `Event` node type; the

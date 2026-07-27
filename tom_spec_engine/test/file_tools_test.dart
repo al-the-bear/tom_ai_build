@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:test/test.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 14 (`d4rt_and_llm_tools_plan.md`) / §8.2 — the **file** tools:
+/// Step 14 / `d4rt_and_llm_tools.md` §8.2 — the **file** tools:
 /// `file_read(path)`, `file_find(glob)`, and `file_write(path, content)` over
 /// the audited [SpecFileFacade] (§7). Each returns compact JSON; a write outside
 /// the whitelist is reported as a failed result, never a thrown stack.

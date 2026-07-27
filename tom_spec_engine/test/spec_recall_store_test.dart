@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 11 (`d4rt_and_llm_tools_plan.md`) / §9.2 + §9.3 — the **store-integrated**
+/// Step 11 / `d4rt_and_llm_tools.md` §9.2 + §9.3 — the **store-integrated**
 /// half of fused recall: the tier-2 vector mode is the *real*
 /// `SpecDocumentMemory.recallSections` over the in-process Tom Brain named
 /// memory, and the incremental embedding path

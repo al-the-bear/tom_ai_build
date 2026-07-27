@@ -7,7 +7,7 @@ editor.
 
 > **Status: Phase-A scaffold.** Only package metadata ships today. The
 > capabilities below are the target surface; they land step by step per
-> [`d4rt_and_llm_tools_plan.md`](../../../_ai/quests/tom_specs/d4rt_and_llm_tools_plan.md).
+> [`d4rt_and_llm_tools.md`](../tom_specs_model/doc/d4rt_and_llm_tools.md).
 
 ## What it will own
 
@@ -32,7 +32,7 @@ editor.
 
 The **embeddable Tom Brain** packages (substrate / memory / procedure) are added
 in plan step 2, where the in-process substrate façade is adopted — see
-[`d4rt_and_llm_tools_decisions.md`](../../../_ai/quests/tom_specs/d4rt_and_llm_tools_decisions.md).
+[`d4rt_and_llm_tools.md`](../tom_specs_model/doc/d4rt_and_llm_tools.md) §9.3.
 
 ## Develop
 

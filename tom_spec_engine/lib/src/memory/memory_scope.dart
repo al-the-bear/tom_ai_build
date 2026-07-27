@@ -14,7 +14,7 @@ library;
 ///     in-process memory store. At the *memory* plane this is the only
 ///     isolation key: each open document gets its own profile-backed
 ///     `memory.db` / `vectors.db`, so two specs never cross-talk. See
-///     `d4rt_and_llm_tools_decisions.md` D6.
+///     `d4rt_and_llm_tools.md` §9.3.
 ///
 /// All three components are validated so none can escape the Tom Brain
 /// `<memory-root>/profiles/` directory: each must be non-empty and match

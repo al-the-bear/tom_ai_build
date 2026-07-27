@@ -3,7 +3,7 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 import 'support/agent_test_fixture.dart';
 
-/// Step 16 (`d4rt_and_llm_tools_plan.md`) / §10 — **mode (b)**, the
+/// Step 16 / `d4rt_and_llm_tools.md` §10 — **mode (b)**, the
 /// **Agent-SDK-through-`tom_brain`** substrate.
 ///
 /// Mode (b) drives the *same* complex agent procedure as mode (a) but wraps the

@@ -2,7 +2,8 @@
 ///
 /// The pure-Dart host behind the TomSpecs editor's D4rt scripting & LLM
 /// tooling. As the implementation lands (see
-/// `_ai/quests/tom_specs/d4rt_and_llm_tools_plan.md`) this package will own:
+/// `tom_ai/ai_build/tom_specs_model/doc/d4rt_and_llm_tools.md`) this package
+/// will own:
 ///
 ///   * the D4rt **scope registry** and the three base scopes
 ///     (`spec` / `files` / `memory`);

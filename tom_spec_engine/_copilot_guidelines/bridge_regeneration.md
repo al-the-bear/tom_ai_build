@@ -108,5 +108,3 @@ was purely the pub `package_config.json` lag, not a summary-cache entry.
 `build_runner` builder, so there is no `build.yaml` wiring. The regen is a
 deliberate, infrequent step gated on SOM API changes; a one-line script keeps it
 explicit and avoids pulling `build_runner` into an otherwise lean engine package.
-See decision **F21** in
-`_ai/quests/tom_specs/d4rt_and_llm_tools_decisions.md`.

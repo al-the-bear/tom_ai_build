@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 6 (`d4rt_and_llm_tools_plan.md`) / §4: the D4rt scripting scope model
+/// Step 6 / `d4rt_and_llm_tools.md` §4: the D4rt scripting scope model
 /// and [ScopeRegistry].
 ///
 /// A scope is a named, immutable set of bridged libraries + injected globals +

@@ -3,7 +3,7 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 import 'support/agent_test_fixture.dart';
 
-/// Step 15 (`d4rt_and_llm_tools_plan.md`) / §10 — the **`AgentSubstrate`**
+/// Step 15 / `d4rt_and_llm_tools.md` §10 — the **`AgentSubstrate`**
 /// abstraction + **mode (a)** (direct Agent SDK, augmented with Tom Brain
 /// named memory, driven by a **complex agent procedure**: a D4rt procedure over
 /// the §8 tools).

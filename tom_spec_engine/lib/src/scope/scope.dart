@@ -19,7 +19,7 @@
 /// This `ScriptScope` is deliberately distinct from [MemoryScope] (the Tom Brain
 /// memory-addressing key) and from `tom_brain`'s own `Scope`: it names a *D4rt
 /// scripting surface*, not a memory partition. See
-/// `d4rt_and_llm_tools_decisions.md` §Step 6 (D23).
+/// `d4rt_and_llm_tools.md` §4.
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';

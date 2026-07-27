@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 18 files
-// Generated: 2026-07-18T19:33:16.263964
+// Generated: 2026-07-27T11:00:07.685689
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1472,6 +1472,7 @@ BridgedClass _createSpecDocumentBridge() {
     getters: {
       'modelVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').modelVersion,
       'headlinePaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').headlinePaths,
+      'codeSpecPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').codeSpecPaths,
       'isEmpty': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').isEmpty,
       'contentPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').contentPaths,
       'formPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument').formPaths,
@@ -1521,6 +1522,20 @@ BridgedClass _createSpecDocumentBridge() {
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setHeadline');
         final value = D4.getRequiredArg<String>(positional, 1, 'value', 'setHeadline');
         t.setHeadline(path, value);
+        return null;
+      },
+      'codeSpec': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument');
+        D4.requireMinArgs(positional, 1, 'codeSpec');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'codeSpec');
+        return t.codeSpec(path);
+      },
+      'setCodeSpec': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_3.SpecDocument>(target, 'SpecDocument');
+        D4.requireMinArgs(positional, 2, 'setCodeSpec');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setCodeSpec');
+        final value = D4.getRequiredArg<String>(positional, 1, 'value', 'setCodeSpec');
+        t.setCodeSpec(path, value);
         return null;
       },
       'formField': (visitor, target, positional, named, typeArgs) {
@@ -1650,6 +1665,8 @@ BridgedClass _createSpecDocumentBridge() {
       'setContent': 'void setContent(String path, String value)',
       'headline': 'String? headline(String path)',
       'setHeadline': 'void setHeadline(String path, String value)',
+      'codeSpec': 'String? codeSpec(String path)',
+      'setCodeSpec': 'void setCodeSpec(String path, String value)',
       'formField': 'String? formField(String path, String field)',
       'setFormField': 'void setFormField(String path, String field, String value)',
       'listItems': 'List<String> listItems(String listPath)',
@@ -1670,6 +1687,7 @@ BridgedClass _createSpecDocumentBridge() {
     getterSignatures: {
       'modelVersion': 'String? get modelVersion',
       'headlinePaths': 'Iterable<String> get headlinePaths',
+      'codeSpecPaths': 'Iterable<String> get codeSpecPaths',
       'isEmpty': 'bool get isEmpty',
       'contentPaths': 'Iterable<String> get contentPaths',
       'formPaths': 'Iterable<String> get formPaths',
@@ -1803,7 +1821,10 @@ BridgedClass _createSpecMarkdownResultBridge() {
         final headlines = named.containsKey('headlines') && named['headlines'] != null
             ? D4.coerceMap<String, String>(named['headlines'], 'headlines')
             : const <String, String>{};
-        return $tom_som_dart_runtime_4.SpecMarkdownResult(content: content, forms: forms, lists: lists, rejections: rejections, rootPrefixes: rootPrefixes, headlines: headlines);
+        final codeSpecs = named.containsKey('codeSpecs') && named['codeSpecs'] != null
+            ? D4.coerceMap<String, String>(named['codeSpecs'], 'codeSpecs')
+            : const <String, String>{};
+        return $tom_som_dart_runtime_4.SpecMarkdownResult(content: content, forms: forms, lists: lists, rejections: rejections, rootPrefixes: rootPrefixes, headlines: headlines, codeSpecs: codeSpecs);
       },
     },
     getters: {
@@ -1811,19 +1832,21 @@ BridgedClass _createSpecMarkdownResultBridge() {
       'forms': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').forms,
       'lists': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').lists,
       'headlines': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').headlines,
+      'codeSpecs': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').codeSpecs,
       'rejections': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').rejections,
       'rootPrefixes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').rootPrefixes,
       'isClean': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').isClean,
       'appliedCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecMarkdownResult>(target, 'SpecMarkdownResult').appliedCount,
     },
     constructorSignatures: {
-      '': 'SpecMarkdownResult({required Map<String, String> content, required Map<String, Map<String, String>> forms, required Map<String, Map<String, Object?>> lists, required List<SpecMarkdownRejection> rejections, required Set<String> rootPrefixes, Map<String, String> headlines = const {}})',
+      '': 'SpecMarkdownResult({required Map<String, String> content, required Map<String, Map<String, String>> forms, required Map<String, Map<String, Object?>> lists, required List<SpecMarkdownRejection> rejections, required Set<String> rootPrefixes, Map<String, String> headlines = const {}, Map<String, String> codeSpecs = const {}})',
     },
     getterSignatures: {
       'content': 'Map<String, String> get content',
       'forms': 'Map<String, Map<String, String>> get forms',
       'lists': 'Map<String, Map<String, Object?>> get lists',
       'headlines': 'Map<String, String> get headlines',
+      'codeSpecs': 'Map<String, String> get codeSpecs',
       'rejections': 'List<SpecMarkdownRejection> get rejections',
       'rootPrefixes': 'Set<String> get rootPrefixes',
       'isClean': 'bool get isClean',
@@ -1893,6 +1916,11 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
         final fieldName = D4.getRequiredArg<String>(positional, 0, 'fieldName', 'formLabel');
         return $tom_som_dart_runtime_4.SpecDocumentMarkdown.formLabel(fieldName);
       },
+      'codeSpecOf': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'codeSpecOf');
+        final region = D4.getRequiredArg<String>(positional, 0, 'region', 'codeSpecOf');
+        return $tom_som_dart_runtime_4.SpecDocumentMarkdown.codeSpecOf(region);
+      },
     },
     constructorSignatures: {
       '': 'SpecDocumentMarkdown(SpecModel model, SpecDocument document)',
@@ -1910,6 +1938,7 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
       'kebabCase': 'String kebabCase(String title)',
       'itemTitleStem': 'String itemTitleStem(String elementClassName)',
       'formLabel': 'String formLabel(String fieldName)',
+      'codeSpecOf': 'String codeSpecOf(String region)',
     },
     staticGetterSignatures: {
       'headingLine': 'RegExp get headingLine',
