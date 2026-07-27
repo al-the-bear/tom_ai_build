@@ -1,8 +1,8 @@
-/// Shared test fixture for the §10 agent substrates (plan steps 15–16).
+/// Shared test fixture for the §10 agent substrates.
 ///
 /// Both [AgentSubstrate] modes — (a) [DirectAgentSubstrate] and (b)
 /// [BrainAgentSubstrate] — must drive the *same* complex agent procedure
-/// through the *same* search → recall → edit → verify loop (the plan's step-16
+/// through the *same* search → recall → edit → verify loop (the
 /// "same loop test"). This file owns the single fixture both suites build on so
 /// that "the same loop" is literally the same code: the model, the
 /// change-log-recording controller, and the wired [AgentToolsApi].

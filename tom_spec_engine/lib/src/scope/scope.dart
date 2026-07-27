@@ -1,5 +1,5 @@
 /// The D4rt scripting **scope** model
-/// (`llm_and_d4rt_tools.md` §4, plan step 6).
+/// (`llm_and_d4rt_tools.md` §4).
 ///
 /// A *scope* is a named, immutable set of three things a script run is granted:
 ///

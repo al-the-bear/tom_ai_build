@@ -1,13 +1,13 @@
 /// The **live conversational substrate** + **multi-turn complex procedures**
-/// (§10 mode a, plan step 15 — followup item 9).
+/// (§10 mode a).
 ///
-/// Plan step 15 stood up §10 mode (a)'s *headless* shape — the complex agent
-/// procedure ([AgentProcedure]) and the single-pass [DirectAgentSubstrate] that
-/// drives it once — but deferred the **conversational substrate** (the live LLM
-/// that decides *what to do next*) and the **multi-turn** loop as an "editor
-/// concern". This library closes that gap with the same seam pattern item 8
-/// used for the Tom Brain envelope: an **injected port** the pure-Dart plane can
-/// drive host-independently.
+/// §10 mode (a) has a *headless* core — the complex agent procedure
+/// ([AgentProcedure]) and the single-pass [DirectAgentSubstrate] that drives it
+/// once. The **conversational substrate** (the live LLM that decides *what to do
+/// next*) and the **multi-turn** loop are an "editor concern", so this library
+/// covers them with the same seam pattern [SpecBrainSessionEnvelope] uses for
+/// the Tom Brain envelope: an **injected port** the pure-Dart plane can drive
+/// host-independently.
 ///
 /// §10 mode (a) is "the Agent SDK … **augmented with the RAG memory** for
 /// per-prompt recall and **driven by a complex agent procedure**". The
@@ -25,7 +25,7 @@
 /// Keeping the driver an injected port lets the headless multi-turn test run
 /// against [RecordingConversationalDriver] (a scripted decision list) while the
 /// editor binds the live `AgentSendController`-backed driver — exactly as the
-/// memory plane (steps 2/10/11) and the run envelope (item 8) inject their live
+/// memory plane (§9) and the run envelope (§10) inject their live
 /// ports.
 library;
 
@@ -179,7 +179,7 @@ final class RecordingConversationalDriver implements ConversationalDriver {
 }
 
 /// Runs the complex agent procedure across **multiple conversational turns** —
-/// the live mode-(a) realisation (§10, plan step 15).
+/// the live mode-(a) realisation (§10).
 ///
 /// Composition over a base substrate: each turn the substrate (1) recalls the
 /// RAG memory for the goal (the per-prompt augmentation), (2) asks the injected

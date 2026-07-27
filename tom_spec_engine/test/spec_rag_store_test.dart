@@ -5,16 +5,16 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 10 / `llm_and_d4rt_tools.md` §9.1 — the **in-process** half of
+/// `llm_and_d4rt_tools.md` §9.1 — the **in-process** half of
 /// the section-level RAG store: a document's [SpecRagGraph] (built in
 /// `spec_rag_graph_test.dart`) is persisted as section nodes + tree/projection
 /// edges into the document's profile-isolated Tom Brain **named memory**
-/// (step 2), and the same sections are recalled back.
+/// through the memory façade, and the same sections are recalled back.
 ///
-/// Done-criterion (plan step 10): *nodes/edges build from a document and recall
+/// Contract (§9.1): *nodes/edges build from a document and recall
 /// returns them.*
 ///
-/// Like the step-2 façade suite, these are **skipped** (not failed) when the
+/// Like the façade suite, these are **skipped** (not failed) when the
 /// running platform has no packaged vec0 binary under
 /// `tom_binaries/sqlite_vec` — the store refuses to boot without it.
 SpecModel _model() => SpecModel.fromJson({
@@ -51,7 +51,7 @@ void main() {
       : null;
 
   /// Deterministic 768-dim embedder: same text → identical vector, so a
-  /// self-recall is an exact vector hit (mirrors the step-2 façade suite).
+  /// self-recall is an exact vector hit (mirrors the façade suite).
   Future<Vec> embedText(String text) async {
     const dims = 768;
     final values = Float32List(dims);
@@ -98,7 +98,7 @@ void main() {
         document: document,
       );
 
-  group('SpecRagStore step-10 (index + recall)', () {
+  group('SpecRagStore (index + recall)', () {
     test('indexes every section node and every resolvable edge', () async {
       final memory = openMemory();
       final graph = buildGraph();
@@ -164,11 +164,11 @@ void main() {
     }, skip: skipNoBinary);
   });
 
-  // Step 15 / `llm_and_d4rt_tools.md` §9.3 — a full-document index batch-
+  // `llm_and_d4rt_tools.md` §9.3 — a full-document index batch-
   // embeds when a `SpecBatchEmbedder` is bound: one fan-out for all sections
   // rather than one round-trip per section, and the batched vectors persist /
   // recall identically to the per-section path.
-  group('SpecRagStore step-15 (batch embedding)', () {
+  group('SpecRagStore (batch embedding)', () {
     test('indexDocument issues one batch embed for all sections, no per-section'
         ' calls', () async {
       final batchCalls = <List<String>>[];
@@ -228,7 +228,7 @@ void main() {
       final doc = await memory.openDocument(scopeFor('pd00-no-batch'));
       await doc.indexDocument(graph);
 
-      // One embed per section — the fallback path, unchanged from step 10.
+      // One embed per section — the fallback path.
       expect(singleCalls, graph.nodes.length);
     }, skip: skipNoBinary);
   });

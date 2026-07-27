@@ -8,7 +8,7 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// End-to-end tests for the **Go** `v0` SOM generator (plan item #11). They
+/// End-to-end tests for the **Go** `v0` SOM generator (som_multiplatform_spec_model.md §10). They
 /// mirror `som_java_generator_test.dart` / `som_rust_generator_test.dart`: the
 /// real `tom_specs_model` is analysed once (shared via [setUpAll]), then the
 /// deterministic write step is exercised and the committed-artefact contract is

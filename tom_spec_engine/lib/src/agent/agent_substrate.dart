@@ -1,5 +1,4 @@
-/// The pluggable **agent substrate** abstraction (`llm_and_d4rt_tools.md` §10,
-/// plan step 15).
+/// The pluggable **agent substrate** abstraction (`llm_and_d4rt_tools.md` §10).
 ///
 /// §10 calls for *two* interchangeable agent substrates behind one interface —
 /// a **direct Agent SDK** mode (a) and an **Agent-SDK-through-`tom_brain`** mode
@@ -14,9 +13,9 @@
 /// plane cannot host; what the engine owns is the **complex agent procedure**
 /// that orchestrates the multi-step search → recall → edit → verify loop over
 /// the §8 tools. Mode (a) ([DirectAgentSubstrate]) drives that procedure
-/// directly; mode (b) (plan step 16) will drive the *same* procedure wrapped by
-/// `tom_brain`. Keeping both behind this one interface is what lets step 16 add
-/// the second mode without changing a single caller.
+/// directly; mode (b) ([BrainAgentSubstrate]) drives the *same* procedure
+/// wrapped by `tom_brain`. Keeping both behind this one interface is what lets
+/// a further mode be added without changing a single caller.
 library;
 
 /// A unit of agent work: a natural-language [goal] plus structured [inputs].

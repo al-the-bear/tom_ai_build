@@ -1,4 +1,4 @@
-// Sample (b) — GENERIC in-memory document access (plan item #14, spec §3.1).
+// Sample (b) — GENERIC in-memory document access (som_multiplatform_spec_model.md §6).
 //
 // HAND-AUTHORED — preserved across `generate_som` runs (the generator only
 // rewrites the crate root `src/lib.rs`, `meta/`, `schemas/` and `Cargo.toml`).

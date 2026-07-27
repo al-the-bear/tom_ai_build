@@ -6,7 +6,7 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 import 'support/agent_test_fixture.dart';
 
-/// Followup item 8 / §10 mode (b) — the **live `tom_brain_memory`-backed**
+/// §10 mode (b) — the **live `tom_brain_memory`-backed**
 /// session envelope.
 ///
 /// Where `brain_agent_substrate_test.dart` proves the substrate drives the same
@@ -16,7 +16,7 @@ import 'support/agent_test_fixture.dart';
 /// **persists the run as a node** (with its [RunEffort] metrics) recoverable by
 /// recall.
 ///
-/// Like the step-2 memory suite, the store-touching tests are **skipped** (not
+/// Like the memory-façade suite, the store-touching tests are **skipped** (not
 /// failed) on a platform with no packaged vec0 binary under
 /// `tom_binaries/sqlite_vec` — the store refuses to boot without it.
 void main() {

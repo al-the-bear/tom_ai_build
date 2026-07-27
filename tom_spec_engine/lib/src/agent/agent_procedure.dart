@@ -1,4 +1,4 @@
-/// The **complex agent procedure** (§10, plan step 15).
+/// The **complex agent procedure** (§10).
 ///
 /// §10 mode (a) is *driven by a complex agent procedure — a D4rt procedure that
 /// orchestrates the multi-step search → recall → edit → verify loop over the §8
@@ -9,7 +9,7 @@
 /// The procedure is intentionally a real D4rt script (the `tom_brain_procedure`
 /// host pattern, §2) rather than hard-coded Dart, so it is the same artefact an
 /// agent could author/inspect via the §8.1 `script_*` tools, and so both §10
-/// modes drive the *identical* loop body (plan step 16's "same loop test").
+/// modes drive the *identical* loop body (the "same loop test").
 library;
 
 import 'agent_scope.dart';

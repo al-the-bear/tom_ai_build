@@ -3,7 +3,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/dartscript.b.dart';
 
-/// Step 5 / `llm_and_d4rt_tools.md` §13.1 / multiplatform item 7c: the
+/// `llm_and_d4rt_tools.md` §13.1: the
 /// generated D4rt bridge round-trip.
 ///
 /// Proves a sandboxed D4rt script, importing only the generated bridge surface,
@@ -74,7 +74,7 @@ main(doc, model) {
 ''';
 
 void main() {
-  group('SOM D4rt bridge round-trip (step 5 / item 7c)', () {
+  group('SOM D4rt bridge round-trip', () {
     late D4rt d4rt;
     late SpecDocument doc;
     late SpecModel model;

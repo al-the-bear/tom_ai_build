@@ -2,7 +2,7 @@
 
 **Quest:** tom_specs
 **Status:** **Reconciled with the shipped `tom_spec_engine` scripting surface
-(plan step 19).** Every API name, signature, and worked example in §3–§6 below
+** Every API name, signature, and worked example in §3–§6 below
 matches the engine's `spec` / `files` / `memory` scope bindings as shipped, and
 the §6 examples are run **verbatim** by
 `tom_spec_engine/test/guidelines_examples_test.dart`. Two capabilities from the
@@ -277,7 +277,7 @@ with it — so do not assume capabilities beyond what the current context grants
 
 ---
 
-## 10. Reconciliation record (plan step 19)
+## 10. Reconciliation record
 
 This document was reconciled against the **shipped** `tom_spec_engine` scripting
 surface. Every API name and signature in §3–§8 now matches the engine's

@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 /// Regenerate the TomSpecs SOM D4rt bridges from `buildkit.yaml`'s `d4rtgen:`
-/// block (plan step 5 / spec §13.1).
+/// block (`llm_and_d4rt_tools.md` §13.1).
 ///
 /// The bridges are generated here, in the engine plane, NOT in the lean
 /// pure-data `tom_som_dart_runtime` / `tom_som_dart_v0` packages. Run this

@@ -8,7 +8,7 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// End-to-end tests for the `v0` SOM generator (plan item #7). They run the
+/// End-to-end tests for the `v0` SOM generator (som_multiplatform_spec_model.md §5). They run the
 /// real `tom_specs_model` through the analyzer once (shared via [setUpAll]),
 /// then exercise the deterministic write step and assert the committed-artefact
 /// contract: a valid meta-data file, the typed Dart facade, the 13 DocSpecs

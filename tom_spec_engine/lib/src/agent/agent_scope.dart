@@ -1,4 +1,4 @@
-/// The `agent` scope (§4, §8, §10, plan step 15).
+/// The `agent` scope (§4, §8, §10).
 ///
 /// Builds the [ScriptScope] that binds the unified [AgentToolsApi] tool surface
 /// to the interpreter. The scope exposes exactly one bridged-library block,

@@ -1,10 +1,10 @@
 /// The **script tools** — the engine-side logic behind the `script_*` MCP tools
-/// (§8.1, plan step 13).
+/// (§8.1).
 ///
 /// [ScriptTools] is the in-process surface the editor's `AgentToolsModule` wraps
 /// as `script_author` / `script_validate` / `script_run` / `script_list` /
 /// `script_get`. It binds three things the previous steps built — a
-/// [ScopeRegistry] (the named scope presets, step 6+), a [ScriptStore] (the
+/// [ScopeRegistry] (the named scope presets, §4), a [ScriptStore] (the
 /// `agent/scripts/` persistence, this step), and the `tom_d4rt` interpreter — so
 /// an agent can:
 ///
@@ -90,7 +90,7 @@ final class StoredScript {
 
 /// The declared `main()` entrypoint contract a [ScriptValidation] surfaces.
 ///
-/// This is the **richer argument contract** (plan step 13): rather than only
+/// This is the **richer argument contract**: rather than only
 /// reporting parse errors, validation introspects the script's entrypoint so
 /// the agent knows *how* the script must be called — how many positional
 /// arguments `main()` requires/accepts, its named parameters, and whether it is
@@ -320,7 +320,7 @@ final class ScriptTools {
     final scopeNames = scopes ?? resolved.scopes ?? defaultScopes;
     final env = registry.build(scopeNames);
 
-    // Richer argument contract (plan step 13): when an agent passes `args`,
+    // Richer argument contract: when an agent passes `args`,
     // reject an entrypoint mismatch up front with the same diagnostics
     // `validate` produces, instead of surfacing an opaque interpreter arity
     // error deep inside the run.

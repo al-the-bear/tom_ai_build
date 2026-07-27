@@ -1,7 +1,7 @@
 # `tom_som_dart_v0` — runnable samples
 
 Runnable samples covering the access paths to a TomSpecs Spec Object Model
-document (plan item #14, spec §3.1). They are **hand-authored** and preserved
+document (`som_multiplatform_spec_model.md` §6). They are **hand-authored** and preserved
 across `generate_som` regeneration (the generator only rewrites `lib/`, `meta/`,
 `schemas/` and `pubspec.yaml`).
 

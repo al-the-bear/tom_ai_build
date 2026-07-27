@@ -1,5 +1,5 @@
 /// The script-facing **read-only** `search` grep facility and its D4rt bridge
-/// (§6, plan step 7/19; followup item 12, D97).
+/// (§6).
 ///
 /// Where the `spec` global ([SpecApi]) is the controller-mediated *editing*
 /// surface and the `model` global ([SpecModelApi]) is the *reflection* surface,

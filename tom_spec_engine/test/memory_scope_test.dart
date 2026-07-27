@@ -3,13 +3,13 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 12 / `llm_and_d4rt_tools.md` §4: the `memory` base scope binds a
+/// `llm_and_d4rt_tools.md` §4: the `memory` base scope binds a
 /// **read-only** recall surface (`memory`) over the document's fused two-tier
-/// recall ([SpecRecall], step 11). A script under this scope can *recall* but
+/// recall ([SpecRecall], §9.2). A script under this scope can *recall* but
 /// has **no mutation path** — the scope registers only the `memory_api` library
 /// (no `spec` editing API, no filesystem grants).
 ///
-/// Done-criterion (plan step 12): a script in the `memory` scope can recall and
+/// Contract (§4, §9): a script in the `memory` scope can recall and
 /// cannot mutate.
 SpecModel _model() => SpecModel.fromJson({
       'modelVersion': 1,
@@ -110,7 +110,7 @@ main() async => await memory.recallPaths('platform', k: 1);
     });
   });
 
-  group('richer recall knobs via the options map (followup item 13)', () {
+  group('richer recall knobs via the options map', () {
     test('options["k"] overrides the k argument', () async {
       final result = await run(memoryScope(recall), '''
 $memImport

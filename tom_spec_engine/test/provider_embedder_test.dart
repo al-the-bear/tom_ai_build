@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:test/test.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 15 / `llm_and_d4rt_tools.md` §9.3 — the provider-backed embedder
+/// `llm_and_d4rt_tools.md` §9.3 — the provider-backed embedder
 /// adapter. These tests bind against a **fake** [EmbeddingService] (re-exported
 /// from the engine), so they run on every platform — no Ollama daemon, no vec0
 /// binary. They lock the adapter's contract: the two engine surfaces map onto

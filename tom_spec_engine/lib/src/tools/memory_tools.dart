@@ -1,9 +1,9 @@
 /// The **memory tools** — the engine-side logic behind the `mem_*` MCP tools
-/// (§8.2, plan step 14).
+/// (§8.2).
 ///
 /// [MemoryTools] is the in-process surface the editor's `AgentToolsModule` wraps
 /// as `mem_recall` and `mem_refresh`. It binds the §9 [SpecRecall] (the fused
-/// two-tier recall built in plan step 11) for recall, and an injected
+/// two-tier recall, §9.2) for recall, and an injected
 /// [MemRefreshFn] — wired by the editor to its change-tracking
 /// `SpecDocumentMemory.indexChangedSections` — for the manual re-index. Both
 /// return a typed value with a compact [toJson].

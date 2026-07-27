@@ -4,7 +4,7 @@
 /// object-model **meta-data file**, and the **DocSpecs schemas**.
 ///
 /// This is the Java counterpart of `som_generator.dart` / `som_python_generator.dart`
-/// (plan item #11). The **meta-data file and the DocSpecs schemas are
+/// (som_multiplatform_spec_model.md §10). The **meta-data file and the DocSpecs schemas are
 /// language-agnostic**, so this reuses the exact same [ModelJsonExporter] +
 /// [DocSpecsSchemaGenerator] the Dart/Python paths use (byte-identical across
 /// languages); only the typed source emitter ([SomJavaEmitter]) and the project

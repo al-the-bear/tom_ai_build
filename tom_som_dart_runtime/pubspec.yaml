@@ -16,7 +16,7 @@ environment:
   sdk: ^3.11.4
 
 dependencies:
-  # YAML parsing for the native `*.docspecs.yaml` load path (step 4). The
+  # YAML parsing for the native `*.docspecs.yaml` load path. The
   # emitter is hand-written (self-verifying block scalars); only the reader
   # needs a parser.
   yaml: ^3.1.2

@@ -1,5 +1,5 @@
 /// Generic, value-free traversal of a [SpecModel] class graph (the "reflection"
-/// surface, step 3).
+/// surface).
 ///
 /// [SpecReflection] answers two kinds of question about a model:
 ///

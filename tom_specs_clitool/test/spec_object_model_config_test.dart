@@ -7,7 +7,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart'
         SomLanguage,
         SomLanguageTarget;
 
-/// Tests for the SOM generator config model + parser (plan item #5).
+/// Tests for the SOM generator config model + parser (som_generator_config.md).
 ///
 /// The parser turns a decoded `tom-spec-object-model` block (from
 /// `tom_specs_clitool`'s own config) into a typed [SpecObjectModelConfig]:

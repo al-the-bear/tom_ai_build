@@ -1,4 +1,4 @@
-/// Persistence port for authored D4rt scripts (§8.1, plan step 13).
+/// Persistence port for authored D4rt scripts (§8.1).
 ///
 /// `script_author` writes named `*.d4rt.dart` files into the curated
 /// **`agent/scripts/`** workspace directory so they are reviewable, re-runnable,

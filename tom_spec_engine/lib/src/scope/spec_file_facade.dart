@@ -1,4 +1,4 @@
-/// The audited file-access facade behind the `files` scope (§7, plan step 8).
+/// The audited file-access facade behind the `files` scope (§7).
 ///
 /// [SpecFileFacade] is the **only** file surface a sandboxed script reaches in
 /// the `files` scope — the raw `dcli` / `dart:io` write surface is never bridged.
@@ -45,7 +45,7 @@ final class SpecFileFacade {
   final List<String> writableRoots;
 
   /// The canonicalised opt-in **asset directories** a profile declares as
-  /// extra read-only search roots (§7; plan step 8 deferral, followup item 18).
+  /// extra read-only search roots (§7).
   ///
   /// Reads are permitted anywhere already, so these matter only for discovery:
   /// a [find] with `includeAssets: true` walks the workspace search root **plus**
@@ -121,10 +121,9 @@ final class SpecFileFacade {
   /// The paths of entries under directory [dir] (recursively), optionally
   /// filtered by [glob]. Read-only exploration.
   ///
-  /// Glob semantics (richer than the original `*`-only basename walk, followup
-  /// item 18):
-  ///   * a glob **without** a `/` matches against each entry's **basename**
-  ///     (backward-compatible) — `*.md`, `risk?.txt`, `[abc].dart`;
+  /// Glob semantics:
+  ///   * a glob **without** a `/` matches against each entry's **basename** —
+  ///     `*.md`, `risk?.txt`, `[abc].dart`;
   ///   * a glob **with** a `/` matches against each entry's path **relative to
   ///     the search root** — `sub/*.txt`, `**/*.md`;
   ///   * `*` matches within a path segment, `**` matches across segments

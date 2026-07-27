@@ -1,5 +1,4 @@
-/// The **per-application agent-context** façade of the engine (followup item 7,
-/// §11).
+/// The **per-application agent-context** façade of the engine (§11).
 ///
 /// Where [`scripting.dart`](scripting.dart) re-exports the Flutter-safe
 /// scripting surface and [`memory.dart`](memory.dart) the embeddable memory
@@ -21,9 +20,9 @@
 ///
 /// It deliberately does **not** re-export the live **substrate runners**
 /// ([BrainAgentSubstrate] / [BrainSessionEnvelope] / `buildAgentSubstrate`):
-/// those — plus the live `tom_brain_memory`-backed `SpecBrainSessionEnvelope`
-/// (followup item 8) — live in [`agent_runtime.dart`](agent_runtime.dart), the
-/// run surface, which pulls the memory plane. This façade is the profile
+/// those — plus the live `tom_brain_memory`-backed `SpecBrainSessionEnvelope` —
+/// live in [`agent_runtime.dart`](agent_runtime.dart), the run surface, which
+/// pulls the memory plane. This façade is the profile
 /// *binding* surface, not the run surface.
 library;
 

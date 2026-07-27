@@ -1,5 +1,4 @@
-/// **Mode (b)** — the Agent-SDK-through-`tom_brain` substrate (§10, plan
-/// step 16).
+/// **Mode (b)** — the Agent-SDK-through-`tom_brain` substrate (§10).
 ///
 /// [BrainAgentSubstrate] is the second of §10's two [AgentSubstrate]
 /// implementations. It drives the *same* complex agent procedure as mode (a)

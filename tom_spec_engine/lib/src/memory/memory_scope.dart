@@ -1,8 +1,8 @@
-/// Addressing for the Tom Brain memory plane (plan step 2).
+/// Addressing for the Tom Brain memory plane (§9).
 library;
 
 /// Addresses a unit of agent work across the three isolation levels the
-/// TomSpecs engine establishes over Tom Brain (plan step 2 / Q1):
+/// TomSpecs engine establishes over Tom Brain (§9 / Q1):
 ///
 ///   * [application] → a Tom Brain **profile** (the prompt / tool / MCP bundle
 ///     an agent runs under). Realised at the agent steps (15–17); carried here

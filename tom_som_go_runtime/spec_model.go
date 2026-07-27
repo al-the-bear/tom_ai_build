@@ -45,7 +45,8 @@ func ParseFieldKind(raw string) string {
 }
 
 // SpecAnnotation is a single annotation captured losslessly from the model
-// source (spec §3.1): its name and the resolved argument map.
+// source (som_multiplatform_spec_model.md §5.3): its name and the resolved
+// argument map.
 type SpecAnnotation struct {
 	Name      string                 `json:"name"`
 	Arguments map[string]interface{} `json:"arguments"`

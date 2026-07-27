@@ -1,4 +1,4 @@
-/// The script-facing `spec` document API and its D4rt bridge (§5, plan step 7).
+/// The script-facing `spec` document API and its D4rt bridge (§5).
 ///
 /// [SpecApi] is the single object a sandboxed script reaches under the `spec`
 /// scope: a thin facade that delegates every read and mutation to a

@@ -10,7 +10,7 @@ import 'package:yaml/yaml.dart';
 
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Tests for [DocspecsYamlSchemaGenerator] (followup item 12, D20): the
+/// Tests for [DocspecsYamlSchemaGenerator]: the
 /// standalone JSON Schema for the generic on-disk `*.docspecs.yaml` document
 /// wire format (hierarchical v2, DR1 §2). The schema must accept a known-good
 /// document and reject documents the format genuinely cannot represent.

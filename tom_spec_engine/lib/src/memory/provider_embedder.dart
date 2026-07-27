@@ -1,5 +1,4 @@
-/// Provider-backed embedder for the tier-2 RAG vector store (plan step 11 /
-/// follow-up step 15).
+/// Provider-backed embedder for the tier-2 RAG vector store (§9.2).
 ///
 /// Wraps the Tom Brain substrate's [EmbeddingService] so the engine's memory
 /// plane embeds through a real model (Ollama `nomic-embed-text` by default,

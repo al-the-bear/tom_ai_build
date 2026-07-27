@@ -3,7 +3,7 @@
 /// (`pyproject.toml` + generated typed module), the lossless object-model
 /// **meta-data file**, and the **DocSpecs schemas**.
 ///
-/// This is the Python counterpart of `som_generator.dart` (plan item #11). The
+/// This is the Python counterpart of `som_generator.dart` (som_multiplatform_spec_model.md §10). The
 /// **meta-data file and the DocSpecs schemas are language-agnostic**, so this
 /// reuses the exact same [ModelJsonExporter] + [DocSpecsSchemaGenerator] the Dart
 /// path uses (byte-identical across languages); only the typed source emitter

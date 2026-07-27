@@ -1,9 +1,9 @@
 /// The script-facing **read-only** `memory` recall API and its D4rt bridge
-/// (§4, §9, plan step 12; followup item 13).
+/// (§4, §9).
 ///
 /// [MemoryApi] is the single object a sandboxed script reaches under the
 /// `memory` scope: a thin facade over the document's fused two-tier
-/// [SpecRecall] (step 11). It exposes recall and **nothing else** — there is no
+/// [SpecRecall] (§9.2). It exposes recall and **nothing else** — there is no
 /// mutation path, by design (§4: the `memory` scope's permission set is "none
 /// beyond memory"). A script `await`s a recall and reads compact, JSON-friendly
 /// results; it can never write a section, touch the filesystem, or reach the
@@ -16,8 +16,8 @@
 /// Beyond the query text and the result cap [k], a script may pass an
 /// **`options`** map to tune the fused recall — the fuller [SpecRecallQuery]
 /// surface (RRF / MMR weights, facet filters, tier / GraphWalk selection) the
-/// recall already supports but the scope previously pinned to its defaults
-/// (followup item 13). [specRecallQueryFromArgs] is the single builder behind
+/// recall supports beyond the scope defaults.
+/// [specRecallQueryFromArgs] is the single builder behind
 /// the map, so the recognised knobs and their coercion live in one place.
 library;
 
@@ -40,10 +40,9 @@ const String memoryApiLibraryName = 'memory_api';
 
 /// Builds a fused-recall [SpecRecallQuery] from the query [text], a result cap
 /// [k], and an optional string-keyed [options] map — the single tuning-knob
-/// builder behind the in-script `memory.recall` / `memory.recallPaths` facade
-/// (followup item 13). Every recognised knob the recall already supports is
-/// surfaced here, so a script can override the scope's previously-fixed
-/// defaults.
+/// builder behind the in-script `memory.recall` / `memory.recallPaths` facade.
+/// Every recognised knob the recall supports is surfaced here, so a script can
+/// override the scope defaults.
 ///
 /// Recognised `options` keys (each falls back to the [SpecRecallQuery] default
 /// when absent):
@@ -218,7 +217,7 @@ final class MemoryApi {
 /// declares no constructors, only the recall methods. The script-facing method
 /// names (`recall`, `recallPaths`) are intentionally minimal; no setter or
 /// mutating method is exposed. Both accept an optional `options` map carrying
-/// the fuller [SpecRecallQuery] tuning surface (followup item 13).
+/// the fuller [SpecRecallQuery] tuning surface.
 BridgedClass memoryApiBridgedClass() => BridgedClass(
       nativeType: MemoryApi,
       name: 'MemoryApi',

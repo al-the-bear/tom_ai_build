@@ -1,6 +1,6 @@
 /// The per-application **AgentContext** — `{guidelines doc, tool set, scope
 /// profile}` realised over Tom Brain profiles/sessions/memory
-/// (`llm_and_d4rt_tools.md` §11, plan step 17).
+/// (`llm_and_d4rt_tools.md` §11).
 ///
 /// §11 makes the *application* the unit of agent configuration: each
 /// application (DocSpecs / CodeSpecs / Implementation …) is a Tom Brain
@@ -19,7 +19,7 @@
 ///   * [scopeProfile] → the D4rt [ScopeProfile] the profile enables.
 ///
 /// [memoryScope] layers the per-run session + per-document memory on top,
-/// yielding the [MemoryScope] the step-16 mode-(b) substrate runs under;
+/// yielding the [MemoryScope] the mode-(b) substrate runs under;
 /// [brainSubstrate] is the bridge that builds that substrate. The
 /// **toolset ⊆ scopes** invariant is checked at construction so a context can
 /// never expose a tool whose required scope its profile omits — the guarantee
@@ -92,7 +92,7 @@ const List<String> tomSpecsApplications = [
 ];
 
 /// The DocSpecs application's guidelines document — the agent briefing prompt
-/// the DocSpecs profile binds (§11, plan step 19).
+/// the DocSpecs profile binds (§11).
 const String docSpecsGuidelinesName = 'llm_guidelines_specification.md';
 
 /// The CodeSpecs application's guidelines document — the agent briefing prompt
@@ -190,7 +190,7 @@ final class AgentContext {
       'scopes=${scopeProfile.scopeNames.join(', ')})';
 }
 
-/// The DocSpecs application context (§11, plan step 17 done-criterion).
+/// The DocSpecs application context (§11).
 ///
 /// The DocSpecs profile is the reference application: it briefs the agent with
 /// [docSpecsGuidelinesName], exposes **all four** tool groups, and enables the
@@ -269,7 +269,7 @@ AgentContextRegistry tomSpecsContextRegistry() => AgentContextRegistry()
   ..register(implementationAgentContext());
 
 /// Holds the application [AgentContext]s and resolves the active one by name —
-/// the §11 **application switch** (plan step 17).
+/// the §11 **application switch**.
 ///
 /// Registering DocSpecs / CodeSpecs / Implementation contexts and resolving by
 /// application name is how *the application selects its profile*: one

@@ -1,5 +1,4 @@
-/// The §10 substrate **selector** — *the application selects the mode* (plan
-/// steps 15–16).
+/// The §10 substrate **selector** — *the application selects the mode* (§10).
 ///
 /// §10 mandates two interchangeable substrates behind one [AgentSubstrate]
 /// interface, with the application choosing which to run. [AgentSubstrateMode]

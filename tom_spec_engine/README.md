@@ -11,14 +11,14 @@ editor.
 
 ## What it will own
 
-| Area | Role | Plan steps |
+| Area | Role | Spec § |
 | --- | --- | --- |
-| **Scope registry** | Named, immutable sets of bridged D4rt libraries + globals + permission grants; the three base scopes `spec` / `files` / `memory`. | 6–8 |
-| **`spec` scope** | The `tom_som` document API (generic / reflection / typed `tom_som_dart_v0`) bound to the live `SpecDocumentController`, plus search. | 7 |
-| **`files` scope** | A restricted `dcli` facade — read anywhere, write only under `agent/scratchpad`. | 8 |
-| **Search index** | Structural/lexical (BM25/FTS + facets) over the object model, zero-LLM, incremental refresh; backs grep-like cursor search. | 9 |
-| **RAG memory** | Section-level nodes in **Tom Brain named memory**; tier-1 lexical + tier-2 incremental vectors (Tom Brain embedding API); fused recall. | 10–12 |
-| **Agent substrate** | Pluggable `AgentSubstrate` — direct Agent SDK (mode a) and Agent-SDK-through-Tom-Brain (mode b) — over profiles / named sessions / named memory. | 15–17 |
+| **Scope registry** | Named, immutable sets of bridged D4rt libraries + globals + permission grants; the three base scopes `spec` / `files` / `memory`. | §4 |
+| **`spec` scope** | The `tom_som` document API (generic / reflection / typed `tom_som_dart_v0`) bound to the live `SpecDocumentController`, plus search. | §5 |
+| **`files` scope** | A restricted `dcli` facade — read anywhere, write only under `agent/scratchpad`. | §7 |
+| **Search index** | Structural/lexical (BM25/FTS + facets) over the object model, zero-LLM, incremental refresh; backs grep-like cursor search. | §6 |
+| **RAG memory** | Section-level nodes in **Tom Brain named memory**; tier-1 lexical + tier-2 incremental vectors (Tom Brain embedding API); fused recall. | §9 |
+| **Agent substrate** | Pluggable `AgentSubstrate` — direct Agent SDK (mode a) and Agent-SDK-through-Tom-Brain (mode b) — over profiles / named sessions / named memory. | §10 |
 
 ## Dependencies
 
@@ -30,8 +30,8 @@ editor.
   [`tom_som_dart_v0`](../tom_som_dart_v0) — the document model the `spec` scope
   exposes.
 
-The **embeddable Tom Brain** packages (substrate / memory / procedure) are added
-in plan step 2, where the in-process substrate façade is adopted — see
+The **embeddable Tom Brain** packages (substrate / memory / procedure) back the
+in-process substrate façade — see
 [`llm_and_d4rt_tools.md`](../tom_specs_model/doc/llm_and_d4rt_tools.md) §9.3.
 
 ## Develop

@@ -1,5 +1,4 @@
-/// The live-document controller contract the `spec` scope binds to (§5, plan
-/// step 7).
+/// The live-document controller contract the `spec` scope binds to (§5).
 ///
 /// The TomSpecs editor's `SpecDocumentController` is the single document
 /// controller shared by the UI and the agent tools: every mutation routes
@@ -50,7 +49,7 @@ abstract interface class SpecController {
   bool removeListItem(String itemPath);
 
   /// Adds the model-permitted child [childSegment] under [parentPath],
-  /// returning the new node's path (§5 constrained creation, plan step 4).
+  /// returning the new node's path (§5 constrained creation).
   ///
   /// The add is validated against the meta-model (allowed kind / section-id
   /// pattern / cardinality); an illegal add throws `SpecCreationError`

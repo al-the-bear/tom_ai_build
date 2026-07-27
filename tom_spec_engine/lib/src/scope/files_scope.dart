@@ -1,5 +1,4 @@
-/// The `files` base scope and the D4rt bridge for its [SpecFileFacade] (§7,
-/// plan step 8).
+/// The `files` base scope and the D4rt bridge for its [SpecFileFacade] (§7).
 ///
 /// [filesScope] builds the [ScriptScope] that exposes the audited file facade —
 /// and nothing else — to a sandboxed script: one `spec_files` bridged-library

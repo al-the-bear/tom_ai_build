@@ -3,7 +3,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show SpecNodeKind, SpecNodeProjection;
 import 'package:tom_spec_engine/memory.dart';
 
-/// Step 14 / `llm_and_d4rt_tools.md` §9.2: the
+/// `llm_and_d4rt_tools.md` §9.2: the
 /// **change-log-driven incremental re-indexer**. A host [touch]es the indexer
 /// with the section paths an edit changed; the indexer coalesces a burst, runs
 /// one debounced [flush] off the edit path, and drives **both tiers**

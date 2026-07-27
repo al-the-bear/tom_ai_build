@@ -5,7 +5,7 @@ import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// Runs the `v0` Spec-Object-Model generator from a `tom-spec-object-model`
-/// config (plan item #7) and writes the committed artefact tree for every
+/// config (som_multiplatform_spec_model.md §5) and writes the committed artefact tree for every
 /// configured language target (Dart only in Phase B).
 ///
 /// Per target it produces, under the config's resolved output root, the

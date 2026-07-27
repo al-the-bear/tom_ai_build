@@ -6,7 +6,7 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 /// Phase-A scaffold smoke tests: the package builds and every named dependency
 /// resolves and is reachable. Behavioural tests for the scope host, search,
-/// memory, and agent substrate arrive with their respective plan steps.
+/// memory, and agent substrate live in their own suites.
 void main() {
   group('tom_spec_engine scaffold smoke', () {
     test('package metadata is present and self-consistent', () {

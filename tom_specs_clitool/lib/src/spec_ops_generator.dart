@@ -26,7 +26,7 @@ import 'model_reader.dart';
 ///  - **Scalars** — `String`/enum/primitive fields: copied by value in
 ///    `cloneShallow`; the canonical `content` scalar (or the lone scalar) is
 ///    returned by `yamlScalar`. Multi-scalar classes serialize only `content`
-///    for now — the fuller multi-field YAML packing is deferred (step 21).
+///    for now — the fuller multi-field YAML packing is not yet supported.
 ///
 /// The two hand-written `SpecNode` leaves (`DocumentHeader`, `SectionMeta`) are
 /// skipped: they adopt the contract via the mixin fast-path, which the resolver

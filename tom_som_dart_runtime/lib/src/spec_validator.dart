@@ -1,5 +1,5 @@
 /// Validates a concrete [SpecDocument]'s values against a [SpecModel] via the
-/// [SpecReflection] resolver (step 3 "validation against meta-data").
+/// [SpecReflection] resolver ("validation against meta-data").
 ///
 /// The check is over the values a document *holds*: every set path must resolve
 /// to a node of a compatible kind, every form sub-key must name a real form

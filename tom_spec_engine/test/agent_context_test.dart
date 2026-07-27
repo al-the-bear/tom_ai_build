@@ -1,6 +1,6 @@
 /// Tests for the §11 [AgentContext] — the per-application context
 /// ({guidelines doc, tool set, scope profile}) realised over Tom Brain
-/// profiles/sessions/memory (plan step 17).
+/// profiles/sessions/memory (§11).
 ///
 /// The done-criterion: *switching application swaps profile → guidelines +
 /// tools + scopes + memory*, exercised with the DocSpecs profile.

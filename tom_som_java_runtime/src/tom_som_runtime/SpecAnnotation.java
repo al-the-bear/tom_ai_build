@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A single annotation captured losslessly from the model source (spec §3.1):
+ * A single annotation captured losslessly from the model source (som_multiplatform_spec_model.md §5.3):
  * its name and the resolved argument map.
  */
 public final class SpecAnnotation {

@@ -3,13 +3,13 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 7 / `llm_and_d4rt_tools.md` §5: the `spec` base scope binds the
+/// `llm_and_d4rt_tools.md` §5: the `spec` base scope binds the
 /// document editing API to the **live controller**, so a script mutation is
 /// indistinguishable from a tool mutation — it produces the *same* change-log
 /// entry and undo snapshot.
 ///
 /// The live controller is the Flutter `SpecDocumentController`, which the engine
-/// cannot depend on. Step 7 therefore defines the engine-side [SpecController]
+/// cannot depend on, so the engine defines the [SpecController]
 /// port the real controller will satisfy, and proves the binding against a
 /// [_RecordingController] stub that records exactly what the real controller
 /// records (a change-log entry + an undo snapshot per non-no-op mutation).
@@ -265,7 +265,7 @@ main() => spec.content('PD00/PD00-VIS');
     });
   });
 
-  group('the read-only `model` reflection global (followup item 11)', () {
+  group('the read-only `model` reflection global', () {
     ScriptScope reflectingScope(_RecordingController c) =>
         specScope(c, model: () => c.model);
 
@@ -326,7 +326,7 @@ main() => model.resolves('PD00');
     });
   });
 
-  group('the read-only `search` grep global (followup item 12)', () {
+  group('the read-only `search` grep global', () {
     SpecQueryEngine engineOf(_RecordingController c) =>
         SpecQueryEngine(model: c.model, document: c.document);
 

@@ -1,11 +1,11 @@
-/// The headless **procedure host** (§10, plan steps 15–16).
+/// The headless **procedure host** (§10).
 ///
 /// Both §10 [AgentSubstrate] modes drive the *same* complex agent procedure
 /// through the *same* execution machinery — a permission-scoped [D4rt], a
 /// print-intercepting [Zone], and the auto-awaited `main()` return + error/stack
 /// (the §8.1 `script_*` host pattern). [runAgentProcedure] is that machinery,
 /// extracted so mode (a) ([DirectAgentSubstrate]) and mode (b)
-/// ([BrainAgentSubstrate]) share one loop body verbatim (the plan's step-16
+/// ([BrainAgentSubstrate]) share one loop body verbatim (the
 /// "same loop test").
 library;
 

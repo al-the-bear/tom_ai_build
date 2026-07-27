@@ -1,11 +1,11 @@
-/// The `tom_som` bridged-library building block (§5, plan steps 5 + 6).
+/// The `tom_som` bridged-library building block (§5).
 ///
-/// Wraps the generated [TomSomBridge] registration (step 5) as a reusable
-/// [BridgedLibrary] so a scope — chiefly the forthcoming `spec` scope (step 7) —
-/// can expose the complete `tom_som` document API (generic runtime + reflection
-/// + typed `tom_som_dart_v0`) to a sandboxed script. Binding it to the *live
-/// controller* (change log / undo) is step 7's concern; this block exposes the
-/// bridged surface itself.
+/// Wraps the generated [TomSomBridge] registration as a reusable
+/// [BridgedLibrary] so a scope — chiefly the `spec` scope (§5) — can expose the
+/// complete `tom_som` document API (generic runtime + reflection + typed
+/// `tom_som_dart_v0`) to a sandboxed script. Binding it to the *live
+/// controller* (change log / undo) is the `spec` scope's concern; this block
+/// exposes the bridged surface itself.
 library;
 
 import '../../dartscript.b.dart';

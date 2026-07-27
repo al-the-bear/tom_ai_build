@@ -2,7 +2,7 @@
 'use strict';
 
 /**
- * Sample (c) — REFLECTION / meta-information access (plan item #14, spec §3.1).
+ * Sample (c) — REFLECTION / meta-information access (som_multiplatform_spec_model.md §6).
  *
  * HAND-AUTHORED — preserved across `generate_som` runs.
  *

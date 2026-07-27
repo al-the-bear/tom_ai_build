@@ -3,9 +3,8 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 import 'support/agent_test_fixture.dart';
 
-/// Followup item 9 / §10 mode (a) — the **live conversational substrate** +
-/// **multi-turn complex procedures** that plan step 15 deferred as an "editor
-/// concern".
+/// §10 mode (a) — the **live conversational substrate** + **multi-turn complex
+/// procedures** that the headless mode-(a) core leaves as an "editor concern".
 ///
 /// The conversational substrate composes on top of a base [AgentSubstrate]
 /// (here mode (a)'s [DirectAgentSubstrate] over the shared fixture): each turn it

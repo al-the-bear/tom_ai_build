@@ -1,7 +1,7 @@
 # `tom_som_go_v0` — runnable samples
 
 Three runnable samples covering the three access paths to a TomSpecs Spec
-Object Model document (plan item #14, spec §3.1). They are **hand-authored**
+Object Model document (`som_multiplatform_spec_model.md` §6). They are **hand-authored**
 and preserved across `generate_som` regeneration (the generator only rewrites
 the module, `meta/`, `schemas/` and `go.mod`).
 

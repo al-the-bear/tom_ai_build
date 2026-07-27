@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 11 / `llm_and_d4rt_tools.md` §9.2 + §9.3 — the **store-integrated**
+/// `llm_and_d4rt_tools.md` §9.2 + §9.3 — the **store-integrated**
 /// half of fused recall: the tier-2 vector mode is the *real*
 /// `SpecDocumentMemory.recallSections` over the in-process Tom Brain named
 /// memory, and the incremental embedding path
@@ -56,7 +56,7 @@ void main() {
   // Counts embed calls so the embed-changed-only guarantee is observable.
   var embedCalls = 0;
 
-  /// Deterministic 768-dim embedder (mirrors the step-10 suite): same text →
+  /// Deterministic 768-dim embedder (mirrors the RAG-store suite): same text →
   /// identical vector, so a self-recall is an exact vector hit.
   Future<Vec> embedText(String text) async {
     embedCalls++;
@@ -106,7 +106,7 @@ void main() {
         document: document,
       );
 
-  group('SpecRecall step-11 (fused over a real vector tier)', () {
+  group('SpecRecall (fused over a real vector tier)', () {
     test('a section is surfaced by both the lexical and vector modes', () async {
       final memory = openMemory();
       final f = fixture();
@@ -134,7 +134,7 @@ void main() {
     }, skip: skipNoBinary);
   });
 
-  group('indexChangedSections step-11 (embed changed only)', () {
+  group('indexChangedSections (embed changed only)', () {
     test('only the section whose content moved is re-embedded', () async {
       final memory = openMemory();
       final f = fixture();

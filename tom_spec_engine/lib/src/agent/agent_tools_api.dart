@@ -1,5 +1,4 @@
-/// The script-facing **agent tool surface** and its D4rt bridge (§8, §10, plan
-/// step 15).
+/// The script-facing **agent tool surface** and its D4rt bridge (§8, §10).
 ///
 /// [AgentToolsApi] is the single object the complex agent procedure (mode a)
 /// reaches under the `agent` scope: a thin facade that unifies the three §8.2

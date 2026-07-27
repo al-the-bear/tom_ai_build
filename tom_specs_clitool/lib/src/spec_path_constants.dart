@@ -1,4 +1,4 @@
-/// Shared enumeration of **generated path constants** (plan item #11) for the
+/// Shared enumeration of **generated path constants** (som_multiplatform_spec_model.md §10) for the
 /// SOM typed facades.
 ///
 /// Generic consumers of a [SpecDocument] address sections by raw string paths

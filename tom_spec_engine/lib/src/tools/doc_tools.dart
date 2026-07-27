@@ -1,5 +1,5 @@
 /// The **document tools** — the engine-side logic behind the `doc_*` in-memory
-/// MCP tools (§8.2, plan step 14).
+/// MCP tools (§8.2).
 ///
 /// [DocTools] is the in-process surface the editor's `AgentToolsModule` wraps as
 /// `doc_search` / `doc_search_iterate` / `doc_reflect` / `doc_add_node`. It binds
@@ -54,7 +54,7 @@ final class DocSearchMatch {
 
   /// Projects a §6 [SpecQueryMatch] to the compact `doc_*` match shape — the one
   /// shared projection behind both the `doc_search` MCP tool ([DocTools]) and the
-  /// in-script `search` cursor facade (`SpecSearchCursor`, followup item 12), so
+  /// in-script `search` cursor facade (`SpecSearchCursor`), so
   /// a tool match and a script match render identically.
   factory DocSearchMatch.from(SpecQueryMatch m) => DocSearchMatch(
         path: m.path,
@@ -263,7 +263,7 @@ final class DocReflection {
   ///
   /// This is the single reflection builder shared by the `doc_reflect` MCP tool
   /// ([DocTools.reflect]) and the in-script `model` reflection facade
-  /// (`SpecModelApi`, followup item 11) — both read the same meta-model facts
+  /// (`SpecModelApi`) — both read the same meta-model facts
   /// from the live controller's model, with no document (LLM) calls.
   factory DocReflection.resolve(SpecModel model, String path) {
     final res = SpecReflection(model).resolve(path);
@@ -394,7 +394,7 @@ final class DocTools {
   /// result, never thrown.
   ///
   /// An optional **initial payload** populates the new node in the same call,
-  /// instead of leaving it empty (followup item 17): [content] sets a leaf's
+  /// instead of leaving it empty: [content] sets a leaf's
   /// content value and [fields] sets a form section's named fields. Each
   /// populated value routes through the same [controller] mutation port, so the
   /// create + its initial values land in the **one change log** as a coherent

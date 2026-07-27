@@ -1,10 +1,10 @@
 /// The **fused recall** behind the two-tier memory (`llm_and_d4rt_tools.md`
-/// §9.2 / §9.3, plan step 11).
+/// §9.2 / §9.3).
 ///
-/// Step 9 built **tier 1** — the model-derived [StructuralLexicalIndex] (BM25 +
-/// structural facets, zero LLM calls, refreshed after every prompt). Step 10
-/// built **tier 2** — the section-level vector store in Tom Brain named memory.
-/// This step fuses them: [SpecRecall.recall] runs the tier-1 lexical (BM25) and
+/// **Tier 1** is the model-derived [StructuralLexicalIndex] (BM25 + structural
+/// facets, zero LLM calls, refreshed after every prompt). **Tier 2** is the
+/// section-level vector store in Tom Brain named memory.
+/// This class fuses them: [SpecRecall.recall] runs the tier-1 lexical (BM25) and
 /// symbolic (facet) modes, the tier-2 vector mode, and an optional GraphWalk
 /// over the section graph, then combines the per-mode ranked lists with
 /// **Reciprocal Rank Fusion** and (optionally) diversifies with **MMR** — the

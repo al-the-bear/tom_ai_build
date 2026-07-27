@@ -1,4 +1,4 @@
-/// The **Flutter-safe scripting facade** of the engine (plan step 18, §3 / §5 /
+/// The **Flutter-safe scripting facade** of the engine (§3 / §5 /
 /// §8.1).
 ///
 /// The TomSpecs editor links the engine **in-process** to give its agent a D4rt

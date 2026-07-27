@@ -1,5 +1,5 @@
 /// Conformance harness for the **language-agnostic** spec-runtime corpus
-/// (`../tom_som_conformance/corpus`, plan item #8).
+/// (`../tom_som_conformance/corpus`, som_multiplatform_spec_model.md §19).
 ///
 /// The Dart runtime is the reference implementation: this test *builds* the
 /// shared corpus from the live runtime (set `UPDATE_CORPUS=1` to (re)write the
@@ -119,8 +119,9 @@ void main() {
         golden);
   });
 
-  // Plan item #9: the Markdown route must land a fixture document in the *same*
-  // shared memory representation as the canonical state — not merely re-export
+  // `som_multiplatform_spec_model.md` §11: the Markdown route must land a
+  // fixture document in the *same* shared memory representation as the
+  // canonical state — not merely re-export
   // byte-stably. Parsing `expected.md` and applying it must reproduce
   // `state.json` (the YAML-route memory) exactly, proving both formats converge
   // on one in-memory document (§4.1 "both routes land in the same memory

@@ -1,5 +1,4 @@
-/// The **pure** section-level RAG graph behind the §9.1 RAG store (plan
-/// step 10).
+/// The **pure** section-level RAG graph behind the §9.1 RAG store.
 ///
 /// Chunk = section: one section-id path produces one [SpecRagNode]. The node's
 /// payload is **rendered text + structural metadata** — the text a retriever
@@ -9,7 +8,7 @@
 /// projections (`mentions`, [SpecRagEdgeKind.mapsTo] / [SpecRagEdgeKind.detailedIn]).
 ///
 /// This is the **build** half: it takes [SpecNodeProjection]s (the §6 object
-/// model walk produced in step 9) and assembles nodes + edges with **zero I/O
+/// model walk, §6) and assembles nodes + edges with **zero I/O
 /// and zero model (LLM) calls**. The persist-into-Tom-Brain + recall half lives
 /// in `spec_memory.dart` (`SpecDocumentMemory.indexDocument` / `recallSections`),
 /// which consumes a [SpecRagGraph] built here.

@@ -1,4 +1,4 @@
-/// The **live agent-run surface** of the engine (followup item 8, §10 / §11).
+/// The **live agent-run surface** of the engine (§10 / §11).
 ///
 /// Where [`agent.dart`](agent.dart) re-exports the §11 **AgentContext** profile
 /// *binding* surface (memory-light, pure Dart), this partial library re-exports
@@ -13,7 +13,7 @@
 /// Because [SpecBrainSessionEnvelope] persists through [SpecMemory], this façade
 /// (unlike [`agent.dart`](agent.dart)) **does** pull the `tom_brain_memory`
 /// memory plane — exactly the dependency the editor already links for its
-/// embeddable memory plane (followup item 6). Keeping the run surface in its own
+/// embeddable memory plane. Keeping the run surface in its own
 /// façade lets a consumer that only needs the AgentContext *binding* stay
 /// memory-light.
 library;

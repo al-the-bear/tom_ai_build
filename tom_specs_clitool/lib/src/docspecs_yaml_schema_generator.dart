@@ -4,7 +4,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show SpecDocumentYaml;
 
 /// Generates a standalone JSON Schema (Draft-07) for the on-disk
-/// `*.docspecs.yaml` **document wire format** (followup item 12, D20).
+/// `*.docspecs.yaml` **document wire format**.
 ///
 /// This is deliberately *not* a per-root DocSpecs schema (those are produced by
 /// [DocSpecsSchemaGenerator] and describe the section grammar of one document

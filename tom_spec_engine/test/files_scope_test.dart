@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 8 / `llm_and_d4rt_tools.md` §7: the `files` base scope and its
+/// `llm_and_d4rt_tools.md` §7: the `files` base scope and its
 /// audited [SpecFileFacade].
 ///
 /// Policy: **read = any path**, **write = whitelist only** (default

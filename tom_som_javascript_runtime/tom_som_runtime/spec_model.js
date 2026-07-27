@@ -30,7 +30,7 @@ function parseFieldKind(raw) {
 }
 
 /**
- * A single annotation captured losslessly from the model source (spec §3.1): its
+ * A single annotation captured losslessly from the model source (som_multiplatform_spec_model.md §5.3): its
  * name and the resolved argument map.
  */
 class SpecAnnotation {

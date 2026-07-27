@@ -1,13 +1,13 @@
 /// The **change-log-driven incremental re-indexer** (`llm_and_d4rt_tools.md`
-/// §9.2; plan steps 9–11, item 14; closes D53).
+/// §9.2).
 ///
-/// Steps 9–11 delivered the two incremental *mechanisms* — tier-1
+/// The two incremental *mechanisms* live in the stores — tier-1
 /// [StructuralLexicalIndex.update] (re-index only the changed sections, zero
 /// model calls) and tier-2 [SpecDocumentMemory.indexChangedSections] (embed only
-/// the sections whose content actually moved) — but left the **derivation** of
-/// the changed-path set, and the async/debounce scheduling of the refresh,
-/// explicitly deferred (D53): they belong with the live edit stream, not the
-/// store. [SpecIncrementalIndexer] is that missing piece.
+/// the sections whose content actually moved). The **derivation** of the
+/// changed-path set, and the async/debounce scheduling of the refresh, belong
+/// with the live edit stream rather than with a store, so
+/// [SpecIncrementalIndexer] owns them.
 ///
 /// A caller [touch]es the indexer with the section-id paths an edit changed
 /// (the editor derives them from its document change log — the `ChangeEntry`

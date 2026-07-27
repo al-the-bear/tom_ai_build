@@ -1,4 +1,4 @@
-/// The engine-side Tom Brain memory façade (plan step 2).
+/// The engine-side Tom Brain memory façade (§9).
 ///
 /// A thin wrapper over the **embeddable** Tom Brain memory plane
 /// (`SqliteTomBrainMemory` + its profile registry + the bundled sqlite-vec
@@ -7,11 +7,11 @@
 /// ([MemoryScope]) and exposes the three operations the higher steps build on:
 /// **embed** a string, **remember** it, and **recall** it.
 ///
-/// Scope of step 2 (deliberately narrow — see `llm_and_d4rt_tools.md` §9):
+/// Scope (deliberately narrow — see `llm_and_d4rt_tools.md` §9):
 ///   * The embedding surface is an injected [SpecEmbedder]; the provider-backed
-///     Tom Brain embedding API is wired in at the tier-2 vector step (step 11).
+///     Tom Brain embedding API is wired in at the tier-2 vector step (§9.2).
 ///   * Remembered text is carried on the bootstrap `Event` node type; the
-///     section-level RAG node schema lands at step 10.
+///     section-level RAG node schema lives in `spec_rag_graph.dart` (§9.1).
 ///   * The LLM substrate (`tom_brain_substrate`) is not pulled in — the memory
 ///     store takes the embedder directly, keeping the heavy provider/router
 ///     composition root out until the agent steps (15–17).
@@ -49,7 +49,7 @@ typedef SpecEmbedder = Future<Vec> Function(String text);
 
 /// Produces embeddings for a batch of [texts] in **one** call, returning a list
 /// whose order and length match the input (`result[i]` is the embedding of
-/// `texts[i]`). The provider-backed path (step 15) binds this to the
+/// `texts[i]`). The provider-backed path (§9.3) binds this to the
 /// substrate's concurrency-capped `embedBatch`, so a full-document index issues
 /// a single fan-out instead of one round-trip per section. Every vector it
 /// returns must share the identity the matching [SpecEmbedder] produces — the
@@ -185,8 +185,9 @@ final class SpecMemory {
   })  : _embedder = embedder,
         _batchEmbedder = batchEmbedder;
 
-  /// The façade's embedding surface (step 2). Delegates to the injected
-  /// embedder; step 11 swaps in the Tom Brain substrate embedding API.
+  /// The façade's embedding surface. Delegates to the injected
+  /// embedder; the provider-backed path (§9.3) swaps in the Tom Brain
+  /// substrate embedding API.
   Future<Vec> embed(String text) => _embedder(text);
 
   /// Opens (materialising on first use) the profile-isolated memory for
@@ -286,8 +287,8 @@ final class SpecDocumentMemory {
   /// recoverable by both lexical (BM25) and vector recall.
   ///
   /// [metadata] is carried on the node's `payload`. The text is stored on the
-  /// bootstrap `Event` carrier for step 2; the section-level RAG schema lands
-  /// at step 10.
+  /// bootstrap `Event` carrier; the section-level RAG schema lives in
+  /// `spec_rag_graph.dart` (§9.1).
   Future<void> remember(
     String text, {
     Map<String, Object?> metadata = const <String, Object?>{},
@@ -326,7 +327,7 @@ final class SpecDocumentMemory {
   }
 
   /// Indexes a document's section-level RAG [graph] into this document's named
-  /// memory (plan step 10, §9.1): each [SpecRagNode] is persisted as a
+  /// memory (§9.1): each [SpecRagNode] is persisted as a
   /// [_sectionType] node (`name` = section path, `description` = rendered text),
   /// embedded so it is recoverable by vector recall, then each [SpecRagEdge] is
   /// linked (`part_of` for the tree, `mentions` for projections).
@@ -336,7 +337,7 @@ final class SpecDocumentMemory {
   /// re-indexing an unchanged document is a no-op that reuses the existing rows.
   Future<SpecRagIndexResult> indexDocument(SpecRagGraph graph) async {
     // Full-document index: embed every section up front. When a batch embedder
-    // is bound (provider-backed, step 15) this is a single concurrency-capped
+    // is bound (provider-backed, §9.3) this is a single concurrency-capped
     // fan-out; otherwise it falls back to the per-section path inside
     // [_persistSection]. Either way persist-order is unchanged.
     final nodes = graph.nodes;
@@ -373,7 +374,7 @@ final class SpecDocumentMemory {
     return vecs;
   }
 
-  /// Incrementally refreshes this document's RAG memory (plan step 11, §9.2):
+  /// Incrementally refreshes this document's RAG memory (§9.2):
   /// re-embeds **only** the sections in [changedPaths] whose content actually
   /// moved, forgets the sections in [removedPaths], and re-links the edges that
   /// touch any of them.

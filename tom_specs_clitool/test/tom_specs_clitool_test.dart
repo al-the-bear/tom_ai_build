@@ -1232,12 +1232,12 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
-  // Step 1 (som_multiplatform_spec_model.md §5.3): lossless annotations[] export.
+  // som_multiplatform_spec_model.md §5.3: lossless annotations[] export.
   // The exporter must carry EVERY annotation ModelReader captured — name + full
   // argument set — on both classes and fields, alongside the curated render
   // keys, so the generic runtime's meta-model loader (§7) is lossless.
   // ---------------------------------------------------------------------------
-  group('unit: ModelJsonExporter lossless annotations[] (step 1)', () {
+  group('unit: ModelJsonExporter lossless annotations[]', () {
     test('emits a lossless annotations[] block on classes and fields', () {
       final classes = <String, ModelClass>{
         'Doc': _cls('Doc', [
@@ -1510,13 +1510,13 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
-  // Step 2 (som_multiplatform_spec_model.md §5.3): meta-data schema + version
+  // som_multiplatform_spec_model.md §5.3: meta-data schema + version
   // stamp. The exporter stamps the meta-data file with `metaSchemaVersion`
   // (the file's own on-disk schema version) beside `modelVersion` /
   // `modelVersionLabel`; `validateSpecModelMeta` rejects a meta-data map that
   // is missing required keys or carries an unreadable schema version.
   // ---------------------------------------------------------------------------
-  group('unit: meta-data schema + version stamp (step 2)', () {
+  group('unit: meta-data schema + version stamp', () {
     Map<String, Object?> sampleMeta() {
       final classes = <String, ModelClass>{
         'Doc': _cls('Doc', [

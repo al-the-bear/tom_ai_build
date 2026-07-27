@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:test/test.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step-2 conformance: the engine-side Tom Brain memory façade.
+/// Conformance: the engine-side Tom Brain memory façade.
 ///
 /// Proves the embeddable memory plane works **in-process** on the reference
 /// host: a [MemoryScope] (application / session / document) opens a
@@ -29,7 +29,7 @@ void main() {
   /// dimensionality). Same text → identical vector, so a self-recall is an
   /// exact vector hit — a deterministic proof of the embed→vector-recall
   /// pipeline without an Ollama/OpenAI backend. The real provider-backed
-  /// embedding API is wired in at the tier-2 vector step (plan step 11).
+  /// embedding API is wired in at the tier-2 vector step (§9.2).
   Future<Vec> embedText(String text) async {
     const dims = 768;
     final values = Float32List(dims);
@@ -61,7 +61,7 @@ void main() {
     return memory;
   }
 
-  group('SpecMemory step-2 façade', () {
+  group('SpecMemory façade', () {
     test('MemoryScope validates its three levels and derives a profile name',
         () {
       final scope = MemoryScope(

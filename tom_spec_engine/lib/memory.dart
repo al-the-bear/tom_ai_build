@@ -1,4 +1,4 @@
-/// The **embeddable memory plane** of the engine (followup item 6, §9 / §10).
+/// The **embeddable memory plane** of the engine (§9 / §10).
 ///
 /// Where [`scripting.dart`](scripting.dart) re-exports the **memory-free**
 /// scripting surface (so the editor links the engine without the memory plane),
@@ -12,13 +12,13 @@
 /// [MemoryTools].
 ///
 /// It deliberately does **not** re-export the **agent substrate** (`agent/` —
-/// `BrainAgentSubstrate` / `BrainSessionEnvelope` / `AgentContext`): wiring the
-/// live conversational substrate into the editor is a separate followup (items
-/// 7–9). Keeping this façade to the memory plane lets the editor pull exactly
+/// `BrainAgentSubstrate` / `BrainSessionEnvelope` / `AgentContext`): those are
+/// the [`agent.dart`](agent.dart) / [`agent_runtime.dart`](agent_runtime.dart)
+/// façades. Keeping this façade to the memory plane lets the editor pull exactly
 /// the in-process memory surface — and its `tom_brain_memory` (sqlite3 FFI /
 /// `vec0`) dependency, which a Flutter **desktop** compile supports.
 ///
-/// Step 15 adds one piece of the substrate to that surface: the provider-backed
+/// One piece of the substrate joins that surface: the provider-backed
 /// embedding adapter [SpecProviderEmbedder] (over `tom_brain_substrate`'s
 /// `EmbeddingService`), so tier-2 embeds through a real model instead of the
 /// editor's hash placeholder. This pulls in `tom_brain_substrate` (pure-Dart;

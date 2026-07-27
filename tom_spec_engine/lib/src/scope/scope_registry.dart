@@ -1,4 +1,4 @@
-/// The [ScopeRegistry] and the [RunEnvironment] it builds (§4, plan step 6).
+/// The [ScopeRegistry] and the [RunEnvironment] it builds (§4).
 ///
 /// The registry holds the application's scope *presets* keyed by name; building
 /// an environment from one or several scope names unions their libraries,
@@ -16,8 +16,8 @@ import 'scope.dart';
 ///
 /// This is pure data — a list of scope names — so adding a new application
 /// profile never requires code, only a new [ScopeProfile] value. The richer
-/// per-application context (tools, guidelines doc) is layered on later (§11);
-/// step 6 owns only the scope dimension.
+/// per-application context (tools, guidelines doc) is a separate layer (§11);
+/// a scope profile owns only the scope dimension.
 final class ScopeProfile {
   /// The application/profile name.
   final String name;
@@ -27,7 +27,7 @@ final class ScopeProfile {
 
   /// Opt-in **asset directories** this profile declares as extra read-only
   /// search roots (template / schema / example dirs), relative to the spec
-  /// workspace root or absolute (followup item 18; plan step 8 deferral).
+  /// workspace root or absolute (§7).
   ///
   /// Pure data, like [scopeNames]: a host wires these onto the `files` scope's
   /// [SpecFileFacade] so a `file_find` with `includeAssets` can enumerate them.

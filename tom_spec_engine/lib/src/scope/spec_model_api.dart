@@ -1,5 +1,5 @@
 /// The script-facing **read-only** `model` reflection facade and its D4rt
-/// bridge (§4, §5, plan step 7; followup item 11, D96).
+/// bridge (§4, §5).
 ///
 /// Where the `spec` global ([SpecApi]) is the controller-mediated *editing*
 /// surface (read values + record-logged mutations), [SpecModelApi] is the

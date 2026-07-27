@@ -2,7 +2,7 @@
 'use strict';
 
 /**
- * Sample (a) — TYPED object-model access (plan item #14, spec §3.1).
+ * Sample (a) — TYPED object-model access (som_multiplatform_spec_model.md §6).
  *
  * HAND-AUTHORED — preserved across `generate_som` runs (the generator only
  * rewrites the module, meta/, schemas/ and package.json).

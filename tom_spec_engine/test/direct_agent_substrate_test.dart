@@ -3,7 +3,7 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 import 'support/agent_test_fixture.dart';
 
-/// Step 15 / `llm_and_d4rt_tools.md` §10 — the **`AgentSubstrate`**
+/// `llm_and_d4rt_tools.md` §10 — the **`AgentSubstrate`**
 /// abstraction + **mode (a)** (direct Agent SDK, augmented with Tom Brain
 /// named memory, driven by a **complex agent procedure**: a D4rt procedure over
 /// the §8 tools).
@@ -11,7 +11,7 @@ import 'support/agent_test_fixture.dart';
 /// Done-criterion: the procedure drives a **search → recall → edit → verify**
 /// loop in a test harness, and the edit (the mutating tool) lands in the **one
 /// change log**. The model / controller / tools are the shared fixture in
-/// `support/agent_test_fixture.dart` so step 16's mode (b) drives the identical
+/// `support/agent_test_fixture.dart` so mode (b) drives the identical
 /// loop.
 void main() {
   late AgentFixture fixture;

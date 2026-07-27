@@ -1,5 +1,5 @@
-# D4rt bridge generation for the TomSpecs SOM API (d4rt_and_llm_tools plan
-# step 5 / multiplatform item 7c, spec §13.1).
+# D4rt bridge generation for the TomSpecs SOM API
+# (`llm_and_d4rt_tools.md` §13.1).
 #
 # The bridges are generated *here*, in the engine plane — NOT in the lean
 # pure-data `tom_som_dart_runtime` / `tom_som_dart_v0` packages — so those keep

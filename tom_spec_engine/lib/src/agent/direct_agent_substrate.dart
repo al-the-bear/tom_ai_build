@@ -1,4 +1,4 @@
-/// **Mode (a)** — the direct Agent SDK substrate (§10, plan step 15).
+/// **Mode (a)** — the direct Agent SDK substrate (§10).
 ///
 /// [DirectAgentSubstrate] is the first of §10's two [AgentSubstrate]
 /// implementations. It is *augmented with the Tom-Brain-backed memory* (reached
@@ -11,7 +11,7 @@
 /// host; what mode (a) contributes here is the headless **procedure host** that
 /// actually drives the loop — the same execution machinery the §8.1 `script_*`
 /// tools use (a permission-scoped `D4rt`, a print-intercepting `Zone`, the
-/// auto-awaited `main()` return). Mode (b) ([BrainAgentSubstrate], plan step 16)
+/// auto-awaited `main()` return). Mode (b) ([BrainAgentSubstrate])
 /// runs the *same* procedure through the *same* host wrapped by a `tom_brain`
 /// session envelope; both satisfy [AgentSubstrate] and share
 /// [runAgentProcedure].

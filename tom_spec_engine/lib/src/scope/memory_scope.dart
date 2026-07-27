@@ -1,4 +1,4 @@
-/// The `memory` base scope (§4, §9, plan step 12).
+/// The `memory` base scope (§4, §9).
 ///
 /// Builds the [ScriptScope] that binds the document's fused two-tier recall to
 /// a sandboxed script as a **read-only** surface. The scope exposes exactly one

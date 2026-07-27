@@ -1,4 +1,4 @@
-// Step 19 done-criterion: the worked examples in the agent guidelines
+// Contract: the worked examples in the agent guidelines
 // (`tom_ai/ai_build/tom_specs_model/doc/llm_guidelines_specification.md` §6)
 // actually run against the shipped engine surface.
 //

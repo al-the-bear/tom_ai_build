@@ -1,9 +1,9 @@
 /// The **file tools** — the engine-side logic behind the `file_*` MCP tools
-/// (§8.2, plan step 14).
+/// (§8.2).
 ///
 /// [FileTools] is the in-process surface the editor's `AgentToolsModule` wraps
 /// as `file_read` / `file_find` / `file_write`. It binds the audited
-/// [SpecFileFacade] (§7, plan step 8) — **read = any path, write = whitelist
+/// [SpecFileFacade] (§7) — **read = any path, write = whitelist
 /// only** — and projects each operation to a typed value with a compact
 /// [toJson]. A `file_write` outside the whitelist is reported as a failed result
 /// (the facade's [FilePermissionError] message), never a thrown stack, so the

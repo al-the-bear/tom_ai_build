@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Step 13 / `llm_and_d4rt_tools.md` §8.1 — the **script tools**: the
+/// `llm_and_d4rt_tools.md` §8.1 — the **script tools**: the
 /// engine-side logic behind the editor's `script_author` / `script_validate` /
 /// `script_run` / `script_list` / `script_get` MCP tools.
 ///
@@ -15,7 +15,7 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// the auto-awaited `main()` return, and any error/stack. Mutations during a run
 /// route through the same controller a tool mutation does (req c).
 ///
-/// Done-criterion (plan step 13): author → validate → run round-trips, capturing
+/// Contract (§8.1): author → validate → run round-trips, capturing
 /// all three output channels.
 SpecModel _model() => SpecModel.fromJson({
       'modelVersion': 1,

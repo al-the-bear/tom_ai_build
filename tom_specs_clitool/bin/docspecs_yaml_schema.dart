@@ -5,7 +5,7 @@ import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// Generates the standalone JSON Schema for the generic on-disk
-/// `*.docspecs.yaml` **document wire format** (followup item 12, D20).
+/// `*.docspecs.yaml` **document wire format**.
 ///
 /// Unlike `docspecs_schema.dart` — which emits one per-root DocSpecs schema
 /// describing the section grammar of a single document root — this emits a
