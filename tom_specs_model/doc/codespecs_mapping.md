@@ -351,9 +351,10 @@ maximum lengths, format restrictions, placement, schedules, grades, …).
 
 **Annotation authoring state.** 24 of the catalogued annotations exist in
 `tom_code_specs` today; `@CsScreenFlow`, `@CsDeviceSetting`, `@CsIdentity` /
-`@CsIdentityAttribute`, `@CsMigration`, `@CsJob` and the finer-grained members —
-`@CsFieldRule` / `@CsFormRule` and the entire §5.23 `Cs*Ref` typed-reference
-family — are catalogued but **not yet authored** (`csra1`, §10). The gap columns
+`@CsIdentityAttribute`, `@CsMigration`, `@CsJob` and the finer-grained members
+`@CsFieldRule` / `@CsFormRule` are catalogued but **not yet authored** (`csra1`,
+§10); the entire §5.23 `Cs*Ref` typed-reference family is designed but
+unimplemented (`csra6`, §10). The gap columns
 cite the owning open-work todos: `csra*` in `todos.tom_specs.todo.yaml` (§10)
 and `csex*` in `_ai/quests/tom_core/todos.tom_core.todo.yaml` — the `tom_core`
 quest's framework-readiness series, which owns the core-side roadmap items.
@@ -409,10 +410,9 @@ quest's framework-readiness series, which owns the core-side roadmap items.
   `checkAccess` (§5.6.3, §5.15, §5.26) → `checkAccessibility` +
   `resolveAuthState` on `TomAccessControl`, whose doc fix is owned by `csex4`.
 
-Sequencing of the NEEDS-EXTENSION / MISSING items along the slice spine (domain
-→ contract → server behaviour → client state → client UI → navigation/shell →
-auth/identity → operational) is owned by `csex2` — the per-slice `tom_core`
-capability contract in the `tom_core` quest.
+These classifications are sequenced along the **generation slices** of §4.4,
+which fixes the slice order, the per-slice readiness gate and the blocking mode
+(emission / runtime / verification) of each gap.
 
 #### 4.1.2 Built-on resolution + closed-catalogue verification
 
@@ -513,7 +513,7 @@ projects, per the multi-project architecture principle (§12):
 
 | Generated project | Holds | Parts |
 |-------------------|-------|-------|
-| **`<app>_codespec_shared`** | The contract both sides depend on | CE-API request/response types, CE-ER error result, domain enums referenced by shared contract types, CE-TX message keys, shared CE-VA rules, CE-AU reused kernel wire/token types, CE-ID identity-extension declarations |
+| **`<app>_codespec_shared`** | The contract both sides depend on | CE-API request/response types **and the operation-ref catalogue**, CE-ER error result **+ error-code catalogue**, domain enums referenced by shared contract types, CE-TX message keys, shared CE-VA rules, **CE-AZ role + resource-key catalogues** (§5.23 — cited from both sides), CE-AU reused kernel wire/token types, CE-ID identity-extension declarations |
 | **`<app>_codespec_client`** | Client-only CodeSpecs | CE-EL, CE-FM, CE-LO, CE-TX (copy), CE-AC, CE-SC, CE-ST, CE-NV (routes + screen-flow), CE-CL, CE-CC, CE-DS, CE-UP (client shape), CE-AU (client flow) |
 | **`<app>_codespec_server`** | Server-only CodeSpecs | CE-SU, CE-DB, CE-API (handlers), CE-AZ, CE-CF, CE-UP (persistence), CE-AU (server flow), CE-ID attribute population (in the CE-AU flow), CE-MG (the migrations directory tree + numbered SQL skeleton artifacts — file assets shipped with the server project, not Dart classes, §5.27), CE-JB job definitions + work-body skeletons (§5.29) |
 
@@ -560,6 +560,203 @@ names only the infrastructure choice).
 concrete `tom_core`-family built-on class (or a decided `tom_core_codespecs` gap)
 and a `Cs*` annotation are chosen for it. Until then its only surface is the
 reserved kind value and the SOM `@CodeSpecKind`.
+
+### 4.4 Generation slices — the per-slice `tom_core` capability contract
+
+A **generation slice** is a set of parts emitted together into the §4.2 projects.
+This section fixes **which slices exist, in which order, and what each one needs
+from `tom_core` before it can be emitted**. It answers only that question: *what
+must already exist for the emitted code to compile*. It does **not** say what
+code comes out of a given SOM section — the per-annotation SOM→Dart derivation
+contract is a separate, tom_specs-owned concern.
+
+#### 4.4.1 The authored reference graph
+
+Slice order is derived from the **authored** cross-part reference edges — the
+§5.23 `Cs*Ref` const citations, the `Type`-literal citations, and the
+containment/binding edges the §5.x sections fix. **Derived** back-references
+(§5.10/§5.18 element→action hooks; §5.17 CE-SU owned-entity/operation sets) are
+computed by the generator from the authored edge and impose no ordering of their
+own beyond the authored direction.
+
+| Referrer | Referent | Edge | Source |
+|----------|----------|------|--------|
+| CE-DB column `authKey` | CE-AZ resource-key catalogue | `CsResourceKeyRef` | §5.13, §5.15 |
+| CE-DB, CE-API DTO, CE-ST, CE-CF/CC/DS/UP members | domain enums | Dart `enum` type | §4.1 |
+| CE-API operation | CE-ER envelope · CE-AZ · CE-TX description | `Result<T>` · `@CsAuthorize` · `CsMessageKey` | §5.14, §5.6.3 |
+| CE-ER code | CE-TX message key | `CsMessageKey` on `@CsError` | §4.1.1 CE-ER |
+| CE-TX error-copy entry | CE-ER code | `CsErrorCode` | §5.21, §5.23 |
+| CE-VA rule failure | CE-TX · CE-ER | `CsMessageKey` / `CsErrorCode` | §5.9, §5.19 |
+| CE-SU | CE-DB entities/repos · CE-API operations | `Type` literals · `CsOperationRef` | §5.17 |
+| CE-SC | CE-API operation | `CsOperationRef` (hop 2) | §5.3, §5.14 |
+| CE-SC | CE-ST · CE-FM (request assembly) | field-source mapping | §5.3 attr 2 |
+| CE-SC | CE-ST · CE-NV (response handling) | view-model update · `CsRouteRef` | §5.3 attr 3 |
+| CE-AC | CE-SC | `CsCallRef` (hop 1) | §5.3, §5.23 |
+| CE-AC | CE-NV | `CsRouteRef` (navigation outcome) | §5.11, §5.23 |
+| `@CsTrigger` (CE-AC) | CE-EL | source-element ref (the join's other endpoint) | §5.10 |
+| CE-NV `@CsScreenFlow` | CE-AC · CE-FM | `CsActionRef` · form→screen assignment | §5.11 |
+| CE-FM | CE-ST · CE-SC/CE-AC · CE-VA · CE-EL | view-model link · submit target `CsCallRef`/`CsActionRef` · `@CsValidation` · field members | §4.1.1 CE-FM, §5.7.2 |
+| CE-EL kind *FormHost* | CE-FM | hosted-form ref | §4.1.1 CE-EL, §5.18 |
+| CE-ST | CE-EL · CE-FM | binding target (reference-by-id) | §5.4 attr 3 |
+| CE-LO slot node | CE-EL · CE-FM | reference-by-id | §5.2, §5.12 |
+| CE-CL | CE-NV · CE-FM | `CsRouteRef` · included forms | §4.1.1 CE-CL |
+| CE-UP | CE-FM | settings-form link | §4.1.1 CE-UP |
+| CE-AU | CE-ID · CE-CF | consumes the extension declaration · key material | §5.24, §5.25 |
+| CE-JB | CE-DB · CE-SU (· CE-RP) | `Type` literals · ownership (· `CsReportRef`) | §5.29 |
+| CE-MG | CE-DB | schema-convergence check (validator, not a citation) | §5.27 |
+
+**Three genuine cycles.** The graph is **not** a DAG at part granularity:
+
+1. **CE-ER ↔ CE-TX** — an error code carries its message key; the message-key
+   registry's error-copy entries carry the error code. Both shared.
+2. **CE-AC → CE-SC → CE-NV → CE-AC** — an action names the call it issues, the
+   call names the route its response navigates to, the screen flow names the
+   action that triggers the transition. All client.
+3. **CE-ST ↔ CE-FM and CE-EL ↔ CE-FM** — the view-model binds to form fields
+   while the form links its bound view-model type; a *FormHost* element names
+   the form it hosts while the form's members are elements. All client.
+
+Because CE-AC, CE-SC and CE-NV already share cycle 2, and CE-FM reaches CE-SC
+and CE-AC (submit target) while CE-NV reaches CE-FM (screen assignment), cycles
+2 and 3 merge. The **strongly connected components** of the authored graph are
+therefore:
+
+- **SCC-A = {CE-ER, CE-TX message keys}** — shared;
+- **SCC-B = {CE-ST, CE-EL, CE-FM, CE-AC, CE-SC, CE-NV}** — client;
+- every other part is its own singleton component.
+
+**Validated property: no SCC spans two §4.2 projects.** This matters, because the
+two constraints have different force. Dart permits **circular imports between
+libraries of the same package**, so an SCC co-emitted into one project compiles;
+Dart forbids **circular dependencies between packages**, so a cycle crossing the
+shared/client/server boundary would be unresolvable. The §4.2 split is
+reference-cycle-safe, and the *shared → {client, server}* arrow is an absolute
+constraint no slice order may bend.
+
+#### 4.4.2 The forward-reference rule
+
+**Decision: strict ordering, with slice boundaries cut at SCC boundaries.**
+Declared-but-unimplemented stubs are **rejected**.
+
+- **Why not stubs.** A stub would author the same referenceable identity twice —
+  once as a placeholder in the earlier slice, once for real in its owning part —
+  which breaks the "declare once, cite everywhere" invariant that §5.23 and §5.3
+  make load-bearing. Worse, a stub `CsRouteRef` is type-identical to a real one,
+  so the **compiler — the designated §4.2 cross-part integrity checker (§5.23) —
+  could no longer distinguish a satisfied reference from an unsatisfied one**.
+  Stubs would disable the exact mechanism the typed-ref family exists to provide.
+- **Why strict ordering alone is not enough.** At part granularity the graph has
+  the three cycles above, so no linear order over the 23 parts exists. Ordering
+  parts is impossible; ordering *components* is not.
+- **The rule.** The slice **is** the strongly connected component (or a union of
+  components at the same topological rank, grouped for readability). Slice order
+  is a topological order of the graph's condensation. **Within** a slice, mutual
+  reference is legal and expected. **Across** slices the rule is absolute: *no
+  slice may reference a symbol a later slice emits* — achievable by construction,
+  because every backward edge has been absorbed into a component.
+
+**Slice order is a hard constraint, not a preference.** Two independent
+mechanisms enforce it: within a project, a cross-slice backward reference is a
+Dart compile error at the citing const (§5.23); across projects, it is an
+unresolvable package cycle. Neither is recoverable by generation order, so a
+slice order that violates the rule cannot be made to work by emitting more
+carefully — it must be re-cut.
+
+**Corollary — a part may be split across slices, an SCC may not.** Where §4.2
+already splits a part by locus (CE-API contract vs handlers, CE-TX keys vs copy,
+CE-AZ catalogue vs modifier applications, CE-AU shared/client/server, CE-UP
+client shape vs server persistence, CE-ID declaration vs population), the halves
+are separate emission units and sit in different slices. This is what keeps
+SCC-A and SCC-B single-project.
+
+**Generation order is not runtime bootstrap order.** This section orders
+*symbol availability at compile time*. The runtime start-up order (CE-CF resolved
+before the server boots, CE-MG applied before the first repository call, CE-AU
+establishing a principal before any CE-AZ evaluation) is a different sequence and
+is not constrained here.
+
+#### 4.4.3 The ordered slices
+
+Seven slices. "Built on" names the `tom_core`-family classes the slice's parts
+instantiate or extend (§4.1); "Gate" is §4.4.4.
+
+| # | Slice | Parts emitted | Project (§4.2) | Built on (`tom_core`-family) |
+|---|-------|---------------|----------------|------------------------------|
+| **1** | **Shared const catalogues** | domain enums (`@CsEnum`); CE-AZ role + resource-key catalogues; **SCC-A** = CE-ER error codes + CE-TX message keys | `<app>_codespec_shared` | `TomResult<T>` / `TomErrorResult` / `TomFieldError` / `TomErrorSeverity`, `TomTextResourceProvider` (`tom_core_kernel`); plain Dart `enum`s. The role/resource-key catalogues are plain const holders over `TomRoleAccess.roles` / `TomResourceKeyAccess.key` string spaces. |
+| **2** | **Shared contract** | CE-API operation catalogue + request/response DTOs; shared CE-VA rules; CE-ID identity-extension declaration; CE-AU shared wire/token types | `<app>_codespec_shared` | `TomApi` / `TomApiEndpoint<R,Q>` / `TomRemoteApis` (`tom_core_kernel`); `Validator<T>` / `ValidationResult` / `Validators` / `FormValidationError` (`tom_flutter_ui`); `TomUser` / `TomPrincipal`, `TomBearerAuthentication` / `TomClientJwtToken` / `TomAuthenticationMessage` / `TomAuthenticationResult` (`tom_core_kernel`) |
+| **3** | **Server persistence & configuration** | CE-DB entities/columns/repositories; CE-MG migration artifact tree; CE-CF | `<app>_codespec_server` | Tom persistence model + CRUD/MariaDB repositories + `TomQueryBuilder` (`tom_core_server`); `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`); `TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`) |
+| **4** | **Server behaviour** | CE-SU units **co-emitting** the CE-API handler methods; operation-level CE-AZ; CE-AU server flow + CE-ID attribute population | `<app>_codespec_server` | `@tomService` / `TomApiImplementation` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` / `TomComponentReference` (`tom_core_server`); `TomAccessControl` family + `TomGradedAccess` + `TomPrincipal` (`tom_core_kernel`), `TomResourceGrant` / graded authorization (`tom_core_server`); `TomAuthenticationServer` + the app's `TomAuthenticationService`, `TomServerJwtToken` (`tom_core_server`) |
+| **5** | **Client interaction core** | **SCC-B** = CE-ST + CE-EL + CE-FM + CE-AC + CE-SC + CE-NV; field-level CE-AZ (`authorizer`); CE-TX copy; CE-AU client login flow | `<app>_codespec_client` | `TomObservable` / `TomObject<T>` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel`) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`); `TomScreenElementsProvider` + the `Tom*` element/widget family, `TomForm<T>` / `TomFormChildContainer` / `TomField<T>`, `TomAction` / `TomActionController` / `TomActionTrigger` / `TomActionTransaction` / `TomActionContext`, `TomPageRoute<T>` / `TomNavigationDestination`, `TomText` / `TomLabelBase`, `TomGradedAccess` (`tom_flutter_ui`); `TomServerEndpoint<T,R>` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`) |
+| **6** | **Client presentation & shell** | CE-LO; CE-CL; CE-CC; CE-DS; CE-UP client shape | `<app>_codespec_client` | `AclContainer` / `AclRow` / `AclComponent` (`tom_flutter_ui`) rendered via `TomObservingWidget` (`tom_core_flutter`); `TomProperty<T>` family (`tom_core_flutter`) + `TomConfigResourceProvider` (`tom_core_kernel`); `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`). CE-CL has **no** `tom_core` basis by design (§4.1.1). |
+| **7** | **Server operational** | CE-UP server-side persistence; CE-JB job definitions + work-body skeletons | `<app>_codespec_server` | `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate (`tom_core_kernel`); the CE-DB repositories of slice 3 for the settings store |
+
+**Why this order (the across-slice edges it satisfies).** 1 has no outbound part
+edges at all — every `Cs*Ref` catalogue bottoms out here. 2 cites only 1. 3 cites
+1 (enums, `CsResourceKeyRef`). 4 cites 1, 2, 3. 5 cites 1 and 2 **and never 3 or
+4** — the client project depends on shared only. 6 cites 5 (and 1). 7 cites 3 and
+4. Slices 5–6 and 3–4–7 are two independent chains hanging off 1–2; they may be
+generated in either interleaving, but never before 2 completes.
+
+#### 4.4.4 The slice readiness gate
+
+**Gate (as stated).** A slice is generatable **iff every part it emits is READY**
+in the §4.1.1 matrix. A slice containing a NEEDS-EXTENSION or MISSING part is
+blocked and names the todo that unblocks it.
+
+**Refinement — three blocking modes.** Applied literally the gate is too coarse
+to act on, because the §4.1.1 gaps do not all block the same thing. Each gap is
+therefore classified:
+
+- **E — emission-blocking.** The skeleton cannot be written at all (no class to
+  extend, no annotation to apply). The slice is hard-blocked.
+- **E(lossy) — emission is possible but drops declared detail.** The slice
+  generates; a spec using the uncarried attribute renders without it.
+- **R — runtime-blocking.** The skeleton emits and compiles (often as `§3`
+  pseudo-code / `UnsupportedError`); the capability is missing at execution time.
+  The slice is generatable; the *application* is not yet runnable.
+- **V — verification-blocking.** Emission and runtime are fine; a named validator
+  check cannot run.
+
+| # | Slice | Non-READY parts | Mode | Unblocked by |
+|---|-------|-----------------|------|--------------|
+| **1** | Shared const catalogues | CE-ER, CE-TX (message-key registry model); CE-AZ catalogues | **E** | `csra6` (`CsErrorCode` / `CsMessageKey` / `CsRoleRef` / `CsResourceKeyRef` unimplemented) · `csra2` (CE-TX registry model class) |
+| **2** | Shared contract | CE-API, CE-VA, CE-ID | **E** | `csra6` (`CsOperationRef`) · `csra1` (`@CsFieldRule` / `@CsFormRule`, `@CsIdentity` / `@CsIdentityAttribute` unauthored) |
+| **3** | Server persistence & configuration | CE-DB (aggregation) · CE-MG (schema-diff; `@CsMigration` unauthored) | **R** · **V** + **E** | `csex5` (aggregation grammar) · `csex6` (schema-diff engine) · `csra1` (`@CsMigration`) |
+| **4** | Server behaviour | CE-AZ (server principal + `min` meet) · CE-AU (2FA second pass) · CE-SU (`CsServiceUnitRef`) | **R** · **R** · **E** | `csex4` · `csex3` · `csra6` |
+| **5** | Client interaction core | CE-NV (route registry + screen-flow model) · CE-EL (uncarried per-kind attributes) · CE-SC/CE-AC/CE-FM ref types | **E** · **E(lossy)** · **E** | `csra2` (flow-model class) · `csra5` (screen-flow SOM home) · `csexb1` · `csra1` (`@CsScreenFlow`) · `csra6` (`CsRouteRef` / `CsCallRef` / `CsActionRef`) |
+| **6** | Client presentation & shell | CE-LO (node model + ACL container-kind reconciliation) · CE-CL (descriptor) · CE-UP (holder) · CE-CC (holder decision) · CE-DS (`@CsDeviceSetting`) | **E** | `csra2` (node model, descriptor, settings holder) · `csexb2` (ACL substrate) · `csex12` (CE-CC confirm/reject) · `csra1` (`@CsDeviceSetting`) |
+| **7** | Server operational | CE-JB (job base class; scheduler runtime; multi-node lease) · CE-UP (server persistence) | **E** · **R** | `csra2` (job base class, settings persistence) · `csex7` / `csex8` (scheduler, single-fire) · `csra1` (`@CsJob`) |
+
+**Critical-path consequence.** Every slice is currently **E**-blocked, and for
+slices 1–4 the emission blockers are **exclusively tom_specs-owned**: `csra6`
+(the `Cs*Ref` typed-reference family), `csra1` (the unauthored `Cs*`
+annotations) and `csra2` (the one CE-TX registry class). **The `tom_core`-quest
+items are not the critical path for the first four slices** — `csex3`–`csex6`
+are all **R**/**V**, i.e. they gate a *runnable* application, not a *generatable*
+one. `tom_core` becomes emission-critical only at slices 5–7, and even there the
+larger share is `csra2` gap classes, with `csexb1`, `csexb2`, `csex12`, `csex7`
+and `csex8` beside them. The implied framework sequence: typed refs and
+annotations first (`csra6`, `csra1`), gap classes second (`csra2`, `csexb2`,
+`csex12`), runtime capabilities third (`csex4`, `csex3`, `csex5`, `csex7`,
+`csex8`), verification last (`csex6`).
+
+#### 4.4.5 What the reference directions corrected
+
+The slice spine was **not** adopted as proposed; four of its cuts do not survive
+the authored edges.
+
+| Proposed | Correction | Evidence |
+|----------|-----------|----------|
+| CE-DB in the **first** slice, with domain enums | CE-DB moves to slice **3** | A CE-DB column's `authKey` is a `CsResourceKeyRef` from the CE-AZ catalogue (§5.13, §5.15) — a backward reference. CE-DB is also server-locus, and a slice may not span shared + server (§4.2 arrows). |
+| Three ordered client slices: *state and calls* → *UI* → *navigation and shell* | The six parts collapse into **one** slice (SCC-B) | Cycle 2 (CE-AC→CE-SC→CE-NV→CE-AC) and cycle 3 (CE-ST↔CE-FM, CE-EL↔CE-FM) admit no linear order. The proposed cut has CE-SC citing `CsRouteRef` two slices later (§5.3 attr 3) and CE-ST citing its CE-EL/CE-FM binding target one slice later (§5.4 attr 3). |
+| **Auth/identity** (CE-AU, CE-ID) as a **late** slice, after the client | CE-ID and CE-AU's shared types move to slice **2**; CE-AU's server flow to **4**; its client login flow into **5** | CE-ID's locus is shared + server (§5.24) and CE-AU's shared wire/token types are shared (§4.2). A shared part emitted after a client slice inverts the §4.2 dependency arrow. Neither part cites anything client-side. |
+| **Operational** (CE-MG, CE-JB) as one final slice | CE-MG moves to slice **3** beside CE-DB; only CE-JB (with CE-UP persistence) stays last | CE-MG's only relationship is the CE-DB schema-convergence check (§5.27); separating them by four slices defers the check for no reason. CE-JB genuinely depends on CE-DB and CE-SU (§5.29) and stays last. |
+
+The spine's **broad direction** — shared vocabulary → shared contract → server →
+client → shell → operational — is confirmed by the edges. What it got wrong is
+the granularity: it assumed the client tier decomposes, and it placed two
+shared-locus parts (CE-ID, CE-AU) and one server-locus part (CE-DB) by topic
+rather than by locus.
 
 ## 5. Gap analysis — taxonomy vs existing coverage
 
@@ -953,10 +1150,14 @@ on that section (the enum value exists).
 **Decision.** Three **server-side** parts
 form one operation together: `@CsEndpoint` (CE-API, the operation), `@CsServiceUnit`
 (CE-SU, the grouping the operation lives in), and `@CsAuthorize` (CE-AZ, the access
-modifier on the operation). All three live in the **server** project
-(`<app>_codespec_server`, §4.2); the request/response DTOs they exchange live in the
-**shared** project (CE-API contract, §4.2). The CE-SU boundary criterion is **§5.1**
-(owned-aggregate primary, process-cohesion secondary, bounded-context outer bound).
+modifier on the operation). All three are authored **server**-side
+(`<app>_codespec_server`, §4.2) — the handler, the unit and the operation-level
+access modifier. Their **citable identities** are shared: the request/response DTOs
+and the `CsOperationRef` operation catalogue, and the `CsRoleRef` /
+`CsResourceKeyRef` catalogues `@CsAuthorize` cites, all live in the **shared**
+project (§4.2, §5.23), because the client cites them too. The CE-SU boundary
+criterion is **§5.1** (owned-aggregate primary, process-cohesion secondary,
+bounded-context outer bound).
 
 #### 5.6.1 CE-API — `@CsEndpoint` (reuse + extend for the §7 contract)
 
