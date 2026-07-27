@@ -223,11 +223,12 @@ class ModelJsonExporter {
 
   /// Emits the full, lossless annotation list for a class or field: **every**
   /// annotation [ModelReader] captured, each as `{name, arguments}` with its
-  /// resolved argument map intact (plan §A.1 / spec §3.1). The curated keys
+  /// resolved argument map intact (`multiplatform_spec_model.md` §5.3 / spec
+  /// §3.1). The curated keys
   /// above (`sectionId`, `mapsTo`, `min`, `contentType`, …) are a redundant
   /// projection of this same data, kept for existing consumers (the editor
   /// tree); this block is the lossless source the generic runtime's meta-model
-  /// loader (plan §B.3) reads. Source declaration order is preserved so the
+  /// loader (§7) reads. Source declaration order is preserved so the
   /// output is stable across runs. The argument values are the analyzer's
   /// resolved constants (String/int/double/bool/Type-name/List), so the block
   /// stays JSON-serializable.

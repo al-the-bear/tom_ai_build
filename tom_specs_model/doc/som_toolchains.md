@@ -1,10 +1,10 @@
 # SOM toolchains — per-language build/run requirements
 
-Plan item #12 of `multiplatform_spec_model_plan.md`. This document records the
-per-language toolchains needed to **compile and run** the generated Spec Object
-Model (SOM) artefacts — the generic `tom_som_<lang>_runtime` packages and the
-generated typed `tom_som_<lang>_v0` projects — on the build/reference host(s),
-together with the versions in use and how each toolchain is obtained.
+This document records the per-language toolchains needed to **compile and run**
+the generated Spec Object Model (SOM) artefacts — the generic
+`tom_som_<lang>_runtime` packages and the generated typed `tom_som_<lang>_v0`
+projects — on the build/reference host(s), together with the versions in use and
+how each toolchain is obtained.
 
 > **Reference host.** All versions below were captured on **`bomber`**
 > (Linux `x86_64`, Ubuntu 24.04, kernel 6.17). `bomber` is the SOM reference

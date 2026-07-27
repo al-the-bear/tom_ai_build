@@ -319,6 +319,7 @@ three access paths visibly converge across every language.
 | Python runtime + `v0` | Complete (reference port); camelCase accessors preserved. |
 | Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3079 classes; see [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)). |
 
-See the quest plan [`multiplatform_spec_model_plan.md`](../../../_ai/quests/tom_specs/multiplatform_spec_model_plan.md)
-and decisions [`multiplatform_spec_model_questions.md`](../../../_ai/quests/tom_specs/multiplatform_spec_model_questions.md)
-for the full implementation trail.
+The per-language project layout and emitter conventions this table reports on
+are specified in
+[`multiplatform_spec_model.md`](../tom_specs_model/doc/multiplatform_spec_model.md)
+§3 and §8.
