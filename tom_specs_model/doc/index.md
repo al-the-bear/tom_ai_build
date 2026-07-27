@@ -29,9 +29,6 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 |----------|---------|
 | [tom_specs_model_rules.md](tom_specs_model_rules.md) | The model-authoring authority (see above) — includes field classification (§6.1), form decomposition (§6.2) and the outliner (§11) |
 | [som_mapping.md](som_mapping.md) | The mapping authority (see above) |
-| [section_id_pattern_plan.md](section_id_pattern_plan.md) · [section_id_pattern_plan_decisions.md](section_id_pattern_plan_decisions.md) | The `@SectionIdPattern` campaign — plan and decisions log |
-| [field_suffix_list_id_plan.md](field_suffix_list_id_plan.md) | Field-name-derived suffixes for list section IDs |
-| [same_type_sibling_lists_analysis.md](same_type_sibling_lists_analysis.md) | Same-type sibling `List<T>` fields and section-ID collision |
 
 ## Multi-language access API
 

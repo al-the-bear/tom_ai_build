@@ -203,11 +203,14 @@ import 'model_reader.dart';
 ///   only ever collides with itself, and the reader's `getAnnotation` returns
 ///   only the first occurrence), so it is rejected explicitly here.
 /// - **Field-level `-LST` checks** — list container IDs follow the form
-///   `<E>-<FIELDSUFFIX>-LST`, where `<E>` is the element type's class-level
-///   `@SectionId` and `<FIELDSUFFIX>` is the field name uppercased. Two
-///   invariants hold: (i) *type-consistency* — a container ID always maps to
-///   exactly one element type; (ii) *per-class uniqueness* — within one class,
-///   no two list fields may share a container ID (the field-name suffix
+///   `<E>-<FIELDSUFFIX>-LST`, where `<E>` is a mnemonic for the element type
+///   (normally its class-level `@SectionId`) and `<FIELDSUFFIX>` is a
+///   4-character mnemonic for the field (normally its first four letters).
+///   Both tokens are hand-authored: this validator checks the *shape* and the
+///   uniqueness properties of the pair, never the derivation of either token.
+///   Two invariants hold: (i) *type-consistency* — a container ID always maps
+///   to exactly one element type; (ii) *per-class uniqueness* — within one
+///   class, no two list fields may share a container ID (the field suffix
 ///   guarantees this; the check guards hand-authored deviations). Cross-class
 ///   sharing of a container ID is allowed when both the element type and the
 ///   field name coincide (interpretation X: addressing is parent-path + local
@@ -543,10 +546,9 @@ void _validateStructuralInvariants(
   // elements receive per-instance section IDs under the flat-ID scheme. The
   // only exemption is @Reference fields, which point at sections owned
   // elsewhere and therefore do not introduce repeated sections of their own.
-  // This is the authoritative replacement for the buggy `missing_pattern_scan.py`
-  // heuristic (see section_id_pattern_plan O6.1): it walks the real reachable
-  // type graph via the analyzer and cannot suffer the scan's line-proximity
-  // false negatives.
+  // The check walks the real reachable type graph via the analyzer, so unlike a
+  // textual scan of the sources it cannot produce line-proximity false
+  // negatives.
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;

@@ -158,9 +158,8 @@ void main() {
         final listCoverageErrors = result.errors
             .where((e) => e.contains('§8.6 @SectionIdPattern list-coverage'))
             .toList();
-        // Authoritative analyzer-based guard replacing missing_pattern_scan.py
-        // (section_id_pattern_plan O6.1). Every repeated section (complex
-        // List<T> field that is not @Reference) must carry a numbering pattern.
+        // Every repeated section (complex List<T> field that is not
+        // @Reference) must carry a numbering pattern.
         expect(listCoverageErrors, isEmpty, reason: listCoverageErrors.join('\n'));
       },
     );
@@ -177,9 +176,9 @@ void main() {
                 e.contains('§8.6 @SectionId/@SectionIdPattern pairing'))
             .toList();
         // Every list field carries `<E>-<FIELDSUFFIX>-LST` + matching pattern;
-        // the field-name suffix makes sibling container IDs distinct, so the
-        // same-class same-type collisions (e.g. in/out-of-scope processes) are
-        // resolved. See field_suffix_list_id_plan.md.
+        // the field suffix makes sibling container IDs distinct, so same-class
+        // same-type lists (e.g. in/out-of-scope processes) do not collide.
+        // Rule: tom_specs_model/doc/tom_specs_model_rules.md §7.2/§7.4.
         expect(lstErrors, isEmpty, reason: lstErrors.join('\n'));
       },
     );

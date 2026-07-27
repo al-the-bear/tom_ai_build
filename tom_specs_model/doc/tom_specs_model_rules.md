@@ -607,12 +607,21 @@ A `List<T>` field is a distinct document section (§4 rule 2) and needs its
 <elementId>-<FIELDSUFFIX>-xxx     (numbering @SectionIdPattern)
 ```
 
-- `<elementId>` is the class-level `@SectionId` of the element type `T`.
-- `<FIELDSUFFIX>` is the **field name uppercased, non-alphanumerics dropped,
-  truncated to the first 4 characters** (`systems` → `SYST`,
-  `inScopeProcesses` → `INSC`). It is a **mechanical transform**, not a
-  hand-authored mnemonic — the derivation is reproducible from the field name
-  alone.
+- `<elementId>` is an **element mnemonic** — normally the class-level
+  `@SectionId` of the element type `T`, which is what the majority of container
+  ids use. It is a naming *convention*, not a machine-checked derivation: where
+  `T` is the untyped `DocSpecsSection` there is no element class id to take, and
+  a number of container ids carry a mnemonic derived from the element class name
+  rather than its `@SectionId`. Read the prefix as "which kind of thing this list
+  holds", not as a key you can resolve back to a class.
+- `<FIELDSUFFIX>` is a **hand-authored 4-character mnemonic for the field**,
+  written in uppercase alphanumerics. The default is the first four letters of
+  the field name (`systems` → `SYST`, `inScopeProcesses` → `INSC`), and most
+  fields take it; where those four letters read badly or clash, a better
+  4-character mnemonic is chosen instead (`assumptions` → `ASMP`,
+  `revisionHistory` → `REVS`). The length is fixed at 4; the letters are a
+  judgement call, following the same philosophy as the class-level `@SectionId`
+  mnemonics.
 
 ```dart
 @SectionId('EXTSY-SYST-LST')
@@ -625,11 +634,15 @@ those with a same-type sibling. This gives one uniform three-token container-id
 form across the model instead of two; there are no two-token `<elementId>-LST`
 ids.
 
-The field-name suffix works because Dart forbids duplicate field names within a
-class — so two same-type lists in one class (e.g.
+The field suffix is what makes the id unique, and it works because Dart forbids
+duplicate field names within a class — so two same-type lists in one class (e.g.
 `ProcessScopeSummary.inScopeProcesses` and `outOfScopeProcesses`) get **distinct**
-container ids (`PRSCEN-INSC-LST` vs `PRSCEN-OUTO-LST`) instead of colliding. The
-element *type* is always recoverable as the first token before the first `-`.
+container ids (`PRSCEN-INSC-LST` vs `PRSCEN-OUTO-LST`) instead of colliding.
+
+**Neither token's derivation is machine-verified.** The validator checks the
+*shape* of the pair and its uniqueness properties (§7.4) — it does not
+recompute the prefix from the element class or the suffix from the field name.
+Getting a mnemonic right is an authoring responsibility.
 
 ### 7.3 Inline sub-section ids
 
@@ -653,16 +666,31 @@ have needed an extra parent discriminator folded into every container id).
   so a later-added second list cannot silently collide. Error tag:
   `§8.6 @SectionId per-class uniqueness`.
 - **Type-consistency:** a given container id maps to **exactly one** element type.
+  Error tag: `§8.6 @SectionId consistency`.
 - **Pattern pairing:** the `@SectionIdPattern` must mirror the container
   `@SectionId` (`-LST` ↔ `-xxx`). Error tag:
   `§8.6 @SectionId/@SectionIdPattern pairing`.
+- **List coverage:** every `List<T>` field of section elements must carry the
+  container/pattern pair. The only exemption is `@Reference` list fields, which
+  are pointers rather than owned sub-sections. Error tag:
+  `§8.6 @SectionIdPattern list-coverage`.
 
 **Cross-class sharing is legitimate.** Two *different* classes that each declare a
 list of the same element type *with the same field name* share one container id
 (e.g. `CurrentWorkflowEntry.outputs` and `WorkflowStepEntry.outputs` → both
 `WOOUEN-OUTP-LST`). They sit under different parents, so under sibling-scoped
 addressing they never collide. Container ids are unique among **siblings**, not
-globally.
+globally. Sharing *within* one class is the case that is forbidden, and the
+per-class uniqueness check is exactly what forbids it.
+
+**Same-type sibling lists are resolved by the field suffix, not by the model
+shape.** Two or more lists of the same element type in one class are a
+legitimate, supported construct: the differing field suffixes give them distinct
+container ids, and nothing further is required — no wrapper class, no
+discriminator field, no renamed element type. Where a class holds same-type
+sibling lists *and* the element type also carries a field naming which list it
+belongs to, that field is redundant with its container id and should be dropped
+in favour of the list membership.
 
 ### 7.5 Lists — the `*-LST` container is a real section
 
@@ -870,20 +898,39 @@ The 12 Phase 3 documents derive from the SBP, and that derivation is encoded:
 
 ### 10.2 The mechanical structural invariants
 
+Two meta-rules govern this section:
+
+- **A structural rule lives in the validator, not only in a test.** Anything the
+  model must satisfy structurally is implemented in
+  `validateStructuralInvariants()`, so every consumer of the model — the
+  outliner, the JSON exporter, the SOM generator — inherits the check rather
+  than each re-deriving it. A test that asserts a structural property without a
+  validator check behind it is a gap, not a rule.
+- **The validator is the contract; this document follows it.** Where prose here
+  and the validator disagree, the validator is right and the prose is corrected.
+  Rules stated in this document are statements about what the code enforces
+  today, not aspirations for what it should enforce.
+
 The validator enforces the following structural invariants (implementation:
 `tom_specs_clitool/lib/src/validator.dart`, exported as
 `validateStructuralInvariants()`):
 
 1. `@SectionId` **global uniqueness** (class-level namespace).
-2. `@SectionIdPattern` uniqueness / container-id pairing (per §7.4).
-3. **`@SectionId` coverage** — every reachable class carries one, *except*
+2. `@SectionIdPattern` uniqueness, container-id **type-consistency**,
+   **per-class uniqueness**, and container/pattern **pairing** (per §7.4).
+3. **`@SectionIdPattern` list-coverage** — every list field of section elements
+   carries the container/pattern pair; `@Reference` lists are the only
+   exemption.
+4. **`@SectionId` coverage** — every reachable class carries one, *except*
    classes reached only through a `@SectionIdPattern` subtree (transitive
-   exemption).
-4. **`@DetailedIn` ⇒ ancestor `@MapsTo`**.
-5. **`@SecondLevelSectionId` ⇒ `@DetailedIn`**.
-6. **Per-`@Document` detail-count budget** (7–15 top-level entries).
+   exemption). This one is reported as a **warning**, not an error: it is a
+   completeness signal, so a model with a gap still validates. Every other
+   invariant in this list is an error.
+5. **`@DetailedIn` ⇒ ancestor `@MapsTo`**.
+6. **`@SecondLevelSectionId` ⇒ `@DetailedIn`**.
+7. **Per-`@Document` detail-count budget** (7–15 top-level entries).
    `@CodeSpecsProjection()` roots are exempt from *this check only* (§2.5).
-7. **Root-independent section-id resolution** — a class reachable from more than
+8. **Root-independent section-id resolution** — a class reachable from more than
    one `@Document` root must resolve to the same id from every root. Both id
    mechanisms are root-independent by construction (a class-level `@SectionId` is
    fixed; a `@SectionIdPattern` list-instance id derives from the *element*
@@ -892,8 +939,14 @@ The validator enforces the following structural invariants (implementation:
    case actually rejected is **structural-mode mixing**, i.e. a class reached
    both as the direct element of a `@SectionIdPattern` list *and* as a standalone
    complex section field (`@Reference` edges excluded).
-8. **§5.1 member-shape legality**, `@ContentType` compatibility, and **cycle
+9. **§5.1 member-shape legality**, `@ContentType` compatibility, and **cycle
    detection**.
+
+**What the validator does *not* check:** the derivation of the two mnemonic
+tokens in a container id (§7.2). It verifies the pair's shape and its uniqueness
+properties, but does not recompute the `<elementId>` prefix from the element
+class or the `<FIELDSUFFIX>` from the field name — those remain authoring
+judgement.
 
 The outliner runs the full invariant set before writing; it exits non-zero on any
 error, so a clean outline is proof of a valid model.
@@ -1492,7 +1545,6 @@ runtime relationship).
 | **Mapping — object model ↔ md / yaml / schema, metadata tree, generated surfaces, parse+validate API** | **`som_mapping.md`** (the single mapping authority) |
 | Per-annotation reference | `tom_specs_core/README.md` |
 | Structural invariants (implementation) | `tom_specs_clitool/lib/src/validator.dart` (`validateStructuralInvariants()`) |
-| How the section-ID scheme was arrived at (design record) | `section_id_pattern_plan.md`, `field_suffix_list_id_plan.md` |
 | Multi-platform SOM component | `multiplatform_spec_model.md` |
 | Generator config / meta-schema / toolchains | `spec_object_model_config.md`, `spec_model_meta_schema.md`, `som_toolchains.md` |
 | DocSpecs format itself (schemas, section types, validation) | `_ai/quests/doc_specs/doc_specs_specification.md` |
