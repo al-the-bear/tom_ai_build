@@ -1985,4 +1985,41 @@ entries:
       if (file.existsSync()) file.deleteSync();
     });
   });
+
+  group('README snapshot baseline (TSRA8)', () {
+    // The README documents the shipped snapshot's stamp so the next refresh
+    // has something to diff against. A baseline nobody maintains is worse than
+    // none, so these tests pin it to the asset: refreshing to a model of a
+    // different size fails here until the README is updated with it.
+    final readme = File('README.md').readAsStringSync();
+    final stamp = json.decode(File('assets/spec_model.json').readAsStringSync())
+        as Map<String, dynamic>;
+    final model = SpecModel.fromJson(stamp);
+
+    /// The value cell of the `| \`key\` | value |` row documenting [key].
+    String? documented(String key) => RegExp('`$key`[^|]*\\|\\s*([^|]+?)\\s*\\|')
+        .firstMatch(readme)
+        ?.group(1);
+
+    test('records the shipped class and root counts', () {
+      expect(documented('classCount'), '${stamp['classCount']}');
+      expect(documented('rootCount'), '${stamp['rootCount']}');
+      expect(documented('containerRoot'), '`${stamp['containerRoot']}`');
+    });
+
+    test('the documented refresh command pins the shipped model version', () {
+      // The refresh must re-export the model, never renumber it — so the
+      // command in the README carries the version the asset already declares.
+      expect(readme, contains('--model-version ${stamp['modelVersion']}'));
+      expect(
+          readme, contains('--model-label "${stamp['modelVersionLabel']}"'));
+    });
+
+    test('lists every document root the snapshot carries', () {
+      for (final root in model.roots) {
+        expect(readme, contains('| ${root.sectionId} | ${root.title} |'),
+            reason: '${root.sectionId} is missing from the README root table');
+      }
+    });
+  });
 }
