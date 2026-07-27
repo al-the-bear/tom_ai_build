@@ -62,6 +62,7 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | [guidelines_specification.md](guidelines_specification.md) | Authoring D4rt scripts that process a TomSpecs document |
 | [d4rt_and_llm_tools.md](d4rt_and_llm_tools.md) | D4rt scripting and LLM tooling for the editor |
 | [tom_specs_editor_specification.md](tom_specs_editor_specification.md) · [tom_specs_editor_specification_plan.md](tom_specs_editor_specification_plan.md) | The spec-authoring app and its follow-up items |
+| [tom_specs_reviewer_specification.md](tom_specs_reviewer_specification.md) | The object-model review app — the structural-review role, distinct from the editor |
 
 ## CLI tooling
 
