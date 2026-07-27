@@ -1445,9 +1445,9 @@ SolutionBlueprint
    which wraps it.
 2. **Analyzer setup:** `SummaryBasedDartSdk` with an embedded SDK summary bundle
    (no installed SDK required). The `sdk_summary.sum` file (~3 MB) is split into
-   ~50 base64-encoded Dart source files in `lib/src/sdk_summary/`, reassembled at
+   69 base64-encoded Dart source files in `lib/src/sdk_summary/`, reassembled at
    runtime. Model source files are analyzed directly from disk. See
-   `analyzer_wo_sdk.md` for full details.
+   `som_toolchains.md` "Dart host" for full details.
 3. **Annotation reading:** read `@Reference`, `@SectionId`, `@SectionIdPattern`,
    `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`,
    `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`,
@@ -1491,7 +1491,7 @@ class tree from any root), the **validator** (all §5 and §10.2 invariants), th
 generator** (`bin/generate_som.dart`). It runs against an embedded SDK summary,
 so no installed Dart SDK is required. Specs:
 `tom_specs_clitool/README.md`, `som_multiplatform_spec_model.md` (what it emits),
-`spec_object_model_config.md`, `spec_model_meta_schema.md`, `analyzer_wo_sdk.md`.
+`spec_object_model_config.md`, `spec_model_meta_schema.md`, `som_toolchains.md`.
 
 ### 12.2 Reviewer — `tom_specs_reviewer` (`tom_ai/ai_build/`)
 

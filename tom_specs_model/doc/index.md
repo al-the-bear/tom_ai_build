@@ -35,7 +35,7 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | Document | Subject |
 |----------|---------|
 | [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | The SOM authority — why the model is generated into nine languages, the `v0` facade / runtime split, the two file formats, schema generation, the runtime API, and per-language packaging |
-| [som_toolchains.md](som_toolchains.md) | Per-language build and verify toolchains for the nine runtimes |
+| [som_toolchains.md](som_toolchains.md) | Per-language build and verify toolchains for the nine runtimes, and the Dart host requirement — running the analyzer with no installed SDK |
 
 ## File formats
 
@@ -66,7 +66,6 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 |----------|------|
 | [tom_specs_model_rules.md](tom_specs_model_rules.md) §11 | `tom_specs_clitool/bin/outliner.dart` — notation, type expansion, output |
 | [spec_object_model_config.md](spec_object_model_config.md) | `tom_som.yaml` — the SOM generator configuration |
-| [analyzer_wo_sdk.md](analyzer_wo_sdk.md) | Running the Dart analyzer without a full SDK checkout |
 
 ## Generated documentation
 

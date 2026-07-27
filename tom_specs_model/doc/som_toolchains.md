@@ -4,7 +4,10 @@ This document records the per-language toolchains needed to **compile and run**
 the generated Spec Object Model (SOM) artefacts — the generic
 `tom_som_<lang>_runtime` packages and the generated typed `tom_som_<lang>_v0`
 projects — on the build/reference host(s), together with the versions in use and
-how each toolchain is obtained.
+how each toolchain is obtained. It also records the host requirement of the
+tools that *produce* those artefacts: the SOM generator and the other
+analyzer-backed tools run **without an installed Dart SDK** (see "Dart host"
+below).
 
 > **Reference host.** All versions below were captured on **`bomber`**
 > (Linux `x86_64`, Ubuntu 24.04, kernel 6.17). `bomber` is the SOM reference
@@ -18,7 +21,7 @@ how each toolchain is obtained.
 
 | Language | Toolchain | Version on `bomber` | `v0` project exists? | Verified | How obtained |
 | --- | --- | --- | --- | --- | --- |
-| **Dart** | Dart SDK | `3.11.4 (stable)` | **yes** (`tom_som_dart_v0`) | **builds + analyzes clean** | Dart SDK on `PATH` (fleet-managed) |
+| **Dart** | Dart SDK | `3.11.4 (stable)` | **yes** (`tom_som_dart_v0`) | **builds + analyzes clean** | Dart SDK on `PATH` (fleet-managed) — the analyzer-backed tools need none, see "Dart host" |
 | **Python** | CPython | `3.12.3` | **yes** (`tom_som_python_v0`) | **compiles + imports against runtime** | system `python3` (apt, Ubuntu 24.04) |
 | **JavaScript** | Node.js | `22.22.3` (npm `10.9.8`) | **yes** (`tom_som_javascript_v0`) | **builds + runs generated `v0` ✓** (3079 classes load; behavioural + samples pass) | system `node`/`npm` |
 | **TypeScript** | `tsc` (project-local npm) | **pinned `6.0.3`** (Node 22.22.3 / npm 10.9.8) | **yes** (`tom_som_typescript_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | project-local `npm i -D typescript@6.0.3` — followup items 4 + 7 |
@@ -112,6 +115,101 @@ emitter-pending. The historical honest-delivery sequence was:
 > devDependency pinned to `typescript@6.0.3`, verified via the fixture smoke
 > below. With that, **every target language's build path is accounted for** —
 > eight host toolchains plus TypeScript's project-local `tsc`.
+
+## Dart host: the analyzer without an installed SDK
+
+The Dart row above records what a *developer* host needs. The analyzer-backed
+tools have a weaker requirement: **they resolve Dart types, annotations and the
+element model with no Dart SDK installed**, from a pre-serialized summary bundle
+compiled into the binary. That is what lets the SOM generator run on a host that
+carries only, say, a Go toolchain.
+
+Everything that reads `tom_specs_model` through the analyzer goes through one
+entry point — `createAnalysisDriver(packagePath)`, exported from the
+`tom_specs_clitool` barrel: `serialization_order.dart`, the model reader behind
+the outliner / validator / model-JSON exporter, and all nine
+`som_<lang>_generator.dart` files.
+
+### How it is put together
+
+| Piece | Where | Role |
+| --- | --- | --- |
+| Embedded SDK summary | `tom_specs_clitool/lib/src/sdk_summary/` — 69 `chunk_NNN.dart` files plus a `sdk_summary_chunks.dart` barrel | The Dart SDK element model (`dart:core`, `dart:async`, …), base64-encoded and split at 60 000 chars per chunk so it compiles into the binary as ordinary `const` strings. ~3.10 MB raw → ~4.14 MB of base64 |
+| Driver bootstrap | `tom_specs_clitool/lib/src/analyzer_bootstrap.dart` | Reassembles the chunks, builds a `SummaryBasedDartSdk` from the bundle, and wires a `SourceFactory` of `DartUriResolver` + `PackageMapUriResolver` + `ResourceUriResolver` |
+| Summary generator | `tom_specs_clitool/bin/summaries.dart` | Produces `sdk_summary.sum` and the grouped `packages.sum`. `--sdk-only` skips the heavy package bundle |
+| Chunk splitter | `tom_specs_clitool/tool/split_sdk_summary.dart` | Turns a `.sum` file into the chunk set. `tool/build_sdk_summary.dart` is the standalone SDK-summary builder |
+| Shared infrastructure | `tom_analyzer_shared` (`tom_ai/basics/`), constraint `>=0.7.2` | The base-first home of the grouped `packages.sum` builder (`GroupedPackageBundleBuilder`) and the package-config helpers (`readPackageRoots`, `mergePackageRootsForDirs`, `SummaryConfigException`), re-exported from the clitool barrel |
+
+**Only the SDK summary is needed here.** The model's own sources are analyzed
+from disk, and the target package's dependencies resolve through its
+`.dart_tool/package_config.json`, which `analyzer_bootstrap.dart` parses into a
+`PackageMapUriResolver`. The `.sum` bundle supplies type resolution for SDK
+types only — so `tom_specs_clitool` never loads a `packages.sum`.
+
+The analyzer's summary APIs are **internal, not public API**. The dependency is
+pinned at `analyzer: ^10.0.0` and the version must be moved deliberately. The
+`>=0.7.2` floor on `tom_analyzer_shared` is likewise load-bearing: below it the
+summary cache is keyed on the analyzer major alone rather than the Dart SDK
+version (a point-SDK bundle-format drift then crashes the cached `.sum` reader),
+and bundles are not invalidated when a transitive dependency changes version (a
+stale closure silently drops classes).
+
+### Regenerating after an SDK change
+
+The chunk files are checked into version control, so they must be rebuilt
+whenever the Dart SDK version moves:
+
+```bash
+cd tom_ai/ai_build/tom_specs_clitool
+dart run tool/build_sdk_summary.dart assets/sdk_summary.sum
+dart run tool/split_sdk_summary.dart assets/sdk_summary.sum lib/src/sdk_summary/
+```
+
+`bin/summaries.dart` is the fuller front-end — it locates the SDK itself
+(`getSdkPath()`) and can emit both bundles at once:
+
+```bash
+dart run bin/summaries.dart --package . --out-dir assets/summaries   # both bundles
+dart run bin/summaries.dart --sdk-only                               # sdk_summary.sum only
+```
+
+### The `packages.sum` route
+
+`packages.sum` (~31 MB) covers every package reachable from a resolved
+`package_config.json`. It exists for the **other** consumer of this
+infrastructure — `tom_dart_editor`, which analyzes user-entered Dart in the
+editor's code-typed fields where no `package_config.json` is available. It is
+not part of the `tom_specs_clitool` path.
+
+Loading one needs a fallback resolver: the standard `InSummaryUriResolver` only
+resolves URIs explicitly registered in `uriToSummaryPath`, so deserializing a
+package's internal `src/` files fails without one. The implementation is
+`PackageSummaryUriResolver` in
+`tom_forge/tom_dart_editor/lib/src/analyzer_with_packages.dart` — it resolves an
+exact `uriToSummaryPath` hit first, then falls back to the bundle for any URI
+whose package is known.
+
+### Key gotchas
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| `package:` URIs not found | `addBundle()` registers file URIs, not `package:` URIs | Manually register via `uriToSummaryPath[uriStr] = 'packages'` loop |
+| Null check error on deserialization | Internal `src/` files missing from bundle | List files **recursively** with `listSync(recursive: true)` |
+| Unresolved `package:X/src/...` at runtime | Standard resolver doesn't know internal files | Use `PackageSummaryUriResolver` fallback for known packages |
+| SDK path needed | Only for building the summary, not at runtime | Use `Platform.resolvedExecutable` parent to find SDK during build |
+| Base64 overhead | ~33% size increase over raw binary | Acceptable for ~3 MB SDK summary; consider gzip if needed |
+
+### Reference implementation
+
+- `tom_dart_editor`: `tom_forge/tom_dart_editor/` — reference for summary-based analysis
+  - `lib/src/analyzer_with_packages.dart` — summary driver setup
+  - `lib/src/summary_analysis_adapter.dart` — adapter layer
+  - `doc/dart_editor_usage_guide.md` — usage guide
+- `tom_dart_editor_test`: `tom_forge/tom_dart_editor_test/`
+  - `assets/sdk_summary.sum` (~3 MB) — pre-built SDK summary
+  - `assets/packages.sum` (~31 MB) — pre-built packages summary
+  - `tool/build_packages_summary.dart` — build tool
+  - `tool/check_sdk_sum.dart`, `tool/diagnose_packages_sum.dart` — diagnostics tools
 
 ## Packaging build tools (PGK sign-off)
 
