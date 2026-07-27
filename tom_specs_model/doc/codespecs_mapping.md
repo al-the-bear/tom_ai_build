@@ -373,7 +373,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 | **CE-DB** DataAccess | Persistence: entities/tables, columns, repositories, queries (server-only placement; §5.13 three-level attribute surface). | **Built on:** the `tom_core_server` persistence model — CRUD/MariaDB repositories, query builder, persistence annotations. Entities are **plain annotated model classes**; query intents are **pseudo-code** repository methods in the CodeSpecs phase.<br>**Annotations:** `@CsTable('customer')` on the entity, `@CsColumn(…)` per attribute, `@CsRepository` on the repository class.<br>**Example:** `@CsTable('customer') class Customer { @CsColumn(length: 80) late String name; }` | **Aggregation gap (`csex5`)** — `TomOperator` / `TomQuerySentenceCompiler` have **no GROUP BY / SUM / AVG / COUNT / HAVING**; aggregate query specs cannot be realised over the query model and stay `UnsupportedError` pseudo-code until the operator grammar grows aggregation. Matters for **active CE-DB**, not just deferred CE-RP. | `@CsColumn` must express what Dart types cannot: **max length, precision/scale, format restriction, uniqueness, db-nullability** vs Dart-nullability, and the column-level access grade (**authKey**, §5.13); `@CsRepository` the derived-query intent. |
 | **CE-ST** ViewState | Observable client view-model state. | **Built on:** `TomObservable` / `TomObject<T>` / `TomString` / `TomInt` / `TomBool` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel` observable) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). The view-model is a `TomClass` subclass with observable members.<br>**Annotations:** `@CsViewModel`.<br>**Example:** `@CsViewModel class CustomerListState extends TomClass { final customers = TomList<…>(…); }` | None. | Minor — `@CsViewModel` attributes linking state fields to their **source** server call / entity (derivation provenance) where the spec states it. |
 | **CE-NV** Navigation | Routes + **screen flow**: screen↔form assignment as *replace* / *popup overlay*; action-triggered, conditional targets. | **Built on:** `TomPageRoute<T>` + `TomNavigationDestination`/Rail/Bar/Drawer (`tom_flutter_ui`) for shell chrome. The route registry is a **plain annotated constants class**.<br>**Annotations:** `@CsRoute('customer/edit')` per route; `@CsScreenFlow` on flow declarations (not yet authored, `csra1`).<br>**Example:** `@CsRoute('customer/edit') static const customerEdit = CsRouteRef('customer/edit');` | **Gap** — no **route-id registry / screen-flow model** class in core; the concrete flow-model class lands in `tom_core_codespecs` (§5.11); the SOM screen-flow section is `csra5`. | `@CsScreenFlow` must carry the **transition kind** (*replace* vs *popup overlay*), the trigger (`CsActionRef`) and conditional-target expressions; `CsRouteRef` typed refs (§5.23) not yet authored. |
-| **CE-AZ** Authorization | Access control on operations/resources; presets (`TomNoAccess` / `TomPublicAccess` / `TomAuthenticatedAccess` / `TomGuestAccess`) + **six configurable kinds**. | **Built on:** the `TomAccessControl` family (`tom_core_kernel`, `tombase/security/access_controls.dart`) — `TomRoleAccess`, `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`, `TomCustomAccess`, `TomGradedAccess` — evaluated via `checkAccessibility(TomPrincipal?)` + `resolveAuthState` against `TomPrincipal`.<br>**Annotations:** applied as the `@CsAuthorize` **modifier** on the owning `@CsEndpoint` (annotation-only form — no class of its own).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(kind: role, key: 'sales')` | Substrate ready, but **two evaluation gaps (`csex4`)**: no ambient **server principal** (server-as-principal for server-initiated operations) and no **`min(user, server)`** two-operand meet in access evaluation. **Naming drift:** §5.6.3/§5.15/§5.26 say `checkAccess`; the shipped API is `checkAccessibility` — fix the document, not the API (owned by `csex4`). | `@CsAuthorize` needs `CsRoleRef` / `CsResourceKeyRef` typed refs (§5.23, not yet authored) instead of raw strings; per-field **graded-access levels** (CE-EL / CE-DB grades) are annotation-only detail. |
+| **CE-AZ** Authorization | Access control on operations/resources; presets (`TomNoAccess` / `TomPublicAccess` / `TomAuthenticatedAccess` / `TomGuestAccess`) + **six configurable kinds**. | **Built on:** the `TomAccessControl` family (`tom_core_kernel`, `tombase/security/access_controls.dart`) — `TomRoleAccess`, `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`, `TomCustomAccess`, `TomGradedAccess` — evaluated via `checkAccessibility(TomPrincipal?)` + `resolveAuthState` against `TomPrincipal`.<br>**Annotations:** applied as the `@CsAuthorize` **modifier** on the owning `@CsEndpoint` (annotation-only form — no class of its own).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(kind: role, key: 'sales')` | None — `TomServerPrincipal` holds the ambient server principal and both evaluation entry points apply the `min(user, server)` meet (§5.26). | `@CsAuthorize` needs `CsRoleRef` / `CsResourceKeyRef` typed refs (§5.23, not yet authored) instead of raw strings; per-field **graded-access levels** (CE-EL / CE-DB grades) are annotation-only detail. |
 | **CE-ER** ErrorResult | The shared error/result envelope + the error-code catalogue. | **Built on:** `TomResult<T>` / `TomErrorResult` / `TomFieldError` / `TomErrorSeverity` (`tom_core_kernel`, `tombase/result/result.dart`). The error catalogue is a **plain annotated constants class** in the shared project; texts keyed via CE-TX.<br>**Annotations:** `@CsError` per code.<br>**Example:** `@CsError(severity: error) static const custNotFound = CsErrorCode('CUST-404');` | None. | `CsErrorCode` (§5.23) not yet authored; `@CsError` attributes for **severity**, **message key**, and which operations raise the code. |
 | **CE-CF** ServerConfiguration | Server/system-scope configuration; precedence config-tree → env → `.env` → cmdline; secret marking. | **Built on:** subclass of `TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`). A **plain typed config class**; config keys stay strings (§5.23 exemption).<br>**Annotations:** `@CsServerConfig` on the class; per-field attributes.<br>**Example:** `@CsServerConfig class AppServerConfig extends TomBaseServerConfiguration { @CsSecret late String smtpPassword; }` *(secret-marking attribute shape per §5.16)* | None. | Per-field annotations for **secret marking**, **default value**, **format restriction** and **allowed range** — spec detail beyond a Dart field declaration. (`csex10` touches this: SMTP credentials as secret-marked CE-CF fields once CE-NT promotes.) |
 | **CE-CC** ClientConfiguration | Client-app + machine scope (no user); single-moded per §11. | **Built on:** the `TomProperty<T>` family (`tom_core_flutter`, `tomclient/resources/tom_properties.dart`) + `TomConfigResourceProvider` (`tom_core_kernel`).<br>**Annotations:** `@CsClientConfig` on the holder class; per-field constraint attributes.<br>**Example:** `@CsClientConfig class AppClientConfig { final serverUrl = TomProperty<String>(…); }` | **Candidate gap** — a dedicated **client-settings holder** class (aggregating `TomProperty` fields with load/persist) is not present; the confirm/reject decision is owned by `csex12` (outcomes: already expressible / holder in `tom_core_flutter` / `tom_core_codespecs` gap class). | Same per-field constraint attributes as CE-CF (defaults, formats, ranges). |
@@ -392,11 +392,11 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 **Readiness classification** (derived from the gap columns):
 
 - **READY — pure reuse, no core gap:** CE-FM, CE-VA, CE-AC, CE-SC, CE-API,
-  CE-SU, CE-ST, CE-ER, CE-CF, CE-DS, CE-ID.
+  CE-SU, CE-ST, CE-ER, CE-CF, CE-DS, CE-ID, CE-AZ.
 - **NEEDS-EXTENSION — substrate exists, a capability is missing:** CE-DB
-  (aggregation, `csex5`), CE-AZ (server principal + `min` meet, `csex4`), CE-AU
-  (2FA second pass, `csex3`), CE-MG (schema-diff convergence, `csex6`), CE-EL
-  (three uncarried per-kind attributes, `csexb1` — §4.1.2).
+  (aggregation, `csex5`), CE-AU (2FA second pass, `csex3`), CE-MG (schema-diff
+  convergence, `csex6`), CE-EL (three uncarried per-kind attributes, `csexb1` —
+  §4.1.2).
 - **MISSING — concrete gap class in `tom_core_codespecs`:** CE-LO (node model;
   plus the `csexb2` container-kind reconciliation), CE-TX (message-key
   registry), CE-NV (route registry + screen flow), CE-UP (settings holder +
@@ -406,9 +406,8 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 - **Deferred:** CE-RP (`csex5`/`csex11`), CE-NT (`csex10`), CE-LG (`csex9`),
   CE-WF (substrate survey/recommendation owned by `csex13`).
 - **Naming discrepancies:** resolved and tabulated in **§4.1.2**; all are
-  document defects, none needs a framework change. The only one still open is
-  `checkAccess` (§5.6.3, §5.15, §5.26) → `checkAccessibility` +
-  `resolveAuthState` on `TomAccessControl`, whose doc fix is owned by `csex4`.
+  document defects, none needed a framework change, and all are now corrected
+  at their cited locations.
 
 These classifications are sequenced along the **generation slices** of §4.4,
 which fixes the slice order, the per-slice readiness gate and the blocking mode
@@ -443,11 +442,10 @@ they re-export**, and these three names are conformant, not drift. What they are
 `tom_crypto` and must be scoped there.
 
 **Naming discrepancies — document name → real API.** Each is a documentation
-defect (the shipped API is correct); none requires a framework change. All but
-the last row are **already corrected at the cited locations** — this table is
-the audit record of what the name used to be, kept so a reader of older
-generated output can trace it. The `checkAccess` row is the one still open: its
-fix is owned by `csex4`, and duplicating it here would give it two owners.
+defect (the shipped API is correct); none requires a framework change. All rows
+are **already corrected at the cited locations** — this table is the audit
+record of what the name used to be, kept so a reader of older generated output
+can trace it.
 
 | Document location | Document name | Real API | Note |
 |-------------------|---------------|----------|------|
@@ -456,7 +454,7 @@ fix is owned by `csex4`, and duplicating it here would give it two owners.
 | §5.18 catalogue, §5.7.1 widget table | `TomButton` | `TomButtonBase` (`widget_base/tom_family_base.dart:35`) + the concrete variants (`TomElevatedButton`, `TomFilledButton`, `TomTextButton`, `TomOutlinedButton`, `TomIconButton`, …) and the `variant` tokens in `TomButtonVariants` (`theme/tom_style_variants.dart:17`) | There is no single `TomButton`; Button's `variant` per-kind attribute selects the concrete class. |
 | §5.18 field-base table | `TomField.initialValue` | Constructor-positional `_initialValue` (`forms/tom_form.dart:596`) — **no public getter** | The attribute is authorable, but the framework exposes no read-back. |
 | §5.18 TextInput per-kind row | `obscured` | `TomTextField.obscureText` (`widgets/inputs/tom_inputs.dart:29`) | Plain rename. |
-| §5.6.3, §5.15 (l. 1473), §5.26 | `checkAccess` | `TomAccessControl.checkAccessibility(TomPrincipal?)` + `resolveAuthState` | Already recorded; the doc fix is owned by `csex4`. |
+| §5.26 | `checkAccess` | `TomAccessControl.checkAccessibility(TomPrincipal?)` + `resolveAuthState` | The name is **not** drift everywhere it appears: `TomEndpointHandler.checkAccess` (`tom_core_server`, `endpoint_pipeline.dart`) is a genuine, distinct pipeline method, and §5.6.3 / §5.15 refer to it correctly. §5.26 alone used it for the kernel evaluation. |
 
 **Closed-catalogue verification.** The four closed catalogues are checked
 entry-by-entry against the real member surface — a closed catalogue is
@@ -475,8 +473,7 @@ enforceable only if every entry has a carrier.
   `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`,
   `TomCustomAccess`, `TomGradedAccess` all exist in
   `tombase/security/access_controls.dart` at the line numbers §5.15 already
-  cites, as do the four presets. Only the `checkAccess` naming drift remains
-  (`csex4`).
+  cites, as do the four presets. No drift remains.
 - **§5.22 CE-LO — id addressing carried, container kinds not.** The 5-op delta
   grammar needs stable node ids, and the ACL substrate has **native string
   id-addressing**: `AclComponent.id` (l. 174), `AclRow.id` (l. 290),
@@ -722,7 +719,7 @@ therefore classified:
 | **1** | Shared const catalogues | CE-ER, CE-TX (message-key registry model); CE-AZ catalogues | **E** | `csra6` (`CsErrorCode` / `CsMessageKey` / `CsRoleRef` / `CsResourceKeyRef` unimplemented) · `csra2` (CE-TX registry model class) |
 | **2** | Shared contract | CE-API, CE-VA, CE-ID | **E** | `csra6` (`CsOperationRef`) · `csra1` (`@CsFieldRule` / `@CsFormRule`, `@CsIdentity` / `@CsIdentityAttribute` unauthored) |
 | **3** | Server persistence & configuration | CE-DB (aggregation) · CE-MG (schema-diff; `@CsMigration` unauthored) | **R** · **V** + **E** | `csex5` (aggregation grammar) · `csex6` (schema-diff engine) · `csra1` (`@CsMigration`) |
-| **4** | Server behaviour | CE-AZ (server principal + `min` meet) · CE-AU (2FA second pass) · CE-SU (`CsServiceUnitRef`) | **R** · **R** · **E** | `csex4` · `csex3` · `csra6` |
+| **4** | Server behaviour | CE-AU (2FA second pass) · CE-SU (`CsServiceUnitRef`) | **R** · **E** | `csex3` · `csra6` |
 | **5** | Client interaction core | CE-NV (route registry + screen-flow model) · CE-EL (uncarried per-kind attributes) · CE-SC/CE-AC/CE-FM ref types | **E** · **E(lossy)** · **E** | `csra2` (flow-model class) · `csra5` (screen-flow SOM home) · `csexb1` · `csra1` (`@CsScreenFlow`) · `csra6` (`CsRouteRef` / `CsCallRef` / `CsActionRef`) |
 | **6** | Client presentation & shell | CE-LO (node model + ACL container-kind reconciliation) · CE-CL (descriptor) · CE-UP (holder) · CE-CC (holder decision) · CE-DS (`@CsDeviceSetting`) | **E** | `csra2` (node model, descriptor, settings holder) · `csexb2` (ACL substrate) · `csex12` (CE-CC confirm/reject) · `csra1` (`@CsDeviceSetting`) |
 | **7** | Server operational | CE-JB (job base class; scheduler runtime; multi-node lease) · CE-UP (server persistence) | **E** · **R** | `csra2` (job base class, settings persistence) · `csex7` / `csex8` (scheduler, single-fire) · `csra1` (`@CsJob`) |
@@ -737,8 +734,8 @@ one. `tom_core` becomes emission-critical only at slices 5–7, and even there t
 larger share is `csra2` gap classes, with `csexb1`, `csexb2`, `csex12`, `csex7`
 and `csex8` beside them. The implied framework sequence: typed refs and
 annotations first (`csra6`, `csra1`), gap classes second (`csra2`, `csexb2`,
-`csex12`), runtime capabilities third (`csex4`, `csex3`, `csex5`, `csex7`,
-`csex8`), verification last (`csex6`).
+`csex12`), runtime capabilities third (`csex3`, `csex5`, `csex7`, `csex8`),
+verification last (`csex6`).
 
 #### 4.4.5 What the reference directions corrected
 
@@ -1765,9 +1762,12 @@ active, not *what* any single requirement demands.
 **Framework-internal (not spec input).** `TomPrincipal` (~20 runtime identity fields),
 `TomAccessControlInformation` collections, `TomResourceRoleRegistry` /
 `TomPrincipalResourceGrant` persistence, `TomResourceGrant` /
-`TomGradedAccessControlInformation` server-side grants + delegation, and the
-`checkAccessibility` / `resolveAuthState` / `checkAccess` methods — these are the
-runtime that *evaluates* a requirement, never authored per operation.
+`TomGradedAccessControlInformation` server-side grants + delegation, the
+`TomAccessControl.checkAccessibility` / `resolveAuthState` evaluation entry
+points and the `TomEndpointHandler.checkAccess` pipeline hook that calls them
+(three distinct methods — the first two are the kernel's, the third the
+server's) — these are the runtime that *evaluates* a requirement, never
+authored per operation.
 
 **Boundaries drawn.**
 - **CE-AZ ↔ CE-AU.** CE-AZ is *what a caller must satisfy* (a requirement over the
@@ -2599,11 +2599,23 @@ service-credential reference — is a pair of CE-CF values, secret-marked per
 auth server ↔ `tom_sqm` (subscription/quota) boundary — named here as the
 owning system pair; its contract is out of CodeSpecs scope.
 
-**Framework locus (roadmap).** Server self-login, the ambient server
-principal, and the intersection evaluation inside `checkAccess` are `tom_core`
-runtime work — current framework roadmap, **not** a CodeSpecs gap: nothing
-here is spec-authored beyond the two CE-CF wiring values and the ordinary
-CE-AZ requirements that the meet applies to.
+**Framework locus (shipped).** Server self-login, the ambient server principal
+and the meet are `tom_core` runtime work and are **implemented**:
+`TomServerSelfLogin` / `TomServiceCredential` (`tom_core_server`,
+`tomserver/authentication/server_self_login.dart`) log the deployment in
+before `TomServer` binds its socket; `TomServerPrincipal` (`tom_core_kernel`,
+`tombase/security/access_controls.dart`) is the ambient holder; and the meet
+runs inside `TomAccessControl.checkAccessibility` / `resolveAuthState`, which
+are `@nonVirtual` entry points delegating to the `resolvePrincipalAuthState` /
+`resolveServerAuthState` hooks — so a subclass cannot bypass the cap. None of
+this is a CodeSpecs gap: nothing here is spec-authored beyond the two CE-CF
+wiring values and the ordinary CE-AZ requirements that the meet applies to.
+
+**Degradation.** A deployment that configures no service credential installs
+no server principal, and evaluation returns the user's grant untouched —
+existing deployments are behaviourally unchanged. Note the asymmetry: *no*
+server principal means *no cap*, whereas a server principal with an **empty**
+entitlement set is entitled to nothing and denies everything.
 
 ### 5.27 CE-MG schema-migration artifacts over the `tom_core_server` migration engine
 
