@@ -227,7 +227,7 @@ void main() {
     });
 
     test('a stored item section id IS surfaced in the item heading '
-        '(YRD3, superseding DRC5 — som_mapping.md §8.5)', () {
+        '(YRD3, superseding DRC5 — som_multiplatform_spec_model.md §11.5)', () {
       final doc = SpecDocument();
       final item = doc.addListItem('D00/D00-ITM', sectionId: 'D01-CUSTOM');
       doc.setContent('$item/D01-LBL', 'Custom-id item');
@@ -513,7 +513,7 @@ void main() {
   // heading and round-trip. The DR3 schema's `pattern-check-id` compiles
   // `@SectionIdPattern xxx` to `.+` (a STEM check, not a numbering check), so
   // a facade-authored document with generated ids exports to md that validates
-  // cleanly against its own schema (som_mapping.md §8.5, §10).
+  // cleanly against its own schema (som_multiplatform_spec_model.md §11.5, §13).
   group('YRD3 — AA1 generated ids export to schema-valid md', () {
     // A minimal document root whose only content is a patterned list, mirroring
     // the DR3 `goals` → `goal-item` structure the validator fixtures use.

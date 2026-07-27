@@ -497,12 +497,12 @@ The build is driven by the **`buildkit`** tool (N8), which can run **all** build
 `tom_specs_reviewer` consumes the **generic** meta-model access classes
 (`SpecModel` / `SpecRoot` / `SpecClass` / `SpecField` / `FormFieldSpec` /
 `SpecFieldKind`) from the official `tom_som_dart_runtime` package — see
-`multiplatform_spec_model.md` §7 *The fixed (non-generated) runtime* — rather
+`som_multiplatform_spec_model.md` §7 *The fixed (non-generated) runtime* — rather
 than an in-tree copy, plus `tom_specs_core` for the canonical `CodeSpecPart`
 vocabulary it proposes mappings from. Only the **generic** path is consumed:
 the typed `_v0` object model (`SolutionBlueprint` over a `SpecDocument`) is a
 later adoption, taken up when the reviewer grows document *editing*.
-`multiplatform_spec_model.md` §10 *Relationship to the editor* is the authority
+`som_multiplatform_spec_model.md` §10 *Relationship to the editor* is the authority
 for this arrangement.
 
 ---

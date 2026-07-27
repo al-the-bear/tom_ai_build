@@ -47,4 +47,4 @@ The generated YAML stamps `modelVersion: "1.0"` — the real `tom_som_dart_v0`
 facade version. The facade derives it from the model's own version stamp rather
 than from the `_vN` project-naming suffix, so the sample carries the version it
 will actually be read back at. See "Convenience and correctness features" in
-`tom_specs_model/doc/multiplatform_spec_model.md`.
+`tom_specs_model/doc/som_multiplatform_spec_model.md`.

@@ -229,7 +229,7 @@ def test_export_stored_item_id() -> None:
     item = doc.add_list_item("D00/D00-ITM", section_id="D01-CUSTOM")
     doc.set_content(f"{item}/D01-LBL", "Custom-id item")
     md = _export(doc)
-    # YRD3 (superseding DRC5 — som_mapping.md §8.5): the stored id
+    # som_multiplatform_spec_model.md §11.5: the stored id
     # (`D01-CUSTOM` — an override, or equally an AA1 generated id) is the md
     # heading id; the anonymous positional id is only the fallback for items
     # WITHOUT a stored id.

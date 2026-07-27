@@ -1,5 +1,5 @@
 /// Lexical/structural query + lazy cursor over a live [SpecDocument]
-/// (`d4rt_and_llm_tools.md` §6, `multiplatform_spec_model.md` §3.2 obligation 2).
+/// (`d4rt_and_llm_tools.md` §6, `som_multiplatform_spec_model.md` §15).
 ///
 /// This is the **grep-like** facility the downstream D4rt scripting layer and the
 /// editor's search tools reuse. It is **embedding-free** — exact substring/regex

@@ -16,8 +16,8 @@ generated id or a criterion-5 override), else the anonymous positional id — th
 ``@SectionIdPattern`` resolved with the 1-based position (``GOAL-ITEM-xxx`` →
 ``GOAL-ITEM-1``), else ``<member>-<pos>`` for a pattern-less list. The container
 carries no content of its own. On parse, anonymous positional ids recover list
-membership and order from position; stored ids are kept as stored ids (YRD3,
-superseding DRC5's yaml-only rule — see som_mapping.md §8.5).
+membership and order from position; stored ids are kept as stored ids
+(``som_multiplatform_spec_model.md`` §11.5).
 Id-less members are **transparent** (mirroring the DR3 schema generator):
 a transparent value member's text or form block is the owner's body region,
 emitted without a heading and bound at its own path; a transparent

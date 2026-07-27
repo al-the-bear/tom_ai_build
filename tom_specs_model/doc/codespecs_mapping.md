@@ -2776,7 +2776,7 @@ location(s) a concrete section maps to.
 
 - **Type:** `List<String>` — the `codeSpec` member of `DocSpecsSection`.
 - **Serialization:** the section id lives in **square brackets inside the headline
-  HTML comment**, `<!--[id]-->` (som_mapping.md §8.2). The `codeSpec` list rides in
+  HTML comment**, `<!--[id]-->` (`som_multiplatform_spec_model.md` §11.2). The `codeSpec` list rides in
   that **same comment as one comma-separated, quoted `key=value` field** alongside
   the bracketed id (the tom_doc_scanner parser already extracts the bracketed id
   into `explicitId` and remaining `key=value` pairs into a generic `fields` map —

@@ -17,7 +17,7 @@ fast RAG memory that re-indexes after every prompt without extra LLM calls.
 **Related specs:**
 [`tom_specs_editor_specification.md`](tom_specs_editor_specification.md) (the
 editor; §8 tool surface, §7 agent integration),
-[`multiplatform_spec_model.md`](multiplatform_spec_model.md) (the
+[`som_multiplatform_spec_model.md`](som_multiplatform_spec_model.md) (the
 `tom_som` document access API this scripting layer exposes),
 [`guidelines_specification.md`](guidelines_specification.md) (the agent
 guidelines this layer briefs the model with, §11).
@@ -30,7 +30,7 @@ guidelines this layer briefs the model with, §11).
 | --- | --- | --- |
 | a | LLM tools to **author** D4rt scripts | §8.1 |
 | b | LLM tools to **run** D4rt scripts and capture their output | §8.1 |
-| c | Scripting API = **complete document access** via the same methods the tools use (one change log), fine-grained traversal of the **document and the object model**, node creation **limited to what the object model allows** — i.e. the full `tom_som` Dart document API (`multiplatform_spec_model.md`) made available to D4rt | §5 |
+| c | Scripting API = **complete document access** via the same methods the tools use (one change log), fine-grained traversal of the **document and the object model**, node creation **limited to what the object model allows** — i.e. the full `tom_som` Dart document API (`som_multiplatform_spec_model.md`) made available to D4rt | §5 |
 | d | **grep-like** access — find sections by text / type / id and **iterate** over the results | §6 |
 | e | A **`guidelines_specification.md`** for the agent: scripting + the situation of being a TomSpecs editor agent; per-application context selects guidelines, tools, and scripting APIs | §11 |
 | f | **File access via `dcli`** through a **facade** that limits it: read-only anywhere, write only to a few whitelisted directories in the spec workspace | §7 |
@@ -48,7 +48,7 @@ guidelines this layer briefs the model with, §11).
 | --- | --- | --- |
 | `tom_specs_editor` `SpecDocument` + `SpecDocumentController` (`tom_forge/tom_specs_editor/lib/src/document/`) | The path-keyed in-memory document and the **single mutation authority** that the 13 MCP tools already route through; emits the change log + undo snapshots. | **Authority for all mutation.** D4rt and every new tool mutate *only* through this controller (req c). |
 | `SpecModel` / `spec_model.json` (`…/structure/spec_model.dart`) | The resolved object-model graph (classes, fields, kinds, `@SectionId`, `@MapsTo`/`@DetailedIn`). | The **meta-model** for object-model traversal and for constraining node creation (req c). |
-| `tom_som` plan (`multiplatform_spec_model*.md`) | A pure-Dart **generic runtime** (`tom_som_dart_runtime`: memory representation + reflection classes) + typed **`tom_som_dart_v0`** facade. The "complete Dart document access API" req c names. | **The API D4rt exposes.** This spec adds three obligations to the `tom_som` spec (§13.1): D4rt-bridgeability, a query/grep facility, and constrained node creation. |
+| `tom_som` plan (`som_multiplatform_spec_model*.md`) | A pure-Dart **generic runtime** (`tom_som_dart_runtime`: memory representation + reflection classes) + typed **`tom_som_dart_v0`** facade. The "complete Dart document access API" req c names. | **The API D4rt exposes.** This spec adds three obligations to the `tom_som` spec (§13.1): D4rt-bridgeability, a query/grep facility, and constrained node creation. |
 | `tom_d4rt` (`tom_ai/d4rt/tom_d4rt`) | `D4rt.execute(source)` (auto-awaits `main()`), per-instance bridged-library registry, a filesystem/process **permission system**, `tom_d4rt_generator` auto-bridging from annotations. | **The interpreter + scoping mechanism.** Scopes = distinct bridged-library sets + grants (req j). |
 | `tom_d4rt_dcli` (`tom_ai/d4rt/tom_d4rt_dcli`) | `dcli` bridged into D4rt (read/write/find/copy/move/delete). | **Wrapped, never exposed raw.** A facade gates it to read-anywhere / write-whitelist (req f). |
 | `tom_brain_memory` (`tom_assistant/tom_brain_memory`) | Property-graph + vector store; `recall()` over **BM25 / Vector / Symbolic / GraphWalk** with RRF fusion + MMR; per-model vector tables; `Scope` namespaces; SQLite persistence. **Now embeddable** — bundles the `vec0` binary automatically, exposes an embedding API, and provides **profiles / named sessions / named memory**. | **Design *and* package reused.** Tom Brain is now Flutter-embeddable: no server-only packaging and no separate `vec0` provisioning. The engine plane runs `SqliteTomBrainMemory` **in-process** with the bundled `vec0` (profile = document), behind the engine's thin `MemoryScope`/`SpecMemory` façade (§9, §10). Embedding stays injectable (a `SpecEmbedder`) so the per-prompt path pays no chat-model cost. |
@@ -135,7 +135,7 @@ new application profile is data, not code.
 ## 5. The document scripting API (req c)
 
 The `spec` scope exposes the **complete `tom_som` Dart document API** — the same
-one `multiplatform_spec_model.md` specifies — bridged into D4rt via
+one `som_multiplatform_spec_model.md` specifies — bridged into D4rt via
 `tom_d4rt_generator` (annotation-driven, §13.1). It has three layers, all bound
 to the **live `SpecDocumentController`**, so a script mutation is identical to an
 MCP-tool mutation and produces the **same change-log entry + undo snapshot**.
@@ -526,7 +526,7 @@ authoritative in the editor plane with no IPC.
 
 ## 13. Cross-document relationships
 
-### 13.1 What `multiplatform_spec_model.md` provides
+### 13.1 What `som_multiplatform_spec_model.md` provides
 
 The `tom_som` API satisfies three obligations this scripting layer depends on:
 

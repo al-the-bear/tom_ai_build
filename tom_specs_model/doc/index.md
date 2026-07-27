@@ -17,7 +17,7 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | Document | Read it when you need |
 |----------|-----------------------|
 | [tom_specs_model_rules.md](tom_specs_model_rules.md) | **The model-authoring authority.** How to write a class in `tom_specs_model` — layout, member shapes, field classification, form decomposition, section identity, headlines, the annotation vocabulary, structural invariants, and the outliner. |
-| [som_mapping.md](som_mapping.md) | **The mapping authority.** How the `tom_specs_model` classes map outwards — the metadata tree, the generated SOM surfaces, md + yaml serialization, schema generation, the embedded validator. |
+| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | **The SOM authority.** How the `tom_specs_model` classes map outwards — the nine-language generation, the metadata tree, the generated SOM surfaces, md + yaml serialization, schema generation, the embedded validator, and packaging. |
 | [tom_specs_project_flow.md](tom_specs_project_flow.md) | **The process authority.** The eight phases from project idea to production, their inputs/outputs, quality gates, roles, iteration rules and upgrade cycles. |
 | [codespecs_mapping.md](codespecs_mapping.md) | **The CodeSpecs authority.** The `Cs*` annotation family, the parts catalogue, per-part attribute surfaces, the `tom_core`-family basis, and the bidirectional DocSpecs↔CodeSpecs link. |
 
@@ -28,21 +28,20 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | Document | Subject |
 |----------|---------|
 | [tom_specs_model_rules.md](tom_specs_model_rules.md) | The model-authoring authority (see above) — includes field classification (§6.1), form decomposition (§6.2) and the outliner (§11) |
-| [som_mapping.md](som_mapping.md) | The mapping authority (see above) |
+| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | The SOM authority (see above) — how the authored model becomes generated code and bytes |
 
 ## Multi-language access API
 
 | Document | Subject |
 |----------|---------|
-| [multiplatform_spec_model.md](multiplatform_spec_model.md) | Why the SOM is generated into nine languages; the `v0` facade / runtime split |
-| [som_language_packaging_plan.md](som_language_packaging_plan.md) · [som_language_packaging_plan_decisions.md](som_language_packaging_plan_decisions.md) | Making each language library easy to integrate downstream |
+| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | The SOM authority — why the model is generated into nine languages, the `v0` facade / runtime split, the two file formats, schema generation, the runtime API, and per-language packaging |
 | [som_toolchains.md](som_toolchains.md) | Per-language build and verify toolchains for the nine runtimes |
 
 ## File formats
 
 | Document | Subject |
 |----------|---------|
-| [som_mapping.md](som_mapping.md) | Normative md + yaml serialization of every construct |
+| [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | Normative md (§11) + yaml (§12) serialization of every construct, and schema generation (§13) |
 | [spec_model_meta_schema.md](spec_model_meta_schema.md) | Schema of the generated `spec_model.meta.json` |
 
 ## CodeSpecs

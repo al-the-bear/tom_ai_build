@@ -2,7 +2,7 @@
 
 The SOM (specification object model) generator reads a single top-level
 `tom-spec-object-model` block out of `tom_specs_clitool`'s YAML config. The
-parser ([`SpecObjectModelConfig`](../lib/src/spec_object_model_config.dart))
+parser ([`SpecObjectModelConfig`](../../tom_specs_clitool/lib/src/spec_object_model_config.dart))
 turns that block into a typed config: which languages to generate, where each
 generated `tom_som_<slug>_<label>` project lands, the version label, and which
 document roots to generate.

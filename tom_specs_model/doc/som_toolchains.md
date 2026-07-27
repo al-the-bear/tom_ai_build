@@ -104,18 +104,14 @@ emitter-pending. The historical honest-delivery sequence was:
    (followup item 4). TypeScript stays a project-local devDependency that lands
    with the TS `v0` project, not a host toolchain — so no host gaps remain.
 
-> **Update (followup items 1, 2, 3, 4).** The **Java** compiler
-> (`openjdk-21-jdk-headless`, `javac 21.0.11`), the **Rust** toolchain
-> (`rustup` stable, `rustc`/`cargo` `1.96.0`), and the **Go** toolchain
-> (official tarball, `go 1.26.4`) have all since been installed on `bomber` ahead
-> of their `v0` projects, per follow-up items 1–3 of
-> `multiplatform_spec_model_followup.md`. This deliberately moves ahead of the
-> D25 "install only when there is code to build" posture for those languages;
-> see `multiplatform_spec_model_decisions.md`. **TypeScript** (followup item 4) is
-> the one toolchain that is intentionally **not** a host install: its `tsc` is a
-> project-local devDependency pinned to `typescript@6.0.3`, verified via the
-> fixture smoke below. With that, **every target language's build path is
-> accounted for** — eight host toolchains plus TypeScript's project-local `tsc`.
+> **Host-install posture.** The **Java** compiler (`openjdk-21-jdk-headless`,
+> `javac 21.0.11`), the **Rust** toolchain (`rustup` stable, `rustc`/`cargo`
+> `1.96.0`), and the **Go** toolchain (official tarball, `go 1.26.4`) are
+> installed on `bomber` as host toolchains. **TypeScript** is the one toolchain
+> that is intentionally **not** a host install: its `tsc` is a project-local
+> devDependency pinned to `typescript@6.0.3`, verified via the fixture smoke
+> below. With that, **every target language's build path is accounted for** —
+> eight host toolchains plus TypeScript's project-local `tsc`.
 
 ## Packaging build tools (PGK sign-off)
 

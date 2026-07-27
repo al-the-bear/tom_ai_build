@@ -11,7 +11,7 @@ any supported language from this file alone. It covers the config structure,
 how to run the generators, what is produced, how the generated code is used, and
 the versioning rules. Deeper references are linked inline.
 
-- Architecture & rationale: [`multiplatform_spec_model.md`](../tom_specs_model/doc/multiplatform_spec_model.md)
+- Architecture & rationale: [`som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
   (the quest spec; section numbers below, e.g. *§2.2*, refer to it).
 - Config grammar in full: [`../tom_specs_model/doc/spec_object_model_config.md`](../tom_specs_model/doc/spec_object_model_config.md).
 - Toolchain inventory per language: [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md).
@@ -321,5 +321,5 @@ three access paths visibly converge across every language.
 
 The per-language project layout and emitter conventions this table reports on
 are specified in
-[`multiplatform_spec_model.md`](../tom_specs_model/doc/multiplatform_spec_model.md)
+[`som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
 §3 and §8.

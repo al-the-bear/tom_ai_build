@@ -37,10 +37,10 @@ the upgrade cycle.
 **Out of scope:**
 
 - The **structure of the specification object model** — that is
-  [`tom_specs_model/doc/som_mapping.md`](../../../tom_ai/ai_build/tom_specs_model/doc/som_mapping.md),
-  the single mapping authority.
+  [`tom_specs_model/doc/som_multiplatform_spec_model.md`](som_multiplatform_spec_model.md),
+  the SOM authority.
 - The **DocSpecs document format** itself — see
-  [`doc_specs_specification.md`](../doc_specs/doc_specs_specification.md).
+  [`doc_specs_specification.md`](../../../../_ai/quests/doc_specs/doc_specs_specification.md).
 - The **CodeSpecs annotation framework and part catalogue** — see
   [`codespecs_mapping.md`](codespecs_mapping.md).
 - **Language-level coding standards** — see `_copilot_guidelines/dart/`.
@@ -188,8 +188,8 @@ The mapping is not editorial — it is encoded in the object model with
 `@MapsTo` (SBP section → target document) and `@DetailedIn` (which target
 document elaborates a given SBP subtree), and is enforced structurally by the
 model validator. See
-[`som_mapping.md`](../../../tom_ai/ai_build/tom_specs_model/doc/som_mapping.md)
-§8.6.
+[`tom_specs_model_rules.md`](tom_specs_model_rules.md)
+§10.2.
 
 **Consequence for the process:** Phase 3 is not "write twelve documents from
 scratch". It is "expand each mapped SBP region to specification depth", which is
@@ -1376,7 +1376,7 @@ are worked through a lightweight per-issue sequence. This is **not** a phase
 gate; it is a checklist that agents execute automatically for every issue.
 
 The general workflow is the workspace-wide one in
-[`_copilot_guidelines/issue_implementation.md`](/_copilot_guidelines/issue_implementation.md).
+[`_copilot_guidelines/issue_implementation.md`](../../../../_copilot_guidelines/issue_implementation.md).
 What follows is how it plugs into the TomSpecs flow and what is checked at each
 step.
 
@@ -1668,7 +1668,7 @@ are specified elsewhere; that is the division of labour.
 | Document | Authority for |
 |----------|---------------|
 | `tom_specs_model_rules.md` | The model-authoring authority: object-model layout, field shapes, field classification, form decomposition, section IDs, headlines, annotations, structural invariants, and the outliner tool (§11) |
-| `som_mapping.md` | The mapping authority: the metadata tree, the generated SOM surfaces, markdown and YAML serialization, schema generation, the embedded validator |
+| `som_multiplatform_spec_model.md` | The SOM authority: the nine-language generation, the metadata tree, the generated SOM surfaces, markdown and YAML serialization, schema generation, the embedded validator, and packaging |
 | `_ai/quests/doc_specs/doc_specs_specification.md` | The DocSpecs format itself: schemas, section types, validation |
 
 ### PF-REF-CSP CodeSpecs Mechanics

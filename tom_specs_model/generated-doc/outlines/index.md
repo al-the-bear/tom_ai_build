@@ -66,4 +66,4 @@ dart run bin/outliner.dart --package ../tom_specs_model --root-type D00SolutionB
 |------|---------|
 | [../../doc/index.md](../../doc/index.md) | Catalogue of all hand-written TomSpecs documentation |
 | [../../doc/tom_specs_model_rules.md](../../doc/tom_specs_model_rules.md) | The model-authoring authority — section IDs, annotations, structural invariants, and the outliner tool (§11: notation, type expansion, output rules) |
-| [../../doc/som_mapping.md](../../doc/som_mapping.md) | The mapping authority — metadata tree, generated SOM surfaces, md/yaml serialization |
+| [../../doc/som_multiplatform_spec_model.md](../../doc/som_multiplatform_spec_model.md) | The SOM authority — nine-language generation, metadata tree, generated SOM surfaces, md/yaml serialization, schema generation, packaging |

@@ -57,4 +57,4 @@ are two compiler-checked ways to obtain a path without a literal, both shown in
 
 These access surfaces, and the other convenience features that shape the API you
 meet here, are described in "Convenience and correctness features" in
-`tom_specs_model/doc/multiplatform_spec_model.md`.
+`tom_specs_model/doc/som_multiplatform_spec_model.md`.

@@ -55,9 +55,9 @@ duplicate each other:
 | Document | Owns |
 |----------|------|
 | **This document** (`tom_specs_model_rules.md`) | **Authoring.** What an author may write and must write: legal member shapes, class style, naming, field categories, form size targets, how to choose a `@SectionId`, which annotations to reach for, what the validator will reject, how the outline renders. |
-| **[`som_mapping.md`](som_mapping.md)** | **Mapping and mechanics.** How the authored model becomes bytes: md serialization, hierarchical yaml, DocSpecs schema generation, the metadata tree, the generated SOM surfaces, the embedded parse/validate API, the conformance requirements. |
+| **[`som_multiplatform_spec_model.md`](som_multiplatform_spec_model.md)** | **Mapping and mechanics.** How the authored model becomes generated code and bytes: the nine-language generation, the metadata tree, the generated SOM surfaces, md serialization, hierarchical yaml, DocSpecs schema generation, the embedded parse/validate API, packaging, the conformance requirements. |
 
-`som_mapping.md` is the **single mapping authority**. Where a rule here has
+`som_multiplatform_spec_model.md` is the **single mapping authority**. Where a rule here has
 mapping consequences, this document states the rule an author needs and cites the
 section there.
 
@@ -428,7 +428,7 @@ no section maps to code), and it serializes exactly parallel to the stored
 `headline`: the runtime holds it in a sparse per-section store (comma-joined in
 state, fingerprint, json, yaml, md), it has **no effective default** (staged
 whenever present), and it is emitted in md and yaml as documented in
-`som_mapping.md` §8.2 and §9.2.
+`som_multiplatform_spec_model.md` §11.2 and §12.2.
 
 **Meta-tree stability contract:** `DocSpecsSection`-typed members classify as
 `content` nodes and report `String`/`String?`/`List<String>` at the
@@ -1490,7 +1490,7 @@ class tree from any root), the **validator** (all §5 and §10.2 invariants), th
 **model JSON exporter** (the lossless meta-data), and the **multi-language SOM
 generator** (`bin/generate_som.dart`). It runs against an embedded SDK summary,
 so no installed Dart SDK is required. Specs:
-`tom_specs_clitool/README.md`, `som_mapping.md` (what it emits),
+`tom_specs_clitool/README.md`, `som_multiplatform_spec_model.md` (what it emits),
 `spec_object_model_config.md`, `spec_model_meta_schema.md`, `analyzer_wo_sdk.md`.
 
 ### 12.2 Reviewer — `tom_specs_reviewer` (`tom_ai/ai_build/`)
@@ -1532,7 +1532,7 @@ CodeSpecs / Implementation specifications, built on the Forge shell and the
 shared agent UI. It consumes the same generated `spec_model.json` and drives the
 document editor from it, with DocSpecs + markdown import/export. It uses the
 generic meta-model (`tom_som_dart_runtime`), not the typed facade. Spec:
-`tom_specs_editor_specification.md` (and `multiplatform_spec_model.md` §7 for the
+`tom_specs_editor_specification.md` (and `som_multiplatform_spec_model.md` §9 for the
 runtime relationship).
 
 ---
@@ -1542,10 +1542,9 @@ runtime relationship).
 | Subject | Authoritative document |
 |---------|------------------------|
 | Model-authoring rules, section-ID scheme, annotations for the author, outline notation | `tom_specs_model_rules.md` (here) |
-| **Mapping — object model ↔ md / yaml / schema, metadata tree, generated surfaces, parse+validate API** | **`som_mapping.md`** (the single mapping authority) |
+| **Mapping — object model ↔ md / yaml / schema, metadata tree, generated surfaces, parse+validate API, the multi-platform SOM component, packaging** | **`som_multiplatform_spec_model.md`** (the single mapping authority) |
 | Per-annotation reference | `tom_specs_core/README.md` |
 | Structural invariants (implementation) | `tom_specs_clitool/lib/src/validator.dart` (`validateStructuralInvariants()`) |
-| Multi-platform SOM component | `multiplatform_spec_model.md` |
 | Generator config / meta-schema / toolchains | `spec_object_model_config.md`, `spec_model_meta_schema.md`, `som_toolchains.md` |
 | DocSpecs format itself (schemas, section types, validation) | `_ai/quests/doc_specs/doc_specs_specification.md` |
 | DocSpecs ↔ CodeSpecs link, `@CodeSpecKind`, the parts catalogue | `codespecs_mapping.md` |

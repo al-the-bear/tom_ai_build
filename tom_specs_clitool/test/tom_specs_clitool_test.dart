@@ -1232,7 +1232,7 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
-  // Step 1 (multiplatform_spec_model.md §5.3): lossless annotations[] export.
+  // Step 1 (som_multiplatform_spec_model.md §5.3): lossless annotations[] export.
   // The exporter must carry EVERY annotation ModelReader captured — name + full
   // argument set — on both classes and fields, alongside the curated render
   // keys, so the generic runtime's meta-model loader (§7) is lossless.
@@ -1510,7 +1510,7 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
-  // Step 2 (multiplatform_spec_model.md §5.3): meta-data schema + version
+  // Step 2 (som_multiplatform_spec_model.md §5.3): meta-data schema + version
   // stamp. The exporter stamps the meta-data file with `metaSchemaVersion`
   // (the file's own on-disk schema version) beside `modelVersion` /
   // `modelVersionLabel`; `validateSpecModelMeta` rejects a meta-data map that

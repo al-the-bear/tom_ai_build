@@ -19,7 +19,7 @@ profile.
 
 **Related specs:** [`d4rt_and_llm_tools.md`](d4rt_and_llm_tools.md) (the tooling
 architecture — §5 document API, §6 search, §7 file facade, §8 tools, §9 memory,
-§10 agent), [`multiplatform_spec_model.md`](multiplatform_spec_model.md) (the
+§10 agent), [`som_multiplatform_spec_model.md`](som_multiplatform_spec_model.md) (the
 `tom_som` document model the scripts manipulate),
 [`tom_specs_editor_specification.md`](tom_specs_editor_specification.md) (the
 editor that hosts the agent).
