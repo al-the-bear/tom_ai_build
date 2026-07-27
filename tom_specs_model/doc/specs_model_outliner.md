@@ -18,7 +18,13 @@ The **Specs Model Outliner** is a Dart-based generator that reads the `tom_specs
 
 ## 3. Output
 
-A single text file (e.g., `doc/solution_blueprint_outline.txt`) containing the full model tree in the outliner notation described below.
+A single markdown file containing the full model tree in the outliner notation
+described below. Output is written to `generated-doc/outlines/` in the target
+package — deliberately outside `doc/`, so generated outlines never mix with
+hand-written documentation. The default file name is
+`<RootClassName-without-D<nn>>_outline.md`; see
+[`../generated-doc/outlines/index.md`](../generated-doc/outlines/index.md) for
+the committed set and the batch regeneration script.
 
 ## 4. Notation
 
@@ -478,7 +484,7 @@ USER: double check the document for additional rules again
    - Append `@Type` hints after field names.
    - Append `@ContentType` hints after `content` field.
 4. **Output writer** — write the indented tree to the output text file.
-5. **CLI** — accept arguments: `--output` (file path, default is <root-type>_outline.txt), `--max-line-length` (default 120), `--root-type` (default `SolutionBlueprint`), `--show-schema-annotations` (prepend schema annotations header, see §4.14).
+5. **CLI** — accept arguments: `--output` (file path, default is `generated-doc/outlines/<RootClassName>_outline.md` with the `D<nn>` code stripped), `--max-line-length` (default 120), `--root-type` (default `D00SolutionBlueprint`), `--show-schema-annotations` (prepend schema annotations header, see §4.14), `--stop-at-detailed-in` (compact outline).
 
 ### Phase 3: Integration
 

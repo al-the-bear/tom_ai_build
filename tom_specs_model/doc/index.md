@@ -74,8 +74,15 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | [spec_object_model_config.md](spec_object_model_config.md) | `tom_som.yaml` — the SOM generator configuration |
 | [analyzer_wo_sdk.md](analyzer_wo_sdk.md) | Running the Dart analyzer without a full SDK checkout |
 
-## Generated document outlines
+## Generated documentation
 
-[outlines/index.md](outlines/index.md) catalogues one outline per `@Document`
-root, generated from the live Dart model. Regenerate them all with
-`tom_specs_clitool/tool/regenerate_outlines.sh` — never edit them by hand.
+Generated documents live **outside this folder**, under
+`tom_specs_model/generated-doc/<type>/`, so a stray generator run can never
+leave a stale copy sitting among the hand-written docs.
+
+| Folder | Contents | Regenerate with |
+|--------|----------|-----------------|
+| [../generated-doc/outlines/](../generated-doc/outlines/index.md) | One outline per document root (D00–D13) plus the whole-model `DocSpecsProject` outline, rendered from the live Dart model | `tom_specs_clitool/tool/regenerate_outlines.sh` |
+
+Never edit anything under `generated-doc/` by hand — re-run the generator and
+commit the diff.

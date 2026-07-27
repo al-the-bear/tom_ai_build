@@ -21,7 +21,8 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'output',
       abbr: 'o',
-      help: 'Output file path. Defaults to doc/<root_type>_outline.md.',
+      help: 'Output file path. Defaults to '
+          'generated-doc/outlines/<RootType>_outline.md.',
     )
     ..addOption(
       'max-line-length',
@@ -69,12 +70,15 @@ Future<void> main(List<String> arguments) async {
   final showSchemaAnnotations = results.flag('show-schema-annotations');
   final stopAtDetailedIn = results.flag('stop-at-detailed-in');
 
-  // Default output path
+  // Default output path. Generated outlines are kept apart from hand-written
+  // documentation so a stray ad-hoc run cannot leave a stale copy sitting in
+  // doc/ — that is exactly how the folder accumulated 26 orphaned outlines.
   final outputPath = results.option('output') ??
       p.join(
         packagePath,
-        'doc',
-        '${_toSnakeCase(rootType)}_outline.md',
+        'generated-doc',
+        'outlines',
+        '${_outlineStem(rootType)}_outline.md',
       );
 
   final libPath = p.join(packagePath, 'lib');
@@ -140,11 +144,7 @@ void _printUsage(ArgParser parser) {
   stdout.writeln(parser.usage);
 }
 
-String _toSnakeCase(String name) {
-  return name
-      .replaceAllMapped(
-        RegExp(r'(?<=[a-z0-9])([A-Z])'),
-        (m) => '_${m.group(1)}',
-      )
-      .toLowerCase();
-}
+/// The canonical outline file stem for a root class: the class name with its
+/// `D<nn>` document code stripped, matching `generated-doc/outlines/`.
+String _outlineStem(String rootType) =>
+    rootType.replaceFirst(RegExp(r'^D\d\d'), '');
