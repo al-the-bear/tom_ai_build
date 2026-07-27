@@ -2832,7 +2832,7 @@ from, making gap analysis a set-difference over section IDs.
 
 ### 8.1 The CodeSpecs surface is bounded
 
-The SOM has **~1230 classes across 13 roots**, and the CodeSpecs surface is
+The SOM has **~1240 classes across 14 roots**, and the CodeSpecs surface is
 concentrated in a **minority** of them. The rest is business-facing descriptive
 content that Phase 4 does **not** generate code from — it feeds the *other*
 follow-up processes instead (§8.3).

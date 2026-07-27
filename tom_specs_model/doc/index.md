@@ -57,7 +57,7 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 | [tom_specs_project_flow.md](tom_specs_project_flow.md) | The eight-phase creation process (authority) |
 | [llm_guidelines_specification.md](llm_guidelines_specification.md) | Authoring D4rt scripts that process a TomSpecs document |
 | [llm_and_d4rt_tools.md](llm_and_d4rt_tools.md) | D4rt scripting and LLM tooling for the editor |
-| [tom_specs_editor_specification.md](tom_specs_editor_specification.md) · [tom_specs_editor_specification_plan.md](tom_specs_editor_specification_plan.md) | The spec-authoring app and its follow-up items |
+| [tom_specs_editor_specification.md](tom_specs_editor_specification.md) | The spec-authoring app (authority) |
 | [tom_specs_reviewer_specification.md](tom_specs_reviewer_specification.md) | The object-model review app — the structural-review role, distinct from the editor |
 
 ## CLI tooling
