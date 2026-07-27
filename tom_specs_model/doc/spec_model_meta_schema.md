@@ -67,6 +67,7 @@ Each root is a document navigator entry point:
 | `sectionId` | `String` | no | Class-level `@SectionId`. |
 | `doc` | `String` | no | Cleaned class doc-comment. |
 | `help` | `String` | no | `@ContentHelp(guidance:)`. |
+| `headline` | `String` | no | `@Headline(text:)` — the authored display headline, distinct from the class name a consumer keys by. |
 | `mapsTo` / `detailedIn` | `String` | no | Traceability targets (`@MapsTo` / `@DetailedIn`). |
 | `standardReferences` | `Map` | no | `@StandardReferences` projected as `{standards: List, connotation: String}` — the public standards the class derives from and what it means. |
 | `annotations` | `List` | no | **Lossless** annotation list (`{name, arguments}` per annotation) — every annotation `ModelReader` captured, source order preserved. Omitted when empty. |
@@ -81,11 +82,19 @@ redundant projection of the `annotations` block, kept for the editor tree; the
 Always carries `name` and a render `kind` (`list`, `form`, `section`,
 `content`, `enum`, `complex`, `scalar`), plus `serializationOrder` (the field's
 0-based `@SerializationOrder` ordinal, driving on-disk member order) whenever the
-model has been stamped; kind-specific keys follow (`elementType`/`min` for lists,
-`formFields` for forms, `contentType` for sections/content, `enumType`/`enumValues`
-for enums, `type` for complex/scalar). A field also carries its own lossless `annotations` block
-(omitted when empty), plus curated `sectionId` / `sectionIdPattern` / `help` /
-`standardReferences` when present. See `ModelJsonExporter` for the exact
+model has been stamped; kind-specific keys follow (`elementType` + `elementIsComplex` and optional `min`
+for lists, `formFields` for forms, `contentType` for sections/content plus
+`sectionType` — the section's declared class name, `?` stripped — for sections,
+`enumType`/`enumValues` for enums, `type` for complex/scalar). `elementIsComplex`
+tells a consumer whether `elementType` names a model class to resolve or a scalar
+to render directly, without it having to look the name up.
+
+A field also carries its own lossless `annotations` block (omitted when empty),
+plus curated `sectionId` / `sectionIdPattern` / `headline` / `help` /
+`standardReferences` when present. `sectionId` and `sectionIdPattern` are
+independent: a list field routinely carries both — its own id and the id pattern
+its items take — so a consumer must read them as a pair rather than treating the
+pattern as a fallback for a missing id. See `ModelJsonExporter` for the exact
 per-kind shape.
 
 ## Validation contract
