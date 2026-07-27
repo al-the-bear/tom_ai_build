@@ -24,6 +24,18 @@ const String kProjectionExplanation =
 const String kProjectionDetailSubtitle =
     'Detail belongs on the source section, not on this re-reference';
 
+/// Heading of the CodeSpecs-mapping section of the review dialog.
+const String kCodeSpecsSectionLabel = 'CodeSpecs mapping';
+
+/// Labels of the three CodeSpecs-mapping judgements and the kind picker.
+///
+/// Named constants rather than inline literals so the tests assert the same
+/// strings the dialog renders.
+const String kCodeSpecKindMissingLabel = 'Should carry a kind (none declared)';
+const String kCodeSpecKindWrongLabel = 'Declared kinds are wrong or incomplete';
+const String kNotCodeSpecsLabel = 'Not CodeSpecs — do not realise as code';
+const String kSuggestedKindsLabel = 'Suggested kinds';
+
 /// Colour associated with each review scope, used for the indicator dot.
 Color scopeColor(ReviewScope scope) {
   switch (scope) {
@@ -157,6 +169,12 @@ class ReviewControls extends StatelessWidget {
     if (entry.singleEntry) parts.add('single-entry');
     if (entry.mustBeContentString) parts.add('content-not-form');
     if (entry.convertFormToContent) parts.add('→content-subsection');
+    if (entry.codeSpecKindMissing) parts.add('cs-kind?');
+    if (entry.codeSpecKindWrong) parts.add('cs-kind✗');
+    if (entry.notCodeSpecs) parts.add('not-codespecs');
+    if (entry.suggestedCodeSpecKinds.isNotEmpty) {
+      parts.add('cs→${entry.suggestedCodeSpecKinds.join(",")}');
+    }
     if (entry.comment.trim().isNotEmpty) {
       var c = entry.comment.trim().replaceAll('\n', ' ');
       if (c.length > 60) c = '${c.substring(0, 60)}…';
@@ -246,6 +264,70 @@ class _ReviewDialogState extends State<_ReviewDialog> {
           ),
         ],
       ),
+    );
+  }
+
+  /// The suggested-kind picker: the chosen kinds as removable chips, plus a
+  /// dropdown over the kinds not yet chosen.
+  ///
+  /// Offering only the remaining vocabulary makes an invalid token
+  /// unreachable from the UI — the store's validation then guards the file and
+  /// API paths, not the reviewer's typing.
+  Widget _suggestedKinds(ReviewEntry entry) {
+    final chosen = entry.suggestedCodeSpecKinds;
+    final remaining = kCodeSpecPartTokens.where((t) => !chosen.contains(t))
+        .toList()
+      ..sort();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(kSuggestedKindsLabel,
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+        const SizedBox(height: 4),
+        if (chosen.isEmpty)
+          Text('none proposed',
+              style: TextStyle(
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey.shade600))
+        else
+          Wrap(
+            spacing: 4,
+            runSpacing: 4,
+            children: [
+              for (final kind in chosen)
+                InputChip(
+                  label: Text(kind, style: const TextStyle(fontSize: 12)),
+                  visualDensity: VisualDensity.compact,
+                  onDeleted: () {
+                    widget.store.update(widget.path,
+                        (e) => e.toggleSuggestedCodeSpecKind(kind));
+                    setState(() {});
+                  },
+                ),
+            ],
+          ),
+        if (remaining.isNotEmpty)
+          DropdownButton<String>(
+            value: null,
+            isDense: true,
+            hint: const Text('Add a kind…', style: TextStyle(fontSize: 12)),
+            items: [
+              for (final kind in remaining)
+                DropdownMenuItem(
+                  value: kind,
+                  child: Text(kind, style: const TextStyle(fontSize: 12)),
+                ),
+            ],
+            onChanged: (kind) {
+              if (kind == null) return;
+              widget.store.update(
+                  widget.path, (e) => e.toggleSuggestedCodeSpecKind(kind));
+              setState(() {});
+            },
+          ),
+      ],
     );
   }
 
@@ -390,6 +472,47 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                   setState(() {});
                 },
               ),
+              const Divider(height: 20),
+              const Text(kCodeSpecsSectionLabel,
+                  style: TextStyle(fontWeight: FontWeight.w600)),
+              CheckboxListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: entry.codeSpecKindMissing,
+                title: const Text(kCodeSpecKindMissingLabel),
+                onChanged: (value) {
+                  widget.store.update(widget.path,
+                      (e) => e.codeSpecKindMissing = value ?? false);
+                  setState(() {});
+                },
+              ),
+              CheckboxListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: entry.codeSpecKindWrong,
+                title: const Text(kCodeSpecKindWrongLabel),
+                onChanged: (value) {
+                  widget.store.update(
+                      widget.path, (e) => e.codeSpecKindWrong = value ?? false);
+                  setState(() {});
+                },
+              ),
+              CheckboxListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: entry.notCodeSpecs,
+                title: const Text(kNotCodeSpecsLabel),
+                onChanged: (value) {
+                  widget.store.update(
+                      widget.path, (e) => e.notCodeSpecs = value ?? false);
+                  setState(() {});
+                },
+              ),
+              const SizedBox(height: 6),
+              _suggestedKinds(entry),
               const SizedBox(height: 8),
               TextField(
                 controller: _comment,

@@ -17,6 +17,13 @@ dependencies:
   # SpecField / FormFieldSpec / SpecFieldKind) instead of an in-tree copy.
   tom_som_dart_runtime:
     path: ../tom_som_dart_runtime
+  # The TomSpecs annotation package, for the canonical `CodeSpecPart` vocabulary
+  # a reviewer picks from when proposing a CodeSpecs mapping. Sourcing the enum
+  # rather than the shipped model asset keeps every declared kind proposable —
+  # including one no section maps to yet, which is precisely the case a reviewer
+  # needs to be able to record.
+  tom_specs_core:
+    path: ../tom_specs_core
 
 dev_dependencies:
   flutter_test:

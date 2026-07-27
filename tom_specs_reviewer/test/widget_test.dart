@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:tom_specs_core/tom_specs_core.dart';
 import 'package:tom_specs_reviewer/src/model/review_store.dart';
 import 'package:tom_specs_reviewer/src/ui/review_controls.dart';
 import 'package:tom_specs_reviewer/src/ui/spec_tree.dart';
@@ -1460,6 +1461,209 @@ void main() {
       // warning, rather than a false alarm.
       expect(find.textContaining('generated: unknown'), findsOneWidget);
       expect(find.byIcon(Icons.warning_amber_rounded), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('CodeSpecs-mapping feedback vocabulary (TSRA6)', () {
+    test('the kind vocabulary is the canonical CodeSpecPart enum', () {
+      expect(kCodeSpecPartTokens,
+          {for (final part in CodeSpecPart.values) part.name});
+      expect(kCodeSpecPartTokens, hasLength(28));
+      // Deferred kinds are part of the vocabulary: a reviewer proposing one is
+      // exactly the case that needs recording.
+      expect(kCodeSpecPartTokens,
+          containsAll(['workflow', 'notification', 'auditLog', 'reporting']));
+    });
+
+    test('normalization accepts both the bare and the prefixed token form', () {
+      expect(normalizeCodeSpecKindToken('form'), 'form');
+      expect(normalizeCodeSpecKindToken('CodeSpecPart.dataAccess'),
+          'dataAccess');
+      expect(normalizeCodeSpecKindToken('  serverApi  '), 'serverApi');
+    });
+
+    test('an invalid kind token is rejected at entry', () {
+      expect(() => normalizeCodeSpecKindToken('formm'), throwsArgumentError);
+      expect(() => ReviewEntry(suggestedCodeSpecKinds: const ['nope']),
+          throwsArgumentError);
+      final entry = ReviewEntry();
+      expect(() => entry.suggestedCodeSpecKinds = ['form', 'bogus'],
+          throwsArgumentError);
+      expect(() => entry.toggleSuggestedCodeSpecKind('bogus'),
+          throwsArgumentError);
+      // A rejected assignment leaves the entry untouched.
+      expect(entry.suggestedCodeSpecKinds, isEmpty);
+    });
+
+    test('the suggested-kind list cannot be mutated behind the validator', () {
+      final entry = ReviewEntry(suggestedCodeSpecKinds: const ['form']);
+      expect(() => entry.suggestedCodeSpecKinds.add('bogus'),
+          throwsUnsupportedError);
+    });
+
+    test('toggling adds and removes a kind', () {
+      final entry = ReviewEntry();
+      entry.toggleSuggestedCodeSpecKind('form');
+      entry.toggleSuggestedCodeSpecKind('CodeSpecPart.dataAccess');
+      expect(entry.suggestedCodeSpecKinds, ['form', 'dataAccess']);
+      entry.toggleSuggestedCodeSpecKind('form');
+      expect(entry.suggestedCodeSpecKinds, ['dataAccess']);
+    });
+
+    test('the new fields round-trip through YAML', () {
+      final file = _tempReviewFile('codespecs_feedback.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      store.update('DemoDoc/header', (e) {
+        e.codeSpecKindMissing = true;
+        e.codeSpecKindWrong = true;
+        e.notCodeSpecs = true;
+        e.suggestedCodeSpecKinds = ['form', 'validation'];
+      });
+
+      final reloaded = ReviewStore(file)..load();
+      final entry = reloaded.entryFor('DemoDoc/header')!;
+      expect(entry.codeSpecKindMissing, isTrue);
+      expect(entry.codeSpecKindWrong, isTrue);
+      expect(entry.notCodeSpecs, isTrue);
+      expect(entry.suggestedCodeSpecKinds, ['form', 'validation']);
+      file.deleteSync();
+    });
+
+    test('each new field alone keeps the entry non-empty', () {
+      final file = _tempReviewFile('codespecs_nonempty.yaml');
+      for (final mutate in <void Function(ReviewEntry)>[
+        (e) => e.codeSpecKindMissing = true,
+        (e) => e.codeSpecKindWrong = true,
+        (e) => e.notCodeSpecs = true,
+        (e) => e.suggestedCodeSpecKinds = ['form'],
+      ]) {
+        if (file.existsSync()) file.deleteSync();
+        final store = ReviewStore(file)..update('p', mutate);
+        expect(store.count, 1);
+        // …and clearing it again removes the entry.
+        store.update('p', (e) {
+          e.codeSpecKindMissing = false;
+          e.codeSpecKindWrong = false;
+          e.notCodeSpecs = false;
+          e.suggestedCodeSpecKinds = const [];
+        });
+        expect(store.count, 0);
+      }
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    test('the store writes the bumped file version', () {
+      final file = _tempReviewFile('codespecs_version.yaml');
+      if (file.existsSync()) file.deleteSync();
+      ReviewStore(file).update('p', (e) => e.notCodeSpecs = true);
+      expect(file.readAsStringSync(), contains('version: $kReviewFileVersion'));
+      expect(kReviewFileVersion, greaterThan(1));
+      file.deleteSync();
+    });
+
+    test('a version-1 file still loads unchanged', () {
+      final file = _tempReviewFile('codespecs_v1.yaml');
+      file.writeAsStringSync('''
+# TomSpecs structure review.
+version: 1
+entries:
+  "DemoDoc/intro":
+    scope: global
+    add_details: true
+    comment: "written by an earlier session"
+''');
+      final store = ReviewStore(file)..load();
+      final entry = store.entryFor('DemoDoc/intro')!;
+      expect(entry.scope, ReviewScope.global);
+      expect(entry.addDetails, isTrue);
+      expect(entry.comment, 'written by an earlier session');
+      // The CodeSpecs axis is simply unset, not defaulted to a judgement.
+      expect(entry.codeSpecKindMissing, isFalse);
+      expect(entry.codeSpecKindWrong, isFalse);
+      expect(entry.notCodeSpecs, isFalse);
+      expect(entry.suggestedCodeSpecKinds, isEmpty);
+      file.deleteSync();
+    });
+
+    test('a hand-edited file with a bad token drops it rather than failing',
+        () {
+      final file = _tempReviewFile('codespecs_badtoken.yaml');
+      file.writeAsStringSync('''
+version: 2
+entries:
+  "DemoDoc/intro":
+    scope: none
+    suggested_code_spec_kinds: ["form", "typo", "CodeSpecPart.validation"]
+''');
+      final store = ReviewStore(file)..load();
+      expect(store.entryFor('DemoDoc/intro')!.suggestedCodeSpecKinds,
+          ['form', 'validation']);
+      file.deleteSync();
+    });
+  });
+
+  group('CodeSpecs-mapping controls (TSRA6)', () {
+    Future<File> pumpTree(WidgetTester tester, String name) async {
+      final file = _tempReviewFile(name);
+      if (file.existsSync()) file.deleteSync();
+      final model = _model();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: model.roots.single,
+            store: ReviewStore(file),
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      return file;
+    }
+
+    testWidgets('the dialog offers the CodeSpecs axis on a class node',
+        (tester) async {
+      final file = await pumpTree(tester, 'controls_class.yaml');
+      await tester.tap(find.byIcon(Icons.edit_note).first);
+      await tester.pumpAndSettle();
+
+      expect(find.text('CodeSpecs mapping'), findsOneWidget);
+      expect(find.text(kCodeSpecKindMissingLabel), findsOneWidget);
+      expect(find.text(kCodeSpecKindWrongLabel), findsOneWidget);
+      expect(find.text(kNotCodeSpecsLabel), findsOneWidget);
+      expect(find.text(kSuggestedKindsLabel), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the axis is reachable on a form-field node too',
+        (tester) async {
+      final file = await pumpTree(tester, 'controls_field.yaml');
+      // The last edit control on screen belongs to a nested field row, not the
+      // root class row.
+      await tester.tap(find.byIcon(Icons.edit_note).last);
+      await tester.pumpAndSettle();
+      expect(find.text('CodeSpecs mapping'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('checking a CodeSpecs flag persists it to the store',
+        (tester) async {
+      final file = await pumpTree(tester, 'controls_persist.yaml');
+      await tester.tap(find.byIcon(Icons.edit_note).first);
+      await tester.pumpAndSettle();
+
+      // The CodeSpecs section sits below the fold of the scrollable dialog.
+      await tester.ensureVisible(find.text(kCodeSpecKindMissingLabel));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(kCodeSpecKindMissingLabel));
+      await tester.pumpAndSettle();
+
+      // The root class row is keyed by the root class name.
+      final reloaded = ReviewStore(file)..load();
+      expect(reloaded.count, 1);
+      expect(reloaded.entryFor('DemoDoc')!.codeSpecKindMissing, isTrue);
       if (file.existsSync()) file.deleteSync();
     });
   });

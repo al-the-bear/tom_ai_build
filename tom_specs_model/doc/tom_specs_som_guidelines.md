@@ -671,12 +671,16 @@ so no installed Dart SDK is required. Specs:
 
 A Flutter app for **reviewing the object model itself**. It browses the exported
 class graph (`assets/spec_model.json`, produced by
-`tom_specs_clitool/bin/model_json.dart`) as a tree and records structural
-observations — per-node scope flags, `stop here` / `add details` markers,
-free-text comments — persisted to YAML keyed by structural path
-(`TOM_SPECS_REVIEW_FILE` override; default `<cwd>/review/structure_review.yaml`).
-Its output feeds further development of the model. It is explicitly **not** a
-specification editor.
+`tom_specs_clitool/bin/model_json.dart`) as a tree and records per-node
+observations on two axes — **structure** (scope flags, `stop here` /
+`add details` markers, list-vs-single, content-vs-form, free-text comment) and
+**CodeSpecs mapping** (kind missing, kind wrong/incomplete, the proposed
+`CodeSpecPart` kinds, or "not CodeSpecs at all") — persisted to YAML keyed by
+structural path (`TOM_SPECS_REVIEW_FILE` override; default
+`<cwd>/review/structure_review.yaml`). Proposed kinds are validated against the
+`CodeSpecPart` vocabulary at entry, so a recorded suggestion always maps back
+onto the model. Its output feeds further development of the model. It is
+explicitly **not** a specification editor.
 
 ### 10.3 Editor — `tom_specs_editor` (`tom_forge/`)
 

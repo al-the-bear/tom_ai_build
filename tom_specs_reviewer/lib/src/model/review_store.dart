@@ -2,7 +2,58 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
+import 'package:tom_specs_core/tom_specs_core.dart';
 import 'package:yaml/yaml.dart';
+
+/// Schema version written into the review file.
+///
+/// Version 2 added the CodeSpecs-mapping feedback axis. The change is purely
+/// additive, so a version-1 file loads unchanged — an in-flight review is never
+/// lost to the bump.
+const int kReviewFileVersion = 2;
+
+/// The canonical CodeSpecs kind vocabulary, as persistence tokens.
+///
+/// Sourced from [CodeSpecPart] rather than from the shipped model asset on
+/// purpose: the asset only carries the kinds some section already maps to, but
+/// the review case that matters most is proposing a kind nothing maps to yet.
+final Set<String> kCodeSpecPartTokens = {
+  for (final part in CodeSpecPart.values) part.name,
+};
+
+/// Prefix a kind may carry when copied from what the tree renders.
+const String _kindTokenPrefix = 'CodeSpecPart.';
+
+/// Normalises a CodeSpecs kind token, rejecting anything outside the
+/// vocabulary.
+///
+/// Accepts both the bare enum name (`form`) and the qualified form the tree
+/// displays (`CodeSpecPart.form`), because a reviewer hand-editing the review
+/// file will copy whichever they saw.
+///
+/// Throws [ArgumentError] on an unknown token — a typo must surface at entry,
+/// not as silently-lost feedback at rework time.
+String normalizeCodeSpecKindToken(String raw) {
+  final token = tryNormalizeCodeSpecKindToken(raw);
+  if (token == null) {
+    throw ArgumentError.value(
+        raw, 'kind', 'not a known CodeSpecPart (see kCodeSpecPartTokens)');
+  }
+  return token;
+}
+
+/// Lenient counterpart of [normalizeCodeSpecKindToken]: returns `null` instead
+/// of throwing.
+///
+/// Used when reading a file, where an unrecognised token must cost one
+/// suggestion rather than the whole review.
+String? tryNormalizeCodeSpecKindToken(String raw) {
+  var token = raw.trim();
+  if (token.startsWith(_kindTokenPrefix)) {
+    token = token.substring(_kindTokenPrefix.length);
+  }
+  return kCodeSpecPartTokens.contains(token) ? token : null;
+}
 
 /// Where a reviewed node belongs in the eventual document set.
 ///
@@ -84,7 +135,22 @@ class ReviewEntry {
   /// Set via a dedicated checkmark control, independent of the flags above.
   bool reviewed;
 
+  /// This node should carry a `@CodeSpecKind` mapping and does not.
+  bool codeSpecKindMissing;
+
+  /// This node carries a `@CodeSpecKind`, but the declared kinds are wrong or
+  /// incomplete. What they should be instead goes in [suggestedCodeSpecKinds].
+  bool codeSpecKindWrong;
+
+  /// This node should not be realised as code at all.
+  ///
+  /// Distinct from [codeSpecKindWrong] (mapped, but to the wrong part) and from
+  /// the follow-up destination axis, which records where it belongs *instead*.
+  bool notCodeSpecs;
+
   String comment;
+
+  List<String> _suggestedCodeSpecKinds;
 
   ReviewEntry({
     this.scope = ReviewScope.none,
@@ -95,8 +161,36 @@ class ReviewEntry {
     this.mustBeContentString = false,
     this.convertFormToContent = false,
     this.reviewed = false,
+    this.codeSpecKindMissing = false,
+    this.codeSpecKindWrong = false,
+    this.notCodeSpecs = false,
+    List<String> suggestedCodeSpecKinds = const [],
     this.comment = '',
-  });
+  }) : _suggestedCodeSpecKinds =
+            suggestedCodeSpecKinds.map(normalizeCodeSpecKindToken).toList();
+
+  /// The `CodeSpecPart` kinds the reviewer proposes for this node.
+  ///
+  /// Read-only by design — every token that gets in passes
+  /// [normalizeCodeSpecKindToken] first, so the list cannot hold a value that
+  /// fails to map back onto the model.
+  List<String> get suggestedCodeSpecKinds =>
+      List.unmodifiable(_suggestedCodeSpecKinds);
+
+  set suggestedCodeSpecKinds(List<String> kinds) {
+    // Normalise the whole list before assigning: a rejected token must leave
+    // the entry as it was rather than half-applied.
+    _suggestedCodeSpecKinds =
+        kinds.map(normalizeCodeSpecKindToken).toList();
+  }
+
+  /// Adds [kind] if absent, removes it if present.
+  void toggleSuggestedCodeSpecKind(String kind) {
+    final token = normalizeCodeSpecKindToken(kind);
+    if (!_suggestedCodeSpecKinds.remove(token)) {
+      _suggestedCodeSpecKinds.add(token);
+    }
+  }
 
   /// Whether this entry carries any information worth persisting.
   bool get isEmpty =>
@@ -108,6 +202,10 @@ class ReviewEntry {
       !mustBeContentString &&
       !convertFormToContent &&
       !reviewed &&
+      !codeSpecKindMissing &&
+      !codeSpecKindWrong &&
+      !notCodeSpecs &&
+      _suggestedCodeSpecKinds.isEmpty &&
       comment.trim().isEmpty;
 
   Map<String, Object?> toMap() => {
@@ -119,6 +217,11 @@ class ReviewEntry {
         if (mustBeContentString) 'must_be_content_string': true,
         if (convertFormToContent) 'convert_form_to_content': true,
         if (reviewed) 'reviewed': true,
+        if (codeSpecKindMissing) 'code_spec_kind_missing': true,
+        if (codeSpecKindWrong) 'code_spec_kind_wrong': true,
+        if (notCodeSpecs) 'not_code_specs': true,
+        if (_suggestedCodeSpecKinds.isNotEmpty)
+          'suggested_code_spec_kinds': List<String>.of(_suggestedCodeSpecKinds),
         if (comment.trim().isNotEmpty) 'comment': comment.trim(),
       };
 
@@ -131,8 +234,24 @@ class ReviewEntry {
         mustBeContentString: map['must_be_content_string'] == true,
         convertFormToContent: map['convert_form_to_content'] == true,
         reviewed: map['reviewed'] == true,
+        codeSpecKindMissing: map['code_spec_kind_missing'] == true,
+        codeSpecKindWrong: map['code_spec_kind_wrong'] == true,
+        notCodeSpecs: map['not_code_specs'] == true,
+        suggestedCodeSpecKinds: _kindsFromYaml(map['suggested_code_spec_kinds']),
         comment: (map['comment'] as String?) ?? '',
       );
+
+  /// Reads the suggested-kind list off a file, dropping anything unrecognised.
+  ///
+  /// Reading is deliberately lenient where entry is strict: a token typo'd by
+  /// hand should cost that one suggestion, not make the whole review file
+  /// unloadable.
+  static List<String> _kindsFromYaml(Object? raw) {
+    if (raw is! Iterable) return const [];
+    return [
+      for (final item in raw) ?tryNormalizeCodeSpecKindToken(item.toString()),
+    ];
+  }
 }
 
 /// Holds all review entries and persists them to a YAML file on every edit.
@@ -208,7 +327,7 @@ class ReviewStore extends ChangeNotifier {
       ..writeln('# Keyed by structural path into the specification object '
           'model.')
       ..writeln('# Generated by tom_specs_reviewer — edit via the app.')
-      ..writeln('version: 1')
+      ..writeln('version: $kReviewFileVersion')
       ..writeln('entries:');
 
     final keys = _entries.keys.toList()..sort();
@@ -231,6 +350,18 @@ class ReviewStore extends ChangeNotifier {
         buffer.writeln('    convert_form_to_content: true');
       }
       if (entry.reviewed) buffer.writeln('    reviewed: true');
+      if (entry.codeSpecKindMissing) {
+        buffer.writeln('    code_spec_kind_missing: true');
+      }
+      if (entry.codeSpecKindWrong) {
+        buffer.writeln('    code_spec_kind_wrong: true');
+      }
+      if (entry.notCodeSpecs) buffer.writeln('    not_code_specs: true');
+      if (entry.suggestedCodeSpecKinds.isNotEmpty) {
+        final kinds =
+            entry.suggestedCodeSpecKinds.map(_yamlString).join(', ');
+        buffer.writeln('    suggested_code_spec_kinds: [$kinds]');
+      }
       if (entry.comment.trim().isNotEmpty) {
         buffer.writeln('    comment: ${_yamlString(entry.comment.trim())}');
       }
