@@ -662,6 +662,149 @@ void main() {
     });
   });
 
+  group('Marker, comment and reference annotations', () {
+    /// One class carrying every annotation under test at both levels, so a
+    /// reader that confuses the class node with the field node fails here.
+    SpecModel modelWith({
+      List<Map<String, dynamic>> classAnnotations = const [],
+      List<Map<String, dynamic>> fieldAnnotations = const [],
+      Object? classStandardReferences,
+      Object? fieldStandardReferences,
+    }) =>
+        SpecModel.fromJson(<String, dynamic>{
+          'roots': <dynamic>[],
+          'classes': <String, dynamic>{
+            'Section': {
+              'name': 'Section',
+              'annotations': classAnnotations,
+              if (classStandardReferences != null)
+                'standardReferences': classStandardReferences,
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'content',
+                  'annotations': fieldAnnotations,
+                  if (fieldStandardReferences != null)
+                    'standardReferences': fieldStandardReferences,
+                },
+              ],
+            },
+          },
+        });
+
+    SpecClass classOf(SpecModel m) => m.classNamed('Section')!;
+    SpecField fieldOf(SpecModel m) => classOf(m).fieldNamed('content')!;
+
+    test('isUnused is false when the marker is absent', () {
+      expect(fieldOf(modelWith()).isUnused, isFalse);
+      expect(classOf(modelWith()).isUnused, isFalse);
+    });
+
+    test('isUnused reads the argumentless @Unused marker', () {
+      // Presence is the whole statement — the annotation carries no arguments.
+      final field = fieldOf(modelWith(fieldAnnotations: [
+        {'name': 'Unused'},
+      ]));
+      expect(field.isUnused, isTrue);
+    });
+
+    test('comment reads @Comment(text)', () {
+      final field = fieldOf(modelWith(fieldAnnotations: [
+        {
+          'name': 'Comment',
+          'arguments': {'text': 'locus: shared — CE-EN'},
+        },
+      ]));
+      expect(field.comment, 'locus: shared — CE-EN');
+    });
+
+    test('comment is read on classes too', () {
+      final cls = classOf(modelWith(classAnnotations: [
+        {
+          'name': 'Comment',
+          'arguments': {'text': 'Seeds → QAP'},
+        },
+      ]));
+      expect(cls.comment, 'Seeds → QAP');
+    });
+
+    test('comment is null when absent', () {
+      expect(fieldOf(modelWith()).comment, isNull);
+      expect(classOf(modelWith()).comment, isNull);
+    });
+
+    test('reference reads @Reference(description)', () {
+      final field = fieldOf(modelWith(fieldAnnotations: [
+        {
+          'name': 'Reference',
+          'arguments': {'description': 'Related Data Model Entity'},
+        },
+      ]));
+      expect(field.reference, 'Related Data Model Entity');
+    });
+
+    test('reference is null when absent', () {
+      expect(fieldOf(modelWith()).reference, isNull);
+    });
+
+    test('standardReferences reads standards and connotation on a class', () {
+      final cls = classOf(modelWith(classStandardReferences: {
+        'standards': ['ISO/IEC 25010:2023 §4.2', 'IEEE 829-2008'],
+        'connotation': 'What the section owns.',
+      }));
+      expect(cls.standardReferences, isNotNull);
+      expect(cls.standardReferences!.standards,
+          ['ISO/IEC 25010:2023 §4.2', 'IEEE 829-2008']);
+      expect(cls.standardReferences!.connotation, 'What the section owns.');
+    });
+
+    test('standardReferences reads on a field', () {
+      final field = fieldOf(modelWith(fieldStandardReferences: {
+        'standards': ['ISO 21502:2020'],
+        'connotation': 'Lists the individual criteria.',
+      }));
+      expect(field.standardReferences!.standards, ['ISO 21502:2020']);
+      expect(field.standardReferences!.connotation,
+          'Lists the individual criteria.');
+    });
+
+    test('standardReferences is null when the key is absent', () {
+      expect(classOf(modelWith()).standardReferences, isNull);
+      expect(fieldOf(modelWith()).standardReferences, isNull);
+    });
+
+    test('standardReferences tolerates a missing connotation', () {
+      // The exporter always writes both, but a hand-built or older model may
+      // carry only the list; dropping the whole block over it would hide the
+      // standards.
+      final cls = classOf(modelWith(classStandardReferences: {
+        'standards': ['ISO 21502:2020'],
+      }));
+      expect(cls.standardReferences!.standards, ['ISO 21502:2020']);
+      expect(cls.standardReferences!.connotation, isNull);
+    });
+
+    test('hasReferences is true when either reference kind is present', () {
+      expect(fieldOf(modelWith()).hasReferences, isFalse);
+      expect(
+        fieldOf(modelWith(fieldAnnotations: [
+          {
+            'name': 'Reference',
+            'arguments': {'description': 'objectName'},
+          },
+        ])).hasReferences,
+        isTrue,
+      );
+      expect(
+        fieldOf(modelWith(fieldStandardReferences: {
+          'standards': ['ISO 21502:2020'],
+          'connotation': 'x',
+        })).hasReferences,
+        isTrue,
+      );
+    });
+  });
+
   group('SpecModel.rootByType (item 12)', () {
     SpecModel twoRootModel() => SpecModel.fromJson(<String, dynamic>{
           'roots': <dynamic>[

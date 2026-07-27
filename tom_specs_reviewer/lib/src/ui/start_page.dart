@@ -195,6 +195,13 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
   /// 2d: suppress subsections at `@MapsTo` hand-off points.
   bool _cutAtMaps = false;
 
+  /// Reveal `@SerializationOrder` ordinals in the tree.
+  ///
+  /// Held here rather than inside [SpecTree] so it keeps its value for the
+  /// whole session: the tree is keyed by document type and is rebuilt from
+  /// scratch on every document switch.
+  bool _showSerializationOrder = false;
+
   /// 2c: class to reveal/scroll-to after a hand-off jump (cleared on manual
   /// document selection).
   String? _navTargetType;
@@ -287,17 +294,24 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
                     runSpacing: 0,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      _CutToggle(
+                      _ToolbarToggle(
                         label: 'Cut at detail hand-offs',
                         value: _cutAtDetails,
                         color: Colors.deepOrange,
                         onChanged: (v) => setState(() => _cutAtDetails = v),
                       ),
-                      _CutToggle(
+                      _ToolbarToggle(
                         label: 'Cut at maps hand-offs',
                         value: _cutAtMaps,
                         color: Colors.purple,
                         onChanged: (v) => setState(() => _cutAtMaps = v),
+                      ),
+                      _ToolbarToggle(
+                        label: kSerializationOrderToggleLabel,
+                        value: _showSerializationOrder,
+                        color: Colors.blueGrey,
+                        onChanged: (v) =>
+                            setState(() => _showSerializationOrder = v),
                       ),
                     ],
                   ),
@@ -315,6 +329,7 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
                         store: widget.store,
                         cutAtDetails: _cutAtDetails,
                         cutAtMaps: _cutAtMaps,
+                        showSerializationOrder: _showSerializationOrder,
                         navTargetType: _navTargetType,
                         onHandoffTap: _onHandoffTap,
                       ),
@@ -327,15 +342,16 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
   }
 }
 
-/// A compact labelled switch used in the cut toolbar. The [color] dot ties the
-/// switch to its hand-off marker colour (orange = detail, purple = maps).
-class _CutToggle extends StatelessWidget {
+/// A compact labelled switch in the tree toolbar. The [color] dot ties the
+/// switch to what it affects — orange = detail hand-offs, purple = maps
+/// hand-offs, blue-grey = the serialization-order badges.
+class _ToolbarToggle extends StatelessWidget {
   final String label;
   final bool value;
   final Color color;
   final ValueChanged<bool> onChanged;
 
-  const _CutToggle({
+  const _ToolbarToggle({
     required this.label,
     required this.value,
     required this.color,

@@ -323,6 +323,67 @@ SpecModel _completeOneOfModel() => SpecModel.fromJson(
       )) as Map<String, dynamic>,
     );
 
+/// A model carrying the annotations TSRA5 renders: the `@Unused` marker, the
+/// `@Comment` note at both class and field level (including the `locus:`
+/// variant), `@Reference` + `@StandardReferences` provenance, a list field with
+/// *both* a `sectionId` and a `@SectionIdPattern`, and serialization ordinals.
+const _annotationJson = '''
+{
+  "classCount": 2,
+  "rootCount": 1,
+  "roots": [
+    {"type": "AnnDoc", "title": "Annotated Document", "sectionId": "AN00"}
+  ],
+  "classes": {
+    "AnnDoc": {
+      "name": "AnnDoc",
+      "sectionId": "AN00",
+      "annotations": [
+        {"name": "Comment", "arguments": {"text": "Seeds -> QAP"}},
+        {"name": "StandardReferences", "arguments": {
+          "standards": ["ISO 21502:2020 -- project management"],
+          "connotation": "What the document owns."}}
+      ],
+      "standardReferences": {
+        "standards": ["ISO 21502:2020 -- project management"],
+        "connotation": "What the document owns."
+      },
+      "fields": [
+        {"name": "intro", "kind": "content", "contentType": "text",
+         "sectionId": "AN01", "serializationOrder": 0,
+         "annotations": [
+           {"name": "Unused"},
+           {"name": "Reference", "arguments": {"description": "objectName"}}
+         ]},
+        {"name": "notes", "kind": "content", "contentType": "text",
+         "sectionId": "AN02", "serializationOrder": 1},
+        {"name": "items", "kind": "list", "elementType": "ItemEntry",
+         "elementIsComplex": true, "sectionId": "ANIT",
+         "sectionIdPattern": "ANIT-ITEM-xxx", "serializationOrder": 2,
+         "annotations": [
+           {"name": "Comment", "arguments": {"text": "locus: shared -- CE-EN"}}
+         ],
+         "standardReferences": {
+           "standards": ["IEEE 829-2008 -- test documentation"],
+           "connotation": "Lists the individual items."
+         }}
+      ]
+    },
+    "ItemEntry": {
+      "name": "ItemEntry",
+      "sectionId": "ANIE",
+      "fields": [
+        {"name": "value", "kind": "scalar", "type": "String",
+         "serializationOrder": 0}
+      ]
+    }
+  }
+}
+''';
+
+SpecModel _annotationModel() => SpecModel.fromJson(
+    json.decode(_annotationJson) as Map<String, dynamic>);
+
 File _tempReviewFile(String name) {
   final dir = Directory(
       '${Directory.current.path}/.dart_tool/specs_reviewer_test');
@@ -1065,6 +1126,259 @@ void main() {
         if (file.existsSync()) file.deleteSync();
       });
     }
+  });
+
+  group('Marker, comment and reference rendering (TSRA5)', () {
+    Future<File> pumpTree(WidgetTester tester, String name) async {
+      final file = _tempReviewFile(name);
+      if (file.existsSync()) file.deleteSync();
+      final m = _annotationModel();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: m,
+            root: m.roots.single,
+            store: ReviewStore(file),
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      return file;
+    }
+
+    testWidgets('@Unused marks the field with a chip', (tester) async {
+      final file = await pumpTree(tester, 'ann_unused.yaml');
+      expect(find.text(kUnusedChipLabel), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('@Unused also strikes the label through', (tester) async {
+      // A chip alone reads like the other seven; the strike-through is what
+      // makes a keep-or-drop candidate legible while scrolling.
+      final file = await pumpTree(tester, 'ann_unused_label.yaml');
+      final unused = tester.widget<Text>(find.text('intro'));
+      expect(unused.style?.decoration, TextDecoration.lineThrough);
+      final used = tester.widget<Text>(find.text('notes'));
+      expect(used.style?.decoration, isNot(TextDecoration.lineThrough));
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('@Comment renders inline at class and field level',
+        (tester) async {
+      final file = await pumpTree(tester, 'ann_comment.yaml');
+      expect(find.text('← Seeds -> QAP'), findsOneWidget);
+      // The `locus:` variant drives the §4.2 project split, so it has to be
+      // readable without opening anything.
+      expect(find.text('← locus: shared -- CE-EN'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('references are collapsed behind a chip by default',
+        (tester) async {
+      final file = await pumpTree(tester, 'ann_refs_collapsed.yaml');
+      // Three nodes carry provenance: the root class and the `items` list via
+      // `@StandardReferences`, `intro` via `@Reference`.
+      expect(find.text(kReferencesChipLabel), findsNWidgets(3));
+      expect(find.textContaining('ISO 21502:2020'), findsNothing);
+      expect(find.textContaining('IEEE 829-2008'), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('tapping the references chip reveals standards and '
+        'connotation', (tester) async {
+      final file = await pumpTree(tester, 'ann_refs_open.yaml');
+      await tester.tap(find.text(kReferencesChipLabel).first);
+      await tester.pumpAndSettle();
+      expect(find.textContaining('ISO 21502:2020 -- project management'),
+          findsOneWidget);
+      expect(find.textContaining('What the document owns.'), findsOneWidget);
+      // Opening one node must not open the other.
+      expect(find.textContaining('IEEE 829-2008'), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the references panel closes again', (tester) async {
+      final file = await pumpTree(tester, 'ann_refs_toggle.yaml');
+      await tester.tap(find.text(kReferencesChipLabel).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(kReferencesChipLabel).first);
+      await tester.pumpAndSettle();
+      expect(find.textContaining('ISO 21502:2020'), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('@Reference appears in the references panel', (tester) async {
+      final file = await pumpTree(tester, 'ann_reference.yaml');
+      // `intro` carries only a `@Reference`, no `@StandardReferences` — the
+      // affordance must appear for it too.
+      expect(find.text(kReferencesChipLabel), findsNWidgets(3));
+      await tester.tap(find.descendant(
+        of: find.ancestor(
+            of: find.text('intro'), matching: find.byType(Column)).first,
+        matching: find.text(kReferencesChipLabel),
+      ));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('objectName'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('@SectionIdPattern shows alongside the sectionId',
+        (tester) async {
+      // Every one of the shipped 578 patterns sits on a field that *also* has
+      // a sectionId, so the old `sectionId ?? pattern` fallback never showed
+      // a single one of them.
+      final file = await pumpTree(tester, 'ann_pattern.yaml');
+      expect(find.text('ANIT'), findsOneWidget);
+      expect(find.text('ANIT-ITEM-xxx'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('@SerializationOrder is hidden by default', (tester) async {
+      final file = await pumpTree(tester, 'ann_order_off.yaml');
+      expect(find.text('#0'), findsNothing);
+      expect(find.text('#1'), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('@SerializationOrder shows when the tree is asked for it',
+        (tester) async {
+      final file = _tempReviewFile('ann_order_on.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final m = _annotationModel();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: m,
+            root: m.roots.single,
+            store: ReviewStore(file),
+            showSerializationOrder: true,
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      expect(find.text('#0'), findsOneWidget);
+      expect(find.text('#1'), findsOneWidget);
+      expect(find.text('#2'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('Serialization-order toggle persistence (TSRA5)', () {
+    testWidgets('the toggle keeps its state when the document is switched',
+        (tester) async {
+      final file = _tempReviewFile('order_toggle.yaml');
+      if (file.existsSync()) file.deleteSync();
+      // `_handoffModel` has two roots, so switching documents rebuilds the
+      // whole tree — the toggle must live above it, not inside it.
+      final model = _handoffModel();
+      await tester.pumpWidget(MaterialApp(
+        home: StartPage(model: model, store: ReviewStore(file)),
+      ));
+      await tester.tap(find.text('Main').first);
+      await tester.pumpAndSettle();
+      expect(find.text(kSerializationOrderToggleLabel), findsOneWidget);
+
+      // The toolbar's third switch is the serialization-order one; the two
+      // before it are the hand-off cuts.
+      Switch orderSwitch() =>
+          tester.widget<Switch>(find.byType(Switch).at(2));
+      expect(orderSwitch().value, isFalse);
+
+      await tester.tap(find.byType(Switch).at(2));
+      await tester.pumpAndSettle();
+      expect(orderSwitch().value, isTrue);
+
+      await tester.tap(find.text('Other').first);
+      await tester.pumpAndSettle();
+      expect(orderSwitch().value, isTrue,
+          reason: 'the toggle must survive a document switch');
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('Annotation coverage against the shipped model (TSRA5)', () {
+    // The acceptance test for "every annotation present in spec_model.json is
+    // reachable through the UI": rather than eyeballing the tree, enumerate the
+    // snapshot's annotation names and require each to be accounted for by a
+    // named renderer. A model that grows a new annotation fails here until a
+    // decision is recorded about how to show it.
+    final model = SpecModel.fromJson(
+        json.decode(File('assets/spec_model.json').readAsStringSync())
+            as Map<String, dynamic>);
+
+    test('every annotation name in the snapshot has a renderer', () {
+      final present = <String>{};
+      for (final cls in model.classes.values) {
+        present.addAll(cls.annotations.map((a) => a.name));
+        for (final f in cls.fields) {
+          present.addAll(f.annotations.map((a) => a.name));
+        }
+      }
+      expect(present, isNotEmpty);
+      expect(present.difference(kRenderedAnnotations), isEmpty,
+          reason: 'unrendered annotations must be added to '
+              'kRenderedAnnotations with a rendering');
+    });
+
+    testWidgets('a shipped document root shows no ordinals until asked',
+        (tester) async {
+      // The readability guarantee, stated against the real model rather than a
+      // fixture: 4936 members carry an ordinal, and none of them may reach the
+      // default view.
+      final root = model.roots.first;
+      Future<void> pump({required bool showOrder}) async {
+        final file = _tempReviewFile('asset_order_$showOrder.yaml');
+        if (file.existsSync()) file.deleteSync();
+        await tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: root,
+              store: ReviewStore(file),
+              showSerializationOrder: showOrder,
+              onHandoffTap: (_, _) {},
+            ),
+          ),
+        ));
+        await tester.pumpAndSettle();
+        if (file.existsSync()) file.deleteSync();
+      }
+
+      await pump(showOrder: false);
+      expect(find.textContaining(RegExp(r'^#\d+$')), findsNothing);
+      await pump(showOrder: true);
+      expect(find.textContaining(RegExp(r'^#\d+$')), findsWidgets);
+    });
+
+    testWidgets('a shipped section with provenance offers the references '
+        'affordance', (tester) async {
+      final cls = model.classes.values.firstWhere((c) =>
+          c.standardReferences != null &&
+          c.fields.any((f) => f.sectionIdPattern != null));
+      final file = _tempReviewFile('asset_refs_${cls.name}.yaml');
+      if (file.existsSync()) file.deleteSync();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: SpecRoot(type: cls.name, title: cls.name),
+            store: ReviewStore(file),
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      expect(find.text(kReferencesChipLabel), findsWidgets);
+      // The pattern of the first patterned list field must be on screen next
+      // to its own section id.
+      final patterned =
+          cls.fields.firstWhere((f) => f.sectionIdPattern != null);
+      expect(find.text(patterned.sectionIdPattern!), findsOneWidget);
+      expect(find.text(patterned.sectionId!), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
   });
 
   group('ModelStampBar (TSRA1)', () {

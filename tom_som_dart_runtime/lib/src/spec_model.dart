@@ -159,11 +159,46 @@ String _stripEnumPrefix(String raw) {
   return dot < 0 ? raw : raw.substring(dot + 1);
 }
 
+/// The provenance recorded by `@StandardReferences(standards, connotation)`:
+/// which public standard(s) a section or field derives from, and what the
+/// section *means*.
+///
+/// Distinct from the author-facing `@ContentHelp` guidance — [connotation]
+/// states intent and ownership ("what this section is"), not "how to fill it
+/// in". The exporter emits it as a curated top-level key rather than leaving it
+/// to be dug out of the annotation list, so this reads that key.
+class StandardReferences {
+  /// The standards this node traces back to; each entry is the standard's ID
+  /// plus the clause in the standard's own wording.
+  final List<String> standards;
+
+  /// What the section means — its intent / what it owns.
+  final String? connotation;
+
+  const StandardReferences({this.standards = const [], this.connotation});
+
+  /// Returns `null` for a missing block, so absent provenance stays
+  /// distinguishable from provenance recorded as empty.
+  static StandardReferences? fromJson(Object? raw) {
+    if (raw is! Map) return null;
+    return StandardReferences(
+      standards: (raw['standards'] as List?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          const [],
+      connotation: raw['connotation'] as String?,
+    );
+  }
+}
+
 /// Shared behaviour of the two model nodes that carry annotations — classes and
 /// fields. Keeps the annotation lookups defined once instead of per node type.
 mixin AnnotatedSpecNode {
   /// The lossless annotation list captured on this node (§3.1).
   List<SpecAnnotation> get annotations;
+
+  /// The `@StandardReferences` provenance block, or `null` when unannotated.
+  StandardReferences? get standardReferences;
 
   /// The annotation named [name], or `null` when absent.
   SpecAnnotation? annotation(String name) {
@@ -184,6 +219,29 @@ mixin AnnotatedSpecNode {
   /// Whether the annotation named [name] is present. For markers that carry no
   /// arguments, presence *is* the whole statement.
   bool hasAnnotation(String name) => annotation(name) != null;
+
+  /// Whether `@Unused` marks this node as carrying no authored content — the
+  /// section is a structural container only, and tooling ignores any text.
+  ///
+  /// The annotation is argumentless, so presence is the whole statement.
+  bool get isUnused => hasAnnotation('Unused');
+
+  /// The `@Comment(text)` inline note, or `null`.
+  ///
+  /// Several of these carry the `locus: shared|client|server` grouping that
+  /// drives the `codespecs_mapping.md` §4.2 project split, so the text is a
+  /// structural statement rather than decoration.
+  String? get comment => annotation('Comment')?.argument('text') as String?;
+
+  /// The `@Reference(description)` label when this node points at data owned
+  /// elsewhere in the model tree, or `null`.
+  String? get reference =>
+      annotation('Reference')?.argument('description') as String?;
+
+  /// Whether this node carries provenance of either kind — the `@Reference`
+  /// cross-link or the `@StandardReferences` block. Lets a consumer decide
+  /// whether a references affordance has anything to show.
+  bool get hasReferences => reference != null || standardReferences != null;
 
   /// The `@CodeSpecKind` link, or `null` when this node carries no such
   /// annotation. See [KindLink] for why absent and empty differ.
@@ -242,7 +300,11 @@ class SpecField with AnnotatedSpecNode {
   final List<FormFieldSpec> formFields;
 
   /// The lossless annotation list captured on this field (§3.1).
+  @override
   final List<SpecAnnotation> annotations;
+
+  @override
+  final StandardReferences? standardReferences;
 
   SpecField({
     required this.name,
@@ -263,6 +325,7 @@ class SpecField with AnnotatedSpecNode {
     this.type,
     this.formFields = const [],
     this.annotations = const [],
+    this.standardReferences,
   });
 
   factory SpecField.fromJson(Map<String, dynamic> j) {
@@ -290,6 +353,8 @@ class SpecField with AnnotatedSpecNode {
               .toList() ??
           const [],
       annotations: SpecAnnotation.listFromJson(j['annotations']),
+      standardReferences:
+          StandardReferences.fromJson(j['standardReferences']),
     );
   }
 
@@ -397,7 +462,11 @@ class SpecClass with AnnotatedSpecNode {
   final List<SpecField> fields;
 
   /// The lossless annotation list captured on this class (§3.1).
+  @override
   final List<SpecAnnotation> annotations;
+
+  @override
+  final StandardReferences? standardReferences;
 
   SpecClass({
     required this.name,
@@ -409,6 +478,7 @@ class SpecClass with AnnotatedSpecNode {
     this.detailedIn,
     this.fields = const [],
     this.annotations = const [],
+    this.standardReferences,
   });
 
   factory SpecClass.fromJson(Map<String, dynamic> j) => SpecClass(
@@ -423,6 +493,8 @@ class SpecClass with AnnotatedSpecNode {
             .map((e) => SpecField.fromJson(e as Map<String, dynamic>))
             .toList(),
         annotations: SpecAnnotation.listFromJson(j['annotations']),
+        standardReferences:
+            StandardReferences.fromJson(j['standardReferences']),
       );
 
   /// The field named [name], or `null` when absent.
