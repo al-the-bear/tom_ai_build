@@ -309,6 +309,93 @@ String somModelVersionString(int major, String? label) {
   return '$major.0';
 }
 
+/// How old a snapshot may be before [SpecModel.checkStamp] calls it aged.
+///
+/// Why two weeks: the object model is regenerated whenever a section is added
+/// or reshaped, which in practice happens weekly or more often. A snapshot that
+/// has survived a fortnight has most likely been overtaken, and structural
+/// feedback recorded against it would be keyed to paths the model has moved
+/// past. Callers that know better pass their own `maxAge`.
+const Duration defaultMaxSnapshotAge = Duration(days: 14);
+
+/// The outcome of checking a loaded snapshot's generation stamp against its own
+/// payload and against the clock — see [SpecModel.checkStamp].
+///
+/// The two findings are independent and can both hold at once: [isAged] says
+/// the snapshot is probably behind the live model, while [countsDisagree] says
+/// the file no longer describes itself correctly. Only the second is a defect
+/// in the file.
+class SpecModelStampCheck {
+  /// How long ago the snapshot was generated, or `null` when it carries no
+  /// `generatedAt` (an older export, or a hand-built model).
+  final Duration? age;
+
+  /// The threshold [age] was judged against.
+  final Duration maxAge;
+
+  /// The class count the stamp declares, or `null` when it declares none.
+  final int? declaredClassCount;
+
+  /// The number of classes the payload actually carries.
+  final int actualClassCount;
+
+  /// The root count the stamp declares, or `null` when it declares none.
+  final int? declaredRootCount;
+
+  /// The number of document roots the payload actually carries.
+  final int actualRootCount;
+
+  const SpecModelStampCheck({
+    required this.age,
+    required this.maxAge,
+    required this.declaredClassCount,
+    required this.actualClassCount,
+    required this.declaredRootCount,
+    required this.actualRootCount,
+  });
+
+  /// Whether the snapshot is older than [maxAge]. Always `false` when the
+  /// snapshot carries no `generatedAt` — an unknown age is not evidence of a
+  /// stale one.
+  bool get isAged => age != null && age! > maxAge;
+
+  /// Whether the declared and actual class counts differ.
+  ///
+  /// An absent declaration is not a disagreement: older snapshots predate the
+  /// stamp keys, and reading absent as `0` would make every one of them look
+  /// corrupt.
+  bool get classCountDisagrees =>
+      declaredClassCount != null && declaredClassCount != actualClassCount;
+
+  /// Whether the declared and actual root counts differ. Absent declarations
+  /// are ignored, as for [classCountDisagrees].
+  bool get rootCountDisagrees =>
+      declaredRootCount != null && declaredRootCount != actualRootCount;
+
+  /// Whether either declared size disagrees with the payload.
+  ///
+  /// The exporter derives both counts *from* the payload it writes, so a
+  /// disagreement cannot arise from a normal export — it means the file was
+  /// edited or truncated afterwards.
+  bool get countsDisagree => classCountDisagrees || rootCountDisagrees;
+
+  /// Whether anything at all was found.
+  bool get isStale => isAged || countsDisagree;
+
+  /// The findings as ready-to-display sentences, empty when there are none.
+  List<String> get warnings => [
+        if (isAged)
+          'Snapshot is ${age!.inDays} days old (threshold ${maxAge.inDays} '
+              'days) — the model may have moved on since it was exported.',
+        if (classCountDisagrees)
+          'Stamp declares $declaredClassCount classes but the snapshot '
+              'carries $actualClassCount — it was edited after export.',
+        if (rootCountDisagrees)
+          'Stamp declares $declaredRootCount document roots but the snapshot '
+              'carries $actualRootCount — it was edited after export.',
+      ];
+}
+
 /// The complete exported model.
 class SpecModel {
   final List<SpecRoot> roots;
@@ -323,12 +410,61 @@ class SpecModel {
   /// or `null` when the meta-data is unstamped.
   final String? modelVersionLabel;
 
+  /// When the snapshot was exported (UTC), or `null` when it carries no
+  /// `generatedAt` — an export predating the key, or a hand-built model.
+  final DateTime? generatedAt;
+
+  /// The *file format's* own version, distinct from [modelVersion] (which
+  /// model the snapshot describes). `null` when undeclared.
+  final int? metaSchemaVersion;
+
+  /// The class count the snapshot declares, or `null` when undeclared.
+  ///
+  /// Kept separate from `classes.length`: the declared value is what the
+  /// exporter recorded, the actual value is what survived to the reader, and
+  /// comparing them is the point ([checkStamp]).
+  final int? classCount;
+
+  /// The document-root count the snapshot declares, or `null` when undeclared.
+  final int? rootCount;
+
+  /// The canonical container class — the single true tree root, which is not
+  /// itself a document and so does not appear in [roots]. `null` when the
+  /// model has no container (e.g. a synthetic export).
+  final String? containerRoot;
+
   SpecModel({
     required this.roots,
     required this.classes,
     this.modelVersion = 0,
     this.modelVersionLabel,
+    this.generatedAt,
+    this.metaSchemaVersion,
+    this.classCount,
+    this.rootCount,
+    this.containerRoot,
   });
+
+  /// Checks the generation stamp against the payload and the clock.
+  ///
+  /// [now] is injectable so callers (and tests) can evaluate age against a
+  /// fixed instant instead of the wall clock.
+  SpecModelStampCheck checkStamp({
+    Duration maxAge = defaultMaxSnapshotAge,
+    DateTime? now,
+  }) {
+    final generated = generatedAt;
+    return SpecModelStampCheck(
+      age: generated == null
+          ? null
+          : (now ?? DateTime.now().toUtc()).difference(generated),
+      maxAge: maxAge,
+      declaredClassCount: classCount,
+      actualClassCount: classes.length,
+      declaredRootCount: rootCount,
+      actualRootCount: roots.length,
+    );
+  }
 
   SpecClass? classNamed(String? name) => name == null ? null : classes[name];
 
@@ -374,6 +510,14 @@ class SpecModel {
       classes: classes,
       modelVersion: (j['modelVersion'] as num?)?.toInt() ?? 0,
       modelVersionLabel: (label?.isNotEmpty ?? false) ? label : null,
+      // Every stamp key is optional: snapshots exported before the key existed
+      // must still load. A malformed timestamp degrades to `null` for the same
+      // reason — an unreadable stamp is not worth failing a whole model over.
+      generatedAt: DateTime.tryParse(j['generatedAt'] as String? ?? '')?.toUtc(),
+      metaSchemaVersion: (j['metaSchemaVersion'] as num?)?.toInt(),
+      classCount: (j['classCount'] as num?)?.toInt(),
+      rootCount: (j['rootCount'] as num?)?.toInt(),
+      containerRoot: j['containerRoot'] as String?,
     );
   }
 }

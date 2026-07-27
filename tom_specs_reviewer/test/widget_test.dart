@@ -55,7 +55,7 @@ SpecModel _model() =>
 /// `OtherDoc`; `OtherDoc` reaches `Handoff` (whose subsections are the detail).
 const _handoffJson = '''
 {
-  "classCount": 4,
+  "classCount": 5,
   "rootCount": 2,
   "roots": [
     {"type": "MainDoc", "title": "Main", "sectionId": "MN00"},
@@ -101,6 +101,25 @@ const _handoffJson = '''
 
 SpecModel _handoffModel() =>
     SpecModel.fromJson(json.decode(_handoffJson) as Map<String, dynamic>);
+
+/// [_sampleJson] plus the generation stamp the exporter writes, so the stamp
+/// bar has something to render. Defaults describe a healthy snapshot; each
+/// parameter exists so a test can spoil exactly one property.
+SpecModel _stampedModel({
+  String generatedAt = '2026-07-20T08:00:00.000000Z',
+  int classCount = 2,
+  int rootCount = 1,
+}) =>
+    SpecModel.fromJson({
+      ...json.decode(_sampleJson) as Map<String, dynamic>,
+      'modelVersion': 9,
+      'modelVersionLabel': '1.0.0+9',
+      'generatedAt': generatedAt,
+      'metaSchemaVersion': 1,
+      'classCount': classCount,
+      'rootCount': rootCount,
+      'containerRoot': 'DocSpecsProject',
+    });
 
 File _tempReviewFile(String name) {
   final dir = Directory(
@@ -439,6 +458,89 @@ void main() {
       // Root expands by default → its content field is visible.
       expect(find.text('intro'), findsOneWidget);
       expect(find.text('header'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('ModelStampBar (TSRA1)', () {
+    // One day after the fixture's generatedAt — well inside the threshold.
+    final fresh = DateTime.utc(2026, 7, 21, 8);
+    // Sixty days after it — well outside.
+    final longAfter = DateTime.utc(2026, 9, 18, 8);
+
+    Future<File> pumpStart(
+      WidgetTester tester, {
+      required String name,
+      required SpecModel model,
+      DateTime? now,
+    }) async {
+      final file = _tempReviewFile(name);
+      if (file.existsSync()) file.deleteSync();
+      await tester.pumpWidget(MaterialApp(
+        home: StartPage(model: model, store: ReviewStore(file), now: now),
+      ));
+      return file;
+    }
+
+    testWidgets('names the model, its export time and its size', (tester) async {
+      final file = await pumpStart(tester,
+          name: 'stamp_ok.yaml', model: _stampedModel(), now: fresh);
+
+      expect(find.textContaining('Model 1.0'), findsOneWidget);
+      expect(find.textContaining('(1.0.0+9)'), findsOneWidget);
+      expect(find.textContaining('generated 2026-07-20 08:00 UTC'),
+          findsOneWidget);
+      expect(find.textContaining('1 day ago'), findsOneWidget);
+      expect(find.textContaining('2 classes'), findsOneWidget);
+      expect(find.textContaining('1 roots'), findsOneWidget);
+      expect(find.textContaining('container DocSpecsProject'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a fresh, self-consistent snapshot raises no warning',
+        (tester) async {
+      final file = await pumpStart(tester,
+          name: 'stamp_fresh.yaml', model: _stampedModel(), now: fresh);
+
+      expect(find.byIcon(Icons.verified_outlined), findsOneWidget);
+      expect(find.byIcon(Icons.warning_amber_rounded), findsNothing);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('an artificially aged snapshot warns', (tester) async {
+      final file = await pumpStart(tester,
+          name: 'stamp_aged.yaml', model: _stampedModel(), now: longAfter);
+
+      expect(find.byIcon(Icons.warning_amber_rounded), findsOneWidget);
+      expect(find.textContaining('60 days old'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a snapshot edited after export warns about the count',
+        (tester) async {
+      // The exporter derives classCount from the payload, so a disagreement can
+      // only mean the file was changed by hand afterwards.
+      final file = await pumpStart(tester,
+          name: 'stamp_edited.yaml',
+          model: _stampedModel(classCount: 99),
+          now: fresh);
+
+      expect(find.byIcon(Icons.warning_amber_rounded), findsOneWidget);
+      expect(
+          find.textContaining('declares 99 classes but the snapshot carries 2'),
+          findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a snapshot without the stamp keys still renders, degraded',
+        (tester) async {
+      final file = await pumpStart(tester,
+          name: 'stamp_absent.yaml', model: _model(), now: longAfter);
+
+      // No generatedAt means no age can be computed — and therefore no aged
+      // warning, rather than a false alarm.
+      expect(find.textContaining('generated: unknown'), findsOneWidget);
+      expect(find.byIcon(Icons.warning_amber_rounded), findsNothing);
       if (file.existsSync()) file.deleteSync();
     });
   });

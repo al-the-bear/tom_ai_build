@@ -78,6 +78,144 @@ void main() {
     });
   });
 
+  group('generation stamp', () {
+    /// The fixture plus the five generation-stamp keys the exporter writes.
+    Map<String, dynamic> stampedJson({
+      String? generatedAt = '2026-07-20T08:00:00.000000Z',
+      int? classCount = 3,
+      int? rootCount = 1,
+    }) =>
+        {
+          ...fixtureJson(),
+          if (generatedAt != null) 'generatedAt': generatedAt,
+          'metaSchemaVersion': 1,
+          if (classCount != null) 'classCount': classCount,
+          if (rootCount != null) 'rootCount': rootCount,
+          'containerRoot': 'DocSpecsProject',
+        };
+
+    test('decodes generatedAt, metaSchemaVersion, counts and containerRoot',
+        () {
+      final model = SpecModel.fromJson(stampedJson());
+      expect(model.generatedAt, DateTime.utc(2026, 7, 20, 8));
+      expect(model.generatedAt!.isUtc, isTrue);
+      expect(model.metaSchemaVersion, 1);
+      expect(model.classCount, 3);
+      expect(model.rootCount, 1);
+      expect(model.containerRoot, 'DocSpecsProject');
+    });
+
+    test('an older snapshot without the stamp keys still parses, with nulls',
+        () {
+      // The shared fixture predates the stamp keys — exactly the compatibility
+      // case, so it doubles as the regression guard.
+      final model = fixtureModel();
+      expect(model.generatedAt, isNull);
+      expect(model.metaSchemaVersion, isNull);
+      expect(model.classCount, isNull);
+      expect(model.rootCount, isNull);
+      expect(model.containerRoot, isNull);
+      // Absent must not be read as zero — a declared 0 would look like a
+      // mismatch against the 3 classes the payload actually carries.
+      expect(model.checkStamp().countsDisagree, isFalse);
+    });
+
+    test('an unparseable generatedAt degrades to null rather than throwing',
+        () {
+      final model = SpecModel.fromJson(stampedJson(generatedAt: 'not-a-date'));
+      expect(model.generatedAt, isNull);
+      // The rest of the stamp still decodes.
+      expect(model.classCount, 3);
+    });
+  });
+
+  group('SpecModel.checkStamp', () {
+    Map<String, dynamic> json({
+      String? generatedAt = '2026-07-20T08:00:00.000000Z',
+      int? classCount = 3,
+      int? rootCount = 1,
+    }) =>
+        {
+          ...fixtureJson(),
+          if (generatedAt != null) 'generatedAt': generatedAt,
+          if (classCount != null) 'classCount': classCount,
+          if (rootCount != null) 'rootCount': rootCount,
+        };
+
+    // One day after the fixture's generatedAt.
+    final fresh = DateTime.utc(2026, 7, 21, 8);
+    // Sixty days after it.
+    final longAfter = DateTime.utc(2026, 9, 18, 8);
+
+    test('a recent, self-consistent snapshot raises nothing', () {
+      final check = SpecModel.fromJson(json()).checkStamp(now: fresh);
+      expect(check.age, const Duration(days: 1));
+      expect(check.isAged, isFalse);
+      expect(check.countsDisagree, isFalse);
+      expect(check.isStale, isFalse);
+      expect(check.warnings, isEmpty);
+    });
+
+    test('a snapshot older than the threshold is reported as aged', () {
+      final check = SpecModel.fromJson(json()).checkStamp(now: longAfter);
+      expect(check.isAged, isTrue);
+      expect(check.isStale, isTrue);
+      expect(check.warnings.single, contains('60 days old'));
+    });
+
+    test('the age threshold is caller-controlled', () {
+      final model = SpecModel.fromJson(json());
+      expect(
+          model
+              .checkStamp(now: longAfter, maxAge: const Duration(days: 90))
+              .isAged,
+          isFalse);
+      expect(
+          model
+              .checkStamp(now: fresh, maxAge: const Duration(hours: 1))
+              .isAged,
+          isTrue);
+    });
+
+    test('a declared class count that disagrees with the payload is flagged',
+        () {
+      // The exporter derives classCount from the payload, so a disagreement
+      // can only mean the file was edited after export.
+      final check =
+          SpecModel.fromJson(json(classCount: 99)).checkStamp(now: fresh);
+      expect(check.classCountDisagrees, isTrue);
+      expect(check.rootCountDisagrees, isFalse);
+      expect(check.isStale, isTrue);
+      expect(check.warnings.single, allOf(contains('99'), contains('3')));
+    });
+
+    test('a declared root count that disagrees with the payload is flagged',
+        () {
+      final check =
+          SpecModel.fromJson(json(rootCount: 7)).checkStamp(now: fresh);
+      expect(check.rootCountDisagrees, isTrue);
+      expect(check.classCountDisagrees, isFalse);
+      expect(check.warnings.single, allOf(contains('7'), contains('1')));
+    });
+
+    test('age and count findings are independent and both reported', () {
+      final check = SpecModel.fromJson(json(classCount: 99, rootCount: 7))
+          .checkStamp(now: longAfter);
+      expect(check.isAged, isTrue);
+      expect(check.classCountDisagrees, isTrue);
+      expect(check.rootCountDisagrees, isTrue);
+      expect(check.warnings, hasLength(3));
+    });
+
+    test('a snapshot without generatedAt is never aged', () {
+      final check =
+          SpecModel.fromJson(json(generatedAt: null)).checkStamp(now: longAfter);
+      expect(check.age, isNull);
+      expect(check.isAged, isFalse);
+      expect(check.isStale, isFalse);
+    });
+  });
+
   group('SpecAnnotation', () {
     test('class-level annotations are captured losslessly', () {
       final cls = fixtureModel().classNamed('ProjectDefinition')!;

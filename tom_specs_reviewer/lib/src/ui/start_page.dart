@@ -10,10 +10,20 @@ class StartPage extends StatelessWidget {
   final SpecModel model;
   final ReviewStore store;
 
-  const StartPage({super.key, required this.model, required this.store});
+  /// Evaluation instant for the snapshot-age check, injectable so tests can
+  /// age a fixture without touching the clock.
+  final DateTime? now;
+
+  const StartPage({
+    super.key,
+    required this.model,
+    required this.store,
+    this.now,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final check = model.checkStamp(now: now);
     return DefaultTabController(
       length: 1,
       child: Scaffold(
@@ -37,14 +47,130 @@ class StartPage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _DocumentStructuresTab(model: model, store: store),
+            ModelStampBar(model: model, check: check),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  _DocumentStructuresTab(model: model, store: store),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+/// Identifies the snapshot the reviewer is working against, and says so loudly
+/// when it can no longer be trusted.
+///
+/// Why it is always visible rather than tucked into an "about" dialog: review
+/// observations are keyed by structural path, so feedback recorded against a
+/// superseded snapshot is silently mis-filed. The reviewer has to be able to
+/// see which model they are judging without going looking for it.
+class ModelStampBar extends StatelessWidget {
+  final SpecModel model;
+  final SpecModelStampCheck check;
+
+  const ModelStampBar({super.key, required this.model, required this.check});
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final stale = check.isStale;
+    return Material(
+      color: stale ? scheme.errorContainer : scheme.surfaceContainerHighest,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  stale ? Icons.warning_amber_rounded : Icons.verified_outlined,
+                  size: 16,
+                  color: stale ? scheme.onErrorContainer : scheme.outline,
+                ),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    _stampLine(model, check),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                      color:
+                          stale ? scheme.onErrorContainer : scheme.onSurface,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            for (final warning in check.warnings)
+              Padding(
+                padding: const EdgeInsets.only(left: 22, top: 2),
+                child: Text(
+                  warning,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: scheme.onErrorContainer,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The one-line stamp: which model, exported when, and how big.
+///
+/// Every part degrades independently — an older snapshot that declares no
+/// counts simply contributes no count segment rather than rendering `null`.
+String _stampLine(SpecModel model, SpecModelStampCheck check) {
+  final parts = <String>[
+    'Model ${model.modelVersionString}',
+    if (model.modelVersionLabel != null) '(${model.modelVersionLabel})',
+  ];
+  final generated = model.generatedAt;
+  parts.add(generated == null
+      ? 'generated: unknown'
+      : 'generated ${_formatTimestamp(generated)}'
+          '${check.age == null ? '' : ' · ${_formatAge(check.age!)}'}');
+  parts.add('${check.actualClassCount} classes');
+  parts.add('${check.actualRootCount} roots');
+  if (model.containerRoot != null) {
+    parts.add('container ${model.containerRoot}');
+  }
+  return parts.join(' · ');
+}
+
+/// `2026-07-27 09:23 UTC` — minute precision is as fine as a freshness read
+/// ever needs, and the seconds only add noise.
+String _formatTimestamp(DateTime utc) {
+  String two(int v) => v.toString().padLeft(2, '0');
+  return '${utc.year}-${two(utc.month)}-${two(utc.day)} '
+      '${two(utc.hour)}:${two(utc.minute)} UTC';
+}
+
+/// A coarse "how long ago", in the largest unit that still reads naturally.
+String _formatAge(Duration age) {
+  if (age.inDays >= 1) {
+    return '${age.inDays} day${age.inDays == 1 ? '' : 's'} ago';
+  }
+  if (age.inHours >= 1) {
+    return '${age.inHours} hour${age.inHours == 1 ? '' : 's'} ago';
+  }
+  if (age.inMinutes >= 1) {
+    return '${age.inMinutes} min ago';
+  }
+  return 'just now';
 }
 
 /// Master-detail view: list of document roots on the left, the selected
