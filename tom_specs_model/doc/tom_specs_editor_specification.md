@@ -4,7 +4,7 @@
 **Status:** Complete design specification — the single source for the TomSpecs Editor. Model-driven document editing over the generated Dart SOM API (`tom_som_dart_v0` typed facade over `tom_som_dart_runtime`), Claude Code integration through the Anthropic Agent SDK over the VS Code bridge, projection-root semantics with a pure-projection invariant, and a buildkit-driven cross-platform build.
 **Scope:** A full, Tom Forge–based specification editor with Claude Code integration through the Anthropic Agent SDK.
 
-> This document specifies a *new* application — the **TomSpecs Editor** — placed at `tom_forge/tom_specs_editor`. The current `tom_ai/ai_build/tom_specs_editor` prototype (structure browser + structural review) is **left untouched**; its tree renderer and review feature are **copied** into the new app and restyled to match (requirement *Q1*).
+> This document specifies the **TomSpecs Editor**, the specification-authoring app at `tom_forge/tom_specs_editor`. It is a separate application from `tom_ai/ai_build/tom_specs_reviewer`, the object-model structure reviewer, which has its own specification (`tom_specs_reviewer_specification.md`). The editor carries its own fork of the reviewer's tree renderer and review feature, restyled to the Forge shell (requirement *Q1*).
 
 ---
 
@@ -36,7 +36,7 @@ Objectives (with the originating requirement letters):
 
 | # | Decision |
 | --- | --- |
-| Q1 | New project `tom_forge/tom_specs_editor`; old app untouched; prototype copied in & restyled. |
+| Q1 | The editor is its own project, `tom_forge/tom_specs_editor`, separate from `tom_specs_reviewer`; the tree renderer + review feature are forked into it and restyled. |
 | Q2 | Shared agent code → **`tom_core_agentic`** (`tom_ai/core/tom_core_agentic`, exists, v1.5.0). |
 | Q3 | Placeholder engine ported/reimplemented in Dart — reuse `tom_core_agentic`'s `PlaceholderResolver`; **no JS** (`${{…}}` expression evaluator left unwired). |
 | Q4 | Assume a running VS Code CLI server. Port configurable; **scan 19900–19909 on startup**, show each live server's workspace, let user pick. Tests assume `19900`. |
@@ -159,7 +159,7 @@ Seven webview editors, all reloading from disk and all exposing an **"open raw f
 - `tom_specs_core` annotations; `tom_specs_model` 14 roots — the `D00SolutionBlueprint` master, the 12 Phase 3 documents (`D01`…`D12`), and `D13CodeSpecsProjection`, the Phase 4 code-generation projection. **Crucial semantics:** the 12 Phase 3 roots are `@Document(basedOn:[SolutionBlueprint])` and aggregate **the same** SBP classes via typed fields with `@MapsTo`/`@DetailedIn`; `D13` is a projection by the same rule but reaches its subtrees directly, driven by `@CodeSpecKind` rather than `@DetailedIn` (its `@CodeSpecsProjection()` marker exempts it from the §8.6 detail-count check only). So a spec's single source of truth is the **SolutionBlueprint instance**; the other roots are **projections** over it (this underpins Q9 — see §14).
 - `spec_model.json` (`ModelJsonExporter`, `tom_specs_clitool/bin/model_json.dart`): `{generatedAt, classCount, rootCount, roots[], classes{}}`; `SpecClass{name,sectionId,doc,help,mapsTo,detailedIn,fields[]}`; `SpecField.kind ∈ {list,form,section,content,enum,complex,scalar}` with kind metadata.
 - DocSpecs (`tom_doc_specs`): `<!-- docspec: id/version -->`; schema YAML `{id}-{version}.docspecs-schema.yaml` (`section-types`{prefix,counts,pattern-check,format,text-required,allowed-tags,validation-prompt,required-fields}, `form-types`); runtime `DocSpecsFactory`→`SpecDoc` (`getSection/getSpecSectionType/getSectionsByTag/isValid`), `SpecSection{type,tags,format,fields,text,sections}`. Content joins to model by **section ID**.
-- Prototype `tom_specs_editor`: `SpecModel.fromJson` over the asset; `spec_tree.dart`; `ReviewStore` (per-path YAML).
+- `tom_specs_reviewer`: `SpecModel.fromJson` over the asset; `spec_tree.dart`; `ReviewStore` (per-path YAML).
 
 ### 3.8 Generated Dart SOM API (`tom_som_dart_v0` over `tom_som_dart_runtime`)
 
@@ -479,9 +479,9 @@ The build is driven by the **`buildkit`** tool (N8), which can run **all** build
 
 **No open design questions remain** — every decision is recorded in §2 and folded into the body. The items below are **confirmed implementation tasks** (no decision pending) to carry out during build:
 
-- **T1 — Canonical-container tree root (was Q-N11, confirmed).** Make `ModelJsonExporter`, the §8.6 validator, and the outliner recognise the unannotated **canonical container** as the tree root (not an extra document): exempt it from `@SectionId` coverage/uniqueness, and have the exporter follow it as root. (`tom_specs_clitool` / `tom_specs_model`.)
+- **T1 — Canonical-container tree root.** Make `ModelJsonExporter`, the §8.6 validator, and the outliner recognise the unannotated **canonical container** as the tree root (not an extra document): exempt it from `@SectionId` coverage/uniqueness, and have the exporter follow it as root. (`tom_specs_clitool` / `tom_specs_model`.)
 - **T2 — Pure-projection validator invariant.** Add a §8.6 invariant that every Phase 3 projection root contains **no content absent from the Solution Blueprint**: every reachable content-bearing node must trace back via `@MapsTo`/`@DetailedIn` to a SBP section. The connect pass (§15.1) relies on this, so it only re-points references — never invents or drops content. The link mechanism is the existing `@MapsTo`/`@DetailedIn` annotations; a null target section is simply null in SBP too (one shared tree). (`tom_specs_clitool` validator.)
-- **T3 — Provider layer location (was Q-N13) — settled.** The provider abstraction (`LlmProvider`, `AgentSdkLlmProvider`, `AgentSdkSessionStrategy`/`AgentSdkSessionStore`) lives in `tom_core_agentic` (published, with the `tom_vscode_scripting_api` dependency); `tom_brain_*` consumes it and re-exports for back-compat, and the HTTP/stub providers remain in `tom_brain_substrate`. No `tom_assistant` consumer pins old `tom_brain` provider classes. The editor depends on `tom_core_agentic` for this layer.
+- **T3 — Provider layer location.** The provider abstraction (`LlmProvider`, `AgentSdkLlmProvider`, `AgentSdkSessionStrategy`/`AgentSdkSessionStore`) lives in `tom_core_agentic` (published, with the `tom_vscode_scripting_api` dependency); `tom_brain_*` consumes it and re-exports for back-compat, and the HTTP/stub providers remain in `tom_brain_substrate`. No `tom_assistant` consumer pins old `tom_brain` provider classes. The editor depends on `tom_core_agentic` for this layer.
 
 ### 19.1 Reviewer vs editor — scope boundary and runtime consumption
 
@@ -525,7 +525,7 @@ Ordered, numbered steps to build the TomSpecs Editor from scratch. The order fol
 
 8. **Scaffold `tom_forge/tom_forge_agentic` (UI only, D1/N7) and `tom_forge/tom_specs_editor`.** Two new Flutter projects; `tom_specs_editor` depends on `tom_forge_agentic` + `tom_core_agentic` + the bundled model/schema assets. **Done:** both projects build empty; `tom_specs_editor` launches a blank Forge shell.
 9. **Custom module set + 3 applications (§4.2, §5).** `SpecsShellModule` registering the *DocSpecs / CodeSpecs / Implementation* `ForgeApplication`s with the 4-region `ApplicationLayout`; only DocSpecs functional. **Done:** app launcher switches between the three; DocSpecs shows the 4 regions.
-10. **Port the structure browser + structural review (Q1).** Copy the prototype `spec_tree.dart` + `ReviewStore` into `SpecStructureModule`, restyle to match. **Done:** the structure view renders the bundled `spec_model.json` and persists review state, restyled.
+10. **Port the structure browser + structural review (Q1).** Fork the reviewer's `spec_tree.dart` + `ReviewStore` into `SpecStructureModule`, restyle to match. **Done:** the structure view renders the bundled `spec_model.json` and persists review state, restyled.
 
 ### Stage C — Connection & agent `[1b]`
 

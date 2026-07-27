@@ -394,10 +394,10 @@ Rust, C, C++):
 
 These two navigation surfaces are what let a generic consumer obtain a real
 `.path` by navigation instead of hard-coding a string literal like
-`'SBP/currentLandscape/CUOPME-OPER-LST'`. They supersede the earlier flat
-path-constant holders (`SbpPaths.…`), which are retired: constants could not
-express a *dynamic* path (a typed-navigation prefix plus a runtime-computed
-tail), which is the case that actually needed help. See
+`'SBP/currentLandscape/CUOPME-OPER-LST'`. Navigation rather than flat path
+constants, because a constant cannot express a *dynamic* path — a
+typed-navigation prefix plus a runtime-computed tail — which is the case that
+actually needs help. See
 `tom_som_dart_v0/example/f_sample_hybrid_access.dart`.
 
 ## 9. The fixed (non-generated) runtime
