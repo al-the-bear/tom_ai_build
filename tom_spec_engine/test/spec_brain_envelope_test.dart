@@ -5,6 +5,7 @@ import 'package:test/test.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 import 'support/agent_test_fixture.dart';
+import 'support/vector_runtime.dart';
 
 /// §10 mode (b) — the **live `tom_brain_memory`-backed**
 /// session envelope.
@@ -17,14 +18,13 @@ import 'support/agent_test_fixture.dart';
 /// recall.
 ///
 /// Like the memory-façade suite, the store-touching tests are **skipped** (not
-/// failed) on a platform with no packaged vec0 binary under
-/// `tom_binaries/sqlite_vec` — the store refuses to boot without it.
+/// failed) when the host process has no vector runtime.
+/// `support/vector_runtime.dart` owns that precondition and explains why it is
+/// probed rather than inferred from the binary's presence.
 void main() {
-  final vecRoot = _findSqliteVecRoot();
-  final skipNoBinary = vecRoot == null
-      ? 'No packaged vec0 binary found under tom_binaries/sqlite_vec — the '
-          'memory store refuses to boot without it.'
-      : null;
+  // Vector-runtime precondition — probed, not proxied: a present vec0 binary
+  // does not imply a loadable one (see test/support/vector_runtime.dart).
+  final skipNoBinary = vectorRuntime.skipReason;
 
   Future<Vec> embedText(String text) async {
     const dims = 768;
@@ -43,7 +43,7 @@ void main() {
     final root = Directory.systemTemp.createTempSync('tse_step8_');
     final memory = SpecMemory(
       memoryRoot: root.path,
-      sqliteVecBinariesRoot: vecRoot!,
+      sqliteVecBinariesRoot: vectorRuntime.requireBinariesRoot,
       embedder: embedText,
     );
     addTearDown(() async {
@@ -214,19 +214,4 @@ main(task) => undefinedSymbol();
       expect(envelope.runs.map((r) => r.scope.document), ['doc-a', 'doc-b']);
     }, skip: skipNoBinary);
   });
-}
-
-/// Locates `<workspace>/tom_binaries/sqlite_vec`, walking up from the cwd.
-String? _findSqliteVecRoot() {
-  var dir = Directory.current.absolute;
-  for (var i = 0; i < 10; i++) {
-    final candidate = Directory(
-        '${dir.path}${Platform.pathSeparator}tom_binaries'
-        '${Platform.pathSeparator}sqlite_vec');
-    if (candidate.existsSync()) return candidate.path;
-    final parent = dir.parent;
-    if (parent.path == dir.path) break;
-    dir = parent;
-  }
-  return null;
 }

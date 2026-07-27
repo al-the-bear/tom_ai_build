@@ -41,3 +41,41 @@ dart pub get
 dart analyze
 dart test     # or: testkit :test
 ```
+
+### Vector runtime precondition
+
+The memory plane boots on `SqliteTomBrainMemory`, which **refuses to open**
+unless the bundled sqlite-vec (`vec0`) extension registers — vector recall is
+mandatory and there is no BM25-only fallback. Two things must hold for that:
+
+1. a packaged `vec0` binary for the running platform exists under
+   `tom_binaries/sqlite_vec/<platform>/`, **and**
+2. the `libsqlite3` the **host process** resolves supports extension loading.
+
+Condition 2 is a property of the process, not of this package, and it is not
+universally true:
+
+| Host | Resolved SQLite | Vector runtime |
+| --- | --- | --- |
+| Flutter desktop (the editor) | bundled via `sqlite3_flutter_libs` | **yes** |
+| bare `dart test` on Linux | distro `libsqlite3.so` | **yes** |
+| bare `dart test` on macOS | Apple's `/usr/lib/libsqlite3.dylib` | **no** |
+| bare `dart test` on Windows | `sqlite3.dll` if one is on the search path, else `winsqlite3.dll` | depends |
+
+Apple's system SQLite is compiled with `SQLITE_OMIT_LOAD_EXTENSION`: it exports
+neither `sqlite3_load_extension` nor `sqlite3_enable_load_extension`, and
+`sqlite3_auto_extension` answers `SQLITE_MISUSE` (21). The `vec0` dylib itself
+is fine — it opens and its `sqlite3_vec_init` symbol resolves — but nothing can
+register it. So a bare `dart test` on macOS has **no** vector runtime, and that
+is expected rather than a defect. A distro `libsqlite3.so` does export the
+extension-loading API, so the same suites run for real on Linux; Windows
+depends on which DLL resolves, since `winsqlite3.dll` omits it too.
+
+The four store-touching suites (`spec_memory`, `spec_rag_store`,
+`spec_recall_store`, `spec_brain_envelope`) therefore gate on
+`test/support/vector_runtime.dart`, which **probes the actual load** once per
+test isolate rather than inferring availability from the binary's presence.
+Where the runtime is missing those tests are reported as **skipped, with the
+reason**, so the precondition is stated rather than hidden behind a red suite.
+Run them on Linux, or from the Flutter editor host, to exercise the vector
+tier for real.

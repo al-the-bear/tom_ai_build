@@ -5,6 +5,8 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
+import 'support/vector_runtime.dart';
+
 /// `llm_and_d4rt_tools.md` §9.1 — the **in-process** half of
 /// the section-level RAG store: a document's [SpecRagGraph] (built in
 /// `spec_rag_graph_test.dart`) is persisted as section nodes + tree/projection
@@ -14,9 +16,10 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// Contract (§9.1): *nodes/edges build from a document and recall
 /// returns them.*
 ///
-/// Like the façade suite, these are **skipped** (not failed) when the
-/// running platform has no packaged vec0 binary under
-/// `tom_binaries/sqlite_vec` — the store refuses to boot without it.
+/// Like the façade suite, these are **skipped** (not failed) when the host
+/// process has no vector runtime. `support/vector_runtime.dart` owns that
+/// precondition and explains why it is probed rather than inferred from the
+/// binary's presence.
 SpecModel _model() => SpecModel.fromJson({
       'modelVersion': 1,
       'roots': [
@@ -44,11 +47,9 @@ SpecModel _model() => SpecModel.fromJson({
     });
 
 void main() {
-  final vecRoot = _findSqliteVecRoot();
-  final skipNoBinary = vecRoot == null
-      ? 'No packaged vec0 binary found under tom_binaries/sqlite_vec — the '
-          'memory store refuses to boot without it.'
-      : null;
+  // Vector-runtime precondition — probed, not proxied: a present vec0 binary
+  // does not imply a loadable one (see test/support/vector_runtime.dart).
+  final skipNoBinary = vectorRuntime.skipReason;
 
   /// Deterministic 768-dim embedder: same text → identical vector, so a
   /// self-recall is an exact vector hit (mirrors the façade suite).
@@ -76,7 +77,7 @@ void main() {
   SpecMemory openMemory() {
     final memory = SpecMemory(
       memoryRoot: freshRoot(),
-      sqliteVecBinariesRoot: vecRoot!,
+      sqliteVecBinariesRoot: vectorRuntime.requireBinariesRoot,
       embedder: embedText,
     );
     addTearDown(memory.close);
@@ -186,7 +187,7 @@ void main() {
 
       final memory = SpecMemory(
         memoryRoot: freshRoot(),
-        sqliteVecBinariesRoot: vecRoot!,
+        sqliteVecBinariesRoot: vectorRuntime.requireBinariesRoot,
         embedder: countingSingle,
         batchEmbedder: countingBatch,
       );
@@ -219,7 +220,7 @@ void main() {
 
       final memory = SpecMemory(
         memoryRoot: freshRoot(),
-        sqliteVecBinariesRoot: vecRoot!,
+        sqliteVecBinariesRoot: vectorRuntime.requireBinariesRoot,
         embedder: countingSingle,
       );
       addTearDown(memory.close);
@@ -232,19 +233,4 @@ void main() {
       expect(singleCalls, graph.nodes.length);
     }, skip: skipNoBinary);
   });
-}
-
-/// Locates `<workspace>/tom_binaries/sqlite_vec`, walking up from the cwd.
-String? _findSqliteVecRoot() {
-  var dir = Directory.current.absolute;
-  for (var i = 0; i < 10; i++) {
-    final candidate = Directory(
-        '${dir.path}${Platform.pathSeparator}tom_binaries'
-        '${Platform.pathSeparator}sqlite_vec');
-    if (candidate.existsSync()) return candidate.path;
-    final parent = dir.parent;
-    if (parent.path == dir.path) break;
-    dir = parent;
-  }
-  return null;
 }
