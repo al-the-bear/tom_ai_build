@@ -28952,7 +28952,7 @@ form-types:
   pcasm-form:
     fields:
       - fieldname: baseProcess
-        description: tom_system_creation / tom_system_upgrade
+        description: TomSpecs creation (PF-PHA) / upgrade cycle (PF-UPG)
       - fieldname: baseProcessVersion
         description: Version of the standard process being adjusted
       - fieldname: totalStepsInBase

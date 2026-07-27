@@ -88,7 +88,7 @@
       "type": "D11DeliveryRoadmap",
       "title": "Delivery Roadmap",
       "sectionId": "DRM",
-      "description": "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_system_upgrade.md).",
+      "description": "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_specs_project_flow.md §PF-UPG).",
       "doc": "DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework."
     },
     {
@@ -57940,7 +57940,7 @@
           "name": "Document",
           "arguments": {
             "name": "Delivery Roadmap",
-            "description": "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_system_upgrade.md).",
+            "description": "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_specs_project_flow.md §PF-UPG).",
             "basedOn": [
               "D00SolutionBlueprint"
             ]
@@ -58135,7 +58135,7 @@
         {
           "name": "upgradeCycleFramework",
           "kind": "complex",
-          "doc": "Upgrade cycle framework (links tom_system_upgrade.md).",
+          "doc": "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -119582,7 +119582,7 @@
     "InitialDevelopmentFlow": {
       "name": "InitialDevelopmentFlow",
       "sectionId": "INDEFL",
-      "doc": "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".",
+      "doc": "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".",
       "detailedIn": "D11DeliveryRoadmap",
       "standardReferences": {
         "standards": [
@@ -171900,7 +171900,7 @@
     "ProcessAdjustments": {
       "name": "ProcessAdjustments",
       "sectionId": "PCADJ",
-      "doc": "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_system_creation.md or\ntom_system_upgrade.md process. Includes skipped, reordered, or modified\nsteps and the rationale for each deviation.",
+      "doc": "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_specs_project_flow.md\ncreation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,\nreordered, or modified steps and the rationale for each deviation.",
       "standardReferences": {
         "standards": [
           "ISO 21500 — project management (process tailoring)",
@@ -171993,7 +171993,7 @@
             {
               "name": "baseProcess",
               "label": "Base Process",
-              "hint": "tom_system_creation / tom_system_upgrade",
+              "hint": "TomSpecs creation (PF-PHA) / upgrade cycle (PF-UPG)",
               "type": "String",
               "required": false
             },
@@ -269422,7 +269422,7 @@
     "UpgradeCycleFramework": {
       "name": "UpgradeCycleFramework",
       "sectionId": "UPCYFR",
-      "doc": "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.",
+      "doc": "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.",
       "detailedIn": "D11DeliveryRoadmap",
       "standardReferences": {
         "standards": [
@@ -269459,13 +269459,13 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_system_upgrade.md` process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n",
+          "help": "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n",
           "serializationOrder": 0,
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_system_upgrade.md` process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n"
+                "guidance": "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n"
               }
             },
             {

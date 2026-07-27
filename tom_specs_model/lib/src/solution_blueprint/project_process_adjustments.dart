@@ -808,9 +808,9 @@ class QualityGateAdjustmentDetails extends DocSpecsSection {
 
 /// 2.3. Process Adjustments.
 ///
-/// Documents any deviations from the standard tom_system_creation.md or
-/// tom_system_upgrade.md process. Includes skipped, reordered, or modified
-/// steps and the rationale for each deviation.
+/// Documents any deviations from the standard tom_specs_project_flow.md
+/// creation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,
+/// reordered, or modified steps and the rationale for each deviation.
 @StandardReferences(
   [
     'ISO 21500 — project management (process tailoring)',
@@ -843,7 +843,7 @@ and how process integrity is maintained despite deviations.
       'baseProcess',
       String,
       'Base Process',
-      hint: 'tom_system_creation / tom_system_upgrade',
+      hint: 'TomSpecs creation (PF-PHA) / upgrade cycle (PF-UPG)',
     ),
     Field(
       'baseProcessVersion',

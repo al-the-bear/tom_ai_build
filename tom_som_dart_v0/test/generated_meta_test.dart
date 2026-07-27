@@ -5,7 +5,7 @@
 // (`tom_som_dart_v0_meta.dart`, DR1 §3.2/§4). Two guarantees over the *real*
 // committed model:
 //
-//   1. EXHAUSTIVE TREE AGREEMENT — for every one of the 13 document roots the
+//   1. EXHAUSTIVE TREE AGREEMENT — for every one of the 14 document roots the
 //      generated static `SomMetaTree` is field-for-field identical (via
 //      `somMetaNodeDiff`) to the tree `buildSomMetaTree` derives from the
 //      committed `meta/spec_model.meta.json` at runtime. Since the emitter
@@ -48,9 +48,10 @@ void main() {
     'D10QualityAcceptancePlan': d10QualityAcceptancePlanMetaTree,
     'D11DeliveryRoadmap': d11DeliveryRoadmapMetaTree,
     'D12TransitionRolloutPlan': d12TransitionRolloutPlanMetaTree,
+    'D13CodeSpecsProjection': d13CodeSpecsProjectionMetaTree,
   };
 
-  group('generated metadata trees == bridge trees (all 13 roots)', () {
+  group('generated metadata trees == bridge trees (all 14 roots)', () {
     test('the generated map covers exactly the model roots', () {
       expect(generatedTrees.keys.toSet(),
           model.roots.map((r) => r.type).toSet());
@@ -142,6 +143,7 @@ void main() {
         'D10QualityAcceptancePlan': QAP,
         'D11DeliveryRoadmap': DRM,
         'D12TransitionRolloutPlan': TRP,
+        'D13CodeSpecsProjection': CGP,
       };
       expect(idRoots.keys.toSet(), generatedTrees.keys.toSet());
       for (final e in idRoots.entries) {

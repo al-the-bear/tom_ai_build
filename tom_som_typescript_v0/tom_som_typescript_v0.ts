@@ -8677,7 +8677,7 @@ export class D11DeliveryRoadmap extends SomNode {
     return new InitialDevelopmentFlow(this.doc, this.path + "/initialDevelopmentFlow");
   }
 
-  // Upgrade cycle framework (links tom_system_upgrade.md).
+  // Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).
   get upgradeCycleFramework(): UpgradeCycleFramework {
     return new UpgradeCycleFramework(this.doc, this.path + "/upgradeCycleFramework");
   }
@@ -16696,7 +16696,7 @@ export class InfrastructureSecurityHardening extends SomNode {
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out
 // as "new in DRM".
 export class InitialDevelopmentFlow extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -23263,9 +23263,9 @@ export class ProcessAdjustmentEntry extends SomNode {
 
 // 2.3. Process Adjustments.
 //
-// Documents any deviations from the standard tom_system_creation.md or
-// tom_system_upgrade.md process. Includes skipped, reordered, or modified
-// steps and the rationale for each deviation.
+// Documents any deviations from the standard tom_specs_project_flow.md
+// creation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,
+// reordered, or modified steps and the rationale for each deviation.
 export class ProcessAdjustments extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -35428,7 +35428,8 @@ export class UiComponents extends SomNode {
 // 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
-// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
+// defined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`
+// §PF-UPG.
 export class UpgradeCycleFramework extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);

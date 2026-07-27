@@ -7529,7 +7529,7 @@ class DecisionOptionEntry extends DocSpecsSection {
 /// 13.7. Initial Development Flow.
 ///
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
-/// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+/// `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out
 /// as "new in DRM".
 @StandardReferences(
   [
@@ -7565,7 +7565,8 @@ dependencies, parallel work streams, and synchronization points.
 /// 13.8. Upgrade Cycle Framework.
 ///
 /// Post-development upgrade cycle framework. Links the upgrade process
-/// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
+/// defined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`
+/// §PF-UPG.
 @StandardReferences(
   [
     'ISO/IEC 14764:2022 — the software maintenance standard defines corrective, adaptive, perfective, and emergency modification categories that structure upgrade cycles',
@@ -7579,7 +7580,7 @@ class UpgradeCycleFramework extends DocSpecsSection {
   @ContentHelp('''
 Framework that governs the upgrade cycle once initial development
 finishes. Provides the project-specific bridge to the static
-`tom_system_upgrade.md` process (UC-1 … UC-7).
+`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).
 
 **What to capture:**
 - Transition trigger from initial build to upgrade cycles

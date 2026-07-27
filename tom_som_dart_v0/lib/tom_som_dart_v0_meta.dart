@@ -11853,7 +11853,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           typeName: 'InitialDevelopmentFlow',
           serializationOrder: 9,
           docComment: 'Initial development flow.',
-          classDocComment: '13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas "new in DRM".',
+          classDocComment: '13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas "new in DRM".',
           detailedIn: 'D11DeliveryRoadmap',
           recursive: r,
           children: c)),
@@ -11864,8 +11864,8 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           kind: SomMetaKind.complex,
           typeName: 'UpgradeCycleFramework',
           serializationOrder: 10,
-          docComment: 'Upgrade cycle framework (links tom_system_upgrade.md).',
-          classDocComment: '13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.',
+          docComment: 'Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).',
+          classDocComment: '13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.',
           detailedIn: 'D11DeliveryRoadmap',
           recursive: r,
           children: c)),
@@ -32038,7 +32038,7 @@ List<SomMetaNode> _mc$ProcessAdjustments(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 1,
           docComment: 'Process adjustment summary.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'baseProcess', typeName: 'String', description: 'Base Process', hint: 'tom_system_creation / tom_system_upgrade', order: 0), SomFormFieldMeta(name: 'baseProcessVersion', typeName: 'String', description: 'Base Process Version', hint: 'Version of the standard process being adjusted', order: 1), SomFormFieldMeta(name: 'totalStepsInBase', typeName: 'int', description: 'Total Steps in Base Process', hint: 'Number of steps in the standard process', order: 2), SomFormFieldMeta(name: 'adjustedStepsCount', typeName: 'int', description: 'Adjusted Steps Count', hint: 'Number of steps with deviations', order: 3), SomFormFieldMeta(name: 'skippedStepsCount', typeName: 'int', description: 'Skipped Steps Count', hint: 'Number of standard steps bypassed', order: 4), SomFormFieldMeta(name: 'addedStepsCount', typeName: 'int', description: 'Added Steps Count', hint: 'Number of project-specific steps added', order: 5), SomFormFieldMeta(name: 'reorderedStepsCount', typeName: 'int', description: 'Reordered Steps Count', hint: 'Number of steps executed in different order', order: 6), SomFormFieldMeta(name: 'parallelizedStepsCount', typeName: 'int', description: 'Parallelized Steps Count', hint: 'Number of steps run in parallel instead of sequential', order: 7), SomFormFieldMeta(name: 'processRiskLevel', typeName: 'String', description: 'Process Risk Level', hint: 'Low / Medium / High — overall process risk from deviations', order: 8), SomFormFieldMeta(name: 'processEfficiencyImpact', typeName: 'String', description: 'Efficiency Impact', hint: 'Faster / Same / Slower — impact on timeline', order: 9)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'baseProcess', typeName: 'String', description: 'Base Process', hint: 'TomSpecs creation (PF-PHA) / upgrade cycle (PF-UPG)', order: 0), SomFormFieldMeta(name: 'baseProcessVersion', typeName: 'String', description: 'Base Process Version', hint: 'Version of the standard process being adjusted', order: 1), SomFormFieldMeta(name: 'totalStepsInBase', typeName: 'int', description: 'Total Steps in Base Process', hint: 'Number of steps in the standard process', order: 2), SomFormFieldMeta(name: 'adjustedStepsCount', typeName: 'int', description: 'Adjusted Steps Count', hint: 'Number of steps with deviations', order: 3), SomFormFieldMeta(name: 'skippedStepsCount', typeName: 'int', description: 'Skipped Steps Count', hint: 'Number of standard steps bypassed', order: 4), SomFormFieldMeta(name: 'addedStepsCount', typeName: 'int', description: 'Added Steps Count', hint: 'Number of project-specific steps added', order: 5), SomFormFieldMeta(name: 'reorderedStepsCount', typeName: 'int', description: 'Reordered Steps Count', hint: 'Number of steps executed in different order', order: 6), SomFormFieldMeta(name: 'parallelizedStepsCount', typeName: 'int', description: 'Parallelized Steps Count', hint: 'Number of steps run in parallel instead of sequential', order: 7), SomFormFieldMeta(name: 'processRiskLevel', typeName: 'String', description: 'Process Risk Level', hint: 'Low / Medium / High — overall process risk from deviations', order: 8), SomFormFieldMeta(name: 'processEfficiencyImpact', typeName: 'String', description: 'Efficiency Impact', hint: 'Faster / Same / Slower — impact on timeline', order: 9)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 21500 — project management (process tailoring)'], 'connotation': 'Aggregate counts, process risk, and efficiency impact for this project\'s process-step deviations against the base process.'})]),
        SomMetaNode(
           className: 'ProcessAdjustments',
@@ -33355,7 +33355,7 @@ List<SomMetaNode> _mc$ProjectOrganizationAndProcess(Set<String> s) => [
           typeName: 'ProcessAdjustments',
           serializationOrder: 5,
           docComment: '2.3. Process Adjustments.',
-          classDocComment: '2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_system_creation.md or\ntom_system_upgrade.md process. Includes skipped, reordered, or modified\nsteps and the rationale for each deviation.',
+          classDocComment: '2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_specs_project_flow.md\ncreation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,\nreordered, or modified steps and the rationale for each deviation.',
           recursive: r,
           children: c)),
        _cx('ToolingAndEnvironments', s, _mc$ToolingAndEnvironments, (r, c) => SomMetaNode(
@@ -45098,7 +45098,7 @@ List<SomMetaNode> _mc$SystemStagePlan(Set<String> s) => [
           typeName: 'InitialDevelopmentFlow',
           serializationOrder: 10,
           docComment: '13.7. Initial Development Flow. Covers DRM-IDV.',
-          classDocComment: '13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas "new in DRM".',
+          classDocComment: '13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas "new in DRM".',
           detailedIn: 'D11DeliveryRoadmap',
           recursive: r,
           children: c)),
@@ -45110,7 +45110,7 @@ List<SomMetaNode> _mc$SystemStagePlan(Set<String> s) => [
           typeName: 'UpgradeCycleFramework',
           serializationOrder: 11,
           docComment: '13.8. Upgrade Cycle Framework. Covers DRM-UPG.',
-          classDocComment: '13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.',
+          classDocComment: '13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.',
           detailedIn: 'D11DeliveryRoadmap',
           recursive: r,
           children: c)),
@@ -48870,7 +48870,7 @@ List<SomMetaNode> _mc$UpgradeCycleFramework(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 0,
           contentType: SomContentTypeMeta(type: 'text', description: ''),
-          contentHelp: 'Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_system_upgrade.md` process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n'),
+          contentHelp: 'Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n'),
     ];
 
 List<SomMetaNode> _mc$Usability(Set<String> s) => [
@@ -51658,7 +51658,7 @@ final SomMetaTree d11DeliveryRoadmapMetaTree = SomMetaTree(SomMetaNode(
   typeName: 'D11DeliveryRoadmap',
   docComment: 'DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.',
   classDocComment: 'DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.',
-  document: SomDocMeta(name: 'Delivery Roadmap', description: 'Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_system_upgrade.md).', basedOn: ['D00SolutionBlueprint']),
+  document: SomDocMeta(name: 'Delivery Roadmap', description: 'Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_specs_project_flow.md §PF-UPG).', basedOn: ['D00SolutionBlueprint']),
   extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['PMBOK Guide — project phasing and delivery roadmap', 'ISO/IEC/IEEE 29148:2018 — transition planning'], 'connotation': 'The comprehensive project phase plan covering staging strategy, stages, feature prioritization, migration, gates, decisions, and the upgrade cycle framework.'})],
   children: _mc$D11DeliveryRoadmap(<String>{'D11DeliveryRoadmap'}),
 ));

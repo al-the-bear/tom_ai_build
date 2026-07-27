@@ -40591,7 +40591,7 @@ static void meta_build_d11_delivery_roadmap_initial_development_flow(SomMetaNode
   n->has_serialization_order = 1;
   n->serialization_order = 9;
   meta_set(&n->doc_comment, "Initial development flow.");
-  meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".");
+  meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_d11_delivery_roadmap_upgrade_cycle_framework(SomMetaNode *n) {
@@ -40602,8 +40602,8 @@ static void meta_build_d11_delivery_roadmap_upgrade_cycle_framework(SomMetaNode 
   meta_set(&n->type_name, "UpgradeCycleFramework");
   n->has_serialization_order = 1;
   n->serialization_order = 10;
-  meta_set(&n->doc_comment, "Upgrade cycle framework (links tom_system_upgrade.md).");
-  meta_set(&n->class_doc_comment, "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.");
+  meta_set(&n->doc_comment, "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).");
+  meta_set(&n->class_doc_comment, "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_d12_transition_rollout_plan_content(SomMetaNode *n) {
@@ -97321,7 +97321,7 @@ static void meta_build_process_adjustments_adjustment_summary(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Base Process");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("tom_system_creation / tom_system_upgrade");
+  n->form->fields[0].hint = som_strdup("TomSpecs creation (PF-PHA) / upgrade cycle (PF-UPG)");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("baseProcessVersion");
   n->form->fields[1].type_name = som_strdup("String");
@@ -101301,7 +101301,7 @@ static void meta_build_project_organization_and_process_process_adjustments(SomM
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "2.3. Process Adjustments.");
-  meta_set(&n->class_doc_comment, "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_system_creation.md or\ntom_system_upgrade.md process. Includes skipped, reordered, or modified\nsteps and the rationale for each deviation.");
+  meta_set(&n->class_doc_comment, "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_specs_project_flow.md\ncreation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,\nreordered, or modified steps and the rationale for each deviation.");
 }
 static void meta_build_project_organization_and_process_tooling_and_environments(SomMetaNode *n) {
   meta_set(&n->class_name, "ToolingAndEnvironments");
@@ -134159,7 +134159,7 @@ static void meta_build_system_stage_plan_initial_development_flow(SomMetaNode *n
   n->has_serialization_order = 1;
   n->serialization_order = 10;
   meta_set(&n->doc_comment, "13.7. Initial Development Flow. Covers DRM-IDV.");
-  meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".");
+  meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_system_stage_plan_upgrade_cycle_framework(SomMetaNode *n) {
@@ -134171,7 +134171,7 @@ static void meta_build_system_stage_plan_upgrade_cycle_framework(SomMetaNode *n)
   n->has_serialization_order = 1;
   n->serialization_order = 11;
   meta_set(&n->doc_comment, "13.8. Upgrade Cycle Framework. Covers DRM-UPG.");
-  meta_set(&n->class_doc_comment, "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.");
+  meta_set(&n->class_doc_comment, "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_system_summary_content(SomMetaNode *n) {
@@ -145792,7 +145792,7 @@ static void meta_build_upgrade_cycle_framework_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
-  meta_set(&n->content_help, "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_system_upgrade.md` process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n");
+  meta_set(&n->content_help, "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n");
 }
 static void meta_build_usability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "Usability");
@@ -183881,7 +183881,7 @@ static SomMetaNode *meta_build_root_d11_delivery_roadmap(void) {
   meta_set(&n->class_doc_comment, "DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.");
   n->document = (SomDocMeta *)calloc(1, sizeof(SomDocMeta));
   n->document->name = som_strdup("Delivery Roadmap");
-  n->document->description = som_strdup("Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_system_upgrade.md).");
+  n->document->description = som_strdup("Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_specs_project_flow.md §PF-UPG).");
   som_strlist_init(&n->document->based_on);
   som_strlist_push_copy(&n->document->based_on, "D00SolutionBlueprint");
   n->extra_len = 1;

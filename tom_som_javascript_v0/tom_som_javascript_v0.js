@@ -8828,7 +8828,7 @@ class D11DeliveryRoadmap extends SomNode {
     return new InitialDevelopmentFlow(this.doc, this.path + "/initialDevelopmentFlow");
   }
 
-  // Upgrade cycle framework (links tom_system_upgrade.md).
+  // Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).
   get upgradeCycleFramework() {
     return new UpgradeCycleFramework(this.doc, this.path + "/upgradeCycleFramework");
   }
@@ -16959,7 +16959,7 @@ class InfrastructureSecurityHardening extends SomNode {
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out
 // as "new in DRM".
 class InitialDevelopmentFlow extends SomNode {
   constructor(doc, path) {
@@ -23684,9 +23684,9 @@ class ProcessAdjustmentEntry extends SomNode {
 
 // 2.3. Process Adjustments.
 //
-// Documents any deviations from the standard tom_system_creation.md or
-// tom_system_upgrade.md process. Includes skipped, reordered, or modified
-// steps and the rationale for each deviation.
+// Documents any deviations from the standard tom_specs_project_flow.md
+// creation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,
+// reordered, or modified steps and the rationale for each deviation.
 class ProcessAdjustments extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -36067,7 +36067,8 @@ class UiComponents extends SomNode {
 // 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
-// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
+// defined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`
+// §PF-UPG.
 class UpgradeCycleFramework extends SomNode {
   constructor(doc, path) {
     super(doc, path);

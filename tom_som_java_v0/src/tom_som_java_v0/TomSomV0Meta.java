@@ -22953,7 +22953,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "INDEFL";
         n.serializationOrder = 9;
         n.docComment = "Initial development flow.";
-        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
+        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
         n.detailedIn = "D11DeliveryRoadmap";
         n.recursive = r;
         n.children = c;
@@ -22964,8 +22964,8 @@ public final class TomSomV0Meta {
         n.memberName = "upgradeCycleFramework";
         n.classSectionId = "UPCYFR";
         n.serializationOrder = 10;
-        n.docComment = "Upgrade cycle framework (links tom_system_upgrade.md).";
-        n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.";
+        n.docComment = "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).";
+        n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.";
         n.detailedIn = "D11DeliveryRoadmap";
         n.recursive = r;
         n.children = c;
@@ -64085,7 +64085,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Process adjustment summary.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("baseProcess", "String", "Base Process", false, "tom_system_creation / tom_system_upgrade", 0),
+            new SomFormFieldMeta("baseProcess", "String", "Base Process", false, "TomSpecs creation (PF-PHA) / upgrade cycle (PF-UPG)", 0),
             new SomFormFieldMeta("baseProcessVersion", "String", "Base Process Version", false, "Version of the standard process being adjusted", 1),
             new SomFormFieldMeta("totalStepsInBase", "int", "Total Steps in Base Process", false, "Number of steps in the standard process", 2),
             new SomFormFieldMeta("adjustedStepsCount", "int", "Adjusted Steps Count", false, "Number of steps with deviations", 3),
@@ -67029,7 +67029,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "PCADJ";
         n.serializationOrder = 5;
         n.docComment = "2.3. Process Adjustments.";
-        n.classDocComment = "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_system_creation.md or\ntom_system_upgrade.md process. Includes skipped, reordered, or modified\nsteps and the rationale for each deviation.";
+        n.classDocComment = "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_specs_project_flow.md\ncreation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,\nreordered, or modified steps and the rationale for each deviation.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -90988,7 +90988,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "INDEFL";
         n.serializationOrder = 10;
         n.docComment = "13.7. Initial Development Flow. Covers DRM-IDV.";
-        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
+        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
         n.detailedIn = "D11DeliveryRoadmap";
         n.recursive = r;
         n.children = c;
@@ -91000,7 +91000,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "UPCYFR";
         n.serializationOrder = 11;
         n.docComment = "13.8. Upgrade Cycle Framework. Covers DRM-UPG.";
-        n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.";
+        n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.";
         n.detailedIn = "D11DeliveryRoadmap";
         n.recursive = r;
         n.children = c;
@@ -98947,7 +98947,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
-        n.contentHelp = "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_system_upgrade.md` process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n";
+        n.contentHelp = "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n";
         out.add(n);
       }
       return out;
@@ -127259,7 +127259,7 @@ public final class TomSomV0Meta {
     n.classSectionId = "DRM";
     n.docComment = "DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.";
     n.classDocComment = "DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.";
-    n.document = new SomDocMeta("Delivery Roadmap", "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_system_upgrade.md).", Arrays.asList("D00SolutionBlueprint"));
+    n.document = new SomDocMeta("Delivery Roadmap", "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_specs_project_flow.md §PF-UPG).", Arrays.asList("D00SolutionBlueprint"));
     n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide — project phasing and delivery roadmap", "ISO/IEC/IEEE 29148:2018 — transition planning"), "connotation", "The comprehensive project phase plan covering staging strategy, stages, feature prioritization, migration, gates, decisions, and the upgrade cycle framework.")));
     Set<String> stack = new HashSet<>();
     stack.add("D11DeliveryRoadmap");

@@ -8760,7 +8760,7 @@ class D11DeliveryRoadmap : public som::SomNode {
   DecisionPoints decisionProcesses() const;
   // Initial development flow.
   InitialDevelopmentFlow initialDevelopmentFlow() const;
-  // Upgrade cycle framework (links tom_system_upgrade.md).
+  // Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).
   UpgradeCycleFramework upgradeCycleFramework() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
@@ -13261,7 +13261,7 @@ class InfrastructureSecurityHardening : public som::SomNode {
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out
 // as "new in DRM".
 class InitialDevelopmentFlow : public som::SomNode {
  public:
@@ -17017,9 +17017,9 @@ class ProcessAdjustmentEntry : public som::SomNode {
 
 // 2.3. Process Adjustments.
 //
-// Documents any deviations from the standard tom_system_creation.md or
-// tom_system_upgrade.md process. Includes skipped, reordered, or modified
-// steps and the rationale for each deviation.
+// Documents any deviations from the standard tom_specs_project_flow.md
+// creation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,
+// reordered, or modified steps and the rationale for each deviation.
 class ProcessAdjustments : public som::SomNode {
  public:
   ProcessAdjustments(som::SpecDocument& doc, std::string path);
@@ -23939,7 +23939,8 @@ class UiComponents : public som::SomNode {
 // 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
-// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
+// defined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`
+// §PF-UPG.
 class UpgradeCycleFramework : public som::SomNode {
  public:
   UpgradeCycleFramework(som::SpecDocument& doc, std::string path);

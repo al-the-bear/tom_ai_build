@@ -21253,7 +21253,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.hasSerializationOrder = true;
         n.serializationOrder = 9;
         n.docComment = "Initial development flow.";
-        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
+        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
         n.detailedIn = "D11DeliveryRoadmap";
       },
       buildInitialDevelopmentFlowChildren);
@@ -21269,8 +21269,8 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.typeName = "UpgradeCycleFramework";
         n.hasSerializationOrder = true;
         n.serializationOrder = 10;
-        n.docComment = "Upgrade cycle framework (links tom_system_upgrade.md).";
-        n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.";
+        n.docComment = "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).";
+        n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.";
         n.detailedIn = "D11DeliveryRoadmap";
       },
       buildUpgradeCycleFrameworkChildren);
@@ -56068,7 +56068,7 @@ void buildProcessAdjustmentsChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).serializationOrder = 1;
     (*n).docComment = "Process adjustment summary.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseProcess", "String", "Base Process", false, "tom_system_creation / tom_system_upgrade", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseProcess", "String", "Base Process", false, "TomSpecs creation (PF-PHA) / upgrade cycle (PF-UPG)", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"baseProcessVersion", "String", "Base Process Version", false, "Version of the standard process being adjusted", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"totalStepsInBase", "int", "Total Steps in Base Process", false, "Number of steps in the standard process", 2, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustedStepsCount", "int", "Adjusted Steps Count", false, "Number of steps with deviations", 3, std::vector<std::string>{}});
@@ -58491,7 +58491,7 @@ void buildProjectOrganizationAndProcessChildren(som::SomMetaNode& parent, std::v
         n.hasSerializationOrder = true;
         n.serializationOrder = 5;
         n.docComment = "2.3. Process Adjustments.";
-        n.classDocComment = "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_system_creation.md or\ntom_system_upgrade.md process. Includes skipped, reordered, or modified\nsteps and the rationale for each deviation.";
+        n.classDocComment = "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_specs_project_flow.md\ncreation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,\nreordered, or modified steps and the rationale for each deviation.";
       },
       buildProcessAdjustmentsChildren);
     parent.addChild(std::move(n));
@@ -78742,7 +78742,7 @@ void buildSystemStagePlanChildren(som::SomMetaNode& parent, std::vector<std::str
         n.hasSerializationOrder = true;
         n.serializationOrder = 10;
         n.docComment = "13.7. Initial Development Flow. Covers DRM-IDV.";
-        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
+        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
         n.detailedIn = "D11DeliveryRoadmap";
       },
       buildInitialDevelopmentFlowChildren);
@@ -78759,7 +78759,7 @@ void buildSystemStagePlanChildren(som::SomMetaNode& parent, std::vector<std::str
         n.hasSerializationOrder = true;
         n.serializationOrder = 11;
         n.docComment = "13.8. Upgrade Cycle Framework. Covers DRM-UPG.";
-        n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.";
+        n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.";
         n.detailedIn = "D11DeliveryRoadmap";
       },
       buildUpgradeCycleFrameworkChildren);
@@ -85479,7 +85479,7 @@ void buildUpgradeCycleFrameworkChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    (*n).contentHelp = "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_system_upgrade.md` process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n";
+    (*n).contentHelp = "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n";
     parent.addChild(std::move(n));
   }
 }
@@ -93060,7 +93060,7 @@ const som::SomMetaTree& d11DeliveryRoadmapMetaTree() {
     n->classDocComment = "DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.";
     n->document = som::SomDocMeta{};
     n->document->name = "Delivery Roadmap";
-    n->document->description = "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_system_upgrade.md).";
+    n->document->description = "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_specs_project_flow.md §PF-UPG).";
     n->document->basedOn.push_back("D00SolutionBlueprint");
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide — project phasing and delivery roadmap\",\"ISO/IEC/IEEE 29148:2018 — transition planning\"],\"connotation\":\"The comprehensive project phase plan covering staging strategy, stages, feature prioritization, migration, gates, decisions, and the upgrade cycle framework.\"}", nullptr)});
     std::vector<std::string> stack;

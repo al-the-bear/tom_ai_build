@@ -959,7 +959,7 @@ section-types:
     description: Timeline.
   upcyfr:
     prefix: UPCYFR
-    description: Upgrade cycle framework (links tom_system_upgrade.md).
+    description: Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).
   dochd:
     prefix: DOCHD
     description: Standard TomSpecs document header.

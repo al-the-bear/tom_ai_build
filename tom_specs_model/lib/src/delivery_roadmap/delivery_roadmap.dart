@@ -28,7 +28,7 @@ import '../solution_blueprint/solution_blueprint.dart';
   description: 'Comprehensive project phase plan — staging strategy, '
       'stages, feature prioritization, migration, gates, decisions, '
       'initial development flow, and upgrade cycle framework (bridge '
-      'to tom_system_upgrade.md).',
+      'to tom_specs_project_flow.md §PF-UPG).',
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('DRM')
@@ -77,7 +77,7 @@ class D11DeliveryRoadmap extends DocSpecsSection {
   @SerializationOrder(9)
   InitialDevelopmentFlow initialDevelopmentFlow = InitialDevelopmentFlow();
 
-  /// Upgrade cycle framework (links tom_system_upgrade.md).
+  /// Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).
   @SerializationOrder(10)
   UpgradeCycleFramework upgradeCycleFramework = UpgradeCycleFramework();
 }

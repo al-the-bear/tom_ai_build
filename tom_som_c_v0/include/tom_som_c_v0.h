@@ -8684,7 +8684,7 @@ PhaseGateReviews d11_delivery_roadmap_gate_criteria(const D11DeliveryRoadmap *se
 DecisionPoints d11_delivery_roadmap_decision_processes(const D11DeliveryRoadmap *self);
 // Initial development flow.
 InitialDevelopmentFlow d11_delivery_roadmap_initial_development_flow(const D11DeliveryRoadmap *self);
-// Upgrade cycle framework (links tom_system_upgrade.md).
+// Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).
 UpgradeCycleFramework d11_delivery_roadmap_upgrade_cycle_framework(const D11DeliveryRoadmap *self);
 
 // TRP00 Transition & Rollout Plan.
@@ -13120,7 +13120,7 @@ InfrastructureSecurityHardeningAccessForm infrastructure_security_hardening_acce
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out
 // as "new in DRM".
 // Binds a InitialDevelopmentFlow facade to a document and a path (path copied).
 void initial_development_flow_init(InitialDevelopmentFlow *self, SpecDocument *doc, const char *path);
@@ -16863,9 +16863,9 @@ ProcessAdjustmentEntryGovernanceForm process_adjustment_entry_governance(const P
 
 // 2.3. Process Adjustments.
 //
-// Documents any deviations from the standard tom_system_creation.md or
-// tom_system_upgrade.md process. Includes skipped, reordered, or modified
-// steps and the rationale for each deviation.
+// Documents any deviations from the standard tom_specs_project_flow.md
+// creation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,
+// reordered, or modified steps and the rationale for each deviation.
 // Binds a ProcessAdjustments facade to a document and a path (path copied).
 void process_adjustments_init(ProcessAdjustments *self, SpecDocument *doc, const char *path);
 void process_adjustments_free(ProcessAdjustments *self);
@@ -23733,7 +23733,8 @@ SomList ui_components_component_families(const UiComponents *self);
 // 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
-// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
+// defined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`
+// §PF-UPG.
 // Binds a UpgradeCycleFramework facade to a document and a path (path copied).
 void upgrade_cycle_framework_init(UpgradeCycleFramework *self, SpecDocument *doc, const char *path);
 void upgrade_cycle_framework_free(UpgradeCycleFramework *self);

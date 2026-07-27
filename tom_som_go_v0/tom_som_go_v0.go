@@ -10048,7 +10048,7 @@ func (x *D11DeliveryRoadmap) InitialDevelopmentFlow() *InitialDevelopmentFlow {
 	return NewInitialDevelopmentFlow(x.Doc(), x.Path()+"/initialDevelopmentFlow")
 }
 
-// Upgrade cycle framework (links tom_system_upgrade.md).
+// Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).
 func (x *D11DeliveryRoadmap) UpgradeCycleFramework() *UpgradeCycleFramework {
 	return NewUpgradeCycleFramework(x.Doc(), x.Path()+"/upgradeCycleFramework")
 }
@@ -19252,7 +19252,7 @@ func (x *InfrastructureSecurityHardening) Access() *InfrastructureSecurityHarden
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out
 // as "new in DRM".
 type InitialDevelopmentFlow struct {
 	som.SomNode
@@ -26846,9 +26846,9 @@ func (x *ProcessAdjustmentEntry) Governance() *ProcessAdjustmentEntryGovernanceF
 
 // 2.3. Process Adjustments.
 //
-// Documents any deviations from the standard tom_system_creation.md or
-// tom_system_upgrade.md process. Includes skipped, reordered, or modified
-// steps and the rationale for each deviation.
+// Documents any deviations from the standard tom_specs_project_flow.md
+// creation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,
+// reordered, or modified steps and the rationale for each deviation.
 type ProcessAdjustments struct {
 	som.SomNode
 }
@@ -40912,7 +40912,8 @@ func (x *UiComponents) ComponentFamilies() *som.SomList[*ComponentFamilyEntry] {
 // 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
-// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
+// defined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`
+// §PF-UPG.
 type UpgradeCycleFramework struct {
 	som.SomNode
 }
