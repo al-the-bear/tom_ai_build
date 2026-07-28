@@ -2996,8 +2996,13 @@ existing `tom_core_server` migration engine as **pure reuse, no gap class**:
 `TomDbMigrations` (orchestrator), `TomDbMigrator` (per-database contract),
 `TomMigrationFileName` (filename grammar), `@TomDbMigrationAdaptor` (reflection
 discovery of migrators by data-source type), `MariadbMigrationAdaptor` (the
-MariaDB implementation). Kind value: `schemaMigration`; SOM home: D03
-IMO/`SCHMG`; locus **database** (artifacts ship with the server project).
+MariaDB implementation). Kind value: `schemaMigration`; SOM home:
+`SchemaVersioningAndMigration` (`SCHMG`) under SBP.8 `InformationAndDataModel`;
+locus **database** (artifacts ship with the server project).
+
+That home is **reachable only from `D00SolutionBlueprint`** — neither the D03 IFM
+projection nor `D13CodeSpecsProjection` reaches it, so CE-MG currently has no
+Phase-3 target document and no generation input (§8.5, `csrb11`).
 
 **Scope — three artifact kinds.** A CodeSpec authors:
 
@@ -3625,6 +3630,77 @@ runtime shape, the meta schema and the conformance goldens for zero consumer
 benefit. The `extra` treatment is exactly the intended design for annotations
 "carried for completeness but not structurally consumed."
 
+### 8.5 SOM coverage verdict — every part's authoring home
+
+Every **active** part must have a place in the SOM where a spec author can
+actually author it. A part without one is code with no specification source,
+which breaks the derivation chain this section describes. The verdict below is
+the standing record; re-derive it (not re-read it) whenever a part or a SOM
+section changes shape.
+
+**The verdict is two-dimensional**, because a part can fail in two independent
+ways:
+
+- **Authorable** — a `@CodeSpecKind`-carrying SOM section exists whose members
+  can carry the part's §5 attribute surface. A section that names the part but
+  cannot express its attributes is *not* an authoring home.
+- **Generable** — that section is reachable from **`D13CodeSpecsProjection`**
+  (§8.3), the concrete input Phase-4 generation consumes. An authorable section
+  outside the projection is authored into a document the generator never reads.
+
+A part is **COVERED** only when both hold.
+
+| CE | Kind | Authoring home (SOM class · section id) | Verdict |
+|----|------|------------------------------------------|---------|
+| CE-EL | `screenElement` | `ScreenElementEntry` SCREL · `UiComponentEntry` UICOMENT · `ComponentVariantEntry` CVE | COVERED |
+| CE-FM | `form` | `ScreenElementFieldSpec` SEFS (per-field surface) inside `ScreenElementEntry`; the form container is the screen section | COVERED |
+| CE-LO | `layout` | `ScreenSectionEntry` SCRSC · `ScreenResponsiveRuleEntry` SCRERUEN · `ComponentSlotEntry` CMSL | COVERED |
+| CE-TX | `text` | `MessageKeyEntry` MSGKE (the `MessageKeyRegistry` projection root) · `ValidationMessageTemplate` VMT | COVERED |
+| CE-VA | `validation` | `ElementValidationRuleEntry` ELVARUEN · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | COVERED |
+| CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | COVERED |
+| CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST (under `ProcessStepsAndActorInteractions`) | COVERED |
+| CE-API | `serverApi` | `InterfaceOperationEntry` IOE · `IntegrationPointEntry` INTEG — both under **external** interfaces (D07 IIS) | **GAP** — `csrb10` |
+| CE-SU | `serviceUnit` | `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) | COVERED (weak — the aggregate root is free text, not a typed entity reference) |
+| CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | COVERED |
+| CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTAENT | COVERED |
+| CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | COVERED (screen-flow half verified, `csra5`) |
+| CE-AZ | `authorization` | `RoleMatrix` ROMA · `RolePermissionEntry` ROLPERM · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
+| CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | COVERED |
+| CE-CF | `serverConfiguration` | 34 sections, 11 projected — but all are **operational policy** (`SystemConfigurationManagement` SYCOMA, `ConfigurationManagement` CM: source, format, vault, hot reload, versioning). No setting-declaration surface. | **GAP** — `csrb9` |
+| CE-CC | `clientConfiguration` | `ClientConfiguration` CLICON — a single form with five **fixed named** settings, not a `key · type · default` declaration and not a list | **GAP** — `csrb9` |
+| CE-DS | `deviceSettings` | `DeviceSettings` DEVSET — correct §5.16 shape (`settingKey` · `valueType` · `defaultValue` · `deviceOverridable`) but a **single form**, so exactly one setting is authorable | **GAP** (cardinality only) — `csrb9` |
+| CE-UP | `userSettings` | `LanguageCountrySelection` LACOSE — a language/country **picker UX** section; cannot express `key · type · default` | **GAP** — `csrb9` |
+| CE-CL | `client` | `ClientRequirementsSection` CLRESE — minimum browser/OS/device requirements, not an enumeration of client applications with platform targets and entry route | **GAP** — `csrb13` |
+| CE-AU | `authentication` | `AuthenticationMethodEntry` ATME · `LoginFlowStepEntry` LGFLS · the 42-section policy set | COVERED |
+| CE-ID | `identity` | `UserAttributeEntry` USATE · `UserLifecycleTransitionEntry` ULTRE · `UserCategoryDefinition` USCDF | COVERED |
+| CE-MG | `schemaMigration` | `SchemaVersioningAndMigration` SCHMG + `SchemaMigrationStepEntry` SCMST — reachable **only from D00**, and missing the §5.27 environment tag, datasource/schema placement and seed-data artifact kind | **GAP** — `csrb11` |
+| CE-JB | `backgroundJob` | `BatchJobManagement` BAJOMA — system-wide scheduling *policy* with **no per-job declaration list** | **GAP** — `csrb12` |
+| CE-LG | `auditLog` | `SecurityEventEntry` SEVT · `AuditLogFormat` AULOFO · `EventAttributePolicy` EVATPO — authorable; only 3 of 16 sections projected pending the `AuditAndLogging` split | COVERED (projection narrow — `csrb5`) |
+| CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | COVERED |
+| CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOLENT · `ReportChartEntry` REPCHAENT, under `PrintAndExportLayout` PRLA — authorable, but 0 of 11 sections projected | Known — §5.28 / `csrb6` (**not** a new gap) |
+| — | `domainEnum` *(member kind)* | `DomainEnumEntry` DMENE + `DomainEnumValueEntry` DMEVA, under the `DomainEnumRegistry` DOMEN projection root; `ObjectStateEntry` OBST cites the registry rather than being a second home (§4.1) | COVERED |
+| CE-WF | `workflow` *(deferred)* | `DetailedProcessWorkflow` DEPRWO — unprojected, as a deferred part should be | N/A (deferred, §4.3) |
+
+**Neutral-vocabulary check (§1.1 pillar (c)).** The check applies to sections
+that *carry* `@CodeSpecKind` — not to D06 ATS, whose job is technology
+selection. Four leaks were found and corrected in place: `flutterVariant` →
+`libraryVariant`, `flutterWidgetBase` → `baseComponent`,
+`tomFlutterUiIntegration` → `sharedLibraryIntegration`, `widgetType` →
+`displayKind`. Three further hits are **not** leaks: `DomainEnumEntry.enumName`
+uses the glossary's own term for a closed value set, and the transport-status
+fields on `ErrorCodeEntry` / `SystemErrorCodeEntry` name the one place §7 admits
+a transport status (5xx transport errors). `InterfaceOperationEntry.httpMethod`
+is legitimate for the **external** interface it describes and only leaks because
+that section also claims `serverApi` — folded into `csrb10`.
+
+**Persistence discriminators (§11).** No settings section may carry a
+local/roaming-style flag; scope is expressed by *which* of CE-CF / CE-CC / CE-DS
+/ CE-UP is used. `LanguageCountrySelection.persistence` carried two
+(`persistenceMethod`, `crossDeviceSync`) and was rewritten to retention
+behaviour (`guestRetention`, `signInCarryOver`, `reselectionPrompt`).
+`DeviceSettings.deviceOverridable` is **not** a discriminator — it is the
+§5.16 opt-in cross-scope shadowing declaration.
+
 ## 9. Bidirectional DocSpecs ↔ CodeSpecs linking
 
 The link between a Phase-3 DocSpecs section (typed by the SOM) and the Phase-4
@@ -3702,10 +3778,12 @@ with the `csra` prefix** — plus `csrb` for follow-ups raised while executing a
 it carries the full context needed to execute it — so this list is an index, not
 a specification.
 
+SOM coverage is **not** an open item here: **§8.5** carries the standing
+per-part verdict, and each gap it records appears below as its own todo.
+
 | Todo | Open work |
 |------|-----------|
 | `csra6` | Implement the `Cs*Ref` typed cross-part reference const family designed in §5.23 — currently designed, zero implementation. |
-| `csra11` | Re-run the SOM coverage cross-check for all 26 active parts — every part must have a SOM home that can actually express its attribute surface. |
 | `csra12` | Produce the full **per-`Cs*`-annotation derivation contract** (SOM class/field → generated annotated Dart) — the last piece before Phase-4 generation can be implemented. |
 | `csrb1` | Confirm the **CE-JB four-part scope** (§5.29) end to end against the landed `tom_core_kernel` scheduling module — each of schedule, body, failure policy and deployment envelope must resolve to exactly one owning class before the reuse verdict is final. |
 | `csrb2` | Retire or justify `TomClientConfiguration` (`tom_core_codespecs`) — §4.1/§5.16 now record CE-CC as a **reuse** verdict over the landed `TomBaseClientConfiguration`, so the part currently has two holders. Exactly one must be authoritative. |
@@ -3714,6 +3792,11 @@ a specification.
 | `csrb6` | Split the mixed `PrintAndExportLayout` (XDS) SOM subtree — the CE-CF renderer/export settings band and the CE-RP report band — so the promoted CE-RP part gets a `D13CodeSpecsProjection` field at the server locus (§5.28). The same defect as `csrb5`, in a different document. |
 | `csrb7` | Resolve the domain-enum contradiction: §4.1 records a domain enum as "realised as a plain Dart `enum` — no `tom_core_codespecs` class", yet `TomDomainEnum` / `TomDomainEnumValue` ship as live gap classes. Exactly one arm must stand; either way it is API-breaking. |
 | `csrb8` | Add a **file / upload semantic kind** to the CE-EL closed catalogue (§5.18). The catalogue's ten kinds have no file arm, while the SOM already offers `ScreenElementFieldKind.file` and `ScreenFieldKind.file` — so a file input can be specified but not realised. Pairs with §5.13.1: CE-DB now stores the reference, CE-EL still cannot present it. |
+| `csrb9` | Author the **setting-declaration surface for all four config scopes** — CE-CF / CE-CC / CE-DS / CE-UP (§8.5 gap, §5.16 surface). Today CE-CF has only operational policy, CE-CC a fixed five-field form, CE-DS a single non-repeating form and CE-UP a picker UX section. |
+| `csrb10` | Give **CE-API** the application's own operation surface (§8.5 gap). Its only homes describe *external* interfaces, are unreachable from `D13CodeSpecsProjection`, and carry an `httpMethod` field that contradicts §5.14/§7's fixed POST. |
+| `csrb11` | Route **CE-MG** into a Phase-3 document and the generation projection, and complete its §5.27 surface (environment tag, datasource/schema placement, seed-data artifact kind). `SCHMG` is currently reachable only from `D00SolutionBlueprint`. |
+| `csrb12` | Give **CE-JB** a per-job declaration list (§5.29 surface: trigger, work definition, target references, retry/timeout/alerting, enabled/environments/service unit). `BatchJobManagement` is system-wide policy only. |
+| `csrb13` | Give **CE-CL** an enumeration of the system's **client applications** (§4.1.1: platform targets, entry route, included flows/forms). `ClientRequirementsSection` states minimum platform requirements, which is a different thing. |
 
 ## 11. Configuration & settings — the four-scope owner-key split
 

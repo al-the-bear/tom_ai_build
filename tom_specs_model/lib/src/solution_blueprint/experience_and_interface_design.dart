@@ -4470,14 +4470,14 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       'ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options',
       'ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles',
     ],
-    'The display order, widget rendering, and access rules governing a utility navigation item.',
+    'The display order, presentation kind, and access rules governing a utility navigation item.',
   )
   @Form([
     Field('displayOrder', int, 'Display Order', hint: 'Sort position'),
     Field(
-      'widgetType',
+      'displayKind',
       String,
-      'Widget Type',
+      'Display Kind',
       hint: 'Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon',
     ),
     Field(
@@ -11969,10 +11969,10 @@ class UiComponents extends DocSpecsSection {
       hint: 'Material Design 3, Cupertino, Custom',
     ),
     Field(
-      'tomFlutterUiIntegration',
+      'sharedLibraryIntegration',
       bool,
-      'Tom Flutter UI Integration',
-      hint: 'Uses tom_flutter_ui component library',
+      'Shared Library Integration',
+      hint: 'Builds on the organisation-wide shared component library rather than bespoke components',
     ),
   ])
   @SerializationOrder(0)
@@ -12651,10 +12651,10 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Button, Input, Table, Navigation, etc.',
     ),
     Field(
-      'flutterWidgetBase',
+      'baseComponent',
       String,
-      'Flutter Widget Base',
-      hint: 'Base Flutter widget (DataTable, TextField)',
+      'Base Component',
+      hint: 'Base component of the shared library this one specialises (Data Table, Text Input)',
     ),
   ])
   @SerializationOrder(0)
@@ -13623,10 +13623,10 @@ class ComponentVariantEntry extends DocSpecsSection {
       hint: 'How variant is implemented',
     ),
     Field(
-      'flutterVariant',
+      'libraryVariant',
       String,
-      'Flutter Variant',
-      hint: 'Corresponding Flutter variant',
+      'Library Variant',
+      hint: 'Corresponding variant in the shared component library, if one exists',
     ),
   ])
   @SerializationOrder(2)
@@ -14834,33 +14834,38 @@ class LanguageCountrySelection extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? defaults;
 
-  /// Persistence rules.
+  /// Retention rules — how a chosen preference survives, without naming a store.
+  ///
+  /// Where the preference lives is *not* authored here: it follows from the
+  /// settings scope the preference is declared in (user setting vs device
+  /// setting), never from a local/roaming-style flag on this section.
   @SectionId('LCSP')
   @StandardReferences(
     [
-      'BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag',
-      'ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices',
+      'BCP 47 (W3C Internationalization) — the retained preference is expressed as a language tag',
+      'ISO/IEC 25010:2023 — usability requires the chosen locale to survive across sessions',
     ],
-    'How the chosen language and country preference is stored and synchronized across sessions and devices.',
+    'How a chosen language and country preference is retained across sessions, before and after the user is identified.',
   )
   @Form([
     Field(
-      'persistenceMethod',
+      'guestRetention',
       String,
-      'Persistence Method',
-      hint: 'Cookie, localStorage, user profile',
+      'Guest Retention',
+      hint: 'Whether and for how long a preference chosen before sign-in is retained',
     ),
     Field(
-      'crossDeviceSync',
-      bool,
-      'Cross-Device Sync',
-      hint: 'Sync preference across devices',
+      'signInCarryOver',
+      String,
+      'Sign-In Carry-Over',
+      hint:
+          'What happens to a guest-chosen locale when the user signs in and a stored preference applies',
     ),
     Field(
-      'anonymousPersistence',
+      'reselectionPrompt',
       String,
-      'Anonymous Persistence',
-      hint: 'How preference persists for guests',
+      'Re-Selection Prompt',
+      hint: 'When the user is asked to confirm or re-pick the retained preference',
     ),
   ])
   @SerializationOrder(2)
