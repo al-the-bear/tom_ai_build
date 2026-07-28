@@ -44,7 +44,7 @@ generated language runtimes and two file formats.
 
 | Document | Authority for |
 |----------|---------------|
-| [tom_specs_model_rules.md](tom_specs_model_rules.md) | **Authoring a class in `tom_specs_model`.** Object-model layout and member shapes, field classification (§6.1), form decomposition (§6.2), section identity, headlines, the annotation vocabulary, traceability and the structural invariants the validator enforces (§8.6) — and the outliner that renders the result (§11). |
+| [tom_specs_model_rules.md](tom_specs_model_rules.md) | **Authoring a class in `tom_specs_model`.** Object-model layout and member shapes, field classification (§6.1), form decomposition (§6.2), section identity, headlines, the annotation vocabulary, traceability and the structural invariants the validator enforces (§10.2) — and the outliner that renders the result (§11). |
 | [som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) | **What the authored model becomes.** The nine-language generation and the `v0` facade / runtime split, the metadata tree, normative md (§11) and yaml (§12) serialization of every construct, schema generation (§13), the embedded validator, the scripting surface (§15) and per-language packaging (§17). |
 | [tom_specs_model_meta_schema.md](tom_specs_model_meta_schema.md) | **The on-disk shape of `spec_model.meta.json`** — the lossless resolved class graph the reflection path loads, its two independent version stamps, and the contract `validateSpecModelMeta` enforces. |
 | [som_generator_config.md](som_generator_config.md) | **The `tom-spec-object-model` config block** — which languages are generated, where each `tom_som_<slug>_<label>` project lands, the version label, and which document roots are generated. |

@@ -259,7 +259,7 @@ class ModelReader {
   /// Subtrees of `lib/src` that hold the snapshot/serialization engine
   /// (`SpecNode`, `SpecSlot`, `SpecSnapshotter`, `SpecYaml`, `SpecProjection`,
   /// `SpecRegistry`) and its generated registry — *infrastructure*, not the
-  /// document model. They are excluded from the reflected model so the §8.6
+  /// document model. They are excluded from the reflected model so the `tom_specs_model_rules.md` §10.2
   /// validator, the outliner, and the JSON exporter never treat the engine's
   /// own classes as document sections (OE-2). Real model leaves that adopt
   /// `SpecNode` (`DocumentHeader`/`SectionMeta`) live under `common/` and are

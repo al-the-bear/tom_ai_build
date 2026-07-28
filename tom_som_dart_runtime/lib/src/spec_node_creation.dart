@@ -3,7 +3,7 @@
 ///
 /// Every node a script or tool adds passes through this single gate, so the
 /// document can only grow in ways the [SpecModel] permits for the parent. The
-/// rules are the §8.6 *structural* rules — but read from the model meta-data the
+/// rules are the `tom_specs_model_rules.md` §10.2 *structural* rules — but read from the model meta-data the
 /// runtime already carries ([SpecField.kind], [SpecField.sectionIdPattern],
 /// [SpecField.min]), **not** from the analyzer-backed authoring validator in
 /// `tom_specs_clitool`. The clitool validates the *authored model graph*; this

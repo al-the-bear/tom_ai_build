@@ -16,7 +16,7 @@ import 'model_reader.dart';
 /// `registerSpecOps()` that registers a `SpecClassOps` per concrete type,
 /// closing over each class's **public fields**. The model classes stay pristine
 /// (no new fields/getters), so the analyzer-based [ModelReader] that builds
-/// `spec_model.json` and feeds the §8.6 validator sees them unchanged.
+/// `spec_model.json` and feeds the `tom_specs_model_rules.md` §10.2 validator sees them unchanged.
 ///
 /// ## Field classification (matches `ModelJsonExporter` kinds)
 ///

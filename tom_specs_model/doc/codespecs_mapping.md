@@ -3496,7 +3496,7 @@ exported losslessly like `@CodeSpecKind`) and one validator invariant:
 **Enforcement is two-tier**, because the SOM validator is *static* (it analyzes
 the class graph, not documents):
 
-- **Static** (`tom_specs_clitool/lib/src/validator.dart`, the "§8.6 one-of"
+- **Static** (`tom_specs_clitool/lib/src/validator.dart`, the "`tom_specs_model_rules.md` §10.2 one-of"
   invariant): (i) the `@OneOf` discriminator resolves to a `@Form` field whose
   type is a model enum; (ii) every `@Case` value is a constant of that enum;
   (iii) the `@Case` values across the group **cover** the enum — an uncovered
@@ -3649,7 +3649,7 @@ shared → server → client locus bands by `@Comment('locus: …')`:
 
 It is `@CodeSpecKind`-driven rather than `@DetailedIn`-driven, so it carries the
 `@CodeSpecsProjection()` marker (`tom_specs_core`), which exempts it from the
-§8.6 **detail-count** check only — it still satisfies the pure-projection
+`tom_specs_model_rules.md` §10.2 **detail-count** check only — it still satisfies the pure-projection
 invariant. The RSP `Requirements` seed is **deliberately excluded**: requirements
 are *consumed* by generation, not generated from.
 
@@ -3846,7 +3846,7 @@ per-part verdict, and each gap it records appears below as its own todo.
 The `csrb` series has one member that is **deliberately absent** from this table:
 `csrb3` (SOM cross-registry id-reference integrity) was raised while executing a
 `csra` todo, but its subject is a **SOM validator capability** spanning every
-registry in the model — `tom_specs_model_rules.md` §8.6 territory, not a CodeSpecs
+registry in the model — `tom_specs_model_rules.md` §10.2 territory, not a CodeSpecs
 mapping question. It is tracked in the quest todo file like the rest of the
 series; it simply has no open work *against this document*.
 

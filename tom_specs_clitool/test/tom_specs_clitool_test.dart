@@ -44,7 +44,8 @@ void main() {
     p.join(Directory.current.path, '..', 'tom_specs_model'),
   );
 
-  group('end-to-end: real tom_specs_model §8.6 structural invariants', () {
+  group('end-to-end: real tom_specs_model — the '
+      'tom_specs_model_rules.md §10.2 structural invariants', () {
     late Map<String, ModelClass> classes;
 
     setUpAll(() async {
@@ -54,20 +55,20 @@ void main() {
       classes = reader.classes;
     });
 
-    test('§8.6: no duplicate @SectionId strings across D00SolutionBlueprint tree', () {
+    test('tom_specs_model_rules.md §10.2: no duplicate @SectionId strings across D00SolutionBlueprint tree', () {
       final result = validateStructuralInvariants(classes);
       final dupeErrors = result.errors
-          .where((e) => e.contains('§8.6 @SectionId uniqueness'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId uniqueness'))
           .toList();
       expect(dupeErrors, isEmpty, reason: dupeErrors.join('\n'));
     });
 
     test(
-      '§8.6: every reachable class has @SectionId (or is @SectionIdPattern-covered)',
+      'tom_specs_model_rules.md §10.2: every reachable class has @SectionId (or is @SectionIdPattern-covered)',
       () {
         final result = validateStructuralInvariants(classes);
         final coverageWarnings = result.warnings
-            .where((w) => w.contains('§8.6 @SectionId coverage'))
+            .where((w) => w.contains('tom_specs_model_rules.md §10.2 @SectionId coverage'))
             .toList();
         // CS-02 (dsa5) is complete — zero coverage gaps from the SBP root.
         expect(coverageWarnings, isEmpty, reason: coverageWarnings.join('\n'));
@@ -75,7 +76,7 @@ void main() {
     );
 
     test(
-      '§8.6: @SectionId coverage is complete from every one of the 14 roots '
+      'tom_specs_model_rules.md §10.2: @SectionId coverage is complete from every one of the 14 roots '
       '(dsa5 CS-02) — including D00SolutionBlueprint and the container',
       () {
         // The SBP-anchored warning path only proves coverage from
@@ -114,35 +115,35 @@ void main() {
       },
     );
 
-    test('§8.6: no duplicate @SectionIdPattern strings', () {
+    test('tom_specs_model_rules.md §10.2: no duplicate @SectionIdPattern strings', () {
       final result = validateStructuralInvariants(classes);
       final patternErrors = result.errors
-          .where((e) => e.contains('§8.6 @SectionIdPattern uniqueness'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern uniqueness'))
           .toList();
       expect(patternErrors, isEmpty, reason: patternErrors.join('\n'));
     });
 
-    test('§8.6: every @DetailedIn(D) class has @MapsTo(D) on itself or an ancestor', () {
+    test('tom_specs_model_rules.md §10.2: every @DetailedIn(D) class has @MapsTo(D) on itself or an ancestor', () {
       final result = validateStructuralInvariants(classes);
       final ancestorErrors = result.errors
-          .where((e) => e.contains('§8.6 @DetailedIn ancestor check'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @DetailedIn ancestor check'))
           .toList();
       expect(ancestorErrors, isEmpty, reason: ancestorErrors.join('\n'));
     });
 
-    test('§8.6: every @Document class has at least one @DetailedIn entry in SBP tree', () {
+    test('tom_specs_model_rules.md §10.2: every @Document class has at least one @DetailedIn entry in SBP tree', () {
       final result = validateStructuralInvariants(classes);
       final detailCountWarnings = result.warnings
-          .where((w) => w.contains('§8.6 detail-count'))
+          .where((w) => w.contains('tom_specs_model_rules.md §10.2 detail-count'))
           .toList();
       expect(detailCountWarnings, isEmpty, reason: detailCountWarnings.join('\n'));
     });
 
-    test('§8.6: section ids resolve identically from every @Document root '
+    test('tom_specs_model_rules.md §10.2: section ids resolve identically from every @Document root '
         '(dsa4 root-independence)', () {
       final result = validateStructuralInvariants(classes);
       final rootIdErrors = result.errors
-          .where((e) => e.contains('§8.6 root-independent id'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 root-independent id'))
           .toList();
       // Every class must have a single id-resolution mode: a class-level
       // @SectionId XOR being a @SectionIdPattern list element. A class mixing
@@ -151,12 +152,12 @@ void main() {
     });
 
     test(
-      '§8.6: no reachable complex List<T> field lacks @SectionIdPattern '
+      'tom_specs_model_rules.md §10.2: no reachable complex List<T> field lacks @SectionIdPattern '
       '(excluding @Reference)',
       () {
         final result = validateStructuralInvariants(classes);
         final listCoverageErrors = result.errors
-            .where((e) => e.contains('§8.6 @SectionIdPattern list-coverage'))
+            .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage'))
             .toList();
         // Every repeated section (complex List<T> field that is not
         // @Reference) must carry a numbering pattern.
@@ -165,15 +166,15 @@ void main() {
     );
 
     test(
-      '§8.6: list container IDs are per-class unique and pattern-paired '
+      'tom_specs_model_rules.md §10.2: list container IDs are per-class unique and pattern-paired '
       '(field-suffix scheme)',
       () {
         final result = validateStructuralInvariants(classes);
         final lstErrors = result.errors
             .where((e) =>
-                e.contains('§8.6 @SectionId per-class uniqueness') ||
-                e.contains('§8.6 @SectionId consistency') ||
-                e.contains('§8.6 @SectionId/@SectionIdPattern pairing'))
+                e.contains('tom_specs_model_rules.md §10.2 @SectionId per-class uniqueness') ||
+                e.contains('tom_specs_model_rules.md §10.2 @SectionId consistency') ||
+                e.contains('tom_specs_model_rules.md §10.2 @SectionId/@SectionIdPattern pairing'))
             .toList();
         // Every list field carries `<E>-<FIELDSUFFIX>-LST` + matching pattern;
         // the field suffix makes sibling container IDs distinct, so same-class
@@ -303,7 +304,7 @@ void main() {
     test('T2: every projection root is a pure projection of the SBP tree', () {
       final result = validateStructuralInvariants(classes);
       final pureProjectionErrors = result.errors
-          .where((e) => e.contains('§8.6 pure-projection'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 pure-projection'))
           .toList();
       // Each Phase 3 root aggregates Solution Blueprint sections only — no
       // projection-local content without a blueprint counterpart (N12).
@@ -361,7 +362,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       expect(
-        result.errors.any((e) => e.contains('§8.6 @SectionId uniqueness')),
+        result.errors.any((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId uniqueness')),
         isTrue,
         reason: 'Expected a uniqueness error for "TST-DUP"',
       );
@@ -405,7 +406,7 @@ void main() {
       expect(
         result.errors.any(
           (e) =>
-              e.contains('§8.6 @SectionId single-occurrence') &&
+              e.contains('tom_specs_model_rules.md §10.2 @SectionId single-occurrence') &&
               e.contains('Alpha'),
         ),
         isTrue,
@@ -424,7 +425,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final singleOccErrors = result.errors
-          .where((e) => e.contains('§8.6 @SectionId single-occurrence'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId single-occurrence'))
           .toList();
       expect(singleOccErrors, isEmpty, reason: singleOccErrors.join('\n'));
     });
@@ -442,7 +443,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       expect(
-        result.warnings.any((w) => w.contains('§8.6 @SectionId coverage') && w.contains('NoId')),
+        result.warnings.any((w) => w.contains('tom_specs_model_rules.md §10.2 @SectionId coverage') && w.contains('NoId')),
         isTrue,
         reason: 'Expected a coverage warning for class NoId',
       );
@@ -468,7 +469,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final coverageWarnings = result.warnings
-          .where((w) => w.contains('§8.6 @SectionId coverage'))
+          .where((w) => w.contains('tom_specs_model_rules.md §10.2 @SectionId coverage'))
           .toList();
       expect(coverageWarnings, isEmpty);
     });
@@ -546,7 +547,7 @@ void main() {
       final result = validateStructuralInvariants(classes);
       expect(
         result.errors.any((e) =>
-            e.contains('§8.6 @SectionIdPattern list-coverage') &&
+            e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage') &&
             e.contains('Container.items')),
         isTrue,
         reason: 'Expected a list-coverage error for Container.items',
@@ -574,7 +575,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final listCoverageErrors = result.errors
-          .where((e) => e.contains('§8.6 @SectionIdPattern list-coverage'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage'))
           .toList();
       expect(listCoverageErrors, isEmpty);
     });
@@ -601,7 +602,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final listCoverageErrors = result.errors
-          .where((e) => e.contains('§8.6 @SectionIdPattern list-coverage'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage'))
           .toList();
       expect(listCoverageErrors, isEmpty);
     });
@@ -647,7 +648,7 @@ void main() {
         patB: 'ITM-OUTITEMS-xxx',
       ));
       final lstErrors = result.errors
-          .where((e) => e.contains('§8.6 @SectionId'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId'))
           .toList();
       expect(lstErrors, isEmpty, reason: lstErrors.join('\n'));
     });
@@ -661,7 +662,7 @@ void main() {
       ));
       expect(
         result.errors.any((e) =>
-            e.contains('§8.6 @SectionId per-class uniqueness') &&
+            e.contains('tom_specs_model_rules.md §10.2 @SectionId per-class uniqueness') &&
             e.contains('Scope.inItems') &&
             e.contains('Scope.outItems')),
         isTrue,
@@ -701,7 +702,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       expect(
-        result.errors.any((e) => e.contains('§8.6 @SectionId consistency')),
+        result.errors.any((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId consistency')),
         isTrue,
         reason: 'Expected a consistency error for SHARED-XS-LST → Alpha/Beta',
       );
@@ -730,7 +731,7 @@ void main() {
       final result = validateStructuralInvariants(classes);
       expect(
         result.errors.any((e) =>
-            e.contains('§8.6 @SectionId/@SectionIdPattern pairing') &&
+            e.contains('tom_specs_model_rules.md §10.2 @SectionId/@SectionIdPattern pairing') &&
             e.contains('Holder.items')),
         isTrue,
         reason: 'Expected a pairing error for Holder.items',
@@ -754,7 +755,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       expect(
-        result.errors.any((e) => e.contains('§8.6 @DetailedIn ancestor check')),
+        result.errors.any((e) => e.contains('tom_specs_model_rules.md §10.2 @DetailedIn ancestor check')),
         isTrue,
       );
     });
@@ -774,7 +775,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final ancestorErrors =
-          result.errors.where((e) => e.contains('§8.6 @DetailedIn ancestor check')).toList();
+          result.errors.where((e) => e.contains('tom_specs_model_rules.md §10.2 @DetailedIn ancestor check')).toList();
       expect(ancestorErrors, isEmpty);
     });
 
@@ -798,7 +799,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final ancestorErrors =
-          result.errors.where((e) => e.contains('§8.6 @DetailedIn ancestor check')).toList();
+          result.errors.where((e) => e.contains('tom_specs_model_rules.md §10.2 @DetailedIn ancestor check')).toList();
       expect(ancestorErrors, isEmpty);
     });
   });
@@ -827,7 +828,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       expect(
-        result.errors.any((e) => e.contains('§8.6 root-independent id')),
+        result.errors.any((e) => e.contains('tom_specs_model_rules.md §10.2 root-independent id')),
         isTrue,
         reason: result.errors.join('\n'),
       );
@@ -854,7 +855,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final rootIdErrors =
-          result.errors.where((e) => e.contains('§8.6 root-independent id')).toList();
+          result.errors.where((e) => e.contains('tom_specs_model_rules.md §10.2 root-independent id')).toList();
       expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
     });
 
@@ -870,7 +871,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final rootIdErrors =
-          result.errors.where((e) => e.contains('§8.6 root-independent id')).toList();
+          result.errors.where((e) => e.contains('tom_specs_model_rules.md §10.2 root-independent id')).toList();
       expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
     });
   });
@@ -951,7 +952,7 @@ void main() {
       final result = validateStructuralInvariants(classes);
       expect(
         result.errors.any((e) =>
-            e.contains('§8.6 pure-projection') &&
+            e.contains('tom_specs_model_rules.md §10.2 pure-projection') &&
             e.contains('BizProc') &&
             e.contains('ProjLocal')),
         isTrue,
@@ -977,7 +978,7 @@ void main() {
       };
       final result = validateStructuralInvariants(classes);
       final pureProjectionErrors = result.errors
-          .where((e) => e.contains('§8.6 pure-projection'))
+          .where((e) => e.contains('tom_specs_model_rules.md §10.2 pure-projection'))
           .toList();
       expect(pureProjectionErrors, isEmpty);
     });
@@ -985,7 +986,7 @@ void main() {
 
   group('unit: §6.1 canonical field shapes (YRB1)', () {
     // Field-shape errors carry the '§6.1 field-shape' prefix. Synthetic models
-    // deliberately omit D00SolutionBlueprint so the §8.6 invariants stay a
+    // deliberately omit D00SolutionBlueprint so the `tom_specs_model_rules.md` §10.2 invariants stay a
     // no-op and only the field-shape rules under test can fire.
     List<String> shapeErrors(Map<String, ModelClass> classes, String root) =>
         validateModel(classes, root)
@@ -1693,7 +1694,7 @@ void main() {
   // shared/multi-referrer wrappers — must NOT be flagged.
   // ---------------------------------------------------------------------------
   group('unit: §6.1c collapsible-wrapper detection (TSMA4–TSMA5)', () {
-    // Collapsible-wrapper detection lives in the §8.6 structural pass, so a
+    // Collapsible-wrapper detection lives in the `tom_specs_model_rules.md` §10.2 structural pass, so a
     // D00SolutionBlueprint root must reach the candidate. The root references
     // the wrapper; the wrapper carries exactly one subsection + bare content.
     List<String> collapsibleWarnings(Map<String, ModelClass> classes) =>

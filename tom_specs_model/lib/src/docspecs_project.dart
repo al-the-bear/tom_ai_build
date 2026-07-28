@@ -32,7 +32,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// fifteenth sibling document. It never renders in the root navigator as
 /// content — the navigator lists [solutionBlueprint] first, then the twelve
 /// Phase-3 projection roots, then the [D13CodeSpecsProjection]. Tooling
-/// (`ModelJsonExporter`, the §8.6 validator, the outliner) treats it as the
+/// (`ModelJsonExporter`, the `tom_specs_model_rules.md` §10.2 validator, the outliner) treats it as the
 /// canonical root and exempts it from `@SectionId` coverage/uniqueness (T1).
 ///
 /// **The D00SolutionBlueprint is the source of truth.** The twelve Phase 3 roots

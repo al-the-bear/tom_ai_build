@@ -8,7 +8,7 @@
 /// `@DetailedIn`/`@MapsTo` pair is single-valued and already spent on the
 /// Phase-3 document that shaped each section.
 ///
-/// This marker exempts the projection from the §8.6 detail-count check (which
+/// This marker exempts the projection from the `tom_specs_model_rules.md` §10.2 detail-count check (which
 /// would otherwise warn that the `@Document` has zero `@DetailedIn` entries).
 /// It does **not** relax the pure-projection invariant — the projection must
 /// still reach only types present in the D00SolutionBlueprint tree.

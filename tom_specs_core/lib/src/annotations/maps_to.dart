@@ -10,7 +10,7 @@
 /// is kept whole in the target document (it is both the 1:1 mapping point
 /// and the top-level entry in the target).
 ///
-/// The §8.6 structural invariants in `tom_specs_clitool/lib/src/validator.dart`
+/// The `tom_specs_model_rules.md` §10.2 structural invariants in `tom_specs_clitool/lib/src/validator.dart`
 /// enforce the full rule set.
 ///
 /// Example:

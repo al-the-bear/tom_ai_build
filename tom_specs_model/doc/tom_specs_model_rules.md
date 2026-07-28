@@ -664,16 +664,16 @@ have needed an extra parent discriminator folded into every container id).
 - **Container ids:** unique **within a class** (per-class uniqueness). The field
   suffix guarantees this by construction; the validator enforces it as a guard,
   so a later-added second list cannot silently collide. Error tag:
-  `§8.6 @SectionId per-class uniqueness`.
+  `§10.2 @SectionId per-class uniqueness`.
 - **Type-consistency:** a given container id maps to **exactly one** element type.
-  Error tag: `§8.6 @SectionId consistency`.
+  Error tag: `§10.2 @SectionId consistency`.
 - **Pattern pairing:** the `@SectionIdPattern` must mirror the container
   `@SectionId` (`-LST` ↔ `-xxx`). Error tag:
-  `§8.6 @SectionId/@SectionIdPattern pairing`.
+  `§10.2 @SectionId/@SectionIdPattern pairing`.
 - **List coverage:** every `List<T>` field of section elements must carry the
   container/pattern pair. The only exemption is `@Reference` list fields, which
   are pointers rather than owned sub-sections. Error tag:
-  `§8.6 @SectionIdPattern list-coverage`.
+  `§10.2 @SectionIdPattern list-coverage`.
 
 **Cross-class sharing is legitimate.** Two *different* classes that each declare a
 list of the same element type *with the same field name* share one container id

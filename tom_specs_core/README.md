@@ -125,7 +125,7 @@ target (class `C` / member `M`).
 | `@PatternCheck` | `PatternCheck(String pattern, {String? errorMessage})` | M | Validates a field value against a regex. |
 | `@ValidationPrompt` | `ValidationPrompt(String prompt)` | C, M | AI-assisted validation prompt. |
 | `@OneOf` | `OneOf({required String discriminator, String? note})` | C | Marks a container class as a **discriminated subsection group** (`codespecs_mapping.md` §8.2). `discriminator` names a `@Form` field of the container whose type is a **model enum** (YRD7); the enum value chosen at author time selects which `@Case`-bound subsection fields are present. |
-| `@Case` | `Case(Object value)` | M | Repeatable. Binds a complex subsection field to one enum constant of the enclosing `@OneOf` discriminator (`value` is the qualified `EnumType.constant`). A subsection with no `@Case` is *common* (present under any case). Enforced statically (validator.dart §8.6 one-of) and at instance level (runtime `validateDocument`, `oneOfCaseMismatch`). |
+| `@Case` | `Case(Object value)` | M | Repeatable. Binds a complex subsection field to one enum constant of the enclosing `@OneOf` discriminator (`value` is the qualified `EnumType.constant`). A subsection with no `@Case` is *common* (present under any case). Enforced statically (validator.dart `tom_specs_model_rules.md` §10.2 one-of) and at instance level (runtime `validateDocument`, `oneOfCaseMismatch`). |
 
 ### Cross-references & relationships
 
@@ -140,7 +140,7 @@ target (class `C` / member `M`).
 
 These four annotations encode how the `D00SolutionBlueprint` master model
 maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
-§8.6 structural invariants in
+`tom_specs_model_rules.md` §10.2 structural invariants in
 [`tom_specs_clitool/lib/src/validator.dart`](../tom_specs_clitool/lib/src/validator.dart).
 
 | Annotation | Signature | Target | Purpose |
@@ -161,7 +161,7 @@ annotates SOM model classes — the concrete forward `codeSpec` member is a
 | --- | --- | --- | --- |
 | `@CodeSpecKind` | `CodeSpecKind(List<CodeSpecPart> kinds, {String? note})` | C | Declares which CodeSpecs part *type(s)* a section *type* (or form field) is realised as. **List-valued** since a section/field may map to several kinds; a single-kind mapping uses a one-element list. The kind enum is `CodeSpecPart` — **28 values**: the **26 active parts** (§4.1), the **member kind `domainEnum`**, and the **1 deferred candidate** (§4.3): `workflow`. `CE-TR`/Traceability is excluded — it is cross-cutting (§9), not a mappable kind. A deferred value is *mapping-only*: a SOM section may carry it now, but the part has no `Cs*` annotation, built-on `tom_core` class or generated code until promoted into §4.1. Kind values are drawn from the `codespecs_mapping.md` §4.1/§4.3 catalogues so they cannot drift. |
 | `@FollowUpKind` | `FollowUpKind(List<FollowUpProcess> processes, {String? note})` | C | The follow-up counterpart of `@CodeSpecKind`: tags a SOM follow-up subtree root (the descriptive, no-`@CodeSpecKind` content isolated by the Band-F splits) with the downstream **process(es)** it feeds. **List-valued** — a subtree can feed several processes. The kind enum is `FollowUpProcess` — the extensible taxonomy from `codespecs_mapping.md` §8.3: `doc` (documentation), `trn` (training), `org` (organisation), `ops` (operations), `cap` (capacity/data volume), `cmp` (compliance), `mig` (migration), `l10n` (localization), plus `acc` (acceptance/quality, added for SBP.14). Like `@CodeSpecKind`, it annotates SOM model classes and adds no classes to the graph; exported losslessly via the generic `annotations` block. |
-| `@CodeSpecsProjection` | `CodeSpecsProjection()` | C | Marks a `@Document` root as the **CodeSpecs generation projection** (`D13CodeSpecsProjection`, `@SectionId('CGP')`). Such a projection is `@CodeSpecKind`-driven, not `@DetailedIn`-driven — the single-valued `@DetailedIn`/`@MapsTo` pair is already spent on each section's Phase-3 document — so this marker exempts the document from the §8.6 detail-count check **only**. It does *not* relax the pure-projection invariant (the projection must still reach only types present in the `D00SolutionBlueprint` tree). |
+| `@CodeSpecsProjection` | `CodeSpecsProjection()` | C | Marks a `@Document` root as the **CodeSpecs generation projection** (`D13CodeSpecsProjection`, `@SectionId('CGP')`). Such a projection is `@CodeSpecKind`-driven, not `@DetailedIn`-driven — the single-valued `@DetailedIn`/`@MapsTo` pair is already spent on each section's Phase-3 document — so this marker exempts the document from the `tom_specs_model_rules.md` §10.2 detail-count check **only**. It does *not* relax the pure-projection invariant (the projection must still reach only types present in the `D00SolutionBlueprint` tree). |
 
 ---
 
@@ -169,7 +169,7 @@ annotates SOM model classes — the concrete forward `codeSpec` member is a
 
 - **`ModelReader`** (`tom_specs_clitool`) reads every annotation via the Dart
   analyzer — no marker annotation is needed; all model classes are scanned.
-- **`validator.dart`** enforces the model-design rules (§6) and the §8.6
+- **`validator.dart`** enforces the model-design rules (§6) and the `tom_specs_model_rules.md` §10.2
   structural invariants (`@SectionId` uniqueness/coverage, `@SectionIdPattern`
   pairing, `@DetailedIn → ancestor @MapsTo`, per-`@Document` detail count,
   root-independent section-id resolution).

@@ -26,7 +26,7 @@
 ///    generated code. The spec-ops codegen instead emits one registry file that
 ///    closes over each class's public fields. The model classes stay pristine
 ///    and add **no instance fields and no getters**, so the analyzer-based
-///    `ModelReader` that builds `spec_model.json` and feeds the §8.6 validator
+///    `ModelReader` that builds `spec_model.json` and feeds the `tom_specs_model_rules.md` §10.2 validator
 ///    sees them unchanged.
 ///
 /// Dirty state is held in a private [Expando] keyed by node identity rather than

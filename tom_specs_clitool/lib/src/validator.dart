@@ -1,11 +1,18 @@
 import 'model_reader.dart';
 
+/// The document section every structural-invariant tag cites.
+///
+/// Named once so the tags stay short and a future renumbering of the rules
+/// document is a one-line change rather than 27 — the tests match on the
+/// expanded text, so they follow automatically.
+const String _invariants = 'tom_specs_model_rules.md §10.2';
+
 /// Validates model classes against §6 design rules.
 ///
 /// Returns a record of (errors, warnings). Errors prevent output;
 /// warnings are reported but don't block generation.
 ///
-/// Also runs [validateStructuralInvariants] for the §8.6 structural checks
+/// Also runs [validateStructuralInvariants] for the `tom_specs_model_rules.md` §10.2 structural checks
 /// whenever [D00SolutionBlueprint] is present in [classes].
 ({List<String> errors, List<String> warnings}) validateModel(
   Map<String, ModelClass> classes,
@@ -176,7 +183,7 @@ import 'model_reader.dart';
     errors.add(cycleError);
   }
 
-  // §8.6 — structural invariants (SBP-global, runs whenever D00SolutionBlueprint
+  // `tom_specs_model_rules.md` §10.2 — structural invariants (SBP-global, runs whenever D00SolutionBlueprint
   // is present in the classes map regardless of the current root type).
   _validateStructuralInvariants(classes, errors, warnings);
 
@@ -184,10 +191,10 @@ import 'model_reader.dart';
 }
 
 // ---------------------------------------------------------------------------
-// §8.6 Structural invariants — public entry point
+// `tom_specs_model_rules.md` §10.2 Structural invariants — public entry point
 // ---------------------------------------------------------------------------
 
-/// Validates the §8.6 structural invariants of the TomSpecs object model.
+/// Validates the `tom_specs_model_rules.md` §10.2 structural invariants of the TomSpecs object model.
 ///
 /// These checks operate globally from [D00SolutionBlueprint] as the root and are
 /// independent of the `rootTypeName` passed to [validateModel]:
@@ -267,7 +274,7 @@ import 'model_reader.dart';
   return (errors: errors, warnings: warnings);
 }
 
-/// Returns the §8.6 `@SectionId` coverage gaps reachable from [rootTypeName].
+/// Returns the `tom_specs_model_rules.md` §10.2 `@SectionId` coverage gaps reachable from [rootTypeName].
 ///
 /// A *gap* is a class reachable from the root that carries no class-level
 /// `@SectionId` and is not covered by a `@SectionIdPattern` list field (neither
@@ -333,7 +340,7 @@ List<String> sectionIdCoverageGaps(
 }
 
 // ---------------------------------------------------------------------------
-// §8.6 implementation
+// `tom_specs_model_rules.md` §10.2 implementation
 // ---------------------------------------------------------------------------
 
 void _validateStructuralInvariants(
@@ -426,7 +433,7 @@ void _validateStructuralInvariants(
         cls.annotations.where((a) => a.name == 'SectionId').length;
     if (sectionIdCount > 1) {
       errors.add(
-        '§8.6 @SectionId single-occurrence: $className carries $sectionIdCount '
+        '$_invariants @SectionId single-occurrence: $className carries $sectionIdCount '
         'class-level @SectionId annotations — a class may declare @SectionId '
         'at most once',
       );
@@ -439,7 +446,7 @@ void _validateStructuralInvariants(
       if (id.isNotEmpty) {
         if (sectionIdSeen.containsKey(id)) {
           errors.add(
-            '§8.6 @SectionId uniqueness: id "$id" used by both '
+            '$_invariants @SectionId uniqueness: id "$id" used by both '
             '${sectionIdSeen[id]} and $className '
             '— IDs must be globally unique',
           );
@@ -451,7 +458,7 @@ void _validateStructuralInvariants(
       // Coverage: class is reachable but has neither @SectionId nor is
       // covered by a @SectionIdPattern field.
       warnings.add(
-        '§8.6 @SectionId coverage: $className is reachable from '
+        '$_invariants @SectionId coverage: $className is reachable from '
         'D00SolutionBlueprint but has no class-level @SectionId and is not '
         'a @SectionIdPattern list-element type',
       );
@@ -503,7 +510,7 @@ void _validateStructuralInvariants(
         final existing = lstIdToElementType[lstId]!;
         if (existing != elementType) {
           errors.add(
-            '§8.6 @SectionId consistency: container id "$lstId" used for both '
+            '$_invariants @SectionId consistency: container id "$lstId" used for both '
             '$existing and $elementType — a container id must always correspond '
             'to exactly one element type',
           );
@@ -515,7 +522,7 @@ void _validateStructuralInvariants(
       // (ii) per-class uniqueness
       if (seenInClass.containsKey(lstId)) {
         errors.add(
-          '§8.6 @SectionId per-class uniqueness: container id "$lstId" used by '
+          '$_invariants @SectionId per-class uniqueness: container id "$lstId" used by '
           'both $className.${seenInClass[lstId]} and $className.${field.name} — '
           'sibling list fields must carry distinct container IDs',
         );
@@ -531,7 +538,7 @@ void _validateStructuralInvariants(
             '${lstId.substring(0, lstId.length - '-LST'.length)}-xxx';
         if (pattern != expected) {
           errors.add(
-            '§8.6 @SectionId/@SectionIdPattern pairing: '
+            '$_invariants @SectionId/@SectionIdPattern pairing: '
             '$className.${field.name} has container id "$lstId" but pattern '
             '"$pattern" (expected "$expected")',
           );
@@ -557,7 +564,7 @@ void _validateStructuralInvariants(
       if (field.getAnnotation('Reference') != null) continue;
       if (field.getAnnotation('SectionIdPattern') == null) {
         errors.add(
-          '§8.6 @SectionIdPattern list-coverage: $className.${field.name} '
+          '$_invariants @SectionIdPattern list-coverage: $className.${field.name} '
           '(List<${field.listElementTypeName}>) has no @SectionIdPattern and '
           'is not @Reference — repeated sections must carry a numbering pattern',
         );
@@ -609,7 +616,7 @@ void _validateStructuralInvariants(
     for (final docType in entry.value) {
       if (!hasAncestorOrSelfMapsTo(className, docType)) {
         errors.add(
-          '§8.6 @DetailedIn ancestor check: $className has '
+          '$_invariants @DetailedIn ancestor check: $className has '
           '@DetailedIn($docType) but no @MapsTo($docType) on itself or '
           'any ancestor in the D00SolutionBlueprint tree',
         );
@@ -626,7 +633,7 @@ void _validateStructuralInvariants(
     // each subtree root is already spent on its Phase-3 document, so no SBP
     // section carries `@DetailedIn(<projection>)`. The `@CodeSpecsProjection()`
     // marker exempts such a projection from the detail-count check (it still
-    // satisfies the §8.6 pure-projection invariant checked below).
+    // satisfies the `tom_specs_model_rules.md` §10.2 pure-projection invariant checked below).
     if (classes[docClassName]?.getAnnotation('CodeSpecsProjection') != null) {
       continue;
     }
@@ -635,7 +642,7 @@ void _validateStructuralInvariants(
         .length;
     if (count == 0) {
       warnings.add(
-        '§8.6 detail-count: @Document class $docClassName has no '
+        '$_invariants detail-count: @Document class $docClassName has no '
         '@DetailedIn($docClassName) entries in the D00SolutionBlueprint tree',
       );
     }
@@ -662,7 +669,7 @@ void _validateStructuralInvariants(
       if (type == docClassName) continue; // the projection root class itself
       if (reachable.contains(type)) continue; // has a SBP counterpart
       errors.add(
-        '§8.6 pure-projection: projection root $docClassName reaches "$type", '
+        '$_invariants pure-projection: projection root $docClassName reaches "$type", '
         'which is not present in the D00SolutionBlueprint tree — a projection '
         'root must contain no content without a SBP counterpart (N12)',
       );
@@ -814,7 +821,7 @@ void _validateStructuralInvariants(
   for (final className in directPatternElementsAllRoots) {
     if (!standaloneComplexTypes.contains(className)) continue;
     errors.add(
-      '§8.6 root-independent id: $className is reached both as a direct '
+      '$_invariants root-independent id: $className is reached both as a direct '
       '@SectionIdPattern list element (→ the list instance pattern) and as a '
       'standalone complex section field (→ its own class @SectionId) — its id '
       'resolves differently depending on the traversal root; a class must be '
@@ -887,7 +894,7 @@ void _validateOneOfGroups(
       for (final field in cls.fields) {
         if (field.annotations.any((a) => a.name == 'Case')) {
           errors.add(
-            '§8.6 one-of: $className.${field.name} carries @Case but its class '
+            '$_invariants one-of: $className.${field.name} carries @Case but its class '
             'declares no @OneOf group — @Case is only valid on a subsection of '
             'an @OneOf container',
           );
@@ -899,7 +906,7 @@ void _validateOneOfGroups(
     final discriminator = oneOf.arguments['discriminator'] as String?;
     if (discriminator == null || discriminator.isEmpty) {
       errors.add(
-        '§8.6 one-of: $className carries @OneOf without a discriminator name',
+        '$_invariants one-of: $className carries @OneOf without a discriminator name',
       );
       continue;
     }
@@ -916,14 +923,14 @@ void _validateOneOfGroups(
     }
     if (discField == null) {
       errors.add(
-        '§8.6 one-of: $className @OneOf discriminator "$discriminator" is not a '
+        '$_invariants one-of: $className @OneOf discriminator "$discriminator" is not a '
         '@Form field of the class',
       );
       continue;
     }
     if (discField.enumValues.isEmpty) {
       errors.add(
-        '§8.6 one-of: $className @OneOf discriminator "$discriminator" '
+        '$_invariants one-of: $className @OneOf discriminator "$discriminator" '
         '(type ${discField.typeName}) is not a model enum — the discriminator '
         'must be an enum @Form field so cases can be checked and resolved',
       );
@@ -941,7 +948,7 @@ void _validateOneOfGroups(
       // (iv) Every @Case-bound field is a complex subsection of the container.
       if (!isSubsection(field)) {
         errors.add(
-          '§8.6 one-of: $className.${field.name} carries @Case but is not a '
+          '$_invariants one-of: $className.${field.name} carries @Case but is not a '
           'complex subsection — only subsection fields can be case-bound',
         );
       }
@@ -950,7 +957,7 @@ void _validateOneOfGroups(
         final token = _splitEnumToken(caseAnno.arguments['value']);
         if (token == null) {
           errors.add(
-            '§8.6 one-of: $className.${field.name} @Case value is not a '
+            '$_invariants one-of: $className.${field.name} @Case value is not a '
             'qualified enum constant',
           );
           continue;
@@ -958,7 +965,7 @@ void _validateOneOfGroups(
         // (ii) Every @Case value is a constant of the discriminator enum.
         if (token.enumType != enumType) {
           errors.add(
-            '§8.6 one-of: $className.${field.name} @Case(${token.enumType}.'
+            '$_invariants one-of: $className.${field.name} @Case(${token.enumType}.'
             '${token.constant}) does not belong to the discriminator enum '
             '"$enumType"',
           );
@@ -966,7 +973,7 @@ void _validateOneOfGroups(
         }
         if (!enumConstants.contains(token.constant)) {
           errors.add(
-            '§8.6 one-of: $className.${field.name} @Case value '
+            '$_invariants one-of: $className.${field.name} @Case value '
             '"$enumType.${token.constant}" is not a constant of "$enumType"',
           );
           continue;
@@ -980,7 +987,7 @@ void _validateOneOfGroups(
       ..sort();
     if (uncovered.isNotEmpty) {
       warnings.add(
-        '§8.6 one-of: $className @OneOf on "$discriminator" leaves '
+        '$_invariants one-of: $className @OneOf on "$discriminator" leaves '
         '${uncovered.length} enum constant(s) uncovered by any @Case '
         '(${uncovered.join(', ')}) — legal for kinds with no extra attributes',
       );

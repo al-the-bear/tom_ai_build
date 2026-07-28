@@ -161,7 +161,7 @@ sections, of which types, are legal under this node".
 **meta-model-validated** add API: a script may add only children/list-items/forms
 the object model permits for the parent (kind, allowed section-id pattern,
 cardinality). Illegal additions raise a clear scripting error rather than
-corrupting the tree. The check reuses the §8.6 validator's structural rules
+corrupting the tree. The check reuses the `tom_specs_model_rules.md` §10.2 validator's structural rules
 (exported by `tom_som`, see §13.1).
 
 **One change log (req c).** Because every layer ends at the controller, scripts,
@@ -541,7 +541,7 @@ The `tom_som` API satisfies three obligations this scripting layer depends on:
    `SpecQueryCursor`), reused by both the editor's search tools and any consumer.
 3. **Meta-model-constrained node creation.** The generic add-node API
    **validates against the meta-model** (allowed child kinds / section-id patterns
-   / cardinality) using the §8.6 structural rules and rejects illegal additions.
+   / cardinality) using the `tom_specs_model_rules.md` §10.2 structural rules and rejects illegal additions.
 
 ### 13.2 Relationship to `tom_specs_editor_specification.md`
 
