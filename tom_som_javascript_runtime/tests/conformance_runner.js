@@ -9,6 +9,7 @@
  * golden byte-for-byte and matches every behavioural case:
  *
  *   * model meta-data loads (root + class structure);
+ *   * the generation stamp decodes and reaches the shared staleness verdict;
  *   * `state.json` loads and re-serialises identically;
  *   * YAML encode == `expected.docspecs.yaml` (byte-for-byte, hierarchical v2
  *     via the SomMetaTree built from the model meta-data);
@@ -31,6 +32,7 @@ const _CORPUS = path.normalize(
 );
 
 const {
+  DEFAULT_MAX_SNAPSHOT_AGE_MS,
   SpecDocument,
   SpecDocumentMarkdown,
   SpecModel,
@@ -147,6 +149,89 @@ function testModelMeta(model) {
       'model.Demo.fields',
       _deepEqual(names, ['title', 'summary', 'priority', 'count', 'details', 'items', 'refs', 'cards', 'meta', 'control']),
       String(names),
+    );
+  }
+}
+
+/**
+ * The generation stamp: the five keys the exporter writes, and the staleness
+ * verdict every runtime must reach from the same input.
+ *
+ * @param {SpecModel} model
+ */
+function testStamp(model) {
+  // The shared model fixture carries the stamp, minus `containerRoot` (it is a
+  // single synthetic document with no container class).
+  _check(
+    'stamp.meta.generatedAt',
+    model.generatedAt !== null &&
+      Math.trunc(model.generatedAt.getTime() / 1000) === 1784534400,
+    String(model.generatedAt),
+  );
+  _check('stamp.meta.metaSchemaVersion', model.metaSchemaVersion === 1);
+  _check('stamp.meta.classCount', model.classCount === model.classes.size);
+  _check('stamp.meta.rootCount', model.rootCount === model.roots.length);
+  _check('stamp.meta.containerRoot', model.containerRoot === null);
+
+  const table = _readJson('stamp_cases.json');
+  _check(
+    'stamp.defaultMaxAgeDays',
+    table.defaultMaxAgeDays === DEFAULT_MAX_SNAPSHOT_AGE_MS / 86400000,
+  );
+  for (const kase of table.cases) {
+    const name = kase.name;
+    const loaded = SpecModel.fromJson(kase.model);
+    const want = kase.expect;
+    const gotEpoch =
+      loaded.generatedAt === null
+        ? null
+        : Math.trunc(loaded.generatedAt.getTime() / 1000);
+    _check(
+      `stamp[${name}].generatedAt`,
+      gotEpoch === want.generatedAtEpochSeconds,
+      `${gotEpoch} != ${want.generatedAtEpochSeconds}`,
+    );
+    for (const [key, got] of [
+      ['metaSchemaVersion', loaded.metaSchemaVersion],
+      ['classCount', loaded.classCount],
+      ['rootCount', loaded.rootCount],
+      ['containerRoot', loaded.containerRoot],
+    ]) {
+      _check(`stamp[${name}].${key}`, got === want[key], `${got} != ${want[key]}`);
+    }
+    _check(
+      `stamp[${name}].actualClassCount`,
+      loaded.classes.size === want.actualClassCount,
+    );
+    _check(
+      `stamp[${name}].actualRootCount`,
+      loaded.roots.length === want.actualRootCount,
+    );
+
+    const wc = kase.check;
+    const check = loaded.checkStamp({
+      maxAgeMs: wc.maxAgeDays * 86400000,
+      now: new Date(wc.nowEpochSeconds * 1000),
+    });
+    const ageSeconds = check.ageMs === null ? null : Math.trunc(check.ageMs / 1000);
+    _check(
+      `stamp[${name}].ageSeconds`,
+      ageSeconds === wc.ageSeconds,
+      `${ageSeconds} != ${wc.ageSeconds}`,
+    );
+    for (const [key, got] of [
+      ['isAged', check.isAged],
+      ['classCountDisagrees', check.classCountDisagrees],
+      ['rootCountDisagrees', check.rootCountDisagrees],
+      ['countsDisagree', check.countsDisagree],
+      ['isStale', check.isStale],
+    ]) {
+      _check(`stamp[${name}].${key}`, got === wc[key], `${got} != ${wc[key]}`);
+    }
+    _check(
+      `stamp[${name}].warnings`,
+      _deepEqual(check.warnings, wc.warnings),
+      `${JSON.stringify(check.warnings)} != ${JSON.stringify(wc.warnings)}`,
     );
   }
 }
@@ -420,6 +505,7 @@ function main() {
   const model = _loadModel();
   const tree = buildSomMetaTree(model);
   testModelMeta(model);
+  testStamp(model);
   testStateRoundTrip();
   testYamlEncode(tree);
   testYamlDecodeRoundTrip(tree);

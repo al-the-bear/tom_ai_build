@@ -61,7 +61,7 @@ is validated against the exact same goldens every other port uses:
 
 This compiles the runtime + runner and asserts byte-for-byte equality of the YAML
 and Markdown encodings, the document round-trips, the Markdown→memory landing,
-and the reflection / validation / operations behaviour (95 checks, exit 0 on
+and the reflection / validation / operations behaviour (prints `OK: N checks passed`, exit 0 on
 success).
 
 ## Requirements

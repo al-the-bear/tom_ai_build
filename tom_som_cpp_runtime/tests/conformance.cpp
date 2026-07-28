@@ -143,8 +143,8 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
   const som::SpecRoot& root = model.roots[0];
   c.check("model.root.sectionId", root.sectionId == "DEMO", root.sectionId);
   c.check("model.root.type", root.type == "Demo", root.type);
-  c.check("model.classCount", model.classCount() == 5,
-          std::to_string(model.classCount()));
+  c.check("model.classCount", model.classesSize() == 5,
+          std::to_string(model.classesSize()));
   const som::SpecClass* demo = model.classNamed("Demo");
   c.check("model.Demo.found", demo != nullptr, "");
   if (demo != nullptr) {
@@ -158,6 +158,104 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
       if (ok && i < 10 && demo->fields[i].name != want[i]) ok = false;
     }
     c.check("model.Demo.fields", ok, names);
+  }
+}
+
+/* Reads an optional integer under `key` — absent stays absent, so that a
+ * declared count of zero is distinguishable from no declaration at all. */
+static std::optional<long long> opt_i64(const som::JsonRef& v,
+                                        const char* key) {
+  return som::jsonAsI64(som::jsonGet(v, key));
+}
+
+/* The generation stamp: the five keys the exporter writes, and the staleness
+ * verdict every runtime must reach from the same input. */
+static void test_stamp(Checker& c, const som::SpecModel& model) {
+  /* The shared model fixture carries the stamp, minus `containerRoot` (it is a
+   * single synthetic document with no container class). */
+  c.check("stamp.meta.generatedAt", model.generatedAt == 1784534400LL, "");
+  c.check("stamp.meta.metaSchemaVersion", model.metaSchemaVersion == 1, "");
+  c.check("stamp.meta.classCount",
+          model.classCount ==
+              std::optional<long long>(
+                  static_cast<long long>(model.classesSize())),
+          "");
+  c.check("stamp.meta.rootCount",
+          model.rootCount == std::optional<long long>(
+                                 static_cast<long long>(model.roots.size())),
+          "");
+  c.check("stamp.meta.containerRoot", model.containerRoot.empty(),
+          model.containerRoot);
+
+  som::JsonPtr table = read_json("stamp_cases.json");
+  c.check("stamp.defaultMaxAgeDays",
+          opt_i64(table, "defaultMaxAgeDays") ==
+              std::optional<long long>(som::kDefaultMaxSnapshotAgeSeconds /
+                                       som::kSecondsPerDay),
+          "");
+
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    std::string name = som::jsonStrOr(kase, "name");
+    auto loaded = som::SpecModel::fromJson(som::jsonGet(kase, "model"));
+    som::JsonRef want = som::jsonGet(kase, "expect");
+    const std::string prefix = "stamp[" + name + "].";
+
+    c.check(prefix + "generatedAt",
+            loaded->generatedAt == opt_i64(want, "generatedAtEpochSeconds"), "");
+    c.check(prefix + "metaSchemaVersion",
+            loaded->metaSchemaVersion == opt_i64(want, "metaSchemaVersion"), "");
+    c.check(prefix + "classCount",
+            loaded->classCount == opt_i64(want, "classCount"), "");
+    c.check(prefix + "rootCount",
+            loaded->rootCount == opt_i64(want, "rootCount"), "");
+    c.check(prefix + "containerRoot",
+            loaded->containerRoot == som::jsonStrOr(want, "containerRoot"),
+            loaded->containerRoot);
+    c.check(prefix + "actualClassCount",
+            std::optional<long long>(
+                static_cast<long long>(loaded->classesSize())) ==
+                opt_i64(want, "actualClassCount"),
+            "");
+    c.check(prefix + "actualRootCount",
+            std::optional<long long>(
+                static_cast<long long>(loaded->roots.size())) ==
+                opt_i64(want, "actualRootCount"),
+            "");
+
+    som::JsonRef wc = som::jsonGet(kase, "check");
+    som::SpecModelStampCheck got = loaded->checkStamp(
+        opt_i64(wc, "maxAgeDays").value_or(0) * som::kSecondsPerDay,
+        opt_i64(wc, "nowEpochSeconds").value_or(0));
+
+    c.check(prefix + "ageSeconds", got.ageSeconds == opt_i64(wc, "ageSeconds"),
+            "");
+    const std::pair<const char*, bool> verdicts[] = {
+        {"isAged", got.isAged()},
+        {"classCountDisagrees", got.classCountDisagrees()},
+        {"rootCountDisagrees", got.rootCountDisagrees()},
+        {"countsDisagree", got.countsDisagree()},
+        {"isStale", got.isStale()}};
+    for (const auto& v : verdicts) {
+      c.check(prefix + v.first, v.second == som::jsonBoolOr(wc, v.first), "");
+    }
+
+    std::vector<std::string> gotWarnings = got.warnings();
+    std::vector<std::string> wantWarnings;
+    som::JsonRef warnArr = som::jsonGet(wc, "warnings");
+    std::size_t wn = som::jsonArrayLen(warnArr);
+    for (std::size_t w = 0; w < wn; w++) {
+      const std::string* s = som::jsonAsStr(som::jsonArrayAt(warnArr, w));
+      wantWarnings.push_back(s != nullptr ? *s : std::string());
+    }
+    std::string joined;
+    for (std::size_t w = 0; w < gotWarnings.size(); w++) {
+      if (w > 0) joined += " | ";
+      joined += gotWarnings[w];
+    }
+    c.check(prefix + "warnings", gotWarnings == wantWarnings, joined);
   }
 }
 
@@ -596,6 +694,7 @@ int main(int argc, char** argv) {
   }
 
   test_model_meta(c, *model);
+  test_stamp(c, *model);
   test_state_round_trip(c);
   test_yaml_encode(c, *tree);
   test_yaml_decode_round_trip(c, *tree);

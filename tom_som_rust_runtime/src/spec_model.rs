@@ -146,6 +146,229 @@ pub struct SpecRoot {
     pub doc: String,
 }
 
+/// Seconds in a day — the unit ages and thresholds are reported in.
+pub const SECONDS_PER_DAY: i64 = 86_400;
+
+/// How old a snapshot may get before [`SpecModel::check_stamp`] calls it aged.
+///
+/// A fortnight: long enough that a healthy working copy is never nagged, short
+/// enough that structural feedback keyed to a snapshot's paths is not recorded
+/// against a model that has moved past them.
+pub const DEFAULT_MAX_SNAPSHOT_AGE_SECONDS: i64 = 14 * SECONDS_PER_DAY;
+
+/// The length of `month` in `year`, Gregorian. Used to reject a day that does
+/// not exist rather than letting it roll into the next month: some SOM runtimes'
+/// date types would turn 31 February into 3 March while others reject it
+/// outright — so the grammar rejects it everywhere.
+fn days_in_month(year: i64, month: i64) -> i64 {
+    if month != 2 {
+        return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][(month - 1) as usize];
+    }
+    if year % 4 == 0 && (year % 100 != 0 || year % 400 == 0) {
+        29
+    } else {
+        28
+    }
+}
+
+/// Days since 1970-01-01 for a proleptic-Gregorian civil date (Howard
+/// Hinnant's `days_from_civil`). The Go, Java, C and C++ ports carry the same
+/// arithmetic; Rust's std has no calendar type at all.
+fn epoch_day(year: i64, month: i64, day: i64) -> i64 {
+    let y = year - if month <= 2 { 1 } else { 0 };
+    let era = if y >= 0 { y } else { y - 399 } / 400;
+    let yoe = y - era * 400;
+    let doy = (153 * (month + if month > 2 { -3 } else { 9 }) + 2) / 5 + day - 1;
+    let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+    era * 146_097 + doe - 719_468
+}
+
+/// Reads `count` decimal digits at `at`, or `None` when any is not a digit.
+fn digits_at(b: &[u8], at: usize, count: usize) -> Option<i64> {
+    if at + count > b.len() {
+        return None;
+    }
+    let mut value: i64 = 0;
+    for &c in &b[at..at + count] {
+        if !c.is_ascii_digit() {
+            return None;
+        }
+        value = value * 10 + i64::from(c - b'0');
+    }
+    Some(value)
+}
+
+/// Parses a generation-stamp timestamp to epoch seconds (UTC), or `None`.
+///
+/// The grammar is `YYYY-MM-DDTHH:MM:SS`, an optional fractional part, and an
+/// optional `Z` / `±HH:MM` / `±HHMM` offset — spelled out here rather than
+/// delegated to a date library, which Rust's std does not provide and which
+/// would in any case make the accepted set differ by language. A stamp that
+/// reads on one platform and not another is exactly the divergence the shared
+/// conformance corpus exists to catch.
+///
+/// A timestamp carrying **no** zone is read as UTC: a staleness verdict that
+/// changed with the reader's timezone would be a defect in its own right.
+///
+/// The sub-second part is accepted and discarded — every consumer compares the
+/// resulting instant in whole days.
+///
+/// Anything outside the grammar — or carrying an out-of-range field — degrades
+/// to `None` rather than erroring: an unreadable stamp is not worth failing a
+/// whole model over.
+pub fn parse_stamp_timestamp(raw: &str) -> Option<i64> {
+    let b = raw.trim().as_bytes();
+    if b.len() < 19 || b[4] != b'-' || b[7] != b'-' || b[13] != b':' || b[16] != b':' {
+        return None;
+    }
+    if b[10] != b'T' && b[10] != b't' && b[10] != b' ' {
+        return None;
+    }
+    let year = digits_at(b, 0, 4)?;
+    let month = digits_at(b, 5, 2)?;
+    let day = digits_at(b, 8, 2)?;
+    let hour = digits_at(b, 11, 2)?;
+    let minute = digits_at(b, 14, 2)?;
+    let second = digits_at(b, 17, 2)?;
+    if month < 1 || month > 12 || day < 1 || day > days_in_month(year, month) {
+        return None;
+    }
+    if hour > 23 || minute > 59 || second > 59 {
+        return None;
+    }
+
+    let mut idx = 19;
+    if idx < b.len() && b[idx] == b'.' {
+        idx += 1;
+        let start = idx;
+        while idx < b.len() && b[idx].is_ascii_digit() {
+            idx += 1;
+        }
+        if idx == start {
+            return None; // a `.` with no digits is not the grammar
+        }
+    }
+
+    let mut epoch = epoch_day(year, month, day) * SECONDS_PER_DAY
+        + hour * 3600
+        + minute * 60
+        + second;
+    if idx < b.len() {
+        let sign = b[idx];
+        if sign == b'Z' || sign == b'z' {
+            if idx + 1 != b.len() {
+                return None;
+            }
+        } else if sign == b'+' || sign == b'-' {
+            let rest = &b[idx + 1..];
+            let (oh, om) = match rest.len() {
+                4 => (digits_at(rest, 0, 2)?, digits_at(rest, 2, 2)?),
+                5 if rest[2] == b':' => (digits_at(rest, 0, 2)?, digits_at(rest, 3, 2)?),
+                _ => return None,
+            };
+            let offset = (oh * 60 + om) * 60;
+            epoch += if sign == b'-' { offset } else { -offset };
+        } else {
+            return None;
+        }
+    }
+    Some(epoch)
+}
+
+/// The outcome of checking a loaded snapshot's generation stamp against its own
+/// payload and against the clock — see [`SpecModel::check_stamp`].
+///
+/// The two findings are independent and can both hold at once: [`Self::is_aged`]
+/// says the snapshot is probably behind the live model, while
+/// [`Self::counts_disagree`] says the file no longer describes itself correctly.
+/// Only the second is a defect in the file.
+#[derive(Debug, Clone)]
+pub struct SpecModelStampCheck {
+    /// How long ago the snapshot was generated, in seconds, or `None` when it
+    /// carries no `generatedAt` (an older export, or a hand-built model).
+    pub age_seconds: Option<i64>,
+    /// The threshold [`Self::age_seconds`] was judged against.
+    pub max_age_seconds: i64,
+    /// The class count the stamp declares, or `None` when it declares none.
+    pub declared_class_count: Option<i64>,
+    /// The number of classes the payload actually carries.
+    pub actual_class_count: i64,
+    /// The document-root count the stamp declares, or `None`.
+    pub declared_root_count: Option<i64>,
+    /// The number of document roots the payload actually carries.
+    pub actual_root_count: i64,
+}
+
+impl SpecModelStampCheck {
+    /// Whether the snapshot is older than [`Self::max_age_seconds`]. Always
+    /// false when it carries no `generatedAt` — an unknown age is not evidence
+    /// of a stale one.
+    pub fn is_aged(&self) -> bool {
+        matches!(self.age_seconds, Some(age) if age > self.max_age_seconds)
+    }
+
+    /// Whether the declared and actual class counts differ.
+    ///
+    /// An absent declaration is not a disagreement: older snapshots predate the
+    /// stamp keys, and reading absent as `0` would make every one of them look
+    /// corrupt.
+    pub fn class_count_disagrees(&self) -> bool {
+        matches!(self.declared_class_count, Some(n) if n != self.actual_class_count)
+    }
+
+    /// Whether the declared and actual root counts differ. Absent declarations
+    /// are ignored, as for [`Self::class_count_disagrees`].
+    pub fn root_count_disagrees(&self) -> bool {
+        matches!(self.declared_root_count, Some(n) if n != self.actual_root_count)
+    }
+
+    /// Whether either declared size disagrees with the payload.
+    ///
+    /// The exporter derives both counts *from* the payload it writes, so a
+    /// disagreement cannot arise from a normal export — it means the file was
+    /// edited or truncated afterwards.
+    pub fn counts_disagree(&self) -> bool {
+        self.class_count_disagrees() || self.root_count_disagrees()
+    }
+
+    /// Whether anything at all was found.
+    pub fn is_stale(&self) -> bool {
+        self.is_aged() || self.counts_disagree()
+    }
+
+    /// The findings as ready-to-display sentences, empty when there are none.
+    /// The wording is identical in all nine runtimes.
+    pub fn warnings(&self) -> Vec<String> {
+        let mut out = Vec::new();
+        if self.is_aged() {
+            let days = self.age_seconds.unwrap_or(0) / SECONDS_PER_DAY;
+            let threshold = self.max_age_seconds / SECONDS_PER_DAY;
+            out.push(format!(
+                "Snapshot is {} days old (threshold {} days) — the model may \
+                 have moved on since it was exported.",
+                days, threshold
+            ));
+        }
+        if self.class_count_disagrees() {
+            out.push(format!(
+                "Stamp declares {} classes but the snapshot carries {} — it \
+                 was edited after export.",
+                self.declared_class_count.unwrap_or(0),
+                self.actual_class_count
+            ));
+        }
+        if self.root_count_disagrees() {
+            out.push(format!(
+                "Stamp declares {} document roots but the snapshot carries {} \
+                 — it was edited after export.",
+                self.declared_root_count.unwrap_or(0),
+                self.actual_root_count
+            ));
+        }
+        out
+    }
+}
+
 /// The complete exported model.
 #[derive(Debug, Clone)]
 pub struct SpecModel {
@@ -153,6 +376,26 @@ pub struct SpecModel {
     pub classes: HashMap<String, SpecClass>,
     pub model_version: i64,
     pub model_version_label: String,
+    /// When the snapshot was exported, as epoch seconds (UTC), or `None` when
+    /// it carries no `generatedAt` — an export predating the key, or a
+    /// hand-built model. Epoch seconds rather than a date type because Rust's
+    /// std has none.
+    pub generated_at: Option<i64>,
+    /// The *file format's* own version, distinct from
+    /// [`Self::model_version`] (which model the snapshot describes). `None`
+    /// when undeclared.
+    pub meta_schema_version: Option<i64>,
+    /// The class count the snapshot declares, or `None` when undeclared. Kept
+    /// separate from `classes.len()`: the declared value is what the exporter
+    /// recorded, the actual value is what survived to the reader, and comparing
+    /// them is the point ([`Self::check_stamp`]).
+    pub class_count: Option<i64>,
+    /// The document-root count the snapshot declares, or `None`.
+    pub root_count: Option<i64>,
+    /// The canonical container class — the single true tree root, which is not
+    /// itself a document and so does not appear in [`Self::roots`]. Empty when
+    /// the model has no container (e.g. a synthetic export).
+    pub container_root: String,
 }
 
 impl SpecModel {
@@ -187,6 +430,25 @@ impl SpecModel {
         som_model_version_string(self.model_version, &self.model_version_label)
     }
 
+    /// Checks the generation stamp against the payload and the clock.
+    ///
+    /// `now_epoch_seconds` is injectable so callers (and tests) can evaluate age
+    /// against a fixed instant instead of the wall clock.
+    pub fn check_stamp(
+        &self,
+        max_age_seconds: i64,
+        now_epoch_seconds: i64,
+    ) -> SpecModelStampCheck {
+        SpecModelStampCheck {
+            age_seconds: self.generated_at.map(|at| now_epoch_seconds - at),
+            max_age_seconds,
+            declared_class_count: self.class_count,
+            actual_class_count: self.classes.len() as i64,
+            declared_root_count: self.root_count,
+            actual_root_count: self.roots.len() as i64,
+        }
+    }
+
     /// Decodes a meta-data JSON document into a `SpecModel`, normalising every
     /// field kind through [`parse_field_kind`].
     pub fn from_json_str(data: &str) -> Result<SpecModel, String> {
@@ -219,11 +481,19 @@ impl SpecModel {
         let model_version = root.get("modelVersion").and_then(|v| v.as_i64()).unwrap_or(0);
         let model_version_label = root.str_or("modelVersionLabel");
 
+        // The counts stay `None` when the key is absent rather than becoming
+        // `0`: a snapshot predating the stamp keys would otherwise declare zero
+        // classes and read as corrupt.
         SpecModel {
             roots,
             classes,
             model_version,
             model_version_label,
+            generated_at: parse_stamp_timestamp(&root.str_or("generatedAt")),
+            meta_schema_version: root.get("metaSchemaVersion").and_then(|v| v.as_i64()),
+            class_count: root.get("classCount").and_then(|v| v.as_i64()),
+            root_count: root.get("rootCount").and_then(|v| v.as_i64()),
+            container_root: root.str_or("containerRoot"),
         }
     }
 }

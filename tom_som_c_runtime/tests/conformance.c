@@ -228,6 +228,128 @@ static void test_model_meta(Checker *c, const SpecModel *model) {
   }
 }
 
+/* Compares an optional long long against an optional JSON integer under `key`:
+ * both absent, or both present and equal. */
+static int opt_i64_eq(int has, long long value, const SomJson *v,
+                      const char *key) {
+  long long want = 0;
+  int want_has = som_json_as_i64(som_json_get(v, key), &want);
+  return has == want_has && (!has || value == want);
+}
+
+/* The generation stamp: the five keys the exporter writes, and the staleness
+ * verdict every runtime must reach from the same input. */
+static void test_stamp(Checker *c, const SpecModel *model) {
+  /* The shared model fixture carries the stamp, minus `containerRoot` (it is a
+   * single synthetic document with no container class). */
+  check(c, "stamp.meta.generatedAt",
+        model->has_generated_at && model->generated_at == 1784534400LL, "");
+  check(c, "stamp.meta.metaSchemaVersion",
+        model->has_meta_schema_version && model->meta_schema_version == 1, "");
+  check(c, "stamp.meta.classCount",
+        model->has_class_count &&
+            model->class_count == (long long)model->classes_len,
+        "");
+  check(c, "stamp.meta.rootCount",
+        model->has_root_count &&
+            model->root_count == (long long)model->roots_len,
+        "");
+  check(c, "stamp.meta.containerRoot", model->container_root[0] == '\0',
+        model->container_root);
+
+  SomJson *table = read_json("stamp_cases.json");
+  long long default_days = 0;
+  check(c, "stamp.defaultMaxAgeDays",
+        som_json_as_i64(som_json_get(table, "defaultMaxAgeDays"),
+                        &default_days) &&
+            default_days == SPEC_DEFAULT_MAX_SNAPSHOT_AGE_SECONDS /
+                                SPEC_SECONDS_PER_DAY,
+        "");
+
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    SpecModel *loaded = spec_model_from_json(som_json_get(kase, "model"));
+    const SomJson *want = som_json_get(kase, "expect");
+    char label[160];
+
+    snprintf(label, sizeof(label), "stamp[%s].generatedAt", name);
+    check(c, label,
+          opt_i64_eq(loaded->has_generated_at, loaded->generated_at, want,
+                     "generatedAtEpochSeconds"),
+          "");
+    snprintf(label, sizeof(label), "stamp[%s].metaSchemaVersion", name);
+    check(c, label,
+          opt_i64_eq(loaded->has_meta_schema_version,
+                     loaded->meta_schema_version, want, "metaSchemaVersion"),
+          "");
+    snprintf(label, sizeof(label), "stamp[%s].classCount", name);
+    check(c, label,
+          opt_i64_eq(loaded->has_class_count, loaded->class_count, want,
+                     "classCount"),
+          "");
+    snprintf(label, sizeof(label), "stamp[%s].rootCount", name);
+    check(c, label,
+          opt_i64_eq(loaded->has_root_count, loaded->root_count, want,
+                     "rootCount"),
+          "");
+    snprintf(label, sizeof(label), "stamp[%s].containerRoot", name);
+    check(c, label,
+          strcmp(loaded->container_root,
+                 som_json_str_or(want, "containerRoot")) == 0,
+          loaded->container_root);
+    snprintf(label, sizeof(label), "stamp[%s].actualClassCount", name);
+    check(c, label,
+          opt_i64_eq(1, (long long)loaded->classes_len, want,
+                     "actualClassCount"),
+          "");
+    snprintf(label, sizeof(label), "stamp[%s].actualRootCount", name);
+    check(c, label,
+          opt_i64_eq(1, (long long)loaded->roots_len, want, "actualRootCount"),
+          "");
+
+    const SomJson *wc = som_json_get(kase, "check");
+    long long max_age_days = 0, now = 0;
+    som_json_as_i64(som_json_get(wc, "maxAgeDays"), &max_age_days);
+    som_json_as_i64(som_json_get(wc, "nowEpochSeconds"), &now);
+    SpecModelStampCheck got =
+        spec_model_check_stamp(loaded, max_age_days * SPEC_SECONDS_PER_DAY, now);
+
+    snprintf(label, sizeof(label), "stamp[%s].ageSeconds", name);
+    check(c, label, opt_i64_eq(got.has_age, got.age_seconds, wc, "ageSeconds"),
+          "");
+
+    const char *keys[] = {"isAged", "classCountDisagrees", "rootCountDisagrees",
+                          "countsDisagree", "isStale"};
+    int actuals[] = {spec_stamp_check_is_aged(&got),
+                     spec_stamp_check_class_count_disagrees(&got),
+                     spec_stamp_check_root_count_disagrees(&got),
+                     spec_stamp_check_counts_disagree(&got),
+                     spec_stamp_check_is_stale(&got)};
+    for (size_t k = 0; k < sizeof(keys) / sizeof(keys[0]); k++) {
+      snprintf(label, sizeof(label), "stamp[%s].%s", name, keys[k]);
+      check(c, label, (actuals[k] != 0) == (som_json_bool_or(wc, keys[k]) != 0),
+            "");
+    }
+
+    SomStrList got_warnings;
+    spec_stamp_check_warnings(&got, &got_warnings);
+    SomStrList want_warnings;
+    json_str_list(som_json_get(wc, "warnings"), &want_warnings);
+    char *joined = som_strlist_join(&got_warnings, " | ");
+    snprintf(label, sizeof(label), "stamp[%s].warnings", name);
+    check(c, label, strlist_eq(&got_warnings, &want_warnings), joined);
+    free(joined);
+    som_strlist_free(&got_warnings);
+    som_strlist_free(&want_warnings);
+
+    spec_model_free(loaded);
+  }
+  som_json_free(table);
+}
+
 static void test_state_round_trip(Checker *c) {
   SomJson *sj = read_json("state.json");
   DocumentJson state;
@@ -832,6 +954,7 @@ int main(int argc, char **argv) {
   }
 
   test_model_meta(&c, model);
+  test_stamp(&c, model);
   test_state_round_trip(&c);
   test_yaml_encode(&c, tree);
   test_yaml_decode_round_trip(&c, tree);

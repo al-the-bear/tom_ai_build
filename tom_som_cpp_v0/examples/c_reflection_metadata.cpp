@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
   std::cout << "Model version: " << model->modelVersion << " (" << label
             << ")\n";
   std::cout << "Roots: " << model->roots.size()
-            << ", classes: " << model->classCount() << "\n\n";
+            << ", classes: " << model->classesSize() << "\n\n";
 
   // Enumerate the document roots by their addressable segment.
   std::cout << "Document roots:\n";

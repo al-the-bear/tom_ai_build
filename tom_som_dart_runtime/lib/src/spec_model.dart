@@ -612,6 +612,69 @@ String somModelVersionString(int major, String? label) {
 /// past. Callers that know better pass their own `maxAge`.
 const Duration defaultMaxSnapshotAge = Duration(days: 14);
 
+/// The generation-stamp timestamp grammar, spelled out rather than delegated to
+/// `DateTime.parse`: `YYYY-MM-DDTHH:MM:SS`, an optional fractional part, and an
+/// optional `Z` / `±HH:MM` / `±HHMM` offset.
+///
+/// Every SOM runtime carries this same grammar. Delegating to each platform's
+/// own parser would make the accepted set differ by language — several of the
+/// nine have no date library at all — and a stamp that reads on one platform
+/// and not another is exactly the divergence the shared corpus exists to catch.
+final RegExp _stampPattern = RegExp(r'^(\d{4})-(\d{2})-(\d{2})[Tt ]'
+    r'(\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?(Z|z|[+-]\d{2}:?\d{2})?$');
+
+/// The length of [month] in [year], Gregorian. Used to reject a day that does
+/// not exist rather than letting it roll into the next month: `DateTime.utc`
+/// would turn 31 February into 3 March, while several other SOM runtimes'
+/// date types reject it outright — so the grammar rejects it everywhere.
+int _daysInMonth(int year, int month) {
+  const lengths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (month != 2) return lengths[month - 1];
+  final isLeap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+  return isLeap ? 29 : 28;
+}
+
+/// Parses a generation-stamp timestamp to UTC, or returns null.
+///
+/// A timestamp carrying **no** zone is read as UTC. `DateTime.parse` would read
+/// it as the reader's local time, which would make a staleness verdict depend
+/// on where the reader sits — a defect in its own right, and one the other
+/// eight SOM runtimes could not mirror anyway (several have no timezone
+/// database). Fixing the fallback here is what lets all nine agree.
+///
+/// Anything outside the grammar — or carrying an out-of-range field — degrades
+/// to null rather than throwing: an unreadable stamp is not worth failing a
+/// whole model over, and rolling `2026-13-01` over into January is worse than
+/// admitting the stamp is unreadable.
+DateTime? parseStampTimestamp(String? raw) {
+  if (raw == null) return null;
+  final m = _stampPattern.firstMatch(raw.trim());
+  if (m == null) return null;
+  final year = int.parse(m.group(1)!);
+  final month = int.parse(m.group(2)!);
+  final day = int.parse(m.group(3)!);
+  final hour = int.parse(m.group(4)!);
+  final minute = int.parse(m.group(5)!);
+  final second = int.parse(m.group(6)!);
+  if (month < 1 || month > 12 || day < 1 || day > _daysInMonth(year, month)) {
+    return null;
+  }
+  if (hour > 23 || minute > 59 || second > 59) return null;
+  // Right-pad the fraction to microseconds; a longer fraction is truncated.
+  final frac = (m.group(7) ?? '').padRight(6, '0').substring(0, 6);
+  var value = DateTime.utc(year, month, day, hour, minute, second,
+      int.parse(frac.substring(0, 3)), int.parse(frac.substring(3)));
+  final zone = m.group(8);
+  if (zone != null && zone != 'Z' && zone != 'z') {
+    final digits = zone.substring(1).replaceAll(':', '');
+    final offset = Duration(
+        hours: int.parse(digits.substring(0, 2)),
+        minutes: int.parse(digits.substring(2)));
+    value = zone[0] == '-' ? value.add(offset) : value.subtract(offset);
+  }
+  return value;
+}
+
 /// The outcome of checking a loaded snapshot's generation stamp against its own
 /// payload and against the clock — see [SpecModel.checkStamp].
 ///
@@ -807,7 +870,7 @@ class SpecModel {
       // Every stamp key is optional: snapshots exported before the key existed
       // must still load. A malformed timestamp degrades to `null` for the same
       // reason — an unreadable stamp is not worth failing a whole model over.
-      generatedAt: DateTime.tryParse(j['generatedAt'] as String? ?? '')?.toUtc(),
+      generatedAt: parseStampTimestamp(j['generatedAt'] as String?),
       metaSchemaVersion: (j['metaSchemaVersion'] as num?)?.toInt(),
       classCount: (j['classCount'] as num?)?.toInt(),
       rootCount: (j['rootCount'] as num?)?.toInt(),

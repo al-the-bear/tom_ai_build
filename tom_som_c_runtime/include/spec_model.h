@@ -110,8 +110,71 @@ typedef struct {
   size_t classes_len;
   long long model_version;
   char *model_version_label;
+  /* Generation stamp. Every key is optional — a pre-stamp snapshot leaves the
+   * `has_*` flag 0, which is *not* the same as a declared count of zero. C has
+   * no calendar type, so the instant is carried as epoch seconds and the
+   * sub-second part of the stamp is accepted but discarded. */
+  int has_generated_at;
+  long long generated_at; /* seconds since 1970-01-01T00:00:00Z */
+  int has_meta_schema_version;
+  long long meta_schema_version;
+  int has_class_count;
+  long long class_count;
+  int has_root_count;
+  long long root_count;
+  char *container_root;
   SomJson *source; /* owned parsed tree; annotations borrow from it */
 } SpecModel;
+
+/* ---- generation stamp ---------------------------------------------------- */
+
+#define SPEC_SECONDS_PER_DAY 86400LL
+#define SPEC_DEFAULT_MAX_SNAPSHOT_AGE_SECONDS (14LL * SPEC_SECONDS_PER_DAY)
+
+/* Parses the exporter's ISO-8601 stamp grammar
+ * `YYYY-MM-DD[T ]hh:mm:ss[.fraction][Z|(+|-)hh[:]mm]` and writes the resulting
+ * epoch seconds to `*out`. Returns 1 on success, 0 when `raw` does not match.
+ *
+ * The grammar is walked explicitly rather than handed to a platform parser, so
+ * that all nine runtimes accept exactly the same set of strings: a zone-less
+ * stamp is read as UTC (never local time), a day that does not exist in its
+ * month is rejected rather than rolled over, and a date-only string is outside
+ * the grammar. The fractional part is accepted and discarded. */
+int spec_parse_stamp_timestamp(const char *raw, long long *out);
+
+/* The verdict of comparing a snapshot's stamp against the world. */
+typedef struct {
+  int has_age;
+  long long age_seconds;
+  long long max_age_seconds;
+  int has_declared_class_count;
+  long long declared_class_count;
+  long long actual_class_count;
+  int has_declared_root_count;
+  long long declared_root_count;
+  long long actual_root_count;
+} SpecModelStampCheck;
+
+/* The snapshot is older than the threshold. */
+int spec_stamp_check_is_aged(const SpecModelStampCheck *c);
+/* The stamp's declared class count disagrees with what the snapshot carries. */
+int spec_stamp_check_class_count_disagrees(const SpecModelStampCheck *c);
+/* The stamp's declared root count disagrees with what the snapshot carries. */
+int spec_stamp_check_root_count_disagrees(const SpecModelStampCheck *c);
+/* Either count disagrees — the file was edited after export. */
+int spec_stamp_check_counts_disagree(const SpecModelStampCheck *c);
+/* Aged or edited: the snapshot should not be trusted as-is. */
+int spec_stamp_check_is_stale(const SpecModelStampCheck *c);
+/* Human-readable warnings, one per failed check, in age -> classes -> roots
+ * order. Empty when the snapshot is sound. `out` is initialised by the callee;
+ * the caller frees it with `som_strlist_free`. */
+void spec_stamp_check_warnings(const SpecModelStampCheck *c, SomStrList *out);
+
+/* Compares this model's stamp against `now_epoch_seconds` (seconds since the
+ * Unix epoch) with `max_age_seconds` as the staleness threshold. */
+SpecModelStampCheck spec_model_check_stamp(const SpecModel *m,
+                                           long long max_age_seconds,
+                                           long long now_epoch_seconds);
 
 /* Returns the class named `name`, or NULL. */
 const SpecClass *spec_model_class_named(const SpecModel *m, const char *name);

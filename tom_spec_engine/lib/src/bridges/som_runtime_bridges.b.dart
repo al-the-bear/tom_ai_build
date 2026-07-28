@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 18 files
-// Generated: 2026-07-27T11:00:07.685689
+// Generated: 2026-07-28T04:52:54.712225
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -71,10 +71,15 @@ class SomRuntimeBridge {
       _createSomListMetaRefBridge(),
       _createSpecAnnotationBridge(),
       _createFormFieldSpecBridge(),
+      _createKindLinkBridge(),
+      _createStandardReferencesBridge(),
       _createSpecFieldBridge(),
+      _createOneOfGroupBridge(),
       _createSpecClassBridge(),
       _createSpecRootBridge(),
+      _createSpecModelStampCheckBridge(),
       _createSpecModelBridge(),
+      _createAnnotatedSpecNodeBridge(),
       _createSpecCreationErrorBridge(),
       _createSpecNodeCreatorBridge(),
       _createSpecMatchSpanBridge(),
@@ -133,10 +138,15 @@ class SomRuntimeBridge {
       'SomListMetaRef': _createSomListMetaRefBridge,
       'SpecAnnotation': _createSpecAnnotationBridge,
       'FormFieldSpec': _createFormFieldSpecBridge,
+      'KindLink': _createKindLinkBridge,
+      'StandardReferences': _createStandardReferencesBridge,
       'SpecField': _createSpecFieldBridge,
+      'OneOfGroup': _createOneOfGroupBridge,
       'SpecClass': _createSpecClassBridge,
       'SpecRoot': _createSpecRootBridge,
+      'SpecModelStampCheck': _createSpecModelStampCheckBridge,
       'SpecModel': _createSpecModelBridge,
+      'AnnotatedSpecNode': _createAnnotatedSpecNodeBridge,
       'SpecCreationError': _createSpecCreationErrorBridge,
       'SpecNodeCreator': _createSpecNodeCreatorBridge,
       'SpecMatchSpan': _createSpecMatchSpanBridge,
@@ -194,10 +204,15 @@ class SomRuntimeBridge {
       'SomListMetaRef': $tom_som_dart_runtime_7.SomListMetaRef,
       'SpecAnnotation': $tom_som_dart_runtime_10.SpecAnnotation,
       'FormFieldSpec': $tom_som_dart_runtime_10.FormFieldSpec,
+      'KindLink': $tom_som_dart_runtime_10.KindLink,
+      'StandardReferences': $tom_som_dart_runtime_10.StandardReferences,
       'SpecField': $tom_som_dart_runtime_10.SpecField,
+      'OneOfGroup': $tom_som_dart_runtime_10.OneOfGroup,
       'SpecClass': $tom_som_dart_runtime_10.SpecClass,
       'SpecRoot': $tom_som_dart_runtime_10.SpecRoot,
+      'SpecModelStampCheck': $tom_som_dart_runtime_10.SpecModelStampCheck,
       'SpecModel': $tom_som_dart_runtime_10.SpecModel,
+      'AnnotatedSpecNode': $tom_som_dart_runtime_10.AnnotatedSpecNode,
       'SpecCreationError': $tom_som_dart_runtime_11.SpecCreationError,
       'SpecNodeCreator': $tom_som_dart_runtime_11.SpecNodeCreator,
       'SpecMatchSpan': $tom_som_dart_runtime_13.SpecMatchSpan,
@@ -256,10 +271,15 @@ class SomRuntimeBridge {
       'SomListMetaRef': 'package:tom_som_dart_runtime/src/spec_meta.dart',
       'SpecAnnotation': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'FormFieldSpec': 'package:tom_som_dart_runtime/src/spec_model.dart',
+      'KindLink': 'package:tom_som_dart_runtime/src/spec_model.dart',
+      'StandardReferences': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'SpecField': 'package:tom_som_dart_runtime/src/spec_model.dart',
+      'OneOfGroup': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'SpecClass': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'SpecRoot': 'package:tom_som_dart_runtime/src/spec_model.dart',
+      'SpecModelStampCheck': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'SpecModel': 'package:tom_som_dart_runtime/src/spec_model.dart',
+      'AnnotatedSpecNode': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'SpecCreationError': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'SpecNodeCreator': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'SpecMatchSpan': 'package:tom_som_dart_runtime/src/spec_query.dart',
@@ -289,6 +309,8 @@ class SomRuntimeBridge {
       'SomVersionException': ['Exception'],
       'SpecYamlFormatException': ['Exception'],
       'SomListMetaRef': ['SomMetaRef'],
+      'SpecField': ['AnnotatedSpecNode'],
+      'SpecClass': ['AnnotatedSpecNode'],
       'SpecCreationError': ['Exception'],
       'SpecSectionIdCollision': ['Exception'],
     };
@@ -477,6 +499,11 @@ class SomRuntimeBridge {
     final errors = <String>[];
 
     try {
+      interpreter.registerGlobalVariable('defaultMaxSnapshotAge', $tom_som_dart_runtime_10.defaultMaxSnapshotAge, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_model.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "defaultMaxSnapshotAge": $e');
+    }
+    try {
       interpreter.registerGlobalVariable('kSpecPathSeparator', $tom_som_dart_runtime_12.kSpecPathSeparator, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_paths.dart');
     } catch (e) {
       errors.add('Failed to register variable "kSpecPathSeparator": $e');
@@ -532,6 +559,11 @@ class SomRuntimeBridge {
         final major = D4.getRequiredArg<int>(positional, 0, 'major', 'somModelVersionString');
         final label = D4.getRequiredArg<String?>(positional, 1, 'label', 'somModelVersionString');
         return $tom_som_dart_runtime_10.somModelVersionString(major, label);
+      },
+      'parseStampTimestamp': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'parseStampTimestamp');
+        final raw = D4.getRequiredArg<String?>(positional, 0, 'raw', 'parseStampTimestamp');
+        return $tom_som_dart_runtime_10.parseStampTimestamp(raw);
       },
       'checkAddNode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 4, 'checkAddNode');
@@ -660,6 +692,7 @@ class SomRuntimeBridge {
       'buildSomMetaTree': 'package:tom_som_dart_runtime/src/spec_meta_bridge.dart',
       'somMetaNodeDiff': 'package:tom_som_dart_runtime/src/spec_meta_diff.dart',
       'somModelVersionString': 'package:tom_som_dart_runtime/src/spec_model.dart',
+      'parseStampTimestamp': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'checkAddNode': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'specPathJoin': 'package:tom_som_dart_runtime/src/spec_paths.dart',
       'specPathSegments': 'package:tom_som_dart_runtime/src/spec_paths.dart',
@@ -693,6 +726,7 @@ class SomRuntimeBridge {
       'buildSomMetaTree': 'SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType})',
       'somMetaNodeDiff': 'String? somMetaNodeDiff(SomMetaNode a, SomMetaNode b, {String at = \'<root>\'})',
       'somModelVersionString': 'String somModelVersionString(int major, String? label)',
+      'parseStampTimestamp': 'DateTime? parseStampTimestamp(String? raw)',
       'checkAddNode': 'SpecCreationError? checkAddNode(SpecModel model, SpecDocument document, String parentPath, String childSegment, {String? itemId})',
       'specPathJoin': 'String specPathJoin(String parent, String segment)',
       'specPathSegments': 'List<String> specPathSegments(String path)',
@@ -2844,6 +2878,87 @@ BridgedClass _createFormFieldSpecBridge() {
 }
 
 // =============================================================================
+// KindLink Bridge
+// =============================================================================
+
+BridgedClass _createKindLinkBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_10.KindLink,
+    name: 'KindLink',
+    isAssignable: (v) => v is $tom_som_dart_runtime_10.KindLink,
+    constructors: {
+      '': (visitor, positional, named) {
+        final kinds = named.containsKey('kinds') && named['kinds'] != null
+            ? D4.coerceList<String>(named['kinds'], 'kinds')
+            : const <String>[];
+        final note = D4.getOptionalNamedArg<String?>(named, 'note');
+        return $tom_som_dart_runtime_10.KindLink(kinds: kinds, note: note);
+      },
+      'fromAnnotation': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'KindLink');
+        final annotation = D4.getRequiredArg<$tom_som_dart_runtime_10.SpecAnnotation>(positional, 0, 'annotation', 'KindLink');
+        final listArgument = D4.getRequiredNamedArg<String>(named, 'listArgument', 'KindLink');
+        return $tom_som_dart_runtime_10.KindLink.fromAnnotation(annotation, listArgument: listArgument);
+      },
+    },
+    getters: {
+      'kinds': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.KindLink>(target, 'KindLink').kinds,
+      'note': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.KindLink>(target, 'KindLink').note,
+    },
+    constructorSignatures: {
+      '': 'const KindLink({List<String> kinds = const [], String? note})',
+      'fromAnnotation': 'factory KindLink.fromAnnotation(SpecAnnotation annotation, {required String listArgument})',
+    },
+    getterSignatures: {
+      'kinds': 'List<String> get kinds',
+      'note': 'String? get note',
+    },
+  );
+}
+
+// =============================================================================
+// StandardReferences Bridge
+// =============================================================================
+
+BridgedClass _createStandardReferencesBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_10.StandardReferences,
+    name: 'StandardReferences',
+    isAssignable: (v) => v is $tom_som_dart_runtime_10.StandardReferences,
+    constructors: {
+      '': (visitor, positional, named) {
+        final standards = named.containsKey('standards') && named['standards'] != null
+            ? D4.coerceList<String>(named['standards'], 'standards')
+            : const <String>[];
+        final connotation = D4.getOptionalNamedArg<String?>(named, 'connotation');
+        return $tom_som_dart_runtime_10.StandardReferences(standards: standards, connotation: connotation);
+      },
+    },
+    getters: {
+      'standards': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.StandardReferences>(target, 'StandardReferences').standards,
+      'connotation': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.StandardReferences>(target, 'StandardReferences').connotation,
+    },
+    staticMethods: {
+      'fromJson': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'fromJson');
+        final raw = D4.getRequiredArg<Object?>(positional, 0, 'raw', 'fromJson');
+        return $tom_som_dart_runtime_10.StandardReferences.fromJson(raw);
+      },
+    },
+    constructorSignatures: {
+      '': 'const StandardReferences({List<String> standards = const [], String? connotation})',
+    },
+    getterSignatures: {
+      'standards': 'List<String> get standards',
+      'connotation': 'String? get connotation',
+    },
+    staticMethodSignatures: {
+      'fromJson': 'StandardReferences? fromJson(Object? raw)',
+    },
+  );
+}
+
+// =============================================================================
 // SpecField Bridge
 // =============================================================================
 
@@ -2852,6 +2967,7 @@ BridgedClass _createSpecFieldBridge() {
     nativeType: $tom_som_dart_runtime_10.SpecField,
     name: 'SpecField',
     isAssignable: (v) => v is $tom_som_dart_runtime_10.SpecField,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'SpecField');
@@ -2878,7 +2994,8 @@ BridgedClass _createSpecFieldBridge() {
         final annotations = named.containsKey('annotations') && named['annotations'] != null
             ? D4.coerceList<$tom_som_dart_runtime_10.SpecAnnotation>(named['annotations'], 'annotations')
             : const <$tom_som_dart_runtime_10.SpecAnnotation>[];
-        return $tom_som_dart_runtime_10.SpecField(name: name, kind: kind, doc: doc, help: help, headline: headline, sectionId: sectionId, sectionIdPattern: sectionIdPattern, serializationOrder: serializationOrder, elementType: elementType, elementIsComplex: elementIsComplex, min: min, contentType: contentType, sectionType: sectionType, enumType: enumType, enumValues: enumValues, type: type, formFields: formFields, annotations: annotations);
+        final standardReferences = D4.getOptionalNamedArg<$tom_som_dart_runtime_10.StandardReferences?>(named, 'standardReferences');
+        return $tom_som_dart_runtime_10.SpecField(name: name, kind: kind, doc: doc, help: help, headline: headline, sectionId: sectionId, sectionIdPattern: sectionIdPattern, serializationOrder: serializationOrder, elementType: elementType, elementIsComplex: elementIsComplex, min: min, contentType: contentType, sectionType: sectionType, enumType: enumType, enumValues: enumValues, type: type, formFields: formFields, annotations: annotations, standardReferences: standardReferences);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecField');
@@ -2908,7 +3025,16 @@ BridgedClass _createSpecFieldBridge() {
       'type': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').type,
       'formFields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').formFields,
       'annotations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').annotations,
+      'standardReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').standardReferences,
       'isExpandable': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').isExpandable,
+      'caseValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').caseValues,
+      'isCase': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').isCase,
+      'isUnused': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').isUnused,
+      'comment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').comment,
+      'reference': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').reference,
+      'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').hasReferences,
+      'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').codeSpecKind,
+      'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField').followUpKind,
     },
     methods: {
       'annotation': (visitor, target, positional, named, typeArgs) {
@@ -2917,13 +3043,27 @@ BridgedClass _createSpecFieldBridge() {
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotation');
         return t.annotation(name);
       },
+      'annotationsNamed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField');
+        D4.requireMinArgs(positional, 1, 'annotationsNamed');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotationsNamed');
+        return t.annotationsNamed(name);
+      },
+      'hasAnnotation': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.SpecField>(target, 'SpecField');
+        D4.requireMinArgs(positional, 1, 'hasAnnotation');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'hasAnnotation');
+        return t.hasAnnotation(name);
+      },
     },
     constructorSignatures: {
-      '': 'SpecField({required String name, required SpecFieldKind kind, String? doc, String? help, String? headline, String? sectionId, String? sectionIdPattern, int? serializationOrder, String? elementType, bool elementIsComplex = false, int? min, String? contentType, String? sectionType, String? enumType, List<String> enumValues = const [], String? type, List<FormFieldSpec> formFields = const [], List<SpecAnnotation> annotations = const []})',
+      '': 'SpecField({required String name, required SpecFieldKind kind, String? doc, String? help, String? headline, String? sectionId, String? sectionIdPattern, int? serializationOrder, String? elementType, bool elementIsComplex = false, int? min, String? contentType, String? sectionType, String? enumType, List<String> enumValues = const [], String? type, List<FormFieldSpec> formFields = const [], List<SpecAnnotation> annotations = const [], StandardReferences? standardReferences})',
       'fromJson': 'factory SpecField.fromJson(Map<String, dynamic> j)',
     },
     methodSignatures: {
       'annotation': 'SpecAnnotation? annotation(String name)',
+      'annotationsNamed': 'List<SpecAnnotation> annotationsNamed(String name)',
+      'hasAnnotation': 'bool hasAnnotation(String name)',
     },
     getterSignatures: {
       'name': 'String get name',
@@ -2944,7 +3084,63 @@ BridgedClass _createSpecFieldBridge() {
       'type': 'String? get type',
       'formFields': 'List<FormFieldSpec> get formFields',
       'annotations': 'List<SpecAnnotation> get annotations',
+      'standardReferences': 'StandardReferences? get standardReferences',
       'isExpandable': 'bool get isExpandable',
+      'caseValues': 'List<String> get caseValues',
+      'isCase': 'bool get isCase',
+      'isUnused': 'bool get isUnused',
+      'comment': 'String? get comment',
+      'reference': 'String? get reference',
+      'hasReferences': 'bool get hasReferences',
+      'codeSpecKind': 'KindLink? get codeSpecKind',
+      'followUpKind': 'KindLink? get followUpKind',
+    },
+  );
+}
+
+// =============================================================================
+// OneOfGroup Bridge
+// =============================================================================
+
+BridgedClass _createOneOfGroupBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_10.OneOfGroup,
+    name: 'OneOfGroup',
+    isAssignable: (v) => v is $tom_som_dart_runtime_10.OneOfGroup,
+    constructors: {
+      '': (visitor, positional, named) {
+        final discriminator = D4.getRequiredNamedArg<String>(named, 'discriminator', 'OneOfGroup');
+        if (!named.containsKey('caseFields') || named['caseFields'] == null) {
+          throw ArgumentError('OneOfGroup: Missing required named argument "caseFields"');
+        }
+        final caseFields = D4.coerceList<$tom_som_dart_runtime_10.SpecField>(named['caseFields'], 'caseFields');
+        final note = D4.getOptionalNamedArg<String?>(named, 'note');
+        final discriminatorField = D4.getOptionalNamedArg<$tom_som_dart_runtime_10.FormFieldSpec?>(named, 'discriminatorField');
+        return $tom_som_dart_runtime_10.OneOfGroup(discriminator: discriminator, caseFields: caseFields, note: note, discriminatorField: discriminatorField);
+      },
+    },
+    getters: {
+      'discriminator': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.OneOfGroup>(target, 'OneOfGroup').discriminator,
+      'note': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.OneOfGroup>(target, 'OneOfGroup').note,
+      'discriminatorField': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.OneOfGroup>(target, 'OneOfGroup').discriminatorField,
+      'caseFields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.OneOfGroup>(target, 'OneOfGroup').caseFields,
+      'discriminatorValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.OneOfGroup>(target, 'OneOfGroup').discriminatorValues,
+      'coveredValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.OneOfGroup>(target, 'OneOfGroup').coveredValues,
+      'uncoveredValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.OneOfGroup>(target, 'OneOfGroup').uncoveredValues,
+      'isComplete': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.OneOfGroup>(target, 'OneOfGroup').isComplete,
+    },
+    constructorSignatures: {
+      '': 'const OneOfGroup({required String discriminator, required List<SpecField> caseFields, String? note, FormFieldSpec? discriminatorField})',
+    },
+    getterSignatures: {
+      'discriminator': 'String get discriminator',
+      'note': 'String? get note',
+      'discriminatorField': 'FormFieldSpec? get discriminatorField',
+      'caseFields': 'List<SpecField> get caseFields',
+      'discriminatorValues': 'List<String> get discriminatorValues',
+      'coveredValues': 'List<String> get coveredValues',
+      'uncoveredValues': 'List<String> get uncoveredValues',
+      'isComplete': 'bool get isComplete',
     },
   );
 }
@@ -2958,6 +3154,7 @@ BridgedClass _createSpecClassBridge() {
     nativeType: $tom_som_dart_runtime_10.SpecClass,
     name: 'SpecClass',
     isAssignable: (v) => v is $tom_som_dart_runtime_10.SpecClass,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'SpecClass');
@@ -2973,7 +3170,8 @@ BridgedClass _createSpecClassBridge() {
         final annotations = named.containsKey('annotations') && named['annotations'] != null
             ? D4.coerceList<$tom_som_dart_runtime_10.SpecAnnotation>(named['annotations'], 'annotations')
             : const <$tom_som_dart_runtime_10.SpecAnnotation>[];
-        return $tom_som_dart_runtime_10.SpecClass(name: name, sectionId: sectionId, doc: doc, help: help, headline: headline, mapsTo: mapsTo, detailedIn: detailedIn, fields: fields, annotations: annotations);
+        final standardReferences = D4.getOptionalNamedArg<$tom_som_dart_runtime_10.StandardReferences?>(named, 'standardReferences');
+        return $tom_som_dart_runtime_10.SpecClass(name: name, sectionId: sectionId, doc: doc, help: help, headline: headline, mapsTo: mapsTo, detailedIn: detailedIn, fields: fields, annotations: annotations, standardReferences: standardReferences);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecClass');
@@ -2994,6 +3192,15 @@ BridgedClass _createSpecClassBridge() {
       'detailedIn': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').detailedIn,
       'fields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').fields,
       'annotations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').annotations,
+      'standardReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').standardReferences,
+      'oneOf': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').oneOf,
+      'isCodeSpecsProjection': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').isCodeSpecsProjection,
+      'isUnused': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').isUnused,
+      'comment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').comment,
+      'reference': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').reference,
+      'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').hasReferences,
+      'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').codeSpecKind,
+      'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass').followUpKind,
     },
     methods: {
       'fieldNamed': (visitor, target, positional, named, typeArgs) {
@@ -3002,20 +3209,41 @@ BridgedClass _createSpecClassBridge() {
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'fieldNamed');
         return t.fieldNamed(name);
       },
+      'formFieldNamed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass');
+        D4.requireMinArgs(positional, 1, 'formFieldNamed');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'formFieldNamed');
+        return t.formFieldNamed(name);
+      },
       'annotation': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass');
         D4.requireMinArgs(positional, 1, 'annotation');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotation');
         return t.annotation(name);
       },
+      'annotationsNamed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass');
+        D4.requireMinArgs(positional, 1, 'annotationsNamed');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotationsNamed');
+        return t.annotationsNamed(name);
+      },
+      'hasAnnotation': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.SpecClass>(target, 'SpecClass');
+        D4.requireMinArgs(positional, 1, 'hasAnnotation');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'hasAnnotation');
+        return t.hasAnnotation(name);
+      },
     },
     constructorSignatures: {
-      '': 'SpecClass({required String name, String? sectionId, String? doc, String? help, String? headline, String? mapsTo, String? detailedIn, List<SpecField> fields = const [], List<SpecAnnotation> annotations = const []})',
+      '': 'SpecClass({required String name, String? sectionId, String? doc, String? help, String? headline, String? mapsTo, String? detailedIn, List<SpecField> fields = const [], List<SpecAnnotation> annotations = const [], StandardReferences? standardReferences})',
       'fromJson': 'factory SpecClass.fromJson(Map<String, dynamic> j)',
     },
     methodSignatures: {
       'fieldNamed': 'SpecField? fieldNamed(String name)',
+      'formFieldNamed': 'FormFieldSpec? formFieldNamed(String name)',
       'annotation': 'SpecAnnotation? annotation(String name)',
+      'annotationsNamed': 'List<SpecAnnotation> annotationsNamed(String name)',
+      'hasAnnotation': 'bool hasAnnotation(String name)',
     },
     getterSignatures: {
       'name': 'String get name',
@@ -3027,6 +3255,15 @@ BridgedClass _createSpecClassBridge() {
       'detailedIn': 'String? get detailedIn',
       'fields': 'List<SpecField> get fields',
       'annotations': 'List<SpecAnnotation> get annotations',
+      'standardReferences': 'StandardReferences? get standardReferences',
+      'oneOf': 'OneOfGroup? get oneOf',
+      'isCodeSpecsProjection': 'bool get isCodeSpecsProjection',
+      'isUnused': 'bool get isUnused',
+      'comment': 'String? get comment',
+      'reference': 'String? get reference',
+      'hasReferences': 'bool get hasReferences',
+      'codeSpecKind': 'KindLink? get codeSpecKind',
+      'followUpKind': 'KindLink? get followUpKind',
     },
   );
 }
@@ -3080,6 +3317,60 @@ BridgedClass _createSpecRootBridge() {
 }
 
 // =============================================================================
+// SpecModelStampCheck Bridge
+// =============================================================================
+
+BridgedClass _createSpecModelStampCheckBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_10.SpecModelStampCheck,
+    name: 'SpecModelStampCheck',
+    isAssignable: (v) => v is $tom_som_dart_runtime_10.SpecModelStampCheck,
+    constructors: {
+      '': (visitor, positional, named) {
+        final age = D4.getRequiredNamedArg<Duration?>(named, 'age', 'SpecModelStampCheck');
+        final maxAge = D4.getRequiredNamedArg<Duration>(named, 'maxAge', 'SpecModelStampCheck');
+        final declaredClassCount = D4.getRequiredNamedArg<int?>(named, 'declaredClassCount', 'SpecModelStampCheck');
+        final actualClassCount = D4.getRequiredNamedArg<int>(named, 'actualClassCount', 'SpecModelStampCheck');
+        final declaredRootCount = D4.getRequiredNamedArg<int?>(named, 'declaredRootCount', 'SpecModelStampCheck');
+        final actualRootCount = D4.getRequiredNamedArg<int>(named, 'actualRootCount', 'SpecModelStampCheck');
+        return $tom_som_dart_runtime_10.SpecModelStampCheck(age: age, maxAge: maxAge, declaredClassCount: declaredClassCount, actualClassCount: actualClassCount, declaredRootCount: declaredRootCount, actualRootCount: actualRootCount);
+      },
+    },
+    getters: {
+      'age': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').age,
+      'maxAge': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').maxAge,
+      'declaredClassCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').declaredClassCount,
+      'actualClassCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').actualClassCount,
+      'declaredRootCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').declaredRootCount,
+      'actualRootCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').actualRootCount,
+      'isAged': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').isAged,
+      'classCountDisagrees': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').classCountDisagrees,
+      'rootCountDisagrees': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').rootCountDisagrees,
+      'countsDisagree': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').countsDisagree,
+      'isStale': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').isStale,
+      'warnings': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModelStampCheck>(target, 'SpecModelStampCheck').warnings,
+    },
+    constructorSignatures: {
+      '': 'const SpecModelStampCheck({required Duration? age, required Duration maxAge, required int? declaredClassCount, required int actualClassCount, required int? declaredRootCount, required int actualRootCount})',
+    },
+    getterSignatures: {
+      'age': 'Duration? get age',
+      'maxAge': 'Duration get maxAge',
+      'declaredClassCount': 'int? get declaredClassCount',
+      'actualClassCount': 'int get actualClassCount',
+      'declaredRootCount': 'int? get declaredRootCount',
+      'actualRootCount': 'int get actualRootCount',
+      'isAged': 'bool get isAged',
+      'classCountDisagrees': 'bool get classCountDisagrees',
+      'rootCountDisagrees': 'bool get rootCountDisagrees',
+      'countsDisagree': 'bool get countsDisagree',
+      'isStale': 'bool get isStale',
+      'warnings': 'List<String> get warnings',
+    },
+  );
+}
+
+// =============================================================================
 // SpecModel Bridge
 // =============================================================================
 
@@ -3100,7 +3391,12 @@ BridgedClass _createSpecModelBridge() {
         final classes = D4.coerceMap<String, $tom_som_dart_runtime_10.SpecClass>(named['classes'], 'classes');
         final modelVersion = D4.getNamedArgWithDefault<int>(named, 'modelVersion', 0);
         final modelVersionLabel = D4.getOptionalNamedArg<String?>(named, 'modelVersionLabel');
-        return $tom_som_dart_runtime_10.SpecModel(roots: roots, classes: classes, modelVersion: modelVersion, modelVersionLabel: modelVersionLabel);
+        final generatedAt = D4.getOptionalNamedArg<DateTime?>(named, 'generatedAt');
+        final metaSchemaVersion = D4.getOptionalNamedArg<int?>(named, 'metaSchemaVersion');
+        final classCount = D4.getOptionalNamedArg<int?>(named, 'classCount');
+        final rootCount = D4.getOptionalNamedArg<int?>(named, 'rootCount');
+        final containerRoot = D4.getOptionalNamedArg<String?>(named, 'containerRoot');
+        return $tom_som_dart_runtime_10.SpecModel(roots: roots, classes: classes, modelVersion: modelVersion, modelVersionLabel: modelVersionLabel, generatedAt: generatedAt, metaSchemaVersion: metaSchemaVersion, classCount: classCount, rootCount: rootCount, containerRoot: containerRoot);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecModel');
@@ -3116,9 +3412,26 @@ BridgedClass _createSpecModelBridge() {
       'classes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').classes,
       'modelVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').modelVersion,
       'modelVersionLabel': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').modelVersionLabel,
+      'generatedAt': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').generatedAt,
+      'metaSchemaVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').metaSchemaVersion,
+      'classCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').classCount,
+      'rootCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').rootCount,
+      'containerRoot': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').containerRoot,
       'modelVersionString': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel').modelVersionString,
     },
     methods: {
+      'checkStamp': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel');
+        final now = D4.getOptionalNamedArg<DateTime?>(named, 'now');
+        if (!named.containsKey('maxAge')) {
+          return t.checkStamp(now: now);
+        }
+        if (named.containsKey('maxAge')) {
+          final maxAge = D4.getRequiredNamedArg<Duration>(named, 'maxAge', 'checkStamp');
+          return t.checkStamp(now: now, maxAge: maxAge);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
       'classNamed': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_som_dart_runtime_10.SpecModel>(target, 'SpecModel');
         D4.requireMinArgs(positional, 1, 'classNamed');
@@ -3133,10 +3446,11 @@ BridgedClass _createSpecModelBridge() {
       },
     },
     constructorSignatures: {
-      '': 'SpecModel({required List<SpecRoot> roots, required Map<String, SpecClass> classes, int modelVersion = 0, String? modelVersionLabel})',
+      '': 'SpecModel({required List<SpecRoot> roots, required Map<String, SpecClass> classes, int modelVersion = 0, String? modelVersionLabel, DateTime? generatedAt, int? metaSchemaVersion, int? classCount, int? rootCount, String? containerRoot})',
       'fromJson': 'factory SpecModel.fromJson(Map<String, dynamic> j)',
     },
     methodSignatures: {
+      'checkStamp': 'SpecModelStampCheck checkStamp({Duration maxAge = defaultMaxSnapshotAge, DateTime? now})',
       'classNamed': 'SpecClass? classNamed(String? name)',
       'rootByType': 'SpecRoot rootByType(String type)',
     },
@@ -3145,7 +3459,73 @@ BridgedClass _createSpecModelBridge() {
       'classes': 'Map<String, SpecClass> get classes',
       'modelVersion': 'int get modelVersion',
       'modelVersionLabel': 'String? get modelVersionLabel',
+      'generatedAt': 'DateTime? get generatedAt',
+      'metaSchemaVersion': 'int? get metaSchemaVersion',
+      'classCount': 'int? get classCount',
+      'rootCount': 'int? get rootCount',
+      'containerRoot': 'String? get containerRoot',
       'modelVersionString': 'String get modelVersionString',
+    },
+  );
+}
+
+// =============================================================================
+// AnnotatedSpecNode Bridge
+// =============================================================================
+
+BridgedClass _createAnnotatedSpecNodeBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_10.AnnotatedSpecNode,
+    name: 'AnnotatedSpecNode',
+    isAssignable: (v) => v is $tom_som_dart_runtime_10.AnnotatedSpecNode,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {
+    },
+    getters: {
+      'annotations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').annotations,
+      'standardReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').standardReferences,
+      'isUnused': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').isUnused,
+      'comment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').comment,
+      'reference': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').reference,
+      'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').hasReferences,
+      'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').codeSpecKind,
+      'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').followUpKind,
+    },
+    methods: {
+      'annotation': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode');
+        D4.requireMinArgs(positional, 1, 'annotation');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotation');
+        return t.annotation(name);
+      },
+      'annotationsNamed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode');
+        D4.requireMinArgs(positional, 1, 'annotationsNamed');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotationsNamed');
+        return t.annotationsNamed(name);
+      },
+      'hasAnnotation': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_10.AnnotatedSpecNode>(target, 'AnnotatedSpecNode');
+        D4.requireMinArgs(positional, 1, 'hasAnnotation');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'hasAnnotation');
+        return t.hasAnnotation(name);
+      },
+    },
+    methodSignatures: {
+      'annotation': 'SpecAnnotation? annotation(String name)',
+      'annotationsNamed': 'List<SpecAnnotation> annotationsNamed(String name)',
+      'hasAnnotation': 'bool hasAnnotation(String name)',
+    },
+    getterSignatures: {
+      'annotations': 'List<SpecAnnotation> get annotations',
+      'standardReferences': 'StandardReferences? get standardReferences',
+      'isUnused': 'bool get isUnused',
+      'comment': 'String? get comment',
+      'reference': 'String? get reference',
+      'hasReferences': 'bool get hasReferences',
+      'codeSpecKind': 'KindLink? get codeSpecKind',
+      'followUpKind': 'KindLink? get followUpKind',
     },
   );
 }

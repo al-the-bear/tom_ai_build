@@ -6,6 +6,7 @@ Loads the language-agnostic conformance corpus produced from the Dart reference
 golden byte-for-byte and matches every behavioural case:
 
   * model meta-data loads (root + class structure);
+  * the generation stamp decodes and reaches the shared staleness verdict;
   * ``state.json`` loads and re-serialises identically;
   * YAML encode == ``expected.docspecs.yaml`` (byte-for-byte);
   * YAML decode → memory → encode is byte-stable + preserves the stamp;
@@ -20,6 +21,7 @@ Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 
 from __future__ import annotations
 
+import datetime as _dt
 import json
 import os
 import sys
@@ -33,6 +35,7 @@ _CORPUS = os.path.normpath(
 sys.path.insert(0, _PKG_ROOT)
 
 from tom_som_runtime import (  # noqa: E402
+    DEFAULT_MAX_SNAPSHOT_AGE,
     SpecDocument,
     SpecDocumentMarkdown,
     SpecModel,
@@ -356,6 +359,83 @@ def test_serialization_order() -> None:
            f"{got_fields} != {c['expectedFormOrder']}")
 
 
+def test_stamp(model: SpecModel) -> None:
+    """The generation stamp: the five keys the exporter writes, and the
+    staleness verdict every runtime must reach from the same input."""
+    # The shared model fixture carries the stamp, minus `containerRoot` (it is a
+    # single synthetic document with no container class).
+    _check(
+        "stamp.meta.generatedAt",
+        model.generated_at is not None
+        and int(model.generated_at.timestamp()) == 1784534400,
+        str(model.generated_at),
+    )
+    _check("stamp.meta.metaSchemaVersion", model.meta_schema_version == 1)
+    _check("stamp.meta.classCount", model.class_count == len(model.classes))
+    _check("stamp.meta.rootCount", model.root_count == len(model.roots))
+    _check("stamp.meta.containerRoot", model.container_root is None)
+
+    table = _read_json("stamp_cases.json")
+    _check(
+        "stamp.defaultMaxAgeDays",
+        table["defaultMaxAgeDays"] == DEFAULT_MAX_SNAPSHOT_AGE.days,
+    )
+    for case in table["cases"]:
+        name = case["name"]
+        loaded = SpecModel.from_json(case["model"])
+        want = case["expect"]
+        got_epoch = (
+            None
+            if loaded.generated_at is None
+            else int(loaded.generated_at.timestamp())
+        )
+        _check(
+            f"stamp[{name}].generatedAt",
+            got_epoch == want["generatedAtEpochSeconds"],
+            f"{got_epoch} != {want['generatedAtEpochSeconds']}",
+        )
+        for key, got in (
+            ("metaSchemaVersion", loaded.meta_schema_version),
+            ("classCount", loaded.class_count),
+            ("rootCount", loaded.root_count),
+            ("containerRoot", loaded.container_root),
+        ):
+            _check(f"stamp[{name}].{key}", got == want[key], f"{got} != {want[key]}")
+        _check(
+            f"stamp[{name}].actualClassCount",
+            len(loaded.classes) == want["actualClassCount"],
+        )
+        _check(
+            f"stamp[{name}].actualRootCount",
+            len(loaded.roots) == want["actualRootCount"],
+        )
+
+        wc = case["check"]
+        check = loaded.check_stamp(
+            max_age=_dt.timedelta(days=wc["maxAgeDays"]),
+            now=_dt.datetime.fromtimestamp(wc["nowEpochSeconds"], _dt.timezone.utc),
+        )
+        age_seconds = None if check.age is None else int(check.age.total_seconds())
+        _check(
+            f"stamp[{name}].ageSeconds",
+            age_seconds == wc["ageSeconds"],
+            f"{age_seconds} != {wc['ageSeconds']}",
+        )
+        for key, got in (
+            ("isAged", check.is_aged),
+            ("classCountDisagrees", check.class_count_disagrees),
+            ("rootCountDisagrees", check.root_count_disagrees),
+            ("countsDisagree", check.counts_disagree),
+            ("isStale", check.is_stale),
+        ):
+            _check(f"stamp[{name}].{key}", got == wc[key], f"{got} != {wc[key]}")
+        _check(
+            f"stamp[{name}].warnings",
+            check.warnings == wc["warnings"],
+            f"{check.warnings} != {wc['warnings']}",
+        )
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -363,6 +443,7 @@ def main() -> int:
     model = _load_model()
     tree = build_som_meta_tree(model)
     test_model_meta(model)
+    test_stamp(model)
     test_state_round_trip()
     test_yaml_encode(tree)
     test_yaml_decode_round_trip(tree)

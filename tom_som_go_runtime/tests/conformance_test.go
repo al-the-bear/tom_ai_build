@@ -24,6 +24,7 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"time"
 
 	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 )
@@ -183,6 +184,7 @@ func TestConformance(t *testing.T) {
 	}
 
 	testModelMeta(c, model)
+	testStamp(c, t, model)
 	testStateRoundTrip(c, t)
 	testYamlEncode(c, t, tree)
 	testYamlDecodeRoundTrip(c, t, tree)
@@ -213,6 +215,118 @@ func testModelMeta(c *checker, model *som.SpecModel) {
 		want := []string{"title", "summary", "priority", "count", "details", "items", "refs", "cards", "meta", "control"}
 		c.check("model.Demo.fields", sliceEq(names, want), join(names))
 	}
+}
+
+// stampCaseTable mirrors corpus/stamp_cases.json — the cross-language stamp
+// contract. Ages are whole seconds and thresholds whole days so the table
+// carries no language's duration type.
+type stampCaseTable struct {
+	DefaultMaxAgeDays int `json:"defaultMaxAgeDays"`
+	Cases             []struct {
+		Name   string          `json:"name"`
+		Model  json.RawMessage `json:"model"`
+		Expect struct {
+			GeneratedAtEpochSeconds *int64  `json:"generatedAtEpochSeconds"`
+			MetaSchemaVersion       *int    `json:"metaSchemaVersion"`
+			ClassCount              *int    `json:"classCount"`
+			RootCount               *int    `json:"rootCount"`
+			ContainerRoot           *string `json:"containerRoot"`
+			ActualClassCount        int     `json:"actualClassCount"`
+			ActualRootCount         int     `json:"actualRootCount"`
+		} `json:"expect"`
+		Check struct {
+			NowEpochSeconds     int64    `json:"nowEpochSeconds"`
+			MaxAgeDays          int      `json:"maxAgeDays"`
+			AgeSeconds          *int64   `json:"ageSeconds"`
+			IsAged              bool     `json:"isAged"`
+			ClassCountDisagrees bool     `json:"classCountDisagrees"`
+			RootCountDisagrees  bool     `json:"rootCountDisagrees"`
+			CountsDisagree      bool     `json:"countsDisagree"`
+			IsStale             bool     `json:"isStale"`
+			Warnings            []string `json:"warnings"`
+		} `json:"check"`
+	} `json:"cases"`
+}
+
+// testStamp asserts the generation stamp: the five keys the exporter writes,
+// and the staleness verdict every runtime must reach from the same input.
+func testStamp(c *checker, t *testing.T, model *som.SpecModel) {
+	// The shared model fixture carries the stamp, minus containerRoot (it is a
+	// single synthetic document with no container class).
+	c.check("stamp.meta.generatedAt",
+		model.GeneratedAt != nil && model.GeneratedAt.Unix() == 1784534400, "")
+	c.check("stamp.meta.metaSchemaVersion",
+		model.MetaSchemaVersion != nil && *model.MetaSchemaVersion == 1, "")
+	c.check("stamp.meta.classCount",
+		model.ClassCount != nil && *model.ClassCount == len(model.Classes), "")
+	c.check("stamp.meta.rootCount",
+		model.RootCount != nil && *model.RootCount == len(model.Roots), "")
+	c.check("stamp.meta.containerRoot", model.ContainerRoot == "", model.ContainerRoot)
+
+	var table stampCaseTable
+	readJSON(t, "stamp_cases.json", &table)
+	c.check("stamp.defaultMaxAgeDays",
+		int64(table.DefaultMaxAgeDays) == int64(som.DefaultMaxSnapshotAge/(24*time.Hour)), "")
+	for _, kase := range table.Cases {
+		name := kase.Name
+		loaded, err := som.SpecModelFromJSON(kase.Model)
+		if err != nil {
+			t.Fatalf("stamp case %s: %v", name, err)
+		}
+		want := kase.Expect
+		var gotEpoch *int64
+		if loaded.GeneratedAt != nil {
+			e := loaded.GeneratedAt.Unix()
+			gotEpoch = &e
+		}
+		c.check("stamp["+name+"].generatedAt", eqInt64Ptr(gotEpoch, want.GeneratedAtEpochSeconds), "")
+		c.check("stamp["+name+"].metaSchemaVersion",
+			eqIntPtr(loaded.MetaSchemaVersion, want.MetaSchemaVersion), "")
+		c.check("stamp["+name+"].classCount", eqIntPtr(loaded.ClassCount, want.ClassCount), "")
+		c.check("stamp["+name+"].rootCount", eqIntPtr(loaded.RootCount, want.RootCount), "")
+		wantContainer := ""
+		if want.ContainerRoot != nil {
+			wantContainer = *want.ContainerRoot
+		}
+		c.check("stamp["+name+"].containerRoot", loaded.ContainerRoot == wantContainer,
+			loaded.ContainerRoot)
+		c.check("stamp["+name+"].actualClassCount", len(loaded.Classes) == want.ActualClassCount, "")
+		c.check("stamp["+name+"].actualRootCount", len(loaded.Roots) == want.ActualRootCount, "")
+
+		wc := kase.Check
+		got := loaded.CheckStamp(
+			time.Duration(wc.MaxAgeDays)*24*time.Hour,
+			time.Unix(wc.NowEpochSeconds, 0).UTC())
+		var ageSeconds *int64
+		if got.Age != nil {
+			s := int64(*got.Age / time.Second)
+			ageSeconds = &s
+		}
+		c.check("stamp["+name+"].ageSeconds", eqInt64Ptr(ageSeconds, wc.AgeSeconds), "")
+		c.check("stamp["+name+"].isAged", got.IsAged() == wc.IsAged, "")
+		c.check("stamp["+name+"].classCountDisagrees",
+			got.ClassCountDisagrees() == wc.ClassCountDisagrees, "")
+		c.check("stamp["+name+"].rootCountDisagrees",
+			got.RootCountDisagrees() == wc.RootCountDisagrees, "")
+		c.check("stamp["+name+"].countsDisagree", got.CountsDisagree() == wc.CountsDisagree, "")
+		c.check("stamp["+name+"].isStale", got.IsStale() == wc.IsStale, "")
+		c.check("stamp["+name+"].warnings", sliceEq(got.Warnings(), wc.Warnings),
+			join(got.Warnings()))
+	}
+}
+
+func eqIntPtr(a, b *int) bool {
+	if a == nil || b == nil {
+		return a == nil && b == nil
+	}
+	return *a == *b
+}
+
+func eqInt64Ptr(a, b *int64) bool {
+	if a == nil || b == nil {
+		return a == nil && b == nil
+	}
+	return *a == *b
 }
 
 func testStateRoundTrip(c *checker, t *testing.T) {

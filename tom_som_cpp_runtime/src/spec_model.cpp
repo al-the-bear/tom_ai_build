@@ -1,5 +1,7 @@
 #include "spec_model.hpp"
 
+#include <cstdio>
+
 namespace som {
 
 std::string specParseFieldKind(const std::string& raw) {
@@ -223,6 +225,180 @@ static SpecClass classFromJson(const std::string& name, const JsonRef& cls) {
   return out;
 }
 
+// ---- generation stamp -----------------------------------------------------
+
+namespace {
+
+// The length of `month` in `year`, Gregorian. Used to reject a day that does not
+// exist rather than letting it roll into the next month: some SOM runtimes' date
+// types would turn 31 February into 3 March while others reject it outright — so
+// the grammar rejects it everywhere.
+long long daysInMonth(long long year, long long month) {
+  static const long long kLengths[] = {31, 28, 31, 30, 31, 30,
+                                       31, 31, 30, 31, 30, 31};
+  if (month != 2) {
+    return kLengths[month - 1];
+  }
+  return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;
+}
+
+// Days since 1970-01-01 for a proleptic-Gregorian civil date (Howard Hinnant's
+// `days_from_civil`) — the same arithmetic the Rust, Java and C ports use.
+long long epochDay(long long year, long long month, long long day) {
+  long long y = year - (month <= 2 ? 1 : 0);
+  long long era = (y >= 0 ? y : y - 399) / 400;
+  long long yoe = y - era * 400;
+  long long doy = (153 * (month + (month > 2 ? -3 : 9)) + 2) / 5 + day - 1;
+  long long doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+  return era * 146097 + doe - 719468;
+}
+
+bool isDigit(char c) { return c >= '0' && c <= '9'; }
+
+// Reads `count` decimal digits at `at`, or nullopt when any is not a digit.
+std::optional<long long> digitsAt(const std::string& s, std::size_t at,
+                                  std::size_t count) {
+  if (at + count > s.size()) {
+    return std::nullopt;
+  }
+  long long value = 0;
+  for (std::size_t i = 0; i < count; i++) {
+    char c = s[at + i];
+    if (!isDigit(c)) {
+      return std::nullopt;
+    }
+    value = value * 10 + (c - '0');
+  }
+  return value;
+}
+
+std::string formatWarning(const char* fmt, long long a, long long b) {
+  char buf[256];
+  std::snprintf(buf, sizeof(buf), fmt, a, b);
+  return std::string(buf);
+}
+
+}  // namespace
+
+std::optional<long long> specParseStampTimestamp(const std::string& raw) {
+  std::size_t start = raw.find_first_not_of(" \t\n\r");
+  if (start == std::string::npos) {
+    return std::nullopt;
+  }
+  std::size_t end = raw.find_last_not_of(" \t\n\r");
+  std::string s = raw.substr(start, end - start + 1);
+
+  if (s.size() < 19 || s[4] != '-' || s[7] != '-' || s[13] != ':' ||
+      s[16] != ':') {
+    return std::nullopt;
+  }
+  if (s[10] != 'T' && s[10] != 't' && s[10] != ' ') {
+    return std::nullopt;
+  }
+  auto year = digitsAt(s, 0, 4);
+  auto month = digitsAt(s, 5, 2);
+  auto day = digitsAt(s, 8, 2);
+  auto hour = digitsAt(s, 11, 2);
+  auto minute = digitsAt(s, 14, 2);
+  auto second = digitsAt(s, 17, 2);
+  if (!year || !month || !day || !hour || !minute || !second) {
+    return std::nullopt;
+  }
+  if (*month < 1 || *month > 12 || *day < 1 ||
+      *day > daysInMonth(*year, *month)) {
+    return std::nullopt;
+  }
+  if (*hour > 23 || *minute > 59 || *second > 59) {
+    return std::nullopt;
+  }
+
+  std::size_t idx = 19;
+  if (idx < s.size() && s[idx] == '.') {
+    idx++;
+    std::size_t fracStart = idx;
+    while (idx < s.size() && isDigit(s[idx])) {
+      idx++;
+    }
+    if (idx == fracStart) {
+      return std::nullopt;  // a `.` with no digits is not the grammar
+    }
+  }
+
+  long long epoch = epochDay(*year, *month, *day) * kSecondsPerDay +
+                    *hour * 3600 + *minute * 60 + *second;
+  if (idx < s.size()) {
+    char sign = s[idx];
+    if (sign == 'Z' || sign == 'z') {
+      if (idx + 1 != s.size()) {
+        return std::nullopt;
+      }
+    } else if (sign == '+' || sign == '-') {
+      std::string rest = s.substr(idx + 1);
+      std::optional<long long> oh, om;
+      if (rest.size() == 4) {
+        oh = digitsAt(rest, 0, 2);
+        om = digitsAt(rest, 2, 2);
+      } else if (rest.size() == 5 && rest[2] == ':') {
+        oh = digitsAt(rest, 0, 2);
+        om = digitsAt(rest, 3, 2);
+      } else {
+        return std::nullopt;
+      }
+      if (!oh || !om) {
+        return std::nullopt;
+      }
+      long long offset = (*oh * 60 + *om) * 60;
+      epoch += (sign == '-') ? offset : -offset;
+    } else {
+      return std::nullopt;
+    }
+  }
+  return epoch;
+}
+
+bool SpecModelStampCheck::isAged() const {
+  return ageSeconds.has_value() && *ageSeconds > maxAgeSeconds;
+}
+
+bool SpecModelStampCheck::classCountDisagrees() const {
+  return declaredClassCount.has_value() && *declaredClassCount != actualClassCount;
+}
+
+bool SpecModelStampCheck::rootCountDisagrees() const {
+  return declaredRootCount.has_value() && *declaredRootCount != actualRootCount;
+}
+
+bool SpecModelStampCheck::countsDisagree() const {
+  return classCountDisagrees() || rootCountDisagrees();
+}
+
+bool SpecModelStampCheck::isStale() const {
+  return isAged() || countsDisagree();
+}
+
+std::vector<std::string> SpecModelStampCheck::warnings() const {
+  std::vector<std::string> out;
+  if (isAged()) {
+    out.push_back(formatWarning(
+        "Snapshot is %lld days old (threshold %lld days) — the model may have "
+        "moved on since it was exported.",
+        *ageSeconds / kSecondsPerDay, maxAgeSeconds / kSecondsPerDay));
+  }
+  if (classCountDisagrees()) {
+    out.push_back(formatWarning(
+        "Stamp declares %lld classes but the snapshot carries %lld — it was "
+        "edited after export.",
+        *declaredClassCount, actualClassCount));
+  }
+  if (rootCountDisagrees()) {
+    out.push_back(formatWarning(
+        "Stamp declares %lld document roots but the snapshot carries %lld — it "
+        "was edited after export.",
+        *declaredRootCount, actualRootCount));
+  }
+  return out;
+}
+
 std::unique_ptr<SpecModel> SpecModel::buildFromRoot(const JsonRef& root) {
   auto m = std::make_unique<SpecModel>();
   m->source_ = root;
@@ -254,7 +430,30 @@ std::unique_ptr<SpecModel> SpecModel::buildFromRoot(const JsonRef& root) {
   auto mv = jsonAsI64(jsonGet(root, "modelVersion"));
   m->modelVersion = mv.value_or(0);
   m->modelVersionLabel = jsonStrOr(root, "modelVersionLabel");
+
+  // Generation stamp — every key optional. An absent count stays absent rather
+  // than defaulting to zero: reading absent as 0 would make every pre-stamp
+  // snapshot look like it had been edited down to nothing.
+  m->generatedAt = specParseStampTimestamp(jsonStrOr(root, "generatedAt"));
+  m->metaSchemaVersion = jsonAsI64(jsonGet(root, "metaSchemaVersion"));
+  m->classCount = jsonAsI64(jsonGet(root, "classCount"));
+  m->rootCount = jsonAsI64(jsonGet(root, "rootCount"));
+  m->containerRoot = jsonStrOr(root, "containerRoot");
   return m;
+}
+
+SpecModelStampCheck SpecModel::checkStamp(long long maxAgeSeconds,
+                                          long long nowEpochSeconds) const {
+  SpecModelStampCheck out;
+  if (generatedAt.has_value()) {
+    out.ageSeconds = nowEpochSeconds - *generatedAt;
+  }
+  out.maxAgeSeconds = maxAgeSeconds;
+  out.declaredClassCount = classCount;
+  out.actualClassCount = static_cast<long long>(classesByName_.size());
+  out.declaredRootCount = rootCount;
+  out.actualRootCount = static_cast<long long>(roots.size());
+  return out;
 }
 
 std::unique_ptr<SpecModel> SpecModel::fromJsonStr(const std::string& data,

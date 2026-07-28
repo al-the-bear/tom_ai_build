@@ -43,6 +43,7 @@ void main() {
   final editorCases = _editorScript();
   final sectionIdCases = _sectionIdCases();
   final serializationOrderCase = _serializationOrderCase();
+  final stampCases = _stampCases();
 
   setUpAll(() {
     if (!update) return;
@@ -61,6 +62,7 @@ void main() {
     write('section_id_cases.json', '${enc.convert(sectionIdCases)}\n');
     write('serialization_order_cases.json',
         '${enc.convert(serializationOrderCase)}\n');
+    write('stamp_cases.json', '${enc.convert(stampCases)}\n');
   });
 
   String read(String name) =>
@@ -72,6 +74,66 @@ void main() {
     final reloaded = SpecModel.fromJson(onDisk);
     expect(reloaded.roots.map((r) => r.type), model.roots.map((r) => r.type));
     expect(reloaded.classes.keys.toSet(), model.classes.keys.toSet());
+  });
+
+  test('model.meta.json carries the generation stamp the exporter writes', () {
+    final reloaded =
+        SpecModel.fromJson(jsonDecode(read('model.meta.json')) as Map<String, dynamic>);
+    expect(reloaded.generatedAt, DateTime.utc(2026, 7, 20, 8));
+    expect(reloaded.metaSchemaVersion, 1);
+    // The counts are the payload's real sizes — that is what makes them a
+    // self-check rather than a second, drift-prone declaration.
+    expect(reloaded.classCount, reloaded.classes.length);
+    expect(reloaded.rootCount, reloaded.roots.length);
+    expect(reloaded.checkStamp().countsDisagree, isFalse);
+    // The synthetic fixture declares no container class.
+    expect(reloaded.containerRoot, isNull);
+  });
+
+  group('stamp_cases.json (the cross-language stamp contract)', () {
+    // Declared, not deferred: one test per case needs the table at declaration
+    // time. Under UPDATE_CORPUS the committed file may not exist yet (setUpAll
+    // has not run), so the freshly built table stands in for that one run.
+    final onDisk = File('${corpusDir.path}/stamp_cases.json');
+    final table = update && !onDisk.existsSync()
+        ? stampCases
+        : jsonDecode(onDisk.readAsStringSync()) as Map<String, dynamic>;
+
+    test('the default threshold matches the runtime constant', () {
+      expect(table['defaultMaxAgeDays'], defaultMaxSnapshotAge.inDays);
+    });
+
+    for (final raw in table['cases'] as List<dynamic>) {
+      final c = raw as Map<String, dynamic>;
+      test(c['name'] as String, () {
+        final loaded =
+            SpecModel.fromJson(c['model'] as Map<String, dynamic>);
+        final want = c['expect'] as Map<String, dynamic>;
+        expect(loaded.generatedAt?.millisecondsSinceEpoch,
+            _secondsToMillis(want['generatedAtEpochSeconds'] as int?));
+        expect(loaded.metaSchemaVersion, want['metaSchemaVersion']);
+        expect(loaded.classCount, want['classCount']);
+        expect(loaded.rootCount, want['rootCount']);
+        expect(loaded.containerRoot, want['containerRoot']);
+        expect(loaded.classes.length, want['actualClassCount']);
+        expect(loaded.roots.length, want['actualRootCount']);
+
+        final wantCheck = c['check'] as Map<String, dynamic>;
+        final got = loaded.checkStamp(
+          now: DateTime.fromMillisecondsSinceEpoch(
+              (wantCheck['nowEpochSeconds'] as int) * 1000,
+              isUtc: true),
+          maxAge: Duration(days: wantCheck['maxAgeDays'] as int),
+        );
+        expect(got.age?.inSeconds, wantCheck['ageSeconds']);
+        expect(got.isAged, wantCheck['isAged']);
+        expect(got.classCountDisagrees, wantCheck['classCountDisagrees']);
+        expect(got.rootCountDisagrees, wantCheck['rootCountDisagrees']);
+        expect(got.countsDisagree, wantCheck['countsDisagree']);
+        expect(got.isStale, wantCheck['isStale']);
+        expect(got.warnings, wantCheck['warnings']);
+      });
+    }
   });
 
   test('state.json matches the live document toJson()', () {
@@ -475,6 +537,16 @@ Map<String, dynamic> _buildMeta() => {
       'metaSchemaVersion': 1,
       'modelVersion': 1,
       'modelVersionLabel': 'demo-1.0',
+      // The generation stamp the exporter writes alongside the payload. Fixed
+      // rather than `DateTime.now()` so the corpus is byte-stable; the counts
+      // are the fixture's real sizes, which is what makes them a self-check.
+      // `containerRoot` is deliberately absent: the fixture is a single
+      // synthetic document with no container class, so declaring one would be
+      // a lie. The present-`containerRoot` path is covered by
+      // `stamp_cases.json` instead.
+      'generatedAt': '2026-07-20T08:00:00.000000Z',
+      'classCount': 5,
+      'rootCount': 1,
       'roots': [
         {
           'type': 'Demo',
@@ -973,6 +1045,252 @@ List<Map<String, dynamic>> _editorScript() => [
       {'op': 'setHeadline', 'path': 'DEMO/SUM', 'value': ''},
       {'op': 'headline', 'path': 'DEMO/SUM', 'expect': null},
     ];
+
+int? _secondsToMillis(int? seconds) => seconds == null ? null : seconds * 1000;
+
+/// The instant every stamp case is generated at: 2026-07-20T08:00:00Z.
+const int _stampGeneratedAt = 1784534400;
+const int _oneDay = 86400;
+
+/// One generation-stamp case: a complete (minimal) model JSON, the five stamp
+/// values it must decode to, and the verdict `checkStamp` must reach at a fixed
+/// instant. Expectations are hand-written literals, not runtime output, so a
+/// language that agrees with the table agrees with the *contract* rather than
+/// merely with itself.
+Map<String, dynamic> _stampCase({
+  required String name,
+  required Map<String, dynamic> stamp,
+  int classes = 2,
+  int roots = 1,
+  required int nowEpochSeconds,
+  int maxAgeDays = 14,
+  int? ageSeconds,
+  required bool isAged,
+  bool classCountDisagrees = false,
+  bool rootCountDisagrees = false,
+  List<String> warnings = const [],
+  int? generatedAtEpochSeconds,
+}) {
+  final countsDisagree = classCountDisagrees || rootCountDisagrees;
+  return {
+    'name': name,
+    'model': {
+      ...stamp,
+      'roots': [
+        for (var i = 0; i < roots; i++)
+          {'type': 'R$i', 'title': 'Root $i'}
+      ],
+      'classes': {
+        for (var i = 0; i < classes; i++)
+          'C$i': {'name': 'C$i', 'fields': <dynamic>[]}
+      },
+    },
+    'expect': {
+      'generatedAtEpochSeconds': generatedAtEpochSeconds,
+      'metaSchemaVersion': stamp['metaSchemaVersion'],
+      'classCount': stamp['classCount'],
+      'rootCount': stamp['rootCount'],
+      'containerRoot': stamp['containerRoot'],
+      'actualClassCount': classes,
+      'actualRootCount': roots,
+    },
+    'check': {
+      'nowEpochSeconds': nowEpochSeconds,
+      'maxAgeDays': maxAgeDays,
+      'ageSeconds': ageSeconds,
+      'isAged': isAged,
+      'classCountDisagrees': classCountDisagrees,
+      'rootCountDisagrees': rootCountDisagrees,
+      'countsDisagree': countsDisagree,
+      'isStale': isAged || countsDisagree,
+      'warnings': warnings,
+    },
+  };
+}
+
+/// The generation-stamp corpus. Every runtime parses the five stamp keys the
+/// exporter writes (`generatedAt`, `metaSchemaVersion`, `classCount`,
+/// `rootCount`, `containerRoot`) and reaches the same staleness verdict, with
+/// the same warning wording, from the same input.
+///
+/// Two properties are load-bearing and each has its own case:
+///
+/// * **Absent is not zero.** A snapshot predating the stamp keys must decode to
+///   null counts, not `0` — reading absent as zero would make every pre-stamp
+///   export look like it had been truncated to nothing.
+/// * **A zone-less timestamp is read as UTC.** The exporter always writes `Z`,
+///   but a staleness verdict that changed with the reader's local timezone
+///   would itself be a defect, so the grammar fixes the fallback rather than
+///   leaving it to each platform's `parse`.
+///
+/// Ages are expressed in whole seconds and thresholds in whole days so the
+/// table carries no language's duration type.
+Map<String, dynamic> _stampCases() {
+  const full = {
+    'generatedAt': '2026-07-20T08:00:00.000000Z',
+    'metaSchemaVersion': 1,
+    'classCount': 2,
+    'rootCount': 1,
+    'containerRoot': 'DemoProject',
+  };
+  const agedWarning =
+      'Snapshot is 60 days old (threshold 14 days) — the model may have moved '
+      'on since it was exported.';
+  const classWarning =
+      'Stamp declares 99 classes but the snapshot carries 2 — it was edited '
+      'after export.';
+  const rootWarning =
+      'Stamp declares 7 document roots but the snapshot carries 1 — it was '
+      'edited after export.';
+  return {
+    'defaultMaxAgeDays': 14,
+    'cases': [
+      _stampCase(
+        name: 'a full stamp decodes all five keys',
+        stamp: full,
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        ageSeconds: _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'a pre-stamp snapshot decodes to nulls, not zeroes',
+        stamp: const {},
+        nowEpochSeconds: _stampGeneratedAt + 60 * _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'an unparseable generatedAt degrades to null, rest still decodes',
+        stamp: {...full, 'generatedAt': 'not-a-date'},
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'a +HH:MM offset resolves to the same instant as Z',
+        stamp: {...full, 'generatedAt': '2026-07-20T10:00:00+02:00'},
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        ageSeconds: _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'a -HH:MM offset resolves to the same instant as Z',
+        stamp: {...full, 'generatedAt': '2026-07-20T03:00:00-05:00'},
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        ageSeconds: _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'an offset without a colon is accepted',
+        stamp: {...full, 'generatedAt': '2026-07-20T10:00:00+0200'},
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        ageSeconds: _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'a zone-less timestamp is read as UTC, not local time',
+        stamp: {...full, 'generatedAt': '2026-07-20T08:00:00'},
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        ageSeconds: _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'an out-of-range month is unreadable, not rolled over',
+        stamp: {...full, 'generatedAt': '2026-13-20T08:00:00Z'},
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'a day that does not exist in its month is unreadable',
+        stamp: {...full, 'generatedAt': '2026-02-31T08:00:00Z'},
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'a date with no time is outside the grammar',
+        stamp: {...full, 'generatedAt': '2026-07-20'},
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'a snapshot older than the threshold is aged',
+        stamp: full,
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + 60 * _oneDay,
+        ageSeconds: 60 * _oneDay,
+        isAged: true,
+        warnings: const [agedWarning],
+      ),
+      _stampCase(
+        name: 'the age threshold is caller-controlled (tolerant)',
+        stamp: full,
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + 60 * _oneDay,
+        maxAgeDays: 90,
+        ageSeconds: 60 * _oneDay,
+        isAged: false,
+      ),
+      _stampCase(
+        name: 'the age threshold is caller-controlled (strict)',
+        stamp: full,
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        maxAgeDays: 0,
+        ageSeconds: _oneDay,
+        isAged: true,
+        warnings: const [
+          'Snapshot is 1 days old (threshold 0 days) — the model may have '
+              'moved on since it was exported.'
+        ],
+      ),
+      _stampCase(
+        name: 'a declared class count that disagrees is flagged',
+        stamp: {...full, 'classCount': 99},
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        ageSeconds: _oneDay,
+        isAged: false,
+        classCountDisagrees: true,
+        warnings: const [classWarning],
+      ),
+      _stampCase(
+        name: 'a declared root count that disagrees is flagged',
+        stamp: {...full, 'rootCount': 7},
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + _oneDay,
+        ageSeconds: _oneDay,
+        isAged: false,
+        rootCountDisagrees: true,
+        warnings: const [rootWarning],
+      ),
+      _stampCase(
+        name: 'age and count findings are independent and both reported',
+        stamp: {...full, 'classCount': 99, 'rootCount': 7},
+        generatedAtEpochSeconds: _stampGeneratedAt,
+        nowEpochSeconds: _stampGeneratedAt + 60 * _oneDay,
+        ageSeconds: 60 * _oneDay,
+        isAged: true,
+        classCountDisagrees: true,
+        rootCountDisagrees: true,
+        warnings: const [agedWarning, classWarning, rootWarning],
+      ),
+      _stampCase(
+        name: 'a snapshot without generatedAt is never aged',
+        stamp: const {
+          'metaSchemaVersion': 1,
+          'classCount': 2,
+          'rootCount': 1,
+          'containerRoot': 'DemoProject',
+        },
+        nowEpochSeconds: _stampGeneratedAt + 60 * _oneDay,
+        isAged: false,
+      ),
+    ],
+  };
+}
 
 /// The section-id corpus (AA1 criteria 3–6). `twoLetterDate` and `generate` pin
 /// the two pure algorithms; `documentOps` replays the document-level id

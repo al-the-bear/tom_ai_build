@@ -200,14 +200,277 @@ class SpecRoot {
   }
 }
 
+/** One day in milliseconds — the unit thresholds and ages are reported in. */
+const MILLIS_PER_DAY = 86400000;
+
+/**
+ * How old a snapshot may get before {@link SpecModel#checkStamp} calls it aged.
+ *
+ * A fortnight: long enough that a healthy working copy is never nagged, short
+ * enough that structural feedback keyed to a snapshot's paths is not recorded
+ * against a model that has moved past them.
+ */
+const DEFAULT_MAX_SNAPSHOT_AGE_MS = 14 * MILLIS_PER_DAY;
+
+/**
+ * The generation-stamp timestamp grammar, spelled out rather than delegated to
+ * `Date.parse`: `YYYY-MM-DDTHH:MM:SS`, an optional fractional part, and an
+ * optional `Z` / `±HH:MM` / `±HHMM` offset.
+ *
+ * Every SOM runtime carries this same grammar. Delegating to each platform's
+ * own parser would make the accepted set differ by language — several of the
+ * nine have no date library at all — and a stamp that reads on one platform and
+ * not another is exactly the divergence the shared corpus exists to catch.
+ */
+const STAMP_PATTERN =
+  /^(\d{4})-(\d{2})-(\d{2})[Tt ](\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?(Z|z|[+-]\d{2}:?\d{2})?$/;
+
+/**
+ * The length of `month` in `year`, Gregorian. Used to reject a day that does
+ * not exist rather than letting it roll into the next month: `Date.UTC` would
+ * turn 31 February into 3 March, while several other SOM runtimes' date types
+ * reject it outright — so the grammar rejects it everywhere.
+ *
+ * @param {number} year
+ * @param {number} month
+ * @returns {number}
+ */
+function daysInMonth(year, month) {
+  if (month !== 2) {
+    return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+  }
+  const isLeap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  return isLeap ? 29 : 28;
+}
+
+/**
+ * Parses a generation-stamp timestamp to a UTC `Date`, or returns `null`.
+ *
+ * A timestamp carrying **no** zone is read as UTC. `new Date(string)` would
+ * read it as the reader's local time, which would make a staleness verdict
+ * depend on where the reader sits — a defect in its own right, and one the
+ * other eight SOM runtimes could not mirror anyway (several have no timezone
+ * database). Fixing the fallback here is what lets all nine agree.
+ *
+ * Anything outside the grammar — or carrying an out-of-range field — degrades
+ * to `null` rather than throwing: an unreadable stamp is not worth failing a
+ * whole model over.
+ *
+ * @param {?string} raw
+ * @returns {?Date}
+ */
+function parseStampTimestamp(raw) {
+  if (raw == null) {
+    return null;
+  }
+  const m = STAMP_PATTERN.exec(String(raw).trim());
+  if (m === null) {
+    return null;
+  }
+  const year = parseInt(m[1], 10);
+  const month = parseInt(m[2], 10);
+  const day = parseInt(m[3], 10);
+  const hour = parseInt(m[4], 10);
+  const minute = parseInt(m[5], 10);
+  const second = parseInt(m[6], 10);
+  if (month < 1 || month > 12 || day < 1 || day > daysInMonth(year, month)) {
+    return null;
+  }
+  if (hour > 23 || minute > 59 || second > 59) {
+    return null;
+  }
+  // Right-pad the fraction to milliseconds; a longer fraction is truncated.
+  const millis = parseInt((m[7] || '').padEnd(3, '0').slice(0, 3), 10);
+  let epochMs = Date.UTC(year, month - 1, day, hour, minute, second, millis);
+  const zone = m[8];
+  if (zone != null && zone !== 'Z' && zone !== 'z') {
+    const digits = zone.slice(1).replace(':', '');
+    const offsetMs =
+      (parseInt(digits.slice(0, 2), 10) * 60 + parseInt(digits.slice(2), 10)) *
+      60000;
+    epochMs += zone[0] === '-' ? offsetMs : -offsetMs;
+  }
+  return new Date(epochMs);
+}
+
+/**
+ * A stamp count as a number, or `null` when the key is absent.
+ *
+ * Absent must stay `null` rather than becoming `0`: a snapshot predating the
+ * stamp keys would otherwise declare zero classes and read as corrupt.
+ *
+ * @param {*} raw
+ * @returns {?number}
+ */
+function optionalInt(raw) {
+  if (typeof raw !== 'number' || !Number.isFinite(raw)) return null;
+  return Math.trunc(raw);
+}
+
+/**
+ * The outcome of checking a loaded snapshot's generation stamp against its own
+ * payload and against the clock — see {@link SpecModel#checkStamp}.
+ *
+ * The two findings are independent and can both hold at once: `isAged` says the
+ * snapshot is probably behind the live model, while `countsDisagree` says the
+ * file no longer describes itself correctly. Only the second is a defect in the
+ * file.
+ */
+class SpecModelStampCheck {
+  constructor({
+    ageMs,
+    maxAgeMs,
+    declaredClassCount,
+    actualClassCount,
+    declaredRootCount,
+    actualRootCount,
+  }) {
+    /** How long ago the snapshot was generated, or null when it carries no
+     * `generatedAt` (an older export, or a hand-built model). */
+    this.ageMs = ageMs;
+    /** The threshold `ageMs` was judged against. */
+    this.maxAgeMs = maxAgeMs;
+    this.declaredClassCount = declaredClassCount;
+    this.actualClassCount = actualClassCount;
+    this.declaredRootCount = declaredRootCount;
+    this.actualRootCount = actualRootCount;
+  }
+
+  /** Whether the snapshot is older than `maxAgeMs`. Always false when it
+   * carries no `generatedAt` — an unknown age is not evidence of a stale one. */
+  get isAged() {
+    return this.ageMs != null && this.ageMs > this.maxAgeMs;
+  }
+
+  /**
+   * Whether the declared and actual class counts differ.
+   *
+   * An absent declaration is not a disagreement: older snapshots predate the
+   * stamp keys, and reading absent as `0` would make every one of them look
+   * corrupt.
+   */
+  get classCountDisagrees() {
+    return (
+      this.declaredClassCount != null &&
+      this.declaredClassCount !== this.actualClassCount
+    );
+  }
+
+  /** Whether the declared and actual root counts differ. Absent declarations
+   * are ignored, as for {@link SpecModelStampCheck#classCountDisagrees}. */
+  get rootCountDisagrees() {
+    return (
+      this.declaredRootCount != null &&
+      this.declaredRootCount !== this.actualRootCount
+    );
+  }
+
+  /**
+   * Whether either declared size disagrees with the payload.
+   *
+   * The exporter derives both counts *from* the payload it writes, so a
+   * disagreement cannot arise from a normal export — it means the file was
+   * edited or truncated afterwards.
+   */
+  get countsDisagree() {
+    return this.classCountDisagrees || this.rootCountDisagrees;
+  }
+
+  /** Whether anything at all was found. */
+  get isStale() {
+    return this.isAged || this.countsDisagree;
+  }
+
+  /** The findings as ready-to-display sentences, empty when there are none.
+   * The wording is identical in all nine runtimes.
+   * @returns {string[]} */
+  get warnings() {
+    const out = [];
+    if (this.isAged) {
+      const days = Math.trunc(this.ageMs / MILLIS_PER_DAY);
+      const threshold = Math.trunc(this.maxAgeMs / MILLIS_PER_DAY);
+      out.push(
+        `Snapshot is ${days} days old (threshold ${threshold} days) — the ` +
+          'model may have moved on since it was exported.',
+      );
+    }
+    if (this.classCountDisagrees) {
+      out.push(
+        `Stamp declares ${this.declaredClassCount} classes but the snapshot ` +
+          `carries ${this.actualClassCount} — it was edited after export.`,
+      );
+    }
+    if (this.rootCountDisagrees) {
+      out.push(
+        `Stamp declares ${this.declaredRootCount} document roots but the ` +
+          `snapshot carries ${this.actualRootCount} — it was edited after ` +
+          'export.',
+      );
+    }
+    return out;
+  }
+}
+
 /** The complete exported model. */
 class SpecModel {
-  constructor({ roots, classes, modelVersion = 0, modelVersionLabel = null }) {
+  constructor({
+    roots,
+    classes,
+    modelVersion = 0,
+    modelVersionLabel = null,
+    generatedAt = null,
+    metaSchemaVersion = null,
+    classCount = null,
+    rootCount = null,
+    containerRoot = null,
+  }) {
     this.roots = roots;
     /** @type {Map<string, SpecClass>} */
     this.classes = classes;
     this.modelVersion = modelVersion;
     this.modelVersionLabel = modelVersionLabel;
+    /** When the snapshot was exported (UTC), or null when it carries no
+     * `generatedAt` — an export predating the key, or a hand-built model.
+     * @type {?Date} */
+    this.generatedAt = generatedAt;
+    /** The *file format's* own version, distinct from `modelVersion` (which
+     * model the snapshot describes). Null when undeclared. @type {?number} */
+    this.metaSchemaVersion = metaSchemaVersion;
+    /** The class count the snapshot declares, or null when undeclared. Kept
+     * separate from `classes.size`: the declared value is what the exporter
+     * recorded, the actual value is what survived to the reader, and comparing
+     * them is the point ({@link SpecModel#checkStamp}). @type {?number} */
+    this.classCount = classCount;
+    /** The document-root count the snapshot declares, or null. @type {?number} */
+    this.rootCount = rootCount;
+    /** The canonical container class — the single true tree root, which is not
+     * itself a document and so does not appear in `roots`. Null when the model
+     * has no container (e.g. a synthetic export). @type {?string} */
+    this.containerRoot = containerRoot;
+  }
+
+  /**
+   * Checks the generation stamp against the payload and the clock.
+   *
+   * `now` is injectable so callers (and tests) can evaluate age against a fixed
+   * instant instead of the wall clock.
+   *
+   * @param {{maxAgeMs?: number, now?: ?Date}} [options]
+   * @returns {SpecModelStampCheck}
+   */
+  checkStamp({ maxAgeMs = DEFAULT_MAX_SNAPSHOT_AGE_MS, now = null } = {}) {
+    const moment = now == null ? new Date() : now;
+    return new SpecModelStampCheck({
+      ageMs:
+        this.generatedAt == null
+          ? null
+          : moment.getTime() - this.generatedAt.getTime(),
+      maxAgeMs,
+      declaredClassCount: this.classCount,
+      actualClassCount: this.classes.size,
+      declaredRootCount: this.rootCount,
+      actualRootCount: this.roots.length,
+    });
   }
 
   classNamed(name) {
@@ -257,11 +520,17 @@ class SpecModel {
     }
     const roots = j.roots.map((e) => SpecRoot.fromJson(e));
     const label = j.modelVersionLabel;
+    const container = j.containerRoot;
     return new SpecModel({
       roots,
       classes,
       modelVersion: parseInt(j.modelVersion || 0, 10) || 0,
       modelVersionLabel: label ? label : null,
+      generatedAt: parseStampTimestamp(j.generatedAt),
+      metaSchemaVersion: optionalInt(j.metaSchemaVersion),
+      classCount: optionalInt(j.classCount),
+      rootCount: optionalInt(j.rootCount),
+      containerRoot: container ? container : null,
     });
   }
 }
@@ -303,5 +572,8 @@ module.exports = {
   SpecClass,
   SpecRoot,
   SpecModel,
+  SpecModelStampCheck,
+  DEFAULT_MAX_SNAPSHOT_AGE_MS,
+  parseStampTimestamp,
   somModelVersionString,
 };

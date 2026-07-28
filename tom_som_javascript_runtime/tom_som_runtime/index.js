@@ -22,6 +22,9 @@ const {
   SpecClass,
   SpecRoot,
   SpecModel,
+  SpecModelStampCheck,
+  DEFAULT_MAX_SNAPSHOT_AGE_MS,
+  parseStampTimestamp,
   somModelVersionString,
 } = require('./spec_model');
 const {
@@ -126,6 +129,9 @@ module.exports = {
   SpecClass,
   SpecRoot,
   SpecModel,
+  SpecModelStampCheck,
+  DEFAULT_MAX_SNAPSHOT_AGE_MS,
+  parseStampTimestamp,
   somModelVersionString,
   // reflection
   SpecNodeKind,

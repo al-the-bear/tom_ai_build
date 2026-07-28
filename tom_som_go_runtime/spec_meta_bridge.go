@@ -23,19 +23,19 @@ import "sort"
 // slottedAnnotations holds annotation names that have a dedicated SomMetaNode
 // slot; everything else is captured losslessly into SomMetaNode.Extra.
 var slottedAnnotations = map[string]bool{
-	"SectionId":            true,
-	"SectionIdPattern":     true,
-	"SerializationOrder":   true,
-	"Min":                  true,
-	"Unused":               true,
-	"ContentType":          true,
-	"ContentHelp":          true,
-	"Headline":             true,
-	"Comment":              true,
-	"Form":                 true,
-	"Document":             true,
-	"MapsTo":               true,
-	"DetailedIn":           true,
+	"SectionId":          true,
+	"SectionIdPattern":   true,
+	"SerializationOrder": true,
+	"Min":                true,
+	"Unused":             true,
+	"ContentType":        true,
+	"ContentHelp":        true,
+	"Headline":           true,
+	"Comment":            true,
+	"Form":               true,
+	"Document":           true,
+	"MapsTo":             true,
+	"DetailedIn":         true,
 }
 
 // BuildSomMetaTree builds the wired SomMetaTree for one document root of

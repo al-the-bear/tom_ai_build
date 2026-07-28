@@ -35,6 +35,10 @@ export {
   SpecClass,
   SpecRoot,
   SpecModel,
+  SpecModelStampCheck,
+  MILLIS_PER_DAY,
+  DEFAULT_MAX_SNAPSHOT_AGE_MS,
+  parseStampTimestamp,
   somModelVersionString,
 } from './spec_model';
 export type { SpecFieldKindValue } from './spec_model';

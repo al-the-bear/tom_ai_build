@@ -414,7 +414,8 @@ language mirrors it:
 - `spec_document.dart` — `SpecDocument` path-keyed memory representation + undo
   snapshots.
 - `spec_model.dart` — the reflection classes: `SpecModel`, `SpecRoot`,
-  `SpecClass`, `SpecField`, `SpecAnnotation`, `FormFieldSpec`, `SpecFieldKind`.
+  `SpecClass`, `SpecField`, `SpecAnnotation`, `FormFieldSpec`, `SpecFieldKind`,
+  plus the generation-stamp reader (`SpecModelStampCheck` / `checkStamp`, below).
 - `spec_reflection.dart` — `SpecReflection` value-free enumeration + path
   resolution.
 - `spec_validator.dart` — `validateDocument`.
@@ -429,6 +430,43 @@ language mirrors it:
   the editing support the typed facade extends.
 - `spec_query.dart` — the query facility (§15).
 - `spec_node_creation.dart` — the constrained-creation gate (§15).
+
+### The generation stamp
+
+Every runtime's `SpecModel` reads the five stamp keys the exporter writes —
+`generatedAt`, `metaSchemaVersion`, `classCount`, `rootCount`, `containerRoot`
+(`tom_specs_model_meta_schema.md`) — and `checkStamp(maxAge, now)` returns a
+`SpecModelStampCheck`: the snapshot's age against a threshold (default **14
+days**) plus a comparison of each declared count against what the payload
+actually carries. The exporter derives both counts *from* the payload it writes,
+so a disagreement cannot arise from a normal export — it means the file was
+edited afterwards. The three warning sentences are byte-identical in all nine
+languages.
+
+Every stamp key is **optional and stays absent when absent** — never defaulted
+to zero. A pre-stamp snapshot must not look like one edited down to nothing.
+
+`generatedAt` is parsed by an **explicitly spelled-out grammar**
+(`YYYY-MM-DD[T ]hh:mm:ss[.fraction][Z|±hh[:]mm]`), never by the platform's own
+date parser: the accepted set differs by language, and a stamp that reads on one
+platform and not another is exactly the divergence the conformance corpus exists
+to catch. Three consequences are load-bearing:
+
+- a **zone-less** timestamp is read as **UTC**, never local time — a staleness
+  verdict that changed with the reader's timezone would be a defect in itself;
+- a day that does not exist in its month (31 February) is **rejected**, not
+  rolled over into the next month;
+- a date-only string is outside the grammar, and anything unparseable degrades
+  to absent rather than throwing.
+
+The sub-second part is accepted and discarded. Languages with a calendar type
+carry the instant in it (`DateTime`, `datetime`, `Date`, `Instant`,
+`*time.Time`); Rust, C and C++ carry **epoch seconds**, their standard libraries
+having no calendar type at all.
+
+`tom_som_conformance/corpus/stamp_cases.json` pins the whole contract — decoded
+keys, verdict flags, age, and warning text — from one hand-written table, so all
+nine runtimes agree with the *contract* rather than merely with themselves.
 
 ## 10. Per-language emitter conventions
 

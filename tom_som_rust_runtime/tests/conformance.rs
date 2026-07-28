@@ -27,7 +27,9 @@ use tom_som_rust_runtime::spec_document_markdown::{SpecDocumentMarkdown, SpecMar
 use tom_som_rust_runtime::spec_document_yaml::{decode_yaml, encode_yaml};
 use tom_som_rust_runtime::spec_meta::SomMetaTree;
 use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
-use tom_som_rust_runtime::spec_model::SpecModel;
+use tom_som_rust_runtime::spec_model::{
+    SpecModel, DEFAULT_MAX_SNAPSHOT_AGE_SECONDS, SECONDS_PER_DAY,
+};
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
 use tom_som_rust_runtime::spec_section_id::{
     encode_two_letter_date, generate_list_item_section_id, is_collision,
@@ -132,6 +134,7 @@ fn conformance() {
     let tree = build_som_meta_tree(&model, "").expect("meta tree");
 
     test_model_meta(&mut c, &model);
+    test_stamp(&mut c, &model);
     test_state_round_trip(&mut c);
     test_yaml_encode(&mut c, &tree);
     test_yaml_decode_round_trip(&mut c, &tree);
@@ -167,6 +170,123 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
             "control",
         ];
         c.check("model.Demo.fields", names == want, &names.join(","));
+    }
+}
+
+/// The generation stamp: the five keys the exporter writes, and the staleness
+/// verdict every runtime must reach from the same input.
+fn test_stamp(c: &mut Checker, model: &SpecModel) {
+    // The shared model fixture carries the stamp, minus `containerRoot` (it is a
+    // single synthetic document with no container class).
+    c.check(
+        "stamp.meta.generatedAt",
+        model.generated_at == Some(1_784_534_400),
+        "",
+    );
+    c.check(
+        "stamp.meta.metaSchemaVersion",
+        model.meta_schema_version == Some(1),
+        "",
+    );
+    c.check(
+        "stamp.meta.classCount",
+        model.class_count == Some(model.classes.len() as i64),
+        "",
+    );
+    c.check(
+        "stamp.meta.rootCount",
+        model.root_count == Some(model.roots.len() as i64),
+        "",
+    );
+    c.check("stamp.meta.containerRoot", model.container_root.is_empty(), "");
+
+    let table = read_json("stamp_cases.json");
+    c.check(
+        "stamp.defaultMaxAgeDays",
+        table.get("defaultMaxAgeDays").and_then(|v| v.as_i64())
+            == Some(DEFAULT_MAX_SNAPSHOT_AGE_SECONDS / SECONDS_PER_DAY),
+        "",
+    );
+    for kase in table
+        .get("cases")
+        .and_then(|v| v.as_array())
+        .unwrap_or(&[])
+    {
+        let name = kase.str_or("name");
+        let loaded = SpecModel::from_json(kase.get("model").expect("case.model"));
+        let want = kase.get("expect").expect("case.expect");
+        let opt = |v: &Json, k: &str| v.get(k).and_then(|x| x.as_i64());
+        c.check(
+            &format!("stamp[{}].generatedAt", name),
+            loaded.generated_at == opt(want, "generatedAtEpochSeconds"),
+            &format!("{:?}", loaded.generated_at),
+        );
+        c.check(
+            &format!("stamp[{}].metaSchemaVersion", name),
+            loaded.meta_schema_version == opt(want, "metaSchemaVersion"),
+            "",
+        );
+        c.check(
+            &format!("stamp[{}].classCount", name),
+            loaded.class_count == opt(want, "classCount"),
+            "",
+        );
+        c.check(
+            &format!("stamp[{}].rootCount", name),
+            loaded.root_count == opt(want, "rootCount"),
+            "",
+        );
+        c.check(
+            &format!("stamp[{}].containerRoot", name),
+            loaded.container_root == want.str_or("containerRoot"),
+            &loaded.container_root,
+        );
+        c.check(
+            &format!("stamp[{}].actualClassCount", name),
+            Some(loaded.classes.len() as i64) == opt(want, "actualClassCount"),
+            "",
+        );
+        c.check(
+            &format!("stamp[{}].actualRootCount", name),
+            Some(loaded.roots.len() as i64) == opt(want, "actualRootCount"),
+            "",
+        );
+
+        let wc = kase.get("check").expect("case.check");
+        let got = loaded.check_stamp(
+            opt(wc, "maxAgeDays").unwrap_or(0) * SECONDS_PER_DAY,
+            opt(wc, "nowEpochSeconds").unwrap_or(0),
+        );
+        c.check(
+            &format!("stamp[{}].ageSeconds", name),
+            got.age_seconds == opt(wc, "ageSeconds"),
+            &format!("{:?}", got.age_seconds),
+        );
+        for (key, actual) in [
+            ("isAged", got.is_aged()),
+            ("classCountDisagrees", got.class_count_disagrees()),
+            ("rootCountDisagrees", got.root_count_disagrees()),
+            ("countsDisagree", got.counts_disagree()),
+            ("isStale", got.is_stale()),
+        ] {
+            c.check(
+                &format!("stamp[{}].{}", name, key),
+                actual == wc.bool_or(key),
+                "",
+            );
+        }
+        let want_warnings: Vec<String> = wc
+            .get("warnings")
+            .and_then(|v| v.as_array())
+            .unwrap_or(&[])
+            .iter()
+            .map(|v| v.as_str().unwrap_or("").to_string())
+            .collect();
+        c.check(
+            &format!("stamp[{}].warnings", name),
+            got.warnings() == want_warnings,
+            &got.warnings().join(" | "),
+        );
     }
 }
 

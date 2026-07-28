@@ -79,7 +79,7 @@ The conformance harness (`tests/conformance.cpp`) loads the language-agnostic
 corpus (`../tom_som_conformance/corpus`) and reproduces the same checks as every
 other port — model meta, `state.json` round-trip, YAML encode/decode, Markdown
 export/parse/landing, reflection, validation, and the imperative operations
-script. Exit 0 == all green; it prints `OK: 95 checks passed`.
+script. Exit 0 == all green; it prints `OK: N checks passed`.
 
 The corpus directory can be overridden:
 

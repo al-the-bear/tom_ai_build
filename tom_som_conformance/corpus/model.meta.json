@@ -2,6 +2,9 @@
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
+  "generatedAt": "2026-07-20T08:00:00.000000Z",
+  "classCount": 5,
+  "rootCount": 1,
   "roots": [
     {
       "type": "Demo",

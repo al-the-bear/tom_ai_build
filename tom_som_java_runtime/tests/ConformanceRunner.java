@@ -3,6 +3,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,6 +22,7 @@ import tom_som_runtime.SpecField;
 import tom_som_runtime.SpecMarkdownRejection;
 import tom_som_runtime.SpecMarkdownResult;
 import tom_som_runtime.SpecModel;
+import tom_som_runtime.SpecModelStampCheck;
 import tom_som_runtime.SpecReflection;
 import tom_som_runtime.SpecResolution;
 import tom_som_runtime.SpecRoot;
@@ -122,6 +125,103 @@ public final class ConformanceRunner {
               "meta", "control");
       check("model.Demo.fields", names.equals(want), names.toString());
     }
+  }
+
+  /**
+   * The generation stamp: the five keys the exporter writes, and the staleness
+   * verdict every runtime must reach from the same input.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testStamp(SpecModel model) throws IOException {
+    // The shared model fixture carries the stamp, minus `containerRoot` (it is a
+    // single synthetic document with no container class).
+    check(
+        "stamp.meta.generatedAt",
+        model.generatedAt != null && model.generatedAt.getEpochSecond() == 1784534400L,
+        String.valueOf(model.generatedAt));
+    check("stamp.meta.metaSchemaVersion", Integer.valueOf(1).equals(model.metaSchemaVersion), "");
+    check(
+        "stamp.meta.classCount",
+        model.classCount != null && model.classCount == model.classes.size(),
+        "");
+    check(
+        "stamp.meta.rootCount",
+        model.rootCount != null && model.rootCount == model.roots.size(),
+        "");
+    check("stamp.meta.containerRoot", model.containerRoot == null, "");
+
+    Map<String, Object> table = readJsonObject("stamp_cases.json");
+    check(
+        "stamp.defaultMaxAgeDays",
+        ((Number) table.get("defaultMaxAgeDays")).longValue()
+            == SpecModel.DEFAULT_MAX_SNAPSHOT_AGE.toDays(),
+        "");
+    for (Object rawCase : (List<Object>) table.get("cases")) {
+      Map<String, Object> kase = (Map<String, Object>) rawCase;
+      String name = (String) kase.get("name");
+      SpecModel loaded = SpecModel.fromJson((Map<String, Object>) kase.get("model"));
+      Map<String, Object> want = (Map<String, Object>) kase.get("expect");
+      Long gotEpoch = loaded.generatedAt == null ? null : loaded.generatedAt.getEpochSecond();
+      Long wantEpoch = optionalLong(want.get("generatedAtEpochSeconds"));
+      check(
+          "stamp[" + name + "].generatedAt",
+          Objects.equals(gotEpoch, wantEpoch),
+          gotEpoch + " != " + wantEpoch);
+      checkOptionalInt(name, "metaSchemaVersion", loaded.metaSchemaVersion, want);
+      checkOptionalInt(name, "classCount", loaded.classCount, want);
+      checkOptionalInt(name, "rootCount", loaded.rootCount, want);
+      check(
+          "stamp[" + name + "].containerRoot",
+          Objects.equals(loaded.containerRoot, want.get("containerRoot")),
+          loaded.containerRoot + " != " + want.get("containerRoot"));
+      check(
+          "stamp[" + name + "].actualClassCount",
+          loaded.classes.size() == ((Number) want.get("actualClassCount")).intValue(),
+          "");
+      check(
+          "stamp[" + name + "].actualRootCount",
+          loaded.roots.size() == ((Number) want.get("actualRootCount")).intValue(),
+          "");
+
+      Map<String, Object> wc = (Map<String, Object>) kase.get("check");
+      SpecModelStampCheck got =
+          loaded.checkStamp(
+              Duration.ofDays(((Number) wc.get("maxAgeDays")).longValue()),
+              Instant.ofEpochSecond(((Number) wc.get("nowEpochSeconds")).longValue()));
+      Long ageSeconds = got.age == null ? null : got.age.getSeconds();
+      Long wantAge = optionalLong(wc.get("ageSeconds"));
+      check(
+          "stamp[" + name + "].ageSeconds",
+          Objects.equals(ageSeconds, wantAge),
+          ageSeconds + " != " + wantAge);
+      checkFlag(name, "isAged", got.isAged(), wc);
+      checkFlag(name, "classCountDisagrees", got.classCountDisagrees(), wc);
+      checkFlag(name, "rootCountDisagrees", got.rootCountDisagrees(), wc);
+      checkFlag(name, "countsDisagree", got.countsDisagree(), wc);
+      checkFlag(name, "isStale", got.isStale(), wc);
+      check(
+          "stamp[" + name + "].warnings",
+          got.warnings().equals(wc.get("warnings")),
+          got.warnings() + " != " + wc.get("warnings"));
+    }
+  }
+
+  private static Long optionalLong(Object raw) {
+    return raw instanceof Number ? ((Number) raw).longValue() : null;
+  }
+
+  private static void checkOptionalInt(
+      String caseName, String key, Integer got, Map<String, Object> want) {
+    Long expected = optionalLong(want.get(key));
+    Long actual = got == null ? null : got.longValue();
+    check("stamp[" + caseName + "]." + key, Objects.equals(actual, expected),
+        actual + " != " + expected);
+  }
+
+  private static void checkFlag(
+      String caseName, String key, boolean got, Map<String, Object> want) {
+    check("stamp[" + caseName + "]." + key, got == Boolean.TRUE.equals(want.get(key)),
+        got + " != " + want.get(key));
   }
 
   private static void testStateRoundTrip() throws IOException {
@@ -527,6 +627,7 @@ public final class ConformanceRunner {
     SpecModel model = loadModel();
     SomMetaTree tree = SomMetaBridge.buildSomMetaTree(model, null);
     testModelMeta(model);
+    testStamp(model);
     testStateRoundTrip();
     testYamlEncode(tree);
     testYamlDecodeRoundTrip(tree);

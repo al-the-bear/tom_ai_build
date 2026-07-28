@@ -129,6 +129,47 @@ void main() {
     });
   });
 
+  group('parseStampTimestamp', () {
+    test('reads Z and explicit offsets to the same instant', () {
+      final z = parseStampTimestamp('2026-07-20T08:00:00.000000Z')!;
+      expect(z, DateTime.utc(2026, 7, 20, 8));
+      expect(z.isUtc, isTrue);
+      expect(parseStampTimestamp('2026-07-20T10:00:00+02:00'), z);
+      expect(parseStampTimestamp('2026-07-20T03:00:00-05:00'), z);
+    });
+
+    test('reads a zone-less timestamp as UTC, not as local time', () {
+      // `DateTime.parse` would read this as the reader's local time, making the
+      // staleness verdict depend on where the reader sits. The other eight SOM
+      // runtimes cannot mirror that (several carry no timezone database), so
+      // the grammar fixes the fallback instead.
+      expect(parseStampTimestamp('2026-07-20T08:00:00'),
+          DateTime.utc(2026, 7, 20, 8));
+      expect(parseStampTimestamp('2026-07-20T08:00:00.123456')!.microsecond,
+          456);
+    });
+
+    test('an offset written without a colon is accepted', () {
+      expect(parseStampTimestamp('2026-07-20T10:00:00+0200'),
+          DateTime.utc(2026, 7, 20, 8));
+    });
+
+    test('unparseable, empty and absent input all degrade to null', () {
+      expect(parseStampTimestamp('not-a-date'), isNull);
+      expect(parseStampTimestamp(''), isNull);
+      expect(parseStampTimestamp(null), isNull);
+      // A date with no time is outside the grammar.
+      expect(parseStampTimestamp('2026-07-20'), isNull);
+    });
+
+    test('an out-of-range field is unreadable rather than rolled over', () {
+      // `DateTime.utc(2026, 13, …)` would silently become January 2027.
+      expect(parseStampTimestamp('2026-13-20T08:00:00Z'), isNull);
+      expect(parseStampTimestamp('2026-07-32T08:00:00Z'), isNull);
+      expect(parseStampTimestamp('2026-07-20T24:00:00Z'), isNull);
+    });
+  });
+
   group('SpecModel.checkStamp', () {
     Map<String, dynamic> json({
       String? generatedAt = '2026-07-20T08:00:00.000000Z',

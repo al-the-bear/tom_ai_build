@@ -1,5 +1,6 @@
 #include "spec_model.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -196,6 +197,212 @@ static void class_from_json(const char *name, const SomJson *cls, SpecClass *out
   out->annotations = annotations_from_json(som_json_get(cls, "annotations"));
 }
 
+/* ---- generation stamp ---------------------------------------------------- */
+
+/* The length of `month` in `year`, Gregorian. Used to reject a day that does not
+ * exist rather than letting it roll into the next month: some SOM runtimes' date
+ * types would turn 31 February into 3 March while others reject it outright — so
+ * the grammar rejects it everywhere. */
+static long long days_in_month(long long year, long long month) {
+  static const long long lengths[] = {31, 28, 31, 30, 31, 30,
+                                      31, 31, 30, 31, 30, 31};
+  if (month != 2) {
+    return lengths[month - 1];
+  }
+  if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+    return 29;
+  }
+  return 28;
+}
+
+/* Days since 1970-01-01 for a proleptic-Gregorian civil date (Howard Hinnant's
+ * `days_from_civil`) — the same arithmetic the Rust, Java and C++ ports use. */
+static long long epoch_day(long long year, long long month, long long day) {
+  long long y = year - (month <= 2 ? 1 : 0);
+  long long era = (y >= 0 ? y : y - 399) / 400;
+  long long yoe = y - era * 400;
+  long long doy = (153 * (month + (month > 2 ? -3 : 9)) + 2) / 5 + day - 1;
+  long long doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+  return era * 146097 + doe - 719468;
+}
+
+static int is_digit(char c) { return c >= '0' && c <= '9'; }
+
+/* Reads `count` decimal digits at `at`, or returns 0 when any is not a digit. */
+static int digits_at(const char *b, size_t len, size_t at, size_t count,
+                     long long *out) {
+  if (at + count > len) {
+    return 0;
+  }
+  long long value = 0;
+  for (size_t i = 0; i < count; i++) {
+    char c = b[at + i];
+    if (!is_digit(c)) {
+      return 0;
+    }
+    value = value * 10 + (c - '0');
+  }
+  *out = value;
+  return 1;
+}
+
+int spec_parse_stamp_timestamp(const char *raw, long long *out) {
+  if (raw == NULL) {
+    return 0;
+  }
+  /* Trim ASCII whitespace at both ends without copying. */
+  size_t start = 0;
+  size_t end = strlen(raw);
+  while (start < end && (raw[start] == ' ' || raw[start] == '\t' ||
+                         raw[start] == '\n' || raw[start] == '\r')) {
+    start++;
+  }
+  while (end > start && (raw[end - 1] == ' ' || raw[end - 1] == '\t' ||
+                         raw[end - 1] == '\n' || raw[end - 1] == '\r')) {
+    end--;
+  }
+  const char *b = raw + start;
+  size_t len = end - start;
+
+  if (len < 19 || b[4] != '-' || b[7] != '-' || b[13] != ':' || b[16] != ':') {
+    return 0;
+  }
+  if (b[10] != 'T' && b[10] != 't' && b[10] != ' ') {
+    return 0;
+  }
+  long long year, month, day, hour, minute, second;
+  if (!digits_at(b, len, 0, 4, &year) || !digits_at(b, len, 5, 2, &month) ||
+      !digits_at(b, len, 8, 2, &day) || !digits_at(b, len, 11, 2, &hour) ||
+      !digits_at(b, len, 14, 2, &minute) || !digits_at(b, len, 17, 2, &second)) {
+    return 0;
+  }
+  if (month < 1 || month > 12 || day < 1 || day > days_in_month(year, month)) {
+    return 0;
+  }
+  if (hour > 23 || minute > 59 || second > 59) {
+    return 0;
+  }
+
+  size_t idx = 19;
+  if (idx < len && b[idx] == '.') {
+    idx++;
+    size_t frac_start = idx;
+    while (idx < len && is_digit(b[idx])) {
+      idx++;
+    }
+    if (idx == frac_start) {
+      return 0; /* a `.` with no digits is not the grammar */
+    }
+  }
+
+  long long epoch = epoch_day(year, month, day) * SPEC_SECONDS_PER_DAY +
+                    hour * 3600 + minute * 60 + second;
+  if (idx < len) {
+    char sign = b[idx];
+    if (sign == 'Z' || sign == 'z') {
+      if (idx + 1 != len) {
+        return 0;
+      }
+    } else if (sign == '+' || sign == '-') {
+      const char *rest = b + idx + 1;
+      size_t rest_len = len - idx - 1;
+      long long oh, om;
+      if (rest_len == 4) {
+        if (!digits_at(rest, rest_len, 0, 2, &oh) ||
+            !digits_at(rest, rest_len, 2, 2, &om)) {
+          return 0;
+        }
+      } else if (rest_len == 5 && rest[2] == ':') {
+        if (!digits_at(rest, rest_len, 0, 2, &oh) ||
+            !digits_at(rest, rest_len, 3, 2, &om)) {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
+      long long offset = (oh * 60 + om) * 60;
+      epoch += (sign == '-') ? offset : -offset;
+    } else {
+      return 0;
+    }
+  }
+  *out = epoch;
+  return 1;
+}
+
+int spec_stamp_check_is_aged(const SpecModelStampCheck *c) {
+  return c->has_age && c->age_seconds > c->max_age_seconds;
+}
+
+int spec_stamp_check_class_count_disagrees(const SpecModelStampCheck *c) {
+  return c->has_declared_class_count &&
+         c->declared_class_count != c->actual_class_count;
+}
+
+int spec_stamp_check_root_count_disagrees(const SpecModelStampCheck *c) {
+  return c->has_declared_root_count &&
+         c->declared_root_count != c->actual_root_count;
+}
+
+int spec_stamp_check_counts_disagree(const SpecModelStampCheck *c) {
+  return spec_stamp_check_class_count_disagrees(c) ||
+         spec_stamp_check_root_count_disagrees(c);
+}
+
+int spec_stamp_check_is_stale(const SpecModelStampCheck *c) {
+  return spec_stamp_check_is_aged(c) || spec_stamp_check_counts_disagree(c);
+}
+
+/* Formats `fmt` with two `long long` arguments into an owned string. The
+ * warning sentences are short and bounded, so a fixed buffer is sound. */
+static char *format_two(const char *fmt, long long a, long long b) {
+  char buf[256];
+  snprintf(buf, sizeof(buf), fmt, a, b);
+  return som_strdup(buf);
+}
+
+void spec_stamp_check_warnings(const SpecModelStampCheck *c, SomStrList *out) {
+  som_strlist_init(out);
+  if (spec_stamp_check_is_aged(c)) {
+    som_strlist_push(
+        out, format_two("Snapshot is %lld days old (threshold %lld days) — the "
+                        "model may have moved on since it was exported.",
+                        c->age_seconds / SPEC_SECONDS_PER_DAY,
+                        c->max_age_seconds / SPEC_SECONDS_PER_DAY));
+  }
+  if (spec_stamp_check_class_count_disagrees(c)) {
+    som_strlist_push(
+        out, format_two("Stamp declares %lld classes but the snapshot carries "
+                        "%lld — it was edited after export.",
+                        c->declared_class_count, c->actual_class_count));
+  }
+  if (spec_stamp_check_root_count_disagrees(c)) {
+    som_strlist_push(
+        out, format_two("Stamp declares %lld document roots but the snapshot "
+                        "carries %lld — it was edited after export.",
+                        c->declared_root_count, c->actual_root_count));
+  }
+}
+
+SpecModelStampCheck spec_model_check_stamp(const SpecModel *m,
+                                           long long max_age_seconds,
+                                           long long now_epoch_seconds) {
+  SpecModelStampCheck c;
+  memset(&c, 0, sizeof(c));
+  c.max_age_seconds = max_age_seconds;
+  if (m->has_generated_at) {
+    c.has_age = 1;
+    c.age_seconds = now_epoch_seconds - m->generated_at;
+  }
+  c.has_declared_class_count = m->has_class_count;
+  c.declared_class_count = m->class_count;
+  c.actual_class_count = (long long)m->classes_len;
+  c.has_declared_root_count = m->has_root_count;
+  c.declared_root_count = m->root_count;
+  c.actual_root_count = (long long)m->roots_len;
+  return c;
+}
+
 static int class_entry_cmp(const void *a, const void *b) {
   const SpecClassEntry *ea = (const SpecClassEntry *)a;
   const SpecClassEntry *eb = (const SpecClassEntry *)b;
@@ -241,6 +448,20 @@ static void populate_model(SpecModel *m, const SomJson *root) {
   som_json_as_i64(som_json_get(root, "modelVersion"), &mv);
   m->model_version = mv;
   m->model_version_label = str_or_dup(root, "modelVersionLabel");
+
+  /* Generation stamp — every key optional. An absent count stays absent rather
+   * than defaulting to zero: reading absent as 0 would make every pre-stamp
+   * snapshot look like it had been edited down to nothing. */
+  m->has_generated_at =
+      spec_parse_stamp_timestamp(som_json_str_or(root, "generatedAt"),
+                                 &m->generated_at);
+  m->has_meta_schema_version = som_json_as_i64(
+      som_json_get(root, "metaSchemaVersion"), &m->meta_schema_version);
+  m->has_class_count =
+      som_json_as_i64(som_json_get(root, "classCount"), &m->class_count);
+  m->has_root_count =
+      som_json_as_i64(som_json_get(root, "rootCount"), &m->root_count);
+  m->container_root = str_or_dup(root, "containerRoot");
 }
 
 SpecModel *spec_model_from_json(const SomJson *root) {
@@ -328,6 +549,7 @@ void spec_model_free(SpecModel *m) {
   }
   free(m->classes);
   free(m->model_version_label);
+  free(m->container_root);
   if (m->source != NULL) {
     som_json_free(m->source); /* NULL when built from a borrowed node */
   }

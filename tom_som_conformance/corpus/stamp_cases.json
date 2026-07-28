@@ -1,0 +1,793 @@
+{
+  "defaultMaxAgeDays": 14,
+  "cases": [
+    {
+      "name": "a full stamp decodes all five keys",
+      "model": {
+        "generatedAt": "2026-07-20T08:00:00.000000Z",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": 86400,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "a pre-stamp snapshot decodes to nulls, not zeroes",
+      "model": {
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": null,
+        "metaSchemaVersion": null,
+        "classCount": null,
+        "rootCount": null,
+        "containerRoot": null,
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1789718400,
+        "maxAgeDays": 14,
+        "ageSeconds": null,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "an unparseable generatedAt degrades to null, rest still decodes",
+      "model": {
+        "generatedAt": "not-a-date",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": null,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": null,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "a +HH:MM offset resolves to the same instant as Z",
+      "model": {
+        "generatedAt": "2026-07-20T10:00:00+02:00",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": 86400,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "a -HH:MM offset resolves to the same instant as Z",
+      "model": {
+        "generatedAt": "2026-07-20T03:00:00-05:00",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": 86400,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "an offset without a colon is accepted",
+      "model": {
+        "generatedAt": "2026-07-20T10:00:00+0200",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": 86400,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "a zone-less timestamp is read as UTC, not local time",
+      "model": {
+        "generatedAt": "2026-07-20T08:00:00",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": 86400,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "an out-of-range month is unreadable, not rolled over",
+      "model": {
+        "generatedAt": "2026-13-20T08:00:00Z",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": null,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": null,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "a day that does not exist in its month is unreadable",
+      "model": {
+        "generatedAt": "2026-02-31T08:00:00Z",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": null,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": null,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "a date with no time is outside the grammar",
+      "model": {
+        "generatedAt": "2026-07-20",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": null,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": null,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "a snapshot older than the threshold is aged",
+      "model": {
+        "generatedAt": "2026-07-20T08:00:00.000000Z",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1789718400,
+        "maxAgeDays": 14,
+        "ageSeconds": 5184000,
+        "isAged": true,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": true,
+        "warnings": [
+          "Snapshot is 60 days old (threshold 14 days) — the model may have moved on since it was exported."
+        ]
+      }
+    },
+    {
+      "name": "the age threshold is caller-controlled (tolerant)",
+      "model": {
+        "generatedAt": "2026-07-20T08:00:00.000000Z",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1789718400,
+        "maxAgeDays": 90,
+        "ageSeconds": 5184000,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "the age threshold is caller-controlled (strict)",
+      "model": {
+        "generatedAt": "2026-07-20T08:00:00.000000Z",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 0,
+        "ageSeconds": 86400,
+        "isAged": true,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": true,
+        "warnings": [
+          "Snapshot is 1 days old (threshold 0 days) — the model may have moved on since it was exported."
+        ]
+      }
+    },
+    {
+      "name": "a declared class count that disagrees is flagged",
+      "model": {
+        "generatedAt": "2026-07-20T08:00:00.000000Z",
+        "metaSchemaVersion": 1,
+        "classCount": 99,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 99,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": 86400,
+        "isAged": false,
+        "classCountDisagrees": true,
+        "rootCountDisagrees": false,
+        "countsDisagree": true,
+        "isStale": true,
+        "warnings": [
+          "Stamp declares 99 classes but the snapshot carries 2 — it was edited after export."
+        ]
+      }
+    },
+    {
+      "name": "a declared root count that disagrees is flagged",
+      "model": {
+        "generatedAt": "2026-07-20T08:00:00.000000Z",
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 7,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 7,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1784620800,
+        "maxAgeDays": 14,
+        "ageSeconds": 86400,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": true,
+        "countsDisagree": true,
+        "isStale": true,
+        "warnings": [
+          "Stamp declares 7 document roots but the snapshot carries 1 — it was edited after export."
+        ]
+      }
+    },
+    {
+      "name": "age and count findings are independent and both reported",
+      "model": {
+        "generatedAt": "2026-07-20T08:00:00.000000Z",
+        "metaSchemaVersion": 1,
+        "classCount": 99,
+        "rootCount": 7,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": 1784534400,
+        "metaSchemaVersion": 1,
+        "classCount": 99,
+        "rootCount": 7,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1789718400,
+        "maxAgeDays": 14,
+        "ageSeconds": 5184000,
+        "isAged": true,
+        "classCountDisagrees": true,
+        "rootCountDisagrees": true,
+        "countsDisagree": true,
+        "isStale": true,
+        "warnings": [
+          "Snapshot is 60 days old (threshold 14 days) — the model may have moved on since it was exported.",
+          "Stamp declares 99 classes but the snapshot carries 2 — it was edited after export.",
+          "Stamp declares 7 document roots but the snapshot carries 1 — it was edited after export."
+        ]
+      }
+    },
+    {
+      "name": "a snapshot without generatedAt is never aged",
+      "model": {
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "roots": [
+          {
+            "type": "R0",
+            "title": "Root 0"
+          }
+        ],
+        "classes": {
+          "C0": {
+            "name": "C0",
+            "fields": []
+          },
+          "C1": {
+            "name": "C1",
+            "fields": []
+          }
+        }
+      },
+      "expect": {
+        "generatedAtEpochSeconds": null,
+        "metaSchemaVersion": 1,
+        "classCount": 2,
+        "rootCount": 1,
+        "containerRoot": "DemoProject",
+        "actualClassCount": 2,
+        "actualRootCount": 1
+      },
+      "check": {
+        "nowEpochSeconds": 1789718400,
+        "maxAgeDays": 14,
+        "ageSeconds": null,
+        "isAged": false,
+        "classCountDisagrees": false,
+        "rootCountDisagrees": false,
+        "countsDisagree": false,
+        "isStale": false,
+        "warnings": []
+      }
+    }
+  ]
+}

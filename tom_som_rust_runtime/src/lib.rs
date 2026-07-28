@@ -70,8 +70,9 @@ pub use spec_meta::{
 pub use spec_meta_bridge::build_som_meta_tree;
 pub use spec_meta_diff::som_meta_node_diff;
 pub use spec_model::{
-    parse_field_kind, som_model_version_string, FormFieldSpec, SpecAnnotation, SpecClass,
-    SpecField, SpecModel, SpecRoot,
+    parse_field_kind, parse_stamp_timestamp, som_model_version_string, FormFieldSpec,
+    SpecAnnotation, SpecClass, SpecField, SpecModel, SpecModelStampCheck, SpecRoot,
+    DEFAULT_MAX_SNAPSHOT_AGE_SECONDS, SECONDS_PER_DAY,
 };
 pub use spec_paths::{
     list_item_path, spec_parent_path, spec_path_join, spec_path_segments, split_list_item_segment,

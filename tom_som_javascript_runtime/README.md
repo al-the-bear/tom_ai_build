@@ -68,7 +68,7 @@ node tests/conformance_runner.js   # or: ./run_conformance.sh, or: node --test
 
 This asserts byte-for-byte equality of the YAML and Markdown encodings, the
 document round-trips, the Markdown→memory landing, and the reflection /
-validation / operations behaviour (95 checks, exit 0 on success).
+validation / operations behaviour (prints `OK: N checks passed`, exit 0 on success).
 
 ## Requirements
 

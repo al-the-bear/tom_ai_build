@@ -72,13 +72,16 @@ from .spec_meta import (
 from .spec_meta_bridge import build_som_meta_tree
 from .spec_meta_diff import som_meta_node_diff
 from .spec_model import (
+    DEFAULT_MAX_SNAPSHOT_AGE,
     FormFieldSpec,
     SpecAnnotation,
     SpecClass,
     SpecField,
     SpecFieldKind,
     SpecModel,
+    SpecModelStampCheck,
     SpecRoot,
+    parse_stamp_timestamp,
 )
 from .spec_paths import (
     SPEC_PATH_SEPARATOR,
@@ -101,6 +104,7 @@ from .spec_validator import (
 )
 
 __all__ = [
+    "DEFAULT_MAX_SNAPSHOT_AGE",
     "DocSpecsDocument",
     "DocSpecsDocumentSection",
     "DocSpecsFormField",
@@ -143,6 +147,7 @@ __all__ = [
     "SpecMarkdownRejection",
     "SpecMarkdownResult",
     "SpecModel",
+    "SpecModelStampCheck",
     "SpecNodeKind",
     "SpecReflection",
     "SpecResolution",
@@ -161,6 +166,7 @@ __all__ = [
     "encode_two_letter_date",
     "generate_list_item_section_id",
     "list_item_path",
+    "parse_stamp_timestamp",
     "section_id_pattern_prefix",
     "som_editability_for",
     "spec_parent_path",

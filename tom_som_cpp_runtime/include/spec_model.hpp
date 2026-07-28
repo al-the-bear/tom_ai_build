@@ -105,11 +105,83 @@ struct SpecRoot {
   std::string doc;
 };
 
+/* Seconds in a day — the unit ages and thresholds are reported in. */
+inline constexpr long long kSecondsPerDay = 86400;
+
+/* How old a snapshot may get before SpecModel::checkStamp calls it aged.
+ *
+ * A fortnight: long enough that a healthy working copy is never nagged, short
+ * enough that structural feedback keyed to a snapshot's paths is not recorded
+ * against a model that has moved past them. */
+inline constexpr long long kDefaultMaxSnapshotAgeSeconds = 14 * kSecondsPerDay;
+
+/* Parses the exporter's stamp grammar
+ * `YYYY-MM-DD[T ]hh:mm:ss[.fraction][Z|(+|-)hh[:]mm]` to epoch seconds (UTC).
+ *
+ * The grammar is spelled out here rather than handed to a platform parser, so
+ * that all nine runtimes accept exactly the same set of strings: a zone-less
+ * stamp is read as UTC (never local time), a day that does not exist in its
+ * month is rejected rather than rolled over, and a date-only string is outside
+ * the grammar. The fractional part is accepted and discarded — every consumer
+ * compares the resulting instant in whole days.
+ *
+ * Anything outside the grammar degrades to std::nullopt rather than throwing:
+ * an unreadable stamp is not worth failing a whole model over. */
+std::optional<long long> specParseStampTimestamp(const std::string& raw);
+
+/* The outcome of checking a loaded snapshot's generation stamp against its own
+ * payload and against the clock — see SpecModel::checkStamp. */
+struct SpecModelStampCheck {
+  /* Seconds between the stamp and `now`, or nullopt when unstamped. */
+  std::optional<long long> ageSeconds;
+  long long maxAgeSeconds = kDefaultMaxSnapshotAgeSeconds;
+  /* The class count the stamp declares, or nullopt when it declares none. */
+  std::optional<long long> declaredClassCount;
+  long long actualClassCount = 0;
+  /* The document-root count the stamp declares, or nullopt. */
+  std::optional<long long> declaredRootCount;
+  long long actualRootCount = 0;
+
+  /* Whether the snapshot is older than `maxAgeSeconds`. Always false when it
+   * carries no `generatedAt` — an unknown age is not evidence of a stale one. */
+  bool isAged() const;
+  /* Whether the declared and actual class counts differ. An absent declaration
+   * is not a disagreement: older snapshots predate the stamp keys, and reading
+   * absent as 0 would make every one of them look corrupt. */
+  bool classCountDisagrees() const;
+  /* Whether the declared and actual root counts differ. */
+  bool rootCountDisagrees() const;
+  /* Whether either declared size disagrees with the payload. The exporter
+   * derives both counts *from* the payload it writes, so a disagreement cannot
+   * arise from a normal export — it means the file was edited afterwards. */
+  bool countsDisagree() const;
+  /* Whether anything at all was found. */
+  bool isStale() const;
+  /* The findings as ready-to-display sentences, empty when there are none. The
+   * wording is identical in all nine runtimes. */
+  std::vector<std::string> warnings() const;
+};
+
 class SpecModel {
  public:
   std::vector<SpecRoot> roots;
   long long modelVersion = 0;
   std::string modelVersionLabel;
+
+  /* Generation stamp. Every key is optional — a pre-stamp snapshot leaves it
+   * nullopt, which is *not* the same as a declared count of zero. C++ has no
+   * calendar type in the standard library, so the instant is carried as epoch
+   * seconds and the sub-second part of the stamp is accepted but discarded. */
+  std::optional<long long> generatedAt;
+  std::optional<long long> metaSchemaVersion;
+  /* The class count the snapshot declares, kept separate from classesSize():
+   * the declared value is what the exporter recorded, the actual value is what
+   * survived to the reader, and comparing them is the point (checkStamp). */
+  std::optional<long long> classCount;
+  std::optional<long long> rootCount;
+  /* The canonical container class — the single true tree root, which is not
+   * itself a document and so does not appear in `roots`. Empty when absent. */
+  std::string containerRoot;
 
   /* Returns the class named `name`, or null. */
   const SpecClass* classNamed(const std::string& name) const;
@@ -120,7 +192,14 @@ class SpecModel {
    * names the missing type and the ones that do exist. */
   const SpecRoot& rootByType(const std::string& type) const;
 
-  std::size_t classCount() const { return classesByName_.size(); }
+  /* The number of classes the payload actually carries (the other ports read
+   * `classes.size()` directly; here the map is private). */
+  std::size_t classesSize() const { return classesByName_.size(); }
+
+  /* Compares this model's stamp against `nowEpochSeconds` with
+   * `maxAgeSeconds` as the staleness threshold. */
+  SpecModelStampCheck checkStamp(long long maxAgeSeconds,
+                                 long long nowEpochSeconds) const;
 
   /* Decodes a meta-data JSON document. On failure returns null and, when `err`
    * is non-null, writes an error message. */
