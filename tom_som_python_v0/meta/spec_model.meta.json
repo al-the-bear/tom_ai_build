@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-22T07:57:18.170592Z",
+  "generatedAt": "2026-07-28T05:05:02.939123Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 9,
-  "modelVersionLabel": "1.0.0+1.d7e5572",
+  "modelVersion": 1,
+  "modelVersionLabel": "1.0.0+2.50e0102",
   "classCount": 1243,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
@@ -60126,6 +60126,13 @@
           }
         },
         {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "dataType",
+            "note": "Attribute data-type closed choice (csra4): the logical type selects its promoted options subsection (text / numeric / temporal / binary); boolean, uuid and json carry only the common type and constraint subsections."
+          }
+        },
+        {
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
@@ -60228,9 +60235,21 @@
             {
               "name": "dataType",
               "label": "Data Type",
-              "hint": "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary",
-              "type": "String",
-              "required": false
+              "hint": "The logical type — selects the promoted options subsection.",
+              "type": "DataAttributeKind",
+              "required": false,
+              "enumValues": [
+                "string",
+                "integer",
+                "decimal",
+                "date",
+                "dateTime",
+                "binary",
+                "boolean",
+                "uuid",
+                "json",
+                "enumeration"
+              ]
             },
             {
               "name": "physicalType",
@@ -60240,12 +60259,136 @@
               "required": false
             },
             {
+              "name": "format",
+              "label": "Format",
+              "hint": "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "textTypeOptions",
+          "kind": "form",
+          "doc": "Text-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `string` logical type; carries only the character\nlength and collation attributes (no numeric precision, no timezone).",
+          "sectionId": "DAATT-DTTX",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — permissible value and representation of a data element",
+              "ISO/IEC 25012 — data quality characteristics for stored text"
+            ],
+            "connotation": "The character length and collation constraints for a text attribute."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-DTTX"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — permissible value and representation of a data element",
+                  "ISO/IEC 25012 — data quality characteristics for stored text"
+                ],
+                "connotation": "The character length and collation constraints for a text attribute."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "DataAttributeKind.string"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "formFields": [
+            {
               "name": "length",
-              "label": "Length/Size",
-              "hint": "Maximum length for strings or size for binary",
+              "label": "Length",
+              "hint": "Maximum character length",
               "type": "String",
               "required": false
             },
+            {
+              "name": "collation",
+              "label": "Collation",
+              "hint": "Character collation for text (e.g., utf8_general_ci)",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "numericTypeOptions",
+          "kind": "form",
+          "doc": "Numeric-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric logical types; carries only the precision and\nscale attributes (no length, collation or timezone).",
+          "sectionId": "DAATT-DTNU",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — permissible value and representation of a data element",
+              "ISO 80000-1 — quantities and units, on numeric precision"
+            ],
+            "connotation": "The precision and scale constraints for a numeric attribute."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-DTNU"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — permissible value and representation of a data element",
+                  "ISO 80000-1 — quantities and units, on numeric precision"
+                ],
+                "connotation": "The precision and scale constraints for a numeric attribute."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "DataAttributeKind.integer"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "DataAttributeKind.decimal"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
             {
               "name": "precision",
               "label": "Precision",
@@ -60259,25 +60402,133 @@
               "hint": "Decimal places for numeric types",
               "type": "String",
               "required": false
+            }
+          ]
+        },
+        {
+          "name": "temporalTypeOptions",
+          "kind": "form",
+          "doc": "Temporal-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/time logical types; carries only the timezone\nhandling attribute.",
+          "sectionId": "DAATT-DTTM",
+          "standardReferences": {
+            "standards": [
+              "ISO 8601-1:2019 — representation of dates and times",
+              "ISO 8601-2:2019 — extensions including time-zone offsets"
+            ],
+            "connotation": "The timezone handling for a date or date-time attribute."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-DTTM"
+              }
             },
             {
-              "name": "collation",
-              "label": "Collation",
-              "hint": "Character collation for text (e.g., utf8_general_ci)",
-              "type": "String",
-              "required": false
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 8601-1:2019 — representation of dates and times",
+                  "ISO 8601-2:2019 — extensions including time-zone offsets"
+                ],
+                "connotation": "The timezone handling for a date or date-time attribute."
+              }
             },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "DataAttributeKind.date"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "DataAttributeKind.dateTime"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
             {
               "name": "timezone",
               "label": "Timezone",
               "hint": "For datetime: UTC | Local | WithOffset",
               "type": "String",
               "required": false
+            }
+          ]
+        },
+        {
+          "name": "binaryTypeOptions",
+          "kind": "form",
+          "doc": "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.",
+          "sectionId": "DAATT-DTBI",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — permissible value and representation of a data element"
+            ],
+            "connotation": "The stored size constraints for a binary attribute."
+          },
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-DTBI"
+              }
             },
             {
-              "name": "format",
-              "label": "Format",
-              "hint": "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)",
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — permissible value and representation of a data element"
+                ],
+                "connotation": "The stored size constraints for a binary attribute."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "DataAttributeKind.binary"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "maxSizeBytes",
+              "label": "Max Size (Bytes)",
+              "hint": "Maximum stored size in bytes",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "storageMode",
+              "label": "Storage Mode",
+              "hint": "Inline | External-Reference | Blob-Store",
               "type": "String",
               "required": false
             }
@@ -60296,7 +60547,7 @@
             ],
             "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."
           },
-          "serializationOrder": 2,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -60329,7 +60580,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 2
+                "order": 6
               }
             }
           ],
@@ -60340,7 +60591,7 @@
           "name": "derivation",
           "kind": "form",
           "sectionId": "DAATT-DERI",
-          "serializationOrder": 3,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "SectionId",
@@ -60357,7 +60608,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 7
               }
             }
           ],
@@ -60396,7 +60647,7 @@
           "name": "securityClassification",
           "kind": "form",
           "sectionId": "DAATT-SECU",
-          "serializationOrder": 4,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -60413,7 +60664,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 8
               }
             }
           ],
@@ -60459,7 +60710,7 @@
           "name": "migrationLineage",
           "kind": "form",
           "sectionId": "DAATT-MIGR",
-          "serializationOrder": 5,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -60476,7 +60727,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 5
+                "order": 9
               }
             }
           ],
@@ -60530,7 +60781,7 @@
             ],
             "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."
           },
-          "serializationOrder": 6,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -60562,7 +60813,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 10
               }
             }
           ],
@@ -98605,6 +98856,13 @@
           }
         },
         {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "dataType",
+            "note": "Export-field value-type closed choice (csra4): the field data type selects its promoted output subsection (numeric / temporal / boolean / enumeration / text), so a single `formatPattern` no longer has to mean both \"dd.MM.yyyy\" and \"#,##0.00\" depending on a free-text type."
+          }
+        },
+        {
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
@@ -98711,14 +98969,354 @@
             {
               "name": "dataType",
               "label": "Data Type",
-              "hint": "String / Integer / Decimal / Date / DateTime / Boolean / Enum",
+              "hint": "The field value type — selects the promoted output subsection.",
+              "type": "ExportFieldKind",
+              "required": false,
+              "enumValues": [
+                "string",
+                "integer",
+                "decimal",
+                "date",
+                "dateTime",
+                "boolean",
+                "enumeration"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "numericOutput",
+          "kind": "form",
+          "doc": "Numeric-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal fields; carries only the numeric\noutput pattern and separators.",
+          "sectionId": "EFMEFN",
+          "standardReferences": {
+            "standards": [
+              "ISO 80000-1:2022 — general principles for quantities units and their symbols",
+              "IETF RFC 4180 — numeric field values are emitted as text within the record structure"
+            ],
+            "connotation": "The numeric output pattern and separators for an exported numeric field."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EFMEFN"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 80000-1:2022 — general principles for quantities units and their symbols",
+                  "IETF RFC 4180 — numeric field values are emitted as text within the record structure"
+                ],
+                "connotation": "The numeric output pattern and separators for an exported numeric field."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ExportFieldKind.integer"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ExportFieldKind.decimal"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "formatPattern",
+              "label": "Format Pattern",
+              "hint": "Numeric output format, e.g. #,##0.00",
               "type": "String",
               "required": false
             },
             {
+              "name": "decimalSeparator",
+              "label": "Decimal Separator",
+              "hint": "Character used as the decimal mark, e.g. . or ,",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "temporalOutput",
+          "kind": "form",
+          "doc": "Temporal-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for date and date-time fields; carries only the temporal\noutput pattern and timezone handling.",
+          "sectionId": "EFMEFD",
+          "standardReferences": {
+            "standards": [
+              "ISO 8601-1:2019 — representation of dates and times",
+              "ISO 8601-2:2019 — extensions including time-zone offsets"
+            ],
+            "connotation": "The temporal output pattern and timezone handling for an exported date field."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EFMEFD"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 8601-1:2019 — representation of dates and times",
+                  "ISO 8601-2:2019 — extensions including time-zone offsets"
+                ],
+                "connotation": "The temporal output pattern and timezone handling for an exported date field."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ExportFieldKind.date"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ExportFieldKind.dateTime"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
+            {
               "name": "formatPattern",
               "label": "Format Pattern",
-              "hint": "Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers",
+              "hint": "Temporal output format, e.g. dd.MM.yyyy",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "timezoneHandling",
+              "label": "Timezone Handling",
+              "hint": "UTC / Local / With-Offset",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "booleanOutput",
+          "kind": "form",
+          "doc": "Boolean-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean fields; this is the only case in which the\nemitted true/false literals are meaningful.",
+          "sectionId": "EFMEFB",
+          "standardReferences": {
+            "standards": [
+              "IETF RFC 4180 — boolean field values are emitted as text literals within the record"
+            ],
+            "connotation": "The emitted true and false literals for an exported boolean field."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EFMEFB"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "IETF RFC 4180 — boolean field values are emitted as text literals within the record"
+                ],
+                "connotation": "The emitted true and false literals for an exported boolean field."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ExportFieldKind.boolean"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "trueLiteral",
+              "label": "True Literal",
+              "hint": "Emitted for true, e.g. true / Y / 1",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "falseLiteral",
+              "label": "False Literal",
+              "hint": "Emitted for false, e.g. false / N / 0",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "enumerationOutput",
+          "kind": "form",
+          "doc": "Enumeration-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration fields; carries which face of the value set\nis emitted and what happens to a value outside it.",
+          "sectionId": "EFMEFE",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — permissible values of a data element and their representation"
+            ],
+            "connotation": "The emitted representation of an exported enumeration field and its unmapped-value behaviour."
+          },
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EFMEFE"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — permissible values of a data element and their representation"
+                ],
+                "connotation": "The emitted representation of an exported enumeration field and its unmapped-value behaviour."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ExportFieldKind.enumeration"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "emittedForm",
+              "label": "Emitted Form",
+              "hint": "Value-Id / Display-Label / Numeric-Ordinal",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "unmappedValueBehavior",
+              "label": "Unmapped Value Behavior",
+              "hint": "Emit-Raw / Emit-Empty / Fail-Export",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "textOutput",
+          "kind": "form",
+          "doc": "Text-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for text fields; carries the character-length truncation\nthat only a string field can have. Moved out of `inclusion`, where it sat\nbeside type-independent default and inclusion rules.",
+          "sectionId": "EFMEFT",
+          "standardReferences": {
+            "standards": [
+              "IETF RFC 4180 — text field values are emitted within the record structure",
+              "ISO/IEC 25010:2023 — functional correctness of length-bounded output"
+            ],
+            "connotation": "The character-length truncation and padding for an exported text field."
+          },
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EFMEFT"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "IETF RFC 4180 — text field values are emitted within the record structure",
+                  "ISO/IEC 25010:2023 — functional correctness of length-bounded output"
+                ],
+                "connotation": "The character-length truncation and padding for an exported text field."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ExportFieldKind.string"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "maxLength",
+              "label": "Max Length",
+              "hint": "Truncate output to this character length",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "padding",
+              "label": "Padding",
+              "hint": "None / Left-Pad / Right-Pad for fixed-width output",
               "type": "String",
               "required": false
             }
@@ -98736,7 +99334,7 @@
             ],
             "connotation": "Value transformation and substitution rules applied to a mapped field before it is written to the export."
           },
-          "serializationOrder": 2,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "SectionId",
@@ -98763,7 +99361,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 2
+                "order": 7
               }
             }
           ],
@@ -98803,7 +99401,7 @@
             ],
             "connotation": "Inclusion conditions and default values determining whether and how a mapped field appears in the export."
           },
-          "serializationOrder": 3,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -98830,7 +99428,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 8
               }
             }
           ],
@@ -98855,13 +99453,6 @@
               "hint": "Condition for conditional inclusion",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "maxLength",
-              "label": "Max Length",
-              "hint": "Truncate output to this character length",
-              "type": "int",
-              "required": false
             }
           ]
         },
@@ -98877,7 +99468,7 @@
             ],
             "connotation": "Fixed-width padding and CSV quoting rules controlling how a mapped field is laid out in the output."
           },
-          "serializationOrder": 4,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -98904,7 +99495,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 9
               }
             }
           ],
@@ -191108,6 +191699,13 @@
           }
         },
         {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "dataType",
+            "note": "Report-column value-type closed choice (csra4): the column data type selects its promoted formatting subsection (numeric / currency / date / boolean / text), so a Date column no longer carries booleanTrueDisplay and an Integer column no longer carries currencyCode."
+          }
+        },
+        {
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
@@ -191214,9 +191812,17 @@
             {
               "name": "dataType",
               "label": "Data Type",
-              "hint": "String / Integer / Decimal / Currency / Date / Boolean",
-              "type": "String",
-              "required": false
+              "hint": "The column value type — selects the promoted format subsection.",
+              "type": "ReportColumnKind",
+              "required": false,
+              "enumValues": [
+                "string",
+                "integer",
+                "decimal",
+                "currency",
+                "date",
+                "boolean"
+              ]
             }
           ]
         },
@@ -191293,26 +191899,273 @@
               "required": false
             },
             {
+              "name": "nullDisplay",
+              "label": "Null Display",
+              "hint": "What to show for null/empty values",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "numericFormat",
+          "kind": "form",
+          "doc": "Numeric-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal columns; carries only the numeric\ndisplay pattern (no currency code, no boolean labels).",
+          "sectionId": "RECOFN",
+          "standardReferences": {
+            "standards": [
+              "ISO 80000-1:2022 — general principles for quantities units and their symbols",
+              "ISO 31-0 — presentation of numbers including grouping and decimal marks"
+            ],
+            "connotation": "The numeric display pattern for an integer or decimal report column."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RECOFN"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 80000-1:2022 — general principles for quantities units and their symbols",
+                  "ISO 31-0 — presentation of numbers including grouping and decimal marks"
+                ],
+                "connotation": "The numeric display pattern for an integer or decimal report column."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportColumnKind.integer"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportColumnKind.decimal"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
+            {
               "name": "formatPattern",
               "label": "Format Pattern",
-              "hint": "Display format, e.g. #,##0.00",
+              "hint": "Numeric display format, e.g. #,##0.00",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "negativeDisplay",
+              "label": "Negative Display",
+              "hint": "Minus-Sign / Parentheses / Red",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "currencyFormat",
+          "kind": "form",
+          "doc": "Currency-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for currency columns; this is the only case in which a\ncurrency code is meaningful.",
+          "sectionId": "RECOFC",
+          "standardReferences": {
+            "standards": [
+              "ISO 4217:2015 — codes for the representation of currencies",
+              "ISO 80000-1:2022 — general principles for quantities units and their symbols"
+            ],
+            "connotation": "The currency code and monetary display pattern for a currency report column."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RECOFC"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 4217:2015 — codes for the representation of currencies",
+                  "ISO 80000-1:2022 — general principles for quantities units and their symbols"
+                ],
+                "connotation": "The currency code and monetary display pattern for a currency report column."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportColumnKind.currency"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "formatPattern",
+              "label": "Format Pattern",
+              "hint": "Monetary display format, e.g. #,##0.00",
               "type": "String",
               "required": false
             },
             {
               "name": "currencyCode",
               "label": "Currency Code",
-              "hint": "Currency code if type is Currency",
+              "hint": "ISO 4217 code, e.g. EUR / USD",
               "type": "String",
               "required": false
             },
             {
-              "name": "nullDisplay",
-              "label": "Null Display",
-              "hint": "What to show for null/empty values",
+              "name": "symbolPosition",
+              "label": "Symbol Position",
+              "hint": "Prefix / Suffix / None",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "dateFormat",
+          "kind": "form",
+          "doc": "Date-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for date columns; carries only the temporal display pattern.",
+          "sectionId": "RECOFD",
+          "standardReferences": {
+            "standards": [
+              "ISO 8601-1:2019 — representation of dates and times",
+              "ISO 9241-112:2017 — presentation of information for temporal values"
+            ],
+            "connotation": "The temporal display pattern for a date report column."
+          },
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RECOFD"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 8601-1:2019 — representation of dates and times",
+                  "ISO 9241-112:2017 — presentation of information for temporal values"
+                ],
+                "connotation": "The temporal display pattern for a date report column."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportColumnKind.date"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "formatPattern",
+              "label": "Format Pattern",
+              "hint": "Date display format, e.g. yyyy-MM-dd",
               "type": "String",
               "required": false
             },
+            {
+              "name": "timezoneDisplay",
+              "label": "Timezone Display",
+              "hint": "UTC / Local / With-Offset",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "booleanFormat",
+          "kind": "form",
+          "doc": "Boolean-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean columns; this is the only case in which the\ntrue/false display labels are meaningful.",
+          "sectionId": "RECOFB",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information for two-valued indicators"
+            ],
+            "connotation": "The true and false display labels for a boolean report column."
+          },
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RECOFB"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-112:2017 — presentation of information for two-valued indicators"
+                ],
+                "connotation": "The true and false display labels for a boolean report column."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportColumnKind.boolean"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "formFields": [
             {
               "name": "booleanTrueDisplay",
               "label": "Boolean True Display",
@@ -191330,6 +192183,70 @@
           ]
         },
         {
+          "name": "textFormat",
+          "kind": "form",
+          "doc": "Text-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for text columns; carries only the overflow handling a\nvariable-length string column needs.",
+          "sectionId": "RECOFT",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information governs truncation and wrapping of text"
+            ],
+            "connotation": "The overflow handling for a text report column."
+          },
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RECOFT"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-112:2017 — presentation of information governs truncation and wrapping of text"
+                ],
+                "connotation": "The overflow handling for a text report column."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportColumnKind.string"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "overflowBehavior",
+              "label": "Overflow Behavior",
+              "hint": "Truncate / Ellipsis / Wrap / Clip",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maxDisplayLength",
+              "label": "Max Display Length",
+              "hint": "Character limit before overflow handling applies",
+              "type": "int",
+              "required": false
+            }
+          ]
+        },
+        {
           "name": "aggregation",
           "kind": "form",
           "doc": "Aggregation settings.",
@@ -191341,7 +192258,7 @@
             ],
             "connotation": "Aggregation settings for a report column such as sum, average and conditional formatting."
           },
-          "serializationOrder": 3,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -191368,7 +192285,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 8
               }
             }
           ],
@@ -191414,7 +192331,7 @@
             ],
             "connotation": "Interaction options for a report column such as sortable and filterable behaviour."
           },
-          "serializationOrder": 4,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -191440,7 +192357,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 9
               }
             }
           ],
@@ -191472,7 +192389,7 @@
             ],
             "connotation": "Visibility and layout settings for a report column such as word wrap and truncation."
           },
-          "serializationOrder": 5,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SectionId",
@@ -191498,7 +192415,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 5
+                "order": 10
               }
             }
           ],
@@ -193079,6 +193996,13 @@
           }
         },
         {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "dataType",
+            "note": "Report-filter value-type closed choice (csra4): the filter value type selects both its input control and its value bounds (text / numeric / date / boolean / select / entity-reference). This replaces the former unconstrained `dataType` + `inputType` free-text pair, in which a Date filter could be given a Multi-Select control."
+          }
+        },
+        {
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
@@ -193178,21 +194102,378 @@
             {
               "name": "dataType",
               "label": "Data Type",
-              "hint": "String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "inputType",
-              "label": "Input Type",
-              "hint": "Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select",
-              "type": "String",
-              "required": false
+              "hint": "The filter value type — selects the promoted input-control and value-bound subsection.",
+              "type": "ReportFilterValueKind",
+              "required": false,
+              "enumValues": [
+                "string",
+                "integer",
+                "decimal",
+                "date",
+                "dateTime",
+                "boolean",
+                "enumeration",
+                "entityRef"
+              ]
             },
             {
               "name": "defaultValue",
               "label": "Default Value",
               "hint": "Default filter value, e.g. current_month, today, *",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "textFilterOptions",
+          "kind": "form",
+          "doc": "Text-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for text filters; carries the free-text control and its\nmatch semantics (no value source, no date bounds).",
+          "sectionId": "RFEIT",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — form-based interaction and free-text input",
+              "ISO 9241-110:2020 — matches the input control to the filter data the user provides"
+            ],
+            "connotation": "The input control and match semantics for a text report filter."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RFEIT"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — form-based interaction and free-text input",
+                  "ISO 9241-110:2020 — matches the input control to the filter data the user provides"
+                ],
+                "connotation": "The input control and match semantics for a text report filter."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportFilterValueKind.string"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "inputType",
+              "label": "Input Type",
+              "hint": "Text-Field / Autocomplete",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "matchMode",
+              "label": "Match Mode",
+              "hint": "Contains / Starts-With / Exact / Regex",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maxLength",
+              "label": "Max Length",
+              "hint": "Character limit on the input",
+              "type": "int",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "numericFilterOptions",
+          "kind": "form",
+          "doc": "Numeric-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric filters; carries the numeric control and its\nvalue bounds.",
+          "sectionId": "RFEIN",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges",
+              "ISO 80000-1:2022 — general principles for quantities units and their symbols"
+            ],
+            "connotation": "The input control and value bounds for a numeric report filter."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RFEIN"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges",
+                  "ISO 80000-1:2022 — general principles for quantities units and their symbols"
+                ],
+                "connotation": "The input control and value bounds for a numeric report filter."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportFilterValueKind.integer"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportFilterValueKind.decimal"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "inputType",
+              "label": "Input Type",
+              "hint": "Number-Field / Slider / Range-Slider",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "minValue",
+              "label": "Min Value",
+              "hint": "Lowest accepted value",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maxValue",
+              "label": "Max Value",
+              "hint": "Highest accepted value",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "dateFilterOptions",
+          "kind": "form",
+          "doc": "Temporal-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/date-time filters; carries the temporal control —\nincluding the range picker that the former free-text `DateRange` type\nstood for — and the selectable window.",
+          "sectionId": "RFEID",
+          "standardReferences": {
+            "standards": [
+              "ISO 8601-1:2019 — representation of dates and times",
+              "ISO 9241-143:2012 — constraints on date and time form-field input"
+            ],
+            "connotation": "The input control and selectable window for a date report filter."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RFEID"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 8601-1:2019 — representation of dates and times",
+                  "ISO 9241-143:2012 — constraints on date and time form-field input"
+                ],
+                "connotation": "The input control and selectable window for a date report filter."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportFilterValueKind.date"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportFilterValueKind.dateTime"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "inputType",
+              "label": "Input Type",
+              "hint": "Date-Picker / Date-Range-Picker / Relative-Period",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "earliestDate",
+              "label": "Earliest Date",
+              "hint": "Earliest selectable date/time",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "latestDate",
+              "label": "Latest Date",
+              "hint": "Latest selectable date/time",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "booleanFilterOptions",
+          "kind": "form",
+          "doc": "Boolean-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean filters; carries only the two-valued control.",
+          "sectionId": "RFEIB",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-161:2016 — selection controls such as checkboxes and radio groups"
+            ],
+            "connotation": "The two-valued input control for a boolean report filter."
+          },
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RFEIB"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-161:2016 — selection controls such as checkboxes and radio groups"
+                ],
+                "connotation": "The two-valued input control for a boolean report filter."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportFilterValueKind.boolean"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "inputType",
+              "label": "Input Type",
+              "hint": "Checkbox / Toggle / Radio-Pair",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "includeIndeterminate",
+              "label": "Include Indeterminate",
+              "hint": "Yes / No — offer an \"any\" third state",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "selectFilterOptions",
+          "kind": "form",
+          "doc": "Selection-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration filters; this is the only case in which a\nvalue source, static value list, cascade parent and multi-select are\nmeaningful.",
+          "sectionId": "RFEIS",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups",
+              "ISO/IEC 11179 — permissible values of a data element"
+            ],
+            "connotation": "The selection control and value source for an enumeration report filter."
+          },
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RFEIS"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups",
+                  "ISO/IEC 11179 — permissible values of a data element"
+                ],
+                "connotation": "The selection control and value source for an enumeration report filter."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportFilterValueKind.enumeration"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "inputType",
+              "label": "Input Type",
+              "hint": "Select / Multi-Select / Radio-Group / Cascading-Select",
               "type": "String",
               "required": false
             },
@@ -193227,6 +194508,86 @@
           ]
         },
         {
+          "name": "entityFilterOptions",
+          "kind": "form",
+          "doc": "Entity-reference filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for entity-reference filters; carries the lookup control and\nthe entity query that backs it. Distinct from the enumeration case\nbecause the value set is resolved from an entity, not a declared list.",
+          "sectionId": "RFEIE",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — form fields with input assistance and lookup",
+              "ER modeling (Chen / Barker notation)"
+            ],
+            "connotation": "The lookup control and backing entity query for an entity-reference report filter."
+          },
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RFEIE"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — form fields with input assistance and lookup",
+                  "ER modeling (Chen / Barker notation)"
+                ],
+                "connotation": "The lookup control and backing entity query for an entity-reference report filter."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ReportFilterValueKind.entityRef"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "inputType",
+              "label": "Input Type",
+              "hint": "Autocomplete / Dialog-Picker / Tree-Picker",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "entityType",
+              "label": "Entity Type",
+              "hint": "Referenced entity, e.g. Customer",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "queryFilter",
+              "label": "Query Filter",
+              "hint": "Restriction applied to the lookup query",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "displayAttribute",
+              "label": "Display Attribute",
+              "hint": "Entity attribute shown to the user, e.g. name",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
           "name": "behavior",
           "kind": "form",
           "doc": "Scope and validation behavior.",
@@ -193238,7 +194599,7 @@
             ],
             "connotation": "The scope, requiredness, and validation rules that govern how a report filter behaves."
           },
-          "serializationOrder": 2,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -193265,7 +194626,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 2
+                "order": 8
               }
             }
           ],
@@ -193326,7 +194687,7 @@
             ],
             "connotation": "The presentation options that control how a report filter appears to and is remembered for the user."
           },
-          "serializationOrder": 3,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -193353,7 +194714,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 9
               }
             }
           ],
@@ -213940,6 +215301,13 @@
           }
         },
         {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "fieldType",
+            "note": "Screen field type closed choice (csra4): the field type selects its type-specific constraint and presentation subsections, so a Date field no longer carries a regex pattern and a Text field no longer carries a dropdown source."
+          }
+        },
+        {
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
@@ -213986,9 +215354,27 @@
             {
               "name": "fieldType",
               "label": "Field Type",
-              "hint": "Text, Number, Date, Dropdown, Checkbox, etc.",
-              "type": "String",
-              "required": true
+              "hint": "The kind of value the user supplies — selects the type-specific constraint and presentation subsections",
+              "type": "ScreenFieldKind",
+              "required": true,
+              "enumValues": [
+                "text",
+                "multilineText",
+                "email",
+                "phone",
+                "url",
+                "password",
+                "integer",
+                "decimal",
+                "currency",
+                "date",
+                "dateTime",
+                "time",
+                "singleSelect",
+                "multiSelect",
+                "file",
+                "boolean"
+              ]
             }
           ]
         },
@@ -214157,14 +215543,14 @@
         {
           "name": "validation",
           "kind": "form",
-          "doc": "Validation rules.",
+          "doc": "Validation rules that apply whatever the field type is.",
           "sectionId": "SCFIVA",
           "standardReferences": {
             "standards": [
               "ISO/IEC/IEEE 29148 §9 — input validation requirements",
               "OWASP ASVS — input validation"
             ],
-            "connotation": "The built-in validation constraints on a screen field — length and value bounds, regex pattern, and the custom validation message."
+            "connotation": "The type-independent validation settings of a screen field — the custom message shown when any built-in constraint fails."
           },
           "serializationOrder": 3,
           "annotations": [
@@ -214181,7 +215567,7 @@
                   "ISO/IEC/IEEE 29148 §9 — input validation requirements",
                   "OWASP ASVS — input validation"
                 ],
-                "connotation": "The built-in validation constraints on a screen field — length and value bounds, regex pattern, and the custom validation message."
+                "connotation": "The type-independent validation settings of a screen field — the custom message shown when any built-in constraint fails."
               }
             },
             {
@@ -214199,41 +215585,6 @@
           ],
           "formFields": [
             {
-              "name": "minLength",
-              "label": "Minimum Length",
-              "hint": "Minimum allowed input length",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "maxLength",
-              "label": "Maximum Length",
-              "hint": "Maximum allowed input length",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "minValue",
-              "label": "Minimum Value",
-              "hint": "Minimum allowed value",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "maxValue",
-              "label": "Maximum Value",
-              "hint": "Maximum allowed value",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "pattern",
-              "label": "Validation Pattern (regex)",
-              "hint": "Regular expression the input must match",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "validationMessage",
               "label": "Custom Validation Message",
               "hint": "Message shown when validation fails",
@@ -214243,33 +215594,69 @@
           ]
         },
         {
-          "name": "layout",
+          "name": "textConstraints",
           "kind": "form",
-          "doc": "UI and layout.",
-          "sectionId": "SCFILA",
+          "doc": "Text-kind input constraints — a promoted `@OneOf` case (csra4).",
+          "sectionId": "SCFIVT",
           "standardReferences": {
             "standards": [
-              "ISO 9241-110 — dialogue principles",
-              "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"
+              "ISO/IEC/IEEE 29148 §9 — input validation requirements",
+              "OWASP ASVS — input validation"
             ],
-            "connotation": "The layout and presentation of a screen field — its dropdown source/values, dependencies, width, display order, and grouping."
+            "connotation": "The input constraints that only apply to a text-valued screen field — its length bounds and the regular expression the input must match."
           },
           "serializationOrder": 4,
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "SCFILA"
+                "id": "SCFIVT"
               }
             },
             {
               "name": "StandardReferences",
               "arguments": {
                 "standards": [
-                  "ISO 9241-110 — dialogue principles",
-                  "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"
+                  "ISO/IEC/IEEE 29148 §9 — input validation requirements",
+                  "OWASP ASVS — input validation"
                 ],
-                "connotation": "The layout and presentation of a screen field — its dropdown source/values, dependencies, width, display order, and grouping."
+                "connotation": "The input constraints that only apply to a text-valued screen field — its length bounds and the regular expression the input must match."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.text"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.multilineText"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.email"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.phone"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.url"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.password"
               }
             },
             {
@@ -214287,19 +215674,300 @@
           ],
           "formFields": [
             {
-              "name": "dropdownSource",
-              "label": "Dropdown Source (static, API, entity)",
-              "hint": "Where dropdown options come from: static, API, or entity",
+              "name": "minLength",
+              "label": "Minimum Length",
+              "hint": "Minimum allowed input length in characters",
               "type": "String",
               "required": false
             },
             {
-              "name": "dropdownValues",
-              "label": "Static Dropdown Values",
-              "hint": "Static list of dropdown values",
+              "name": "maxLength",
+              "label": "Maximum Length",
+              "hint": "Maximum allowed input length in characters",
               "type": "String",
               "required": false
             },
+            {
+              "name": "pattern",
+              "label": "Validation Pattern (regex)",
+              "hint": "Regular expression the input must match",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "numericConstraints",
+          "kind": "form",
+          "doc": "Numeric-kind input constraints — a promoted `@OneOf` case (csra4).",
+          "sectionId": "SCFIVN",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §9 — input validation requirements",
+              "OWASP ASVS — input validation"
+            ],
+            "connotation": "The input constraints that only apply to a numeric screen field — its value bounds."
+          },
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCFIVN"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148 §9 — input validation requirements",
+                  "OWASP ASVS — input validation"
+                ],
+                "connotation": "The input constraints that only apply to a numeric screen field — its value bounds."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.integer"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.decimal"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.currency"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "minValue",
+              "label": "Minimum Value",
+              "hint": "Smallest value the field accepts",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maxValue",
+              "label": "Maximum Value",
+              "hint": "Largest value the field accepts",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "temporalConstraints",
+          "kind": "form",
+          "doc": "Temporal-kind input constraints — a promoted `@OneOf` case (csra4).\n\nKept apart from [numericConstraints] because a date boundary is expressed\nas a date or a relative expression (\"today + 30d\"), not as a number.",
+          "sectionId": "SCFIVD",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §9 — input validation requirements",
+              "ISO 8601 — date and time representation"
+            ],
+            "connotation": "The input constraints that only apply to a temporal screen field — its earliest and latest accepted instant."
+          },
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCFIVD"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148 §9 — input validation requirements",
+                  "ISO 8601 — date and time representation"
+                ],
+                "connotation": "The input constraints that only apply to a temporal screen field — its earliest and latest accepted instant."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.date"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.dateTime"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.time"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "earliestValue",
+              "label": "Earliest Accepted Value",
+              "hint": "Earliest accepted date/time, absolute or relative (e.g. today)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "latestValue",
+              "label": "Latest Accepted Value",
+              "hint": "Latest accepted date/time, absolute or relative (e.g. today + 30d)",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "choiceOptions",
+          "kind": "form",
+          "doc": "Choice-kind option source — a promoted `@OneOf` case (csra4).",
+          "sectionId": "SCFICH",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110 — dialogue principles",
+              "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"
+            ],
+            "connotation": "Where a choice field takes its options from — the option source and, for a static source, the values themselves."
+          },
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCFICH"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110 — dialogue principles",
+                  "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"
+                ],
+                "connotation": "Where a choice field takes its options from — the option source and, for a static source, the values themselves."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.singleSelect"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.multiSelect"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "optionSource",
+              "label": "Option Source (static, API, entity)",
+              "hint": "Where the options come from: static, API, or entity",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "staticOptions",
+              "label": "Static Option Values",
+              "hint": "The option values, when the source is static",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "layout",
+          "kind": "form",
+          "doc": "UI and layout.",
+          "sectionId": "SCFILA",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110 — dialogue principles",
+              "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"
+            ],
+            "connotation": "The layout and presentation of a screen field — its dependencies, width, display order, and grouping."
+          },
+          "serializationOrder": 8,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCFILA"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110 — dialogue principles",
+                  "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"
+                ],
+                "connotation": "The layout and presentation of a screen field — its dependencies, width, display order, and grouping."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 8
+              }
+            }
+          ],
+          "formFields": [
             {
               "name": "dependsOn",
               "label": "Depends On (field IDs that affect this)",
@@ -214344,7 +216012,7 @@
             ],
             "connotation": "The list of individual validation rules applied to this field's input."
           },
-          "serializationOrder": 5,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -214377,7 +216045,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 5
+                "order": 9
               }
             }
           ],

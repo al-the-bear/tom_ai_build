@@ -5211,6 +5211,10 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.identity, (v) => n.identity = v as DocSpecsSection?, label: 'identity'),
         SpecSlot.node(() => n.dataTypeSpec, (v) => n.dataTypeSpec = v as DocSpecsSection?, label: 'dataTypeSpec'),
+        SpecSlot.node(() => n.textTypeOptions, (v) => n.textTypeOptions = v as DocSpecsSection?, label: 'textTypeOptions'),
+        SpecSlot.node(() => n.numericTypeOptions, (v) => n.numericTypeOptions = v as DocSpecsSection?, label: 'numericTypeOptions'),
+        SpecSlot.node(() => n.temporalTypeOptions, (v) => n.temporalTypeOptions = v as DocSpecsSection?, label: 'temporalTypeOptions'),
+        SpecSlot.node(() => n.binaryTypeOptions, (v) => n.binaryTypeOptions = v as DocSpecsSection?, label: 'binaryTypeOptions'),
         SpecSlot.list(() => n.constraints, (v) => n.constraints = v.cast<DataAttributeConstraintEntry>(), label: 'constraints'),
         SpecSlot.node(() => n.derivation, (v) => n.derivation = v as DocSpecsSection?, label: 'derivation'),
         SpecSlot.node(() => n.securityClassification, (v) => n.securityClassification = v as DocSpecsSection?, label: 'securityClassification'),
@@ -5223,6 +5227,10 @@ void registerSpecOps() {
       return DataAttributeEntry()
         ..identity = n.identity
         ..dataTypeSpec = n.dataTypeSpec
+        ..textTypeOptions = n.textTypeOptions
+        ..numericTypeOptions = n.numericTypeOptions
+        ..temporalTypeOptions = n.temporalTypeOptions
+        ..binaryTypeOptions = n.binaryTypeOptions
         ..constraints = n.constraints
         ..derivation = n.derivation
         ..securityClassification = n.securityClassification
@@ -8173,6 +8181,11 @@ void registerSpecOps() {
       final n = o as ExportFieldMappingEntry;
       return [
         SpecSlot.node(() => n.formatting, (v) => n.formatting = v as DocSpecsSection?, label: 'formatting'),
+        SpecSlot.node(() => n.numericOutput, (v) => n.numericOutput = v as DocSpecsSection?, label: 'numericOutput'),
+        SpecSlot.node(() => n.temporalOutput, (v) => n.temporalOutput = v as DocSpecsSection?, label: 'temporalOutput'),
+        SpecSlot.node(() => n.booleanOutput, (v) => n.booleanOutput = v as DocSpecsSection?, label: 'booleanOutput'),
+        SpecSlot.node(() => n.enumerationOutput, (v) => n.enumerationOutput = v as DocSpecsSection?, label: 'enumerationOutput'),
+        SpecSlot.node(() => n.textOutput, (v) => n.textOutput = v as DocSpecsSection?, label: 'textOutput'),
         SpecSlot.node(() => n.transformation, (v) => n.transformation = v as DocSpecsSection?, label: 'transformation'),
         SpecSlot.node(() => n.inclusion, (v) => n.inclusion = v as DocSpecsSection?, label: 'inclusion'),
         SpecSlot.node(() => n.layout, (v) => n.layout = v as DocSpecsSection?, label: 'layout'),
@@ -8183,6 +8196,11 @@ void registerSpecOps() {
       return ExportFieldMappingEntry()
         ..content = n.content
         ..formatting = n.formatting
+        ..numericOutput = n.numericOutput
+        ..temporalOutput = n.temporalOutput
+        ..booleanOutput = n.booleanOutput
+        ..enumerationOutput = n.enumerationOutput
+        ..textOutput = n.textOutput
         ..transformation = n.transformation
         ..inclusion = n.inclusion
         ..layout = n.layout;
@@ -15465,6 +15483,11 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.dataSource, (v) => n.dataSource = v as DocSpecsSection?, label: 'dataSource'),
         SpecSlot.node(() => n.formatting, (v) => n.formatting = v as DocSpecsSection?, label: 'formatting'),
+        SpecSlot.node(() => n.numericFormat, (v) => n.numericFormat = v as DocSpecsSection?, label: 'numericFormat'),
+        SpecSlot.node(() => n.currencyFormat, (v) => n.currencyFormat = v as DocSpecsSection?, label: 'currencyFormat'),
+        SpecSlot.node(() => n.dateFormat, (v) => n.dateFormat = v as DocSpecsSection?, label: 'dateFormat'),
+        SpecSlot.node(() => n.booleanFormat, (v) => n.booleanFormat = v as DocSpecsSection?, label: 'booleanFormat'),
+        SpecSlot.node(() => n.textFormat, (v) => n.textFormat = v as DocSpecsSection?, label: 'textFormat'),
         SpecSlot.node(() => n.aggregation, (v) => n.aggregation = v as DocSpecsSection?, label: 'aggregation'),
         SpecSlot.node(() => n.interaction, (v) => n.interaction = v as DocSpecsSection?, label: 'interaction'),
         SpecSlot.node(() => n.layout, (v) => n.layout = v as DocSpecsSection?, label: 'layout'),
@@ -15476,6 +15499,11 @@ void registerSpecOps() {
         ..content = n.content
         ..dataSource = n.dataSource
         ..formatting = n.formatting
+        ..numericFormat = n.numericFormat
+        ..currencyFormat = n.currencyFormat
+        ..dateFormat = n.dateFormat
+        ..booleanFormat = n.booleanFormat
+        ..textFormat = n.textFormat
         ..aggregation = n.aggregation
         ..interaction = n.interaction
         ..layout = n.layout;
@@ -15551,6 +15579,12 @@ void registerSpecOps() {
       final n = o as ReportFilterEntry;
       return [
         SpecSlot.node(() => n.input, (v) => n.input = v as DocSpecsSection?, label: 'input'),
+        SpecSlot.node(() => n.textFilterOptions, (v) => n.textFilterOptions = v as DocSpecsSection?, label: 'textFilterOptions'),
+        SpecSlot.node(() => n.numericFilterOptions, (v) => n.numericFilterOptions = v as DocSpecsSection?, label: 'numericFilterOptions'),
+        SpecSlot.node(() => n.dateFilterOptions, (v) => n.dateFilterOptions = v as DocSpecsSection?, label: 'dateFilterOptions'),
+        SpecSlot.node(() => n.booleanFilterOptions, (v) => n.booleanFilterOptions = v as DocSpecsSection?, label: 'booleanFilterOptions'),
+        SpecSlot.node(() => n.selectFilterOptions, (v) => n.selectFilterOptions = v as DocSpecsSection?, label: 'selectFilterOptions'),
+        SpecSlot.node(() => n.entityFilterOptions, (v) => n.entityFilterOptions = v as DocSpecsSection?, label: 'entityFilterOptions'),
         SpecSlot.node(() => n.behavior, (v) => n.behavior = v as DocSpecsSection?, label: 'behavior'),
         SpecSlot.node(() => n.presentation, (v) => n.presentation = v as DocSpecsSection?, label: 'presentation'),
       ];
@@ -15560,6 +15594,12 @@ void registerSpecOps() {
       return ReportFilterEntry()
         ..content = n.content
         ..input = n.input
+        ..textFilterOptions = n.textFilterOptions
+        ..numericFilterOptions = n.numericFilterOptions
+        ..dateFilterOptions = n.dateFilterOptions
+        ..booleanFilterOptions = n.booleanFilterOptions
+        ..selectFilterOptions = n.selectFilterOptions
+        ..entityFilterOptions = n.entityFilterOptions
         ..behavior = n.behavior
         ..presentation = n.presentation;
     },
@@ -17123,6 +17163,10 @@ void registerSpecOps() {
         SpecSlot.node(() => n.dataBinding, (v) => n.dataBinding = v as DocSpecsSection?, label: 'dataBinding'),
         SpecSlot.node(() => n.conditions, (v) => n.conditions = v as DocSpecsSection?, label: 'conditions'),
         SpecSlot.node(() => n.validation, (v) => n.validation = v as DocSpecsSection?, label: 'validation'),
+        SpecSlot.node(() => n.textConstraints, (v) => n.textConstraints = v as DocSpecsSection?, label: 'textConstraints'),
+        SpecSlot.node(() => n.numericConstraints, (v) => n.numericConstraints = v as DocSpecsSection?, label: 'numericConstraints'),
+        SpecSlot.node(() => n.temporalConstraints, (v) => n.temporalConstraints = v as DocSpecsSection?, label: 'temporalConstraints'),
+        SpecSlot.node(() => n.choiceOptions, (v) => n.choiceOptions = v as DocSpecsSection?, label: 'choiceOptions'),
         SpecSlot.node(() => n.layout, (v) => n.layout = v as DocSpecsSection?, label: 'layout'),
         SpecSlot.list(() => n.validationRules, (v) => n.validationRules = v.cast<FieldValidationRule>(), label: 'validationRules'),
       ];
@@ -17134,6 +17178,10 @@ void registerSpecOps() {
         ..dataBinding = n.dataBinding
         ..conditions = n.conditions
         ..validation = n.validation
+        ..textConstraints = n.textConstraints
+        ..numericConstraints = n.numericConstraints
+        ..temporalConstraints = n.temporalConstraints
+        ..choiceOptions = n.choiceOptions
         ..layout = n.layout
         ..validationRules = n.validationRules;
     },

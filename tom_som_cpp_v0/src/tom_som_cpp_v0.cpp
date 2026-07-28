@@ -4802,6 +4802,18 @@ DataAttributeEntryIdentityForm DataAttributeEntry::identity() const {
 DataAttributeEntryDataTypeSpecForm DataAttributeEntry::dataTypeSpec() const {
   return DataAttributeEntryDataTypeSpecForm(doc(), som::joinPath(path(), "DAATT-DATA"));
 }
+DataAttributeEntryTextTypeOptionsForm DataAttributeEntry::textTypeOptions() const {
+  return DataAttributeEntryTextTypeOptionsForm(doc(), som::joinPath(path(), "DAATT-DTTX"));
+}
+DataAttributeEntryNumericTypeOptionsForm DataAttributeEntry::numericTypeOptions() const {
+  return DataAttributeEntryNumericTypeOptionsForm(doc(), som::joinPath(path(), "DAATT-DTNU"));
+}
+DataAttributeEntryTemporalTypeOptionsForm DataAttributeEntry::temporalTypeOptions() const {
+  return DataAttributeEntryTemporalTypeOptionsForm(doc(), som::joinPath(path(), "DAATT-DTTM"));
+}
+DataAttributeEntryBinaryTypeOptionsForm DataAttributeEntry::binaryTypeOptions() const {
+  return DataAttributeEntryBinaryTypeOptionsForm(doc(), som::joinPath(path(), "DAATT-DTBI"));
+}
 som::SomList DataAttributeEntry::constraints() const {
   return som::SomList(doc(), som::joinPath(path(), "DATAA-CONS-LST"), "DATAA-CONS-xxx");
 }
@@ -7348,6 +7360,21 @@ ExportFieldMappingEntryContentForm ExportFieldMappingEntry::content() const {
 }
 ExportFieldMappingEntryFormattingForm ExportFieldMappingEntry::formatting() const {
   return ExportFieldMappingEntryFormattingForm(doc(), som::joinPath(path(), "EFMEF"));
+}
+ExportFieldMappingEntryNumericOutputForm ExportFieldMappingEntry::numericOutput() const {
+  return ExportFieldMappingEntryNumericOutputForm(doc(), som::joinPath(path(), "EFMEFN"));
+}
+ExportFieldMappingEntryTemporalOutputForm ExportFieldMappingEntry::temporalOutput() const {
+  return ExportFieldMappingEntryTemporalOutputForm(doc(), som::joinPath(path(), "EFMEFD"));
+}
+ExportFieldMappingEntryBooleanOutputForm ExportFieldMappingEntry::booleanOutput() const {
+  return ExportFieldMappingEntryBooleanOutputForm(doc(), som::joinPath(path(), "EFMEFB"));
+}
+ExportFieldMappingEntryEnumerationOutputForm ExportFieldMappingEntry::enumerationOutput() const {
+  return ExportFieldMappingEntryEnumerationOutputForm(doc(), som::joinPath(path(), "EFMEFE"));
+}
+ExportFieldMappingEntryTextOutputForm ExportFieldMappingEntry::textOutput() const {
+  return ExportFieldMappingEntryTextOutputForm(doc(), som::joinPath(path(), "EFMEFT"));
 }
 ExportFieldMappingEntryTransformationForm ExportFieldMappingEntry::transformation() const {
   return ExportFieldMappingEntryTransformationForm(doc(), som::joinPath(path(), "EFMET"));
@@ -13196,6 +13223,21 @@ ReportColumnEntryDataSourceForm ReportColumnEntry::dataSource() const {
 ReportColumnEntryFormattingForm ReportColumnEntry::formatting() const {
   return ReportColumnEntryFormattingForm(doc(), som::joinPath(path(), "RECOFO"));
 }
+ReportColumnEntryNumericFormatForm ReportColumnEntry::numericFormat() const {
+  return ReportColumnEntryNumericFormatForm(doc(), som::joinPath(path(), "RECOFN"));
+}
+ReportColumnEntryCurrencyFormatForm ReportColumnEntry::currencyFormat() const {
+  return ReportColumnEntryCurrencyFormatForm(doc(), som::joinPath(path(), "RECOFC"));
+}
+ReportColumnEntryDateFormatForm ReportColumnEntry::dateFormat() const {
+  return ReportColumnEntryDateFormatForm(doc(), som::joinPath(path(), "RECOFD"));
+}
+ReportColumnEntryBooleanFormatForm ReportColumnEntry::booleanFormat() const {
+  return ReportColumnEntryBooleanFormatForm(doc(), som::joinPath(path(), "RECOFB"));
+}
+ReportColumnEntryTextFormatForm ReportColumnEntry::textFormat() const {
+  return ReportColumnEntryTextFormatForm(doc(), som::joinPath(path(), "RECOFT"));
+}
 ReportColumnEntryAggregationForm ReportColumnEntry::aggregation() const {
   return ReportColumnEntryAggregationForm(doc(), som::joinPath(path(), "RECOAG"));
 }
@@ -13282,6 +13324,24 @@ ReportFilterEntryContentForm ReportFilterEntry::content() const {
 }
 ReportFilterEntryInputForm ReportFilterEntry::input() const {
   return ReportFilterEntryInputForm(doc(), som::joinPath(path(), "RFEI"));
+}
+ReportFilterEntryTextFilterOptionsForm ReportFilterEntry::textFilterOptions() const {
+  return ReportFilterEntryTextFilterOptionsForm(doc(), som::joinPath(path(), "RFEIT"));
+}
+ReportFilterEntryNumericFilterOptionsForm ReportFilterEntry::numericFilterOptions() const {
+  return ReportFilterEntryNumericFilterOptionsForm(doc(), som::joinPath(path(), "RFEIN"));
+}
+ReportFilterEntryDateFilterOptionsForm ReportFilterEntry::dateFilterOptions() const {
+  return ReportFilterEntryDateFilterOptionsForm(doc(), som::joinPath(path(), "RFEID"));
+}
+ReportFilterEntryBooleanFilterOptionsForm ReportFilterEntry::booleanFilterOptions() const {
+  return ReportFilterEntryBooleanFilterOptionsForm(doc(), som::joinPath(path(), "RFEIB"));
+}
+ReportFilterEntrySelectFilterOptionsForm ReportFilterEntry::selectFilterOptions() const {
+  return ReportFilterEntrySelectFilterOptionsForm(doc(), som::joinPath(path(), "RFEIS"));
+}
+ReportFilterEntryEntityFilterOptionsForm ReportFilterEntry::entityFilterOptions() const {
+  return ReportFilterEntryEntityFilterOptionsForm(doc(), som::joinPath(path(), "RFEIE"));
 }
 ReportFilterEntryBehaviorForm ReportFilterEntry::behavior() const {
   return ReportFilterEntryBehaviorForm(doc(), som::joinPath(path(), "RFEB"));
@@ -14581,6 +14641,18 @@ ScreenFieldEntryConditionsForm ScreenFieldEntry::conditions() const {
 }
 ScreenFieldEntryValidationForm ScreenFieldEntry::validation() const {
   return ScreenFieldEntryValidationForm(doc(), som::joinPath(path(), "SCFIVA"));
+}
+ScreenFieldEntryTextConstraintsForm ScreenFieldEntry::textConstraints() const {
+  return ScreenFieldEntryTextConstraintsForm(doc(), som::joinPath(path(), "SCFIVT"));
+}
+ScreenFieldEntryNumericConstraintsForm ScreenFieldEntry::numericConstraints() const {
+  return ScreenFieldEntryNumericConstraintsForm(doc(), som::joinPath(path(), "SCFIVN"));
+}
+ScreenFieldEntryTemporalConstraintsForm ScreenFieldEntry::temporalConstraints() const {
+  return ScreenFieldEntryTemporalConstraintsForm(doc(), som::joinPath(path(), "SCFIVD"));
+}
+ScreenFieldEntryChoiceOptionsForm ScreenFieldEntry::choiceOptions() const {
+  return ScreenFieldEntryChoiceOptionsForm(doc(), som::joinPath(path(), "SCFICH"));
 }
 ScreenFieldEntryLayoutForm ScreenFieldEntry::layout() const {
   return ScreenFieldEntryLayoutForm(doc(), som::joinPath(path(), "SCFILA"));
@@ -37352,6 +37424,27 @@ void DataAttributeConstraintEntryContentForm::setPatternRegex(const std::string&
   doc().setFormField(path(), "patternRegex", value);
 }
 
+DataAttributeEntryBinaryTypeOptionsForm::DataAttributeEntryBinaryTypeOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataAttributeEntryBinaryTypeOptionsForm::content() const {
+  return doc().content(path());
+}
+void DataAttributeEntryBinaryTypeOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataAttributeEntryBinaryTypeOptionsForm::maxSizeBytes() const {
+  return doc().formField(path(), "maxSizeBytes");
+}
+void DataAttributeEntryBinaryTypeOptionsForm::setMaxSizeBytes(const std::string& value) {
+  doc().setFormField(path(), "maxSizeBytes", value);
+}
+std::string DataAttributeEntryBinaryTypeOptionsForm::storageMode() const {
+  return doc().formField(path(), "storageMode");
+}
+void DataAttributeEntryBinaryTypeOptionsForm::setStorageMode(const std::string& value) {
+  doc().setFormField(path(), "storageMode", value);
+}
+
 DataAttributeEntryDataTypeSpecForm::DataAttributeEntryDataTypeSpecForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DataAttributeEntryDataTypeSpecForm::content() const {
@@ -37371,36 +37464,6 @@ std::string DataAttributeEntryDataTypeSpecForm::physicalType() const {
 }
 void DataAttributeEntryDataTypeSpecForm::setPhysicalType(const std::string& value) {
   doc().setFormField(path(), "physicalType", value);
-}
-std::string DataAttributeEntryDataTypeSpecForm::length() const {
-  return doc().formField(path(), "length");
-}
-void DataAttributeEntryDataTypeSpecForm::setLength(const std::string& value) {
-  doc().setFormField(path(), "length", value);
-}
-std::string DataAttributeEntryDataTypeSpecForm::precision() const {
-  return doc().formField(path(), "precision");
-}
-void DataAttributeEntryDataTypeSpecForm::setPrecision(const std::string& value) {
-  doc().setFormField(path(), "precision", value);
-}
-std::string DataAttributeEntryDataTypeSpecForm::scale() const {
-  return doc().formField(path(), "scale");
-}
-void DataAttributeEntryDataTypeSpecForm::setScale(const std::string& value) {
-  doc().setFormField(path(), "scale", value);
-}
-std::string DataAttributeEntryDataTypeSpecForm::collation() const {
-  return doc().formField(path(), "collation");
-}
-void DataAttributeEntryDataTypeSpecForm::setCollation(const std::string& value) {
-  doc().setFormField(path(), "collation", value);
-}
-std::string DataAttributeEntryDataTypeSpecForm::timezone() const {
-  return doc().formField(path(), "timezone");
-}
-void DataAttributeEntryDataTypeSpecForm::setTimezone(const std::string& value) {
-  doc().setFormField(path(), "timezone", value);
 }
 std::string DataAttributeEntryDataTypeSpecForm::format() const {
   return doc().formField(path(), "format");
@@ -37520,6 +37583,27 @@ void DataAttributeEntryMigrationLineageForm::setQualityRules(const std::string& 
   doc().setFormField(path(), "qualityRules", value);
 }
 
+DataAttributeEntryNumericTypeOptionsForm::DataAttributeEntryNumericTypeOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataAttributeEntryNumericTypeOptionsForm::content() const {
+  return doc().content(path());
+}
+void DataAttributeEntryNumericTypeOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataAttributeEntryNumericTypeOptionsForm::precision() const {
+  return doc().formField(path(), "precision");
+}
+void DataAttributeEntryNumericTypeOptionsForm::setPrecision(const std::string& value) {
+  doc().setFormField(path(), "precision", value);
+}
+std::string DataAttributeEntryNumericTypeOptionsForm::scale() const {
+  return doc().formField(path(), "scale");
+}
+void DataAttributeEntryNumericTypeOptionsForm::setScale(const std::string& value) {
+  doc().setFormField(path(), "scale", value);
+}
+
 DataAttributeEntrySecurityClassificationForm::DataAttributeEntrySecurityClassificationForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DataAttributeEntrySecurityClassificationForm::content() const {
@@ -37557,6 +37641,42 @@ std::string DataAttributeEntrySecurityClassificationForm::auditLevel() const {
 }
 void DataAttributeEntrySecurityClassificationForm::setAuditLevel(const std::string& value) {
   doc().setFormField(path(), "auditLevel", value);
+}
+
+DataAttributeEntryTemporalTypeOptionsForm::DataAttributeEntryTemporalTypeOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataAttributeEntryTemporalTypeOptionsForm::content() const {
+  return doc().content(path());
+}
+void DataAttributeEntryTemporalTypeOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataAttributeEntryTemporalTypeOptionsForm::timezone() const {
+  return doc().formField(path(), "timezone");
+}
+void DataAttributeEntryTemporalTypeOptionsForm::setTimezone(const std::string& value) {
+  doc().setFormField(path(), "timezone", value);
+}
+
+DataAttributeEntryTextTypeOptionsForm::DataAttributeEntryTextTypeOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataAttributeEntryTextTypeOptionsForm::content() const {
+  return doc().content(path());
+}
+void DataAttributeEntryTextTypeOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataAttributeEntryTextTypeOptionsForm::length() const {
+  return doc().formField(path(), "length");
+}
+void DataAttributeEntryTextTypeOptionsForm::setLength(const std::string& value) {
+  doc().setFormField(path(), "length", value);
+}
+std::string DataAttributeEntryTextTypeOptionsForm::collation() const {
+  return doc().formField(path(), "collation");
+}
+void DataAttributeEntryTextTypeOptionsForm::setCollation(const std::string& value) {
+  doc().setFormField(path(), "collation", value);
 }
 
 DataClassificationEntryAccessControlForm::DataClassificationEntryAccessControlForm(som::SpecDocument& doc, std::string path)
@@ -50277,6 +50397,27 @@ void ExpectedImprovementsContentForm::setIntegrationBenefits(const std::string& 
   doc().setFormField(path(), "integrationBenefits", value);
 }
 
+ExportFieldMappingEntryBooleanOutputForm::ExportFieldMappingEntryBooleanOutputForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExportFieldMappingEntryBooleanOutputForm::content() const {
+  return doc().content(path());
+}
+void ExportFieldMappingEntryBooleanOutputForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ExportFieldMappingEntryBooleanOutputForm::trueLiteral() const {
+  return doc().formField(path(), "trueLiteral");
+}
+void ExportFieldMappingEntryBooleanOutputForm::setTrueLiteral(const std::string& value) {
+  doc().setFormField(path(), "trueLiteral", value);
+}
+std::string ExportFieldMappingEntryBooleanOutputForm::falseLiteral() const {
+  return doc().formField(path(), "falseLiteral");
+}
+void ExportFieldMappingEntryBooleanOutputForm::setFalseLiteral(const std::string& value) {
+  doc().setFormField(path(), "falseLiteral", value);
+}
+
 ExportFieldMappingEntryContentForm::ExportFieldMappingEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ExportFieldMappingEntryContentForm::content() const {
@@ -50304,6 +50445,27 @@ void ExportFieldMappingEntryContentForm::setTargetFieldName(const std::string& v
   doc().setFormField(path(), "targetFieldName", value);
 }
 
+ExportFieldMappingEntryEnumerationOutputForm::ExportFieldMappingEntryEnumerationOutputForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExportFieldMappingEntryEnumerationOutputForm::content() const {
+  return doc().content(path());
+}
+void ExportFieldMappingEntryEnumerationOutputForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ExportFieldMappingEntryEnumerationOutputForm::emittedForm() const {
+  return doc().formField(path(), "emittedForm");
+}
+void ExportFieldMappingEntryEnumerationOutputForm::setEmittedForm(const std::string& value) {
+  doc().setFormField(path(), "emittedForm", value);
+}
+std::string ExportFieldMappingEntryEnumerationOutputForm::unmappedValueBehavior() const {
+  return doc().formField(path(), "unmappedValueBehavior");
+}
+void ExportFieldMappingEntryEnumerationOutputForm::setUnmappedValueBehavior(const std::string& value) {
+  doc().setFormField(path(), "unmappedValueBehavior", value);
+}
+
 ExportFieldMappingEntryFormattingForm::ExportFieldMappingEntryFormattingForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ExportFieldMappingEntryFormattingForm::content() const {
@@ -50325,12 +50487,6 @@ std::string ExportFieldMappingEntryFormattingForm::dataType() const {
 }
 void ExportFieldMappingEntryFormattingForm::setDataType(const std::string& value) {
   doc().setFormField(path(), "dataType", value);
-}
-std::string ExportFieldMappingEntryFormattingForm::formatPattern() const {
-  return doc().formField(path(), "formatPattern");
-}
-void ExportFieldMappingEntryFormattingForm::setFormatPattern(const std::string& value) {
-  doc().setFormField(path(), "formatPattern", value);
 }
 
 ExportFieldMappingEntryInclusionForm::ExportFieldMappingEntryInclusionForm(som::SpecDocument& doc, std::string path)
@@ -50358,14 +50514,6 @@ std::string ExportFieldMappingEntryInclusionForm::inclusionCondition() const {
 }
 void ExportFieldMappingEntryInclusionForm::setInclusionCondition(const std::string& value) {
   doc().setFormField(path(), "inclusionCondition", value);
-}
-std::optional<long> ExportFieldMappingEntryInclusionForm::maxLength() const {
-  const std::string v = doc().formField(path(), "maxLength");
-  if (v.empty()) return std::nullopt;
-  try { return std::stol(v); } catch (...) { return std::nullopt; }
-}
-void ExportFieldMappingEntryInclusionForm::setMaxLength(std::optional<long> value) {
-  doc().setFormField(path(), "maxLength", value.has_value() ? std::to_string(*value) : "");
 }
 
 ExportFieldMappingEntryLayoutForm::ExportFieldMappingEntryLayoutForm(som::SpecDocument& doc, std::string path)
@@ -50407,6 +50555,71 @@ std::string ExportFieldMappingEntryLayoutForm::notes() const {
 }
 void ExportFieldMappingEntryLayoutForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+
+ExportFieldMappingEntryNumericOutputForm::ExportFieldMappingEntryNumericOutputForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExportFieldMappingEntryNumericOutputForm::content() const {
+  return doc().content(path());
+}
+void ExportFieldMappingEntryNumericOutputForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ExportFieldMappingEntryNumericOutputForm::formatPattern() const {
+  return doc().formField(path(), "formatPattern");
+}
+void ExportFieldMappingEntryNumericOutputForm::setFormatPattern(const std::string& value) {
+  doc().setFormField(path(), "formatPattern", value);
+}
+std::string ExportFieldMappingEntryNumericOutputForm::decimalSeparator() const {
+  return doc().formField(path(), "decimalSeparator");
+}
+void ExportFieldMappingEntryNumericOutputForm::setDecimalSeparator(const std::string& value) {
+  doc().setFormField(path(), "decimalSeparator", value);
+}
+
+ExportFieldMappingEntryTemporalOutputForm::ExportFieldMappingEntryTemporalOutputForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExportFieldMappingEntryTemporalOutputForm::content() const {
+  return doc().content(path());
+}
+void ExportFieldMappingEntryTemporalOutputForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ExportFieldMappingEntryTemporalOutputForm::formatPattern() const {
+  return doc().formField(path(), "formatPattern");
+}
+void ExportFieldMappingEntryTemporalOutputForm::setFormatPattern(const std::string& value) {
+  doc().setFormField(path(), "formatPattern", value);
+}
+std::string ExportFieldMappingEntryTemporalOutputForm::timezoneHandling() const {
+  return doc().formField(path(), "timezoneHandling");
+}
+void ExportFieldMappingEntryTemporalOutputForm::setTimezoneHandling(const std::string& value) {
+  doc().setFormField(path(), "timezoneHandling", value);
+}
+
+ExportFieldMappingEntryTextOutputForm::ExportFieldMappingEntryTextOutputForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExportFieldMappingEntryTextOutputForm::content() const {
+  return doc().content(path());
+}
+void ExportFieldMappingEntryTextOutputForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<long> ExportFieldMappingEntryTextOutputForm::maxLength() const {
+  const std::string v = doc().formField(path(), "maxLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ExportFieldMappingEntryTextOutputForm::setMaxLength(std::optional<long> value) {
+  doc().setFormField(path(), "maxLength", value.has_value() ? std::to_string(*value) : "");
+}
+std::string ExportFieldMappingEntryTextOutputForm::padding() const {
+  return doc().formField(path(), "padding");
+}
+void ExportFieldMappingEntryTextOutputForm::setPadding(const std::string& value) {
+  doc().setFormField(path(), "padding", value);
 }
 
 ExportFieldMappingEntryTransformationForm::ExportFieldMappingEntryTransformationForm(som::SpecDocument& doc, std::string path)
@@ -81594,6 +81807,27 @@ void ReportColumnEntryAggregationForm::setHyperlinkTarget(const std::string& val
   doc().setFormField(path(), "hyperlinkTarget", value);
 }
 
+ReportColumnEntryBooleanFormatForm::ReportColumnEntryBooleanFormatForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportColumnEntryBooleanFormatForm::content() const {
+  return doc().content(path());
+}
+void ReportColumnEntryBooleanFormatForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportColumnEntryBooleanFormatForm::booleanTrueDisplay() const {
+  return doc().formField(path(), "booleanTrueDisplay");
+}
+void ReportColumnEntryBooleanFormatForm::setBooleanTrueDisplay(const std::string& value) {
+  doc().setFormField(path(), "booleanTrueDisplay", value);
+}
+std::string ReportColumnEntryBooleanFormatForm::booleanFalseDisplay() const {
+  return doc().formField(path(), "booleanFalseDisplay");
+}
+void ReportColumnEntryBooleanFormatForm::setBooleanFalseDisplay(const std::string& value) {
+  doc().setFormField(path(), "booleanFalseDisplay", value);
+}
+
 ReportColumnEntryContentForm::ReportColumnEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ReportColumnEntryContentForm::content() const {
@@ -81621,6 +81855,33 @@ void ReportColumnEntryContentForm::setDisplayLabel(const std::string& value) {
   doc().setFormField(path(), "displayLabel", value);
 }
 
+ReportColumnEntryCurrencyFormatForm::ReportColumnEntryCurrencyFormatForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportColumnEntryCurrencyFormatForm::content() const {
+  return doc().content(path());
+}
+void ReportColumnEntryCurrencyFormatForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportColumnEntryCurrencyFormatForm::formatPattern() const {
+  return doc().formField(path(), "formatPattern");
+}
+void ReportColumnEntryCurrencyFormatForm::setFormatPattern(const std::string& value) {
+  doc().setFormField(path(), "formatPattern", value);
+}
+std::string ReportColumnEntryCurrencyFormatForm::currencyCode() const {
+  return doc().formField(path(), "currencyCode");
+}
+void ReportColumnEntryCurrencyFormatForm::setCurrencyCode(const std::string& value) {
+  doc().setFormField(path(), "currencyCode", value);
+}
+std::string ReportColumnEntryCurrencyFormatForm::symbolPosition() const {
+  return doc().formField(path(), "symbolPosition");
+}
+void ReportColumnEntryCurrencyFormatForm::setSymbolPosition(const std::string& value) {
+  doc().setFormField(path(), "symbolPosition", value);
+}
+
 ReportColumnEntryDataSourceForm::ReportColumnEntryDataSourceForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ReportColumnEntryDataSourceForm::content() const {
@@ -81640,6 +81901,27 @@ std::string ReportColumnEntryDataSourceForm::dataType() const {
 }
 void ReportColumnEntryDataSourceForm::setDataType(const std::string& value) {
   doc().setFormField(path(), "dataType", value);
+}
+
+ReportColumnEntryDateFormatForm::ReportColumnEntryDateFormatForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportColumnEntryDateFormatForm::content() const {
+  return doc().content(path());
+}
+void ReportColumnEntryDateFormatForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportColumnEntryDateFormatForm::formatPattern() const {
+  return doc().formField(path(), "formatPattern");
+}
+void ReportColumnEntryDateFormatForm::setFormatPattern(const std::string& value) {
+  doc().setFormField(path(), "formatPattern", value);
+}
+std::string ReportColumnEntryDateFormatForm::timezoneDisplay() const {
+  return doc().formField(path(), "timezoneDisplay");
+}
+void ReportColumnEntryDateFormatForm::setTimezoneDisplay(const std::string& value) {
+  doc().setFormField(path(), "timezoneDisplay", value);
 }
 
 ReportColumnEntryFormattingForm::ReportColumnEntryFormattingForm(som::SpecDocument& doc, std::string path)
@@ -81676,35 +81958,11 @@ std::string ReportColumnEntryFormattingForm::verticalAlignment() const {
 void ReportColumnEntryFormattingForm::setVerticalAlignment(const std::string& value) {
   doc().setFormField(path(), "verticalAlignment", value);
 }
-std::string ReportColumnEntryFormattingForm::formatPattern() const {
-  return doc().formField(path(), "formatPattern");
-}
-void ReportColumnEntryFormattingForm::setFormatPattern(const std::string& value) {
-  doc().setFormField(path(), "formatPattern", value);
-}
-std::string ReportColumnEntryFormattingForm::currencyCode() const {
-  return doc().formField(path(), "currencyCode");
-}
-void ReportColumnEntryFormattingForm::setCurrencyCode(const std::string& value) {
-  doc().setFormField(path(), "currencyCode", value);
-}
 std::string ReportColumnEntryFormattingForm::nullDisplay() const {
   return doc().formField(path(), "nullDisplay");
 }
 void ReportColumnEntryFormattingForm::setNullDisplay(const std::string& value) {
   doc().setFormField(path(), "nullDisplay", value);
-}
-std::string ReportColumnEntryFormattingForm::booleanTrueDisplay() const {
-  return doc().formField(path(), "booleanTrueDisplay");
-}
-void ReportColumnEntryFormattingForm::setBooleanTrueDisplay(const std::string& value) {
-  doc().setFormField(path(), "booleanTrueDisplay", value);
-}
-std::string ReportColumnEntryFormattingForm::booleanFalseDisplay() const {
-  return doc().formField(path(), "booleanFalseDisplay");
-}
-void ReportColumnEntryFormattingForm::setBooleanFalseDisplay(const std::string& value) {
-  doc().setFormField(path(), "booleanFalseDisplay", value);
 }
 
 ReportColumnEntryInteractionForm::ReportColumnEntryInteractionForm(som::SpecDocument& doc, std::string path)
@@ -81767,6 +82025,50 @@ std::string ReportColumnEntryLayoutForm::notes() const {
 }
 void ReportColumnEntryLayoutForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+
+ReportColumnEntryNumericFormatForm::ReportColumnEntryNumericFormatForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportColumnEntryNumericFormatForm::content() const {
+  return doc().content(path());
+}
+void ReportColumnEntryNumericFormatForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportColumnEntryNumericFormatForm::formatPattern() const {
+  return doc().formField(path(), "formatPattern");
+}
+void ReportColumnEntryNumericFormatForm::setFormatPattern(const std::string& value) {
+  doc().setFormField(path(), "formatPattern", value);
+}
+std::string ReportColumnEntryNumericFormatForm::negativeDisplay() const {
+  return doc().formField(path(), "negativeDisplay");
+}
+void ReportColumnEntryNumericFormatForm::setNegativeDisplay(const std::string& value) {
+  doc().setFormField(path(), "negativeDisplay", value);
+}
+
+ReportColumnEntryTextFormatForm::ReportColumnEntryTextFormatForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportColumnEntryTextFormatForm::content() const {
+  return doc().content(path());
+}
+void ReportColumnEntryTextFormatForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportColumnEntryTextFormatForm::overflowBehavior() const {
+  return doc().formField(path(), "overflowBehavior");
+}
+void ReportColumnEntryTextFormatForm::setOverflowBehavior(const std::string& value) {
+  doc().setFormField(path(), "overflowBehavior", value);
+}
+std::optional<long> ReportColumnEntryTextFormatForm::maxDisplayLength() const {
+  const std::string v = doc().formField(path(), "maxDisplayLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ReportColumnEntryTextFormatForm::setMaxDisplayLength(std::optional<long> value) {
+  doc().setFormField(path(), "maxDisplayLength", value.has_value() ? std::to_string(*value) : "");
 }
 
 ReportDistributionEntryContentForm::ReportDistributionEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -82372,6 +82674,27 @@ void ReportFilterEntryBehaviorForm::setDependsOn(const std::string& value) {
   doc().setFormField(path(), "dependsOn", value);
 }
 
+ReportFilterEntryBooleanFilterOptionsForm::ReportFilterEntryBooleanFilterOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportFilterEntryBooleanFilterOptionsForm::content() const {
+  return doc().content(path());
+}
+void ReportFilterEntryBooleanFilterOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportFilterEntryBooleanFilterOptionsForm::inputType() const {
+  return doc().formField(path(), "inputType");
+}
+void ReportFilterEntryBooleanFilterOptionsForm::setInputType(const std::string& value) {
+  doc().setFormField(path(), "inputType", value);
+}
+std::string ReportFilterEntryBooleanFilterOptionsForm::includeIndeterminate() const {
+  return doc().formField(path(), "includeIndeterminate");
+}
+void ReportFilterEntryBooleanFilterOptionsForm::setIncludeIndeterminate(const std::string& value) {
+  doc().setFormField(path(), "includeIndeterminate", value);
+}
+
 ReportFilterEntryContentForm::ReportFilterEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ReportFilterEntryContentForm::content() const {
@@ -82399,6 +82722,66 @@ void ReportFilterEntryContentForm::setDisplayLabel(const std::string& value) {
   doc().setFormField(path(), "displayLabel", value);
 }
 
+ReportFilterEntryDateFilterOptionsForm::ReportFilterEntryDateFilterOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportFilterEntryDateFilterOptionsForm::content() const {
+  return doc().content(path());
+}
+void ReportFilterEntryDateFilterOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportFilterEntryDateFilterOptionsForm::inputType() const {
+  return doc().formField(path(), "inputType");
+}
+void ReportFilterEntryDateFilterOptionsForm::setInputType(const std::string& value) {
+  doc().setFormField(path(), "inputType", value);
+}
+std::string ReportFilterEntryDateFilterOptionsForm::earliestDate() const {
+  return doc().formField(path(), "earliestDate");
+}
+void ReportFilterEntryDateFilterOptionsForm::setEarliestDate(const std::string& value) {
+  doc().setFormField(path(), "earliestDate", value);
+}
+std::string ReportFilterEntryDateFilterOptionsForm::latestDate() const {
+  return doc().formField(path(), "latestDate");
+}
+void ReportFilterEntryDateFilterOptionsForm::setLatestDate(const std::string& value) {
+  doc().setFormField(path(), "latestDate", value);
+}
+
+ReportFilterEntryEntityFilterOptionsForm::ReportFilterEntryEntityFilterOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportFilterEntryEntityFilterOptionsForm::content() const {
+  return doc().content(path());
+}
+void ReportFilterEntryEntityFilterOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportFilterEntryEntityFilterOptionsForm::inputType() const {
+  return doc().formField(path(), "inputType");
+}
+void ReportFilterEntryEntityFilterOptionsForm::setInputType(const std::string& value) {
+  doc().setFormField(path(), "inputType", value);
+}
+std::string ReportFilterEntryEntityFilterOptionsForm::entityType() const {
+  return doc().formField(path(), "entityType");
+}
+void ReportFilterEntryEntityFilterOptionsForm::setEntityType(const std::string& value) {
+  doc().setFormField(path(), "entityType", value);
+}
+std::string ReportFilterEntryEntityFilterOptionsForm::queryFilter() const {
+  return doc().formField(path(), "queryFilter");
+}
+void ReportFilterEntryEntityFilterOptionsForm::setQueryFilter(const std::string& value) {
+  doc().setFormField(path(), "queryFilter", value);
+}
+std::string ReportFilterEntryEntityFilterOptionsForm::displayAttribute() const {
+  return doc().formField(path(), "displayAttribute");
+}
+void ReportFilterEntryEntityFilterOptionsForm::setDisplayAttribute(const std::string& value) {
+  doc().setFormField(path(), "displayAttribute", value);
+}
+
 ReportFilterEntryInputForm::ReportFilterEntryInputForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ReportFilterEntryInputForm::content() const {
@@ -82413,41 +82796,38 @@ std::string ReportFilterEntryInputForm::dataType() const {
 void ReportFilterEntryInputForm::setDataType(const std::string& value) {
   doc().setFormField(path(), "dataType", value);
 }
-std::string ReportFilterEntryInputForm::inputType() const {
-  return doc().formField(path(), "inputType");
-}
-void ReportFilterEntryInputForm::setInputType(const std::string& value) {
-  doc().setFormField(path(), "inputType", value);
-}
 std::string ReportFilterEntryInputForm::defaultValue() const {
   return doc().formField(path(), "defaultValue");
 }
 void ReportFilterEntryInputForm::setDefaultValue(const std::string& value) {
   doc().setFormField(path(), "defaultValue", value);
 }
-std::string ReportFilterEntryInputForm::availableValuesSource() const {
-  return doc().formField(path(), "availableValuesSource");
+
+ReportFilterEntryNumericFilterOptionsForm::ReportFilterEntryNumericFilterOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportFilterEntryNumericFilterOptionsForm::content() const {
+  return doc().content(path());
 }
-void ReportFilterEntryInputForm::setAvailableValuesSource(const std::string& value) {
-  doc().setFormField(path(), "availableValuesSource", value);
+void ReportFilterEntryNumericFilterOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
 }
-std::string ReportFilterEntryInputForm::staticValues() const {
-  return doc().formField(path(), "staticValues");
+std::string ReportFilterEntryNumericFilterOptionsForm::inputType() const {
+  return doc().formField(path(), "inputType");
 }
-void ReportFilterEntryInputForm::setStaticValues(const std::string& value) {
-  doc().setFormField(path(), "staticValues", value);
+void ReportFilterEntryNumericFilterOptionsForm::setInputType(const std::string& value) {
+  doc().setFormField(path(), "inputType", value);
 }
-std::string ReportFilterEntryInputForm::cascadeParent() const {
-  return doc().formField(path(), "cascadeParent");
+std::string ReportFilterEntryNumericFilterOptionsForm::minValue() const {
+  return doc().formField(path(), "minValue");
 }
-void ReportFilterEntryInputForm::setCascadeParent(const std::string& value) {
-  doc().setFormField(path(), "cascadeParent", value);
+void ReportFilterEntryNumericFilterOptionsForm::setMinValue(const std::string& value) {
+  doc().setFormField(path(), "minValue", value);
 }
-std::string ReportFilterEntryInputForm::multiSelect() const {
-  return doc().formField(path(), "multiSelect");
+std::string ReportFilterEntryNumericFilterOptionsForm::maxValue() const {
+  return doc().formField(path(), "maxValue");
 }
-void ReportFilterEntryInputForm::setMultiSelect(const std::string& value) {
-  doc().setFormField(path(), "multiSelect", value);
+void ReportFilterEntryNumericFilterOptionsForm::setMaxValue(const std::string& value) {
+  doc().setFormField(path(), "maxValue", value);
 }
 
 ReportFilterEntryPresentationForm::ReportFilterEntryPresentationForm(som::SpecDocument& doc, std::string path)
@@ -82481,6 +82861,74 @@ std::string ReportFilterEntryPresentationForm::notes() const {
 }
 void ReportFilterEntryPresentationForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+
+ReportFilterEntrySelectFilterOptionsForm::ReportFilterEntrySelectFilterOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportFilterEntrySelectFilterOptionsForm::content() const {
+  return doc().content(path());
+}
+void ReportFilterEntrySelectFilterOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportFilterEntrySelectFilterOptionsForm::inputType() const {
+  return doc().formField(path(), "inputType");
+}
+void ReportFilterEntrySelectFilterOptionsForm::setInputType(const std::string& value) {
+  doc().setFormField(path(), "inputType", value);
+}
+std::string ReportFilterEntrySelectFilterOptionsForm::availableValuesSource() const {
+  return doc().formField(path(), "availableValuesSource");
+}
+void ReportFilterEntrySelectFilterOptionsForm::setAvailableValuesSource(const std::string& value) {
+  doc().setFormField(path(), "availableValuesSource", value);
+}
+std::string ReportFilterEntrySelectFilterOptionsForm::staticValues() const {
+  return doc().formField(path(), "staticValues");
+}
+void ReportFilterEntrySelectFilterOptionsForm::setStaticValues(const std::string& value) {
+  doc().setFormField(path(), "staticValues", value);
+}
+std::string ReportFilterEntrySelectFilterOptionsForm::cascadeParent() const {
+  return doc().formField(path(), "cascadeParent");
+}
+void ReportFilterEntrySelectFilterOptionsForm::setCascadeParent(const std::string& value) {
+  doc().setFormField(path(), "cascadeParent", value);
+}
+std::string ReportFilterEntrySelectFilterOptionsForm::multiSelect() const {
+  return doc().formField(path(), "multiSelect");
+}
+void ReportFilterEntrySelectFilterOptionsForm::setMultiSelect(const std::string& value) {
+  doc().setFormField(path(), "multiSelect", value);
+}
+
+ReportFilterEntryTextFilterOptionsForm::ReportFilterEntryTextFilterOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportFilterEntryTextFilterOptionsForm::content() const {
+  return doc().content(path());
+}
+void ReportFilterEntryTextFilterOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReportFilterEntryTextFilterOptionsForm::inputType() const {
+  return doc().formField(path(), "inputType");
+}
+void ReportFilterEntryTextFilterOptionsForm::setInputType(const std::string& value) {
+  doc().setFormField(path(), "inputType", value);
+}
+std::string ReportFilterEntryTextFilterOptionsForm::matchMode() const {
+  return doc().formField(path(), "matchMode");
+}
+void ReportFilterEntryTextFilterOptionsForm::setMatchMode(const std::string& value) {
+  doc().setFormField(path(), "matchMode", value);
+}
+std::optional<long> ReportFilterEntryTextFilterOptionsForm::maxLength() const {
+  const std::string v = doc().formField(path(), "maxLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ReportFilterEntryTextFilterOptionsForm::setMaxLength(std::optional<long> value) {
+  doc().setFormField(path(), "maxLength", value.has_value() ? std::to_string(*value) : "");
 }
 
 ReportRecipientEntryContentForm::ReportRecipientEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -89199,6 +89647,27 @@ void ScreenEntryTraceabilityForm::setPrimaryAction(const std::string& value) {
   doc().setFormField(path(), "primaryAction", value);
 }
 
+ScreenFieldEntryChoiceOptionsForm::ScreenFieldEntryChoiceOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenFieldEntryChoiceOptionsForm::content() const {
+  return doc().content(path());
+}
+void ScreenFieldEntryChoiceOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScreenFieldEntryChoiceOptionsForm::optionSource() const {
+  return doc().formField(path(), "optionSource");
+}
+void ScreenFieldEntryChoiceOptionsForm::setOptionSource(const std::string& value) {
+  doc().setFormField(path(), "optionSource", value);
+}
+std::string ScreenFieldEntryChoiceOptionsForm::staticOptions() const {
+  return doc().formField(path(), "staticOptions");
+}
+void ScreenFieldEntryChoiceOptionsForm::setStaticOptions(const std::string& value) {
+  doc().setFormField(path(), "staticOptions", value);
+}
+
 ScreenFieldEntryConditionsForm::ScreenFieldEntryConditionsForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ScreenFieldEntryConditionsForm::content() const {
@@ -89312,18 +89781,6 @@ std::string ScreenFieldEntryLayoutForm::content() const {
 void ScreenFieldEntryLayoutForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ScreenFieldEntryLayoutForm::dropdownSource() const {
-  return doc().formField(path(), "dropdownSource");
-}
-void ScreenFieldEntryLayoutForm::setDropdownSource(const std::string& value) {
-  doc().setFormField(path(), "dropdownSource", value);
-}
-std::string ScreenFieldEntryLayoutForm::dropdownValues() const {
-  return doc().formField(path(), "dropdownValues");
-}
-void ScreenFieldEntryLayoutForm::setDropdownValues(const std::string& value) {
-  doc().setFormField(path(), "dropdownValues", value);
-}
 std::string ScreenFieldEntryLayoutForm::dependsOn() const {
   return doc().formField(path(), "dependsOn");
 }
@@ -89349,6 +89806,75 @@ void ScreenFieldEntryLayoutForm::setGrouping(const std::string& value) {
   doc().setFormField(path(), "grouping", value);
 }
 
+ScreenFieldEntryNumericConstraintsForm::ScreenFieldEntryNumericConstraintsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenFieldEntryNumericConstraintsForm::content() const {
+  return doc().content(path());
+}
+void ScreenFieldEntryNumericConstraintsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScreenFieldEntryNumericConstraintsForm::minValue() const {
+  return doc().formField(path(), "minValue");
+}
+void ScreenFieldEntryNumericConstraintsForm::setMinValue(const std::string& value) {
+  doc().setFormField(path(), "minValue", value);
+}
+std::string ScreenFieldEntryNumericConstraintsForm::maxValue() const {
+  return doc().formField(path(), "maxValue");
+}
+void ScreenFieldEntryNumericConstraintsForm::setMaxValue(const std::string& value) {
+  doc().setFormField(path(), "maxValue", value);
+}
+
+ScreenFieldEntryTemporalConstraintsForm::ScreenFieldEntryTemporalConstraintsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenFieldEntryTemporalConstraintsForm::content() const {
+  return doc().content(path());
+}
+void ScreenFieldEntryTemporalConstraintsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScreenFieldEntryTemporalConstraintsForm::earliestValue() const {
+  return doc().formField(path(), "earliestValue");
+}
+void ScreenFieldEntryTemporalConstraintsForm::setEarliestValue(const std::string& value) {
+  doc().setFormField(path(), "earliestValue", value);
+}
+std::string ScreenFieldEntryTemporalConstraintsForm::latestValue() const {
+  return doc().formField(path(), "latestValue");
+}
+void ScreenFieldEntryTemporalConstraintsForm::setLatestValue(const std::string& value) {
+  doc().setFormField(path(), "latestValue", value);
+}
+
+ScreenFieldEntryTextConstraintsForm::ScreenFieldEntryTextConstraintsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenFieldEntryTextConstraintsForm::content() const {
+  return doc().content(path());
+}
+void ScreenFieldEntryTextConstraintsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScreenFieldEntryTextConstraintsForm::minLength() const {
+  return doc().formField(path(), "minLength");
+}
+void ScreenFieldEntryTextConstraintsForm::setMinLength(const std::string& value) {
+  doc().setFormField(path(), "minLength", value);
+}
+std::string ScreenFieldEntryTextConstraintsForm::maxLength() const {
+  return doc().formField(path(), "maxLength");
+}
+void ScreenFieldEntryTextConstraintsForm::setMaxLength(const std::string& value) {
+  doc().setFormField(path(), "maxLength", value);
+}
+std::string ScreenFieldEntryTextConstraintsForm::pattern() const {
+  return doc().formField(path(), "pattern");
+}
+void ScreenFieldEntryTextConstraintsForm::setPattern(const std::string& value) {
+  doc().setFormField(path(), "pattern", value);
+}
+
 ScreenFieldEntryValidationForm::ScreenFieldEntryValidationForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ScreenFieldEntryValidationForm::content() const {
@@ -89356,36 +89882,6 @@ std::string ScreenFieldEntryValidationForm::content() const {
 }
 void ScreenFieldEntryValidationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
-}
-std::string ScreenFieldEntryValidationForm::minLength() const {
-  return doc().formField(path(), "minLength");
-}
-void ScreenFieldEntryValidationForm::setMinLength(const std::string& value) {
-  doc().setFormField(path(), "minLength", value);
-}
-std::string ScreenFieldEntryValidationForm::maxLength() const {
-  return doc().formField(path(), "maxLength");
-}
-void ScreenFieldEntryValidationForm::setMaxLength(const std::string& value) {
-  doc().setFormField(path(), "maxLength", value);
-}
-std::string ScreenFieldEntryValidationForm::minValue() const {
-  return doc().formField(path(), "minValue");
-}
-void ScreenFieldEntryValidationForm::setMinValue(const std::string& value) {
-  doc().setFormField(path(), "minValue", value);
-}
-std::string ScreenFieldEntryValidationForm::maxValue() const {
-  return doc().formField(path(), "maxValue");
-}
-void ScreenFieldEntryValidationForm::setMaxValue(const std::string& value) {
-  doc().setFormField(path(), "maxValue", value);
-}
-std::string ScreenFieldEntryValidationForm::pattern() const {
-  return doc().formField(path(), "pattern");
-}
-void ScreenFieldEntryValidationForm::setPattern(const std::string& value) {
-  doc().setFormField(path(), "pattern", value);
 }
 std::string ScreenFieldEntryValidationForm::validationMessage() const {
   return doc().formField(path(), "validationMessage");

@@ -13230,7 +13230,47 @@ def _mc_DataAttributeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=1,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary", order=0), SomFormFieldMeta(name="physicalType", type_name="String", description="Physical Type", hint="Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", order=1), SomFormFieldMeta(name="length", type_name="String", description="Length/Size", hint="Maximum length for strings or size for binary", order=2), SomFormFieldMeta(name="precision", type_name="String", description="Precision", hint="Total digits for numeric types", order=3), SomFormFieldMeta(name="scale", type_name="String", description="Scale", hint="Decimal places for numeric types", order=4), SomFormFieldMeta(name="collation", type_name="String", description="Collation", hint="Character collation for text (e.g., utf8_general_ci)", order=5), SomFormFieldMeta(name="timezone", type_name="String", description="Timezone", hint="For datetime: UTC | Local | WithOffset", order=6), SomFormFieldMeta(name="format", type_name="String", description="Format", hint="Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="DataAttributeKind", description="Data Type", hint="The logical type — selects the promoted options subsection.", order=0, enum_values=["string", "integer", "decimal", "date", "dateTime", "binary", "boolean", "uuid", "json", "enumeration"]), SomFormFieldMeta(name="physicalType", type_name="String", description="Physical Type", hint="Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", order=1), SomFormFieldMeta(name="format", type_name="String", description="Format", hint="Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", order=2)])),
+         SomMetaNode(
+            class_name="DataAttributeEntry",
+            member_name="textTypeOptions",
+            section_id="DAATT-DTTX",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=2,
+            doc_comment="Text-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `string` logical type; carries only the character\nlength and collation attributes (no numeric precision, no timezone).",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="length", type_name="String", description="Length", hint="Maximum character length", order=0), SomFormFieldMeta(name="collation", type_name="String", description="Collation", hint="Character collation for text (e.g., utf8_general_ci)", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element", "ISO/IEC 25012 — data quality characteristics for stored text"], "connotation": "The character length and collation constraints for a text attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.string"})]),
+         SomMetaNode(
+            class_name="DataAttributeEntry",
+            member_name="numericTypeOptions",
+            section_id="DAATT-DTNU",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=3,
+            doc_comment="Numeric-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric logical types; carries only the precision and\nscale attributes (no length, collation or timezone).",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="precision", type_name="String", description="Precision", hint="Total digits for numeric types", order=0), SomFormFieldMeta(name="scale", type_name="String", description="Scale", hint="Decimal places for numeric types", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element", "ISO 80000-1 — quantities and units, on numeric precision"], "connotation": "The precision and scale constraints for a numeric attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.integer"}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.decimal"})]),
+         SomMetaNode(
+            class_name="DataAttributeEntry",
+            member_name="temporalTypeOptions",
+            section_id="DAATT-DTTM",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="Temporal-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/time logical types; carries only the timezone\nhandling attribute.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="timezone", type_name="String", description="Timezone", hint="For datetime: UTC | Local | WithOffset", order=0)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 8601-1:2019 — representation of dates and times", "ISO 8601-2:2019 — extensions including time-zone offsets"], "connotation": "The timezone handling for a date or date-time attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.date"}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.dateTime"})]),
+         SomMetaNode(
+            class_name="DataAttributeEntry",
+            member_name="binaryTypeOptions",
+            section_id="DAATT-DTBI",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=5,
+            doc_comment="Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="maxSizeBytes", type_name="String", description="Max Size (Bytes)", hint="Maximum stored size in bytes", order=0), SomFormFieldMeta(name="storageMode", type_name="String", description="Storage Mode", hint="Inline | External-Reference | Blob-Store", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element"], "connotation": "The stored size constraints for a binary attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.binary"})]),
          SomMetaNode(
             class_name="DataAttributeEntry",
             member_name="constraints",
@@ -13238,7 +13278,7 @@ def _mc_DataAttributeEntry(s):
             section_id_pattern="DATAA-CONS-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataAttributeConstraintEntry",
-            serialization_order=2,
+            serialization_order=6,
             content_help="Add one entry per attribute constraint.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "ISO/IEC 25012 — data quality"], "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."})],
             element_node=_cx("DataAttributeConstraintEntry", s, _mc_DataAttributeConstraintEntry, lambda r, c: SomMetaNode(class_name="DataAttributeConstraintEntry", class_section_id="DATAA", kind=SomMetaKind.COMPLEX, type_name="DataAttributeConstraintEntry", doc_comment="A single constraint entry.", class_doc_comment="A single constraint entry.", recursive=r, children=c))),
@@ -13248,7 +13288,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DERI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=7,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="isComputed", type_name="String", description="Is Computed", hint="Whether value is computed: Yes | No", order=0), SomFormFieldMeta(name="computeFormula", type_name="String", description="Compute Formula", hint="Formula or expression for computed fields", order=1), SomFormFieldMeta(name="isDerived", type_name="String", description="Is Derived", hint="Whether derived from other attributes: Yes | No", order=2), SomFormFieldMeta(name="derivationLogic", type_name="String", description="Derivation Logic", hint="How derived value is calculated", order=3)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13256,7 +13296,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-SECU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=8,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sensitivityLevel", type_name="String", description="Sensitivity Level", hint="Public | Internal | Confidential | Restricted | PII | PHI", order=0), SomFormFieldMeta(name="isPii", type_name="String", description="Is PII", hint="Personally identifiable information: Yes | No", order=1), SomFormFieldMeta(name="maskingRule", type_name="String", description="Masking Rule", hint="How to mask in logs/displays: None | Partial | Full | Hash", order=2), SomFormFieldMeta(name="encryptionLevel", type_name="String", description="Encryption Level", hint="Field-level encryption: None | Encrypted | Tokenized", order=3), SomFormFieldMeta(name="auditLevel", type_name="String", description="Audit Level", hint="Change tracking: None | ValueChanges | FullHistory", order=4)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13264,7 +13304,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-MIGR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=9,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceSystem", type_name="String", description="Source System", hint="Originating system for data lineage", order=0), SomFormFieldMeta(name="sourceAttribute", type_name="String", description="Source Attribute", hint="Source field name for migration mapping", order=1), SomFormFieldMeta(name="transformationRule", type_name="String", description="Transformation Rule", hint="Transformation applied during migration/ETL", order=2), SomFormFieldMeta(name="dataLineage", type_name="String", description="Data Lineage", hint="Upstream sources that feed this attribute", order=3), SomFormFieldMeta(name="qualityRules", type_name="String", description="Quality Rules", hint="Data quality checks (e.g., completeness, accuracy)", order=4)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13273,7 +13313,7 @@ def _mc_DataAttributeEntry(s):
             section_id_pattern="DISPL-DISP-xxx",
             kind=SomMetaKind.LIST,
             type_name="DisplayPropertyEntry",
-            serialization_order=6,
+            serialization_order=10,
             content_help="Add one entry per display property.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."})],
             element_node=_cx("DisplayPropertyEntry", s, _mc_DisplayPropertyEntry, lambda r, c: SomMetaNode(class_name="DisplayPropertyEntry", class_section_id="DISPL", kind=SomMetaKind.COMPLEX, type_name="DisplayPropertyEntry", doc_comment="A single display property entry.", class_doc_comment="A single display property entry.", recursive=r, children=c))),
@@ -20561,15 +20601,65 @@ def _mc_ExportFieldMappingEntry(s):
             type_name="String",
             serialization_order=1,
             doc_comment="Ordering and formatting settings.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Position in the export output (column order)", order=0), SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="String / Integer / Decimal / Date / DateTime / Boolean / Enum", order=1), SomFormFieldMeta(name="formatPattern", type_name="String", description="Format Pattern", hint="Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers", order=2)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Position in the export output (column order)", order=0), SomFormFieldMeta(name="dataType", type_name="ExportFieldKind", description="Data Type", hint="The field value type — selects the promoted output subsection.", order=1, enum_values=["string", "integer", "decimal", "date", "dateTime", "boolean", "enumeration"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["IETF RFC 4180 — the order of fields within each record is fixed and consistent across the file", "ISO 8601-1:2019 — a standardized date representation governs how date-typed fields are formatted"], "connotation": "Column ordering, data typing, and output format pattern applied to a mapped export field."})]),
+         SomMetaNode(
+            class_name="ExportFieldMappingEntry",
+            member_name="numericOutput",
+            section_id="EFMEFN",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=2,
+            doc_comment="Numeric-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal fields; carries only the numeric\noutput pattern and separators.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="formatPattern", type_name="String", description="Format Pattern", hint="Numeric output format, e.g. #,##0.00", order=0), SomFormFieldMeta(name="decimalSeparator", type_name="String", description="Decimal Separator", hint="Character used as the decimal mark, e.g. . or ,", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 80000-1:2022 — general principles for quantities units and their symbols", "IETF RFC 4180 — numeric field values are emitted as text within the record structure"], "connotation": "The numeric output pattern and separators for an exported numeric field."}), SomMetaExtra(annotation="Case", args={"value": "ExportFieldKind.integer"}), SomMetaExtra(annotation="Case", args={"value": "ExportFieldKind.decimal"})]),
+         SomMetaNode(
+            class_name="ExportFieldMappingEntry",
+            member_name="temporalOutput",
+            section_id="EFMEFD",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=3,
+            doc_comment="Temporal-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for date and date-time fields; carries only the temporal\noutput pattern and timezone handling.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="formatPattern", type_name="String", description="Format Pattern", hint="Temporal output format, e.g. dd.MM.yyyy", order=0), SomFormFieldMeta(name="timezoneHandling", type_name="String", description="Timezone Handling", hint="UTC / Local / With-Offset", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 8601-1:2019 — representation of dates and times", "ISO 8601-2:2019 — extensions including time-zone offsets"], "connotation": "The temporal output pattern and timezone handling for an exported date field."}), SomMetaExtra(annotation="Case", args={"value": "ExportFieldKind.date"}), SomMetaExtra(annotation="Case", args={"value": "ExportFieldKind.dateTime"})]),
+         SomMetaNode(
+            class_name="ExportFieldMappingEntry",
+            member_name="booleanOutput",
+            section_id="EFMEFB",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="Boolean-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean fields; this is the only case in which the\nemitted true/false literals are meaningful.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="trueLiteral", type_name="String", description="True Literal", hint="Emitted for true, e.g. true / Y / 1", order=0), SomFormFieldMeta(name="falseLiteral", type_name="String", description="False Literal", hint="Emitted for false, e.g. false / N / 0", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["IETF RFC 4180 — boolean field values are emitted as text literals within the record"], "connotation": "The emitted true and false literals for an exported boolean field."}), SomMetaExtra(annotation="Case", args={"value": "ExportFieldKind.boolean"})]),
+         SomMetaNode(
+            class_name="ExportFieldMappingEntry",
+            member_name="enumerationOutput",
+            section_id="EFMEFE",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=5,
+            doc_comment="Enumeration-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration fields; carries which face of the value set\nis emitted and what happens to a value outside it.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="emittedForm", type_name="String", description="Emitted Form", hint="Value-Id / Display-Label / Numeric-Ordinal", order=0), SomFormFieldMeta(name="unmappedValueBehavior", type_name="String", description="Unmapped Value Behavior", hint="Emit-Raw / Emit-Empty / Fail-Export", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible values of a data element and their representation"], "connotation": "The emitted representation of an exported enumeration field and its unmapped-value behaviour."}), SomMetaExtra(annotation="Case", args={"value": "ExportFieldKind.enumeration"})]),
+         SomMetaNode(
+            class_name="ExportFieldMappingEntry",
+            member_name="textOutput",
+            section_id="EFMEFT",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=6,
+            doc_comment="Text-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for text fields; carries the character-length truncation\nthat only a string field can have. Moved out of `inclusion`, where it sat\nbeside type-independent default and inclusion rules.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="maxLength", type_name="int", description="Max Length", hint="Truncate output to this character length", order=0), SomFormFieldMeta(name="padding", type_name="String", description="Padding", hint="None / Left-Pad / Right-Pad for fixed-width output", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["IETF RFC 4180 — text field values are emitted within the record structure", "ISO/IEC 25010:2023 — functional correctness of length-bounded output"], "connotation": "The character-length truncation and padding for an exported text field."}), SomMetaExtra(annotation="Case", args={"value": "ExportFieldKind.string"})]),
          SomMetaNode(
             class_name="ExportFieldMappingEntry",
             member_name="transformation",
             section_id="EFMET",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=7,
             doc_comment="Transformation rules.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="transformationRule", type_name="String", description="Transformation Rule", hint="Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom", order=0), SomFormFieldMeta(name="transformationExpression", type_name="String", description="Transformation Expression", hint="Expression for transform, e.g. firstName + lastName", order=1), SomFormFieldMeta(name="valueMapping", type_name="String", description="Value Mapping", hint="Value substitution map, e.g. ACTIVE→A, INACTIVE→I", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — functional correctness requires transformed values to match the specified rules", "IETF RFC 4180 — transformed field values are emitted as text within the record structure"], "connotation": "Value transformation and substitution rules applied to a mapped field before it is written to the export."})]),
@@ -20579,9 +20669,9 @@ def _mc_ExportFieldMappingEntry(s):
             section_id="EFMEI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=8,
             doc_comment="Inclusion and defaults.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Value to use when source is null/empty", order=0), SomFormFieldMeta(name="includeInExport", type_name="String", description="Include In Export", hint="Yes / No / Conditional", order=1), SomFormFieldMeta(name="inclusionCondition", type_name="String", description="Inclusion Condition", hint="Condition for conditional inclusion", order=2), SomFormFieldMeta(name="maxLength", type_name="int", description="Max Length", hint="Truncate output to this character length", order=3)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Value to use when source is null/empty", order=0), SomFormFieldMeta(name="includeInExport", type_name="String", description="Include In Export", hint="Yes / No / Conditional", order=1), SomFormFieldMeta(name="inclusionCondition", type_name="String", description="Inclusion Condition", hint="Condition for conditional inclusion", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["IETF RFC 4180 — a record is a sequence of fields where empty fields are represented by adjacent delimiters", "ISO/IEC 25010:2023 — functional correctness ensures default and inclusion rules produce the expected output"], "connotation": "Inclusion conditions and default values determining whether and how a mapped field appears in the export."})]),
          SomMetaNode(
             class_name="ExportFieldMappingEntry",
@@ -20589,7 +20679,7 @@ def _mc_ExportFieldMappingEntry(s):
             section_id="EFMEL",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=9,
             doc_comment="Fixed-width and quoting rules.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="paddingChar", type_name="String", description="Padding Char", hint="For fixed-width: padding character, e.g. space or 0", order=0), SomFormFieldMeta(name="paddingDirection", type_name="String", description="Padding Direction", hint="Left / Right for fixed-width formats", order=1), SomFormFieldMeta(name="fixedWidth", type_name="int", description="Fixed Width", hint="Column width for fixed-width format exports", order=2), SomFormFieldMeta(name="quoteAlways", type_name="String", description="Quote Always", hint="Yes / No — always quote this field in CSV", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Design notes", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["IETF RFC 4180 — fields containing special characters are enclosed in double quotes", "ISO/IEC 25010:2023 — interoperability requires field layout to match the consuming system expectations"], "connotation": "Fixed-width padding and CSV quoting rules controlling how a mapped field is laid out in the output."})]),
@@ -37587,7 +37677,7 @@ def _mc_ReportColumnEntry(s):
             type_name="String",
             serialization_order=1,
             doc_comment="Data source and type.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataSourceField", type_name="String", description="Data Source Field", hint="Path to the data field, e.g. order.customer.name", order=0), SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="String / Integer / Decimal / Currency / Date / Boolean", order=1)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataSourceField", type_name="String", description="Data Source Field", hint="Path to the data field, e.g. order.customer.name", order=0), SomFormFieldMeta(name="dataType", type_name="ReportColumnKind", description="Data Type", hint="The column value type — selects the promoted format subsection.", order=1, enum_values=["string", "integer", "decimal", "currency", "date", "boolean"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — presentation of information relates displayed data to its source field", "ISO/IEC 25010:2023 — functional suitability requires the column value data type to be defined"], "connotation": "Data source field and data type binding for a report column."})]),
          SomMetaNode(
             class_name="ReportColumnEntry",
@@ -37597,15 +37687,65 @@ def _mc_ReportColumnEntry(s):
             type_name="String",
             serialization_order=2,
             doc_comment="Display formatting.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Column position left to right", order=0), SomFormFieldMeta(name="width", type_name="String", description="Width", hint="Auto / Fixed(120px) / Proportion(25%)", order=1), SomFormFieldMeta(name="alignment", type_name="String", description="Alignment", hint="Left / Center / Right", order=2), SomFormFieldMeta(name="verticalAlignment", type_name="String", description="Vertical Alignment", hint="Top / Middle / Bottom", order=3), SomFormFieldMeta(name="formatPattern", type_name="String", description="Format Pattern", hint="Display format, e.g. #,##0.00", order=4), SomFormFieldMeta(name="currencyCode", type_name="String", description="Currency Code", hint="Currency code if type is Currency", order=5), SomFormFieldMeta(name="nullDisplay", type_name="String", description="Null Display", hint="What to show for null/empty values", order=6), SomFormFieldMeta(name="booleanTrueDisplay", type_name="String", description="Boolean True Display", hint="Display for true, e.g. Yes / ✓", order=7), SomFormFieldMeta(name="booleanFalseDisplay", type_name="String", description="Boolean False Display", hint="Display for false, e.g. No / —", order=8)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Column position left to right", order=0), SomFormFieldMeta(name="width", type_name="String", description="Width", hint="Auto / Fixed(120px) / Proportion(25%)", order=1), SomFormFieldMeta(name="alignment", type_name="String", description="Alignment", hint="Left / Center / Right", order=2), SomFormFieldMeta(name="verticalAlignment", type_name="String", description="Vertical Alignment", hint="Top / Middle / Bottom", order=3), SomFormFieldMeta(name="nullDisplay", type_name="String", description="Null Display", hint="What to show for null/empty values", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — visual presentation of information governs width alignment and formatting", "ISO 80000-1:2022 — general principles for quantities units and their symbols"], "connotation": "Display formatting settings for a report column such as width, alignment and value formats."})]),
+         SomMetaNode(
+            class_name="ReportColumnEntry",
+            member_name="numericFormat",
+            section_id="RECOFN",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=3,
+            doc_comment="Numeric-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal columns; carries only the numeric\ndisplay pattern (no currency code, no boolean labels).",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="formatPattern", type_name="String", description="Format Pattern", hint="Numeric display format, e.g. #,##0.00", order=0), SomFormFieldMeta(name="negativeDisplay", type_name="String", description="Negative Display", hint="Minus-Sign / Parentheses / Red", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 80000-1:2022 — general principles for quantities units and their symbols", "ISO 31-0 — presentation of numbers including grouping and decimal marks"], "connotation": "The numeric display pattern for an integer or decimal report column."}), SomMetaExtra(annotation="Case", args={"value": "ReportColumnKind.integer"}), SomMetaExtra(annotation="Case", args={"value": "ReportColumnKind.decimal"})]),
+         SomMetaNode(
+            class_name="ReportColumnEntry",
+            member_name="currencyFormat",
+            section_id="RECOFC",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="Currency-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for currency columns; this is the only case in which a\ncurrency code is meaningful.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="formatPattern", type_name="String", description="Format Pattern", hint="Monetary display format, e.g. #,##0.00", order=0), SomFormFieldMeta(name="currencyCode", type_name="String", description="Currency Code", hint="ISO 4217 code, e.g. EUR / USD", order=1), SomFormFieldMeta(name="symbolPosition", type_name="String", description="Symbol Position", hint="Prefix / Suffix / None", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 4217:2015 — codes for the representation of currencies", "ISO 80000-1:2022 — general principles for quantities units and their symbols"], "connotation": "The currency code and monetary display pattern for a currency report column."}), SomMetaExtra(annotation="Case", args={"value": "ReportColumnKind.currency"})]),
+         SomMetaNode(
+            class_name="ReportColumnEntry",
+            member_name="dateFormat",
+            section_id="RECOFD",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=5,
+            doc_comment="Date-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for date columns; carries only the temporal display pattern.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="formatPattern", type_name="String", description="Format Pattern", hint="Date display format, e.g. yyyy-MM-dd", order=0), SomFormFieldMeta(name="timezoneDisplay", type_name="String", description="Timezone Display", hint="UTC / Local / With-Offset", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 8601-1:2019 — representation of dates and times", "ISO 9241-112:2017 — presentation of information for temporal values"], "connotation": "The temporal display pattern for a date report column."}), SomMetaExtra(annotation="Case", args={"value": "ReportColumnKind.date"})]),
+         SomMetaNode(
+            class_name="ReportColumnEntry",
+            member_name="booleanFormat",
+            section_id="RECOFB",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=6,
+            doc_comment="Boolean-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean columns; this is the only case in which the\ntrue/false display labels are meaningful.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="booleanTrueDisplay", type_name="String", description="Boolean True Display", hint="Display for true, e.g. Yes / ✓", order=0), SomFormFieldMeta(name="booleanFalseDisplay", type_name="String", description="Boolean False Display", hint="Display for false, e.g. No / —", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — presentation of information for two-valued indicators"], "connotation": "The true and false display labels for a boolean report column."}), SomMetaExtra(annotation="Case", args={"value": "ReportColumnKind.boolean"})]),
+         SomMetaNode(
+            class_name="ReportColumnEntry",
+            member_name="textFormat",
+            section_id="RECOFT",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=7,
+            doc_comment="Text-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for text columns; carries only the overflow handling a\nvariable-length string column needs.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="overflowBehavior", type_name="String", description="Overflow Behavior", hint="Truncate / Ellipsis / Wrap / Clip", order=0), SomFormFieldMeta(name="maxDisplayLength", type_name="int", description="Max Display Length", hint="Character limit before overflow handling applies", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — presentation of information governs truncation and wrapping of text"], "connotation": "The overflow handling for a text report column."}), SomMetaExtra(annotation="Case", args={"value": "ReportColumnKind.string"})]),
          SomMetaNode(
             class_name="ReportColumnEntry",
             member_name="aggregation",
             section_id="RECOAG",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=8,
             doc_comment="Aggregation settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="aggregation", type_name="String", description="Aggregation", hint="None / Sum / Average / Count / Min / Max", order=0), SomFormFieldMeta(name="aggregationLabel", type_name="String", description="Aggregation Label", hint="Custom label for the aggregation row", order=1), SomFormFieldMeta(name="conditionalFormattingRules", type_name="String", description="Conditional Formatting Rules", hint="Rules for value-based formatting", order=2), SomFormFieldMeta(name="hyperlinkTarget", type_name="String", description="Hyperlink Target", hint="Make column values clickable", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 80000-1:2022 — general principles for quantities units and their symbols", "ISO/IEC 25010:2023 — functional suitability supports summing and averaging of column values"], "connotation": "Aggregation settings for a report column such as sum, average and conditional formatting."})]),
@@ -37615,7 +37755,7 @@ def _mc_ReportColumnEntry(s):
             section_id="RECOIN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=9,
             doc_comment="Interaction options.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sortable", type_name="String", description="Sortable", hint="Yes / No — can user sort by this column", order=0), SomFormFieldMeta(name="filterable", type_name="String", description="Filterable", hint="Yes / No — can user filter by this column", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — functional suitability supports sorting and filtering by a column"], "connotation": "Interaction options for a report column such as sortable and filterable behaviour."})]),
@@ -37625,7 +37765,7 @@ def _mc_ReportColumnEntry(s):
             section_id="RECOLA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=10,
             doc_comment="Visibility and layout.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="visible", type_name="String", description="Visible", hint="Yes / No / Conditional", order=0), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="When this column is shown", order=1), SomFormFieldMeta(name="wordWrap", type_name="String", description="Word Wrap", hint="Yes / No — wrap long text", order=2), SomFormFieldMeta(name="truncateAt", type_name="int", description="Truncate At", hint="Character limit before truncation", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Design notes", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — visual presentation of information governs column visibility and layout"], "connotation": "Visibility and layout settings for a report column such as word wrap and truncation."})]),
@@ -37873,15 +38013,75 @@ def _mc_ReportFilterEntry(s):
             type_name="String",
             serialization_order=1,
             doc_comment="Input and value configuration.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref", order=0), SomFormFieldMeta(name="inputType", type_name="String", description="Input Type", hint="Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select", order=1), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Default filter value, e.g. current_month, today, *", order=2), SomFormFieldMeta(name="availableValuesSource", type_name="String", description="Available Values Source", hint="Source for dropdown/select values: static list, entity query, API endpoint", order=3), SomFormFieldMeta(name="staticValues", type_name="String", description="Static Values", hint="Comma-separated values if source is static, e.g. Active,Inactive,All", order=4), SomFormFieldMeta(name="cascadeParent", type_name="String", description="Cascade Parent", hint="Filter ID of parent filter for cascading dropdowns", order=5), SomFormFieldMeta(name="multiSelect", type_name="String", description="Multi-Select", hint="Yes / No — allow selecting multiple values", order=6)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="ReportFilterValueKind", description="Data Type", hint="The filter value type — selects the promoted input-control and value-bound subsection.", order=0, enum_values=["string", "integer", "decimal", "date", "dateTime", "boolean", "enumeration", "entityRef"]), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Default filter value, e.g. current_month, today, *", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 — specifies the input data type and value source for a filter parameter", "ISO 9241-110:2020 — matches the input control to the filter data the user provides"], "connotation": "The data type, input control, and value source that configure how a report filter accepts input."})]),
+         SomMetaNode(
+            class_name="ReportFilterEntry",
+            member_name="textFilterOptions",
+            section_id="RFEIT",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=2,
+            doc_comment="Text-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for text filters; carries the free-text control and its\nmatch semantics (no value source, no date bounds).",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputType", type_name="String", description="Input Type", hint="Text-Field / Autocomplete", order=0), SomFormFieldMeta(name="matchMode", type_name="String", description="Match Mode", hint="Contains / Starts-With / Exact / Regex", order=1), SomFormFieldMeta(name="maxLength", type_name="int", description="Max Length", hint="Character limit on the input", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — form-based interaction and free-text input", "ISO 9241-110:2020 — matches the input control to the filter data the user provides"], "connotation": "The input control and match semantics for a text report filter."}), SomMetaExtra(annotation="Case", args={"value": "ReportFilterValueKind.string"})]),
+         SomMetaNode(
+            class_name="ReportFilterEntry",
+            member_name="numericFilterOptions",
+            section_id="RFEIN",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=3,
+            doc_comment="Numeric-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric filters; carries the numeric control and its\nvalue bounds.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputType", type_name="String", description="Input Type", hint="Number-Field / Slider / Range-Slider", order=0), SomFormFieldMeta(name="minValue", type_name="String", description="Min Value", hint="Lowest accepted value", order=1), SomFormFieldMeta(name="maxValue", type_name="String", description="Max Value", hint="Highest accepted value", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges", "ISO 80000-1:2022 — general principles for quantities units and their symbols"], "connotation": "The input control and value bounds for a numeric report filter."}), SomMetaExtra(annotation="Case", args={"value": "ReportFilterValueKind.integer"}), SomMetaExtra(annotation="Case", args={"value": "ReportFilterValueKind.decimal"})]),
+         SomMetaNode(
+            class_name="ReportFilterEntry",
+            member_name="dateFilterOptions",
+            section_id="RFEID",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="Temporal-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/date-time filters; carries the temporal control —\nincluding the range picker that the former free-text `DateRange` type\nstood for — and the selectable window.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputType", type_name="String", description="Input Type", hint="Date-Picker / Date-Range-Picker / Relative-Period", order=0), SomFormFieldMeta(name="earliestDate", type_name="String", description="Earliest Date", hint="Earliest selectable date/time", order=1), SomFormFieldMeta(name="latestDate", type_name="String", description="Latest Date", hint="Latest selectable date/time", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 8601-1:2019 — representation of dates and times", "ISO 9241-143:2012 — constraints on date and time form-field input"], "connotation": "The input control and selectable window for a date report filter."}), SomMetaExtra(annotation="Case", args={"value": "ReportFilterValueKind.date"}), SomMetaExtra(annotation="Case", args={"value": "ReportFilterValueKind.dateTime"})]),
+         SomMetaNode(
+            class_name="ReportFilterEntry",
+            member_name="booleanFilterOptions",
+            section_id="RFEIB",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=5,
+            doc_comment="Boolean-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean filters; carries only the two-valued control.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputType", type_name="String", description="Input Type", hint="Checkbox / Toggle / Radio-Pair", order=0), SomFormFieldMeta(name="includeIndeterminate", type_name="String", description="Include Indeterminate", hint="Yes / No — offer an \"any\" third state", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-161:2016 — selection controls such as checkboxes and radio groups"], "connotation": "The two-valued input control for a boolean report filter."}), SomMetaExtra(annotation="Case", args={"value": "ReportFilterValueKind.boolean"})]),
+         SomMetaNode(
+            class_name="ReportFilterEntry",
+            member_name="selectFilterOptions",
+            section_id="RFEIS",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=6,
+            doc_comment="Selection-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration filters; this is the only case in which a\nvalue source, static value list, cascade parent and multi-select are\nmeaningful.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputType", type_name="String", description="Input Type", hint="Select / Multi-Select / Radio-Group / Cascading-Select", order=0), SomFormFieldMeta(name="availableValuesSource", type_name="String", description="Available Values Source", hint="Source for dropdown/select values: static list, entity query, API endpoint", order=1), SomFormFieldMeta(name="staticValues", type_name="String", description="Static Values", hint="Comma-separated values if source is static, e.g. Active,Inactive,All", order=2), SomFormFieldMeta(name="cascadeParent", type_name="String", description="Cascade Parent", hint="Filter ID of parent filter for cascading dropdowns", order=3), SomFormFieldMeta(name="multiSelect", type_name="String", description="Multi-Select", hint="Yes / No — allow selecting multiple values", order=4)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-161:2016 — selection controls such as dropdowns and radio groups", "ISO/IEC 11179 — permissible values of a data element"], "connotation": "The selection control and value source for an enumeration report filter."}), SomMetaExtra(annotation="Case", args={"value": "ReportFilterValueKind.enumeration"})]),
+         SomMetaNode(
+            class_name="ReportFilterEntry",
+            member_name="entityFilterOptions",
+            section_id="RFEIE",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=7,
+            doc_comment="Entity-reference filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for entity-reference filters; carries the lookup control and\nthe entity query that backs it. Distinct from the enumeration case\nbecause the value set is resolved from an entity, not a declared list.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputType", type_name="String", description="Input Type", hint="Autocomplete / Dialog-Picker / Tree-Picker", order=0), SomFormFieldMeta(name="entityType", type_name="String", description="Entity Type", hint="Referenced entity, e.g. Customer", order=1), SomFormFieldMeta(name="queryFilter", type_name="String", description="Query Filter", hint="Restriction applied to the lookup query", order=2), SomFormFieldMeta(name="displayAttribute", type_name="String", description="Display Attribute", hint="Entity attribute shown to the user, e.g. name", order=3)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — form fields with input assistance and lookup", "ER modeling (Chen / Barker notation)"], "connotation": "The lookup control and backing entity query for an entity-reference report filter."}), SomMetaExtra(annotation="Case", args={"value": "ReportFilterValueKind.entityRef"})]),
          SomMetaNode(
             class_name="ReportFilterEntry",
             member_name="behavior",
             section_id="RFEB",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=8,
             doc_comment="Scope and validation behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="required", type_name="String", description="Required", hint="Yes / No — must user provide a value", order=0), SomFormFieldMeta(name="appliedScope", type_name="String", description="Applied Scope", hint="Whole-Report / Section:{sectionId} — where the filter applies", order=1), SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Position in parameter form", order=2), SomFormFieldMeta(name="groupName", type_name="String", description="Group Name", hint="Group related filters visually, e.g. Date Filters, Entity Filters", order=3), SomFormFieldMeta(name="validationRule", type_name="String", description="Validation Rule", hint="Validation expression, e.g. startDate <= endDate", order=4), SomFormFieldMeta(name="dependsOn", type_name="String", description="Depends On", hint="Other filter IDs this filter depends on", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 — specifies the required and validation constraints on a filter parameter", "ISO 9241-110:2020 — supports error prevention through filter validation and dependency rules"], "connotation": "The scope, requiredness, and validation rules that govern how a report filter behaves."})]),
@@ -37891,7 +38091,7 @@ def _mc_ReportFilterEntry(s):
             section_id="RFEP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=9,
             doc_comment="Presentation options.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="hiddenFilter", type_name="String", description="Hidden Filter", hint="Yes / No — filter applied programmatically, not shown to user", order=0), SomFormFieldMeta(name="quickFilterBar", type_name="String", description="Quick Filter Bar", hint="Yes / No — show in report quick filter bar", order=1), SomFormFieldMeta(name="rememberLastValue", type_name="String", description="Remember Last Value", hint="Yes / No — persist user last selection", order=2), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Design notes", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — presents filter controls in a form that suits the user task", "ISO/IEC/IEEE 26514:2022 — designs how filter parameters are shown to the user"], "connotation": "The presentation options that control how a report filter appears to and is remembered for the user."})]),
@@ -41375,7 +41575,7 @@ def _mc_ScreenFieldEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="fieldId", type_name="String", description="Field ID", required=True, hint="Unique identifier for this field", order=0), SomFormFieldMeta(name="fieldLabel", type_name="String", description="Field Label (display text)", required=True, hint="Display text shown for the field", order=1), SomFormFieldMeta(name="fieldType", type_name="String", description="Field Type", required=True, hint="Text, Number, Date, Dropdown, Checkbox, etc.", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="fieldId", type_name="String", description="Field ID", required=True, hint="Unique identifier for this field", order=0), SomFormFieldMeta(name="fieldLabel", type_name="String", description="Field Label (display text)", required=True, hint="Display text shown for the field", order=1), SomFormFieldMeta(name="fieldType", type_name="ScreenFieldKind", description="Field Type", required=True, hint="The kind of value the user supplies — selects the type-specific constraint and presentation subsections", order=2, enum_values=["text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"])])),
          SomMetaNode(
             class_name="ScreenFieldEntry",
             member_name="dataBinding",
@@ -41403,19 +41603,59 @@ def _mc_ScreenFieldEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=3,
-            doc_comment="Validation rules.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="minLength", type_name="String", description="Minimum Length", hint="Minimum allowed input length", order=0), SomFormFieldMeta(name="maxLength", type_name="String", description="Maximum Length", hint="Maximum allowed input length", order=1), SomFormFieldMeta(name="minValue", type_name="String", description="Minimum Value", hint="Minimum allowed value", order=2), SomFormFieldMeta(name="maxValue", type_name="String", description="Maximum Value", hint="Maximum allowed value", order=3), SomFormFieldMeta(name="pattern", type_name="String", description="Validation Pattern (regex)", hint="Regular expression the input must match", order=4), SomFormFieldMeta(name="validationMessage", type_name="String", description="Custom Validation Message", hint="Message shown when validation fails", order=5)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"], "connotation": "The built-in validation constraints on a screen field — length and value bounds, regex pattern, and the custom validation message."})]),
+            doc_comment="Validation rules that apply whatever the field type is.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="validationMessage", type_name="String", description="Custom Validation Message", hint="Message shown when validation fails", order=0)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"], "connotation": "The type-independent validation settings of a screen field — the custom message shown when any built-in constraint fails."})]),
+         SomMetaNode(
+            class_name="ScreenFieldEntry",
+            member_name="textConstraints",
+            section_id="SCFIVT",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="Text-kind input constraints — a promoted `@OneOf` case (csra4).",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="minLength", type_name="String", description="Minimum Length", hint="Minimum allowed input length in characters", order=0), SomFormFieldMeta(name="maxLength", type_name="String", description="Maximum Length", hint="Maximum allowed input length in characters", order=1), SomFormFieldMeta(name="pattern", type_name="String", description="Validation Pattern (regex)", hint="Regular expression the input must match", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"], "connotation": "The input constraints that only apply to a text-valued screen field — its length bounds and the regular expression the input must match."}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.text"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.multilineText"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.email"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.phone"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.url"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.password"})]),
+         SomMetaNode(
+            class_name="ScreenFieldEntry",
+            member_name="numericConstraints",
+            section_id="SCFIVN",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=5,
+            doc_comment="Numeric-kind input constraints — a promoted `@OneOf` case (csra4).",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="minValue", type_name="String", description="Minimum Value", hint="Smallest value the field accepts", order=0), SomFormFieldMeta(name="maxValue", type_name="String", description="Maximum Value", hint="Largest value the field accepts", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"], "connotation": "The input constraints that only apply to a numeric screen field — its value bounds."}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.integer"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.decimal"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.currency"})]),
+         SomMetaNode(
+            class_name="ScreenFieldEntry",
+            member_name="temporalConstraints",
+            section_id="SCFIVD",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=6,
+            doc_comment="Temporal-kind input constraints — a promoted `@OneOf` case (csra4).\n\nKept apart from [numericConstraints] because a date boundary is expressed\nas a date or a relative expression (\"today + 30d\"), not as a number.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="earliestValue", type_name="String", description="Earliest Accepted Value", hint="Earliest accepted date/time, absolute or relative (e.g. today)", order=0), SomFormFieldMeta(name="latestValue", type_name="String", description="Latest Accepted Value", hint="Latest accepted date/time, absolute or relative (e.g. today + 30d)", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §9 — input validation requirements", "ISO 8601 — date and time representation"], "connotation": "The input constraints that only apply to a temporal screen field — its earliest and latest accepted instant."}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.date"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.dateTime"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.time"})]),
+         SomMetaNode(
+            class_name="ScreenFieldEntry",
+            member_name="choiceOptions",
+            section_id="SCFICH",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=7,
+            doc_comment="Choice-kind option source — a promoted `@OneOf` case (csra4).",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="optionSource", type_name="String", description="Option Source (static, API, entity)", hint="Where the options come from: static, API, or entity", order=0), SomFormFieldMeta(name="staticOptions", type_name="String", description="Static Option Values", hint="The option values, when the source is static", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"], "connotation": "Where a choice field takes its options from — the option source and, for a static source, the values themselves."}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.singleSelect"}), SomMetaExtra(annotation="Case", args={"value": "ScreenFieldKind.multiSelect"})]),
          SomMetaNode(
             class_name="ScreenFieldEntry",
             member_name="layout",
             section_id="SCFILA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=8,
             doc_comment="UI and layout.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dropdownSource", type_name="String", description="Dropdown Source (static, API, entity)", hint="Where dropdown options come from: static, API, or entity", order=0), SomFormFieldMeta(name="dropdownValues", type_name="String", description="Static Dropdown Values", hint="Static list of dropdown values", order=1), SomFormFieldMeta(name="dependsOn", type_name="String", description="Depends On (field IDs that affect this)", hint="Field IDs that affect this field", order=2), SomFormFieldMeta(name="width", type_name="String", description="Width (full, half, third, quarter, custom)", hint="full, half, third, quarter, or custom", order=3), SomFormFieldMeta(name="order", type_name="String", description="Display Order", hint="Order in which the field is displayed", order=4), SomFormFieldMeta(name="grouping", type_name="String", description="Field Grouping / Section", hint="Group or section the field belongs to", order=5)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"], "connotation": "The layout and presentation of a screen field — its dropdown source/values, dependencies, width, display order, and grouping."})]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependsOn", type_name="String", description="Depends On (field IDs that affect this)", hint="Field IDs that affect this field", order=0), SomFormFieldMeta(name="width", type_name="String", description="Width (full, half, third, quarter, custom)", hint="full, half, third, quarter, or custom", order=1), SomFormFieldMeta(name="order", type_name="String", description="Display Order", hint="Order in which the field is displayed", order=2), SomFormFieldMeta(name="grouping", type_name="String", description="Field Grouping / Section", hint="Group or section the field belongs to", order=3)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"], "connotation": "The layout and presentation of a screen field — its dependencies, width, display order, and grouping."})]),
          SomMetaNode(
             class_name="ScreenFieldEntry",
             member_name="validationRules",
@@ -41423,7 +41663,7 @@ def _mc_ScreenFieldEntry(s):
             section_id_pattern="FLDVL-VALI-xxx",
             kind=SomMetaKind.LIST,
             type_name="FieldValidationRule",
-            serialization_order=5,
+            serialization_order=9,
             content_help="Add one entry per validation rule applied to this field.",
             doc_comment="Field validation rules — contains 0+× FieldValidationRule.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"], "connotation": "The list of individual validation rules applied to this field's input."})],
@@ -61296,6 +61536,22 @@ class DataAttributeEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/DAATT-DATA")
 
     @property
+    def textTypeOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTTX")
+
+    @property
+    def numericTypeOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTNU")
+
+    @property
+    def temporalTypeOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTTM")
+
+    @property
+    def binaryTypeOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTBI")
+
+    @property
     def constraints(self):
         return SomListMetaRef(self.tree, f"{self.path}/DATAA-CONS-LST", DataAttributeConstraintEntryNav)
 
@@ -65088,6 +65344,26 @@ class ExportFieldMappingEntryNav(SomMetaRef):
     @property
     def formatting(self):
         return SomMetaRef(self.tree, f"{self.path}/EFMEF")
+
+    @property
+    def numericOutput(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFN")
+
+    @property
+    def temporalOutput(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFD")
+
+    @property
+    def booleanOutput(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFB")
+
+    @property
+    def enumerationOutput(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFE")
+
+    @property
+    def textOutput(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFT")
 
     @property
     def transformation(self):
@@ -74191,6 +74467,26 @@ class ReportColumnEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RECOFO")
 
     @property
+    def numericFormat(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFN")
+
+    @property
+    def currencyFormat(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFC")
+
+    @property
+    def dateFormat(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFD")
+
+    @property
+    def booleanFormat(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFB")
+
+    @property
+    def textFormat(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFT")
+
+    @property
     def aggregation(self):
         return SomMetaRef(self.tree, f"{self.path}/RECOAG")
 
@@ -74314,6 +74610,30 @@ class ReportFilterEntryNav(SomMetaRef):
     @property
     def input(self):
         return SomMetaRef(self.tree, f"{self.path}/RFEI")
+
+    @property
+    def textFilterOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIT")
+
+    @property
+    def numericFilterOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIN")
+
+    @property
+    def dateFilterOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEID")
+
+    @property
+    def booleanFilterOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIB")
+
+    @property
+    def selectFilterOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIS")
+
+    @property
+    def entityFilterOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIE")
 
     @property
     def behavior(self):
@@ -76272,6 +76592,22 @@ class ScreenFieldEntryNav(SomMetaRef):
     @property
     def validation(self):
         return SomMetaRef(self.tree, f"{self.path}/SCFIVA")
+
+    @property
+    def textConstraints(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCFIVT")
+
+    @property
+    def numericConstraints(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCFIVN")
+
+    @property
+    def temporalConstraints(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCFIVD")
+
+    @property
+    def choiceOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCFICH")
 
     @property
     def layout(self):
@@ -97731,6 +98067,22 @@ class DataAttributeEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/DAATT-DATA")
 
     @property
+    def DAATT_DTTX(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTTX")
+
+    @property
+    def DAATT_DTNU(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTNU")
+
+    @property
+    def DAATT_DTTM(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTTM")
+
+    @property
+    def DAATT_DTBI(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTBI")
+
+    @property
     def DATAA_CONS_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/DATAA-CONS-LST", DataAttributeConstraintEntryId)
 
@@ -98758,6 +99110,26 @@ class ExportFieldMappingEntryId(SomMetaRef):
     @property
     def EFMEF(self):
         return SomMetaRef(self.tree, f"{self.path}/EFMEF")
+
+    @property
+    def EFMEFN(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFN")
+
+    @property
+    def EFMEFD(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFD")
+
+    @property
+    def EFMEFB(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFB")
+
+    @property
+    def EFMEFE(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFE")
+
+    @property
+    def EFMEFT(self):
+        return SomMetaRef(self.tree, f"{self.path}/EFMEFT")
 
     @property
     def EFMET(self):
@@ -101515,6 +101887,26 @@ class ReportColumnEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RECOFO")
 
     @property
+    def RECOFN(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFN")
+
+    @property
+    def RECOFC(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFC")
+
+    @property
+    def RECOFD(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFD")
+
+    @property
+    def RECOFB(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFB")
+
+    @property
+    def RECOFT(self):
+        return SomMetaRef(self.tree, f"{self.path}/RECOFT")
+
+    @property
     def RECOAG(self):
         return SomMetaRef(self.tree, f"{self.path}/RECOAG")
 
@@ -101626,6 +102018,30 @@ class ReportFilterEntryId(SomMetaRef):
     @property
     def RFEI(self):
         return SomMetaRef(self.tree, f"{self.path}/RFEI")
+
+    @property
+    def RFEIT(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIT")
+
+    @property
+    def RFEIN(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIN")
+
+    @property
+    def RFEID(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEID")
+
+    @property
+    def RFEIB(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIB")
+
+    @property
+    def RFEIS(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIS")
+
+    @property
+    def RFEIE(self):
+        return SomMetaRef(self.tree, f"{self.path}/RFEIE")
 
     @property
     def RFEB(self):
@@ -102358,6 +102774,22 @@ class ScreenFieldEntryId(SomMetaRef):
     @property
     def SCFIVA(self):
         return SomMetaRef(self.tree, f"{self.path}/SCFIVA")
+
+    @property
+    def SCFIVT(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCFIVT")
+
+    @property
+    def SCFIVN(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCFIVN")
+
+    @property
+    def SCFIVD(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCFIVD")
+
+    @property
+    def SCFICH(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCFICH")
 
     @property
     def SCFILA(self):

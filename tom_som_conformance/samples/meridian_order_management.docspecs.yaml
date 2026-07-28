@@ -1175,7 +1175,7 @@ document:
                     Stable order identifier.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    UUID
+                    uuid
                   physicalType: |2-
                     uuid
                 DAATT-SECU securityClassification:
@@ -1193,7 +1193,7 @@ document:
                     Reference to the ordering customer.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    UUID
+                    uuid
                   physicalType: |2-
                     uuid
                 DAATT-SECU securityClassification:
@@ -1211,7 +1211,7 @@ document:
                     Capture channel: EDI or REST.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    Enum
+                    enumeration
                   physicalType: |2-
                     varchar(8)
                 DAATT-SECU securityClassification:
@@ -1229,7 +1229,7 @@ document:
                     Lifecycle state (Captured..Closed, with Hold).
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    Enum
+                    enumeration
                   physicalType: |2-
                     varchar(16)
                 DAATT-SECU securityClassification:
@@ -1247,7 +1247,7 @@ document:
                     Capture timestamp (UTC).
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    Timestamp
+                    dateTime
                   physicalType: |2-
                     timestamptz
                 DAATT-SECU securityClassification:
@@ -1300,7 +1300,7 @@ document:
                     Stable line identifier.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    UUID
+                    uuid
                   physicalType: |2-
                     uuid
                 DAATT-SECU securityClassification:
@@ -1318,7 +1318,7 @@ document:
                     Owning order reference.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    UUID
+                    uuid
                   physicalType: |2-
                     uuid
                 DAATT-SECU securityClassification:
@@ -1336,7 +1336,7 @@ document:
                     Referenced product.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    UUID
+                    uuid
                   physicalType: |2-
                     uuid
                 DAATT-SECU securityClassification:
@@ -1354,7 +1354,7 @@ document:
                     Ordered quantity.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    Integer
+                    integer
                   physicalType: |2-
                     int
                 DAATT-SECU securityClassification:
@@ -1372,7 +1372,7 @@ document:
                     Snapshotted unit price at pricing time.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    Decimal
+                    decimal
                   physicalType: |2-
                     numeric(12,2)
                 DAATT-SECU securityClassification:
@@ -1437,7 +1437,7 @@ document:
                     Stable customer identifier.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    UUID
+                    uuid
                   physicalType: |2-
                     uuid
                 DAATT-SECU securityClassification:
@@ -1455,7 +1455,7 @@ document:
                     Customer legal name (PII).
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    String
+                    string
                   physicalType: |2-
                     varchar(200)
                 DAATT-SECU securityClassification:
@@ -1473,7 +1473,7 @@ document:
                     Approved credit limit used by validation.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    Decimal
+                    decimal
                   physicalType: |2-
                     numeric(14,2)
                 DAATT-SECU securityClassification:
@@ -1526,7 +1526,7 @@ document:
                     Stable product identifier.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    UUID
+                    uuid
                   physicalType: |2-
                     uuid
                 DAATT-SECU securityClassification:
@@ -1544,7 +1544,7 @@ document:
                     Stock-keeping unit.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    String
+                    string
                   physicalType: |2-
                     varchar(40)
                 DAATT-SECU securityClassification:
@@ -1562,7 +1562,7 @@ document:
                     Product display name.
                 DAATT-DATA dataTypeSpec:
                   dataType: |2-
-                    String
+                    string
                   physicalType: |2-
                     varchar(200)
                 DAATT-SECU securityClassification:

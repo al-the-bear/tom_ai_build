@@ -12706,6 +12706,39 @@ impl DataAttributeEntry {
         DataAttributeEntryDataTypeSpecForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DATA"))
     }
 
+    /// Text-kind type options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for the `string` logical type; carries only the character
+    /// length and collation attributes (no numeric precision, no timezone).
+    pub fn text_type_options(&self) -> DataAttributeEntryTextTypeOptionsForm {
+        DataAttributeEntryTextTypeOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DTTX"))
+    }
+
+    /// Numeric-kind type options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for numeric logical types; carries only the precision and
+    /// scale attributes (no length, collation or timezone).
+    pub fn numeric_type_options(&self) -> DataAttributeEntryNumericTypeOptionsForm {
+        DataAttributeEntryNumericTypeOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DTNU"))
+    }
+
+    /// Temporal-kind type options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for date/time logical types; carries only the timezone
+    /// handling attribute.
+    pub fn temporal_type_options(&self) -> DataAttributeEntryTemporalTypeOptionsForm {
+        DataAttributeEntryTemporalTypeOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DTTM"))
+    }
+
+    /// Binary-kind type options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for the `binary` logical type; carries only the stored size
+    /// attributes. Separated from the text `length` because a byte size and a
+    /// character length are different constraints on different types.
+    pub fn binary_type_options(&self) -> DataAttributeEntryBinaryTypeOptionsForm {
+        DataAttributeEntryBinaryTypeOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DTBI"))
+    }
+
     pub fn constraints(&self) -> som::SomList<DataAttributeConstraintEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -19825,6 +19858,47 @@ impl ExportFieldMappingEntry {
     /// Ordering and formatting settings.
     pub fn formatting(&self) -> ExportFieldMappingEntryFormattingForm {
         ExportFieldMappingEntryFormattingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EFMEF"))
+    }
+
+    /// Numeric-kind output format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for integer and decimal fields; carries only the numeric
+    /// output pattern and separators.
+    pub fn numeric_output(&self) -> ExportFieldMappingEntryNumericOutputForm {
+        ExportFieldMappingEntryNumericOutputForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EFMEFN"))
+    }
+
+    /// Temporal-kind output format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for date and date-time fields; carries only the temporal
+    /// output pattern and timezone handling.
+    pub fn temporal_output(&self) -> ExportFieldMappingEntryTemporalOutputForm {
+        ExportFieldMappingEntryTemporalOutputForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EFMEFD"))
+    }
+
+    /// Boolean-kind output format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for boolean fields; this is the only case in which the
+    /// emitted true/false literals are meaningful.
+    pub fn boolean_output(&self) -> ExportFieldMappingEntryBooleanOutputForm {
+        ExportFieldMappingEntryBooleanOutputForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EFMEFB"))
+    }
+
+    /// Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for enumeration fields; carries which face of the value set
+    /// is emitted and what happens to a value outside it.
+    pub fn enumeration_output(&self) -> ExportFieldMappingEntryEnumerationOutputForm {
+        ExportFieldMappingEntryEnumerationOutputForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EFMEFE"))
+    }
+
+    /// Text-kind output format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for text fields; carries the character-length truncation
+    /// that only a string field can have. Moved out of `inclusion`, where it sat
+    /// beside type-independent default and inclusion rules.
+    pub fn text_output(&self) -> ExportFieldMappingEntryTextOutputForm {
+        ExportFieldMappingEntryTextOutputForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EFMEFT"))
     }
 
     /// Transformation rules.
@@ -36970,6 +37044,45 @@ impl ReportColumnEntry {
         ReportColumnEntryFormattingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RECOFO"))
     }
 
+    /// Numeric-kind column format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for integer and decimal columns; carries only the numeric
+    /// display pattern (no currency code, no boolean labels).
+    pub fn numeric_format(&self) -> ReportColumnEntryNumericFormatForm {
+        ReportColumnEntryNumericFormatForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RECOFN"))
+    }
+
+    /// Currency-kind column format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for currency columns; this is the only case in which a
+    /// currency code is meaningful.
+    pub fn currency_format(&self) -> ReportColumnEntryCurrencyFormatForm {
+        ReportColumnEntryCurrencyFormatForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RECOFC"))
+    }
+
+    /// Date-kind column format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for date columns; carries only the temporal display pattern.
+    pub fn date_format(&self) -> ReportColumnEntryDateFormatForm {
+        ReportColumnEntryDateFormatForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RECOFD"))
+    }
+
+    /// Boolean-kind column format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for boolean columns; this is the only case in which the
+    /// true/false display labels are meaningful.
+    pub fn boolean_format(&self) -> ReportColumnEntryBooleanFormatForm {
+        ReportColumnEntryBooleanFormatForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RECOFB"))
+    }
+
+    /// Text-kind column format — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for text columns; carries only the overflow handling a
+    /// variable-length string column needs.
+    pub fn text_format(&self) -> ReportColumnEntryTextFormatForm {
+        ReportColumnEntryTextFormatForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RECOFT"))
+    }
+
     /// Aggregation settings.
     pub fn aggregation(&self) -> ReportColumnEntryAggregationForm {
         ReportColumnEntryAggregationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RECOAG"))
@@ -37177,6 +37290,56 @@ impl ReportFilterEntry {
     /// Input and value configuration.
     pub fn input(&self) -> ReportFilterEntryInputForm {
         ReportFilterEntryInputForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RFEI"))
+    }
+
+    /// Text-kind filter options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for text filters; carries the free-text control and its
+    /// match semantics (no value source, no date bounds).
+    pub fn text_filter_options(&self) -> ReportFilterEntryTextFilterOptionsForm {
+        ReportFilterEntryTextFilterOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RFEIT"))
+    }
+
+    /// Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for numeric filters; carries the numeric control and its
+    /// value bounds.
+    pub fn numeric_filter_options(&self) -> ReportFilterEntryNumericFilterOptionsForm {
+        ReportFilterEntryNumericFilterOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RFEIN"))
+    }
+
+    /// Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for date/date-time filters; carries the temporal control —
+    /// including the range picker that the former free-text `DateRange` type
+    /// stood for — and the selectable window.
+    pub fn date_filter_options(&self) -> ReportFilterEntryDateFilterOptionsForm {
+        ReportFilterEntryDateFilterOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RFEID"))
+    }
+
+    /// Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for boolean filters; carries only the two-valued control.
+    pub fn boolean_filter_options(&self) -> ReportFilterEntryBooleanFilterOptionsForm {
+        ReportFilterEntryBooleanFilterOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RFEIB"))
+    }
+
+    /// Selection-kind filter options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for enumeration filters; this is the only case in which a
+    /// value source, static value list, cascade parent and multi-select are
+    /// meaningful.
+    pub fn select_filter_options(&self) -> ReportFilterEntrySelectFilterOptionsForm {
+        ReportFilterEntrySelectFilterOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RFEIS"))
+    }
+
+    /// Entity-reference filter options — a promoted `@OneOf` case (csra4).
+    ///
+    /// Present only for entity-reference filters; carries the lookup control and
+    /// the entity query that backs it. Distinct from the enumeration case
+    /// because the value set is resolved from an entity, not a declared list.
+    pub fn entity_filter_options(&self) -> ReportFilterEntryEntityFilterOptionsForm {
+        ReportFilterEntryEntityFilterOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RFEIE"))
     }
 
     /// Scope and validation behavior.
@@ -41024,9 +41187,32 @@ impl ScreenFieldEntry {
         ScreenFieldEntryConditionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCFICO"))
     }
 
-    /// Validation rules.
+    /// Validation rules that apply whatever the field type is.
     pub fn validation(&self) -> ScreenFieldEntryValidationForm {
         ScreenFieldEntryValidationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCFIVA"))
+    }
+
+    /// Text-kind input constraints — a promoted `@OneOf` case (csra4).
+    pub fn text_constraints(&self) -> ScreenFieldEntryTextConstraintsForm {
+        ScreenFieldEntryTextConstraintsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCFIVT"))
+    }
+
+    /// Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+    pub fn numeric_constraints(&self) -> ScreenFieldEntryNumericConstraintsForm {
+        ScreenFieldEntryNumericConstraintsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCFIVN"))
+    }
+
+    /// Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+    ///
+    /// Kept apart from [numericConstraints] because a date boundary is expressed
+    /// as a date or a relative expression ("today + 30d"), not as a number.
+    pub fn temporal_constraints(&self) -> ScreenFieldEntryTemporalConstraintsForm {
+        ScreenFieldEntryTemporalConstraintsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCFIVD"))
+    }
+
+    /// Choice-kind option source — a promoted `@OneOf` case (csra4).
+    pub fn choice_options(&self) -> ScreenFieldEntryChoiceOptionsForm {
+        ScreenFieldEntryChoiceOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCFICH"))
     }
 
     /// UI and layout.
@@ -90132,6 +90318,54 @@ impl DataAttributeConstraintEntryContentForm {
     }
 }
 
+/// DataAttributeEntryBinaryTypeOptionsForm is the generated section facade for the `binaryTypeOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DataAttributeEntryBinaryTypeOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl DataAttributeEntryBinaryTypeOptionsForm {
+    /// Binds a DataAttributeEntryBinaryTypeOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataAttributeEntryBinaryTypeOptionsForm {
+        DataAttributeEntryBinaryTypeOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn max_size_bytes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxSizeBytes")
+    }
+
+    pub fn set_max_size_bytes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxSizeBytes", value);
+    }
+
+    pub fn storage_mode(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "storageMode")
+    }
+
+    pub fn set_storage_mode(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "storageMode", value);
+    }
+}
+
 /// DataAttributeEntryDataTypeSpecForm is the generated section facade for the `dataTypeSpec` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct DataAttributeEntryDataTypeSpecForm {
@@ -90177,51 +90411,6 @@ impl DataAttributeEntryDataTypeSpecForm {
     pub fn set_physical_type(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "physicalType", value);
-    }
-
-    pub fn length(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "length")
-    }
-
-    pub fn set_length(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "length", value);
-    }
-
-    pub fn precision(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "precision")
-    }
-
-    pub fn set_precision(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "precision", value);
-    }
-
-    pub fn scale(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scale")
-    }
-
-    pub fn set_scale(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scale", value);
-    }
-
-    pub fn collation(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "collation")
-    }
-
-    pub fn set_collation(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "collation", value);
-    }
-
-    pub fn timezone(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "timezone")
-    }
-
-    pub fn set_timezone(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "timezone", value);
     }
 
     pub fn format(&self) -> String {
@@ -90450,6 +90639,54 @@ impl DataAttributeEntryMigrationLineageForm {
     }
 }
 
+/// DataAttributeEntryNumericTypeOptionsForm is the generated section facade for the `numericTypeOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DataAttributeEntryNumericTypeOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl DataAttributeEntryNumericTypeOptionsForm {
+    /// Binds a DataAttributeEntryNumericTypeOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataAttributeEntryNumericTypeOptionsForm {
+        DataAttributeEntryNumericTypeOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn precision(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "precision")
+    }
+
+    pub fn set_precision(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "precision", value);
+    }
+
+    pub fn scale(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scale")
+    }
+
+    pub fn set_scale(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scale", value);
+    }
+}
+
 /// DataAttributeEntrySecurityClassificationForm is the generated section facade for the `securityClassification` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct DataAttributeEntrySecurityClassificationForm {
@@ -90522,6 +90759,93 @@ impl DataAttributeEntrySecurityClassificationForm {
     pub fn set_audit_level(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "auditLevel", value);
+    }
+}
+
+/// DataAttributeEntryTemporalTypeOptionsForm is the generated section facade for the `temporalTypeOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DataAttributeEntryTemporalTypeOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl DataAttributeEntryTemporalTypeOptionsForm {
+    /// Binds a DataAttributeEntryTemporalTypeOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataAttributeEntryTemporalTypeOptionsForm {
+        DataAttributeEntryTemporalTypeOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn timezone(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "timezone")
+    }
+
+    pub fn set_timezone(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "timezone", value);
+    }
+}
+
+/// DataAttributeEntryTextTypeOptionsForm is the generated section facade for the `textTypeOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DataAttributeEntryTextTypeOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl DataAttributeEntryTextTypeOptionsForm {
+    /// Binds a DataAttributeEntryTextTypeOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataAttributeEntryTextTypeOptionsForm {
+        DataAttributeEntryTextTypeOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn length(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "length")
+    }
+
+    pub fn set_length(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "length", value);
+    }
+
+    pub fn collation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "collation")
+    }
+
+    pub fn set_collation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "collation", value);
     }
 }
 
@@ -115681,6 +116005,54 @@ impl ExpectedImprovementsContentForm {
     }
 }
 
+/// ExportFieldMappingEntryBooleanOutputForm is the generated section facade for the `booleanOutput` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ExportFieldMappingEntryBooleanOutputForm {
+    pub node: som::SomNode,
+}
+
+impl ExportFieldMappingEntryBooleanOutputForm {
+    /// Binds a ExportFieldMappingEntryBooleanOutputForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExportFieldMappingEntryBooleanOutputForm {
+        ExportFieldMappingEntryBooleanOutputForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn true_literal(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trueLiteral")
+    }
+
+    pub fn set_true_literal(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trueLiteral", value);
+    }
+
+    pub fn false_literal(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "falseLiteral")
+    }
+
+    pub fn set_false_literal(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "falseLiteral", value);
+    }
+}
+
 /// ExportFieldMappingEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ExportFieldMappingEntryContentForm {
@@ -115738,6 +116110,54 @@ impl ExportFieldMappingEntryContentForm {
     }
 }
 
+/// ExportFieldMappingEntryEnumerationOutputForm is the generated section facade for the `enumerationOutput` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ExportFieldMappingEntryEnumerationOutputForm {
+    pub node: som::SomNode,
+}
+
+impl ExportFieldMappingEntryEnumerationOutputForm {
+    /// Binds a ExportFieldMappingEntryEnumerationOutputForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExportFieldMappingEntryEnumerationOutputForm {
+        ExportFieldMappingEntryEnumerationOutputForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn emitted_form(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "emittedForm")
+    }
+
+    pub fn set_emitted_form(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "emittedForm", value);
+    }
+
+    pub fn unmapped_value_behavior(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "unmappedValueBehavior")
+    }
+
+    pub fn set_unmapped_value_behavior(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "unmappedValueBehavior", value);
+    }
+}
+
 /// ExportFieldMappingEntryFormattingForm is the generated section facade for the `formatting` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ExportFieldMappingEntryFormattingForm {
@@ -115785,15 +116205,6 @@ impl ExportFieldMappingEntryFormattingForm {
     pub fn set_data_type(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
-    }
-
-    pub fn format_pattern(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "formatPattern")
-    }
-
-    pub fn set_format_pattern(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "formatPattern", value);
     }
 }
 
@@ -115851,17 +116262,6 @@ impl ExportFieldMappingEntryInclusionForm {
     pub fn set_inclusion_condition(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "inclusionCondition", value);
-    }
-
-    pub fn max_length(&self) -> Option<i64> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxLength");
-        if v.is_empty() { None } else { v.parse::<i64>().ok() }
-    }
-
-    pub fn set_max_length(&self, value: Option<i64>) {
-        let path = self.node.path().to_string();
-        let text = match value { Some(v) => v.to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "maxLength", &text);
     }
 }
 
@@ -115939,6 +116339,152 @@ impl ExportFieldMappingEntryLayoutForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ExportFieldMappingEntryNumericOutputForm is the generated section facade for the `numericOutput` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ExportFieldMappingEntryNumericOutputForm {
+    pub node: som::SomNode,
+}
+
+impl ExportFieldMappingEntryNumericOutputForm {
+    /// Binds a ExportFieldMappingEntryNumericOutputForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExportFieldMappingEntryNumericOutputForm {
+        ExportFieldMappingEntryNumericOutputForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn format_pattern(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "formatPattern")
+    }
+
+    pub fn set_format_pattern(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "formatPattern", value);
+    }
+
+    pub fn decimal_separator(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "decimalSeparator")
+    }
+
+    pub fn set_decimal_separator(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "decimalSeparator", value);
+    }
+}
+
+/// ExportFieldMappingEntryTemporalOutputForm is the generated section facade for the `temporalOutput` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ExportFieldMappingEntryTemporalOutputForm {
+    pub node: som::SomNode,
+}
+
+impl ExportFieldMappingEntryTemporalOutputForm {
+    /// Binds a ExportFieldMappingEntryTemporalOutputForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExportFieldMappingEntryTemporalOutputForm {
+        ExportFieldMappingEntryTemporalOutputForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn format_pattern(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "formatPattern")
+    }
+
+    pub fn set_format_pattern(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "formatPattern", value);
+    }
+
+    pub fn timezone_handling(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "timezoneHandling")
+    }
+
+    pub fn set_timezone_handling(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "timezoneHandling", value);
+    }
+}
+
+/// ExportFieldMappingEntryTextOutputForm is the generated section facade for the `textOutput` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ExportFieldMappingEntryTextOutputForm {
+    pub node: som::SomNode,
+}
+
+impl ExportFieldMappingEntryTextOutputForm {
+    /// Binds a ExportFieldMappingEntryTextOutputForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExportFieldMappingEntryTextOutputForm {
+        ExportFieldMappingEntryTextOutputForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn max_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxLength", &text);
+    }
+
+    pub fn padding(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "padding")
+    }
+
+    pub fn set_padding(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "padding", value);
     }
 }
 
@@ -176935,6 +177481,54 @@ impl ReportColumnEntryAggregationForm {
     }
 }
 
+/// ReportColumnEntryBooleanFormatForm is the generated section facade for the `booleanFormat` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportColumnEntryBooleanFormatForm {
+    pub node: som::SomNode,
+}
+
+impl ReportColumnEntryBooleanFormatForm {
+    /// Binds a ReportColumnEntryBooleanFormatForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportColumnEntryBooleanFormatForm {
+        ReportColumnEntryBooleanFormatForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn boolean_true_display(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "booleanTrueDisplay")
+    }
+
+    pub fn set_boolean_true_display(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "booleanTrueDisplay", value);
+    }
+
+    pub fn boolean_false_display(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "booleanFalseDisplay")
+    }
+
+    pub fn set_boolean_false_display(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "booleanFalseDisplay", value);
+    }
+}
+
 /// ReportColumnEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ReportColumnEntryContentForm {
@@ -176992,6 +177586,63 @@ impl ReportColumnEntryContentForm {
     }
 }
 
+/// ReportColumnEntryCurrencyFormatForm is the generated section facade for the `currencyFormat` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportColumnEntryCurrencyFormatForm {
+    pub node: som::SomNode,
+}
+
+impl ReportColumnEntryCurrencyFormatForm {
+    /// Binds a ReportColumnEntryCurrencyFormatForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportColumnEntryCurrencyFormatForm {
+        ReportColumnEntryCurrencyFormatForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn format_pattern(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "formatPattern")
+    }
+
+    pub fn set_format_pattern(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "formatPattern", value);
+    }
+
+    pub fn currency_code(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "currencyCode")
+    }
+
+    pub fn set_currency_code(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "currencyCode", value);
+    }
+
+    pub fn symbol_position(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "symbolPosition")
+    }
+
+    pub fn set_symbol_position(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "symbolPosition", value);
+    }
+}
+
 /// ReportColumnEntryDataSourceForm is the generated section facade for the `dataSource` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ReportColumnEntryDataSourceForm {
@@ -177037,6 +177688,54 @@ impl ReportColumnEntryDataSourceForm {
     pub fn set_data_type(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
+    }
+}
+
+/// ReportColumnEntryDateFormatForm is the generated section facade for the `dateFormat` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportColumnEntryDateFormatForm {
+    pub node: som::SomNode,
+}
+
+impl ReportColumnEntryDateFormatForm {
+    /// Binds a ReportColumnEntryDateFormatForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportColumnEntryDateFormatForm {
+        ReportColumnEntryDateFormatForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn format_pattern(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "formatPattern")
+    }
+
+    pub fn set_format_pattern(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "formatPattern", value);
+    }
+
+    pub fn timezone_display(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "timezoneDisplay")
+    }
+
+    pub fn set_timezone_display(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "timezoneDisplay", value);
     }
 }
 
@@ -177107,24 +177806,6 @@ impl ReportColumnEntryFormattingForm {
         self.node.doc().borrow_mut().set_form_field(&path, "verticalAlignment", value);
     }
 
-    pub fn format_pattern(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "formatPattern")
-    }
-
-    pub fn set_format_pattern(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "formatPattern", value);
-    }
-
-    pub fn currency_code(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "currencyCode")
-    }
-
-    pub fn set_currency_code(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "currencyCode", value);
-    }
-
     pub fn null_display(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "nullDisplay")
     }
@@ -177132,24 +177813,6 @@ impl ReportColumnEntryFormattingForm {
     pub fn set_null_display(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "nullDisplay", value);
-    }
-
-    pub fn boolean_true_display(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "booleanTrueDisplay")
-    }
-
-    pub fn set_boolean_true_display(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "booleanTrueDisplay", value);
-    }
-
-    pub fn boolean_false_display(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "booleanFalseDisplay")
-    }
-
-    pub fn set_boolean_false_display(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "booleanFalseDisplay", value);
     }
 }
 
@@ -177275,6 +177938,104 @@ impl ReportColumnEntryLayoutForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ReportColumnEntryNumericFormatForm is the generated section facade for the `numericFormat` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportColumnEntryNumericFormatForm {
+    pub node: som::SomNode,
+}
+
+impl ReportColumnEntryNumericFormatForm {
+    /// Binds a ReportColumnEntryNumericFormatForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportColumnEntryNumericFormatForm {
+        ReportColumnEntryNumericFormatForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn format_pattern(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "formatPattern")
+    }
+
+    pub fn set_format_pattern(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "formatPattern", value);
+    }
+
+    pub fn negative_display(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "negativeDisplay")
+    }
+
+    pub fn set_negative_display(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "negativeDisplay", value);
+    }
+}
+
+/// ReportColumnEntryTextFormatForm is the generated section facade for the `textFormat` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportColumnEntryTextFormatForm {
+    pub node: som::SomNode,
+}
+
+impl ReportColumnEntryTextFormatForm {
+    /// Binds a ReportColumnEntryTextFormatForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportColumnEntryTextFormatForm {
+        ReportColumnEntryTextFormatForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn overflow_behavior(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "overflowBehavior")
+    }
+
+    pub fn set_overflow_behavior(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "overflowBehavior", value);
+    }
+
+    pub fn max_display_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxDisplayLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_display_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxDisplayLength", &text);
     }
 }
 
@@ -178460,6 +179221,54 @@ impl ReportFilterEntryBehaviorForm {
     }
 }
 
+/// ReportFilterEntryBooleanFilterOptionsForm is the generated section facade for the `booleanFilterOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportFilterEntryBooleanFilterOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ReportFilterEntryBooleanFilterOptionsForm {
+    /// Binds a ReportFilterEntryBooleanFilterOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportFilterEntryBooleanFilterOptionsForm {
+        ReportFilterEntryBooleanFilterOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn input_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inputType")
+    }
+
+    pub fn set_input_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inputType", value);
+    }
+
+    pub fn include_indeterminate(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "includeIndeterminate")
+    }
+
+    pub fn set_include_indeterminate(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "includeIndeterminate", value);
+    }
+}
+
 /// ReportFilterEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ReportFilterEntryContentForm {
@@ -178517,6 +179326,129 @@ impl ReportFilterEntryContentForm {
     }
 }
 
+/// ReportFilterEntryDateFilterOptionsForm is the generated section facade for the `dateFilterOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportFilterEntryDateFilterOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ReportFilterEntryDateFilterOptionsForm {
+    /// Binds a ReportFilterEntryDateFilterOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportFilterEntryDateFilterOptionsForm {
+        ReportFilterEntryDateFilterOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn input_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inputType")
+    }
+
+    pub fn set_input_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inputType", value);
+    }
+
+    pub fn earliest_date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "earliestDate")
+    }
+
+    pub fn set_earliest_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "earliestDate", value);
+    }
+
+    pub fn latest_date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "latestDate")
+    }
+
+    pub fn set_latest_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "latestDate", value);
+    }
+}
+
+/// ReportFilterEntryEntityFilterOptionsForm is the generated section facade for the `entityFilterOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportFilterEntryEntityFilterOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ReportFilterEntryEntityFilterOptionsForm {
+    /// Binds a ReportFilterEntryEntityFilterOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportFilterEntryEntityFilterOptionsForm {
+        ReportFilterEntryEntityFilterOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn input_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inputType")
+    }
+
+    pub fn set_input_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inputType", value);
+    }
+
+    pub fn entity_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "entityType")
+    }
+
+    pub fn set_entity_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "entityType", value);
+    }
+
+    pub fn query_filter(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "queryFilter")
+    }
+
+    pub fn set_query_filter(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "queryFilter", value);
+    }
+
+    pub fn display_attribute(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "displayAttribute")
+    }
+
+    pub fn set_display_attribute(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "displayAttribute", value);
+    }
+}
+
 /// ReportFilterEntryInputForm is the generated section facade for the `input` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ReportFilterEntryInputForm {
@@ -178555,6 +179487,45 @@ impl ReportFilterEntryInputForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
     }
 
+    pub fn default_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultValue")
+    }
+
+    pub fn set_default_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
+    }
+}
+
+/// ReportFilterEntryNumericFilterOptionsForm is the generated section facade for the `numericFilterOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportFilterEntryNumericFilterOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ReportFilterEntryNumericFilterOptionsForm {
+    /// Binds a ReportFilterEntryNumericFilterOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportFilterEntryNumericFilterOptionsForm {
+        ReportFilterEntryNumericFilterOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
     pub fn input_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "inputType")
     }
@@ -178564,49 +179535,22 @@ impl ReportFilterEntryInputForm {
         self.node.doc().borrow_mut().set_form_field(&path, "inputType", value);
     }
 
-    pub fn default_value(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "defaultValue")
+    pub fn min_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minValue")
     }
 
-    pub fn set_default_value(&self, value: &str) {
+    pub fn set_min_value(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "minValue", value);
     }
 
-    pub fn available_values_source(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "availableValuesSource")
+    pub fn max_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxValue")
     }
 
-    pub fn set_available_values_source(&self, value: &str) {
+    pub fn set_max_value(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "availableValuesSource", value);
-    }
-
-    pub fn static_values(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "staticValues")
-    }
-
-    pub fn set_static_values(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "staticValues", value);
-    }
-
-    pub fn cascade_parent(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "cascadeParent")
-    }
-
-    pub fn set_cascade_parent(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "cascadeParent", value);
-    }
-
-    pub fn multi_select(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "multiSelect")
-    }
-
-    pub fn set_multi_select(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "multiSelect", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "maxValue", value);
     }
 }
 
@@ -178673,6 +179617,140 @@ impl ReportFilterEntryPresentationForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ReportFilterEntrySelectFilterOptionsForm is the generated section facade for the `selectFilterOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportFilterEntrySelectFilterOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ReportFilterEntrySelectFilterOptionsForm {
+    /// Binds a ReportFilterEntrySelectFilterOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportFilterEntrySelectFilterOptionsForm {
+        ReportFilterEntrySelectFilterOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn input_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inputType")
+    }
+
+    pub fn set_input_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inputType", value);
+    }
+
+    pub fn available_values_source(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "availableValuesSource")
+    }
+
+    pub fn set_available_values_source(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "availableValuesSource", value);
+    }
+
+    pub fn static_values(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "staticValues")
+    }
+
+    pub fn set_static_values(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "staticValues", value);
+    }
+
+    pub fn cascade_parent(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cascadeParent")
+    }
+
+    pub fn set_cascade_parent(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cascadeParent", value);
+    }
+
+    pub fn multi_select(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "multiSelect")
+    }
+
+    pub fn set_multi_select(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "multiSelect", value);
+    }
+}
+
+/// ReportFilterEntryTextFilterOptionsForm is the generated section facade for the `textFilterOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReportFilterEntryTextFilterOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ReportFilterEntryTextFilterOptionsForm {
+    /// Binds a ReportFilterEntryTextFilterOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportFilterEntryTextFilterOptionsForm {
+        ReportFilterEntryTextFilterOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn input_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inputType")
+    }
+
+    pub fn set_input_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inputType", value);
+    }
+
+    pub fn match_mode(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "matchMode")
+    }
+
+    pub fn set_match_mode(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "matchMode", value);
+    }
+
+    pub fn max_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxLength", &text);
     }
 }
 
@@ -191941,6 +193019,54 @@ impl ScreenEntryTraceabilityForm {
     }
 }
 
+/// ScreenFieldEntryChoiceOptionsForm is the generated section facade for the `choiceOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenFieldEntryChoiceOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenFieldEntryChoiceOptionsForm {
+    /// Binds a ScreenFieldEntryChoiceOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenFieldEntryChoiceOptionsForm {
+        ScreenFieldEntryChoiceOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn option_source(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "optionSource")
+    }
+
+    pub fn set_option_source(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "optionSource", value);
+    }
+
+    pub fn static_options(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "staticOptions")
+    }
+
+    pub fn set_static_options(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "staticOptions", value);
+    }
+}
+
 /// ScreenFieldEntryConditionsForm is the generated section facade for the `conditions` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ScreenFieldEntryConditionsForm {
@@ -192177,24 +193303,6 @@ impl ScreenFieldEntryLayoutForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn dropdown_source(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dropdownSource")
-    }
-
-    pub fn set_dropdown_source(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dropdownSource", value);
-    }
-
-    pub fn dropdown_values(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dropdownValues")
-    }
-
-    pub fn set_dropdown_values(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dropdownValues", value);
-    }
-
     pub fn depends_on(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "dependsOn")
     }
@@ -192232,16 +193340,112 @@ impl ScreenFieldEntryLayoutForm {
     }
 }
 
-/// ScreenFieldEntryValidationForm is the generated section facade for the `validation` @Form section: its own
+/// ScreenFieldEntryNumericConstraintsForm is the generated section facade for the `numericConstraints` @Form section: its own
 /// content text followed by one typed member per form field.
-pub struct ScreenFieldEntryValidationForm {
+pub struct ScreenFieldEntryNumericConstraintsForm {
     pub node: som::SomNode,
 }
 
-impl ScreenFieldEntryValidationForm {
-    /// Binds a ScreenFieldEntryValidationForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ScreenFieldEntryValidationForm {
-        ScreenFieldEntryValidationForm { node: som::SomNode::new(doc, path) }
+impl ScreenFieldEntryNumericConstraintsForm {
+    /// Binds a ScreenFieldEntryNumericConstraintsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenFieldEntryNumericConstraintsForm {
+        ScreenFieldEntryNumericConstraintsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn min_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minValue")
+    }
+
+    pub fn set_min_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minValue", value);
+    }
+
+    pub fn max_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxValue")
+    }
+
+    pub fn set_max_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxValue", value);
+    }
+}
+
+/// ScreenFieldEntryTemporalConstraintsForm is the generated section facade for the `temporalConstraints` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenFieldEntryTemporalConstraintsForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenFieldEntryTemporalConstraintsForm {
+    /// Binds a ScreenFieldEntryTemporalConstraintsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenFieldEntryTemporalConstraintsForm {
+        ScreenFieldEntryTemporalConstraintsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn earliest_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "earliestValue")
+    }
+
+    pub fn set_earliest_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "earliestValue", value);
+    }
+
+    pub fn latest_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "latestValue")
+    }
+
+    pub fn set_latest_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "latestValue", value);
+    }
+}
+
+/// ScreenFieldEntryTextConstraintsForm is the generated section facade for the `textConstraints` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenFieldEntryTextConstraintsForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenFieldEntryTextConstraintsForm {
+    /// Binds a ScreenFieldEntryTextConstraintsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenFieldEntryTextConstraintsForm {
+        ScreenFieldEntryTextConstraintsForm { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -192279,24 +193483,6 @@ impl ScreenFieldEntryValidationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "maxLength", value);
     }
 
-    pub fn min_value(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "minValue")
-    }
-
-    pub fn set_min_value(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "minValue", value);
-    }
-
-    pub fn max_value(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "maxValue")
-    }
-
-    pub fn set_max_value(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "maxValue", value);
-    }
-
     pub fn pattern(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "pattern")
     }
@@ -192304,6 +193490,36 @@ impl ScreenFieldEntryValidationForm {
     pub fn set_pattern(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "pattern", value);
+    }
+}
+
+/// ScreenFieldEntryValidationForm is the generated section facade for the `validation` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenFieldEntryValidationForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenFieldEntryValidationForm {
+    /// Binds a ScreenFieldEntryValidationForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenFieldEntryValidationForm {
+        ScreenFieldEntryValidationForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn validation_message(&self) -> String {

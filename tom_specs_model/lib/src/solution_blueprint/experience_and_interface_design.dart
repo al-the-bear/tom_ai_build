@@ -67,6 +67,62 @@ enum ScreenElementFieldKind {
   file,
 }
 
+/// The closed set of report-column value types (`ReportColumnEntry`, csra4).
+///
+/// The discriminator enum for the `ReportColumnEntry` `@OneOf` group: it picks
+/// which formatting subsection applies — a numeric column carries
+/// `numericFormat`, a currency column `currencyFormat`, a temporal column
+/// `dateFormat`, a boolean column `booleanFormat`, a text column `textFormat`.
+/// Replaces the former free-text `dataType`.
+enum ReportColumnKind {
+  string,
+  integer,
+  decimal,
+  currency,
+  date,
+  boolean,
+}
+
+/// The closed set of export-field value types (`ExportFieldMappingEntry`,
+/// csra4).
+///
+/// The discriminator enum for the `ExportFieldMappingEntry` `@OneOf` group: it
+/// picks which per-type serialization subsection applies. Replaces the former
+/// free-text `dataType`.
+enum ExportFieldKind {
+  string,
+  integer,
+  decimal,
+  date,
+  dateTime,
+  boolean,
+  enumeration,
+}
+
+/// The closed set of report-filter value types (`ReportFilterEntry`, csra4).
+///
+/// The discriminator enum for the `ReportFilterEntry` `@OneOf` group: it picks
+/// which input-control and value-bound subsection applies — a numeric filter
+/// carries `numericFilterOptions`, a temporal one `dateFilterOptions`, a
+/// selection one `selectFilterOptions`, a text one `textFilterOptions`.
+/// Replaces the former free-text `dataType` / `inputType` pair, whose
+/// combination was previously unconstrained — a Date filter could be given a
+/// Multi-Select control and nothing objected.
+///
+/// The former free-text `DateRange` value is not a separate kind: a range is a
+/// choice of *control* on a temporal filter, so it is expressed by
+/// `dateFilterOptions.inputType`.
+enum ReportFilterValueKind {
+  string,
+  integer,
+  decimal,
+  date,
+  dateTime,
+  boolean,
+  enumeration,
+  entityRef,
+}
+
 /// 10. Experience & Interface Design. Seeds → XDS.
 @StandardReferences(
   [
@@ -5787,6 +5843,14 @@ class ReportSectionEntry extends DocSpecsSection {
   'ISO 9241-13:1998 — user guidance covers column header labels',
 ], 'A single column definition within a tabular report section.')
 @SectionId('REPCOLENT')
+@OneOf(
+  discriminator: 'dataType',
+  note:
+      'Report-column value-type closed choice (csra4): the column data type '
+      'selects its promoted formatting subsection (numeric / currency / date / '
+      'boolean / text), so a Date column no longer carries booleanTrueDisplay '
+      'and an Integer column no longer carries currencyCode.',
+)
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
@@ -5839,9 +5903,9 @@ class ReportColumnEntry extends DocSpecsSection {
     ),
     Field(
       'dataType',
-      String,
+      ReportColumnKind,
       'Data Type',
-      hint: 'String / Integer / Decimal / Currency / Date / Boolean',
+      hint: 'The column value type — selects the promoted format subsection.',
     ),
   ])
   @SerializationOrder(1)
@@ -5877,23 +5941,112 @@ class ReportColumnEntry extends DocSpecsSection {
       hint: 'Top / Middle / Bottom',
     ),
     Field(
-      'formatPattern',
-      String,
-      'Format Pattern',
-      hint: 'Display format, e.g. #,##0.00',
-    ),
-    Field(
-      'currencyCode',
-      String,
-      'Currency Code',
-      hint: 'Currency code if type is Currency',
-    ),
-    Field(
       'nullDisplay',
       String,
       'Null Display',
       hint: 'What to show for null/empty values',
     ),
+  ])
+  @SerializationOrder(2)
+  DocSpecsSection? formatting;
+
+  /// Numeric-kind column format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for integer and decimal columns; carries only the numeric
+  /// display pattern (no currency code, no boolean labels).
+  @SectionId('RECOFN')
+  @StandardReferences([
+    'ISO 80000-1:2022 — general principles for quantities units and their symbols',
+    'ISO 31-0 — presentation of numbers including grouping and decimal marks',
+  ], 'The numeric display pattern for an integer or decimal report column.')
+  @Case(ReportColumnKind.integer)
+  @Case(ReportColumnKind.decimal)
+  @Form([
+    Field(
+      'formatPattern',
+      String,
+      'Format Pattern',
+      hint: 'Numeric display format, e.g. #,##0.00',
+    ),
+    Field(
+      'negativeDisplay',
+      String,
+      'Negative Display',
+      hint: 'Minus-Sign / Parentheses / Red',
+    ),
+  ])
+  @SerializationOrder(3)
+  DocSpecsSection? numericFormat;
+
+  /// Currency-kind column format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for currency columns; this is the only case in which a
+  /// currency code is meaningful.
+  @SectionId('RECOFC')
+  @StandardReferences([
+    'ISO 4217:2015 — codes for the representation of currencies',
+    'ISO 80000-1:2022 — general principles for quantities units and their symbols',
+  ], 'The currency code and monetary display pattern for a currency report column.')
+  @Case(ReportColumnKind.currency)
+  @Form([
+    Field(
+      'formatPattern',
+      String,
+      'Format Pattern',
+      hint: 'Monetary display format, e.g. #,##0.00',
+    ),
+    Field(
+      'currencyCode',
+      String,
+      'Currency Code',
+      hint: 'ISO 4217 code, e.g. EUR / USD',
+    ),
+    Field(
+      'symbolPosition',
+      String,
+      'Symbol Position',
+      hint: 'Prefix / Suffix / None',
+    ),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? currencyFormat;
+
+  /// Date-kind column format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for date columns; carries only the temporal display pattern.
+  @SectionId('RECOFD')
+  @StandardReferences([
+    'ISO 8601-1:2019 — representation of dates and times',
+    'ISO 9241-112:2017 — presentation of information for temporal values',
+  ], 'The temporal display pattern for a date report column.')
+  @Case(ReportColumnKind.date)
+  @Form([
+    Field(
+      'formatPattern',
+      String,
+      'Format Pattern',
+      hint: 'Date display format, e.g. yyyy-MM-dd',
+    ),
+    Field(
+      'timezoneDisplay',
+      String,
+      'Timezone Display',
+      hint: 'UTC / Local / With-Offset',
+    ),
+  ])
+  @SerializationOrder(5)
+  DocSpecsSection? dateFormat;
+
+  /// Boolean-kind column format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for boolean columns; this is the only case in which the
+  /// true/false display labels are meaningful.
+  @SectionId('RECOFB')
+  @StandardReferences([
+    'ISO 9241-112:2017 — presentation of information for two-valued indicators',
+  ], 'The true and false display labels for a boolean report column.')
+  @Case(ReportColumnKind.boolean)
+  @Form([
     Field(
       'booleanTrueDisplay',
       String,
@@ -5907,8 +6060,34 @@ class ReportColumnEntry extends DocSpecsSection {
       hint: 'Display for false, e.g. No / —',
     ),
   ])
-  @SerializationOrder(2)
-  DocSpecsSection? formatting;
+  @SerializationOrder(6)
+  DocSpecsSection? booleanFormat;
+
+  /// Text-kind column format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for text columns; carries only the overflow handling a
+  /// variable-length string column needs.
+  @SectionId('RECOFT')
+  @StandardReferences([
+    'ISO 9241-112:2017 — presentation of information governs truncation and wrapping of text',
+  ], 'The overflow handling for a text report column.')
+  @Case(ReportColumnKind.string)
+  @Form([
+    Field(
+      'overflowBehavior',
+      String,
+      'Overflow Behavior',
+      hint: 'Truncate / Ellipsis / Wrap / Clip',
+    ),
+    Field(
+      'maxDisplayLength',
+      int,
+      'Max Display Length',
+      hint: 'Character limit before overflow handling applies',
+    ),
+  ])
+  @SerializationOrder(7)
+  DocSpecsSection? textFormat;
 
   /// Aggregation settings.
   @SectionId('RECOAG')
@@ -5945,7 +6124,7 @@ class ReportColumnEntry extends DocSpecsSection {
       hint: 'Make column values clickable',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(8)
   DocSpecsSection? aggregation;
 
   /// Interaction options.
@@ -5970,7 +6149,7 @@ class ReportColumnEntry extends DocSpecsSection {
       hint: 'Yes / No — can user filter by this column',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(9)
   DocSpecsSection? interaction;
 
   /// Visibility and layout.
@@ -5998,7 +6177,7 @@ class ReportColumnEntry extends DocSpecsSection {
     ),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(10)
   DocSpecsSection? layout;
 }
 
@@ -6274,6 +6453,15 @@ class ReportChartAxes extends DocSpecsSection {
   'A single report-filter entry defining one parameter by which report content is filtered.',
 )
 @SectionId('RFE')
+@OneOf(
+  discriminator: 'dataType',
+  note:
+      'Report-filter value-type closed choice (csra4): the filter value type '
+      'selects both its input control and its value bounds (text / numeric / '
+      'date / boolean / select / entity-reference). This replaces the former '
+      'unconstrained `dataType` + `inputType` free-text pair, in which a Date '
+      'filter could be given a Multi-Select control.',
+)
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
@@ -6323,23 +6511,151 @@ class ReportFilterEntry extends DocSpecsSection {
   @Form([
     Field(
       'dataType',
-      String,
+      ReportFilterValueKind,
       'Data Type',
       hint:
-          'String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref',
-    ),
-    Field(
-      'inputType',
-      String,
-      'Input Type',
-      hint:
-          'Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select',
+          'The filter value type — selects the promoted input-control and '
+          'value-bound subsection.',
     ),
     Field(
       'defaultValue',
       String,
       'Default Value',
       hint: 'Default filter value, e.g. current_month, today, *',
+    ),
+  ])
+  @SerializationOrder(1)
+  DocSpecsSection? input;
+
+  /// Text-kind filter options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for text filters; carries the free-text control and its
+  /// match semantics (no value source, no date bounds).
+  @SectionId('RFEIT')
+  @StandardReferences([
+    'ISO 9241-143:2012 — form-based interaction and free-text input',
+    'ISO 9241-110:2020 — matches the input control to the filter data the user provides',
+  ], 'The input control and match semantics for a text report filter.')
+  @Case(ReportFilterValueKind.string)
+  @Form([
+    Field(
+      'inputType',
+      String,
+      'Input Type',
+      hint: 'Text-Field / Autocomplete',
+    ),
+    Field(
+      'matchMode',
+      String,
+      'Match Mode',
+      hint: 'Contains / Starts-With / Exact / Regex',
+    ),
+    Field('maxLength', int, 'Max Length', hint: 'Character limit on the input'),
+  ])
+  @SerializationOrder(2)
+  DocSpecsSection? textFilterOptions;
+
+  /// Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for numeric filters; carries the numeric control and its
+  /// value bounds.
+  @SectionId('RFEIN')
+  @StandardReferences([
+    'ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges',
+    'ISO 80000-1:2022 — general principles for quantities units and their symbols',
+  ], 'The input control and value bounds for a numeric report filter.')
+  @Case(ReportFilterValueKind.integer)
+  @Case(ReportFilterValueKind.decimal)
+  @Form([
+    Field(
+      'inputType',
+      String,
+      'Input Type',
+      hint: 'Number-Field / Slider / Range-Slider',
+    ),
+    Field('minValue', String, 'Min Value', hint: 'Lowest accepted value'),
+    Field('maxValue', String, 'Max Value', hint: 'Highest accepted value'),
+  ])
+  @SerializationOrder(3)
+  DocSpecsSection? numericFilterOptions;
+
+  /// Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for date/date-time filters; carries the temporal control —
+  /// including the range picker that the former free-text `DateRange` type
+  /// stood for — and the selectable window.
+  @SectionId('RFEID')
+  @StandardReferences([
+    'ISO 8601-1:2019 — representation of dates and times',
+    'ISO 9241-143:2012 — constraints on date and time form-field input',
+  ], 'The input control and selectable window for a date report filter.')
+  @Case(ReportFilterValueKind.date)
+  @Case(ReportFilterValueKind.dateTime)
+  @Form([
+    Field(
+      'inputType',
+      String,
+      'Input Type',
+      hint: 'Date-Picker / Date-Range-Picker / Relative-Period',
+    ),
+    Field(
+      'earliestDate',
+      String,
+      'Earliest Date',
+      hint: 'Earliest selectable date/time',
+    ),
+    Field(
+      'latestDate',
+      String,
+      'Latest Date',
+      hint: 'Latest selectable date/time',
+    ),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? dateFilterOptions;
+
+  /// Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for boolean filters; carries only the two-valued control.
+  @SectionId('RFEIB')
+  @StandardReferences([
+    'ISO 9241-161:2016 — selection controls such as checkboxes and radio groups',
+  ], 'The two-valued input control for a boolean report filter.')
+  @Case(ReportFilterValueKind.boolean)
+  @Form([
+    Field(
+      'inputType',
+      String,
+      'Input Type',
+      hint: 'Checkbox / Toggle / Radio-Pair',
+    ),
+    Field(
+      'includeIndeterminate',
+      String,
+      'Include Indeterminate',
+      hint: 'Yes / No — offer an "any" third state',
+    ),
+  ])
+  @SerializationOrder(5)
+  DocSpecsSection? booleanFilterOptions;
+
+  /// Selection-kind filter options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for enumeration filters; this is the only case in which a
+  /// value source, static value list, cascade parent and multi-select are
+  /// meaningful.
+  @SectionId('RFEIS')
+  @StandardReferences([
+    'ISO 9241-161:2016 — selection controls such as dropdowns and radio groups',
+    'ISO/IEC 11179 — permissible values of a data element',
+  ], 'The selection control and value source for an enumeration report filter.')
+  @Case(ReportFilterValueKind.enumeration)
+  @Form([
+    Field(
+      'inputType',
+      String,
+      'Input Type',
+      hint: 'Select / Multi-Select / Radio-Group / Cascading-Select',
     ),
     Field(
       'availableValuesSource',
@@ -6368,8 +6684,48 @@ class ReportFilterEntry extends DocSpecsSection {
       hint: 'Yes / No — allow selecting multiple values',
     ),
   ])
-  @SerializationOrder(1)
-  DocSpecsSection? input;
+  @SerializationOrder(6)
+  DocSpecsSection? selectFilterOptions;
+
+  /// Entity-reference filter options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for entity-reference filters; carries the lookup control and
+  /// the entity query that backs it. Distinct from the enumeration case
+  /// because the value set is resolved from an entity, not a declared list.
+  @SectionId('RFEIE')
+  @StandardReferences([
+    'ISO 9241-143:2012 — form fields with input assistance and lookup',
+    'ER modeling (Chen / Barker notation)',
+  ], 'The lookup control and backing entity query for an entity-reference report filter.')
+  @Case(ReportFilterValueKind.entityRef)
+  @Form([
+    Field(
+      'inputType',
+      String,
+      'Input Type',
+      hint: 'Autocomplete / Dialog-Picker / Tree-Picker',
+    ),
+    Field(
+      'entityType',
+      String,
+      'Entity Type',
+      hint: 'Referenced entity, e.g. Customer',
+    ),
+    Field(
+      'queryFilter',
+      String,
+      'Query Filter',
+      hint: 'Restriction applied to the lookup query',
+    ),
+    Field(
+      'displayAttribute',
+      String,
+      'Display Attribute',
+      hint: 'Entity attribute shown to the user, e.g. name',
+    ),
+  ])
+  @SerializationOrder(7)
+  DocSpecsSection? entityFilterOptions;
 
   /// Scope and validation behavior.
   @SectionId('RFEB')
@@ -6418,7 +6774,7 @@ class ReportFilterEntry extends DocSpecsSection {
       hint: 'Other filter IDs this filter depends on',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(8)
   DocSpecsSection? behavior;
 
   /// Presentation options.
@@ -6451,7 +6807,7 @@ class ReportFilterEntry extends DocSpecsSection {
     ),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(9)
   DocSpecsSection? presentation;
 }
 
@@ -7387,6 +7743,14 @@ class ExportSizeSettings extends DocSpecsSection {
   'A single mapping that binds one source data field to one target field in the export output.',
 )
 @SectionId('EXFIMAEN')
+@OneOf(
+  discriminator: 'dataType',
+  note:
+      'Export-field value-type closed choice (csra4): the field data type '
+      'selects its promoted output subsection (numeric / temporal / boolean / '
+      'enumeration / text), so a single `formatPattern` no longer has to mean '
+      'both "dd.MM.yyyy" and "#,##0.00" depending on a free-text type.',
+)
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
@@ -7442,19 +7806,149 @@ class ExportFieldMappingEntry extends DocSpecsSection {
     ),
     Field(
       'dataType',
-      String,
+      ExportFieldKind,
       'Data Type',
-      hint: 'String / Integer / Decimal / Date / DateTime / Boolean / Enum',
-    ),
-    Field(
-      'formatPattern',
-      String,
-      'Format Pattern',
-      hint: 'Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers',
+      hint: 'The field value type — selects the promoted output subsection.',
     ),
   ])
   @SerializationOrder(1)
   DocSpecsSection? formatting;
+
+  /// Numeric-kind output format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for integer and decimal fields; carries only the numeric
+  /// output pattern and separators.
+  @SectionId('EFMEFN')
+  @StandardReferences([
+    'ISO 80000-1:2022 — general principles for quantities units and their symbols',
+    'IETF RFC 4180 — numeric field values are emitted as text within the record structure',
+  ], 'The numeric output pattern and separators for an exported numeric field.')
+  @Case(ExportFieldKind.integer)
+  @Case(ExportFieldKind.decimal)
+  @Form([
+    Field(
+      'formatPattern',
+      String,
+      'Format Pattern',
+      hint: 'Numeric output format, e.g. #,##0.00',
+    ),
+    Field(
+      'decimalSeparator',
+      String,
+      'Decimal Separator',
+      hint: 'Character used as the decimal mark, e.g. . or ,',
+    ),
+  ])
+  @SerializationOrder(2)
+  DocSpecsSection? numericOutput;
+
+  /// Temporal-kind output format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for date and date-time fields; carries only the temporal
+  /// output pattern and timezone handling.
+  @SectionId('EFMEFD')
+  @StandardReferences([
+    'ISO 8601-1:2019 — representation of dates and times',
+    'ISO 8601-2:2019 — extensions including time-zone offsets',
+  ], 'The temporal output pattern and timezone handling for an exported date field.')
+  @Case(ExportFieldKind.date)
+  @Case(ExportFieldKind.dateTime)
+  @Form([
+    Field(
+      'formatPattern',
+      String,
+      'Format Pattern',
+      hint: 'Temporal output format, e.g. dd.MM.yyyy',
+    ),
+    Field(
+      'timezoneHandling',
+      String,
+      'Timezone Handling',
+      hint: 'UTC / Local / With-Offset',
+    ),
+  ])
+  @SerializationOrder(3)
+  DocSpecsSection? temporalOutput;
+
+  /// Boolean-kind output format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for boolean fields; this is the only case in which the
+  /// emitted true/false literals are meaningful.
+  @SectionId('EFMEFB')
+  @StandardReferences([
+    'IETF RFC 4180 — boolean field values are emitted as text literals within the record',
+  ], 'The emitted true and false literals for an exported boolean field.')
+  @Case(ExportFieldKind.boolean)
+  @Form([
+    Field(
+      'trueLiteral',
+      String,
+      'True Literal',
+      hint: 'Emitted for true, e.g. true / Y / 1',
+    ),
+    Field(
+      'falseLiteral',
+      String,
+      'False Literal',
+      hint: 'Emitted for false, e.g. false / N / 0',
+    ),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? booleanOutput;
+
+  /// Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for enumeration fields; carries which face of the value set
+  /// is emitted and what happens to a value outside it.
+  @SectionId('EFMEFE')
+  @StandardReferences([
+    'ISO/IEC 11179 — permissible values of a data element and their representation',
+  ], 'The emitted representation of an exported enumeration field and its unmapped-value behaviour.')
+  @Case(ExportFieldKind.enumeration)
+  @Form([
+    Field(
+      'emittedForm',
+      String,
+      'Emitted Form',
+      hint: 'Value-Id / Display-Label / Numeric-Ordinal',
+    ),
+    Field(
+      'unmappedValueBehavior',
+      String,
+      'Unmapped Value Behavior',
+      hint: 'Emit-Raw / Emit-Empty / Fail-Export',
+    ),
+  ])
+  @SerializationOrder(5)
+  DocSpecsSection? enumerationOutput;
+
+  /// Text-kind output format — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for text fields; carries the character-length truncation
+  /// that only a string field can have. Moved out of `inclusion`, where it sat
+  /// beside type-independent default and inclusion rules.
+  @SectionId('EFMEFT')
+  @StandardReferences([
+    'IETF RFC 4180 — text field values are emitted within the record structure',
+    'ISO/IEC 25010:2023 — functional correctness of length-bounded output',
+  ], 'The character-length truncation and padding for an exported text field.')
+  @Case(ExportFieldKind.string)
+  @Form([
+    Field(
+      'maxLength',
+      int,
+      'Max Length',
+      hint: 'Truncate output to this character length',
+    ),
+    Field(
+      'padding',
+      String,
+      'Padding',
+      hint: 'None / Left-Pad / Right-Pad for fixed-width output',
+    ),
+  ])
+  @SerializationOrder(6)
+  DocSpecsSection? textOutput;
 
   /// Transformation rules.
   @SectionId('EFMET')
@@ -7486,7 +7980,7 @@ class ExportFieldMappingEntry extends DocSpecsSection {
       hint: 'Value substitution map, e.g. ACTIVE→A, INACTIVE→I',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(7)
   DocSpecsSection? transformation;
 
   /// Inclusion and defaults.
@@ -7517,14 +8011,8 @@ class ExportFieldMappingEntry extends DocSpecsSection {
       'Inclusion Condition',
       hint: 'Condition for conditional inclusion',
     ),
-    Field(
-      'maxLength',
-      int,
-      'Max Length',
-      hint: 'Truncate output to this character length',
-    ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(8)
   DocSpecsSection? inclusion;
 
   /// Fixed-width and quoting rules.
@@ -7563,7 +8051,7 @@ class ExportFieldMappingEntry extends DocSpecsSection {
     ),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(9)
   DocSpecsSection? layout;
 }
 

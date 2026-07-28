@@ -5773,6 +5773,16 @@ section-types:
         max-count: 1
       recofo:
         max-count: 1
+      recofn:
+        max-count: 1
+      recofc:
+        max-count: 1
+      recofd:
+        max-count: 1
+      recofb:
+        max-count: 1
+      recoft:
+        max-count: 1
       recoag:
         max-count: 1
       recoin:
@@ -5821,6 +5831,18 @@ section-types:
     prefix: REFIEN_FILT_
     subsection-types:
       rfei:
+        max-count: 1
+      rfeit:
+        max-count: 1
+      rfein:
+        max-count: 1
+      rfeid:
+        max-count: 1
+      rfeib:
+        max-count: 1
+      rfeis:
+        max-count: 1
+      rfeie:
         max-count: 1
       rfeb:
         max-count: 1
@@ -6728,6 +6750,14 @@ section-types:
       daatt-iden:
         max-count: 1
       daatt-data:
+        max-count: 1
+      daatt-dttx:
+        max-count: 1
+      daatt-dtnu:
+        max-count: 1
+      daatt-dttm:
+        max-count: 1
+      daatt-dtbi:
         max-count: 1
       dataa-cons-lst:
         max-count: 1
@@ -8317,6 +8347,14 @@ section-types:
         max-count: 1
       scfiva:
         max-count: 1
+      scfivt:
+        max-count: 1
+      scfivn:
+        max-count: 1
+      scfivd:
+        max-count: 1
+      scfich:
+        max-count: 1
       scfila:
         max-count: 1
       fldvl-vali-lst:
@@ -9417,6 +9455,22 @@ section-types:
   daatt-deri:
     prefix: DAATT_DERI
     format: daatt-deri-form
+  daatt-dtbi:
+    prefix: DAATT_DTBI
+    format: daatt-dtbi-form
+    description: "Binary-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dtnu:
+    prefix: DAATT_DTNU
+    format: daatt-dtnu-form
+    description: "Numeric-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dttm:
+    prefix: DAATT_DTTM
+    format: daatt-dttm-form
+    description: "Temporal-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dttx:
+    prefix: DAATT_DTTX
+    format: daatt-dttx-form
+    description: "Text-kind type options — a promoted `@OneOf` case (csra4)."
   daatt-iden:
     prefix: DAATT_IDEN
     format: daatt-iden-form
@@ -9674,6 +9728,16 @@ section-types:
     prefix: EFME_FIEL_
     subsection-types:
       efmef:
+        max-count: 1
+      efmefn:
+        max-count: 1
+      efmefd:
+        max-count: 1
+      efmefb:
+        max-count: 1
+      efmefe:
+        max-count: 1
+      efmeft:
         max-count: 1
       efmet:
         max-count: 1
@@ -13321,6 +13385,26 @@ section-types:
     prefix: DOSTVE
     format: dostve-form
     description: Changelog and versioning requirements.
+  efmefb:
+    prefix: EFMEFB
+    format: efmefb-form
+    description: "Boolean-kind output format — a promoted `@OneOf` case (csra4)."
+  efmefd:
+    prefix: EFMEFD
+    format: efmefd-form
+    description: "Temporal-kind output format — a promoted `@OneOf` case (csra4)."
+  efmefe:
+    prefix: EFMEFE
+    format: efmefe-form
+    description: "Enumeration-kind output format — a promoted `@OneOf` case (csra4)."
+  efmefn:
+    prefix: EFMEFN
+    format: efmefn-form
+    description: "Numeric-kind output format — a promoted `@OneOf` case (csra4)."
+  efmeft:
+    prefix: EFMEFT
+    format: efmeft-form
+    description: "Text-kind output format — a promoted `@OneOf` case (csra4)."
   efqure:
     prefix: EFQURE
     format: efqure-form
@@ -14861,10 +14945,30 @@ section-types:
     prefix: RECOAG
     format: recoag-form
     description: Aggregation settings.
+  recofb:
+    prefix: RECOFB
+    format: recofb-form
+    description: "Boolean-kind column format — a promoted `@OneOf` case (csra4)."
+  recofc:
+    prefix: RECOFC
+    format: recofc-form
+    description: "Currency-kind column format — a promoted `@OneOf` case (csra4)."
+  recofd:
+    prefix: RECOFD
+    format: recofd-form
+    description: "Date-kind column format — a promoted `@OneOf` case (csra4)."
+  recofn:
+    prefix: RECOFN
+    format: recofn-form
+    description: "Numeric-kind column format — a promoted `@OneOf` case (csra4)."
   recofo:
     prefix: RECOFO
     format: recofo-form
     description: Display formatting.
+  recoft:
+    prefix: RECOFT
+    format: recoft-form
+    description: "Text-kind column format — a promoted `@OneOf` case (csra4)."
   recoin:
     prefix: RECOIN
     format: recoin-form
@@ -15183,6 +15287,10 @@ section-types:
     prefix: SCENPR
     format: scenpr-form
     description: Presentation metadata.
+  scfich:
+    prefix: SCFICH
+    format: scfich-form
+    description: "Choice-kind option source — a promoted `@OneOf` case (csra4)."
   scfico:
     prefix: SCFICO
     format: scfico-form
@@ -15194,7 +15302,19 @@ section-types:
   scfiva:
     prefix: SCFIVA
     format: scfiva-form
-    description: Validation rules.
+    description: Validation rules that apply whatever the field type is.
+  scfivd:
+    prefix: SCFIVD
+    format: scfivd-form
+    description: "Temporal-kind input constraints — a promoted `@OneOf` case (csra4)."
+  scfivn:
+    prefix: SCFIVN
+    format: scfivn-form
+    description: "Numeric-kind input constraints — a promoted `@OneOf` case (csra4)."
+  scfivt:
+    prefix: SCFIVT
+    format: scfivt-form
+    description: "Text-kind input constraints — a promoted `@OneOf` case (csra4)."
   scflst:
     prefix: SCFLST
     subsection-types:
@@ -17914,6 +18034,30 @@ section-types:
       requs1:
         max-count: 1
     description: 11.5.1. Readability.
+  rfeib:
+    prefix: RFEIB
+    format: rfeib-form
+    description: "Boolean-kind filter options — a promoted `@OneOf` case (csra4)."
+  rfeid:
+    prefix: RFEID
+    format: rfeid-form
+    description: "Temporal-kind filter options — a promoted `@OneOf` case (csra4)."
+  rfeie:
+    prefix: RFEIE
+    format: rfeie-form
+    description: "Entity-reference filter options — a promoted `@OneOf` case (csra4)."
+  rfein:
+    prefix: RFEIN
+    format: rfein-form
+    description: "Numeric-kind filter options — a promoted `@OneOf` case (csra4)."
+  rfeis:
+    prefix: RFEIS
+    format: rfeis-form
+    description: "Selection-kind filter options — a promoted `@OneOf` case (csra4)."
+  rfeit:
+    prefix: RFEIT
+    format: rfeit-form
+    description: "Text-kind filter options — a promoted `@OneOf` case (csra4)."
   rgenb:
     prefix: RGENB
     format: rgenb-form
@@ -27564,24 +27708,36 @@ form-types:
         description: Condition under which the field is visible
   scfiva-form:
     fields:
-      - fieldname: minLength
-        description: Minimum allowed input length
-      - fieldname: maxLength
-        description: Maximum allowed input length
-      - fieldname: minValue
-        description: Minimum allowed value
-      - fieldname: maxValue
-        description: Maximum allowed value
-      - fieldname: pattern
-        description: Regular expression the input must match
       - fieldname: validationMessage
         description: Message shown when validation fails
+  scfivt-form:
+    fields:
+      - fieldname: minLength
+        description: Minimum allowed input length in characters
+      - fieldname: maxLength
+        description: Maximum allowed input length in characters
+      - fieldname: pattern
+        description: Regular expression the input must match
+  scfivn-form:
+    fields:
+      - fieldname: minValue
+        description: Smallest value the field accepts
+      - fieldname: maxValue
+        description: Largest value the field accepts
+  scfivd-form:
+    fields:
+      - fieldname: earliestValue
+        description: "Earliest accepted date/time, absolute or relative (e.g. today)"
+      - fieldname: latestValue
+        description: "Latest accepted date/time, absolute or relative (e.g. today + 30d)"
+  scfich-form:
+    fields:
+      - fieldname: optionSource
+        description: "Where the options come from: static, API, or entity"
+      - fieldname: staticOptions
+        description: "The option values, when the source is static"
   scfila-form:
     fields:
-      - fieldname: dropdownSource
-        description: "Where dropdown options come from: static, API, or entity"
-      - fieldname: dropdownValues
-        description: Static list of dropdown values
       - fieldname: dependsOn
         description: Field IDs that affect this field
       - fieldname: width
@@ -32437,21 +32593,33 @@ form-types:
   daatt-data-form:
     fields:
       - fieldname: dataType
-        description: "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary"
+        description: The logical type — selects the promoted options subsection.
       - fieldname: physicalType
         description: "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP"
+      - fieldname: format
+        description: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)"
+  daatt-dttx-form:
+    fields:
       - fieldname: length
-        description: Maximum length for strings or size for binary
+        description: Maximum character length
+      - fieldname: collation
+        description: "Character collation for text (e.g., utf8_general_ci)"
+  daatt-dtnu-form:
+    fields:
       - fieldname: precision
         description: Total digits for numeric types
       - fieldname: scale
         description: Decimal places for numeric types
-      - fieldname: collation
-        description: "Character collation for text (e.g., utf8_general_ci)"
+  daatt-dttm-form:
+    fields:
       - fieldname: timezone
         description: "For datetime: UTC | Local | WithOffset"
-      - fieldname: format
-        description: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)"
+  daatt-dtbi-form:
+    fields:
+      - fieldname: maxSizeBytes
+        description: Maximum stored size in bytes
+      - fieldname: storageMode
+        description: "Inline | External-Reference | Blob-Store"
   daatt-deri-form:
     fields:
       - fieldname: isComputed
@@ -43961,7 +44129,7 @@ form-types:
       - fieldname: dataSourceField
         description: "Path to the data field, e.g. order.customer.name"
       - fieldname: dataType
-        description: String / Integer / Decimal / Currency / Date / Boolean
+        description: The column value type — selects the promoted format subsection.
   recofo-form:
     fields:
       - fieldname: displayOrder
@@ -43972,16 +44140,40 @@ form-types:
         description: Left / Center / Right
       - fieldname: verticalAlignment
         description: Top / Middle / Bottom
-      - fieldname: formatPattern
-        description: "Display format, e.g. #,##0.00"
-      - fieldname: currencyCode
-        description: Currency code if type is Currency
       - fieldname: nullDisplay
         description: What to show for null/empty values
+  recofn-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Numeric display format, e.g. #,##0.00"
+      - fieldname: negativeDisplay
+        description: Minus-Sign / Parentheses / Red
+  recofc-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Monetary display format, e.g. #,##0.00"
+      - fieldname: currencyCode
+        description: "ISO 4217 code, e.g. EUR / USD"
+      - fieldname: symbolPosition
+        description: Prefix / Suffix / None
+  recofd-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Date display format, e.g. yyyy-MM-dd"
+      - fieldname: timezoneDisplay
+        description: UTC / Local / With-Offset
+  recofb-form:
+    fields:
       - fieldname: booleanTrueDisplay
         description: "Display for true, e.g. Yes / ✓"
       - fieldname: booleanFalseDisplay
         description: "Display for false, e.g. No / —"
+  recoft-form:
+    fields:
+      - fieldname: overflowBehavior
+        description: Truncate / Ellipsis / Wrap / Clip
+      - fieldname: maxDisplayLength
+        description: Character limit before overflow handling applies
   recoag-form:
     fields:
       - fieldname: aggregation
@@ -44051,11 +44243,43 @@ form-types:
   rfei-form:
     fields:
       - fieldname: dataType
-        description: String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref
-      - fieldname: inputType
-        description: Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select
+        description: The filter value type — selects the promoted input-control and value-bound subsection.
       - fieldname: defaultValue
         description: "Default filter value, e.g. current_month, today, *"
+  rfeit-form:
+    fields:
+      - fieldname: inputType
+        description: Text-Field / Autocomplete
+      - fieldname: matchMode
+        description: Contains / Starts-With / Exact / Regex
+      - fieldname: maxLength
+        description: Character limit on the input
+  rfein-form:
+    fields:
+      - fieldname: inputType
+        description: Number-Field / Slider / Range-Slider
+      - fieldname: minValue
+        description: Lowest accepted value
+      - fieldname: maxValue
+        description: Highest accepted value
+  rfeid-form:
+    fields:
+      - fieldname: inputType
+        description: Date-Picker / Date-Range-Picker / Relative-Period
+      - fieldname: earliestDate
+        description: Earliest selectable date/time
+      - fieldname: latestDate
+        description: Latest selectable date/time
+  rfeib-form:
+    fields:
+      - fieldname: inputType
+        description: Checkbox / Toggle / Radio-Pair
+      - fieldname: includeIndeterminate
+        description: Yes / No — offer an "any" third state
+  rfeis-form:
+    fields:
+      - fieldname: inputType
+        description: Select / Multi-Select / Radio-Group / Cascading-Select
       - fieldname: availableValuesSource
         description: "Source for dropdown/select values: static list, entity query, API endpoint"
       - fieldname: staticValues
@@ -44064,6 +44288,16 @@ form-types:
         description: Filter ID of parent filter for cascading dropdowns
       - fieldname: multiSelect
         description: Yes / No — allow selecting multiple values
+  rfeie-form:
+    fields:
+      - fieldname: inputType
+        description: Autocomplete / Dialog-Picker / Tree-Picker
+      - fieldname: entityType
+        description: "Referenced entity, e.g. Customer"
+      - fieldname: queryFilter
+        description: Restriction applied to the lookup query
+      - fieldname: displayAttribute
+        description: "Entity attribute shown to the user, e.g. name"
   rfeb-form:
     fields:
       - fieldname: required
@@ -44281,9 +44515,37 @@ form-types:
       - fieldname: displayOrder
         description: Position in the export output (column order)
       - fieldname: dataType
-        description: String / Integer / Decimal / Date / DateTime / Boolean / Enum
+        description: The field value type — selects the promoted output subsection.
+  efmefn-form:
+    fields:
       - fieldname: formatPattern
-        description: "Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers"
+        description: "Numeric output format, e.g. #,##0.00"
+      - fieldname: decimalSeparator
+        description: "Character used as the decimal mark, e.g. . or ,"
+  efmefd-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Temporal output format, e.g. dd.MM.yyyy"
+      - fieldname: timezoneHandling
+        description: UTC / Local / With-Offset
+  efmefb-form:
+    fields:
+      - fieldname: trueLiteral
+        description: "Emitted for true, e.g. true / Y / 1"
+      - fieldname: falseLiteral
+        description: "Emitted for false, e.g. false / N / 0"
+  efmefe-form:
+    fields:
+      - fieldname: emittedForm
+        description: Value-Id / Display-Label / Numeric-Ordinal
+      - fieldname: unmappedValueBehavior
+        description: Emit-Raw / Emit-Empty / Fail-Export
+  efmeft-form:
+    fields:
+      - fieldname: maxLength
+        description: Truncate output to this character length
+      - fieldname: padding
+        description: None / Left-Pad / Right-Pad for fixed-width output
   efmet-form:
     fields:
       - fieldname: transformationRule
@@ -44300,8 +44562,6 @@ form-types:
         description: Yes / No / Conditional
       - fieldname: inclusionCondition
         description: Condition for conditional inclusion
-      - fieldname: maxLength
-        description: Truncate output to this character length
   efmel-form:
     fields:
       - fieldname: paddingChar

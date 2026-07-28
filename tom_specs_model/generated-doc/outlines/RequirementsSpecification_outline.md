@@ -23,7 +23,8 @@
       - uiSpecification: `RequirementUiSpecification`
         - content, uiForm, layoutCode, mockupDescription
         - fields: `ScreenFieldEntry`
-          - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, layout
+          - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, textConstraints,
+            numericConstraints, temporalConstraints, choiceOptions, layout
           - validationRules: `FieldValidationRule`
             - content @Form(ruleType, ruleExpression, errorCode, errorMessage, severity, triggerEvent)
         - actions: `RequirementScreenActionEntry`

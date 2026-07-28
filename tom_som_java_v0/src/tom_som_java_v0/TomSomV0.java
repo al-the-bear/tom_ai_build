@@ -9369,6 +9369,39 @@ public final class TomSomV0 {
       return new DataAttributeEntryDataTypeSpecForm(doc, path + "/DAATT-DATA");
     }
 
+    // Text-kind type options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for the `string` logical type; carries only the character
+    // length and collation attributes (no numeric precision, no timezone).
+    public DataAttributeEntryTextTypeOptionsForm textTypeOptions() {
+      return new DataAttributeEntryTextTypeOptionsForm(doc, path + "/DAATT-DTTX");
+    }
+
+    // Numeric-kind type options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for numeric logical types; carries only the precision and
+    // scale attributes (no length, collation or timezone).
+    public DataAttributeEntryNumericTypeOptionsForm numericTypeOptions() {
+      return new DataAttributeEntryNumericTypeOptionsForm(doc, path + "/DAATT-DTNU");
+    }
+
+    // Temporal-kind type options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for date/time logical types; carries only the timezone
+    // handling attribute.
+    public DataAttributeEntryTemporalTypeOptionsForm temporalTypeOptions() {
+      return new DataAttributeEntryTemporalTypeOptionsForm(doc, path + "/DAATT-DTTM");
+    }
+
+    // Binary-kind type options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for the `binary` logical type; carries only the stored size
+    // attributes. Separated from the text `length` because a byte size and a
+    // character length are different constraints on different types.
+    public DataAttributeEntryBinaryTypeOptionsForm binaryTypeOptions() {
+      return new DataAttributeEntryBinaryTypeOptionsForm(doc, path + "/DAATT-DTBI");
+    }
+
     public SomList<DataAttributeConstraintEntry> constraints() {
       return new SomList<>(doc, path + "/DATAA-CONS-LST", (d, p) -> new DataAttributeConstraintEntry(d, p), "DATAA-CONS-xxx");
     }
@@ -14456,6 +14489,47 @@ public final class TomSomV0 {
     // Ordering and formatting settings.
     public ExportFieldMappingEntryFormattingForm formatting() {
       return new ExportFieldMappingEntryFormattingForm(doc, path + "/EFMEF");
+    }
+
+    // Numeric-kind output format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for integer and decimal fields; carries only the numeric
+    // output pattern and separators.
+    public ExportFieldMappingEntryNumericOutputForm numericOutput() {
+      return new ExportFieldMappingEntryNumericOutputForm(doc, path + "/EFMEFN");
+    }
+
+    // Temporal-kind output format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for date and date-time fields; carries only the temporal
+    // output pattern and timezone handling.
+    public ExportFieldMappingEntryTemporalOutputForm temporalOutput() {
+      return new ExportFieldMappingEntryTemporalOutputForm(doc, path + "/EFMEFD");
+    }
+
+    // Boolean-kind output format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for boolean fields; this is the only case in which the
+    // emitted true/false literals are meaningful.
+    public ExportFieldMappingEntryBooleanOutputForm booleanOutput() {
+      return new ExportFieldMappingEntryBooleanOutputForm(doc, path + "/EFMEFB");
+    }
+
+    // Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for enumeration fields; carries which face of the value set
+    // is emitted and what happens to a value outside it.
+    public ExportFieldMappingEntryEnumerationOutputForm enumerationOutput() {
+      return new ExportFieldMappingEntryEnumerationOutputForm(doc, path + "/EFMEFE");
+    }
+
+    // Text-kind output format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for text fields; carries the character-length truncation
+    // that only a string field can have. Moved out of `inclusion`, where it sat
+    // beside type-independent default and inclusion rules.
+    public ExportFieldMappingEntryTextOutputForm textOutput() {
+      return new ExportFieldMappingEntryTextOutputForm(doc, path + "/EFMEFT");
     }
 
     // Transformation rules.
@@ -26221,6 +26295,45 @@ public final class TomSomV0 {
       return new ReportColumnEntryFormattingForm(doc, path + "/RECOFO");
     }
 
+    // Numeric-kind column format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for integer and decimal columns; carries only the numeric
+    // display pattern (no currency code, no boolean labels).
+    public ReportColumnEntryNumericFormatForm numericFormat() {
+      return new ReportColumnEntryNumericFormatForm(doc, path + "/RECOFN");
+    }
+
+    // Currency-kind column format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for currency columns; this is the only case in which a
+    // currency code is meaningful.
+    public ReportColumnEntryCurrencyFormatForm currencyFormat() {
+      return new ReportColumnEntryCurrencyFormatForm(doc, path + "/RECOFC");
+    }
+
+    // Date-kind column format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for date columns; carries only the temporal display pattern.
+    public ReportColumnEntryDateFormatForm dateFormat() {
+      return new ReportColumnEntryDateFormatForm(doc, path + "/RECOFD");
+    }
+
+    // Boolean-kind column format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for boolean columns; this is the only case in which the
+    // true/false display labels are meaningful.
+    public ReportColumnEntryBooleanFormatForm booleanFormat() {
+      return new ReportColumnEntryBooleanFormatForm(doc, path + "/RECOFB");
+    }
+
+    // Text-kind column format — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for text columns; carries only the overflow handling a
+    // variable-length string column needs.
+    public ReportColumnEntryTextFormatForm textFormat() {
+      return new ReportColumnEntryTextFormatForm(doc, path + "/RECOFT");
+    }
+
     // Aggregation settings.
     public ReportColumnEntryAggregationForm aggregation() {
       return new ReportColumnEntryAggregationForm(doc, path + "/RECOAG");
@@ -26367,6 +26480,56 @@ public final class TomSomV0 {
     // Input and value configuration.
     public ReportFilterEntryInputForm input() {
       return new ReportFilterEntryInputForm(doc, path + "/RFEI");
+    }
+
+    // Text-kind filter options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for text filters; carries the free-text control and its
+    // match semantics (no value source, no date bounds).
+    public ReportFilterEntryTextFilterOptionsForm textFilterOptions() {
+      return new ReportFilterEntryTextFilterOptionsForm(doc, path + "/RFEIT");
+    }
+
+    // Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for numeric filters; carries the numeric control and its
+    // value bounds.
+    public ReportFilterEntryNumericFilterOptionsForm numericFilterOptions() {
+      return new ReportFilterEntryNumericFilterOptionsForm(doc, path + "/RFEIN");
+    }
+
+    // Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for date/date-time filters; carries the temporal control —
+    // including the range picker that the former free-text `DateRange` type
+    // stood for — and the selectable window.
+    public ReportFilterEntryDateFilterOptionsForm dateFilterOptions() {
+      return new ReportFilterEntryDateFilterOptionsForm(doc, path + "/RFEID");
+    }
+
+    // Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for boolean filters; carries only the two-valued control.
+    public ReportFilterEntryBooleanFilterOptionsForm booleanFilterOptions() {
+      return new ReportFilterEntryBooleanFilterOptionsForm(doc, path + "/RFEIB");
+    }
+
+    // Selection-kind filter options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for enumeration filters; this is the only case in which a
+    // value source, static value list, cascade parent and multi-select are
+    // meaningful.
+    public ReportFilterEntrySelectFilterOptionsForm selectFilterOptions() {
+      return new ReportFilterEntrySelectFilterOptionsForm(doc, path + "/RFEIS");
+    }
+
+    // Entity-reference filter options — a promoted `@OneOf` case (csra4).
+    //
+    // Present only for entity-reference filters; carries the lookup control and
+    // the entity query that backs it. Distinct from the enumeration case
+    // because the value set is resolved from an entity, not a declared list.
+    public ReportFilterEntryEntityFilterOptionsForm entityFilterOptions() {
+      return new ReportFilterEntryEntityFilterOptionsForm(doc, path + "/RFEIE");
     }
 
     // Scope and validation behavior.
@@ -28999,9 +29162,32 @@ public final class TomSomV0 {
       return new ScreenFieldEntryConditionsForm(doc, path + "/SCFICO");
     }
 
-    // Validation rules.
+    // Validation rules that apply whatever the field type is.
     public ScreenFieldEntryValidationForm validation() {
       return new ScreenFieldEntryValidationForm(doc, path + "/SCFIVA");
+    }
+
+    // Text-kind input constraints — a promoted `@OneOf` case (csra4).
+    public ScreenFieldEntryTextConstraintsForm textConstraints() {
+      return new ScreenFieldEntryTextConstraintsForm(doc, path + "/SCFIVT");
+    }
+
+    // Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+    public ScreenFieldEntryNumericConstraintsForm numericConstraints() {
+      return new ScreenFieldEntryNumericConstraintsForm(doc, path + "/SCFIVN");
+    }
+
+    // Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+    //
+    // Kept apart from [numericConstraints] because a date boundary is expressed
+    // as a date or a relative expression ("today + 30d"), not as a number.
+    public ScreenFieldEntryTemporalConstraintsForm temporalConstraints() {
+      return new ScreenFieldEntryTemporalConstraintsForm(doc, path + "/SCFIVD");
+    }
+
+    // Choice-kind option source — a promoted `@OneOf` case (csra4).
+    public ScreenFieldEntryChoiceOptionsForm choiceOptions() {
+      return new ScreenFieldEntryChoiceOptionsForm(doc, path + "/SCFICH");
     }
 
     // UI and layout.
@@ -69780,6 +69966,46 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `binaryTypeOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataAttributeEntryBinaryTypeOptionsForm extends SomNode {
+    public DataAttributeEntryBinaryTypeOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String maxSizeBytes() {
+      String v = doc.formField(path, "maxSizeBytes");
+      return v == null ? "" : v;
+    }
+
+    public void maxSizeBytes(String value) {
+      doc.setFormField(path, "maxSizeBytes", value);
+    }
+
+    public String storageMode() {
+      String v = doc.formField(path, "storageMode");
+      return v == null ? "" : v;
+    }
+
+    public void storageMode(String value) {
+      doc.setFormField(path, "storageMode", value);
+    }
+  }
+
   // Generated section facade for the `dataTypeSpec` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class DataAttributeEntryDataTypeSpecForm extends SomNode {
@@ -69817,51 +70043,6 @@ public final class TomSomV0 {
 
     public void physicalType(String value) {
       doc.setFormField(path, "physicalType", value);
-    }
-
-    public String length() {
-      String v = doc.formField(path, "length");
-      return v == null ? "" : v;
-    }
-
-    public void length(String value) {
-      doc.setFormField(path, "length", value);
-    }
-
-    public String precision() {
-      String v = doc.formField(path, "precision");
-      return v == null ? "" : v;
-    }
-
-    public void precision(String value) {
-      doc.setFormField(path, "precision", value);
-    }
-
-    public String scale() {
-      String v = doc.formField(path, "scale");
-      return v == null ? "" : v;
-    }
-
-    public void scale(String value) {
-      doc.setFormField(path, "scale", value);
-    }
-
-    public String collation() {
-      String v = doc.formField(path, "collation");
-      return v == null ? "" : v;
-    }
-
-    public void collation(String value) {
-      doc.setFormField(path, "collation", value);
-    }
-
-    public String timezone() {
-      String v = doc.formField(path, "timezone");
-      return v == null ? "" : v;
-    }
-
-    public void timezone(String value) {
-      doc.setFormField(path, "timezone", value);
     }
 
     public String format() {
@@ -70066,6 +70247,46 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `numericTypeOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataAttributeEntryNumericTypeOptionsForm extends SomNode {
+    public DataAttributeEntryNumericTypeOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String precision() {
+      String v = doc.formField(path, "precision");
+      return v == null ? "" : v;
+    }
+
+    public void precision(String value) {
+      doc.setFormField(path, "precision", value);
+    }
+
+    public String scale() {
+      String v = doc.formField(path, "scale");
+      return v == null ? "" : v;
+    }
+
+    public void scale(String value) {
+      doc.setFormField(path, "scale", value);
+    }
+  }
+
   // Generated section facade for the `securityClassification` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class DataAttributeEntrySecurityClassificationForm extends SomNode {
@@ -70130,6 +70351,77 @@ public final class TomSomV0 {
 
     public void auditLevel(String value) {
       doc.setFormField(path, "auditLevel", value);
+    }
+  }
+
+  // Generated section facade for the `temporalTypeOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataAttributeEntryTemporalTypeOptionsForm extends SomNode {
+    public DataAttributeEntryTemporalTypeOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String timezone() {
+      String v = doc.formField(path, "timezone");
+      return v == null ? "" : v;
+    }
+
+    public void timezone(String value) {
+      doc.setFormField(path, "timezone", value);
+    }
+  }
+
+  // Generated section facade for the `textTypeOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataAttributeEntryTextTypeOptionsForm extends SomNode {
+    public DataAttributeEntryTextTypeOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String length() {
+      String v = doc.formField(path, "length");
+      return v == null ? "" : v;
+    }
+
+    public void length(String value) {
+      doc.setFormField(path, "length", value);
+    }
+
+    public String collation() {
+      String v = doc.formField(path, "collation");
+      return v == null ? "" : v;
+    }
+
+    public void collation(String value) {
+      doc.setFormField(path, "collation", value);
     }
   }
 
@@ -92205,6 +92497,46 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `booleanOutput` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ExportFieldMappingEntryBooleanOutputForm extends SomNode {
+    public ExportFieldMappingEntryBooleanOutputForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String trueLiteral() {
+      String v = doc.formField(path, "trueLiteral");
+      return v == null ? "" : v;
+    }
+
+    public void trueLiteral(String value) {
+      doc.setFormField(path, "trueLiteral", value);
+    }
+
+    public String falseLiteral() {
+      String v = doc.formField(path, "falseLiteral");
+      return v == null ? "" : v;
+    }
+
+    public void falseLiteral(String value) {
+      doc.setFormField(path, "falseLiteral", value);
+    }
+  }
+
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ExportFieldMappingEntryContentForm extends SomNode {
@@ -92254,6 +92586,46 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `enumerationOutput` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ExportFieldMappingEntryEnumerationOutputForm extends SomNode {
+    public ExportFieldMappingEntryEnumerationOutputForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String emittedForm() {
+      String v = doc.formField(path, "emittedForm");
+      return v == null ? "" : v;
+    }
+
+    public void emittedForm(String value) {
+      doc.setFormField(path, "emittedForm", value);
+    }
+
+    public String unmappedValueBehavior() {
+      String v = doc.formField(path, "unmappedValueBehavior");
+      return v == null ? "" : v;
+    }
+
+    public void unmappedValueBehavior(String value) {
+      doc.setFormField(path, "unmappedValueBehavior", value);
+    }
+  }
+
   // Generated section facade for the `formatting` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ExportFieldMappingEntryFormattingForm extends SomNode {
@@ -92292,15 +92664,6 @@ public final class TomSomV0 {
 
     public void dataType(String value) {
       doc.setFormField(path, "dataType", value);
-    }
-
-    public String formatPattern() {
-      String v = doc.formField(path, "formatPattern");
-      return v == null ? "" : v;
-    }
-
-    public void formatPattern(String value) {
-      doc.setFormField(path, "formatPattern", value);
     }
   }
 
@@ -92350,16 +92713,6 @@ public final class TomSomV0 {
 
     public void inclusionCondition(String value) {
       doc.setFormField(path, "inclusionCondition", value);
-    }
-
-    public Integer maxLength() {
-      String v = doc.formField(path, "maxLength");
-      if (v == null || v.isEmpty()) return null;
-      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
-    }
-
-    public void maxLength(Integer value) {
-      doc.setFormField(path, "maxLength", value == null ? "" : String.valueOf(value));
     }
   }
 
@@ -92428,6 +92781,127 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `numericOutput` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ExportFieldMappingEntryNumericOutputForm extends SomNode {
+    public ExportFieldMappingEntryNumericOutputForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String formatPattern() {
+      String v = doc.formField(path, "formatPattern");
+      return v == null ? "" : v;
+    }
+
+    public void formatPattern(String value) {
+      doc.setFormField(path, "formatPattern", value);
+    }
+
+    public String decimalSeparator() {
+      String v = doc.formField(path, "decimalSeparator");
+      return v == null ? "" : v;
+    }
+
+    public void decimalSeparator(String value) {
+      doc.setFormField(path, "decimalSeparator", value);
+    }
+  }
+
+  // Generated section facade for the `temporalOutput` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ExportFieldMappingEntryTemporalOutputForm extends SomNode {
+    public ExportFieldMappingEntryTemporalOutputForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String formatPattern() {
+      String v = doc.formField(path, "formatPattern");
+      return v == null ? "" : v;
+    }
+
+    public void formatPattern(String value) {
+      doc.setFormField(path, "formatPattern", value);
+    }
+
+    public String timezoneHandling() {
+      String v = doc.formField(path, "timezoneHandling");
+      return v == null ? "" : v;
+    }
+
+    public void timezoneHandling(String value) {
+      doc.setFormField(path, "timezoneHandling", value);
+    }
+  }
+
+  // Generated section facade for the `textOutput` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ExportFieldMappingEntryTextOutputForm extends SomNode {
+    public ExportFieldMappingEntryTextOutputForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Integer maxLength() {
+      String v = doc.formField(path, "maxLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxLength(Integer value) {
+      doc.setFormField(path, "maxLength", value == null ? "" : String.valueOf(value));
+    }
+
+    public String padding() {
+      String v = doc.formField(path, "padding");
+      return v == null ? "" : v;
+    }
+
+    public void padding(String value) {
+      doc.setFormField(path, "padding", value);
     }
   }
 
@@ -146153,6 +146627,46 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `booleanFormat` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportColumnEntryBooleanFormatForm extends SomNode {
+    public ReportColumnEntryBooleanFormatForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String booleanTrueDisplay() {
+      String v = doc.formField(path, "booleanTrueDisplay");
+      return v == null ? "" : v;
+    }
+
+    public void booleanTrueDisplay(String value) {
+      doc.setFormField(path, "booleanTrueDisplay", value);
+    }
+
+    public String booleanFalseDisplay() {
+      String v = doc.formField(path, "booleanFalseDisplay");
+      return v == null ? "" : v;
+    }
+
+    public void booleanFalseDisplay(String value) {
+      doc.setFormField(path, "booleanFalseDisplay", value);
+    }
+  }
+
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ReportColumnEntryContentForm extends SomNode {
@@ -146202,6 +146716,55 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `currencyFormat` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportColumnEntryCurrencyFormatForm extends SomNode {
+    public ReportColumnEntryCurrencyFormatForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String formatPattern() {
+      String v = doc.formField(path, "formatPattern");
+      return v == null ? "" : v;
+    }
+
+    public void formatPattern(String value) {
+      doc.setFormField(path, "formatPattern", value);
+    }
+
+    public String currencyCode() {
+      String v = doc.formField(path, "currencyCode");
+      return v == null ? "" : v;
+    }
+
+    public void currencyCode(String value) {
+      doc.setFormField(path, "currencyCode", value);
+    }
+
+    public String symbolPosition() {
+      String v = doc.formField(path, "symbolPosition");
+      return v == null ? "" : v;
+    }
+
+    public void symbolPosition(String value) {
+      doc.setFormField(path, "symbolPosition", value);
+    }
+  }
+
   // Generated section facade for the `dataSource` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ReportColumnEntryDataSourceForm extends SomNode {
@@ -146239,6 +146802,46 @@ public final class TomSomV0 {
 
     public void dataType(String value) {
       doc.setFormField(path, "dataType", value);
+    }
+  }
+
+  // Generated section facade for the `dateFormat` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportColumnEntryDateFormatForm extends SomNode {
+    public ReportColumnEntryDateFormatForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String formatPattern() {
+      String v = doc.formField(path, "formatPattern");
+      return v == null ? "" : v;
+    }
+
+    public void formatPattern(String value) {
+      doc.setFormField(path, "formatPattern", value);
+    }
+
+    public String timezoneDisplay() {
+      String v = doc.formField(path, "timezoneDisplay");
+      return v == null ? "" : v;
+    }
+
+    public void timezoneDisplay(String value) {
+      doc.setFormField(path, "timezoneDisplay", value);
     }
   }
 
@@ -146300,24 +146903,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "verticalAlignment", value);
     }
 
-    public String formatPattern() {
-      String v = doc.formField(path, "formatPattern");
-      return v == null ? "" : v;
-    }
-
-    public void formatPattern(String value) {
-      doc.setFormField(path, "formatPattern", value);
-    }
-
-    public String currencyCode() {
-      String v = doc.formField(path, "currencyCode");
-      return v == null ? "" : v;
-    }
-
-    public void currencyCode(String value) {
-      doc.setFormField(path, "currencyCode", value);
-    }
-
     public String nullDisplay() {
       String v = doc.formField(path, "nullDisplay");
       return v == null ? "" : v;
@@ -146325,24 +146910,6 @@ public final class TomSomV0 {
 
     public void nullDisplay(String value) {
       doc.setFormField(path, "nullDisplay", value);
-    }
-
-    public String booleanTrueDisplay() {
-      String v = doc.formField(path, "booleanTrueDisplay");
-      return v == null ? "" : v;
-    }
-
-    public void booleanTrueDisplay(String value) {
-      doc.setFormField(path, "booleanTrueDisplay", value);
-    }
-
-    public String booleanFalseDisplay() {
-      String v = doc.formField(path, "booleanFalseDisplay");
-      return v == null ? "" : v;
-    }
-
-    public void booleanFalseDisplay(String value) {
-      doc.setFormField(path, "booleanFalseDisplay", value);
     }
   }
 
@@ -146451,6 +147018,87 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `numericFormat` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportColumnEntryNumericFormatForm extends SomNode {
+    public ReportColumnEntryNumericFormatForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String formatPattern() {
+      String v = doc.formField(path, "formatPattern");
+      return v == null ? "" : v;
+    }
+
+    public void formatPattern(String value) {
+      doc.setFormField(path, "formatPattern", value);
+    }
+
+    public String negativeDisplay() {
+      String v = doc.formField(path, "negativeDisplay");
+      return v == null ? "" : v;
+    }
+
+    public void negativeDisplay(String value) {
+      doc.setFormField(path, "negativeDisplay", value);
+    }
+  }
+
+  // Generated section facade for the `textFormat` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportColumnEntryTextFormatForm extends SomNode {
+    public ReportColumnEntryTextFormatForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String overflowBehavior() {
+      String v = doc.formField(path, "overflowBehavior");
+      return v == null ? "" : v;
+    }
+
+    public void overflowBehavior(String value) {
+      doc.setFormField(path, "overflowBehavior", value);
+    }
+
+    public Integer maxDisplayLength() {
+      String v = doc.formField(path, "maxDisplayLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxDisplayLength(Integer value) {
+      doc.setFormField(path, "maxDisplayLength", value == null ? "" : String.valueOf(value));
     }
   }
 
@@ -147497,6 +148145,46 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `booleanFilterOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportFilterEntryBooleanFilterOptionsForm extends SomNode {
+    public ReportFilterEntryBooleanFilterOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String inputType() {
+      String v = doc.formField(path, "inputType");
+      return v == null ? "" : v;
+    }
+
+    public void inputType(String value) {
+      doc.setFormField(path, "inputType", value);
+    }
+
+    public String includeIndeterminate() {
+      String v = doc.formField(path, "includeIndeterminate");
+      return v == null ? "" : v;
+    }
+
+    public void includeIndeterminate(String value) {
+      doc.setFormField(path, "includeIndeterminate", value);
+    }
+  }
+
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ReportFilterEntryContentForm extends SomNode {
@@ -147546,6 +148234,113 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `dateFilterOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportFilterEntryDateFilterOptionsForm extends SomNode {
+    public ReportFilterEntryDateFilterOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String inputType() {
+      String v = doc.formField(path, "inputType");
+      return v == null ? "" : v;
+    }
+
+    public void inputType(String value) {
+      doc.setFormField(path, "inputType", value);
+    }
+
+    public String earliestDate() {
+      String v = doc.formField(path, "earliestDate");
+      return v == null ? "" : v;
+    }
+
+    public void earliestDate(String value) {
+      doc.setFormField(path, "earliestDate", value);
+    }
+
+    public String latestDate() {
+      String v = doc.formField(path, "latestDate");
+      return v == null ? "" : v;
+    }
+
+    public void latestDate(String value) {
+      doc.setFormField(path, "latestDate", value);
+    }
+  }
+
+  // Generated section facade for the `entityFilterOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportFilterEntryEntityFilterOptionsForm extends SomNode {
+    public ReportFilterEntryEntityFilterOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String inputType() {
+      String v = doc.formField(path, "inputType");
+      return v == null ? "" : v;
+    }
+
+    public void inputType(String value) {
+      doc.setFormField(path, "inputType", value);
+    }
+
+    public String entityType() {
+      String v = doc.formField(path, "entityType");
+      return v == null ? "" : v;
+    }
+
+    public void entityType(String value) {
+      doc.setFormField(path, "entityType", value);
+    }
+
+    public String queryFilter() {
+      String v = doc.formField(path, "queryFilter");
+      return v == null ? "" : v;
+    }
+
+    public void queryFilter(String value) {
+      doc.setFormField(path, "queryFilter", value);
+    }
+
+    public String displayAttribute() {
+      String v = doc.formField(path, "displayAttribute");
+      return v == null ? "" : v;
+    }
+
+    public void displayAttribute(String value) {
+      doc.setFormField(path, "displayAttribute", value);
+    }
+  }
+
   // Generated section facade for the `input` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ReportFilterEntryInputForm extends SomNode {
@@ -147576,6 +148371,37 @@ public final class TomSomV0 {
       doc.setFormField(path, "dataType", value);
     }
 
+    public String defaultValue() {
+      String v = doc.formField(path, "defaultValue");
+      return v == null ? "" : v;
+    }
+
+    public void defaultValue(String value) {
+      doc.setFormField(path, "defaultValue", value);
+    }
+  }
+
+  // Generated section facade for the `numericFilterOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportFilterEntryNumericFilterOptionsForm extends SomNode {
+    public ReportFilterEntryNumericFilterOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
     public String inputType() {
       String v = doc.formField(path, "inputType");
       return v == null ? "" : v;
@@ -147585,49 +148411,22 @@ public final class TomSomV0 {
       doc.setFormField(path, "inputType", value);
     }
 
-    public String defaultValue() {
-      String v = doc.formField(path, "defaultValue");
+    public String minValue() {
+      String v = doc.formField(path, "minValue");
       return v == null ? "" : v;
     }
 
-    public void defaultValue(String value) {
-      doc.setFormField(path, "defaultValue", value);
+    public void minValue(String value) {
+      doc.setFormField(path, "minValue", value);
     }
 
-    public String availableValuesSource() {
-      String v = doc.formField(path, "availableValuesSource");
+    public String maxValue() {
+      String v = doc.formField(path, "maxValue");
       return v == null ? "" : v;
     }
 
-    public void availableValuesSource(String value) {
-      doc.setFormField(path, "availableValuesSource", value);
-    }
-
-    public String staticValues() {
-      String v = doc.formField(path, "staticValues");
-      return v == null ? "" : v;
-    }
-
-    public void staticValues(String value) {
-      doc.setFormField(path, "staticValues", value);
-    }
-
-    public String cascadeParent() {
-      String v = doc.formField(path, "cascadeParent");
-      return v == null ? "" : v;
-    }
-
-    public void cascadeParent(String value) {
-      doc.setFormField(path, "cascadeParent", value);
-    }
-
-    public String multiSelect() {
-      String v = doc.formField(path, "multiSelect");
-      return v == null ? "" : v;
-    }
-
-    public void multiSelect(String value) {
-      doc.setFormField(path, "multiSelect", value);
+    public void maxValue(String value) {
+      doc.setFormField(path, "maxValue", value);
     }
   }
 
@@ -147686,6 +148485,123 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `selectFilterOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportFilterEntrySelectFilterOptionsForm extends SomNode {
+    public ReportFilterEntrySelectFilterOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String inputType() {
+      String v = doc.formField(path, "inputType");
+      return v == null ? "" : v;
+    }
+
+    public void inputType(String value) {
+      doc.setFormField(path, "inputType", value);
+    }
+
+    public String availableValuesSource() {
+      String v = doc.formField(path, "availableValuesSource");
+      return v == null ? "" : v;
+    }
+
+    public void availableValuesSource(String value) {
+      doc.setFormField(path, "availableValuesSource", value);
+    }
+
+    public String staticValues() {
+      String v = doc.formField(path, "staticValues");
+      return v == null ? "" : v;
+    }
+
+    public void staticValues(String value) {
+      doc.setFormField(path, "staticValues", value);
+    }
+
+    public String cascadeParent() {
+      String v = doc.formField(path, "cascadeParent");
+      return v == null ? "" : v;
+    }
+
+    public void cascadeParent(String value) {
+      doc.setFormField(path, "cascadeParent", value);
+    }
+
+    public String multiSelect() {
+      String v = doc.formField(path, "multiSelect");
+      return v == null ? "" : v;
+    }
+
+    public void multiSelect(String value) {
+      doc.setFormField(path, "multiSelect", value);
+    }
+  }
+
+  // Generated section facade for the `textFilterOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReportFilterEntryTextFilterOptionsForm extends SomNode {
+    public ReportFilterEntryTextFilterOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String inputType() {
+      String v = doc.formField(path, "inputType");
+      return v == null ? "" : v;
+    }
+
+    public void inputType(String value) {
+      doc.setFormField(path, "inputType", value);
+    }
+
+    public String matchMode() {
+      String v = doc.formField(path, "matchMode");
+      return v == null ? "" : v;
+    }
+
+    public void matchMode(String value) {
+      doc.setFormField(path, "matchMode", value);
+    }
+
+    public Integer maxLength() {
+      String v = doc.formField(path, "maxLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxLength(Integer value) {
+      doc.setFormField(path, "maxLength", value == null ? "" : String.valueOf(value));
     }
   }
 
@@ -159343,6 +160259,46 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `choiceOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenFieldEntryChoiceOptionsForm extends SomNode {
+    public ScreenFieldEntryChoiceOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String optionSource() {
+      String v = doc.formField(path, "optionSource");
+      return v == null ? "" : v;
+    }
+
+    public void optionSource(String value) {
+      doc.setFormField(path, "optionSource", value);
+    }
+
+    public String staticOptions() {
+      String v = doc.formField(path, "staticOptions");
+      return v == null ? "" : v;
+    }
+
+    public void staticOptions(String value) {
+      doc.setFormField(path, "staticOptions", value);
+    }
+  }
+
   // Generated section facade for the `conditions` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ScreenFieldEntryConditionsForm extends SomNode {
@@ -159547,24 +160503,6 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String dropdownSource() {
-      String v = doc.formField(path, "dropdownSource");
-      return v == null ? "" : v;
-    }
-
-    public void dropdownSource(String value) {
-      doc.setFormField(path, "dropdownSource", value);
-    }
-
-    public String dropdownValues() {
-      String v = doc.formField(path, "dropdownValues");
-      return v == null ? "" : v;
-    }
-
-    public void dropdownValues(String value) {
-      doc.setFormField(path, "dropdownValues", value);
-    }
-
     public String dependsOn() {
       String v = doc.formField(path, "dependsOn");
       return v == null ? "" : v;
@@ -159602,10 +160540,90 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `validation` @Form section: its own content
+  // Generated section facade for the `numericConstraints` @Form section: its own content
   // text followed by one typed member per form field.
-  public static final class ScreenFieldEntryValidationForm extends SomNode {
-    public ScreenFieldEntryValidationForm(SpecDocument doc, String path) {
+  public static final class ScreenFieldEntryNumericConstraintsForm extends SomNode {
+    public ScreenFieldEntryNumericConstraintsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String minValue() {
+      String v = doc.formField(path, "minValue");
+      return v == null ? "" : v;
+    }
+
+    public void minValue(String value) {
+      doc.setFormField(path, "minValue", value);
+    }
+
+    public String maxValue() {
+      String v = doc.formField(path, "maxValue");
+      return v == null ? "" : v;
+    }
+
+    public void maxValue(String value) {
+      doc.setFormField(path, "maxValue", value);
+    }
+  }
+
+  // Generated section facade for the `temporalConstraints` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenFieldEntryTemporalConstraintsForm extends SomNode {
+    public ScreenFieldEntryTemporalConstraintsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String earliestValue() {
+      String v = doc.formField(path, "earliestValue");
+      return v == null ? "" : v;
+    }
+
+    public void earliestValue(String value) {
+      doc.setFormField(path, "earliestValue", value);
+    }
+
+    public String latestValue() {
+      String v = doc.formField(path, "latestValue");
+      return v == null ? "" : v;
+    }
+
+    public void latestValue(String value) {
+      doc.setFormField(path, "latestValue", value);
+    }
+  }
+
+  // Generated section facade for the `textConstraints` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenFieldEntryTextConstraintsForm extends SomNode {
+    public ScreenFieldEntryTextConstraintsForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -159641,24 +160659,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "maxLength", value);
     }
 
-    public String minValue() {
-      String v = doc.formField(path, "minValue");
-      return v == null ? "" : v;
-    }
-
-    public void minValue(String value) {
-      doc.setFormField(path, "minValue", value);
-    }
-
-    public String maxValue() {
-      String v = doc.formField(path, "maxValue");
-      return v == null ? "" : v;
-    }
-
-    public void maxValue(String value) {
-      doc.setFormField(path, "maxValue", value);
-    }
-
     public String pattern() {
       String v = doc.formField(path, "pattern");
       return v == null ? "" : v;
@@ -159666,6 +160666,28 @@ public final class TomSomV0 {
 
     public void pattern(String value) {
       doc.setFormField(path, "pattern", value);
+    }
+  }
+
+  // Generated section facade for the `validation` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenFieldEntryValidationForm extends SomNode {
+    public ScreenFieldEntryValidationForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
     }
 
     public String validationMessage() {

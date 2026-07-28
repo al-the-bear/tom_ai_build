@@ -8824,6 +8824,39 @@ class DataAttributeEntry(SomNode):
     def dataTypeSpec(self):
         return DataAttributeEntryDataTypeSpecForm(self.doc, f"{self.path}/DAATT-DATA")
 
+    # Text-kind type options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for the `string` logical type; carries only the character
+    # length and collation attributes (no numeric precision, no timezone).
+    @property
+    def textTypeOptions(self):
+        return DataAttributeEntryTextTypeOptionsForm(self.doc, f"{self.path}/DAATT-DTTX")
+
+    # Numeric-kind type options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for numeric logical types; carries only the precision and
+    # scale attributes (no length, collation or timezone).
+    @property
+    def numericTypeOptions(self):
+        return DataAttributeEntryNumericTypeOptionsForm(self.doc, f"{self.path}/DAATT-DTNU")
+
+    # Temporal-kind type options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for date/time logical types; carries only the timezone
+    # handling attribute.
+    @property
+    def temporalTypeOptions(self):
+        return DataAttributeEntryTemporalTypeOptionsForm(self.doc, f"{self.path}/DAATT-DTTM")
+
+    # Binary-kind type options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for the `binary` logical type; carries only the stored size
+    # attributes. Separated from the text `length` because a byte size and a
+    # character length are different constraints on different types.
+    @property
+    def binaryTypeOptions(self):
+        return DataAttributeEntryBinaryTypeOptionsForm(self.doc, f"{self.path}/DAATT-DTBI")
+
     @property
     def constraints(self):
         return SomList(self.doc, f"{self.path}/DATAA-CONS-LST", lambda d, p: DataAttributeConstraintEntry(d, p), pattern="DATAA-CONS-xxx")
@@ -13611,6 +13644,47 @@ class ExportFieldMappingEntry(SomNode):
     @property
     def formatting(self):
         return ExportFieldMappingEntryFormattingForm(self.doc, f"{self.path}/EFMEF")
+
+    # Numeric-kind output format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for integer and decimal fields; carries only the numeric
+    # output pattern and separators.
+    @property
+    def numericOutput(self):
+        return ExportFieldMappingEntryNumericOutputForm(self.doc, f"{self.path}/EFMEFN")
+
+    # Temporal-kind output format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for date and date-time fields; carries only the temporal
+    # output pattern and timezone handling.
+    @property
+    def temporalOutput(self):
+        return ExportFieldMappingEntryTemporalOutputForm(self.doc, f"{self.path}/EFMEFD")
+
+    # Boolean-kind output format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for boolean fields; this is the only case in which the
+    # emitted true/false literals are meaningful.
+    @property
+    def booleanOutput(self):
+        return ExportFieldMappingEntryBooleanOutputForm(self.doc, f"{self.path}/EFMEFB")
+
+    # Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for enumeration fields; carries which face of the value set
+    # is emitted and what happens to a value outside it.
+    @property
+    def enumerationOutput(self):
+        return ExportFieldMappingEntryEnumerationOutputForm(self.doc, f"{self.path}/EFMEFE")
+
+    # Text-kind output format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for text fields; carries the character-length truncation
+    # that only a string field can have. Moved out of `inclusion`, where it sat
+    # beside type-independent default and inclusion rules.
+    @property
+    def textOutput(self):
+        return ExportFieldMappingEntryTextOutputForm(self.doc, f"{self.path}/EFMEFT")
 
     # Transformation rules.
     @property
@@ -24765,6 +24839,45 @@ class ReportColumnEntry(SomNode):
     def formatting(self):
         return ReportColumnEntryFormattingForm(self.doc, f"{self.path}/RECOFO")
 
+    # Numeric-kind column format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for integer and decimal columns; carries only the numeric
+    # display pattern (no currency code, no boolean labels).
+    @property
+    def numericFormat(self):
+        return ReportColumnEntryNumericFormatForm(self.doc, f"{self.path}/RECOFN")
+
+    # Currency-kind column format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for currency columns; this is the only case in which a
+    # currency code is meaningful.
+    @property
+    def currencyFormat(self):
+        return ReportColumnEntryCurrencyFormatForm(self.doc, f"{self.path}/RECOFC")
+
+    # Date-kind column format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for date columns; carries only the temporal display pattern.
+    @property
+    def dateFormat(self):
+        return ReportColumnEntryDateFormatForm(self.doc, f"{self.path}/RECOFD")
+
+    # Boolean-kind column format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for boolean columns; this is the only case in which the
+    # true/false display labels are meaningful.
+    @property
+    def booleanFormat(self):
+        return ReportColumnEntryBooleanFormatForm(self.doc, f"{self.path}/RECOFB")
+
+    # Text-kind column format — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for text columns; carries only the overflow handling a
+    # variable-length string column needs.
+    @property
+    def textFormat(self):
+        return ReportColumnEntryTextFormatForm(self.doc, f"{self.path}/RECOFT")
+
     # Aggregation settings.
     @property
     def aggregation(self):
@@ -24906,6 +25019,56 @@ class ReportFilterEntry(SomNode):
     @property
     def input(self):
         return ReportFilterEntryInputForm(self.doc, f"{self.path}/RFEI")
+
+    # Text-kind filter options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for text filters; carries the free-text control and its
+    # match semantics (no value source, no date bounds).
+    @property
+    def textFilterOptions(self):
+        return ReportFilterEntryTextFilterOptionsForm(self.doc, f"{self.path}/RFEIT")
+
+    # Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for numeric filters; carries the numeric control and its
+    # value bounds.
+    @property
+    def numericFilterOptions(self):
+        return ReportFilterEntryNumericFilterOptionsForm(self.doc, f"{self.path}/RFEIN")
+
+    # Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for date/date-time filters; carries the temporal control —
+    # including the range picker that the former free-text `DateRange` type
+    # stood for — and the selectable window.
+    @property
+    def dateFilterOptions(self):
+        return ReportFilterEntryDateFilterOptionsForm(self.doc, f"{self.path}/RFEID")
+
+    # Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for boolean filters; carries only the two-valued control.
+    @property
+    def booleanFilterOptions(self):
+        return ReportFilterEntryBooleanFilterOptionsForm(self.doc, f"{self.path}/RFEIB")
+
+    # Selection-kind filter options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for enumeration filters; this is the only case in which a
+    # value source, static value list, cascade parent and multi-select are
+    # meaningful.
+    @property
+    def selectFilterOptions(self):
+        return ReportFilterEntrySelectFilterOptionsForm(self.doc, f"{self.path}/RFEIS")
+
+    # Entity-reference filter options — a promoted `@OneOf` case (csra4).
+    #
+    # Present only for entity-reference filters; carries the lookup control and
+    # the entity query that backs it. Distinct from the enumeration case
+    # because the value set is resolved from an entity, not a declared list.
+    @property
+    def entityFilterOptions(self):
+        return ReportFilterEntryEntityFilterOptionsForm(self.doc, f"{self.path}/RFEIE")
 
     # Scope and validation behavior.
     @property
@@ -27361,10 +27524,33 @@ class ScreenFieldEntry(SomNode):
     def conditions(self):
         return ScreenFieldEntryConditionsForm(self.doc, f"{self.path}/SCFICO")
 
-    # Validation rules.
+    # Validation rules that apply whatever the field type is.
     @property
     def validation(self):
         return ScreenFieldEntryValidationForm(self.doc, f"{self.path}/SCFIVA")
+
+    # Text-kind input constraints — a promoted `@OneOf` case (csra4).
+    @property
+    def textConstraints(self):
+        return ScreenFieldEntryTextConstraintsForm(self.doc, f"{self.path}/SCFIVT")
+
+    # Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+    @property
+    def numericConstraints(self):
+        return ScreenFieldEntryNumericConstraintsForm(self.doc, f"{self.path}/SCFIVN")
+
+    # Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+    #
+    # Kept apart from [numericConstraints] because a date boundary is expressed
+    # as a date or a relative expression ("today + 30d"), not as a number.
+    @property
+    def temporalConstraints(self):
+        return ScreenFieldEntryTemporalConstraintsForm(self.doc, f"{self.path}/SCFIVD")
+
+    # Choice-kind option source — a promoted `@OneOf` case (csra4).
+    @property
+    def choiceOptions(self):
+        return ScreenFieldEntryChoiceOptionsForm(self.doc, f"{self.path}/SCFICH")
 
     # UI and layout.
     @property
@@ -62957,6 +63143,39 @@ class DataAttributeConstraintEntryContentForm(SomNode):
     def patternRegex(self, value):
         self.doc.set_form_field(self.path, "patternRegex", value)
 
+class DataAttributeEntryBinaryTypeOptionsForm(SomNode):
+    """Generated section facade for the `binaryTypeOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def maxSizeBytes(self) -> str:
+        return self.doc.form_field(self.path, "maxSizeBytes") or ""
+
+    @maxSizeBytes.setter
+    def maxSizeBytes(self, value):
+        self.doc.set_form_field(self.path, "maxSizeBytes", value)
+
+    @property
+    def storageMode(self) -> str:
+        return self.doc.form_field(self.path, "storageMode") or ""
+
+    @storageMode.setter
+    def storageMode(self, value):
+        self.doc.set_form_field(self.path, "storageMode", value)
+
 class DataAttributeEntryDataTypeSpecForm(SomNode):
     """Generated section facade for the `dataTypeSpec` @Form section: its own content text followed by one typed member per form field."""
 
@@ -62989,46 +63208,6 @@ class DataAttributeEntryDataTypeSpecForm(SomNode):
     @physicalType.setter
     def physicalType(self, value):
         self.doc.set_form_field(self.path, "physicalType", value)
-
-    @property
-    def length(self) -> str:
-        return self.doc.form_field(self.path, "length") or ""
-
-    @length.setter
-    def length(self, value):
-        self.doc.set_form_field(self.path, "length", value)
-
-    @property
-    def precision(self) -> str:
-        return self.doc.form_field(self.path, "precision") or ""
-
-    @precision.setter
-    def precision(self, value):
-        self.doc.set_form_field(self.path, "precision", value)
-
-    @property
-    def scale(self) -> str:
-        return self.doc.form_field(self.path, "scale") or ""
-
-    @scale.setter
-    def scale(self, value):
-        self.doc.set_form_field(self.path, "scale", value)
-
-    @property
-    def collation(self) -> str:
-        return self.doc.form_field(self.path, "collation") or ""
-
-    @collation.setter
-    def collation(self, value):
-        self.doc.set_form_field(self.path, "collation", value)
-
-    @property
-    def timezone(self) -> str:
-        return self.doc.form_field(self.path, "timezone") or ""
-
-    @timezone.setter
-    def timezone(self, value):
-        self.doc.set_form_field(self.path, "timezone", value)
 
     @property
     def format(self) -> str:
@@ -63201,6 +63380,39 @@ class DataAttributeEntryMigrationLineageForm(SomNode):
     def qualityRules(self, value):
         self.doc.set_form_field(self.path, "qualityRules", value)
 
+class DataAttributeEntryNumericTypeOptionsForm(SomNode):
+    """Generated section facade for the `numericTypeOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def precision(self) -> str:
+        return self.doc.form_field(self.path, "precision") or ""
+
+    @precision.setter
+    def precision(self, value):
+        self.doc.set_form_field(self.path, "precision", value)
+
+    @property
+    def scale(self) -> str:
+        return self.doc.form_field(self.path, "scale") or ""
+
+    @scale.setter
+    def scale(self, value):
+        self.doc.set_form_field(self.path, "scale", value)
+
 class DataAttributeEntrySecurityClassificationForm(SomNode):
     """Generated section facade for the `securityClassification` @Form section: its own content text followed by one typed member per form field."""
 
@@ -63257,6 +63469,64 @@ class DataAttributeEntrySecurityClassificationForm(SomNode):
     @auditLevel.setter
     def auditLevel(self, value):
         self.doc.set_form_field(self.path, "auditLevel", value)
+
+class DataAttributeEntryTemporalTypeOptionsForm(SomNode):
+    """Generated section facade for the `temporalTypeOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def timezone(self) -> str:
+        return self.doc.form_field(self.path, "timezone") or ""
+
+    @timezone.setter
+    def timezone(self, value):
+        self.doc.set_form_field(self.path, "timezone", value)
+
+class DataAttributeEntryTextTypeOptionsForm(SomNode):
+    """Generated section facade for the `textTypeOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def length(self) -> str:
+        return self.doc.form_field(self.path, "length") or ""
+
+    @length.setter
+    def length(self, value):
+        self.doc.set_form_field(self.path, "length", value)
+
+    @property
+    def collation(self) -> str:
+        return self.doc.form_field(self.path, "collation") or ""
+
+    @collation.setter
+    def collation(self, value):
+        self.doc.set_form_field(self.path, "collation", value)
 
 class DataClassificationEntryAccessControlForm(SomNode):
     """Generated section facade for the `accessControl` @Form section: its own content text followed by one typed member per form field."""
@@ -82062,6 +82332,39 @@ class ExpectedImprovementsContentForm(SomNode):
     def integrationBenefits(self, value):
         self.doc.set_form_field(self.path, "integrationBenefits", value)
 
+class ExportFieldMappingEntryBooleanOutputForm(SomNode):
+    """Generated section facade for the `booleanOutput` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def trueLiteral(self) -> str:
+        return self.doc.form_field(self.path, "trueLiteral") or ""
+
+    @trueLiteral.setter
+    def trueLiteral(self, value):
+        self.doc.set_form_field(self.path, "trueLiteral", value)
+
+    @property
+    def falseLiteral(self) -> str:
+        return self.doc.form_field(self.path, "falseLiteral") or ""
+
+    @falseLiteral.setter
+    def falseLiteral(self, value):
+        self.doc.set_form_field(self.path, "falseLiteral", value)
+
 class ExportFieldMappingEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -82103,6 +82406,39 @@ class ExportFieldMappingEntryContentForm(SomNode):
     def targetFieldName(self, value):
         self.doc.set_form_field(self.path, "targetFieldName", value)
 
+class ExportFieldMappingEntryEnumerationOutputForm(SomNode):
+    """Generated section facade for the `enumerationOutput` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def emittedForm(self) -> str:
+        return self.doc.form_field(self.path, "emittedForm") or ""
+
+    @emittedForm.setter
+    def emittedForm(self, value):
+        self.doc.set_form_field(self.path, "emittedForm", value)
+
+    @property
+    def unmappedValueBehavior(self) -> str:
+        return self.doc.form_field(self.path, "unmappedValueBehavior") or ""
+
+    @unmappedValueBehavior.setter
+    def unmappedValueBehavior(self, value):
+        self.doc.set_form_field(self.path, "unmappedValueBehavior", value)
+
 class ExportFieldMappingEntryFormattingForm(SomNode):
     """Generated section facade for the `formatting` @Form section: its own content text followed by one typed member per form field."""
 
@@ -82141,14 +82477,6 @@ class ExportFieldMappingEntryFormattingForm(SomNode):
     @dataType.setter
     def dataType(self, value):
         self.doc.set_form_field(self.path, "dataType", value)
-
-    @property
-    def formatPattern(self) -> str:
-        return self.doc.form_field(self.path, "formatPattern") or ""
-
-    @formatPattern.setter
-    def formatPattern(self, value):
-        self.doc.set_form_field(self.path, "formatPattern", value)
 
 class ExportFieldMappingEntryInclusionForm(SomNode):
     """Generated section facade for the `inclusion` @Form section: its own content text followed by one typed member per form field."""
@@ -82190,20 +82518,6 @@ class ExportFieldMappingEntryInclusionForm(SomNode):
     @inclusionCondition.setter
     def inclusionCondition(self, value):
         self.doc.set_form_field(self.path, "inclusionCondition", value)
-
-    @property
-    def maxLength(self) -> "int | None":
-        v = self.doc.form_field(self.path, "maxLength")
-        if v is None or v == "":
-            return None
-        try:
-            return int(v)
-        except (TypeError, ValueError):
-            return None
-
-    @maxLength.setter
-    def maxLength(self, value):
-        self.doc.set_form_field(self.path, "maxLength", "" if value is None else str(value))
 
 class ExportFieldMappingEntryLayoutForm(SomNode):
     """Generated section facade for the `layout` @Form section: its own content text followed by one typed member per form field."""
@@ -82267,6 +82581,111 @@ class ExportFieldMappingEntryLayoutForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+class ExportFieldMappingEntryNumericOutputForm(SomNode):
+    """Generated section facade for the `numericOutput` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def formatPattern(self) -> str:
+        return self.doc.form_field(self.path, "formatPattern") or ""
+
+    @formatPattern.setter
+    def formatPattern(self, value):
+        self.doc.set_form_field(self.path, "formatPattern", value)
+
+    @property
+    def decimalSeparator(self) -> str:
+        return self.doc.form_field(self.path, "decimalSeparator") or ""
+
+    @decimalSeparator.setter
+    def decimalSeparator(self, value):
+        self.doc.set_form_field(self.path, "decimalSeparator", value)
+
+class ExportFieldMappingEntryTemporalOutputForm(SomNode):
+    """Generated section facade for the `temporalOutput` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def formatPattern(self) -> str:
+        return self.doc.form_field(self.path, "formatPattern") or ""
+
+    @formatPattern.setter
+    def formatPattern(self, value):
+        self.doc.set_form_field(self.path, "formatPattern", value)
+
+    @property
+    def timezoneHandling(self) -> str:
+        return self.doc.form_field(self.path, "timezoneHandling") or ""
+
+    @timezoneHandling.setter
+    def timezoneHandling(self, value):
+        self.doc.set_form_field(self.path, "timezoneHandling", value)
+
+class ExportFieldMappingEntryTextOutputForm(SomNode):
+    """Generated section facade for the `textOutput` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def maxLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxLength.setter
+    def maxLength(self, value):
+        self.doc.set_form_field(self.path, "maxLength", "" if value is None else str(value))
+
+    @property
+    def padding(self) -> str:
+        return self.doc.form_field(self.path, "padding") or ""
+
+    @padding.setter
+    def padding(self, value):
+        self.doc.set_form_field(self.path, "padding", value)
 
 class ExportFieldMappingEntryTransformationForm(SomNode):
     """Generated section facade for the `transformation` @Form section: its own content text followed by one typed member per form field."""
@@ -128223,6 +128642,39 @@ class ReportColumnEntryAggregationForm(SomNode):
     def hyperlinkTarget(self, value):
         self.doc.set_form_field(self.path, "hyperlinkTarget", value)
 
+class ReportColumnEntryBooleanFormatForm(SomNode):
+    """Generated section facade for the `booleanFormat` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def booleanTrueDisplay(self) -> str:
+        return self.doc.form_field(self.path, "booleanTrueDisplay") or ""
+
+    @booleanTrueDisplay.setter
+    def booleanTrueDisplay(self, value):
+        self.doc.set_form_field(self.path, "booleanTrueDisplay", value)
+
+    @property
+    def booleanFalseDisplay(self) -> str:
+        return self.doc.form_field(self.path, "booleanFalseDisplay") or ""
+
+    @booleanFalseDisplay.setter
+    def booleanFalseDisplay(self, value):
+        self.doc.set_form_field(self.path, "booleanFalseDisplay", value)
+
 class ReportColumnEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -128264,6 +128716,47 @@ class ReportColumnEntryContentForm(SomNode):
     def displayLabel(self, value):
         self.doc.set_form_field(self.path, "displayLabel", value)
 
+class ReportColumnEntryCurrencyFormatForm(SomNode):
+    """Generated section facade for the `currencyFormat` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def formatPattern(self) -> str:
+        return self.doc.form_field(self.path, "formatPattern") or ""
+
+    @formatPattern.setter
+    def formatPattern(self, value):
+        self.doc.set_form_field(self.path, "formatPattern", value)
+
+    @property
+    def currencyCode(self) -> str:
+        return self.doc.form_field(self.path, "currencyCode") or ""
+
+    @currencyCode.setter
+    def currencyCode(self, value):
+        self.doc.set_form_field(self.path, "currencyCode", value)
+
+    @property
+    def symbolPosition(self) -> str:
+        return self.doc.form_field(self.path, "symbolPosition") or ""
+
+    @symbolPosition.setter
+    def symbolPosition(self, value):
+        self.doc.set_form_field(self.path, "symbolPosition", value)
+
 class ReportColumnEntryDataSourceForm(SomNode):
     """Generated section facade for the `dataSource` @Form section: its own content text followed by one typed member per form field."""
 
@@ -128296,6 +128789,39 @@ class ReportColumnEntryDataSourceForm(SomNode):
     @dataType.setter
     def dataType(self, value):
         self.doc.set_form_field(self.path, "dataType", value)
+
+class ReportColumnEntryDateFormatForm(SomNode):
+    """Generated section facade for the `dateFormat` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def formatPattern(self) -> str:
+        return self.doc.form_field(self.path, "formatPattern") or ""
+
+    @formatPattern.setter
+    def formatPattern(self, value):
+        self.doc.set_form_field(self.path, "formatPattern", value)
+
+    @property
+    def timezoneDisplay(self) -> str:
+        return self.doc.form_field(self.path, "timezoneDisplay") or ""
+
+    @timezoneDisplay.setter
+    def timezoneDisplay(self, value):
+        self.doc.set_form_field(self.path, "timezoneDisplay", value)
 
 class ReportColumnEntryFormattingForm(SomNode):
     """Generated section facade for the `formatting` @Form section: its own content text followed by one typed member per form field."""
@@ -128353,44 +128879,12 @@ class ReportColumnEntryFormattingForm(SomNode):
         self.doc.set_form_field(self.path, "verticalAlignment", value)
 
     @property
-    def formatPattern(self) -> str:
-        return self.doc.form_field(self.path, "formatPattern") or ""
-
-    @formatPattern.setter
-    def formatPattern(self, value):
-        self.doc.set_form_field(self.path, "formatPattern", value)
-
-    @property
-    def currencyCode(self) -> str:
-        return self.doc.form_field(self.path, "currencyCode") or ""
-
-    @currencyCode.setter
-    def currencyCode(self, value):
-        self.doc.set_form_field(self.path, "currencyCode", value)
-
-    @property
     def nullDisplay(self) -> str:
         return self.doc.form_field(self.path, "nullDisplay") or ""
 
     @nullDisplay.setter
     def nullDisplay(self, value):
         self.doc.set_form_field(self.path, "nullDisplay", value)
-
-    @property
-    def booleanTrueDisplay(self) -> str:
-        return self.doc.form_field(self.path, "booleanTrueDisplay") or ""
-
-    @booleanTrueDisplay.setter
-    def booleanTrueDisplay(self, value):
-        self.doc.set_form_field(self.path, "booleanTrueDisplay", value)
-
-    @property
-    def booleanFalseDisplay(self) -> str:
-        return self.doc.form_field(self.path, "booleanFalseDisplay") or ""
-
-    @booleanFalseDisplay.setter
-    def booleanFalseDisplay(self, value):
-        self.doc.set_form_field(self.path, "booleanFalseDisplay", value)
 
 class ReportColumnEntryInteractionForm(SomNode):
     """Generated section facade for the `interaction` @Form section: its own content text followed by one typed member per form field."""
@@ -128487,6 +128981,78 @@ class ReportColumnEntryLayoutForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+class ReportColumnEntryNumericFormatForm(SomNode):
+    """Generated section facade for the `numericFormat` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def formatPattern(self) -> str:
+        return self.doc.form_field(self.path, "formatPattern") or ""
+
+    @formatPattern.setter
+    def formatPattern(self, value):
+        self.doc.set_form_field(self.path, "formatPattern", value)
+
+    @property
+    def negativeDisplay(self) -> str:
+        return self.doc.form_field(self.path, "negativeDisplay") or ""
+
+    @negativeDisplay.setter
+    def negativeDisplay(self, value):
+        self.doc.set_form_field(self.path, "negativeDisplay", value)
+
+class ReportColumnEntryTextFormatForm(SomNode):
+    """Generated section facade for the `textFormat` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def overflowBehavior(self) -> str:
+        return self.doc.form_field(self.path, "overflowBehavior") or ""
+
+    @overflowBehavior.setter
+    def overflowBehavior(self, value):
+        self.doc.set_form_field(self.path, "overflowBehavior", value)
+
+    @property
+    def maxDisplayLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxDisplayLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxDisplayLength.setter
+    def maxDisplayLength(self, value):
+        self.doc.set_form_field(self.path, "maxDisplayLength", "" if value is None else str(value))
 
 class ReportDistributionEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -129387,6 +129953,39 @@ class ReportFilterEntryBehaviorForm(SomNode):
     def dependsOn(self, value):
         self.doc.set_form_field(self.path, "dependsOn", value)
 
+class ReportFilterEntryBooleanFilterOptionsForm(SomNode):
+    """Generated section facade for the `booleanFilterOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def inputType(self) -> str:
+        return self.doc.form_field(self.path, "inputType") or ""
+
+    @inputType.setter
+    def inputType(self, value):
+        self.doc.set_form_field(self.path, "inputType", value)
+
+    @property
+    def includeIndeterminate(self) -> str:
+        return self.doc.form_field(self.path, "includeIndeterminate") or ""
+
+    @includeIndeterminate.setter
+    def includeIndeterminate(self, value):
+        self.doc.set_form_field(self.path, "includeIndeterminate", value)
+
 class ReportFilterEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -129428,6 +130027,96 @@ class ReportFilterEntryContentForm(SomNode):
     def displayLabel(self, value):
         self.doc.set_form_field(self.path, "displayLabel", value)
 
+class ReportFilterEntryDateFilterOptionsForm(SomNode):
+    """Generated section facade for the `dateFilterOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def inputType(self) -> str:
+        return self.doc.form_field(self.path, "inputType") or ""
+
+    @inputType.setter
+    def inputType(self, value):
+        self.doc.set_form_field(self.path, "inputType", value)
+
+    @property
+    def earliestDate(self) -> str:
+        return self.doc.form_field(self.path, "earliestDate") or ""
+
+    @earliestDate.setter
+    def earliestDate(self, value):
+        self.doc.set_form_field(self.path, "earliestDate", value)
+
+    @property
+    def latestDate(self) -> str:
+        return self.doc.form_field(self.path, "latestDate") or ""
+
+    @latestDate.setter
+    def latestDate(self, value):
+        self.doc.set_form_field(self.path, "latestDate", value)
+
+class ReportFilterEntryEntityFilterOptionsForm(SomNode):
+    """Generated section facade for the `entityFilterOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def inputType(self) -> str:
+        return self.doc.form_field(self.path, "inputType") or ""
+
+    @inputType.setter
+    def inputType(self, value):
+        self.doc.set_form_field(self.path, "inputType", value)
+
+    @property
+    def entityType(self) -> str:
+        return self.doc.form_field(self.path, "entityType") or ""
+
+    @entityType.setter
+    def entityType(self, value):
+        self.doc.set_form_field(self.path, "entityType", value)
+
+    @property
+    def queryFilter(self) -> str:
+        return self.doc.form_field(self.path, "queryFilter") or ""
+
+    @queryFilter.setter
+    def queryFilter(self, value):
+        self.doc.set_form_field(self.path, "queryFilter", value)
+
+    @property
+    def displayAttribute(self) -> str:
+        return self.doc.form_field(self.path, "displayAttribute") or ""
+
+    @displayAttribute.setter
+    def displayAttribute(self, value):
+        self.doc.set_form_field(self.path, "displayAttribute", value)
+
 class ReportFilterEntryInputForm(SomNode):
     """Generated section facade for the `input` @Form section: its own content text followed by one typed member per form field."""
 
@@ -129454,6 +130143,31 @@ class ReportFilterEntryInputForm(SomNode):
         self.doc.set_form_field(self.path, "dataType", value)
 
     @property
+    def defaultValue(self) -> str:
+        return self.doc.form_field(self.path, "defaultValue") or ""
+
+    @defaultValue.setter
+    def defaultValue(self, value):
+        self.doc.set_form_field(self.path, "defaultValue", value)
+
+class ReportFilterEntryNumericFilterOptionsForm(SomNode):
+    """Generated section facade for the `numericFilterOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
     def inputType(self) -> str:
         return self.doc.form_field(self.path, "inputType") or ""
 
@@ -129462,44 +130176,20 @@ class ReportFilterEntryInputForm(SomNode):
         self.doc.set_form_field(self.path, "inputType", value)
 
     @property
-    def defaultValue(self) -> str:
-        return self.doc.form_field(self.path, "defaultValue") or ""
+    def minValue(self) -> str:
+        return self.doc.form_field(self.path, "minValue") or ""
 
-    @defaultValue.setter
-    def defaultValue(self, value):
-        self.doc.set_form_field(self.path, "defaultValue", value)
-
-    @property
-    def availableValuesSource(self) -> str:
-        return self.doc.form_field(self.path, "availableValuesSource") or ""
-
-    @availableValuesSource.setter
-    def availableValuesSource(self, value):
-        self.doc.set_form_field(self.path, "availableValuesSource", value)
+    @minValue.setter
+    def minValue(self, value):
+        self.doc.set_form_field(self.path, "minValue", value)
 
     @property
-    def staticValues(self) -> str:
-        return self.doc.form_field(self.path, "staticValues") or ""
+    def maxValue(self) -> str:
+        return self.doc.form_field(self.path, "maxValue") or ""
 
-    @staticValues.setter
-    def staticValues(self, value):
-        self.doc.set_form_field(self.path, "staticValues", value)
-
-    @property
-    def cascadeParent(self) -> str:
-        return self.doc.form_field(self.path, "cascadeParent") or ""
-
-    @cascadeParent.setter
-    def cascadeParent(self, value):
-        self.doc.set_form_field(self.path, "cascadeParent", value)
-
-    @property
-    def multiSelect(self) -> str:
-        return self.doc.form_field(self.path, "multiSelect") or ""
-
-    @multiSelect.setter
-    def multiSelect(self, value):
-        self.doc.set_form_field(self.path, "multiSelect", value)
+    @maxValue.setter
+    def maxValue(self, value):
+        self.doc.set_form_field(self.path, "maxValue", value)
 
 class ReportFilterEntryPresentationForm(SomNode):
     """Generated section facade for the `presentation` @Form section: its own content text followed by one typed member per form field."""
@@ -129549,6 +130239,110 @@ class ReportFilterEntryPresentationForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+class ReportFilterEntrySelectFilterOptionsForm(SomNode):
+    """Generated section facade for the `selectFilterOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def inputType(self) -> str:
+        return self.doc.form_field(self.path, "inputType") or ""
+
+    @inputType.setter
+    def inputType(self, value):
+        self.doc.set_form_field(self.path, "inputType", value)
+
+    @property
+    def availableValuesSource(self) -> str:
+        return self.doc.form_field(self.path, "availableValuesSource") or ""
+
+    @availableValuesSource.setter
+    def availableValuesSource(self, value):
+        self.doc.set_form_field(self.path, "availableValuesSource", value)
+
+    @property
+    def staticValues(self) -> str:
+        return self.doc.form_field(self.path, "staticValues") or ""
+
+    @staticValues.setter
+    def staticValues(self, value):
+        self.doc.set_form_field(self.path, "staticValues", value)
+
+    @property
+    def cascadeParent(self) -> str:
+        return self.doc.form_field(self.path, "cascadeParent") or ""
+
+    @cascadeParent.setter
+    def cascadeParent(self, value):
+        self.doc.set_form_field(self.path, "cascadeParent", value)
+
+    @property
+    def multiSelect(self) -> str:
+        return self.doc.form_field(self.path, "multiSelect") or ""
+
+    @multiSelect.setter
+    def multiSelect(self, value):
+        self.doc.set_form_field(self.path, "multiSelect", value)
+
+class ReportFilterEntryTextFilterOptionsForm(SomNode):
+    """Generated section facade for the `textFilterOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def inputType(self) -> str:
+        return self.doc.form_field(self.path, "inputType") or ""
+
+    @inputType.setter
+    def inputType(self, value):
+        self.doc.set_form_field(self.path, "inputType", value)
+
+    @property
+    def matchMode(self) -> str:
+        return self.doc.form_field(self.path, "matchMode") or ""
+
+    @matchMode.setter
+    def matchMode(self, value):
+        self.doc.set_form_field(self.path, "matchMode", value)
+
+    @property
+    def maxLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxLength.setter
+    def maxLength(self, value):
+        self.doc.set_form_field(self.path, "maxLength", "" if value is None else str(value))
 
 class ReportRecipientEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -139558,6 +140352,39 @@ class ScreenEntryTraceabilityForm(SomNode):
     def primaryAction(self, value):
         self.doc.set_form_field(self.path, "primaryAction", value)
 
+class ScreenFieldEntryChoiceOptionsForm(SomNode):
+    """Generated section facade for the `choiceOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def optionSource(self) -> str:
+        return self.doc.form_field(self.path, "optionSource") or ""
+
+    @optionSource.setter
+    def optionSource(self, value):
+        self.doc.set_form_field(self.path, "optionSource", value)
+
+    @property
+    def staticOptions(self) -> str:
+        return self.doc.form_field(self.path, "staticOptions") or ""
+
+    @staticOptions.setter
+    def staticOptions(self, value):
+        self.doc.set_form_field(self.path, "staticOptions", value)
+
 class ScreenFieldEntryConditionsForm(SomNode):
     """Generated section facade for the `conditions` @Form section: its own content text followed by one typed member per form field."""
 
@@ -139731,22 +140558,6 @@ class ScreenFieldEntryLayoutForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def dropdownSource(self) -> str:
-        return self.doc.form_field(self.path, "dropdownSource") or ""
-
-    @dropdownSource.setter
-    def dropdownSource(self, value):
-        self.doc.set_form_field(self.path, "dropdownSource", value)
-
-    @property
-    def dropdownValues(self) -> str:
-        return self.doc.form_field(self.path, "dropdownValues") or ""
-
-    @dropdownValues.setter
-    def dropdownValues(self, value):
-        self.doc.set_form_field(self.path, "dropdownValues", value)
-
-    @property
     def dependsOn(self) -> str:
         return self.doc.form_field(self.path, "dependsOn") or ""
 
@@ -139778,8 +140589,74 @@ class ScreenFieldEntryLayoutForm(SomNode):
     def grouping(self, value):
         self.doc.set_form_field(self.path, "grouping", value)
 
-class ScreenFieldEntryValidationForm(SomNode):
-    """Generated section facade for the `validation` @Form section: its own content text followed by one typed member per form field."""
+class ScreenFieldEntryNumericConstraintsForm(SomNode):
+    """Generated section facade for the `numericConstraints` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def minValue(self) -> str:
+        return self.doc.form_field(self.path, "minValue") or ""
+
+    @minValue.setter
+    def minValue(self, value):
+        self.doc.set_form_field(self.path, "minValue", value)
+
+    @property
+    def maxValue(self) -> str:
+        return self.doc.form_field(self.path, "maxValue") or ""
+
+    @maxValue.setter
+    def maxValue(self, value):
+        self.doc.set_form_field(self.path, "maxValue", value)
+
+class ScreenFieldEntryTemporalConstraintsForm(SomNode):
+    """Generated section facade for the `temporalConstraints` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def earliestValue(self) -> str:
+        return self.doc.form_field(self.path, "earliestValue") or ""
+
+    @earliestValue.setter
+    def earliestValue(self, value):
+        self.doc.set_form_field(self.path, "earliestValue", value)
+
+    @property
+    def latestValue(self) -> str:
+        return self.doc.form_field(self.path, "latestValue") or ""
+
+    @latestValue.setter
+    def latestValue(self, value):
+        self.doc.set_form_field(self.path, "latestValue", value)
+
+class ScreenFieldEntryTextConstraintsForm(SomNode):
+    """Generated section facade for the `textConstraints` @Form section: its own content text followed by one typed member per form field."""
 
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -139812,28 +140689,29 @@ class ScreenFieldEntryValidationForm(SomNode):
         self.doc.set_form_field(self.path, "maxLength", value)
 
     @property
-    def minValue(self) -> str:
-        return self.doc.form_field(self.path, "minValue") or ""
-
-    @minValue.setter
-    def minValue(self, value):
-        self.doc.set_form_field(self.path, "minValue", value)
-
-    @property
-    def maxValue(self) -> str:
-        return self.doc.form_field(self.path, "maxValue") or ""
-
-    @maxValue.setter
-    def maxValue(self, value):
-        self.doc.set_form_field(self.path, "maxValue", value)
-
-    @property
     def pattern(self) -> str:
         return self.doc.form_field(self.path, "pattern") or ""
 
     @pattern.setter
     def pattern(self, value):
         self.doc.set_form_field(self.path, "pattern", value)
+
+class ScreenFieldEntryValidationForm(SomNode):
+    """Generated section facade for the `validation` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
 
     @property
     def validationMessage(self) -> str:

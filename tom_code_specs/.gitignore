@@ -1,0 +1,8 @@
+# Dart / pub build state.
+.dart_tool/
+.packages
+build/
+pubspec_overrides.yaml
+
+# testkit run artifacts (baselines + raw JSON) — machine-local, never committed.
+testlog/

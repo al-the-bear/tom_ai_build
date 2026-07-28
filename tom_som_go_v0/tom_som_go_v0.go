@@ -10529,6 +10529,39 @@ func (x *DataAttributeEntry) DataTypeSpec() *DataAttributeEntryDataTypeSpecForm 
 	return NewDataAttributeEntryDataTypeSpecForm(x.Doc(), x.Path()+"/DAATT-DATA")
 }
 
+// Text-kind type options — a promoted `@OneOf` case (csra4).
+//
+// Present only for the `string` logical type; carries only the character
+// length and collation attributes (no numeric precision, no timezone).
+func (x *DataAttributeEntry) TextTypeOptions() *DataAttributeEntryTextTypeOptionsForm {
+	return NewDataAttributeEntryTextTypeOptionsForm(x.Doc(), x.Path()+"/DAATT-DTTX")
+}
+
+// Numeric-kind type options — a promoted `@OneOf` case (csra4).
+//
+// Present only for numeric logical types; carries only the precision and
+// scale attributes (no length, collation or timezone).
+func (x *DataAttributeEntry) NumericTypeOptions() *DataAttributeEntryNumericTypeOptionsForm {
+	return NewDataAttributeEntryNumericTypeOptionsForm(x.Doc(), x.Path()+"/DAATT-DTNU")
+}
+
+// Temporal-kind type options — a promoted `@OneOf` case (csra4).
+//
+// Present only for date/time logical types; carries only the timezone
+// handling attribute.
+func (x *DataAttributeEntry) TemporalTypeOptions() *DataAttributeEntryTemporalTypeOptionsForm {
+	return NewDataAttributeEntryTemporalTypeOptionsForm(x.Doc(), x.Path()+"/DAATT-DTTM")
+}
+
+// Binary-kind type options — a promoted `@OneOf` case (csra4).
+//
+// Present only for the `binary` logical type; carries only the stored size
+// attributes. Separated from the text `length` because a byte size and a
+// character length are different constraints on different types.
+func (x *DataAttributeEntry) BinaryTypeOptions() *DataAttributeEntryBinaryTypeOptionsForm {
+	return NewDataAttributeEntryBinaryTypeOptionsForm(x.Doc(), x.Path()+"/DAATT-DTBI")
+}
+
 func (x *DataAttributeEntry) Constraints() *som.SomList[*DataAttributeConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/DATAA-CONS-LST", func(d *som.SpecDocument, p string) *DataAttributeConstraintEntry {
 		return NewDataAttributeConstraintEntry(d, p)
@@ -16230,6 +16263,47 @@ func (x *ExportFieldMappingEntry) Content() *ExportFieldMappingEntryContentForm 
 // Ordering and formatting settings.
 func (x *ExportFieldMappingEntry) Formatting() *ExportFieldMappingEntryFormattingForm {
 	return NewExportFieldMappingEntryFormattingForm(x.Doc(), x.Path()+"/EFMEF")
+}
+
+// Numeric-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for integer and decimal fields; carries only the numeric
+// output pattern and separators.
+func (x *ExportFieldMappingEntry) NumericOutput() *ExportFieldMappingEntryNumericOutputForm {
+	return NewExportFieldMappingEntryNumericOutputForm(x.Doc(), x.Path()+"/EFMEFN")
+}
+
+// Temporal-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for date and date-time fields; carries only the temporal
+// output pattern and timezone handling.
+func (x *ExportFieldMappingEntry) TemporalOutput() *ExportFieldMappingEntryTemporalOutputForm {
+	return NewExportFieldMappingEntryTemporalOutputForm(x.Doc(), x.Path()+"/EFMEFD")
+}
+
+// Boolean-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for boolean fields; this is the only case in which the
+// emitted true/false literals are meaningful.
+func (x *ExportFieldMappingEntry) BooleanOutput() *ExportFieldMappingEntryBooleanOutputForm {
+	return NewExportFieldMappingEntryBooleanOutputForm(x.Doc(), x.Path()+"/EFMEFB")
+}
+
+// Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for enumeration fields; carries which face of the value set
+// is emitted and what happens to a value outside it.
+func (x *ExportFieldMappingEntry) EnumerationOutput() *ExportFieldMappingEntryEnumerationOutputForm {
+	return NewExportFieldMappingEntryEnumerationOutputForm(x.Doc(), x.Path()+"/EFMEFE")
+}
+
+// Text-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for text fields; carries the character-length truncation
+// that only a string field can have. Moved out of `inclusion`, where it sat
+// beside type-independent default and inclusion rules.
+func (x *ExportFieldMappingEntry) TextOutput() *ExportFieldMappingEntryTextOutputForm {
+	return NewExportFieldMappingEntryTextOutputForm(x.Doc(), x.Path()+"/EFMEFT")
 }
 
 // Transformation rules.
@@ -29597,6 +29671,45 @@ func (x *ReportColumnEntry) Formatting() *ReportColumnEntryFormattingForm {
 	return NewReportColumnEntryFormattingForm(x.Doc(), x.Path()+"/RECOFO")
 }
 
+// Numeric-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for integer and decimal columns; carries only the numeric
+// display pattern (no currency code, no boolean labels).
+func (x *ReportColumnEntry) NumericFormat() *ReportColumnEntryNumericFormatForm {
+	return NewReportColumnEntryNumericFormatForm(x.Doc(), x.Path()+"/RECOFN")
+}
+
+// Currency-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for currency columns; this is the only case in which a
+// currency code is meaningful.
+func (x *ReportColumnEntry) CurrencyFormat() *ReportColumnEntryCurrencyFormatForm {
+	return NewReportColumnEntryCurrencyFormatForm(x.Doc(), x.Path()+"/RECOFC")
+}
+
+// Date-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for date columns; carries only the temporal display pattern.
+func (x *ReportColumnEntry) DateFormat() *ReportColumnEntryDateFormatForm {
+	return NewReportColumnEntryDateFormatForm(x.Doc(), x.Path()+"/RECOFD")
+}
+
+// Boolean-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for boolean columns; this is the only case in which the
+// true/false display labels are meaningful.
+func (x *ReportColumnEntry) BooleanFormat() *ReportColumnEntryBooleanFormatForm {
+	return NewReportColumnEntryBooleanFormatForm(x.Doc(), x.Path()+"/RECOFB")
+}
+
+// Text-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for text columns; carries only the overflow handling a
+// variable-length string column needs.
+func (x *ReportColumnEntry) TextFormat() *ReportColumnEntryTextFormatForm {
+	return NewReportColumnEntryTextFormatForm(x.Doc(), x.Path()+"/RECOFT")
+}
+
 // Aggregation settings.
 func (x *ReportColumnEntry) Aggregation() *ReportColumnEntryAggregationForm {
 	return NewReportColumnEntryAggregationForm(x.Doc(), x.Path()+"/RECOAG")
@@ -29762,6 +29875,56 @@ func (x *ReportFilterEntry) Content() *ReportFilterEntryContentForm {
 // Input and value configuration.
 func (x *ReportFilterEntry) Input() *ReportFilterEntryInputForm {
 	return NewReportFilterEntryInputForm(x.Doc(), x.Path()+"/RFEI")
+}
+
+// Text-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for text filters; carries the free-text control and its
+// match semantics (no value source, no date bounds).
+func (x *ReportFilterEntry) TextFilterOptions() *ReportFilterEntryTextFilterOptionsForm {
+	return NewReportFilterEntryTextFilterOptionsForm(x.Doc(), x.Path()+"/RFEIT")
+}
+
+// Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for numeric filters; carries the numeric control and its
+// value bounds.
+func (x *ReportFilterEntry) NumericFilterOptions() *ReportFilterEntryNumericFilterOptionsForm {
+	return NewReportFilterEntryNumericFilterOptionsForm(x.Doc(), x.Path()+"/RFEIN")
+}
+
+// Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for date/date-time filters; carries the temporal control —
+// including the range picker that the former free-text `DateRange` type
+// stood for — and the selectable window.
+func (x *ReportFilterEntry) DateFilterOptions() *ReportFilterEntryDateFilterOptionsForm {
+	return NewReportFilterEntryDateFilterOptionsForm(x.Doc(), x.Path()+"/RFEID")
+}
+
+// Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for boolean filters; carries only the two-valued control.
+func (x *ReportFilterEntry) BooleanFilterOptions() *ReportFilterEntryBooleanFilterOptionsForm {
+	return NewReportFilterEntryBooleanFilterOptionsForm(x.Doc(), x.Path()+"/RFEIB")
+}
+
+// Selection-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for enumeration filters; this is the only case in which a
+// value source, static value list, cascade parent and multi-select are
+// meaningful.
+func (x *ReportFilterEntry) SelectFilterOptions() *ReportFilterEntrySelectFilterOptionsForm {
+	return NewReportFilterEntrySelectFilterOptionsForm(x.Doc(), x.Path()+"/RFEIS")
+}
+
+// Entity-reference filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for entity-reference filters; carries the lookup control and
+// the entity query that backs it. Distinct from the enumeration case
+// because the value set is resolved from an entity, not a declared list.
+func (x *ReportFilterEntry) EntityFilterOptions() *ReportFilterEntryEntityFilterOptionsForm {
+	return NewReportFilterEntryEntityFilterOptionsForm(x.Doc(), x.Path()+"/RFEIE")
 }
 
 // Scope and validation behavior.
@@ -32755,9 +32918,32 @@ func (x *ScreenFieldEntry) Conditions() *ScreenFieldEntryConditionsForm {
 	return NewScreenFieldEntryConditionsForm(x.Doc(), x.Path()+"/SCFICO")
 }
 
-// Validation rules.
+// Validation rules that apply whatever the field type is.
 func (x *ScreenFieldEntry) Validation() *ScreenFieldEntryValidationForm {
 	return NewScreenFieldEntryValidationForm(x.Doc(), x.Path()+"/SCFIVA")
+}
+
+// Text-kind input constraints — a promoted `@OneOf` case (csra4).
+func (x *ScreenFieldEntry) TextConstraints() *ScreenFieldEntryTextConstraintsForm {
+	return NewScreenFieldEntryTextConstraintsForm(x.Doc(), x.Path()+"/SCFIVT")
+}
+
+// Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+func (x *ScreenFieldEntry) NumericConstraints() *ScreenFieldEntryNumericConstraintsForm {
+	return NewScreenFieldEntryNumericConstraintsForm(x.Doc(), x.Path()+"/SCFIVN")
+}
+
+// Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+//
+// Kept apart from [numericConstraints] because a date boundary is expressed
+// as a date or a relative expression ("today + 30d"), not as a number.
+func (x *ScreenFieldEntry) TemporalConstraints() *ScreenFieldEntryTemporalConstraintsForm {
+	return NewScreenFieldEntryTemporalConstraintsForm(x.Doc(), x.Path()+"/SCFIVD")
+}
+
+// Choice-kind option source — a promoted `@OneOf` case (csra4).
+func (x *ScreenFieldEntry) ChoiceOptions() *ScreenFieldEntryChoiceOptionsForm {
+	return NewScreenFieldEntryChoiceOptionsForm(x.Doc(), x.Path()+"/SCFICH")
 }
 
 // UI and layout.
@@ -77004,6 +77190,48 @@ func (x *DataAttributeConstraintEntryContentForm) SetPatternRegex(value string) 
 	x.Doc().SetFormField(x.Path(), "patternRegex", value)
 }
 
+// DataAttributeEntryBinaryTypeOptionsForm is the generated section facade for the `binaryTypeOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type DataAttributeEntryBinaryTypeOptionsForm struct {
+	som.SomNode
+}
+
+// NewDataAttributeEntryBinaryTypeOptionsForm binds a DataAttributeEntryBinaryTypeOptionsForm facade to a document and a path.
+func NewDataAttributeEntryBinaryTypeOptionsForm(doc *som.SpecDocument, path string) *DataAttributeEntryBinaryTypeOptionsForm {
+	return &DataAttributeEntryBinaryTypeOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DataAttributeEntryBinaryTypeOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DataAttributeEntryBinaryTypeOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DataAttributeEntryBinaryTypeOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DataAttributeEntryBinaryTypeOptionsForm) MaxSizeBytes() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxSizeBytes")
+}
+
+func (x *DataAttributeEntryBinaryTypeOptionsForm) SetMaxSizeBytes(value string) {
+	x.Doc().SetFormField(x.Path(), "maxSizeBytes", value)
+}
+
+func (x *DataAttributeEntryBinaryTypeOptionsForm) StorageMode() string {
+	return x.Doc().FormFieldOr(x.Path(), "storageMode")
+}
+
+func (x *DataAttributeEntryBinaryTypeOptionsForm) SetStorageMode(value string) {
+	x.Doc().SetFormField(x.Path(), "storageMode", value)
+}
+
 // DataAttributeEntryDataTypeSpecForm is the generated section facade for the `dataTypeSpec` @Form section: its own
 // content text followed by one typed member per form field.
 type DataAttributeEntryDataTypeSpecForm struct {
@@ -77044,46 +77272,6 @@ func (x *DataAttributeEntryDataTypeSpecForm) PhysicalType() string {
 
 func (x *DataAttributeEntryDataTypeSpecForm) SetPhysicalType(value string) {
 	x.Doc().SetFormField(x.Path(), "physicalType", value)
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) Length() string {
-	return x.Doc().FormFieldOr(x.Path(), "length")
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) SetLength(value string) {
-	x.Doc().SetFormField(x.Path(), "length", value)
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) Precision() string {
-	return x.Doc().FormFieldOr(x.Path(), "precision")
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) SetPrecision(value string) {
-	x.Doc().SetFormField(x.Path(), "precision", value)
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) Scale() string {
-	return x.Doc().FormFieldOr(x.Path(), "scale")
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) SetScale(value string) {
-	x.Doc().SetFormField(x.Path(), "scale", value)
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) Collation() string {
-	return x.Doc().FormFieldOr(x.Path(), "collation")
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) SetCollation(value string) {
-	x.Doc().SetFormField(x.Path(), "collation", value)
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) Timezone() string {
-	return x.Doc().FormFieldOr(x.Path(), "timezone")
-}
-
-func (x *DataAttributeEntryDataTypeSpecForm) SetTimezone(value string) {
-	x.Doc().SetFormField(x.Path(), "timezone", value)
 }
 
 func (x *DataAttributeEntryDataTypeSpecForm) Format() string {
@@ -77284,6 +77472,48 @@ func (x *DataAttributeEntryMigrationLineageForm) SetQualityRules(value string) {
 	x.Doc().SetFormField(x.Path(), "qualityRules", value)
 }
 
+// DataAttributeEntryNumericTypeOptionsForm is the generated section facade for the `numericTypeOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type DataAttributeEntryNumericTypeOptionsForm struct {
+	som.SomNode
+}
+
+// NewDataAttributeEntryNumericTypeOptionsForm binds a DataAttributeEntryNumericTypeOptionsForm facade to a document and a path.
+func NewDataAttributeEntryNumericTypeOptionsForm(doc *som.SpecDocument, path string) *DataAttributeEntryNumericTypeOptionsForm {
+	return &DataAttributeEntryNumericTypeOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DataAttributeEntryNumericTypeOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DataAttributeEntryNumericTypeOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DataAttributeEntryNumericTypeOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DataAttributeEntryNumericTypeOptionsForm) Precision() string {
+	return x.Doc().FormFieldOr(x.Path(), "precision")
+}
+
+func (x *DataAttributeEntryNumericTypeOptionsForm) SetPrecision(value string) {
+	x.Doc().SetFormField(x.Path(), "precision", value)
+}
+
+func (x *DataAttributeEntryNumericTypeOptionsForm) Scale() string {
+	return x.Doc().FormFieldOr(x.Path(), "scale")
+}
+
+func (x *DataAttributeEntryNumericTypeOptionsForm) SetScale(value string) {
+	x.Doc().SetFormField(x.Path(), "scale", value)
+}
+
 // DataAttributeEntrySecurityClassificationForm is the generated section facade for the `securityClassification` @Form section: its own
 // content text followed by one typed member per form field.
 type DataAttributeEntrySecurityClassificationForm struct {
@@ -77348,6 +77578,82 @@ func (x *DataAttributeEntrySecurityClassificationForm) AuditLevel() string {
 
 func (x *DataAttributeEntrySecurityClassificationForm) SetAuditLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "auditLevel", value)
+}
+
+// DataAttributeEntryTemporalTypeOptionsForm is the generated section facade for the `temporalTypeOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type DataAttributeEntryTemporalTypeOptionsForm struct {
+	som.SomNode
+}
+
+// NewDataAttributeEntryTemporalTypeOptionsForm binds a DataAttributeEntryTemporalTypeOptionsForm facade to a document and a path.
+func NewDataAttributeEntryTemporalTypeOptionsForm(doc *som.SpecDocument, path string) *DataAttributeEntryTemporalTypeOptionsForm {
+	return &DataAttributeEntryTemporalTypeOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DataAttributeEntryTemporalTypeOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DataAttributeEntryTemporalTypeOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DataAttributeEntryTemporalTypeOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DataAttributeEntryTemporalTypeOptionsForm) Timezone() string {
+	return x.Doc().FormFieldOr(x.Path(), "timezone")
+}
+
+func (x *DataAttributeEntryTemporalTypeOptionsForm) SetTimezone(value string) {
+	x.Doc().SetFormField(x.Path(), "timezone", value)
+}
+
+// DataAttributeEntryTextTypeOptionsForm is the generated section facade for the `textTypeOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type DataAttributeEntryTextTypeOptionsForm struct {
+	som.SomNode
+}
+
+// NewDataAttributeEntryTextTypeOptionsForm binds a DataAttributeEntryTextTypeOptionsForm facade to a document and a path.
+func NewDataAttributeEntryTextTypeOptionsForm(doc *som.SpecDocument, path string) *DataAttributeEntryTextTypeOptionsForm {
+	return &DataAttributeEntryTextTypeOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *DataAttributeEntryTextTypeOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DataAttributeEntryTextTypeOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DataAttributeEntryTextTypeOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DataAttributeEntryTextTypeOptionsForm) Length() string {
+	return x.Doc().FormFieldOr(x.Path(), "length")
+}
+
+func (x *DataAttributeEntryTextTypeOptionsForm) SetLength(value string) {
+	x.Doc().SetFormField(x.Path(), "length", value)
+}
+
+func (x *DataAttributeEntryTextTypeOptionsForm) Collation() string {
+	return x.Doc().FormFieldOr(x.Path(), "collation")
+}
+
+func (x *DataAttributeEntryTextTypeOptionsForm) SetCollation(value string) {
+	x.Doc().SetFormField(x.Path(), "collation", value)
 }
 
 // DataClassificationEntryAccessControlForm is the generated section facade for the `accessControl` @Form section: its own
@@ -100468,6 +100774,48 @@ func (x *ExpectedImprovementsContentForm) SetIntegrationBenefits(value string) {
 	x.Doc().SetFormField(x.Path(), "integrationBenefits", value)
 }
 
+// ExportFieldMappingEntryBooleanOutputForm is the generated section facade for the `booleanOutput` @Form section: its own
+// content text followed by one typed member per form field.
+type ExportFieldMappingEntryBooleanOutputForm struct {
+	som.SomNode
+}
+
+// NewExportFieldMappingEntryBooleanOutputForm binds a ExportFieldMappingEntryBooleanOutputForm facade to a document and a path.
+func NewExportFieldMappingEntryBooleanOutputForm(doc *som.SpecDocument, path string) *ExportFieldMappingEntryBooleanOutputForm {
+	return &ExportFieldMappingEntryBooleanOutputForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ExportFieldMappingEntryBooleanOutputForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ExportFieldMappingEntryBooleanOutputForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ExportFieldMappingEntryBooleanOutputForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ExportFieldMappingEntryBooleanOutputForm) TrueLiteral() string {
+	return x.Doc().FormFieldOr(x.Path(), "trueLiteral")
+}
+
+func (x *ExportFieldMappingEntryBooleanOutputForm) SetTrueLiteral(value string) {
+	x.Doc().SetFormField(x.Path(), "trueLiteral", value)
+}
+
+func (x *ExportFieldMappingEntryBooleanOutputForm) FalseLiteral() string {
+	return x.Doc().FormFieldOr(x.Path(), "falseLiteral")
+}
+
+func (x *ExportFieldMappingEntryBooleanOutputForm) SetFalseLiteral(value string) {
+	x.Doc().SetFormField(x.Path(), "falseLiteral", value)
+}
+
 // ExportFieldMappingEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ExportFieldMappingEntryContentForm struct {
@@ -100516,6 +100864,48 @@ func (x *ExportFieldMappingEntryContentForm) TargetFieldName() string {
 
 func (x *ExportFieldMappingEntryContentForm) SetTargetFieldName(value string) {
 	x.Doc().SetFormField(x.Path(), "targetFieldName", value)
+}
+
+// ExportFieldMappingEntryEnumerationOutputForm is the generated section facade for the `enumerationOutput` @Form section: its own
+// content text followed by one typed member per form field.
+type ExportFieldMappingEntryEnumerationOutputForm struct {
+	som.SomNode
+}
+
+// NewExportFieldMappingEntryEnumerationOutputForm binds a ExportFieldMappingEntryEnumerationOutputForm facade to a document and a path.
+func NewExportFieldMappingEntryEnumerationOutputForm(doc *som.SpecDocument, path string) *ExportFieldMappingEntryEnumerationOutputForm {
+	return &ExportFieldMappingEntryEnumerationOutputForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ExportFieldMappingEntryEnumerationOutputForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ExportFieldMappingEntryEnumerationOutputForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ExportFieldMappingEntryEnumerationOutputForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ExportFieldMappingEntryEnumerationOutputForm) EmittedForm() string {
+	return x.Doc().FormFieldOr(x.Path(), "emittedForm")
+}
+
+func (x *ExportFieldMappingEntryEnumerationOutputForm) SetEmittedForm(value string) {
+	x.Doc().SetFormField(x.Path(), "emittedForm", value)
+}
+
+func (x *ExportFieldMappingEntryEnumerationOutputForm) UnmappedValueBehavior() string {
+	return x.Doc().FormFieldOr(x.Path(), "unmappedValueBehavior")
+}
+
+func (x *ExportFieldMappingEntryEnumerationOutputForm) SetUnmappedValueBehavior(value string) {
+	x.Doc().SetFormField(x.Path(), "unmappedValueBehavior", value)
 }
 
 // ExportFieldMappingEntryFormattingForm is the generated section facade for the `formatting` @Form section: its own
@@ -100572,14 +100962,6 @@ func (x *ExportFieldMappingEntryFormattingForm) SetDataType(value string) {
 	x.Doc().SetFormField(x.Path(), "dataType", value)
 }
 
-func (x *ExportFieldMappingEntryFormattingForm) FormatPattern() string {
-	return x.Doc().FormFieldOr(x.Path(), "formatPattern")
-}
-
-func (x *ExportFieldMappingEntryFormattingForm) SetFormatPattern(value string) {
-	x.Doc().SetFormField(x.Path(), "formatPattern", value)
-}
-
 // ExportFieldMappingEntryInclusionForm is the generated section facade for the `inclusion` @Form section: its own
 // content text followed by one typed member per form field.
 type ExportFieldMappingEntryInclusionForm struct {
@@ -100628,26 +101010,6 @@ func (x *ExportFieldMappingEntryInclusionForm) InclusionCondition() string {
 
 func (x *ExportFieldMappingEntryInclusionForm) SetInclusionCondition(value string) {
 	x.Doc().SetFormField(x.Path(), "inclusionCondition", value)
-}
-
-func (x *ExportFieldMappingEntryInclusionForm) MaxLength() *int {
-	v := x.Doc().FormFieldOr(x.Path(), "maxLength")
-	if v == "" {
-		return nil
-	}
-	n, err := strconv.Atoi(v)
-	if err != nil {
-		return nil
-	}
-	return &n
-}
-
-func (x *ExportFieldMappingEntryInclusionForm) SetMaxLength(value *int) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "maxLength", "")
-		return
-	}
-	x.Doc().SetFormField(x.Path(), "maxLength", strconv.Itoa(*value))
 }
 
 // ExportFieldMappingEntryLayoutForm is the generated section facade for the `layout` @Form section: its own
@@ -100726,6 +101088,144 @@ func (x *ExportFieldMappingEntryLayoutForm) Notes() string {
 
 func (x *ExportFieldMappingEntryLayoutForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ExportFieldMappingEntryNumericOutputForm is the generated section facade for the `numericOutput` @Form section: its own
+// content text followed by one typed member per form field.
+type ExportFieldMappingEntryNumericOutputForm struct {
+	som.SomNode
+}
+
+// NewExportFieldMappingEntryNumericOutputForm binds a ExportFieldMappingEntryNumericOutputForm facade to a document and a path.
+func NewExportFieldMappingEntryNumericOutputForm(doc *som.SpecDocument, path string) *ExportFieldMappingEntryNumericOutputForm {
+	return &ExportFieldMappingEntryNumericOutputForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ExportFieldMappingEntryNumericOutputForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ExportFieldMappingEntryNumericOutputForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ExportFieldMappingEntryNumericOutputForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ExportFieldMappingEntryNumericOutputForm) FormatPattern() string {
+	return x.Doc().FormFieldOr(x.Path(), "formatPattern")
+}
+
+func (x *ExportFieldMappingEntryNumericOutputForm) SetFormatPattern(value string) {
+	x.Doc().SetFormField(x.Path(), "formatPattern", value)
+}
+
+func (x *ExportFieldMappingEntryNumericOutputForm) DecimalSeparator() string {
+	return x.Doc().FormFieldOr(x.Path(), "decimalSeparator")
+}
+
+func (x *ExportFieldMappingEntryNumericOutputForm) SetDecimalSeparator(value string) {
+	x.Doc().SetFormField(x.Path(), "decimalSeparator", value)
+}
+
+// ExportFieldMappingEntryTemporalOutputForm is the generated section facade for the `temporalOutput` @Form section: its own
+// content text followed by one typed member per form field.
+type ExportFieldMappingEntryTemporalOutputForm struct {
+	som.SomNode
+}
+
+// NewExportFieldMappingEntryTemporalOutputForm binds a ExportFieldMappingEntryTemporalOutputForm facade to a document and a path.
+func NewExportFieldMappingEntryTemporalOutputForm(doc *som.SpecDocument, path string) *ExportFieldMappingEntryTemporalOutputForm {
+	return &ExportFieldMappingEntryTemporalOutputForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ExportFieldMappingEntryTemporalOutputForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ExportFieldMappingEntryTemporalOutputForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ExportFieldMappingEntryTemporalOutputForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ExportFieldMappingEntryTemporalOutputForm) FormatPattern() string {
+	return x.Doc().FormFieldOr(x.Path(), "formatPattern")
+}
+
+func (x *ExportFieldMappingEntryTemporalOutputForm) SetFormatPattern(value string) {
+	x.Doc().SetFormField(x.Path(), "formatPattern", value)
+}
+
+func (x *ExportFieldMappingEntryTemporalOutputForm) TimezoneHandling() string {
+	return x.Doc().FormFieldOr(x.Path(), "timezoneHandling")
+}
+
+func (x *ExportFieldMappingEntryTemporalOutputForm) SetTimezoneHandling(value string) {
+	x.Doc().SetFormField(x.Path(), "timezoneHandling", value)
+}
+
+// ExportFieldMappingEntryTextOutputForm is the generated section facade for the `textOutput` @Form section: its own
+// content text followed by one typed member per form field.
+type ExportFieldMappingEntryTextOutputForm struct {
+	som.SomNode
+}
+
+// NewExportFieldMappingEntryTextOutputForm binds a ExportFieldMappingEntryTextOutputForm facade to a document and a path.
+func NewExportFieldMappingEntryTextOutputForm(doc *som.SpecDocument, path string) *ExportFieldMappingEntryTextOutputForm {
+	return &ExportFieldMappingEntryTextOutputForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ExportFieldMappingEntryTextOutputForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ExportFieldMappingEntryTextOutputForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ExportFieldMappingEntryTextOutputForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ExportFieldMappingEntryTextOutputForm) MaxLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ExportFieldMappingEntryTextOutputForm) SetMaxLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxLength", strconv.Itoa(*value))
+}
+
+func (x *ExportFieldMappingEntryTextOutputForm) Padding() string {
+	return x.Doc().FormFieldOr(x.Path(), "padding")
+}
+
+func (x *ExportFieldMappingEntryTextOutputForm) SetPadding(value string) {
+	x.Doc().SetFormField(x.Path(), "padding", value)
 }
 
 // ExportFieldMappingEntryTransformationForm is the generated section facade for the `transformation` @Form section: its own
@@ -157138,6 +157638,48 @@ func (x *ReportColumnEntryAggregationForm) SetHyperlinkTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "hyperlinkTarget", value)
 }
 
+// ReportColumnEntryBooleanFormatForm is the generated section facade for the `booleanFormat` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportColumnEntryBooleanFormatForm struct {
+	som.SomNode
+}
+
+// NewReportColumnEntryBooleanFormatForm binds a ReportColumnEntryBooleanFormatForm facade to a document and a path.
+func NewReportColumnEntryBooleanFormatForm(doc *som.SpecDocument, path string) *ReportColumnEntryBooleanFormatForm {
+	return &ReportColumnEntryBooleanFormatForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportColumnEntryBooleanFormatForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportColumnEntryBooleanFormatForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportColumnEntryBooleanFormatForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportColumnEntryBooleanFormatForm) BooleanTrueDisplay() string {
+	return x.Doc().FormFieldOr(x.Path(), "booleanTrueDisplay")
+}
+
+func (x *ReportColumnEntryBooleanFormatForm) SetBooleanTrueDisplay(value string) {
+	x.Doc().SetFormField(x.Path(), "booleanTrueDisplay", value)
+}
+
+func (x *ReportColumnEntryBooleanFormatForm) BooleanFalseDisplay() string {
+	return x.Doc().FormFieldOr(x.Path(), "booleanFalseDisplay")
+}
+
+func (x *ReportColumnEntryBooleanFormatForm) SetBooleanFalseDisplay(value string) {
+	x.Doc().SetFormField(x.Path(), "booleanFalseDisplay", value)
+}
+
 // ReportColumnEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ReportColumnEntryContentForm struct {
@@ -157188,6 +157730,56 @@ func (x *ReportColumnEntryContentForm) SetDisplayLabel(value string) {
 	x.Doc().SetFormField(x.Path(), "displayLabel", value)
 }
 
+// ReportColumnEntryCurrencyFormatForm is the generated section facade for the `currencyFormat` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportColumnEntryCurrencyFormatForm struct {
+	som.SomNode
+}
+
+// NewReportColumnEntryCurrencyFormatForm binds a ReportColumnEntryCurrencyFormatForm facade to a document and a path.
+func NewReportColumnEntryCurrencyFormatForm(doc *som.SpecDocument, path string) *ReportColumnEntryCurrencyFormatForm {
+	return &ReportColumnEntryCurrencyFormatForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportColumnEntryCurrencyFormatForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportColumnEntryCurrencyFormatForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportColumnEntryCurrencyFormatForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportColumnEntryCurrencyFormatForm) FormatPattern() string {
+	return x.Doc().FormFieldOr(x.Path(), "formatPattern")
+}
+
+func (x *ReportColumnEntryCurrencyFormatForm) SetFormatPattern(value string) {
+	x.Doc().SetFormField(x.Path(), "formatPattern", value)
+}
+
+func (x *ReportColumnEntryCurrencyFormatForm) CurrencyCode() string {
+	return x.Doc().FormFieldOr(x.Path(), "currencyCode")
+}
+
+func (x *ReportColumnEntryCurrencyFormatForm) SetCurrencyCode(value string) {
+	x.Doc().SetFormField(x.Path(), "currencyCode", value)
+}
+
+func (x *ReportColumnEntryCurrencyFormatForm) SymbolPosition() string {
+	return x.Doc().FormFieldOr(x.Path(), "symbolPosition")
+}
+
+func (x *ReportColumnEntryCurrencyFormatForm) SetSymbolPosition(value string) {
+	x.Doc().SetFormField(x.Path(), "symbolPosition", value)
+}
+
 // ReportColumnEntryDataSourceForm is the generated section facade for the `dataSource` @Form section: its own
 // content text followed by one typed member per form field.
 type ReportColumnEntryDataSourceForm struct {
@@ -157228,6 +157820,48 @@ func (x *ReportColumnEntryDataSourceForm) DataType() string {
 
 func (x *ReportColumnEntryDataSourceForm) SetDataType(value string) {
 	x.Doc().SetFormField(x.Path(), "dataType", value)
+}
+
+// ReportColumnEntryDateFormatForm is the generated section facade for the `dateFormat` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportColumnEntryDateFormatForm struct {
+	som.SomNode
+}
+
+// NewReportColumnEntryDateFormatForm binds a ReportColumnEntryDateFormatForm facade to a document and a path.
+func NewReportColumnEntryDateFormatForm(doc *som.SpecDocument, path string) *ReportColumnEntryDateFormatForm {
+	return &ReportColumnEntryDateFormatForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportColumnEntryDateFormatForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportColumnEntryDateFormatForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportColumnEntryDateFormatForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportColumnEntryDateFormatForm) FormatPattern() string {
+	return x.Doc().FormFieldOr(x.Path(), "formatPattern")
+}
+
+func (x *ReportColumnEntryDateFormatForm) SetFormatPattern(value string) {
+	x.Doc().SetFormField(x.Path(), "formatPattern", value)
+}
+
+func (x *ReportColumnEntryDateFormatForm) TimezoneDisplay() string {
+	return x.Doc().FormFieldOr(x.Path(), "timezoneDisplay")
+}
+
+func (x *ReportColumnEntryDateFormatForm) SetTimezoneDisplay(value string) {
+	x.Doc().SetFormField(x.Path(), "timezoneDisplay", value)
 }
 
 // ReportColumnEntryFormattingForm is the generated section facade for the `formatting` @Form section: its own
@@ -157300,44 +157934,12 @@ func (x *ReportColumnEntryFormattingForm) SetVerticalAlignment(value string) {
 	x.Doc().SetFormField(x.Path(), "verticalAlignment", value)
 }
 
-func (x *ReportColumnEntryFormattingForm) FormatPattern() string {
-	return x.Doc().FormFieldOr(x.Path(), "formatPattern")
-}
-
-func (x *ReportColumnEntryFormattingForm) SetFormatPattern(value string) {
-	x.Doc().SetFormField(x.Path(), "formatPattern", value)
-}
-
-func (x *ReportColumnEntryFormattingForm) CurrencyCode() string {
-	return x.Doc().FormFieldOr(x.Path(), "currencyCode")
-}
-
-func (x *ReportColumnEntryFormattingForm) SetCurrencyCode(value string) {
-	x.Doc().SetFormField(x.Path(), "currencyCode", value)
-}
-
 func (x *ReportColumnEntryFormattingForm) NullDisplay() string {
 	return x.Doc().FormFieldOr(x.Path(), "nullDisplay")
 }
 
 func (x *ReportColumnEntryFormattingForm) SetNullDisplay(value string) {
 	x.Doc().SetFormField(x.Path(), "nullDisplay", value)
-}
-
-func (x *ReportColumnEntryFormattingForm) BooleanTrueDisplay() string {
-	return x.Doc().FormFieldOr(x.Path(), "booleanTrueDisplay")
-}
-
-func (x *ReportColumnEntryFormattingForm) SetBooleanTrueDisplay(value string) {
-	x.Doc().SetFormField(x.Path(), "booleanTrueDisplay", value)
-}
-
-func (x *ReportColumnEntryFormattingForm) BooleanFalseDisplay() string {
-	return x.Doc().FormFieldOr(x.Path(), "booleanFalseDisplay")
-}
-
-func (x *ReportColumnEntryFormattingForm) SetBooleanFalseDisplay(value string) {
-	x.Doc().SetFormField(x.Path(), "booleanFalseDisplay", value)
 }
 
 // ReportColumnEntryInteractionForm is the generated section facade for the `interaction` @Form section: its own
@@ -157458,6 +158060,102 @@ func (x *ReportColumnEntryLayoutForm) Notes() string {
 
 func (x *ReportColumnEntryLayoutForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ReportColumnEntryNumericFormatForm is the generated section facade for the `numericFormat` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportColumnEntryNumericFormatForm struct {
+	som.SomNode
+}
+
+// NewReportColumnEntryNumericFormatForm binds a ReportColumnEntryNumericFormatForm facade to a document and a path.
+func NewReportColumnEntryNumericFormatForm(doc *som.SpecDocument, path string) *ReportColumnEntryNumericFormatForm {
+	return &ReportColumnEntryNumericFormatForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportColumnEntryNumericFormatForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportColumnEntryNumericFormatForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportColumnEntryNumericFormatForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportColumnEntryNumericFormatForm) FormatPattern() string {
+	return x.Doc().FormFieldOr(x.Path(), "formatPattern")
+}
+
+func (x *ReportColumnEntryNumericFormatForm) SetFormatPattern(value string) {
+	x.Doc().SetFormField(x.Path(), "formatPattern", value)
+}
+
+func (x *ReportColumnEntryNumericFormatForm) NegativeDisplay() string {
+	return x.Doc().FormFieldOr(x.Path(), "negativeDisplay")
+}
+
+func (x *ReportColumnEntryNumericFormatForm) SetNegativeDisplay(value string) {
+	x.Doc().SetFormField(x.Path(), "negativeDisplay", value)
+}
+
+// ReportColumnEntryTextFormatForm is the generated section facade for the `textFormat` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportColumnEntryTextFormatForm struct {
+	som.SomNode
+}
+
+// NewReportColumnEntryTextFormatForm binds a ReportColumnEntryTextFormatForm facade to a document and a path.
+func NewReportColumnEntryTextFormatForm(doc *som.SpecDocument, path string) *ReportColumnEntryTextFormatForm {
+	return &ReportColumnEntryTextFormatForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportColumnEntryTextFormatForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportColumnEntryTextFormatForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportColumnEntryTextFormatForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportColumnEntryTextFormatForm) OverflowBehavior() string {
+	return x.Doc().FormFieldOr(x.Path(), "overflowBehavior")
+}
+
+func (x *ReportColumnEntryTextFormatForm) SetOverflowBehavior(value string) {
+	x.Doc().SetFormField(x.Path(), "overflowBehavior", value)
+}
+
+func (x *ReportColumnEntryTextFormatForm) MaxDisplayLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxDisplayLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ReportColumnEntryTextFormatForm) SetMaxDisplayLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxDisplayLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxDisplayLength", strconv.Itoa(*value))
 }
 
 // ReportDistributionEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -158530,6 +159228,48 @@ func (x *ReportFilterEntryBehaviorForm) SetDependsOn(value string) {
 	x.Doc().SetFormField(x.Path(), "dependsOn", value)
 }
 
+// ReportFilterEntryBooleanFilterOptionsForm is the generated section facade for the `booleanFilterOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportFilterEntryBooleanFilterOptionsForm struct {
+	som.SomNode
+}
+
+// NewReportFilterEntryBooleanFilterOptionsForm binds a ReportFilterEntryBooleanFilterOptionsForm facade to a document and a path.
+func NewReportFilterEntryBooleanFilterOptionsForm(doc *som.SpecDocument, path string) *ReportFilterEntryBooleanFilterOptionsForm {
+	return &ReportFilterEntryBooleanFilterOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportFilterEntryBooleanFilterOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportFilterEntryBooleanFilterOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportFilterEntryBooleanFilterOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportFilterEntryBooleanFilterOptionsForm) InputType() string {
+	return x.Doc().FormFieldOr(x.Path(), "inputType")
+}
+
+func (x *ReportFilterEntryBooleanFilterOptionsForm) SetInputType(value string) {
+	x.Doc().SetFormField(x.Path(), "inputType", value)
+}
+
+func (x *ReportFilterEntryBooleanFilterOptionsForm) IncludeIndeterminate() string {
+	return x.Doc().FormFieldOr(x.Path(), "includeIndeterminate")
+}
+
+func (x *ReportFilterEntryBooleanFilterOptionsForm) SetIncludeIndeterminate(value string) {
+	x.Doc().SetFormField(x.Path(), "includeIndeterminate", value)
+}
+
 // ReportFilterEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ReportFilterEntryContentForm struct {
@@ -158580,6 +159320,114 @@ func (x *ReportFilterEntryContentForm) SetDisplayLabel(value string) {
 	x.Doc().SetFormField(x.Path(), "displayLabel", value)
 }
 
+// ReportFilterEntryDateFilterOptionsForm is the generated section facade for the `dateFilterOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportFilterEntryDateFilterOptionsForm struct {
+	som.SomNode
+}
+
+// NewReportFilterEntryDateFilterOptionsForm binds a ReportFilterEntryDateFilterOptionsForm facade to a document and a path.
+func NewReportFilterEntryDateFilterOptionsForm(doc *som.SpecDocument, path string) *ReportFilterEntryDateFilterOptionsForm {
+	return &ReportFilterEntryDateFilterOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportFilterEntryDateFilterOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportFilterEntryDateFilterOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportFilterEntryDateFilterOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportFilterEntryDateFilterOptionsForm) InputType() string {
+	return x.Doc().FormFieldOr(x.Path(), "inputType")
+}
+
+func (x *ReportFilterEntryDateFilterOptionsForm) SetInputType(value string) {
+	x.Doc().SetFormField(x.Path(), "inputType", value)
+}
+
+func (x *ReportFilterEntryDateFilterOptionsForm) EarliestDate() string {
+	return x.Doc().FormFieldOr(x.Path(), "earliestDate")
+}
+
+func (x *ReportFilterEntryDateFilterOptionsForm) SetEarliestDate(value string) {
+	x.Doc().SetFormField(x.Path(), "earliestDate", value)
+}
+
+func (x *ReportFilterEntryDateFilterOptionsForm) LatestDate() string {
+	return x.Doc().FormFieldOr(x.Path(), "latestDate")
+}
+
+func (x *ReportFilterEntryDateFilterOptionsForm) SetLatestDate(value string) {
+	x.Doc().SetFormField(x.Path(), "latestDate", value)
+}
+
+// ReportFilterEntryEntityFilterOptionsForm is the generated section facade for the `entityFilterOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportFilterEntryEntityFilterOptionsForm struct {
+	som.SomNode
+}
+
+// NewReportFilterEntryEntityFilterOptionsForm binds a ReportFilterEntryEntityFilterOptionsForm facade to a document and a path.
+func NewReportFilterEntryEntityFilterOptionsForm(doc *som.SpecDocument, path string) *ReportFilterEntryEntityFilterOptionsForm {
+	return &ReportFilterEntryEntityFilterOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportFilterEntryEntityFilterOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportFilterEntryEntityFilterOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) InputType() string {
+	return x.Doc().FormFieldOr(x.Path(), "inputType")
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) SetInputType(value string) {
+	x.Doc().SetFormField(x.Path(), "inputType", value)
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) EntityType() string {
+	return x.Doc().FormFieldOr(x.Path(), "entityType")
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) SetEntityType(value string) {
+	x.Doc().SetFormField(x.Path(), "entityType", value)
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) QueryFilter() string {
+	return x.Doc().FormFieldOr(x.Path(), "queryFilter")
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) SetQueryFilter(value string) {
+	x.Doc().SetFormField(x.Path(), "queryFilter", value)
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) DisplayAttribute() string {
+	return x.Doc().FormFieldOr(x.Path(), "displayAttribute")
+}
+
+func (x *ReportFilterEntryEntityFilterOptionsForm) SetDisplayAttribute(value string) {
+	x.Doc().SetFormField(x.Path(), "displayAttribute", value)
+}
+
 // ReportFilterEntryInputForm is the generated section facade for the `input` @Form section: its own
 // content text followed by one typed member per form field.
 type ReportFilterEntryInputForm struct {
@@ -158614,14 +159462,6 @@ func (x *ReportFilterEntryInputForm) SetDataType(value string) {
 	x.Doc().SetFormField(x.Path(), "dataType", value)
 }
 
-func (x *ReportFilterEntryInputForm) InputType() string {
-	return x.Doc().FormFieldOr(x.Path(), "inputType")
-}
-
-func (x *ReportFilterEntryInputForm) SetInputType(value string) {
-	x.Doc().SetFormField(x.Path(), "inputType", value)
-}
-
 func (x *ReportFilterEntryInputForm) DefaultValue() string {
 	return x.Doc().FormFieldOr(x.Path(), "defaultValue")
 }
@@ -158630,36 +159470,54 @@ func (x *ReportFilterEntryInputForm) SetDefaultValue(value string) {
 	x.Doc().SetFormField(x.Path(), "defaultValue", value)
 }
 
-func (x *ReportFilterEntryInputForm) AvailableValuesSource() string {
-	return x.Doc().FormFieldOr(x.Path(), "availableValuesSource")
+// ReportFilterEntryNumericFilterOptionsForm is the generated section facade for the `numericFilterOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportFilterEntryNumericFilterOptionsForm struct {
+	som.SomNode
 }
 
-func (x *ReportFilterEntryInputForm) SetAvailableValuesSource(value string) {
-	x.Doc().SetFormField(x.Path(), "availableValuesSource", value)
+// NewReportFilterEntryNumericFilterOptionsForm binds a ReportFilterEntryNumericFilterOptionsForm facade to a document and a path.
+func NewReportFilterEntryNumericFilterOptionsForm(doc *som.SpecDocument, path string) *ReportFilterEntryNumericFilterOptionsForm {
+	return &ReportFilterEntryNumericFilterOptionsForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReportFilterEntryInputForm) StaticValues() string {
-	return x.Doc().FormFieldOr(x.Path(), "staticValues")
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportFilterEntryNumericFilterOptionsForm) CanHaveContent() bool {
+	return true
 }
 
-func (x *ReportFilterEntryInputForm) SetStaticValues(value string) {
-	x.Doc().SetFormField(x.Path(), "staticValues", value)
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportFilterEntryNumericFilterOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
 }
 
-func (x *ReportFilterEntryInputForm) CascadeParent() string {
-	return x.Doc().FormFieldOr(x.Path(), "cascadeParent")
+func (x *ReportFilterEntryNumericFilterOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ReportFilterEntryInputForm) SetCascadeParent(value string) {
-	x.Doc().SetFormField(x.Path(), "cascadeParent", value)
+func (x *ReportFilterEntryNumericFilterOptionsForm) InputType() string {
+	return x.Doc().FormFieldOr(x.Path(), "inputType")
 }
 
-func (x *ReportFilterEntryInputForm) MultiSelect() string {
-	return x.Doc().FormFieldOr(x.Path(), "multiSelect")
+func (x *ReportFilterEntryNumericFilterOptionsForm) SetInputType(value string) {
+	x.Doc().SetFormField(x.Path(), "inputType", value)
 }
 
-func (x *ReportFilterEntryInputForm) SetMultiSelect(value string) {
-	x.Doc().SetFormField(x.Path(), "multiSelect", value)
+func (x *ReportFilterEntryNumericFilterOptionsForm) MinValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "minValue")
+}
+
+func (x *ReportFilterEntryNumericFilterOptionsForm) SetMinValue(value string) {
+	x.Doc().SetFormField(x.Path(), "minValue", value)
+}
+
+func (x *ReportFilterEntryNumericFilterOptionsForm) MaxValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxValue")
+}
+
+func (x *ReportFilterEntryNumericFilterOptionsForm) SetMaxValue(value string) {
+	x.Doc().SetFormField(x.Path(), "maxValue", value)
 }
 
 // ReportFilterEntryPresentationForm is the generated section facade for the `presentation` @Form section: its own
@@ -158718,6 +159576,134 @@ func (x *ReportFilterEntryPresentationForm) Notes() string {
 
 func (x *ReportFilterEntryPresentationForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ReportFilterEntrySelectFilterOptionsForm is the generated section facade for the `selectFilterOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportFilterEntrySelectFilterOptionsForm struct {
+	som.SomNode
+}
+
+// NewReportFilterEntrySelectFilterOptionsForm binds a ReportFilterEntrySelectFilterOptionsForm facade to a document and a path.
+func NewReportFilterEntrySelectFilterOptionsForm(doc *som.SpecDocument, path string) *ReportFilterEntrySelectFilterOptionsForm {
+	return &ReportFilterEntrySelectFilterOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportFilterEntrySelectFilterOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportFilterEntrySelectFilterOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) InputType() string {
+	return x.Doc().FormFieldOr(x.Path(), "inputType")
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) SetInputType(value string) {
+	x.Doc().SetFormField(x.Path(), "inputType", value)
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) AvailableValuesSource() string {
+	return x.Doc().FormFieldOr(x.Path(), "availableValuesSource")
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) SetAvailableValuesSource(value string) {
+	x.Doc().SetFormField(x.Path(), "availableValuesSource", value)
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) StaticValues() string {
+	return x.Doc().FormFieldOr(x.Path(), "staticValues")
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) SetStaticValues(value string) {
+	x.Doc().SetFormField(x.Path(), "staticValues", value)
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) CascadeParent() string {
+	return x.Doc().FormFieldOr(x.Path(), "cascadeParent")
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) SetCascadeParent(value string) {
+	x.Doc().SetFormField(x.Path(), "cascadeParent", value)
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) MultiSelect() string {
+	return x.Doc().FormFieldOr(x.Path(), "multiSelect")
+}
+
+func (x *ReportFilterEntrySelectFilterOptionsForm) SetMultiSelect(value string) {
+	x.Doc().SetFormField(x.Path(), "multiSelect", value)
+}
+
+// ReportFilterEntryTextFilterOptionsForm is the generated section facade for the `textFilterOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ReportFilterEntryTextFilterOptionsForm struct {
+	som.SomNode
+}
+
+// NewReportFilterEntryTextFilterOptionsForm binds a ReportFilterEntryTextFilterOptionsForm facade to a document and a path.
+func NewReportFilterEntryTextFilterOptionsForm(doc *som.SpecDocument, path string) *ReportFilterEntryTextFilterOptionsForm {
+	return &ReportFilterEntryTextFilterOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ReportFilterEntryTextFilterOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReportFilterEntryTextFilterOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReportFilterEntryTextFilterOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReportFilterEntryTextFilterOptionsForm) InputType() string {
+	return x.Doc().FormFieldOr(x.Path(), "inputType")
+}
+
+func (x *ReportFilterEntryTextFilterOptionsForm) SetInputType(value string) {
+	x.Doc().SetFormField(x.Path(), "inputType", value)
+}
+
+func (x *ReportFilterEntryTextFilterOptionsForm) MatchMode() string {
+	return x.Doc().FormFieldOr(x.Path(), "matchMode")
+}
+
+func (x *ReportFilterEntryTextFilterOptionsForm) SetMatchMode(value string) {
+	x.Doc().SetFormField(x.Path(), "matchMode", value)
+}
+
+func (x *ReportFilterEntryTextFilterOptionsForm) MaxLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ReportFilterEntryTextFilterOptionsForm) SetMaxLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxLength", strconv.Itoa(*value))
 }
 
 // ReportRecipientEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -170834,6 +171820,48 @@ func (x *ScreenEntryTraceabilityForm) SetPrimaryAction(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryAction", value)
 }
 
+// ScreenFieldEntryChoiceOptionsForm is the generated section facade for the `choiceOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenFieldEntryChoiceOptionsForm struct {
+	som.SomNode
+}
+
+// NewScreenFieldEntryChoiceOptionsForm binds a ScreenFieldEntryChoiceOptionsForm facade to a document and a path.
+func NewScreenFieldEntryChoiceOptionsForm(doc *som.SpecDocument, path string) *ScreenFieldEntryChoiceOptionsForm {
+	return &ScreenFieldEntryChoiceOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenFieldEntryChoiceOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenFieldEntryChoiceOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenFieldEntryChoiceOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenFieldEntryChoiceOptionsForm) OptionSource() string {
+	return x.Doc().FormFieldOr(x.Path(), "optionSource")
+}
+
+func (x *ScreenFieldEntryChoiceOptionsForm) SetOptionSource(value string) {
+	x.Doc().SetFormField(x.Path(), "optionSource", value)
+}
+
+func (x *ScreenFieldEntryChoiceOptionsForm) StaticOptions() string {
+	return x.Doc().FormFieldOr(x.Path(), "staticOptions")
+}
+
+func (x *ScreenFieldEntryChoiceOptionsForm) SetStaticOptions(value string) {
+	x.Doc().SetFormField(x.Path(), "staticOptions", value)
+}
+
 // ScreenFieldEntryConditionsForm is the generated section facade for the `conditions` @Form section: its own
 // content text followed by one typed member per form field.
 type ScreenFieldEntryConditionsForm struct {
@@ -171042,22 +172070,6 @@ func (x *ScreenFieldEntryLayoutForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ScreenFieldEntryLayoutForm) DropdownSource() string {
-	return x.Doc().FormFieldOr(x.Path(), "dropdownSource")
-}
-
-func (x *ScreenFieldEntryLayoutForm) SetDropdownSource(value string) {
-	x.Doc().SetFormField(x.Path(), "dropdownSource", value)
-}
-
-func (x *ScreenFieldEntryLayoutForm) DropdownValues() string {
-	return x.Doc().FormFieldOr(x.Path(), "dropdownValues")
-}
-
-func (x *ScreenFieldEntryLayoutForm) SetDropdownValues(value string) {
-	x.Doc().SetFormField(x.Path(), "dropdownValues", value)
-}
-
 func (x *ScreenFieldEntryLayoutForm) DependsOn() string {
 	return x.Doc().FormFieldOr(x.Path(), "dependsOn")
 }
@@ -171090,6 +172102,140 @@ func (x *ScreenFieldEntryLayoutForm) SetGrouping(value string) {
 	x.Doc().SetFormField(x.Path(), "grouping", value)
 }
 
+// ScreenFieldEntryNumericConstraintsForm is the generated section facade for the `numericConstraints` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenFieldEntryNumericConstraintsForm struct {
+	som.SomNode
+}
+
+// NewScreenFieldEntryNumericConstraintsForm binds a ScreenFieldEntryNumericConstraintsForm facade to a document and a path.
+func NewScreenFieldEntryNumericConstraintsForm(doc *som.SpecDocument, path string) *ScreenFieldEntryNumericConstraintsForm {
+	return &ScreenFieldEntryNumericConstraintsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenFieldEntryNumericConstraintsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenFieldEntryNumericConstraintsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenFieldEntryNumericConstraintsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenFieldEntryNumericConstraintsForm) MinValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "minValue")
+}
+
+func (x *ScreenFieldEntryNumericConstraintsForm) SetMinValue(value string) {
+	x.Doc().SetFormField(x.Path(), "minValue", value)
+}
+
+func (x *ScreenFieldEntryNumericConstraintsForm) MaxValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxValue")
+}
+
+func (x *ScreenFieldEntryNumericConstraintsForm) SetMaxValue(value string) {
+	x.Doc().SetFormField(x.Path(), "maxValue", value)
+}
+
+// ScreenFieldEntryTemporalConstraintsForm is the generated section facade for the `temporalConstraints` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenFieldEntryTemporalConstraintsForm struct {
+	som.SomNode
+}
+
+// NewScreenFieldEntryTemporalConstraintsForm binds a ScreenFieldEntryTemporalConstraintsForm facade to a document and a path.
+func NewScreenFieldEntryTemporalConstraintsForm(doc *som.SpecDocument, path string) *ScreenFieldEntryTemporalConstraintsForm {
+	return &ScreenFieldEntryTemporalConstraintsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenFieldEntryTemporalConstraintsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenFieldEntryTemporalConstraintsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenFieldEntryTemporalConstraintsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenFieldEntryTemporalConstraintsForm) EarliestValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "earliestValue")
+}
+
+func (x *ScreenFieldEntryTemporalConstraintsForm) SetEarliestValue(value string) {
+	x.Doc().SetFormField(x.Path(), "earliestValue", value)
+}
+
+func (x *ScreenFieldEntryTemporalConstraintsForm) LatestValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "latestValue")
+}
+
+func (x *ScreenFieldEntryTemporalConstraintsForm) SetLatestValue(value string) {
+	x.Doc().SetFormField(x.Path(), "latestValue", value)
+}
+
+// ScreenFieldEntryTextConstraintsForm is the generated section facade for the `textConstraints` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenFieldEntryTextConstraintsForm struct {
+	som.SomNode
+}
+
+// NewScreenFieldEntryTextConstraintsForm binds a ScreenFieldEntryTextConstraintsForm facade to a document and a path.
+func NewScreenFieldEntryTextConstraintsForm(doc *som.SpecDocument, path string) *ScreenFieldEntryTextConstraintsForm {
+	return &ScreenFieldEntryTextConstraintsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenFieldEntryTextConstraintsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenFieldEntryTextConstraintsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenFieldEntryTextConstraintsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenFieldEntryTextConstraintsForm) MinLength() string {
+	return x.Doc().FormFieldOr(x.Path(), "minLength")
+}
+
+func (x *ScreenFieldEntryTextConstraintsForm) SetMinLength(value string) {
+	x.Doc().SetFormField(x.Path(), "minLength", value)
+}
+
+func (x *ScreenFieldEntryTextConstraintsForm) MaxLength() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxLength")
+}
+
+func (x *ScreenFieldEntryTextConstraintsForm) SetMaxLength(value string) {
+	x.Doc().SetFormField(x.Path(), "maxLength", value)
+}
+
+func (x *ScreenFieldEntryTextConstraintsForm) Pattern() string {
+	return x.Doc().FormFieldOr(x.Path(), "pattern")
+}
+
+func (x *ScreenFieldEntryTextConstraintsForm) SetPattern(value string) {
+	x.Doc().SetFormField(x.Path(), "pattern", value)
+}
+
 // ScreenFieldEntryValidationForm is the generated section facade for the `validation` @Form section: its own
 // content text followed by one typed member per form field.
 type ScreenFieldEntryValidationForm struct {
@@ -171114,46 +172260,6 @@ func (x *ScreenFieldEntryValidationForm) Content() string {
 
 func (x *ScreenFieldEntryValidationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ScreenFieldEntryValidationForm) MinLength() string {
-	return x.Doc().FormFieldOr(x.Path(), "minLength")
-}
-
-func (x *ScreenFieldEntryValidationForm) SetMinLength(value string) {
-	x.Doc().SetFormField(x.Path(), "minLength", value)
-}
-
-func (x *ScreenFieldEntryValidationForm) MaxLength() string {
-	return x.Doc().FormFieldOr(x.Path(), "maxLength")
-}
-
-func (x *ScreenFieldEntryValidationForm) SetMaxLength(value string) {
-	x.Doc().SetFormField(x.Path(), "maxLength", value)
-}
-
-func (x *ScreenFieldEntryValidationForm) MinValue() string {
-	return x.Doc().FormFieldOr(x.Path(), "minValue")
-}
-
-func (x *ScreenFieldEntryValidationForm) SetMinValue(value string) {
-	x.Doc().SetFormField(x.Path(), "minValue", value)
-}
-
-func (x *ScreenFieldEntryValidationForm) MaxValue() string {
-	return x.Doc().FormFieldOr(x.Path(), "maxValue")
-}
-
-func (x *ScreenFieldEntryValidationForm) SetMaxValue(value string) {
-	x.Doc().SetFormField(x.Path(), "maxValue", value)
-}
-
-func (x *ScreenFieldEntryValidationForm) Pattern() string {
-	return x.Doc().FormFieldOr(x.Path(), "pattern")
-}
-
-func (x *ScreenFieldEntryValidationForm) SetPattern(value string) {
-	x.Doc().SetFormField(x.Path(), "pattern", value)
 }
 
 func (x *ScreenFieldEntryValidationForm) ValidationMessage() string {

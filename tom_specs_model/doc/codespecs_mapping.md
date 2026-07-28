@@ -3102,23 +3102,30 @@ families**:
 The "display-vs-input-vs-action facet split" is **not** a separate locus — it is
 the `@Case` grouping *within* site #1.
 
-**Family 2 — typed-value data-type unions (CE-FM / CE-DB). Latent, not yet
-converted (see quest todo `csra4`).** Each carries a free-text
-`dataType`/`fieldType` discriminator enumerating primitive kinds
-(`String | Integer | Decimal | Date | DateTime | Boolean | …`) followed by a
-**single jumbled `@Form`** mixing kind-specific attributes:
+**Family 2 — typed-value data-type unions (CE-FM / CE-DB). Converted.** Each
+site's free-text `dataType`/`fieldType` discriminator was **enum-promoted first**
+(per the "discriminator must be a model enum" rule), then its single jumbled
+`@Form` was split into per-kind `@Case` subsections, leaving only the
+type-independent attributes in the common subsection:
 
-| # | Section (member) | Doc | Discriminator | Latent per-kind attributes jumbled today |
-|---|------------------|-----|---------------|-------------------------------------------|
-| 3 | `DataAttributeEntry.dataTypeSpec` | D03 IMO | `dataType` (String…JSON/Binary) | length / precision / scale / collation / timezone / format |
-| 4 | `ReportColumnEntry.dataType` | D09 XDS | `dataType` | numeric formatting / date formatting / text alignment |
-| 5 | `ExportFieldMappingEntry.dataType` | D09 XDS | `dataType` | per-type transform / format |
-| 6 | `ReportFilterEntry.dataType` (+ `inputType`) | D09 XDS | filter value type | per-type input control + value bounds |
-| 7 | `ScreenFieldEntry.fieldType` | D04 RSP (`introduction_and_scope.dart`) | requirement-side field type | requirement-level per-type constraints (mirrors CE-FM) |
+| # | Section (member) | Doc | Discriminator enum | Case subsections |
+|---|------------------|-----|--------------------|------------------|
+| 3 | `DataAttributeEntry.dataTypeSpec` | D03 IMO | `DataAttributeKind` | `textTypeOptions` / `numericTypeOptions` / `temporalTypeOptions` / `binaryTypeOptions` |
+| 4 | `ReportColumnEntry.formatting` | D09 XDS | `ReportColumnKind` | `numericFormat` / `currencyFormat` / `dateFormat` / `booleanFormat` / `textFormat` |
+| 5 | `ExportFieldMappingEntry.formatting` | D09 XDS | `ExportFieldKind` | `numericOutput` / `temporalOutput` / `booleanOutput` / `enumerationOutput` / `textOutput` |
+| 6 | `ReportFilterEntry.input` | D09 XDS | `ReportFilterValueKind` | `textFilterOptions` / `numericFilterOptions` / `dateFilterOptions` / `booleanFilterOptions` / `selectFilterOptions` / `entityFilterOptions` — each carrying its own kind-appropriate `inputType` |
+| 7 | `ScreenFieldEntry` | D04 RSP (`introduction_and_scope.dart`) | `ScreenFieldKind` | `textConstraints` / `numericConstraints` / `temporalConstraints` / `choiceOptions` |
 
-Each Family-2 site needs the **enum promotion first** (free-text `dataType` → a
-model enum, per the "discriminator must be a model enum" rule), then the
-`@OneOf`/`@Case` split into per-kind subsections.
+Site 3 is also the case that proves the discriminator need not sit on `content`:
+`DataAttributeEntry` has no `content` member, so `dataType` lives in the `@Form`
+of the `dataTypeSpec` subsection. Both the static validator (`_allFormFields`)
+and the instance-tier check resolve a discriminator in either position.
+
+A kind that carries no extra attributes binds no case; the static validator
+reports the uncovered constants as a **warning**, which is the expected steady
+state for e.g. `DataAttributeKind.boolean`/`uuid`/`json`/`enumeration` (an
+enumerated attribute's value set is modelled by its `constraints` list, not by a
+type-specific options form) and `ScreenFieldKind.boolean`/`file`.
 
 **Ruled out after inspection:** `ObjectStateEntry.stateType` (`ObjectLifecycleKind`,
 D03 IMO) — its discriminator gates **common** attributes (entry/exit conditions,
@@ -3317,7 +3324,6 @@ is an index, not a specification.
 
 | Todo | Open work |
 |------|-----------|
-| `csra4` | Convert the five **Family 2** closed-choice sites (§8.2) — enum-promote each free-text `dataType`/`fieldType` discriminator, then apply the `@OneOf`/`@Case` split. |
 | `csra5` | Add the CE-NV **screen-flow** SOM section (§5.11) — form→screen assignment (replace vs popup overlay) and action-triggered navigation with *conditional* targets (success → confirmation / back; error → error display). Without it `@CsRoute` / `@CsScreenFlow` have no authoring home. |
 | `csra6` | Implement the `Cs*Ref` typed cross-part reference const family designed in §5.23 — currently designed, zero implementation. |
 | `csra7` | Promote or **permanently defer** CE-WF, CE-NT and CE-LG (§4.3), recording the rationale either way. Their SOM homes and `@CodeSpecKind` tags already exist; what is missing is a built-on class + `Cs*` annotation. All three inputs are now in hand: the `audit` module for CE-LG, the `messaging` module for CE-NT, and the **§4.3.1 workflow-substrate survey recommending permanent deferral** for CE-WF. |

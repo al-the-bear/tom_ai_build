@@ -996,18 +996,18 @@ historical orders remain reproducible.''');
     ..dataOwner = 'Head of Order Operations'
     ..sourceSystem = 'MOM';
   _attr(order.attributes.add(), 'orderId', 'order_id', 'Stable order identifier.',
-      'UUID', 'uuid', pii: false, sensitivity: 'Internal');
+      DataAttributeKind.uuid, 'uuid', pii: false, sensitivity: 'Internal');
   _attr(order.attributes.add(), 'customerId', 'customer_id',
-      'Reference to the ordering customer.', 'UUID', 'uuid',
+      'Reference to the ordering customer.', DataAttributeKind.uuid, 'uuid',
       pii: false, sensitivity: 'Internal');
   _attr(order.attributes.add(), 'channel', 'channel',
-      'Capture channel: EDI or REST.', 'Enum', 'varchar(8)',
+      'Capture channel: EDI or REST.', DataAttributeKind.enumeration, 'varchar(8)',
       pii: false, sensitivity: 'Internal');
   _attr(order.attributes.add(), 'status', 'status',
-      'Lifecycle state (Captured..Closed, with Hold).', 'Enum', 'varchar(16)',
+      'Lifecycle state (Captured..Closed, with Hold).', DataAttributeKind.enumeration, 'varchar(16)',
       pii: false, sensitivity: 'Internal');
   _attr(order.attributes.add(), 'createdAt', 'created_at',
-      'Capture timestamp (UTC).', 'Timestamp', 'timestamptz',
+      'Capture timestamp (UTC).', DataAttributeKind.dateTime, 'timestamptz',
       pii: false, sensitivity: 'Internal');
   _key(order.keyAttributes.add(), 'pk_order', 'Primary', 'order_id',
       'Primary key of the order.');
@@ -1027,17 +1027,17 @@ historical orders remain reproducible.''');
     ..dataOwner = 'Head of Order Operations'
     ..sourceSystem = 'MOM';
   _attr(line.attributes.add(), 'lineId', 'line_id', 'Stable line identifier.',
-      'UUID', 'uuid', pii: false, sensitivity: 'Internal');
+      DataAttributeKind.uuid, 'uuid', pii: false, sensitivity: 'Internal');
   _attr(line.attributes.add(), 'orderId', 'order_id',
-      'Owning order reference.', 'UUID', 'uuid',
+      'Owning order reference.', DataAttributeKind.uuid, 'uuid',
       pii: false, sensitivity: 'Internal');
   _attr(line.attributes.add(), 'productId', 'product_id',
-      'Referenced product.', 'UUID', 'uuid',
+      'Referenced product.', DataAttributeKind.uuid, 'uuid',
       pii: false, sensitivity: 'Internal');
   _attr(line.attributes.add(), 'quantity', 'quantity',
-      'Ordered quantity.', 'Integer', 'int', pii: false, sensitivity: 'Internal');
+      'Ordered quantity.', DataAttributeKind.integer, 'int', pii: false, sensitivity: 'Internal');
   _attr(line.attributes.add(), 'unitPrice', 'unit_price',
-      'Snapshotted unit price at pricing time.', 'Decimal', 'numeric(12,2)',
+      'Snapshotted unit price at pricing time.', DataAttributeKind.decimal, 'numeric(12,2)',
       pii: false, sensitivity: 'Internal');
   _key(line.keyAttributes.add(), 'pk_order_line', 'Primary', 'line_id',
       'Primary key of the order line.');
@@ -1061,13 +1061,13 @@ historical orders remain reproducible.''');
     ..dataOwner = 'Commercial'
     ..sourceSystem = 'MOM';
   _attr(customer.attributes.add(), 'customerId', 'customer_id',
-      'Stable customer identifier.', 'UUID', 'uuid',
+      'Stable customer identifier.', DataAttributeKind.uuid, 'uuid',
       pii: false, sensitivity: 'Internal');
   _attr(customer.attributes.add(), 'name', 'name',
-      'Customer legal name (PII).', 'String', 'varchar(200)',
+      'Customer legal name (PII).', DataAttributeKind.string, 'varchar(200)',
       pii: true, sensitivity: 'Confidential');
   _attr(customer.attributes.add(), 'creditLimit', 'credit_limit',
-      'Approved credit limit used by validation.', 'Decimal', 'numeric(14,2)',
+      'Approved credit limit used by validation.', DataAttributeKind.decimal, 'numeric(14,2)',
       pii: false, sensitivity: 'Confidential');
   _key(customer.keyAttributes.add(), 'pk_customer', 'Primary', 'customer_id',
       'Primary key of the customer.');
@@ -1087,13 +1087,13 @@ historical orders remain reproducible.''');
     ..dataOwner = 'Merchandising'
     ..sourceSystem = 'MOM';
   _attr(product.attributes.add(), 'productId', 'product_id',
-      'Stable product identifier.', 'UUID', 'uuid',
+      'Stable product identifier.', DataAttributeKind.uuid, 'uuid',
       pii: false, sensitivity: 'Internal');
   _attr(product.attributes.add(), 'sku', 'sku',
-      'Stock-keeping unit.', 'String', 'varchar(40)',
+      'Stock-keeping unit.', DataAttributeKind.string, 'varchar(40)',
       pii: false, sensitivity: 'Internal');
   _attr(product.attributes.add(), 'name', 'name',
-      'Product display name.', 'String', 'varchar(200)',
+      'Product display name.', DataAttributeKind.string, 'varchar(200)',
       pii: false, sensitivity: 'Internal');
   _key(product.keyAttributes.add(), 'pk_product', 'Primary', 'product_id',
       'Primary key of the product.');
@@ -1113,7 +1113,7 @@ historical orders remain reproducible.''');
 }
 
 void _attr(DataAttributeEntry a, String name, String column, String description,
-    String dataType, String physicalType,
+    DataAttributeKind dataType, String physicalType,
     {required bool pii, required String sensitivity}) {
   a.identity
     ..attributeName = name

@@ -219,6 +219,14 @@ section-types:
         max-count: 1
       scfiva:
         max-count: 1
+      scfivt:
+        max-count: 1
+      scfivn:
+        max-count: 1
+      scfivd:
+        max-count: 1
+      scfich:
+        max-count: 1
       scfila:
         max-count: 1
       fldvl-vali-lst:
@@ -429,6 +437,10 @@ section-types:
     prefix: RETRIM
     format: retrim-form
     description: Implementation and deployment tracking.
+  scfich:
+    prefix: SCFICH
+    format: scfich-form
+    description: "Choice-kind option source — a promoted `@OneOf` case (csra4)."
   scfico:
     prefix: SCFICO
     format: scfico-form
@@ -440,7 +452,19 @@ section-types:
   scfiva:
     prefix: SCFIVA
     format: scfiva-form
-    description: Validation rules.
+    description: Validation rules that apply whatever the field type is.
+  scfivd:
+    prefix: SCFIVD
+    format: scfivd-form
+    description: "Temporal-kind input constraints — a promoted `@OneOf` case (csra4)."
+  scfivn:
+    prefix: SCFIVN
+    format: scfivn-form
+    description: "Numeric-kind input constraints — a promoted `@OneOf` case (csra4)."
+  scfivt:
+    prefix: SCFIVT
+    format: scfivt-form
+    description: "Text-kind input constraints — a promoted `@OneOf` case (csra4)."
   dochd:
     prefix: DOCHD
     description: Standard TomSpecs document header.
@@ -721,24 +745,36 @@ form-types:
         description: Condition under which the field is visible
   scfiva-form:
     fields:
-      - fieldname: minLength
-        description: Minimum allowed input length
-      - fieldname: maxLength
-        description: Maximum allowed input length
-      - fieldname: minValue
-        description: Minimum allowed value
-      - fieldname: maxValue
-        description: Maximum allowed value
-      - fieldname: pattern
-        description: Regular expression the input must match
       - fieldname: validationMessage
         description: Message shown when validation fails
+  scfivt-form:
+    fields:
+      - fieldname: minLength
+        description: Minimum allowed input length in characters
+      - fieldname: maxLength
+        description: Maximum allowed input length in characters
+      - fieldname: pattern
+        description: Regular expression the input must match
+  scfivn-form:
+    fields:
+      - fieldname: minValue
+        description: Smallest value the field accepts
+      - fieldname: maxValue
+        description: Largest value the field accepts
+  scfivd-form:
+    fields:
+      - fieldname: earliestValue
+        description: "Earliest accepted date/time, absolute or relative (e.g. today)"
+      - fieldname: latestValue
+        description: "Latest accepted date/time, absolute or relative (e.g. today + 30d)"
+  scfich-form:
+    fields:
+      - fieldname: optionSource
+        description: "Where the options come from: static, API, or entity"
+      - fieldname: staticOptions
+        description: "The option values, when the source is static"
   scfila-form:
     fields:
-      - fieldname: dropdownSource
-        description: "Where dropdown options come from: static, API, or entity"
-      - fieldname: dropdownValues
-        description: Static list of dropdown values
       - fieldname: dependsOn
         description: Field IDs that affect this field
       - fieldname: width

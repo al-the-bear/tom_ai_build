@@ -15,6 +15,36 @@ import '../document_stubs.dart';
 /// form field (no `@OneOf`/`@Case` group).
 enum ObjectLifecycleKind { initial, intermediate, terminal, error }
 
+/// The closed set of logical attribute data types (`DataAttributeEntry`, csra4).
+///
+/// The discriminator enum for the `DataAttributeEntry` `@OneOf` group: it picks
+/// which type-specific options subsection applies — a text attribute carries
+/// `textTypeOptions`, a numeric one `numericTypeOptions`, a temporal one
+/// `temporalTypeOptions`, a binary one `binaryTypeOptions`. `boolean`, `uuid`,
+/// `json` and `enumeration` carry no per-kind attributes and so bind no case.
+/// Replaces the former free-text `dataType`.
+enum DataAttributeKind {
+  // Text facet.
+  string,
+  // Numeric facet.
+  integer,
+  decimal,
+  // Temporal facet.
+  date,
+  dateTime,
+  // Binary facet.
+  binary,
+  // No per-kind attributes.
+  boolean,
+  uuid,
+  json,
+
+  /// An attribute drawn from a declared value set. It binds no case because the
+  /// value set is modelled by the attribute's `constraints` list, not by a
+  /// type-specific options form.
+  enumeration,
+}
+
 /// 7. Business Object and Data Model. Seeds → IFM.
 @StandardReferences(
   [
@@ -586,6 +616,14 @@ class DataEntityEntry extends DocSpecsSection {
   'A single data attribute with its data type, constraints, derivation, security classification, lineage, and display properties.',
 )
 @SectionId('DAATT')
+@OneOf(
+  discriminator: 'dataType',
+  note:
+      'Attribute data-type closed choice (csra4): the logical type selects its '
+      'promoted options subsection (text / numeric / temporal / binary); '
+      'boolean, uuid and json carry only the common type and constraint '
+      'subsections.',
+)
 @CodeSpecKind([CodeSpecPart.dataAccess],
     note: 'A persisted attribute becomes a table column; display/label detail '
         'feeds CE-TX/CE-ST via DisplayPropertyEntry.')
@@ -631,47 +669,22 @@ class DataAttributeEntry extends DocSpecsSection {
   DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
-  // Data Type Specification (8 fields)
+  // Data Type Specification — the @OneOf discriminator plus the attributes
+  // that apply to every logical type (csra4).
   // ---------------------------------------------------------------------------
   @SectionId('DAATT-DATA')
   @Form([
     Field(
       'dataType',
-      String,
+      DataAttributeKind,
       'Data Type',
-      hint:
-          'Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary',
+      hint: 'The logical type — selects the promoted options subsection.',
     ),
     Field(
       'physicalType',
       String,
       'Physical Type',
       hint: 'Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP',
-    ),
-    Field(
-      'length',
-      String,
-      'Length/Size',
-      hint: 'Maximum length for strings or size for binary',
-    ),
-    Field(
-      'precision',
-      String,
-      'Precision',
-      hint: 'Total digits for numeric types',
-    ),
-    Field('scale', String, 'Scale', hint: 'Decimal places for numeric types'),
-    Field(
-      'collation',
-      String,
-      'Collation',
-      hint: 'Character collation for text (e.g., utf8_general_ci)',
-    ),
-    Field(
-      'timezone',
-      String,
-      'Timezone',
-      hint: 'For datetime: UTC | Local | WithOffset',
     ),
     Field(
       'format',
@@ -683,6 +696,115 @@ class DataAttributeEntry extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? dataTypeSpec;
 
+  /// Text-kind type options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for the `string` logical type; carries only the character
+  /// length and collation attributes (no numeric precision, no timezone).
+  @SectionId('DAATT-DTTX')
+  @StandardReferences(
+    [
+      'ISO/IEC 11179 — permissible value and representation of a data element',
+      'ISO/IEC 25012 — data quality characteristics for stored text',
+    ],
+    'The character length and collation constraints for a text attribute.',
+  )
+  @Case(DataAttributeKind.string)
+  @Form([
+    Field(
+      'length',
+      String,
+      'Length',
+      hint: 'Maximum character length',
+    ),
+    Field(
+      'collation',
+      String,
+      'Collation',
+      hint: 'Character collation for text (e.g., utf8_general_ci)',
+    ),
+  ])
+  @SerializationOrder(2)
+  DocSpecsSection? textTypeOptions;
+
+  /// Numeric-kind type options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for numeric logical types; carries only the precision and
+  /// scale attributes (no length, collation or timezone).
+  @SectionId('DAATT-DTNU')
+  @StandardReferences(
+    [
+      'ISO/IEC 11179 — permissible value and representation of a data element',
+      'ISO 80000-1 — quantities and units, on numeric precision',
+    ],
+    'The precision and scale constraints for a numeric attribute.',
+  )
+  @Case(DataAttributeKind.integer)
+  @Case(DataAttributeKind.decimal)
+  @Form([
+    Field(
+      'precision',
+      String,
+      'Precision',
+      hint: 'Total digits for numeric types',
+    ),
+    Field('scale', String, 'Scale', hint: 'Decimal places for numeric types'),
+  ])
+  @SerializationOrder(3)
+  DocSpecsSection? numericTypeOptions;
+
+  /// Temporal-kind type options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for date/time logical types; carries only the timezone
+  /// handling attribute.
+  @SectionId('DAATT-DTTM')
+  @StandardReferences(
+    [
+      'ISO 8601-1:2019 — representation of dates and times',
+      'ISO 8601-2:2019 — extensions including time-zone offsets',
+    ],
+    'The timezone handling for a date or date-time attribute.',
+  )
+  @Case(DataAttributeKind.date)
+  @Case(DataAttributeKind.dateTime)
+  @Form([
+    Field(
+      'timezone',
+      String,
+      'Timezone',
+      hint: 'For datetime: UTC | Local | WithOffset',
+    ),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? temporalTypeOptions;
+
+  /// Binary-kind type options — a promoted `@OneOf` case (csra4).
+  ///
+  /// Present only for the `binary` logical type; carries only the stored size
+  /// attributes. Separated from the text `length` because a byte size and a
+  /// character length are different constraints on different types.
+  @SectionId('DAATT-DTBI')
+  @StandardReferences(
+    ['ISO/IEC 11179 — permissible value and representation of a data element'],
+    'The stored size constraints for a binary attribute.',
+  )
+  @Case(DataAttributeKind.binary)
+  @Form([
+    Field(
+      'maxSizeBytes',
+      String,
+      'Max Size (Bytes)',
+      hint: 'Maximum stored size in bytes',
+    ),
+    Field(
+      'storageMode',
+      String,
+      'Storage Mode',
+      hint: 'Inline | External-Reference | Blob-Store',
+    ),
+  ])
+  @SerializationOrder(5)
+  DocSpecsSection? binaryTypeOptions;
+
   // ---------------------------------------------------------------------------
   // Constraints and Validation (8 fields)
   // ---------------------------------------------------------------------------
@@ -693,7 +815,7 @@ class DataAttributeEntry extends DocSpecsSection {
   @SectionId('DATAA-CONS-LST')
   @SectionIdPattern('DATAA-CONS-xxx')
   @ContentHelp('Add one entry per attribute constraint.')
-  @SerializationOrder(2)
+  @SerializationOrder(6)
   List<DataAttributeConstraintEntry> constraints = [];
 
   // ---------------------------------------------------------------------------
@@ -726,7 +848,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'How derived value is calculated',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(7)
   DocSpecsSection? derivation;
 
   // ---------------------------------------------------------------------------
@@ -765,7 +887,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Change tracking: None | ValueChanges | FullHistory',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(8)
   DocSpecsSection? securityClassification;
 
   // ---------------------------------------------------------------------------
@@ -804,7 +926,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Data quality checks (e.g., completeness, accuracy)',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(9)
   DocSpecsSection? migrationLineage;
 
   // ---------------------------------------------------------------------------
@@ -817,7 +939,7 @@ class DataAttributeEntry extends DocSpecsSection {
   @SectionId('DISPL-DISP-LST')
   @SectionIdPattern('DISPL-DISP-xxx')
   @ContentHelp('Add one entry per display property.')
-  @SerializationOrder(6)
+  @SerializationOrder(10)
   List<DisplayPropertyEntry> displayProperties = [];
 }
 

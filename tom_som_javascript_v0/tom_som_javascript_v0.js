@@ -9247,6 +9247,39 @@ class DataAttributeEntry extends SomNode {
     return new DataAttributeEntryDataTypeSpecForm(this.doc, this.path + "/DAATT-DATA");
   }
 
+  // Text-kind type options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for the `string` logical type; carries only the character
+  // length and collation attributes (no numeric precision, no timezone).
+  get textTypeOptions() {
+    return new DataAttributeEntryTextTypeOptionsForm(this.doc, this.path + "/DAATT-DTTX");
+  }
+
+  // Numeric-kind type options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for numeric logical types; carries only the precision and
+  // scale attributes (no length, collation or timezone).
+  get numericTypeOptions() {
+    return new DataAttributeEntryNumericTypeOptionsForm(this.doc, this.path + "/DAATT-DTNU");
+  }
+
+  // Temporal-kind type options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for date/time logical types; carries only the timezone
+  // handling attribute.
+  get temporalTypeOptions() {
+    return new DataAttributeEntryTemporalTypeOptionsForm(this.doc, this.path + "/DAATT-DTTM");
+  }
+
+  // Binary-kind type options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for the `binary` logical type; carries only the stored size
+  // attributes. Separated from the text `length` because a byte size and a
+  // character length are different constraints on different types.
+  get binaryTypeOptions() {
+    return new DataAttributeEntryBinaryTypeOptionsForm(this.doc, this.path + "/DAATT-DTBI");
+  }
+
   get constraints() {
     return new SomList(this.doc, this.path + "/DATAA-CONS-LST", (d, p) => new DataAttributeConstraintEntry(d, p), "DATAA-CONS-xxx");
   }
@@ -14275,6 +14308,47 @@ class ExportFieldMappingEntry extends SomNode {
   // Ordering and formatting settings.
   get formatting() {
     return new ExportFieldMappingEntryFormattingForm(this.doc, this.path + "/EFMEF");
+  }
+
+  // Numeric-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for integer and decimal fields; carries only the numeric
+  // output pattern and separators.
+  get numericOutput() {
+    return new ExportFieldMappingEntryNumericOutputForm(this.doc, this.path + "/EFMEFN");
+  }
+
+  // Temporal-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for date and date-time fields; carries only the temporal
+  // output pattern and timezone handling.
+  get temporalOutput() {
+    return new ExportFieldMappingEntryTemporalOutputForm(this.doc, this.path + "/EFMEFD");
+  }
+
+  // Boolean-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for boolean fields; this is the only case in which the
+  // emitted true/false literals are meaningful.
+  get booleanOutput() {
+    return new ExportFieldMappingEntryBooleanOutputForm(this.doc, this.path + "/EFMEFB");
+  }
+
+  // Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for enumeration fields; carries which face of the value set
+  // is emitted and what happens to a value outside it.
+  get enumerationOutput() {
+    return new ExportFieldMappingEntryEnumerationOutputForm(this.doc, this.path + "/EFMEFE");
+  }
+
+  // Text-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for text fields; carries the character-length truncation
+  // that only a string field can have. Moved out of `inclusion`, where it sat
+  // beside type-independent default and inclusion rules.
+  get textOutput() {
+    return new ExportFieldMappingEntryTextOutputForm(this.doc, this.path + "/EFMEFT");
   }
 
   // Transformation rules.
@@ -26063,6 +26137,45 @@ class ReportColumnEntry extends SomNode {
     return new ReportColumnEntryFormattingForm(this.doc, this.path + "/RECOFO");
   }
 
+  // Numeric-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for integer and decimal columns; carries only the numeric
+  // display pattern (no currency code, no boolean labels).
+  get numericFormat() {
+    return new ReportColumnEntryNumericFormatForm(this.doc, this.path + "/RECOFN");
+  }
+
+  // Currency-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for currency columns; this is the only case in which a
+  // currency code is meaningful.
+  get currencyFormat() {
+    return new ReportColumnEntryCurrencyFormatForm(this.doc, this.path + "/RECOFC");
+  }
+
+  // Date-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for date columns; carries only the temporal display pattern.
+  get dateFormat() {
+    return new ReportColumnEntryDateFormatForm(this.doc, this.path + "/RECOFD");
+  }
+
+  // Boolean-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for boolean columns; this is the only case in which the
+  // true/false display labels are meaningful.
+  get booleanFormat() {
+    return new ReportColumnEntryBooleanFormatForm(this.doc, this.path + "/RECOFB");
+  }
+
+  // Text-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for text columns; carries only the overflow handling a
+  // variable-length string column needs.
+  get textFormat() {
+    return new ReportColumnEntryTextFormatForm(this.doc, this.path + "/RECOFT");
+  }
+
   // Aggregation settings.
   get aggregation() {
     return new ReportColumnEntryAggregationForm(this.doc, this.path + "/RECOAG");
@@ -26209,6 +26322,56 @@ class ReportFilterEntry extends SomNode {
   // Input and value configuration.
   get input() {
     return new ReportFilterEntryInputForm(this.doc, this.path + "/RFEI");
+  }
+
+  // Text-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for text filters; carries the free-text control and its
+  // match semantics (no value source, no date bounds).
+  get textFilterOptions() {
+    return new ReportFilterEntryTextFilterOptionsForm(this.doc, this.path + "/RFEIT");
+  }
+
+  // Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for numeric filters; carries the numeric control and its
+  // value bounds.
+  get numericFilterOptions() {
+    return new ReportFilterEntryNumericFilterOptionsForm(this.doc, this.path + "/RFEIN");
+  }
+
+  // Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for date/date-time filters; carries the temporal control —
+  // including the range picker that the former free-text `DateRange` type
+  // stood for — and the selectable window.
+  get dateFilterOptions() {
+    return new ReportFilterEntryDateFilterOptionsForm(this.doc, this.path + "/RFEID");
+  }
+
+  // Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for boolean filters; carries only the two-valued control.
+  get booleanFilterOptions() {
+    return new ReportFilterEntryBooleanFilterOptionsForm(this.doc, this.path + "/RFEIB");
+  }
+
+  // Selection-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for enumeration filters; this is the only case in which a
+  // value source, static value list, cascade parent and multi-select are
+  // meaningful.
+  get selectFilterOptions() {
+    return new ReportFilterEntrySelectFilterOptionsForm(this.doc, this.path + "/RFEIS");
+  }
+
+  // Entity-reference filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for entity-reference filters; carries the lookup control and
+  // the entity query that backs it. Distinct from the enumeration case
+  // because the value set is resolved from an entity, not a declared list.
+  get entityFilterOptions() {
+    return new ReportFilterEntryEntityFilterOptionsForm(this.doc, this.path + "/RFEIE");
   }
 
   // Scope and validation behavior.
@@ -28801,9 +28964,32 @@ class ScreenFieldEntry extends SomNode {
     return new ScreenFieldEntryConditionsForm(this.doc, this.path + "/SCFICO");
   }
 
-  // Validation rules.
+  // Validation rules that apply whatever the field type is.
   get validation() {
     return new ScreenFieldEntryValidationForm(this.doc, this.path + "/SCFIVA");
+  }
+
+  // Text-kind input constraints — a promoted `@OneOf` case (csra4).
+  get textConstraints() {
+    return new ScreenFieldEntryTextConstraintsForm(this.doc, this.path + "/SCFIVT");
+  }
+
+  // Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+  get numericConstraints() {
+    return new ScreenFieldEntryNumericConstraintsForm(this.doc, this.path + "/SCFIVN");
+  }
+
+  // Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+  //
+  // Kept apart from [numericConstraints] because a date boundary is expressed
+  // as a date or a relative expression ("today + 30d"), not as a number.
+  get temporalConstraints() {
+    return new ScreenFieldEntryTemporalConstraintsForm(this.doc, this.path + "/SCFIVD");
+  }
+
+  // Choice-kind option source — a promoted `@OneOf` case (csra4).
+  get choiceOptions() {
+    return new ScreenFieldEntryChoiceOptionsForm(this.doc, this.path + "/SCFICH");
   }
 
   // UI and layout.
@@ -65776,6 +65962,41 @@ class DataAttributeConstraintEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `binaryTypeOptions` @Form section: its own content text followed by one typed member per form field.
+class DataAttributeEntryBinaryTypeOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get maxSizeBytes() {
+    return this.doc.formField(this.path, "maxSizeBytes") || '';
+  }
+
+  set maxSizeBytes(value) {
+    this.doc.setFormField(this.path, "maxSizeBytes", value);
+  }
+
+  get storageMode() {
+    return this.doc.formField(this.path, "storageMode") || '';
+  }
+
+  set storageMode(value) {
+    this.doc.setFormField(this.path, "storageMode", value);
+  }
+}
+
 // Generated section facade for the `dataTypeSpec` @Form section: its own content text followed by one typed member per form field.
 class DataAttributeEntryDataTypeSpecForm extends SomNode {
   constructor(doc, path) {
@@ -65808,46 +66029,6 @@ class DataAttributeEntryDataTypeSpecForm extends SomNode {
 
   set physicalType(value) {
     this.doc.setFormField(this.path, "physicalType", value);
-  }
-
-  get length() {
-    return this.doc.formField(this.path, "length") || '';
-  }
-
-  set length(value) {
-    this.doc.setFormField(this.path, "length", value);
-  }
-
-  get precision() {
-    return this.doc.formField(this.path, "precision") || '';
-  }
-
-  set precision(value) {
-    this.doc.setFormField(this.path, "precision", value);
-  }
-
-  get scale() {
-    return this.doc.formField(this.path, "scale") || '';
-  }
-
-  set scale(value) {
-    this.doc.setFormField(this.path, "scale", value);
-  }
-
-  get collation() {
-    return this.doc.formField(this.path, "collation") || '';
-  }
-
-  set collation(value) {
-    this.doc.setFormField(this.path, "collation", value);
-  }
-
-  get timezone() {
-    return this.doc.formField(this.path, "timezone") || '';
-  }
-
-  set timezone(value) {
-    this.doc.setFormField(this.path, "timezone", value);
   }
 
   get format() {
@@ -66028,6 +66209,41 @@ class DataAttributeEntryMigrationLineageForm extends SomNode {
   }
 }
 
+// Generated section facade for the `numericTypeOptions` @Form section: its own content text followed by one typed member per form field.
+class DataAttributeEntryNumericTypeOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get precision() {
+    return this.doc.formField(this.path, "precision") || '';
+  }
+
+  set precision(value) {
+    this.doc.setFormField(this.path, "precision", value);
+  }
+
+  get scale() {
+    return this.doc.formField(this.path, "scale") || '';
+  }
+
+  set scale(value) {
+    this.doc.setFormField(this.path, "scale", value);
+  }
+}
+
 // Generated section facade for the `securityClassification` @Form section: its own content text followed by one typed member per form field.
 class DataAttributeEntrySecurityClassificationForm extends SomNode {
   constructor(doc, path) {
@@ -66084,6 +66300,68 @@ class DataAttributeEntrySecurityClassificationForm extends SomNode {
 
   set auditLevel(value) {
     this.doc.setFormField(this.path, "auditLevel", value);
+  }
+}
+
+// Generated section facade for the `temporalTypeOptions` @Form section: its own content text followed by one typed member per form field.
+class DataAttributeEntryTemporalTypeOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get timezone() {
+    return this.doc.formField(this.path, "timezone") || '';
+  }
+
+  set timezone(value) {
+    this.doc.setFormField(this.path, "timezone", value);
+  }
+}
+
+// Generated section facade for the `textTypeOptions` @Form section: its own content text followed by one typed member per form field.
+class DataAttributeEntryTextTypeOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get length() {
+    return this.doc.formField(this.path, "length") || '';
+  }
+
+  set length(value) {
+    this.doc.setFormField(this.path, "length", value);
+  }
+
+  get collation() {
+    return this.doc.formField(this.path, "collation") || '';
+  }
+
+  set collation(value) {
+    this.doc.setFormField(this.path, "collation", value);
   }
 }
 
@@ -85509,6 +85787,41 @@ class ExpectedImprovementsContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `booleanOutput` @Form section: its own content text followed by one typed member per form field.
+class ExportFieldMappingEntryBooleanOutputForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get trueLiteral() {
+    return this.doc.formField(this.path, "trueLiteral") || '';
+  }
+
+  set trueLiteral(value) {
+    this.doc.setFormField(this.path, "trueLiteral", value);
+  }
+
+  get falseLiteral() {
+    return this.doc.formField(this.path, "falseLiteral") || '';
+  }
+
+  set falseLiteral(value) {
+    this.doc.setFormField(this.path, "falseLiteral", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class ExportFieldMappingEntryContentForm extends SomNode {
   constructor(doc, path) {
@@ -85552,6 +85865,41 @@ class ExportFieldMappingEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `enumerationOutput` @Form section: its own content text followed by one typed member per form field.
+class ExportFieldMappingEntryEnumerationOutputForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get emittedForm() {
+    return this.doc.formField(this.path, "emittedForm") || '';
+  }
+
+  set emittedForm(value) {
+    this.doc.setFormField(this.path, "emittedForm", value);
+  }
+
+  get unmappedValueBehavior() {
+    return this.doc.formField(this.path, "unmappedValueBehavior") || '';
+  }
+
+  set unmappedValueBehavior(value) {
+    this.doc.setFormField(this.path, "unmappedValueBehavior", value);
+  }
+}
+
 // Generated section facade for the `formatting` @Form section: its own content text followed by one typed member per form field.
 class ExportFieldMappingEntryFormattingForm extends SomNode {
   constructor(doc, path) {
@@ -85585,14 +85933,6 @@ class ExportFieldMappingEntryFormattingForm extends SomNode {
 
   set dataType(value) {
     this.doc.setFormField(this.path, "dataType", value);
-  }
-
-  get formatPattern() {
-    return this.doc.formField(this.path, "formatPattern") || '';
-  }
-
-  set formatPattern(value) {
-    this.doc.setFormField(this.path, "formatPattern", value);
   }
 }
 
@@ -85636,15 +85976,6 @@ class ExportFieldMappingEntryInclusionForm extends SomNode {
 
   set inclusionCondition(value) {
     this.doc.setFormField(this.path, "inclusionCondition", value);
-  }
-
-  get maxLength() {
-    const v = this.doc.formField(this.path, "maxLength");
-    return v == null || v === '' ? null : Number.parseInt(v, 10);
-  }
-
-  set maxLength(value) {
-    this.doc.setFormField(this.path, "maxLength", value == null ? '' : String(value));
   }
 }
 
@@ -85705,6 +86036,112 @@ class ExportFieldMappingEntryLayoutForm extends SomNode {
 
   set notes(value) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `numericOutput` @Form section: its own content text followed by one typed member per form field.
+class ExportFieldMappingEntryNumericOutputForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get formatPattern() {
+    return this.doc.formField(this.path, "formatPattern") || '';
+  }
+
+  set formatPattern(value) {
+    this.doc.setFormField(this.path, "formatPattern", value);
+  }
+
+  get decimalSeparator() {
+    return this.doc.formField(this.path, "decimalSeparator") || '';
+  }
+
+  set decimalSeparator(value) {
+    this.doc.setFormField(this.path, "decimalSeparator", value);
+  }
+}
+
+// Generated section facade for the `temporalOutput` @Form section: its own content text followed by one typed member per form field.
+class ExportFieldMappingEntryTemporalOutputForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get formatPattern() {
+    return this.doc.formField(this.path, "formatPattern") || '';
+  }
+
+  set formatPattern(value) {
+    this.doc.setFormField(this.path, "formatPattern", value);
+  }
+
+  get timezoneHandling() {
+    return this.doc.formField(this.path, "timezoneHandling") || '';
+  }
+
+  set timezoneHandling(value) {
+    this.doc.setFormField(this.path, "timezoneHandling", value);
+  }
+}
+
+// Generated section facade for the `textOutput` @Form section: its own content text followed by one typed member per form field.
+class ExportFieldMappingEntryTextOutputForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get maxLength() {
+    const v = this.doc.formField(this.path, "maxLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxLength(value) {
+    this.doc.setFormField(this.path, "maxLength", value == null ? '' : String(value));
+  }
+
+  get padding() {
+    return this.doc.formField(this.path, "padding") || '';
+  }
+
+  set padding(value) {
+    this.doc.setFormField(this.path, "padding", value);
   }
 }
 
@@ -133002,6 +133439,41 @@ class ReportColumnEntryAggregationForm extends SomNode {
   }
 }
 
+// Generated section facade for the `booleanFormat` @Form section: its own content text followed by one typed member per form field.
+class ReportColumnEntryBooleanFormatForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get booleanTrueDisplay() {
+    return this.doc.formField(this.path, "booleanTrueDisplay") || '';
+  }
+
+  set booleanTrueDisplay(value) {
+    this.doc.setFormField(this.path, "booleanTrueDisplay", value);
+  }
+
+  get booleanFalseDisplay() {
+    return this.doc.formField(this.path, "booleanFalseDisplay") || '';
+  }
+
+  set booleanFalseDisplay(value) {
+    this.doc.setFormField(this.path, "booleanFalseDisplay", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class ReportColumnEntryContentForm extends SomNode {
   constructor(doc, path) {
@@ -133045,6 +133517,49 @@ class ReportColumnEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `currencyFormat` @Form section: its own content text followed by one typed member per form field.
+class ReportColumnEntryCurrencyFormatForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get formatPattern() {
+    return this.doc.formField(this.path, "formatPattern") || '';
+  }
+
+  set formatPattern(value) {
+    this.doc.setFormField(this.path, "formatPattern", value);
+  }
+
+  get currencyCode() {
+    return this.doc.formField(this.path, "currencyCode") || '';
+  }
+
+  set currencyCode(value) {
+    this.doc.setFormField(this.path, "currencyCode", value);
+  }
+
+  get symbolPosition() {
+    return this.doc.formField(this.path, "symbolPosition") || '';
+  }
+
+  set symbolPosition(value) {
+    this.doc.setFormField(this.path, "symbolPosition", value);
+  }
+}
+
 // Generated section facade for the `dataSource` @Form section: its own content text followed by one typed member per form field.
 class ReportColumnEntryDataSourceForm extends SomNode {
   constructor(doc, path) {
@@ -133077,6 +133592,41 @@ class ReportColumnEntryDataSourceForm extends SomNode {
 
   set dataType(value) {
     this.doc.setFormField(this.path, "dataType", value);
+  }
+}
+
+// Generated section facade for the `dateFormat` @Form section: its own content text followed by one typed member per form field.
+class ReportColumnEntryDateFormatForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get formatPattern() {
+    return this.doc.formField(this.path, "formatPattern") || '';
+  }
+
+  set formatPattern(value) {
+    this.doc.setFormField(this.path, "formatPattern", value);
+  }
+
+  get timezoneDisplay() {
+    return this.doc.formField(this.path, "timezoneDisplay") || '';
+  }
+
+  set timezoneDisplay(value) {
+    this.doc.setFormField(this.path, "timezoneDisplay", value);
   }
 }
 
@@ -133131,44 +133681,12 @@ class ReportColumnEntryFormattingForm extends SomNode {
     this.doc.setFormField(this.path, "verticalAlignment", value);
   }
 
-  get formatPattern() {
-    return this.doc.formField(this.path, "formatPattern") || '';
-  }
-
-  set formatPattern(value) {
-    this.doc.setFormField(this.path, "formatPattern", value);
-  }
-
-  get currencyCode() {
-    return this.doc.formField(this.path, "currencyCode") || '';
-  }
-
-  set currencyCode(value) {
-    this.doc.setFormField(this.path, "currencyCode", value);
-  }
-
   get nullDisplay() {
     return this.doc.formField(this.path, "nullDisplay") || '';
   }
 
   set nullDisplay(value) {
     this.doc.setFormField(this.path, "nullDisplay", value);
-  }
-
-  get booleanTrueDisplay() {
-    return this.doc.formField(this.path, "booleanTrueDisplay") || '';
-  }
-
-  set booleanTrueDisplay(value) {
-    this.doc.setFormField(this.path, "booleanTrueDisplay", value);
-  }
-
-  get booleanFalseDisplay() {
-    return this.doc.formField(this.path, "booleanFalseDisplay") || '';
-  }
-
-  set booleanFalseDisplay(value) {
-    this.doc.setFormField(this.path, "booleanFalseDisplay", value);
   }
 }
 
@@ -133264,6 +133782,77 @@ class ReportColumnEntryLayoutForm extends SomNode {
 
   set notes(value) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `numericFormat` @Form section: its own content text followed by one typed member per form field.
+class ReportColumnEntryNumericFormatForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get formatPattern() {
+    return this.doc.formField(this.path, "formatPattern") || '';
+  }
+
+  set formatPattern(value) {
+    this.doc.setFormField(this.path, "formatPattern", value);
+  }
+
+  get negativeDisplay() {
+    return this.doc.formField(this.path, "negativeDisplay") || '';
+  }
+
+  set negativeDisplay(value) {
+    this.doc.setFormField(this.path, "negativeDisplay", value);
+  }
+}
+
+// Generated section facade for the `textFormat` @Form section: its own content text followed by one typed member per form field.
+class ReportColumnEntryTextFormatForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get overflowBehavior() {
+    return this.doc.formField(this.path, "overflowBehavior") || '';
+  }
+
+  set overflowBehavior(value) {
+    this.doc.setFormField(this.path, "overflowBehavior", value);
+  }
+
+  get maxDisplayLength() {
+    const v = this.doc.formField(this.path, "maxDisplayLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxDisplayLength(value) {
+    this.doc.setFormField(this.path, "maxDisplayLength", value == null ? '' : String(value));
   }
 }
 
@@ -134185,6 +134774,41 @@ class ReportFilterEntryBehaviorForm extends SomNode {
   }
 }
 
+// Generated section facade for the `booleanFilterOptions` @Form section: its own content text followed by one typed member per form field.
+class ReportFilterEntryBooleanFilterOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get inputType() {
+    return this.doc.formField(this.path, "inputType") || '';
+  }
+
+  set inputType(value) {
+    this.doc.setFormField(this.path, "inputType", value);
+  }
+
+  get includeIndeterminate() {
+    return this.doc.formField(this.path, "includeIndeterminate") || '';
+  }
+
+  set includeIndeterminate(value) {
+    this.doc.setFormField(this.path, "includeIndeterminate", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class ReportFilterEntryContentForm extends SomNode {
   constructor(doc, path) {
@@ -134228,6 +134852,100 @@ class ReportFilterEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `dateFilterOptions` @Form section: its own content text followed by one typed member per form field.
+class ReportFilterEntryDateFilterOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get inputType() {
+    return this.doc.formField(this.path, "inputType") || '';
+  }
+
+  set inputType(value) {
+    this.doc.setFormField(this.path, "inputType", value);
+  }
+
+  get earliestDate() {
+    return this.doc.formField(this.path, "earliestDate") || '';
+  }
+
+  set earliestDate(value) {
+    this.doc.setFormField(this.path, "earliestDate", value);
+  }
+
+  get latestDate() {
+    return this.doc.formField(this.path, "latestDate") || '';
+  }
+
+  set latestDate(value) {
+    this.doc.setFormField(this.path, "latestDate", value);
+  }
+}
+
+// Generated section facade for the `entityFilterOptions` @Form section: its own content text followed by one typed member per form field.
+class ReportFilterEntryEntityFilterOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get inputType() {
+    return this.doc.formField(this.path, "inputType") || '';
+  }
+
+  set inputType(value) {
+    this.doc.setFormField(this.path, "inputType", value);
+  }
+
+  get entityType() {
+    return this.doc.formField(this.path, "entityType") || '';
+  }
+
+  set entityType(value) {
+    this.doc.setFormField(this.path, "entityType", value);
+  }
+
+  get queryFilter() {
+    return this.doc.formField(this.path, "queryFilter") || '';
+  }
+
+  set queryFilter(value) {
+    this.doc.setFormField(this.path, "queryFilter", value);
+  }
+
+  get displayAttribute() {
+    return this.doc.formField(this.path, "displayAttribute") || '';
+  }
+
+  set displayAttribute(value) {
+    this.doc.setFormField(this.path, "displayAttribute", value);
+  }
+}
+
 // Generated section facade for the `input` @Form section: its own content text followed by one typed member per form field.
 class ReportFilterEntryInputForm extends SomNode {
   constructor(doc, path) {
@@ -134254,6 +134972,33 @@ class ReportFilterEntryInputForm extends SomNode {
     this.doc.setFormField(this.path, "dataType", value);
   }
 
+  get defaultValue() {
+    return this.doc.formField(this.path, "defaultValue") || '';
+  }
+
+  set defaultValue(value) {
+    this.doc.setFormField(this.path, "defaultValue", value);
+  }
+}
+
+// Generated section facade for the `numericFilterOptions` @Form section: its own content text followed by one typed member per form field.
+class ReportFilterEntryNumericFilterOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
   get inputType() {
     return this.doc.formField(this.path, "inputType") || '';
   }
@@ -134262,44 +135007,20 @@ class ReportFilterEntryInputForm extends SomNode {
     this.doc.setFormField(this.path, "inputType", value);
   }
 
-  get defaultValue() {
-    return this.doc.formField(this.path, "defaultValue") || '';
+  get minValue() {
+    return this.doc.formField(this.path, "minValue") || '';
   }
 
-  set defaultValue(value) {
-    this.doc.setFormField(this.path, "defaultValue", value);
+  set minValue(value) {
+    this.doc.setFormField(this.path, "minValue", value);
   }
 
-  get availableValuesSource() {
-    return this.doc.formField(this.path, "availableValuesSource") || '';
+  get maxValue() {
+    return this.doc.formField(this.path, "maxValue") || '';
   }
 
-  set availableValuesSource(value) {
-    this.doc.setFormField(this.path, "availableValuesSource", value);
-  }
-
-  get staticValues() {
-    return this.doc.formField(this.path, "staticValues") || '';
-  }
-
-  set staticValues(value) {
-    this.doc.setFormField(this.path, "staticValues", value);
-  }
-
-  get cascadeParent() {
-    return this.doc.formField(this.path, "cascadeParent") || '';
-  }
-
-  set cascadeParent(value) {
-    this.doc.setFormField(this.path, "cascadeParent", value);
-  }
-
-  get multiSelect() {
-    return this.doc.formField(this.path, "multiSelect") || '';
-  }
-
-  set multiSelect(value) {
-    this.doc.setFormField(this.path, "multiSelect", value);
+  set maxValue(value) {
+    this.doc.setFormField(this.path, "maxValue", value);
   }
 }
 
@@ -134351,6 +135072,109 @@ class ReportFilterEntryPresentationForm extends SomNode {
 
   set notes(value) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `selectFilterOptions` @Form section: its own content text followed by one typed member per form field.
+class ReportFilterEntrySelectFilterOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get inputType() {
+    return this.doc.formField(this.path, "inputType") || '';
+  }
+
+  set inputType(value) {
+    this.doc.setFormField(this.path, "inputType", value);
+  }
+
+  get availableValuesSource() {
+    return this.doc.formField(this.path, "availableValuesSource") || '';
+  }
+
+  set availableValuesSource(value) {
+    this.doc.setFormField(this.path, "availableValuesSource", value);
+  }
+
+  get staticValues() {
+    return this.doc.formField(this.path, "staticValues") || '';
+  }
+
+  set staticValues(value) {
+    this.doc.setFormField(this.path, "staticValues", value);
+  }
+
+  get cascadeParent() {
+    return this.doc.formField(this.path, "cascadeParent") || '';
+  }
+
+  set cascadeParent(value) {
+    this.doc.setFormField(this.path, "cascadeParent", value);
+  }
+
+  get multiSelect() {
+    return this.doc.formField(this.path, "multiSelect") || '';
+  }
+
+  set multiSelect(value) {
+    this.doc.setFormField(this.path, "multiSelect", value);
+  }
+}
+
+// Generated section facade for the `textFilterOptions` @Form section: its own content text followed by one typed member per form field.
+class ReportFilterEntryTextFilterOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get inputType() {
+    return this.doc.formField(this.path, "inputType") || '';
+  }
+
+  set inputType(value) {
+    this.doc.setFormField(this.path, "inputType", value);
+  }
+
+  get matchMode() {
+    return this.doc.formField(this.path, "matchMode") || '';
+  }
+
+  set matchMode(value) {
+    this.doc.setFormField(this.path, "matchMode", value);
+  }
+
+  get maxLength() {
+    const v = this.doc.formField(this.path, "maxLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxLength(value) {
+    this.doc.setFormField(this.path, "maxLength", value == null ? '' : String(value));
   }
 }
 
@@ -144609,6 +145433,41 @@ class ScreenEntryTraceabilityForm extends SomNode {
   }
 }
 
+// Generated section facade for the `choiceOptions` @Form section: its own content text followed by one typed member per form field.
+class ScreenFieldEntryChoiceOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get optionSource() {
+    return this.doc.formField(this.path, "optionSource") || '';
+  }
+
+  set optionSource(value) {
+    this.doc.setFormField(this.path, "optionSource", value);
+  }
+
+  get staticOptions() {
+    return this.doc.formField(this.path, "staticOptions") || '';
+  }
+
+  set staticOptions(value) {
+    this.doc.setFormField(this.path, "staticOptions", value);
+  }
+}
+
 // Generated section facade for the `conditions` @Form section: its own content text followed by one typed member per form field.
 class ScreenFieldEntryConditionsForm extends SomNode {
   constructor(doc, path) {
@@ -144788,22 +145647,6 @@ class ScreenFieldEntryLayoutForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get dropdownSource() {
-    return this.doc.formField(this.path, "dropdownSource") || '';
-  }
-
-  set dropdownSource(value) {
-    this.doc.setFormField(this.path, "dropdownSource", value);
-  }
-
-  get dropdownValues() {
-    return this.doc.formField(this.path, "dropdownValues") || '';
-  }
-
-  set dropdownValues(value) {
-    this.doc.setFormField(this.path, "dropdownValues", value);
-  }
-
   get dependsOn() {
     return this.doc.formField(this.path, "dependsOn") || '';
   }
@@ -144837,8 +145680,78 @@ class ScreenFieldEntryLayoutForm extends SomNode {
   }
 }
 
-// Generated section facade for the `validation` @Form section: its own content text followed by one typed member per form field.
-class ScreenFieldEntryValidationForm extends SomNode {
+// Generated section facade for the `numericConstraints` @Form section: its own content text followed by one typed member per form field.
+class ScreenFieldEntryNumericConstraintsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get minValue() {
+    return this.doc.formField(this.path, "minValue") || '';
+  }
+
+  set minValue(value) {
+    this.doc.setFormField(this.path, "minValue", value);
+  }
+
+  get maxValue() {
+    return this.doc.formField(this.path, "maxValue") || '';
+  }
+
+  set maxValue(value) {
+    this.doc.setFormField(this.path, "maxValue", value);
+  }
+}
+
+// Generated section facade for the `temporalConstraints` @Form section: its own content text followed by one typed member per form field.
+class ScreenFieldEntryTemporalConstraintsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get earliestValue() {
+    return this.doc.formField(this.path, "earliestValue") || '';
+  }
+
+  set earliestValue(value) {
+    this.doc.setFormField(this.path, "earliestValue", value);
+  }
+
+  get latestValue() {
+    return this.doc.formField(this.path, "latestValue") || '';
+  }
+
+  set latestValue(value) {
+    this.doc.setFormField(this.path, "latestValue", value);
+  }
+}
+
+// Generated section facade for the `textConstraints` @Form section: its own content text followed by one typed member per form field.
+class ScreenFieldEntryTextConstraintsForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -144871,28 +145784,31 @@ class ScreenFieldEntryValidationForm extends SomNode {
     this.doc.setFormField(this.path, "maxLength", value);
   }
 
-  get minValue() {
-    return this.doc.formField(this.path, "minValue") || '';
-  }
-
-  set minValue(value) {
-    this.doc.setFormField(this.path, "minValue", value);
-  }
-
-  get maxValue() {
-    return this.doc.formField(this.path, "maxValue") || '';
-  }
-
-  set maxValue(value) {
-    this.doc.setFormField(this.path, "maxValue", value);
-  }
-
   get pattern() {
     return this.doc.formField(this.path, "pattern") || '';
   }
 
   set pattern(value) {
     this.doc.setFormField(this.path, "pattern", value);
+  }
+}
+
+// Generated section facade for the `validation` @Form section: its own content text followed by one typed member per form field.
+class ScreenFieldEntryValidationForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
   }
 
   get validationMessage() {
@@ -181509,11 +182425,15 @@ module.exports = {
   DataArchitectureSecurityForm,
   DataArchitectureStorageForm,
   DataAttributeConstraintEntryContentForm,
+  DataAttributeEntryBinaryTypeOptionsForm,
   DataAttributeEntryDataTypeSpecForm,
   DataAttributeEntryDerivationForm,
   DataAttributeEntryIdentityForm,
   DataAttributeEntryMigrationLineageForm,
+  DataAttributeEntryNumericTypeOptionsForm,
   DataAttributeEntrySecurityClassificationForm,
+  DataAttributeEntryTemporalTypeOptionsForm,
+  DataAttributeEntryTextTypeOptionsForm,
   DataClassificationEntryAccessControlForm,
   DataClassificationEntryComplianceForm,
   DataClassificationEntryIdentityForm,
@@ -181888,10 +182808,15 @@ module.exports = {
   ExistingSystemEntryTechnologyForm,
   ExistingSystemEntryUsageForm,
   ExpectedImprovementsContentForm,
+  ExportFieldMappingEntryBooleanOutputForm,
   ExportFieldMappingEntryContentForm,
+  ExportFieldMappingEntryEnumerationOutputForm,
   ExportFieldMappingEntryFormattingForm,
   ExportFieldMappingEntryInclusionForm,
   ExportFieldMappingEntryLayoutForm,
+  ExportFieldMappingEntryNumericOutputForm,
+  ExportFieldMappingEntryTemporalOutputForm,
+  ExportFieldMappingEntryTextOutputForm,
   ExportFieldMappingEntryTransformationForm,
   ExportFormatEntryAccessForm,
   ExportFormatEntryContentForm,
@@ -182769,11 +183694,16 @@ module.exports = {
   ReportChartEntryLayoutForm,
   ReportChartEntrySeriesForm,
   ReportColumnEntryAggregationForm,
+  ReportColumnEntryBooleanFormatForm,
   ReportColumnEntryContentForm,
+  ReportColumnEntryCurrencyFormatForm,
   ReportColumnEntryDataSourceForm,
+  ReportColumnEntryDateFormatForm,
   ReportColumnEntryFormattingForm,
   ReportColumnEntryInteractionForm,
   ReportColumnEntryLayoutForm,
+  ReportColumnEntryNumericFormatForm,
+  ReportColumnEntryTextFormatForm,
   ReportDistributionEntryContentForm,
   ReportDistributionEntryContentSettingsForm,
   ReportDistributionEntryDeliveryForm,
@@ -182791,9 +183721,15 @@ module.exports = {
   ReportEntryPaginationForm,
   ReportEntrySecurityForm,
   ReportFilterEntryBehaviorForm,
+  ReportFilterEntryBooleanFilterOptionsForm,
   ReportFilterEntryContentForm,
+  ReportFilterEntryDateFilterOptionsForm,
+  ReportFilterEntryEntityFilterOptionsForm,
   ReportFilterEntryInputForm,
+  ReportFilterEntryNumericFilterOptionsForm,
   ReportFilterEntryPresentationForm,
+  ReportFilterEntrySelectFilterOptionsForm,
+  ReportFilterEntryTextFilterOptionsForm,
   ReportRecipientEntryContentForm,
   ReportRecipientEntryContextForm,
   ReportRecipientEntryDeliveryForm,
@@ -182990,10 +183926,14 @@ module.exports = {
   ScreenEntryContentForm,
   ScreenEntryPresentationForm,
   ScreenEntryTraceabilityForm,
+  ScreenFieldEntryChoiceOptionsForm,
   ScreenFieldEntryConditionsForm,
   ScreenFieldEntryContentForm,
   ScreenFieldEntryDataBindingForm,
   ScreenFieldEntryLayoutForm,
+  ScreenFieldEntryNumericConstraintsForm,
+  ScreenFieldEntryTemporalConstraintsForm,
+  ScreenFieldEntryTextConstraintsForm,
   ScreenFieldEntryValidationForm,
   ScreenResponsiveRuleEntryContentForm,
   ScreenSectionEntryBehaviorForm,

@@ -1787,11 +1787,15 @@ class DataArchitectureLifecycleForm;
 class DataArchitectureSecurityForm;
 class DataArchitectureStorageForm;
 class DataAttributeConstraintEntryContentForm;
+class DataAttributeEntryBinaryTypeOptionsForm;
 class DataAttributeEntryDataTypeSpecForm;
 class DataAttributeEntryDerivationForm;
 class DataAttributeEntryIdentityForm;
 class DataAttributeEntryMigrationLineageForm;
+class DataAttributeEntryNumericTypeOptionsForm;
 class DataAttributeEntrySecurityClassificationForm;
+class DataAttributeEntryTemporalTypeOptionsForm;
+class DataAttributeEntryTextTypeOptionsForm;
 class DataClassificationEntryAccessControlForm;
 class DataClassificationEntryComplianceForm;
 class DataClassificationEntryIdentityForm;
@@ -2166,10 +2170,15 @@ class ExistingSystemEntryQualityForm;
 class ExistingSystemEntryTechnologyForm;
 class ExistingSystemEntryUsageForm;
 class ExpectedImprovementsContentForm;
+class ExportFieldMappingEntryBooleanOutputForm;
 class ExportFieldMappingEntryContentForm;
+class ExportFieldMappingEntryEnumerationOutputForm;
 class ExportFieldMappingEntryFormattingForm;
 class ExportFieldMappingEntryInclusionForm;
 class ExportFieldMappingEntryLayoutForm;
+class ExportFieldMappingEntryNumericOutputForm;
+class ExportFieldMappingEntryTemporalOutputForm;
+class ExportFieldMappingEntryTextOutputForm;
 class ExportFieldMappingEntryTransformationForm;
 class ExportFormatEntryAccessForm;
 class ExportFormatEntryContentForm;
@@ -3047,11 +3056,16 @@ class ReportChartEntryInteractionForm;
 class ReportChartEntryLayoutForm;
 class ReportChartEntrySeriesForm;
 class ReportColumnEntryAggregationForm;
+class ReportColumnEntryBooleanFormatForm;
 class ReportColumnEntryContentForm;
+class ReportColumnEntryCurrencyFormatForm;
 class ReportColumnEntryDataSourceForm;
+class ReportColumnEntryDateFormatForm;
 class ReportColumnEntryFormattingForm;
 class ReportColumnEntryInteractionForm;
 class ReportColumnEntryLayoutForm;
+class ReportColumnEntryNumericFormatForm;
+class ReportColumnEntryTextFormatForm;
 class ReportDistributionEntryContentForm;
 class ReportDistributionEntryContentSettingsForm;
 class ReportDistributionEntryDeliveryForm;
@@ -3069,9 +3083,15 @@ class ReportEntryLifecycleForm;
 class ReportEntryPaginationForm;
 class ReportEntrySecurityForm;
 class ReportFilterEntryBehaviorForm;
+class ReportFilterEntryBooleanFilterOptionsForm;
 class ReportFilterEntryContentForm;
+class ReportFilterEntryDateFilterOptionsForm;
+class ReportFilterEntryEntityFilterOptionsForm;
 class ReportFilterEntryInputForm;
+class ReportFilterEntryNumericFilterOptionsForm;
 class ReportFilterEntryPresentationForm;
+class ReportFilterEntrySelectFilterOptionsForm;
+class ReportFilterEntryTextFilterOptionsForm;
 class ReportRecipientEntryContentForm;
 class ReportRecipientEntryContextForm;
 class ReportRecipientEntryDeliveryForm;
@@ -3268,10 +3288,14 @@ class ScreenEntryClassificationForm;
 class ScreenEntryContentForm;
 class ScreenEntryPresentationForm;
 class ScreenEntryTraceabilityForm;
+class ScreenFieldEntryChoiceOptionsForm;
 class ScreenFieldEntryConditionsForm;
 class ScreenFieldEntryContentForm;
 class ScreenFieldEntryDataBindingForm;
 class ScreenFieldEntryLayoutForm;
+class ScreenFieldEntryNumericConstraintsForm;
+class ScreenFieldEntryTemporalConstraintsForm;
+class ScreenFieldEntryTextConstraintsForm;
 class ScreenFieldEntryValidationForm;
 class ScreenResponsiveRuleEntryContentForm;
 class ScreenSectionEntryBehaviorForm;
@@ -8996,6 +9020,27 @@ class DataAttributeEntry : public som::SomNode {
   DataAttributeEntry(som::SpecDocument& doc, std::string path);
   DataAttributeEntryIdentityForm identity() const;
   DataAttributeEntryDataTypeSpecForm dataTypeSpec() const;
+  // Text-kind type options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for the `string` logical type; carries only the character
+  // length and collation attributes (no numeric precision, no timezone).
+  DataAttributeEntryTextTypeOptionsForm textTypeOptions() const;
+  // Numeric-kind type options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for numeric logical types; carries only the precision and
+  // scale attributes (no length, collation or timezone).
+  DataAttributeEntryNumericTypeOptionsForm numericTypeOptions() const;
+  // Temporal-kind type options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for date/time logical types; carries only the timezone
+  // handling attribute.
+  DataAttributeEntryTemporalTypeOptionsForm temporalTypeOptions() const;
+  // Binary-kind type options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for the `binary` logical type; carries only the stored size
+  // attributes. Separated from the text `length` because a byte size and a
+  // character length are different constraints on different types.
+  DataAttributeEntryBinaryTypeOptionsForm binaryTypeOptions() const;
   // Returns the list view; element type: DataAttributeConstraintEntry (construct from item paths).
   som::SomList constraints() const;
   DataAttributeEntryDerivationForm derivation() const;
@@ -11781,6 +11826,32 @@ class ExportFieldMappingEntry : public som::SomNode {
   ExportFieldMappingEntryContentForm content() const;
   // Ordering and formatting settings.
   ExportFieldMappingEntryFormattingForm formatting() const;
+  // Numeric-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for integer and decimal fields; carries only the numeric
+  // output pattern and separators.
+  ExportFieldMappingEntryNumericOutputForm numericOutput() const;
+  // Temporal-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for date and date-time fields; carries only the temporal
+  // output pattern and timezone handling.
+  ExportFieldMappingEntryTemporalOutputForm temporalOutput() const;
+  // Boolean-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for boolean fields; this is the only case in which the
+  // emitted true/false literals are meaningful.
+  ExportFieldMappingEntryBooleanOutputForm booleanOutput() const;
+  // Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for enumeration fields; carries which face of the value set
+  // is emitted and what happens to a value outside it.
+  ExportFieldMappingEntryEnumerationOutputForm enumerationOutput() const;
+  // Text-kind output format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for text fields; carries the character-length truncation
+  // that only a string field can have. Moved out of `inclusion`, where it sat
+  // beside type-independent default and inclusion rules.
+  ExportFieldMappingEntryTextOutputForm textOutput() const;
   // Transformation rules.
   ExportFieldMappingEntryTransformationForm transformation() const;
   // Inclusion and defaults.
@@ -18361,6 +18432,30 @@ class ReportColumnEntry : public som::SomNode {
   ReportColumnEntryDataSourceForm dataSource() const;
   // Display formatting.
   ReportColumnEntryFormattingForm formatting() const;
+  // Numeric-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for integer and decimal columns; carries only the numeric
+  // display pattern (no currency code, no boolean labels).
+  ReportColumnEntryNumericFormatForm numericFormat() const;
+  // Currency-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for currency columns; this is the only case in which a
+  // currency code is meaningful.
+  ReportColumnEntryCurrencyFormatForm currencyFormat() const;
+  // Date-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for date columns; carries only the temporal display pattern.
+  ReportColumnEntryDateFormatForm dateFormat() const;
+  // Boolean-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for boolean columns; this is the only case in which the
+  // true/false display labels are meaningful.
+  ReportColumnEntryBooleanFormatForm booleanFormat() const;
+  // Text-kind column format — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for text columns; carries only the overflow handling a
+  // variable-length string column needs.
+  ReportColumnEntryTextFormatForm textFormat() const;
   // Aggregation settings.
   ReportColumnEntryAggregationForm aggregation() const;
   // Interaction options.
@@ -18433,6 +18528,38 @@ class ReportFilterEntry : public som::SomNode {
   ReportFilterEntryContentForm content() const;
   // Input and value configuration.
   ReportFilterEntryInputForm input() const;
+  // Text-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for text filters; carries the free-text control and its
+  // match semantics (no value source, no date bounds).
+  ReportFilterEntryTextFilterOptionsForm textFilterOptions() const;
+  // Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for numeric filters; carries the numeric control and its
+  // value bounds.
+  ReportFilterEntryNumericFilterOptionsForm numericFilterOptions() const;
+  // Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for date/date-time filters; carries the temporal control —
+  // including the range picker that the former free-text `DateRange` type
+  // stood for — and the selectable window.
+  ReportFilterEntryDateFilterOptionsForm dateFilterOptions() const;
+  // Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for boolean filters; carries only the two-valued control.
+  ReportFilterEntryBooleanFilterOptionsForm booleanFilterOptions() const;
+  // Selection-kind filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for enumeration filters; this is the only case in which a
+  // value source, static value list, cascade parent and multi-select are
+  // meaningful.
+  ReportFilterEntrySelectFilterOptionsForm selectFilterOptions() const;
+  // Entity-reference filter options — a promoted `@OneOf` case (csra4).
+  //
+  // Present only for entity-reference filters; carries the lookup control and
+  // the entity query that backs it. Distinct from the enumeration case
+  // because the value set is resolved from an entity, not a declared list.
+  ReportFilterEntryEntityFilterOptionsForm entityFilterOptions() const;
   // Scope and validation behavior.
   ReportFilterEntryBehaviorForm behavior() const;
   // Presentation options.
@@ -19931,8 +20058,19 @@ class ScreenFieldEntry : public som::SomNode {
   ScreenFieldEntryDataBindingForm dataBinding() const;
   // Conditional behavior.
   ScreenFieldEntryConditionsForm conditions() const;
-  // Validation rules.
+  // Validation rules that apply whatever the field type is.
   ScreenFieldEntryValidationForm validation() const;
+  // Text-kind input constraints — a promoted `@OneOf` case (csra4).
+  ScreenFieldEntryTextConstraintsForm textConstraints() const;
+  // Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+  ScreenFieldEntryNumericConstraintsForm numericConstraints() const;
+  // Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+  //
+  // Kept apart from [numericConstraints] because a date boundary is expressed
+  // as a date or a relative expression ("today + 30d"), not as a number.
+  ScreenFieldEntryTemporalConstraintsForm temporalConstraints() const;
+  // Choice-kind option source — a promoted `@OneOf` case (csra4).
+  ScreenFieldEntryChoiceOptionsForm choiceOptions() const;
   // UI and layout.
   ScreenFieldEntryLayoutForm layout() const;
   // Field validation rules — contains 0+× FieldValidationRule.
@@ -34784,6 +34922,20 @@ class DataAttributeConstraintEntryContentForm : public som::SomNode {
   void setPatternRegex(const std::string& value);
 };
 
+// Generated section facade for the `binaryTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+class DataAttributeEntryBinaryTypeOptionsForm : public som::SomNode {
+ public:
+  DataAttributeEntryBinaryTypeOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string maxSizeBytes() const;
+  void setMaxSizeBytes(const std::string& value);
+  std::string storageMode() const;
+  void setStorageMode(const std::string& value);
+};
+
 // Generated section facade for the `dataTypeSpec` @Form section: its own `content` text followed by one typed member per form field.
 class DataAttributeEntryDataTypeSpecForm : public som::SomNode {
  public:
@@ -34796,16 +34948,6 @@ class DataAttributeEntryDataTypeSpecForm : public som::SomNode {
   void setDataType(const std::string& value);
   std::string physicalType() const;
   void setPhysicalType(const std::string& value);
-  std::string length() const;
-  void setLength(const std::string& value);
-  std::string precision() const;
-  void setPrecision(const std::string& value);
-  std::string scale() const;
-  void setScale(const std::string& value);
-  std::string collation() const;
-  void setCollation(const std::string& value);
-  std::string timezone() const;
-  void setTimezone(const std::string& value);
   std::string format() const;
   void setFormat(const std::string& value);
 };
@@ -34868,6 +35010,20 @@ class DataAttributeEntryMigrationLineageForm : public som::SomNode {
   void setQualityRules(const std::string& value);
 };
 
+// Generated section facade for the `numericTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+class DataAttributeEntryNumericTypeOptionsForm : public som::SomNode {
+ public:
+  DataAttributeEntryNumericTypeOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string precision() const;
+  void setPrecision(const std::string& value);
+  std::string scale() const;
+  void setScale(const std::string& value);
+};
+
 // Generated section facade for the `securityClassification` @Form section: its own `content` text followed by one typed member per form field.
 class DataAttributeEntrySecurityClassificationForm : public som::SomNode {
  public:
@@ -34886,6 +35042,32 @@ class DataAttributeEntrySecurityClassificationForm : public som::SomNode {
   void setEncryptionLevel(const std::string& value);
   std::string auditLevel() const;
   void setAuditLevel(const std::string& value);
+};
+
+// Generated section facade for the `temporalTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+class DataAttributeEntryTemporalTypeOptionsForm : public som::SomNode {
+ public:
+  DataAttributeEntryTemporalTypeOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string timezone() const;
+  void setTimezone(const std::string& value);
+};
+
+// Generated section facade for the `textTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+class DataAttributeEntryTextTypeOptionsForm : public som::SomNode {
+ public:
+  DataAttributeEntryTextTypeOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string length() const;
+  void setLength(const std::string& value);
+  std::string collation() const;
+  void setCollation(const std::string& value);
 };
 
 // Generated section facade for the `accessControl` @Form section: its own `content` text followed by one typed member per form field.
@@ -41684,6 +41866,20 @@ class ExpectedImprovementsContentForm : public som::SomNode {
   void setIntegrationBenefits(const std::string& value);
 };
 
+// Generated section facade for the `booleanOutput` @Form section: its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryBooleanOutputForm : public som::SomNode {
+ public:
+  ExportFieldMappingEntryBooleanOutputForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string trueLiteral() const;
+  void setTrueLiteral(const std::string& value);
+  std::string falseLiteral() const;
+  void setFalseLiteral(const std::string& value);
+};
+
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ExportFieldMappingEntryContentForm : public som::SomNode {
  public:
@@ -41700,6 +41896,20 @@ class ExportFieldMappingEntryContentForm : public som::SomNode {
   void setTargetFieldName(const std::string& value);
 };
 
+// Generated section facade for the `enumerationOutput` @Form section: its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryEnumerationOutputForm : public som::SomNode {
+ public:
+  ExportFieldMappingEntryEnumerationOutputForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string emittedForm() const;
+  void setEmittedForm(const std::string& value);
+  std::string unmappedValueBehavior() const;
+  void setUnmappedValueBehavior(const std::string& value);
+};
+
 // Generated section facade for the `formatting` @Form section: its own `content` text followed by one typed member per form field.
 class ExportFieldMappingEntryFormattingForm : public som::SomNode {
  public:
@@ -41712,8 +41922,6 @@ class ExportFieldMappingEntryFormattingForm : public som::SomNode {
   void setDisplayOrder(std::optional<long> value);
   std::string dataType() const;
   void setDataType(const std::string& value);
-  std::string formatPattern() const;
-  void setFormatPattern(const std::string& value);
 };
 
 // Generated section facade for the `inclusion` @Form section: its own `content` text followed by one typed member per form field.
@@ -41730,8 +41938,6 @@ class ExportFieldMappingEntryInclusionForm : public som::SomNode {
   void setIncludeInExport(const std::string& value);
   std::string inclusionCondition() const;
   void setInclusionCondition(const std::string& value);
-  std::optional<long> maxLength() const;
-  void setMaxLength(std::optional<long> value);
 };
 
 // Generated section facade for the `layout` @Form section: its own `content` text followed by one typed member per form field.
@@ -41752,6 +41958,48 @@ class ExportFieldMappingEntryLayoutForm : public som::SomNode {
   void setQuoteAlways(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `numericOutput` @Form section: its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryNumericOutputForm : public som::SomNode {
+ public:
+  ExportFieldMappingEntryNumericOutputForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string formatPattern() const;
+  void setFormatPattern(const std::string& value);
+  std::string decimalSeparator() const;
+  void setDecimalSeparator(const std::string& value);
+};
+
+// Generated section facade for the `temporalOutput` @Form section: its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryTemporalOutputForm : public som::SomNode {
+ public:
+  ExportFieldMappingEntryTemporalOutputForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string formatPattern() const;
+  void setFormatPattern(const std::string& value);
+  std::string timezoneHandling() const;
+  void setTimezoneHandling(const std::string& value);
+};
+
+// Generated section facade for the `textOutput` @Form section: its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryTextOutputForm : public som::SomNode {
+ public:
+  ExportFieldMappingEntryTextOutputForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<long> maxLength() const;
+  void setMaxLength(std::optional<long> value);
+  std::string padding() const;
+  void setPadding(const std::string& value);
 };
 
 // Generated section facade for the `transformation` @Form section: its own `content` text followed by one typed member per form field.
@@ -58118,6 +58366,20 @@ class ReportColumnEntryAggregationForm : public som::SomNode {
   void setHyperlinkTarget(const std::string& value);
 };
 
+// Generated section facade for the `booleanFormat` @Form section: its own `content` text followed by one typed member per form field.
+class ReportColumnEntryBooleanFormatForm : public som::SomNode {
+ public:
+  ReportColumnEntryBooleanFormatForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string booleanTrueDisplay() const;
+  void setBooleanTrueDisplay(const std::string& value);
+  std::string booleanFalseDisplay() const;
+  void setBooleanFalseDisplay(const std::string& value);
+};
+
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ReportColumnEntryContentForm : public som::SomNode {
  public:
@@ -58134,6 +58396,22 @@ class ReportColumnEntryContentForm : public som::SomNode {
   void setDisplayLabel(const std::string& value);
 };
 
+// Generated section facade for the `currencyFormat` @Form section: its own `content` text followed by one typed member per form field.
+class ReportColumnEntryCurrencyFormatForm : public som::SomNode {
+ public:
+  ReportColumnEntryCurrencyFormatForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string formatPattern() const;
+  void setFormatPattern(const std::string& value);
+  std::string currencyCode() const;
+  void setCurrencyCode(const std::string& value);
+  std::string symbolPosition() const;
+  void setSymbolPosition(const std::string& value);
+};
+
 // Generated section facade for the `dataSource` @Form section: its own `content` text followed by one typed member per form field.
 class ReportColumnEntryDataSourceForm : public som::SomNode {
  public:
@@ -58146,6 +58424,20 @@ class ReportColumnEntryDataSourceForm : public som::SomNode {
   void setDataSourceField(const std::string& value);
   std::string dataType() const;
   void setDataType(const std::string& value);
+};
+
+// Generated section facade for the `dateFormat` @Form section: its own `content` text followed by one typed member per form field.
+class ReportColumnEntryDateFormatForm : public som::SomNode {
+ public:
+  ReportColumnEntryDateFormatForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string formatPattern() const;
+  void setFormatPattern(const std::string& value);
+  std::string timezoneDisplay() const;
+  void setTimezoneDisplay(const std::string& value);
 };
 
 // Generated section facade for the `formatting` @Form section: its own `content` text followed by one typed member per form field.
@@ -58164,16 +58456,8 @@ class ReportColumnEntryFormattingForm : public som::SomNode {
   void setAlignment(const std::string& value);
   std::string verticalAlignment() const;
   void setVerticalAlignment(const std::string& value);
-  std::string formatPattern() const;
-  void setFormatPattern(const std::string& value);
-  std::string currencyCode() const;
-  void setCurrencyCode(const std::string& value);
   std::string nullDisplay() const;
   void setNullDisplay(const std::string& value);
-  std::string booleanTrueDisplay() const;
-  void setBooleanTrueDisplay(const std::string& value);
-  std::string booleanFalseDisplay() const;
-  void setBooleanFalseDisplay(const std::string& value);
 };
 
 // Generated section facade for the `interaction` @Form section: its own `content` text followed by one typed member per form field.
@@ -58208,6 +58492,34 @@ class ReportColumnEntryLayoutForm : public som::SomNode {
   void setTruncateAt(std::optional<long> value);
   std::string notes() const;
   void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `numericFormat` @Form section: its own `content` text followed by one typed member per form field.
+class ReportColumnEntryNumericFormatForm : public som::SomNode {
+ public:
+  ReportColumnEntryNumericFormatForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string formatPattern() const;
+  void setFormatPattern(const std::string& value);
+  std::string negativeDisplay() const;
+  void setNegativeDisplay(const std::string& value);
+};
+
+// Generated section facade for the `textFormat` @Form section: its own `content` text followed by one typed member per form field.
+class ReportColumnEntryTextFormatForm : public som::SomNode {
+ public:
+  ReportColumnEntryTextFormatForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string overflowBehavior() const;
+  void setOverflowBehavior(const std::string& value);
+  std::optional<long> maxDisplayLength() const;
+  void setMaxDisplayLength(std::optional<long> value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -58528,6 +58840,20 @@ class ReportFilterEntryBehaviorForm : public som::SomNode {
   void setDependsOn(const std::string& value);
 };
 
+// Generated section facade for the `booleanFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ReportFilterEntryBooleanFilterOptionsForm : public som::SomNode {
+ public:
+  ReportFilterEntryBooleanFilterOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string inputType() const;
+  void setInputType(const std::string& value);
+  std::string includeIndeterminate() const;
+  void setIncludeIndeterminate(const std::string& value);
+};
+
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ReportFilterEntryContentForm : public som::SomNode {
  public:
@@ -58544,6 +58870,40 @@ class ReportFilterEntryContentForm : public som::SomNode {
   void setDisplayLabel(const std::string& value);
 };
 
+// Generated section facade for the `dateFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ReportFilterEntryDateFilterOptionsForm : public som::SomNode {
+ public:
+  ReportFilterEntryDateFilterOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string inputType() const;
+  void setInputType(const std::string& value);
+  std::string earliestDate() const;
+  void setEarliestDate(const std::string& value);
+  std::string latestDate() const;
+  void setLatestDate(const std::string& value);
+};
+
+// Generated section facade for the `entityFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ReportFilterEntryEntityFilterOptionsForm : public som::SomNode {
+ public:
+  ReportFilterEntryEntityFilterOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string inputType() const;
+  void setInputType(const std::string& value);
+  std::string entityType() const;
+  void setEntityType(const std::string& value);
+  std::string queryFilter() const;
+  void setQueryFilter(const std::string& value);
+  std::string displayAttribute() const;
+  void setDisplayAttribute(const std::string& value);
+};
+
 // Generated section facade for the `input` @Form section: its own `content` text followed by one typed member per form field.
 class ReportFilterEntryInputForm : public som::SomNode {
  public:
@@ -58554,18 +58914,24 @@ class ReportFilterEntryInputForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string dataType() const;
   void setDataType(const std::string& value);
-  std::string inputType() const;
-  void setInputType(const std::string& value);
   std::string defaultValue() const;
   void setDefaultValue(const std::string& value);
-  std::string availableValuesSource() const;
-  void setAvailableValuesSource(const std::string& value);
-  std::string staticValues() const;
-  void setStaticValues(const std::string& value);
-  std::string cascadeParent() const;
-  void setCascadeParent(const std::string& value);
-  std::string multiSelect() const;
-  void setMultiSelect(const std::string& value);
+};
+
+// Generated section facade for the `numericFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ReportFilterEntryNumericFilterOptionsForm : public som::SomNode {
+ public:
+  ReportFilterEntryNumericFilterOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string inputType() const;
+  void setInputType(const std::string& value);
+  std::string minValue() const;
+  void setMinValue(const std::string& value);
+  std::string maxValue() const;
+  void setMaxValue(const std::string& value);
 };
 
 // Generated section facade for the `presentation` @Form section: its own `content` text followed by one typed member per form field.
@@ -58584,6 +58950,42 @@ class ReportFilterEntryPresentationForm : public som::SomNode {
   void setRememberLastValue(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `selectFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ReportFilterEntrySelectFilterOptionsForm : public som::SomNode {
+ public:
+  ReportFilterEntrySelectFilterOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string inputType() const;
+  void setInputType(const std::string& value);
+  std::string availableValuesSource() const;
+  void setAvailableValuesSource(const std::string& value);
+  std::string staticValues() const;
+  void setStaticValues(const std::string& value);
+  std::string cascadeParent() const;
+  void setCascadeParent(const std::string& value);
+  std::string multiSelect() const;
+  void setMultiSelect(const std::string& value);
+};
+
+// Generated section facade for the `textFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ReportFilterEntryTextFilterOptionsForm : public som::SomNode {
+ public:
+  ReportFilterEntryTextFilterOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string inputType() const;
+  void setInputType(const std::string& value);
+  std::string matchMode() const;
+  void setMatchMode(const std::string& value);
+  std::optional<long> maxLength() const;
+  void setMaxLength(std::optional<long> value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -62168,6 +62570,20 @@ class ScreenEntryTraceabilityForm : public som::SomNode {
   void setPrimaryAction(const std::string& value);
 };
 
+// Generated section facade for the `choiceOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryChoiceOptionsForm : public som::SomNode {
+ public:
+  ScreenFieldEntryChoiceOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string optionSource() const;
+  void setOptionSource(const std::string& value);
+  std::string staticOptions() const;
+  void setStaticOptions(const std::string& value);
+};
+
 // Generated section facade for the `conditions` @Form section: its own `content` text followed by one typed member per form field.
 class ScreenFieldEntryConditionsForm : public som::SomNode {
  public:
@@ -62232,10 +62648,6 @@ class ScreenFieldEntryLayoutForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string dropdownSource() const;
-  void setDropdownSource(const std::string& value);
-  std::string dropdownValues() const;
-  void setDropdownValues(const std::string& value);
   std::string dependsOn() const;
   void setDependsOn(const std::string& value);
   std::string width() const;
@@ -62246,10 +62658,38 @@ class ScreenFieldEntryLayoutForm : public som::SomNode {
   void setGrouping(const std::string& value);
 };
 
-// Generated section facade for the `validation` @Form section: its own `content` text followed by one typed member per form field.
-class ScreenFieldEntryValidationForm : public som::SomNode {
+// Generated section facade for the `numericConstraints` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryNumericConstraintsForm : public som::SomNode {
  public:
-  ScreenFieldEntryValidationForm(som::SpecDocument& doc, std::string path);
+  ScreenFieldEntryNumericConstraintsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string minValue() const;
+  void setMinValue(const std::string& value);
+  std::string maxValue() const;
+  void setMaxValue(const std::string& value);
+};
+
+// Generated section facade for the `temporalConstraints` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryTemporalConstraintsForm : public som::SomNode {
+ public:
+  ScreenFieldEntryTemporalConstraintsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string earliestValue() const;
+  void setEarliestValue(const std::string& value);
+  std::string latestValue() const;
+  void setLatestValue(const std::string& value);
+};
+
+// Generated section facade for the `textConstraints` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryTextConstraintsForm : public som::SomNode {
+ public:
+  ScreenFieldEntryTextConstraintsForm(som::SpecDocument& doc, std::string path);
   bool canHaveContent() const override { return true; }
   // The section's own free-text content, before the form fields.
   std::string content() const;
@@ -62258,12 +62698,18 @@ class ScreenFieldEntryValidationForm : public som::SomNode {
   void setMinLength(const std::string& value);
   std::string maxLength() const;
   void setMaxLength(const std::string& value);
-  std::string minValue() const;
-  void setMinValue(const std::string& value);
-  std::string maxValue() const;
-  void setMaxValue(const std::string& value);
   std::string pattern() const;
   void setPattern(const std::string& value);
+};
+
+// Generated section facade for the `validation` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryValidationForm : public som::SomNode {
+ public:
+  ScreenFieldEntryValidationForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
   std::string validationMessage() const;
   void setValidationMessage(const std::string& value);
 };

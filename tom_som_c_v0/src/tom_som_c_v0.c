@@ -11629,6 +11629,34 @@ DataAttributeEntryDataTypeSpecForm data_attribute_entry_data_type_spec(const Dat
   free(path);
   return out;
 }
+DataAttributeEntryTextTypeOptionsForm data_attribute_entry_text_type_options(const DataAttributeEntry *self) {
+  char *path = spec_path_join(self->node.path, "DAATT-DTTX");
+  DataAttributeEntryTextTypeOptionsForm out;
+  data_attribute_entry_text_type_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DataAttributeEntryNumericTypeOptionsForm data_attribute_entry_numeric_type_options(const DataAttributeEntry *self) {
+  char *path = spec_path_join(self->node.path, "DAATT-DTNU");
+  DataAttributeEntryNumericTypeOptionsForm out;
+  data_attribute_entry_numeric_type_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DataAttributeEntryTemporalTypeOptionsForm data_attribute_entry_temporal_type_options(const DataAttributeEntry *self) {
+  char *path = spec_path_join(self->node.path, "DAATT-DTTM");
+  DataAttributeEntryTemporalTypeOptionsForm out;
+  data_attribute_entry_temporal_type_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DataAttributeEntryBinaryTypeOptionsForm data_attribute_entry_binary_type_options(const DataAttributeEntry *self) {
+  char *path = spec_path_join(self->node.path, "DAATT-DTBI");
+  DataAttributeEntryBinaryTypeOptionsForm out;
+  data_attribute_entry_binary_type_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 SomList data_attribute_entry_constraints(const DataAttributeEntry *self) {
   char *path = spec_path_join(self->node.path, "DATAA-CONS-LST");
   SomList out;
@@ -18077,6 +18105,41 @@ ExportFieldMappingEntryFormattingForm export_field_mapping_entry_formatting(cons
   char *path = spec_path_join(self->node.path, "EFMEF");
   ExportFieldMappingEntryFormattingForm out;
   export_field_mapping_entry_formatting_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExportFieldMappingEntryNumericOutputForm export_field_mapping_entry_numeric_output(const ExportFieldMappingEntry *self) {
+  char *path = spec_path_join(self->node.path, "EFMEFN");
+  ExportFieldMappingEntryNumericOutputForm out;
+  export_field_mapping_entry_numeric_output_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExportFieldMappingEntryTemporalOutputForm export_field_mapping_entry_temporal_output(const ExportFieldMappingEntry *self) {
+  char *path = spec_path_join(self->node.path, "EFMEFD");
+  ExportFieldMappingEntryTemporalOutputForm out;
+  export_field_mapping_entry_temporal_output_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExportFieldMappingEntryBooleanOutputForm export_field_mapping_entry_boolean_output(const ExportFieldMappingEntry *self) {
+  char *path = spec_path_join(self->node.path, "EFMEFB");
+  ExportFieldMappingEntryBooleanOutputForm out;
+  export_field_mapping_entry_boolean_output_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExportFieldMappingEntryEnumerationOutputForm export_field_mapping_entry_enumeration_output(const ExportFieldMappingEntry *self) {
+  char *path = spec_path_join(self->node.path, "EFMEFE");
+  ExportFieldMappingEntryEnumerationOutputForm out;
+  export_field_mapping_entry_enumeration_output_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExportFieldMappingEntryTextOutputForm export_field_mapping_entry_text_output(const ExportFieldMappingEntry *self) {
+  char *path = spec_path_join(self->node.path, "EFMEFT");
+  ExportFieldMappingEntryTextOutputForm out;
+  export_field_mapping_entry_text_output_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -33141,6 +33204,41 @@ ReportColumnEntryFormattingForm report_column_entry_formatting(const ReportColum
   free(path);
   return out;
 }
+ReportColumnEntryNumericFormatForm report_column_entry_numeric_format(const ReportColumnEntry *self) {
+  char *path = spec_path_join(self->node.path, "RECOFN");
+  ReportColumnEntryNumericFormatForm out;
+  report_column_entry_numeric_format_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportColumnEntryCurrencyFormatForm report_column_entry_currency_format(const ReportColumnEntry *self) {
+  char *path = spec_path_join(self->node.path, "RECOFC");
+  ReportColumnEntryCurrencyFormatForm out;
+  report_column_entry_currency_format_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportColumnEntryDateFormatForm report_column_entry_date_format(const ReportColumnEntry *self) {
+  char *path = spec_path_join(self->node.path, "RECOFD");
+  ReportColumnEntryDateFormatForm out;
+  report_column_entry_date_format_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportColumnEntryBooleanFormatForm report_column_entry_boolean_format(const ReportColumnEntry *self) {
+  char *path = spec_path_join(self->node.path, "RECOFB");
+  ReportColumnEntryBooleanFormatForm out;
+  report_column_entry_boolean_format_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportColumnEntryTextFormatForm report_column_entry_text_format(const ReportColumnEntry *self) {
+  char *path = spec_path_join(self->node.path, "RECOFT");
+  ReportColumnEntryTextFormatForm out;
+  report_column_entry_text_format_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 ReportColumnEntryAggregationForm report_column_entry_aggregation(const ReportColumnEntry *self) {
   char *path = spec_path_join(self->node.path, "RECOAG");
   ReportColumnEntryAggregationForm out;
@@ -33353,6 +33451,48 @@ ReportFilterEntryInputForm report_filter_entry_input(const ReportFilterEntry *se
   char *path = spec_path_join(self->node.path, "RFEI");
   ReportFilterEntryInputForm out;
   report_filter_entry_input_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportFilterEntryTextFilterOptionsForm report_filter_entry_text_filter_options(const ReportFilterEntry *self) {
+  char *path = spec_path_join(self->node.path, "RFEIT");
+  ReportFilterEntryTextFilterOptionsForm out;
+  report_filter_entry_text_filter_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportFilterEntryNumericFilterOptionsForm report_filter_entry_numeric_filter_options(const ReportFilterEntry *self) {
+  char *path = spec_path_join(self->node.path, "RFEIN");
+  ReportFilterEntryNumericFilterOptionsForm out;
+  report_filter_entry_numeric_filter_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportFilterEntryDateFilterOptionsForm report_filter_entry_date_filter_options(const ReportFilterEntry *self) {
+  char *path = spec_path_join(self->node.path, "RFEID");
+  ReportFilterEntryDateFilterOptionsForm out;
+  report_filter_entry_date_filter_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportFilterEntryBooleanFilterOptionsForm report_filter_entry_boolean_filter_options(const ReportFilterEntry *self) {
+  char *path = spec_path_join(self->node.path, "RFEIB");
+  ReportFilterEntryBooleanFilterOptionsForm out;
+  report_filter_entry_boolean_filter_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportFilterEntrySelectFilterOptionsForm report_filter_entry_select_filter_options(const ReportFilterEntry *self) {
+  char *path = spec_path_join(self->node.path, "RFEIS");
+  ReportFilterEntrySelectFilterOptionsForm out;
+  report_filter_entry_select_filter_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportFilterEntryEntityFilterOptionsForm report_filter_entry_entity_filter_options(const ReportFilterEntry *self) {
+  char *path = spec_path_join(self->node.path, "RFEIE");
+  ReportFilterEntryEntityFilterOptionsForm out;
+  report_filter_entry_entity_filter_options_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -36700,6 +36840,34 @@ ScreenFieldEntryValidationForm screen_field_entry_validation(const ScreenFieldEn
   char *path = spec_path_join(self->node.path, "SCFIVA");
   ScreenFieldEntryValidationForm out;
   screen_field_entry_validation_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScreenFieldEntryTextConstraintsForm screen_field_entry_text_constraints(const ScreenFieldEntry *self) {
+  char *path = spec_path_join(self->node.path, "SCFIVT");
+  ScreenFieldEntryTextConstraintsForm out;
+  screen_field_entry_text_constraints_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScreenFieldEntryNumericConstraintsForm screen_field_entry_numeric_constraints(const ScreenFieldEntry *self) {
+  char *path = spec_path_join(self->node.path, "SCFIVN");
+  ScreenFieldEntryNumericConstraintsForm out;
+  screen_field_entry_numeric_constraints_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScreenFieldEntryTemporalConstraintsForm screen_field_entry_temporal_constraints(const ScreenFieldEntry *self) {
+  char *path = spec_path_join(self->node.path, "SCFIVD");
+  ScreenFieldEntryTemporalConstraintsForm out;
+  screen_field_entry_temporal_constraints_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScreenFieldEntryChoiceOptionsForm screen_field_entry_choice_options(const ScreenFieldEntry *self) {
+  char *path = spec_path_join(self->node.path, "SCFICH");
+  ScreenFieldEntryChoiceOptionsForm out;
+  screen_field_entry_choice_options_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -71056,6 +71224,34 @@ void data_attribute_constraint_entry_content_form_set_pattern_regex(DataAttribut
   spec_document_set_form_field(self->node.doc, self->node.path, "patternRegex", value);
 }
 
+void data_attribute_entry_binary_type_options_form_init(DataAttributeEntryBinaryTypeOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void data_attribute_entry_binary_type_options_form_free(DataAttributeEntryBinaryTypeOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *data_attribute_entry_binary_type_options_form_content(const DataAttributeEntryBinaryTypeOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_binary_type_options_form_set_content(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *data_attribute_entry_binary_type_options_form_max_size_bytes(const DataAttributeEntryBinaryTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxSizeBytes");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_binary_type_options_form_set_max_size_bytes(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxSizeBytes", value);
+}
+char *data_attribute_entry_binary_type_options_form_storage_mode(const DataAttributeEntryBinaryTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "storageMode");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_binary_type_options_form_set_storage_mode(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "storageMode", value);
+}
+
 void data_attribute_entry_data_type_spec_form_init(DataAttributeEntryDataTypeSpecForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -71082,41 +71278,6 @@ char *data_attribute_entry_data_type_spec_form_physical_type(const DataAttribute
 }
 void data_attribute_entry_data_type_spec_form_set_physical_type(DataAttributeEntryDataTypeSpecForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "physicalType", value);
-}
-char *data_attribute_entry_data_type_spec_form_length(const DataAttributeEntryDataTypeSpecForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "length");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_attribute_entry_data_type_spec_form_set_length(DataAttributeEntryDataTypeSpecForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "length", value);
-}
-char *data_attribute_entry_data_type_spec_form_precision(const DataAttributeEntryDataTypeSpecForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "precision");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_attribute_entry_data_type_spec_form_set_precision(DataAttributeEntryDataTypeSpecForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "precision", value);
-}
-char *data_attribute_entry_data_type_spec_form_scale(const DataAttributeEntryDataTypeSpecForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scale");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_attribute_entry_data_type_spec_form_set_scale(DataAttributeEntryDataTypeSpecForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scale", value);
-}
-char *data_attribute_entry_data_type_spec_form_collation(const DataAttributeEntryDataTypeSpecForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "collation");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_attribute_entry_data_type_spec_form_set_collation(DataAttributeEntryDataTypeSpecForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "collation", value);
-}
-char *data_attribute_entry_data_type_spec_form_timezone(const DataAttributeEntryDataTypeSpecForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "timezone");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_attribute_entry_data_type_spec_form_set_timezone(DataAttributeEntryDataTypeSpecForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "timezone", value);
 }
 char *data_attribute_entry_data_type_spec_form_format(const DataAttributeEntryDataTypeSpecForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "format");
@@ -71266,6 +71427,34 @@ void data_attribute_entry_migration_lineage_form_set_quality_rules(DataAttribute
   spec_document_set_form_field(self->node.doc, self->node.path, "qualityRules", value);
 }
 
+void data_attribute_entry_numeric_type_options_form_init(DataAttributeEntryNumericTypeOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void data_attribute_entry_numeric_type_options_form_free(DataAttributeEntryNumericTypeOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *data_attribute_entry_numeric_type_options_form_content(const DataAttributeEntryNumericTypeOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_numeric_type_options_form_set_content(DataAttributeEntryNumericTypeOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *data_attribute_entry_numeric_type_options_form_precision(const DataAttributeEntryNumericTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "precision");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_numeric_type_options_form_set_precision(DataAttributeEntryNumericTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "precision", value);
+}
+char *data_attribute_entry_numeric_type_options_form_scale(const DataAttributeEntryNumericTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scale");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_numeric_type_options_form_set_scale(DataAttributeEntryNumericTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "scale", value);
+}
+
 void data_attribute_entry_security_classification_form_init(DataAttributeEntrySecurityClassificationForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -71313,6 +71502,55 @@ char *data_attribute_entry_security_classification_form_audit_level(const DataAt
 }
 void data_attribute_entry_security_classification_form_set_audit_level(DataAttributeEntrySecurityClassificationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "auditLevel", value);
+}
+
+void data_attribute_entry_temporal_type_options_form_init(DataAttributeEntryTemporalTypeOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void data_attribute_entry_temporal_type_options_form_free(DataAttributeEntryTemporalTypeOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *data_attribute_entry_temporal_type_options_form_content(const DataAttributeEntryTemporalTypeOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_temporal_type_options_form_set_content(DataAttributeEntryTemporalTypeOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *data_attribute_entry_temporal_type_options_form_timezone(const DataAttributeEntryTemporalTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "timezone");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_temporal_type_options_form_set_timezone(DataAttributeEntryTemporalTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "timezone", value);
+}
+
+void data_attribute_entry_text_type_options_form_init(DataAttributeEntryTextTypeOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void data_attribute_entry_text_type_options_form_free(DataAttributeEntryTextTypeOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *data_attribute_entry_text_type_options_form_content(const DataAttributeEntryTextTypeOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_text_type_options_form_set_content(DataAttributeEntryTextTypeOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *data_attribute_entry_text_type_options_form_length(const DataAttributeEntryTextTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "length");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_text_type_options_form_set_length(DataAttributeEntryTextTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "length", value);
+}
+char *data_attribute_entry_text_type_options_form_collation(const DataAttributeEntryTextTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "collation");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_text_type_options_form_set_collation(DataAttributeEntryTextTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "collation", value);
 }
 
 void data_classification_entry_access_control_form_init(DataClassificationEntryAccessControlForm *self, SpecDocument *doc, const char *path) {
@@ -87299,6 +87537,34 @@ void expected_improvements_content_form_set_integration_benefits(ExpectedImprove
   spec_document_set_form_field(self->node.doc, self->node.path, "integrationBenefits", value);
 }
 
+void export_field_mapping_entry_boolean_output_form_init(ExportFieldMappingEntryBooleanOutputForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void export_field_mapping_entry_boolean_output_form_free(ExportFieldMappingEntryBooleanOutputForm *self) {
+  som_node_free(&self->node);
+}
+char *export_field_mapping_entry_boolean_output_form_content(const ExportFieldMappingEntryBooleanOutputForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_boolean_output_form_set_content(ExportFieldMappingEntryBooleanOutputForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *export_field_mapping_entry_boolean_output_form_true_literal(const ExportFieldMappingEntryBooleanOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trueLiteral");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_boolean_output_form_set_true_literal(ExportFieldMappingEntryBooleanOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "trueLiteral", value);
+}
+char *export_field_mapping_entry_boolean_output_form_false_literal(const ExportFieldMappingEntryBooleanOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "falseLiteral");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_boolean_output_form_set_false_literal(ExportFieldMappingEntryBooleanOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "falseLiteral", value);
+}
+
 void export_field_mapping_entry_content_form_init(ExportFieldMappingEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -87334,6 +87600,34 @@ void export_field_mapping_entry_content_form_set_target_field_name(ExportFieldMa
   spec_document_set_form_field(self->node.doc, self->node.path, "targetFieldName", value);
 }
 
+void export_field_mapping_entry_enumeration_output_form_init(ExportFieldMappingEntryEnumerationOutputForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void export_field_mapping_entry_enumeration_output_form_free(ExportFieldMappingEntryEnumerationOutputForm *self) {
+  som_node_free(&self->node);
+}
+char *export_field_mapping_entry_enumeration_output_form_content(const ExportFieldMappingEntryEnumerationOutputForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_enumeration_output_form_set_content(ExportFieldMappingEntryEnumerationOutputForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *export_field_mapping_entry_enumeration_output_form_emitted_form(const ExportFieldMappingEntryEnumerationOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "emittedForm");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_enumeration_output_form_set_emitted_form(ExportFieldMappingEntryEnumerationOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "emittedForm", value);
+}
+char *export_field_mapping_entry_enumeration_output_form_unmapped_value_behavior(const ExportFieldMappingEntryEnumerationOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "unmappedValueBehavior");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_enumeration_output_form_set_unmapped_value_behavior(ExportFieldMappingEntryEnumerationOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "unmappedValueBehavior", value);
+}
+
 void export_field_mapping_entry_formatting_form_init(ExportFieldMappingEntryFormattingForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -87362,13 +87656,6 @@ char *export_field_mapping_entry_formatting_form_data_type(const ExportFieldMapp
 }
 void export_field_mapping_entry_formatting_form_set_data_type(ExportFieldMappingEntryFormattingForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dataType", value);
-}
-char *export_field_mapping_entry_formatting_form_format_pattern(const ExportFieldMappingEntryFormattingForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatPattern");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_field_mapping_entry_formatting_form_set_format_pattern(ExportFieldMappingEntryFormattingForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "formatPattern", value);
 }
 
 void export_field_mapping_entry_inclusion_form_init(ExportFieldMappingEntryInclusionForm *self, SpecDocument *doc, const char *path) {
@@ -87404,15 +87691,6 @@ char *export_field_mapping_entry_inclusion_form_inclusion_condition(const Export
 }
 void export_field_mapping_entry_inclusion_form_set_inclusion_condition(ExportFieldMappingEntryInclusionForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "inclusionCondition", value);
-}
-long export_field_mapping_entry_inclusion_form_max_length(const ExportFieldMappingEntryInclusionForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxLength");
-  return (v != NULL && *v) ? atol(v) : 0;
-}
-void export_field_mapping_entry_inclusion_form_set_max_length(ExportFieldMappingEntryInclusionForm *self, long value) {
-  char buf[32];
-  snprintf(buf, sizeof(buf), "%ld", value);
-  spec_document_set_form_field(self->node.doc, self->node.path, "maxLength", buf);
 }
 
 void export_field_mapping_entry_layout_form_init(ExportFieldMappingEntryLayoutForm *self, SpecDocument *doc, const char *path) {
@@ -87464,6 +87742,92 @@ char *export_field_mapping_entry_layout_form_notes(const ExportFieldMappingEntry
 }
 void export_field_mapping_entry_layout_form_set_notes(ExportFieldMappingEntryLayoutForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
+}
+
+void export_field_mapping_entry_numeric_output_form_init(ExportFieldMappingEntryNumericOutputForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void export_field_mapping_entry_numeric_output_form_free(ExportFieldMappingEntryNumericOutputForm *self) {
+  som_node_free(&self->node);
+}
+char *export_field_mapping_entry_numeric_output_form_content(const ExportFieldMappingEntryNumericOutputForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_numeric_output_form_set_content(ExportFieldMappingEntryNumericOutputForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *export_field_mapping_entry_numeric_output_form_format_pattern(const ExportFieldMappingEntryNumericOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatPattern");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_numeric_output_form_set_format_pattern(ExportFieldMappingEntryNumericOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "formatPattern", value);
+}
+char *export_field_mapping_entry_numeric_output_form_decimal_separator(const ExportFieldMappingEntryNumericOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "decimalSeparator");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_numeric_output_form_set_decimal_separator(ExportFieldMappingEntryNumericOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "decimalSeparator", value);
+}
+
+void export_field_mapping_entry_temporal_output_form_init(ExportFieldMappingEntryTemporalOutputForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void export_field_mapping_entry_temporal_output_form_free(ExportFieldMappingEntryTemporalOutputForm *self) {
+  som_node_free(&self->node);
+}
+char *export_field_mapping_entry_temporal_output_form_content(const ExportFieldMappingEntryTemporalOutputForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_temporal_output_form_set_content(ExportFieldMappingEntryTemporalOutputForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *export_field_mapping_entry_temporal_output_form_format_pattern(const ExportFieldMappingEntryTemporalOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatPattern");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_temporal_output_form_set_format_pattern(ExportFieldMappingEntryTemporalOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "formatPattern", value);
+}
+char *export_field_mapping_entry_temporal_output_form_timezone_handling(const ExportFieldMappingEntryTemporalOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "timezoneHandling");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_temporal_output_form_set_timezone_handling(ExportFieldMappingEntryTemporalOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "timezoneHandling", value);
+}
+
+void export_field_mapping_entry_text_output_form_init(ExportFieldMappingEntryTextOutputForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void export_field_mapping_entry_text_output_form_free(ExportFieldMappingEntryTextOutputForm *self) {
+  som_node_free(&self->node);
+}
+char *export_field_mapping_entry_text_output_form_content(const ExportFieldMappingEntryTextOutputForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_text_output_form_set_content(ExportFieldMappingEntryTextOutputForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+long export_field_mapping_entry_text_output_form_max_length(const ExportFieldMappingEntryTextOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxLength");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void export_field_mapping_entry_text_output_form_set_max_length(ExportFieldMappingEntryTextOutputForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxLength", buf);
+}
+char *export_field_mapping_entry_text_output_form_padding(const ExportFieldMappingEntryTextOutputForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "padding");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_field_mapping_entry_text_output_form_set_padding(ExportFieldMappingEntryTextOutputForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "padding", value);
 }
 
 void export_field_mapping_entry_transformation_form_init(ExportFieldMappingEntryTransformationForm *self, SpecDocument *doc, const char *path) {
@@ -126489,6 +126853,34 @@ void report_column_entry_aggregation_form_set_hyperlink_target(ReportColumnEntry
   spec_document_set_form_field(self->node.doc, self->node.path, "hyperlinkTarget", value);
 }
 
+void report_column_entry_boolean_format_form_init(ReportColumnEntryBooleanFormatForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_column_entry_boolean_format_form_free(ReportColumnEntryBooleanFormatForm *self) {
+  som_node_free(&self->node);
+}
+char *report_column_entry_boolean_format_form_content(const ReportColumnEntryBooleanFormatForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_boolean_format_form_set_content(ReportColumnEntryBooleanFormatForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_column_entry_boolean_format_form_boolean_true_display(const ReportColumnEntryBooleanFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "booleanTrueDisplay");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_boolean_format_form_set_boolean_true_display(ReportColumnEntryBooleanFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "booleanTrueDisplay", value);
+}
+char *report_column_entry_boolean_format_form_boolean_false_display(const ReportColumnEntryBooleanFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "booleanFalseDisplay");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_boolean_format_form_set_boolean_false_display(ReportColumnEntryBooleanFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "booleanFalseDisplay", value);
+}
+
 void report_column_entry_content_form_init(ReportColumnEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -126524,6 +126916,41 @@ void report_column_entry_content_form_set_display_label(ReportColumnEntryContent
   spec_document_set_form_field(self->node.doc, self->node.path, "displayLabel", value);
 }
 
+void report_column_entry_currency_format_form_init(ReportColumnEntryCurrencyFormatForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_column_entry_currency_format_form_free(ReportColumnEntryCurrencyFormatForm *self) {
+  som_node_free(&self->node);
+}
+char *report_column_entry_currency_format_form_content(const ReportColumnEntryCurrencyFormatForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_currency_format_form_set_content(ReportColumnEntryCurrencyFormatForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_column_entry_currency_format_form_format_pattern(const ReportColumnEntryCurrencyFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatPattern");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_currency_format_form_set_format_pattern(ReportColumnEntryCurrencyFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "formatPattern", value);
+}
+char *report_column_entry_currency_format_form_currency_code(const ReportColumnEntryCurrencyFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "currencyCode");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_currency_format_form_set_currency_code(ReportColumnEntryCurrencyFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "currencyCode", value);
+}
+char *report_column_entry_currency_format_form_symbol_position(const ReportColumnEntryCurrencyFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "symbolPosition");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_currency_format_form_set_symbol_position(ReportColumnEntryCurrencyFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "symbolPosition", value);
+}
+
 void report_column_entry_data_source_form_init(ReportColumnEntryDataSourceForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -126550,6 +126977,34 @@ char *report_column_entry_data_source_form_data_type(const ReportColumnEntryData
 }
 void report_column_entry_data_source_form_set_data_type(ReportColumnEntryDataSourceForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dataType", value);
+}
+
+void report_column_entry_date_format_form_init(ReportColumnEntryDateFormatForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_column_entry_date_format_form_free(ReportColumnEntryDateFormatForm *self) {
+  som_node_free(&self->node);
+}
+char *report_column_entry_date_format_form_content(const ReportColumnEntryDateFormatForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_date_format_form_set_content(ReportColumnEntryDateFormatForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_column_entry_date_format_form_format_pattern(const ReportColumnEntryDateFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatPattern");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_date_format_form_set_format_pattern(ReportColumnEntryDateFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "formatPattern", value);
+}
+char *report_column_entry_date_format_form_timezone_display(const ReportColumnEntryDateFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "timezoneDisplay");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_date_format_form_set_timezone_display(ReportColumnEntryDateFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "timezoneDisplay", value);
 }
 
 void report_column_entry_formatting_form_init(ReportColumnEntryFormattingForm *self, SpecDocument *doc, const char *path) {
@@ -126595,40 +127050,12 @@ char *report_column_entry_formatting_form_vertical_alignment(const ReportColumnE
 void report_column_entry_formatting_form_set_vertical_alignment(ReportColumnEntryFormattingForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "verticalAlignment", value);
 }
-char *report_column_entry_formatting_form_format_pattern(const ReportColumnEntryFormattingForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatPattern");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_column_entry_formatting_form_set_format_pattern(ReportColumnEntryFormattingForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "formatPattern", value);
-}
-char *report_column_entry_formatting_form_currency_code(const ReportColumnEntryFormattingForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "currencyCode");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_column_entry_formatting_form_set_currency_code(ReportColumnEntryFormattingForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "currencyCode", value);
-}
 char *report_column_entry_formatting_form_null_display(const ReportColumnEntryFormattingForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "nullDisplay");
   return som_strdup(v != NULL ? v : "");
 }
 void report_column_entry_formatting_form_set_null_display(ReportColumnEntryFormattingForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "nullDisplay", value);
-}
-char *report_column_entry_formatting_form_boolean_true_display(const ReportColumnEntryFormattingForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "booleanTrueDisplay");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_column_entry_formatting_form_set_boolean_true_display(ReportColumnEntryFormattingForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "booleanTrueDisplay", value);
-}
-char *report_column_entry_formatting_form_boolean_false_display(const ReportColumnEntryFormattingForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "booleanFalseDisplay");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_column_entry_formatting_form_set_boolean_false_display(ReportColumnEntryFormattingForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "booleanFalseDisplay", value);
 }
 
 void report_column_entry_interaction_form_init(ReportColumnEntryInteractionForm *self, SpecDocument *doc, const char *path) {
@@ -126708,6 +127135,64 @@ char *report_column_entry_layout_form_notes(const ReportColumnEntryLayoutForm *s
 }
 void report_column_entry_layout_form_set_notes(ReportColumnEntryLayoutForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
+}
+
+void report_column_entry_numeric_format_form_init(ReportColumnEntryNumericFormatForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_column_entry_numeric_format_form_free(ReportColumnEntryNumericFormatForm *self) {
+  som_node_free(&self->node);
+}
+char *report_column_entry_numeric_format_form_content(const ReportColumnEntryNumericFormatForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_numeric_format_form_set_content(ReportColumnEntryNumericFormatForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_column_entry_numeric_format_form_format_pattern(const ReportColumnEntryNumericFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatPattern");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_numeric_format_form_set_format_pattern(ReportColumnEntryNumericFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "formatPattern", value);
+}
+char *report_column_entry_numeric_format_form_negative_display(const ReportColumnEntryNumericFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "negativeDisplay");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_numeric_format_form_set_negative_display(ReportColumnEntryNumericFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "negativeDisplay", value);
+}
+
+void report_column_entry_text_format_form_init(ReportColumnEntryTextFormatForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_column_entry_text_format_form_free(ReportColumnEntryTextFormatForm *self) {
+  som_node_free(&self->node);
+}
+char *report_column_entry_text_format_form_content(const ReportColumnEntryTextFormatForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_text_format_form_set_content(ReportColumnEntryTextFormatForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_column_entry_text_format_form_overflow_behavior(const ReportColumnEntryTextFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "overflowBehavior");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_column_entry_text_format_form_set_overflow_behavior(ReportColumnEntryTextFormatForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "overflowBehavior", value);
+}
+long report_column_entry_text_format_form_max_display_length(const ReportColumnEntryTextFormatForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxDisplayLength");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void report_column_entry_text_format_form_set_max_display_length(ReportColumnEntryTextFormatForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxDisplayLength", buf);
 }
 
 void report_distribution_entry_content_form_init(ReportDistributionEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -127472,6 +127957,34 @@ void report_filter_entry_behavior_form_set_depends_on(ReportFilterEntryBehaviorF
   spec_document_set_form_field(self->node.doc, self->node.path, "dependsOn", value);
 }
 
+void report_filter_entry_boolean_filter_options_form_init(ReportFilterEntryBooleanFilterOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_filter_entry_boolean_filter_options_form_free(ReportFilterEntryBooleanFilterOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *report_filter_entry_boolean_filter_options_form_content(const ReportFilterEntryBooleanFilterOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_boolean_filter_options_form_set_content(ReportFilterEntryBooleanFilterOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_filter_entry_boolean_filter_options_form_input_type(const ReportFilterEntryBooleanFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_boolean_filter_options_form_set_input_type(ReportFilterEntryBooleanFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "inputType", value);
+}
+char *report_filter_entry_boolean_filter_options_form_include_indeterminate(const ReportFilterEntryBooleanFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "includeIndeterminate");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_boolean_filter_options_form_set_include_indeterminate(ReportFilterEntryBooleanFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "includeIndeterminate", value);
+}
+
 void report_filter_entry_content_form_init(ReportFilterEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -127507,6 +128020,83 @@ void report_filter_entry_content_form_set_display_label(ReportFilterEntryContent
   spec_document_set_form_field(self->node.doc, self->node.path, "displayLabel", value);
 }
 
+void report_filter_entry_date_filter_options_form_init(ReportFilterEntryDateFilterOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_filter_entry_date_filter_options_form_free(ReportFilterEntryDateFilterOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *report_filter_entry_date_filter_options_form_content(const ReportFilterEntryDateFilterOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_date_filter_options_form_set_content(ReportFilterEntryDateFilterOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_filter_entry_date_filter_options_form_input_type(const ReportFilterEntryDateFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_date_filter_options_form_set_input_type(ReportFilterEntryDateFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "inputType", value);
+}
+char *report_filter_entry_date_filter_options_form_earliest_date(const ReportFilterEntryDateFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "earliestDate");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_date_filter_options_form_set_earliest_date(ReportFilterEntryDateFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "earliestDate", value);
+}
+char *report_filter_entry_date_filter_options_form_latest_date(const ReportFilterEntryDateFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "latestDate");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_date_filter_options_form_set_latest_date(ReportFilterEntryDateFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "latestDate", value);
+}
+
+void report_filter_entry_entity_filter_options_form_init(ReportFilterEntryEntityFilterOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_filter_entry_entity_filter_options_form_free(ReportFilterEntryEntityFilterOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *report_filter_entry_entity_filter_options_form_content(const ReportFilterEntryEntityFilterOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_entity_filter_options_form_set_content(ReportFilterEntryEntityFilterOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_filter_entry_entity_filter_options_form_input_type(const ReportFilterEntryEntityFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_entity_filter_options_form_set_input_type(ReportFilterEntryEntityFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "inputType", value);
+}
+char *report_filter_entry_entity_filter_options_form_entity_type(const ReportFilterEntryEntityFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityType");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_entity_filter_options_form_set_entity_type(ReportFilterEntryEntityFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "entityType", value);
+}
+char *report_filter_entry_entity_filter_options_form_query_filter(const ReportFilterEntryEntityFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "queryFilter");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_entity_filter_options_form_set_query_filter(ReportFilterEntryEntityFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "queryFilter", value);
+}
+char *report_filter_entry_entity_filter_options_form_display_attribute(const ReportFilterEntryEntityFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayAttribute");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_entity_filter_options_form_set_display_attribute(ReportFilterEntryEntityFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "displayAttribute", value);
+}
+
 void report_filter_entry_input_form_init(ReportFilterEntryInputForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -127527,13 +128117,6 @@ char *report_filter_entry_input_form_data_type(const ReportFilterEntryInputForm 
 void report_filter_entry_input_form_set_data_type(ReportFilterEntryInputForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dataType", value);
 }
-char *report_filter_entry_input_form_input_type(const ReportFilterEntryInputForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_filter_entry_input_form_set_input_type(ReportFilterEntryInputForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "inputType", value);
-}
 char *report_filter_entry_input_form_default_value(const ReportFilterEntryInputForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "defaultValue");
   return som_strdup(v != NULL ? v : "");
@@ -127541,33 +128124,40 @@ char *report_filter_entry_input_form_default_value(const ReportFilterEntryInputF
 void report_filter_entry_input_form_set_default_value(ReportFilterEntryInputForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "defaultValue", value);
 }
-char *report_filter_entry_input_form_available_values_source(const ReportFilterEntryInputForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "availableValuesSource");
+
+void report_filter_entry_numeric_filter_options_form_init(ReportFilterEntryNumericFilterOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_filter_entry_numeric_filter_options_form_free(ReportFilterEntryNumericFilterOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *report_filter_entry_numeric_filter_options_form_content(const ReportFilterEntryNumericFilterOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
   return som_strdup(v != NULL ? v : "");
 }
-void report_filter_entry_input_form_set_available_values_source(ReportFilterEntryInputForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "availableValuesSource", value);
+void report_filter_entry_numeric_filter_options_form_set_content(ReportFilterEntryNumericFilterOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *report_filter_entry_input_form_static_values(const ReportFilterEntryInputForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "staticValues");
+char *report_filter_entry_numeric_filter_options_form_input_type(const ReportFilterEntryNumericFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
   return som_strdup(v != NULL ? v : "");
 }
-void report_filter_entry_input_form_set_static_values(ReportFilterEntryInputForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "staticValues", value);
+void report_filter_entry_numeric_filter_options_form_set_input_type(ReportFilterEntryNumericFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "inputType", value);
 }
-char *report_filter_entry_input_form_cascade_parent(const ReportFilterEntryInputForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "cascadeParent");
+char *report_filter_entry_numeric_filter_options_form_min_value(const ReportFilterEntryNumericFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minValue");
   return som_strdup(v != NULL ? v : "");
 }
-void report_filter_entry_input_form_set_cascade_parent(ReportFilterEntryInputForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "cascadeParent", value);
+void report_filter_entry_numeric_filter_options_form_set_min_value(ReportFilterEntryNumericFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "minValue", value);
 }
-char *report_filter_entry_input_form_multi_select(const ReportFilterEntryInputForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "multiSelect");
+char *report_filter_entry_numeric_filter_options_form_max_value(const ReportFilterEntryNumericFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxValue");
   return som_strdup(v != NULL ? v : "");
 }
-void report_filter_entry_input_form_set_multi_select(ReportFilterEntryInputForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "multiSelect", value);
+void report_filter_entry_numeric_filter_options_form_set_max_value(ReportFilterEntryNumericFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxValue", value);
 }
 
 void report_filter_entry_presentation_form_init(ReportFilterEntryPresentationForm *self, SpecDocument *doc, const char *path) {
@@ -127610,6 +128200,92 @@ char *report_filter_entry_presentation_form_notes(const ReportFilterEntryPresent
 }
 void report_filter_entry_presentation_form_set_notes(ReportFilterEntryPresentationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
+}
+
+void report_filter_entry_select_filter_options_form_init(ReportFilterEntrySelectFilterOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_filter_entry_select_filter_options_form_free(ReportFilterEntrySelectFilterOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *report_filter_entry_select_filter_options_form_content(const ReportFilterEntrySelectFilterOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_select_filter_options_form_set_content(ReportFilterEntrySelectFilterOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_filter_entry_select_filter_options_form_input_type(const ReportFilterEntrySelectFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_select_filter_options_form_set_input_type(ReportFilterEntrySelectFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "inputType", value);
+}
+char *report_filter_entry_select_filter_options_form_available_values_source(const ReportFilterEntrySelectFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "availableValuesSource");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_select_filter_options_form_set_available_values_source(ReportFilterEntrySelectFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "availableValuesSource", value);
+}
+char *report_filter_entry_select_filter_options_form_static_values(const ReportFilterEntrySelectFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "staticValues");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_select_filter_options_form_set_static_values(ReportFilterEntrySelectFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "staticValues", value);
+}
+char *report_filter_entry_select_filter_options_form_cascade_parent(const ReportFilterEntrySelectFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "cascadeParent");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_select_filter_options_form_set_cascade_parent(ReportFilterEntrySelectFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "cascadeParent", value);
+}
+char *report_filter_entry_select_filter_options_form_multi_select(const ReportFilterEntrySelectFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "multiSelect");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_select_filter_options_form_set_multi_select(ReportFilterEntrySelectFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "multiSelect", value);
+}
+
+void report_filter_entry_text_filter_options_form_init(ReportFilterEntryTextFilterOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_filter_entry_text_filter_options_form_free(ReportFilterEntryTextFilterOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *report_filter_entry_text_filter_options_form_content(const ReportFilterEntryTextFilterOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_text_filter_options_form_set_content(ReportFilterEntryTextFilterOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *report_filter_entry_text_filter_options_form_input_type(const ReportFilterEntryTextFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_text_filter_options_form_set_input_type(ReportFilterEntryTextFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "inputType", value);
+}
+char *report_filter_entry_text_filter_options_form_match_mode(const ReportFilterEntryTextFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "matchMode");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_filter_entry_text_filter_options_form_set_match_mode(ReportFilterEntryTextFilterOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "matchMode", value);
+}
+long report_filter_entry_text_filter_options_form_max_length(const ReportFilterEntryTextFilterOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxLength");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void report_filter_entry_text_filter_options_form_set_max_length(ReportFilterEntryTextFilterOptionsForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxLength", buf);
 }
 
 void report_recipient_entry_content_form_init(ReportRecipientEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -136091,6 +136767,34 @@ void screen_entry_traceability_form_set_primary_action(ScreenEntryTraceabilityFo
   spec_document_set_form_field(self->node.doc, self->node.path, "primaryAction", value);
 }
 
+void screen_field_entry_choice_options_form_init(ScreenFieldEntryChoiceOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_field_entry_choice_options_form_free(ScreenFieldEntryChoiceOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_field_entry_choice_options_form_content(const ScreenFieldEntryChoiceOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_choice_options_form_set_content(ScreenFieldEntryChoiceOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_field_entry_choice_options_form_option_source(const ScreenFieldEntryChoiceOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "optionSource");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_choice_options_form_set_option_source(ScreenFieldEntryChoiceOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "optionSource", value);
+}
+char *screen_field_entry_choice_options_form_static_options(const ScreenFieldEntryChoiceOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "staticOptions");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_choice_options_form_set_static_options(ScreenFieldEntryChoiceOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "staticOptions", value);
+}
+
 void screen_field_entry_conditions_form_init(ScreenFieldEntryConditionsForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -136237,20 +136941,6 @@ char *screen_field_entry_layout_form_content(const ScreenFieldEntryLayoutForm *s
 void screen_field_entry_layout_form_set_content(ScreenFieldEntryLayoutForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *screen_field_entry_layout_form_dropdown_source(const ScreenFieldEntryLayoutForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dropdownSource");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_field_entry_layout_form_set_dropdown_source(ScreenFieldEntryLayoutForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dropdownSource", value);
-}
-char *screen_field_entry_layout_form_dropdown_values(const ScreenFieldEntryLayoutForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dropdownValues");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_field_entry_layout_form_set_dropdown_values(ScreenFieldEntryLayoutForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dropdownValues", value);
-}
 char *screen_field_entry_layout_form_depends_on(const ScreenFieldEntryLayoutForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependsOn");
   return som_strdup(v != NULL ? v : "");
@@ -136280,6 +136970,97 @@ void screen_field_entry_layout_form_set_grouping(ScreenFieldEntryLayoutForm *sel
   spec_document_set_form_field(self->node.doc, self->node.path, "grouping", value);
 }
 
+void screen_field_entry_numeric_constraints_form_init(ScreenFieldEntryNumericConstraintsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_field_entry_numeric_constraints_form_free(ScreenFieldEntryNumericConstraintsForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_field_entry_numeric_constraints_form_content(const ScreenFieldEntryNumericConstraintsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_numeric_constraints_form_set_content(ScreenFieldEntryNumericConstraintsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_field_entry_numeric_constraints_form_min_value(const ScreenFieldEntryNumericConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minValue");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_numeric_constraints_form_set_min_value(ScreenFieldEntryNumericConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "minValue", value);
+}
+char *screen_field_entry_numeric_constraints_form_max_value(const ScreenFieldEntryNumericConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxValue");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_numeric_constraints_form_set_max_value(ScreenFieldEntryNumericConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxValue", value);
+}
+
+void screen_field_entry_temporal_constraints_form_init(ScreenFieldEntryTemporalConstraintsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_field_entry_temporal_constraints_form_free(ScreenFieldEntryTemporalConstraintsForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_field_entry_temporal_constraints_form_content(const ScreenFieldEntryTemporalConstraintsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_temporal_constraints_form_set_content(ScreenFieldEntryTemporalConstraintsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_field_entry_temporal_constraints_form_earliest_value(const ScreenFieldEntryTemporalConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "earliestValue");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_temporal_constraints_form_set_earliest_value(ScreenFieldEntryTemporalConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "earliestValue", value);
+}
+char *screen_field_entry_temporal_constraints_form_latest_value(const ScreenFieldEntryTemporalConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "latestValue");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_temporal_constraints_form_set_latest_value(ScreenFieldEntryTemporalConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "latestValue", value);
+}
+
+void screen_field_entry_text_constraints_form_init(ScreenFieldEntryTextConstraintsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_field_entry_text_constraints_form_free(ScreenFieldEntryTextConstraintsForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_field_entry_text_constraints_form_content(const ScreenFieldEntryTextConstraintsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_text_constraints_form_set_content(ScreenFieldEntryTextConstraintsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_field_entry_text_constraints_form_min_length(const ScreenFieldEntryTextConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minLength");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_text_constraints_form_set_min_length(ScreenFieldEntryTextConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "minLength", value);
+}
+char *screen_field_entry_text_constraints_form_max_length(const ScreenFieldEntryTextConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxLength");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_text_constraints_form_set_max_length(ScreenFieldEntryTextConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxLength", value);
+}
+char *screen_field_entry_text_constraints_form_pattern(const ScreenFieldEntryTextConstraintsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "pattern");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_field_entry_text_constraints_form_set_pattern(ScreenFieldEntryTextConstraintsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "pattern", value);
+}
+
 void screen_field_entry_validation_form_init(ScreenFieldEntryValidationForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -136292,41 +137073,6 @@ char *screen_field_entry_validation_form_content(const ScreenFieldEntryValidatio
 }
 void screen_field_entry_validation_form_set_content(ScreenFieldEntryValidationForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *screen_field_entry_validation_form_min_length(const ScreenFieldEntryValidationForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minLength");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_field_entry_validation_form_set_min_length(ScreenFieldEntryValidationForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "minLength", value);
-}
-char *screen_field_entry_validation_form_max_length(const ScreenFieldEntryValidationForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxLength");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_field_entry_validation_form_set_max_length(ScreenFieldEntryValidationForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "maxLength", value);
-}
-char *screen_field_entry_validation_form_min_value(const ScreenFieldEntryValidationForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "minValue");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_field_entry_validation_form_set_min_value(ScreenFieldEntryValidationForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "minValue", value);
-}
-char *screen_field_entry_validation_form_max_value(const ScreenFieldEntryValidationForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxValue");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_field_entry_validation_form_set_max_value(ScreenFieldEntryValidationForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "maxValue", value);
-}
-char *screen_field_entry_validation_form_pattern(const ScreenFieldEntryValidationForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "pattern");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_field_entry_validation_form_set_pattern(ScreenFieldEntryValidationForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "pattern", value);
 }
 char *screen_field_entry_validation_form_validation_message(const ScreenFieldEntryValidationForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "validationMessage");

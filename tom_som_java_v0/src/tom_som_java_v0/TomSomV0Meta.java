@@ -23925,14 +23925,56 @@ public final class TomSomV0Meta {
         n.sectionId = "DAATT-DATA";
         n.serializationOrder = 1;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dataType", "String", "Data Type", false, "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary", 0),
+            new SomFormFieldMeta("dataType", "DataAttributeKind", "Data Type", false, "The logical type — selects the promoted options subsection.", 0, java.util.List.of("string", "integer", "decimal", "date", "dateTime", "binary", "boolean", "uuid", "json", "enumeration")),
             new SomFormFieldMeta("physicalType", "String", "Physical Type", false, "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", 1),
-            new SomFormFieldMeta("length", "String", "Length/Size", false, "Maximum length for strings or size for binary", 2),
-            new SomFormFieldMeta("precision", "String", "Precision", false, "Total digits for numeric types", 3),
-            new SomFormFieldMeta("scale", "String", "Scale", false, "Decimal places for numeric types", 4),
-            new SomFormFieldMeta("collation", "String", "Collation", false, "Character collation for text (e.g., utf8_general_ci)", 5),
-            new SomFormFieldMeta("timezone", "String", "Timezone", false, "For datetime: UTC | Local | WithOffset", 6),
-            new SomFormFieldMeta("format", "String", "Format", false, "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", 7)));
+            new SomFormFieldMeta("format", "String", "Format", false, "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", 2)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
+        n.memberName = "textTypeOptions";
+        n.sectionId = "DAATT-DTTX";
+        n.serializationOrder = 2;
+        n.docComment = "Text-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `string` logical type; carries only the character\nlength and collation attributes (no numeric precision, no timezone).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("length", "String", "Length", false, "Maximum character length", 0),
+            new SomFormFieldMeta("collation", "String", "Collation", false, "Character collation for text (e.g., utf8_general_ci)", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — permissible value and representation of a data element", "ISO/IEC 25012 — data quality characteristics for stored text"), "connotation", "The character length and collation constraints for a text attribute.")), new SomMetaExtra("Case", metaArgs("value", "DataAttributeKind.string")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
+        n.memberName = "numericTypeOptions";
+        n.sectionId = "DAATT-DTNU";
+        n.serializationOrder = 3;
+        n.docComment = "Numeric-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric logical types; carries only the precision and\nscale attributes (no length, collation or timezone).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("precision", "String", "Precision", false, "Total digits for numeric types", 0),
+            new SomFormFieldMeta("scale", "String", "Scale", false, "Decimal places for numeric types", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — permissible value and representation of a data element", "ISO 80000-1 — quantities and units, on numeric precision"), "connotation", "The precision and scale constraints for a numeric attribute.")), new SomMetaExtra("Case", metaArgs("value", "DataAttributeKind.integer")), new SomMetaExtra("Case", metaArgs("value", "DataAttributeKind.decimal")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
+        n.memberName = "temporalTypeOptions";
+        n.sectionId = "DAATT-DTTM";
+        n.serializationOrder = 4;
+        n.docComment = "Temporal-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/time logical types; carries only the timezone\nhandling attribute.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("timezone", "String", "Timezone", false, "For datetime: UTC | Local | WithOffset", 0)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 8601-1:2019 — representation of dates and times", "ISO 8601-2:2019 — extensions including time-zone offsets"), "connotation", "The timezone handling for a date or date-time attribute.")), new SomMetaExtra("Case", metaArgs("value", "DataAttributeKind.date")), new SomMetaExtra("Case", metaArgs("value", "DataAttributeKind.dateTime")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
+        n.memberName = "binaryTypeOptions";
+        n.sectionId = "DAATT-DTBI";
+        n.serializationOrder = 5;
+        n.docComment = "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("maxSizeBytes", "String", "Max Size (Bytes)", false, "Maximum stored size in bytes", 0),
+            new SomFormFieldMeta("storageMode", "String", "Storage Mode", false, "Inline | External-Reference | Blob-Store", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — permissible value and representation of a data element"), "connotation", "The stored size constraints for a binary attribute.")), new SomMetaExtra("Case", metaArgs("value", "DataAttributeKind.binary")));
         out.add(n);
       }
       {
@@ -23940,7 +23982,7 @@ public final class TomSomV0Meta {
         n.memberName = "constraints";
         n.sectionId = "DATAA-CONS-LST";
         n.sectionIdPattern = "DATAA-CONS-xxx";
-        n.serializationOrder = 2;
+        n.serializationOrder = 6;
         n.contentHelp = "Add one entry per attribute constraint.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("SBVR — business rule statements", "ISO/IEC 25012 — data quality"), "connotation", "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.")));
         n.elementNode = metaCx("DataAttributeConstraintEntry", s, DataAttributeConstraintEntryNav::metaChildren, (r, c) -> {
@@ -23958,7 +24000,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "derivation";
         n.sectionId = "DAATT-DERI";
-        n.serializationOrder = 3;
+        n.serializationOrder = 7;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("isComputed", "String", "Is Computed", false, "Whether value is computed: Yes | No", 0),
             new SomFormFieldMeta("computeFormula", "String", "Compute Formula", false, "Formula or expression for computed fields", 1),
@@ -23970,7 +24012,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "securityClassification";
         n.sectionId = "DAATT-SECU";
-        n.serializationOrder = 4;
+        n.serializationOrder = 8;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sensitivityLevel", "String", "Sensitivity Level", false, "Public | Internal | Confidential | Restricted | PII | PHI", 0),
             new SomFormFieldMeta("isPii", "String", "Is PII", false, "Personally identifiable information: Yes | No", 1),
@@ -23983,7 +24025,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "migrationLineage";
         n.sectionId = "DAATT-MIGR";
-        n.serializationOrder = 5;
+        n.serializationOrder = 9;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceSystem", "String", "Source System", false, "Originating system for data lineage", 0),
             new SomFormFieldMeta("sourceAttribute", "String", "Source Attribute", false, "Source field name for migration mapping", 1),
@@ -23997,7 +24039,7 @@ public final class TomSomV0Meta {
         n.memberName = "displayProperties";
         n.sectionId = "DISPL-DISP-LST";
         n.sectionIdPattern = "DISPL-DISP-xxx";
-        n.serializationOrder = 6;
+        n.serializationOrder = 10;
         n.contentHelp = "Add one entry per display property.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — metadata registries / data element definitions"), "connotation", "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.")));
         n.elementNode = metaCx("DisplayPropertyEntry", s, DisplayPropertyEntryNav::metaChildren, (r, c) -> {
@@ -24020,6 +24062,22 @@ public final class TomSomV0Meta {
 
     public SomMetaRef dataTypeSpec() {
       return new SomMetaRef(tree, path + "/DAATT-DATA");
+    }
+
+    public SomMetaRef textTypeOptions() {
+      return new SomMetaRef(tree, path + "/DAATT-DTTX");
+    }
+
+    public SomMetaRef numericTypeOptions() {
+      return new SomMetaRef(tree, path + "/DAATT-DTNU");
+    }
+
+    public SomMetaRef temporalTypeOptions() {
+      return new SomMetaRef(tree, path + "/DAATT-DTTM");
+    }
+
+    public SomMetaRef binaryTypeOptions() {
+      return new SomMetaRef(tree, path + "/DAATT-DTBI");
     }
 
     public SomListMetaRef<DataAttributeConstraintEntryNav> constraints() {
@@ -37876,16 +37934,75 @@ public final class TomSomV0Meta {
         n.docComment = "Ordering and formatting settings.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in the export output (column order)", 0),
-            new SomFormFieldMeta("dataType", "String", "Data Type", false, "String / Integer / Decimal / Date / DateTime / Boolean / Enum", 1),
-            new SomFormFieldMeta("formatPattern", "String", "Format Pattern", false, "Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers", 2)));
+            new SomFormFieldMeta("dataType", "ExportFieldKind", "Data Type", false, "The field value type — selects the promoted output subsection.", 1, java.util.List.of("string", "integer", "decimal", "date", "dateTime", "boolean", "enumeration"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("IETF RFC 4180 — the order of fields within each record is fixed and consistent across the file", "ISO 8601-1:2019 — a standardized date representation governs how date-typed fields are formatted"), "connotation", "Column ordering, data typing, and output format pattern applied to a mapped export field.")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
+        n.memberName = "numericOutput";
+        n.sectionId = "EFMEFN";
+        n.serializationOrder = 2;
+        n.docComment = "Numeric-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal fields; carries only the numeric\noutput pattern and separators.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("formatPattern", "String", "Format Pattern", false, "Numeric output format, e.g. #,##0.00", 0),
+            new SomFormFieldMeta("decimalSeparator", "String", "Decimal Separator", false, "Character used as the decimal mark, e.g. . or ,", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 80000-1:2022 — general principles for quantities units and their symbols", "IETF RFC 4180 — numeric field values are emitted as text within the record structure"), "connotation", "The numeric output pattern and separators for an exported numeric field.")), new SomMetaExtra("Case", metaArgs("value", "ExportFieldKind.integer")), new SomMetaExtra("Case", metaArgs("value", "ExportFieldKind.decimal")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
+        n.memberName = "temporalOutput";
+        n.sectionId = "EFMEFD";
+        n.serializationOrder = 3;
+        n.docComment = "Temporal-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for date and date-time fields; carries only the temporal\noutput pattern and timezone handling.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("formatPattern", "String", "Format Pattern", false, "Temporal output format, e.g. dd.MM.yyyy", 0),
+            new SomFormFieldMeta("timezoneHandling", "String", "Timezone Handling", false, "UTC / Local / With-Offset", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 8601-1:2019 — representation of dates and times", "ISO 8601-2:2019 — extensions including time-zone offsets"), "connotation", "The temporal output pattern and timezone handling for an exported date field.")), new SomMetaExtra("Case", metaArgs("value", "ExportFieldKind.date")), new SomMetaExtra("Case", metaArgs("value", "ExportFieldKind.dateTime")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
+        n.memberName = "booleanOutput";
+        n.sectionId = "EFMEFB";
+        n.serializationOrder = 4;
+        n.docComment = "Boolean-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean fields; this is the only case in which the\nemitted true/false literals are meaningful.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("trueLiteral", "String", "True Literal", false, "Emitted for true, e.g. true / Y / 1", 0),
+            new SomFormFieldMeta("falseLiteral", "String", "False Literal", false, "Emitted for false, e.g. false / N / 0", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("IETF RFC 4180 — boolean field values are emitted as text literals within the record"), "connotation", "The emitted true and false literals for an exported boolean field.")), new SomMetaExtra("Case", metaArgs("value", "ExportFieldKind.boolean")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
+        n.memberName = "enumerationOutput";
+        n.sectionId = "EFMEFE";
+        n.serializationOrder = 5;
+        n.docComment = "Enumeration-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration fields; carries which face of the value set\nis emitted and what happens to a value outside it.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("emittedForm", "String", "Emitted Form", false, "Value-Id / Display-Label / Numeric-Ordinal", 0),
+            new SomFormFieldMeta("unmappedValueBehavior", "String", "Unmapped Value Behavior", false, "Emit-Raw / Emit-Empty / Fail-Export", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — permissible values of a data element and their representation"), "connotation", "The emitted representation of an exported enumeration field and its unmapped-value behaviour.")), new SomMetaExtra("Case", metaArgs("value", "ExportFieldKind.enumeration")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
+        n.memberName = "textOutput";
+        n.sectionId = "EFMEFT";
+        n.serializationOrder = 6;
+        n.docComment = "Text-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for text fields; carries the character-length truncation\nthat only a string field can have. Moved out of `inclusion`, where it sat\nbeside type-independent default and inclusion rules.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("maxLength", "int", "Max Length", false, "Truncate output to this character length", 0),
+            new SomFormFieldMeta("padding", "String", "Padding", false, "None / Left-Pad / Right-Pad for fixed-width output", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("IETF RFC 4180 — text field values are emitted within the record structure", "ISO/IEC 25010:2023 — functional correctness of length-bounded output"), "connotation", "The character-length truncation and padding for an exported text field.")), new SomMetaExtra("Case", metaArgs("value", "ExportFieldKind.string")));
         out.add(n);
       }
       {
         SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
         n.memberName = "transformation";
         n.sectionId = "EFMET";
-        n.serializationOrder = 2;
+        n.serializationOrder = 7;
         n.docComment = "Transformation rules.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("transformationRule", "String", "Transformation Rule", false, "Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom", 0),
@@ -37898,13 +38015,12 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
         n.memberName = "inclusion";
         n.sectionId = "EFMEI";
-        n.serializationOrder = 3;
+        n.serializationOrder = 8;
         n.docComment = "Inclusion and defaults.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Value to use when source is null/empty", 0),
             new SomFormFieldMeta("includeInExport", "String", "Include In Export", false, "Yes / No / Conditional", 1),
-            new SomFormFieldMeta("inclusionCondition", "String", "Inclusion Condition", false, "Condition for conditional inclusion", 2),
-            new SomFormFieldMeta("maxLength", "int", "Max Length", false, "Truncate output to this character length", 3)));
+            new SomFormFieldMeta("inclusionCondition", "String", "Inclusion Condition", false, "Condition for conditional inclusion", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("IETF RFC 4180 — a record is a sequence of fields where empty fields are represented by adjacent delimiters", "ISO/IEC 25010:2023 — functional correctness ensures default and inclusion rules produce the expected output"), "connotation", "Inclusion conditions and default values determining whether and how a mapped field appears in the export.")));
         out.add(n);
       }
@@ -37912,7 +38028,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
         n.memberName = "layout";
         n.sectionId = "EFMEL";
-        n.serializationOrder = 4;
+        n.serializationOrder = 9;
         n.docComment = "Fixed-width and quoting rules.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("paddingChar", "String", "Padding Char", false, "For fixed-width: padding character, e.g. space or 0", 0),
@@ -37932,6 +38048,26 @@ public final class TomSomV0Meta {
 
     public SomMetaRef formatting() {
       return new SomMetaRef(tree, path + "/EFMEF");
+    }
+
+    public SomMetaRef numericOutput() {
+      return new SomMetaRef(tree, path + "/EFMEFN");
+    }
+
+    public SomMetaRef temporalOutput() {
+      return new SomMetaRef(tree, path + "/EFMEFD");
+    }
+
+    public SomMetaRef booleanOutput() {
+      return new SomMetaRef(tree, path + "/EFMEFB");
+    }
+
+    public SomMetaRef enumerationOutput() {
+      return new SomMetaRef(tree, path + "/EFMEFE");
+    }
+
+    public SomMetaRef textOutput() {
+      return new SomMetaRef(tree, path + "/EFMEFT");
     }
 
     public SomMetaRef transformation() {
@@ -71038,7 +71174,7 @@ public final class TomSomV0Meta {
         n.docComment = "Data source and type.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataSourceField", "String", "Data Source Field", false, "Path to the data field, e.g. order.customer.name", 0),
-            new SomFormFieldMeta("dataType", "String", "Data Type", false, "String / Integer / Decimal / Currency / Date / Boolean", 1)));
+            new SomFormFieldMeta("dataType", "ReportColumnKind", "Data Type", false, "The column value type — selects the promoted format subsection.", 1, java.util.List.of("string", "integer", "decimal", "currency", "date", "boolean"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-112:2017 — presentation of information relates displayed data to its source field", "ISO/IEC 25010:2023 — functional suitability requires the column value data type to be defined"), "connotation", "Data source field and data type binding for a report column.")));
         out.add(n);
       }
@@ -71053,19 +71189,76 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("width", "String", "Width", false, "Auto / Fixed(120px) / Proportion(25%)", 1),
             new SomFormFieldMeta("alignment", "String", "Alignment", false, "Left / Center / Right", 2),
             new SomFormFieldMeta("verticalAlignment", "String", "Vertical Alignment", false, "Top / Middle / Bottom", 3),
-            new SomFormFieldMeta("formatPattern", "String", "Format Pattern", false, "Display format, e.g. #,##0.00", 4),
-            new SomFormFieldMeta("currencyCode", "String", "Currency Code", false, "Currency code if type is Currency", 5),
-            new SomFormFieldMeta("nullDisplay", "String", "Null Display", false, "What to show for null/empty values", 6),
-            new SomFormFieldMeta("booleanTrueDisplay", "String", "Boolean True Display", false, "Display for true, e.g. Yes / ✓", 7),
-            new SomFormFieldMeta("booleanFalseDisplay", "String", "Boolean False Display", false, "Display for false, e.g. No / —", 8)));
+            new SomFormFieldMeta("nullDisplay", "String", "Null Display", false, "What to show for null/empty values", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-125:2017 — visual presentation of information governs width alignment and formatting", "ISO 80000-1:2022 — general principles for quantities units and their symbols"), "connotation", "Display formatting settings for a report column such as width, alignment and value formats.")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
+        n.memberName = "numericFormat";
+        n.sectionId = "RECOFN";
+        n.serializationOrder = 3;
+        n.docComment = "Numeric-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal columns; carries only the numeric\ndisplay pattern (no currency code, no boolean labels).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("formatPattern", "String", "Format Pattern", false, "Numeric display format, e.g. #,##0.00", 0),
+            new SomFormFieldMeta("negativeDisplay", "String", "Negative Display", false, "Minus-Sign / Parentheses / Red", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 80000-1:2022 — general principles for quantities units and their symbols", "ISO 31-0 — presentation of numbers including grouping and decimal marks"), "connotation", "The numeric display pattern for an integer or decimal report column.")), new SomMetaExtra("Case", metaArgs("value", "ReportColumnKind.integer")), new SomMetaExtra("Case", metaArgs("value", "ReportColumnKind.decimal")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
+        n.memberName = "currencyFormat";
+        n.sectionId = "RECOFC";
+        n.serializationOrder = 4;
+        n.docComment = "Currency-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for currency columns; this is the only case in which a\ncurrency code is meaningful.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("formatPattern", "String", "Format Pattern", false, "Monetary display format, e.g. #,##0.00", 0),
+            new SomFormFieldMeta("currencyCode", "String", "Currency Code", false, "ISO 4217 code, e.g. EUR / USD", 1),
+            new SomFormFieldMeta("symbolPosition", "String", "Symbol Position", false, "Prefix / Suffix / None", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 4217:2015 — codes for the representation of currencies", "ISO 80000-1:2022 — general principles for quantities units and their symbols"), "connotation", "The currency code and monetary display pattern for a currency report column.")), new SomMetaExtra("Case", metaArgs("value", "ReportColumnKind.currency")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
+        n.memberName = "dateFormat";
+        n.sectionId = "RECOFD";
+        n.serializationOrder = 5;
+        n.docComment = "Date-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for date columns; carries only the temporal display pattern.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("formatPattern", "String", "Format Pattern", false, "Date display format, e.g. yyyy-MM-dd", 0),
+            new SomFormFieldMeta("timezoneDisplay", "String", "Timezone Display", false, "UTC / Local / With-Offset", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 8601-1:2019 — representation of dates and times", "ISO 9241-112:2017 — presentation of information for temporal values"), "connotation", "The temporal display pattern for a date report column.")), new SomMetaExtra("Case", metaArgs("value", "ReportColumnKind.date")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
+        n.memberName = "booleanFormat";
+        n.sectionId = "RECOFB";
+        n.serializationOrder = 6;
+        n.docComment = "Boolean-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean columns; this is the only case in which the\ntrue/false display labels are meaningful.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("booleanTrueDisplay", "String", "Boolean True Display", false, "Display for true, e.g. Yes / ✓", 0),
+            new SomFormFieldMeta("booleanFalseDisplay", "String", "Boolean False Display", false, "Display for false, e.g. No / —", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-112:2017 — presentation of information for two-valued indicators"), "connotation", "The true and false display labels for a boolean report column.")), new SomMetaExtra("Case", metaArgs("value", "ReportColumnKind.boolean")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
+        n.memberName = "textFormat";
+        n.sectionId = "RECOFT";
+        n.serializationOrder = 7;
+        n.docComment = "Text-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for text columns; carries only the overflow handling a\nvariable-length string column needs.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("overflowBehavior", "String", "Overflow Behavior", false, "Truncate / Ellipsis / Wrap / Clip", 0),
+            new SomFormFieldMeta("maxDisplayLength", "int", "Max Display Length", false, "Character limit before overflow handling applies", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-112:2017 — presentation of information governs truncation and wrapping of text"), "connotation", "The overflow handling for a text report column.")), new SomMetaExtra("Case", metaArgs("value", "ReportColumnKind.string")));
         out.add(n);
       }
       {
         SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
         n.memberName = "aggregation";
         n.sectionId = "RECOAG";
-        n.serializationOrder = 3;
+        n.serializationOrder = 8;
         n.docComment = "Aggregation settings.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("aggregation", "String", "Aggregation", false, "None / Sum / Average / Count / Min / Max", 0),
@@ -71079,7 +71272,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
         n.memberName = "interaction";
         n.sectionId = "RECOIN";
-        n.serializationOrder = 4;
+        n.serializationOrder = 9;
         n.docComment = "Interaction options.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sortable", "String", "Sortable", false, "Yes / No — can user sort by this column", 0),
@@ -71091,7 +71284,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
         n.memberName = "layout";
         n.sectionId = "RECOLA";
-        n.serializationOrder = 5;
+        n.serializationOrder = 10;
         n.docComment = "Visibility and layout.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("visible", "String", "Visible", false, "Yes / No / Conditional", 0),
@@ -71115,6 +71308,26 @@ public final class TomSomV0Meta {
 
     public SomMetaRef formatting() {
       return new SomMetaRef(tree, path + "/RECOFO");
+    }
+
+    public SomMetaRef numericFormat() {
+      return new SomMetaRef(tree, path + "/RECOFN");
+    }
+
+    public SomMetaRef currencyFormat() {
+      return new SomMetaRef(tree, path + "/RECOFC");
+    }
+
+    public SomMetaRef dateFormat() {
+      return new SomMetaRef(tree, path + "/RECOFD");
+    }
+
+    public SomMetaRef booleanFormat() {
+      return new SomMetaRef(tree, path + "/RECOFB");
+    }
+
+    public SomMetaRef textFormat() {
+      return new SomMetaRef(tree, path + "/RECOFT");
     }
 
     public SomMetaRef aggregation() {
@@ -71600,21 +71813,96 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Input and value configuration.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dataType", "String", "Data Type", false, "String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref", 0),
-            new SomFormFieldMeta("inputType", "String", "Input Type", false, "Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select", 1),
-            new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Default filter value, e.g. current_month, today, *", 2),
-            new SomFormFieldMeta("availableValuesSource", "String", "Available Values Source", false, "Source for dropdown/select values: static list, entity query, API endpoint", 3),
-            new SomFormFieldMeta("staticValues", "String", "Static Values", false, "Comma-separated values if source is static, e.g. Active,Inactive,All", 4),
-            new SomFormFieldMeta("cascadeParent", "String", "Cascade Parent", false, "Filter ID of parent filter for cascading dropdowns", 5),
-            new SomFormFieldMeta("multiSelect", "String", "Multi-Select", false, "Yes / No — allow selecting multiple values", 6)));
+            new SomFormFieldMeta("dataType", "ReportFilterValueKind", "Data Type", false, "The filter value type — selects the promoted input-control and value-bound subsection.", 0, java.util.List.of("string", "integer", "decimal", "date", "dateTime", "boolean", "enumeration", "entityRef")),
+            new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Default filter value, e.g. current_month, today, *", 1)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 — specifies the input data type and value source for a filter parameter", "ISO 9241-110:2020 — matches the input control to the filter data the user provides"), "connotation", "The data type, input control, and value source that configure how a report filter accepts input.")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
+        n.memberName = "textFilterOptions";
+        n.sectionId = "RFEIT";
+        n.serializationOrder = 2;
+        n.docComment = "Text-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for text filters; carries the free-text control and its\nmatch semantics (no value source, no date bounds).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("inputType", "String", "Input Type", false, "Text-Field / Autocomplete", 0),
+            new SomFormFieldMeta("matchMode", "String", "Match Mode", false, "Contains / Starts-With / Exact / Regex", 1),
+            new SomFormFieldMeta("maxLength", "int", "Max Length", false, "Character limit on the input", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — form-based interaction and free-text input", "ISO 9241-110:2020 — matches the input control to the filter data the user provides"), "connotation", "The input control and match semantics for a text report filter.")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.string")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
+        n.memberName = "numericFilterOptions";
+        n.sectionId = "RFEIN";
+        n.serializationOrder = 3;
+        n.docComment = "Numeric-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric filters; carries the numeric control and its\nvalue bounds.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("inputType", "String", "Input Type", false, "Number-Field / Slider / Range-Slider", 0),
+            new SomFormFieldMeta("minValue", "String", "Min Value", false, "Lowest accepted value", 1),
+            new SomFormFieldMeta("maxValue", "String", "Max Value", false, "Highest accepted value", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges", "ISO 80000-1:2022 — general principles for quantities units and their symbols"), "connotation", "The input control and value bounds for a numeric report filter.")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.integer")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.decimal")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
+        n.memberName = "dateFilterOptions";
+        n.sectionId = "RFEID";
+        n.serializationOrder = 4;
+        n.docComment = "Temporal-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/date-time filters; carries the temporal control —\nincluding the range picker that the former free-text `DateRange` type\nstood for — and the selectable window.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("inputType", "String", "Input Type", false, "Date-Picker / Date-Range-Picker / Relative-Period", 0),
+            new SomFormFieldMeta("earliestDate", "String", "Earliest Date", false, "Earliest selectable date/time", 1),
+            new SomFormFieldMeta("latestDate", "String", "Latest Date", false, "Latest selectable date/time", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 8601-1:2019 — representation of dates and times", "ISO 9241-143:2012 — constraints on date and time form-field input"), "connotation", "The input control and selectable window for a date report filter.")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.date")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.dateTime")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
+        n.memberName = "booleanFilterOptions";
+        n.sectionId = "RFEIB";
+        n.serializationOrder = 5;
+        n.docComment = "Boolean-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean filters; carries only the two-valued control.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("inputType", "String", "Input Type", false, "Checkbox / Toggle / Radio-Pair", 0),
+            new SomFormFieldMeta("includeIndeterminate", "String", "Include Indeterminate", false, "Yes / No — offer an \"any\" third state", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-161:2016 — selection controls such as checkboxes and radio groups"), "connotation", "The two-valued input control for a boolean report filter.")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.boolean")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
+        n.memberName = "selectFilterOptions";
+        n.sectionId = "RFEIS";
+        n.serializationOrder = 6;
+        n.docComment = "Selection-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration filters; this is the only case in which a\nvalue source, static value list, cascade parent and multi-select are\nmeaningful.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("inputType", "String", "Input Type", false, "Select / Multi-Select / Radio-Group / Cascading-Select", 0),
+            new SomFormFieldMeta("availableValuesSource", "String", "Available Values Source", false, "Source for dropdown/select values: static list, entity query, API endpoint", 1),
+            new SomFormFieldMeta("staticValues", "String", "Static Values", false, "Comma-separated values if source is static, e.g. Active,Inactive,All", 2),
+            new SomFormFieldMeta("cascadeParent", "String", "Cascade Parent", false, "Filter ID of parent filter for cascading dropdowns", 3),
+            new SomFormFieldMeta("multiSelect", "String", "Multi-Select", false, "Yes / No — allow selecting multiple values", 4)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-161:2016 — selection controls such as dropdowns and radio groups", "ISO/IEC 11179 — permissible values of a data element"), "connotation", "The selection control and value source for an enumeration report filter.")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.enumeration")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
+        n.memberName = "entityFilterOptions";
+        n.sectionId = "RFEIE";
+        n.serializationOrder = 7;
+        n.docComment = "Entity-reference filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for entity-reference filters; carries the lookup control and\nthe entity query that backs it. Distinct from the enumeration case\nbecause the value set is resolved from an entity, not a declared list.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("inputType", "String", "Input Type", false, "Autocomplete / Dialog-Picker / Tree-Picker", 0),
+            new SomFormFieldMeta("entityType", "String", "Entity Type", false, "Referenced entity, e.g. Customer", 1),
+            new SomFormFieldMeta("queryFilter", "String", "Query Filter", false, "Restriction applied to the lookup query", 2),
+            new SomFormFieldMeta("displayAttribute", "String", "Display Attribute", false, "Entity attribute shown to the user, e.g. name", 3)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — form fields with input assistance and lookup", "ER modeling (Chen / Barker notation)"), "connotation", "The lookup control and backing entity query for an entity-reference report filter.")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.entityRef")));
         out.add(n);
       }
       {
         SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
         n.memberName = "behavior";
         n.sectionId = "RFEB";
-        n.serializationOrder = 2;
+        n.serializationOrder = 8;
         n.docComment = "Scope and validation behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("required", "String", "Required", false, "Yes / No — must user provide a value", 0),
@@ -71630,7 +71918,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
         n.memberName = "presentation";
         n.sectionId = "RFEP";
-        n.serializationOrder = 3;
+        n.serializationOrder = 9;
         n.docComment = "Presentation options.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("hiddenFilter", "String", "Hidden Filter", false, "Yes / No — filter applied programmatically, not shown to user", 0),
@@ -71649,6 +71937,30 @@ public final class TomSomV0Meta {
 
     public SomMetaRef input() {
       return new SomMetaRef(tree, path + "/RFEI");
+    }
+
+    public SomMetaRef textFilterOptions() {
+      return new SomMetaRef(tree, path + "/RFEIT");
+    }
+
+    public SomMetaRef numericFilterOptions() {
+      return new SomMetaRef(tree, path + "/RFEIN");
+    }
+
+    public SomMetaRef dateFilterOptions() {
+      return new SomMetaRef(tree, path + "/RFEID");
+    }
+
+    public SomMetaRef booleanFilterOptions() {
+      return new SomMetaRef(tree, path + "/RFEIB");
+    }
+
+    public SomMetaRef selectFilterOptions() {
+      return new SomMetaRef(tree, path + "/RFEIS");
+    }
+
+    public SomMetaRef entityFilterOptions() {
+      return new SomMetaRef(tree, path + "/RFEIE");
     }
 
     public SomMetaRef behavior() {
@@ -78680,7 +78992,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldId", "String", "Field ID", true, "Unique identifier for this field", 0),
             new SomFormFieldMeta("fieldLabel", "String", "Field Label (display text)", true, "Display text shown for the field", 1),
-            new SomFormFieldMeta("fieldType", "String", "Field Type", true, "Text, Number, Date, Dropdown, Checkbox, etc.", 2)));
+            new SomFormFieldMeta("fieldType", "ScreenFieldKind", "Field Type", true, "The kind of value the user supplies — selects the type-specific constraint and presentation subsections", 2, java.util.List.of("text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"))));
         out.add(n);
       }
       {
@@ -78718,31 +79030,73 @@ public final class TomSomV0Meta {
         n.memberName = "validation";
         n.sectionId = "SCFIVA";
         n.serializationOrder = 3;
-        n.docComment = "Validation rules.";
+        n.docComment = "Validation rules that apply whatever the field type is.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("minLength", "String", "Minimum Length", false, "Minimum allowed input length", 0),
-            new SomFormFieldMeta("maxLength", "String", "Maximum Length", false, "Maximum allowed input length", 1),
-            new SomFormFieldMeta("minValue", "String", "Minimum Value", false, "Minimum allowed value", 2),
-            new SomFormFieldMeta("maxValue", "String", "Maximum Value", false, "Maximum allowed value", 3),
-            new SomFormFieldMeta("pattern", "String", "Validation Pattern (regex)", false, "Regular expression the input must match", 4),
-            new SomFormFieldMeta("validationMessage", "String", "Custom Validation Message", false, "Message shown when validation fails", 5)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"), "connotation", "The built-in validation constraints on a screen field — length and value bounds, regex pattern, and the custom validation message.")));
+            new SomFormFieldMeta("validationMessage", "String", "Custom Validation Message", false, "Message shown when validation fails", 0)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"), "connotation", "The type-independent validation settings of a screen field — the custom message shown when any built-in constraint fails.")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenFieldEntry", SomMetaKind.FORM, "String");
+        n.memberName = "textConstraints";
+        n.sectionId = "SCFIVT";
+        n.serializationOrder = 4;
+        n.docComment = "Text-kind input constraints — a promoted `@OneOf` case (csra4).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("minLength", "String", "Minimum Length", false, "Minimum allowed input length in characters", 0),
+            new SomFormFieldMeta("maxLength", "String", "Maximum Length", false, "Maximum allowed input length in characters", 1),
+            new SomFormFieldMeta("pattern", "String", "Validation Pattern (regex)", false, "Regular expression the input must match", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"), "connotation", "The input constraints that only apply to a text-valued screen field — its length bounds and the regular expression the input must match.")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.text")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.multilineText")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.email")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.phone")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.url")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.password")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenFieldEntry", SomMetaKind.FORM, "String");
+        n.memberName = "numericConstraints";
+        n.sectionId = "SCFIVN";
+        n.serializationOrder = 5;
+        n.docComment = "Numeric-kind input constraints — a promoted `@OneOf` case (csra4).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("minValue", "String", "Minimum Value", false, "Smallest value the field accepts", 0),
+            new SomFormFieldMeta("maxValue", "String", "Maximum Value", false, "Largest value the field accepts", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"), "connotation", "The input constraints that only apply to a numeric screen field — its value bounds.")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.integer")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.decimal")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.currency")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenFieldEntry", SomMetaKind.FORM, "String");
+        n.memberName = "temporalConstraints";
+        n.sectionId = "SCFIVD";
+        n.serializationOrder = 6;
+        n.docComment = "Temporal-kind input constraints — a promoted `@OneOf` case (csra4).\n\nKept apart from [numericConstraints] because a date boundary is expressed\nas a date or a relative expression (\"today + 30d\"), not as a number.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("earliestValue", "String", "Earliest Accepted Value", false, "Earliest accepted date/time, absolute or relative (e.g. today)", 0),
+            new SomFormFieldMeta("latestValue", "String", "Latest Accepted Value", false, "Latest accepted date/time, absolute or relative (e.g. today + 30d)", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9 — input validation requirements", "ISO 8601 — date and time representation"), "connotation", "The input constraints that only apply to a temporal screen field — its earliest and latest accepted instant.")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.date")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.dateTime")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.time")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenFieldEntry", SomMetaKind.FORM, "String");
+        n.memberName = "choiceOptions";
+        n.sectionId = "SCFICH";
+        n.serializationOrder = 7;
+        n.docComment = "Choice-kind option source — a promoted `@OneOf` case (csra4).";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("optionSource", "String", "Option Source (static, API, entity)", false, "Where the options come from: static, API, or entity", 0),
+            new SomFormFieldMeta("staticOptions", "String", "Static Option Values", false, "The option values, when the source is static", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"), "connotation", "Where a choice field takes its options from — the option source and, for a static source, the values themselves.")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.singleSelect")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.multiSelect")));
         out.add(n);
       }
       {
         SomMetaNode n = new SomMetaNode("ScreenFieldEntry", SomMetaKind.FORM, "String");
         n.memberName = "layout";
         n.sectionId = "SCFILA";
-        n.serializationOrder = 4;
+        n.serializationOrder = 8;
         n.docComment = "UI and layout.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dropdownSource", "String", "Dropdown Source (static, API, entity)", false, "Where dropdown options come from: static, API, or entity", 0),
-            new SomFormFieldMeta("dropdownValues", "String", "Static Dropdown Values", false, "Static list of dropdown values", 1),
-            new SomFormFieldMeta("dependsOn", "String", "Depends On (field IDs that affect this)", false, "Field IDs that affect this field", 2),
-            new SomFormFieldMeta("width", "String", "Width (full, half, third, quarter, custom)", false, "full, half, third, quarter, or custom", 3),
-            new SomFormFieldMeta("order", "String", "Display Order", false, "Order in which the field is displayed", 4),
-            new SomFormFieldMeta("grouping", "String", "Field Grouping / Section", false, "Group or section the field belongs to", 5)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"), "connotation", "The layout and presentation of a screen field — its dropdown source/values, dependencies, width, display order, and grouping.")));
+            new SomFormFieldMeta("dependsOn", "String", "Depends On (field IDs that affect this)", false, "Field IDs that affect this field", 0),
+            new SomFormFieldMeta("width", "String", "Width (full, half, third, quarter, custom)", false, "full, half, third, quarter, or custom", 1),
+            new SomFormFieldMeta("order", "String", "Display Order", false, "Order in which the field is displayed", 2),
+            new SomFormFieldMeta("grouping", "String", "Field Grouping / Section", false, "Group or section the field belongs to", 3)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"), "connotation", "The layout and presentation of a screen field — its dependencies, width, display order, and grouping.")));
         out.add(n);
       }
       {
@@ -78750,7 +79104,7 @@ public final class TomSomV0Meta {
         n.memberName = "validationRules";
         n.sectionId = "FLDVL-VALI-LST";
         n.sectionIdPattern = "FLDVL-VALI-xxx";
-        n.serializationOrder = 5;
+        n.serializationOrder = 9;
         n.contentHelp = "Add one entry per validation rule applied to this field.";
         n.docComment = "Field validation rules — contains 0+× FieldValidationRule.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"), "connotation", "The list of individual validation rules applied to this field's input.")));
@@ -78782,6 +79136,22 @@ public final class TomSomV0Meta {
 
     public SomMetaRef validation() {
       return new SomMetaRef(tree, path + "/SCFIVA");
+    }
+
+    public SomMetaRef textConstraints() {
+      return new SomMetaRef(tree, path + "/SCFIVT");
+    }
+
+    public SomMetaRef numericConstraints() {
+      return new SomMetaRef(tree, path + "/SCFIVN");
+    }
+
+    public SomMetaRef temporalConstraints() {
+      return new SomMetaRef(tree, path + "/SCFIVD");
+    }
+
+    public SomMetaRef choiceOptions() {
+      return new SomMetaRef(tree, path + "/SCFICH");
     }
 
     public SomMetaRef layout() {
@@ -118988,6 +119358,22 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/DAATT-DATA");
     }
 
+    public SomMetaRef DAATT_DTTX() {
+      return new SomMetaRef(tree, path + "/DAATT-DTTX");
+    }
+
+    public SomMetaRef DAATT_DTNU() {
+      return new SomMetaRef(tree, path + "/DAATT-DTNU");
+    }
+
+    public SomMetaRef DAATT_DTTM() {
+      return new SomMetaRef(tree, path + "/DAATT-DTTM");
+    }
+
+    public SomMetaRef DAATT_DTBI() {
+      return new SomMetaRef(tree, path + "/DAATT-DTBI");
+    }
+
     public SomListMetaRef<DataAttributeConstraintEntryId> DATAA_CONS_LST() {
       return new SomListMetaRef<>(tree, path + "/DATAA-CONS-LST", (t, p) -> new DataAttributeConstraintEntryId(t, p));
     }
@@ -120204,6 +120590,26 @@ public final class TomSomV0Meta {
 
     public SomMetaRef EFMEF() {
       return new SomMetaRef(tree, path + "/EFMEF");
+    }
+
+    public SomMetaRef EFMEFN() {
+      return new SomMetaRef(tree, path + "/EFMEFN");
+    }
+
+    public SomMetaRef EFMEFD() {
+      return new SomMetaRef(tree, path + "/EFMEFD");
+    }
+
+    public SomMetaRef EFMEFB() {
+      return new SomMetaRef(tree, path + "/EFMEFB");
+    }
+
+    public SomMetaRef EFMEFE() {
+      return new SomMetaRef(tree, path + "/EFMEFE");
+    }
+
+    public SomMetaRef EFMEFT() {
+      return new SomMetaRef(tree, path + "/EFMEFT");
     }
 
     public SomMetaRef EFMET() {
@@ -123468,6 +123874,26 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/RECOFO");
     }
 
+    public SomMetaRef RECOFN() {
+      return new SomMetaRef(tree, path + "/RECOFN");
+    }
+
+    public SomMetaRef RECOFC() {
+      return new SomMetaRef(tree, path + "/RECOFC");
+    }
+
+    public SomMetaRef RECOFD() {
+      return new SomMetaRef(tree, path + "/RECOFD");
+    }
+
+    public SomMetaRef RECOFB() {
+      return new SomMetaRef(tree, path + "/RECOFB");
+    }
+
+    public SomMetaRef RECOFT() {
+      return new SomMetaRef(tree, path + "/RECOFT");
+    }
+
     public SomMetaRef RECOAG() {
       return new SomMetaRef(tree, path + "/RECOAG");
     }
@@ -123588,6 +124014,30 @@ public final class TomSomV0Meta {
 
     public SomMetaRef RFEI() {
       return new SomMetaRef(tree, path + "/RFEI");
+    }
+
+    public SomMetaRef RFEIT() {
+      return new SomMetaRef(tree, path + "/RFEIT");
+    }
+
+    public SomMetaRef RFEIN() {
+      return new SomMetaRef(tree, path + "/RFEIN");
+    }
+
+    public SomMetaRef RFEID() {
+      return new SomMetaRef(tree, path + "/RFEID");
+    }
+
+    public SomMetaRef RFEIB() {
+      return new SomMetaRef(tree, path + "/RFEIB");
+    }
+
+    public SomMetaRef RFEIS() {
+      return new SomMetaRef(tree, path + "/RFEIS");
+    }
+
+    public SomMetaRef RFEIE() {
+      return new SomMetaRef(tree, path + "/RFEIE");
     }
 
     public SomMetaRef RFEB() {
@@ -124464,6 +124914,22 @@ public final class TomSomV0Meta {
 
     public SomMetaRef SCFIVA() {
       return new SomMetaRef(tree, path + "/SCFIVA");
+    }
+
+    public SomMetaRef SCFIVT() {
+      return new SomMetaRef(tree, path + "/SCFIVT");
+    }
+
+    public SomMetaRef SCFIVN() {
+      return new SomMetaRef(tree, path + "/SCFIVN");
+    }
+
+    public SomMetaRef SCFIVD() {
+      return new SomMetaRef(tree, path + "/SCFIVD");
+    }
+
+    public SomMetaRef SCFICH() {
+      return new SomMetaRef(tree, path + "/SCFICH");
     }
 
     public SomMetaRef SCFILA() {

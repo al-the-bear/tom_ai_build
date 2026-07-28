@@ -250,7 +250,8 @@
             - uiSpecification: `RequirementUiSpecification`
               - content, uiForm, layoutCode, mockupDescription
               - fields: `ScreenFieldEntry`
-                - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, layout
+                - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, textConstraints,
+                  numericConstraints, temporalConstraints, choiceOptions, layout
                 - validationRules: `FieldValidationRule`
                   - content @Form(ruleType, ruleExpression, errorCode, errorMessage, severity, triggerEvent)
               - actions: `RequirementScreenActionEntry`
@@ -1224,7 +1225,8 @@
         - [1,] entities: `DataEntityEntry`
           - identity, classification, lifecyclePolicy, relationshipSummary
           - attributes: `DataAttributeEntry`
-            - identity, dataTypeSpec, derivation, securityClassification, migrationLineage
+            - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
+              derivation, securityClassification, migrationLineage
             - constraints: `DataAttributeConstraintEntry`
               - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
             - displayProperties: `DisplayPropertyEntry`
@@ -2544,14 +2546,16 @@
             - sections: `ReportSectionEntry`
               - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
               - columns: `ReportColumnEntry`
-                - content @Form(columnId, columnName, displayLabel), dataSource, formatting, aggregation, interaction,
-                  layout
+                - content @Form(columnId, columnName, displayLabel), dataSource, formatting, numericFormat,
+                  currencyFormat, dateFormat, booleanFormat, textFormat, aggregation, interaction, layout
               - charts: `ReportChartEntry`
                 - content @Form(chartId, title, chartType), series, display, interaction, layout
                 - axes: `ReportChartAxes`
                   - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
             - filters: `ReportFilterEntry`
-              - content @Form(filterId, filterName, displayLabel), input, behavior, presentation
+              - content @Form(filterId, filterName, displayLabel), input, textFilterOptions, numericFilterOptions,
+                dateFilterOptions, booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior,
+                presentation
             - schedules: `ReportScheduleEntry`
               - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
             - distributions: `ReportDistributionEntry`
@@ -2565,7 +2569,8 @@
             - sizeSettings: `ExportSizeSettings`
               - content @Form(maxRows, splitLargeFiles, splitThreshold)
             - fieldMappings: `ExportFieldMappingEntry`
-              - content @Form(mappingId, sourceField, targetFieldName), formatting, transformation, inclusion, layout
+              - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
+                booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
           - exportTemplates: `ExportTemplateEntry`
             - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
         - `UserAssistance`
@@ -3290,7 +3295,8 @@
     - [1,] entities: `DataEntityEntry`
       - identity, classification, lifecyclePolicy, relationshipSummary
       - attributes: `DataAttributeEntry`
-        - identity, dataTypeSpec, derivation, securityClassification, migrationLineage
+        - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
+          derivation, securityClassification, migrationLineage
         - constraints: `DataAttributeConstraintEntry`
           - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
         - displayProperties: `DisplayPropertyEntry`
@@ -4118,7 +4124,8 @@
         - uiSpecification: `RequirementUiSpecification`
           - content, uiForm, layoutCode, mockupDescription
           - fields: `ScreenFieldEntry`
-            - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, layout
+            - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, textConstraints,
+              numericConstraints, temporalConstraints, choiceOptions, layout
             - validationRules: `FieldValidationRule`
               - content @Form(ruleType, ruleExpression, errorCode, errorMessage, severity, triggerEvent)
           - actions: `RequirementScreenActionEntry`
@@ -5067,14 +5074,15 @@
         - sections: `ReportSectionEntry`
           - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
           - columns: `ReportColumnEntry`
-            - content @Form(columnId, columnName, displayLabel), dataSource, formatting, aggregation, interaction,
-              layout
+            - content @Form(columnId, columnName, displayLabel), dataSource, formatting, numericFormat, currencyFormat,
+              dateFormat, booleanFormat, textFormat, aggregation, interaction, layout
           - charts: `ReportChartEntry`
             - content @Form(chartId, title, chartType), series, display, interaction, layout
             - axes: `ReportChartAxes`
               - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
         - filters: `ReportFilterEntry`
-          - content @Form(filterId, filterName, displayLabel), input, behavior, presentation
+          - content @Form(filterId, filterName, displayLabel), input, textFilterOptions, numericFilterOptions,
+            dateFilterOptions, booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
         - schedules: `ReportScheduleEntry`
           - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
         - distributions: `ReportDistributionEntry`
@@ -5087,7 +5095,8 @@
         - sizeSettings: `ExportSizeSettings`
           - content @Form(maxRows, splitLargeFiles, splitThreshold)
         - fieldMappings: `ExportFieldMappingEntry`
-          - content @Form(mappingId, sourceField, targetFieldName), formatting, transformation, inclusion, layout
+          - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
+            booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
       - exportTemplates: `ExportTemplateEntry`
         - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
     - `ErrorHandling`
@@ -5228,7 +5237,8 @@
       - [1,] entities: `DataEntityEntry`
         - identity, classification, lifecyclePolicy, relationshipSummary
         - attributes: `DataAttributeEntry`
-          - identity, dataTypeSpec, derivation, securityClassification, migrationLineage
+          - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
+            derivation, securityClassification, migrationLineage
           - constraints: `DataAttributeConstraintEntry`
             - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
           - displayProperties: `DisplayPropertyEntry`

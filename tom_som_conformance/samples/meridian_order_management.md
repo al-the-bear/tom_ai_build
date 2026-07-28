@@ -961,7 +961,7 @@ Description: Stable order identifier.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: UUID
+DataType: uuid
 PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -979,7 +979,7 @@ Description: Reference to the ordering customer.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: UUID
+DataType: uuid
 PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -997,7 +997,7 @@ Description: Capture channel: EDI or REST.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: Enum
+DataType: enumeration
 PhysicalType: varchar(8)
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1015,7 +1015,7 @@ Description: Lifecycle state (Captured..Closed, with Hold).
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: Enum
+DataType: enumeration
 PhysicalType: varchar(16)
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1033,7 +1033,7 @@ Description: Capture timestamp (UTC).
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: Timestamp
+DataType: dateTime
 PhysicalType: timestamptz
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1080,7 +1080,7 @@ Description: Stable line identifier.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: UUID
+DataType: uuid
 PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1098,7 +1098,7 @@ Description: Owning order reference.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: UUID
+DataType: uuid
 PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1116,7 +1116,7 @@ Description: Referenced product.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: UUID
+DataType: uuid
 PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1134,7 +1134,7 @@ Description: Ordered quantity.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: Integer
+DataType: integer
 PhysicalType: int
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1152,7 +1152,7 @@ Description: Snapshotted unit price at pricing time.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: Decimal
+DataType: decimal
 PhysicalType: numeric(12,2)
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1210,7 +1210,7 @@ Description: Stable customer identifier.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: UUID
+DataType: uuid
 PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1228,7 +1228,7 @@ Description: Customer legal name (PII).
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: String
+DataType: string
 PhysicalType: varchar(200)
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1246,7 +1246,7 @@ Description: Approved credit limit used by validation.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: Decimal
+DataType: decimal
 PhysicalType: numeric(14,2)
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1293,7 +1293,7 @@ Description: Stable product identifier.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: UUID
+DataType: uuid
 PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1311,7 +1311,7 @@ Description: Stock-keeping unit.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: String
+DataType: string
 PhysicalType: varchar(40)
 
 ######## <!--[DAATT-SECU]--> Security Classification
@@ -1329,7 +1329,7 @@ Description: Product display name.
 
 ######## <!--[DAATT-DATA]--> Data Type Spec
 
-DataType: String
+DataType: string
 PhysicalType: varchar(200)
 
 ######## <!--[DAATT-SECU]--> Security Classification

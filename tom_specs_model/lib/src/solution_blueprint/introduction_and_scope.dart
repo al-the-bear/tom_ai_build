@@ -10,6 +10,45 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
+/// The closed set of requirement-side screen field types (`ScreenFieldEntry`,
+/// csra4).
+///
+/// The discriminator enum for the `ScreenFieldEntry` `@OneOf` group: it picks
+/// which type-specific constraint and presentation subsections apply — a text
+/// field carries `textConstraints`, a numeric one `numericConstraints`, a
+/// temporal one `temporalConstraints`, a choice field `choiceOptions`, an
+/// upload `fileConstraints`. `boolean` carries no per-kind attributes and so
+/// binds no case. Replaces the former free-text `fieldType`.
+///
+/// This is the *requirement-side* vocabulary (RSP, D04). The authoritative UI
+/// element vocabulary is `ScreenElementFieldKind` in the D09 Experience Design
+/// pass; the two are deliberately separate because a requirement names the kind
+/// of value a user supplies, while the design names the concrete control.
+enum ScreenFieldKind {
+  // Text facet.
+  text,
+  multilineText,
+  email,
+  phone,
+  url,
+  password,
+  // Numeric facet.
+  integer,
+  decimal,
+  currency,
+  // Temporal facet.
+  date,
+  dateTime,
+  time,
+  // Choice facet.
+  singleSelect,
+  multiSelect,
+  // Upload facet.
+  file,
+  // No per-kind attributes.
+  boolean,
+}
+
 /// 4. Introduction & Scope.
 ///
 /// High-level overview of the system to be built: its purpose, goals,
@@ -9127,6 +9166,14 @@ class RequirementUiSpecification extends DocSpecsSection {
   'conditions, validation, layout, and validation rules that govern it.',
 )
 @SectionId('SFE')
+@OneOf(
+  discriminator: 'fieldType',
+  note:
+      'Screen field type closed choice (csra4): the field type selects its '
+      'type-specific constraint and presentation subsections, so a Date field '
+      'no longer carries a regex pattern and a Text field no longer carries a '
+      'dropdown source.',
+)
 @CodeSpecKind(
   [CodeSpecPart.form],
   note:
@@ -9150,10 +9197,11 @@ class ScreenFieldEntry extends DocSpecsSection {
     ),
     Field(
       'fieldType',
-      String,
+      ScreenFieldKind,
       'Field Type',
       required: true,
-      hint: 'Text, Number, Date, Dropdown, Checkbox, etc.',
+      hint: 'The kind of value the user supplies — selects the type-specific '
+          'constraint and presentation subsections',
     ),
   ])
   @override
@@ -9250,37 +9298,17 @@ class ScreenFieldEntry extends DocSpecsSection {
   @SerializationOrder(2)
   DocSpecsSection? conditions;
 
-  /// Validation rules.
+  /// Validation rules that apply whatever the field type is.
   @SectionId('SCFIVA')
   @StandardReferences(
     [
       'ISO/IEC/IEEE 29148 §9 — input validation requirements',
       'OWASP ASVS — input validation',
     ],
-    'The built-in validation constraints on a screen field — length and value '
-    'bounds, regex pattern, and the custom validation message.',
+    'The type-independent validation settings of a screen field — the custom '
+    'message shown when any built-in constraint fails.',
   )
   @Form([
-    Field(
-      'minLength',
-      String,
-      'Minimum Length',
-      hint: 'Minimum allowed input length',
-    ),
-    Field(
-      'maxLength',
-      String,
-      'Maximum Length',
-      hint: 'Maximum allowed input length',
-    ),
-    Field('minValue', String, 'Minimum Value', hint: 'Minimum allowed value'),
-    Field('maxValue', String, 'Maximum Value', hint: 'Maximum allowed value'),
-    Field(
-      'pattern',
-      String,
-      'Validation Pattern (regex)',
-      hint: 'Regular expression the input must match',
-    ),
     Field(
       'validationMessage',
       String,
@@ -9291,6 +9319,137 @@ class ScreenFieldEntry extends DocSpecsSection {
   @SerializationOrder(3)
   DocSpecsSection? validation;
 
+  /// Text-kind input constraints — a promoted `@OneOf` case (csra4).
+  @SectionId('SCFIVT')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9 — input validation requirements',
+      'OWASP ASVS — input validation',
+    ],
+    'The input constraints that only apply to a text-valued screen field — its '
+    'length bounds and the regular expression the input must match.',
+  )
+  @Case(ScreenFieldKind.text)
+  @Case(ScreenFieldKind.multilineText)
+  @Case(ScreenFieldKind.email)
+  @Case(ScreenFieldKind.phone)
+  @Case(ScreenFieldKind.url)
+  @Case(ScreenFieldKind.password)
+  @Form([
+    Field(
+      'minLength',
+      String,
+      'Minimum Length',
+      hint: 'Minimum allowed input length in characters',
+    ),
+    Field(
+      'maxLength',
+      String,
+      'Maximum Length',
+      hint: 'Maximum allowed input length in characters',
+    ),
+    Field(
+      'pattern',
+      String,
+      'Validation Pattern (regex)',
+      hint: 'Regular expression the input must match',
+    ),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? textConstraints;
+
+  /// Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+  @SectionId('SCFIVN')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9 — input validation requirements',
+      'OWASP ASVS — input validation',
+    ],
+    'The input constraints that only apply to a numeric screen field — its '
+    'value bounds.',
+  )
+  @Case(ScreenFieldKind.integer)
+  @Case(ScreenFieldKind.decimal)
+  @Case(ScreenFieldKind.currency)
+  @Form([
+    Field(
+      'minValue',
+      String,
+      'Minimum Value',
+      hint: 'Smallest value the field accepts',
+    ),
+    Field(
+      'maxValue',
+      String,
+      'Maximum Value',
+      hint: 'Largest value the field accepts',
+    ),
+  ])
+  @SerializationOrder(5)
+  DocSpecsSection? numericConstraints;
+
+  /// Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+  ///
+  /// Kept apart from [numericConstraints] because a date boundary is expressed
+  /// as a date or a relative expression ("today + 30d"), not as a number.
+  @SectionId('SCFIVD')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9 — input validation requirements',
+      'ISO 8601 — date and time representation',
+    ],
+    'The input constraints that only apply to a temporal screen field — its '
+    'earliest and latest accepted instant.',
+  )
+  @Case(ScreenFieldKind.date)
+  @Case(ScreenFieldKind.dateTime)
+  @Case(ScreenFieldKind.time)
+  @Form([
+    Field(
+      'earliestValue',
+      String,
+      'Earliest Accepted Value',
+      hint: 'Earliest accepted date/time, absolute or relative (e.g. today)',
+    ),
+    Field(
+      'latestValue',
+      String,
+      'Latest Accepted Value',
+      hint: 'Latest accepted date/time, absolute or relative (e.g. today + 30d)',
+    ),
+  ])
+  @SerializationOrder(6)
+  DocSpecsSection? temporalConstraints;
+
+  /// Choice-kind option source — a promoted `@OneOf` case (csra4).
+  @SectionId('SCFICH')
+  @StandardReferences(
+    [
+      'ISO 9241-110 — dialogue principles',
+      'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+    ],
+    'Where a choice field takes its options from — the option source and, for a '
+    'static source, the values themselves.',
+  )
+  @Case(ScreenFieldKind.singleSelect)
+  @Case(ScreenFieldKind.multiSelect)
+  @Form([
+    Field(
+      'optionSource',
+      String,
+      'Option Source (static, API, entity)',
+      hint: 'Where the options come from: static, API, or entity',
+    ),
+    Field(
+      'staticOptions',
+      String,
+      'Static Option Values',
+      hint: 'The option values, when the source is static',
+    ),
+  ])
+  @SerializationOrder(7)
+  DocSpecsSection? choiceOptions;
+
   /// UI and layout.
   @SectionId('SCFILA')
   @StandardReferences(
@@ -9298,22 +9457,10 @@ class ScreenFieldEntry extends DocSpecsSection {
       'ISO 9241-110 — dialogue principles',
       'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
     ],
-    'The layout and presentation of a screen field — its dropdown source/values, '
-    'dependencies, width, display order, and grouping.',
+    'The layout and presentation of a screen field — its dependencies, width, '
+    'display order, and grouping.',
   )
   @Form([
-    Field(
-      'dropdownSource',
-      String,
-      'Dropdown Source (static, API, entity)',
-      hint: 'Where dropdown options come from: static, API, or entity',
-    ),
-    Field(
-      'dropdownValues',
-      String,
-      'Static Dropdown Values',
-      hint: 'Static list of dropdown values',
-    ),
     Field(
       'dependsOn',
       String,
@@ -9339,7 +9486,7 @@ class ScreenFieldEntry extends DocSpecsSection {
       hint: 'Group or section the field belongs to',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(8)
   DocSpecsSection? layout;
 
   /// Field validation rules — contains 0+× FieldValidationRule.
@@ -9350,7 +9497,7 @@ class ScreenFieldEntry extends DocSpecsSection {
   @SectionId('FLDVL-VALI-LST')
   @SectionIdPattern('FLDVL-VALI-xxx')
   @ContentHelp('Add one entry per validation rule applied to this field.')
-  @SerializationOrder(5)
+  @SerializationOrder(9)
   List<FieldValidationRule> validationRules = [];
 }
 

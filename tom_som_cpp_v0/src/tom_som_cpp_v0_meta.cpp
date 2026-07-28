@@ -22084,14 +22084,78 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "String", "Data Type", false, "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "DataAttributeKind", "Data Type", false, "The logical type — selects the promoted options subsection.", 0, std::vector<std::string>{"string", "integer", "decimal", "date", "dateTime", "binary", "boolean", "uuid", "json", "enumeration"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"physicalType", "String", "Physical Type", false, "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"length", "String", "Length/Size", false, "Maximum length for strings or size for binary", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"precision", "String", "Precision", false, "Total digits for numeric types", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scale", "String", "Scale", false, "Decimal places for numeric types", 4, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"collation", "String", "Collation", false, "Character collation for text (e.g., utf8_general_ci)", 5, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"timezone", "String", "Timezone", false, "For datetime: UTC | Local | WithOffset", 6, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"format", "String", "Format", false, "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", 7, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"format", "String", "Format", false, "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", 2, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DataAttributeEntry";
+    (*n).memberName = "textTypeOptions";
+    (*n).sectionId = "DAATT-DTTX";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).docComment = "Text-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `string` logical type; carries only the character\nlength and collation attributes (no numeric precision, no timezone).";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"length", "String", "Length", false, "Maximum character length", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"collation", "String", "Collation", false, "Character collation for text (e.g., utf8_general_ci)", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\",\"ISO/IEC 25012 — data quality characteristics for stored text\"],\"connotation\":\"The character length and collation constraints for a text attribute.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.string\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DataAttributeEntry";
+    (*n).memberName = "numericTypeOptions";
+    (*n).sectionId = "DAATT-DTNU";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).docComment = "Numeric-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric logical types; carries only the precision and\nscale attributes (no length, collation or timezone).";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"precision", "String", "Precision", false, "Total digits for numeric types", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scale", "String", "Scale", false, "Decimal places for numeric types", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\",\"ISO 80000-1 — quantities and units, on numeric precision\"],\"connotation\":\"The precision and scale constraints for a numeric attribute.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.integer\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.decimal\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DataAttributeEntry";
+    (*n).memberName = "temporalTypeOptions";
+    (*n).sectionId = "DAATT-DTTM";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "Temporal-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/time logical types; carries only the timezone\nhandling attribute.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timezone", "String", "Timezone", false, "For datetime: UTC | Local | WithOffset", 0, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 8601-1:2019 — representation of dates and times\",\"ISO 8601-2:2019 — extensions including time-zone offsets\"],\"connotation\":\"The timezone handling for a date or date-time attribute.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.date\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.dateTime\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DataAttributeEntry";
+    (*n).memberName = "binaryTypeOptions";
+    (*n).sectionId = "DAATT-DTBI";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).docComment = "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxSizeBytes", "String", "Max Size (Bytes)", false, "Maximum stored size in bytes", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"storageMode", "String", "Storage Mode", false, "Inline | External-Reference | Blob-Store", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\"],\"connotation\":\"The stored size constraints for a binary attribute.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.binary\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -22103,7 +22167,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DataAttributeConstraintEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 2;
+    (*ln).serializationOrder = 6;
     (*ln).contentHelp = "Add one entry per attribute constraint.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"SBVR — business rule statements\",\"ISO/IEC 25012 — data quality\"],\"connotation\":\"Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.\"}", nullptr)});
     ln->elementNode = metaCx("DataAttributeConstraintEntry", stack,
@@ -22126,7 +22190,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 3;
+    (*n).serializationOrder = 7;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isComputed", "String", "Is Computed", false, "Whether value is computed: Yes | No", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"computeFormula", "String", "Compute Formula", false, "Formula or expression for computed fields", 1, std::vector<std::string>{}});
@@ -22142,7 +22206,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 4;
+    (*n).serializationOrder = 8;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitivityLevel", "String", "Sensitivity Level", false, "Public | Internal | Confidential | Restricted | PII | PHI", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isPii", "String", "Is PII", false, "Personally identifiable information: Yes | No", 1, std::vector<std::string>{}});
@@ -22159,7 +22223,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 5;
+    (*n).serializationOrder = 9;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceSystem", "String", "Source System", false, "Originating system for data lineage", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceAttribute", "String", "Source Attribute", false, "Source field name for migration mapping", 1, std::vector<std::string>{}});
@@ -22177,7 +22241,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DisplayPropertyEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
+    (*ln).serializationOrder = 10;
     (*ln).contentHelp = "Add one entry per display property.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.\"}", nullptr)});
     ln->elementNode = metaCx("DisplayPropertyEntry", stack,
@@ -33832,9 +33896,95 @@ void buildExportFieldMappingEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).docComment = "Ordering and formatting settings.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayOrder", "int", "Display Order", false, "Position in the export output (column order)", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "String", "Data Type", false, "String / Integer / Decimal / Date / DateTime / Boolean / Enum", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatPattern", "String", "Format Pattern", false, "Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "ExportFieldKind", "Data Type", false, "The field value type — selects the promoted output subsection.", 1, std::vector<std::string>{"string", "integer", "decimal", "date", "dateTime", "boolean", "enumeration"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"IETF RFC 4180 — the order of fields within each record is fixed and consistent across the file\",\"ISO 8601-1:2019 — a standardized date representation governs how date-typed fields are formatted\"],\"connotation\":\"Column ordering, data typing, and output format pattern applied to a mapped export field.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ExportFieldMappingEntry";
+    (*n).memberName = "numericOutput";
+    (*n).sectionId = "EFMEFN";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).docComment = "Numeric-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal fields; carries only the numeric\noutput pattern and separators.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatPattern", "String", "Format Pattern", false, "Numeric output format, e.g. #,##0.00", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"decimalSeparator", "String", "Decimal Separator", false, "Character used as the decimal mark, e.g. . or ,", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 80000-1:2022 — general principles for quantities units and their symbols\",\"IETF RFC 4180 — numeric field values are emitted as text within the record structure\"],\"connotation\":\"The numeric output pattern and separators for an exported numeric field.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ExportFieldKind.integer\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ExportFieldKind.decimal\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ExportFieldMappingEntry";
+    (*n).memberName = "temporalOutput";
+    (*n).sectionId = "EFMEFD";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).docComment = "Temporal-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for date and date-time fields; carries only the temporal\noutput pattern and timezone handling.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatPattern", "String", "Format Pattern", false, "Temporal output format, e.g. dd.MM.yyyy", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timezoneHandling", "String", "Timezone Handling", false, "UTC / Local / With-Offset", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 8601-1:2019 — representation of dates and times\",\"ISO 8601-2:2019 — extensions including time-zone offsets\"],\"connotation\":\"The temporal output pattern and timezone handling for an exported date field.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ExportFieldKind.date\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ExportFieldKind.dateTime\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ExportFieldMappingEntry";
+    (*n).memberName = "booleanOutput";
+    (*n).sectionId = "EFMEFB";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "Boolean-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean fields; this is the only case in which the\nemitted true/false literals are meaningful.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"trueLiteral", "String", "True Literal", false, "Emitted for true, e.g. true / Y / 1", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"falseLiteral", "String", "False Literal", false, "Emitted for false, e.g. false / N / 0", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"IETF RFC 4180 — boolean field values are emitted as text literals within the record\"],\"connotation\":\"The emitted true and false literals for an exported boolean field.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ExportFieldKind.boolean\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ExportFieldMappingEntry";
+    (*n).memberName = "enumerationOutput";
+    (*n).sectionId = "EFMEFE";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).docComment = "Enumeration-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration fields; carries which face of the value set\nis emitted and what happens to a value outside it.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"emittedForm", "String", "Emitted Form", false, "Value-Id / Display-Label / Numeric-Ordinal", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"unmappedValueBehavior", "String", "Unmapped Value Behavior", false, "Emit-Raw / Emit-Empty / Fail-Export", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — permissible values of a data element and their representation\"],\"connotation\":\"The emitted representation of an exported enumeration field and its unmapped-value behaviour.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ExportFieldKind.enumeration\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ExportFieldMappingEntry";
+    (*n).memberName = "textOutput";
+    (*n).sectionId = "EFMEFT";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).docComment = "Text-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for text fields; carries the character-length truncation\nthat only a string field can have. Moved out of `inclusion`, where it sat\nbeside type-independent default and inclusion rules.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxLength", "int", "Max Length", false, "Truncate output to this character length", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"padding", "String", "Padding", false, "None / Left-Pad / Right-Pad for fixed-width output", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"IETF RFC 4180 — text field values are emitted within the record structure\",\"ISO/IEC 25010:2023 — functional correctness of length-bounded output\"],\"connotation\":\"The character-length truncation and padding for an exported text field.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ExportFieldKind.string\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -33845,7 +33995,7 @@ void buildExportFieldMappingEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 2;
+    (*n).serializationOrder = 7;
     (*n).docComment = "Transformation rules.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"transformationRule", "String", "Transformation Rule", false, "Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom", 0, std::vector<std::string>{}});
@@ -33862,13 +34012,12 @@ void buildExportFieldMappingEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 3;
+    (*n).serializationOrder = 8;
     (*n).docComment = "Inclusion and defaults.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "Value to use when source is null/empty", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"includeInExport", "String", "Include In Export", false, "Yes / No / Conditional", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inclusionCondition", "String", "Inclusion Condition", false, "Condition for conditional inclusion", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxLength", "int", "Max Length", false, "Truncate output to this character length", 3, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"IETF RFC 4180 — a record is a sequence of fields where empty fields are represented by adjacent delimiters\",\"ISO/IEC 25010:2023 — functional correctness ensures default and inclusion rules produce the expected output\"],\"connotation\":\"Inclusion conditions and default values determining whether and how a mapped field appears in the export.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -33880,7 +34029,7 @@ void buildExportFieldMappingEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 4;
+    (*n).serializationOrder = 9;
     (*n).docComment = "Fixed-width and quoting rules.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"paddingChar", "String", "Padding Char", false, "For fixed-width: padding character, e.g. space or 0", 0, std::vector<std::string>{}});
@@ -61716,7 +61865,7 @@ void buildReportColumnEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).docComment = "Data source and type.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataSourceField", "String", "Data Source Field", false, "Path to the data field, e.g. order.customer.name", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "String", "Data Type", false, "String / Integer / Decimal / Currency / Date / Boolean", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "ReportColumnKind", "Data Type", false, "The column value type — selects the promoted format subsection.", 1, std::vector<std::string>{"string", "integer", "decimal", "currency", "date", "boolean"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-112:2017 — presentation of information relates displayed data to its source field\",\"ISO/IEC 25010:2023 — functional suitability requires the column value data type to be defined\"],\"connotation\":\"Data source field and data type binding for a report column.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -61735,12 +61884,95 @@ void buildReportColumnEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"width", "String", "Width", false, "Auto / Fixed(120px) / Proportion(25%)", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"alignment", "String", "Alignment", false, "Left / Center / Right", 2, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"verticalAlignment", "String", "Vertical Alignment", false, "Top / Middle / Bottom", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatPattern", "String", "Format Pattern", false, "Display format, e.g. #,##0.00", 4, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currencyCode", "String", "Currency Code", false, "Currency code if type is Currency", 5, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"nullDisplay", "String", "Null Display", false, "What to show for null/empty values", 6, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"booleanTrueDisplay", "String", "Boolean True Display", false, "Display for true, e.g. Yes / ✓", 7, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"booleanFalseDisplay", "String", "Boolean False Display", false, "Display for false, e.g. No / —", 8, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"nullDisplay", "String", "Null Display", false, "What to show for null/empty values", 4, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-125:2017 — visual presentation of information governs width alignment and formatting\",\"ISO 80000-1:2022 — general principles for quantities units and their symbols\"],\"connotation\":\"Display formatting settings for a report column such as width, alignment and value formats.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportColumnEntry";
+    (*n).memberName = "numericFormat";
+    (*n).sectionId = "RECOFN";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).docComment = "Numeric-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal columns; carries only the numeric\ndisplay pattern (no currency code, no boolean labels).";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatPattern", "String", "Format Pattern", false, "Numeric display format, e.g. #,##0.00", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"negativeDisplay", "String", "Negative Display", false, "Minus-Sign / Parentheses / Red", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 80000-1:2022 — general principles for quantities units and their symbols\",\"ISO 31-0 — presentation of numbers including grouping and decimal marks\"],\"connotation\":\"The numeric display pattern for an integer or decimal report column.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportColumnKind.integer\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportColumnKind.decimal\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportColumnEntry";
+    (*n).memberName = "currencyFormat";
+    (*n).sectionId = "RECOFC";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "Currency-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for currency columns; this is the only case in which a\ncurrency code is meaningful.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatPattern", "String", "Format Pattern", false, "Monetary display format, e.g. #,##0.00", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currencyCode", "String", "Currency Code", false, "ISO 4217 code, e.g. EUR / USD", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"symbolPosition", "String", "Symbol Position", false, "Prefix / Suffix / None", 2, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 4217:2015 — codes for the representation of currencies\",\"ISO 80000-1:2022 — general principles for quantities units and their symbols\"],\"connotation\":\"The currency code and monetary display pattern for a currency report column.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportColumnKind.currency\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportColumnEntry";
+    (*n).memberName = "dateFormat";
+    (*n).sectionId = "RECOFD";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).docComment = "Date-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for date columns; carries only the temporal display pattern.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatPattern", "String", "Format Pattern", false, "Date display format, e.g. yyyy-MM-dd", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timezoneDisplay", "String", "Timezone Display", false, "UTC / Local / With-Offset", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 8601-1:2019 — representation of dates and times\",\"ISO 9241-112:2017 — presentation of information for temporal values\"],\"connotation\":\"The temporal display pattern for a date report column.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportColumnKind.date\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportColumnEntry";
+    (*n).memberName = "booleanFormat";
+    (*n).sectionId = "RECOFB";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).docComment = "Boolean-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean columns; this is the only case in which the\ntrue/false display labels are meaningful.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"booleanTrueDisplay", "String", "Boolean True Display", false, "Display for true, e.g. Yes / ✓", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"booleanFalseDisplay", "String", "Boolean False Display", false, "Display for false, e.g. No / —", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-112:2017 — presentation of information for two-valued indicators\"],\"connotation\":\"The true and false display labels for a boolean report column.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportColumnKind.boolean\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportColumnEntry";
+    (*n).memberName = "textFormat";
+    (*n).sectionId = "RECOFT";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).docComment = "Text-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for text columns; carries only the overflow handling a\nvariable-length string column needs.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"overflowBehavior", "String", "Overflow Behavior", false, "Truncate / Ellipsis / Wrap / Clip", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxDisplayLength", "int", "Max Display Length", false, "Character limit before overflow handling applies", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-112:2017 — presentation of information governs truncation and wrapping of text\"],\"connotation\":\"The overflow handling for a text report column.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportColumnKind.string\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -61751,7 +61983,7 @@ void buildReportColumnEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 3;
+    (*n).serializationOrder = 8;
     (*n).docComment = "Aggregation settings.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"aggregation", "String", "Aggregation", false, "None / Sum / Average / Count / Min / Max", 0, std::vector<std::string>{}});
@@ -61769,7 +62001,7 @@ void buildReportColumnEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 4;
+    (*n).serializationOrder = 9;
     (*n).docComment = "Interaction options.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sortable", "String", "Sortable", false, "Yes / No — can user sort by this column", 0, std::vector<std::string>{}});
@@ -61785,7 +62017,7 @@ void buildReportColumnEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 5;
+    (*n).serializationOrder = 10;
     (*n).docComment = "Visibility and layout.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"visible", "String", "Visible", false, "Yes / No / Conditional", 0, std::vector<std::string>{}});
@@ -62243,14 +62475,121 @@ void buildReportFilterEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 1;
     (*n).docComment = "Input and value configuration.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "String", "Data Type", false, "String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type", false, "Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "Default filter value, e.g. current_month, today, *", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"availableValuesSource", "String", "Available Values Source", false, "Source for dropdown/select values: static list, entity query, API endpoint", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"staticValues", "String", "Static Values", false, "Comma-separated values if source is static, e.g. Active,Inactive,All", 4, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"cascadeParent", "String", "Cascade Parent", false, "Filter ID of parent filter for cascading dropdowns", 5, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"multiSelect", "String", "Multi-Select", false, "Yes / No — allow selecting multiple values", 6, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "ReportFilterValueKind", "Data Type", false, "The filter value type — selects the promoted input-control and value-bound subsection.", 0, std::vector<std::string>{"string", "integer", "decimal", "date", "dateTime", "boolean", "enumeration", "entityRef"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "Default filter value, e.g. current_month, today, *", 1, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 — specifies the input data type and value source for a filter parameter\",\"ISO 9241-110:2020 — matches the input control to the filter data the user provides\"],\"connotation\":\"The data type, input control, and value source that configure how a report filter accepts input.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportFilterEntry";
+    (*n).memberName = "textFilterOptions";
+    (*n).sectionId = "RFEIT";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).docComment = "Text-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for text filters; carries the free-text control and its\nmatch semantics (no value source, no date bounds).";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type", false, "Text-Field / Autocomplete", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"matchMode", "String", "Match Mode", false, "Contains / Starts-With / Exact / Regex", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxLength", "int", "Max Length", false, "Character limit on the input", 2, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-143:2012 — form-based interaction and free-text input\",\"ISO 9241-110:2020 — matches the input control to the filter data the user provides\"],\"connotation\":\"The input control and match semantics for a text report filter.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportFilterValueKind.string\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportFilterEntry";
+    (*n).memberName = "numericFilterOptions";
+    (*n).sectionId = "RFEIN";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).docComment = "Numeric-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric filters; carries the numeric control and its\nvalue bounds.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type", false, "Number-Field / Slider / Range-Slider", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minValue", "String", "Min Value", false, "Lowest accepted value", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxValue", "String", "Max Value", false, "Highest accepted value", 2, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges\",\"ISO 80000-1:2022 — general principles for quantities units and their symbols\"],\"connotation\":\"The input control and value bounds for a numeric report filter.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportFilterValueKind.integer\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportFilterValueKind.decimal\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportFilterEntry";
+    (*n).memberName = "dateFilterOptions";
+    (*n).sectionId = "RFEID";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "Temporal-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/date-time filters; carries the temporal control —\nincluding the range picker that the former free-text `DateRange` type\nstood for — and the selectable window.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type", false, "Date-Picker / Date-Range-Picker / Relative-Period", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"earliestDate", "String", "Earliest Date", false, "Earliest selectable date/time", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"latestDate", "String", "Latest Date", false, "Latest selectable date/time", 2, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 8601-1:2019 — representation of dates and times\",\"ISO 9241-143:2012 — constraints on date and time form-field input\"],\"connotation\":\"The input control and selectable window for a date report filter.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportFilterValueKind.date\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportFilterValueKind.dateTime\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportFilterEntry";
+    (*n).memberName = "booleanFilterOptions";
+    (*n).sectionId = "RFEIB";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).docComment = "Boolean-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean filters; carries only the two-valued control.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type", false, "Checkbox / Toggle / Radio-Pair", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"includeIndeterminate", "String", "Include Indeterminate", false, "Yes / No — offer an \"any\" third state", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-161:2016 — selection controls such as checkboxes and radio groups\"],\"connotation\":\"The two-valued input control for a boolean report filter.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportFilterValueKind.boolean\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportFilterEntry";
+    (*n).memberName = "selectFilterOptions";
+    (*n).sectionId = "RFEIS";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).docComment = "Selection-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration filters; this is the only case in which a\nvalue source, static value list, cascade parent and multi-select are\nmeaningful.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type", false, "Select / Multi-Select / Radio-Group / Cascading-Select", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"availableValuesSource", "String", "Available Values Source", false, "Source for dropdown/select values: static list, entity query, API endpoint", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"staticValues", "String", "Static Values", false, "Comma-separated values if source is static, e.g. Active,Inactive,All", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cascadeParent", "String", "Cascade Parent", false, "Filter ID of parent filter for cascading dropdowns", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"multiSelect", "String", "Multi-Select", false, "Yes / No — allow selecting multiple values", 4, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-161:2016 — selection controls such as dropdowns and radio groups\",\"ISO/IEC 11179 — permissible values of a data element\"],\"connotation\":\"The selection control and value source for an enumeration report filter.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportFilterValueKind.enumeration\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportFilterEntry";
+    (*n).memberName = "entityFilterOptions";
+    (*n).sectionId = "RFEIE";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).docComment = "Entity-reference filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for entity-reference filters; carries the lookup control and\nthe entity query that backs it. Distinct from the enumeration case\nbecause the value set is resolved from an entity, not a declared list.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type", false, "Autocomplete / Dialog-Picker / Tree-Picker", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"entityType", "String", "Entity Type", false, "Referenced entity, e.g. Customer", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"queryFilter", "String", "Query Filter", false, "Restriction applied to the lookup query", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"displayAttribute", "String", "Display Attribute", false, "Entity attribute shown to the user, e.g. name", 3, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-143:2012 — form fields with input assistance and lookup\",\"ER modeling (Chen / Barker notation)\"],\"connotation\":\"The lookup control and backing entity query for an entity-reference report filter.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ReportFilterValueKind.entityRef\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -62261,7 +62600,7 @@ void buildReportFilterEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 2;
+    (*n).serializationOrder = 8;
     (*n).docComment = "Scope and validation behavior.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"required", "String", "Required", false, "Yes / No — must user provide a value", 0, std::vector<std::string>{}});
@@ -62281,7 +62620,7 @@ void buildReportFilterEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 3;
+    (*n).serializationOrder = 9;
     (*n).docComment = "Presentation options.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"hiddenFilter", "String", "Hidden Filter", false, "Yes / No — filter applied programmatically, not shown to user", 0, std::vector<std::string>{}});
@@ -68052,7 +68391,7 @@ void buildScreenFieldEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldId", "String", "Field ID", true, "Unique identifier for this field", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldLabel", "String", "Field Label (display text)", true, "Display text shown for the field", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldType", "String", "Field Type", true, "Text, Number, Date, Dropdown, Checkbox, etc.", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldType", "ScreenFieldKind", "Field Type", true, "The kind of value the user supplies — selects the type-specific constraint and presentation subsections", 2, std::vector<std::string>{"text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"}});
     parent.addChild(std::move(n));
   }
   {
@@ -68102,15 +68441,89 @@ void buildScreenFieldEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
-    (*n).docComment = "Validation rules.";
+    (*n).docComment = "Validation rules that apply whatever the field type is.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minLength", "String", "Minimum Length", false, "Minimum allowed input length", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxLength", "String", "Maximum Length", false, "Maximum allowed input length", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minValue", "String", "Minimum Value", false, "Minimum allowed value", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxValue", "String", "Maximum Value", false, "Maximum allowed value", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"pattern", "String", "Validation Pattern (regex)", false, "Regular expression the input must match", 4, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationMessage", "String", "Custom Validation Message", false, "Message shown when validation fails", 5, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The built-in validation constraints on a screen field — length and value bounds, regex pattern, and the custom validation message.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationMessage", "String", "Custom Validation Message", false, "Message shown when validation fails", 0, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The type-independent validation settings of a screen field — the custom message shown when any built-in constraint fails.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScreenFieldEntry";
+    (*n).memberName = "textConstraints";
+    (*n).sectionId = "SCFIVT";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "Text-kind input constraints — a promoted `@OneOf` case (csra4).";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minLength", "String", "Minimum Length", false, "Minimum allowed input length in characters", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxLength", "String", "Maximum Length", false, "Maximum allowed input length in characters", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"pattern", "String", "Validation Pattern (regex)", false, "Regular expression the input must match", 2, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The input constraints that only apply to a text-valued screen field — its length bounds and the regular expression the input must match.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.text\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.multilineText\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.email\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.phone\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.url\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.password\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScreenFieldEntry";
+    (*n).memberName = "numericConstraints";
+    (*n).sectionId = "SCFIVN";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).docComment = "Numeric-kind input constraints — a promoted `@OneOf` case (csra4).";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minValue", "String", "Minimum Value", false, "Smallest value the field accepts", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxValue", "String", "Maximum Value", false, "Largest value the field accepts", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The input constraints that only apply to a numeric screen field — its value bounds.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.integer\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.decimal\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.currency\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScreenFieldEntry";
+    (*n).memberName = "temporalConstraints";
+    (*n).sectionId = "SCFIVD";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).docComment = "Temporal-kind input constraints — a promoted `@OneOf` case (csra4).\n\nKept apart from [numericConstraints] because a date boundary is expressed\nas a date or a relative expression (\"today + 30d\"), not as a number.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"earliestValue", "String", "Earliest Accepted Value", false, "Earliest accepted date/time, absolute or relative (e.g. today)", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"latestValue", "String", "Latest Accepted Value", false, "Latest accepted date/time, absolute or relative (e.g. today + 30d)", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"ISO 8601 — date and time representation\"],\"connotation\":\"The input constraints that only apply to a temporal screen field — its earliest and latest accepted instant.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.date\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.dateTime\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.time\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScreenFieldEntry";
+    (*n).memberName = "choiceOptions";
+    (*n).sectionId = "SCFICH";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).docComment = "Choice-kind option source — a promoted `@OneOf` case (csra4).";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"optionSource", "String", "Option Source (static, API, entity)", false, "Where the options come from: static, API, or entity", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"staticOptions", "String", "Static Option Values", false, "The option values, when the source is static", 1, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110 — dialogue principles\",\"ISO/IEC/IEEE 29148 §9.5 — UI functional requirements\"],\"connotation\":\"Where a choice field takes its options from — the option source and, for a static source, the values themselves.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.singleSelect\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenFieldKind.multiSelect\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -68121,16 +68534,14 @@ void buildScreenFieldEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 4;
+    (*n).serializationOrder = 8;
     (*n).docComment = "UI and layout.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dropdownSource", "String", "Dropdown Source (static, API, entity)", false, "Where dropdown options come from: static, API, or entity", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dropdownValues", "String", "Static Dropdown Values", false, "Static list of dropdown values", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On (field IDs that affect this)", false, "Field IDs that affect this field", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"width", "String", "Width (full, half, third, quarter, custom)", false, "full, half, third, quarter, or custom", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"order", "String", "Display Order", false, "Order in which the field is displayed", 4, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"grouping", "String", "Field Grouping / Section", false, "Group or section the field belongs to", 5, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110 — dialogue principles\",\"ISO/IEC/IEEE 29148 §9.5 — UI functional requirements\"],\"connotation\":\"The layout and presentation of a screen field — its dropdown source/values, dependencies, width, display order, and grouping.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On (field IDs that affect this)", false, "Field IDs that affect this field", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"width", "String", "Width (full, half, third, quarter, custom)", false, "full, half, third, quarter, or custom", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"order", "String", "Display Order", false, "Order in which the field is displayed", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"grouping", "String", "Field Grouping / Section", false, "Group or section the field belongs to", 3, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110 — dialogue principles\",\"ISO/IEC/IEEE 29148 §9.5 — UI functional requirements\"],\"connotation\":\"The layout and presentation of a screen field — its dependencies, width, display order, and grouping.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -68142,7 +68553,7 @@ void buildScreenFieldEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "FieldValidationRule";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 5;
+    (*ln).serializationOrder = 9;
     (*ln).contentHelp = "Add one entry per validation rule applied to this field.";
     (*ln).docComment = "Field validation rules — contains 0+× FieldValidationRule.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The list of individual validation rules applied to this field's input.\"}", nullptr)});
@@ -96653,6 +97064,18 @@ som::SomMetaRef navDataAttributeEntry_identity(NavDataAttributeEntry x) {
 som::SomMetaRef navDataAttributeEntry_dataTypeSpec(NavDataAttributeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DATA"));
 }
+som::SomMetaRef navDataAttributeEntry_textTypeOptions(NavDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTTX"));
+}
+som::SomMetaRef navDataAttributeEntry_numericTypeOptions(NavDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTNU"));
+}
+som::SomMetaRef navDataAttributeEntry_temporalTypeOptions(NavDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTTM"));
+}
+som::SomMetaRef navDataAttributeEntry_binaryTypeOptions(NavDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTBI"));
+}
 som::SomListMetaRef navDataAttributeEntry_constraints(NavDataAttributeEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATAA-CONS-LST"), metaNavFactoryDataAttributeConstraintEntry);
 }
@@ -98605,6 +99028,21 @@ som::SomMetaRef navExportFieldMappingEntry_content(NavExportFieldMappingEntry x)
 }
 som::SomMetaRef navExportFieldMappingEntry_formatting(NavExportFieldMappingEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEF"));
+}
+som::SomMetaRef navExportFieldMappingEntry_numericOutput(NavExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFN"));
+}
+som::SomMetaRef navExportFieldMappingEntry_temporalOutput(NavExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFD"));
+}
+som::SomMetaRef navExportFieldMappingEntry_booleanOutput(NavExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFB"));
+}
+som::SomMetaRef navExportFieldMappingEntry_enumerationOutput(NavExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFE"));
+}
+som::SomMetaRef navExportFieldMappingEntry_textOutput(NavExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFT"));
 }
 som::SomMetaRef navExportFieldMappingEntry_transformation(NavExportFieldMappingEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMET"));
@@ -103220,6 +103658,21 @@ som::SomMetaRef navReportColumnEntry_dataSource(NavReportColumnEntry x) {
 som::SomMetaRef navReportColumnEntry_formatting(NavReportColumnEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFO"));
 }
+som::SomMetaRef navReportColumnEntry_numericFormat(NavReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFN"));
+}
+som::SomMetaRef navReportColumnEntry_currencyFormat(NavReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFC"));
+}
+som::SomMetaRef navReportColumnEntry_dateFormat(NavReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFD"));
+}
+som::SomMetaRef navReportColumnEntry_booleanFormat(NavReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFB"));
+}
+som::SomMetaRef navReportColumnEntry_textFormat(NavReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFT"));
+}
 som::SomMetaRef navReportColumnEntry_aggregation(NavReportColumnEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOAG"));
 }
@@ -103297,6 +103750,24 @@ som::SomMetaRef navReportFilterEntry_content(NavReportFilterEntry x) {
 }
 som::SomMetaRef navReportFilterEntry_input(NavReportFilterEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEI"));
+}
+som::SomMetaRef navReportFilterEntry_textFilterOptions(NavReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIT"));
+}
+som::SomMetaRef navReportFilterEntry_numericFilterOptions(NavReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIN"));
+}
+som::SomMetaRef navReportFilterEntry_dateFilterOptions(NavReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEID"));
+}
+som::SomMetaRef navReportFilterEntry_booleanFilterOptions(NavReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIB"));
+}
+som::SomMetaRef navReportFilterEntry_selectFilterOptions(NavReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIS"));
+}
+som::SomMetaRef navReportFilterEntry_entityFilterOptions(NavReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIE"));
 }
 som::SomMetaRef navReportFilterEntry_behavior(NavReportFilterEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEB"));
@@ -104242,6 +104713,18 @@ som::SomMetaRef navScreenFieldEntry_conditions(NavScreenFieldEntry x) {
 }
 som::SomMetaRef navScreenFieldEntry_validation(NavScreenFieldEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFIVA"));
+}
+som::SomMetaRef navScreenFieldEntry_textConstraints(NavScreenFieldEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFIVT"));
+}
+som::SomMetaRef navScreenFieldEntry_numericConstraints(NavScreenFieldEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFIVN"));
+}
+som::SomMetaRef navScreenFieldEntry_temporalConstraints(NavScreenFieldEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFIVD"));
+}
+som::SomMetaRef navScreenFieldEntry_choiceOptions(NavScreenFieldEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFICH"));
 }
 som::SomMetaRef navScreenFieldEntry_layout(NavScreenFieldEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFILA"));
@@ -118194,6 +118677,18 @@ som::SomMetaRef idDataAttributeEntry_DAATT_IDEN(IdDataAttributeEntry x) {
 som::SomMetaRef idDataAttributeEntry_DAATT_DATA(IdDataAttributeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DATA"));
 }
+som::SomMetaRef idDataAttributeEntry_DAATT_DTTX(IdDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTTX"));
+}
+som::SomMetaRef idDataAttributeEntry_DAATT_DTNU(IdDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTNU"));
+}
+som::SomMetaRef idDataAttributeEntry_DAATT_DTTM(IdDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTTM"));
+}
+som::SomMetaRef idDataAttributeEntry_DAATT_DTBI(IdDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTBI"));
+}
 som::SomListMetaRef idDataAttributeEntry_DATAA_CONS_LST(IdDataAttributeEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATAA-CONS-LST"), metaIdFactoryDataAttributeConstraintEntry);
 }
@@ -118634,6 +119129,21 @@ som::SomMetaRef idExistingSystemEntry_ESQUA(IdExistingSystemEntry x) {
 }
 som::SomMetaRef idExportFieldMappingEntry_EFMEF(IdExportFieldMappingEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEF"));
+}
+som::SomMetaRef idExportFieldMappingEntry_EFMEFN(IdExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFN"));
+}
+som::SomMetaRef idExportFieldMappingEntry_EFMEFD(IdExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFD"));
+}
+som::SomMetaRef idExportFieldMappingEntry_EFMEFB(IdExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFB"));
+}
+som::SomMetaRef idExportFieldMappingEntry_EFMEFE(IdExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFE"));
+}
+som::SomMetaRef idExportFieldMappingEntry_EFMEFT(IdExportFieldMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMEFT"));
 }
 som::SomMetaRef idExportFieldMappingEntry_EFMET(IdExportFieldMappingEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFMET"));
@@ -119814,6 +120324,21 @@ som::SomMetaRef idReportColumnEntry_RCDS(IdReportColumnEntry x) {
 som::SomMetaRef idReportColumnEntry_RECOFO(IdReportColumnEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFO"));
 }
+som::SomMetaRef idReportColumnEntry_RECOFN(IdReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFN"));
+}
+som::SomMetaRef idReportColumnEntry_RECOFC(IdReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFC"));
+}
+som::SomMetaRef idReportColumnEntry_RECOFD(IdReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFD"));
+}
+som::SomMetaRef idReportColumnEntry_RECOFB(IdReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFB"));
+}
+som::SomMetaRef idReportColumnEntry_RECOFT(IdReportColumnEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOFT"));
+}
 som::SomMetaRef idReportColumnEntry_RECOAG(IdReportColumnEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOAG"));
 }
@@ -119882,6 +120407,24 @@ som::SomListMetaRef idReportEntry_REREEN_RECI_LST(IdReportEntry x) {
 }
 som::SomMetaRef idReportFilterEntry_RFEI(IdReportFilterEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEI"));
+}
+som::SomMetaRef idReportFilterEntry_RFEIT(IdReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIT"));
+}
+som::SomMetaRef idReportFilterEntry_RFEIN(IdReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIN"));
+}
+som::SomMetaRef idReportFilterEntry_RFEID(IdReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEID"));
+}
+som::SomMetaRef idReportFilterEntry_RFEIB(IdReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIB"));
+}
+som::SomMetaRef idReportFilterEntry_RFEIS(IdReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIS"));
+}
+som::SomMetaRef idReportFilterEntry_RFEIE(IdReportFilterEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEIE"));
 }
 som::SomMetaRef idReportFilterEntry_RFEB(IdReportFilterEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFEB"));
@@ -120179,6 +120722,18 @@ som::SomMetaRef idScreenFieldEntry_SCFICO(IdScreenFieldEntry x) {
 }
 som::SomMetaRef idScreenFieldEntry_SCFIVA(IdScreenFieldEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFIVA"));
+}
+som::SomMetaRef idScreenFieldEntry_SCFIVT(IdScreenFieldEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFIVT"));
+}
+som::SomMetaRef idScreenFieldEntry_SCFIVN(IdScreenFieldEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFIVN"));
+}
+som::SomMetaRef idScreenFieldEntry_SCFIVD(IdScreenFieldEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFIVD"));
+}
+som::SomMetaRef idScreenFieldEntry_SCFICH(IdScreenFieldEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFICH"));
 }
 som::SomMetaRef idScreenFieldEntry_SCFILA(IdScreenFieldEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCFILA"));

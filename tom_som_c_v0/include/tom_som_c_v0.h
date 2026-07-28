@@ -1813,11 +1813,15 @@ typedef struct { SomNode node; } DataArchitectureLifecycleForm;
 typedef struct { SomNode node; } DataArchitectureSecurityForm;
 typedef struct { SomNode node; } DataArchitectureStorageForm;
 typedef struct { SomNode node; } DataAttributeConstraintEntryContentForm;
+typedef struct { SomNode node; } DataAttributeEntryBinaryTypeOptionsForm;
 typedef struct { SomNode node; } DataAttributeEntryDataTypeSpecForm;
 typedef struct { SomNode node; } DataAttributeEntryDerivationForm;
 typedef struct { SomNode node; } DataAttributeEntryIdentityForm;
 typedef struct { SomNode node; } DataAttributeEntryMigrationLineageForm;
+typedef struct { SomNode node; } DataAttributeEntryNumericTypeOptionsForm;
 typedef struct { SomNode node; } DataAttributeEntrySecurityClassificationForm;
+typedef struct { SomNode node; } DataAttributeEntryTemporalTypeOptionsForm;
+typedef struct { SomNode node; } DataAttributeEntryTextTypeOptionsForm;
 typedef struct { SomNode node; } DataClassificationEntryAccessControlForm;
 typedef struct { SomNode node; } DataClassificationEntryComplianceForm;
 typedef struct { SomNode node; } DataClassificationEntryIdentityForm;
@@ -2192,10 +2196,15 @@ typedef struct { SomNode node; } ExistingSystemEntryQualityForm;
 typedef struct { SomNode node; } ExistingSystemEntryTechnologyForm;
 typedef struct { SomNode node; } ExistingSystemEntryUsageForm;
 typedef struct { SomNode node; } ExpectedImprovementsContentForm;
+typedef struct { SomNode node; } ExportFieldMappingEntryBooleanOutputForm;
 typedef struct { SomNode node; } ExportFieldMappingEntryContentForm;
+typedef struct { SomNode node; } ExportFieldMappingEntryEnumerationOutputForm;
 typedef struct { SomNode node; } ExportFieldMappingEntryFormattingForm;
 typedef struct { SomNode node; } ExportFieldMappingEntryInclusionForm;
 typedef struct { SomNode node; } ExportFieldMappingEntryLayoutForm;
+typedef struct { SomNode node; } ExportFieldMappingEntryNumericOutputForm;
+typedef struct { SomNode node; } ExportFieldMappingEntryTemporalOutputForm;
+typedef struct { SomNode node; } ExportFieldMappingEntryTextOutputForm;
 typedef struct { SomNode node; } ExportFieldMappingEntryTransformationForm;
 typedef struct { SomNode node; } ExportFormatEntryAccessForm;
 typedef struct { SomNode node; } ExportFormatEntryContentForm;
@@ -3073,11 +3082,16 @@ typedef struct { SomNode node; } ReportChartEntryInteractionForm;
 typedef struct { SomNode node; } ReportChartEntryLayoutForm;
 typedef struct { SomNode node; } ReportChartEntrySeriesForm;
 typedef struct { SomNode node; } ReportColumnEntryAggregationForm;
+typedef struct { SomNode node; } ReportColumnEntryBooleanFormatForm;
 typedef struct { SomNode node; } ReportColumnEntryContentForm;
+typedef struct { SomNode node; } ReportColumnEntryCurrencyFormatForm;
 typedef struct { SomNode node; } ReportColumnEntryDataSourceForm;
+typedef struct { SomNode node; } ReportColumnEntryDateFormatForm;
 typedef struct { SomNode node; } ReportColumnEntryFormattingForm;
 typedef struct { SomNode node; } ReportColumnEntryInteractionForm;
 typedef struct { SomNode node; } ReportColumnEntryLayoutForm;
+typedef struct { SomNode node; } ReportColumnEntryNumericFormatForm;
+typedef struct { SomNode node; } ReportColumnEntryTextFormatForm;
 typedef struct { SomNode node; } ReportDistributionEntryContentForm;
 typedef struct { SomNode node; } ReportDistributionEntryContentSettingsForm;
 typedef struct { SomNode node; } ReportDistributionEntryDeliveryForm;
@@ -3095,9 +3109,15 @@ typedef struct { SomNode node; } ReportEntryLifecycleForm;
 typedef struct { SomNode node; } ReportEntryPaginationForm;
 typedef struct { SomNode node; } ReportEntrySecurityForm;
 typedef struct { SomNode node; } ReportFilterEntryBehaviorForm;
+typedef struct { SomNode node; } ReportFilterEntryBooleanFilterOptionsForm;
 typedef struct { SomNode node; } ReportFilterEntryContentForm;
+typedef struct { SomNode node; } ReportFilterEntryDateFilterOptionsForm;
+typedef struct { SomNode node; } ReportFilterEntryEntityFilterOptionsForm;
 typedef struct { SomNode node; } ReportFilterEntryInputForm;
+typedef struct { SomNode node; } ReportFilterEntryNumericFilterOptionsForm;
 typedef struct { SomNode node; } ReportFilterEntryPresentationForm;
+typedef struct { SomNode node; } ReportFilterEntrySelectFilterOptionsForm;
+typedef struct { SomNode node; } ReportFilterEntryTextFilterOptionsForm;
 typedef struct { SomNode node; } ReportRecipientEntryContentForm;
 typedef struct { SomNode node; } ReportRecipientEntryContextForm;
 typedef struct { SomNode node; } ReportRecipientEntryDeliveryForm;
@@ -3294,10 +3314,14 @@ typedef struct { SomNode node; } ScreenEntryClassificationForm;
 typedef struct { SomNode node; } ScreenEntryContentForm;
 typedef struct { SomNode node; } ScreenEntryPresentationForm;
 typedef struct { SomNode node; } ScreenEntryTraceabilityForm;
+typedef struct { SomNode node; } ScreenFieldEntryChoiceOptionsForm;
 typedef struct { SomNode node; } ScreenFieldEntryConditionsForm;
 typedef struct { SomNode node; } ScreenFieldEntryContentForm;
 typedef struct { SomNode node; } ScreenFieldEntryDataBindingForm;
 typedef struct { SomNode node; } ScreenFieldEntryLayoutForm;
+typedef struct { SomNode node; } ScreenFieldEntryNumericConstraintsForm;
+typedef struct { SomNode node; } ScreenFieldEntryTemporalConstraintsForm;
+typedef struct { SomNode node; } ScreenFieldEntryTextConstraintsForm;
 typedef struct { SomNode node; } ScreenFieldEntryValidationForm;
 typedef struct { SomNode node; } ScreenResponsiveRuleEntryContentForm;
 typedef struct { SomNode node; } ScreenSectionEntryBehaviorForm;
@@ -8914,6 +8938,27 @@ void data_attribute_entry_free(DataAttributeEntry *self);
 int data_attribute_entry_can_have_content(const DataAttributeEntry *self);
 DataAttributeEntryIdentityForm data_attribute_entry_identity(const DataAttributeEntry *self);
 DataAttributeEntryDataTypeSpecForm data_attribute_entry_data_type_spec(const DataAttributeEntry *self);
+// Text-kind type options — a promoted `@OneOf` case (csra4).
+//
+// Present only for the `string` logical type; carries only the character
+// length and collation attributes (no numeric precision, no timezone).
+DataAttributeEntryTextTypeOptionsForm data_attribute_entry_text_type_options(const DataAttributeEntry *self);
+// Numeric-kind type options — a promoted `@OneOf` case (csra4).
+//
+// Present only for numeric logical types; carries only the precision and
+// scale attributes (no length, collation or timezone).
+DataAttributeEntryNumericTypeOptionsForm data_attribute_entry_numeric_type_options(const DataAttributeEntry *self);
+// Temporal-kind type options — a promoted `@OneOf` case (csra4).
+//
+// Present only for date/time logical types; carries only the timezone
+// handling attribute.
+DataAttributeEntryTemporalTypeOptionsForm data_attribute_entry_temporal_type_options(const DataAttributeEntry *self);
+// Binary-kind type options — a promoted `@OneOf` case (csra4).
+//
+// Present only for the `binary` logical type; carries only the stored size
+// attributes. Separated from the text `length` because a byte size and a
+// character length are different constraints on different types.
+DataAttributeEntryBinaryTypeOptionsForm data_attribute_entry_binary_type_options(const DataAttributeEntry *self);
 // Returns the list view; element type: DataAttributeConstraintEntry (construct from item paths).
 SomList data_attribute_entry_constraints(const DataAttributeEntry *self);
 DataAttributeEntryDerivationForm data_attribute_entry_derivation(const DataAttributeEntry *self);
@@ -11648,6 +11693,32 @@ int export_field_mapping_entry_can_have_content(const ExportFieldMappingEntry *s
 ExportFieldMappingEntryContentForm export_field_mapping_entry_content(const ExportFieldMappingEntry *self);
 // Ordering and formatting settings.
 ExportFieldMappingEntryFormattingForm export_field_mapping_entry_formatting(const ExportFieldMappingEntry *self);
+// Numeric-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for integer and decimal fields; carries only the numeric
+// output pattern and separators.
+ExportFieldMappingEntryNumericOutputForm export_field_mapping_entry_numeric_output(const ExportFieldMappingEntry *self);
+// Temporal-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for date and date-time fields; carries only the temporal
+// output pattern and timezone handling.
+ExportFieldMappingEntryTemporalOutputForm export_field_mapping_entry_temporal_output(const ExportFieldMappingEntry *self);
+// Boolean-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for boolean fields; this is the only case in which the
+// emitted true/false literals are meaningful.
+ExportFieldMappingEntryBooleanOutputForm export_field_mapping_entry_boolean_output(const ExportFieldMappingEntry *self);
+// Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for enumeration fields; carries which face of the value set
+// is emitted and what happens to a value outside it.
+ExportFieldMappingEntryEnumerationOutputForm export_field_mapping_entry_enumeration_output(const ExportFieldMappingEntry *self);
+// Text-kind output format — a promoted `@OneOf` case (csra4).
+//
+// Present only for text fields; carries the character-length truncation
+// that only a string field can have. Moved out of `inclusion`, where it sat
+// beside type-independent default and inclusion rules.
+ExportFieldMappingEntryTextOutputForm export_field_mapping_entry_text_output(const ExportFieldMappingEntry *self);
 // Transformation rules.
 ExportFieldMappingEntryTransformationForm export_field_mapping_entry_transformation(const ExportFieldMappingEntry *self);
 // Inclusion and defaults.
@@ -18219,6 +18290,30 @@ ReportColumnEntryContentForm report_column_entry_content(const ReportColumnEntry
 ReportColumnEntryDataSourceForm report_column_entry_data_source(const ReportColumnEntry *self);
 // Display formatting.
 ReportColumnEntryFormattingForm report_column_entry_formatting(const ReportColumnEntry *self);
+// Numeric-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for integer and decimal columns; carries only the numeric
+// display pattern (no currency code, no boolean labels).
+ReportColumnEntryNumericFormatForm report_column_entry_numeric_format(const ReportColumnEntry *self);
+// Currency-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for currency columns; this is the only case in which a
+// currency code is meaningful.
+ReportColumnEntryCurrencyFormatForm report_column_entry_currency_format(const ReportColumnEntry *self);
+// Date-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for date columns; carries only the temporal display pattern.
+ReportColumnEntryDateFormatForm report_column_entry_date_format(const ReportColumnEntry *self);
+// Boolean-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for boolean columns; this is the only case in which the
+// true/false display labels are meaningful.
+ReportColumnEntryBooleanFormatForm report_column_entry_boolean_format(const ReportColumnEntry *self);
+// Text-kind column format — a promoted `@OneOf` case (csra4).
+//
+// Present only for text columns; carries only the overflow handling a
+// variable-length string column needs.
+ReportColumnEntryTextFormatForm report_column_entry_text_format(const ReportColumnEntry *self);
 // Aggregation settings.
 ReportColumnEntryAggregationForm report_column_entry_aggregation(const ReportColumnEntry *self);
 // Interaction options.
@@ -18294,6 +18389,38 @@ int report_filter_entry_can_have_content(const ReportFilterEntry *self);
 ReportFilterEntryContentForm report_filter_entry_content(const ReportFilterEntry *self);
 // Input and value configuration.
 ReportFilterEntryInputForm report_filter_entry_input(const ReportFilterEntry *self);
+// Text-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for text filters; carries the free-text control and its
+// match semantics (no value source, no date bounds).
+ReportFilterEntryTextFilterOptionsForm report_filter_entry_text_filter_options(const ReportFilterEntry *self);
+// Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for numeric filters; carries the numeric control and its
+// value bounds.
+ReportFilterEntryNumericFilterOptionsForm report_filter_entry_numeric_filter_options(const ReportFilterEntry *self);
+// Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for date/date-time filters; carries the temporal control —
+// including the range picker that the former free-text `DateRange` type
+// stood for — and the selectable window.
+ReportFilterEntryDateFilterOptionsForm report_filter_entry_date_filter_options(const ReportFilterEntry *self);
+// Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for boolean filters; carries only the two-valued control.
+ReportFilterEntryBooleanFilterOptionsForm report_filter_entry_boolean_filter_options(const ReportFilterEntry *self);
+// Selection-kind filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for enumeration filters; this is the only case in which a
+// value source, static value list, cascade parent and multi-select are
+// meaningful.
+ReportFilterEntrySelectFilterOptionsForm report_filter_entry_select_filter_options(const ReportFilterEntry *self);
+// Entity-reference filter options — a promoted `@OneOf` case (csra4).
+//
+// Present only for entity-reference filters; carries the lookup control and
+// the entity query that backs it. Distinct from the enumeration case
+// because the value set is resolved from an entity, not a declared list.
+ReportFilterEntryEntityFilterOptionsForm report_filter_entry_entity_filter_options(const ReportFilterEntry *self);
 // Scope and validation behavior.
 ReportFilterEntryBehaviorForm report_filter_entry_behavior(const ReportFilterEntry *self);
 // Presentation options.
@@ -19783,8 +19910,19 @@ ScreenFieldEntryContentForm screen_field_entry_content(const ScreenFieldEntry *s
 ScreenFieldEntryDataBindingForm screen_field_entry_data_binding(const ScreenFieldEntry *self);
 // Conditional behavior.
 ScreenFieldEntryConditionsForm screen_field_entry_conditions(const ScreenFieldEntry *self);
-// Validation rules.
+// Validation rules that apply whatever the field type is.
 ScreenFieldEntryValidationForm screen_field_entry_validation(const ScreenFieldEntry *self);
+// Text-kind input constraints — a promoted `@OneOf` case (csra4).
+ScreenFieldEntryTextConstraintsForm screen_field_entry_text_constraints(const ScreenFieldEntry *self);
+// Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+ScreenFieldEntryNumericConstraintsForm screen_field_entry_numeric_constraints(const ScreenFieldEntry *self);
+// Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+//
+// Kept apart from [numericConstraints] because a date boundary is expressed
+// as a date or a relative expression ("today + 30d"), not as a number.
+ScreenFieldEntryTemporalConstraintsForm screen_field_entry_temporal_constraints(const ScreenFieldEntry *self);
+// Choice-kind option source — a promoted `@OneOf` case (csra4).
+ScreenFieldEntryChoiceOptionsForm screen_field_entry_choice_options(const ScreenFieldEntry *self);
 // UI and layout.
 ScreenFieldEntryLayoutForm screen_field_entry_layout(const ScreenFieldEntry *self);
 // Field validation rules — contains 0+× FieldValidationRule.
@@ -32909,6 +33047,17 @@ void data_attribute_constraint_entry_content_form_set_allowed_values(DataAttribu
 char *data_attribute_constraint_entry_content_form_pattern_regex(const DataAttributeConstraintEntryContentForm *self);
 void data_attribute_constraint_entry_content_form_set_pattern_regex(DataAttributeConstraintEntryContentForm *self, const char *value);
 
+// DataAttributeEntryBinaryTypeOptionsForm is the generated section facade for the `binaryTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+void data_attribute_entry_binary_type_options_form_init(DataAttributeEntryBinaryTypeOptionsForm *self, SpecDocument *doc, const char *path);
+void data_attribute_entry_binary_type_options_form_free(DataAttributeEntryBinaryTypeOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_attribute_entry_binary_type_options_form_content(const DataAttributeEntryBinaryTypeOptionsForm *self);
+void data_attribute_entry_binary_type_options_form_set_content(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_binary_type_options_form_max_size_bytes(const DataAttributeEntryBinaryTypeOptionsForm *self);
+void data_attribute_entry_binary_type_options_form_set_max_size_bytes(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_binary_type_options_form_storage_mode(const DataAttributeEntryBinaryTypeOptionsForm *self);
+void data_attribute_entry_binary_type_options_form_set_storage_mode(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value);
+
 // DataAttributeEntryDataTypeSpecForm is the generated section facade for the `dataTypeSpec` @Form section: its own `content` text followed by one typed member per form field.
 void data_attribute_entry_data_type_spec_form_init(DataAttributeEntryDataTypeSpecForm *self, SpecDocument *doc, const char *path);
 void data_attribute_entry_data_type_spec_form_free(DataAttributeEntryDataTypeSpecForm *self);
@@ -32919,16 +33068,6 @@ char *data_attribute_entry_data_type_spec_form_data_type(const DataAttributeEntr
 void data_attribute_entry_data_type_spec_form_set_data_type(DataAttributeEntryDataTypeSpecForm *self, const char *value);
 char *data_attribute_entry_data_type_spec_form_physical_type(const DataAttributeEntryDataTypeSpecForm *self);
 void data_attribute_entry_data_type_spec_form_set_physical_type(DataAttributeEntryDataTypeSpecForm *self, const char *value);
-char *data_attribute_entry_data_type_spec_form_length(const DataAttributeEntryDataTypeSpecForm *self);
-void data_attribute_entry_data_type_spec_form_set_length(DataAttributeEntryDataTypeSpecForm *self, const char *value);
-char *data_attribute_entry_data_type_spec_form_precision(const DataAttributeEntryDataTypeSpecForm *self);
-void data_attribute_entry_data_type_spec_form_set_precision(DataAttributeEntryDataTypeSpecForm *self, const char *value);
-char *data_attribute_entry_data_type_spec_form_scale(const DataAttributeEntryDataTypeSpecForm *self);
-void data_attribute_entry_data_type_spec_form_set_scale(DataAttributeEntryDataTypeSpecForm *self, const char *value);
-char *data_attribute_entry_data_type_spec_form_collation(const DataAttributeEntryDataTypeSpecForm *self);
-void data_attribute_entry_data_type_spec_form_set_collation(DataAttributeEntryDataTypeSpecForm *self, const char *value);
-char *data_attribute_entry_data_type_spec_form_timezone(const DataAttributeEntryDataTypeSpecForm *self);
-void data_attribute_entry_data_type_spec_form_set_timezone(DataAttributeEntryDataTypeSpecForm *self, const char *value);
 char *data_attribute_entry_data_type_spec_form_format(const DataAttributeEntryDataTypeSpecForm *self);
 void data_attribute_entry_data_type_spec_form_set_format(DataAttributeEntryDataTypeSpecForm *self, const char *value);
 
@@ -32981,6 +33120,17 @@ void data_attribute_entry_migration_lineage_form_set_data_lineage(DataAttributeE
 char *data_attribute_entry_migration_lineage_form_quality_rules(const DataAttributeEntryMigrationLineageForm *self);
 void data_attribute_entry_migration_lineage_form_set_quality_rules(DataAttributeEntryMigrationLineageForm *self, const char *value);
 
+// DataAttributeEntryNumericTypeOptionsForm is the generated section facade for the `numericTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+void data_attribute_entry_numeric_type_options_form_init(DataAttributeEntryNumericTypeOptionsForm *self, SpecDocument *doc, const char *path);
+void data_attribute_entry_numeric_type_options_form_free(DataAttributeEntryNumericTypeOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_attribute_entry_numeric_type_options_form_content(const DataAttributeEntryNumericTypeOptionsForm *self);
+void data_attribute_entry_numeric_type_options_form_set_content(DataAttributeEntryNumericTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_numeric_type_options_form_precision(const DataAttributeEntryNumericTypeOptionsForm *self);
+void data_attribute_entry_numeric_type_options_form_set_precision(DataAttributeEntryNumericTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_numeric_type_options_form_scale(const DataAttributeEntryNumericTypeOptionsForm *self);
+void data_attribute_entry_numeric_type_options_form_set_scale(DataAttributeEntryNumericTypeOptionsForm *self, const char *value);
+
 // DataAttributeEntrySecurityClassificationForm is the generated section facade for the `securityClassification` @Form section: its own `content` text followed by one typed member per form field.
 void data_attribute_entry_security_classification_form_init(DataAttributeEntrySecurityClassificationForm *self, SpecDocument *doc, const char *path);
 void data_attribute_entry_security_classification_form_free(DataAttributeEntrySecurityClassificationForm *self);
@@ -32997,6 +33147,26 @@ char *data_attribute_entry_security_classification_form_encryption_level(const D
 void data_attribute_entry_security_classification_form_set_encryption_level(DataAttributeEntrySecurityClassificationForm *self, const char *value);
 char *data_attribute_entry_security_classification_form_audit_level(const DataAttributeEntrySecurityClassificationForm *self);
 void data_attribute_entry_security_classification_form_set_audit_level(DataAttributeEntrySecurityClassificationForm *self, const char *value);
+
+// DataAttributeEntryTemporalTypeOptionsForm is the generated section facade for the `temporalTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+void data_attribute_entry_temporal_type_options_form_init(DataAttributeEntryTemporalTypeOptionsForm *self, SpecDocument *doc, const char *path);
+void data_attribute_entry_temporal_type_options_form_free(DataAttributeEntryTemporalTypeOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_attribute_entry_temporal_type_options_form_content(const DataAttributeEntryTemporalTypeOptionsForm *self);
+void data_attribute_entry_temporal_type_options_form_set_content(DataAttributeEntryTemporalTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_temporal_type_options_form_timezone(const DataAttributeEntryTemporalTypeOptionsForm *self);
+void data_attribute_entry_temporal_type_options_form_set_timezone(DataAttributeEntryTemporalTypeOptionsForm *self, const char *value);
+
+// DataAttributeEntryTextTypeOptionsForm is the generated section facade for the `textTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+void data_attribute_entry_text_type_options_form_init(DataAttributeEntryTextTypeOptionsForm *self, SpecDocument *doc, const char *path);
+void data_attribute_entry_text_type_options_form_free(DataAttributeEntryTextTypeOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_attribute_entry_text_type_options_form_content(const DataAttributeEntryTextTypeOptionsForm *self);
+void data_attribute_entry_text_type_options_form_set_content(DataAttributeEntryTextTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_text_type_options_form_length(const DataAttributeEntryTextTypeOptionsForm *self);
+void data_attribute_entry_text_type_options_form_set_length(DataAttributeEntryTextTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_text_type_options_form_collation(const DataAttributeEntryTextTypeOptionsForm *self);
+void data_attribute_entry_text_type_options_form_set_collation(DataAttributeEntryTextTypeOptionsForm *self, const char *value);
 
 // DataClassificationEntryAccessControlForm is the generated section facade for the `accessControl` @Form section: its own `content` text followed by one typed member per form field.
 void data_classification_entry_access_control_form_init(DataClassificationEntryAccessControlForm *self, SpecDocument *doc, const char *path);
@@ -38672,6 +38842,17 @@ void expected_improvements_content_form_set_flexibility_gains(ExpectedImprovemen
 char *expected_improvements_content_form_integration_benefits(const ExpectedImprovementsContentForm *self);
 void expected_improvements_content_form_set_integration_benefits(ExpectedImprovementsContentForm *self, const char *value);
 
+// ExportFieldMappingEntryBooleanOutputForm is the generated section facade for the `booleanOutput` @Form section: its own `content` text followed by one typed member per form field.
+void export_field_mapping_entry_boolean_output_form_init(ExportFieldMappingEntryBooleanOutputForm *self, SpecDocument *doc, const char *path);
+void export_field_mapping_entry_boolean_output_form_free(ExportFieldMappingEntryBooleanOutputForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *export_field_mapping_entry_boolean_output_form_content(const ExportFieldMappingEntryBooleanOutputForm *self);
+void export_field_mapping_entry_boolean_output_form_set_content(ExportFieldMappingEntryBooleanOutputForm *self, const char *value);
+char *export_field_mapping_entry_boolean_output_form_true_literal(const ExportFieldMappingEntryBooleanOutputForm *self);
+void export_field_mapping_entry_boolean_output_form_set_true_literal(ExportFieldMappingEntryBooleanOutputForm *self, const char *value);
+char *export_field_mapping_entry_boolean_output_form_false_literal(const ExportFieldMappingEntryBooleanOutputForm *self);
+void export_field_mapping_entry_boolean_output_form_set_false_literal(ExportFieldMappingEntryBooleanOutputForm *self, const char *value);
+
 // ExportFieldMappingEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void export_field_mapping_entry_content_form_init(ExportFieldMappingEntryContentForm *self, SpecDocument *doc, const char *path);
 void export_field_mapping_entry_content_form_free(ExportFieldMappingEntryContentForm *self);
@@ -38685,6 +38866,17 @@ void export_field_mapping_entry_content_form_set_source_field(ExportFieldMapping
 char *export_field_mapping_entry_content_form_target_field_name(const ExportFieldMappingEntryContentForm *self);
 void export_field_mapping_entry_content_form_set_target_field_name(ExportFieldMappingEntryContentForm *self, const char *value);
 
+// ExportFieldMappingEntryEnumerationOutputForm is the generated section facade for the `enumerationOutput` @Form section: its own `content` text followed by one typed member per form field.
+void export_field_mapping_entry_enumeration_output_form_init(ExportFieldMappingEntryEnumerationOutputForm *self, SpecDocument *doc, const char *path);
+void export_field_mapping_entry_enumeration_output_form_free(ExportFieldMappingEntryEnumerationOutputForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *export_field_mapping_entry_enumeration_output_form_content(const ExportFieldMappingEntryEnumerationOutputForm *self);
+void export_field_mapping_entry_enumeration_output_form_set_content(ExportFieldMappingEntryEnumerationOutputForm *self, const char *value);
+char *export_field_mapping_entry_enumeration_output_form_emitted_form(const ExportFieldMappingEntryEnumerationOutputForm *self);
+void export_field_mapping_entry_enumeration_output_form_set_emitted_form(ExportFieldMappingEntryEnumerationOutputForm *self, const char *value);
+char *export_field_mapping_entry_enumeration_output_form_unmapped_value_behavior(const ExportFieldMappingEntryEnumerationOutputForm *self);
+void export_field_mapping_entry_enumeration_output_form_set_unmapped_value_behavior(ExportFieldMappingEntryEnumerationOutputForm *self, const char *value);
+
 // ExportFieldMappingEntryFormattingForm is the generated section facade for the `formatting` @Form section: its own `content` text followed by one typed member per form field.
 void export_field_mapping_entry_formatting_form_init(ExportFieldMappingEntryFormattingForm *self, SpecDocument *doc, const char *path);
 void export_field_mapping_entry_formatting_form_free(ExportFieldMappingEntryFormattingForm *self);
@@ -38695,8 +38887,6 @@ long export_field_mapping_entry_formatting_form_display_order(const ExportFieldM
 void export_field_mapping_entry_formatting_form_set_display_order(ExportFieldMappingEntryFormattingForm *self, long value);
 char *export_field_mapping_entry_formatting_form_data_type(const ExportFieldMappingEntryFormattingForm *self);
 void export_field_mapping_entry_formatting_form_set_data_type(ExportFieldMappingEntryFormattingForm *self, const char *value);
-char *export_field_mapping_entry_formatting_form_format_pattern(const ExportFieldMappingEntryFormattingForm *self);
-void export_field_mapping_entry_formatting_form_set_format_pattern(ExportFieldMappingEntryFormattingForm *self, const char *value);
 
 // ExportFieldMappingEntryInclusionForm is the generated section facade for the `inclusion` @Form section: its own `content` text followed by one typed member per form field.
 void export_field_mapping_entry_inclusion_form_init(ExportFieldMappingEntryInclusionForm *self, SpecDocument *doc, const char *path);
@@ -38710,8 +38900,6 @@ char *export_field_mapping_entry_inclusion_form_include_in_export(const ExportFi
 void export_field_mapping_entry_inclusion_form_set_include_in_export(ExportFieldMappingEntryInclusionForm *self, const char *value);
 char *export_field_mapping_entry_inclusion_form_inclusion_condition(const ExportFieldMappingEntryInclusionForm *self);
 void export_field_mapping_entry_inclusion_form_set_inclusion_condition(ExportFieldMappingEntryInclusionForm *self, const char *value);
-long export_field_mapping_entry_inclusion_form_max_length(const ExportFieldMappingEntryInclusionForm *self);
-void export_field_mapping_entry_inclusion_form_set_max_length(ExportFieldMappingEntryInclusionForm *self, long value);
 
 // ExportFieldMappingEntryLayoutForm is the generated section facade for the `layout` @Form section: its own `content` text followed by one typed member per form field.
 void export_field_mapping_entry_layout_form_init(ExportFieldMappingEntryLayoutForm *self, SpecDocument *doc, const char *path);
@@ -38729,6 +38917,39 @@ char *export_field_mapping_entry_layout_form_quote_always(const ExportFieldMappi
 void export_field_mapping_entry_layout_form_set_quote_always(ExportFieldMappingEntryLayoutForm *self, const char *value);
 char *export_field_mapping_entry_layout_form_notes(const ExportFieldMappingEntryLayoutForm *self);
 void export_field_mapping_entry_layout_form_set_notes(ExportFieldMappingEntryLayoutForm *self, const char *value);
+
+// ExportFieldMappingEntryNumericOutputForm is the generated section facade for the `numericOutput` @Form section: its own `content` text followed by one typed member per form field.
+void export_field_mapping_entry_numeric_output_form_init(ExportFieldMappingEntryNumericOutputForm *self, SpecDocument *doc, const char *path);
+void export_field_mapping_entry_numeric_output_form_free(ExportFieldMappingEntryNumericOutputForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *export_field_mapping_entry_numeric_output_form_content(const ExportFieldMappingEntryNumericOutputForm *self);
+void export_field_mapping_entry_numeric_output_form_set_content(ExportFieldMappingEntryNumericOutputForm *self, const char *value);
+char *export_field_mapping_entry_numeric_output_form_format_pattern(const ExportFieldMappingEntryNumericOutputForm *self);
+void export_field_mapping_entry_numeric_output_form_set_format_pattern(ExportFieldMappingEntryNumericOutputForm *self, const char *value);
+char *export_field_mapping_entry_numeric_output_form_decimal_separator(const ExportFieldMappingEntryNumericOutputForm *self);
+void export_field_mapping_entry_numeric_output_form_set_decimal_separator(ExportFieldMappingEntryNumericOutputForm *self, const char *value);
+
+// ExportFieldMappingEntryTemporalOutputForm is the generated section facade for the `temporalOutput` @Form section: its own `content` text followed by one typed member per form field.
+void export_field_mapping_entry_temporal_output_form_init(ExportFieldMappingEntryTemporalOutputForm *self, SpecDocument *doc, const char *path);
+void export_field_mapping_entry_temporal_output_form_free(ExportFieldMappingEntryTemporalOutputForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *export_field_mapping_entry_temporal_output_form_content(const ExportFieldMappingEntryTemporalOutputForm *self);
+void export_field_mapping_entry_temporal_output_form_set_content(ExportFieldMappingEntryTemporalOutputForm *self, const char *value);
+char *export_field_mapping_entry_temporal_output_form_format_pattern(const ExportFieldMappingEntryTemporalOutputForm *self);
+void export_field_mapping_entry_temporal_output_form_set_format_pattern(ExportFieldMappingEntryTemporalOutputForm *self, const char *value);
+char *export_field_mapping_entry_temporal_output_form_timezone_handling(const ExportFieldMappingEntryTemporalOutputForm *self);
+void export_field_mapping_entry_temporal_output_form_set_timezone_handling(ExportFieldMappingEntryTemporalOutputForm *self, const char *value);
+
+// ExportFieldMappingEntryTextOutputForm is the generated section facade for the `textOutput` @Form section: its own `content` text followed by one typed member per form field.
+void export_field_mapping_entry_text_output_form_init(ExportFieldMappingEntryTextOutputForm *self, SpecDocument *doc, const char *path);
+void export_field_mapping_entry_text_output_form_free(ExportFieldMappingEntryTextOutputForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *export_field_mapping_entry_text_output_form_content(const ExportFieldMappingEntryTextOutputForm *self);
+void export_field_mapping_entry_text_output_form_set_content(ExportFieldMappingEntryTextOutputForm *self, const char *value);
+long export_field_mapping_entry_text_output_form_max_length(const ExportFieldMappingEntryTextOutputForm *self);
+void export_field_mapping_entry_text_output_form_set_max_length(ExportFieldMappingEntryTextOutputForm *self, long value);
+char *export_field_mapping_entry_text_output_form_padding(const ExportFieldMappingEntryTextOutputForm *self);
+void export_field_mapping_entry_text_output_form_set_padding(ExportFieldMappingEntryTextOutputForm *self, const char *value);
 
 // ExportFieldMappingEntryTransformationForm is the generated section facade for the `transformation` @Form section: its own `content` text followed by one typed member per form field.
 void export_field_mapping_entry_transformation_form_init(ExportFieldMappingEntryTransformationForm *self, SpecDocument *doc, const char *path);
@@ -52463,6 +52684,17 @@ void report_column_entry_aggregation_form_set_conditional_formatting_rules(Repor
 char *report_column_entry_aggregation_form_hyperlink_target(const ReportColumnEntryAggregationForm *self);
 void report_column_entry_aggregation_form_set_hyperlink_target(ReportColumnEntryAggregationForm *self, const char *value);
 
+// ReportColumnEntryBooleanFormatForm is the generated section facade for the `booleanFormat` @Form section: its own `content` text followed by one typed member per form field.
+void report_column_entry_boolean_format_form_init(ReportColumnEntryBooleanFormatForm *self, SpecDocument *doc, const char *path);
+void report_column_entry_boolean_format_form_free(ReportColumnEntryBooleanFormatForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_column_entry_boolean_format_form_content(const ReportColumnEntryBooleanFormatForm *self);
+void report_column_entry_boolean_format_form_set_content(ReportColumnEntryBooleanFormatForm *self, const char *value);
+char *report_column_entry_boolean_format_form_boolean_true_display(const ReportColumnEntryBooleanFormatForm *self);
+void report_column_entry_boolean_format_form_set_boolean_true_display(ReportColumnEntryBooleanFormatForm *self, const char *value);
+char *report_column_entry_boolean_format_form_boolean_false_display(const ReportColumnEntryBooleanFormatForm *self);
+void report_column_entry_boolean_format_form_set_boolean_false_display(ReportColumnEntryBooleanFormatForm *self, const char *value);
+
 // ReportColumnEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void report_column_entry_content_form_init(ReportColumnEntryContentForm *self, SpecDocument *doc, const char *path);
 void report_column_entry_content_form_free(ReportColumnEntryContentForm *self);
@@ -52476,6 +52708,19 @@ void report_column_entry_content_form_set_column_name(ReportColumnEntryContentFo
 char *report_column_entry_content_form_display_label(const ReportColumnEntryContentForm *self);
 void report_column_entry_content_form_set_display_label(ReportColumnEntryContentForm *self, const char *value);
 
+// ReportColumnEntryCurrencyFormatForm is the generated section facade for the `currencyFormat` @Form section: its own `content` text followed by one typed member per form field.
+void report_column_entry_currency_format_form_init(ReportColumnEntryCurrencyFormatForm *self, SpecDocument *doc, const char *path);
+void report_column_entry_currency_format_form_free(ReportColumnEntryCurrencyFormatForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_column_entry_currency_format_form_content(const ReportColumnEntryCurrencyFormatForm *self);
+void report_column_entry_currency_format_form_set_content(ReportColumnEntryCurrencyFormatForm *self, const char *value);
+char *report_column_entry_currency_format_form_format_pattern(const ReportColumnEntryCurrencyFormatForm *self);
+void report_column_entry_currency_format_form_set_format_pattern(ReportColumnEntryCurrencyFormatForm *self, const char *value);
+char *report_column_entry_currency_format_form_currency_code(const ReportColumnEntryCurrencyFormatForm *self);
+void report_column_entry_currency_format_form_set_currency_code(ReportColumnEntryCurrencyFormatForm *self, const char *value);
+char *report_column_entry_currency_format_form_symbol_position(const ReportColumnEntryCurrencyFormatForm *self);
+void report_column_entry_currency_format_form_set_symbol_position(ReportColumnEntryCurrencyFormatForm *self, const char *value);
+
 // ReportColumnEntryDataSourceForm is the generated section facade for the `dataSource` @Form section: its own `content` text followed by one typed member per form field.
 void report_column_entry_data_source_form_init(ReportColumnEntryDataSourceForm *self, SpecDocument *doc, const char *path);
 void report_column_entry_data_source_form_free(ReportColumnEntryDataSourceForm *self);
@@ -52486,6 +52731,17 @@ char *report_column_entry_data_source_form_data_source_field(const ReportColumnE
 void report_column_entry_data_source_form_set_data_source_field(ReportColumnEntryDataSourceForm *self, const char *value);
 char *report_column_entry_data_source_form_data_type(const ReportColumnEntryDataSourceForm *self);
 void report_column_entry_data_source_form_set_data_type(ReportColumnEntryDataSourceForm *self, const char *value);
+
+// ReportColumnEntryDateFormatForm is the generated section facade for the `dateFormat` @Form section: its own `content` text followed by one typed member per form field.
+void report_column_entry_date_format_form_init(ReportColumnEntryDateFormatForm *self, SpecDocument *doc, const char *path);
+void report_column_entry_date_format_form_free(ReportColumnEntryDateFormatForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_column_entry_date_format_form_content(const ReportColumnEntryDateFormatForm *self);
+void report_column_entry_date_format_form_set_content(ReportColumnEntryDateFormatForm *self, const char *value);
+char *report_column_entry_date_format_form_format_pattern(const ReportColumnEntryDateFormatForm *self);
+void report_column_entry_date_format_form_set_format_pattern(ReportColumnEntryDateFormatForm *self, const char *value);
+char *report_column_entry_date_format_form_timezone_display(const ReportColumnEntryDateFormatForm *self);
+void report_column_entry_date_format_form_set_timezone_display(ReportColumnEntryDateFormatForm *self, const char *value);
 
 // ReportColumnEntryFormattingForm is the generated section facade for the `formatting` @Form section: its own `content` text followed by one typed member per form field.
 void report_column_entry_formatting_form_init(ReportColumnEntryFormattingForm *self, SpecDocument *doc, const char *path);
@@ -52501,16 +52757,8 @@ char *report_column_entry_formatting_form_alignment(const ReportColumnEntryForma
 void report_column_entry_formatting_form_set_alignment(ReportColumnEntryFormattingForm *self, const char *value);
 char *report_column_entry_formatting_form_vertical_alignment(const ReportColumnEntryFormattingForm *self);
 void report_column_entry_formatting_form_set_vertical_alignment(ReportColumnEntryFormattingForm *self, const char *value);
-char *report_column_entry_formatting_form_format_pattern(const ReportColumnEntryFormattingForm *self);
-void report_column_entry_formatting_form_set_format_pattern(ReportColumnEntryFormattingForm *self, const char *value);
-char *report_column_entry_formatting_form_currency_code(const ReportColumnEntryFormattingForm *self);
-void report_column_entry_formatting_form_set_currency_code(ReportColumnEntryFormattingForm *self, const char *value);
 char *report_column_entry_formatting_form_null_display(const ReportColumnEntryFormattingForm *self);
 void report_column_entry_formatting_form_set_null_display(ReportColumnEntryFormattingForm *self, const char *value);
-char *report_column_entry_formatting_form_boolean_true_display(const ReportColumnEntryFormattingForm *self);
-void report_column_entry_formatting_form_set_boolean_true_display(ReportColumnEntryFormattingForm *self, const char *value);
-char *report_column_entry_formatting_form_boolean_false_display(const ReportColumnEntryFormattingForm *self);
-void report_column_entry_formatting_form_set_boolean_false_display(ReportColumnEntryFormattingForm *self, const char *value);
 
 // ReportColumnEntryInteractionForm is the generated section facade for the `interaction` @Form section: its own `content` text followed by one typed member per form field.
 void report_column_entry_interaction_form_init(ReportColumnEntryInteractionForm *self, SpecDocument *doc, const char *path);
@@ -52539,6 +52787,28 @@ long report_column_entry_layout_form_truncate_at(const ReportColumnEntryLayoutFo
 void report_column_entry_layout_form_set_truncate_at(ReportColumnEntryLayoutForm *self, long value);
 char *report_column_entry_layout_form_notes(const ReportColumnEntryLayoutForm *self);
 void report_column_entry_layout_form_set_notes(ReportColumnEntryLayoutForm *self, const char *value);
+
+// ReportColumnEntryNumericFormatForm is the generated section facade for the `numericFormat` @Form section: its own `content` text followed by one typed member per form field.
+void report_column_entry_numeric_format_form_init(ReportColumnEntryNumericFormatForm *self, SpecDocument *doc, const char *path);
+void report_column_entry_numeric_format_form_free(ReportColumnEntryNumericFormatForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_column_entry_numeric_format_form_content(const ReportColumnEntryNumericFormatForm *self);
+void report_column_entry_numeric_format_form_set_content(ReportColumnEntryNumericFormatForm *self, const char *value);
+char *report_column_entry_numeric_format_form_format_pattern(const ReportColumnEntryNumericFormatForm *self);
+void report_column_entry_numeric_format_form_set_format_pattern(ReportColumnEntryNumericFormatForm *self, const char *value);
+char *report_column_entry_numeric_format_form_negative_display(const ReportColumnEntryNumericFormatForm *self);
+void report_column_entry_numeric_format_form_set_negative_display(ReportColumnEntryNumericFormatForm *self, const char *value);
+
+// ReportColumnEntryTextFormatForm is the generated section facade for the `textFormat` @Form section: its own `content` text followed by one typed member per form field.
+void report_column_entry_text_format_form_init(ReportColumnEntryTextFormatForm *self, SpecDocument *doc, const char *path);
+void report_column_entry_text_format_form_free(ReportColumnEntryTextFormatForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_column_entry_text_format_form_content(const ReportColumnEntryTextFormatForm *self);
+void report_column_entry_text_format_form_set_content(ReportColumnEntryTextFormatForm *self, const char *value);
+char *report_column_entry_text_format_form_overflow_behavior(const ReportColumnEntryTextFormatForm *self);
+void report_column_entry_text_format_form_set_overflow_behavior(ReportColumnEntryTextFormatForm *self, const char *value);
+long report_column_entry_text_format_form_max_display_length(const ReportColumnEntryTextFormatForm *self);
+void report_column_entry_text_format_form_set_max_display_length(ReportColumnEntryTextFormatForm *self, long value);
 
 // ReportDistributionEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void report_distribution_entry_content_form_init(ReportDistributionEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -52807,6 +53077,17 @@ void report_filter_entry_behavior_form_set_validation_rule(ReportFilterEntryBeha
 char *report_filter_entry_behavior_form_depends_on(const ReportFilterEntryBehaviorForm *self);
 void report_filter_entry_behavior_form_set_depends_on(ReportFilterEntryBehaviorForm *self, const char *value);
 
+// ReportFilterEntryBooleanFilterOptionsForm is the generated section facade for the `booleanFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+void report_filter_entry_boolean_filter_options_form_init(ReportFilterEntryBooleanFilterOptionsForm *self, SpecDocument *doc, const char *path);
+void report_filter_entry_boolean_filter_options_form_free(ReportFilterEntryBooleanFilterOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_filter_entry_boolean_filter_options_form_content(const ReportFilterEntryBooleanFilterOptionsForm *self);
+void report_filter_entry_boolean_filter_options_form_set_content(ReportFilterEntryBooleanFilterOptionsForm *self, const char *value);
+char *report_filter_entry_boolean_filter_options_form_input_type(const ReportFilterEntryBooleanFilterOptionsForm *self);
+void report_filter_entry_boolean_filter_options_form_set_input_type(ReportFilterEntryBooleanFilterOptionsForm *self, const char *value);
+char *report_filter_entry_boolean_filter_options_form_include_indeterminate(const ReportFilterEntryBooleanFilterOptionsForm *self);
+void report_filter_entry_boolean_filter_options_form_set_include_indeterminate(ReportFilterEntryBooleanFilterOptionsForm *self, const char *value);
+
 // ReportFilterEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void report_filter_entry_content_form_init(ReportFilterEntryContentForm *self, SpecDocument *doc, const char *path);
 void report_filter_entry_content_form_free(ReportFilterEntryContentForm *self);
@@ -52820,6 +53101,34 @@ void report_filter_entry_content_form_set_filter_name(ReportFilterEntryContentFo
 char *report_filter_entry_content_form_display_label(const ReportFilterEntryContentForm *self);
 void report_filter_entry_content_form_set_display_label(ReportFilterEntryContentForm *self, const char *value);
 
+// ReportFilterEntryDateFilterOptionsForm is the generated section facade for the `dateFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+void report_filter_entry_date_filter_options_form_init(ReportFilterEntryDateFilterOptionsForm *self, SpecDocument *doc, const char *path);
+void report_filter_entry_date_filter_options_form_free(ReportFilterEntryDateFilterOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_filter_entry_date_filter_options_form_content(const ReportFilterEntryDateFilterOptionsForm *self);
+void report_filter_entry_date_filter_options_form_set_content(ReportFilterEntryDateFilterOptionsForm *self, const char *value);
+char *report_filter_entry_date_filter_options_form_input_type(const ReportFilterEntryDateFilterOptionsForm *self);
+void report_filter_entry_date_filter_options_form_set_input_type(ReportFilterEntryDateFilterOptionsForm *self, const char *value);
+char *report_filter_entry_date_filter_options_form_earliest_date(const ReportFilterEntryDateFilterOptionsForm *self);
+void report_filter_entry_date_filter_options_form_set_earliest_date(ReportFilterEntryDateFilterOptionsForm *self, const char *value);
+char *report_filter_entry_date_filter_options_form_latest_date(const ReportFilterEntryDateFilterOptionsForm *self);
+void report_filter_entry_date_filter_options_form_set_latest_date(ReportFilterEntryDateFilterOptionsForm *self, const char *value);
+
+// ReportFilterEntryEntityFilterOptionsForm is the generated section facade for the `entityFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+void report_filter_entry_entity_filter_options_form_init(ReportFilterEntryEntityFilterOptionsForm *self, SpecDocument *doc, const char *path);
+void report_filter_entry_entity_filter_options_form_free(ReportFilterEntryEntityFilterOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_filter_entry_entity_filter_options_form_content(const ReportFilterEntryEntityFilterOptionsForm *self);
+void report_filter_entry_entity_filter_options_form_set_content(ReportFilterEntryEntityFilterOptionsForm *self, const char *value);
+char *report_filter_entry_entity_filter_options_form_input_type(const ReportFilterEntryEntityFilterOptionsForm *self);
+void report_filter_entry_entity_filter_options_form_set_input_type(ReportFilterEntryEntityFilterOptionsForm *self, const char *value);
+char *report_filter_entry_entity_filter_options_form_entity_type(const ReportFilterEntryEntityFilterOptionsForm *self);
+void report_filter_entry_entity_filter_options_form_set_entity_type(ReportFilterEntryEntityFilterOptionsForm *self, const char *value);
+char *report_filter_entry_entity_filter_options_form_query_filter(const ReportFilterEntryEntityFilterOptionsForm *self);
+void report_filter_entry_entity_filter_options_form_set_query_filter(ReportFilterEntryEntityFilterOptionsForm *self, const char *value);
+char *report_filter_entry_entity_filter_options_form_display_attribute(const ReportFilterEntryEntityFilterOptionsForm *self);
+void report_filter_entry_entity_filter_options_form_set_display_attribute(ReportFilterEntryEntityFilterOptionsForm *self, const char *value);
+
 // ReportFilterEntryInputForm is the generated section facade for the `input` @Form section: its own `content` text followed by one typed member per form field.
 void report_filter_entry_input_form_init(ReportFilterEntryInputForm *self, SpecDocument *doc, const char *path);
 void report_filter_entry_input_form_free(ReportFilterEntryInputForm *self);
@@ -52828,18 +53137,21 @@ char *report_filter_entry_input_form_content(const ReportFilterEntryInputForm *s
 void report_filter_entry_input_form_set_content(ReportFilterEntryInputForm *self, const char *value);
 char *report_filter_entry_input_form_data_type(const ReportFilterEntryInputForm *self);
 void report_filter_entry_input_form_set_data_type(ReportFilterEntryInputForm *self, const char *value);
-char *report_filter_entry_input_form_input_type(const ReportFilterEntryInputForm *self);
-void report_filter_entry_input_form_set_input_type(ReportFilterEntryInputForm *self, const char *value);
 char *report_filter_entry_input_form_default_value(const ReportFilterEntryInputForm *self);
 void report_filter_entry_input_form_set_default_value(ReportFilterEntryInputForm *self, const char *value);
-char *report_filter_entry_input_form_available_values_source(const ReportFilterEntryInputForm *self);
-void report_filter_entry_input_form_set_available_values_source(ReportFilterEntryInputForm *self, const char *value);
-char *report_filter_entry_input_form_static_values(const ReportFilterEntryInputForm *self);
-void report_filter_entry_input_form_set_static_values(ReportFilterEntryInputForm *self, const char *value);
-char *report_filter_entry_input_form_cascade_parent(const ReportFilterEntryInputForm *self);
-void report_filter_entry_input_form_set_cascade_parent(ReportFilterEntryInputForm *self, const char *value);
-char *report_filter_entry_input_form_multi_select(const ReportFilterEntryInputForm *self);
-void report_filter_entry_input_form_set_multi_select(ReportFilterEntryInputForm *self, const char *value);
+
+// ReportFilterEntryNumericFilterOptionsForm is the generated section facade for the `numericFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+void report_filter_entry_numeric_filter_options_form_init(ReportFilterEntryNumericFilterOptionsForm *self, SpecDocument *doc, const char *path);
+void report_filter_entry_numeric_filter_options_form_free(ReportFilterEntryNumericFilterOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_filter_entry_numeric_filter_options_form_content(const ReportFilterEntryNumericFilterOptionsForm *self);
+void report_filter_entry_numeric_filter_options_form_set_content(ReportFilterEntryNumericFilterOptionsForm *self, const char *value);
+char *report_filter_entry_numeric_filter_options_form_input_type(const ReportFilterEntryNumericFilterOptionsForm *self);
+void report_filter_entry_numeric_filter_options_form_set_input_type(ReportFilterEntryNumericFilterOptionsForm *self, const char *value);
+char *report_filter_entry_numeric_filter_options_form_min_value(const ReportFilterEntryNumericFilterOptionsForm *self);
+void report_filter_entry_numeric_filter_options_form_set_min_value(ReportFilterEntryNumericFilterOptionsForm *self, const char *value);
+char *report_filter_entry_numeric_filter_options_form_max_value(const ReportFilterEntryNumericFilterOptionsForm *self);
+void report_filter_entry_numeric_filter_options_form_set_max_value(ReportFilterEntryNumericFilterOptionsForm *self, const char *value);
 
 // ReportFilterEntryPresentationForm is the generated section facade for the `presentation` @Form section: its own `content` text followed by one typed member per form field.
 void report_filter_entry_presentation_form_init(ReportFilterEntryPresentationForm *self, SpecDocument *doc, const char *path);
@@ -52855,6 +53167,36 @@ char *report_filter_entry_presentation_form_remember_last_value(const ReportFilt
 void report_filter_entry_presentation_form_set_remember_last_value(ReportFilterEntryPresentationForm *self, const char *value);
 char *report_filter_entry_presentation_form_notes(const ReportFilterEntryPresentationForm *self);
 void report_filter_entry_presentation_form_set_notes(ReportFilterEntryPresentationForm *self, const char *value);
+
+// ReportFilterEntrySelectFilterOptionsForm is the generated section facade for the `selectFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+void report_filter_entry_select_filter_options_form_init(ReportFilterEntrySelectFilterOptionsForm *self, SpecDocument *doc, const char *path);
+void report_filter_entry_select_filter_options_form_free(ReportFilterEntrySelectFilterOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_filter_entry_select_filter_options_form_content(const ReportFilterEntrySelectFilterOptionsForm *self);
+void report_filter_entry_select_filter_options_form_set_content(ReportFilterEntrySelectFilterOptionsForm *self, const char *value);
+char *report_filter_entry_select_filter_options_form_input_type(const ReportFilterEntrySelectFilterOptionsForm *self);
+void report_filter_entry_select_filter_options_form_set_input_type(ReportFilterEntrySelectFilterOptionsForm *self, const char *value);
+char *report_filter_entry_select_filter_options_form_available_values_source(const ReportFilterEntrySelectFilterOptionsForm *self);
+void report_filter_entry_select_filter_options_form_set_available_values_source(ReportFilterEntrySelectFilterOptionsForm *self, const char *value);
+char *report_filter_entry_select_filter_options_form_static_values(const ReportFilterEntrySelectFilterOptionsForm *self);
+void report_filter_entry_select_filter_options_form_set_static_values(ReportFilterEntrySelectFilterOptionsForm *self, const char *value);
+char *report_filter_entry_select_filter_options_form_cascade_parent(const ReportFilterEntrySelectFilterOptionsForm *self);
+void report_filter_entry_select_filter_options_form_set_cascade_parent(ReportFilterEntrySelectFilterOptionsForm *self, const char *value);
+char *report_filter_entry_select_filter_options_form_multi_select(const ReportFilterEntrySelectFilterOptionsForm *self);
+void report_filter_entry_select_filter_options_form_set_multi_select(ReportFilterEntrySelectFilterOptionsForm *self, const char *value);
+
+// ReportFilterEntryTextFilterOptionsForm is the generated section facade for the `textFilterOptions` @Form section: its own `content` text followed by one typed member per form field.
+void report_filter_entry_text_filter_options_form_init(ReportFilterEntryTextFilterOptionsForm *self, SpecDocument *doc, const char *path);
+void report_filter_entry_text_filter_options_form_free(ReportFilterEntryTextFilterOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *report_filter_entry_text_filter_options_form_content(const ReportFilterEntryTextFilterOptionsForm *self);
+void report_filter_entry_text_filter_options_form_set_content(ReportFilterEntryTextFilterOptionsForm *self, const char *value);
+char *report_filter_entry_text_filter_options_form_input_type(const ReportFilterEntryTextFilterOptionsForm *self);
+void report_filter_entry_text_filter_options_form_set_input_type(ReportFilterEntryTextFilterOptionsForm *self, const char *value);
+char *report_filter_entry_text_filter_options_form_match_mode(const ReportFilterEntryTextFilterOptionsForm *self);
+void report_filter_entry_text_filter_options_form_set_match_mode(ReportFilterEntryTextFilterOptionsForm *self, const char *value);
+long report_filter_entry_text_filter_options_form_max_length(const ReportFilterEntryTextFilterOptionsForm *self);
+void report_filter_entry_text_filter_options_form_set_max_length(ReportFilterEntryTextFilterOptionsForm *self, long value);
 
 // ReportRecipientEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void report_recipient_entry_content_form_init(ReportRecipientEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -55850,6 +56192,17 @@ void screen_entry_traceability_form_set_data_entities(ScreenEntryTraceabilityFor
 char *screen_entry_traceability_form_primary_action(const ScreenEntryTraceabilityForm *self);
 void screen_entry_traceability_form_set_primary_action(ScreenEntryTraceabilityForm *self, const char *value);
 
+// ScreenFieldEntryChoiceOptionsForm is the generated section facade for the `choiceOptions` @Form section: its own `content` text followed by one typed member per form field.
+void screen_field_entry_choice_options_form_init(ScreenFieldEntryChoiceOptionsForm *self, SpecDocument *doc, const char *path);
+void screen_field_entry_choice_options_form_free(ScreenFieldEntryChoiceOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_field_entry_choice_options_form_content(const ScreenFieldEntryChoiceOptionsForm *self);
+void screen_field_entry_choice_options_form_set_content(ScreenFieldEntryChoiceOptionsForm *self, const char *value);
+char *screen_field_entry_choice_options_form_option_source(const ScreenFieldEntryChoiceOptionsForm *self);
+void screen_field_entry_choice_options_form_set_option_source(ScreenFieldEntryChoiceOptionsForm *self, const char *value);
+char *screen_field_entry_choice_options_form_static_options(const ScreenFieldEntryChoiceOptionsForm *self);
+void screen_field_entry_choice_options_form_set_static_options(ScreenFieldEntryChoiceOptionsForm *self, const char *value);
+
 // ScreenFieldEntryConditionsForm is the generated section facade for the `conditions` @Form section: its own `content` text followed by one typed member per form field.
 void screen_field_entry_conditions_form_init(ScreenFieldEntryConditionsForm *self, SpecDocument *doc, const char *path);
 void screen_field_entry_conditions_form_free(ScreenFieldEntryConditionsForm *self);
@@ -55903,10 +56256,6 @@ void screen_field_entry_layout_form_free(ScreenFieldEntryLayoutForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *screen_field_entry_layout_form_content(const ScreenFieldEntryLayoutForm *self);
 void screen_field_entry_layout_form_set_content(ScreenFieldEntryLayoutForm *self, const char *value);
-char *screen_field_entry_layout_form_dropdown_source(const ScreenFieldEntryLayoutForm *self);
-void screen_field_entry_layout_form_set_dropdown_source(ScreenFieldEntryLayoutForm *self, const char *value);
-char *screen_field_entry_layout_form_dropdown_values(const ScreenFieldEntryLayoutForm *self);
-void screen_field_entry_layout_form_set_dropdown_values(ScreenFieldEntryLayoutForm *self, const char *value);
 char *screen_field_entry_layout_form_depends_on(const ScreenFieldEntryLayoutForm *self);
 void screen_field_entry_layout_form_set_depends_on(ScreenFieldEntryLayoutForm *self, const char *value);
 char *screen_field_entry_layout_form_width(const ScreenFieldEntryLayoutForm *self);
@@ -55916,22 +56265,47 @@ void screen_field_entry_layout_form_set_order(ScreenFieldEntryLayoutForm *self, 
 char *screen_field_entry_layout_form_grouping(const ScreenFieldEntryLayoutForm *self);
 void screen_field_entry_layout_form_set_grouping(ScreenFieldEntryLayoutForm *self, const char *value);
 
+// ScreenFieldEntryNumericConstraintsForm is the generated section facade for the `numericConstraints` @Form section: its own `content` text followed by one typed member per form field.
+void screen_field_entry_numeric_constraints_form_init(ScreenFieldEntryNumericConstraintsForm *self, SpecDocument *doc, const char *path);
+void screen_field_entry_numeric_constraints_form_free(ScreenFieldEntryNumericConstraintsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_field_entry_numeric_constraints_form_content(const ScreenFieldEntryNumericConstraintsForm *self);
+void screen_field_entry_numeric_constraints_form_set_content(ScreenFieldEntryNumericConstraintsForm *self, const char *value);
+char *screen_field_entry_numeric_constraints_form_min_value(const ScreenFieldEntryNumericConstraintsForm *self);
+void screen_field_entry_numeric_constraints_form_set_min_value(ScreenFieldEntryNumericConstraintsForm *self, const char *value);
+char *screen_field_entry_numeric_constraints_form_max_value(const ScreenFieldEntryNumericConstraintsForm *self);
+void screen_field_entry_numeric_constraints_form_set_max_value(ScreenFieldEntryNumericConstraintsForm *self, const char *value);
+
+// ScreenFieldEntryTemporalConstraintsForm is the generated section facade for the `temporalConstraints` @Form section: its own `content` text followed by one typed member per form field.
+void screen_field_entry_temporal_constraints_form_init(ScreenFieldEntryTemporalConstraintsForm *self, SpecDocument *doc, const char *path);
+void screen_field_entry_temporal_constraints_form_free(ScreenFieldEntryTemporalConstraintsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_field_entry_temporal_constraints_form_content(const ScreenFieldEntryTemporalConstraintsForm *self);
+void screen_field_entry_temporal_constraints_form_set_content(ScreenFieldEntryTemporalConstraintsForm *self, const char *value);
+char *screen_field_entry_temporal_constraints_form_earliest_value(const ScreenFieldEntryTemporalConstraintsForm *self);
+void screen_field_entry_temporal_constraints_form_set_earliest_value(ScreenFieldEntryTemporalConstraintsForm *self, const char *value);
+char *screen_field_entry_temporal_constraints_form_latest_value(const ScreenFieldEntryTemporalConstraintsForm *self);
+void screen_field_entry_temporal_constraints_form_set_latest_value(ScreenFieldEntryTemporalConstraintsForm *self, const char *value);
+
+// ScreenFieldEntryTextConstraintsForm is the generated section facade for the `textConstraints` @Form section: its own `content` text followed by one typed member per form field.
+void screen_field_entry_text_constraints_form_init(ScreenFieldEntryTextConstraintsForm *self, SpecDocument *doc, const char *path);
+void screen_field_entry_text_constraints_form_free(ScreenFieldEntryTextConstraintsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_field_entry_text_constraints_form_content(const ScreenFieldEntryTextConstraintsForm *self);
+void screen_field_entry_text_constraints_form_set_content(ScreenFieldEntryTextConstraintsForm *self, const char *value);
+char *screen_field_entry_text_constraints_form_min_length(const ScreenFieldEntryTextConstraintsForm *self);
+void screen_field_entry_text_constraints_form_set_min_length(ScreenFieldEntryTextConstraintsForm *self, const char *value);
+char *screen_field_entry_text_constraints_form_max_length(const ScreenFieldEntryTextConstraintsForm *self);
+void screen_field_entry_text_constraints_form_set_max_length(ScreenFieldEntryTextConstraintsForm *self, const char *value);
+char *screen_field_entry_text_constraints_form_pattern(const ScreenFieldEntryTextConstraintsForm *self);
+void screen_field_entry_text_constraints_form_set_pattern(ScreenFieldEntryTextConstraintsForm *self, const char *value);
+
 // ScreenFieldEntryValidationForm is the generated section facade for the `validation` @Form section: its own `content` text followed by one typed member per form field.
 void screen_field_entry_validation_form_init(ScreenFieldEntryValidationForm *self, SpecDocument *doc, const char *path);
 void screen_field_entry_validation_form_free(ScreenFieldEntryValidationForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *screen_field_entry_validation_form_content(const ScreenFieldEntryValidationForm *self);
 void screen_field_entry_validation_form_set_content(ScreenFieldEntryValidationForm *self, const char *value);
-char *screen_field_entry_validation_form_min_length(const ScreenFieldEntryValidationForm *self);
-void screen_field_entry_validation_form_set_min_length(ScreenFieldEntryValidationForm *self, const char *value);
-char *screen_field_entry_validation_form_max_length(const ScreenFieldEntryValidationForm *self);
-void screen_field_entry_validation_form_set_max_length(ScreenFieldEntryValidationForm *self, const char *value);
-char *screen_field_entry_validation_form_min_value(const ScreenFieldEntryValidationForm *self);
-void screen_field_entry_validation_form_set_min_value(ScreenFieldEntryValidationForm *self, const char *value);
-char *screen_field_entry_validation_form_max_value(const ScreenFieldEntryValidationForm *self);
-void screen_field_entry_validation_form_set_max_value(ScreenFieldEntryValidationForm *self, const char *value);
-char *screen_field_entry_validation_form_pattern(const ScreenFieldEntryValidationForm *self);
-void screen_field_entry_validation_form_set_pattern(ScreenFieldEntryValidationForm *self, const char *value);
 char *screen_field_entry_validation_form_validation_message(const ScreenFieldEntryValidationForm *self);
 void screen_field_entry_validation_form_set_validation_message(ScreenFieldEntryValidationForm *self, const char *value);
 

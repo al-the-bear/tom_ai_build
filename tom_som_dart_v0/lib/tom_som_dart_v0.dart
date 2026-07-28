@@ -6,6 +6,49 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'tom_som_dart_v0_meta.dart';
 export 'tom_som_dart_v0_meta.dart';
 
+/// Generated enum for `DataAttributeKind` values.
+enum DataAttributeKind {
+  string,
+  integer,
+  decimal,
+  date,
+  dateTime,
+  binary,
+  boolean,
+  uuid,
+  json,
+  enumeration;
+}
+
+/// Parses a stored token into a [DataAttributeKind], or `null`.
+DataAttributeKind? _parseDataAttributeKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in DataAttributeKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ExportFieldKind` values.
+enum ExportFieldKind {
+  string,
+  integer,
+  decimal,
+  date,
+  dateTime,
+  boolean,
+  enumeration;
+}
+
+/// Parses a stored token into a [ExportFieldKind], or `null`.
+ExportFieldKind? _parseExportFieldKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ExportFieldKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `Iso25010Characteristic` values.
 enum Iso25010Characteristic {
   functionalSuitability,
@@ -39,6 +82,46 @@ enum ObjectLifecycleKind {
 ObjectLifecycleKind? _parseObjectLifecycleKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ObjectLifecycleKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ReportColumnKind` values.
+enum ReportColumnKind {
+  string,
+  integer,
+  decimal,
+  currency,
+  date,
+  boolean;
+}
+
+/// Parses a stored token into a [ReportColumnKind], or `null`.
+ReportColumnKind? _parseReportColumnKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ReportColumnKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ReportFilterValueKind` values.
+enum ReportFilterValueKind {
+  string,
+  integer,
+  decimal,
+  date,
+  dateTime,
+  boolean,
+  enumeration,
+  entityRef;
+}
+
+/// Parses a stored token into a [ReportFilterValueKind], or `null`.
+ReportFilterValueKind? _parseReportFilterValueKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ReportFilterValueKind.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -101,6 +184,35 @@ enum ScreenElementKind {
 ScreenElementKind? _parseScreenElementKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ScreenElementKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ScreenFieldKind` values.
+enum ScreenFieldKind {
+  text,
+  multilineText,
+  email,
+  phone,
+  url,
+  password,
+  integer,
+  decimal,
+  currency,
+  date,
+  dateTime,
+  time,
+  singleSelect,
+  multiSelect,
+  file,
+  boolean;
+}
+
+/// Parses a stored token into a [ScreenFieldKind], or `null`.
+ScreenFieldKind? _parseScreenFieldKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ScreenFieldKind.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -6042,6 +6154,31 @@ class DataAttributeEntry extends SomNode {
 
   DataAttributeEntryDataTypeSpecForm get dataTypeSpec => DataAttributeEntryDataTypeSpecForm(doc, '$path/DAATT-DATA');
 
+  /// Text-kind type options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for the `string` logical type; carries only the character
+  /// length and collation attributes (no numeric precision, no timezone).
+  DataAttributeEntryTextTypeOptionsForm get textTypeOptions => DataAttributeEntryTextTypeOptionsForm(doc, '$path/DAATT-DTTX');
+
+  /// Numeric-kind type options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for numeric logical types; carries only the precision and
+  /// scale attributes (no length, collation or timezone).
+  DataAttributeEntryNumericTypeOptionsForm get numericTypeOptions => DataAttributeEntryNumericTypeOptionsForm(doc, '$path/DAATT-DTNU');
+
+  /// Temporal-kind type options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for date/time logical types; carries only the timezone
+  /// handling attribute.
+  DataAttributeEntryTemporalTypeOptionsForm get temporalTypeOptions => DataAttributeEntryTemporalTypeOptionsForm(doc, '$path/DAATT-DTTM');
+
+  /// Binary-kind type options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for the `binary` logical type; carries only the stored size
+  /// attributes. Separated from the text `length` because a byte size and a
+  /// character length are different constraints on different types.
+  DataAttributeEntryBinaryTypeOptionsForm get binaryTypeOptions => DataAttributeEntryBinaryTypeOptionsForm(doc, '$path/DAATT-DTBI');
+
   SomList<DataAttributeConstraintEntry> get constraints => SomList<DataAttributeConstraintEntry>(doc, '$path/DATAA-CONS-LST', (d, p) => DataAttributeConstraintEntry(d, p), pattern: 'DATAA-CONS-xxx');
 
   DataAttributeEntryDerivationForm get derivation => DataAttributeEntryDerivationForm(doc, '$path/DAATT-DERI');
@@ -9190,6 +9327,37 @@ class ExportFieldMappingEntry extends SomNode {
 
   /// Ordering and formatting settings.
   ExportFieldMappingEntryFormattingForm get formatting => ExportFieldMappingEntryFormattingForm(doc, '$path/EFMEF');
+
+  /// Numeric-kind output format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for integer and decimal fields; carries only the numeric
+  /// output pattern and separators.
+  ExportFieldMappingEntryNumericOutputForm get numericOutput => ExportFieldMappingEntryNumericOutputForm(doc, '$path/EFMEFN');
+
+  /// Temporal-kind output format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for date and date-time fields; carries only the temporal
+  /// output pattern and timezone handling.
+  ExportFieldMappingEntryTemporalOutputForm get temporalOutput => ExportFieldMappingEntryTemporalOutputForm(doc, '$path/EFMEFD');
+
+  /// Boolean-kind output format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for boolean fields; this is the only case in which the
+  /// emitted true/false literals are meaningful.
+  ExportFieldMappingEntryBooleanOutputForm get booleanOutput => ExportFieldMappingEntryBooleanOutputForm(doc, '$path/EFMEFB');
+
+  /// Enumeration-kind output format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for enumeration fields; carries which face of the value set
+  /// is emitted and what happens to a value outside it.
+  ExportFieldMappingEntryEnumerationOutputForm get enumerationOutput => ExportFieldMappingEntryEnumerationOutputForm(doc, '$path/EFMEFE');
+
+  /// Text-kind output format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for text fields; carries the character-length truncation
+  /// that only a string field can have. Moved out of `inclusion`, where it sat
+  /// beside type-independent default and inclusion rules.
+  ExportFieldMappingEntryTextOutputForm get textOutput => ExportFieldMappingEntryTextOutputForm(doc, '$path/EFMEFT');
 
   /// Transformation rules.
   ExportFieldMappingEntryTransformationForm get transformation => ExportFieldMappingEntryTransformationForm(doc, '$path/EFMET');
@@ -16602,6 +16770,35 @@ class ReportColumnEntry extends SomNode {
   /// Display formatting.
   ReportColumnEntryFormattingForm get formatting => ReportColumnEntryFormattingForm(doc, '$path/RECOFO');
 
+  /// Numeric-kind column format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for integer and decimal columns; carries only the numeric
+  /// display pattern (no currency code, no boolean labels).
+  ReportColumnEntryNumericFormatForm get numericFormat => ReportColumnEntryNumericFormatForm(doc, '$path/RECOFN');
+
+  /// Currency-kind column format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for currency columns; this is the only case in which a
+  /// currency code is meaningful.
+  ReportColumnEntryCurrencyFormatForm get currencyFormat => ReportColumnEntryCurrencyFormatForm(doc, '$path/RECOFC');
+
+  /// Date-kind column format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for date columns; carries only the temporal display pattern.
+  ReportColumnEntryDateFormatForm get dateFormat => ReportColumnEntryDateFormatForm(doc, '$path/RECOFD');
+
+  /// Boolean-kind column format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for boolean columns; this is the only case in which the
+  /// true/false display labels are meaningful.
+  ReportColumnEntryBooleanFormatForm get booleanFormat => ReportColumnEntryBooleanFormatForm(doc, '$path/RECOFB');
+
+  /// Text-kind column format — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for text columns; carries only the overflow handling a
+  /// variable-length string column needs.
+  ReportColumnEntryTextFormatForm get textFormat => ReportColumnEntryTextFormatForm(doc, '$path/RECOFT');
+
   /// Aggregation settings.
   ReportColumnEntryAggregationForm get aggregation => ReportColumnEntryAggregationForm(doc, '$path/RECOAG');
 
@@ -16691,6 +16888,44 @@ class ReportFilterEntry extends SomNode {
 
   /// Input and value configuration.
   ReportFilterEntryInputForm get input => ReportFilterEntryInputForm(doc, '$path/RFEI');
+
+  /// Text-kind filter options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for text filters; carries the free-text control and its
+  /// match semantics (no value source, no date bounds).
+  ReportFilterEntryTextFilterOptionsForm get textFilterOptions => ReportFilterEntryTextFilterOptionsForm(doc, '$path/RFEIT');
+
+  /// Numeric-kind filter options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for numeric filters; carries the numeric control and its
+  /// value bounds.
+  ReportFilterEntryNumericFilterOptionsForm get numericFilterOptions => ReportFilterEntryNumericFilterOptionsForm(doc, '$path/RFEIN');
+
+  /// Temporal-kind filter options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for date/date-time filters; carries the temporal control —
+  /// including the range picker that the former free-text `DateRange` type
+  /// stood for — and the selectable window.
+  ReportFilterEntryDateFilterOptionsForm get dateFilterOptions => ReportFilterEntryDateFilterOptionsForm(doc, '$path/RFEID');
+
+  /// Boolean-kind filter options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for boolean filters; carries only the two-valued control.
+  ReportFilterEntryBooleanFilterOptionsForm get booleanFilterOptions => ReportFilterEntryBooleanFilterOptionsForm(doc, '$path/RFEIB');
+
+  /// Selection-kind filter options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for enumeration filters; this is the only case in which a
+  /// value source, static value list, cascade parent and multi-select are
+  /// meaningful.
+  ReportFilterEntrySelectFilterOptionsForm get selectFilterOptions => ReportFilterEntrySelectFilterOptionsForm(doc, '$path/RFEIS');
+
+  /// Entity-reference filter options — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Present only for entity-reference filters; carries the lookup control and
+  /// the entity query that backs it. Distinct from the enumeration case
+  /// because the value set is resolved from an entity, not a declared list.
+  ReportFilterEntryEntityFilterOptionsForm get entityFilterOptions => ReportFilterEntryEntityFilterOptionsForm(doc, '$path/RFEIE');
 
   /// Scope and validation behavior.
   ReportFilterEntryBehaviorForm get behavior => ReportFilterEntryBehaviorForm(doc, '$path/RFEB');
@@ -18342,8 +18577,23 @@ class ScreenFieldEntry extends SomNode {
   /// Conditional behavior.
   ScreenFieldEntryConditionsForm get conditions => ScreenFieldEntryConditionsForm(doc, '$path/SCFICO');
 
-  /// Validation rules.
+  /// Validation rules that apply whatever the field type is.
   ScreenFieldEntryValidationForm get validation => ScreenFieldEntryValidationForm(doc, '$path/SCFIVA');
+
+  /// Text-kind input constraints — a promoted `@OneOf` case (csra4).
+  ScreenFieldEntryTextConstraintsForm get textConstraints => ScreenFieldEntryTextConstraintsForm(doc, '$path/SCFIVT');
+
+  /// Numeric-kind input constraints — a promoted `@OneOf` case (csra4).
+  ScreenFieldEntryNumericConstraintsForm get numericConstraints => ScreenFieldEntryNumericConstraintsForm(doc, '$path/SCFIVN');
+
+  /// Temporal-kind input constraints — a promoted `@OneOf` case (csra4).
+  /// 
+  /// Kept apart from [numericConstraints] because a date boundary is expressed
+  /// as a date or a relative expression ("today + 30d"), not as a number.
+  ScreenFieldEntryTemporalConstraintsForm get temporalConstraints => ScreenFieldEntryTemporalConstraintsForm(doc, '$path/SCFIVD');
+
+  /// Choice-kind option source — a promoted `@OneOf` case (csra4).
+  ScreenFieldEntryChoiceOptionsForm get choiceOptions => ScreenFieldEntryChoiceOptionsForm(doc, '$path/SCFICH');
 
   /// UI and layout.
   ScreenFieldEntryLayoutForm get layout => ScreenFieldEntryLayoutForm(doc, '$path/SCFILA');
@@ -37647,6 +37897,25 @@ class DataAttributeConstraintEntryContentForm extends SomNode {
   set patternRegex(String value) => doc.setFormField(path, 'patternRegex', value);
 }
 
+/// Generated section facade for the `binaryTypeOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DataAttributeEntryBinaryTypeOptionsForm extends SomNode {
+  DataAttributeEntryBinaryTypeOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get maxSizeBytes => doc.formField(path, 'maxSizeBytes') ?? '';
+  set maxSizeBytes(String value) => doc.setFormField(path, 'maxSizeBytes', value);
+
+  String get storageMode => doc.formField(path, 'storageMode') ?? '';
+  set storageMode(String value) => doc.setFormField(path, 'storageMode', value);
+}
+
 /// Generated section facade for the `dataTypeSpec` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class DataAttributeEntryDataTypeSpecForm extends SomNode {
@@ -37659,26 +37928,11 @@ class DataAttributeEntryDataTypeSpecForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get dataType => doc.formField(path, 'dataType') ?? '';
-  set dataType(String value) => doc.setFormField(path, 'dataType', value);
+  DataAttributeKind? get dataType => _parseDataAttributeKind(doc.formField(path, 'dataType'));
+  set dataType(DataAttributeKind? value) => doc.setFormField(path, 'dataType', value?.name ?? '');
 
   String get physicalType => doc.formField(path, 'physicalType') ?? '';
   set physicalType(String value) => doc.setFormField(path, 'physicalType', value);
-
-  String get length => doc.formField(path, 'length') ?? '';
-  set length(String value) => doc.setFormField(path, 'length', value);
-
-  String get precision => doc.formField(path, 'precision') ?? '';
-  set precision(String value) => doc.setFormField(path, 'precision', value);
-
-  String get scale => doc.formField(path, 'scale') ?? '';
-  set scale(String value) => doc.setFormField(path, 'scale', value);
-
-  String get collation => doc.formField(path, 'collation') ?? '';
-  set collation(String value) => doc.setFormField(path, 'collation', value);
-
-  String get timezone => doc.formField(path, 'timezone') ?? '';
-  set timezone(String value) => doc.setFormField(path, 'timezone', value);
 
   String get format => doc.formField(path, 'format') ?? '';
   set format(String value) => doc.setFormField(path, 'format', value);
@@ -37765,6 +38019,25 @@ class DataAttributeEntryMigrationLineageForm extends SomNode {
   set qualityRules(String value) => doc.setFormField(path, 'qualityRules', value);
 }
 
+/// Generated section facade for the `numericTypeOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DataAttributeEntryNumericTypeOptionsForm extends SomNode {
+  DataAttributeEntryNumericTypeOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get precision => doc.formField(path, 'precision') ?? '';
+  set precision(String value) => doc.setFormField(path, 'precision', value);
+
+  String get scale => doc.formField(path, 'scale') ?? '';
+  set scale(String value) => doc.setFormField(path, 'scale', value);
+}
+
 /// Generated section facade for the `securityClassification` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class DataAttributeEntrySecurityClassificationForm extends SomNode {
@@ -37791,6 +38064,41 @@ class DataAttributeEntrySecurityClassificationForm extends SomNode {
 
   String get auditLevel => doc.formField(path, 'auditLevel') ?? '';
   set auditLevel(String value) => doc.setFormField(path, 'auditLevel', value);
+}
+
+/// Generated section facade for the `temporalTypeOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DataAttributeEntryTemporalTypeOptionsForm extends SomNode {
+  DataAttributeEntryTemporalTypeOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get timezone => doc.formField(path, 'timezone') ?? '';
+  set timezone(String value) => doc.setFormField(path, 'timezone', value);
+}
+
+/// Generated section facade for the `textTypeOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DataAttributeEntryTextTypeOptionsForm extends SomNode {
+  DataAttributeEntryTextTypeOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get length => doc.formField(path, 'length') ?? '';
+  set length(String value) => doc.setFormField(path, 'length', value);
+
+  String get collation => doc.formField(path, 'collation') ?? '';
+  set collation(String value) => doc.setFormField(path, 'collation', value);
 }
 
 /// Generated section facade for the `accessControl` `@Form` section:
@@ -47239,6 +47547,25 @@ class ExpectedImprovementsContentForm extends SomNode {
   set integrationBenefits(String value) => doc.setFormField(path, 'integrationBenefits', value);
 }
 
+/// Generated section facade for the `booleanOutput` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryBooleanOutputForm extends SomNode {
+  ExportFieldMappingEntryBooleanOutputForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get trueLiteral => doc.formField(path, 'trueLiteral') ?? '';
+  set trueLiteral(String value) => doc.setFormField(path, 'trueLiteral', value);
+
+  String get falseLiteral => doc.formField(path, 'falseLiteral') ?? '';
+  set falseLiteral(String value) => doc.setFormField(path, 'falseLiteral', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ExportFieldMappingEntryContentForm extends SomNode {
@@ -47261,6 +47588,25 @@ class ExportFieldMappingEntryContentForm extends SomNode {
   set targetFieldName(String value) => doc.setFormField(path, 'targetFieldName', value);
 }
 
+/// Generated section facade for the `enumerationOutput` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryEnumerationOutputForm extends SomNode {
+  ExportFieldMappingEntryEnumerationOutputForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get emittedForm => doc.formField(path, 'emittedForm') ?? '';
+  set emittedForm(String value) => doc.setFormField(path, 'emittedForm', value);
+
+  String get unmappedValueBehavior => doc.formField(path, 'unmappedValueBehavior') ?? '';
+  set unmappedValueBehavior(String value) => doc.setFormField(path, 'unmappedValueBehavior', value);
+}
+
 /// Generated section facade for the `formatting` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ExportFieldMappingEntryFormattingForm extends SomNode {
@@ -47276,11 +47622,8 @@ class ExportFieldMappingEntryFormattingForm extends SomNode {
   int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
   set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
-  String get dataType => doc.formField(path, 'dataType') ?? '';
-  set dataType(String value) => doc.setFormField(path, 'dataType', value);
-
-  String get formatPattern => doc.formField(path, 'formatPattern') ?? '';
-  set formatPattern(String value) => doc.setFormField(path, 'formatPattern', value);
+  ExportFieldKind? get dataType => _parseExportFieldKind(doc.formField(path, 'dataType'));
+  set dataType(ExportFieldKind? value) => doc.setFormField(path, 'dataType', value?.name ?? '');
 }
 
 /// Generated section facade for the `inclusion` `@Form` section:
@@ -47303,9 +47646,6 @@ class ExportFieldMappingEntryInclusionForm extends SomNode {
 
   String get inclusionCondition => doc.formField(path, 'inclusionCondition') ?? '';
   set inclusionCondition(String value) => doc.setFormField(path, 'inclusionCondition', value);
-
-  int? get maxLength => somParseInt(doc.formField(path, 'maxLength'));
-  set maxLength(int? value) => doc.setFormField(path, 'maxLength', somFormatInt(value));
 }
 
 /// Generated section facade for the `layout` `@Form` section:
@@ -47334,6 +47674,63 @@ class ExportFieldMappingEntryLayoutForm extends SomNode {
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `numericOutput` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryNumericOutputForm extends SomNode {
+  ExportFieldMappingEntryNumericOutputForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get formatPattern => doc.formField(path, 'formatPattern') ?? '';
+  set formatPattern(String value) => doc.setFormField(path, 'formatPattern', value);
+
+  String get decimalSeparator => doc.formField(path, 'decimalSeparator') ?? '';
+  set decimalSeparator(String value) => doc.setFormField(path, 'decimalSeparator', value);
+}
+
+/// Generated section facade for the `temporalOutput` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryTemporalOutputForm extends SomNode {
+  ExportFieldMappingEntryTemporalOutputForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get formatPattern => doc.formField(path, 'formatPattern') ?? '';
+  set formatPattern(String value) => doc.setFormField(path, 'formatPattern', value);
+
+  String get timezoneHandling => doc.formField(path, 'timezoneHandling') ?? '';
+  set timezoneHandling(String value) => doc.setFormField(path, 'timezoneHandling', value);
+}
+
+/// Generated section facade for the `textOutput` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ExportFieldMappingEntryTextOutputForm extends SomNode {
+  ExportFieldMappingEntryTextOutputForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  int? get maxLength => somParseInt(doc.formField(path, 'maxLength'));
+  set maxLength(int? value) => doc.setFormField(path, 'maxLength', somFormatInt(value));
+
+  String get padding => doc.formField(path, 'padding') ?? '';
+  set padding(String value) => doc.setFormField(path, 'padding', value);
 }
 
 /// Generated section facade for the `transformation` `@Form` section:
@@ -70128,6 +70525,25 @@ class ReportColumnEntryAggregationForm extends SomNode {
   set hyperlinkTarget(String value) => doc.setFormField(path, 'hyperlinkTarget', value);
 }
 
+/// Generated section facade for the `booleanFormat` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportColumnEntryBooleanFormatForm extends SomNode {
+  ReportColumnEntryBooleanFormatForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get booleanTrueDisplay => doc.formField(path, 'booleanTrueDisplay') ?? '';
+  set booleanTrueDisplay(String value) => doc.setFormField(path, 'booleanTrueDisplay', value);
+
+  String get booleanFalseDisplay => doc.formField(path, 'booleanFalseDisplay') ?? '';
+  set booleanFalseDisplay(String value) => doc.setFormField(path, 'booleanFalseDisplay', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ReportColumnEntryContentForm extends SomNode {
@@ -70150,6 +70566,28 @@ class ReportColumnEntryContentForm extends SomNode {
   set displayLabel(String value) => doc.setFormField(path, 'displayLabel', value);
 }
 
+/// Generated section facade for the `currencyFormat` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportColumnEntryCurrencyFormatForm extends SomNode {
+  ReportColumnEntryCurrencyFormatForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get formatPattern => doc.formField(path, 'formatPattern') ?? '';
+  set formatPattern(String value) => doc.setFormField(path, 'formatPattern', value);
+
+  String get currencyCode => doc.formField(path, 'currencyCode') ?? '';
+  set currencyCode(String value) => doc.setFormField(path, 'currencyCode', value);
+
+  String get symbolPosition => doc.formField(path, 'symbolPosition') ?? '';
+  set symbolPosition(String value) => doc.setFormField(path, 'symbolPosition', value);
+}
+
 /// Generated section facade for the `dataSource` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ReportColumnEntryDataSourceForm extends SomNode {
@@ -70165,8 +70603,27 @@ class ReportColumnEntryDataSourceForm extends SomNode {
   String get dataSourceField => doc.formField(path, 'dataSourceField') ?? '';
   set dataSourceField(String value) => doc.setFormField(path, 'dataSourceField', value);
 
-  String get dataType => doc.formField(path, 'dataType') ?? '';
-  set dataType(String value) => doc.setFormField(path, 'dataType', value);
+  ReportColumnKind? get dataType => _parseReportColumnKind(doc.formField(path, 'dataType'));
+  set dataType(ReportColumnKind? value) => doc.setFormField(path, 'dataType', value?.name ?? '');
+}
+
+/// Generated section facade for the `dateFormat` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportColumnEntryDateFormatForm extends SomNode {
+  ReportColumnEntryDateFormatForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get formatPattern => doc.formField(path, 'formatPattern') ?? '';
+  set formatPattern(String value) => doc.setFormField(path, 'formatPattern', value);
+
+  String get timezoneDisplay => doc.formField(path, 'timezoneDisplay') ?? '';
+  set timezoneDisplay(String value) => doc.setFormField(path, 'timezoneDisplay', value);
 }
 
 /// Generated section facade for the `formatting` `@Form` section:
@@ -70193,20 +70650,8 @@ class ReportColumnEntryFormattingForm extends SomNode {
   String get verticalAlignment => doc.formField(path, 'verticalAlignment') ?? '';
   set verticalAlignment(String value) => doc.setFormField(path, 'verticalAlignment', value);
 
-  String get formatPattern => doc.formField(path, 'formatPattern') ?? '';
-  set formatPattern(String value) => doc.setFormField(path, 'formatPattern', value);
-
-  String get currencyCode => doc.formField(path, 'currencyCode') ?? '';
-  set currencyCode(String value) => doc.setFormField(path, 'currencyCode', value);
-
   String get nullDisplay => doc.formField(path, 'nullDisplay') ?? '';
   set nullDisplay(String value) => doc.setFormField(path, 'nullDisplay', value);
-
-  String get booleanTrueDisplay => doc.formField(path, 'booleanTrueDisplay') ?? '';
-  set booleanTrueDisplay(String value) => doc.setFormField(path, 'booleanTrueDisplay', value);
-
-  String get booleanFalseDisplay => doc.formField(path, 'booleanFalseDisplay') ?? '';
-  set booleanFalseDisplay(String value) => doc.setFormField(path, 'booleanFalseDisplay', value);
 }
 
 /// Generated section facade for the `interaction` `@Form` section:
@@ -70254,6 +70699,44 @@ class ReportColumnEntryLayoutForm extends SomNode {
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `numericFormat` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportColumnEntryNumericFormatForm extends SomNode {
+  ReportColumnEntryNumericFormatForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get formatPattern => doc.formField(path, 'formatPattern') ?? '';
+  set formatPattern(String value) => doc.setFormField(path, 'formatPattern', value);
+
+  String get negativeDisplay => doc.formField(path, 'negativeDisplay') ?? '';
+  set negativeDisplay(String value) => doc.setFormField(path, 'negativeDisplay', value);
+}
+
+/// Generated section facade for the `textFormat` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportColumnEntryTextFormatForm extends SomNode {
+  ReportColumnEntryTextFormatForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get overflowBehavior => doc.formField(path, 'overflowBehavior') ?? '';
+  set overflowBehavior(String value) => doc.setFormField(path, 'overflowBehavior', value);
+
+  int? get maxDisplayLength => somParseInt(doc.formField(path, 'maxDisplayLength'));
+  set maxDisplayLength(int? value) => doc.setFormField(path, 'maxDisplayLength', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -70699,6 +71182,25 @@ class ReportFilterEntryBehaviorForm extends SomNode {
   set dependsOn(String value) => doc.setFormField(path, 'dependsOn', value);
 }
 
+/// Generated section facade for the `booleanFilterOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportFilterEntryBooleanFilterOptionsForm extends SomNode {
+  ReportFilterEntryBooleanFilterOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get inputType => doc.formField(path, 'inputType') ?? '';
+  set inputType(String value) => doc.setFormField(path, 'inputType', value);
+
+  String get includeIndeterminate => doc.formField(path, 'includeIndeterminate') ?? '';
+  set includeIndeterminate(String value) => doc.setFormField(path, 'includeIndeterminate', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ReportFilterEntryContentForm extends SomNode {
@@ -70721,6 +71223,53 @@ class ReportFilterEntryContentForm extends SomNode {
   set displayLabel(String value) => doc.setFormField(path, 'displayLabel', value);
 }
 
+/// Generated section facade for the `dateFilterOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportFilterEntryDateFilterOptionsForm extends SomNode {
+  ReportFilterEntryDateFilterOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get inputType => doc.formField(path, 'inputType') ?? '';
+  set inputType(String value) => doc.setFormField(path, 'inputType', value);
+
+  String get earliestDate => doc.formField(path, 'earliestDate') ?? '';
+  set earliestDate(String value) => doc.setFormField(path, 'earliestDate', value);
+
+  String get latestDate => doc.formField(path, 'latestDate') ?? '';
+  set latestDate(String value) => doc.setFormField(path, 'latestDate', value);
+}
+
+/// Generated section facade for the `entityFilterOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportFilterEntryEntityFilterOptionsForm extends SomNode {
+  ReportFilterEntryEntityFilterOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get inputType => doc.formField(path, 'inputType') ?? '';
+  set inputType(String value) => doc.setFormField(path, 'inputType', value);
+
+  String get entityType => doc.formField(path, 'entityType') ?? '';
+  set entityType(String value) => doc.setFormField(path, 'entityType', value);
+
+  String get queryFilter => doc.formField(path, 'queryFilter') ?? '';
+  set queryFilter(String value) => doc.setFormField(path, 'queryFilter', value);
+
+  String get displayAttribute => doc.formField(path, 'displayAttribute') ?? '';
+  set displayAttribute(String value) => doc.setFormField(path, 'displayAttribute', value);
+}
+
 /// Generated section facade for the `input` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ReportFilterEntryInputForm extends SomNode {
@@ -70733,26 +71282,33 @@ class ReportFilterEntryInputForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get dataType => doc.formField(path, 'dataType') ?? '';
-  set dataType(String value) => doc.setFormField(path, 'dataType', value);
+  ReportFilterValueKind? get dataType => _parseReportFilterValueKind(doc.formField(path, 'dataType'));
+  set dataType(ReportFilterValueKind? value) => doc.setFormField(path, 'dataType', value?.name ?? '');
+
+  String get defaultValue => doc.formField(path, 'defaultValue') ?? '';
+  set defaultValue(String value) => doc.setFormField(path, 'defaultValue', value);
+}
+
+/// Generated section facade for the `numericFilterOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportFilterEntryNumericFilterOptionsForm extends SomNode {
+  ReportFilterEntryNumericFilterOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
 
   String get inputType => doc.formField(path, 'inputType') ?? '';
   set inputType(String value) => doc.setFormField(path, 'inputType', value);
 
-  String get defaultValue => doc.formField(path, 'defaultValue') ?? '';
-  set defaultValue(String value) => doc.setFormField(path, 'defaultValue', value);
+  String get minValue => doc.formField(path, 'minValue') ?? '';
+  set minValue(String value) => doc.setFormField(path, 'minValue', value);
 
-  String get availableValuesSource => doc.formField(path, 'availableValuesSource') ?? '';
-  set availableValuesSource(String value) => doc.setFormField(path, 'availableValuesSource', value);
-
-  String get staticValues => doc.formField(path, 'staticValues') ?? '';
-  set staticValues(String value) => doc.setFormField(path, 'staticValues', value);
-
-  String get cascadeParent => doc.formField(path, 'cascadeParent') ?? '';
-  set cascadeParent(String value) => doc.setFormField(path, 'cascadeParent', value);
-
-  String get multiSelect => doc.formField(path, 'multiSelect') ?? '';
-  set multiSelect(String value) => doc.setFormField(path, 'multiSelect', value);
+  String get maxValue => doc.formField(path, 'maxValue') ?? '';
+  set maxValue(String value) => doc.setFormField(path, 'maxValue', value);
 }
 
 /// Generated section facade for the `presentation` `@Form` section:
@@ -70778,6 +71334,56 @@ class ReportFilterEntryPresentationForm extends SomNode {
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `selectFilterOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportFilterEntrySelectFilterOptionsForm extends SomNode {
+  ReportFilterEntrySelectFilterOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get inputType => doc.formField(path, 'inputType') ?? '';
+  set inputType(String value) => doc.setFormField(path, 'inputType', value);
+
+  String get availableValuesSource => doc.formField(path, 'availableValuesSource') ?? '';
+  set availableValuesSource(String value) => doc.setFormField(path, 'availableValuesSource', value);
+
+  String get staticValues => doc.formField(path, 'staticValues') ?? '';
+  set staticValues(String value) => doc.setFormField(path, 'staticValues', value);
+
+  String get cascadeParent => doc.formField(path, 'cascadeParent') ?? '';
+  set cascadeParent(String value) => doc.setFormField(path, 'cascadeParent', value);
+
+  String get multiSelect => doc.formField(path, 'multiSelect') ?? '';
+  set multiSelect(String value) => doc.setFormField(path, 'multiSelect', value);
+}
+
+/// Generated section facade for the `textFilterOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ReportFilterEntryTextFilterOptionsForm extends SomNode {
+  ReportFilterEntryTextFilterOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get inputType => doc.formField(path, 'inputType') ?? '';
+  set inputType(String value) => doc.setFormField(path, 'inputType', value);
+
+  String get matchMode => doc.formField(path, 'matchMode') ?? '';
+  set matchMode(String value) => doc.setFormField(path, 'matchMode', value);
+
+  int? get maxLength => somParseInt(doc.formField(path, 'maxLength'));
+  set maxLength(int? value) => doc.setFormField(path, 'maxLength', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -75761,6 +76367,25 @@ class ScreenEntryTraceabilityForm extends SomNode {
   set primaryAction(String value) => doc.setFormField(path, 'primaryAction', value);
 }
 
+/// Generated section facade for the `choiceOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryChoiceOptionsForm extends SomNode {
+  ScreenFieldEntryChoiceOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get optionSource => doc.formField(path, 'optionSource') ?? '';
+  set optionSource(String value) => doc.setFormField(path, 'optionSource', value);
+
+  String get staticOptions => doc.formField(path, 'staticOptions') ?? '';
+  set staticOptions(String value) => doc.setFormField(path, 'staticOptions', value);
+}
+
 /// Generated section facade for the `conditions` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ScreenFieldEntryConditionsForm extends SomNode {
@@ -75810,8 +76435,8 @@ class ScreenFieldEntryContentForm extends SomNode {
   String get fieldLabel => doc.formField(path, 'fieldLabel') ?? '';
   set fieldLabel(String value) => doc.setFormField(path, 'fieldLabel', value);
 
-  String get fieldType => doc.formField(path, 'fieldType') ?? '';
-  set fieldType(String value) => doc.setFormField(path, 'fieldType', value);
+  ScreenFieldKind? get fieldType => _parseScreenFieldKind(doc.formField(path, 'fieldType'));
+  set fieldType(ScreenFieldKind? value) => doc.setFormField(path, 'fieldType', value?.name ?? '');
 }
 
 /// Generated section facade for the `dataBinding` `@Form` section:
@@ -75851,12 +76476,6 @@ class ScreenFieldEntryLayoutForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get dropdownSource => doc.formField(path, 'dropdownSource') ?? '';
-  set dropdownSource(String value) => doc.setFormField(path, 'dropdownSource', value);
-
-  String get dropdownValues => doc.formField(path, 'dropdownValues') ?? '';
-  set dropdownValues(String value) => doc.setFormField(path, 'dropdownValues', value);
-
   String get dependsOn => doc.formField(path, 'dependsOn') ?? '';
   set dependsOn(String value) => doc.setFormField(path, 'dependsOn', value);
 
@@ -75870,10 +76489,48 @@ class ScreenFieldEntryLayoutForm extends SomNode {
   set grouping(String value) => doc.setFormField(path, 'grouping', value);
 }
 
-/// Generated section facade for the `validation` `@Form` section:
+/// Generated section facade for the `numericConstraints` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
-class ScreenFieldEntryValidationForm extends SomNode {
-  ScreenFieldEntryValidationForm(super.doc, super.path);
+class ScreenFieldEntryNumericConstraintsForm extends SomNode {
+  ScreenFieldEntryNumericConstraintsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get minValue => doc.formField(path, 'minValue') ?? '';
+  set minValue(String value) => doc.setFormField(path, 'minValue', value);
+
+  String get maxValue => doc.formField(path, 'maxValue') ?? '';
+  set maxValue(String value) => doc.setFormField(path, 'maxValue', value);
+}
+
+/// Generated section facade for the `temporalConstraints` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryTemporalConstraintsForm extends SomNode {
+  ScreenFieldEntryTemporalConstraintsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get earliestValue => doc.formField(path, 'earliestValue') ?? '';
+  set earliestValue(String value) => doc.setFormField(path, 'earliestValue', value);
+
+  String get latestValue => doc.formField(path, 'latestValue') ?? '';
+  set latestValue(String value) => doc.setFormField(path, 'latestValue', value);
+}
+
+/// Generated section facade for the `textConstraints` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryTextConstraintsForm extends SomNode {
+  ScreenFieldEntryTextConstraintsForm(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;
@@ -75888,14 +76545,21 @@ class ScreenFieldEntryValidationForm extends SomNode {
   String get maxLength => doc.formField(path, 'maxLength') ?? '';
   set maxLength(String value) => doc.setFormField(path, 'maxLength', value);
 
-  String get minValue => doc.formField(path, 'minValue') ?? '';
-  set minValue(String value) => doc.setFormField(path, 'minValue', value);
-
-  String get maxValue => doc.formField(path, 'maxValue') ?? '';
-  set maxValue(String value) => doc.setFormField(path, 'maxValue', value);
-
   String get pattern => doc.formField(path, 'pattern') ?? '';
   set pattern(String value) => doc.setFormField(path, 'pattern', value);
+}
+
+/// Generated section facade for the `validation` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryValidationForm extends SomNode {
+  ScreenFieldEntryValidationForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
 
   String get validationMessage => doc.formField(path, 'validationMessage') ?? '';
   set validationMessage(String value) => doc.setFormField(path, 'validationMessage', value);

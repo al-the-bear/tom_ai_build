@@ -2584,6 +2584,10 @@ static void meta_build_data_architecture_security(SomMetaNode *n);
 static void meta_build_data_attribute_constraint_entry_content(SomMetaNode *n);
 static void meta_build_data_attribute_entry_identity(SomMetaNode *n);
 static void meta_build_data_attribute_entry_data_type_spec(SomMetaNode *n);
+static void meta_build_data_attribute_entry_text_type_options(SomMetaNode *n);
+static void meta_build_data_attribute_entry_numeric_type_options(SomMetaNode *n);
+static void meta_build_data_attribute_entry_temporal_type_options(SomMetaNode *n);
+static void meta_build_data_attribute_entry_binary_type_options(SomMetaNode *n);
 static void meta_build_data_attribute_entry_constraints(SomMetaNode *n);
 static void meta_build_data_attribute_entry_constraints_elem(SomMetaNode *n);
 static void meta_build_data_attribute_entry_derivation(SomMetaNode *n);
@@ -3307,6 +3311,11 @@ static void meta_build_experience_localization_follow_up_content(SomMetaNode *n)
 static void meta_build_experience_localization_follow_up_multi_language_support(SomMetaNode *n);
 static void meta_build_export_field_mapping_entry_content(SomMetaNode *n);
 static void meta_build_export_field_mapping_entry_formatting(SomMetaNode *n);
+static void meta_build_export_field_mapping_entry_numeric_output(SomMetaNode *n);
+static void meta_build_export_field_mapping_entry_temporal_output(SomMetaNode *n);
+static void meta_build_export_field_mapping_entry_boolean_output(SomMetaNode *n);
+static void meta_build_export_field_mapping_entry_enumeration_output(SomMetaNode *n);
+static void meta_build_export_field_mapping_entry_text_output(SomMetaNode *n);
 static void meta_build_export_field_mapping_entry_transformation(SomMetaNode *n);
 static void meta_build_export_field_mapping_entry_inclusion(SomMetaNode *n);
 static void meta_build_export_field_mapping_entry_layout(SomMetaNode *n);
@@ -5013,6 +5022,11 @@ static void meta_build_report_chart_entry_layout(SomMetaNode *n);
 static void meta_build_report_column_entry_content(SomMetaNode *n);
 static void meta_build_report_column_entry_data_source(SomMetaNode *n);
 static void meta_build_report_column_entry_formatting(SomMetaNode *n);
+static void meta_build_report_column_entry_numeric_format(SomMetaNode *n);
+static void meta_build_report_column_entry_currency_format(SomMetaNode *n);
+static void meta_build_report_column_entry_date_format(SomMetaNode *n);
+static void meta_build_report_column_entry_boolean_format(SomMetaNode *n);
+static void meta_build_report_column_entry_text_format(SomMetaNode *n);
 static void meta_build_report_column_entry_aggregation(SomMetaNode *n);
 static void meta_build_report_column_entry_interaction(SomMetaNode *n);
 static void meta_build_report_column_entry_layout(SomMetaNode *n);
@@ -5044,6 +5058,12 @@ static void meta_build_report_entry_recipients(SomMetaNode *n);
 static void meta_build_report_entry_recipients_elem(SomMetaNode *n);
 static void meta_build_report_filter_entry_content(SomMetaNode *n);
 static void meta_build_report_filter_entry_input(SomMetaNode *n);
+static void meta_build_report_filter_entry_text_filter_options(SomMetaNode *n);
+static void meta_build_report_filter_entry_numeric_filter_options(SomMetaNode *n);
+static void meta_build_report_filter_entry_date_filter_options(SomMetaNode *n);
+static void meta_build_report_filter_entry_boolean_filter_options(SomMetaNode *n);
+static void meta_build_report_filter_entry_select_filter_options(SomMetaNode *n);
+static void meta_build_report_filter_entry_entity_filter_options(SomMetaNode *n);
 static void meta_build_report_filter_entry_behavior(SomMetaNode *n);
 static void meta_build_report_filter_entry_presentation(SomMetaNode *n);
 static void meta_build_report_recipient_entry_content(SomMetaNode *n);
@@ -5399,6 +5419,10 @@ static void meta_build_screen_field_entry_content(SomMetaNode *n);
 static void meta_build_screen_field_entry_data_binding(SomMetaNode *n);
 static void meta_build_screen_field_entry_conditions(SomMetaNode *n);
 static void meta_build_screen_field_entry_validation(SomMetaNode *n);
+static void meta_build_screen_field_entry_text_constraints(SomMetaNode *n);
+static void meta_build_screen_field_entry_numeric_constraints(SomMetaNode *n);
+static void meta_build_screen_field_entry_temporal_constraints(SomMetaNode *n);
+static void meta_build_screen_field_entry_choice_options(SomMetaNode *n);
 static void meta_build_screen_field_entry_layout(SomMetaNode *n);
 static void meta_build_screen_field_entry_validation_rules(SomMetaNode *n);
 static void meta_build_screen_field_entry_validation_rules_elem(SomMetaNode *n);
@@ -41664,56 +41688,160 @@ static void meta_build_data_attribute_entry_data_type_spec(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 8;
-  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("dataType");
-  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].type_name = som_strdup("DataAttributeKind");
   n->form->fields[0].description = som_strdup("Data Type");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary");
+  n->form->fields[0].hint = som_strdup("The logical type — selects the promoted options subsection.");
   n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 10;
+  n->form->fields[0].enum_values = (char **)calloc(10, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("string");
+  n->form->fields[0].enum_values[1] = som_strdup("integer");
+  n->form->fields[0].enum_values[2] = som_strdup("decimal");
+  n->form->fields[0].enum_values[3] = som_strdup("date");
+  n->form->fields[0].enum_values[4] = som_strdup("dateTime");
+  n->form->fields[0].enum_values[5] = som_strdup("binary");
+  n->form->fields[0].enum_values[6] = som_strdup("boolean");
+  n->form->fields[0].enum_values[7] = som_strdup("uuid");
+  n->form->fields[0].enum_values[8] = som_strdup("json");
+  n->form->fields[0].enum_values[9] = som_strdup("enumeration");
   n->form->fields[1].name = som_strdup("physicalType");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Physical Type");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("length");
+  n->form->fields[2].name = som_strdup("format");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Length/Size");
+  n->form->fields[2].description = som_strdup("Format");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Maximum length for strings or size for binary");
+  n->form->fields[2].hint = som_strdup("Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("precision");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Precision");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Total digits for numeric types");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("scale");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Scale");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Decimal places for numeric types");
-  n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("collation");
-  n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Collation");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Character collation for text (e.g., utf8_general_ci)");
-  n->form->fields[5].order = 5;
-  n->form->fields[6].name = som_strdup("timezone");
-  n->form->fields[6].type_name = som_strdup("String");
-  n->form->fields[6].description = som_strdup("Timezone");
-  n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("For datetime: UTC | Local | WithOffset");
-  n->form->fields[6].order = 6;
-  n->form->fields[7].name = som_strdup("format");
-  n->form->fields[7].type_name = som_strdup("String");
-  n->form->fields[7].description = som_strdup("Format");
-  n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)");
-  n->form->fields[7].order = 7;
+}
+static void meta_build_data_attribute_entry_text_type_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataAttributeEntry");
+  meta_set(&n->member_name, "textTypeOptions");
+  meta_set(&n->section_id, "DAATT-DTTX");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "Text-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `string` logical type; carries only the character\nlength and collation attributes (no numeric precision, no timezone).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("length");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Length");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Maximum character length");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("collation");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Collation");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Character collation for text (e.g., utf8_general_ci)");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\",\"ISO/IEC 25012 — data quality characteristics for stored text\"],\"connotation\":\"The character length and collation constraints for a text attribute.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"DataAttributeKind.string\"}", NULL);
+}
+static void meta_build_data_attribute_entry_numeric_type_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataAttributeEntry");
+  meta_set(&n->member_name, "numericTypeOptions");
+  meta_set(&n->section_id, "DAATT-DTNU");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Numeric-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric logical types; carries only the precision and\nscale attributes (no length, collation or timezone).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("precision");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Precision");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Total digits for numeric types");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("scale");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Scale");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Decimal places for numeric types");
+  n->form->fields[1].order = 1;
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\",\"ISO 80000-1 — quantities and units, on numeric precision\"],\"connotation\":\"The precision and scale constraints for a numeric attribute.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"DataAttributeKind.integer\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"DataAttributeKind.decimal\"}", NULL);
+}
+static void meta_build_data_attribute_entry_temporal_type_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataAttributeEntry");
+  meta_set(&n->member_name, "temporalTypeOptions");
+  meta_set(&n->section_id, "DAATT-DTTM");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Temporal-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/time logical types; carries only the timezone\nhandling attribute.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("timezone");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Timezone");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("For datetime: UTC | Local | WithOffset");
+  n->form->fields[0].order = 0;
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 8601-1:2019 — representation of dates and times\",\"ISO 8601-2:2019 — extensions including time-zone offsets\"],\"connotation\":\"The timezone handling for a date or date-time attribute.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"DataAttributeKind.date\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"DataAttributeKind.dateTime\"}", NULL);
+}
+static void meta_build_data_attribute_entry_binary_type_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataAttributeEntry");
+  meta_set(&n->member_name, "binaryTypeOptions");
+  meta_set(&n->section_id, "DAATT-DTBI");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("maxSizeBytes");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Max Size (Bytes)");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Maximum stored size in bytes");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("storageMode");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Storage Mode");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Inline | External-Reference | Blob-Store");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\"],\"connotation\":\"The stored size constraints for a binary attribute.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"DataAttributeKind.binary\"}", NULL);
 }
 static void meta_build_data_attribute_entry_constraints(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
@@ -41723,7 +41851,7 @@ static void meta_build_data_attribute_entry_constraints(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DataAttributeConstraintEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per attribute constraint.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -41745,7 +41873,7 @@ static void meta_build_data_attribute_entry_derivation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 7;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -41781,7 +41909,7 @@ static void meta_build_data_attribute_entry_security_classification(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 8;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -41823,7 +41951,7 @@ static void meta_build_data_attribute_entry_migration_lineage(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 9;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -41866,7 +41994,7 @@ static void meta_build_data_attribute_entry_display_properties(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DisplayPropertyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 10;
   meta_set(&n->content_help, "Add one entry per display property.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -60773,8 +60901,8 @@ static void meta_build_export_field_mapping_entry_formatting(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Ordering and formatting settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("displayOrder");
   n->form->fields[0].type_name = som_strdup("int");
   n->form->fields[0].description = som_strdup("Display Order");
@@ -60782,21 +60910,183 @@ static void meta_build_export_field_mapping_entry_formatting(SomMetaNode *n) {
   n->form->fields[0].hint = som_strdup("Position in the export output (column order)");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("dataType");
-  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].type_name = som_strdup("ExportFieldKind");
   n->form->fields[1].description = som_strdup("Data Type");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("String / Integer / Decimal / Date / DateTime / Boolean / Enum");
+  n->form->fields[1].hint = som_strdup("The field value type — selects the promoted output subsection.");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("formatPattern");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Format Pattern");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers");
-  n->form->fields[2].order = 2;
+  n->form->fields[1].enum_values_len = 7;
+  n->form->fields[1].enum_values = (char **)calloc(7, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("string");
+  n->form->fields[1].enum_values[1] = som_strdup("integer");
+  n->form->fields[1].enum_values[2] = som_strdup("decimal");
+  n->form->fields[1].enum_values[3] = som_strdup("date");
+  n->form->fields[1].enum_values[4] = som_strdup("dateTime");
+  n->form->fields[1].enum_values[5] = som_strdup("boolean");
+  n->form->fields[1].enum_values[6] = som_strdup("enumeration");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"IETF RFC 4180 — the order of fields within each record is fixed and consistent across the file\",\"ISO 8601-1:2019 — a standardized date representation governs how date-typed fields are formatted\"],\"connotation\":\"Column ordering, data typing, and output format pattern applied to a mapped export field.\"}", NULL);
+}
+static void meta_build_export_field_mapping_entry_numeric_output(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExportFieldMappingEntry");
+  meta_set(&n->member_name, "numericOutput");
+  meta_set(&n->section_id, "EFMEFN");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "Numeric-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal fields; carries only the numeric\noutput pattern and separators.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("formatPattern");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Format Pattern");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Numeric output format, e.g. #,##0.00");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("decimalSeparator");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Decimal Separator");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Character used as the decimal mark, e.g. . or ,");
+  n->form->fields[1].order = 1;
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 80000-1:2022 — general principles for quantities units and their symbols\",\"IETF RFC 4180 — numeric field values are emitted as text within the record structure\"],\"connotation\":\"The numeric output pattern and separators for an exported numeric field.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ExportFieldKind.integer\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ExportFieldKind.decimal\"}", NULL);
+}
+static void meta_build_export_field_mapping_entry_temporal_output(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExportFieldMappingEntry");
+  meta_set(&n->member_name, "temporalOutput");
+  meta_set(&n->section_id, "EFMEFD");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Temporal-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for date and date-time fields; carries only the temporal\noutput pattern and timezone handling.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("formatPattern");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Format Pattern");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Temporal output format, e.g. dd.MM.yyyy");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("timezoneHandling");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Timezone Handling");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("UTC / Local / With-Offset");
+  n->form->fields[1].order = 1;
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 8601-1:2019 — representation of dates and times\",\"ISO 8601-2:2019 — extensions including time-zone offsets\"],\"connotation\":\"The temporal output pattern and timezone handling for an exported date field.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ExportFieldKind.date\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ExportFieldKind.dateTime\"}", NULL);
+}
+static void meta_build_export_field_mapping_entry_boolean_output(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExportFieldMappingEntry");
+  meta_set(&n->member_name, "booleanOutput");
+  meta_set(&n->section_id, "EFMEFB");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Boolean-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean fields; this is the only case in which the\nemitted true/false literals are meaningful.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("trueLiteral");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("True Literal");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Emitted for true, e.g. true / Y / 1");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("falseLiteral");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("False Literal");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Emitted for false, e.g. false / N / 0");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"IETF RFC 4180 — boolean field values are emitted as text literals within the record\"],\"connotation\":\"The emitted true and false literals for an exported boolean field.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ExportFieldKind.boolean\"}", NULL);
+}
+static void meta_build_export_field_mapping_entry_enumeration_output(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExportFieldMappingEntry");
+  meta_set(&n->member_name, "enumerationOutput");
+  meta_set(&n->section_id, "EFMEFE");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Enumeration-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration fields; carries which face of the value set\nis emitted and what happens to a value outside it.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("emittedForm");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Emitted Form");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Value-Id / Display-Label / Numeric-Ordinal");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("unmappedValueBehavior");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Unmapped Value Behavior");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Emit-Raw / Emit-Empty / Fail-Export");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — permissible values of a data element and their representation\"],\"connotation\":\"The emitted representation of an exported enumeration field and its unmapped-value behaviour.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ExportFieldKind.enumeration\"}", NULL);
+}
+static void meta_build_export_field_mapping_entry_text_output(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExportFieldMappingEntry");
+  meta_set(&n->member_name, "textOutput");
+  meta_set(&n->section_id, "EFMEFT");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "Text-kind output format — a promoted `@OneOf` case (csra4).\n\nPresent only for text fields; carries the character-length truncation\nthat only a string field can have. Moved out of `inclusion`, where it sat\nbeside type-independent default and inclusion rules.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("maxLength");
+  n->form->fields[0].type_name = som_strdup("int");
+  n->form->fields[0].description = som_strdup("Max Length");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Truncate output to this character length");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("padding");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Padding");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("None / Left-Pad / Right-Pad for fixed-width output");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"IETF RFC 4180 — text field values are emitted within the record structure\",\"ISO/IEC 25010:2023 — functional correctness of length-bounded output\"],\"connotation\":\"The character-length truncation and padding for an exported text field.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ExportFieldKind.string\"}", NULL);
 }
 static void meta_build_export_field_mapping_entry_transformation(SomMetaNode *n) {
   meta_set(&n->class_name, "ExportFieldMappingEntry");
@@ -60805,7 +61095,7 @@ static void meta_build_export_field_mapping_entry_transformation(SomMetaNode *n)
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Transformation rules.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -60840,11 +61130,11 @@ static void meta_build_export_field_mapping_entry_inclusion(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Inclusion and defaults.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("defaultValue");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Default Value");
@@ -60863,12 +61153,6 @@ static void meta_build_export_field_mapping_entry_inclusion(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Condition for conditional inclusion");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("maxLength");
-  n->form->fields[3].type_name = som_strdup("int");
-  n->form->fields[3].description = som_strdup("Max Length");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Truncate output to this character length");
-  n->form->fields[3].order = 3;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -60881,7 +61165,7 @@ static void meta_build_export_field_mapping_entry_layout(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Fixed-width and quoting rules.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -106678,11 +106962,19 @@ static void meta_build_report_column_entry_data_source(SomMetaNode *n) {
   n->form->fields[0].hint = som_strdup("Path to the data field, e.g. order.customer.name");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("dataType");
-  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].type_name = som_strdup("ReportColumnKind");
   n->form->fields[1].description = som_strdup("Data Type");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("String / Integer / Decimal / Currency / Date / Boolean");
+  n->form->fields[1].hint = som_strdup("The column value type — selects the promoted format subsection.");
   n->form->fields[1].order = 1;
+  n->form->fields[1].enum_values_len = 6;
+  n->form->fields[1].enum_values = (char **)calloc(6, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("string");
+  n->form->fields[1].enum_values[1] = som_strdup("integer");
+  n->form->fields[1].enum_values[2] = som_strdup("decimal");
+  n->form->fields[1].enum_values[3] = som_strdup("currency");
+  n->form->fields[1].enum_values[4] = som_strdup("date");
+  n->form->fields[1].enum_values[5] = som_strdup("boolean");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -106698,8 +106990,8 @@ static void meta_build_report_column_entry_formatting(SomMetaNode *n) {
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "Display formatting.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 9;
-  n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("displayOrder");
   n->form->fields[0].type_name = som_strdup("int");
   n->form->fields[0].description = som_strdup("Display Order");
@@ -106724,40 +107016,179 @@ static void meta_build_report_column_entry_formatting(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Top / Middle / Bottom");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("formatPattern");
+  n->form->fields[4].name = som_strdup("nullDisplay");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Format Pattern");
+  n->form->fields[4].description = som_strdup("Null Display");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Display format, e.g. #,##0.00");
+  n->form->fields[4].hint = som_strdup("What to show for null/empty values");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("currencyCode");
-  n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Currency Code");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Currency code if type is Currency");
-  n->form->fields[5].order = 5;
-  n->form->fields[6].name = som_strdup("nullDisplay");
-  n->form->fields[6].type_name = som_strdup("String");
-  n->form->fields[6].description = som_strdup("Null Display");
-  n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("What to show for null/empty values");
-  n->form->fields[6].order = 6;
-  n->form->fields[7].name = som_strdup("booleanTrueDisplay");
-  n->form->fields[7].type_name = som_strdup("String");
-  n->form->fields[7].description = som_strdup("Boolean True Display");
-  n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Display for true, e.g. Yes / ✓");
-  n->form->fields[7].order = 7;
-  n->form->fields[8].name = som_strdup("booleanFalseDisplay");
-  n->form->fields[8].type_name = som_strdup("String");
-  n->form->fields[8].description = som_strdup("Boolean False Display");
-  n->form->fields[8].required = 0;
-  n->form->fields[8].hint = som_strdup("Display for false, e.g. No / —");
-  n->form->fields[8].order = 8;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-125:2017 — visual presentation of information governs width alignment and formatting\",\"ISO 80000-1:2022 — general principles for quantities units and their symbols\"],\"connotation\":\"Display formatting settings for a report column such as width, alignment and value formats.\"}", NULL);
+}
+static void meta_build_report_column_entry_numeric_format(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportColumnEntry");
+  meta_set(&n->member_name, "numericFormat");
+  meta_set(&n->section_id, "RECOFN");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Numeric-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for integer and decimal columns; carries only the numeric\ndisplay pattern (no currency code, no boolean labels).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("formatPattern");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Format Pattern");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Numeric display format, e.g. #,##0.00");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("negativeDisplay");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Negative Display");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Minus-Sign / Parentheses / Red");
+  n->form->fields[1].order = 1;
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 80000-1:2022 — general principles for quantities units and their symbols\",\"ISO 31-0 — presentation of numbers including grouping and decimal marks\"],\"connotation\":\"The numeric display pattern for an integer or decimal report column.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportColumnKind.integer\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ReportColumnKind.decimal\"}", NULL);
+}
+static void meta_build_report_column_entry_currency_format(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportColumnEntry");
+  meta_set(&n->member_name, "currencyFormat");
+  meta_set(&n->section_id, "RECOFC");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Currency-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for currency columns; this is the only case in which a\ncurrency code is meaningful.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("formatPattern");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Format Pattern");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Monetary display format, e.g. #,##0.00");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("currencyCode");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Currency Code");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("ISO 4217 code, e.g. EUR / USD");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("symbolPosition");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Symbol Position");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Prefix / Suffix / None");
+  n->form->fields[2].order = 2;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 4217:2015 — codes for the representation of currencies\",\"ISO 80000-1:2022 — general principles for quantities units and their symbols\"],\"connotation\":\"The currency code and monetary display pattern for a currency report column.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportColumnKind.currency\"}", NULL);
+}
+static void meta_build_report_column_entry_date_format(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportColumnEntry");
+  meta_set(&n->member_name, "dateFormat");
+  meta_set(&n->section_id, "RECOFD");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Date-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for date columns; carries only the temporal display pattern.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("formatPattern");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Format Pattern");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Date display format, e.g. yyyy-MM-dd");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("timezoneDisplay");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Timezone Display");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("UTC / Local / With-Offset");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 8601-1:2019 — representation of dates and times\",\"ISO 9241-112:2017 — presentation of information for temporal values\"],\"connotation\":\"The temporal display pattern for a date report column.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportColumnKind.date\"}", NULL);
+}
+static void meta_build_report_column_entry_boolean_format(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportColumnEntry");
+  meta_set(&n->member_name, "booleanFormat");
+  meta_set(&n->section_id, "RECOFB");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "Boolean-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean columns; this is the only case in which the\ntrue/false display labels are meaningful.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("booleanTrueDisplay");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Boolean True Display");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Display for true, e.g. Yes / ✓");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("booleanFalseDisplay");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Boolean False Display");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Display for false, e.g. No / —");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-112:2017 — presentation of information for two-valued indicators\"],\"connotation\":\"The true and false display labels for a boolean report column.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportColumnKind.boolean\"}", NULL);
+}
+static void meta_build_report_column_entry_text_format(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportColumnEntry");
+  meta_set(&n->member_name, "textFormat");
+  meta_set(&n->section_id, "RECOFT");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 7;
+  meta_set(&n->doc_comment, "Text-kind column format — a promoted `@OneOf` case (csra4).\n\nPresent only for text columns; carries only the overflow handling a\nvariable-length string column needs.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("overflowBehavior");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Overflow Behavior");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Truncate / Ellipsis / Wrap / Clip");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("maxDisplayLength");
+  n->form->fields[1].type_name = som_strdup("int");
+  n->form->fields[1].description = som_strdup("Max Display Length");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Character limit before overflow handling applies");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-112:2017 — presentation of information governs truncation and wrapping of text\"],\"connotation\":\"The overflow handling for a text report column.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportColumnKind.string\"}", NULL);
 }
 static void meta_build_report_column_entry_aggregation(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportColumnEntry");
@@ -106766,7 +107197,7 @@ static void meta_build_report_column_entry_aggregation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Aggregation settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -106807,7 +107238,7 @@ static void meta_build_report_column_entry_interaction(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Interaction options.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -106836,7 +107267,7 @@ static void meta_build_report_column_entry_layout(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Visibility and layout.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -107703,54 +108134,272 @@ static void meta_build_report_filter_entry_input(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Input and value configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 7;
-  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("dataType");
-  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].type_name = som_strdup("ReportFilterValueKind");
   n->form->fields[0].description = som_strdup("Data Type");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref");
+  n->form->fields[0].hint = som_strdup("The filter value type — selects the promoted input-control and value-bound subsection.");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("inputType");
+  n->form->fields[0].enum_values_len = 8;
+  n->form->fields[0].enum_values = (char **)calloc(8, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("string");
+  n->form->fields[0].enum_values[1] = som_strdup("integer");
+  n->form->fields[0].enum_values[2] = som_strdup("decimal");
+  n->form->fields[0].enum_values[3] = som_strdup("date");
+  n->form->fields[0].enum_values[4] = som_strdup("dateTime");
+  n->form->fields[0].enum_values[5] = som_strdup("boolean");
+  n->form->fields[0].enum_values[6] = som_strdup("enumeration");
+  n->form->fields[0].enum_values[7] = som_strdup("entityRef");
+  n->form->fields[1].name = som_strdup("defaultValue");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Input Type");
+  n->form->fields[1].description = som_strdup("Default Value");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select");
+  n->form->fields[1].hint = som_strdup("Default filter value, e.g. current_month, today, *");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("defaultValue");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Default Value");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Default filter value, e.g. current_month, today, *");
-  n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("availableValuesSource");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Available Values Source");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Source for dropdown/select values: static list, entity query, API endpoint");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("staticValues");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Static Values");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Comma-separated values if source is static, e.g. Active,Inactive,All");
-  n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("cascadeParent");
-  n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Cascade Parent");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Filter ID of parent filter for cascading dropdowns");
-  n->form->fields[5].order = 5;
-  n->form->fields[6].name = som_strdup("multiSelect");
-  n->form->fields[6].type_name = som_strdup("String");
-  n->form->fields[6].description = som_strdup("Multi-Select");
-  n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Yes / No — allow selecting multiple values");
-  n->form->fields[6].order = 6;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 — specifies the input data type and value source for a filter parameter\",\"ISO 9241-110:2020 — matches the input control to the filter data the user provides\"],\"connotation\":\"The data type, input control, and value source that configure how a report filter accepts input.\"}", NULL);
+}
+static void meta_build_report_filter_entry_text_filter_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportFilterEntry");
+  meta_set(&n->member_name, "textFilterOptions");
+  meta_set(&n->section_id, "RFEIT");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "Text-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for text filters; carries the free-text control and its\nmatch semantics (no value source, no date bounds).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("inputType");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Input Type");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Text-Field / Autocomplete");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("matchMode");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Match Mode");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Contains / Starts-With / Exact / Regex");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("maxLength");
+  n->form->fields[2].type_name = som_strdup("int");
+  n->form->fields[2].description = som_strdup("Max Length");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Character limit on the input");
+  n->form->fields[2].order = 2;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — form-based interaction and free-text input\",\"ISO 9241-110:2020 — matches the input control to the filter data the user provides\"],\"connotation\":\"The input control and match semantics for a text report filter.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportFilterValueKind.string\"}", NULL);
+}
+static void meta_build_report_filter_entry_numeric_filter_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportFilterEntry");
+  meta_set(&n->member_name, "numericFilterOptions");
+  meta_set(&n->section_id, "RFEIN");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Numeric-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric filters; carries the numeric control and its\nvalue bounds.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("inputType");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Input Type");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Number-Field / Slider / Range-Slider");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("minValue");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Min Value");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Lowest accepted value");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("maxValue");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Max Value");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Highest accepted value");
+  n->form->fields[2].order = 2;
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — constraints on numeric form-field input such as value ranges\",\"ISO 80000-1:2022 — general principles for quantities units and their symbols\"],\"connotation\":\"The input control and value bounds for a numeric report filter.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportFilterValueKind.integer\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ReportFilterValueKind.decimal\"}", NULL);
+}
+static void meta_build_report_filter_entry_date_filter_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportFilterEntry");
+  meta_set(&n->member_name, "dateFilterOptions");
+  meta_set(&n->section_id, "RFEID");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Temporal-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/date-time filters; carries the temporal control —\nincluding the range picker that the former free-text `DateRange` type\nstood for — and the selectable window.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("inputType");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Input Type");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Date-Picker / Date-Range-Picker / Relative-Period");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("earliestDate");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Earliest Date");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Earliest selectable date/time");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("latestDate");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Latest Date");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Latest selectable date/time");
+  n->form->fields[2].order = 2;
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 8601-1:2019 — representation of dates and times\",\"ISO 9241-143:2012 — constraints on date and time form-field input\"],\"connotation\":\"The input control and selectable window for a date report filter.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportFilterValueKind.date\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ReportFilterValueKind.dateTime\"}", NULL);
+}
+static void meta_build_report_filter_entry_boolean_filter_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportFilterEntry");
+  meta_set(&n->member_name, "booleanFilterOptions");
+  meta_set(&n->section_id, "RFEIB");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Boolean-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for boolean filters; carries only the two-valued control.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("inputType");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Input Type");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Checkbox / Toggle / Radio-Pair");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("includeIndeterminate");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Include Indeterminate");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Yes / No — offer an \"any\" third state");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-161:2016 — selection controls such as checkboxes and radio groups\"],\"connotation\":\"The two-valued input control for a boolean report filter.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportFilterValueKind.boolean\"}", NULL);
+}
+static void meta_build_report_filter_entry_select_filter_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportFilterEntry");
+  meta_set(&n->member_name, "selectFilterOptions");
+  meta_set(&n->section_id, "RFEIS");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "Selection-kind filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for enumeration filters; this is the only case in which a\nvalue source, static value list, cascade parent and multi-select are\nmeaningful.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("inputType");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Input Type");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Select / Multi-Select / Radio-Group / Cascading-Select");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("availableValuesSource");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Available Values Source");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Source for dropdown/select values: static list, entity query, API endpoint");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("staticValues");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Static Values");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Comma-separated values if source is static, e.g. Active,Inactive,All");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("cascadeParent");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Cascade Parent");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Filter ID of parent filter for cascading dropdowns");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("multiSelect");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Multi-Select");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Yes / No — allow selecting multiple values");
+  n->form->fields[4].order = 4;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-161:2016 — selection controls such as dropdowns and radio groups\",\"ISO/IEC 11179 — permissible values of a data element\"],\"connotation\":\"The selection control and value source for an enumeration report filter.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportFilterValueKind.enumeration\"}", NULL);
+}
+static void meta_build_report_filter_entry_entity_filter_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportFilterEntry");
+  meta_set(&n->member_name, "entityFilterOptions");
+  meta_set(&n->section_id, "RFEIE");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 7;
+  meta_set(&n->doc_comment, "Entity-reference filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for entity-reference filters; carries the lookup control and\nthe entity query that backs it. Distinct from the enumeration case\nbecause the value set is resolved from an entity, not a declared list.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("inputType");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Input Type");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Autocomplete / Dialog-Picker / Tree-Picker");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("entityType");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Entity Type");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Referenced entity, e.g. Customer");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("queryFilter");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Query Filter");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Restriction applied to the lookup query");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("displayAttribute");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Display Attribute");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Entity attribute shown to the user, e.g. name");
+  n->form->fields[3].order = 3;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — form fields with input assistance and lookup\",\"ER modeling (Chen / Barker notation)\"],\"connotation\":\"The lookup control and backing entity query for an entity-reference report filter.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ReportFilterValueKind.entityRef\"}", NULL);
 }
 static void meta_build_report_filter_entry_behavior(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportFilterEntry");
@@ -107759,7 +108408,7 @@ static void meta_build_report_filter_entry_behavior(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Scope and validation behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
@@ -107812,7 +108461,7 @@ static void meta_build_report_filter_entry_presentation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Presentation options.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -117596,11 +118245,29 @@ static void meta_build_screen_field_entry_content(SomMetaNode *n) {
   n->form->fields[1].hint = som_strdup("Display text shown for the field");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("fieldType");
-  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].type_name = som_strdup("ScreenFieldKind");
   n->form->fields[2].description = som_strdup("Field Type");
   n->form->fields[2].required = 1;
-  n->form->fields[2].hint = som_strdup("Text, Number, Date, Dropdown, Checkbox, etc.");
+  n->form->fields[2].hint = som_strdup("The kind of value the user supplies — selects the type-specific constraint and presentation subsections");
   n->form->fields[2].order = 2;
+  n->form->fields[2].enum_values_len = 16;
+  n->form->fields[2].enum_values = (char **)calloc(16, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("text");
+  n->form->fields[2].enum_values[1] = som_strdup("multilineText");
+  n->form->fields[2].enum_values[2] = som_strdup("email");
+  n->form->fields[2].enum_values[3] = som_strdup("phone");
+  n->form->fields[2].enum_values[4] = som_strdup("url");
+  n->form->fields[2].enum_values[5] = som_strdup("password");
+  n->form->fields[2].enum_values[6] = som_strdup("integer");
+  n->form->fields[2].enum_values[7] = som_strdup("decimal");
+  n->form->fields[2].enum_values[8] = som_strdup("currency");
+  n->form->fields[2].enum_values[9] = som_strdup("date");
+  n->form->fields[2].enum_values[10] = som_strdup("dateTime");
+  n->form->fields[2].enum_values[11] = som_strdup("time");
+  n->form->fields[2].enum_values[12] = som_strdup("singleSelect");
+  n->form->fields[2].enum_values[13] = som_strdup("multiSelect");
+  n->form->fields[2].enum_values[14] = som_strdup("file");
+  n->form->fields[2].enum_values[15] = som_strdup("boolean");
 }
 static void meta_build_screen_field_entry_data_binding(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenFieldEntry");
@@ -117704,50 +118371,170 @@ static void meta_build_screen_field_entry_validation(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
-  meta_set(&n->doc_comment, "Validation rules.");
+  meta_set(&n->doc_comment, "Validation rules that apply whatever the field type is.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 6;
-  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("validationMessage");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Custom Validation Message");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Message shown when validation fails");
+  n->form->fields[0].order = 0;
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The type-independent validation settings of a screen field — the custom message shown when any built-in constraint fails.\"}", NULL);
+}
+static void meta_build_screen_field_entry_text_constraints(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenFieldEntry");
+  meta_set(&n->member_name, "textConstraints");
+  meta_set(&n->section_id, "SCFIVT");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Text-kind input constraints — a promoted `@OneOf` case (csra4).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("minLength");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Minimum Length");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Minimum allowed input length");
+  n->form->fields[0].hint = som_strdup("Minimum allowed input length in characters");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("maxLength");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Maximum Length");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Maximum allowed input length");
+  n->form->fields[1].hint = som_strdup("Maximum allowed input length in characters");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("minValue");
+  n->form->fields[2].name = som_strdup("pattern");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Minimum Value");
+  n->form->fields[2].description = som_strdup("Validation Pattern (regex)");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Minimum allowed value");
+  n->form->fields[2].hint = som_strdup("Regular expression the input must match");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("maxValue");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Maximum Value");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Maximum allowed value");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("pattern");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Validation Pattern (regex)");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Regular expression the input must match");
-  n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("validationMessage");
-  n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Custom Validation Message");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Message shown when validation fails");
-  n->form->fields[5].order = 5;
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra_len = 7;
+  n->extra = (SomMetaExtra *)calloc(7, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The built-in validation constraints on a screen field — length and value bounds, regex pattern, and the custom validation message.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The input constraints that only apply to a text-valued screen field — its length bounds and the regular expression the input must match.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenFieldKind.text\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenFieldKind.multilineText\"}", NULL);
+  n->extra[3].annotation = som_strdup("Case");
+  n->extra[3].args = som_json_parse("{\"value\":\"ScreenFieldKind.email\"}", NULL);
+  n->extra[4].annotation = som_strdup("Case");
+  n->extra[4].args = som_json_parse("{\"value\":\"ScreenFieldKind.phone\"}", NULL);
+  n->extra[5].annotation = som_strdup("Case");
+  n->extra[5].args = som_json_parse("{\"value\":\"ScreenFieldKind.url\"}", NULL);
+  n->extra[6].annotation = som_strdup("Case");
+  n->extra[6].args = som_json_parse("{\"value\":\"ScreenFieldKind.password\"}", NULL);
+}
+static void meta_build_screen_field_entry_numeric_constraints(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenFieldEntry");
+  meta_set(&n->member_name, "numericConstraints");
+  meta_set(&n->section_id, "SCFIVN");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Numeric-kind input constraints — a promoted `@OneOf` case (csra4).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("minValue");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Minimum Value");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Smallest value the field accepts");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("maxValue");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Maximum Value");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Largest value the field accepts");
+  n->form->fields[1].order = 1;
+  n->extra_len = 4;
+  n->extra = (SomMetaExtra *)calloc(4, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"OWASP ASVS — input validation\"],\"connotation\":\"The input constraints that only apply to a numeric screen field — its value bounds.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenFieldKind.integer\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenFieldKind.decimal\"}", NULL);
+  n->extra[3].annotation = som_strdup("Case");
+  n->extra[3].args = som_json_parse("{\"value\":\"ScreenFieldKind.currency\"}", NULL);
+}
+static void meta_build_screen_field_entry_temporal_constraints(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenFieldEntry");
+  meta_set(&n->member_name, "temporalConstraints");
+  meta_set(&n->section_id, "SCFIVD");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "Temporal-kind input constraints — a promoted `@OneOf` case (csra4).\n\nKept apart from [numericConstraints] because a date boundary is expressed\nas a date or a relative expression (\"today + 30d\"), not as a number.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("earliestValue");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Earliest Accepted Value");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Earliest accepted date/time, absolute or relative (e.g. today)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("latestValue");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Latest Accepted Value");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Latest accepted date/time, absolute or relative (e.g. today + 30d)");
+  n->form->fields[1].order = 1;
+  n->extra_len = 4;
+  n->extra = (SomMetaExtra *)calloc(4, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"ISO 8601 — date and time representation\"],\"connotation\":\"The input constraints that only apply to a temporal screen field — its earliest and latest accepted instant.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenFieldKind.date\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenFieldKind.dateTime\"}", NULL);
+  n->extra[3].annotation = som_strdup("Case");
+  n->extra[3].args = som_json_parse("{\"value\":\"ScreenFieldKind.time\"}", NULL);
+}
+static void meta_build_screen_field_entry_choice_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenFieldEntry");
+  meta_set(&n->member_name, "choiceOptions");
+  meta_set(&n->section_id, "SCFICH");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 7;
+  meta_set(&n->doc_comment, "Choice-kind option source — a promoted `@OneOf` case (csra4).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("optionSource");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Option Source (static, API, entity)");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Where the options come from: static, API, or entity");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("staticOptions");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Static Option Values");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The option values, when the source is static");
+  n->form->fields[1].order = 1;
+  n->extra_len = 3;
+  n->extra = (SomMetaExtra *)calloc(3, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110 — dialogue principles\",\"ISO/IEC/IEEE 29148 §9.5 — UI functional requirements\"],\"connotation\":\"Where a choice field takes its options from — the option source and, for a static source, the values themselves.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenFieldKind.singleSelect\"}", NULL);
+  n->extra[2].annotation = som_strdup("Case");
+  n->extra[2].args = som_json_parse("{\"value\":\"ScreenFieldKind.multiSelect\"}", NULL);
 }
 static void meta_build_screen_field_entry_layout(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenFieldEntry");
@@ -117756,51 +118543,39 @@ static void meta_build_screen_field_entry_layout(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "UI and layout.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 6;
-  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("dropdownSource");
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("dependsOn");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Dropdown Source (static, API, entity)");
+  n->form->fields[0].description = som_strdup("Depends On (field IDs that affect this)");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Where dropdown options come from: static, API, or entity");
+  n->form->fields[0].hint = som_strdup("Field IDs that affect this field");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("dropdownValues");
+  n->form->fields[1].name = som_strdup("width");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Static Dropdown Values");
+  n->form->fields[1].description = som_strdup("Width (full, half, third, quarter, custom)");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Static list of dropdown values");
+  n->form->fields[1].hint = som_strdup("full, half, third, quarter, or custom");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("dependsOn");
+  n->form->fields[2].name = som_strdup("order");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Depends On (field IDs that affect this)");
+  n->form->fields[2].description = som_strdup("Display Order");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Field IDs that affect this field");
+  n->form->fields[2].hint = som_strdup("Order in which the field is displayed");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("width");
+  n->form->fields[3].name = som_strdup("grouping");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Width (full, half, third, quarter, custom)");
+  n->form->fields[3].description = som_strdup("Field Grouping / Section");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("full, half, third, quarter, or custom");
+  n->form->fields[3].hint = som_strdup("Group or section the field belongs to");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("order");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Display Order");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Order in which the field is displayed");
-  n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("grouping");
-  n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Field Grouping / Section");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Group or section the field belongs to");
-  n->form->fields[5].order = 5;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110 — dialogue principles\",\"ISO/IEC/IEEE 29148 §9.5 — UI functional requirements\"],\"connotation\":\"The layout and presentation of a screen field — its dropdown source/values, dependencies, width, display order, and grouping.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110 — dialogue principles\",\"ISO/IEC/IEEE 29148 §9.5 — UI functional requirements\"],\"connotation\":\"The layout and presentation of a screen field — its dependencies, width, display order, and grouping.\"}", NULL);
 }
 static void meta_build_screen_field_entry_validation_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenFieldEntry");
@@ -117810,7 +118585,7 @@ static void meta_build_screen_field_entry_validation_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "FieldValidationRule");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per validation rule applied to this field.");
   meta_set(&n->doc_comment, "Field validation rules — contains 0+× FieldValidationRule.");
   n->extra_len = 1;
@@ -159120,6 +159895,26 @@ static SomMetaNode **meta_children_data_attribute_entry(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_data_attribute_entry_text_type_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_data_attribute_entry_numeric_type_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_data_attribute_entry_temporal_type_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_data_attribute_entry_binary_type_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_data_attribute_entry_constraints(ln);
     ln->element_node = meta_cx("DataAttributeConstraintEntry", stack, meta_children_data_attribute_constraint_entry, meta_build_data_attribute_entry_constraints_elem);
@@ -163267,6 +164062,31 @@ static SomMetaNode **meta_children_export_field_mapping_entry(SomStrList *stack,
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_export_field_mapping_entry_formatting(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_export_field_mapping_entry_numeric_output(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_export_field_mapping_entry_temporal_output(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_export_field_mapping_entry_boolean_output(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_export_field_mapping_entry_enumeration_output(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_export_field_mapping_entry_text_output(n);
     meta_push(&arr, len, &cap, n);
   }
   {
@@ -173384,6 +174204,31 @@ static SomMetaNode **meta_children_report_column_entry(SomStrList *stack, size_t
   }
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_report_column_entry_numeric_format(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_column_entry_currency_format(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_column_entry_date_format(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_column_entry_boolean_format(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_column_entry_text_format(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_report_column_entry_aggregation(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -173538,6 +174383,36 @@ static SomMetaNode **meta_children_report_filter_entry(SomStrList *stack, size_t
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_report_filter_entry_input(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_filter_entry_text_filter_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_filter_entry_numeric_filter_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_filter_entry_date_filter_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_filter_entry_boolean_filter_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_filter_entry_select_filter_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_filter_entry_entity_filter_options(n);
     meta_push(&arr, len, &cap, n);
   }
   {
@@ -175759,6 +176634,26 @@ static SomMetaNode **meta_children_screen_field_entry(SomStrList *stack, size_t 
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_screen_field_entry_validation(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_field_entry_text_constraints(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_field_entry_numeric_constraints(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_field_entry_temporal_constraints(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_field_entry_choice_options(n);
     meta_push(&arr, len, &cap, n);
   }
   {
@@ -192221,6 +193116,34 @@ SomMetaRef data_attribute_entry_nav_data_type_spec(som_nav_data_attribute_entry 
   free(path);
   return out;
 }
+SomMetaRef data_attribute_entry_nav_text_type_options(som_nav_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTTX");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_nav_numeric_type_options(som_nav_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTNU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_nav_temporal_type_options(som_nav_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTTM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_nav_binary_type_options(som_nav_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTBI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef data_attribute_entry_nav_constraints(som_nav_data_attribute_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DATAA-CONS-LST");
@@ -196774,6 +197697,41 @@ SomMetaRef export_field_mapping_entry_nav_content(som_nav_export_field_mapping_e
 SomMetaRef export_field_mapping_entry_nav_formatting(som_nav_export_field_mapping_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "EFMEF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_nav_numeric_output(som_nav_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_nav_temporal_output(som_nav_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_nav_boolean_output(som_nav_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_nav_enumeration_output(som_nav_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_nav_text_output(som_nav_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -207544,6 +208502,41 @@ SomMetaRef report_column_entry_nav_formatting(som_nav_report_column_entry x) {
   free(path);
   return out;
 }
+SomMetaRef report_column_entry_nav_numeric_format(som_nav_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_column_entry_nav_currency_format(som_nav_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_column_entry_nav_date_format(som_nav_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_column_entry_nav_boolean_format(som_nav_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_column_entry_nav_text_format(som_nav_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef report_column_entry_nav_aggregation(som_nav_report_column_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RECOAG");
@@ -207722,6 +208715,48 @@ SomMetaRef report_filter_entry_nav_content(som_nav_report_filter_entry x) {
 SomMetaRef report_filter_entry_nav_input(som_nav_report_filter_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RFEI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_nav_text_filter_options(som_nav_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_nav_numeric_filter_options(som_nav_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_nav_date_filter_options(som_nav_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEID");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_nav_boolean_filter_options(som_nav_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_nav_select_filter_options(som_nav_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_nav_entity_filter_options(som_nav_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -209927,6 +210962,34 @@ SomMetaRef screen_field_entry_nav_conditions(som_nav_screen_field_entry x) {
 SomMetaRef screen_field_entry_nav_validation(som_nav_screen_field_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCFIVA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_nav_text_constraints(som_nav_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFIVT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_nav_numeric_constraints(som_nav_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFIVN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_nav_temporal_constraints(som_nav_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFIVD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_nav_choice_options(som_nav_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFICH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -242482,6 +243545,34 @@ SomMetaRef data_attribute_entry_id_daatt_data(som_id_data_attribute_entry x) {
   free(path);
   return out;
 }
+SomMetaRef data_attribute_entry_id_daatt_dttx(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTTX");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_id_daatt_dtnu(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTNU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_id_daatt_dttm(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTTM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_id_daatt_dtbi(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTBI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef data_attribute_entry_id_dataa_cons_lst(som_id_data_attribute_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DATAA-CONS-LST");
@@ -243507,6 +244598,41 @@ SomMetaRef existing_system_entry_id_esqua(som_id_existing_system_entry x) {
 SomMetaRef export_field_mapping_entry_id_efmef(som_id_export_field_mapping_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "EFMEF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_id_efmefn(som_id_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_id_efmefd(som_id_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_id_efmefb(som_id_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_id_efmefe(som_id_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_field_mapping_entry_id_efmeft(som_id_export_field_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EFMEFT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -246262,6 +247388,41 @@ SomMetaRef report_column_entry_id_recofo(som_id_report_column_entry x) {
   free(path);
   return out;
 }
+SomMetaRef report_column_entry_id_recofn(som_id_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_column_entry_id_recofc(som_id_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_column_entry_id_recofd(som_id_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_column_entry_id_recofb(som_id_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_column_entry_id_recoft(som_id_report_column_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RECOFT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef report_column_entry_id_recoag(som_id_report_column_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RECOAG");
@@ -246419,6 +247580,48 @@ SomListMetaRef report_entry_id_rereen_reci_lst(som_id_report_entry x) {
 SomMetaRef report_filter_entry_id_rfei(som_id_report_filter_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RFEI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_id_rfeit(som_id_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_id_rfein(som_id_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_id_rfeid(som_id_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEID");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_id_rfeib(som_id_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_id_rfeis(som_id_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_filter_entry_id_rfeie(som_id_report_filter_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RFEIE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -247112,6 +248315,34 @@ SomMetaRef screen_field_entry_id_scfico(som_id_screen_field_entry x) {
 SomMetaRef screen_field_entry_id_scfiva(som_id_screen_field_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCFIVA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_id_scfivt(som_id_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFIVT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_id_scfivn(som_id_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFIVN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_id_scfivd(som_id_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFIVD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_id_scfich(som_id_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFICH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
