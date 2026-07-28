@@ -50,7 +50,7 @@ abstract interface class SpecController {
   bool removeListItem(String itemPath);
 
   /// Adds the model-permitted child [childSegment] under [parentPath],
-  /// returning the new node's path (llm_and_d4rt_tools.md §5 constrained
+  /// returning the new node's path (`llm_and_d4rt_tools.md` §5 constrained
   /// creation).
   ///
   /// The add is validated against the meta-model (allowed kind / section-id

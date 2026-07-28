@@ -134,7 +134,7 @@ final class MemRefreshResult {
 typedef MemRefreshFn = Future<MemRefreshResult> Function();
 
 /// Recalls from, and refreshes, a document's memory under the
-/// llm_and_d4rt_tools.md §8.2 `mem_*` tools.
+/// `llm_and_d4rt_tools.md` §8.2 `mem_*` tools.
 final class MemoryTools {
   /// Creates the toolset over the fused [recall] and an optional [onRefresh]
   /// re-index callback.

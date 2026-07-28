@@ -347,7 +347,8 @@ class _SchemaBuilder {
     final pattern = node.sectionIdPattern;
     final element = node.elementNode;
     // The element's own @SectionId is a fallback when the list carries no
-    // pattern (the pattern is the `tom_specs_model_rules.md` §10.2-preferred coverage mechanism).
+    // pattern (the pattern is the `tom_specs_model_rules.md` §10.2-preferred
+    // coverage mechanism).
     final exactId = pattern != null ? _patternStem(pattern) : element?.sectionId;
     if (exactId == null || element == null || element.unused) {
       // Scalar/enum lists (or uncovered lists) have no section representation.

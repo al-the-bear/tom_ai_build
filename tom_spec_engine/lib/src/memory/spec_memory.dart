@@ -380,10 +380,10 @@ final class SpecDocumentMemory {
     return vecs;
   }
 
-  /// Incrementally refreshes this document's RAG memory (llm_and_d4rt_tools.md
-  /// §9.2): re-embeds **only** the sections in [changedPaths] whose content
-  /// actually moved, forgets the sections in [removedPaths], and re-links the
-  /// edges that touch any of them.
+  /// Incrementally refreshes this document's RAG memory
+  /// (`llm_and_d4rt_tools.md` §9.2): re-embeds **only** the sections in
+  /// [changedPaths] whose content actually moved, forgets the sections in
+  /// [removedPaths], and re-links the edges that touch any of them.
   ///
   /// This is the **embed-changed-only** path that feeds the tier-2 vector store
   /// after each prompt: a changed section whose rendered text hashes to the same

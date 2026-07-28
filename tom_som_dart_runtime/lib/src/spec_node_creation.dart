@@ -3,12 +3,13 @@
 ///
 /// Every node a script or tool adds passes through this single gate, so the
 /// document can only grow in ways the [SpecModel] permits for the parent. The
-/// rules are the `tom_specs_model_rules.md` §10.2 *structural* rules — but read from the model meta-data the
-/// runtime already carries ([SpecField.kind], [SpecField.sectionIdPattern],
-/// [SpecField.min]), **not** from the analyzer-backed authoring validator in
-/// `tom_specs_clitool`. The clitool validates the *authored model graph*; this
-/// validates a *document mutation against that model*. They are different layers
-/// and the runtime keeps its lean, `yaml`-only dependency footprint.
+/// rules are the `tom_specs_model_rules.md` §10.2 *structural* rules — but read
+/// from the model meta-data the runtime already carries ([SpecField.kind],
+/// [SpecField.sectionIdPattern], [SpecField.min]), **not** from the
+/// analyzer-backed authoring validator in `tom_specs_clitool`. The clitool
+/// validates the *authored model graph*; this validates a *document mutation
+/// against that model*. They are different layers and the runtime keeps its
+/// lean, `yaml`-only dependency footprint.
 ///
 /// [checkAddNode] is the single, value-aware rule-check entry point (exported
 /// for reuse by editors and the engine); [SpecNodeCreator.add] applies it and

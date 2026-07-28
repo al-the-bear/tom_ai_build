@@ -12,8 +12,9 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
 /// Returns a record of (errors, warnings). Errors prevent output;
 /// warnings are reported but don't block generation.
 ///
-/// Also runs [validateStructuralInvariants] for the `tom_specs_model_rules.md` §10.2 structural checks
-/// whenever [D00SolutionBlueprint] is present in [classes].
+/// Also runs [validateStructuralInvariants] for the `tom_specs_model_rules.md`
+/// §10.2 structural checks whenever [D00SolutionBlueprint] is present in
+/// [classes].
 ({List<String> errors, List<String> warnings}) validateModel(
   Map<String, ModelClass> classes,
   String rootTypeName,
@@ -183,8 +184,9 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
     errors.add(cycleError);
   }
 
-  // `tom_specs_model_rules.md` §10.2 — structural invariants (SBP-global, runs whenever D00SolutionBlueprint
-  // is present in the classes map regardless of the current root type).
+  // `tom_specs_model_rules.md` §10.2 — structural invariants (SBP-global, runs
+  // whenever D00SolutionBlueprint is present in the classes map regardless of
+  // the current root type).
   _validateStructuralInvariants(classes, errors, warnings);
 
   return (errors: errors, warnings: warnings);
@@ -194,7 +196,8 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
 // `tom_specs_model_rules.md` §10.2 Structural invariants — public entry point
 // ---------------------------------------------------------------------------
 
-/// Validates the `tom_specs_model_rules.md` §10.2 structural invariants of the TomSpecs object model.
+/// Validates the `tom_specs_model_rules.md` §10.2 structural invariants of the
+/// TomSpecs object model.
 ///
 /// These checks operate globally from [D00SolutionBlueprint] as the root and are
 /// independent of the `rootTypeName` passed to [validateModel]:
@@ -274,7 +277,8 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
   return (errors: errors, warnings: warnings);
 }
 
-/// Returns the `tom_specs_model_rules.md` §10.2 `@SectionId` coverage gaps reachable from [rootTypeName].
+/// Returns the `tom_specs_model_rules.md` §10.2 `@SectionId` coverage gaps
+/// reachable from [rootTypeName].
 ///
 /// A *gap* is a class reachable from the root that carries no class-level
 /// `@SectionId` and is not covered by a `@SectionIdPattern` list field (neither
@@ -633,7 +637,8 @@ void _validateStructuralInvariants(
     // each subtree root is already spent on its Phase-3 document, so no SBP
     // section carries `@DetailedIn(<projection>)`. The `@CodeSpecsProjection()`
     // marker exempts such a projection from the detail-count check (it still
-    // satisfies the `tom_specs_model_rules.md` §10.2 pure-projection invariant checked below).
+    // satisfies the `tom_specs_model_rules.md` §10.2 pure-projection invariant
+    // checked below).
     if (classes[docClassName]?.getAnnotation('CodeSpecsProjection') != null) {
       continue;
     }

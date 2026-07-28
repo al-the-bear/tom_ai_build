@@ -986,8 +986,9 @@ void main() {
 
   group('unit: §6.1 canonical field shapes (YRB1)', () {
     // Field-shape errors carry the '§6.1 field-shape' prefix. Synthetic models
-    // deliberately omit D00SolutionBlueprint so the `tom_specs_model_rules.md` §10.2 invariants stay a
-    // no-op and only the field-shape rules under test can fire.
+    // deliberately omit D00SolutionBlueprint so the `tom_specs_model_rules.md`
+    // §10.2 invariants stay a no-op and only the field-shape rules under test
+    // can fire.
     List<String> shapeErrors(Map<String, ModelClass> classes, String root) =>
         validateModel(classes, root)
             .errors
@@ -1694,9 +1695,10 @@ void main() {
   // shared/multi-referrer wrappers — must NOT be flagged.
   // ---------------------------------------------------------------------------
   group('unit: §6.1c collapsible-wrapper detection (TSMA4–TSMA5)', () {
-    // Collapsible-wrapper detection lives in the `tom_specs_model_rules.md` §10.2 structural pass, so a
-    // D00SolutionBlueprint root must reach the candidate. The root references
-    // the wrapper; the wrapper carries exactly one subsection + bare content.
+    // Collapsible-wrapper detection lives in the `tom_specs_model_rules.md`
+    // §10.2 structural pass, so a D00SolutionBlueprint root must reach the
+    // candidate. The root references the wrapper; the wrapper carries exactly
+    // one subsection + bare content.
     List<String> collapsibleWarnings(Map<String, ModelClass> classes) =>
         validateStructuralInvariants(classes)
             .warnings
