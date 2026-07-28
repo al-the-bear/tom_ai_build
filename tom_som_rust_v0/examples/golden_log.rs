@@ -109,6 +109,28 @@ fn main() {
         out.push(format!("CS\t{}\t{}", p, esc(&doc.code_spec_or(p))));
     }
 
+    // Typed cross-check of the same two mappings through the facade's structural
+    // `code_spec` accessor (§9.2). Emits nothing: the values are already in the
+    // `CS` lines above, so a duplicate line would add no information — what this
+    // adds is the assertion that the typed accessor reads the same store the
+    // generic API does. A divergence aborts the generator.
+    let typed_code_spec = |node: &som::SomNode| {
+        let typed = node.code_spec();
+        let generic = doc.code_spec_or(node.path());
+        if typed != generic {
+            die(&format!(
+                "CODESPEC MISMATCH at {}: typed=\"{}\" generic=\"{}\"",
+                node.path(),
+                typed,
+                generic
+            ));
+        }
+    };
+
+    let typed_frs = sbp.introduction_and_scope().requirements().functional_requirements();
+    typed_code_spec(&typed_frs.node);
+    typed_code_spec(&typed_frs.requirements().at(0).node);
+
     // Typed: curated traversal that must agree with the generic reads.
     out.push("SECTION\ttyped".to_string());
 

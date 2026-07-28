@@ -81,6 +81,17 @@ class SomNode {
     doc_.setHeadline(path_, value);
   }
 
+  /* This section's CodeSpecs forward link (codespecs_mapping.md §9.2) as the
+   * comma-joined list of code locations, or "" when the section carries no
+   * mapping — sparse exactly like the stored headline. */
+  std::string codeSpec() const { return doc_.codeSpec(path_); }
+
+  /* Stores this section's CodeSpecs forward link (§9.2); an empty value clears
+   * it, returning the section to "no code mapping". */
+  void setCodeSpec(const std::string& value) {
+    doc_.setCodeSpec(path_, value);
+  }
+
  private:
   SpecDocument& doc_;  // borrowed; the document this node edits
   std::string path_;   // owned; the node's globally-unique section path

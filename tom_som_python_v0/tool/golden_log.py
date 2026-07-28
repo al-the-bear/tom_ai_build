@@ -119,6 +119,24 @@ def main() -> None:
     for p in sorted(doc.code_spec_paths):
         out.append("CS\t%s\t%s" % (p, esc(doc.code_spec(p) or "")))
 
+    # Typed cross-check of the same two mappings through the facade's structural
+    # codeSpec accessor (§9.2). Emits nothing: the values are already in the CS
+    # lines above, so a duplicate line would add no information — what this adds
+    # is the assertion that the typed accessor reads the same store the generic
+    # API does. A divergence aborts the generator.
+    def typed_code_spec(node) -> None:
+        typed = node.spec_code_spec or ""
+        generic = doc.code_spec(node.path) or ""
+        if typed != generic:
+            sys.stderr.write(
+                'CODESPEC MISMATCH at %s: typed="%s" generic="%s"\n'
+                % (node.path, typed, generic))
+            sys.exit(2)
+
+    typed_frs = sbp.introductionAndScope.requirements.functionalRequirements
+    typed_code_spec(typed_frs)
+    typed_code_spec(typed_frs.requirements[0])
+
     # Typed: curated traversal that must agree with the generic reads.
     out.append("SECTION\ttyped")
 

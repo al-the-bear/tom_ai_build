@@ -90,6 +90,20 @@ static void typed_content(SpecDocument *doc, SomStrList *out,
   free(value);
 }
 
+/* Asserts a node's typed codeSpec read equals the generic
+ * `spec_document_code_spec` read at the same path (§9.2). Emits nothing — the
+ * assertion is the point; the values themselves are already in the `CS` lines. */
+static void typed_code_spec(SpecDocument *doc, const SomNode *node) {
+  char *typed = som_node_code_spec(node);
+  const char *generic = spec_document_code_spec(doc, som_node_path(node));
+  if (generic == NULL) generic = "";
+  if (strcmp(typed, generic) != 0) {
+    die(fmt("CODESPEC MISMATCH at %s: typed=\"%s\" generic=\"%s\"",
+            som_node_path(node), typed, generic));
+  }
+  free(typed);
+}
+
 /* Boundary canonicalisation for typed non-String form fields (FORMAT 7): an
  * int renders as its decimal string, a bool as "true"/"false". Returns an owned
  * buffer the caller frees. The sample values are always present, matching the
@@ -374,6 +388,28 @@ int main(int argc, char **argv) {
       free(e);
     }
     som_strlist_free(&paths);
+  }
+
+  /* Typed cross-check of the same two mappings through the facade's structural
+   * som_node_code_spec accessor (§9.2). Emits nothing: the values are already in
+   * the CS lines above, so a duplicate line would add no information — what this
+   * adds is the assertion that the typed accessor reads the same store the
+   * generic API does. A divergence aborts the generator. */
+  {
+    IntroductionAndScope s_intro_cs = d00_solution_blueprint_introduction_and_scope(&sbp);
+    RequirementsOverview s_reqs_cs = introduction_and_scope_requirements(&s_intro_cs);
+    FunctionalRequirements s_frs = requirements_overview_functional_requirements(&s_reqs_cs);
+    SomList fr_list = functional_requirements_requirements(&s_frs);
+    FunctionalRequirementEntry fr_first;
+    functional_requirement_entry_init(&fr_first, typed_doc,
+                                      som_list_item_path_at(&fr_list, 0));
+    typed_code_spec(doc, &s_frs.node);
+    typed_code_spec(doc, &fr_first.node);
+    functional_requirement_entry_free(&fr_first);
+    som_list_free(&fr_list);
+    functional_requirements_free(&s_frs);
+    requirements_overview_free(&s_reqs_cs);
+    introduction_and_scope_free(&s_intro_cs);
   }
 
   /* Typed: curated traversal that must agree with the generic reads. */

@@ -17,6 +17,7 @@ import {
   SomMetaKindValue,
   SomMetaNode,
   SomMetaRef,
+  SomNode,
   SpecDocument,
 } from 'tom_som_typescript_runtime';
 import {
@@ -123,6 +124,25 @@ function main(): void {
   for (const p of Array.from(doc.codeSpecPaths).sort()) {
     out.push('CS\t' + p + '\t' + esc(doc.codeSpec(p) || ''));
   }
+
+  // Typed cross-check of the same two mappings through the facade's structural
+  // `$codeSpec` accessor (§9.2). Emits nothing: the values are already in the
+  // `CS` lines above, so a duplicate line would add no information — what this
+  // adds is the assertion that the typed accessor reads the same store the
+  // generic API does. A divergence aborts the generator.
+  const typedCodeSpec = (node: SomNode): void => {
+    const typed = node.$codeSpec || '';
+    const generic = doc.codeSpec(node.path) || '';
+    if (typed !== generic) {
+      process.stderr.write('CODESPEC MISMATCH at ' + node.path
+        + ': typed="' + typed + '" generic="' + generic + '"\n');
+      process.exit(2);
+    }
+  };
+
+  const typedFrs = sbp.introductionAndScope.requirements.functionalRequirements;
+  typedCodeSpec(typedFrs);
+  typedCodeSpec(typedFrs.requirements.at(0));
 
   out.push('SECTION\ttyped');
 

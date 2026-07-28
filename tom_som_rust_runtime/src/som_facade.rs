@@ -85,6 +85,20 @@ impl SomNode {
         self.doc.borrow_mut().set_headline(&self.path, value);
     }
 
+    /// Returns this section's CodeSpecs forward link (`codespecs_mapping.md`
+    /// §9.2) as the comma-joined list of code locations, or `""` when the
+    /// section carries no mapping. Sparse exactly like
+    /// [`SomNode::headline`].
+    pub fn code_spec(&self) -> String {
+        self.doc.borrow().code_spec_or(&self.path)
+    }
+
+    /// Stores this section's CodeSpecs forward link (§9.2). An empty value
+    /// clears it, returning the section to "no code mapping".
+    pub fn set_code_spec(&self, value: &str) {
+        self.doc.borrow_mut().set_code_spec(&self.path, value);
+    }
+
     /// Returns `true` iff this section holds no value at its path or nested
     /// beneath it — delegates to [`SpecDocument::has_values_under`] (SOM
     /// roadmap § item 5).

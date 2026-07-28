@@ -137,6 +137,24 @@ func main() {
 		out = append(out, "CS\t"+p+"\t"+esc(doc.CodeSpecOr(p)))
 	}
 
+	// Typed cross-check of the same two mappings through the facade's structural
+	// CodeSpec accessor (§9.2). Emits nothing: the values are already in the CS
+	// lines above, so a duplicate line would add no information — what this adds
+	// is the assertion that the typed accessor reads the same store the generic
+	// API does. A divergence aborts the generator.
+	typedCodeSpec := func(n som.SomNode) {
+		typed := n.CodeSpec()
+		generic := doc.CodeSpecOr(n.Path())
+		if typed != generic {
+			die("CODESPEC MISMATCH at " + n.Path() +
+				": typed=\"" + typed + "\" generic=\"" + generic + "\"")
+		}
+	}
+
+	typedFrs := sbp.IntroductionAndScope().Requirements().FunctionalRequirements()
+	typedCodeSpec(typedFrs.SomNode)
+	typedCodeSpec(typedFrs.Requirements().At(0).SomNode)
+
 	// Typed: curated traversal that must agree with the generic reads.
 	out = append(out, "SECTION\ttyped")
 

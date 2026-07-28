@@ -29,8 +29,10 @@ import tom_som_runtime.SomMetaRef;
 import tom_som_runtime.SomMetaTree;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SomList;
+import tom_som_runtime.SomNode;
 import tom_som_java_v0.TomSomV0.D00SolutionBlueprint;
 import tom_som_java_v0.TomSomV0.CurrentOperationalMetric;
+import tom_som_java_v0.TomSomV0.FunctionalRequirements;
 import tom_som_java_v0.TomSomV0.ActorOverviewOverviewForm;
 import tom_som_java_v0.TomSomV0.AccessibilityAccessibilityOverviewContentForm;
 import tom_som_java_v0.TomSomV0.Iso25010CoverageEntry;
@@ -121,6 +123,16 @@ public final class GoldenLog {
       String cs = doc.codeSpec(p);
       out.add("CS\t" + p + "\t" + esc(cs == null ? "" : cs));
     }
+
+    // Typed cross-check of the same two mappings through the facade's structural
+    // $codeSpec accessor (§9.2). Emits nothing: the values are already in the CS
+    // lines above, so a duplicate line would add no information — what this adds
+    // is the assertion that the typed accessor reads the same store the generic
+    // API does. A divergence aborts the generator.
+    FunctionalRequirements typedFrs =
+        sbp.introductionAndScope().requirements().functionalRequirements();
+    typedCodeSpec(doc, typedFrs);
+    typedCodeSpec(doc, typedFrs.requirements().get(0));
 
     // Typed: curated traversal that must agree with the generic reads.
     out.add("SECTION\ttyped");
@@ -392,5 +404,21 @@ public final class GoldenLog {
       die("TYPED MISMATCH at " + leaf);
     }
     out.add("T\t" + leaf + "\t" + esc(value));
+  }
+
+  /**
+   * Asserts a node's typed {@code $codeSpec} read equals the generic
+   * {@code doc.codeSpec(path)} read (§9.2). Emits nothing — the assertion is the
+   * point; the values themselves are already in the {@code CS} lines.
+   */
+  static void typedCodeSpec(SpecDocument doc, SomNode node) {
+    String typed = node.$codeSpec();
+    typed = typed == null ? "" : typed;
+    String generic = doc.codeSpec(node.path);
+    generic = generic == null ? "" : generic;
+    if (!typed.equals(generic)) {
+      die("CODESPEC MISMATCH at " + node.path
+          + ": typed=\"" + typed + "\" generic=\"" + generic + "\"");
+    }
   }
 }

@@ -71,6 +71,27 @@ public class SomNode {
   }
 
   /**
+   * This section's CodeSpecs forward link ({@code codespecs_mapping.md} §9.2) as
+   * the comma-joined list of code locations, or {@code null} when the section
+   * carries no mapping. Sparse exactly like {@link #$headline()}, and named
+   * {@code $codeSpec} for the same collision-proofing reason as
+   * {@link #$sectionId()}.
+   */
+  public String $codeSpec() {
+    return doc.codeSpec(path);
+  }
+
+  /**
+   * Sets this section's CodeSpecs forward link (§9.2). An empty value clears it,
+   * returning the section to "no code mapping". A {@code null} value is ignored.
+   */
+  public void $codeSpec(String value) {
+    if (value != null) {
+      doc.setCodeSpec(path, value);
+    }
+  }
+
+  /**
    * True iff this section holds no value at its {@link #path} or nested beneath
    * it (SOM § item 5) — delegates to {@link SpecDocument#hasValuesUnder}.
    * Inherited by every generated section facade.

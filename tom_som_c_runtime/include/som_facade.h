@@ -63,6 +63,13 @@ int som_node_set_section_id(const SomNode *n, const char *id,
 char *som_node_headline(const SomNode *n);
 /* Sets the stored headline; an empty value clears it (YRD3). */
 void som_node_set_headline(const SomNode *n, const char *value);
+/* Returns this section's CodeSpecs forward link (owned; "" when the section
+ * carries no mapping) — the comma-joined list of CodeSpecs code locations,
+ * sparse exactly like the stored headline (codespecs_mapping.md §9.2). */
+char *som_node_code_spec(const SomNode *n);
+/* Sets the stored CodeSpecs forward link; an empty value clears it, returning
+ * the section to "no code mapping" (§9.2). */
+void som_node_set_code_spec(const SomNode *n, const char *value);
 
 /* ---- SomScalar — a bare string list item -------------------------------- */
 

@@ -118,6 +118,25 @@ function main() {
     out.push('CS\t' + p + '\t' + esc(doc.codeSpec(p) || ''));
   }
 
+  // Typed cross-check of the same two mappings through the facade's structural
+  // `$codeSpec` accessor (§9.2). Emits nothing: the values are already in the
+  // `CS` lines above, so a duplicate line would add no information — what this
+  // adds is the assertion that the typed accessor reads the same store the
+  // generic API does. A divergence aborts the generator.
+  function typedCodeSpec(node) {
+    const typed = node.$codeSpec || '';
+    const generic = doc.codeSpec(node.path) || '';
+    if (typed !== generic) {
+      process.stderr.write('CODESPEC MISMATCH at ' + node.path
+        + ': typed="' + typed + '" generic="' + generic + '"\n');
+      process.exit(2);
+    }
+  }
+
+  const typedFrs = sbp.introductionAndScope.requirements.functionalRequirements;
+  typedCodeSpec(typedFrs);
+  typedCodeSpec(typedFrs.requirements.at(0));
+
   // Typed: curated traversal that must agree with the generic reads.
   out.push('SECTION\ttyped');
 
