@@ -56,10 +56,10 @@ mandatory and there is no BM25-only fallback. Two things must hold for that:
    `tom_binaries/sqlite_vec/<platform>/`, **and**
 2. the `libsqlite3` the **host process** resolves supports extension loading.
 
-Condition 2 is a property of the process, not of this package, and it is not
-universally true:
+Condition 2 is a property of the process, not of this package, and the
+platform default does not always satisfy it:
 
-| Host | Resolved SQLite | Vector runtime |
+| Host | Default SQLite | Extension loading |
 | --- | --- | --- |
 | Flutter desktop (the editor) | bundled via `sqlite3_flutter_libs` | **yes** |
 | bare `dart test` on Linux | distro `libsqlite3.so` | **yes** |
@@ -70,16 +70,30 @@ Apple's system SQLite is compiled with `SQLITE_OMIT_LOAD_EXTENSION`: it exports
 neither `sqlite3_load_extension` nor `sqlite3_enable_load_extension`, and
 `sqlite3_auto_extension` answers `SQLITE_MISUSE` (21). The `vec0` dylib itself
 is fine — it opens and its `sqlite3_vec_init` symbol resolves — but nothing can
-register it. So a bare `dart test` on macOS has **no** vector runtime, and that
-is expected rather than a defect. A distro `libsqlite3.so` does export the
-extension-loading API, so the same suites run for real on Linux; Windows
-depends on which DLL resolves, since `winsqlite3.dll` omits it too.
+register it. Windows is in the same position when `winsqlite3.dll` is what
+resolves, since it omits the API too.
 
-The four store-touching suites (`spec_memory`, `spec_rag_store`,
-`spec_recall_store`, `spec_brain_envelope`) therefore gate on
-`test/support/vector_runtime.dart`, which **probes the actual load** once per
-test isolate rather than inferring availability from the binary's presence.
-Where the runtime is missing those tests are reported as **skipped, with the
-reason**, so the precondition is stated rather than hidden behind a red suite.
-Run them on Linux, or from the Flutter editor host, to exercise the vector
-tier for real.
+**The tests do not depend on the default.** `test/support/vector_runtime.dart`
+looks for a `libsqlite3` that *does* support extension loading and points
+`package:sqlite3` at it through the public `open.overrideFor` seam before the
+first SQLite access. Search order:
+
+1. `$TOM_SQLITE3_LIB` — an explicit path, honoured on every platform.
+2. Homebrew's `sqlite` formula, on macOS: `/opt/homebrew/opt/sqlite/lib/…`
+   then `/usr/local/opt/sqlite/lib/…`.
+
+A candidate is accepted only if it opens **and** exports
+`sqlite3_enable_load_extension`; otherwise the platform default stands
+untouched. On a macOS box with `brew install sqlite` the four store-touching
+suites (`spec_memory`, `spec_rag_store`, `spec_recall_store`,
+`spec_brain_envelope`) therefore run the vector tier **for real** under a bare
+`dart test`. Without it they skip, as before.
+
+This is **test support only**. Production is deliberately untouched: the
+Flutter desktop host already bundles a working SQLite, and overriding there
+would trade correct behaviour for machine-dependent behaviour.
+
+The gate itself stays a **probe, not a proxy** — after any override,
+`VectorRuntime.probe()` still runs the real load once per test isolate and
+reports the outcome, so a host that still cannot register `vec0` yields
+**skipped tests with the reason stated** rather than a red suite.
