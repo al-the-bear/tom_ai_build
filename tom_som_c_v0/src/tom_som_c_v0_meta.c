@@ -520,6 +520,7 @@ static SomMetaNode **meta_children_file_upload_validation_policy(SomStrList *sta
 static SomMetaNode **meta_children_firewall_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_flexibility(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_flexibility_characteristic(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_form_screen_assignment_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_framework_requirement_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_full_distribution(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_function_data_matrix_entry(SomStrList *stack, size_t *len);
@@ -998,10 +999,13 @@ static SomMetaNode **meta_children_screen_field_entry(SomStrList *stack, size_t 
 static SomMetaNode **meta_children_screen_flow_structure(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_inventory(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_responsive_rule_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_screen_route_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_screen_route_map(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_section_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_sections(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_state_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_states(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_screen_transition_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_user_category_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_secondary_navigation(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_security(SomStrList *stack, size_t *len);
@@ -3484,6 +3488,7 @@ static void meta_build_flexibility_characteristic_flexibility_content(SomMetaNod
 static void meta_build_flexibility_characteristic_overview(SomMetaNode *n);
 static void meta_build_flexibility_characteristic_flexibility(SomMetaNode *n);
 static void meta_build_flexibility_characteristic_portability(SomMetaNode *n);
+static void meta_build_form_screen_assignment_entry_content(SomMetaNode *n);
 static void meta_build_framework_requirement_entry_content(SomMetaNode *n);
 static void meta_build_framework_requirement_entry_identity(SomMetaNode *n);
 static void meta_build_framework_requirement_entry_version(SomMetaNode *n);
@@ -5429,11 +5434,21 @@ static void meta_build_screen_field_entry_validation_rules_elem(SomMetaNode *n);
 static void meta_build_screen_flow_structure_content(SomMetaNode *n);
 static void meta_build_screen_flow_structure_navigation_model(SomMetaNode *n);
 static void meta_build_screen_flow_structure_screen_flow_diagram(SomMetaNode *n);
+static void meta_build_screen_flow_structure_screen_route_map(SomMetaNode *n);
 static void meta_build_screen_inventory_content(SomMetaNode *n);
 static void meta_build_screen_inventory_overview(SomMetaNode *n);
 static void meta_build_screen_inventory_items(SomMetaNode *n);
 static void meta_build_screen_inventory_items_elem(SomMetaNode *n);
 static void meta_build_screen_responsive_rule_entry_content(SomMetaNode *n);
+static void meta_build_screen_route_entry_content(SomMetaNode *n);
+static void meta_build_screen_route_map_content(SomMetaNode *n);
+static void meta_build_screen_route_map_overview(SomMetaNode *n);
+static void meta_build_screen_route_map_routes(SomMetaNode *n);
+static void meta_build_screen_route_map_routes_elem(SomMetaNode *n);
+static void meta_build_screen_route_map_form_placement(SomMetaNode *n);
+static void meta_build_screen_route_map_form_placement_elem(SomMetaNode *n);
+static void meta_build_screen_route_map_transitions(SomMetaNode *n);
+static void meta_build_screen_route_map_transitions_elem(SomMetaNode *n);
 static void meta_build_screen_section_entry_content(SomMetaNode *n);
 static void meta_build_screen_section_entry_layout(SomMetaNode *n);
 static void meta_build_screen_section_entry_behavior(SomMetaNode *n);
@@ -5446,6 +5461,7 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n);
 static void meta_build_screen_states_content(SomMetaNode *n);
 static void meta_build_screen_states_items(SomMetaNode *n);
 static void meta_build_screen_states_items_elem(SomMetaNode *n);
+static void meta_build_screen_transition_entry_content(SomMetaNode *n);
 static void meta_build_screen_user_category_entry_content(SomMetaNode *n);
 static void meta_build_secondary_navigation_content(SomMetaNode *n);
 static void meta_build_secondary_navigation_overview(SomMetaNode *n);
@@ -7644,6 +7660,11 @@ static void *meta_nav_factory_field_validation_rule(const SomMetaTree *tree, con
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_form_screen_assignment_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_form_screen_assignment_entry *r = (som_nav_form_screen_assignment_entry *)malloc(sizeof(som_nav_form_screen_assignment_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_framework_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_nav_framework_requirement_entry *r = (som_nav_framework_requirement_entry *)malloc(sizeof(som_nav_framework_requirement_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8649,6 +8670,11 @@ static void *meta_nav_factory_screen_responsive_rule_entry(const SomMetaTree *tr
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_screen_route_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_screen_route_entry *r = (som_nav_screen_route_entry *)malloc(sizeof(som_nav_screen_route_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_screen_section_entry(const SomMetaTree *tree, const char *path) {
   som_nav_screen_section_entry *r = (som_nav_screen_section_entry *)malloc(sizeof(som_nav_screen_section_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8656,6 +8682,11 @@ static void *meta_nav_factory_screen_section_entry(const SomMetaTree *tree, cons
 }
 static void *meta_nav_factory_screen_state_entry(const SomMetaTree *tree, const char *path) {
   som_nav_screen_state_entry *r = (som_nav_screen_state_entry *)malloc(sizeof(som_nav_screen_state_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_screen_transition_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_screen_transition_entry *r = (som_nav_screen_transition_entry *)malloc(sizeof(som_nav_screen_transition_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10094,6 +10125,11 @@ static void *meta_id_factory_field_validation_rule(const SomMetaTree *tree, cons
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_form_screen_assignment_entry(const SomMetaTree *tree, const char *path) {
+  som_id_form_screen_assignment_entry *r = (som_id_form_screen_assignment_entry *)malloc(sizeof(som_id_form_screen_assignment_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_framework_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_id_framework_requirement_entry *r = (som_id_framework_requirement_entry *)malloc(sizeof(som_id_framework_requirement_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11099,6 +11135,11 @@ static void *meta_id_factory_screen_responsive_rule_entry(const SomMetaTree *tre
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_screen_route_entry(const SomMetaTree *tree, const char *path) {
+  som_id_screen_route_entry *r = (som_id_screen_route_entry *)malloc(sizeof(som_id_screen_route_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_screen_section_entry(const SomMetaTree *tree, const char *path) {
   som_id_screen_section_entry *r = (som_id_screen_section_entry *)malloc(sizeof(som_id_screen_section_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11106,6 +11147,11 @@ static void *meta_id_factory_screen_section_entry(const SomMetaTree *tree, const
 }
 static void *meta_id_factory_screen_state_entry(const SomMetaTree *tree, const char *path) {
   som_id_screen_state_entry *r = (som_id_screen_state_entry *)malloc(sizeof(som_id_screen_state_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_screen_transition_entry(const SomMetaTree *tree, const char *path) {
+  som_id_screen_transition_entry *r = (som_id_screen_transition_entry *)malloc(sizeof(som_id_screen_transition_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -65610,6 +65656,39 @@ static void meta_build_flexibility_characteristic_portability(SomMetaNode *n) {
   meta_set(&n->doc_comment, "11.9.2. Portability.");
   meta_set(&n->class_doc_comment, "11.3.2. Portability quality.");
 }
+static void meta_build_form_screen_assignment_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "FormScreenAssignmentEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("formId");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Form ID");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("ID of the form shown on this route");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("routeId");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Route ID");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("Route ID (SCRTEN registry) that hosts the form");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("presentationMode");
+  n->form->fields[2].type_name = som_strdup("ScreenPresentationMode");
+  n->form->fields[2].description = som_strdup("Presentation Mode");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].enum_values_len = 2;
+  n->form->fields[2].enum_values = (char **)calloc(2, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("replace");
+  n->form->fields[2].enum_values[1] = som_strdup("popupOverlay");
+}
 static void meta_build_framework_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FrameworkRequirementEntry");
   meta_set(&n->member_name, "content");
@@ -116893,7 +116972,7 @@ static void meta_build_screen_action_entry_behavior(SomMetaNode *n) {
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Navigate To");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Target screen after action");
+  n->form->fields[3].hint = som_strdup("Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("successMessageResource");
   n->form->fields[4].type_name = som_strdup("String");
@@ -117969,7 +118048,7 @@ static void meta_build_screen_entry_classification(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Route Pattern");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Navigation route path, e.g., /orders/:id/edit");
+  n->form->fields[2].hint = som_strdup("Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map");
   n->form->fields[2].order = 2;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -118611,7 +118690,7 @@ static void meta_build_screen_flow_structure_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
-  meta_set(&n->content_help, "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n");
+  meta_set(&n->content_help, "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n");
 }
 static void meta_build_screen_flow_structure_navigation_model(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationModel");
@@ -118635,6 +118714,17 @@ static void meta_build_screen_flow_structure_screen_flow_diagram(SomMetaNode *n)
   n->content_type->type = som_strdup("mermaid-flow");
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "10.3.2. Screen Flow Diagram (mermaid-flow).");
+}
+static void meta_build_screen_flow_structure_screen_route_map(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenRouteMap");
+  meta_set(&n->member_name, "screenRouteMap");
+  meta_set(&n->class_section_id, "SCRTMP");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ScreenRouteMap");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "10.3.3. Screen Route Map.");
+  meta_set(&n->class_doc_comment, "10.3.3. Screen Route Map.\n\nThe screen map: which routes the application has, which form each route\nshows, and which screen an action leads to once it has finished. It is the\nresult of combining the interaction scenarios into screens — the scenarios\nsay what a user does, this section says where each step lands.\n\nWhere the navigation model (10.3.1) describes the *menus and structures* a\nuser browses with, the route map describes the *addressable targets* those\nstructures and the screens' own actions point at, so every navigation\ntarget in the specification resolves to a declared route.");
 }
 static void meta_build_screen_inventory_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenInventory");
@@ -118726,6 +118816,143 @@ static void meta_build_screen_responsive_rule_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Sidebar/Bottom-Nav/Drawer/Hamburger");
   n->form->fields[4].order = 4;
+}
+static void meta_build_screen_route_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenRouteEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("routeId");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Route ID");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Stable identifier referenced by every navigation target, e.g., order-edit");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("routePath");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Route Path");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("routeTitle");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Route Title");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Human-readable screen title shown in the title bar and history");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("screenId");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Screen ID");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("ID of the screen (SCREN registry) this route renders");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("routeParameters");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Route Parameters");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Comma-separated parameter names carried by the route, e.g., orderId,mode");
+  n->form->fields[4].order = 4;
+}
+static void meta_build_screen_route_map_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenRouteMap");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n");
+}
+static void meta_build_screen_route_map_overview(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenRouteMap");
+  meta_set(&n->member_name, "overview");
+  n->kind = SOM_META_KIND_SECTION;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "Overview of the route map and its conventions.");
+}
+static void meta_build_screen_route_map_routes(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenRouteMap");
+  meta_set(&n->member_name, "routes");
+  meta_set(&n->section_id, "SCRTEN-ROUT-LST");
+  meta_set(&n->section_id_pattern, "SCRTEN-ROUT-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ScreenRouteEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->content_help, "Add one entry per addressable route.");
+  meta_set(&n->doc_comment, "Contains 0+× ScreenRouteEntry.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-151:2008 — addressable content units and the conceptual structure of the application\"],\"connotation\":\"The registry of addressable application routes, each identified by a stable route ID.\"}", NULL);
+}
+static void meta_build_screen_route_map_routes_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenRouteEntry");
+  meta_set(&n->class_section_id, "SCRTEN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ScreenRouteEntry");
+  meta_set(&n->doc_comment, "A route entry (form).");
+  meta_set(&n->class_doc_comment, "A route entry (form).");
+}
+static void meta_build_screen_route_map_form_placement(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenRouteMap");
+  meta_set(&n->member_name, "formPlacement");
+  meta_set(&n->section_id, "FMSCAS-FORM-LST");
+  meta_set(&n->section_id_pattern, "FMSCAS-FORM-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "FormScreenAssignmentEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per form placed on a route.");
+  meta_set(&n->doc_comment, "Contains 0+× FormScreenAssignmentEntry.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — the presentation of forms and the context in which they are shown\"],\"connotation\":\"The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it.\"}", NULL);
+}
+static void meta_build_screen_route_map_form_placement_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "FormScreenAssignmentEntry");
+  meta_set(&n->class_section_id, "FMSCAS");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "FormScreenAssignmentEntry");
+  meta_set(&n->doc_comment, "A form-to-route assignment entry (form).");
+  meta_set(&n->class_doc_comment, "A form-to-route assignment entry (form).");
+}
+static void meta_build_screen_route_map_transitions(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenRouteMap");
+  meta_set(&n->member_name, "transitions");
+  meta_set(&n->section_id, "SCTREN-TRAN-LST");
+  meta_set(&n->section_id_pattern, "SCTREN-TRAN-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ScreenTransitionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->content_help, "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome.");
+  meta_set(&n->doc_comment, "Contains 0+× ScreenTransitionEntry.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads\",\"ISO 9241-143:2012 — navigation between forms as a task progresses\"],\"connotation\":\"The action-triggered transitions between routes, with a separate target per outcome.\"}", NULL);
+}
+static void meta_build_screen_route_map_transitions_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenTransitionEntry");
+  meta_set(&n->class_section_id, "SCTREN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ScreenTransitionEntry");
+  meta_set(&n->doc_comment, "A screen-transition entry (form).");
+  meta_set(&n->class_doc_comment, "A screen-transition entry (form).");
 }
 static void meta_build_screen_section_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenSectionEntry");
@@ -118992,6 +119219,62 @@ static void meta_build_screen_states_items_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "ScreenStateEntry");
   meta_set(&n->doc_comment, "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.");
   meta_set(&n->class_doc_comment, "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.");
+}
+static void meta_build_screen_transition_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenTransitionEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("sourceRouteId");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Source Route ID");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Route ID (SCRTEN registry) the user is on when the action runs");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("actionId");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Action ID");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("ID of the triggering action (SCRAC registry) or of the screen element that raises it");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("outcome");
+  n->form->fields[2].type_name = som_strdup("ScreenFlowOutcome");
+  n->form->fields[2].description = som_strdup("Outcome");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("success — the action completed; error — processing failed; validationError — the input was rejected");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].enum_values_len = 3;
+  n->form->fields[2].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("success");
+  n->form->fields[2].enum_values[1] = som_strdup("error");
+  n->form->fields[2].enum_values[2] = som_strdup("validationError");
+  n->form->fields[3].name = som_strdup("targetRouteId");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Target Route ID");
+  n->form->fields[3].required = 1;
+  n->form->fields[3].hint = som_strdup("Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("presentationMode");
+  n->form->fields[4].type_name = som_strdup("ScreenPresentationMode");
+  n->form->fields[4].description = som_strdup("Presentation Mode");
+  n->form->fields[4].required = 1;
+  n->form->fields[4].hint = som_strdup("replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath");
+  n->form->fields[4].order = 4;
+  n->form->fields[4].enum_values_len = 2;
+  n->form->fields[4].enum_values = (char **)calloc(2, sizeof(char *));
+  n->form->fields[4].enum_values[0] = som_strdup("replace");
+  n->form->fields[4].enum_values[1] = som_strdup("popupOverlay");
+  n->form->fields[5].name = som_strdup("outcomeReference");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Outcome Reference");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success");
+  n->form->fields[5].order = 5;
 }
 static void meta_build_screen_user_category_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenUserCategoryEntry");
@@ -165058,6 +165341,19 @@ static SomMetaNode **meta_children_flexibility_characteristic(SomStrList *stack,
   return arr;
 }
 
+static SomMetaNode **meta_children_form_screen_assignment_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_form_screen_assignment_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_framework_requirement_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -176685,6 +176981,7 @@ static SomMetaNode **meta_children_screen_flow_structure(SomStrList *stack, size
     meta_build_screen_flow_structure_screen_flow_diagram(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("ScreenRouteMap", stack, meta_children_screen_route_map, meta_build_screen_flow_structure_screen_route_map));
   return arr;
 }
 
@@ -176720,6 +177017,54 @@ static SomMetaNode **meta_children_screen_responsive_rule_entry(SomStrList *stac
     SomMetaNode *n = som_meta_node_new();
     meta_build_screen_responsive_rule_entry_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_screen_route_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_route_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_screen_route_map(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_route_map_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_route_map_overview(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_screen_route_map_routes(ln);
+    ln->element_node = meta_cx("ScreenRouteEntry", stack, meta_children_screen_route_entry, meta_build_screen_route_map_routes_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_screen_route_map_form_placement(ln);
+    ln->element_node = meta_cx("FormScreenAssignmentEntry", stack, meta_children_form_screen_assignment_entry, meta_build_screen_route_map_form_placement_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_screen_route_map_transitions(ln);
+    ln->element_node = meta_cx("ScreenTransitionEntry", stack, meta_children_screen_transition_entry, meta_build_screen_route_map_transitions_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -176797,6 +177142,19 @@ static SomMetaNode **meta_children_screen_states(SomStrList *stack, size_t *len)
     meta_build_screen_states_items(ln);
     ln->element_node = meta_cx("ScreenStateEntry", stack, meta_children_screen_state_entry, meta_build_screen_states_items_elem);
     meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_screen_transition_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_transition_entry_content(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -198814,6 +199172,13 @@ som_nav_portability flexibility_characteristic_nav_portability(som_nav_flexibili
   free(path);
   return out;
 }
+SomMetaRef form_screen_assignment_entry_nav_content(som_nav_form_screen_assignment_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef framework_requirement_entry_nav_content(som_nav_framework_requirement_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -211029,6 +211394,13 @@ SomMetaRef screen_flow_structure_nav_screen_flow_diagram(som_nav_screen_flow_str
   free(path);
   return out;
 }
+som_nav_screen_route_map screen_flow_structure_nav_screen_route_map(som_nav_screen_flow_structure x) {
+  som_nav_screen_route_map out;
+  char *path = spec_path_join(x.ref.path, "screenRouteMap");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef screen_inventory_nav_content(som_nav_screen_inventory x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -211054,6 +211426,48 @@ SomMetaRef screen_responsive_rule_entry_nav_content(som_nav_screen_responsive_ru
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_route_entry_nav_content(som_nav_screen_route_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_route_map_nav_content(som_nav_screen_route_map x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_route_map_nav_overview(som_nav_screen_route_map x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "overview");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef screen_route_map_nav_routes(som_nav_screen_route_map x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCRTEN-ROUT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_screen_route_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef screen_route_map_nav_form_placement(som_nav_screen_route_map x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "FMSCAS-FORM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_form_screen_assignment_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef screen_route_map_nav_transitions(som_nav_screen_route_map x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCTREN-TRAN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_screen_transition_entry);
   free(path);
   return out;
 }
@@ -211117,6 +211531,13 @@ SomListMetaRef screen_states_nav_items(som_nav_screen_states x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCRST-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_screen_state_entry);
+  free(path);
+  return out;
+}
+SomMetaRef screen_transition_entry_nav_content(som_nav_screen_transition_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -228201,6 +228622,27 @@ SomListMetaRef d00_solution_blueprint_id_navgrd_guar_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_scrten_rout_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_screen_route_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_fmscas_form_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_form_screen_assignment_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_sctren_tran_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_screen_transition_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d00_solution_blueprint_id_erhaco_erro(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO");
@@ -236272,6 +236714,27 @@ SomListMetaRef d09_experience_design_specification_id_navgrd_guar_lst(som_id_d09
   free(path);
   return out;
 }
+SomListMetaRef d09_experience_design_specification_id_scrten_rout_lst(som_id_d09_experience_design_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "screenFlow/screenRouteMap/SCRTEN-ROUT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_screen_route_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d09_experience_design_specification_id_fmscas_form_lst(som_id_d09_experience_design_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "screenFlow/screenRouteMap/FMSCAS-FORM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_form_screen_assignment_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d09_experience_design_specification_id_sctren_tran_lst(som_id_d09_experience_design_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "screenFlow/screenRouteMap/SCTREN-TRAN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_screen_transition_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d09_experience_design_specification_id_plps(som_id_d09_experience_design_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "printLayout/PLPS");
@@ -243171,6 +243634,27 @@ SomListMetaRef d13_code_specs_projection_id_navgrd_guar_lst(som_id_d13_code_spec
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_navigation_guard_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_scrten_rout_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_screen_route_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_fmscas_form_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_form_screen_assignment_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_sctren_tran_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_screen_transition_entry);
   free(path);
   return out;
 }

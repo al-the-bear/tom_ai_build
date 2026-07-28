@@ -41248,6 +41248,37 @@ public final class TomSomV0Meta {
     }
   }
 
+  // FormScreenAssignmentEntryNav holds the dot-notation accessors of `FormScreenAssignmentEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class FormScreenAssignmentEntryNav extends SomMetaRef {
+    public FormScreenAssignmentEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `FormScreenAssignmentEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("FormScreenAssignmentEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("formId", "String", "Form ID", true, "ID of the form shown on this route", 0),
+            new SomFormFieldMeta("routeId", "String", "Route ID", true, "Route ID (SCRTEN registry) that hosts the form", 1),
+            new SomFormFieldMeta("presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath", 2, java.util.List.of("replace", "popupOverlay"))));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // FrameworkRequirementEntryNav holds the dot-notation accessors of `FrameworkRequirementEntry` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -78115,7 +78146,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required", false, "Yes/No", 0),
             new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message", false, "Message key (MSGKR registry) for confirmation dialog", 1),
             new SomFormFieldMeta("keyboardShortcut", "String", "Keyboard Shortcut", false, "Shortcut binding, e.g., Ctrl+N", 2),
-            new SomFormFieldMeta("navigateTo", "String", "Navigate To", false, "Target screen after action", 3),
+            new SomFormFieldMeta("navigateTo", "String", "Navigate To", false, "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead", 3),
             new SomFormFieldMeta("successMessageResource", "String", "Success Message", false, "Message key (MSGKR registry) for success notification", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — controllability and use error tolerance for action execution", "ISO 9241-161:2016 — command and action user-interface elements"), "connotation", "The confirmation, navigation, and feedback behavior that governs how a screen action executes.")));
         out.add(n);
@@ -78772,7 +78803,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("screenCategory", "String", "Screen Category", false, "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", 0),
             new SomFormFieldMeta("parentScreenId", "String", "Parent Screen ID", false, "Parent screen if this is a sub-screen or drill-down", 1),
-            new SomFormFieldMeta("routePattern", "String", "Route Pattern", false, "Navigation route path, e.g., /orders/:id/edit", 2)));
+            new SomFormFieldMeta("routePattern", "String", "Route Pattern", false, "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation structure and routing within the user interface", "ISO 9241-112:2017 — categorisation of information for structured presentation"), "connotation", "The classification and routing metadata that categorises a screen and locates it in the navigation structure.")));
         out.add(n);
       }
@@ -79181,7 +79212,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
-        n.contentHelp = "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n";
+        n.contentHelp = "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n";
         out.add(n);
       }
       out.add(metaCx("NavigationModel", s, NavigationModelNav::metaChildren, (r, c) -> {
@@ -79203,6 +79234,17 @@ public final class TomSomV0Meta {
         n.docComment = "10.3.2. Screen Flow Diagram (mermaid-flow).";
         out.add(n);
       }
+      out.add(metaCx("ScreenRouteMap", s, ScreenRouteMapNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ScreenRouteMap", SomMetaKind.COMPLEX, "ScreenRouteMap");
+        n.memberName = "screenRouteMap";
+        n.classSectionId = "SCRTMP";
+        n.serializationOrder = 3;
+        n.docComment = "10.3.3. Screen Route Map.";
+        n.classDocComment = "10.3.3. Screen Route Map.\n\nThe screen map: which routes the application has, which form each route\nshows, and which screen an action leads to once it has finished. It is the\nresult of combining the interaction scenarios into screens — the scenarios\nsay what a user does, this section says where each step lands.\n\nWhere the navigation model (10.3.1) describes the *menus and structures* a\nuser browses with, the route map describes the *addressable targets* those\nstructures and the screens' own actions point at, so every navigation\ntarget in the specification resolves to a declared route.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -79216,6 +79258,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef screenFlowDiagram() {
       return new SomMetaRef(tree, path + "/screenFlowDiagram");
+    }
+
+    public ScreenRouteMapNav screenRouteMap() {
+      return new ScreenRouteMapNav(tree, path + "/screenRouteMap");
     }
   }
 
@@ -79315,6 +79361,152 @@ public final class TomSomV0Meta {
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
+  // ScreenRouteEntryNav holds the dot-notation accessors of `ScreenRouteEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ScreenRouteEntryNav extends SomMetaRef {
+    public ScreenRouteEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ScreenRouteEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ScreenRouteEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("routeId", "String", "Route ID", true, "Stable identifier referenced by every navigation target, e.g., order-edit", 0),
+            new SomFormFieldMeta("routePath", "String", "Route Path", false, "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", 1),
+            new SomFormFieldMeta("routeTitle", "String", "Route Title", false, "Human-readable screen title shown in the title bar and history", 2),
+            new SomFormFieldMeta("screenId", "String", "Screen ID", false, "ID of the screen (SCREN registry) this route renders", 3),
+            new SomFormFieldMeta("routeParameters", "String", "Route Parameters", false, "Comma-separated parameter names carried by the route, e.g., orderId,mode", 4)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
+  // ScreenRouteMapNav holds the dot-notation accessors of `ScreenRouteMap` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ScreenRouteMapNav extends SomMetaRef {
+    public ScreenRouteMapNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ScreenRouteMap` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ScreenRouteMap", SomMetaKind.CONTENT, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n";
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenRouteMap", SomMetaKind.SECTION, "String");
+        n.memberName = "overview";
+        n.serializationOrder = 1;
+        n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "Overview of the route map and its conventions.";
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenRouteMap", SomMetaKind.LIST, "ScreenRouteEntry");
+        n.memberName = "routes";
+        n.sectionId = "SCRTEN-ROUT-LST";
+        n.sectionIdPattern = "SCRTEN-ROUT-xxx";
+        n.serializationOrder = 2;
+        n.contentHelp = "Add one entry per addressable route.";
+        n.docComment = "Contains 0+× ScreenRouteEntry.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — addressable content units and the conceptual structure of the application"), "connotation", "The registry of addressable application routes, each identified by a stable route ID.")));
+        n.elementNode = metaCx("ScreenRouteEntry", s, ScreenRouteEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ScreenRouteEntry", SomMetaKind.COMPLEX, "ScreenRouteEntry");
+          e.classSectionId = "SCRTEN";
+          e.docComment = "A route entry (form).";
+          e.classDocComment = "A route entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenRouteMap", SomMetaKind.LIST, "FormScreenAssignmentEntry");
+        n.memberName = "formPlacement";
+        n.sectionId = "FMSCAS-FORM-LST";
+        n.sectionIdPattern = "FMSCAS-FORM-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per form placed on a route.";
+        n.docComment = "Contains 0+× FormScreenAssignmentEntry.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — the presentation of forms and the context in which they are shown"), "connotation", "The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it.")));
+        n.elementNode = metaCx("FormScreenAssignmentEntry", s, FormScreenAssignmentEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("FormScreenAssignmentEntry", SomMetaKind.COMPLEX, "FormScreenAssignmentEntry");
+          e.classSectionId = "FMSCAS";
+          e.docComment = "A form-to-route assignment entry (form).";
+          e.classDocComment = "A form-to-route assignment entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScreenRouteMap", SomMetaKind.LIST, "ScreenTransitionEntry");
+        n.memberName = "transitions";
+        n.sectionId = "SCTREN-TRAN-LST";
+        n.sectionIdPattern = "SCTREN-TRAN-xxx";
+        n.serializationOrder = 4;
+        n.contentHelp = "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome.";
+        n.docComment = "Contains 0+× ScreenTransitionEntry.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads", "ISO 9241-143:2012 — navigation between forms as a task progresses"), "connotation", "The action-triggered transitions between routes, with a separate target per outcome.")));
+        n.elementNode = metaCx("ScreenTransitionEntry", s, ScreenTransitionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ScreenTransitionEntry", SomMetaKind.COMPLEX, "ScreenTransitionEntry");
+          e.classSectionId = "SCTREN";
+          e.docComment = "A screen-transition entry (form).";
+          e.classDocComment = "A screen-transition entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomMetaRef overview() {
+      return new SomMetaRef(tree, path + "/overview");
+    }
+
+    public SomListMetaRef<ScreenRouteEntryNav> routes() {
+      return new SomListMetaRef<>(tree, path + "/SCRTEN-ROUT-LST", (t, p) -> new ScreenRouteEntryNav(t, p));
+    }
+
+    public SomListMetaRef<FormScreenAssignmentEntryNav> formPlacement() {
+      return new SomListMetaRef<>(tree, path + "/FMSCAS-FORM-LST", (t, p) -> new FormScreenAssignmentEntryNav(t, p));
+    }
+
+    public SomListMetaRef<ScreenTransitionEntryNav> transitions() {
+      return new SomListMetaRef<>(tree, path + "/SCTREN-TRAN-LST", (t, p) -> new ScreenTransitionEntryNav(t, p));
     }
   }
 
@@ -79548,6 +79740,40 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<ScreenStateEntryNav> items() {
       return new SomListMetaRef<>(tree, path + "/SCRST-ITEM-LST", (t, p) -> new ScreenStateEntryNav(t, p));
+    }
+  }
+
+  // ScreenTransitionEntryNav holds the dot-notation accessors of `ScreenTransitionEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ScreenTransitionEntryNav extends SomMetaRef {
+    public ScreenTransitionEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ScreenTransitionEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ScreenTransitionEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("sourceRouteId", "String", "Source Route ID", true, "Route ID (SCRTEN registry) the user is on when the action runs", 0),
+            new SomFormFieldMeta("actionId", "String", "Action ID", true, "ID of the triggering action (SCRAC registry) or of the screen element that raises it", 1),
+            new SomFormFieldMeta("outcome", "ScreenFlowOutcome", "Outcome", true, "success — the action completed; error — processing failed; validationError — the input was rejected", 2, java.util.List.of("success", "error", "validationError")),
+            new SomFormFieldMeta("targetRouteId", "String", "Target Route ID", true, "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", 3),
+            new SomFormFieldMeta("presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath", 4, java.util.List.of("replace", "popupOverlay")),
+            new SomFormFieldMeta("outcomeReference", "String", "Outcome Reference", false, "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success", 5)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
     }
   }
 
@@ -110420,6 +110646,18 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", (t, p) -> new NavigationGuardEntryId(t, p));
     }
 
+    public SomListMetaRef<ScreenRouteEntryId> SCRTEN_ROUT_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST", (t, p) -> new ScreenRouteEntryId(t, p));
+    }
+
+    public SomListMetaRef<FormScreenAssignmentEntryId> FMSCAS_FORM_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST", (t, p) -> new FormScreenAssignmentEntryId(t, p));
+    }
+
+    public SomListMetaRef<ScreenTransitionEntryId> SCTREN_TRAN_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST", (t, p) -> new ScreenTransitionEntryId(t, p));
+    }
+
     public SomMetaRef ERHACO_ERRO() {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO");
     }
@@ -115122,6 +115360,18 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", (t, p) -> new NavigationGuardEntryId(t, p));
     }
 
+    public SomListMetaRef<ScreenRouteEntryId> SCRTEN_ROUT_LST() {
+      return new SomListMetaRef<>(tree, path + "/screenFlow/screenRouteMap/SCRTEN-ROUT-LST", (t, p) -> new ScreenRouteEntryId(t, p));
+    }
+
+    public SomListMetaRef<FormScreenAssignmentEntryId> FMSCAS_FORM_LST() {
+      return new SomListMetaRef<>(tree, path + "/screenFlow/screenRouteMap/FMSCAS-FORM-LST", (t, p) -> new FormScreenAssignmentEntryId(t, p));
+    }
+
+    public SomListMetaRef<ScreenTransitionEntryId> SCTREN_TRAN_LST() {
+      return new SomListMetaRef<>(tree, path + "/screenFlow/screenRouteMap/SCTREN-TRAN-LST", (t, p) -> new ScreenTransitionEntryId(t, p));
+    }
+
     public SomMetaRef PLPS() {
       return new SomMetaRef(tree, path + "/printLayout/PLPS");
     }
@@ -119106,6 +119356,18 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST", (t, p) -> new NavigationGuardEntryId(t, p));
     }
 
+    public SomListMetaRef<ScreenRouteEntryId> SCRTEN_ROUT_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST", (t, p) -> new ScreenRouteEntryId(t, p));
+    }
+
+    public SomListMetaRef<FormScreenAssignmentEntryId> FMSCAS_FORM_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST", (t, p) -> new FormScreenAssignmentEntryId(t, p));
+    }
+
+    public SomListMetaRef<ScreenTransitionEntryId> SCTREN_TRAN_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST", (t, p) -> new ScreenTransitionEntryId(t, p));
+    }
+
     public SomMetaRef ERHACO_ERRO() {
       return new SomMetaRef(tree, path + "/experienceCodeSpecs/errorHandling/ERHACO-ERRO");
     }
@@ -121121,6 +121383,16 @@ public final class TomSomV0Meta {
   // surface.
   public static final class FieldValidationRuleId extends SomMetaRef {
     public FieldValidationRuleId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
+  // FormScreenAssignmentEntryId holds the ID-tree accessors of `FormScreenAssignmentEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class FormScreenAssignmentEntryId extends SomMetaRef {
+    public FormScreenAssignmentEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
   }
@@ -124951,6 +125223,16 @@ public final class TomSomV0Meta {
     }
   }
 
+  // ScreenRouteEntryId holds the ID-tree accessors of `ScreenRouteEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class ScreenRouteEntryId extends SomMetaRef {
+    public ScreenRouteEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
   // ScreenSectionEntryId holds the ID-tree accessors of `ScreenSectionEntry` (SOM §8): methods
   // named by section id (`-` → `_`), hoisted through id-less members so every
   // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
@@ -124979,6 +125261,16 @@ public final class TomSomV0Meta {
   // surface.
   public static final class ScreenStateEntryId extends SomMetaRef {
     public ScreenStateEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
+  // ScreenTransitionEntryId holds the ID-tree accessors of `ScreenTransitionEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class ScreenTransitionEntryId extends SomMetaRef {
+    public ScreenTransitionEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
   }

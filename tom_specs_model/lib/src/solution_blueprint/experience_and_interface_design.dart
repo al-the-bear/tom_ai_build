@@ -123,6 +123,35 @@ enum ReportFilterValueKind {
   entityRef,
 }
 
+/// The closed set of screen presentation modes (CE-NV).
+///
+/// How a target screen is put in front of the user when it is reached: either
+/// it *replaces* the current screen in the navigation stack, or it is shown as
+/// a *popup overlay* on top of the screen the user came from, which therefore
+/// stays alive underneath and is revealed again when the overlay closes.
+///
+/// `popupOverlay` is the specification-side name for the code-side
+/// `TomScreenPresentation.popup`; the longer name states that the overlay
+/// nature — not merely the popup chrome — is what the mode selects.
+enum ScreenPresentationMode {
+  replace,
+  popupOverlay,
+}
+
+/// The closed set of screen-flow outcomes (CE-NV).
+///
+/// The condition under which a transition out of a screen is taken. A single
+/// action may lead to different screens depending on how it ended, so the
+/// outcome is part of the transition's identity rather than a property of the
+/// action: `success` is the completed path, `error` the processing-failure path
+/// (CE-ER), and `validationError` the input-rejected path (CE-VA), which
+/// typically keeps the user on the source screen.
+enum ScreenFlowOutcome {
+  success,
+  error,
+  validationError,
+}
+
 /// 10. Experience & Interface Design. Seeds → XDS.
 @StandardReferences(
   [
@@ -1324,7 +1353,8 @@ class ScreenEntry extends DocSpecsSection {
       'routePattern',
       String,
       'Route Pattern',
-      hint: 'Navigation route path, e.g., /orders/:id/edit',
+      hint: 'Route ID (SCRTEN registry) this screen is reached by — the path '
+          'itself is declared once in the screen route map',
     ),
   ])
   @SerializationOrder(1)
@@ -2692,7 +2722,9 @@ class ScreenActionEntry extends DocSpecsSection {
       'navigateTo',
       String,
       'Navigate To',
-      hint: 'Target screen after action',
+      hint: 'Route ID (SCRTEN registry) reached after the action succeeds — '
+          'when the target depends on the outcome, declare the edges in the '
+          'screen route map instead',
     ),
     Field(
       'successMessageResource',
@@ -3052,6 +3084,7 @@ Navigation model and screen flow diagrams.
 ### Subsections
 - **10.3.1 Navigation Model** — Comprehensive navigation structure
 - **10.3.2 Screen Flow Diagram** — Mermaid flowchart
+- **10.3.3 Screen Route Map** — Routes, form placement, and transitions
 
 ### Tom UI Integration
 Screen flow drives:
@@ -3071,6 +3104,271 @@ Screen flow drives:
   /// 10.3.2. Screen Flow Diagram (mermaid-flow).
   @SerializationOrder(2)
   FlowDiagramSection screenFlowDiagram = FlowDiagramSection();
+
+  /// 10.3.3. Screen Route Map.
+  @SerializationOrder(3)
+  ScreenRouteMap screenRouteMap = ScreenRouteMap();
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.3 Screen Route Map
+// ---------------------------------------------------------------------------
+
+/// 10.3.3. Screen Route Map.
+///
+/// The screen map: which routes the application has, which form each route
+/// shows, and which screen an action leads to once it has finished. It is the
+/// result of combining the interaction scenarios into screens — the scenarios
+/// say what a user does, this section says where each step lands.
+///
+/// Where the navigation model (10.3.1) describes the *menus and structures* a
+/// user browses with, the route map describes the *addressable targets* those
+/// structures and the screens' own actions point at, so every navigation
+/// target in the specification resolves to a declared route.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — the conceptual structure of a web application and the addressability of its content',
+    'ISO 9241-110:2020 — conformity with user expectations keeps transitions between screens predictable',
+    'ISO 9241-143:2012 — form transitions and the navigation between forms in a task',
+  ],
+  'The registry of application routes, the placement of forms on them, and the action-triggered transitions between them.',
+)
+@SectionId('SCRTMP')
+class ScreenRouteMap extends DocSpecsSection {
+  @ContentHelp('''
+## Screen Route Map (10.3.3)
+
+The addressable screens of the application and the movement between them.
+
+### Subsections
+- **Routes** — One entry per addressable screen, each with a stable route ID
+- **Form Placement** — Which form is shown on which route, and how
+- **Transitions** — Which screen an action leads to, per outcome
+
+### Why route IDs
+Routes are referenced by ID, not by path. A path is presentation (and changes);
+the ID is the stable handle that form placement, transitions, navigation
+targets, and deep links all point at. Every navigation target elsewhere in the
+specification must name a route ID declared here.
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// Overview of the route map and its conventions.
+  @SerializationOrder(1)
+  TextSection overview = TextSection();
+
+  /// Contains 0+× ScreenRouteEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-151:2008 — addressable content units and the conceptual structure of the application',
+    ],
+    'The registry of addressable application routes, each identified by a stable route ID.',
+  )
+  @SectionId('SCRTEN-ROUT-LST')
+  @SectionIdPattern('SCRTEN-ROUT-xxx')
+  @ContentHelp('Add one entry per addressable route.')
+  @SerializationOrder(2)
+  List<ScreenRouteEntry> routes = [];
+
+  /// Contains 0+× FormScreenAssignmentEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — the presentation of forms and the context in which they are shown',
+    ],
+    'The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it.',
+  )
+  @SectionId('FMSCAS-FORM-LST')
+  @SectionIdPattern('FMSCAS-FORM-xxx')
+  @ContentHelp('Add one entry per form placed on a route.')
+  @SerializationOrder(3)
+  List<FormScreenAssignmentEntry> formPlacement = [];
+
+  /// Contains 0+× ScreenTransitionEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads',
+      'ISO 9241-143:2012 — navigation between forms as a task progresses',
+    ],
+    'The action-triggered transitions between routes, with a separate target per outcome.',
+  )
+  @SectionId('SCTREN-TRAN-LST')
+  @SectionIdPattern('SCTREN-TRAN-xxx')
+  @ContentHelp(
+    'Add one entry per (source route, action, outcome) — an action with '
+    'different targets for success and failure needs one entry per outcome.',
+  )
+  @SerializationOrder(4)
+  List<ScreenTransitionEntry> transitions = [];
+}
+
+/// A route entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — addressable content units identified independently of their presentation',
+  ],
+  'A single addressable route: its stable identifier, its path, its title, and the screen it renders.',
+)
+@SectionId('SCRTEN')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note: 'CE-NV — a route definition: the stable target of every navigation.',
+)
+class ScreenRouteEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'routeId',
+      String,
+      'Route ID',
+      required: true,
+      hint: 'Stable identifier referenced by every navigation target, '
+          'e.g., order-edit',
+    ),
+    Field(
+      'routePath',
+      String,
+      'Route Path',
+      hint: 'URL path pattern, e.g., /orders/:id/edit — presentation only, '
+          'never used as a reference',
+    ),
+    Field(
+      'routeTitle',
+      String,
+      'Route Title',
+      hint: 'Human-readable screen title shown in the title bar and history',
+    ),
+    Field(
+      'screenId',
+      String,
+      'Screen ID',
+      hint: 'ID of the screen (SCREN registry) this route renders',
+    ),
+    Field(
+      'routeParameters',
+      String,
+      'Route Parameters',
+      hint: 'Comma-separated parameter names carried by the route, '
+          'e.g., orderId,mode',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+/// A form-to-route assignment entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — the presentation and context of forms',
+    'ISO 9241-110:2020 — controllability over whether the previous screen is kept or left',
+  ],
+  'A single assignment of a form to a route, including whether the form replaces the current screen or overlays it.',
+)
+@SectionId('FMSCAS')
+@CodeSpecKind(
+  [CodeSpecPart.navigation, CodeSpecPart.layout],
+  note:
+      'CE-NV + CE-LO — which form a route shows, and how it is put on screen.',
+)
+class FormScreenAssignmentEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'formId',
+      String,
+      'Form ID',
+      required: true,
+      hint: 'ID of the form shown on this route',
+    ),
+    Field(
+      'routeId',
+      String,
+      'Route ID',
+      required: true,
+      hint: 'Route ID (SCRTEN registry) that hosts the form',
+    ),
+    Field(
+      'presentationMode',
+      ScreenPresentationMode,
+      'Presentation Mode',
+      required: true,
+      hint: 'replace — the form takes over the screen; popupOverlay — the '
+          'form is shown over the calling screen, which stays underneath',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+/// A screen-transition entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — self-descriptiveness about where an action leads and use error tolerance when it fails',
+    'ISO 9241-143:2012 — navigation between forms as a task progresses',
+  ],
+  'A single action-triggered transition: the screen reached from a source route when an action ends with a given outcome.',
+)
+@SectionId('SCTREN')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'CE-NV — a conditional navigation edge keyed by (source route, action, '
+      'outcome).',
+)
+class ScreenTransitionEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'sourceRouteId',
+      String,
+      'Source Route ID',
+      required: true,
+      hint: 'Route ID (SCRTEN registry) the user is on when the action runs',
+    ),
+    Field(
+      'actionId',
+      String,
+      'Action ID',
+      required: true,
+      hint: 'ID of the triggering action (SCRAC registry) or of the screen '
+          'element that raises it',
+    ),
+    Field(
+      'outcome',
+      ScreenFlowOutcome,
+      'Outcome',
+      required: true,
+      hint: 'success — the action completed; error — processing failed; '
+          'validationError — the input was rejected',
+    ),
+    Field(
+      'targetRouteId',
+      String,
+      'Target Route ID',
+      required: true,
+      hint: 'Route ID (SCRTEN registry) reached for this outcome — name the '
+          'source route itself when the user stays put',
+    ),
+    Field(
+      'presentationMode',
+      ScreenPresentationMode,
+      'Presentation Mode',
+      required: true,
+      hint: 'replace — the target takes over the screen; popupOverlay — the '
+          'target is shown over the source screen, which stays underneath',
+    ),
+    Field(
+      'outcomeReference',
+      String,
+      'Outcome Reference',
+      hint: 'For error, the system error code (SYERCOEN registry); for '
+          'validationError, the validation message template (VMT registry) — '
+          'empty for success',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

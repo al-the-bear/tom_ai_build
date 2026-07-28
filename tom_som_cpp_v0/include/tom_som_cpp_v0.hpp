@@ -474,6 +474,7 @@ class FileUploadValidationPolicy;
 class FirewallRequirements;
 class Flexibility;
 class FlexibilityCharacteristic;
+class FormScreenAssignmentEntry;
 class FrameworkRequirementEntry;
 class FullDistribution;
 class FunctionDataMatrixEntry;
@@ -952,10 +953,13 @@ class ScreenFieldEntry;
 class ScreenFlowStructure;
 class ScreenInventory;
 class ScreenResponsiveRuleEntry;
+class ScreenRouteEntry;
+class ScreenRouteMap;
 class ScreenSectionEntry;
 class ScreenSections;
 class ScreenStateEntry;
 class ScreenStates;
+class ScreenTransitionEntry;
 class ScreenUserCategoryEntry;
 class SecondaryNavigation;
 class Security;
@@ -2266,6 +2270,7 @@ class FlexibilityContentForm;
 class FlexibilityDeploymentForm;
 class FlexibilityExtensibilityForm;
 class FlexibilityModularityForm;
+class FormScreenAssignmentEntryContentForm;
 class FrameworkRequirementEntryCompatibilityForm;
 class FrameworkRequirementEntryContentForm;
 class FrameworkRequirementEntryIdentityForm;
@@ -3298,10 +3303,12 @@ class ScreenFieldEntryTemporalConstraintsForm;
 class ScreenFieldEntryTextConstraintsForm;
 class ScreenFieldEntryValidationForm;
 class ScreenResponsiveRuleEntryContentForm;
+class ScreenRouteEntryContentForm;
 class ScreenSectionEntryBehaviorForm;
 class ScreenSectionEntryContentForm;
 class ScreenSectionEntryLayoutForm;
 class ScreenStateEntryContentForm;
+class ScreenTransitionEntryContentForm;
 class ScreenUserCategoryEntryContentForm;
 class SecurityAuditEntryContentForm;
 class SecurityAuditEntryExecutionForm;
@@ -12489,6 +12496,13 @@ class FlexibilityCharacteristic : public som::SomNode {
   Portability portability() const;
 };
 
+// A form-to-route assignment entry (form).
+class FormScreenAssignmentEntry : public som::SomNode {
+ public:
+  FormScreenAssignmentEntry(som::SpecDocument& doc, std::string path);
+  FormScreenAssignmentEntryContentForm content() const;
+};
+
 // Framework or library requirement entry.
 class FrameworkRequirementEntry : public som::SomNode {
  public:
@@ -20088,6 +20102,8 @@ class ScreenFlowStructure : public som::SomNode {
   NavigationModel navigationModel() const;
   // 10.3.2. Screen Flow Diagram (mermaid-flow).
   // (skipped: screenFlowDiagram has no target type)
+  // 10.3.3. Screen Route Map.
+  ScreenRouteMap screenRouteMap() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -20121,6 +20137,46 @@ class ScreenResponsiveRuleEntry : public som::SomNode {
  public:
   ScreenResponsiveRuleEntry(som::SpecDocument& doc, std::string path);
   ScreenResponsiveRuleEntryContentForm content() const;
+};
+
+// A route entry (form).
+class ScreenRouteEntry : public som::SomNode {
+ public:
+  ScreenRouteEntry(som::SpecDocument& doc, std::string path);
+  ScreenRouteEntryContentForm content() const;
+};
+
+// 10.3.3. Screen Route Map.
+//
+// The screen map: which routes the application has, which form each route
+// shows, and which screen an action leads to once it has finished. It is the
+// result of combining the interaction scenarios into screens — the scenarios
+// say what a user does, this section says where each step lands.
+//
+// Where the navigation model (10.3.1) describes the *menus and structures* a
+// user browses with, the route map describes the *addressable targets* those
+// structures and the screens' own actions point at, so every navigation
+// target in the specification resolves to a declared route.
+class ScreenRouteMap : public som::SomNode {
+ public:
+  ScreenRouteMap(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Overview of the route map and its conventions.
+  // (skipped: overview has no target type)
+  // Contains 0+× ScreenRouteEntry.
+  // Returns the list view; element type: ScreenRouteEntry (construct from item paths).
+  som::SomList routes() const;
+  // Contains 0+× FormScreenAssignmentEntry.
+  // Returns the list view; element type: FormScreenAssignmentEntry (construct from item paths).
+  som::SomList formPlacement() const;
+  // Contains 0+× ScreenTransitionEntry.
+  // Returns the list view; element type: ScreenTransitionEntry (construct from item paths).
+  som::SomList transitions() const;
+  // This section type declares the standard `content` text leaf (§ item 10):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
 };
 
 // A screen section entry (form).
@@ -20180,6 +20236,13 @@ class ScreenStates : public som::SomNode {
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
+};
+
+// A screen-transition entry (form).
+class ScreenTransitionEntry : public som::SomNode {
+ public:
+  ScreenTransitionEntry(som::SpecDocument& doc, std::string path);
+  ScreenTransitionEntryContentForm content() const;
 };
 
 // A user category entry (form).
@@ -43602,6 +43665,22 @@ class FlexibilityModularityForm : public som::SomNode {
   void setModuleReusability(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class FormScreenAssignmentEntryContentForm : public som::SomNode {
+ public:
+  FormScreenAssignmentEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string formId() const;
+  void setFormId(const std::string& value);
+  std::string routeId() const;
+  void setRouteId(const std::string& value);
+  std::string presentationMode() const;
+  void setPresentationMode(const std::string& value);
+};
+
 // Generated section facade for the `compatibility` @Form section: its own `content` text followed by one typed member per form field.
 class FrameworkRequirementEntryCompatibilityForm : public som::SomNode {
  public:
@@ -62734,6 +62813,26 @@ class ScreenResponsiveRuleEntryContentForm : public som::SomNode {
   void setNavigationMode(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenRouteEntryContentForm : public som::SomNode {
+ public:
+  ScreenRouteEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string routeId() const;
+  void setRouteId(const std::string& value);
+  std::string routePath() const;
+  void setRoutePath(const std::string& value);
+  std::string routeTitle() const;
+  void setRouteTitle(const std::string& value);
+  std::string screenId() const;
+  void setScreenId(const std::string& value);
+  std::string routeParameters() const;
+  void setRouteParameters(const std::string& value);
+};
+
 // Generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
 class ScreenSectionEntryBehaviorForm : public som::SomNode {
  public:
@@ -62810,6 +62909,28 @@ class ScreenStateEntryContentForm : public som::SomNode {
   void setPrimaryActionTarget(const std::string& value);
   std::string secondaryActionLabel() const;
   void setSecondaryActionLabel(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenTransitionEntryContentForm : public som::SomNode {
+ public:
+  ScreenTransitionEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string sourceRouteId() const;
+  void setSourceRouteId(const std::string& value);
+  std::string actionId() const;
+  void setActionId(const std::string& value);
+  std::string outcome() const;
+  void setOutcome(const std::string& value);
+  std::string targetRouteId() const;
+  void setTargetRouteId(const std::string& value);
+  std::string presentationMode() const;
+  void setPresentationMode(const std::string& value);
+  std::string outcomeReference() const;
+  void setOutcomeReference(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

@@ -7177,6 +7177,12 @@ fn meta_children_flexibility_characteristic(s: &mut HashSet<String>) -> Vec<Rc<s
     ]
 }
 
+fn meta_children_form_screen_assignment_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "FormScreenAssignmentEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "formId".to_string(), type_name: "String".to_string(), description: "Form ID".to_string(), required: true, hint: "ID of the form shown on this route".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "routeId".to_string(), type_name: "String".to_string(), description: "Route ID".to_string(), required: true, hint: "Route ID (SCRTEN registry) that hosts the form".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "presentationMode".to_string(), type_name: "ScreenPresentationMode".to_string(), description: "Presentation Mode".to_string(), required: true, hint: "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath".to_string(), order: 2, enum_values: vec!["replace".to_string(), "popupOverlay".to_string()] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_framework_requirement_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "FrameworkRequirementEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "frameworkName".to_string(), type_name: "String".to_string(), description: "Framework/Library Name".to_string(), required: true, hint: "E.g., Flutter, Angular, Django, Spring Boot".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "frameworkCategory".to_string(), type_name: "String".to_string(), description: "Category".to_string(), required: false, hint: "UI Framework, Backend Framework, Testing, State Management".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: true, hint: "What problem this framework solves".to_string(), order: 2, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -13261,7 +13267,7 @@ fn meta_children_screen_action_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::So
         Rc::new(som::SomMetaNode { class_name: "ScreenActionEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "actionId".to_string(), type_name: "String".to_string(), description: "Action ID".to_string(), required: true, hint: "Unique action identifier".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "actionName".to_string(), type_name: "String".to_string(), description: "Action Name".to_string(), required: true, hint: "Human-readable action name".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "actionType".to_string(), type_name: "String".to_string(), description: "Action Type".to_string(), required: false, hint: "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh".to_string(), order: 2, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenActionEntry".to_string(), member_name: "visual".to_string(), section_id: "SAEV".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Visual presentation of the action.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "labelResource".to_string(), type_name: "String".to_string(), description: "Label Resource".to_string(), required: false, hint: "Message key (MSGKR registry) for button label".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "iconResource".to_string(), type_name: "String".to_string(), description: "Icon Resource".to_string(), required: false, hint: "Resource key for action icon".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "placement".to_string(), type_name: "String".to_string(), description: "Placement".to_string(), required: false, hint: "App-Bar/Toolbar/FAB/Context-Menu/Overflow-Menu".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "buttonStyle".to_string(), type_name: "String".to_string(), description: "Button Style".to_string(), required: false, hint: "Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only".to_string(), order: 3, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-161:2016 — visual presentation of command and action elements".to_string()), som::Json::Str("ISO 9241-125:2017 — visual presentation of information such as labels and icons".to_string())])), ("connotation".to_string(), som::Json::Str("The visual presentation of a screen action including its label, icon, placement, and style.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenActionEntry".to_string(), member_name: "conditions".to_string(), section_id: "SAEC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Visibility, enablement, and permission rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "visibilityCondition".to_string(), type_name: "String".to_string(), description: "Visibility Condition".to_string(), required: false, hint: "When this action is shown".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "enabledCondition".to_string(), type_name: "String".to_string(), description: "Enabled Condition".to_string(), required: false, hint: "When this action is active".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "requiredPermission".to_string(), type_name: "String".to_string(), description: "Required Permission".to_string(), required: false, hint: "Permission needed to use this action".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — controllability over when an action is available to the user".to_string()), som::Json::Str("ISO 9241-161:2016 — states of command and action elements such as enabled or hidden".to_string())])), ("connotation".to_string(), som::Json::Str("The visibility, enablement, and permission rules that determine when a screen action is available.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ScreenActionEntry".to_string(), member_name: "behavior".to_string(), section_id: "SAEB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Confirmation, navigation, and feedback behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "confirmationRequired".to_string(), type_name: "String".to_string(), description: "Confirmation Required".to_string(), required: false, hint: "Yes/No".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "confirmationMessageResource".to_string(), type_name: "String".to_string(), description: "Confirmation Message".to_string(), required: false, hint: "Message key (MSGKR registry) for confirmation dialog".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "keyboardShortcut".to_string(), type_name: "String".to_string(), description: "Keyboard Shortcut".to_string(), required: false, hint: "Shortcut binding, e.g., Ctrl+N".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "navigateTo".to_string(), type_name: "String".to_string(), description: "Navigate To".to_string(), required: false, hint: "Target screen after action".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "successMessageResource".to_string(), type_name: "String".to_string(), description: "Success Message".to_string(), required: false, hint: "Message key (MSGKR registry) for success notification".to_string(), order: 4, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — controllability and use error tolerance for action execution".to_string()), som::Json::Str("ISO 9241-161:2016 — command and action user-interface elements".to_string())])), ("connotation".to_string(), som::Json::Str("The confirmation, navigation, and feedback behavior that governs how a screen action executes.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScreenActionEntry".to_string(), member_name: "behavior".to_string(), section_id: "SAEB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Confirmation, navigation, and feedback behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "confirmationRequired".to_string(), type_name: "String".to_string(), description: "Confirmation Required".to_string(), required: false, hint: "Yes/No".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "confirmationMessageResource".to_string(), type_name: "String".to_string(), description: "Confirmation Message".to_string(), required: false, hint: "Message key (MSGKR registry) for confirmation dialog".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "keyboardShortcut".to_string(), type_name: "String".to_string(), description: "Keyboard Shortcut".to_string(), required: false, hint: "Shortcut binding, e.g., Ctrl+N".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "navigateTo".to_string(), type_name: "String".to_string(), description: "Navigate To".to_string(), required: false, hint: "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "successMessageResource".to_string(), type_name: "String".to_string(), description: "Success Message".to_string(), required: false, hint: "Message key (MSGKR registry) for success notification".to_string(), order: 4, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — controllability and use error tolerance for action execution".to_string()), som::Json::Str("ISO 9241-161:2016 — command and action user-interface elements".to_string())])), ("connotation".to_string(), som::Json::Str("The confirmation, navigation, and feedback behavior that governs how a screen action executes.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -13360,7 +13366,7 @@ fn meta_children_screen_element_field_spec(_s: &mut HashSet<String>) -> Vec<Rc<s
 fn meta_children_screen_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "screenId".to_string(), type_name: "String".to_string(), description: "Screen ID".to_string(), required: true, hint: "Unique identifier, e.g., SCR-001".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "screenName".to_string(), type_name: "String".to_string(), description: "Screen Name".to_string(), required: true, hint: "Human-readable screen title".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: false, hint: "Business purpose — what the user accomplishes here".to_string(), order: 2, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "classification".to_string(), section_id: "SCECL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Classification and routing metadata.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "screenCategory".to_string(), type_name: "String".to_string(), description: "Screen Category".to_string(), required: false, hint: "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "parentScreenId".to_string(), type_name: "String".to_string(), description: "Parent Screen ID".to_string(), required: false, hint: "Parent screen if this is a sub-screen or drill-down".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "routePattern".to_string(), type_name: "String".to_string(), description: "Route Pattern".to_string(), required: false, hint: "Navigation route path, e.g., /orders/:id/edit".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-151:2008 — navigation structure and routing within the user interface".to_string()), som::Json::Str("ISO 9241-112:2017 — categorisation of information for structured presentation".to_string())])), ("connotation".to_string(), som::Json::Str("The classification and routing metadata that categorises a screen and locates it in the navigation structure.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "classification".to_string(), section_id: "SCECL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Classification and routing metadata.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "screenCategory".to_string(), type_name: "String".to_string(), description: "Screen Category".to_string(), required: false, hint: "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "parentScreenId".to_string(), type_name: "String".to_string(), description: "Parent Screen ID".to_string(), required: false, hint: "Parent screen if this is a sub-screen or drill-down".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "routePattern".to_string(), type_name: "String".to_string(), description: "Route Pattern".to_string(), required: false, hint: "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map".to_string(), order: 2, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-151:2008 — navigation structure and routing within the user interface".to_string()), som::Json::Str("ISO 9241-112:2017 — categorisation of information for structured presentation".to_string())])), ("connotation".to_string(), som::Json::Str("The classification and routing metadata that categorises a screen and locates it in the navigation structure.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "access".to_string(), section_id: "SCEAC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Access control settings.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "accessLevel".to_string(), type_name: "String".to_string(), description: "Access Level".to_string(), required: false, hint: "Public/Authenticated/Role-specific".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "requiredRoles".to_string(), type_name: "String".to_string(), description: "Required Roles".to_string(), required: false, hint: "Authorization roles that may access this screen".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "requiredPermissions".to_string(), type_name: "String".to_string(), description: "Required Permissions".to_string(), required: false, hint: "Specific permissions needed".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "permissionEffect".to_string(), type_name: "String".to_string(), description: "Permission Effect".to_string(), required: false, hint: "Hide-Screen/Show-Readonly/Show-With-Restrictions".to_string(), order: 3, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — controllability governing who may access an interface".to_string()), som::Json::Str("ISO/IEC 25010:2023 — interaction capability constrained by authorization".to_string())])), ("connotation".to_string(), som::Json::Str("The access-control settings that determine which roles and permissions may reach a screen.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "traceability".to_string(), section_id: "SCETR".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Traceability metadata.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "relatedUseCases".to_string(), type_name: "String".to_string(), description: "Related Use Cases".to_string(), required: false, hint: "ISC references this screen serves".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "relatedRequirements".to_string(), type_name: "String".to_string(), description: "Related Requirements".to_string(), required: false, hint: "RSP references this screen satisfies".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "relatedBusinessProcesses".to_string(), type_name: "String".to_string(), description: "Related Business Processes".to_string(), required: false, hint: "TOM references where this screen appears".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "dataEntities".to_string(), type_name: "String".to_string(), description: "Data Entities".to_string(), required: false, hint: "IFM entity references displayed/edited".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "primaryAction".to_string(), type_name: "String".to_string(), description: "Primary Action".to_string(), required: false, hint: "Main user action on this screen".to_string(), order: 4, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210:2019 — linkage of screens to the user tasks and requirements they serve".to_string()), som::Json::Str("ISO/IEC 25010:2023 — interaction capability traced to product requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The traceability metadata linking a screen to the use cases, requirements, and data entities it serves.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "presentation".to_string(), section_id: "SCENPR".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Presentation metadata.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "pageTitleResource".to_string(), type_name: "String".to_string(), description: "Page Title Resource".to_string(), required: false, hint: "Message key (MSGKR registry) for the screen title text".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "pageIconResource".to_string(), type_name: "String".to_string(), description: "Page Icon Resource".to_string(), required: false, hint: "Resource key for the screen icon".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "helpTopicId".to_string(), type_name: "String".to_string(), description: "Help Topic ID".to_string(), required: false, hint: "Link to help/documentation topic".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "layout".to_string(), type_name: "String".to_string(), description: "Layout".to_string(), required: false, hint: "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile".to_string(), order: 3, enum_values: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information".to_string()), som::Json::Str("ISO 9241-125:2017 — visual presentation and layout of the screen".to_string())])), ("connotation".to_string(), som::Json::Str("The presentation metadata such as title, icon, and layout that defines how a screen appears.".to_string()))] }], ..som::SomMetaNode::default() }),
@@ -13428,12 +13434,16 @@ fn meta_children_screen_field_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
 
 fn meta_children_screen_flow_structure(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "ScreenFlowStructure".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScreenFlowStructure".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("NavigationModel", s, meta_children_navigation_model, |r, c| som::SomMetaNode {
             class_name: "NavigationModel".to_string(), member_name: "navigationModel".to_string(), class_section_id: "NAMO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "NavigationModel".to_string(), serialization_order: Some(1), doc_comment: "10.3.1. Navigation Model.".to_string(), class_doc_comment: "10.3.1. Navigation Model.\n\nComprehensive navigation structure: primary, secondary, utility, contextual\nnavigation, deep linking, navigation guards, and platform adaptation.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         Rc::new(som::SomMetaNode { class_name: "ScreenFlowStructure".to_string(), member_name: "screenFlowDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-flow".to_string(), description: "".to_string() }), doc_comment: "10.3.2. Screen Flow Diagram (mermaid-flow).".to_string(), ..som::SomMetaNode::default() }),
+        meta_cx("ScreenRouteMap", s, meta_children_screen_route_map, |r, c| som::SomMetaNode {
+            class_name: "ScreenRouteMap".to_string(), member_name: "screenRouteMap".to_string(), class_section_id: "SCRTMP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenRouteMap".to_string(), serialization_order: Some(3), doc_comment: "10.3.3. Screen Route Map.".to_string(), class_doc_comment: "10.3.3. Screen Route Map.\n\nThe screen map: which routes the application has, which form each route\nshows, and which screen an action leads to once it has finished. It is the\nresult of combining the interaction scenarios into screens — the scenarios\nsay what a user does, this section says where each step lands.\n\nWhere the navigation model (10.3.1) describes the *menus and structures* a\nuser browses with, the route map describes the *addressable targets* those\nstructures and the screens' own actions point at, so every navigation\ntarget in the specification resolves to a declared route.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
     ]
 }
 
@@ -13455,6 +13465,43 @@ fn meta_children_screen_inventory(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
 fn meta_children_screen_responsive_rule_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ScreenResponsiveRuleEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "breakpoint".to_string(), type_name: "String".to_string(), description: "Breakpoint".to_string(), required: true, hint: "Mobile/Tablet/Desktop/Large-Desktop".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "layoutChanges".to_string(), type_name: "String".to_string(), description: "Layout Changes".to_string(), required: false, hint: "How layout adapts, e.g., 3-col → 1-col".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "hiddenElements".to_string(), type_name: "String".to_string(), description: "Hidden Elements".to_string(), required: false, hint: "Elements hidden at this breakpoint".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "collapsedSections".to_string(), type_name: "String".to_string(), description: "Collapsed Sections".to_string(), required: false, hint: "Sections that collapse at this breakpoint".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "navigationMode".to_string(), type_name: "String".to_string(), description: "Navigation Mode".to_string(), required: false, hint: "Sidebar/Bottom-Nav/Drawer/Hamburger".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_screen_route_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ScreenRouteEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "routeId".to_string(), type_name: "String".to_string(), description: "Route ID".to_string(), required: true, hint: "Stable identifier referenced by every navigation target, e.g., order-edit".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "routePath".to_string(), type_name: "String".to_string(), description: "Route Path".to_string(), required: false, hint: "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "routeTitle".to_string(), type_name: "String".to_string(), description: "Route Title".to_string(), required: false, hint: "Human-readable screen title shown in the title bar and history".to_string(), order: 2, enum_values: vec![] }, som::SomFormFieldMeta { name: "screenId".to_string(), type_name: "String".to_string(), description: "Screen ID".to_string(), required: false, hint: "ID of the screen (SCREN registry) this route renders".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "routeParameters".to_string(), type_name: "String".to_string(), description: "Route Parameters".to_string(), required: false, hint: "Comma-separated parameter names carried by the route, e.g., orderId,mode".to_string(), order: 4, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_screen_route_map(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ScreenRouteMap".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScreenRouteMap".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of the route map and its conventions.".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ScreenRouteMap".to_string(), member_name: "routes".to_string(), section_id: "SCRTEN-ROUT-LST".to_string(), section_id_pattern: "SCRTEN-ROUT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScreenRouteEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per addressable route.".to_string(), doc_comment: "Contains 0+× ScreenRouteEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-151:2008 — addressable content units and the conceptual structure of the application".to_string())])), ("connotation".to_string(), som::Json::Str("The registry of addressable application routes, each identified by a stable route ID.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ScreenRouteEntry", s, meta_children_screen_route_entry, |r, c| som::SomMetaNode {
+                class_name: "ScreenRouteEntry".to_string(), class_section_id: "SCRTEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenRouteEntry".to_string(), doc_comment: "A route entry (form).".to_string(), class_doc_comment: "A route entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "ScreenRouteMap".to_string(), member_name: "formPlacement".to_string(), section_id: "FMSCAS-FORM-LST".to_string(), section_id_pattern: "FMSCAS-FORM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FormScreenAssignmentEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per form placed on a route.".to_string(), doc_comment: "Contains 0+× FormScreenAssignmentEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — the presentation of forms and the context in which they are shown".to_string())])), ("connotation".to_string(), som::Json::Str("The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("FormScreenAssignmentEntry", s, meta_children_form_screen_assignment_entry, |r, c| som::SomMetaNode {
+                class_name: "FormScreenAssignmentEntry".to_string(), class_section_id: "FMSCAS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FormScreenAssignmentEntry".to_string(), doc_comment: "A form-to-route assignment entry (form).".to_string(), class_doc_comment: "A form-to-route assignment entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "ScreenRouteMap".to_string(), member_name: "transitions".to_string(), section_id: "SCTREN-TRAN-LST".to_string(), section_id_pattern: "SCTREN-TRAN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScreenTransitionEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome.".to_string(), doc_comment: "Contains 0+× ScreenTransitionEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads".to_string()), som::Json::Str("ISO 9241-143:2012 — navigation between forms as a task progresses".to_string())])), ("connotation".to_string(), som::Json::Str("The action-triggered transitions between routes, with a separate target per outcome.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ScreenTransitionEntry", s, meta_children_screen_transition_entry, |r, c| som::SomMetaNode {
+                class_name: "ScreenTransitionEntry".to_string(), class_section_id: "SCTREN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenTransitionEntry".to_string(), doc_comment: "A screen-transition entry (form).".to_string(), class_doc_comment: "A screen-transition entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -13505,6 +13552,12 @@ fn meta_children_screen_states(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNo
             }));
             Rc::new(n)
         },
+    ]
+}
+
+fn meta_children_screen_transition_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ScreenTransitionEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "sourceRouteId".to_string(), type_name: "String".to_string(), description: "Source Route ID".to_string(), required: true, hint: "Route ID (SCRTEN registry) the user is on when the action runs".to_string(), order: 0, enum_values: vec![] }, som::SomFormFieldMeta { name: "actionId".to_string(), type_name: "String".to_string(), description: "Action ID".to_string(), required: true, hint: "ID of the triggering action (SCRAC registry) or of the screen element that raises it".to_string(), order: 1, enum_values: vec![] }, som::SomFormFieldMeta { name: "outcome".to_string(), type_name: "ScreenFlowOutcome".to_string(), description: "Outcome".to_string(), required: true, hint: "success — the action completed; error — processing failed; validationError — the input was rejected".to_string(), order: 2, enum_values: vec!["success".to_string(), "error".to_string(), "validationError".to_string()] }, som::SomFormFieldMeta { name: "targetRouteId".to_string(), type_name: "String".to_string(), description: "Target Route ID".to_string(), required: true, hint: "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put".to_string(), order: 3, enum_values: vec![] }, som::SomFormFieldMeta { name: "presentationMode".to_string(), type_name: "ScreenPresentationMode".to_string(), description: "Presentation Mode".to_string(), required: true, hint: "replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath".to_string(), order: 4, enum_values: vec!["replace".to_string(), "popupOverlay".to_string()] }, som::SomFormFieldMeta { name: "outcomeReference".to_string(), type_name: "String".to_string(), description: "Outcome Reference".to_string(), required: false, hint: "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success".to_string(), order: 5, enum_values: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -38133,6 +38186,37 @@ impl<'a> FlexibilityCharacteristicNav<'a> {
     }
 }
 
+/// FormScreenAssignmentEntryNav holds the dot-notation accessors of `FormScreenAssignmentEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct FormScreenAssignmentEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> FormScreenAssignmentEntryNav<'a> {
+    /// Binds a FormScreenAssignmentEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> FormScreenAssignmentEntryNav<'a> {
+        FormScreenAssignmentEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// FrameworkRequirementEntryNav holds the dot-notation accessors of `FrameworkRequirementEntry` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -58180,6 +58264,10 @@ impl<'a> ScreenFlowStructureNav<'a> {
     pub fn screen_flow_diagram(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlowDiagram"))
     }
+
+    pub fn screen_route_map(&self) -> ScreenRouteMapNav<'a> {
+        ScreenRouteMapNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenRouteMap"))
+    }
 }
 
 /// ScreenInventoryNav holds the dot-notation accessors of `ScreenInventory` (SOM §8).
@@ -58249,6 +58337,84 @@ impl<'a> ScreenResponsiveRuleEntryNav<'a> {
 
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// ScreenRouteEntryNav holds the dot-notation accessors of `ScreenRouteEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ScreenRouteEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ScreenRouteEntryNav<'a> {
+    /// Binds a ScreenRouteEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ScreenRouteEntryNav<'a> {
+        ScreenRouteEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// ScreenRouteMapNav holds the dot-notation accessors of `ScreenRouteMap` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ScreenRouteMapNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ScreenRouteMapNav<'a> {
+    /// Binds a ScreenRouteMapNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ScreenRouteMapNav<'a> {
+        ScreenRouteMapNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn overview(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "overview"))
+    }
+
+    pub fn routes(&self) -> som::SomListMetaRef<'a, ScreenRouteEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCRTEN-ROUT-LST"), ScreenRouteEntryNav::new)
+    }
+
+    pub fn form_placement(&self) -> som::SomListMetaRef<'a, FormScreenAssignmentEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FMSCAS-FORM-LST"), FormScreenAssignmentEntryNav::new)
+    }
+
+    pub fn transitions(&self) -> som::SomListMetaRef<'a, ScreenTransitionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCTREN-TRAN-LST"), ScreenTransitionEntryNav::new)
     }
 }
 
@@ -58393,6 +58559,37 @@ impl<'a> ScreenStatesNav<'a> {
 
     pub fn items(&self) -> som::SomListMetaRef<'a, ScreenStateEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCRST-ITEM-LST"), ScreenStateEntryNav::new)
+    }
+}
+
+/// ScreenTransitionEntryNav holds the dot-notation accessors of `ScreenTransitionEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ScreenTransitionEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ScreenTransitionEntryNav<'a> {
+    /// Binds a ScreenTransitionEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ScreenTransitionEntryNav<'a> {
+        ScreenTransitionEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -78374,6 +78571,18 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), NavigationGuardEntryId::new)
     }
 
+    pub fn SCRTEN_ROUT_LST(&self) -> som::SomListMetaRef<'a, ScreenRouteEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST"), ScreenRouteEntryId::new)
+    }
+
+    pub fn FMSCAS_FORM_LST(&self) -> som::SomListMetaRef<'a, FormScreenAssignmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST"), FormScreenAssignmentEntryId::new)
+    }
+
+    pub fn SCTREN_TRAN_LST(&self) -> som::SomListMetaRef<'a, ScreenTransitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST"), ScreenTransitionEntryId::new)
+    }
+
     pub fn ERHACO_ERRO(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO"))
     }
@@ -83220,6 +83429,18 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), NavigationGuardEntryId::new)
     }
 
+    pub fn SCRTEN_ROUT_LST(&self) -> som::SomListMetaRef<'a, ScreenRouteEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/screenRouteMap/SCRTEN-ROUT-LST"), ScreenRouteEntryId::new)
+    }
+
+    pub fn FMSCAS_FORM_LST(&self) -> som::SomListMetaRef<'a, FormScreenAssignmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/screenRouteMap/FMSCAS-FORM-LST"), FormScreenAssignmentEntryId::new)
+    }
+
+    pub fn SCTREN_TRAN_LST(&self) -> som::SomListMetaRef<'a, ScreenTransitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/screenRouteMap/SCTREN-TRAN-LST"), ScreenTransitionEntryId::new)
+    }
+
     pub fn PLPS(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "printLayout/PLPS"))
     }
@@ -87268,6 +87489,18 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), NavigationGuardEntryId::new)
     }
 
+    pub fn SCRTEN_ROUT_LST(&self) -> som::SomListMetaRef<'a, ScreenRouteEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST"), ScreenRouteEntryId::new)
+    }
+
+    pub fn FMSCAS_FORM_LST(&self) -> som::SomListMetaRef<'a, FormScreenAssignmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST"), FormScreenAssignmentEntryId::new)
+    }
+
+    pub fn SCTREN_TRAN_LST(&self) -> som::SomListMetaRef<'a, ScreenTransitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST"), ScreenTransitionEntryId::new)
+    }
+
     pub fn ERHACO_ERRO(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/ERHACO-ERRO"))
     }
@@ -90666,6 +90899,32 @@ impl<'a> FieldValidationRuleId<'a> {
     /// Binds a FieldValidationRuleId accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> FieldValidationRuleId<'a> {
         FieldValidationRuleId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
+/// FormScreenAssignmentEntryId holds the ID-tree accessors of `FormScreenAssignmentEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct FormScreenAssignmentEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> FormScreenAssignmentEntryId<'a> {
+    /// Binds a FormScreenAssignmentEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> FormScreenAssignmentEntryId<'a> {
+        FormScreenAssignmentEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).
@@ -97721,6 +97980,32 @@ impl<'a> ScreenResponsiveRuleEntryId<'a> {
     }
 }
 
+/// ScreenRouteEntryId holds the ID-tree accessors of `ScreenRouteEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ScreenRouteEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ScreenRouteEntryId<'a> {
+    /// Binds a ScreenRouteEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ScreenRouteEntryId<'a> {
+        ScreenRouteEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// ScreenSectionEntryId holds the ID-tree accessors of `ScreenSectionEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -97772,6 +98057,32 @@ impl<'a> ScreenStateEntryId<'a> {
     /// Binds a ScreenStateEntryId accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> ScreenStateEntryId<'a> {
         ScreenStateEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
+/// ScreenTransitionEntryId holds the ID-tree accessors of `ScreenTransitionEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ScreenTransitionEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ScreenTransitionEntryId<'a> {
+    /// Binds a ScreenTransitionEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ScreenTransitionEntryId<'a> {
+        ScreenTransitionEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).

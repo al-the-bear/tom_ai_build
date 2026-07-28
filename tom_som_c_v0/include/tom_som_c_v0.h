@@ -500,6 +500,7 @@ typedef struct { SomNode node; } FileUploadValidationPolicy;
 typedef struct { SomNode node; } FirewallRequirements;
 typedef struct { SomNode node; } Flexibility;
 typedef struct { SomNode node; } FlexibilityCharacteristic;
+typedef struct { SomNode node; } FormScreenAssignmentEntry;
 typedef struct { SomNode node; } FrameworkRequirementEntry;
 typedef struct { SomNode node; } FullDistribution;
 typedef struct { SomNode node; } FunctionDataMatrixEntry;
@@ -978,10 +979,13 @@ typedef struct { SomNode node; } ScreenFieldEntry;
 typedef struct { SomNode node; } ScreenFlowStructure;
 typedef struct { SomNode node; } ScreenInventory;
 typedef struct { SomNode node; } ScreenResponsiveRuleEntry;
+typedef struct { SomNode node; } ScreenRouteEntry;
+typedef struct { SomNode node; } ScreenRouteMap;
 typedef struct { SomNode node; } ScreenSectionEntry;
 typedef struct { SomNode node; } ScreenSections;
 typedef struct { SomNode node; } ScreenStateEntry;
 typedef struct { SomNode node; } ScreenStates;
+typedef struct { SomNode node; } ScreenTransitionEntry;
 typedef struct { SomNode node; } ScreenUserCategoryEntry;
 typedef struct { SomNode node; } SecondaryNavigation;
 typedef struct { SomNode node; } Security;
@@ -2292,6 +2296,7 @@ typedef struct { SomNode node; } FlexibilityContentForm;
 typedef struct { SomNode node; } FlexibilityDeploymentForm;
 typedef struct { SomNode node; } FlexibilityExtensibilityForm;
 typedef struct { SomNode node; } FlexibilityModularityForm;
+typedef struct { SomNode node; } FormScreenAssignmentEntryContentForm;
 typedef struct { SomNode node; } FrameworkRequirementEntryCompatibilityForm;
 typedef struct { SomNode node; } FrameworkRequirementEntryContentForm;
 typedef struct { SomNode node; } FrameworkRequirementEntryIdentityForm;
@@ -3324,10 +3329,12 @@ typedef struct { SomNode node; } ScreenFieldEntryTemporalConstraintsForm;
 typedef struct { SomNode node; } ScreenFieldEntryTextConstraintsForm;
 typedef struct { SomNode node; } ScreenFieldEntryValidationForm;
 typedef struct { SomNode node; } ScreenResponsiveRuleEntryContentForm;
+typedef struct { SomNode node; } ScreenRouteEntryContentForm;
 typedef struct { SomNode node; } ScreenSectionEntryBehaviorForm;
 typedef struct { SomNode node; } ScreenSectionEntryContentForm;
 typedef struct { SomNode node; } ScreenSectionEntryLayoutForm;
 typedef struct { SomNode node; } ScreenStateEntryContentForm;
+typedef struct { SomNode node; } ScreenTransitionEntryContentForm;
 typedef struct { SomNode node; } ScreenUserCategoryEntryContentForm;
 typedef struct { SomNode node; } SecurityAuditEntryContentForm;
 typedef struct { SomNode node; } SecurityAuditEntryExecutionForm;
@@ -12357,6 +12364,14 @@ Flexibility flexibility_characteristic_flexibility(const FlexibilityCharacterist
 // 11.9.2. Portability.
 Portability flexibility_characteristic_portability(const FlexibilityCharacteristic *self);
 
+// A form-to-route assignment entry (form).
+// Binds a FormScreenAssignmentEntry facade to a document and a path (path copied).
+void form_screen_assignment_entry_init(FormScreenAssignmentEntry *self, SpecDocument *doc, const char *path);
+void form_screen_assignment_entry_free(FormScreenAssignmentEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int form_screen_assignment_entry_can_have_content(const FormScreenAssignmentEntry *self);
+FormScreenAssignmentEntryContentForm form_screen_assignment_entry_content(const FormScreenAssignmentEntry *self);
+
 // Framework or library requirement entry.
 // Binds a FrameworkRequirementEntry facade to a document and a path (path copied).
 void framework_requirement_entry_init(FrameworkRequirementEntry *self, SpecDocument *doc, const char *path);
@@ -19941,6 +19956,8 @@ void screen_flow_structure_set_content(ScreenFlowStructure *self, const char *va
 NavigationModel screen_flow_structure_navigation_model(const ScreenFlowStructure *self);
 // 10.3.2. Screen Flow Diagram (mermaid-flow).
 // (skipped: screenFlowDiagram has no target type)
+// 10.3.3. Screen Route Map.
+ScreenRouteMap screen_flow_structure_screen_route_map(const ScreenFlowStructure *self);
 
 // 10.2.1. Screen Inventory.
 //
@@ -19968,6 +19985,44 @@ void screen_responsive_rule_entry_free(ScreenResponsiveRuleEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
 int screen_responsive_rule_entry_can_have_content(const ScreenResponsiveRuleEntry *self);
 ScreenResponsiveRuleEntryContentForm screen_responsive_rule_entry_content(const ScreenResponsiveRuleEntry *self);
+
+// A route entry (form).
+// Binds a ScreenRouteEntry facade to a document and a path (path copied).
+void screen_route_entry_init(ScreenRouteEntry *self, SpecDocument *doc, const char *path);
+void screen_route_entry_free(ScreenRouteEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int screen_route_entry_can_have_content(const ScreenRouteEntry *self);
+ScreenRouteEntryContentForm screen_route_entry_content(const ScreenRouteEntry *self);
+
+// 10.3.3. Screen Route Map.
+//
+// The screen map: which routes the application has, which form each route
+// shows, and which screen an action leads to once it has finished. It is the
+// result of combining the interaction scenarios into screens — the scenarios
+// say what a user does, this section says where each step lands.
+//
+// Where the navigation model (10.3.1) describes the *menus and structures* a
+// user browses with, the route map describes the *addressable targets* those
+// structures and the screens' own actions point at, so every navigation
+// target in the specification resolves to a declared route.
+// Binds a ScreenRouteMap facade to a document and a path (path copied).
+void screen_route_map_init(ScreenRouteMap *self, SpecDocument *doc, const char *path);
+void screen_route_map_free(ScreenRouteMap *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int screen_route_map_can_have_content(const ScreenRouteMap *self);
+char *screen_route_map_content(const ScreenRouteMap *self);
+void screen_route_map_set_content(ScreenRouteMap *self, const char *value);
+// Overview of the route map and its conventions.
+// (skipped: overview has no target type)
+// Contains 0+× ScreenRouteEntry.
+// Returns the list view; element type: ScreenRouteEntry (construct from item paths).
+SomList screen_route_map_routes(const ScreenRouteMap *self);
+// Contains 0+× FormScreenAssignmentEntry.
+// Returns the list view; element type: FormScreenAssignmentEntry (construct from item paths).
+SomList screen_route_map_form_placement(const ScreenRouteMap *self);
+// Contains 0+× ScreenTransitionEntry.
+// Returns the list view; element type: ScreenTransitionEntry (construct from item paths).
+SomList screen_route_map_transitions(const ScreenRouteMap *self);
 
 // A screen section entry (form).
 //
@@ -20023,6 +20078,14 @@ void screen_states_set_content(ScreenStates *self, const char *value);
 // Contains 0+× ScreenState.
 // Returns the list view; element type: ScreenStateEntry (construct from item paths).
 SomList screen_states_items(const ScreenStates *self);
+
+// A screen-transition entry (form).
+// Binds a ScreenTransitionEntry facade to a document and a path (path copied).
+void screen_transition_entry_init(ScreenTransitionEntry *self, SpecDocument *doc, const char *path);
+void screen_transition_entry_free(ScreenTransitionEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int screen_transition_entry_can_have_content(const ScreenTransitionEntry *self);
+ScreenTransitionEntryContentForm screen_transition_entry_content(const ScreenTransitionEntry *self);
 
 // A user category entry (form).
 // Binds a ScreenUserCategoryEntry facade to a document and a path (path copied).
@@ -40290,6 +40353,19 @@ void flexibility_modularity_form_set_module_independence(FlexibilityModularityFo
 char *flexibility_modularity_form_module_reusability(const FlexibilityModularityForm *self);
 void flexibility_modularity_form_set_module_reusability(FlexibilityModularityForm *self, const char *value);
 
+// FormScreenAssignmentEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void form_screen_assignment_entry_content_form_init(FormScreenAssignmentEntryContentForm *self, SpecDocument *doc, const char *path);
+void form_screen_assignment_entry_content_form_free(FormScreenAssignmentEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *form_screen_assignment_entry_content_form_content(const FormScreenAssignmentEntryContentForm *self);
+void form_screen_assignment_entry_content_form_set_content(FormScreenAssignmentEntryContentForm *self, const char *value);
+char *form_screen_assignment_entry_content_form_form_id(const FormScreenAssignmentEntryContentForm *self);
+void form_screen_assignment_entry_content_form_set_form_id(FormScreenAssignmentEntryContentForm *self, const char *value);
+char *form_screen_assignment_entry_content_form_route_id(const FormScreenAssignmentEntryContentForm *self);
+void form_screen_assignment_entry_content_form_set_route_id(FormScreenAssignmentEntryContentForm *self, const char *value);
+char *form_screen_assignment_entry_content_form_presentation_mode(const FormScreenAssignmentEntryContentForm *self);
+void form_screen_assignment_entry_content_form_set_presentation_mode(FormScreenAssignmentEntryContentForm *self, const char *value);
+
 // FrameworkRequirementEntryCompatibilityForm is the generated section facade for the `compatibility` @Form section: its own `content` text followed by one typed member per form field.
 void framework_requirement_entry_compatibility_form_init(FrameworkRequirementEntryCompatibilityForm *self, SpecDocument *doc, const char *path);
 void framework_requirement_entry_compatibility_form_free(FrameworkRequirementEntryCompatibilityForm *self);
@@ -56326,6 +56402,23 @@ void screen_responsive_rule_entry_content_form_set_collapsed_sections(ScreenResp
 char *screen_responsive_rule_entry_content_form_navigation_mode(const ScreenResponsiveRuleEntryContentForm *self);
 void screen_responsive_rule_entry_content_form_set_navigation_mode(ScreenResponsiveRuleEntryContentForm *self, const char *value);
 
+// ScreenRouteEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void screen_route_entry_content_form_init(ScreenRouteEntryContentForm *self, SpecDocument *doc, const char *path);
+void screen_route_entry_content_form_free(ScreenRouteEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_route_entry_content_form_content(const ScreenRouteEntryContentForm *self);
+void screen_route_entry_content_form_set_content(ScreenRouteEntryContentForm *self, const char *value);
+char *screen_route_entry_content_form_route_id(const ScreenRouteEntryContentForm *self);
+void screen_route_entry_content_form_set_route_id(ScreenRouteEntryContentForm *self, const char *value);
+char *screen_route_entry_content_form_route_path(const ScreenRouteEntryContentForm *self);
+void screen_route_entry_content_form_set_route_path(ScreenRouteEntryContentForm *self, const char *value);
+char *screen_route_entry_content_form_route_title(const ScreenRouteEntryContentForm *self);
+void screen_route_entry_content_form_set_route_title(ScreenRouteEntryContentForm *self, const char *value);
+char *screen_route_entry_content_form_screen_id(const ScreenRouteEntryContentForm *self);
+void screen_route_entry_content_form_set_screen_id(ScreenRouteEntryContentForm *self, const char *value);
+char *screen_route_entry_content_form_route_parameters(const ScreenRouteEntryContentForm *self);
+void screen_route_entry_content_form_set_route_parameters(ScreenRouteEntryContentForm *self, const char *value);
+
 // ScreenSectionEntryBehaviorForm is the generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
 void screen_section_entry_behavior_form_init(ScreenSectionEntryBehaviorForm *self, SpecDocument *doc, const char *path);
 void screen_section_entry_behavior_form_free(ScreenSectionEntryBehaviorForm *self);
@@ -56391,6 +56484,25 @@ char *screen_state_entry_content_form_primary_action_target(const ScreenStateEnt
 void screen_state_entry_content_form_set_primary_action_target(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_secondary_action_label(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_secondary_action_label(ScreenStateEntryContentForm *self, const char *value);
+
+// ScreenTransitionEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void screen_transition_entry_content_form_init(ScreenTransitionEntryContentForm *self, SpecDocument *doc, const char *path);
+void screen_transition_entry_content_form_free(ScreenTransitionEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_transition_entry_content_form_content(const ScreenTransitionEntryContentForm *self);
+void screen_transition_entry_content_form_set_content(ScreenTransitionEntryContentForm *self, const char *value);
+char *screen_transition_entry_content_form_source_route_id(const ScreenTransitionEntryContentForm *self);
+void screen_transition_entry_content_form_set_source_route_id(ScreenTransitionEntryContentForm *self, const char *value);
+char *screen_transition_entry_content_form_action_id(const ScreenTransitionEntryContentForm *self);
+void screen_transition_entry_content_form_set_action_id(ScreenTransitionEntryContentForm *self, const char *value);
+char *screen_transition_entry_content_form_outcome(const ScreenTransitionEntryContentForm *self);
+void screen_transition_entry_content_form_set_outcome(ScreenTransitionEntryContentForm *self, const char *value);
+char *screen_transition_entry_content_form_target_route_id(const ScreenTransitionEntryContentForm *self);
+void screen_transition_entry_content_form_set_target_route_id(ScreenTransitionEntryContentForm *self, const char *value);
+char *screen_transition_entry_content_form_presentation_mode(const ScreenTransitionEntryContentForm *self);
+void screen_transition_entry_content_form_set_presentation_mode(ScreenTransitionEntryContentForm *self, const char *value);
+char *screen_transition_entry_content_form_outcome_reference(const ScreenTransitionEntryContentForm *self);
+void screen_transition_entry_content_form_set_outcome_reference(ScreenTransitionEntryContentForm *self, const char *value);
 
 // ScreenUserCategoryEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void screen_user_category_entry_content_form_init(ScreenUserCategoryEntryContentForm *self, SpecDocument *doc, const char *path);

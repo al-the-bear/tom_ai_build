@@ -15257,6 +15257,17 @@ export class FlexibilityCharacteristic extends SomNode {
   }
 }
 
+// A form-to-route assignment entry (form).
+export class FormScreenAssignmentEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): FormScreenAssignmentEntryContentForm {
+    return new FormScreenAssignmentEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Framework or library requirement entry.
 export class FrameworkRequirementEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -28543,6 +28554,11 @@ export class ScreenFlowStructure extends SomNode {
 
   // 10.3.2. Screen Flow Diagram (mermaid-flow).
   // (skipped: screenFlowDiagram has no target type)
+
+  // 10.3.3. Screen Route Map.
+  get screenRouteMap(): ScreenRouteMap {
+    return new ScreenRouteMap(this.doc, this.path + "/screenRouteMap");
+  }
 }
 
 // 10.2.1. Screen Inventory.
@@ -28585,6 +28601,64 @@ export class ScreenResponsiveRuleEntry extends SomNode {
 
   get content(): ScreenResponsiveRuleEntryContentForm {
     return new ScreenResponsiveRuleEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// A route entry (form).
+export class ScreenRouteEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ScreenRouteEntryContentForm {
+    return new ScreenRouteEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 10.3.3. Screen Route Map.
+//
+// The screen map: which routes the application has, which form each route
+// shows, and which screen an action leads to once it has finished. It is the
+// result of combining the interaction scenarios into screens — the scenarios
+// say what a user does, this section says where each step lands.
+//
+// Where the navigation model (10.3.1) describes the *menus and structures* a
+// user browses with, the route map describes the *addressable targets* those
+// structures and the screens' own actions point at, so every navigation
+// target in the specification resolves to a declared route.
+export class ScreenRouteMap extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Overview of the route map and its conventions.
+  // (skipped: overview has no target type)
+
+  // Contains 0+× ScreenRouteEntry.
+  get routes(): SomList<ScreenRouteEntry> {
+    return new SomList(this.doc, this.path + "/SCRTEN-ROUT-LST", (d: SpecDocument, p: string) => new ScreenRouteEntry(d, p), "SCRTEN-ROUT-xxx");
+  }
+
+  // Contains 0+× FormScreenAssignmentEntry.
+  get formPlacement(): SomList<FormScreenAssignmentEntry> {
+    return new SomList(this.doc, this.path + "/FMSCAS-FORM-LST", (d: SpecDocument, p: string) => new FormScreenAssignmentEntry(d, p), "FMSCAS-FORM-xxx");
+  }
+
+  // Contains 0+× ScreenTransitionEntry.
+  get transitions(): SomList<ScreenTransitionEntry> {
+    return new SomList(this.doc, this.path + "/SCTREN-TRAN-LST", (d: SpecDocument, p: string) => new ScreenTransitionEntry(d, p), "SCTREN-TRAN-xxx");
   }
 }
 
@@ -28678,6 +28752,17 @@ export class ScreenStates extends SomNode {
   // Contains 0+× ScreenState.
   get items(): SomList<ScreenStateEntry> {
     return new SomList(this.doc, this.path + "/SCRST-ITEM-LST", (d: SpecDocument, p: string) => new ScreenStateEntry(d, p), "SCRST-ITEM-xxx");
+  }
+}
+
+// A screen-transition entry (form).
+export class ScreenTransitionEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ScreenTransitionEntryContentForm {
+    return new ScreenTransitionEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -90054,6 +90139,49 @@ export class FlexibilityModularityForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class FormScreenAssignmentEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get formId(): string {
+    return this.doc.formField(this.path, "formId") || '';
+  }
+
+  set formId(value: string) {
+    this.doc.setFormField(this.path, "formId", value);
+  }
+
+  get routeId(): string {
+    return this.doc.formField(this.path, "routeId") || '';
+  }
+
+  set routeId(value: string) {
+    this.doc.setFormField(this.path, "routeId", value);
+  }
+
+  get presentationMode(): string {
+    return this.doc.formField(this.path, "presentationMode") || '';
+  }
+
+  set presentationMode(value: string) {
+    this.doc.setFormField(this.path, "presentationMode", value);
+  }
+}
+
 // Generated section facade for the `compatibility` @Form section: its own content text followed by one typed member per form field.
 export class FrameworkRequirementEntryCompatibilityForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -145206,6 +145334,65 @@ export class ScreenResponsiveRuleEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ScreenRouteEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get routeId(): string {
+    return this.doc.formField(this.path, "routeId") || '';
+  }
+
+  set routeId(value: string) {
+    this.doc.setFormField(this.path, "routeId", value);
+  }
+
+  get routePath(): string {
+    return this.doc.formField(this.path, "routePath") || '';
+  }
+
+  set routePath(value: string) {
+    this.doc.setFormField(this.path, "routePath", value);
+  }
+
+  get routeTitle(): string {
+    return this.doc.formField(this.path, "routeTitle") || '';
+  }
+
+  set routeTitle(value: string) {
+    this.doc.setFormField(this.path, "routeTitle", value);
+  }
+
+  get screenId(): string {
+    return this.doc.formField(this.path, "screenId") || '';
+  }
+
+  set screenId(value: string) {
+    this.doc.setFormField(this.path, "screenId", value);
+  }
+
+  get routeParameters(): string {
+    return this.doc.formField(this.path, "routeParameters") || '';
+  }
+
+  set routeParameters(value: string) {
+    this.doc.setFormField(this.path, "routeParameters", value);
+  }
+}
+
 // Generated section facade for the `behavior` @Form section: its own content text followed by one typed member per form field.
 export class ScreenSectionEntryBehaviorForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -145432,6 +145619,73 @@ export class ScreenStateEntryContentForm extends SomNode {
 
   set secondaryActionLabel(value: string) {
     this.doc.setFormField(this.path, "secondaryActionLabel", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ScreenTransitionEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get sourceRouteId(): string {
+    return this.doc.formField(this.path, "sourceRouteId") || '';
+  }
+
+  set sourceRouteId(value: string) {
+    this.doc.setFormField(this.path, "sourceRouteId", value);
+  }
+
+  get actionId(): string {
+    return this.doc.formField(this.path, "actionId") || '';
+  }
+
+  set actionId(value: string) {
+    this.doc.setFormField(this.path, "actionId", value);
+  }
+
+  get outcome(): string {
+    return this.doc.formField(this.path, "outcome") || '';
+  }
+
+  set outcome(value: string) {
+    this.doc.setFormField(this.path, "outcome", value);
+  }
+
+  get targetRouteId(): string {
+    return this.doc.formField(this.path, "targetRouteId") || '';
+  }
+
+  set targetRouteId(value: string) {
+    this.doc.setFormField(this.path, "targetRouteId", value);
+  }
+
+  get presentationMode(): string {
+    return this.doc.formField(this.path, "presentationMode") || '';
+  }
+
+  set presentationMode(value: string) {
+    this.doc.setFormField(this.path, "presentationMode", value);
+  }
+
+  get outcomeReference(): string {
+    return this.doc.formField(this.path, "outcomeReference") || '';
+  }
+
+  set outcomeReference(value: string) {
+    this.doc.setFormField(this.path, "outcomeReference", value);
   }
 }
 

@@ -2427,6 +2427,14 @@
             - content, overview @text
             - guards: `NavigationGuardEntry`
               - content @Form(guardId, guardName, guardType, triggerCondition), dialog, routing
+        - `ScreenRouteMap`
+          - content, overview @text
+          - routes: `ScreenRouteEntry`
+            - content @Form(routeId, routePath, routeTitle, screenId, routeParameters)
+          - formPlacement: `FormScreenAssignmentEntry`
+            - content @Form(formId, routeId, presentationMode)
+          - transitions: `ScreenTransitionEntry`
+            - content @Form(sourceRouteId, actionId, outcome, targetRouteId, presentationMode, outcomeReference)
       - `ErrorHandling`
         - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
           errorMessageCatalog @text, errorVisualDesign @text

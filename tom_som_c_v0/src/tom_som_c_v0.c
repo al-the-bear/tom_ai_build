@@ -19592,6 +19592,24 @@ Portability flexibility_characteristic_portability(const FlexibilityCharacterist
   return out;
 }
 
+void form_screen_assignment_entry_init(FormScreenAssignmentEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void form_screen_assignment_entry_free(FormScreenAssignmentEntry *self) {
+  som_node_free(&self->node);
+}
+int form_screen_assignment_entry_can_have_content(const FormScreenAssignmentEntry *self) {
+  (void)self;
+  return 0;
+}
+FormScreenAssignmentEntryContentForm form_screen_assignment_entry_content(const FormScreenAssignmentEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  FormScreenAssignmentEntryContentForm out;
+  form_screen_assignment_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void framework_requirement_entry_init(FrameworkRequirementEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -36915,6 +36933,13 @@ NavigationModel screen_flow_structure_navigation_model(const ScreenFlowStructure
   free(path);
   return out;
 }
+ScreenRouteMap screen_flow_structure_screen_route_map(const ScreenFlowStructure *self) {
+  char *path = spec_path_join(self->node.path, "screenRouteMap");
+  ScreenRouteMap out;
+  screen_route_map_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 void screen_inventory_init(ScreenInventory *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -36960,6 +36985,68 @@ ScreenResponsiveRuleEntryContentForm screen_responsive_rule_entry_content(const 
   char *path = spec_path_join(self->node.path, "content");
   ScreenResponsiveRuleEntryContentForm out;
   screen_responsive_rule_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void screen_route_entry_init(ScreenRouteEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_route_entry_free(ScreenRouteEntry *self) {
+  som_node_free(&self->node);
+}
+int screen_route_entry_can_have_content(const ScreenRouteEntry *self) {
+  (void)self;
+  return 0;
+}
+ScreenRouteEntryContentForm screen_route_entry_content(const ScreenRouteEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ScreenRouteEntryContentForm out;
+  screen_route_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void screen_route_map_init(ScreenRouteMap *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_route_map_free(ScreenRouteMap *self) {
+  som_node_free(&self->node);
+}
+int screen_route_map_can_have_content(const ScreenRouteMap *self) {
+  (void)self;
+  return 1;
+}
+char *screen_route_map_content(const ScreenRouteMap *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void screen_route_map_set_content(ScreenRouteMap *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+SomList screen_route_map_routes(const ScreenRouteMap *self) {
+  char *path = spec_path_join(self->node.path, "SCRTEN-ROUT-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SCRTEN-ROUT-xxx");
+  free(path);
+  return out;
+}
+SomList screen_route_map_form_placement(const ScreenRouteMap *self) {
+  char *path = spec_path_join(self->node.path, "FMSCAS-FORM-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "FMSCAS-FORM-xxx");
+  free(path);
+  return out;
+}
+SomList screen_route_map_transitions(const ScreenRouteMap *self) {
+  char *path = spec_path_join(self->node.path, "SCTREN-TRAN-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SCTREN-TRAN-xxx");
   free(path);
   return out;
 }
@@ -37077,6 +37164,24 @@ SomList screen_states_items(const ScreenStates *self) {
   char *path = spec_path_join(self->node.path, "SCRST-ITEM-LST");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "SCRST-ITEM-xxx");
+  free(path);
+  return out;
+}
+
+void screen_transition_entry_init(ScreenTransitionEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_transition_entry_free(ScreenTransitionEntry *self) {
+  som_node_free(&self->node);
+}
+int screen_transition_entry_can_have_content(const ScreenTransitionEntry *self) {
+  (void)self;
+  return 0;
+}
+ScreenTransitionEntryContentForm screen_transition_entry_content(const ScreenTransitionEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ScreenTransitionEntryContentForm out;
+  screen_transition_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -91607,6 +91712,41 @@ void flexibility_modularity_form_set_module_reusability(FlexibilityModularityFor
   spec_document_set_form_field(self->node.doc, self->node.path, "moduleReusability", value);
 }
 
+void form_screen_assignment_entry_content_form_init(FormScreenAssignmentEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void form_screen_assignment_entry_content_form_free(FormScreenAssignmentEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *form_screen_assignment_entry_content_form_content(const FormScreenAssignmentEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void form_screen_assignment_entry_content_form_set_content(FormScreenAssignmentEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *form_screen_assignment_entry_content_form_form_id(const FormScreenAssignmentEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formId");
+  return som_strdup(v != NULL ? v : "");
+}
+void form_screen_assignment_entry_content_form_set_form_id(FormScreenAssignmentEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "formId", value);
+}
+char *form_screen_assignment_entry_content_form_route_id(const FormScreenAssignmentEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "routeId");
+  return som_strdup(v != NULL ? v : "");
+}
+void form_screen_assignment_entry_content_form_set_route_id(FormScreenAssignmentEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "routeId", value);
+}
+char *form_screen_assignment_entry_content_form_presentation_mode(const FormScreenAssignmentEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "presentationMode");
+  return som_strdup(v != NULL ? v : "");
+}
+void form_screen_assignment_entry_content_form_set_presentation_mode(FormScreenAssignmentEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "presentationMode", value);
+}
+
 void framework_requirement_entry_compatibility_form_init(FrameworkRequirementEntryCompatibilityForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -137131,6 +137271,55 @@ void screen_responsive_rule_entry_content_form_set_navigation_mode(ScreenRespons
   spec_document_set_form_field(self->node.doc, self->node.path, "navigationMode", value);
 }
 
+void screen_route_entry_content_form_init(ScreenRouteEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_route_entry_content_form_free(ScreenRouteEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_route_entry_content_form_content(const ScreenRouteEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_route_entry_content_form_set_content(ScreenRouteEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_route_entry_content_form_route_id(const ScreenRouteEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "routeId");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_route_entry_content_form_set_route_id(ScreenRouteEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "routeId", value);
+}
+char *screen_route_entry_content_form_route_path(const ScreenRouteEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "routePath");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_route_entry_content_form_set_route_path(ScreenRouteEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "routePath", value);
+}
+char *screen_route_entry_content_form_route_title(const ScreenRouteEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "routeTitle");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_route_entry_content_form_set_route_title(ScreenRouteEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "routeTitle", value);
+}
+char *screen_route_entry_content_form_screen_id(const ScreenRouteEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "screenId");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_route_entry_content_form_set_screen_id(ScreenRouteEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "screenId", value);
+}
+char *screen_route_entry_content_form_route_parameters(const ScreenRouteEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "routeParameters");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_route_entry_content_form_set_route_parameters(ScreenRouteEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "routeParameters", value);
+}
+
 void screen_section_entry_behavior_form_init(ScreenSectionEntryBehaviorForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -137320,6 +137509,62 @@ char *screen_state_entry_content_form_secondary_action_label(const ScreenStateEn
 }
 void screen_state_entry_content_form_set_secondary_action_label(ScreenStateEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "secondaryActionLabel", value);
+}
+
+void screen_transition_entry_content_form_init(ScreenTransitionEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void screen_transition_entry_content_form_free(ScreenTransitionEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *screen_transition_entry_content_form_content(const ScreenTransitionEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_transition_entry_content_form_set_content(ScreenTransitionEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_transition_entry_content_form_source_route_id(const ScreenTransitionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sourceRouteId");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_transition_entry_content_form_set_source_route_id(ScreenTransitionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "sourceRouteId", value);
+}
+char *screen_transition_entry_content_form_action_id(const ScreenTransitionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionId");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_transition_entry_content_form_set_action_id(ScreenTransitionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "actionId", value);
+}
+char *screen_transition_entry_content_form_outcome(const ScreenTransitionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "outcome");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_transition_entry_content_form_set_outcome(ScreenTransitionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "outcome", value);
+}
+char *screen_transition_entry_content_form_target_route_id(const ScreenTransitionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "targetRouteId");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_transition_entry_content_form_set_target_route_id(ScreenTransitionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "targetRouteId", value);
+}
+char *screen_transition_entry_content_form_presentation_mode(const ScreenTransitionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "presentationMode");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_transition_entry_content_form_set_presentation_mode(ScreenTransitionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "presentationMode", value);
+}
+char *screen_transition_entry_content_form_outcome_reference(const ScreenTransitionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "outcomeReference");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_transition_entry_content_form_set_outcome_reference(ScreenTransitionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "outcomeReference", value);
 }
 
 void screen_user_category_entry_content_form_init(ScreenUserCategoryEntryContentForm *self, SpecDocument *doc, const char *path) {

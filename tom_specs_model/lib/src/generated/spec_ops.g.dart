@@ -8895,6 +8895,15 @@ void registerSpecOps() {
         ..portability = n.portability;
     },
   ));
+  SpecRegistry.register(FormScreenAssignmentEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as FormScreenAssignmentEntry;
+      return FormScreenAssignmentEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as FormScreenAssignmentEntry).content,
+  ));
   SpecRegistry.register(FrameworkRequirementEntry, SpecClassOps(
     slots: (o) {
       final n = o as FrameworkRequirementEntry;
@@ -17193,6 +17202,7 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.navigationModel, (v) => n.navigationModel = v as NavigationModel, label: 'navigationModel'),
         SpecSlot.node(() => n.screenFlowDiagram, (v) => n.screenFlowDiagram = v as FlowDiagramSection, label: 'screenFlowDiagram'),
+        SpecSlot.node(() => n.screenRouteMap, (v) => n.screenRouteMap = v as ScreenRouteMap, label: 'screenRouteMap'),
       ];
     },
     cloneShallow: (o) {
@@ -17200,7 +17210,8 @@ void registerSpecOps() {
       return ScreenFlowStructure()
         ..content = n.content
         ..navigationModel = n.navigationModel
-        ..screenFlowDiagram = n.screenFlowDiagram;
+        ..screenFlowDiagram = n.screenFlowDiagram
+        ..screenRouteMap = n.screenRouteMap;
     },
     yamlScalar: (o) => (o as ScreenFlowStructure).content,
   ));
@@ -17229,6 +17240,36 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as ScreenResponsiveRuleEntry).content,
+  ));
+  SpecRegistry.register(ScreenRouteEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ScreenRouteEntry;
+      return ScreenRouteEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ScreenRouteEntry).content,
+  ));
+  SpecRegistry.register(ScreenRouteMap, SpecClassOps(
+    slots: (o) {
+      final n = o as ScreenRouteMap;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.list(() => n.routes, (v) => n.routes = v.cast<ScreenRouteEntry>(), label: 'routes'),
+        SpecSlot.list(() => n.formPlacement, (v) => n.formPlacement = v.cast<FormScreenAssignmentEntry>(), label: 'formPlacement'),
+        SpecSlot.list(() => n.transitions, (v) => n.transitions = v.cast<ScreenTransitionEntry>(), label: 'transitions'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ScreenRouteMap;
+      return ScreenRouteMap()
+        ..content = n.content
+        ..overview = n.overview
+        ..routes = n.routes
+        ..formPlacement = n.formPlacement
+        ..transitions = n.transitions;
+    },
+    yamlScalar: (o) => (o as ScreenRouteMap).content,
   ));
   SpecRegistry.register(ScreenSectionEntry, SpecClassOps(
     slots: (o) {
@@ -17287,6 +17328,15 @@ void registerSpecOps() {
         ..items = n.items;
     },
     yamlScalar: (o) => (o as ScreenStates).content,
+  ));
+  SpecRegistry.register(ScreenTransitionEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ScreenTransitionEntry;
+      return ScreenTransitionEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ScreenTransitionEntry).content,
   ));
   SpecRegistry.register(ScreenUserCategoryEntry, SpecClassOps(
     slots: (o) => const [],

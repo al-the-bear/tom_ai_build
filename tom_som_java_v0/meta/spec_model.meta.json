@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-28T05:05:02.939123Z",
+  "generatedAt": "2026-07-28T05:35:46.193448Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 1,
-  "modelVersionLabel": "1.0.0+2.50e0102",
-  "classCount": 1243,
+  "modelVersion": 9,
+  "modelVersionLabel": "1.0.0+3.50e0102",
+  "classCount": 1247,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -108417,6 +108417,94 @@
         }
       ]
     },
+    "FormScreenAssignmentEntry": {
+      "name": "FormScreenAssignmentEntry",
+      "sectionId": "FMSCAS",
+      "doc": "A form-to-route assignment entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — the presentation and context of forms",
+          "ISO 9241-110:2020 — controllability over whether the previous screen is kept or left"
+        ],
+        "connotation": "A single assignment of a form to a route, including whether the form replaces the current screen or overlays it."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — the presentation and context of forms",
+              "ISO 9241-110:2020 — controllability over whether the previous screen is kept or left"
+            ],
+            "connotation": "A single assignment of a form to a route, including whether the form replaces the current screen or overlays it."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "FMSCAS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation",
+              "CodeSpecPart.layout"
+            ],
+            "note": "CE-NV + CE-LO — which form a route shows, and how it is put on screen."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "formId",
+              "label": "Form ID",
+              "hint": "ID of the form shown on this route",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "routeId",
+              "label": "Route ID",
+              "hint": "Route ID (SCRTEN registry) that hosts the form",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "presentationMode",
+              "label": "Presentation Mode",
+              "hint": "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath",
+              "type": "ScreenPresentationMode",
+              "required": true,
+              "enumValues": [
+                "replace",
+                "popupOverlay"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "FrameworkRequirementEntry": {
       "name": "FrameworkRequirementEntry",
       "sectionId": "FRREEN",
@@ -212603,7 +212691,7 @@
             {
               "name": "navigateTo",
               "label": "Navigate To",
-              "hint": "Target screen after action",
+              "hint": "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead",
               "type": "String",
               "required": false
             },
@@ -214812,7 +214900,7 @@
             {
               "name": "routePattern",
               "label": "Route Pattern",
-              "hint": "Navigation route path, e.g., /orders/:id/edit",
+              "hint": "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map",
               "type": "String",
               "required": false
             }
@@ -216101,13 +216189,13 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n",
+          "help": "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n",
           "serializationOrder": 0,
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n"
+                "guidance": "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n"
               }
             },
             {
@@ -216149,6 +216237,21 @@
           ],
           "contentType": "mermaid-flow",
           "sectionType": "FlowDiagramSection"
+        },
+        {
+          "name": "screenRouteMap",
+          "kind": "complex",
+          "doc": "10.3.3. Screen Route Map.",
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "type": "ScreenRouteMap"
         }
       ]
     },
@@ -216376,6 +216479,330 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "ScreenRouteEntry": {
+      "name": "ScreenRouteEntry",
+      "sectionId": "SCRTEN",
+      "doc": "A route entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — addressable content units identified independently of their presentation"
+        ],
+        "connotation": "A single addressable route: its stable identifier, its path, its title, and the screen it renders."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — addressable content units identified independently of their presentation"
+            ],
+            "connotation": "A single addressable route: its stable identifier, its path, its title, and the screen it renders."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCRTEN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — a route definition: the stable target of every navigation."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "routeId",
+              "label": "Route ID",
+              "hint": "Stable identifier referenced by every navigation target, e.g., order-edit",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "routePath",
+              "label": "Route Path",
+              "hint": "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "routeTitle",
+              "label": "Route Title",
+              "hint": "Human-readable screen title shown in the title bar and history",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "screenId",
+              "label": "Screen ID",
+              "hint": "ID of the screen (SCREN registry) this route renders",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "routeParameters",
+              "label": "Route Parameters",
+              "hint": "Comma-separated parameter names carried by the route, e.g., orderId,mode",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "ScreenRouteMap": {
+      "name": "ScreenRouteMap",
+      "sectionId": "SCRTMP",
+      "doc": "10.3.3. Screen Route Map.\n\nThe screen map: which routes the application has, which form each route\nshows, and which screen an action leads to once it has finished. It is the\nresult of combining the interaction scenarios into screens — the scenarios\nsay what a user does, this section says where each step lands.\n\nWhere the navigation model (10.3.1) describes the *menus and structures* a\nuser browses with, the route map describes the *addressable targets* those\nstructures and the screens' own actions point at, so every navigation\ntarget in the specification resolves to a declared route.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — the conceptual structure of a web application and the addressability of its content",
+          "ISO 9241-110:2020 — conformity with user expectations keeps transitions between screens predictable",
+          "ISO 9241-143:2012 — form transitions and the navigation between forms in a task"
+        ],
+        "connotation": "The registry of application routes, the placement of forms on them, and the action-triggered transitions between them."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — the conceptual structure of a web application and the addressability of its content",
+              "ISO 9241-110:2020 — conformity with user expectations keeps transitions between screens predictable",
+              "ISO 9241-143:2012 — form transitions and the navigation between forms in a task"
+            ],
+            "connotation": "The registry of application routes, the placement of forms on them, and the action-triggered transitions between them."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCRTMP"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Overview of the route map and its conventions.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "routes",
+          "kind": "list",
+          "doc": "Contains 0+× ScreenRouteEntry.",
+          "help": "Add one entry per addressable route.",
+          "sectionId": "SCRTEN-ROUT-LST",
+          "sectionIdPattern": "SCRTEN-ROUT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-151:2008 — addressable content units and the conceptual structure of the application"
+            ],
+            "connotation": "The registry of addressable application routes, each identified by a stable route ID."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-151:2008 — addressable content units and the conceptual structure of the application"
+                ],
+                "connotation": "The registry of addressable application routes, each identified by a stable route ID."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCRTEN-ROUT-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SCRTEN-ROUT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per addressable route."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "elementType": "ScreenRouteEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "formPlacement",
+          "kind": "list",
+          "doc": "Contains 0+× FormScreenAssignmentEntry.",
+          "help": "Add one entry per form placed on a route.",
+          "sectionId": "FMSCAS-FORM-LST",
+          "sectionIdPattern": "FMSCAS-FORM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — the presentation of forms and the context in which they are shown"
+            ],
+            "connotation": "The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — the presentation of forms and the context in which they are shown"
+                ],
+                "connotation": "The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "FMSCAS-FORM-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "FMSCAS-FORM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per form placed on a route."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "elementType": "FormScreenAssignmentEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "transitions",
+          "kind": "list",
+          "doc": "Contains 0+× ScreenTransitionEntry.",
+          "help": "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome.",
+          "sectionId": "SCTREN-TRAN-LST",
+          "sectionIdPattern": "SCTREN-TRAN-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads",
+              "ISO 9241-143:2012 — navigation between forms as a task progresses"
+            ],
+            "connotation": "The action-triggered transitions between routes, with a separate target per outcome."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads",
+                  "ISO 9241-143:2012 — navigation between forms as a task progresses"
+                ],
+                "connotation": "The action-triggered transitions between routes, with a separate target per outcome."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCTREN-TRAN-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SCTREN-TRAN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "elementType": "ScreenTransitionEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -216993,6 +217420,119 @@
           ],
           "elementType": "ScreenStateEntry",
           "elementIsComplex": true
+        }
+      ]
+    },
+    "ScreenTransitionEntry": {
+      "name": "ScreenTransitionEntry",
+      "sectionId": "SCTREN",
+      "doc": "A screen-transition entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — self-descriptiveness about where an action leads and use error tolerance when it fails",
+          "ISO 9241-143:2012 — navigation between forms as a task progresses"
+        ],
+        "connotation": "A single action-triggered transition: the screen reached from a source route when an action ends with a given outcome."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — self-descriptiveness about where an action leads and use error tolerance when it fails",
+              "ISO 9241-143:2012 — navigation between forms as a task progresses"
+            ],
+            "connotation": "A single action-triggered transition: the screen reached from a source route when an action ends with a given outcome."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCTREN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "CE-NV — a conditional navigation edge keyed by (source route, action, outcome)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "sourceRouteId",
+              "label": "Source Route ID",
+              "hint": "Route ID (SCRTEN registry) the user is on when the action runs",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "actionId",
+              "label": "Action ID",
+              "hint": "ID of the triggering action (SCRAC registry) or of the screen element that raises it",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "outcome",
+              "label": "Outcome",
+              "hint": "success — the action completed; error — processing failed; validationError — the input was rejected",
+              "type": "ScreenFlowOutcome",
+              "required": true,
+              "enumValues": [
+                "success",
+                "error",
+                "validationError"
+              ]
+            },
+            {
+              "name": "targetRouteId",
+              "label": "Target Route ID",
+              "hint": "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "presentationMode",
+              "label": "Presentation Mode",
+              "hint": "replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath",
+              "type": "ScreenPresentationMode",
+              "required": true,
+              "enumValues": [
+                "replace",
+                "popupOverlay"
+              ]
+            },
+            {
+              "name": "outcomeReference",
+              "label": "Outcome Reference",
+              "hint": "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },

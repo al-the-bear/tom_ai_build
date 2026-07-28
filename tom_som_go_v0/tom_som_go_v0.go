@@ -17590,6 +17590,20 @@ func (x *FlexibilityCharacteristic) Portability() *Portability {
 	return NewPortability(x.Doc(), x.Path()+"/portability")
 }
 
+// A form-to-route assignment entry (form).
+type FormScreenAssignmentEntry struct {
+	som.SomNode
+}
+
+// NewFormScreenAssignmentEntry binds a FormScreenAssignmentEntry facade to a document and a path.
+func NewFormScreenAssignmentEntry(doc *som.SpecDocument, path string) *FormScreenAssignmentEntry {
+	return &FormScreenAssignmentEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *FormScreenAssignmentEntry) Content() *FormScreenAssignmentEntryContentForm {
+	return NewFormScreenAssignmentEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // Framework or library requirement entry.
 type FrameworkRequirementEntry struct {
 	som.SomNode
@@ -32990,6 +33004,11 @@ func (x *ScreenFlowStructure) NavigationModel() *NavigationModel {
 // 10.3.2. Screen Flow Diagram (mermaid-flow).
 // (skipped: screenFlowDiagram has no target type)
 
+// 10.3.3. Screen Route Map.
+func (x *ScreenFlowStructure) ScreenRouteMap() *ScreenRouteMap {
+	return NewScreenRouteMap(x.Doc(), x.Path()+"/screenRouteMap")
+}
+
 // 10.2.1. Screen Inventory.
 //
 // Container for screen definitions. Each entry fully describes one application
@@ -33041,6 +33060,78 @@ func NewScreenResponsiveRuleEntry(doc *som.SpecDocument, path string) *ScreenRes
 
 func (x *ScreenResponsiveRuleEntry) Content() *ScreenResponsiveRuleEntryContentForm {
 	return NewScreenResponsiveRuleEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// A route entry (form).
+type ScreenRouteEntry struct {
+	som.SomNode
+}
+
+// NewScreenRouteEntry binds a ScreenRouteEntry facade to a document and a path.
+func NewScreenRouteEntry(doc *som.SpecDocument, path string) *ScreenRouteEntry {
+	return &ScreenRouteEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ScreenRouteEntry) Content() *ScreenRouteEntryContentForm {
+	return NewScreenRouteEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 10.3.3. Screen Route Map.
+//
+// The screen map: which routes the application has, which form each route
+// shows, and which screen an action leads to once it has finished. It is the
+// result of combining the interaction scenarios into screens — the scenarios
+// say what a user does, this section says where each step lands.
+//
+// Where the navigation model (10.3.1) describes the *menus and structures* a
+// user browses with, the route map describes the *addressable targets* those
+// structures and the screens' own actions point at, so every navigation
+// target in the specification resolves to a declared route.
+type ScreenRouteMap struct {
+	som.SomNode
+}
+
+// NewScreenRouteMap binds a ScreenRouteMap facade to a document and a path.
+func NewScreenRouteMap(doc *som.SpecDocument, path string) *ScreenRouteMap {
+	return &ScreenRouteMap{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenRouteMap) CanHaveContent() bool {
+	return true
+}
+
+func (x *ScreenRouteMap) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ScreenRouteMap) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// Overview of the route map and its conventions.
+// (skipped: overview has no target type)
+
+// Contains 0+× ScreenRouteEntry.
+func (x *ScreenRouteMap) Routes() *som.SomList[*ScreenRouteEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SCRTEN-ROUT-LST", func(d *som.SpecDocument, p string) *ScreenRouteEntry {
+		return NewScreenRouteEntry(d, p)
+	}, "SCRTEN-ROUT-xxx")
+}
+
+// Contains 0+× FormScreenAssignmentEntry.
+func (x *ScreenRouteMap) FormPlacement() *som.SomList[*FormScreenAssignmentEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/FMSCAS-FORM-LST", func(d *som.SpecDocument, p string) *FormScreenAssignmentEntry {
+		return NewFormScreenAssignmentEntry(d, p)
+	}, "FMSCAS-FORM-xxx")
+}
+
+// Contains 0+× ScreenTransitionEntry.
+func (x *ScreenRouteMap) Transitions() *som.SomList[*ScreenTransitionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SCTREN-TRAN-LST", func(d *som.SpecDocument, p string) *ScreenTransitionEntry {
+		return NewScreenTransitionEntry(d, p)
+	}, "SCTREN-TRAN-xxx")
 }
 
 // A screen section entry (form).
@@ -33156,6 +33247,20 @@ func (x *ScreenStates) Items() *som.SomList[*ScreenStateEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/SCRST-ITEM-LST", func(d *som.SpecDocument, p string) *ScreenStateEntry {
 		return NewScreenStateEntry(d, p)
 	}, "SCRST-ITEM-xxx")
+}
+
+// A screen-transition entry (form).
+type ScreenTransitionEntry struct {
+	som.SomNode
+}
+
+// NewScreenTransitionEntry binds a ScreenTransitionEntry facade to a document and a path.
+func NewScreenTransitionEntry(doc *som.SpecDocument, path string) *ScreenTransitionEntry {
+	return &ScreenTransitionEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ScreenTransitionEntry) Content() *ScreenTransitionEntryContentForm {
+	return NewScreenTransitionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // A user category entry (form).
@@ -106525,6 +106630,56 @@ func (x *FlexibilityModularityForm) SetModuleReusability(value string) {
 	x.Doc().SetFormField(x.Path(), "moduleReusability", value)
 }
 
+// FormScreenAssignmentEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type FormScreenAssignmentEntryContentForm struct {
+	som.SomNode
+}
+
+// NewFormScreenAssignmentEntryContentForm binds a FormScreenAssignmentEntryContentForm facade to a document and a path.
+func NewFormScreenAssignmentEntryContentForm(doc *som.SpecDocument, path string) *FormScreenAssignmentEntryContentForm {
+	return &FormScreenAssignmentEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *FormScreenAssignmentEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *FormScreenAssignmentEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *FormScreenAssignmentEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *FormScreenAssignmentEntryContentForm) FormId() string {
+	return x.Doc().FormFieldOr(x.Path(), "formId")
+}
+
+func (x *FormScreenAssignmentEntryContentForm) SetFormId(value string) {
+	x.Doc().SetFormField(x.Path(), "formId", value)
+}
+
+func (x *FormScreenAssignmentEntryContentForm) RouteId() string {
+	return x.Doc().FormFieldOr(x.Path(), "routeId")
+}
+
+func (x *FormScreenAssignmentEntryContentForm) SetRouteId(value string) {
+	x.Doc().SetFormField(x.Path(), "routeId", value)
+}
+
+func (x *FormScreenAssignmentEntryContentForm) PresentationMode() string {
+	return x.Doc().FormFieldOr(x.Path(), "presentationMode")
+}
+
+func (x *FormScreenAssignmentEntryContentForm) SetPresentationMode(value string) {
+	x.Doc().SetFormField(x.Path(), "presentationMode", value)
+}
+
 // FrameworkRequirementEntryCompatibilityForm is the generated section facade for the `compatibility` @Form section: its own
 // content text followed by one typed member per form field.
 type FrameworkRequirementEntryCompatibilityForm struct {
@@ -172336,6 +172491,72 @@ func (x *ScreenResponsiveRuleEntryContentForm) SetNavigationMode(value string) {
 	x.Doc().SetFormField(x.Path(), "navigationMode", value)
 }
 
+// ScreenRouteEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenRouteEntryContentForm struct {
+	som.SomNode
+}
+
+// NewScreenRouteEntryContentForm binds a ScreenRouteEntryContentForm facade to a document and a path.
+func NewScreenRouteEntryContentForm(doc *som.SpecDocument, path string) *ScreenRouteEntryContentForm {
+	return &ScreenRouteEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenRouteEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenRouteEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenRouteEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenRouteEntryContentForm) RouteId() string {
+	return x.Doc().FormFieldOr(x.Path(), "routeId")
+}
+
+func (x *ScreenRouteEntryContentForm) SetRouteId(value string) {
+	x.Doc().SetFormField(x.Path(), "routeId", value)
+}
+
+func (x *ScreenRouteEntryContentForm) RoutePath() string {
+	return x.Doc().FormFieldOr(x.Path(), "routePath")
+}
+
+func (x *ScreenRouteEntryContentForm) SetRoutePath(value string) {
+	x.Doc().SetFormField(x.Path(), "routePath", value)
+}
+
+func (x *ScreenRouteEntryContentForm) RouteTitle() string {
+	return x.Doc().FormFieldOr(x.Path(), "routeTitle")
+}
+
+func (x *ScreenRouteEntryContentForm) SetRouteTitle(value string) {
+	x.Doc().SetFormField(x.Path(), "routeTitle", value)
+}
+
+func (x *ScreenRouteEntryContentForm) ScreenId() string {
+	return x.Doc().FormFieldOr(x.Path(), "screenId")
+}
+
+func (x *ScreenRouteEntryContentForm) SetScreenId(value string) {
+	x.Doc().SetFormField(x.Path(), "screenId", value)
+}
+
+func (x *ScreenRouteEntryContentForm) RouteParameters() string {
+	return x.Doc().FormFieldOr(x.Path(), "routeParameters")
+}
+
+func (x *ScreenRouteEntryContentForm) SetRouteParameters(value string) {
+	x.Doc().SetFormField(x.Path(), "routeParameters", value)
+}
+
 // ScreenSectionEntryBehaviorForm is the generated section facade for the `behavior` @Form section: its own
 // content text followed by one typed member per form field.
 type ScreenSectionEntryBehaviorForm struct {
@@ -172602,6 +172823,80 @@ func (x *ScreenStateEntryContentForm) SecondaryActionLabel() string {
 
 func (x *ScreenStateEntryContentForm) SetSecondaryActionLabel(value string) {
 	x.Doc().SetFormField(x.Path(), "secondaryActionLabel", value)
+}
+
+// ScreenTransitionEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenTransitionEntryContentForm struct {
+	som.SomNode
+}
+
+// NewScreenTransitionEntryContentForm binds a ScreenTransitionEntryContentForm facade to a document and a path.
+func NewScreenTransitionEntryContentForm(doc *som.SpecDocument, path string) *ScreenTransitionEntryContentForm {
+	return &ScreenTransitionEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *ScreenTransitionEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenTransitionEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenTransitionEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenTransitionEntryContentForm) SourceRouteId() string {
+	return x.Doc().FormFieldOr(x.Path(), "sourceRouteId")
+}
+
+func (x *ScreenTransitionEntryContentForm) SetSourceRouteId(value string) {
+	x.Doc().SetFormField(x.Path(), "sourceRouteId", value)
+}
+
+func (x *ScreenTransitionEntryContentForm) ActionId() string {
+	return x.Doc().FormFieldOr(x.Path(), "actionId")
+}
+
+func (x *ScreenTransitionEntryContentForm) SetActionId(value string) {
+	x.Doc().SetFormField(x.Path(), "actionId", value)
+}
+
+func (x *ScreenTransitionEntryContentForm) Outcome() string {
+	return x.Doc().FormFieldOr(x.Path(), "outcome")
+}
+
+func (x *ScreenTransitionEntryContentForm) SetOutcome(value string) {
+	x.Doc().SetFormField(x.Path(), "outcome", value)
+}
+
+func (x *ScreenTransitionEntryContentForm) TargetRouteId() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetRouteId")
+}
+
+func (x *ScreenTransitionEntryContentForm) SetTargetRouteId(value string) {
+	x.Doc().SetFormField(x.Path(), "targetRouteId", value)
+}
+
+func (x *ScreenTransitionEntryContentForm) PresentationMode() string {
+	return x.Doc().FormFieldOr(x.Path(), "presentationMode")
+}
+
+func (x *ScreenTransitionEntryContentForm) SetPresentationMode(value string) {
+	x.Doc().SetFormField(x.Path(), "presentationMode", value)
+}
+
+func (x *ScreenTransitionEntryContentForm) OutcomeReference() string {
+	return x.Doc().FormFieldOr(x.Path(), "outcomeReference")
+}
+
+func (x *ScreenTransitionEntryContentForm) SetOutcomeReference(value string) {
+	x.Doc().SetFormField(x.Path(), "outcomeReference", value)
 }
 
 // ScreenUserCategoryEntryContentForm is the generated section facade for the `content` @Form section: its own

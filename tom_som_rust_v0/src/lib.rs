@@ -21529,6 +21529,29 @@ impl FlexibilityCharacteristic {
     }
 }
 
+/// A form-to-route assignment entry (form).
+pub struct FormScreenAssignmentEntry {
+    pub node: som::SomNode,
+}
+
+impl FormScreenAssignmentEntry {
+    /// Binds a FormScreenAssignmentEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FormScreenAssignmentEntry {
+        FormScreenAssignmentEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> FormScreenAssignmentEntryContentForm {
+        FormScreenAssignmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Framework or library requirement entry.
 pub struct FrameworkRequirementEntry {
     pub node: som::SomNode,
@@ -41265,6 +41288,11 @@ impl ScreenFlowStructure {
 
     // 10.3.2. Screen Flow Diagram (mermaid-flow).
     // (skipped: screenFlowDiagram has no target type)
+
+    /// 10.3.3. Screen Route Map.
+    pub fn screen_route_map(&self) -> ScreenRouteMap {
+        ScreenRouteMap::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenRouteMap"))
+    }
 }
 
 /// 10.2.1. Screen Inventory.
@@ -41333,6 +41361,100 @@ impl ScreenResponsiveRuleEntry {
 
     pub fn content(&self) -> ScreenResponsiveRuleEntryContentForm {
         ScreenResponsiveRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// A route entry (form).
+pub struct ScreenRouteEntry {
+    pub node: som::SomNode,
+}
+
+impl ScreenRouteEntry {
+    /// Binds a ScreenRouteEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenRouteEntry {
+        ScreenRouteEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ScreenRouteEntryContentForm {
+        ScreenRouteEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 10.3.3. Screen Route Map.
+///
+/// The screen map: which routes the application has, which form each route
+/// shows, and which screen an action leads to once it has finished. It is the
+/// result of combining the interaction scenarios into screens — the scenarios
+/// say what a user does, this section says where each step lands.
+///
+/// Where the navigation model (10.3.1) describes the *menus and structures* a
+/// user browses with, the route map describes the *addressable targets* those
+/// structures and the screens' own actions point at, so every navigation
+/// target in the specification resolves to a declared route.
+pub struct ScreenRouteMap {
+    pub node: som::SomNode,
+}
+
+impl ScreenRouteMap {
+    /// Binds a ScreenRouteMap facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenRouteMap {
+        ScreenRouteMap { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    // Overview of the route map and its conventions.
+    // (skipped: overview has no target type)
+
+    /// Contains 0+× ScreenRouteEntry.
+    pub fn routes(&self) -> som::SomList<ScreenRouteEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SCRTEN-ROUT-LST"),
+            Box::new(ScreenRouteEntry::new),
+            "SCRTEN-ROUT-xxx".to_string(),
+        )
+    }
+
+    /// Contains 0+× FormScreenAssignmentEntry.
+    pub fn form_placement(&self) -> som::SomList<FormScreenAssignmentEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "FMSCAS-FORM-LST"),
+            Box::new(FormScreenAssignmentEntry::new),
+            "FMSCAS-FORM-xxx".to_string(),
+        )
+    }
+
+    /// Contains 0+× ScreenTransitionEntry.
+    pub fn transitions(&self) -> som::SomList<ScreenTransitionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SCTREN-TRAN-LST"),
+            Box::new(ScreenTransitionEntry::new),
+            "SCTREN-TRAN-xxx".to_string(),
+        )
     }
 }
 
@@ -41483,6 +41605,29 @@ impl ScreenStates {
             Box::new(ScreenStateEntry::new),
             "SCRST-ITEM-xxx".to_string(),
         )
+    }
+}
+
+/// A screen-transition entry (form).
+pub struct ScreenTransitionEntry {
+    pub node: som::SomNode,
+}
+
+impl ScreenTransitionEntry {
+    /// Binds a ScreenTransitionEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenTransitionEntry {
+        ScreenTransitionEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ScreenTransitionEntryContentForm {
+        ScreenTransitionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -122401,6 +122546,63 @@ impl FlexibilityModularityForm {
     }
 }
 
+/// FormScreenAssignmentEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct FormScreenAssignmentEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl FormScreenAssignmentEntryContentForm {
+    /// Binds a FormScreenAssignmentEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FormScreenAssignmentEntryContentForm {
+        FormScreenAssignmentEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn form_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "formId")
+    }
+
+    pub fn set_form_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "formId", value);
+    }
+
+    pub fn route_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "routeId")
+    }
+
+    pub fn set_route_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "routeId", value);
+    }
+
+    pub fn presentation_mode(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "presentationMode")
+    }
+
+    pub fn set_presentation_mode(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "presentationMode", value);
+    }
+}
+
 /// FrameworkRequirementEntryCompatibilityForm is the generated section facade for the `compatibility` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct FrameworkRequirementEntryCompatibilityForm {
@@ -193607,6 +193809,81 @@ impl ScreenResponsiveRuleEntryContentForm {
     }
 }
 
+/// ScreenRouteEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenRouteEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenRouteEntryContentForm {
+    /// Binds a ScreenRouteEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenRouteEntryContentForm {
+        ScreenRouteEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn route_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "routeId")
+    }
+
+    pub fn set_route_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "routeId", value);
+    }
+
+    pub fn route_path(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "routePath")
+    }
+
+    pub fn set_route_path(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "routePath", value);
+    }
+
+    pub fn route_title(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "routeTitle")
+    }
+
+    pub fn set_route_title(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "routeTitle", value);
+    }
+
+    pub fn screen_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "screenId")
+    }
+
+    pub fn set_screen_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "screenId", value);
+    }
+
+    pub fn route_parameters(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "routeParameters")
+    }
+
+    pub fn set_route_parameters(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "routeParameters", value);
+    }
+}
+
 /// ScreenSectionEntryBehaviorForm is the generated section facade for the `behavior` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ScreenSectionEntryBehaviorForm {
@@ -193897,6 +194174,90 @@ impl ScreenStateEntryContentForm {
     pub fn set_secondary_action_label(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "secondaryActionLabel", value);
+    }
+}
+
+/// ScreenTransitionEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenTransitionEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenTransitionEntryContentForm {
+    /// Binds a ScreenTransitionEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenTransitionEntryContentForm {
+        ScreenTransitionEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn source_route_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sourceRouteId")
+    }
+
+    pub fn set_source_route_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sourceRouteId", value);
+    }
+
+    pub fn action_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "actionId")
+    }
+
+    pub fn set_action_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "actionId", value);
+    }
+
+    pub fn outcome(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "outcome")
+    }
+
+    pub fn set_outcome(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "outcome", value);
+    }
+
+    pub fn target_route_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "targetRouteId")
+    }
+
+    pub fn set_target_route_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "targetRouteId", value);
+    }
+
+    pub fn presentation_mode(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "presentationMode")
+    }
+
+    pub fn set_presentation_mode(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "presentationMode", value);
+    }
+
+    pub fn outcome_reference(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "outcomeReference")
+    }
+
+    pub fn set_outcome_reference(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "outcomeReference", value);
     }
 }
 

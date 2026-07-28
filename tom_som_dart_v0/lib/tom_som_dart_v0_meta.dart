@@ -20958,6 +20958,16 @@ List<SomMetaNode> _mc$FlexibilityCharacteristic(Set<String> s) => [
           children: c)),
     ];
 
+List<SomMetaNode> _mc$FormScreenAssignmentEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'FormScreenAssignmentEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'formId', typeName: 'String', description: 'Form ID', required: true, hint: 'ID of the form shown on this route', order: 0), SomFormFieldMeta(name: 'routeId', typeName: 'String', description: 'Route ID', required: true, hint: 'Route ID (SCRTEN registry) that hosts the form', order: 1), SomFormFieldMeta(name: 'presentationMode', typeName: 'ScreenPresentationMode', description: 'Presentation Mode', required: true, hint: 'replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath', order: 2, enumValues: ['replace', 'popupOverlay'])])),
+    ];
+
 List<SomMetaNode> _mc$FrameworkRequirementEntry(Set<String> s) => [
        SomMetaNode(
           className: 'FrameworkRequirementEntry',
@@ -38565,7 +38575,7 @@ List<SomMetaNode> _mc$ScreenActionEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 3,
           docComment: 'Confirmation, navigation, and feedback behavior.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'confirmationRequired', typeName: 'String', description: 'Confirmation Required', hint: 'Yes/No', order: 0), SomFormFieldMeta(name: 'confirmationMessageResource', typeName: 'String', description: 'Confirmation Message', hint: 'Message key (MSGKR registry) for confirmation dialog', order: 1), SomFormFieldMeta(name: 'keyboardShortcut', typeName: 'String', description: 'Keyboard Shortcut', hint: 'Shortcut binding, e.g., Ctrl+N', order: 2), SomFormFieldMeta(name: 'navigateTo', typeName: 'String', description: 'Navigate To', hint: 'Target screen after action', order: 3), SomFormFieldMeta(name: 'successMessageResource', typeName: 'String', description: 'Success Message', hint: 'Message key (MSGKR registry) for success notification', order: 4)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'confirmationRequired', typeName: 'String', description: 'Confirmation Required', hint: 'Yes/No', order: 0), SomFormFieldMeta(name: 'confirmationMessageResource', typeName: 'String', description: 'Confirmation Message', hint: 'Message key (MSGKR registry) for confirmation dialog', order: 1), SomFormFieldMeta(name: 'keyboardShortcut', typeName: 'String', description: 'Keyboard Shortcut', hint: 'Shortcut binding, e.g., Ctrl+N', order: 2), SomFormFieldMeta(name: 'navigateTo', typeName: 'String', description: 'Navigate To', hint: 'Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead', order: 3), SomFormFieldMeta(name: 'successMessageResource', typeName: 'String', description: 'Success Message', hint: 'Message key (MSGKR registry) for success notification', order: 4)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-110:2020 — controllability and use error tolerance for action execution', 'ISO 9241-161:2016 — command and action user-interface elements'], 'connotation': 'The confirmation, navigation, and feedback behavior that governs how a screen action executes.'})]),
     ];
 
@@ -38879,7 +38889,7 @@ List<SomMetaNode> _mc$ScreenEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 1,
           docComment: 'Classification and routing metadata.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'screenCategory', typeName: 'String', description: 'Screen Category', hint: 'List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing', order: 0), SomFormFieldMeta(name: 'parentScreenId', typeName: 'String', description: 'Parent Screen ID', hint: 'Parent screen if this is a sub-screen or drill-down', order: 1), SomFormFieldMeta(name: 'routePattern', typeName: 'String', description: 'Route Pattern', hint: 'Navigation route path, e.g., /orders/:id/edit', order: 2)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'screenCategory', typeName: 'String', description: 'Screen Category', hint: 'List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing', order: 0), SomFormFieldMeta(name: 'parentScreenId', typeName: 'String', description: 'Parent Screen ID', hint: 'Parent screen if this is a sub-screen or drill-down', order: 1), SomFormFieldMeta(name: 'routePattern', typeName: 'String', description: 'Route Pattern', hint: 'Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map', order: 2)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-151:2008 — navigation structure and routing within the user interface', 'ISO 9241-112:2017 — categorisation of information for structured presentation'], 'connotation': 'The classification and routing metadata that categorises a screen and locates it in the navigation structure.'})]),
        SomMetaNode(
           className: 'ScreenEntry',
@@ -39100,7 +39110,7 @@ List<SomMetaNode> _mc$ScreenFlowStructure(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 0,
           contentType: SomContentTypeMeta(type: 'text', description: ''),
-          contentHelp: '## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n'),
+          contentHelp: '## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n'),
        _cx('NavigationModel', s, _mc$NavigationModel, (r, c) => SomMetaNode(
           className: 'NavigationModel',
           memberName: 'navigationModel',
@@ -39120,6 +39130,17 @@ List<SomMetaNode> _mc$ScreenFlowStructure(Set<String> s) => [
           serializationOrder: 2,
           contentType: SomContentTypeMeta(type: 'mermaid-flow', description: ''),
           docComment: '10.3.2. Screen Flow Diagram (mermaid-flow).'),
+       _cx('ScreenRouteMap', s, _mc$ScreenRouteMap, (r, c) => SomMetaNode(
+          className: 'ScreenRouteMap',
+          memberName: 'screenRouteMap',
+          classSectionId: 'SCRTMP',
+          kind: SomMetaKind.complex,
+          typeName: 'ScreenRouteMap',
+          serializationOrder: 3,
+          docComment: '10.3.3. Screen Route Map.',
+          classDocComment: '10.3.3. Screen Route Map.\n\nThe screen map: which routes the application has, which form each route\nshows, and which screen an action leads to once it has finished. It is the\nresult of combining the interaction scenarios into screens — the scenarios\nsay what a user does, this section says where each step lands.\n\nWhere the navigation model (10.3.1) describes the *menus and structures* a\nuser browses with, the route map describes the *addressable targets* those\nstructures and the screens\' own actions point at, so every navigation\ntarget in the specification resolves to a declared route.',
+          recursive: r,
+          children: c)),
     ];
 
 List<SomMetaNode> _mc$ScreenInventory(Set<String> s) => [
@@ -39162,6 +39183,71 @@ List<SomMetaNode> _mc$ScreenResponsiveRuleEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 0,
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'breakpoint', typeName: 'String', description: 'Breakpoint', required: true, hint: 'Mobile/Tablet/Desktop/Large-Desktop', order: 0), SomFormFieldMeta(name: 'layoutChanges', typeName: 'String', description: 'Layout Changes', hint: 'How layout adapts, e.g., 3-col → 1-col', order: 1), SomFormFieldMeta(name: 'hiddenElements', typeName: 'String', description: 'Hidden Elements', hint: 'Elements hidden at this breakpoint', order: 2), SomFormFieldMeta(name: 'collapsedSections', typeName: 'String', description: 'Collapsed Sections', hint: 'Sections that collapse at this breakpoint', order: 3), SomFormFieldMeta(name: 'navigationMode', typeName: 'String', description: 'Navigation Mode', hint: 'Sidebar/Bottom-Nav/Drawer/Hamburger', order: 4)])),
+    ];
+
+List<SomMetaNode> _mc$ScreenRouteEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'ScreenRouteEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'routeId', typeName: 'String', description: 'Route ID', required: true, hint: 'Stable identifier referenced by every navigation target, e.g., order-edit', order: 0), SomFormFieldMeta(name: 'routePath', typeName: 'String', description: 'Route Path', hint: 'URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference', order: 1), SomFormFieldMeta(name: 'routeTitle', typeName: 'String', description: 'Route Title', hint: 'Human-readable screen title shown in the title bar and history', order: 2), SomFormFieldMeta(name: 'screenId', typeName: 'String', description: 'Screen ID', hint: 'ID of the screen (SCREN registry) this route renders', order: 3), SomFormFieldMeta(name: 'routeParameters', typeName: 'String', description: 'Route Parameters', hint: 'Comma-separated parameter names carried by the route, e.g., orderId,mode', order: 4)])),
+    ];
+
+List<SomMetaNode> _mc$ScreenRouteMap(Set<String> s) => [
+       SomMetaNode(
+          className: 'ScreenRouteMap',
+          memberName: 'content',
+          kind: SomMetaKind.content,
+          typeName: 'String',
+          serializationOrder: 0,
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: '## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n'),
+       SomMetaNode(
+          className: 'ScreenRouteMap',
+          memberName: 'overview',
+          kind: SomMetaKind.section,
+          typeName: 'String',
+          serializationOrder: 1,
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          docComment: 'Overview of the route map and its conventions.'),
+       SomMetaNode(
+          className: 'ScreenRouteMap',
+          memberName: 'routes',
+          sectionId: 'SCRTEN-ROUT-LST',
+          sectionIdPattern: 'SCRTEN-ROUT-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ScreenRouteEntry',
+          serializationOrder: 2,
+          contentHelp: 'Add one entry per addressable route.',
+          docComment: 'Contains 0+× ScreenRouteEntry.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-151:2008 — addressable content units and the conceptual structure of the application'], 'connotation': 'The registry of addressable application routes, each identified by a stable route ID.'})],
+          elementNode: _cx('ScreenRouteEntry', s, _mc$ScreenRouteEntry, (r, c) => SomMetaNode(className: 'ScreenRouteEntry', classSectionId: 'SCRTEN', kind: SomMetaKind.complex, typeName: 'ScreenRouteEntry', docComment: 'A route entry (form).', classDocComment: 'A route entry (form).', recursive: r, children: c))),
+       SomMetaNode(
+          className: 'ScreenRouteMap',
+          memberName: 'formPlacement',
+          sectionId: 'FMSCAS-FORM-LST',
+          sectionIdPattern: 'FMSCAS-FORM-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'FormScreenAssignmentEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per form placed on a route.',
+          docComment: 'Contains 0+× FormScreenAssignmentEntry.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-143:2012 — the presentation of forms and the context in which they are shown'], 'connotation': 'The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it.'})],
+          elementNode: _cx('FormScreenAssignmentEntry', s, _mc$FormScreenAssignmentEntry, (r, c) => SomMetaNode(className: 'FormScreenAssignmentEntry', classSectionId: 'FMSCAS', kind: SomMetaKind.complex, typeName: 'FormScreenAssignmentEntry', docComment: 'A form-to-route assignment entry (form).', classDocComment: 'A form-to-route assignment entry (form).', recursive: r, children: c))),
+       SomMetaNode(
+          className: 'ScreenRouteMap',
+          memberName: 'transitions',
+          sectionId: 'SCTREN-TRAN-LST',
+          sectionIdPattern: 'SCTREN-TRAN-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ScreenTransitionEntry',
+          serializationOrder: 4,
+          contentHelp: 'Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome.',
+          docComment: 'Contains 0+× ScreenTransitionEntry.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads', 'ISO 9241-143:2012 — navigation between forms as a task progresses'], 'connotation': 'The action-triggered transitions between routes, with a separate target per outcome.'})],
+          elementNode: _cx('ScreenTransitionEntry', s, _mc$ScreenTransitionEntry, (r, c) => SomMetaNode(className: 'ScreenTransitionEntry', classSectionId: 'SCTREN', kind: SomMetaKind.complex, typeName: 'ScreenTransitionEntry', docComment: 'A screen-transition entry (form).', classDocComment: 'A screen-transition entry (form).', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$ScreenSectionEntry(Set<String> s) => [
@@ -39260,6 +39346,16 @@ List<SomMetaNode> _mc$ScreenStates(Set<String> s) => [
           docComment: 'Contains 0+× ScreenState.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-110:2020 — self-descriptiveness of the available screen states', 'ISO 9241-161:2016 — visual elements representing interface states'], 'connotation': 'The collection of individual screen-state entries for this screen.'})],
           elementNode: _cx('ScreenStateEntry', s, _mc$ScreenStateEntry, (r, c) => SomMetaNode(className: 'ScreenStateEntry', classSectionId: 'SCRST', kind: SomMetaKind.complex, typeName: 'ScreenStateEntry', docComment: 'A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.', classDocComment: 'A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.', recursive: r, children: c))),
+    ];
+
+List<SomMetaNode> _mc$ScreenTransitionEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'ScreenTransitionEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sourceRouteId', typeName: 'String', description: 'Source Route ID', required: true, hint: 'Route ID (SCRTEN registry) the user is on when the action runs', order: 0), SomFormFieldMeta(name: 'actionId', typeName: 'String', description: 'Action ID', required: true, hint: 'ID of the triggering action (SCRAC registry) or of the screen element that raises it', order: 1), SomFormFieldMeta(name: 'outcome', typeName: 'ScreenFlowOutcome', description: 'Outcome', required: true, hint: 'success — the action completed; error — processing failed; validationError — the input was rejected', order: 2, enumValues: ['success', 'error', 'validationError']), SomFormFieldMeta(name: 'targetRouteId', typeName: 'String', description: 'Target Route ID', required: true, hint: 'Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put', order: 3), SomFormFieldMeta(name: 'presentationMode', typeName: 'ScreenPresentationMode', description: 'Presentation Mode', required: true, hint: 'replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath', order: 4, enumValues: ['replace', 'popupOverlay']), SomFormFieldMeta(name: 'outcomeReference', typeName: 'String', description: 'Outcome Reference', hint: 'For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success', order: 5)])),
     ];
 
 List<SomMetaNode> _mc$ScreenUserCategoryEntry(Set<String> s) => [
@@ -57667,6 +57763,15 @@ class FlexibilityCharacteristic$Nav extends SomMetaRef {
   Portability$Nav get portability => Portability$Nav(tree, '$path/portability');
 }
 
+/// Dot-notation accessors of `FormScreenAssignmentEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class FormScreenAssignmentEntry$Nav extends SomMetaRef {
+  FormScreenAssignmentEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
 /// Dot-notation accessors of `FrameworkRequirementEntry` (SOM §8). Every getter is one
 /// navigable position: `.path` is the absolute document path, `.meta` the
 /// metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -63281,6 +63386,7 @@ class ScreenFlowStructure$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   NavigationModel$Nav get navigationModel => NavigationModel$Nav(tree, '$path/navigationModel');
   SomMetaRef get screenFlowDiagram => SomMetaRef(tree, '$path/screenFlowDiagram');
+  ScreenRouteMap$Nav get screenRouteMap => ScreenRouteMap$Nav(tree, '$path/screenRouteMap');
 }
 
 /// Dot-notation accessors of `ScreenInventory` (SOM §8). Every getter is one
@@ -63301,6 +63407,28 @@ class ScreenInventory$Nav extends SomMetaRef {
 class ScreenResponsiveRuleEntry$Nav extends SomMetaRef {
   ScreenResponsiveRuleEntry$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
+/// Dot-notation accessors of `ScreenRouteEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ScreenRouteEntry$Nav extends SomMetaRef {
+  ScreenRouteEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
+/// Dot-notation accessors of `ScreenRouteMap` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ScreenRouteMap$Nav extends SomMetaRef {
+  ScreenRouteMap$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
+  SomListMetaRef<ScreenRouteEntry$Nav> get routes => SomListMetaRef(tree, '$path/SCRTEN-ROUT-LST', ScreenRouteEntry$Nav.new);
+  SomListMetaRef<FormScreenAssignmentEntry$Nav> get formPlacement => SomListMetaRef(tree, '$path/FMSCAS-FORM-LST', FormScreenAssignmentEntry$Nav.new);
+  SomListMetaRef<ScreenTransitionEntry$Nav> get transitions => SomListMetaRef(tree, '$path/SCTREN-TRAN-LST', ScreenTransitionEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ScreenSectionEntry` (SOM §8). Every getter is one
@@ -63342,6 +63470,15 @@ class ScreenStates$Nav extends SomMetaRef {
   ScreenStates$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomListMetaRef<ScreenStateEntry$Nav> get items => SomListMetaRef(tree, '$path/SCRST-ITEM-LST', ScreenStateEntry$Nav.new);
+}
+
+/// Dot-notation accessors of `ScreenTransitionEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ScreenTransitionEntry$Nav extends SomMetaRef {
+  ScreenTransitionEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
 }
 
 /// Dot-notation accessors of `ScreenUserCategoryEntry` (SOM §8). Every getter is one
@@ -68747,6 +68884,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get BRCO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO');
   SomListMetaRef<DeepLinkPatternEntry$Id> get DELNPT_PATT_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST', DeepLinkPatternEntry$Id.new);
   SomListMetaRef<NavigationGuardEntry$Id> get NAVGRD_GUAR_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST', NavigationGuardEntry$Id.new);
+  SomListMetaRef<ScreenRouteEntry$Id> get SCRTEN_ROUT_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST', ScreenRouteEntry$Id.new);
+  SomListMetaRef<FormScreenAssignmentEntry$Id> get FMSCAS_FORM_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST', FormScreenAssignmentEntry$Id.new);
+  SomListMetaRef<ScreenTransitionEntry$Id> get SCTREN_TRAN_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST', ScreenTransitionEntry$Id.new);
   SomMetaRef get ERHACO_ERRO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO');
   SomMetaRef get EHCC => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCC');
   SomMetaRef get EHCA => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/EHCA');
@@ -69963,6 +70103,9 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomMetaRef get BRCO => SomMetaRef(tree, '$path/screenFlow/navigationModel/contextualNavigation/BRCO');
   SomListMetaRef<DeepLinkPatternEntry$Id> get DELNPT_PATT_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST', DeepLinkPatternEntry$Id.new);
   SomListMetaRef<NavigationGuardEntry$Id> get NAVGRD_GUAR_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST', NavigationGuardEntry$Id.new);
+  SomListMetaRef<ScreenRouteEntry$Id> get SCRTEN_ROUT_LST => SomListMetaRef(tree, '$path/screenFlow/screenRouteMap/SCRTEN-ROUT-LST', ScreenRouteEntry$Id.new);
+  SomListMetaRef<FormScreenAssignmentEntry$Id> get FMSCAS_FORM_LST => SomListMetaRef(tree, '$path/screenFlow/screenRouteMap/FMSCAS-FORM-LST', FormScreenAssignmentEntry$Id.new);
+  SomListMetaRef<ScreenTransitionEntry$Id> get SCTREN_TRAN_LST => SomListMetaRef(tree, '$path/screenFlow/screenRouteMap/SCTREN-TRAN-LST', ScreenTransitionEntry$Id.new);
   SomMetaRef get PLPS => SomMetaRef(tree, '$path/printLayout/PLPS');
   SomMetaRef get PRLABR => SomMetaRef(tree, '$path/printLayout/PRLABR');
   SomMetaRef get PRLAWA => SomMetaRef(tree, '$path/printLayout/PRLAWA');
@@ -70977,6 +71120,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get BRCO => SomMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO');
   SomListMetaRef<DeepLinkPatternEntry$Id> get DELNPT_PATT_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST', DeepLinkPatternEntry$Id.new);
   SomListMetaRef<NavigationGuardEntry$Id> get NAVGRD_GUAR_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST', NavigationGuardEntry$Id.new);
+  SomListMetaRef<ScreenRouteEntry$Id> get SCRTEN_ROUT_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST', ScreenRouteEntry$Id.new);
+  SomListMetaRef<FormScreenAssignmentEntry$Id> get FMSCAS_FORM_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST', FormScreenAssignmentEntry$Id.new);
+  SomListMetaRef<ScreenTransitionEntry$Id> get SCTREN_TRAN_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST', ScreenTransitionEntry$Id.new);
   SomMetaRef get ERHACO_ERRO => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/ERHACO-ERRO');
   SomMetaRef get EHCC => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/EHCC');
   SomMetaRef get EHCA => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/EHCA');
@@ -71873,6 +72019,13 @@ class FieldHelpEntry$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class FieldValidationRule$Id extends SomMetaRef {
   FieldValidationRule$Id(super.tree, super.path);
+}
+
+/// ID-tree accessors of `FormScreenAssignmentEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class FormScreenAssignmentEntry$Id extends SomMetaRef {
+  FormScreenAssignmentEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `FrameworkRequirementEntry` (SOM §8): getters named by section
@@ -73736,6 +73889,13 @@ class ScreenResponsiveRuleEntry$Id extends SomMetaRef {
   ScreenResponsiveRuleEntry$Id(super.tree, super.path);
 }
 
+/// ID-tree accessors of `ScreenRouteEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ScreenRouteEntry$Id extends SomMetaRef {
+  ScreenRouteEntry$Id(super.tree, super.path);
+}
+
 /// ID-tree accessors of `ScreenSectionEntry` (SOM §8): getters named by section
 /// id (`-` → `_`), hoisted through id-less members so every reachable id is
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
@@ -73751,6 +73911,13 @@ class ScreenSectionEntry$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class ScreenStateEntry$Id extends SomMetaRef {
   ScreenStateEntry$Id(super.tree, super.path);
+}
+
+/// ID-tree accessors of `ScreenTransitionEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ScreenTransitionEntry$Id extends SomMetaRef {
+  ScreenTransitionEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `ScreenUserCategoryEntry` (SOM §8): getters named by section

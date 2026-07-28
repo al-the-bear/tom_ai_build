@@ -15674,6 +15674,17 @@ public final class TomSomV0 {
     }
   }
 
+  // A form-to-route assignment entry (form).
+  public static final class FormScreenAssignmentEntry extends SomNode {
+    public FormScreenAssignmentEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public FormScreenAssignmentEntryContentForm content() {
+      return new FormScreenAssignmentEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // Framework or library requirement entry.
   public static final class FrameworkRequirementEntry extends SomNode {
     public FrameworkRequirementEntry(SpecDocument doc, String path) {
@@ -29228,6 +29239,11 @@ public final class TomSomV0 {
 
     // 10.3.2. Screen Flow Diagram (mermaid-flow).
     // (skipped: screenFlowDiagram has no target type)
+
+    // 10.3.3. Screen Route Map.
+    public ScreenRouteMap screenRouteMap() {
+      return new ScreenRouteMap(doc, path + "/screenRouteMap");
+    }
   }
 
   // 10.2.1. Screen Inventory.
@@ -29272,6 +29288,66 @@ public final class TomSomV0 {
 
     public ScreenResponsiveRuleEntryContentForm content() {
       return new ScreenResponsiveRuleEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // A route entry (form).
+  public static final class ScreenRouteEntry extends SomNode {
+    public ScreenRouteEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ScreenRouteEntryContentForm content() {
+      return new ScreenRouteEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // 10.3.3. Screen Route Map.
+  //
+  // The screen map: which routes the application has, which form each route
+  // shows, and which screen an action leads to once it has finished. It is the
+  // result of combining the interaction scenarios into screens — the scenarios
+  // say what a user does, this section says where each step lands.
+  //
+  // Where the navigation model (10.3.1) describes the *menus and structures* a
+  // user browses with, the route map describes the *addressable targets* those
+  // structures and the screens' own actions point at, so every navigation
+  // target in the specification resolves to a declared route.
+  public static final class ScreenRouteMap extends SomNode {
+    public ScreenRouteMap(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Overview of the route map and its conventions.
+    // (skipped: overview has no target type)
+
+    // Contains 0+× ScreenRouteEntry.
+    public SomList<ScreenRouteEntry> routes() {
+      return new SomList<>(doc, path + "/SCRTEN-ROUT-LST", (d, p) -> new ScreenRouteEntry(d, p), "SCRTEN-ROUT-xxx");
+    }
+
+    // Contains 0+× FormScreenAssignmentEntry.
+    public SomList<FormScreenAssignmentEntry> formPlacement() {
+      return new SomList<>(doc, path + "/FMSCAS-FORM-LST", (d, p) -> new FormScreenAssignmentEntry(d, p), "FMSCAS-FORM-xxx");
+    }
+
+    // Contains 0+× ScreenTransitionEntry.
+    public SomList<ScreenTransitionEntry> transitions() {
+      return new SomList<>(doc, path + "/SCTREN-TRAN-LST", (d, p) -> new ScreenTransitionEntry(d, p), "SCTREN-TRAN-xxx");
     }
   }
 
@@ -29369,6 +29445,17 @@ public final class TomSomV0 {
     // Contains 0+× ScreenState.
     public SomList<ScreenStateEntry> items() {
       return new SomList<>(doc, path + "/SCRST-ITEM-LST", (d, p) -> new ScreenStateEntry(d, p), "SCRST-ITEM-xxx");
+    }
+  }
+
+  // A screen-transition entry (form).
+  public static final class ScreenTransitionEntry extends SomNode {
+    public ScreenTransitionEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ScreenTransitionEntryContentForm content() {
+      return new ScreenTransitionEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -98113,6 +98200,55 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class FormScreenAssignmentEntryContentForm extends SomNode {
+    public FormScreenAssignmentEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String formId() {
+      String v = doc.formField(path, "formId");
+      return v == null ? "" : v;
+    }
+
+    public void formId(String value) {
+      doc.setFormField(path, "formId", value);
+    }
+
+    public String routeId() {
+      String v = doc.formField(path, "routeId");
+      return v == null ? "" : v;
+    }
+
+    public void routeId(String value) {
+      doc.setFormField(path, "routeId", value);
+    }
+
+    public String presentationMode() {
+      String v = doc.formField(path, "presentationMode");
+      return v == null ? "" : v;
+    }
+
+    public void presentationMode(String value) {
+      doc.setFormField(path, "presentationMode", value);
+    }
+  }
+
   // Generated section facade for the `compatibility` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class FrameworkRequirementEntryCompatibilityForm extends SomNode {
@@ -160767,6 +160903,73 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenRouteEntryContentForm extends SomNode {
+    public ScreenRouteEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String routeId() {
+      String v = doc.formField(path, "routeId");
+      return v == null ? "" : v;
+    }
+
+    public void routeId(String value) {
+      doc.setFormField(path, "routeId", value);
+    }
+
+    public String routePath() {
+      String v = doc.formField(path, "routePath");
+      return v == null ? "" : v;
+    }
+
+    public void routePath(String value) {
+      doc.setFormField(path, "routePath", value);
+    }
+
+    public String routeTitle() {
+      String v = doc.formField(path, "routeTitle");
+      return v == null ? "" : v;
+    }
+
+    public void routeTitle(String value) {
+      doc.setFormField(path, "routeTitle", value);
+    }
+
+    public String screenId() {
+      String v = doc.formField(path, "screenId");
+      return v == null ? "" : v;
+    }
+
+    public void screenId(String value) {
+      doc.setFormField(path, "screenId", value);
+    }
+
+    public String routeParameters() {
+      String v = doc.formField(path, "routeParameters");
+      return v == null ? "" : v;
+    }
+
+    public void routeParameters(String value) {
+      doc.setFormField(path, "routeParameters", value);
+    }
+  }
+
   // Generated section facade for the `behavior` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ScreenSectionEntryBehaviorForm extends SomNode {
@@ -161024,6 +161227,82 @@ public final class TomSomV0 {
 
     public void secondaryActionLabel(String value) {
       doc.setFormField(path, "secondaryActionLabel", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenTransitionEntryContentForm extends SomNode {
+    public ScreenTransitionEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String sourceRouteId() {
+      String v = doc.formField(path, "sourceRouteId");
+      return v == null ? "" : v;
+    }
+
+    public void sourceRouteId(String value) {
+      doc.setFormField(path, "sourceRouteId", value);
+    }
+
+    public String actionId() {
+      String v = doc.formField(path, "actionId");
+      return v == null ? "" : v;
+    }
+
+    public void actionId(String value) {
+      doc.setFormField(path, "actionId", value);
+    }
+
+    public String outcome() {
+      String v = doc.formField(path, "outcome");
+      return v == null ? "" : v;
+    }
+
+    public void outcome(String value) {
+      doc.setFormField(path, "outcome", value);
+    }
+
+    public String targetRouteId() {
+      String v = doc.formField(path, "targetRouteId");
+      return v == null ? "" : v;
+    }
+
+    public void targetRouteId(String value) {
+      doc.setFormField(path, "targetRouteId", value);
+    }
+
+    public String presentationMode() {
+      String v = doc.formField(path, "presentationMode");
+      return v == null ? "" : v;
+    }
+
+    public void presentationMode(String value) {
+      doc.setFormField(path, "presentationMode", value);
+    }
+
+    public String outcomeReference() {
+      String v = doc.formField(path, "outcomeReference");
+      return v == null ? "" : v;
+    }
+
+    public void outcomeReference(String value) {
+      doc.setFormField(path, "outcomeReference", value);
     }
   }
 

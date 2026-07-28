@@ -218,6 +218,37 @@ ScreenFieldKind? _parseScreenFieldKind(String? token) {
   return null;
 }
 
+/// Generated enum for `ScreenFlowOutcome` values.
+enum ScreenFlowOutcome {
+  success,
+  error,
+  validationError;
+}
+
+/// Parses a stored token into a [ScreenFlowOutcome], or `null`.
+ScreenFlowOutcome? _parseScreenFlowOutcome(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ScreenFlowOutcome.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ScreenPresentationMode` values.
+enum ScreenPresentationMode {
+  replace,
+  popupOverlay;
+}
+
+/// Parses a stored token into a [ScreenPresentationMode], or `null`.
+ScreenPresentationMode? _parseScreenPresentationMode(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ScreenPresentationMode.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `UserAttributePlacement` values.
 enum UserAttributePlacement {
   public,
@@ -10087,6 +10118,13 @@ class FlexibilityCharacteristic extends SomNode {
   Portability get portability => Portability(doc, '$path/portability');
 }
 
+/// A form-to-route assignment entry (form).
+class FormScreenAssignmentEntry extends SomNode {
+  FormScreenAssignmentEntry(super.doc, super.path);
+
+  FormScreenAssignmentEntryContentForm get content => FormScreenAssignmentEntryContentForm(doc, '$path/content');
+}
+
 /// Framework or library requirement entry.
 class FrameworkRequirementEntry extends SomNode {
   FrameworkRequirementEntry(super.doc, super.path);
@@ -18617,6 +18655,9 @@ class ScreenFlowStructure extends SomNode {
 
   /// 10.3.2. Screen Flow Diagram (mermaid-flow).
   // (skipped: screenFlowDiagram has no target type)
+
+  /// 10.3.3. Screen Route Map.
+  ScreenRouteMap get screenRouteMap => ScreenRouteMap(doc, '$path/screenRouteMap');
 }
 
 /// 10.2.1. Screen Inventory.
@@ -18646,6 +18687,46 @@ class ScreenResponsiveRuleEntry extends SomNode {
   ScreenResponsiveRuleEntry(super.doc, super.path);
 
   ScreenResponsiveRuleEntryContentForm get content => ScreenResponsiveRuleEntryContentForm(doc, '$path/content');
+}
+
+/// A route entry (form).
+class ScreenRouteEntry extends SomNode {
+  ScreenRouteEntry(super.doc, super.path);
+
+  ScreenRouteEntryContentForm get content => ScreenRouteEntryContentForm(doc, '$path/content');
+}
+
+/// 10.3.3. Screen Route Map.
+/// 
+/// The screen map: which routes the application has, which form each route
+/// shows, and which screen an action leads to once it has finished. It is the
+/// result of combining the interaction scenarios into screens — the scenarios
+/// say what a user does, this section says where each step lands.
+/// 
+/// Where the navigation model (10.3.1) describes the *menus and structures* a
+/// user browses with, the route map describes the *addressable targets* those
+/// structures and the screens' own actions point at, so every navigation
+/// target in the specification resolves to a declared route.
+class ScreenRouteMap extends SomNode {
+  ScreenRouteMap(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Overview of the route map and its conventions.
+  // (skipped: overview has no target type)
+
+  /// Contains 0+× ScreenRouteEntry.
+  SomList<ScreenRouteEntry> get routes => SomList<ScreenRouteEntry>(doc, '$path/SCRTEN-ROUT-LST', (d, p) => ScreenRouteEntry(d, p), pattern: 'SCRTEN-ROUT-xxx');
+
+  /// Contains 0+× FormScreenAssignmentEntry.
+  SomList<FormScreenAssignmentEntry> get formPlacement => SomList<FormScreenAssignmentEntry>(doc, '$path/FMSCAS-FORM-LST', (d, p) => FormScreenAssignmentEntry(d, p), pattern: 'FMSCAS-FORM-xxx');
+
+  /// Contains 0+× ScreenTransitionEntry.
+  SomList<ScreenTransitionEntry> get transitions => SomList<ScreenTransitionEntry>(doc, '$path/SCTREN-TRAN-LST', (d, p) => ScreenTransitionEntry(d, p), pattern: 'SCTREN-TRAN-xxx');
 }
 
 /// A screen section entry (form).
@@ -18705,6 +18786,13 @@ class ScreenStates extends SomNode {
 
   /// Contains 0+× ScreenState.
   SomList<ScreenStateEntry> get items => SomList<ScreenStateEntry>(doc, '$path/SCRST-ITEM-LST', (d, p) => ScreenStateEntry(d, p), pattern: 'SCRST-ITEM-xxx');
+}
+
+/// A screen-transition entry (form).
+class ScreenTransitionEntry extends SomNode {
+  ScreenTransitionEntry(super.doc, super.path);
+
+  ScreenTransitionEntryContentForm get content => ScreenTransitionEntryContentForm(doc, '$path/content');
 }
 
 /// A user category entry (form).
@@ -49959,6 +50047,28 @@ class FlexibilityModularityForm extends SomNode {
   set moduleReusability(String value) => doc.setFormField(path, 'moduleReusability', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class FormScreenAssignmentEntryContentForm extends SomNode {
+  FormScreenAssignmentEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get formId => doc.formField(path, 'formId') ?? '';
+  set formId(String value) => doc.setFormField(path, 'formId', value);
+
+  String get routeId => doc.formField(path, 'routeId') ?? '';
+  set routeId(String value) => doc.setFormField(path, 'routeId', value);
+
+  ScreenPresentationMode? get presentationMode => _parseScreenPresentationMode(doc.formField(path, 'presentationMode'));
+  set presentationMode(ScreenPresentationMode? value) => doc.setFormField(path, 'presentationMode', value?.name ?? '');
+}
+
 /// Generated section facade for the `compatibility` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class FrameworkRequirementEntryCompatibilityForm extends SomNode {
@@ -76593,6 +76703,34 @@ class ScreenResponsiveRuleEntryContentForm extends SomNode {
   set navigationMode(String value) => doc.setFormField(path, 'navigationMode', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenRouteEntryContentForm extends SomNode {
+  ScreenRouteEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get routeId => doc.formField(path, 'routeId') ?? '';
+  set routeId(String value) => doc.setFormField(path, 'routeId', value);
+
+  String get routePath => doc.formField(path, 'routePath') ?? '';
+  set routePath(String value) => doc.setFormField(path, 'routePath', value);
+
+  String get routeTitle => doc.formField(path, 'routeTitle') ?? '';
+  set routeTitle(String value) => doc.setFormField(path, 'routeTitle', value);
+
+  String get screenId => doc.formField(path, 'screenId') ?? '';
+  set screenId(String value) => doc.setFormField(path, 'screenId', value);
+
+  String get routeParameters => doc.formField(path, 'routeParameters') ?? '';
+  set routeParameters(String value) => doc.setFormField(path, 'routeParameters', value);
+}
+
 /// Generated section facade for the `behavior` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ScreenSectionEntryBehaviorForm extends SomNode {
@@ -76700,6 +76838,37 @@ class ScreenStateEntryContentForm extends SomNode {
 
   String get secondaryActionLabel => doc.formField(path, 'secondaryActionLabel') ?? '';
   set secondaryActionLabel(String value) => doc.setFormField(path, 'secondaryActionLabel', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenTransitionEntryContentForm extends SomNode {
+  ScreenTransitionEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get sourceRouteId => doc.formField(path, 'sourceRouteId') ?? '';
+  set sourceRouteId(String value) => doc.setFormField(path, 'sourceRouteId', value);
+
+  String get actionId => doc.formField(path, 'actionId') ?? '';
+  set actionId(String value) => doc.setFormField(path, 'actionId', value);
+
+  ScreenFlowOutcome? get outcome => _parseScreenFlowOutcome(doc.formField(path, 'outcome'));
+  set outcome(ScreenFlowOutcome? value) => doc.setFormField(path, 'outcome', value?.name ?? '');
+
+  String get targetRouteId => doc.formField(path, 'targetRouteId') ?? '';
+  set targetRouteId(String value) => doc.setFormField(path, 'targetRouteId', value);
+
+  ScreenPresentationMode? get presentationMode => _parseScreenPresentationMode(doc.formField(path, 'presentationMode'));
+  set presentationMode(ScreenPresentationMode? value) => doc.setFormField(path, 'presentationMode', value?.name ?? '');
+
+  String get outcomeReference => doc.formField(path, 'outcomeReference') ?? '';
+  set outcomeReference(String value) => doc.setFormField(path, 'outcomeReference', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:

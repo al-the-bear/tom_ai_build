@@ -7941,6 +7941,12 @@ Portability FlexibilityCharacteristic::portability() const {
   return Portability(doc(), som::joinPath(path(), "portability"));
 }
 
+FormScreenAssignmentEntry::FormScreenAssignmentEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+FormScreenAssignmentEntryContentForm FormScreenAssignmentEntry::content() const {
+  return FormScreenAssignmentEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 FrameworkRequirementEntry::FrameworkRequirementEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 FrameworkRequirementEntryContentForm FrameworkRequirementEntry::content() const {
@@ -14672,6 +14678,9 @@ void ScreenFlowStructure::setContent(const std::string& value) {
 NavigationModel ScreenFlowStructure::navigationModel() const {
   return NavigationModel(doc(), som::joinPath(path(), "navigationModel"));
 }
+ScreenRouteMap ScreenFlowStructure::screenRouteMap() const {
+  return ScreenRouteMap(doc(), som::joinPath(path(), "screenRouteMap"));
+}
 
 ScreenInventory::ScreenInventory(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -14689,6 +14698,30 @@ ScreenResponsiveRuleEntry::ScreenResponsiveRuleEntry(som::SpecDocument& doc, std
     : som::SomNode(doc, std::move(path)) {}
 ScreenResponsiveRuleEntryContentForm ScreenResponsiveRuleEntry::content() const {
   return ScreenResponsiveRuleEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ScreenRouteEntry::ScreenRouteEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ScreenRouteEntryContentForm ScreenRouteEntry::content() const {
+  return ScreenRouteEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ScreenRouteMap::ScreenRouteMap(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenRouteMap::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void ScreenRouteMap::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList ScreenRouteMap::routes() const {
+  return som::SomList(doc(), som::joinPath(path(), "SCRTEN-ROUT-LST"), "SCRTEN-ROUT-xxx");
+}
+som::SomList ScreenRouteMap::formPlacement() const {
+  return som::SomList(doc(), som::joinPath(path(), "FMSCAS-FORM-LST"), "FMSCAS-FORM-xxx");
+}
+som::SomList ScreenRouteMap::transitions() const {
+  return som::SomList(doc(), som::joinPath(path(), "SCTREN-TRAN-LST"), "SCTREN-TRAN-xxx");
 }
 
 ScreenSectionEntry::ScreenSectionEntry(som::SpecDocument& doc, std::string path)
@@ -14734,6 +14767,12 @@ void ScreenStates::setContent(const std::string& value) {
 }
 som::SomList ScreenStates::items() const {
   return som::SomList(doc(), som::joinPath(path(), "SCRST-ITEM-LST"), "SCRST-ITEM-xxx");
+}
+
+ScreenTransitionEntry::ScreenTransitionEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ScreenTransitionEntryContentForm ScreenTransitionEntry::content() const {
+  return ScreenTransitionEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ScreenUserCategoryEntry::ScreenUserCategoryEntry(som::SpecDocument& doc, std::string path)
@@ -53613,6 +53652,33 @@ void FlexibilityModularityForm::setModuleReusability(const std::string& value) {
   doc().setFormField(path(), "moduleReusability", value);
 }
 
+FormScreenAssignmentEntryContentForm::FormScreenAssignmentEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string FormScreenAssignmentEntryContentForm::content() const {
+  return doc().content(path());
+}
+void FormScreenAssignmentEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string FormScreenAssignmentEntryContentForm::formId() const {
+  return doc().formField(path(), "formId");
+}
+void FormScreenAssignmentEntryContentForm::setFormId(const std::string& value) {
+  doc().setFormField(path(), "formId", value);
+}
+std::string FormScreenAssignmentEntryContentForm::routeId() const {
+  return doc().formField(path(), "routeId");
+}
+void FormScreenAssignmentEntryContentForm::setRouteId(const std::string& value) {
+  doc().setFormField(path(), "routeId", value);
+}
+std::string FormScreenAssignmentEntryContentForm::presentationMode() const {
+  return doc().formField(path(), "presentationMode");
+}
+void FormScreenAssignmentEntryContentForm::setPresentationMode(const std::string& value) {
+  doc().setFormField(path(), "presentationMode", value);
+}
+
 FrameworkRequirementEntryCompatibilityForm::FrameworkRequirementEntryCompatibilityForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string FrameworkRequirementEntryCompatibilityForm::content() const {
@@ -89929,6 +89995,45 @@ void ScreenResponsiveRuleEntryContentForm::setNavigationMode(const std::string& 
   doc().setFormField(path(), "navigationMode", value);
 }
 
+ScreenRouteEntryContentForm::ScreenRouteEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenRouteEntryContentForm::content() const {
+  return doc().content(path());
+}
+void ScreenRouteEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScreenRouteEntryContentForm::routeId() const {
+  return doc().formField(path(), "routeId");
+}
+void ScreenRouteEntryContentForm::setRouteId(const std::string& value) {
+  doc().setFormField(path(), "routeId", value);
+}
+std::string ScreenRouteEntryContentForm::routePath() const {
+  return doc().formField(path(), "routePath");
+}
+void ScreenRouteEntryContentForm::setRoutePath(const std::string& value) {
+  doc().setFormField(path(), "routePath", value);
+}
+std::string ScreenRouteEntryContentForm::routeTitle() const {
+  return doc().formField(path(), "routeTitle");
+}
+void ScreenRouteEntryContentForm::setRouteTitle(const std::string& value) {
+  doc().setFormField(path(), "routeTitle", value);
+}
+std::string ScreenRouteEntryContentForm::screenId() const {
+  return doc().formField(path(), "screenId");
+}
+void ScreenRouteEntryContentForm::setScreenId(const std::string& value) {
+  doc().setFormField(path(), "screenId", value);
+}
+std::string ScreenRouteEntryContentForm::routeParameters() const {
+  return doc().formField(path(), "routeParameters");
+}
+void ScreenRouteEntryContentForm::setRouteParameters(const std::string& value) {
+  doc().setFormField(path(), "routeParameters", value);
+}
+
 ScreenSectionEntryBehaviorForm::ScreenSectionEntryBehaviorForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ScreenSectionEntryBehaviorForm::content() const {
@@ -90079,6 +90184,51 @@ std::string ScreenStateEntryContentForm::secondaryActionLabel() const {
 }
 void ScreenStateEntryContentForm::setSecondaryActionLabel(const std::string& value) {
   doc().setFormField(path(), "secondaryActionLabel", value);
+}
+
+ScreenTransitionEntryContentForm::ScreenTransitionEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScreenTransitionEntryContentForm::content() const {
+  return doc().content(path());
+}
+void ScreenTransitionEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScreenTransitionEntryContentForm::sourceRouteId() const {
+  return doc().formField(path(), "sourceRouteId");
+}
+void ScreenTransitionEntryContentForm::setSourceRouteId(const std::string& value) {
+  doc().setFormField(path(), "sourceRouteId", value);
+}
+std::string ScreenTransitionEntryContentForm::actionId() const {
+  return doc().formField(path(), "actionId");
+}
+void ScreenTransitionEntryContentForm::setActionId(const std::string& value) {
+  doc().setFormField(path(), "actionId", value);
+}
+std::string ScreenTransitionEntryContentForm::outcome() const {
+  return doc().formField(path(), "outcome");
+}
+void ScreenTransitionEntryContentForm::setOutcome(const std::string& value) {
+  doc().setFormField(path(), "outcome", value);
+}
+std::string ScreenTransitionEntryContentForm::targetRouteId() const {
+  return doc().formField(path(), "targetRouteId");
+}
+void ScreenTransitionEntryContentForm::setTargetRouteId(const std::string& value) {
+  doc().setFormField(path(), "targetRouteId", value);
+}
+std::string ScreenTransitionEntryContentForm::presentationMode() const {
+  return doc().formField(path(), "presentationMode");
+}
+void ScreenTransitionEntryContentForm::setPresentationMode(const std::string& value) {
+  doc().setFormField(path(), "presentationMode", value);
+}
+std::string ScreenTransitionEntryContentForm::outcomeReference() const {
+  return doc().formField(path(), "outcomeReference");
+}
+void ScreenTransitionEntryContentForm::setOutcomeReference(const std::string& value) {
+  doc().setFormField(path(), "outcomeReference", value);
 }
 
 ScreenUserCategoryEntryContentForm::ScreenUserCategoryEntryContentForm(som::SpecDocument& doc, std::string path)

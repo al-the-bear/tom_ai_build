@@ -377,6 +377,14 @@ section-types:
         max-count: 1
       daatt-data:
         max-count: 1
+      daatt-dttx:
+        max-count: 1
+      daatt-dtnu:
+        max-count: 1
+      daatt-dttm:
+        max-count: 1
+      daatt-dtbi:
+        max-count: 1
       dataa-cons-lst:
         max-count: 1
       daatt-deri:
@@ -665,6 +673,22 @@ section-types:
   daatt-deri:
     prefix: DAATT_DERI
     format: daatt-deri-form
+  daatt-dtbi:
+    prefix: DAATT_DTBI
+    format: daatt-dtbi-form
+    description: "Binary-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dtnu:
+    prefix: DAATT_DTNU
+    format: daatt-dtnu-form
+    description: "Numeric-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dttm:
+    prefix: DAATT_DTTM
+    format: daatt-dttm-form
+    description: "Temporal-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dttx:
+    prefix: DAATT_DTTX
+    format: daatt-dttx-form
+    description: "Text-kind type options — a promoted `@OneOf` case (csra4)."
   daatt-iden:
     prefix: DAATT_IDEN
     format: daatt-iden-form
@@ -941,21 +965,33 @@ form-types:
   daatt-data-form:
     fields:
       - fieldname: dataType
-        description: "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary"
+        description: The logical type — selects the promoted options subsection.
       - fieldname: physicalType
         description: "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP"
+      - fieldname: format
+        description: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)"
+  daatt-dttx-form:
+    fields:
       - fieldname: length
-        description: Maximum length for strings or size for binary
+        description: Maximum character length
+      - fieldname: collation
+        description: "Character collation for text (e.g., utf8_general_ci)"
+  daatt-dtnu-form:
+    fields:
       - fieldname: precision
         description: Total digits for numeric types
       - fieldname: scale
         description: Decimal places for numeric types
-      - fieldname: collation
-        description: "Character collation for text (e.g., utf8_general_ci)"
+  daatt-dttm-form:
+    fields:
       - fieldname: timezone
         description: "For datetime: UTC | Local | WithOffset"
-      - fieldname: format
-        description: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)"
+  daatt-dtbi-form:
+    fields:
+      - fieldname: maxSizeBytes
+        description: Maximum stored size in bytes
+      - fieldname: storageMode
+        description: "Inline | External-Reference | Blob-Store"
   daatt-deri-form:
     fields:
       - fieldname: isComputed

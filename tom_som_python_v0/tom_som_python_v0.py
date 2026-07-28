@@ -14779,6 +14779,15 @@ class FlexibilityCharacteristic(SomNode):
     def portability(self):
         return Portability(self.doc, f"{self.path}/portability")
 
+class FormScreenAssignmentEntry(SomNode):
+    """A form-to-route assignment entry (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return FormScreenAssignmentEntryContentForm(self.doc, f"{self.path}/content")
+
 class FrameworkRequirementEntry(SomNode):
     """Framework or library requirement entry."""
     def __init__(self, doc, path):
@@ -27589,6 +27598,11 @@ class ScreenFlowStructure(SomNode):
     def screenFlowDiagram(self):
         return None  # (skipped: no target type)
 
+    # 10.3.3. Screen Route Map.
+    @property
+    def screenRouteMap(self):
+        return ScreenRouteMap(self.doc, f"{self.path}/screenRouteMap")
+
 class ScreenInventory(SomNode):
     """10.2.1. Screen Inventory.
     
@@ -27631,6 +27645,63 @@ class ScreenResponsiveRuleEntry(SomNode):
     @property
     def content(self):
         return ScreenResponsiveRuleEntryContentForm(self.doc, f"{self.path}/content")
+
+class ScreenRouteEntry(SomNode):
+    """A route entry (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ScreenRouteEntryContentForm(self.doc, f"{self.path}/content")
+
+class ScreenRouteMap(SomNode):
+    """10.3.3. Screen Route Map.
+    
+    The screen map: which routes the application has, which form each route
+    shows, and which screen an action leads to once it has finished. It is the
+    result of combining the interaction scenarios into screens — the scenarios
+    say what a user does, this section says where each step lands.
+    
+    Where the navigation model (10.3.1) describes the *menus and structures* a
+    user browses with, the route map describes the *addressable targets* those
+    structures and the screens' own actions point at, so every navigation
+    target in the specification resolves to a declared route.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Overview of the route map and its conventions.
+    @property
+    def overview(self):
+        return None  # (skipped: no target type)
+
+    # Contains 0+× ScreenRouteEntry.
+    @property
+    def routes(self):
+        return SomList(self.doc, f"{self.path}/SCRTEN-ROUT-LST", lambda d, p: ScreenRouteEntry(d, p), pattern="SCRTEN-ROUT-xxx")
+
+    # Contains 0+× FormScreenAssignmentEntry.
+    @property
+    def formPlacement(self):
+        return SomList(self.doc, f"{self.path}/FMSCAS-FORM-LST", lambda d, p: FormScreenAssignmentEntry(d, p), pattern="FMSCAS-FORM-xxx")
+
+    # Contains 0+× ScreenTransitionEntry.
+    @property
+    def transitions(self):
+        return SomList(self.doc, f"{self.path}/SCTREN-TRAN-LST", lambda d, p: ScreenTransitionEntry(d, p), pattern="SCTREN-TRAN-xxx")
 
 class ScreenSectionEntry(SomNode):
     """A screen section entry (form).
@@ -27720,6 +27791,15 @@ class ScreenStates(SomNode):
     @property
     def items(self):
         return SomList(self.doc, f"{self.path}/SCRST-ITEM-LST", lambda d, p: ScreenStateEntry(d, p), pattern="SCRST-ITEM-xxx")
+
+class ScreenTransitionEntry(SomNode):
+    """A screen-transition entry (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ScreenTransitionEntryContentForm(self.doc, f"{self.path}/content")
 
 class ScreenUserCategoryEntry(SomNode):
     """A user category entry (form)."""
@@ -87105,6 +87185,47 @@ class FlexibilityModularityForm(SomNode):
     def moduleReusability(self, value):
         self.doc.set_form_field(self.path, "moduleReusability", value)
 
+class FormScreenAssignmentEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def formId(self) -> str:
+        return self.doc.form_field(self.path, "formId") or ""
+
+    @formId.setter
+    def formId(self, value):
+        self.doc.set_form_field(self.path, "formId", value)
+
+    @property
+    def routeId(self) -> str:
+        return self.doc.form_field(self.path, "routeId") or ""
+
+    @routeId.setter
+    def routeId(self, value):
+        self.doc.set_form_field(self.path, "routeId", value)
+
+    @property
+    def presentationMode(self) -> str:
+        return self.doc.form_field(self.path, "presentationMode") or ""
+
+    @presentationMode.setter
+    def presentationMode(self, value):
+        self.doc.set_form_field(self.path, "presentationMode", value)
+
 class FrameworkRequirementEntryCompatibilityForm(SomNode):
     """Generated section facade for the `compatibility` @Form section: its own content text followed by one typed member per form field."""
 
@@ -140778,6 +140899,63 @@ class ScreenResponsiveRuleEntryContentForm(SomNode):
     def navigationMode(self, value):
         self.doc.set_form_field(self.path, "navigationMode", value)
 
+class ScreenRouteEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def routeId(self) -> str:
+        return self.doc.form_field(self.path, "routeId") or ""
+
+    @routeId.setter
+    def routeId(self, value):
+        self.doc.set_form_field(self.path, "routeId", value)
+
+    @property
+    def routePath(self) -> str:
+        return self.doc.form_field(self.path, "routePath") or ""
+
+    @routePath.setter
+    def routePath(self, value):
+        self.doc.set_form_field(self.path, "routePath", value)
+
+    @property
+    def routeTitle(self) -> str:
+        return self.doc.form_field(self.path, "routeTitle") or ""
+
+    @routeTitle.setter
+    def routeTitle(self, value):
+        self.doc.set_form_field(self.path, "routeTitle", value)
+
+    @property
+    def screenId(self) -> str:
+        return self.doc.form_field(self.path, "screenId") or ""
+
+    @screenId.setter
+    def screenId(self, value):
+        self.doc.set_form_field(self.path, "screenId", value)
+
+    @property
+    def routeParameters(self) -> str:
+        return self.doc.form_field(self.path, "routeParameters") or ""
+
+    @routeParameters.setter
+    def routeParameters(self, value):
+        self.doc.set_form_field(self.path, "routeParameters", value)
+
 class ScreenSectionEntryBehaviorForm(SomNode):
     """Generated section facade for the `behavior` @Form section: its own content text followed by one typed member per form field."""
 
@@ -141003,6 +141181,71 @@ class ScreenStateEntryContentForm(SomNode):
     @secondaryActionLabel.setter
     def secondaryActionLabel(self, value):
         self.doc.set_form_field(self.path, "secondaryActionLabel", value)
+
+class ScreenTransitionEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def sourceRouteId(self) -> str:
+        return self.doc.form_field(self.path, "sourceRouteId") or ""
+
+    @sourceRouteId.setter
+    def sourceRouteId(self, value):
+        self.doc.set_form_field(self.path, "sourceRouteId", value)
+
+    @property
+    def actionId(self) -> str:
+        return self.doc.form_field(self.path, "actionId") or ""
+
+    @actionId.setter
+    def actionId(self, value):
+        self.doc.set_form_field(self.path, "actionId", value)
+
+    @property
+    def outcome(self) -> str:
+        return self.doc.form_field(self.path, "outcome") or ""
+
+    @outcome.setter
+    def outcome(self, value):
+        self.doc.set_form_field(self.path, "outcome", value)
+
+    @property
+    def targetRouteId(self) -> str:
+        return self.doc.form_field(self.path, "targetRouteId") or ""
+
+    @targetRouteId.setter
+    def targetRouteId(self, value):
+        self.doc.set_form_field(self.path, "targetRouteId", value)
+
+    @property
+    def presentationMode(self) -> str:
+        return self.doc.form_field(self.path, "presentationMode") or ""
+
+    @presentationMode.setter
+    def presentationMode(self, value):
+        self.doc.set_form_field(self.path, "presentationMode", value)
+
+    @property
+    def outcomeReference(self) -> str:
+        return self.doc.form_field(self.path, "outcomeReference") or ""
+
+    @outcomeReference.setter
+    def outcomeReference(self, value):
+        self.doc.set_form_field(self.path, "outcomeReference", value)
 
 class ScreenUserCategoryEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

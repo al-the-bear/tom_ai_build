@@ -498,6 +498,7 @@ void buildFileUploadValidationPolicyChildren(som::SomMetaNode& parent, std::vect
 void buildFirewallRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFlexibilityChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFlexibilityCharacteristicChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildFormScreenAssignmentEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFrameworkRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFullDistributionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFunctionDataMatrixEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -976,10 +977,13 @@ void buildScreenFieldEntryChildren(som::SomMetaNode& parent, std::vector<std::st
 void buildScreenFlowStructureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenInventoryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenResponsiveRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildScreenRouteEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildScreenRouteMapChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenSectionsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenStateEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenStatesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildScreenTransitionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenUserCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSecondaryNavigationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSecurityChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -36737,6 +36741,24 @@ void buildFlexibilityCharacteristicChildren(som::SomMetaNode& parent, std::vecto
   }
 }
 
+void buildFormScreenAssignmentEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "FormScreenAssignmentEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formId", "String", "Form ID", true, "ID of the form shown on this route", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"routeId", "String", "Route ID", true, "Route ID (SCRTEN registry) that hosts the form", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath", 2, std::vector<std::string>{"replace", "popupOverlay"}});
+    parent.addChild(std::move(n));
+  }
+}
+
 void buildFrameworkRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -67608,7 +67630,7 @@ void buildScreenActionEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"confirmationRequired", "String", "Confirmation Required", false, "Yes/No", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"confirmationMessageResource", "String", "Confirmation Message", false, "Message key (MSGKR registry) for confirmation dialog", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"keyboardShortcut", "String", "Keyboard Shortcut", false, "Shortcut binding, e.g., Ctrl+N", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"navigateTo", "String", "Navigate To", false, "Target screen after action", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"navigateTo", "String", "Navigate To", false, "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead", 3, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"successMessageResource", "String", "Success Message", false, "Message key (MSGKR registry) for success notification", 4, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110:2020 — controllability and use error tolerance for action execution\",\"ISO 9241-161:2016 — command and action user-interface elements\"],\"connotation\":\"The confirmation, navigation, and feedback behavior that governs how a screen action executes.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -68183,7 +68205,7 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"screenCategory", "String", "Screen Category", false, "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"parentScreenId", "String", "Parent Screen ID", false, "Parent screen if this is a sub-screen or drill-down", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"routePattern", "String", "Route Pattern", false, "Navigation route path, e.g., /orders/:id/edit", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"routePattern", "String", "Route Pattern", false, "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", 2, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — navigation structure and routing within the user interface\",\"ISO 9241-112:2017 — categorisation of information for structured presentation\"],\"connotation\":\"The classification and routing metadata that categorises a screen and locates it in the navigation structure.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -68581,7 +68603,7 @@ void buildScreenFlowStructureChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    (*n).contentHelp = "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n";
+    (*n).contentHelp = "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n";
     parent.addChild(std::move(n));
   }
   {
@@ -68610,6 +68632,22 @@ void buildScreenFlowStructureChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 2;
     (*n).contentType = som::SomContentTypeMeta{"mermaid-flow", ""};
     (*n).docComment = "10.3.2. Screen Flow Diagram (mermaid-flow).";
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("ScreenRouteMap", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ScreenRouteMap";
+        n.memberName = "screenRouteMap";
+        n.classSectionId = "SCRTMP";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ScreenRouteMap";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 3;
+        n.docComment = "10.3.3. Screen Route Map.";
+        n.classDocComment = "10.3.3. Screen Route Map.\n\nThe screen map: which routes the application has, which form each route\nshows, and which screen an action leads to once it has finished. It is the\nresult of combining the interaction scenarios into screens — the scenarios\nsay what a user does, this section says where each step lands.\n\nWhere the navigation model (10.3.1) describes the *menus and structures* a\nuser browses with, the route map describes the *addressable targets* those\nstructures and the screens' own actions point at, so every navigation\ntarget in the specification resolves to a declared route.";
+      },
+      buildScreenRouteMapChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -68685,6 +68723,128 @@ void buildScreenResponsiveRuleEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).form->fields.push_back(som::SomFormFieldMeta{"collapsedSections", "String", "Collapsed Sections", false, "Sections that collapse at this breakpoint", 3, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"navigationMode", "String", "Navigation Mode", false, "Sidebar/Bottom-Nav/Drawer/Hamburger", 4, std::vector<std::string>{}});
     parent.addChild(std::move(n));
+  }
+}
+
+void buildScreenRouteEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScreenRouteEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"routeId", "String", "Route ID", true, "Stable identifier referenced by every navigation target, e.g., order-edit", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"routePath", "String", "Route Path", false, "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"routeTitle", "String", "Route Title", false, "Human-readable screen title shown in the title bar and history", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenId", "String", "Screen ID", false, "ID of the screen (SCREN registry) this route renders", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"routeParameters", "String", "Route Parameters", false, "Comma-separated parameter names carried by the route, e.g., orderId,mode", 4, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildScreenRouteMapChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScreenRouteMap";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindContent;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).contentHelp = "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n";
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScreenRouteMap";
+    (*n).memberName = "overview";
+    (*n).kind = som::kSomMetaKindSection;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "Overview of the route map and its conventions.";
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ScreenRouteMap";
+    (*ln).memberName = "routes";
+    (*ln).sectionId = "SCRTEN-ROUT-LST";
+    (*ln).sectionIdPattern = "SCRTEN-ROUT-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ScreenRouteEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 2;
+    (*ln).contentHelp = "Add one entry per addressable route.";
+    (*ln).docComment = "Contains 0+× ScreenRouteEntry.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — addressable content units and the conceptual structure of the application\"],\"connotation\":\"The registry of addressable application routes, each identified by a stable route ID.\"}", nullptr)});
+    ln->elementNode = metaCx("ScreenRouteEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ScreenRouteEntry";
+        n.classSectionId = "SCRTEN";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ScreenRouteEntry";
+        n.docComment = "A route entry (form).";
+        n.classDocComment = "A route entry (form).";
+      },
+      buildScreenRouteEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ScreenRouteMap";
+    (*ln).memberName = "formPlacement";
+    (*ln).sectionId = "FMSCAS-FORM-LST";
+    (*ln).sectionIdPattern = "FMSCAS-FORM-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "FormScreenAssignmentEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per form placed on a route.";
+    (*ln).docComment = "Contains 0+× FormScreenAssignmentEntry.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-143:2012 — the presentation of forms and the context in which they are shown\"],\"connotation\":\"The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it.\"}", nullptr)});
+    ln->elementNode = metaCx("FormScreenAssignmentEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "FormScreenAssignmentEntry";
+        n.classSectionId = "FMSCAS";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "FormScreenAssignmentEntry";
+        n.docComment = "A form-to-route assignment entry (form).";
+        n.classDocComment = "A form-to-route assignment entry (form).";
+      },
+      buildFormScreenAssignmentEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ScreenRouteMap";
+    (*ln).memberName = "transitions";
+    (*ln).sectionId = "SCTREN-TRAN-LST";
+    (*ln).sectionIdPattern = "SCTREN-TRAN-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ScreenTransitionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 4;
+    (*ln).contentHelp = "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome.";
+    (*ln).docComment = "Contains 0+× ScreenTransitionEntry.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads\",\"ISO 9241-143:2012 — navigation between forms as a task progresses\"],\"connotation\":\"The action-triggered transitions between routes, with a separate target per outcome.\"}", nullptr)});
+    ln->elementNode = metaCx("ScreenTransitionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ScreenTransitionEntry";
+        n.classSectionId = "SCTREN";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ScreenTransitionEntry";
+        n.docComment = "A screen-transition entry (form).";
+        n.classDocComment = "A screen-transition entry (form).";
+      },
+      buildScreenTransitionEntryChildren);
+    parent.addChild(std::move(ln));
   }
 }
 
@@ -68866,6 +69026,27 @@ void buildScreenStatesChildren(som::SomMetaNode& parent, std::vector<std::string
       },
       buildScreenStateEntryChildren);
     parent.addChild(std::move(ln));
+  }
+}
+
+void buildScreenTransitionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScreenTransitionEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceRouteId", "String", "Source Route ID", true, "Route ID (SCRTEN registry) the user is on when the action runs", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "ID of the triggering action (SCRAC registry) or of the screen element that raises it", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "ScreenFlowOutcome", "Outcome", true, "success — the action completed; error — processing failed; validationError — the input was rejected", 2, std::vector<std::string>{"success", "error", "validationError"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetRouteId", "String", "Target Route ID", true, "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath", 4, std::vector<std::string>{"replace", "popupOverlay"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcomeReference", "String", "Outcome Reference", false, "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success", 5, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -90725,6 +90906,9 @@ void* metaNavFactoryFieldHelpEntry(const som::SomMetaTree* tree, const std::stri
 void* metaNavFactoryFieldValidationRule(const som::SomMetaTree* tree, const std::string& path) {
   return new NavFieldValidationRule{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryFormScreenAssignmentEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavFormScreenAssignmentEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryFrameworkRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavFrameworkRequirementEntry{som::SomMetaRef(tree, path)};
 }
@@ -91328,11 +91512,17 @@ void* metaNavFactoryScreenFieldEntry(const som::SomMetaTree* tree, const std::st
 void* metaNavFactoryScreenResponsiveRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScreenResponsiveRuleEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryScreenRouteEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavScreenRouteEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryScreenSectionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScreenSectionEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryScreenStateEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScreenStateEntry{som::SomMetaRef(tree, path)};
+}
+void* metaNavFactoryScreenTransitionEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavScreenTransitionEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryScreenUserCategoryEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScreenUserCategoryEntry{som::SomMetaRef(tree, path)};
@@ -92195,6 +92385,9 @@ void* metaIdFactoryFieldHelpEntry(const som::SomMetaTree* tree, const std::strin
 void* metaIdFactoryFieldValidationRule(const som::SomMetaTree* tree, const std::string& path) {
   return new IdFieldValidationRule{som::SomMetaRef(tree, path)};
 }
+void* metaIdFactoryFormScreenAssignmentEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdFormScreenAssignmentEntry{som::SomMetaRef(tree, path)};
+}
 void* metaIdFactoryFrameworkRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdFrameworkRequirementEntry{som::SomMetaRef(tree, path)};
 }
@@ -92798,11 +92991,17 @@ void* metaIdFactoryScreenFieldEntry(const som::SomMetaTree* tree, const std::str
 void* metaIdFactoryScreenResponsiveRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScreenResponsiveRuleEntry{som::SomMetaRef(tree, path)};
 }
+void* metaIdFactoryScreenRouteEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdScreenRouteEntry{som::SomMetaRef(tree, path)};
+}
 void* metaIdFactoryScreenSectionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScreenSectionEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryScreenStateEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScreenStateEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryScreenTransitionEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdScreenTransitionEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryScreenUserCategoryEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScreenUserCategoryEntry{som::SomMetaRef(tree, path)};
@@ -99506,6 +99705,9 @@ NavFlexibility navFlexibilityCharacteristic_flexibility(NavFlexibilityCharacteri
 NavPortability navFlexibilityCharacteristic_portability(NavFlexibilityCharacteristic x) {
   return NavPortability{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "portability"))};
 }
+som::SomMetaRef navFormScreenAssignmentEntry_content(NavFormScreenAssignmentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
 som::SomMetaRef navFrameworkRequirementEntry_content(NavFrameworkRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -104741,6 +104943,9 @@ NavNavigationModel navScreenFlowStructure_navigationModel(NavScreenFlowStructure
 som::SomMetaRef navScreenFlowStructure_screenFlowDiagram(NavScreenFlowStructure x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlowDiagram"));
 }
+NavScreenRouteMap navScreenFlowStructure_screenRouteMap(NavScreenFlowStructure x) {
+  return NavScreenRouteMap{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenRouteMap"))};
+}
 som::SomMetaRef navScreenInventory_content(NavScreenInventory x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -104752,6 +104957,24 @@ som::SomListMetaRef navScreenInventory_items(NavScreenInventory x) {
 }
 som::SomMetaRef navScreenResponsiveRuleEntry_content(NavScreenResponsiveRuleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navScreenRouteEntry_content(NavScreenRouteEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navScreenRouteMap_content(NavScreenRouteMap x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navScreenRouteMap_overview(NavScreenRouteMap x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "overview"));
+}
+som::SomListMetaRef navScreenRouteMap_routes(NavScreenRouteMap x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCRTEN-ROUT-LST"), metaNavFactoryScreenRouteEntry);
+}
+som::SomListMetaRef navScreenRouteMap_formPlacement(NavScreenRouteMap x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FMSCAS-FORM-LST"), metaNavFactoryFormScreenAssignmentEntry);
+}
+som::SomListMetaRef navScreenRouteMap_transitions(NavScreenRouteMap x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCTREN-TRAN-LST"), metaNavFactoryScreenTransitionEntry);
 }
 som::SomMetaRef navScreenSectionEntry_content(NavScreenSectionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -104779,6 +105002,9 @@ som::SomMetaRef navScreenStates_content(NavScreenStates x) {
 }
 som::SomListMetaRef navScreenStates_items(NavScreenStates x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCRST-ITEM-LST"), metaNavFactoryScreenStateEntry);
+}
+som::SomMetaRef navScreenTransitionEntry_content(NavScreenTransitionEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navScreenUserCategoryEntry_content(NavScreenUserCategoryEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -112101,6 +112327,15 @@ som::SomListMetaRef idD00SolutionBlueprint_DELNPT_PATT_LST(IdD00SolutionBlueprin
 som::SomListMetaRef idD00SolutionBlueprint_NAVGRD_GUAR_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), metaIdFactoryNavigationGuardEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_SCRTEN_ROUT_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST"), metaIdFactoryScreenRouteEntry);
+}
+som::SomListMetaRef idD00SolutionBlueprint_FMSCAS_FORM_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST"), metaIdFactoryFormScreenAssignmentEntry);
+}
+som::SomListMetaRef idD00SolutionBlueprint_SCTREN_TRAN_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST"), metaIdFactoryScreenTransitionEntry);
+}
 som::SomMetaRef idD00SolutionBlueprint_ERHACO_ERRO(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO"));
 }
@@ -115560,6 +115795,15 @@ som::SomListMetaRef idD09ExperienceDesignSpecification_DELNPT_PATT_LST(IdD09Expe
 som::SomListMetaRef idD09ExperienceDesignSpecification_NAVGRD_GUAR_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), metaIdFactoryNavigationGuardEntry);
 }
+som::SomListMetaRef idD09ExperienceDesignSpecification_SCRTEN_ROUT_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/screenRouteMap/SCRTEN-ROUT-LST"), metaIdFactoryScreenRouteEntry);
+}
+som::SomListMetaRef idD09ExperienceDesignSpecification_FMSCAS_FORM_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/screenRouteMap/FMSCAS-FORM-LST"), metaIdFactoryFormScreenAssignmentEntry);
+}
+som::SomListMetaRef idD09ExperienceDesignSpecification_SCTREN_TRAN_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/screenRouteMap/SCTREN-TRAN-LST"), metaIdFactoryScreenTransitionEntry);
+}
 som::SomMetaRef idD09ExperienceDesignSpecification_PLPS(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "printLayout/PLPS"));
 }
@@ -118517,6 +118761,15 @@ som::SomListMetaRef idD13CodeSpecsProjection_DELNPT_PATT_LST(IdD13CodeSpecsProje
 }
 som::SomListMetaRef idD13CodeSpecsProjection_NAVGRD_GUAR_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST"), metaIdFactoryNavigationGuardEntry);
+}
+som::SomListMetaRef idD13CodeSpecsProjection_SCRTEN_ROUT_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST"), metaIdFactoryScreenRouteEntry);
+}
+som::SomListMetaRef idD13CodeSpecsProjection_FMSCAS_FORM_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST"), metaIdFactoryFormScreenAssignmentEntry);
+}
+som::SomListMetaRef idD13CodeSpecsProjection_SCTREN_TRAN_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST"), metaIdFactoryScreenTransitionEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_ERHACO_ERRO(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/ERHACO-ERRO"));

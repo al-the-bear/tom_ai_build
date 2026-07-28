@@ -6516,6 +6516,12 @@ func metaChildrenFlexibilityCharacteristic(s map[string]bool) []*som.SomMetaNode
 	}
 }
 
+func metaChildrenFormScreenAssignmentEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "FormScreenAssignmentEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "formId", TypeName: "String", Description: "Form ID", Required: true, Hint: "ID of the form shown on this route", Order: 0}, {Name: "routeId", TypeName: "String", Description: "Route ID", Required: true, Hint: "Route ID (SCRTEN registry) that hosts the form", Order: 1}, {Name: "presentationMode", TypeName: "ScreenPresentationMode", Description: "Presentation Mode", Required: true, Hint: "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath", Order: 2, EnumValues: []string{"replace", "popupOverlay"}}}}},
+	}
+}
+
 func metaChildrenFrameworkRequirementEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "FrameworkRequirementEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "frameworkName", TypeName: "String", Description: "Framework/Library Name", Required: true, Hint: "E.g., Flutter, Angular, Django, Spring Boot", Order: 0}, {Name: "frameworkCategory", TypeName: "String", Description: "Category", Hint: "UI Framework, Backend Framework, Testing, State Management", Order: 1}, {Name: "purpose", TypeName: "String", Description: "Purpose", Required: true, Hint: "What problem this framework solves", Order: 2}}}},
@@ -12184,7 +12190,7 @@ func metaChildrenScreenActionEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ScreenActionEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "actionId", TypeName: "String", Description: "Action ID", Required: true, Hint: "Unique action identifier", Order: 0}, {Name: "actionName", TypeName: "String", Description: "Action Name", Required: true, Hint: "Human-readable action name", Order: 1}, {Name: "actionType", TypeName: "String", Description: "Action Type", Hint: "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", Order: 2}}}},
 		{ClassName: "ScreenActionEntry", MemberName: "visual", SectionID: "SAEV", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Visual presentation of the action.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "labelResource", TypeName: "String", Description: "Label Resource", Hint: "Message key (MSGKR registry) for button label", Order: 0}, {Name: "iconResource", TypeName: "String", Description: "Icon Resource", Hint: "Resource key for action icon", Order: 1}, {Name: "placement", TypeName: "String", Description: "Placement", Hint: "App-Bar/Toolbar/FAB/Context-Menu/Overflow-Menu", Order: 2}, {Name: "buttonStyle", TypeName: "String", Description: "Button Style", Hint: "Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-161:2016 — visual presentation of command and action elements", "ISO 9241-125:2017 — visual presentation of information such as labels and icons"}, "connotation": "The visual presentation of a screen action including its label, icon, placement, and style."}}}},
 		{ClassName: "ScreenActionEntry", MemberName: "conditions", SectionID: "SAEC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Visibility, enablement, and permission rules.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "visibilityCondition", TypeName: "String", Description: "Visibility Condition", Hint: "When this action is shown", Order: 0}, {Name: "enabledCondition", TypeName: "String", Description: "Enabled Condition", Hint: "When this action is active", Order: 1}, {Name: "requiredPermission", TypeName: "String", Description: "Required Permission", Hint: "Permission needed to use this action", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — controllability over when an action is available to the user", "ISO 9241-161:2016 — states of command and action elements such as enabled or hidden"}, "connotation": "The visibility, enablement, and permission rules that determine when a screen action is available."}}}},
-		{ClassName: "ScreenActionEntry", MemberName: "behavior", SectionID: "SAEB", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Confirmation, navigation, and feedback behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "confirmationRequired", TypeName: "String", Description: "Confirmation Required", Hint: "Yes/No", Order: 0}, {Name: "confirmationMessageResource", TypeName: "String", Description: "Confirmation Message", Hint: "Message key (MSGKR registry) for confirmation dialog", Order: 1}, {Name: "keyboardShortcut", TypeName: "String", Description: "Keyboard Shortcut", Hint: "Shortcut binding, e.g., Ctrl+N", Order: 2}, {Name: "navigateTo", TypeName: "String", Description: "Navigate To", Hint: "Target screen after action", Order: 3}, {Name: "successMessageResource", TypeName: "String", Description: "Success Message", Hint: "Message key (MSGKR registry) for success notification", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — controllability and use error tolerance for action execution", "ISO 9241-161:2016 — command and action user-interface elements"}, "connotation": "The confirmation, navigation, and feedback behavior that governs how a screen action executes."}}}},
+		{ClassName: "ScreenActionEntry", MemberName: "behavior", SectionID: "SAEB", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Confirmation, navigation, and feedback behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "confirmationRequired", TypeName: "String", Description: "Confirmation Required", Hint: "Yes/No", Order: 0}, {Name: "confirmationMessageResource", TypeName: "String", Description: "Confirmation Message", Hint: "Message key (MSGKR registry) for confirmation dialog", Order: 1}, {Name: "keyboardShortcut", TypeName: "String", Description: "Keyboard Shortcut", Hint: "Shortcut binding, e.g., Ctrl+N", Order: 2}, {Name: "navigateTo", TypeName: "String", Description: "Navigate To", Hint: "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead", Order: 3}, {Name: "successMessageResource", TypeName: "String", Description: "Success Message", Hint: "Message key (MSGKR registry) for success notification", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — controllability and use error tolerance for action execution", "ISO 9241-161:2016 — command and action user-interface elements"}, "connotation": "The confirmation, navigation, and feedback behavior that governs how a screen action executes."}}}},
 	}
 }
 
@@ -12276,7 +12282,7 @@ func metaChildrenScreenElementFieldSpec(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenScreenEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ScreenEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "screenId", TypeName: "String", Description: "Screen ID", Required: true, Hint: "Unique identifier, e.g., SCR-001", Order: 0}, {Name: "screenName", TypeName: "String", Description: "Screen Name", Required: true, Hint: "Human-readable screen title", Order: 1}, {Name: "purpose", TypeName: "String", Description: "Purpose", Hint: "Business purpose — what the user accomplishes here", Order: 2}}}},
-		{ClassName: "ScreenEntry", MemberName: "classification", SectionID: "SCECL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Classification and routing metadata.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "screenCategory", TypeName: "String", Description: "Screen Category", Hint: "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", Order: 0}, {Name: "parentScreenId", TypeName: "String", Description: "Parent Screen ID", Hint: "Parent screen if this is a sub-screen or drill-down", Order: 1}, {Name: "routePattern", TypeName: "String", Description: "Route Pattern", Hint: "Navigation route path, e.g., /orders/:id/edit", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-151:2008 — navigation structure and routing within the user interface", "ISO 9241-112:2017 — categorisation of information for structured presentation"}, "connotation": "The classification and routing metadata that categorises a screen and locates it in the navigation structure."}}}},
+		{ClassName: "ScreenEntry", MemberName: "classification", SectionID: "SCECL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Classification and routing metadata.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "screenCategory", TypeName: "String", Description: "Screen Category", Hint: "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", Order: 0}, {Name: "parentScreenId", TypeName: "String", Description: "Parent Screen ID", Hint: "Parent screen if this is a sub-screen or drill-down", Order: 1}, {Name: "routePattern", TypeName: "String", Description: "Route Pattern", Hint: "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-151:2008 — navigation structure and routing within the user interface", "ISO 9241-112:2017 — categorisation of information for structured presentation"}, "connotation": "The classification and routing metadata that categorises a screen and locates it in the navigation structure."}}}},
 		{ClassName: "ScreenEntry", MemberName: "access", SectionID: "SCEAC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Access control settings.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "accessLevel", TypeName: "String", Description: "Access Level", Hint: "Public/Authenticated/Role-specific", Order: 0}, {Name: "requiredRoles", TypeName: "String", Description: "Required Roles", Hint: "Authorization roles that may access this screen", Order: 1}, {Name: "requiredPermissions", TypeName: "String", Description: "Required Permissions", Hint: "Specific permissions needed", Order: 2}, {Name: "permissionEffect", TypeName: "String", Description: "Permission Effect", Hint: "Hide-Screen/Show-Readonly/Show-With-Restrictions", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — controllability governing who may access an interface", "ISO/IEC 25010:2023 — interaction capability constrained by authorization"}, "connotation": "The access-control settings that determine which roles and permissions may reach a screen."}}}},
 		{ClassName: "ScreenEntry", MemberName: "traceability", SectionID: "SCETR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Traceability metadata.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "relatedUseCases", TypeName: "String", Description: "Related Use Cases", Hint: "ISC references this screen serves", Order: 0}, {Name: "relatedRequirements", TypeName: "String", Description: "Related Requirements", Hint: "RSP references this screen satisfies", Order: 1}, {Name: "relatedBusinessProcesses", TypeName: "String", Description: "Related Business Processes", Hint: "TOM references where this screen appears", Order: 2}, {Name: "dataEntities", TypeName: "String", Description: "Data Entities", Hint: "IFM entity references displayed/edited", Order: 3}, {Name: "primaryAction", TypeName: "String", Description: "Primary Action", Hint: "Main user action on this screen", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210:2019 — linkage of screens to the user tasks and requirements they serve", "ISO/IEC 25010:2023 — interaction capability traced to product requirements"}, "connotation": "The traceability metadata linking a screen to the use cases, requirements, and data entities it serves."}}}},
 		{ClassName: "ScreenEntry", MemberName: "presentation", SectionID: "SCENPR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Presentation metadata.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "pageTitleResource", TypeName: "String", Description: "Page Title Resource", Hint: "Message key (MSGKR registry) for the screen title text", Order: 0}, {Name: "pageIconResource", TypeName: "String", Description: "Page Icon Resource", Hint: "Resource key for the screen icon", Order: 1}, {Name: "helpTopicId", TypeName: "String", Description: "Help Topic ID", Hint: "Link to help/documentation topic", Order: 2}, {Name: "layout", TypeName: "String", Description: "Layout", Hint: "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information", "ISO 9241-125:2017 — visual presentation and layout of the screen"}, "connotation": "The presentation metadata such as title, icon, and layout that defines how a screen appears."}}}},
@@ -12337,11 +12343,14 @@ func metaChildrenScreenFieldEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenScreenFlowStructure(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ScreenFlowStructure", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n"},
+		{ClassName: "ScreenFlowStructure", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n"},
 		metaCx("NavigationModel", s, metaChildrenNavigationModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "NavigationModel", MemberName: "navigationModel", ClassSectionID: "NAMO", Kind: som.SomMetaKindComplex, TypeName: "NavigationModel", SerializationOrder: metaIntPtr(1), DocComment: "10.3.1. Navigation Model.", ClassDocComment: "10.3.1. Navigation Model.\n\nComprehensive navigation structure: primary, secondary, utility, contextual\nnavigation, deep linking, navigation guards, and platform adaptation.", Recursive: r, Children: c}
 		}),
 		{ClassName: "ScreenFlowStructure", MemberName: "screenFlowDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flow", Description: ""}, DocComment: "10.3.2. Screen Flow Diagram (mermaid-flow)."},
+		metaCx("ScreenRouteMap", s, metaChildrenScreenRouteMap, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ScreenRouteMap", MemberName: "screenRouteMap", ClassSectionID: "SCRTMP", Kind: som.SomMetaKindComplex, TypeName: "ScreenRouteMap", SerializationOrder: metaIntPtr(3), DocComment: "10.3.3. Screen Route Map.", ClassDocComment: "10.3.3. Screen Route Map.\n\nThe screen map: which routes the application has, which form each route\nshows, and which screen an action leads to once it has finished. It is the\nresult of combining the interaction scenarios into screens — the scenarios\nsay what a user does, this section says where each step lands.\n\nWhere the navigation model (10.3.1) describes the *menus and structures* a\nuser browses with, the route map describes the *addressable targets* those\nstructures and the screens' own actions point at, so every navigation\ntarget in the specification resolves to a declared route.", Recursive: r, Children: c}
+		}),
 	}
 }
 
@@ -12362,6 +12371,40 @@ func metaChildrenScreenInventory(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenScreenResponsiveRuleEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ScreenResponsiveRuleEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "breakpoint", TypeName: "String", Description: "Breakpoint", Required: true, Hint: "Mobile/Tablet/Desktop/Large-Desktop", Order: 0}, {Name: "layoutChanges", TypeName: "String", Description: "Layout Changes", Hint: "How layout adapts, e.g., 3-col → 1-col", Order: 1}, {Name: "hiddenElements", TypeName: "String", Description: "Hidden Elements", Hint: "Elements hidden at this breakpoint", Order: 2}, {Name: "collapsedSections", TypeName: "String", Description: "Collapsed Sections", Hint: "Sections that collapse at this breakpoint", Order: 3}, {Name: "navigationMode", TypeName: "String", Description: "Navigation Mode", Hint: "Sidebar/Bottom-Nav/Drawer/Hamburger", Order: 4}}}},
+	}
+}
+
+func metaChildrenScreenRouteEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ScreenRouteEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "routeId", TypeName: "String", Description: "Route ID", Required: true, Hint: "Stable identifier referenced by every navigation target, e.g., order-edit", Order: 0}, {Name: "routePath", TypeName: "String", Description: "Route Path", Hint: "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", Order: 1}, {Name: "routeTitle", TypeName: "String", Description: "Route Title", Hint: "Human-readable screen title shown in the title bar and history", Order: 2}, {Name: "screenId", TypeName: "String", Description: "Screen ID", Hint: "ID of the screen (SCREN registry) this route renders", Order: 3}, {Name: "routeParameters", TypeName: "String", Description: "Route Parameters", Hint: "Comma-separated parameter names carried by the route, e.g., orderId,mode", Order: 4}}}},
+	}
+}
+
+func metaChildrenScreenRouteMap(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ScreenRouteMap", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n"},
+		{ClassName: "ScreenRouteMap", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of the route map and its conventions."},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ScreenRouteMap", MemberName: "routes", SectionID: "SCRTEN-ROUT-LST", SectionIDPattern: "SCRTEN-ROUT-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenRouteEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per addressable route.", DocComment: "Contains 0+× ScreenRouteEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-151:2008 — addressable content units and the conceptual structure of the application"}, "connotation": "The registry of addressable application routes, each identified by a stable route ID."}}}}
+			n.ElementNode = metaCx("ScreenRouteEntry", s, metaChildrenScreenRouteEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ScreenRouteEntry", ClassSectionID: "SCRTEN", Kind: som.SomMetaKindComplex, TypeName: "ScreenRouteEntry", DocComment: "A route entry (form).", ClassDocComment: "A route entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ScreenRouteMap", MemberName: "formPlacement", SectionID: "FMSCAS-FORM-LST", SectionIDPattern: "FMSCAS-FORM-xxx", Kind: som.SomMetaKindList, TypeName: "FormScreenAssignmentEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per form placed on a route.", DocComment: "Contains 0+× FormScreenAssignmentEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — the presentation of forms and the context in which they are shown"}, "connotation": "The assignment of forms to routes, stating which form each screen shows and whether it replaces the screen or overlays it."}}}}
+			n.ElementNode = metaCx("FormScreenAssignmentEntry", s, metaChildrenFormScreenAssignmentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "FormScreenAssignmentEntry", ClassSectionID: "FMSCAS", Kind: som.SomMetaKindComplex, TypeName: "FormScreenAssignmentEntry", DocComment: "A form-to-route assignment entry (form).", ClassDocComment: "A form-to-route assignment entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ScreenRouteMap", MemberName: "transitions", SectionID: "SCTREN-TRAN-LST", SectionIDPattern: "SCTREN-TRAN-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenTransitionEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome.", DocComment: "Contains 0+× ScreenTransitionEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — conformity with user expectations and self-descriptiveness of where an action leads", "ISO 9241-143:2012 — navigation between forms as a task progresses"}, "connotation": "The action-triggered transitions between routes, with a separate target per outcome."}}}}
+			n.ElementNode = metaCx("ScreenTransitionEntry", s, metaChildrenScreenTransitionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ScreenTransitionEntry", ClassSectionID: "SCTREN", Kind: som.SomMetaKindComplex, TypeName: "ScreenTransitionEntry", DocComment: "A screen-transition entry (form).", ClassDocComment: "A screen-transition entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -12409,6 +12452,12 @@ func metaChildrenScreenStates(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
+	}
+}
+
+func metaChildrenScreenTransitionEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ScreenTransitionEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sourceRouteId", TypeName: "String", Description: "Source Route ID", Required: true, Hint: "Route ID (SCRTEN registry) the user is on when the action runs", Order: 0}, {Name: "actionId", TypeName: "String", Description: "Action ID", Required: true, Hint: "ID of the triggering action (SCRAC registry) or of the screen element that raises it", Order: 1}, {Name: "outcome", TypeName: "ScreenFlowOutcome", Description: "Outcome", Required: true, Hint: "success — the action completed; error — processing failed; validationError — the input was rejected", Order: 2, EnumValues: []string{"success", "error", "validationError"}}, {Name: "targetRouteId", TypeName: "String", Description: "Target Route ID", Required: true, Hint: "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", Order: 3}, {Name: "presentationMode", TypeName: "ScreenPresentationMode", Description: "Presentation Mode", Required: true, Hint: "replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath", Order: 4, EnumValues: []string{"replace", "popupOverlay"}}, {Name: "outcomeReference", TypeName: "String", Description: "Outcome Reference", Hint: "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success", Order: 5}}}},
 	}
 }
 
@@ -31116,6 +31165,24 @@ func (x *FlexibilityCharacteristicNav) Portability() *PortabilityNav {
 	return newPortabilityNav(x.Tree, x.Path+"/portability")
 }
 
+// FormScreenAssignmentEntryNav holds the dot-notation accessors of `FormScreenAssignmentEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type FormScreenAssignmentEntryNav struct {
+	som.SomMetaRef
+}
+
+// newFormScreenAssignmentEntryNav binds a FormScreenAssignmentEntryNav accessor to a tree and a path.
+func newFormScreenAssignmentEntryNav(tree *som.SomMetaTree, path string) *FormScreenAssignmentEntryNav {
+	return &FormScreenAssignmentEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *FormScreenAssignmentEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // FrameworkRequirementEntryNav holds the dot-notation accessors of `FrameworkRequirementEntry` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -45322,6 +45389,10 @@ func (x *ScreenFlowStructureNav) ScreenFlowDiagram() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/screenFlowDiagram"}
 }
 
+func (x *ScreenFlowStructureNav) ScreenRouteMap() *ScreenRouteMapNav {
+	return newScreenRouteMapNav(x.Tree, x.Path+"/screenRouteMap")
+}
+
 // ScreenInventoryNav holds the dot-notation accessors of `ScreenInventory` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -45366,6 +45437,64 @@ func newScreenResponsiveRuleEntryNav(tree *som.SomMetaTree, path string) *Screen
 
 func (x *ScreenResponsiveRuleEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// ScreenRouteEntryNav holds the dot-notation accessors of `ScreenRouteEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ScreenRouteEntryNav struct {
+	som.SomMetaRef
+}
+
+// newScreenRouteEntryNav binds a ScreenRouteEntryNav accessor to a tree and a path.
+func newScreenRouteEntryNav(tree *som.SomMetaTree, path string) *ScreenRouteEntryNav {
+	return &ScreenRouteEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ScreenRouteEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// ScreenRouteMapNav holds the dot-notation accessors of `ScreenRouteMap` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ScreenRouteMapNav struct {
+	som.SomMetaRef
+}
+
+// newScreenRouteMapNav binds a ScreenRouteMapNav accessor to a tree and a path.
+func newScreenRouteMapNav(tree *som.SomMetaTree, path string) *ScreenRouteMapNav {
+	return &ScreenRouteMapNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ScreenRouteMapNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ScreenRouteMapNav) Overview() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/overview"}
+}
+
+func (x *ScreenRouteMapNav) Routes() *som.SomListMetaRef[*ScreenRouteEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCRTEN-ROUT-LST", func(t *som.SomMetaTree, p string) *ScreenRouteEntryNav {
+		return newScreenRouteEntryNav(t, p)
+	})
+}
+
+func (x *ScreenRouteMapNav) FormPlacement() *som.SomListMetaRef[*FormScreenAssignmentEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/FMSCAS-FORM-LST", func(t *som.SomMetaTree, p string) *FormScreenAssignmentEntryNav {
+		return newFormScreenAssignmentEntryNav(t, p)
+	})
+}
+
+func (x *ScreenRouteMapNav) Transitions() *som.SomListMetaRef[*ScreenTransitionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCTREN-TRAN-LST", func(t *som.SomMetaTree, p string) *ScreenTransitionEntryNav {
+		return newScreenTransitionEntryNav(t, p)
+	})
 }
 
 // ScreenSectionEntryNav holds the dot-notation accessors of `ScreenSectionEntry` (SOM §8).
@@ -45464,6 +45593,24 @@ func (x *ScreenStatesNav) Items() *som.SomListMetaRef[*ScreenStateEntryNav] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCRST-ITEM-LST", func(t *som.SomMetaTree, p string) *ScreenStateEntryNav {
 		return newScreenStateEntryNav(t, p)
 	})
+}
+
+// ScreenTransitionEntryNav holds the dot-notation accessors of `ScreenTransitionEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ScreenTransitionEntryNav struct {
+	som.SomMetaRef
+}
+
+// newScreenTransitionEntryNav binds a ScreenTransitionEntryNav accessor to a tree and a path.
+func newScreenTransitionEntryNav(tree *som.SomMetaTree, path string) *ScreenTransitionEntryNav {
+	return &ScreenTransitionEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ScreenTransitionEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
 // ScreenUserCategoryEntryNav holds the dot-notation accessors of `ScreenUserCategoryEntry` (SOM §8).
@@ -61454,6 +61601,24 @@ func (x *D00SolutionBlueprintID) NAVGRD_GUAR_LST() *som.SomListMetaRef[*Navigati
 	})
 }
 
+func (x *D00SolutionBlueprintID) SCRTEN_ROUT_LST() *som.SomListMetaRef[*ScreenRouteEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST", func(t *som.SomMetaTree, p string) *ScreenRouteEntryID {
+		return newScreenRouteEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) FMSCAS_FORM_LST() *som.SomListMetaRef[*FormScreenAssignmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST", func(t *som.SomMetaTree, p string) *FormScreenAssignmentEntryID {
+		return newFormScreenAssignmentEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) SCTREN_TRAN_LST() *som.SomListMetaRef[*ScreenTransitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST", func(t *som.SomMetaTree, p string) *ScreenTransitionEntryID {
+		return newScreenTransitionEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) ERHACO_ERRO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/ERHACO-ERRO"}
 }
@@ -66667,6 +66832,24 @@ func (x *D09ExperienceDesignSpecificationID) NAVGRD_GUAR_LST() *som.SomListMetaR
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) SCRTEN_ROUT_LST() *som.SomListMetaRef[*ScreenRouteEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/screenFlow/screenRouteMap/SCRTEN-ROUT-LST", func(t *som.SomMetaTree, p string) *ScreenRouteEntryID {
+		return newScreenRouteEntryID(t, p)
+	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) FMSCAS_FORM_LST() *som.SomListMetaRef[*FormScreenAssignmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/screenFlow/screenRouteMap/FMSCAS-FORM-LST", func(t *som.SomMetaTree, p string) *FormScreenAssignmentEntryID {
+		return newFormScreenAssignmentEntryID(t, p)
+	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) SCTREN_TRAN_LST() *som.SomListMetaRef[*ScreenTransitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/screenFlow/screenRouteMap/SCTREN-TRAN-LST", func(t *som.SomMetaTree, p string) *ScreenTransitionEntryID {
+		return newScreenTransitionEntryID(t, p)
+	})
+}
+
 func (x *D09ExperienceDesignSpecificationID) PLPS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/printLayout/PLPS"}
 }
@@ -70971,6 +71154,24 @@ func (x *D13CodeSpecsProjectionID) NAVGRD_GUAR_LST() *som.SomListMetaRef[*Naviga
 	})
 }
 
+func (x *D13CodeSpecsProjectionID) SCRTEN_ROUT_LST() *som.SomListMetaRef[*ScreenRouteEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST", func(t *som.SomMetaTree, p string) *ScreenRouteEntryID {
+		return newScreenRouteEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) FMSCAS_FORM_LST() *som.SomListMetaRef[*FormScreenAssignmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/screenRouteMap/FMSCAS-FORM-LST", func(t *som.SomMetaTree, p string) *FormScreenAssignmentEntryID {
+		return newFormScreenAssignmentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SCTREN_TRAN_LST() *som.SomListMetaRef[*ScreenTransitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST", func(t *som.SomMetaTree, p string) *ScreenTransitionEntryID {
+		return newScreenTransitionEntryID(t, p)
+	})
+}
+
 func (x *D13CodeSpecsProjectionID) ERHACO_ERRO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/ERHACO-ERRO"}
 }
@@ -73346,6 +73547,19 @@ type FieldValidationRuleID struct {
 // newFieldValidationRuleID binds a FieldValidationRuleID accessor to a tree and a path.
 func newFieldValidationRuleID(tree *som.SomMetaTree, path string) *FieldValidationRuleID {
 	return &FieldValidationRuleID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// FormScreenAssignmentEntryID holds the ID-tree accessors of `FormScreenAssignmentEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type FormScreenAssignmentEntryID struct {
+	som.SomMetaRef
+}
+
+// newFormScreenAssignmentEntryID binds a FormScreenAssignmentEntryID accessor to a tree and a path.
+func newFormScreenAssignmentEntryID(tree *som.SomMetaTree, path string) *FormScreenAssignmentEntryID {
+	return &FormScreenAssignmentEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // FrameworkRequirementEntryID holds the ID-tree accessors of `FrameworkRequirementEntry` (SOM §8): methods
@@ -77905,6 +78119,19 @@ func newScreenResponsiveRuleEntryID(tree *som.SomMetaTree, path string) *ScreenR
 	return &ScreenResponsiveRuleEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+// ScreenRouteEntryID holds the ID-tree accessors of `ScreenRouteEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ScreenRouteEntryID struct {
+	som.SomMetaRef
+}
+
+// newScreenRouteEntryID binds a ScreenRouteEntryID accessor to a tree and a path.
+func newScreenRouteEntryID(tree *som.SomMetaTree, path string) *ScreenRouteEntryID {
+	return &ScreenRouteEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
 // ScreenSectionEntryID holds the ID-tree accessors of `ScreenSectionEntry` (SOM §8): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -77943,6 +78170,19 @@ type ScreenStateEntryID struct {
 // newScreenStateEntryID binds a ScreenStateEntryID accessor to a tree and a path.
 func newScreenStateEntryID(tree *som.SomMetaTree, path string) *ScreenStateEntryID {
 	return &ScreenStateEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// ScreenTransitionEntryID holds the ID-tree accessors of `ScreenTransitionEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ScreenTransitionEntryID struct {
+	som.SomMetaRef
+}
+
+// newScreenTransitionEntryID binds a ScreenTransitionEntryID accessor to a tree and a path.
+func newScreenTransitionEntryID(tree *som.SomMetaTree, path string) *ScreenTransitionEntryID {
+	return &ScreenTransitionEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // ScreenUserCategoryEntryID holds the ID-tree accessors of `ScreenUserCategoryEntry` (SOM §8): methods
