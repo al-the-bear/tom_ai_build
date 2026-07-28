@@ -897,6 +897,38 @@ Annotations are split into **visible** (they affect outline rendering) and
 outline unless `--show-schema-annotations` is passed). The full split is the
 table in §11.2.13.
 
+### 9.4 What the model constrains, and what it does not
+
+The model's contract with an author is **structural**: which sections exist,
+what nests under what, how many of each (`@Min`/`@Max`), which ids they carry
+(`@SectionId`/`@SectionIdPattern`), and — for form sections — which fields are
+present and required (`@Form`/`Field`). Prose bodies are **guided, not
+constrained**: `@ContentHelp` and `@ValidationPrompt` tell an author what to
+write, and `@ContentType` says in what medium, but nothing rejects a body for
+its wording.
+
+That is a deliberate boundary, and it is why the model carries **no text-body
+regex annotation**. The DocSpecs vocabulary offers one — a section type may
+declare `pattern-check-text`, and every SOM runtime's validator enforces it
+against the section's text — but TomSpecs never emits it, because there is no
+model-side annotation to emit it from. A section's prose is where a human says
+something the structure cannot say for them; a regex over that prose checks
+spelling, not meaning, and buys a false sense of validation at the cost of
+rejecting correct documents.
+
+The wider point: the whole **validation & authoring guidance** group is
+currently *available* rather than *exercised* — `tom_specs_model` has no call
+site for any of `@Prefix`, `@PatternCheckId`, `@PatternCheck`, `@TextRequired`,
+`@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags` or `@ValidationPrompt`.
+The generator maps the ones it can so that a model which *does* reach for them
+gets a schema that enforces them, but the documents themselves lean entirely on
+structure. An annotation added to close the `pattern-check-text` gap would
+therefore have no call site at all, and an annotation with no call site is
+speculative (see `clean_code_principles.md`). Should a document ever have a real
+text-body pattern to enforce, the annotation is a small addition — declare it in
+`tom_specs_core` beside `@PatternCheck`, and map it in the schema generator from
+the meta tree's `extra` capture, exactly as `@PatternCheck` is mapped today.
+
 ---
 
 ## 10. Traceability and structural invariants

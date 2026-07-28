@@ -14,7 +14,8 @@ import 'model_reader.dart';
 /// generation rules (SOM §13).
 ///
 /// One [DocSpecSchema] is produced per `@Document` root — the global Solution
-/// Blueprint plus the twelve Phase-3 projection roots, 13 in all (S1). The
+/// Blueprint plus the twelve Phase-3 projection roots and the CodeSpecs
+/// generation projection, 14 in all (S1). The
 /// SOM §13 rules, with the exact spelling fixed against the `tom_doc_specs`
 /// parser as SOM §13 delegates:
 ///
@@ -43,6 +44,9 @@ import 'model_reader.dart';
 ///   `min-text-length`/`max-text-length` from `@MinLength`/`@MaxLength`;
 /// - `description:` from `@ContentHelp` (first) or the doc comment;
 ///   `validation-prompt:` from `@ValidationPrompt`;
+/// - `pattern-check-text:` is **never** emitted — the model constrains sections
+///   structurally and only *guides* their prose, so it carries no text-body
+///   regex annotation to map from (`tom_specs_model_rules.md` §9.4);
 /// - `@Unused` nodes are omitted entirely, subtree included;
 /// - the `document:` structure lists the root's top-level sections with
 ///   `optional: true` unless the child carries `@Min` ≥ 1; the SOM §13 title

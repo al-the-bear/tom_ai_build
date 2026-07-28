@@ -471,6 +471,21 @@ void main() {
       }
     });
 
+    test('schema-gen: no schema constrains a section text body — '
+        'pattern-check-text is never emitted (rules §9.4)', () {
+      // The model constrains sections structurally and only *guides* their
+      // prose, so it carries no text-body regex annotation. This pins that
+      // decision: a schema that grew a text pattern would mean the model
+      // gained an annotation the rules deliberately exclude.
+      final schemas = DocSpecsSchemaGenerator(classes).generateAll();
+      for (final schema in schemas.values) {
+        for (final entry in schema.sectionTypes.entries) {
+          expect(entry.value.patternCheckText, isNull,
+              reason: '${schema.id}/${entry.key} emits pattern-check-text');
+        }
+      }
+    });
+
     test('SOM §13: every generated schema round-trips through the DocSpecs '
         'loader (the existing consumer can parse them)', () {
       final schemas = DocSpecsSchemaGenerator(classes).generateAll();
