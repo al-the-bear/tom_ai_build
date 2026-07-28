@@ -363,11 +363,11 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 
 | Part ID | Part Description | Mapping to CodeSpecs | Gap analysis `tom_core` | Gap analysis `tom_code_specs` |
 |---------|------------------|----------------------|-------------------------|-------------------------------|
-| **CE-EL** ScreenElement | A single visible/interactive element of a screen. Closed **10-kind catalogue** (§5.18): form-member kinds *TextInput, Number, Toggle, DateInput, Choice, MultiChoice*; standalone kinds *Label, Button, MenuEntry, FormHost*. | **Built on:** `TomScreenElementsProvider` + the `Tom*` widget family (`tom_flutter_ui`) — TextInput → `TomFormStringField`, Number → `TomFormIntField`/`TomFormDoubleField`, Toggle → `TomFormBoolField`, DateInput → `TomFormDateField`/`TomFormTimeField`, Label → `TomText`/`TomLabelBase`, FormHost → the CE-FM `TomForm` host. Form-member elements are coded as CE-FM field members; standalone elements as provider-created widgets.<br>**Annotations:** `@CsElement(kind: …)` on the field/member; `@CsWidget` on a standalone widget CodeSpec.<br>**Example:** `@CsElement(kind: 'TextInput') late final TomString email;` inside the `@CsForm` class — kind, label key and grade ride on the annotation. | **Per-kind attribute gap (`csexb1`)** — the closed catalogue maps 1:1 onto shipped `tom_flutter_ui` widgets and needs no new base class, but three declared per-kind attributes have no carrier on the form-field classes: `tristate` (raw `TomCheckbox` only, not `TomFormBoolField extends TomField<bool>`) and `minSelections`/`maxSelections` (absent package-wide) — §4.1.2. | `@CsElement` must carry what code cannot: the element **kind** (the declared Dart type does not fix *TextInput* vs *Choice*), label/hint **message keys** (`CsMessageKey`, §5.23 — not yet authored) and display/read-only **grade** defaults. |
+| **CE-EL** ScreenElement | A single visible/interactive element of a screen. Closed **10-kind catalogue** (§5.18): form-member kinds *TextInput, Number, Toggle, DateInput, Choice, MultiChoice*; standalone kinds *Label, Button, MenuEntry, FormHost*. | **Built on:** `TomScreenElementsProvider` + the `Tom*` widget family (`tom_flutter_ui`) — TextInput → `TomFormStringField`, Number → `TomFormIntField`/`TomFormDoubleField`, Toggle → `TomFormBoolField` (`TomFormNullableBoolField` when `tristate`), DateInput → `TomFormDateField`/`TomFormTimeField`, Label → `TomText`/`TomLabelBase`, FormHost → the CE-FM `TomForm` host. Form-member elements are coded as CE-FM field members; standalone elements as provider-created widgets.<br>**Annotations:** `@CsElement(kind: …)` on the field/member; `@CsWidget` on a standalone widget CodeSpec.<br>**Example:** `@CsElement(kind: 'TextInput') late final TomString email;` inside the `@CsForm` class — kind, label key and grade ride on the annotation. | None — the closed catalogue maps 1:1 onto shipped `tom_flutter_ui` widgets and needs no new base class, and every per-kind attribute has a carrier: `csexb1` added the `TomFormNullableBoolField` family for `tristate` and the `minItems`/`maxItems` field rules the MultiChoice selection bounds desugar to (§4.1.2). | `@CsElement` must carry what code cannot: the element **kind** (the declared Dart type does not fix *TextInput* vs *Choice*), label/hint **message keys** (`CsMessageKey`, §5.23 — not yet authored) and display/read-only **grade** defaults. |
 | **CE-FM** Form | A user-facing form: typed field collection, lifecycle (load/edit/submit), per-field grades. | **Built on:** subclass of `TomForm<T extends TomClass>` (`tom_flutter_ui/lib/src/forms/tom_form.dart`); fields as `TomField<T>` members; nesting via `TomFormChildContainer`.<br>**Annotations:** `@CsForm(id)` on the class; fields carry `@CsElement` + `@CsValidation`.<br>**Example:** `@CsForm('customer_edit') class CustomerEditForm extends TomForm<Customer> { … }` | None — full reuse. | `@CsForm` needs form-level spec detail code omits: the bound view-model type link, the submit target as a typed `CsCallRef`/`CsActionRef` (§5.23, not yet authored), form-level authorization-grade defaults. |
 | **CE-LO** Layout | Two-layer **id-addressed** layout: container tree (rows/containers) + component placement; delta overrides via the closed **5-op grammar** (§5.22): *reparent, set-container-prop, set-slot-hint, insert-container, remove-container*. | **Built on:** `AclRow` / `AclContainer` / `AclComponent` (`tom_flutter_ui/src/advanced_container_layout/acl_container.dart`), rendered via `TomObservingWidget`. The layout CodeSpec itself is a **plain annotated model class** describing the node tree.<br>**Annotations:** `@CsLayout` on the node-model class.<br>**Example:** a layout class whose members declare container nodes with stable ids and component slots, each slot naming its CE-EL element. | **Gap** — the id-addressed **node model** (stable node ids over the `Acl*` tree + the 5-op delta grammar) has no `tom_core` class; the concrete node-model class lands in `tom_core_codespecs` (§5.2, §5.12; `csra2`). The runtime `Acl*` classes themselves are ready. | `@CsLayout` needs attributes for node **ids**, **slot hints** and per-node **override deltas** — the delta grammar is a pure specification concern that cannot ride in plain widget code. |
 | **CE-TX** Text | User-visible text: message/i18n **keys** (shared), per-client **copy**. | **Built on:** `TomTextResourceProvider` (`tom_core_kernel`, `tombase/resources/tom_resource_provider.dart`) resolves keys; copy is basePath-derived client-side.<br>**Annotations:** `@CsText` on a plain constants class in the shared project; keys as §5.23 `CsMessageKey` consts.<br>**Example:** `@CsText class Messages { static const custNameLabel = CsMessageKey('customer.name.label'); }` | **Gap** — the typed **message-key registry** model (the catalogue of keys, SOM home MSGKR) has no core class; the concrete registry class lands in `tom_core_codespecs` (§5.8, §5.21). | `CsMessageKey` (§5.23) not yet authored; `@CsText` needs attributes for key namespace/basePath and **placeholder arity/format** of message parameters — pure spec detail. |
-| **CE-VA** Validation | Field + form validation; closed **8-rule catalogue**: *required, email, minLength, maxLength, pattern, min, max, compose*. | **Built on:** `Validators` static catalogue + `TomValidatorRegistry` declaration strings (`'required, minLength:8, pattern:^[A-Z]'`) + the sealed `ValidationResult` family and `FormValidationError` (`tom_flutter_ui/lib/src/forms/validation/`). Coded as **Dart validation methods** on the form or standalone validator classes (the §3 first-level-implementation latitude); cross-field form rules as **compilable pseudo-code** methods.<br>**Annotations:** `@CsValidation` on the method/field.<br>**Example:** `@CsValidation('required, maxLength:80') late final TomString name;` | None — the 8-rule catalogue is shipped 1:1 in `Validators`. | `@CsFieldRule` / `@CsFormRule` are catalogued but **not yet authored** (`qr3`, §10) — needed to state rule kind + parameters (max length, format regex, numeric ranges) *declaratively*, so the constraint is not only inside a method body; error texts keyed via `CsMessageKey`. |
+| **CE-VA** Validation | Field + form validation; closed **10-rule catalogue**: *required, email, minLength, maxLength, pattern, min, max, minItems, maxItems, compose*. | **Built on:** `Validators` static catalogue + `TomValidatorRegistry` declaration strings (`'required, minLength:8, pattern:^[A-Z]'`) + the sealed `ValidationResult` family and `FormValidationError` (`tom_flutter_ui/lib/src/forms/validation/`). Coded as **Dart validation methods** on the form or standalone validator classes (the §3 first-level-implementation latitude); cross-field form rules as **compilable pseudo-code** methods.<br>**Annotations:** `@CsValidation` on the method/field.<br>**Example:** `@CsValidation('required, maxLength:80') late final TomString name;` | None — the 10-rule catalogue is shipped 1:1 in `Validators`. | `@CsFieldRule` / `@CsFormRule` are catalogued but **not yet authored** (`qr3`, §10) — needed to state rule kind + parameters (max length, format regex, numeric ranges) *declaratively*, so the constraint is not only inside a method body; error texts keyed via `CsMessageKey`. |
 | **CE-AC** Action | A user-triggerable action with undo/transaction support; closed **5-kind trigger taxonomy**: *user-gesture, in-form event, lifecycle, server-event, condition*. | **Built on:** subclass of `TomAction<TContext, TUndo>`, registered on `TomActionController`, wired by `TomActionTrigger` (the single authoring home of the element→action edge), with `TomActionTransaction` / `TomActionContext` (`tom_flutter_ui/lib/src/actions/`). CodeSpecs-phase bodies are **pseudo-code**.<br>**Annotations:** `@CsAction` on the class; `@CsTrigger(kind: …)` on the trigger declaration.<br>**Example:** `@CsAction('save_customer') class SaveCustomerAction extends TomAction<…> { @override perform(ctx) => throw UnsupportedError('persist via CustomerService.save'); }` | None — the full action implementation is reused. | `@CsTrigger` must carry the trigger **kind**, source element and guard-condition text; `@CsAction` the undo contract and its server-call target as a `CsCallRef` — the two-hop CE-AC → CE-SC → CE-API edge is spec detail beyond code. |
 | **CE-SC** ServerCall | The client-side declaration of a call to a server operation. | **Built on:** `TomServerEndpoint<T, R>` + `TomServerCall` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`, `tombase/http_connection/server_connection.dart`); declared as typed endpoint fields in a client calls class (§7: all POST, the operation name carries the intent).<br>**Annotations:** `@CsServerCall(operation)`.<br>**Example:** `@CsServerCall('customer.save') final saveCustomer = TomServerEndpoint<CustomerSaveRequest, CustomerDto>(…);` | None. | Needs `CsOperationRef` (§5.23, not yet authored) so the call ties to its `@CsEndpoint` by **typed reference**, not by string; retry/timeout expectations as attributes where the spec states them. |
 | **CE-API** ServerApi | A server-side operation endpoint under the §7 contract: POST-only, `TomResult`/`TomErrorResult` envelope, 5xx = transport only. | **Built on:** `TomApi` / `TomApiEndpoint<ReturnType, RequestType>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpointHandler` / `TomEndpointRouting` / `TomApiEndpointImplementation` / `TomServer` (`tom_core_server`). Request/response types are **plain annotated model classes** in the shared project.<br>**Annotations:** `@CsEndpoint(operation)` + the `@CsAuthorize` modifier (CE-AZ).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(kind: role, key: 'sales')` on the operation; its `CustomerSaveRequest` members carrying field-constraint annotations. | None. | The request/response **members** need field-level constraint annotations — maximum length, format restriction, required-ness — the classic beyond-code detail; plus `CsErrorCode` refs (§5.23) enumerating which CE-ER codes the operation can return. |
@@ -393,12 +393,11 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 
 **Readiness classification** (derived from the gap columns):
 
-- **READY — pure reuse, no core gap:** CE-FM, CE-VA, CE-AC, CE-SC, CE-API,
-  CE-SU, CE-ST, CE-ER, CE-CF, CE-CC, CE-DS, CE-ID, CE-AZ.
+- **READY — pure reuse, no core gap:** CE-EL, CE-FM, CE-VA, CE-AC, CE-SC,
+  CE-API, CE-SU, CE-ST, CE-ER, CE-CF, CE-CC, CE-DS, CE-ID, CE-AZ.
 - **NEEDS-EXTENSION — substrate exists, a capability is missing:** CE-DB
   (aggregation, `csex5`), CE-AU (2FA second pass, `csex3`), CE-MG (schema-diff
-  convergence, `csex6`), CE-EL (three uncarried per-kind attributes, `csexb1` —
-  §4.1.2).
+  convergence, `csex6`).
 - **MISSING — concrete gap class in `tom_core_codespecs`:** CE-LO (node model;
   plus the `csexb2` container-kind reconciliation), CE-TX (message-key
   registry), CE-NV (route registry + screen flow), CE-UP (settings holder +
@@ -471,15 +470,15 @@ can trace it.
 entry-by-entry against the real member surface — a closed catalogue is
 enforceable only if every entry has a carrier.
 
-- **§5.19 CE-VA — 8 rules: fully carried.** `required`, `email`, `minLength`,
-  `maxLength`, `pattern`, `min`, `max`, `compose` all exist on `Validators`
-  (`forms/validation/validators.dart`, ll. 22–69), and all four registry entry
-  points (`resolve`, `resolveOrThrow`, `resolveSpec`, `resolveDeclaration`) plus
-  `parseSpec` exist on `TomValidatorRegistry`. **Clarification:** `compose` is
-  **not a declarable token** — `_registerBuiltins()` registers seven names, and
-  composition is the implicit semantics of the comma list
-  (`'required, minLength:8'` *is* a compose). Specs must not write `compose:…`
-  in a declaration string.
+- **§5.19 CE-VA — 10 rules: fully carried.** `required`, `email`, `minLength`,
+  `maxLength`, `pattern`, `min`, `max`, `minItems`, `maxItems`, `compose` all
+  exist on `Validators` (`forms/validation/validators.dart`), and all four
+  registry entry points (`resolve`, `resolveOrThrow`, `resolveSpec`,
+  `resolveDeclaration`) plus `parseSpec` exist on `TomValidatorRegistry`.
+  **Clarification:** `compose` is **not a declarable token** —
+  `_registerBuiltins()` registers nine names, and composition is the implicit
+  semantics of the comma list (`'required, minLength:8'` *is* a compose). Specs
+  must not write `compose:…` in a declaration string.
 - **§5.15 CE-AZ — 6 requirement kinds: fully carried.** `TomRoleAccess`,
   `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`,
   `TomCustomAccess`, `TomGradedAccess` all exist in
@@ -499,20 +498,24 @@ enforceable only if every entry has a carrier.
   a main-axis switch. *padding* / *align* / *sizedBox* are expressible as
   container/slot properties rather than node kinds; *wrap*, *stack*, *flex* and
   *grid* have no ACL node kind at all. See `csexb2`.
-- **§5.18 CE-EL — 10 kinds carried, 3 per-kind attributes not.** Every kind
+- **§5.18 CE-EL — 10 kinds and all per-kind attributes carried.** Every kind
   resolves to a shipped widget/field and every base attribute has a carrier
-  (`tomId`, `validators`, `authorizer`, `autoValidate`, `form`), but three
-  per-kind attributes have **no carrier on the form-field class**: `tristate`
-  exists only on the raw toggles (`TomCheckbox`, `widgets/toggles/tom_toggles.dart:106`)
-  and not on `TomFormBoolField extends TomField<bool>` — which cannot represent
-  the third state at all; and `minSelections` / `maxSelections` are **absent
-  package-wide**. See `csexb1`.
+  (`tomId`, `validators`, `authorizer`, `autoValidate`, `form`). The three
+  attributes that once had none were carried by `csexb1`: **`tristate`** by the
+  nullable field family `TomFormNullableBoolField` (`TomField<bool?>`, where
+  `null` *is* the third state) with the Material `TomFormNullableBoolCheckbox`
+  and Cupertino `TomCupertinoFormNullableBoolToggle` concretes reachable through
+  `FormFieldFamily.nullableBoolToggle`; and **`minSelections` / `maxSelections`**
+  by the `Validators.minItems` / `Validators.maxItems` field rules registered in
+  `TomValidatorRegistry` (the §5.18 desugaring boundary — a selection bound is a
+  CE-VA rule, not a widget-level cap).
 
-**Consequence for §4.1.1.** CE-EL moves **READY → NEEDS-EXTENSION**: the
-catalogue maps 1:1 onto shipped widgets, but three declared per-kind attributes
-are unrealisable, so a spec using them can only be rendered by dropping detail.
-CE-VA and CE-AZ keep their classifications; CE-LO stays MISSING with a second,
-substrate-level item (`csexb2`) alongside the node-model gap class.
+**Consequence for §4.1.1.** CE-EL is **READY**: the catalogue maps 1:1 onto
+shipped widgets and every declared per-kind attribute is realisable, so no spec
+detail is dropped in rendering. CE-VA and CE-AZ keep their classifications —
+CE-VA's catalogue grew from eight rules to ten to absorb the selection bounds.
+CE-LO stays MISSING with a second, substrate-level item (`csexb2`) alongside the
+node-model gap class.
 
 ### 4.2 CodeSpecs output structure — three generated projects + implementation
 
@@ -840,7 +843,7 @@ therefore classified:
 | **2** | Shared contract | CE-API, CE-VA, CE-ID | **E** | `csra6` (`CsOperationRef`) · `qr3` (`@CsFieldRule` / `@CsFormRule` unauthored) |
 | **3** | Server persistence & configuration | CE-DB (aggregation) · CE-MG (schema-diff) | **R** · **V** | `csex5` (aggregation grammar) · `csex6` (schema-diff engine) |
 | **4** | Server behaviour | CE-AU (2FA second pass) · CE-SU (`CsServiceUnitRef`) | **R** · **E** | `csex3` · `csra6` |
-| **5** | Client interaction core | CE-EL (uncarried per-kind attributes) · CE-SC/CE-AC/CE-FM ref types | **E(lossy)** · **E** | `csexb1` · `csra6` (`CsRouteRef` / `CsCallRef` / `CsActionRef`) |
+| **5** | Client interaction core | CE-SC/CE-AC/CE-FM ref types (CE-EL is READY — `csexb1` carried its last three per-kind attributes) | **E** | `csra6` (`CsRouteRef` / `CsCallRef` / `CsActionRef`) |
 | **6** | Client presentation & shell | CE-LO (ACL container-kind reconciliation) · CE-CC (two holders standing) | **E** | `csexb2` (ACL substrate) · `csrb2` (retire or justify `TomClientConfiguration`) |
 | **7** | Server operational | CE-JB (todo reconciliation only — the declaration envelope, scheduler runtime, job queue and multi-node lease have all **landed**) | — | `csrb1` (reconcile `csex7` / `csex8` against the landed scheduling module) |
 
@@ -851,7 +854,8 @@ blockers are concentrated in **one** tom_specs-owned item: `csra6`, the §5.23
 **The `tom_core`-quest items are still not the critical path for emission**:
 `csex3`–`csex6` are all **R**/**V**, i.e. they gate a *runnable* application,
 not a *generatable* one, and the only `tom_core`-side emission blocker left is
-`csexb1`/`csexb2` at slices 5–6. The implied sequence: typed refs first
+`csexb2` at slice 6 — `csexb1` closed the slice-5 one. The implied sequence:
+typed refs first
 (`csra6`), the two standing ownership questions (`csrb1`, `csrb2`), then runtime
 capabilities (`csex3`, `csex5`) and verification last (`csex6`).
 
@@ -884,7 +888,7 @@ part (detailed in the referenced §5.x subsections).
 | CE-FM | `TomForm`; annotated fields | **Subforms** (nested/repeated) mirror the SOM `@Form` field-group structure: `@CsForm` (reuse, no gap class) over `TomForm<T>` + `TomFormChildContainer` (nested/repeated subform fan-out) + `TomField<T>`; SOM `@Form` field-group → nested `TomForm` / repeated `TomFormChildContainer`; client project (§5.7.2). |
 | CE-LO | Layout, separated for manual override | A **Flutter-faithful, override-separable layout-node** model: the §5.2 two-layer id-addressed node model grounded on the `tom_flutter_ui` ACL substrate — container node ← `AclRow`/`AclContainer`, slot node ← `AclComponent` (native `id`/`referenceKey`/alignment-by-key + per-slot hints), reactive rebind via `TomObservingWidget` (`tom_core_flutter`); the override-separable node model lands in `tom_core_codespecs`; client project (§5.12). Attribute surface + override-delta grammar: **§5.22** (closed container-kind + slot attribute sets + closed 5-op id-addressed override deltas). |
 | CE-TX | Texts implied in UI/RC | Placeholder/help derived **directly from SOM content** (`@ContentHelp`, `@Form` hint, doc-comments); error texts keyed by CE-ER codes. `@CsText` (reuse) over `TomText`/`TomLabelBase` (field `labelText`/`hintText`/`descriptionText`, `resolveErrorMessage`) bound to `TomTextResourceProvider`/`TomConfigResourceProvider` (kernel i18n backend, dot-notation keys); the CodeSpecs-only **message / i18n-key model** lands in `tom_core_codespecs`; spans shared (message keys) + client (copy) projects (§5.8). Attribute surface + error-copy keying: **§5.21** (message-key attribute set + locale model + error copy keyed by CE-ER codes). |
-| CE-VA | Rules-from-RC | **No new class — provided as Dart code** (§3 first-level-implementation latitude). **Field rules vs form (cross-field) rules**, each traceable to a requirement: `@CsValidation` umbrella + `@CsFieldRule` (single-field, over `Validator<T>`/`ValidationResult`) + `@CsFormRule` (cross-field, over `FormValidationError`); realised as **standalone validator classes with validation methods, or validation methods on the `TomForm` subclass**, reusing `Validators`/`TomValidatorRegistry` (`tom_flutter_ui`); `ValidationError.errorKey` ties error copy to CE-TX/CE-ER; spans client + shared projects (§5.9). Attribute surface + declaration language: **§5.19** (closed 8-rule field catalogue + `TomValidatorRegistry` declaration grammar + form-rule scope/reference/error-key). |
+| CE-VA | Rules-from-RC | **No new class — provided as Dart code** (§3 first-level-implementation latitude). **Field rules vs form (cross-field) rules**, each traceable to a requirement: `@CsValidation` umbrella + `@CsFieldRule` (single-field, over `Validator<T>`/`ValidationResult`) + `@CsFormRule` (cross-field, over `FormValidationError`); realised as **standalone validator classes with validation methods, or validation methods on the `TomForm` subclass**, reusing `Validators`/`TomValidatorRegistry` (`tom_flutter_ui`); `ValidationError.errorKey` ties error copy to CE-TX/CE-ER; spans client + shared projects (§5.9). Attribute surface + declaration language: **§5.19** (closed 10-rule field catalogue + `TomValidatorRegistry` declaration grammar + form-rule scope/reference/error-key). |
 | CE-AC | UI Actions | **Reuse — no new class.** Actions have a full implementation in `tom_flutter_ui`. **Trigger taxonomy** — one action, several triggers: `@CsAction` (reuse) over `TomAction<Ctx,Undo>` + `TomActionContext`/`TomActionController`/`TomActionTransaction`; `@CsTrigger` names one invocation, with `TomActionTrigger` the widget-gesture realization; a triggered action drives the §5.3 CE-AC→CE-SC edge; client project (§5.10). Attribute surface: **§5.20** (action set + closed 5-kind trigger attribute surface: user-gesture / in-form event / lifecycle / server-event / condition). |
 | CE-SC | Kernel transport (`TomServerEndpoint` client side) | Explicit **action → endpoint** edge; client request assembly / response handling: two-hop typed-reference chain CE-AC→CE-SC→CE-API (§5.23); `@CsServerCall` over `TomServerEndpoint<T,R>`/`TomServerCallSpecs`/`TomServerChannel` (client) (§5.3). Attribute surface: **§5.14**. |
 | CE-API | Server Interface | Narrowed to the §7 contract (POST-only, operation-named, 50x-only, structured error); first-class operation name + typed request/response: `@CsEndpoint` (reuse+narrow) over `TomApi`/`TomApiEndpoint`/`TomRemoteApis` (kernel) + `TomEndpoint`/`TomEndpointHandler`/`TomEndpointRouting`/`TomServer` (server), narrowed to POST + operation-name + typed `T`/`R` + CE-ER Result envelope; server project (§5.6.1). Attribute surface: **§5.14**. |
@@ -2126,10 +2130,10 @@ column is the extra spec-authorable attributes that kind adds to the base:
 |---------------|----------------|-----------|--------------------------------|--------------------------|--------------|
 | **TextInput** | form-member | `String` | `TomTextField` | `maxLength`, `keyboardType`, `maxLines`, `obscureText` | Field kind (text) |
 | **Number** | form-member | `int`/`double` | numeric `TomTextField` | `minValue`, `maxValue`, `decimals` (double only) | Field kind (numeric) + Validation rule |
-| **Toggle** | form-member | `bool` | switch/checkbox | `tristate` | Field kind (boolean) |
+| **Toggle** | form-member | `bool` (`bool?` when `tristate`) | switch/checkbox | `tristate` | Field kind (boolean) |
 | **DateInput** | form-member | `DateTime` | date picker | `firstDate`, `lastDate` (bounds) | Field kind (date) + Validation rule |
 | **Choice** | form-member | `enum`/object | dropdown/select | `source` (option provider, required) | Field kind (single choice source) |
-| **MultiChoice** | form-member | `List<…>` | multi-select | `source` (required), `minSelections`/`maxSelections` | Field kind (multi choice source) |
+| **MultiChoice** | form-member | `List<…>` | multi-select | `source` (required), `minSelections`/`maxSelections` (→ CE-VA `minItems`/`maxItems`) | Field kind (multi choice source) |
 | **Label** | standalone | — (read-only) | `TomText` | `text` (→ CE-TX) | Copy display |
 | **Button** | standalone (also in-form, e.g. submit) | — (interactive) | a `TomButtonBase` variant (`TomElevatedButton` / `TomFilledButton` / `TomTextButton` / `TomOutlinedButton` / `TomIconButton`) | `variant` (primary/secondary/… — selects the concrete class; tokens in `TomButtonVariants`), `icon` | Action element |
 | **MenuEntry** | standalone | — (interactive) | menu-entry widget | owning menu/surface ref, `position` | Action element (menu) |
@@ -2145,13 +2149,13 @@ entry stays CE-NV (`TomNavigationDestination`, §5.11) — MenuEntry covers
 separation (§5.2): the layout slot references the FormHost element; the FormHost
 references the CE-FM form it places on the screen.
 
-**Carrier verification (§4.1.2).** Every kind resolves to a shipped widget/field
-and every field-base attribute has a carrier. Three per-kind attributes do
-**not**: `tristate` exists only on the raw toggles (`TomCheckbox`,
-`widgets/toggles/tom_toggles.dart:106`) — `TomFormBoolField extends
-TomField<bool>` cannot represent the third state at all — and
-`minSelections`/`maxSelections` are absent from `tom_flutter_ui` entirely. Until
-`csexb1` lands, a spec naming them renders with the detail dropped.
+**`tristate` widens the Toggle's value type.** A two-state `Toggle` is a
+`TomFormBoolField` over `bool`; a tristate one is a `TomFormNullableBoolField`
+over `bool?`, where `null` is the indeterminate state
+(`TomFormNullableBoolCheckbox` / `TomCupertinoFormNullableBoolToggle`,
+`FormFieldFamily.nullableBoolToggle`). The attribute therefore selects the
+field class rather than merely configuring one — the only per-kind attribute
+in this catalogue that does.
 
 Object/nested and repeated form-typed fields are **not** element kinds — they are
 CE-FM subforms (§5.7.2). The catalogue is closed: a new semantic kind is a catalogue
@@ -2167,9 +2171,10 @@ action→operation (§5.2/§5.3).
 
 **Boundaries drawn.**
 - **CE-EL ↔ CE-VA** (§5.9): validators are *attached* to the field; the rule shapes
-  live in CE-VA. Per-kind numeric/date bounds (`minValue`/`firstDate`) are convenience
-  field attributes that *desugar* to CE-VA field rules — one authoring surface, no
-  duplication.
+  live in CE-VA. Per-kind numeric/date bounds (`minValue`/`firstDate`) and the
+  MultiChoice selection counts (`minSelections`/`maxSelections` → `minItems`/
+  `maxItems`) are convenience field attributes that *desugar* to CE-VA field
+  rules — one authoring surface, no duplication.
 - **CE-EL ↔ CE-TX** (§5.8): label/hint/description/`Label.text` are copy references,
   authored once in CE-TX.
 - **CE-EL ↔ CE-AZ** (§5.15): `authorizer` is a field-level graded-access modifier, not
@@ -2206,14 +2211,21 @@ isolation (`Validator<T> → ValidationResult`, §5.9):
 | **Async / slow** | `SlowValidator<T>` → `ValidationPending` | N | Validation rule (async) |
 
 **Closed built-in field-rule catalogue** (over `Validators`, §5.9): `required`,
-`email`, `minLength`, `maxLength`, `pattern`, `min`, `max`, `compose`. This is the
-closed standard set; a project-specific rule is a **registered custom name** (a
-`Validator<T>` added to `TomValidatorRegistry`), not a free-form attribute — same
+`email`, `minLength`, `maxLength`, `pattern`, `min`, `max`, `minItems`,
+`maxItems`, `compose`. This is the closed standard set; a project-specific rule
+is a **registered custom name** (a `Validator<T>` added to
+`TomValidatorRegistry`), not a free-form attribute — same
 closed-catalogue-plus-registration discipline as the §5.18 element catalogue.
-All eight are carried by `Validators` (verified, §4.1.2), but **`compose` is not
+All ten are carried by `Validators` (verified, §4.1.2), but **`compose` is not
 a declarable token**: `TomValidatorRegistry._registerBuiltins()` registers the
-other seven, and composition is the implicit semantics of the comma list below —
+other nine, and composition is the implicit semantics of the comma list below —
 a declaration never writes `compose:…`.
+
+`minItems`/`maxItems` bound a collection's **size** rather than a value; they
+are typed over `Iterable<Object?>` so, by function contravariance, one rule
+serves `TomField<List<String>>`, `TomField<List<int>>` and any other
+collection-valued field. They are the desugaring target of the §5.18
+MultiChoice `minSelections`/`maxSelections` attributes.
 
 **Validator declaration language (final).** Over
 `TomValidatorRegistry` (`resolve`/`resolveSpec`/`resolveDeclaration`/`parseSpec`), a
@@ -2249,8 +2261,9 @@ spans fields the string grammar cannot name.
   through the CE-TX registry, keyed where appropriate by a CE-ER code — author-copy-once.
   CE-VA never carries a literal message.
 - **CE-VA ↔ CE-EL** (§5.18): field rules attach to a CE-EL element; the §5.18 per-kind
-  numeric/date bounds (`minValue`/`firstDate`) **desugar** to `min`/`max` field rules —
-  one authoring surface, no duplication.
+  numeric/date bounds (`minValue`/`firstDate`) **desugar** to `min`/`max` field rules,
+  and the MultiChoice selection counts (`minSelections`/`maxSelections`) to
+  `minItems`/`maxItems` — one authoring surface, no duplication.
 - **CE-VA ↔ CE-FM** (§5.7.2): form rules live on the form; the subform tree fans out
   validation (already substrate-backed).
 - **Placement:** **client + shared** (§4.2) — the rules the client enforces are part of
