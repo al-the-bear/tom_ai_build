@@ -2089,7 +2089,7 @@ class AccessRestrictionEntry extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.viewState],
     note: 'DDD domain object catalog → observable view-model (CE-ST). Physical '
         'persistence is DataEntity (CE-DB); AggregateRoot entries are the CE-SU '
-        'root aggregate (§5.17).')
+        'root aggregate (codespecs_mapping.md §5.17).')
 class BusinessObjectModel extends DocSpecsSection {
   @ContentHelp('''
 Key business objects, their properties, states, and behaviors. Following
@@ -3041,7 +3041,7 @@ class ObjectInvariantEntry extends DocSpecsSection {
 @SectionId('FUMO')
 @MapsTo(D03InformationModel)
 @CodeSpecKind([CodeSpecPart.serviceUnit],
-    note: 'Business function decomposition → logical service unit (§5.17).')
+    note: 'Business function decomposition → logical service unit (codespecs_mapping.md §5.17).')
 class FunctionModel extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Function Decomposition Overview (4 fields)
@@ -4338,7 +4338,7 @@ class RelationshipAttributeEntry extends DocSpecsSection {
         'evolution: @CsMigration-marked SQL files (initial DDL, base/seed '
         'data, iteration scripts), server locus, built on the '
         'tom_core_server migration engine (TomDbMigrations, mapping doc '
-        '§5.27).')
+        'codespecs_mapping.md §5.27).')
 class SchemaVersioningAndMigration extends DocSpecsSection {
   @ContentHelp('''
 Describe how the database schema is versioned and how migrations are authored,
@@ -4771,11 +4771,11 @@ class ErrorCodeEntry extends DocSpecsSection {
 /// 7.7. Result Envelope.
 ///
 /// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
-/// the §7 server contract). This is the model-side counterpart of the
-/// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
-/// every application outcome — success *or* structured error — is returned in a
-/// normal (2xx-transport) body as this one envelope; only 5xx are transport
-/// failures.
+/// the `codespecs_mapping.md` §7 server contract). This is the model-side
+/// counterpart of the `TomResult`/`TomErrorResult` envelope authored in
+/// `tom_core_kernel` (csmb4): every application outcome — success *or*
+/// structured error — is returned in a normal (2xx-transport) body as this one
+/// envelope; only 5xx are transport failures.
 ///
 /// The envelope has two arms, distinguished by an **is-success discriminator**:
 ///
@@ -4788,11 +4788,11 @@ class ErrorCodeEntry extends DocSpecsSection {
     'ISO/IEC/IEEE 42010 — architecture description (interface contracts)',
     'REST / RPC result-envelope patterns — success-or-error response modelling',
   ],
-  'The canonical success-or-error Result envelope (CE-ER, §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm.',
+  'The canonical success-or-error Result envelope (CE-ER, codespecs_mapping.md §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm.',
 )
 @SectionId('RSLTE')
 @CodeSpecKind([CodeSpecPart.errorResult],
-    note: 'CE-ER — the canonical §7 Result/ErrorResult envelope: a success arm '
+    note: 'CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm '
         'or a structured error arm carrying a code (from the error-code '
         'registry), field-level details, and retryable/severity. Realised by '
         "tom_core_kernel's TomResult/TomErrorResult (csmb4).")
@@ -4902,8 +4902,8 @@ class ResultFieldDetailEntry extends DocSpecsSection {
 /// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
 /// as unvalidated free text, so the "author once, reference everywhere"
 /// invariant could not hold and the same string could diverge between the
-/// screen element, the validation message and the error copy (csm5 cross-cutting
-/// finding #1; `codespecs_mapping.md` §5.21).
+/// screen element, the validation message and the error copy (csm5
+/// cross-cutting finding #1; `codespecs_mapping.md` §5.21).
 ///
 /// Each [MessageKeyEntry] declares a stable message key, its default (base
 /// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key

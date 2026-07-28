@@ -21553,7 +21553,7 @@ class ReleaseStrategy extends DocSpecsSection {
     note:
         'CE-CF — feature flags are config toggles authored as server '
         'configuration values; authorization-derived feature grants are '
-        'server-level entitlements (mapping doc §5.26). The '
+        'server-level entitlements (mapping doc codespecs_mapping.md §5.26). The '
         'deploy-from-release flag itself is deployment tooling.',
   )
   @SerializationOrder(3)
@@ -27874,13 +27874,13 @@ class UserProvisioningTools extends DocSpecsSection {
   [CodeSpecPart.backgroundJob],
   note:
       'CE-JB — scheduled / background / queued jobs (cron | calendar | event '
-      'triggers), distinct from request-driven serverApi. Active (§4.1): '
+      'triggers), distinct from request-driven serverApi. Active (codespecs_mapping.md §4.1): '
       '@CsJob, server locus; work bodies are TomCommand on the '
       'tom_core_kernel isolate-pooling substrate (TomExecutor/TomWorker); '
       'the typed job-definition holder is a tom_core_codespecs gap; execution '
       'runs under the server principal; scheduled reports (CE-RP) are realized '
       'as CE-JB jobs; scheduler runtime / job queue / multi-node locking are '
-      'framework roadmap (§5.29).',
+      'framework roadmap (codespecs_mapping.md §5.29).',
 )
 class BatchJobManagement extends DocSpecsSection {
   @Form([

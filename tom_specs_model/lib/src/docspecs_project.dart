@@ -36,17 +36,18 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// outliner) treats it as the canonical root and exempts it from `@SectionId`
 /// coverage/uniqueness (T1).
 ///
-/// **The D00SolutionBlueprint is the source of truth.** The twelve Phase 3 roots
-/// and the [D13CodeSpecsProjection] are `@Document(basedOn: [D00SolutionBlueprint])`
-/// *projections* that reference the same SBP sections through their `@MapsTo` /
-/// `@DetailedIn` links (Phase-3) or `@CodeSpecKind` tags (D13); they do not own
-/// copies. Editing through any projection edits the shared underlying Solution
-/// Blueprint sections (§14).
+/// **The D00SolutionBlueprint is the source of truth.** The twelve Phase 3
+/// roots and the [D13CodeSpecsProjection] are `@Document(basedOn:
+/// [D00SolutionBlueprint])` *projections* that reference the same SBP sections
+/// through their `@MapsTo` / `@DetailedIn` links (Phase-3) or `@CodeSpecKind`
+/// tags (D13); they do not own copies. Editing through any projection edits the
+/// shared underlying Solution Blueprint sections
+/// (`tom_specs_editor_specification.md` §14).
 ///
 /// This class is the structural anchor only. The global `toYaml` save
-/// (Solution-Blueprint-only, §15.1) and the projection connect pass (N11) are
-/// added in a later step; here the container simply wires the fourteen roots
-/// onto one tree.
+/// (Solution-Blueprint-only, `tom_specs_editor_specification.md` §15.1) and the
+/// projection connect pass (N11) are added in a later step; here the container
+/// simply wires the fourteen roots onto one tree.
 class DocSpecsProject extends DocSpecsSection {
   /// Constructs the container and ensures the generated snapshot/serialization
   /// ops are registered (idempotent), so [toYaml] / [toYamlForRoot] and the
@@ -56,7 +57,8 @@ class DocSpecsProject extends DocSpecsSection {
   }
 
   /// D00 — the Solution Blueprint master and source of truth for all shared
-  /// content. Listed first in the root navigator (§14).
+  /// content. Listed first in the root navigator
+  /// (`tom_specs_editor_specification.md` §14).
   @SerializationOrder(0)
   D00SolutionBlueprint solutionBlueprint = D00SolutionBlueprint();
 
@@ -123,16 +125,18 @@ class DocSpecsProject extends DocSpecsSection {
   @SerializationOrder(13)
   D13CodeSpecsProjection codeSpecsProjection = D13CodeSpecsProjection();
 
-  /// The global `document:` save (§15.1): serializes the [solutionBlueprint]
-  /// master alone. Because the twelve projection roots are views over the same
-  /// SBP sections, the Solution Blueprint tree contains every section exactly
-  /// once, so the output never duplicates a subtree.
+  /// The global `document:` save (`tom_specs_editor_specification.md` §15.1):
+  /// serializes the [solutionBlueprint] master alone. Because the twelve
+  /// projection roots are views over the same SBP sections, the Solution
+  /// Blueprint tree contains every section exactly once, so the output never
+  /// duplicates a subtree.
   String toYaml() => SpecYaml.toYaml(solutionBlueprint);
 
   /// Per-root save. For [solutionBlueprint] this is the global [toYaml]; for a
   /// projection root it runs the connect pass first — re-pointing the
-  /// projection's references onto the live Solution Blueprint sections (§15.2) —
-  /// when a connect binding is registered for that root, then serializes it.
+  /// projection's references onto the live Solution Blueprint sections
+  /// (`tom_specs_editor_specification.md` §15.2) — when a connect binding is
+  /// registered for that root, then serializes it.
   ///
   /// The twelve per-root `connect` bindings are not yet generated (they require
   /// resolving each projection's `@MapsTo` / `@DetailedIn` links onto Solution

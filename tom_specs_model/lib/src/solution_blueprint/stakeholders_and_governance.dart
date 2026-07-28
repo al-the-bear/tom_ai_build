@@ -3,11 +3,8 @@
 /// Consolidates the project's organizational and administrative framing:
 /// governance, steering, RACI (from [ProjectOrganizationAndProcess]) and the
 /// team, distribution list, change procedure, and legal/contractual
-/// requirements. A stakeholder register ([StakeholderRegisterEntry] list, §5
-/// completeness addition) was added
-/// in IP-6. The former `Administrative` (`ADMN`) wrapper was dissolved in
-/// L34C-5: its children now hang directly off this node, and
-/// `ReferenceDocuments` was re-homed to SBP.1 `DocumentControl`.
+/// requirements, plus a stakeholder register ([StakeholderRegisterEntry]
+/// list). `ReferenceDocuments` belongs to SBP.1 `DocumentControl`, not here.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -137,7 +134,7 @@ from standard organizational project governance procedures.
   LegalAndContractualRequirements legalAndContractual =
       LegalAndContractualRequirements();
 
-  /// Stakeholder register (§5 completeness addition).
+  /// Stakeholder register.
   @StandardReferences(
     ['BABOK v3 — stakeholder analysis (RACI / influence-interest grid)'],
     'The canonical source of truth for the role, interest, influence, concerns, '

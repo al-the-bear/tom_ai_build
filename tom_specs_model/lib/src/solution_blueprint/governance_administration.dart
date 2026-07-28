@@ -2792,8 +2792,8 @@ class ChangeCategoryEntry extends DocSpecsSection {
 // ---------------------------------------------------------------------------
 
 // `ReferenceDocuments` (`RD`) and its subtree (`RFDOC`, `RDEM`, `RDEG`, `RDEL`,
-// `DORESE`, `RESEEN`, `DORE`, `REDOEN`) were re-homed to SBP.1
-// `DocumentControl` in L34C-5 (referenced documents are 29148 §6 front matter).
+// `DORESE`, `RESEEN`, `DORE`, `REDOEN`) live in SBP.1 `DocumentControl`, not
+// here — referenced documents are ISO/IEC/IEEE 29148 §6 front matter.
 
 // ---------------------------------------------------------------------------
 // 3.6 Other Administrative Requirements

@@ -129,8 +129,10 @@ class D03InformationModel extends DocSpecsSection {
   @SerializationOrder(15)
   ErrorCodeRegistry errorCodeRegistry = ErrorCodeRegistry();
 
-  /// Result envelope — the canonical success-or-error §7 Result contract
-  /// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+  /// Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.
+  ///
+  /// The success-or-error `Result` envelope; CE-ER home, realised by
+  /// tom_core_kernel's `TomResult` (csmb5).
   @SerializationOrder(16)
   ResultEnvelope resultEnvelope = ResultEnvelope();
 

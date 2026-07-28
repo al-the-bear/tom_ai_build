@@ -1,8 +1,7 @@
 /// SBP.1 — Document Control.
 ///
 /// Front-matter document governance: the document header plus a revision
-/// history and approval record. Closes the prior-review completeness gap
-/// (§5: "Revision history + approvals").
+/// history and approval record.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -65,9 +64,9 @@ class DocumentControl extends DocSpecsSection {
   List<ApprovalRecord> approvals = [];
 
   /// Reference documents — the catalogue of documents this specification draws
-  /// on (standards, policies, regulations, related specs). Re-homed here from
-  /// the former §3 `Administrative` wrapper in L34C-5: referenced documents are
-  /// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+  /// on (standards, policies, regulations, related specs). They live here
+  /// because referenced documents are ISO/IEC/IEEE 29148 §6 front matter and
+  /// belong with document control.
   @SerializationOrder(4)
   ReferenceDocuments referenceDocuments = ReferenceDocuments();
 }
@@ -156,8 +155,7 @@ class ApprovalRecord extends DocSpecsSection {
 }
 
 // ---------------------------------------------------------------------------
-// Reference Documents (re-homed from the former §3 Administrative wrapper in
-// L34C-5 — referenced documents are 29148 §6 front matter).
+// Reference Documents (ISO/IEC/IEEE 29148 §6 front matter).
 // ---------------------------------------------------------------------------
 
 /// Reference Documents.

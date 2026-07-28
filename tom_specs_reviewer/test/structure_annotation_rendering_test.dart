@@ -90,7 +90,8 @@ void main() {
 
     // `@Headline` — the authored section title, distinct from the member name.
     expect(find.text('“$kShowcaseHeadline”'), findsOneWidget);
-    // `@Comment` — carries the §4.2 `locus:` grouping, so it is structural.
+    // `@Comment` — carries the `codespecs_mapping.md` §4.2 `locus:` grouping,
+    // so it is structural.
     expect(find.text('← $kShowcaseComment'), findsOneWidget);
     // `@SectionIdPattern` — independent of `@SectionId`, never a fallback for
     // it: the list row must show both its own id and the per-item pattern.

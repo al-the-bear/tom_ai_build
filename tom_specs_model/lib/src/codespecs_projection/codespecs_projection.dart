@@ -19,14 +19,14 @@
 ///
 /// **Flat by construction.** The pure-projection invariant forbids any reached
 /// type without a D00 counterpart, so the projection can introduce no
-/// shared/client/server *container* classes of its own. The §4.2 three-way
-/// split (`codespecs_mapping.md` §4.2) is therefore expressed by **locus
-/// grouping** — the fields are ordered into shared → server → client bands and
-/// each carries a `@Comment('locus: …')` naming its target project
+/// shared/client/server *container* classes of its own. The
+/// `codespecs_mapping.md` §4.2 three-way split is therefore expressed by
+/// **locus grouping** — the fields are ordered into shared → server → client
+/// bands and each carries a `@Comment('locus: …')` naming its target project
 /// (`<app>_codespec_shared` / `_client` / `_server`) and the CE-part(s) that
-/// route there per the §4 Locus column. The Phase-4 generator that *consumes*
-/// this projection and performs the physical routing is a later wave
-/// (out of scope for the projection definition itself).
+/// route there per the `codespecs_mapping.md` §4 Locus column. The Phase-4
+/// generator that *consumes* this projection and performs the physical routing
+/// is a later wave (out of scope for the projection definition itself).
 ///
 /// **RSP requirements seed is intentionally excluded.** The RSP `Requirements`
 /// subtree is consumed by CodeSpecs as *requirements* (a generation seed /
@@ -111,7 +111,10 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   @SerializationOrder(3)
   ErrorCodeRegistry errorCodeRegistry = ErrorCodeRegistry();
 
-  /// Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+  /// Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.
+  ///
+  /// The shared success-or-error envelope: success payload **or** structured
+  /// error (code, message, field-level details).
   @Comment('locus: shared — CE-ER')
   @SerializationOrder(4)
   ResultEnvelope resultEnvelope = ResultEnvelope();

@@ -1,9 +1,8 @@
 /// SBP.9 — Requirements.
 ///
-/// Home for the framework-uncovered non-functional requirement sub-areas that
-/// were previously conflated inside the mis-homed `MultiLanguageSupport`
-/// cluster under UI design. IP-6 splits that cluster **by
-/// concern** and re-homes each requirement-side concern here (§4.1):
+/// Home for the framework-uncovered non-functional requirement sub-areas, cut
+/// **by concern**: the requirement-side concerns live here, the
+/// execution-side ones in TRP (below).
 ///
 ///  * Localization & Translation → [LocalizationTranslationRequirements]
 ///  * Information for Use         → [InformationForUseRequirements]
@@ -32,7 +31,7 @@ import 'experience_and_interface_design.dart'
 ///
 /// The framework-uncovered NFR follow-up sub-areas (localization,
 /// information-for-use, training) are grouped out of the seed subtree into
-/// [RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed
+/// [RequirementsFollowUp] (`codespecs_mapping.md` §8.3) so the seed
 /// stays purely CodeSpecs-relevant.
 @StandardReferences(
   [
@@ -61,8 +60,8 @@ class Requirements extends DocSpecsSection {
 ///
 /// Groups the framework-uncovered non-functional requirement sub-areas that are
 /// **follow-up** concerns (documentation, training, localization) rather than
-/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
-/// is generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
+/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole
+/// subtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
 /// parent [Requirements] seed subtree purely CodeSpecs-relevant:
 ///
 ///  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)

@@ -60,7 +60,7 @@ access and authorization concerns.
 /// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
 ///
 /// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
-/// authorization seed (§8.3 of `codespecs_mapping.md`): user management,
+/// authorization seed (`codespecs_mapping.md` §8.3): user management,
 /// authentication, resource protection, authorization, and the role matrix.
 /// The container itself carries no `@CodeSpecKind` — the mapped parts live on
 /// the child sections (e.g. `authentication`) — but the whole subtree is the
@@ -109,7 +109,7 @@ class AccessControlModel extends DocSpecsSection {
 ///
 /// Groups the operational security concerns that are **follow-up** (key
 /// management and audit/logging operations), not CodeSpecs-generated behaviour
-/// (§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the
+/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the
 /// whole subtree is generation-owned-out.
 @StandardReferences(
   [
@@ -140,8 +140,8 @@ class SecurityOperationsFollowUp extends DocSpecsSection {
 /// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
 ///
 /// Groups the compliance-framework concern, a **follow-up** (compliance
-/// governance) rather than CodeSpecs-generated behaviour (§4.5 of
-/// `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
+/// governance) rather than CodeSpecs-generated behaviour
+/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
 /// subtree is generation-owned-out.
 @StandardReferences(
   [
@@ -13486,7 +13486,7 @@ class KeyCompromiseRecoveryPolicy extends DocSpecsSection {
 @DetailedIn(D08SecurityAccessSpecification)
 @CodeSpecKind([CodeSpecPart.auditLog],
     note: 'CE-LG — logging & audit trail (who did what, when) as a '
-        'cross-cutting effect. Active part (§4.1): realised as @CsAudited '
+        'cross-cutting effect. Active part (codespecs_mapping.md §4.1): realised as @CsAudited '
         'alongside the framework @TomAudited declaration, server locus. The '
         'declared half only — retention and log format are CE-CF.')
 class AuditAndLogging extends DocSpecsSection {

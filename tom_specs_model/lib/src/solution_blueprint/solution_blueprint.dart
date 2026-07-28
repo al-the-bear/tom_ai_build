@@ -51,7 +51,7 @@ import 'target_operating_model.dart';
 /// The complete Solution Blueprint (SBP) document.
 ///
 /// Contains a [DocumentControl] header block and the SBP sections, sequenced
-/// per the public-standards order (§4 of the redesign proposal).
+/// per the public-standards order of the `@StandardReferences` below.
 @StandardReferences(
   [
     'ISO/IEC/IEEE 29148:2018 §6 — specification document structure',

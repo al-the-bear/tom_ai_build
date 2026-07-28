@@ -2,8 +2,7 @@
 ///
 /// Consolidates into one register what is otherwise scattered across the
 /// introduction (risks/assumptions), interface boundary assumptions, and
-/// framework conditions. Closes the prior-review completeness gap (§5:
-/// "Assumptions/constraints register").
+/// framework conditions.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';

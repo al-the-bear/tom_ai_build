@@ -1,10 +1,11 @@
 /// Copy-on-write snapshotting for the TomSpecs object model (N5, U1).
 ///
-/// The editor keeps an undo stack of document snapshots (§10). A snapshot must
-/// be a *cheap full picture*: each new snapshot shares every **unchanged**
-/// subtree with its predecessor **by identity** (structural sharing), and only
-/// the path from an edited leaf up to the root is cloned. Restoring a snapshot
-/// is then trivial — it is just another (independent) tree.
+/// The editor keeps an undo stack of document snapshots
+/// (`tom_specs_editor_specification.md` §10). A snapshot must be a *cheap full
+/// picture*: each new snapshot shares every **unchanged** subtree with its
+/// predecessor **by identity** (structural sharing), and only the path from an
+/// edited leaf up to the root is cloned. Restoring a snapshot is then trivial —
+/// it is just another (independent) tree.
 ///
 /// ## Why this shape
 ///
@@ -57,7 +58,7 @@ mixin SpecNode {
   /// Marks this node changed since the last snapshot, so the next snapshot
   /// clones it instead of sharing its predecessor's copy. The shared document
   /// controller calls this (or the module-level [markDirtyNode]) after applying
-  /// any field edit (§8).
+  /// any field edit (`tom_specs_editor_specification.md` §8).
   void markDirty() => _dirtySinceSnapshot[this] = true;
 
   /// The child-node relationships of this node, in a **stable order**. Leaf

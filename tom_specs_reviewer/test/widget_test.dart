@@ -249,10 +249,10 @@ SpecModel _followUpModel() =>
 ///
 /// Shaped like the real `ScreenElementEntry`: a `@Form` `content` section
 /// carrying the discriminator form-field, one *common* subsection that applies
-/// to every case, and two `@Case` alternatives — one of which claims two values,
-/// so a reader that took only the first `@Case` would be caught. One
-/// discriminator value (`divider`) is deliberately left uncovered, which §8.2
-/// makes a warning rather than an error.
+/// to every case, and two `@Case` alternatives — one of which claims two
+/// values, so a reader that took only the first `@Case` would be caught. One
+/// discriminator value (`divider`) is deliberately left uncovered, which
+/// `codespecs_mapping.md` §8.2 makes a warning rather than an error.
 const _oneOfJson = '''
 {
   "classCount": 4,
@@ -846,7 +846,8 @@ void main() {
 
     testWidgets('a follow-up subtree is not also reported as unmapped '
         'CodeSpecs', (tester) async {
-      // The §8.3 split: a subtree tagged for a follow-up process *has* been
+      // The `codespecs_mapping.md` §8.3 split: a subtree tagged for a
+      // follow-up process *has* been
       // classified. Showing "cs?" beside "fu:doc" would state the opposite and
       // invite a reviewer to chase a mapping that must not exist.
       final file = await pumpTree(tester, 'fu_split.yaml');
@@ -1169,8 +1170,8 @@ void main() {
         (tester) async {
       final file = await pumpTree(tester, 'ann_comment.yaml');
       expect(find.text('← Seeds -> QAP'), findsOneWidget);
-      // The `locus:` variant drives the §4.2 project split, so it has to be
-      // readable without opening anything.
+      // The `locus:` variant drives the `codespecs_mapping.md` §4.2 project
+      // split, so it has to be readable without opening anything.
       expect(find.text('← locus: shared -- CE-ER'), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
     });

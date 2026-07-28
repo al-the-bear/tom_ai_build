@@ -4316,7 +4316,8 @@ class SessionModel extends DocSpecsSection {
   [CodeSpecPart.notification],
   note:
       'CE-NT — outbound communications (email/push/SMS/webhooks) as a '
-      'first-class effect. Active part (§4.1): the type/channel/preference '
+      'first-class effect. Active part (codespecs_mapping.md §4.1): the '
+      'type/channel/preference '
       'declarations are realised as @CsNotification and '
       '@CsNotificationChannel over the tom_core_codespecs notification model '
       '(shared locus); delivery rides the tom_core_server messaging transport '
@@ -15181,7 +15182,8 @@ class InterfaceTechnicalSpec extends DocSpecsSection {
   [CodeSpecPart.serverApi, CodeSpecPart.serverCall],
   note:
       'A single boundary operation with its request/response pair. Under '
-      'the §7 contract (POST-only, operation-named, typed T/R, CE-ER '
+      'the codespecs_mapping.md §7 contract (POST-only, operation-named, '
+      'typed T/R, CE-ER '
       'envelope) it is realised as a serverApi (CsEndpoint) when inbound '
       '(we expose) and a serverCall (CsServerCall) when outbound (we call '
       'the external system); direction-dependent, hence list-valued.',
@@ -15727,7 +15729,7 @@ class InterfaceOperational extends DocSpecsSection {
   note:
       'Per-interface structured error handling — the application-level '
       'error outcomes carried in the CE-ER Result/ErrorResult envelope '
-      '(§7.3), not 5xx transport failures.',
+      '(codespecs_mapping.md §7 point 3), not 5xx transport failures.',
 )
 class InterfaceErrorHandling extends DocSpecsSection {
   @Form([
@@ -19141,7 +19143,7 @@ than being specific to one partner.
   note:
       'Cross-boundary failure-propagation policy shared by all interfaces '
       '— the canonical CE-ER error codes/envelope that propagate across '
-      'boundaries (§7.3/§7.4).',
+      'boundaries (codespecs_mapping.md §7 points 3/4).',
 )
 class CrossBoundaryErrorHandling extends DocSpecsSection {
   @ContentHelp('''

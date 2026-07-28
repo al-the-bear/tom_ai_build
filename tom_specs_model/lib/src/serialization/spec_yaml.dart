@@ -6,13 +6,15 @@
 /// A spec is **one document** with fourteen entry points: the Solution
 /// Blueprint master, twelve Phase 3 *projection* roots, and the D13 CodeSpecs
 /// generation projection — all views that reference the same SBP sections
-/// (§14). Two serialization rules follow from that:
+/// (`tom_specs_editor_specification.md` §14). Two serialization rules follow
+/// from that:
 ///
 ///  - **Global save (`*.docspecs.yaml`) writes only the Solution Blueprint.**
-///    Because every projection is a view over the same SBP sections, serializing
-///    the SBP tree alone emits each section **exactly once** — there are no
-///    duplicate subtrees (N9, §15.1). [SpecYaml.toYaml] of the SBP root is that
-///    global `document:` pass.
+///    Because every projection is a view over the same SBP sections,
+///    serializing the SBP tree alone emits each section **exactly once** —
+///    there are no duplicate subtrees (N9, `tom_specs_editor_specification.md`
+///    §15.1). [SpecYaml.toYaml] of the SBP root is that global `document:`
+///    pass.
 ///
 ///  - **An individual projection write runs a connect pass first.** A projection
 ///    root references SBP sections through its `@MapsTo` / `@DetailedIn` links;
@@ -72,8 +74,8 @@ abstract final class SpecYaml {
   ///
   /// Pass the Solution Blueprint root here for the native `*.docspecs.yaml`
   /// save. Because the projection roots are views over the same sections, the
-  /// SBP tree contains every section exactly once, so the output never duplicates
-  /// a subtree (§15.1).
+  /// SBP tree contains every section exactly once, so the output never
+  /// duplicates a subtree (`tom_specs_editor_specification.md` §15.1).
   static String toYaml(Object solutionBlueprintRoot) {
     final buffer = StringBuffer();
     _emit(solutionBlueprintRoot, 0, buffer);
@@ -81,7 +83,8 @@ abstract final class SpecYaml {
   }
 
   /// Connects [projection] onto the live [solutionBlueprintRoot] (N11) and then
-  /// serializes the projection — the per-root individual-file write (§15.2).
+  /// serializes the projection — the per-root individual-file write
+  /// (`tom_specs_editor_specification.md` §15.2).
   static String toYamlForProjection(
     Object projection,
     Object solutionBlueprintRoot,
@@ -151,7 +154,8 @@ abstract final class SpecYaml {
   }
 
   /// Emits `key:` as a literal block scalar (`|`) so multi-line section content
-  /// stays human-readable and round-trips losslessly (§15.1).
+  /// stays human-readable and round-trips losslessly
+  /// (`tom_specs_editor_specification.md` §15.1).
   static void _emitScalar(
     String pad,
     String key,

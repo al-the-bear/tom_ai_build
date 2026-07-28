@@ -1,8 +1,7 @@
 /// SBP.3 — Glossary & Abbreviations.
 ///
 /// Defines the terms, acronyms, and abbreviations used throughout the
-/// Solution Blueprint. Closes the prior-review completeness gap (§5:
-/// "Glossary / acronyms").
+/// Solution Blueprint.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';

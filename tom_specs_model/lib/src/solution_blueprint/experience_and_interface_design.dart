@@ -7,7 +7,9 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// The closed set of screen-element kinds (CE-EL, csm6 §4 / csmb6).
+/// The closed set of screen-element kinds (CE-EL).
+///
+/// The catalogue is `codespecs_mapping.md` §5.18.
 ///
 /// The discriminator enum for the `ScreenElementEntry` `@OneOf` group: it picks
 /// which element facet applies — an action element carries `elementAction`, an
@@ -41,7 +43,9 @@ enum ScreenElementKind {
   tabBar,
 }
 
-/// The closed set of input field data-kinds (CE-EL field kind, csm6 §4 / csmb6).
+/// The closed set of input field data-kinds (CE-EL field kind).
+///
+/// The catalogue is `codespecs_mapping.md` §5.18.
 ///
 /// The discriminator enum for the `ScreenElementFieldSpec` `@OneOf` group: it
 /// picks the promoted, kind-specific options subsection — `numberOptions`,
@@ -234,14 +238,14 @@ to pixel-perfect designs with exact typography and spacing.
 
 /// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
 ///
-/// Groups the UI concerns CodeSpecs generates (§4.6 of
-/// `codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
-/// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
-/// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
-/// reusable UI component library (CE-EL/CE-LO). The container itself carries no
-/// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
-/// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
-/// follow-up subtrees.
+/// Groups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):
+/// screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation
+/// (CE-NV), data-structure alignment (CE-DB cross-ref), error handling
+/// (CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component
+/// library (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the
+/// mapped parts live on the child sections — but the whole subtree is the
+/// CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up
+/// subtrees.
 @StandardReferences(
   [
     'ISO 9241-210:2019 — human-centred design for interactive systems',
@@ -287,10 +291,10 @@ class ExperienceCodeSpecs extends DocSpecsSection {
 ///
 /// Groups the design / documentation concerns that are **follow-up** (design
 /// vision, print & export layout, user assistance, accessibility, prototype,
-/// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
-/// `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree
-/// is generation-owned-out. Accessibility's operational (OPS) facet is a
-/// secondary concern refined by the follow-up taxonomy pass.
+/// wireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`
+/// §8.3). Carries no `@CodeSpecKind` — the whole subtree is
+/// generation-owned-out. Accessibility's operational (OPS) facet is a secondary
+/// concern refined by the follow-up taxonomy pass.
 @StandardReferences(
   [
     'ISO 9241-210:2019 — human-centred design for interactive systems',
@@ -340,7 +344,7 @@ class ExperienceDesignFollowUp extends DocSpecsSection {
 /// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
 ///
 /// Groups the internationalization concern, a **follow-up** (L10N) rather than
-/// CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no
+/// CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no
 /// `@CodeSpecKind` — the whole subtree is generation-owned-out.
 @StandardReferences(
   [
@@ -369,7 +373,7 @@ class ExperienceLocalizationFollowUp extends DocSpecsSection {
 ///
 /// Groups the UI authorization-compliance concern (how the interface adapts to
 /// roles and permissions as a compliance obligation), a **follow-up** (CMP)
-/// rather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).
+/// rather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).
 /// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
 @StandardReferences(
   [
@@ -5094,9 +5098,9 @@ class NavigationGuardEntry extends DocSpecsSection {
       'A mixed subtree, hence two kinds. This section own fields — print '
       'strategy, paper size, orientation, page setup, branding, watermark, '
       'header/footer, archive — are CE-CF renderer settings; its child lists '
-      'are CE-RP report definitions. §8.3 requires an isolated subtree before '
+      'are CE-RP report definitions. codespecs_mapping.md §8.3 requires an isolated subtree before '
       'a D13CodeSpecsProjection field can reach the CE-RP band, so the '
-      'reporting half is annotated but not yet projected (§5.28).',
+      'reporting half is annotated but not yet projected (codespecs_mapping.md §5.28).',
 )
 class PrintAndExportLayout extends DocSpecsSection {
   @Form([
@@ -5400,13 +5404,13 @@ class PrintAndExportLayout extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportEntry extends DocSpecsSection {
   @Form([
@@ -5912,13 +5916,13 @@ class ReportEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportSectionEntry extends DocSpecsSection {
   @Form([
@@ -6157,13 +6161,13 @@ class ReportSectionEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportColumnEntry extends DocSpecsSection {
   @Form([
@@ -6496,13 +6500,13 @@ class ReportColumnEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportChartEntry extends DocSpecsSection {
   @Form([
@@ -6677,13 +6681,13 @@ class ReportChartEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportChartAxes extends DocSpecsSection {
   @Form([
@@ -6774,13 +6778,13 @@ class ReportChartAxes extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportFilterEntry extends DocSpecsSection {
   @Form([
@@ -7135,13 +7139,13 @@ class ReportFilterEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportScheduleEntry extends DocSpecsSection {
   @Form([
@@ -7341,13 +7345,13 @@ class ReportScheduleEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportDistributionEntry extends DocSpecsSection {
   @Form([
@@ -7533,13 +7537,13 @@ class ReportDistributionEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ReportRecipientEntry extends DocSpecsSection {
   @Form([
@@ -7697,7 +7701,7 @@ class ReportRecipientEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.serverConfiguration],
   note:
-      'CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts '
+      'CE-CF — renderer settings, not CE-RP. The codespecs_mapping.md §5.28 scope boundary puts '
       'the rendering engine and its per-format mechanics on the '
       'implementation side: what a specification authors about an export is '
       'the projection (CE-RP), while the format catalogue, page geometry and '
@@ -8024,7 +8028,7 @@ class ExportFormatEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.serverConfiguration],
   note:
-      'CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts '
+      'CE-CF — renderer settings, not CE-RP. The codespecs_mapping.md §5.28 scope boundary puts '
       'the rendering engine and its per-format mechanics on the '
       'implementation side: what a specification authors about an export is '
       'the projection (CE-RP), while the format catalogue, page geometry and '
@@ -8071,13 +8075,13 @@ class ExportSizeSettings extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
       '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
       'server (definition + execution) + shared (result envelope, parameter '
       'shapes). All three delivery channels (apiResponse | email | '
       'fileExport) are reused tom_core_server transports; a named schedule is '
       'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(§5.28).',
+      '(codespecs_mapping.md §5.28).',
 )
 class ExportFieldMappingEntry extends DocSpecsSection {
   @Form([
@@ -8390,7 +8394,7 @@ class ExportFieldMappingEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.serverConfiguration],
   note:
-      'CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts '
+      'CE-CF — renderer settings, not CE-RP. The codespecs_mapping.md §5.28 scope boundary puts '
       'the rendering engine and its per-format mechanics on the '
       'implementation side: what a specification authors about an export is '
       'the projection (CE-RP), while the format catalogue, page geometry and '
@@ -14763,7 +14767,7 @@ class TrainingModuleEntry extends DocSpecsSection {
   [CodeSpecPart.userSettings],
   note:
       'CE-UP — a user language/country preference, a server-persisted user '
-      'setting restored on any device the user signs into (§11).',
+      'setting restored on any device the user signs into (codespecs_mapping.md §11).',
 )
 class LanguageCountrySelection extends DocSpecsSection {
   @SectionId('LACOSE-LANG')
