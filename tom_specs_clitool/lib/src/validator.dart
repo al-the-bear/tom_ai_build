@@ -7,7 +7,18 @@ import 'model_reader.dart';
 /// expanded text, so they follow automatically.
 const String _invariants = 'tom_specs_model_rules.md §10.2';
 
-/// Validates model classes against §6 design rules.
+/// The document section every canonical-member-shape tag cites.
+///
+/// Named for the same reason as [_invariants]. The shapes these errors enforce
+/// are the six *member shapes*, not the field *categories* the rules document's
+/// §6 covers.
+const String _shapes = 'tom_specs_model_rules.md §5.1';
+
+/// The document section the keep-a-class / keep-a-level tags cite.
+const String _keepRules = 'tom_specs_model_rules.md §5.8';
+
+/// Validates model classes against the `tom_specs_model_rules.md` §5 design
+/// rules.
 ///
 /// Returns a record of (errors, warnings). Errors prevent output;
 /// warnings are reported but don't block generation.
@@ -22,12 +33,13 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
   final errors = <String>[];
   final warnings = <String>[];
 
-  // §6.5 — find reachable types from root
+  // `tom_specs_model_rules.md` §5.7 — find reachable types from root
   final reachable = _findReachableTypes(classes, rootTypeName);
 
   // The canonical container (V2, N9) is the structural tree root, not a content
   // section: it owns no `content` and carries no `@SectionId`. Exempt it from
-  // the §6 per-class content/field checks when it is reachable (T1).
+  // the `tom_specs_model_rules.md` §5 per-class content/field checks when it
+  // is reachable (T1).
   final containerRoot = findContainerRoot(classes);
 
   for (final className in reachable) {
@@ -35,14 +47,15 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
     if (cls == null) continue;
     if (className == containerRoot) continue;
 
-    // §6.1 — content: String? expected (warning, not error)
+    // `tom_specs_model_rules.md` §5.4 — content: String? expected (warning)
     final hasContent = cls.fields.any((f) => f.name == 'content');
     if (!hasContent) {
       warnings.add('$className: missing field "content: String?"');
     }
 
     for (final field in cls.fields) {
-      // §6.1 — list fields. Shape (5) uses `List<ComplexType>`; shape (6) is an
+      // `tom_specs_model_rules.md` §5.1 — list fields. Shape (5) uses
+      // `List<ComplexType>`; shape (6) is an
       // inline list of content sub-sections written as `List<String>` carrying
       // both `@SectionId` (the `-LST` container id) and `@SectionIdPattern`. A
       // `List<String>` (or `List<primitive>`) WITHOUT that annotated pair is a
@@ -61,13 +74,13 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
               '$className.${field.name}: List<$inner> not allowed — '
               'list fields must use complex types, or (for List<String>) carry '
               '@SectionId + @SectionIdPattern as an inline content sub-section '
-              'list (§6.1 shape 6)',
+              'list (`tom_specs_model_rules.md` §5.1 shape 6)',
             );
           }
         }
       }
 
-      // §6.1 — no primitive non-String scalars
+      // `tom_specs_model_rules.md` §5.4 — no primitive non-String scalars
       if (!field.isList && !field.isEnum && _isNonStringPrimitive(field.typeName)) {
         errors.add(
           '$className.${field.name}: type "${field.typeName}" not allowed — '
@@ -75,7 +88,8 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
         );
       }
 
-      // §6.1 (YRB1) — canonical field shapes. The name `content` is reserved
+      // `tom_specs_model_rules.md` §5.1 (YRB1) — canonical field shapes. The
+      // name `content` is reserved
       // for the section's OWN content (shapes (1)/(2)): its section id comes
       // from the class, so it must be a String and must NOT carry a
       // field-level @SectionId. Every OTHER String field is an inline
@@ -83,13 +97,13 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
       if (field.name == 'content') {
         if (!field.isString) {
           errors.add(
-            '§6.1 field-shape: $className.content — the reserved field name '
+            '$_shapes field-shape: $className.content — the reserved field name '
             '"content" is only valid for the section\'s own String content, '
             'but its type is "${field.typeName}"',
           );
         } else if (field.getAnnotation('SectionId') != null) {
           errors.add(
-            '§6.1 field-shape: $className.content — the section\'s own '
+            '$_shapes field-shape: $className.content — the section\'s own '
             '"content" must not carry a field-level @SectionId; its id comes '
             'from the class',
           );
@@ -99,7 +113,7 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
         // YRD5: inline sub-sections are `DocSpecsSection?` members (formerly
         // `String?`); both shapes must carry the field-level @SectionId.
         errors.add(
-          '§6.1 field-shape: $className.${field.name} — a non-"content" '
+          '$_shapes field-shape: $className.${field.name} — a non-"content" '
           'section field must carry a field-level @SectionId (it is an inline '
           'sub-section), or be named "content" if it is the section\'s own '
           'content',
@@ -107,7 +121,7 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
       }
     }
 
-    // §6.4 — ContentType constraints
+    // `tom_specs_model_rules.md` §5.6 — ContentType constraints
     final contentField = cls.fields.where((f) => f.name == 'content').firstOrNull;
     if (contentField != null) {
       final contentTypeAnno = contentField.getAnnotation('ContentType');
@@ -178,7 +192,7 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
     }
   }
 
-  // §5.2 — cycle detection
+  // `tom_specs_model_rules.md` §5.7 — cycle detection
   final cycleError = _detectCycles(classes, rootTypeName);
   if (cycleError != null) {
     errors.add(cycleError);
@@ -255,7 +269,8 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
 ///   standalone complex section field (→ addressed by its own class-level
 ///   `@SectionId`) resolves to a different id depending on the traversal root
 ///   and is rejected. `@Reference` edges are excluded.
-/// - **Collapsible-wrapper detection (§6.1c / TSMA4–TSMA5)** — warns when a
+/// - **Collapsible-wrapper detection** (`tom_specs_model_rules.md` §5.8 /
+///   TSMA4–TSMA5) — warns when a
 ///   *single-subsection wrapper* with vacuous content adds a redundant
 ///   hierarchy level: a class referenced by exactly one complex parent field
 ///   (unshared), holding exactly one subsection field, whose every other field
@@ -657,10 +672,12 @@ void _validateStructuralInvariants(
   //
   // The twelve Phase 3 roots are `@Document(basedOn: [D00SolutionBlueprint])`
   // *projections*: they aggregate SBP00 sections and own no content of their own
-  // (§14). The single-tree model is sound only if a projection root contains
+  // (`tom_specs_editor_specification.md` §14). The single-tree model is sound
+  // only if a projection root contains
   // **no content absent from the Project Definition** — otherwise the global
   // `toYaml` could not emit each section exactly once, and the connect pass
-  // (§15.1) would have to invent or drop content.
+  // (`tom_specs_editor_specification.md` §15.1) would have to invent or drop
+  // content.
   //
   // Check: every type reachable from a projection root (other than the root
   // class itself) must also be reachable from D00SolutionBlueprint. A reachable
@@ -681,7 +698,8 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 6. Collapsible-wrapper detection (§6.1c / TSMA4–TSMA5) ---------------
+  // --- 6. Collapsible-wrapper detection ------------------------------------
+  // `tom_specs_model_rules.md` §5.8 / TSMA4–TSMA5.
   //
   // The dual of the TSMA1/TSMA2 leaf collapse: a *single-subsection wrapper*
   // adds a redundant hierarchy level when its own content carries no meaning of
@@ -700,9 +718,11 @@ void _validateStructuralInvariants(
   // collapsed (promote the subsection onto the parent field — TSMA4). This is
   // the operational "content has no meaning by itself" test: content is absent
   // or a bare `content` with no form / help / refs / non-Form type and no
-  // sibling named scalar. The keep-a-level exemptions (§6.1c / TSMA5) — a
-  // form-bearing wrapper, a meaningful-content wrapper, or a shared/multi-
-  // referrer wrapper — are canonical §6.1a shape (4)/(5) sections and are NOT
+  // sibling named scalar. The keep-a-level exemptions
+  // (`tom_specs_model_rules.md` §5.8 / TSMA5) — a form-bearing wrapper, a
+  // meaningful-content wrapper, or a shared/multi-referrer wrapper — are
+  // canonical `tom_specs_model_rules.md` §5.1 shape (4)/(5) sections and are
+  // NOT
   // flagged. Reported as a WARNING (a design smell, not a correctness error):
   // generation still proceeds. This mirrors `tsma4_census.dart`; after TSMA4
   // the real model yields zero of these.
@@ -775,7 +795,7 @@ void _validateStructuralInvariants(
     final where =
         origin == null ? '(unknown parent)' : '${origin.parent}.${origin.field}';
     warnings.add(
-      '§6.1c collapsible-wrapper: $className is a single-subsection wrapper '
+      '$_keepRules collapsible-wrapper: $className is a single-subsection wrapper '
       'with vacuous content, referenced only by $where — collapse it by '
       'promoting ${sub.name} ($subKind) onto the parent field (TSMA4)',
     );
@@ -869,8 +889,8 @@ List<FormFieldInfo> _allFormFields(ModelClass cls) => [
   return (enumType: value.substring(0, dot), constant: value.substring(dot + 1));
 }
 
-/// Static enforcement of the `@OneOf`/`@Case` closed-choice mechanism (§4.4,
-/// csm-7-4/csmb6).
+/// Static enforcement of the `@OneOf`/`@Case` closed-choice mechanism
+/// (`codespecs_mapping.md` §8.2).
 void _validateOneOfGroups(
   Map<String, ModelClass> classes,
   Set<String> reachable,

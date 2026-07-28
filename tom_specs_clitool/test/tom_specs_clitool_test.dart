@@ -186,22 +186,24 @@ void main() {
 
     test('outliner validates IntegrationInterfaceSpecification root '
         'without non-field-shape errors', () {
-      // IIS is a smoke-test root known to be clean of §6.1 ContentType issues.
-      // The §6.1 field-shape rules (YRB1) DO fire here — D07 projects SBP
+      // IIS is a smoke-test root known to be clean of
+      // `tom_specs_model_rules.md` §5.6 ContentType issues. The §5.1 field-shape
+      // rules of that same document (YRB1) DO fire here — D07 projects SBP
       // sections that still carry un-ided inline sub-section String fields
       // (the YRB5 id-sweep backlog). Those are enforced by the dedicated
       // field-shape count test below; this smoke test asserts the root is
       // otherwise structurally clean, so filter the known backlog out.
       final result = validateModel(classes, 'D07IntegrationInterfaceSpecification');
       final otherErrors = result.errors
-          .where((e) => !e.contains('§6.1 field-shape'))
+          .where((e) => !e.contains('§5.1 field-shape'))
           .toList();
       expect(otherErrors, isEmpty, reason: otherErrors.join('\n'));
     });
 
     test(
       'CS-03 (dsa6): validateModel yields ZERO errors from every one of the '
-      '14 roots + the container — @ContentType / §2.1 field-shape clean',
+      '14 roots + the container — @ContentType / tom_specs_model_rules.md '
+      '§5.1 field-shape clean',
       () {
         // This is exactly the gate bin/outliner.dart applies (it exit(1)s on
         // any validateModel error). Asserting zero errors from every root —
@@ -240,7 +242,8 @@ void main() {
     );
 
     test(
-      '§6.1 field-shape (YRB1/YRB5): the inline sub-section id sweep is '
+      'tom_specs_model_rules.md §5.1 field-shape (YRB1/YRB5): the inline '
+      'sub-section id sweep is '
       'complete — zero reachable non-"content" String fields lack a '
       'field-level @SectionId',
       () {
@@ -259,7 +262,7 @@ void main() {
         // YRB5 stamped the last 166. The sweep is now complete → 0.
         final result = validateModel(classes, 'DocSpecsProject');
         final missingId = result.errors
-            .where((e) => e.contains('§6.1 field-shape') &&
+            .where((e) => e.contains('§5.1 field-shape') &&
                 e.contains('must carry a field-level @SectionId'))
             .toList();
         expect(missingId, isEmpty,
@@ -270,7 +273,8 @@ void main() {
     );
 
     test(
-      '§6.1 field-shape (YRB1/YRC1): no field misuses the reserved name '
+      'tom_specs_model_rules.md §5.1 field-shape (YRB1/YRC1): no field '
+      'misuses the reserved name '
       '"content" for a non-String value',
       () {
         // The reserved-name rule flags any `content` field that is not a plain
@@ -280,7 +284,7 @@ void main() {
         // reserved-name violations across the whole model.
         final result = validateModel(classes, 'DocSpecsProject');
         final reserved = result.errors
-            .where((e) => e.contains('§6.1 field-shape') &&
+            .where((e) => e.contains('§5.1 field-shape') &&
                 e.contains('reserved field name'))
             .toList();
         expect(reserved, isEmpty, reason: reserved.join('\n'));
@@ -913,7 +917,9 @@ void main() {
       expect(findContainerRoot(classes), isNull);
     });
 
-    test('the container is exempt from §6 content checks when it is the root', () {
+    test(
+        'the container is exempt from tom_specs_model_rules.md §5.6 content '
+        'checks when it is the root', () {
       final result = validateModel(modelWithContainer(), 'DocSpecsProject');
       final containerWarnings = result.warnings
           .where((w) => w.contains('DocSpecsProject') && w.contains('content'))
@@ -984,15 +990,16 @@ void main() {
     });
   });
 
-  group('unit: §6.1 canonical field shapes (YRB1)', () {
-    // Field-shape errors carry the '§6.1 field-shape' prefix. Synthetic models
+  group('unit: tom_specs_model_rules.md §5.1 canonical field shapes (YRB1)',
+      () {
+    // Field-shape errors carry the '§5.1 field-shape' prefix. Synthetic models
     // deliberately omit D00SolutionBlueprint so the `tom_specs_model_rules.md`
     // §10.2 invariants stay a no-op and only the field-shape rules under test
     // can fire.
     List<String> shapeErrors(Map<String, ModelClass> classes, String root) =>
         validateModel(classes, root)
             .errors
-            .where((e) => e.contains('§6.1 field-shape'))
+            .where((e) => e.contains('§5.1 field-shape'))
             .toList();
 
     ModelField idField(String name, String typeName,
@@ -1222,7 +1229,8 @@ void main() {
       expect(json.containsKey('modelVersionLabel'), isFalse);
     });
 
-    test('a stamped export carries the model version and label (B2/§17)', () {
+    test('a stamped export carries the model version and label (B2/SOM §17)',
+        () {
       final json = ModelJsonExporter(
         const <String, ModelClass>{},
         modelVersion: 3,
@@ -1237,7 +1245,7 @@ void main() {
   // som_multiplatform_spec_model.md §5.3: lossless annotations[] export.
   // The exporter must carry EVERY annotation ModelReader captured — name + full
   // argument set — on both classes and fields, alongside the curated render
-  // keys, so the generic runtime's meta-model loader (§7) is lossless.
+  // keys, so the generic runtime's meta-model loader (SOM §7) is lossless.
   // ---------------------------------------------------------------------------
   group('unit: ModelJsonExporter lossless annotations[]', () {
     test('emits a lossless annotations[] block on classes and fields', () {
@@ -1687,14 +1695,16 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
-  // §6.1c collapsible-wrapper detection (TSMA4–TSMA5). The validator warns when
+  // `tom_specs_model_rules.md` §5.8 collapsible-wrapper detection
+  // (TSMA4–TSMA5). The validator warns when
   // a single-subsection wrapper with vacuous content adds a redundant hierarchy
   // level (single complex referrer, one subsection field, bare `content`). The
   // TSMA5 keep-a-level exemptions — form-bearing, meaningful-content
   // (@ContentHelp / @StandardReferences / non-Form @ContentType), and
   // shared/multi-referrer wrappers — must NOT be flagged.
   // ---------------------------------------------------------------------------
-  group('unit: §6.1c collapsible-wrapper detection (TSMA4–TSMA5)', () {
+  group('unit: tom_specs_model_rules.md §5.8 collapsible-wrapper detection '
+      '(TSMA4–TSMA5)', () {
     // Collapsible-wrapper detection lives in the `tom_specs_model_rules.md`
     // §10.2 structural pass, so a D00SolutionBlueprint root must reach the
     // candidate. The root references the wrapper; the wrapper carries exactly
@@ -1702,7 +1712,7 @@ void main() {
     List<String> collapsibleWarnings(Map<String, ModelClass> classes) =>
         validateStructuralInvariants(classes)
             .warnings
-            .where((w) => w.contains('§6.1c collapsible-wrapper'))
+            .where((w) => w.contains('§5.8 collapsible-wrapper'))
             .toList();
 
     // A leaf section the wrapper's single subsection points at.
@@ -1852,7 +1862,9 @@ void main() {
     });
   });
 
-  group('end-to-end: real tom_specs_model §6.1c collapsible-wrapper steady state',
+  group(
+      'end-to-end: real tom_specs_model tom_specs_model_rules.md §5.8 '
+      'collapsible-wrapper steady state',
       () {
     test('the post-TSMA4 model emits zero collapsible-wrapper warnings', () async {
       final driver = createAnalysisDriver(modelPath);
@@ -1860,7 +1872,7 @@ void main() {
       await reader.analyzePackage(p.join(modelPath, 'lib'));
       final result = validateStructuralInvariants(reader.classes);
       final collapsible = result.warnings
-          .where((w) => w.contains('§6.1c collapsible-wrapper'))
+          .where((w) => w.contains('§5.8 collapsible-wrapper'))
           .toList();
       // TSMA4 collapsed every meaning-free wrapper; the census (tsma4_census.dart)
       // now reports 0 COLLAPSIBLE. TSMA5's kept wrappers (form-bearing /
@@ -1937,7 +1949,9 @@ void main() {
       expect(byName['notes']!['elementIsComplex'], false);
     });
 
-    test('§6.1: a non-"content" DocSpecsSection member requires @SectionId',
+    test(
+        'tom_specs_model_rules.md §5.1: a non-"content" DocSpecsSection '
+        'member requires @SectionId',
         () {
       final classes = <String, ModelClass>{
         'Doc': _cls('Doc', [
@@ -1949,13 +1963,15 @@ void main() {
       final result = validateModel(classes, 'Doc');
       expect(
         result.errors.any((e) =>
-            e.contains('§6.1 field-shape') && e.contains('Doc.summary')),
+            e.contains('§5.1 field-shape') && e.contains('Doc.summary')),
         isTrue,
         reason: result.errors.join('\n'),
       );
     });
 
-    test('§6.1: List<DocSpecsSection> is the inline content list shape', () {
+    test(
+        'tom_specs_model_rules.md §5.1: List<DocSpecsSection> is the inline '
+        'content list shape', () {
       ModelClass docWith(ModelField field) => _cls('Doc', [
             AnnotationData('SectionId', {'id': 'DC00'}),
           ], [

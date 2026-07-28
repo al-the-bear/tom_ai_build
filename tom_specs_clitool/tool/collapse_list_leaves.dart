@@ -1,5 +1,6 @@
 // TSMA2 codemod: collapse pure-content list-element leaf classes into a
-// `List<String>` inline content sub-section list (§6.1 shape 6).
+// `List<String>` inline content sub-section list
+// (`tom_specs_model_rules.md` §5.1 shape 6).
 //
 // A *collapse candidate* is a leaf class L (all fields are content/form String
 // leaves) that:

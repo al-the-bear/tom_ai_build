@@ -188,7 +188,8 @@ language-native manifest that declares the runtime dependency:
   every reachable class its name, doc-comment, identity annotations, and for
   every field its type, nullability, list/enum-ness, render classification, and
   **all** annotation arguments.
-- **Typed facade** — typed document-editing classes (see §5). The
+- **Typed facade** — typed document-editing classes (see this README's §5).
+  The
   `D00SolutionBlueprint` root plus every reachable section/form/list/enum class.
 - **Schemas** — the DocSpecs schema and the `*.docspecs.yaml` YAML schema, per
   document root.
@@ -304,8 +305,9 @@ survive regeneration) and are tabled in that package's own example README:
 | C | `tom_som_c_v0/` | `make && ./examples/<file>` |
 | C++ | `tom_som_cpp_v0/` | `make && ./examples/<file>` |
 
-Each provides the same triplet — `a_typed_access` (§5a), `b_generic_document`
-(§5b), `c_reflection_metadata` (§5c) — building the same document shape so the
+Each provides the same triplet — `a_typed_access`, `b_generic_document`,
+`c_reflection_metadata` (this README's §5) — building the same document shape so
+the
 three access paths visibly converge across every language.
 
 ---

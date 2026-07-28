@@ -114,7 +114,8 @@ Future<void> main(List<String> arguments) async {
 
   // A parent class whose own `content` field carries @ContentType != "Form"
   // (a pure description/markdown section) must not gain a sibling scalar field
-  // (§6.4). Collapsing produces a `String?` scalar, so such parents are ruled
+  // (`tom_specs_model_rules.md` §5.6). Collapsing produces a `String?` scalar,
+  // so such parents are ruled
   // out.
   bool parentForbidsScalar(ModelClass parent) {
     final cf =
@@ -137,14 +138,15 @@ Future<void> main(List<String> arguments) async {
     if (c.fields.length != 1) continue;
     if (c.fields.single.name != 'content') continue; // TSMA1 = reserved content
     // Guard A: a parent field literally named `content` cannot become a
-    // shape-3 field (`content` may not carry a field-level @SectionId, §6.1).
+    // shape-3 field (`content` may not carry a field-level @SectionId,
+    // `tom_specs_model_rules.md` §5.1).
     // These are pre-existing complex-`content` smells; leave them untouched.
     if (soleParentField[c.name] == 'content') {
       excludedContentParentField.add(c.name);
       continue;
     }
     // Guard B: parent is a description/markdown section that forbids scalar
-    // siblings (§6.4).
+    // siblings (`tom_specs_model_rules.md` §5.6).
     final parent = classes[soleParentName[c.name]];
     if (parent != null && parentForbidsScalar(parent)) {
       excludedContentTypeParent.add(c.name);

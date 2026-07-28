@@ -14,7 +14,7 @@ whose every element carries traceability annotations back to its source spec.
 > `tom_core`-family class marked by `Cs*` annotations; the concrete classes
 > `tom_core` lacks live in `tom_core_codespecs`. The framework is owned by the
 > **`tom_specs` quest** (the former `code_spec` quest is retired — see
-> `../tom_specs_model/doc/codespecs_mapping.md` §0/§12).
+> `../tom_specs_model/doc/codespecs_mapping.md` §1.1/§12).
 
 ## What lives here
 

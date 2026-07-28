@@ -517,8 +517,9 @@ single-subsection wrapper level can be *collapsed* — but only when safe:
   it (or a field) carries `@Form`; a leaf carries substantive `@ContentHelp` /
   `@StandardReferences` / non-Form `@ContentType`; it is shared; or it declares
   a named leaf besides `content`. Only when *none* of these hold is the
-  wrapper pure indirection — the validator emits a `§6.1c collapsible-wrapper`
-  **warning** for such candidates.
+  wrapper pure indirection — the validator emits a
+  `tom_specs_model_rules.md §5.8 collapsible-wrapper` **warning** for such
+  candidates.
 
 A **pure single-list wrapper** (`{content?}` plus exactly one list) is doubly
 redundant under the §4 list-as-outer-section rule, because the list already
@@ -1150,6 +1151,21 @@ section text in the actual document. If a class has additional scalar fields, th
 `@ContentType` must be `Form`, which indicates this is the container for the data
 fields. If `@ContentType` is not `Form` (`SQL`, `DDL`, `Dart`, …) the class
 cannot have other scalar fields (§5.6).
+
+**The content field carries its form or content type inline.** A `content` field
+is suffixed with the shape it declares, so a reader sees the section's data
+fields without opening the class:
+
+```
+- content @Form(documentId, project, version, date, author, status)
+- content @Dart
+```
+
+`@Form(…)` lists the `Field` names in declaration order. When there is no
+`@Form`, a non-default `@ContentType` is shown as `@<type>` (`@Dart`, `@SQL`,
+`@DDL`, …); a plain prose section shows neither. The two are mutually exclusive
+— a `@Form` section's content type is `Form` by definition, so naming it again
+would be redundant.
 
 #### 11.2.7 Nullable vs non-nullable
 

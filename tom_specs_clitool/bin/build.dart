@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 
-/// TomSpecs editor build & packaging orchestrator (§17, N8, B1/B2).
+/// TomSpecs editor build & packaging orchestrator
+/// (`som_multiplatform_spec_model.md` §17, N8, B1/B2).
 ///
 /// Drives every build step from a single command so a from-scratch build
 /// produces a runnable app stamped with the model version:
@@ -92,7 +93,7 @@ Future<void> main(List<String> arguments) async {
     if (!Directory(dir).existsSync()) _fail('Directory not found: $dir');
   }
 
-  _banner('TomSpecs build (§17) — target $os');
+  _banner('TomSpecs build (SOM §17) — target $os');
   stdout.writeln('  model:  $modelDir');
   stdout.writeln('  editor: $editorDir');
 
@@ -141,7 +142,7 @@ Future<void> main(List<String> arguments) async {
   );
 
   // ── Step 4: DocSpecs schemas, versioned from the stamp (S2) ───────────────
-  // Two destinations (§16/§17): the canonical `<id>/<id>.<ver>...` tree under
+  // Two destinations: the canonical `<id>/<id>.<ver>...` tree under
   // `.tom/docspecs-schema/` (the DocSpecs resolver layout) and a *flat* copy in
   // the asset dir. Flutter bundles a listed asset directory **non-recursively**,
   // so the nested resolver tree would be silently dropped — the flat copy is

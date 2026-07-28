@@ -31,7 +31,8 @@ Future<void> main(List<String> arguments) async {
     )
     ..addFlag(
       'show-schema-annotations',
-      help: 'Show schema-only annotations inline (§4.14).',
+      help: 'Show schema-only annotations inline '
+          '(tom_specs_model_rules.md §11.2.14).',
       defaultsTo: false,
     )
     ..addFlag(
@@ -101,7 +102,7 @@ Future<void> main(List<String> arguments) async {
     '${reader.enums.length} enums.',
   );
 
-  // 3. Validate model (§6)
+  // 3. Validate model (`tom_specs_model_rules.md` §6)
   final validation = validateModel(reader.classes, rootType);
   if (validation.warnings.isNotEmpty) {
     stderr.writeln('');

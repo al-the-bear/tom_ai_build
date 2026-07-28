@@ -472,7 +472,8 @@ void main() {
     });
 
     test('schema-gen: no schema constrains a section text body — '
-        'pattern-check-text is never emitted (rules §9.4)', () {
+        'pattern-check-text is never emitted '
+        '(tom_specs_model_rules.md §9.4)', () {
       // The model constrains sections structurally and only *guides* their
       // prose, so it carries no text-body regex annotation. This pins that
       // decision: a schema that grew a text pattern would mean the model

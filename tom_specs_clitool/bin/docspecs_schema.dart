@@ -6,7 +6,8 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show somModelVersionString;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Generates the DocSpecs schemas (§16) from the TomSpecs object model.
+/// Generates the DocSpecs schemas (`som_multiplatform_spec_model.md` §13)
+/// from the TomSpecs object model.
 ///
 /// Emits one `*.docspecs-schema.yaml` per `@Document` root (1 global Project
 /// Definition + 12 projection roots = 13) into `<out-dir>/<id>/<id>.<ver>...`.

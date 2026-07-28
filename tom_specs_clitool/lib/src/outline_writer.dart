@@ -8,7 +8,8 @@ class OutlineWriter {
   final bool showSchemaAnnotations;
   final StringBuffer _buffer = StringBuffer();
 
-  /// Schema-only annotation names (§4.13 — visible=No).
+  /// Schema-only annotation names (`tom_specs_model_rules.md` §11.2.13 —
+  /// visible=No).
   static const _schemaOnlyAnnotations = {
     'Prefix',
     'PatternCheckId',
@@ -54,7 +55,7 @@ class OutlineWriter {
     int depth,
     Set<String> ancestors,
   ) {
-    // Class-level schema annotations (§4.14)
+    // Class-level schema annotations (`tom_specs_model_rules.md` §11.2.14)
     if (showSchemaAnnotations) {
       final indent = _indent(depth);
       _writeSchemaAnnotations(cls.annotations, indent, null);
@@ -97,7 +98,7 @@ class OutlineWriter {
   ) {
     final indent = _indent(depth + 1);
 
-    // Field-level schema annotations (§4.14)
+    // Field-level schema annotations (`tom_specs_model_rules.md` §11.2.14)
     if (showSchemaAnnotations) {
       for (final field in fields) {
         _writeSchemaAnnotations(field.annotations, indent, field.name);
@@ -133,16 +134,18 @@ class OutlineWriter {
       buf.write(field.name);
     }
 
-    // Section type field — show @contentType marker (§4.6 section types)
+    // Section type field — show @contentType marker (`tom_specs_model_rules.md`
+    // §11.2.6 section types)
     if (field.isSectionType && field.sectionContentType != null) {
       buf.write(' @${field.sectionContentType}');
     }
-    // Enum inline (§4.5)
+    // Enum inline (`tom_specs_model_rules.md` §11.2.5)
     else if (field.isEnum && field.enumValues.isNotEmpty) {
       buf.write(': ${field.typeName} (${field.enumValues.join(', ')})');
     }
 
-    // @Form or @ContentType hint on content field (§7.6)
+    // @Form or @ContentType hint on content field (`tom_specs_model_rules.md`
+    // §11.2.6)
     if (field.name == 'content') {
       if (field.formFields.isNotEmpty) {
         final names = field.formFields.map((f) => f.name).join(', ');
@@ -213,7 +216,7 @@ class OutlineWriter {
     if (field.isList) {
       _writeListField(field, depth, ancestors);
     } else {
-      // Singular complex field (§4.2)
+      // Singular complex field (`tom_specs_model_rules.md` §11.2.2)
       _writeSingularComplexField(field, depth, ancestors);
     }
   }
@@ -227,12 +230,13 @@ class OutlineWriter {
     final typeName = field.typeName.replaceAll('?', '');
     final childClass = classes[typeName];
 
-    // Field-level schema annotations (§4.14)
+    // Field-level schema annotations (`tom_specs_model_rules.md` §11.2.14)
     if (showSchemaAnnotations) {
       _writeSchemaAnnotations(field.annotations, indent, field.name);
     }
 
-    // Name-match rule (§4.2) — if field name matches type (lowercase first char)
+    // Name-match rule (`tom_specs_model_rules.md` §11.2.2) — if field name
+    // matches type (lowercase first char)
     final isReference = field.getAnnotation('Reference') != null;
     final nameMatches = _fieldNameMatchesType(field.name, typeName);
     final showBothNames = !nameMatches || isReference;
@@ -244,7 +248,7 @@ class OutlineWriter {
       line.write('`$typeName`');
     }
 
-    // Reference path (§4.9)
+    // Reference path (`tom_specs_model_rules.md` §11.2.9)
     if (isReference) {
       final ref = field.getAnnotation('Reference')!;
       final desc = (ref.arguments['description'] ?? '') as String;
@@ -266,7 +270,8 @@ class OutlineWriter {
 
     _buffer.writeln(line);
 
-    // Recurse into child class — skip @Reference fields (§5.2)
+    // Recurse into child class — skip @Reference fields
+    // (`tom_specs_model_rules.md` §5.7)
     if (!skipRecursion && childClass != null && !isReference && !ancestors.contains(typeName)) {
       final newAncestors = {...ancestors, typeName};
       _writeClass(typeName, childClass, depth + 1, newAncestors);
@@ -283,12 +288,12 @@ class OutlineWriter {
     // content list so outlines stay byte-identical.
     final innerType = field.metaListElementTypeName ?? 'Unknown';
 
-    // Field-level schema annotations (§4.14)
+    // Field-level schema annotations (`tom_specs_model_rules.md` §11.2.14)
     if (showSchemaAnnotations) {
       _writeSchemaAnnotations(field.annotations, indent, field.name);
     }
 
-    // Min/Max prefix (§4.3)
+    // Min/Max prefix (`tom_specs_model_rules.md` §11.2.3)
     final minAnno = field.getAnnotation('Min');
     final maxAnno = field.getAnnotation('Max');
     final minVal = minAnno?.arguments['count'] as int?;
@@ -353,14 +358,14 @@ class OutlineWriter {
     ModelField field,
     int indentLength,
   ) {
-    // @Comment (§4.10)
+    // @Comment (`tom_specs_model_rules.md` §11.2.10)
     final comment = field.getAnnotation('Comment');
     if (comment != null) {
       final text = comment.arguments['text'] ?? '';
       line.write(' ← ($text)');
     }
 
-    // @Position (§4.11) — non-default only
+    // @Position (`tom_specs_model_rules.md` §11.2.11) — non-default only
     final position = field.getAnnotation('Position');
     if (position != null) {
       final pos = position.arguments['position'] as String? ?? '';
@@ -369,7 +374,7 @@ class OutlineWriter {
       }
     }
 
-    // @ForEach (§4.12)
+    // @ForEach (`tom_specs_model_rules.md` §11.2.12)
     final forEach = field.getAnnotation('ForEach');
     if (forEach != null) {
       final registry = forEach.arguments['registryType'] ?? '';

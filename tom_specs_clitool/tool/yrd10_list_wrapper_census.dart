@@ -3,7 +3,8 @@
 // a redundant hierarchy level over the list they carry.
 //
 // This is the LIST specialisation of the TSMA4/TSMA5 single-subsection wrapper
-// audit (see `tsma4_census.dart` and validator §6.1c). It was surfaced by the
+// audit (see `tsma4_census.dart` and the validator's
+// `tom_specs_model_rules.md` §5.8 check). It was surfaced by the
 // headline/id analysis, where `FR → FRE-REQU-LST → FRE-REQU-1` looked one level
 // too deep. The audit records, for every class matching the pure list-wrapper
 // *member shape*, the referrer shape and the keep/collapse verdict, so the
@@ -14,7 +15,8 @@
 //   * every other field is a `content` leaf (isLeaf && isContentLike, named
 //     `content`) — zero or one such leaf.
 //
-// The collapse verdict then applies the keep-a-level exemptions (§6.1c/TSMA5):
+// The collapse verdict then applies the keep-a-level exemptions
+// (`tom_specs_model_rules.md` §5.8 / TSMA5):
 //   KEEP if @Document / container / SBP root;
 //   KEEP if shared/list-element (not exactly one complex referrer, or reached
 //         as a list element anywhere) — TSMA3 sharing rule;

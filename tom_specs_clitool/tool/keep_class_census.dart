@@ -5,7 +5,7 @@
 // `List<String>`. TSMA3 is the complement: it enumerates the leaf classes that
 // must STAY classes and confirms none of them is a collapse candidate.
 //
-// Two keep-a-class groups (§6.1b):
+// Two keep-a-class groups (`tom_specs_model_rules.md` §5.8):
 //   (1) SHARED substructure — a leaf class referenced by MORE THAN ONE parent
 //       field (complexRef + listRef > 1). Inlining it would duplicate the
 //       definition at each use site, so it stays a class (shape (4)/(5)).

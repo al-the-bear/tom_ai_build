@@ -17,7 +17,7 @@ class ModelJsonExporter {
   final Map<String, ModelClass> classes;
 
   /// The S2 model-version counter (counts up as the object model changes). The
-  /// build (§17) feeds this from the `tom_specs_model` version stamp so the
+  /// build (SOM §17) feeds this from the `tom_specs_model` version stamp so the
   /// bundled `spec_model.json` records exactly which model version it was
   /// generated against (B2). `0` marks an unstamped export (e.g. a manual run).
   final int modelVersion;
@@ -229,7 +229,7 @@ class ModelJsonExporter {
   /// above (`sectionId`, `mapsTo`, `min`, `contentType`, …) are a redundant
   /// projection of this same data, kept for existing consumers (the editor
   /// tree); this block is the lossless source the generic runtime's meta-model
-  /// loader (§7) reads. Source declaration order is preserved so the
+  /// loader (SOM §7) reads. Source declaration order is preserved so the
   /// output is stable across runs. The argument values are the analyzer's
   /// resolved constants (String/int/double/bool/Type-name/List), so the block
   /// stays JSON-serializable.
