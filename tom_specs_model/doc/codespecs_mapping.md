@@ -385,7 +385,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 | **CE-MG** SchemaMigration | The SQL migration chain; filename grammar `[<version>]-<description>[@<env>].<ext>`. | **Built on:** `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`, `tomserver/db_migration/`). Migration files are SQL assets; the CodeSpec is the registration class.<br>**Annotations:** `@CsMigration` on the migrations class (not yet authored, `csra1`). Migration **filenames stay strings** (§5.23 exemption). | Execution substrate is pure reuse. **Convergence gap (`csex6`)** — no **schema-diff engine** proving cumulative migration DDL ≡ the `@CsTable`/`@CsColumn` entity model (the §5.27 named validator check); it is the **only integrity guard** available over the string-exempt migration filenames. Framework roadmap. | `@CsMigration` must be authored; attributes tying a migration to the **entity-model version** it converges to. |
 | **CE-JB** BackgroundJob | Scheduled / queued background work. | **Built on:** `tom_core_kernel`'s `tombase/scheduling/` module — `TomJobDefinition`, the `TomSchedule` family, `TomScheduler`, `TomJobStore`, `TomLeaseLock`, `TomJobDispatcher` — over the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate. A job pairs a `TomJobDeclaration` (the gap: deployment/ownership envelope) with its own `TomJobDefinition`, whose work body is **compilable pseudo-code** over a later-injected abstract service (§3, §5.29).<br>**Annotations:** `@CsJob`.<br>**Example:** `@CsJob() class NightlyCleanupJob { final declaration = TomJobDeclaration(jobId: 'nightly_cleanup', serviceUnitId: 'sessions'); ... }` | **One gap:** the **`TomJobDeclaration` envelope** (`enabled` / `environments` / `serviceUnitId` / `targetRefs`) → `tom_core_codespecs` (`csra2`). The scheduler runtime, durable job queue and multi-node single-fire lease locking — once listed as gaps for `csex7` / `csex8` — have **landed in `tom_core_kernel`** and are reused directly (`csrb1` reconciles those todos). | **Schedule expression**, **concurrency/single-fire policy** and **retry policy** are spec detail authored onto the reused `TomSchedule` / `TomRetryPolicy` surface. |
 | **CE-RP** Reporting *(deferred, §4.3)* | Tabular / aggregated reporting with export channels (screen, `fileExport` CSV/PDF/XLSX); SOM home REPENT (D09). | Mapping-only: the reserved `CodeSpecPart.reporting` kind — **no `Cs*` annotation, no built-on class, no generated code** until promoted. On promotion it would build on CE-DB queries + a **tabular result envelope**. | Promotion was blocked on three roadmap items; **rendering is done** — `csex11` shipped the `tom_core_server` `export` module (CSV/XLSX/PDF through one streaming abstraction, plus the `apiResponse` and `fileExport` channels; `doc/export.md`), built on a minimal tabular shape the envelope adapts onto, and a `csfs1`-backed blob store is now an adapter rather than a blocker. Two remain: the **aggregation grammar** (`csex5`, shared with CE-DB) and the **tabular envelope** itself (a tom_specs-owned `tom_core_codespecs` gap). Charts stay unrendered by design. | Future `@CsReport` + the reserved `CsReportRef` (§5.23). |
-| **CE-WF** Workflow *(deferred, §4.3)* | Long-running multi-step business process; SOM home DEPRWO (D02). | Mapping-only — reserved kind value; no surfaces. Would require a state-machine / process runtime. | **Full substrate missing** — no core state-machine or process-instance persistence exists; the largest-distance deferred part. The substrate survey + build/defer recommendation to `csra7` is owned by `csex13`. | Future annotation family undefined until a substrate exists. |
+| **CE-WF** Workflow *(deferred, §4.3 — deferral recommended on the merits)* | Long-running multi-step business process; SOM home DEPRWO (D02). | Mapping-only — reserved kind value; no surfaces. Would require a state-machine / process runtime. | **No substrate, and none recommended** — the survey in **§4.3.1** (owner `csex13`) found DEPRWO is free text with no machine-readable step graph, no driving system needing a durable wait or compensation, and the realistic cases already served by CE-JB jobs + CE-AC actions + CE-DB state. The one real gap — a one-shot timer schedule — is a small `TomSchedule` subclass (`csexb6`), not an engine. `csra7` decides with that input. | Future annotation family undefined; §4.3.1 fixes the **at-least-once, idempotent step body** guarantee any future surface must carry. |
 | **CE-NT** Notification *(deferred, §4.3)* | Outbound user notifications, email first; SOM home NM (D06, ATS). | Mapping-only — reserved kind value; no surfaces. | **Transport substrate exists** — `tom_core_server` `messaging`: `TomMessage` (channel-neutral), `TomMessageTransport` / `TomMessageRouter`, `TomSmtpTransport` with secret-marked CE-CF credentials, and `TomMessageOutbox` (durable queue on the CE-JB scheduler). Stand-in transports make a spec naming `email` runnable without a mail server. **Remaining gap for promotion:** the notification *model* — notification type ⇄ channel ⇄ user preference — which `tom_core` does not have. | Future `@CsNotification`; message templates keyed via CE-TX (`CsMessageKey`). |
 | **CE-LG** AuditLog *(deferred, §4.3 — promotion criterion met)* | Business-relevant audit trail — **distinct from diagnostic logging**; SOM home SAS (D08). | Mapping-only — reserved kind value; no `Cs*` surfaces yet. Kernel logging is diagnostic, not audit. | **Audit-hook gap CLOSED (`csex9`)** — `tom_core_server`'s `audit` module (`TomAuditTrail` / `TomAuditRecord` / `TomAudited` / `TomAuditSink`; `doc/audit.md`) writes at both chokepoints: the CE-API pipeline (`TomEndpointHandler` — denials automatic, declared invocations via `@TomAudited`) and the CE-DB write path (`TomSqlDatasourceRepository` — every mutation automatic). A concrete built-on class now exists, so `csra7` can decide CE-LG **on the merits**. | Future `@CsAudited` modifier on `@CsEndpoint` / repository writes — a spec-level alias over the existing `@TomAudited` (`enabled` / `includeReads` / `redact`). |
 
@@ -403,9 +403,12 @@ quest's framework-readiness series, which owns the core-side roadmap items.
   persistence), CE-CL (client descriptor), CE-JB (job base class; plus the
   `csex7`/`csex8` scheduler-runtime roadmap).
 - **Deferred:** CE-RP (`csex5` — `csex11` is DONE, so of its three blockers only
-  the aggregation grammar and the tabular envelope remain),
-  CE-WF (substrate survey/recommendation owned by `csex13`). **CE-LG and CE-NT
-  are deferred-but-decidable:** their blocking substrate gaps are closed —
+  the aggregation grammar and the tabular envelope remain). **CE-WF, CE-LG and
+  CE-NT are deferred-but-decidable.** CE-WF's substrate survey is recorded in
+  **§4.3.1** and **recommends permanent deferral** — no built-on class is
+  proposed, deliberately, because DEPRWO authors no executable process and no
+  driving system needs one; the survey is the input `csra7` was missing. For the
+  other two, the blocking substrate gaps are closed —
   `csex9` gave CE-LG the `tom_core_server` `audit` module, `csex10` gave CE-NT
   the `messaging` module (transport, SMTP, durable outbox) — so the §4.3
   promotion criterion is satisfied for both and `csra7` decides them on the
@@ -547,7 +550,7 @@ authored (or added) in the right place. It has **no `Cs*` annotation, no built-o
 | CE | Canonical id | `@CodeSpecKind` value | SOM home section (`@SectionId`) — file | What it will model |
 |----|--------------|-----------------------|-----------------|--------------------|
 | **CE-RP** | Reporting | `reporting` | `ReportEntry` (`REPENT`) — `experience_and_interface_design.dart` (D09 XDS) | **Reporting — deferred, worked out in a separate specification** (§5.28). A report is *"just another part of the UI specified differently"*: it is authored as part of DocSpecs and maps to a **UI to display and interact** with the result + a **server API** to fetch it + **graphs/charts**. Genuinely complex (query, projection, tabular + chart output, filters/parameters, delivery, scheduling), so it is deferred to its own spec rather than forced into the first CodeSpecs pass. |
-| **CE-WF** | Workflow | `workflow` | `DetailedProcessWorkflow` (`DEPRWO`, in `TargetBusinessProcessModel`) + `BusinessProcessEntry` — `business_process_model.dart` (D02 TOM) | Multi-step process / **workflow-engine** orchestration (state machines, long-running processes). Safe to defer: **basic workflows are already covered by CE-NV** (the screen-flow), and the Tom architecture has **no workflow engine yet**, so there is nothing to generate against until one exists. |
+| **CE-WF** | Workflow | `workflow` | `DetailedProcessWorkflow` (`DEPRWO`, in `TargetBusinessProcessModel`) + `BusinessProcessEntry` — `business_process_model.dart` (D02 TOM) | Multi-step process / **workflow-engine** orchestration (state machines, long-running processes). **Recommended for permanent deferral** — the substrate survey is recorded in §4.3.1: DEPRWO is free text (an activity narrative plus a BPMN-style diagram), no driving system needs a durable wait or compensation, and what a process does need is already served by CE-JB jobs, CE-AC actions and CE-DB state. Basic workflows remain covered by CE-NV (the screen-flow). |
 | **CE-NT** | Notification | `notification` | `NotificationModel` (`NM`, with `NotificationChannelEntry` / `NotificationTypeEntry` / `UserNotificationPreferences`) — `introduction_and_scope.dart`; the infrastructure choice additionally appears as `services.notificationService` in the `CSIS` managed-services catalog — `architecture_and_technology.dart` (D06 ATS) | Outbound communications (email / push / SMS / webhooks) as a first-class effect. Part of the user-interaction, background-job, auditing and operations specs; **not mapped to CodeSpecs** except as **doc-comments on the abstract service methods** that emit them — postponed to the implementation phase. |
 | **CE-LG** | AuditLog | `auditLog` | `AuditAndLogging` (`13234`) + `SecurityEventLoggingPolicy` + `AuditLogFormat` — `security_and_access_model.dart` (D08 SAS) | Logging & audit trail — who did what, when. **Must be in the spec**, woven into the functionality descriptions rather than declared standalone (it is not doable purely declaratively); some aspects overlap with CE-RP reporting. **The `tom_core` audit-logging hooks now exist** — `tom_core_server`'s `audit` module records at the endpoint and repository chokepoints, with the declared-versus-automatic split documented in its `doc/audit.md`. What the spec still owns is the *declared* half: which endpoint invocations and which reads are auditable, and which fields are redacted. |
 
@@ -563,6 +566,115 @@ names only the infrastructure choice).
 concrete `tom_core`-family built-on class (or a decided `tom_core_codespecs` gap)
 and a `Cs*` annotation are chosen for it. Until then its only surface is the
 reserved kind value and the SOM `@CodeSpecKind`.
+
+#### 4.3.1 CE-WF — workflow substrate survey and recommendation
+
+CE-WF is the deferred candidate with the largest distance from the framework:
+it is the only one whose promotion would require a runtime `tom_core` does not
+have in any form. This subsection records the substrate survey and its outcome
+so `csra7` can decide CE-WF **on the merits** rather than on availability — the
+same standing CE-LG and CE-NT reached once their substrate gaps closed.
+
+**Recommendation: permanently defer.** No process/workflow runtime should be
+built, and **no built-on class is proposed** — so the §4.3 promotion criterion is
+deliberately left unmet. The reasoning is below; the conditions that would
+reverse it are at the end.
+
+**1 — What the SOM actually asks for.** CE-WF's home is
+`DetailedProcessWorkflow` (`DEPRWO`) in `business_process_model.dart` (D02 TOM).
+It is a **single free-text `String? content` section**. Its `@ContentHelp` asks
+for an activity list with inputs/outputs, decision points with branch conditions,
+handoffs, per-step timing and SLAs, exception branches — and *"a BPMN-style
+diagram per process"*. `ProcessExceptionHandling` (`PREXHA`) is likewise one free
+text field. The structured sections around them (`ProcessCharacteristics`,
+`ProcessExceptions`) are `@Form` blocks of **descriptive `String` fields**:
+`automationLevel`, `straightThroughRate`, `exceptionRate`,
+`exceptionPhilosophy`, `exceptionRouting`, `resolutionSla`, `escalationPath`.
+
+Nothing in D02 carries a step identity, a transition guard, a machine-readable
+wait condition or a compensation binding. There is **no authored artefact a
+generator could read**. A promoted CE-WF would have to invent its own input,
+which inverts the direction CodeSpecs works in (§8.1: the CodeSpecs surface is
+bounded by what the SOM authors). D02 describes processes *for humans to
+implement*; it does not declare them for a machine to execute.
+
+**2 — What the driving systems ask for.** The requirement was taken from the
+systems that would consume CE-WF, not from a workflow-engine feature catalogue.
+`tom_sqm`'s longest-lived concern — payment failure — is specified as a
+*configurable retry schedule*, which is a CE-JB job. `tom_provisioning`
+delegates dependency ordering and rollback to the cloud provider's own engine
+(Terraform / CloudFormation) rather than orchestrating them itself.
+`tom_worktracker` advances a status column through direct service calls.
+`tom_assistant`'s procedure engine is synchronous and in-memory. Across those
+quests, **no document names a durable wait, a human-approval resume, a
+compensating transaction or a timer-driven continuation**.
+
+**3 — What the existing substrate already covers.** The parts a long-running
+process is usually decomposed into are active and shipped:
+
+| Need | Covered by |
+|------|-----------|
+| Deferred / recurring step execution | CE-JB — `TomJobDefinition` + `TomScheduler` over `TomJobStore` (`tom_core_kernel`, `tombase/scheduling/`) |
+| Durable step state across a restart | `TomJobRun` (`id` stable across restarts, `scheduledFor` as the idempotence key, a JSON-round-trippable `payload`) and CE-DB columns for business state |
+| Retry / backoff / permanent failure | `TomRetryPolicy` + the `TomPermanentFailure` mixin |
+| Single-fire across a cluster | the `TomLeaseLock` family (fencing tokens) |
+| Step-level effects and hand-offs | CE-AC actions, CE-EP operations, `TomMessageOutbox` (`tom_core_server` `messaging`) |
+| Who-did-what across a process | CE-LG — the `audit` module's endpoint + repository chokepoints |
+
+`TomMessageOutbox` is the existence proof: durable, retried, multi-attempt
+outbound work carried entirely on `TomJobStore` + `TomRetryPolicy`, with no
+process engine anywhere. A process expressed as CE-AC actions and CE-EP
+operations, whose deferred continuations are CE-JB jobs and whose state lives in
+CE-DB columns, is served by parts that are **already active**.
+
+**4 — The one genuine gap, and its size.** The `TomSchedule` family ships cron,
+calendar, interval and event triggers but no **one-shot absolute deadline**
+("fire once at a given instant, then never") — so a timer wait is the single
+workflow primitive with no direct expression today. It is not an architectural
+hole: `TomSchedule` is a pure `DateTime? nextFireAfter(DateTime from)` in which
+`null` already means *"never again"*, so a one-shot schedule is a small subclass
+**inside the existing contract**. That the missing piece is this small is itself
+an argument against the engine — the capability a workflow runtime is usually
+reached for is, here, one class. It is tracked separately as tom_core `csexb6`
+because it belongs to CE-JB's schedule family, not to CE-WF.
+
+**5 — The build being declined, costed honestly.** For the record, promotion
+would need a gap-class family no existing `tom_core` class can stand in for: a
+**process definition** (named steps, guarded transitions), a **durable process
+instance** (current step, variables, history) surviving restart on CE-DB, three
+**wait kinds** (event / timer / human task) with resume, **per-step failure
+semantics** (retry / compensate / halt) and therefore compensation registration,
+and an **operations surface** (in-flight instances, stuck instances, manual
+intervention). Estimate: on the order of **3–4 focused weeks** for runtime,
+persistence, adapters and tests in `tom_core_server`. The larger cost is
+permanent, not one-off: **versioning process definitions against in-flight
+instances** — a deployed change must decide, for every instance mid-flight,
+whether it continues on the old definition or migrates — is a maintenance
+surface that never closes. `TomTransactionManager` does not reduce it; it is
+in-process two-phase and does **not** resume after a restart. Set against zero
+driving requirements, that is the wrong trade.
+
+**6 — Execution guarantee, recorded now so it is not re-litigated.** Were CE-WF
+ever built, its step dispatch would ride the CE-JB scheduler and therefore
+inherit its guarantee: **at-least-once dispatch, with idempotent step bodies as
+the default contract**. A step body must be safe to run twice — after a crash
+between "step ran" and "step recorded", the step runs again. Exactly-once is not
+offered and must not be implied by a process notation that looks sequential.
+Any future CE-WF annotation surface has to make that visible at the step, not
+bury it.
+
+**7 — What would reopen the decision.** Promote CE-WF only when **all three**
+hold:
+
+1. a driving system specifies a process with a **durable wait** — human approval
+   or timer — whose state must survive a server restart;
+2. DEPRWO (or a successor section) is given a **machine-readable step/transition
+   shape**, so a generator has an authored input instead of prose and a diagram;
+3. that process needs **compensation across steps** that the CE-DB transaction
+   boundary cannot cover.
+
+Until then CE-WF stays mapping-only: the reserved `CodeSpecPart.workflow` value
+and the SOM `@CodeSpecKind` on `DetailedProcessWorkflow`.
 
 ### 4.4 Generation slices — the per-slice `tom_core` capability contract
 
@@ -2836,7 +2948,10 @@ three items this section once listed as roadmap have landed in
 
 - **Scheduler runtime** — `TomScheduler` over the `TomSchedule` family
   (`TomCronSchedule`, `TomCalendarSchedule`, `TomIntervalSchedule`,
-  `TomEventSchedule`), so a trigger is a wired schedule rather than a name.
+  `TomEventSchedule`), so a trigger is a wired schedule rather than a name. The
+  family has **no one-shot absolute-deadline schedule** ("fire once at an
+  instant, then never"); it is expressible inside the existing pure
+  `nextFireAfter` contract, and is tracked as tom_core `csexb6`.
 - **Job queue** — `TomJobStore` with `TomMemoryJobStore` / `TomFileJobStore` for
   durable enqueue/dequeue of `TomJobRun`s.
 - **Multi-node locking** — the `TomLeaseLock` family (`TomMemoryLeaseLock`,
@@ -3205,7 +3320,7 @@ is an index, not a specification.
 | `csra4` | Convert the five **Family 2** closed-choice sites (§8.2) — enum-promote each free-text `dataType`/`fieldType` discriminator, then apply the `@OneOf`/`@Case` split. |
 | `csra5` | Add the CE-NV **screen-flow** SOM section (§5.11) — form→screen assignment (replace vs popup overlay) and action-triggered navigation with *conditional* targets (success → confirmation / back; error → error display). Without it `@CsRoute` / `@CsScreenFlow` have no authoring home. |
 | `csra6` | Implement the `Cs*Ref` typed cross-part reference const family designed in §5.23 — currently designed, zero implementation. |
-| `csra7` | Promote or **permanently defer** CE-WF, CE-NT and CE-LG (§4.3), recording the rationale either way. Their SOM homes and `@CodeSpecKind` tags already exist; what is missing is a built-on class + `Cs*` annotation. |
+| `csra7` | Promote or **permanently defer** CE-WF, CE-NT and CE-LG (§4.3), recording the rationale either way. Their SOM homes and `@CodeSpecKind` tags already exist; what is missing is a built-on class + `Cs*` annotation. All three inputs are now in hand: the `audit` module for CE-LG, the `messaging` module for CE-NT, and the **§4.3.1 workflow-substrate survey recommending permanent deferral** for CE-WF. |
 | `csra8` | Write the separate **CE-RP reporting specification** (§5.28) — the prerequisite to any promotion decision. |
 | `csra9` | Staleness sweep: mark `reporting` as deferred in the `CodeSpecPart` enum doc-comments; fix the retired-`CE-EN` locus comment in the projection; re-verify the **23 active / 4 deferred / 28 kind values** counts across every surface. |
 | `csra10` | CE-DB **file-reference column kind** — a `@CsColumn` extension for a column holding a *storage key*, with the framework resolving upload/download. Blocked on the `tom_core` file/blob storage capability landing. |
