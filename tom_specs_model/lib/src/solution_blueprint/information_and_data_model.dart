@@ -20,9 +20,10 @@ enum ObjectLifecycleKind { initial, intermediate, terminal, error }
 /// The discriminator enum for the `DataAttributeEntry` `@OneOf` group: it picks
 /// which type-specific options subsection applies — a text attribute carries
 /// `textTypeOptions`, a numeric one `numericTypeOptions`, a temporal one
-/// `temporalTypeOptions`, a binary one `binaryTypeOptions`. `boolean`, `uuid`,
-/// `json` and `enumeration` carry no per-kind attributes and so bind no case.
-/// Replaces the former free-text `dataType`.
+/// `temporalTypeOptions`, a binary one `binaryTypeOptions`, a file reference
+/// `fileReferenceOptions`. `boolean`, `uuid`, `json` and `enumeration` carry no
+/// per-kind attributes and so bind no case. Replaces the former free-text
+/// `dataType`.
 enum DataAttributeKind {
   // Text facet.
   string,
@@ -34,6 +35,18 @@ enum DataAttributeKind {
   dateTime,
   // Binary facet.
   binary,
+
+  /// An attribute whose stored value is the **address of a stored file**, not
+  /// the file's content (csra10).
+  ///
+  /// Separate from [binary] on the axis of *what the record holds*: a binary
+  /// attribute holds the bytes, so its options constrain their stored size; a
+  /// file reference holds an address, so its options say where the file is
+  /// filed, which store holds it, whether it dies with the record and what may
+  /// be uploaded into it. Nothing in the binary option set answers any of those,
+  /// which is why this is a kind of its own rather than a mode of [binary].
+  fileReference,
+
   // No per-kind attributes.
   boolean,
   uuid,
@@ -620,13 +633,14 @@ class DataEntityEntry extends DocSpecsSection {
   discriminator: 'dataType',
   note:
       'Attribute data-type closed choice (csra4): the logical type selects its '
-      'promoted options subsection (text / numeric / temporal / binary); '
-      'boolean, uuid and json carry only the common type and constraint '
-      'subsections.',
+      'promoted options subsection (text / numeric / temporal / binary / file '
+      'reference); boolean, uuid and json carry only the common type and '
+      'constraint subsections.',
 )
 @CodeSpecKind([CodeSpecPart.dataAccess],
-    note: 'A persisted attribute becomes a table column; display/label detail '
-        'feeds CE-TX/CE-ST via DisplayPropertyEntry.')
+    note: 'A persisted attribute becomes a table column; a file-reference '
+        'attribute becomes a file-reference column (csra10); display/label '
+        'detail feeds CE-TX/CE-ST via DisplayPropertyEntry.')
 class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
@@ -779,9 +793,13 @@ class DataAttributeEntry extends DocSpecsSection {
 
   /// Binary-kind type options — a promoted `@OneOf` case (csra4).
   ///
-  /// Present only for the `binary` logical type; carries only the stored size
-  /// attributes. Separated from the text `length` because a byte size and a
-  /// character length are different constraints on different types.
+  /// Present only for the `binary` logical type — the record holds the **bytes
+  /// themselves** — so it carries only the stored size. Separated from the text
+  /// `length` because a byte size and a character length are different
+  /// constraints on different types. An attribute that holds a file's *address*
+  /// instead is `DataAttributeKind.fileReference` (csra10), not a storage mode
+  /// of this one: a mode field would restate the logical type and could then
+  /// disagree with it.
   @SectionId('DAATT-DTBI')
   @StandardReferences(
     ['ISO/IEC 11179 — permissible value and representation of a data element'],
@@ -795,15 +813,83 @@ class DataAttributeEntry extends DocSpecsSection {
       'Max Size (Bytes)',
       hint: 'Maximum stored size in bytes',
     ),
-    Field(
-      'storageMode',
-      String,
-      'Storage Mode',
-      hint: 'Inline | External-Reference | Blob-Store',
-    ),
   ])
   @SerializationOrder(5)
   DocSpecsSection? binaryTypeOptions;
+
+  /// File-reference type options — a promoted `@OneOf` case (csra10).
+  ///
+  /// Present only for the `fileReference` logical type: the attribute stores the
+  /// **address of a stored file**, so what a specification must say is where the
+  /// file is filed, which store holds it, whether it dies with its record, and
+  /// what may be uploaded into it.
+  ///
+  /// The address itself is never authored — it is generated when the file is
+  /// stored, so a specification chooses only the group it is filed under. The
+  /// vocabulary here is deliberately storage-neutral (`codespecs_mapping.md`
+  /// §1.2): a *file store* is named, never a storage technology.
+  ///
+  /// Two decisions that look like they belong here are elsewhere by design:
+  /// **who may fetch the file** is the attribute's own access classification —
+  /// the address is an ordinary attribute, so its security classification
+  /// already governs it — and **how the file appears on screen** (a thumbnail,
+  /// a link, a download) is a screen-element concern, authored where the
+  /// element is.
+  @SectionId('DAATT-DTFR')
+  @StandardReferences(
+    [
+      'ISO/IEC 11179 — permissible value and representation of a data element',
+      'RFC 6838 — media type specifications and registration procedures',
+    ],
+    'Where a referenced file is stored, how long it lives and what may be '
+    'uploaded into it.',
+  )
+  @Case(DataAttributeKind.fileReference)
+  @Form([
+    Field(
+      'storageGroup',
+      String,
+      'Storage Group',
+      required: true,
+      hint: 'Naming group the files are filed under — sets their retention and '
+          'access partition (e.g. documents/attachment)',
+    ),
+    Field(
+      'fileStore',
+      String,
+      'File Store',
+      hint: 'Name of the configured file store holding the files; empty means '
+          'the deployment default store',
+    ),
+    Field(
+      'deleteWithRecord',
+      String,
+      'Delete With Record',
+      hint: 'Yes | No — whether deleting the record also deletes the file '
+          '(Yes unless the file outlives its reference by design)',
+    ),
+    Field(
+      'acceptedContentKinds',
+      String,
+      'Accepted Content Kinds',
+      hint: 'Comma-separated content kinds accepted on upload (e.g. PDF, PNG); '
+          'empty means unrestricted',
+    ),
+    Field(
+      'defaultContentKind',
+      String,
+      'Default Content Kind',
+      hint: 'Content kind recorded when an upload declares none',
+    ),
+    Field(
+      'maxFileSizeBytes',
+      String,
+      'Max File Size (Bytes)',
+      hint: 'Maximum accepted file size in bytes',
+    ),
+  ])
+  @SerializationOrder(6)
+  DocSpecsSection? fileReferenceOptions;
 
   // ---------------------------------------------------------------------------
   // Constraints and Validation (8 fields)
@@ -815,7 +901,7 @@ class DataAttributeEntry extends DocSpecsSection {
   @SectionId('DATAA-CONS-LST')
   @SectionIdPattern('DATAA-CONS-xxx')
   @ContentHelp('Add one entry per attribute constraint.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<DataAttributeConstraintEntry> constraints = [];
 
   // ---------------------------------------------------------------------------
@@ -848,7 +934,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'How derived value is calculated',
     ),
   ])
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   DocSpecsSection? derivation;
 
   // ---------------------------------------------------------------------------
@@ -887,7 +973,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Change tracking: None | ValueChanges | FullHistory',
     ),
   ])
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   DocSpecsSection? securityClassification;
 
   // ---------------------------------------------------------------------------
@@ -926,7 +1012,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Data quality checks (e.g., completeness, accuracy)',
     ),
   ])
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   DocSpecsSection? migrationLineage;
 
   // ---------------------------------------------------------------------------
@@ -939,7 +1025,7 @@ class DataAttributeEntry extends DocSpecsSection {
   @SectionId('DISPL-DISP-LST')
   @SectionIdPattern('DISPL-DISP-xxx')
   @ContentHelp('Add one entry per display property.')
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   List<DisplayPropertyEntry> displayProperties = [];
 }
 

@@ -12,8 +12,9 @@
 /// [CsNotificationChannel]) and CE-RP by four ([CsReport], [CsReportColumn],
 /// [CsReportChart], [CsReportParameter]).
 ///
-/// This file covers the sixteen server-side part markers. Client/UI markers
-/// live in `element_annotations.dart`; shared markers in
+/// This file covers the sixteen server-side part markers, plus the one facet
+/// value class a marker carries ([CsFileReference] on [CsColumn]). Client/UI
+/// markers live in `element_annotations.dart`; shared markers in
 /// `contract_annotations.dart`.
 library;
 
@@ -42,12 +43,98 @@ class CsTable {
   const CsTable({this.note});
 }
 
+/// CE-DB — a **file-reference** column facet (`codespecs_mapping.md` §5.13).
+///
+/// A file-reference column stores a **storage key**, not a value: the cell holds
+/// the address of a stored file and the file itself lives in a blob store. That
+/// is the whole reason the facet exists — every other column kind is fully
+/// described by its Dart type plus the storage attributes [CsColumn] already
+/// carries, and needs no extra declaration.
+///
+/// It is a **facet of [CsColumn], not a second annotation**: a file reference is
+/// one more kind of column, so it belongs in the column mechanism. Carrying it
+/// as an optional nested value rather than as a `ColumnKind` enum keeps the
+/// declaration where the extra attributes are — a kind tag with no payload would
+/// force the four settings onto [CsColumn] itself, where they are meaningless
+/// for every other column.
+///
+/// Built on `TomFileReference` (`tom_core_server`, `object_persistence`), whose
+/// four settings this facet mirrors one-for-one; storage is `TomBlobStore` and
+/// key generation `TomFileReferenceKeys`. Per §1.1 pillar (b) there is no
+/// CodeSpecs-local file-reference type — the substrate class is the one that is
+/// built on. See `tom_core_server/doc/file_storage.md`.
+///
+/// **Boundaries drawn.** Three attributes a file cell might seem to need are
+/// deliberately *not* here:
+///
+/// - **Whether the file is downloadable** is the column's own authorization —
+///   the key is an ordinary column, so `@TomDbScope` and the column's access key
+///   already gate it, and `openFile` resolves through `findById`. A second flag
+///   would be a duplicate rule that could disagree with the first.
+/// - **Whether the cell renders a thumbnail or a link** is presentation, so it
+///   is CE-EL. CE-DB is server-only (§4.2); a rendering attribute declared here
+///   would be unreachable by the client that has to honour it.
+/// - **How a file is uploaded and served** is CE-API: `saveFile` / `openFile`
+///   are called from an endpoint, which is also where [acceptedMediaTypes] is
+///   enforced.
+class CsFileReference {
+  /// The retention partition the generated key is filed under.
+  ///
+  /// **Required**: keys are generated as
+  /// `<keyPrefix>/<yyyy>/<mm>/<uuid-v4><.ext>` and never taken from the client,
+  /// so the prefix is the only part of the address a specification chooses.
+  /// There is no sensible default — a shared prefix would put unrelated
+  /// retention classes in one partition.
+  final String keyPrefix;
+
+  /// Name of the configured blob store holding the file.
+  ///
+  /// Omitted means the deployment's default store, which is the normal case;
+  /// naming one is how a column opts a specific retention class out of it.
+  final String? store;
+
+  /// Whether deleting the row also deletes the stored file.
+  ///
+  /// Defaults to `true` — the file belongs to the row. Set `false` only when the
+  /// blob outlives its reference by design (a shared or externally owned asset).
+  final bool cascadeDelete;
+
+  /// Media type recorded when the upload supplies none.
+  final String? defaultMediaType;
+
+  /// The content kinds a specification permits for this column.
+  ///
+  /// Empty means unrestricted. This has no `TomFileReference` counterpart by
+  /// design: the substrate stores whatever it is handed, and the restriction is
+  /// enforced where the bytes arrive — at the CE-API upload endpoint.
+  final List<String> acceptedMediaTypes;
+
+  /// Optional facet-specific note.
+  final String? note;
+
+  const CsFileReference({
+    required this.keyPrefix,
+    this.store,
+    this.cascadeDelete = true,
+    this.defaultMediaType,
+    this.acceptedMediaTypes = const [],
+    this.note,
+  });
+}
+
 /// CE-DB — a table column: a stored field of a [CsTable] (§5.13).
 class CsColumn {
+  /// Present when the column stores a file reference rather than a value.
+  ///
+  /// Its **presence is the column kind** (§5.13): a column with no
+  /// [fileReference] is an ordinary stored attribute, described by its Dart type
+  /// and the entity's storage annotations.
+  final CsFileReference? fileReference;
+
   /// Optional part-specific note.
   final String? note;
 
-  const CsColumn({this.note});
+  const CsColumn({this.fileReference, this.note});
 }
 
 /// CE-DB — a repository: the data-access surface over one or more [CsTable]s.

@@ -1226,7 +1226,7 @@
           - identity, classification, lifecyclePolicy, relationshipSummary
           - attributes: `DataAttributeEntry`
             - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
-              derivation, securityClassification, migrationLineage
+              fileReferenceOptions, derivation, securityClassification, migrationLineage
             - constraints: `DataAttributeConstraintEntry`
               - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
             - displayProperties: `DisplayPropertyEntry`
@@ -3304,7 +3304,7 @@
       - identity, classification, lifecyclePolicy, relationshipSummary
       - attributes: `DataAttributeEntry`
         - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
-          derivation, securityClassification, migrationLineage
+          fileReferenceOptions, derivation, securityClassification, migrationLineage
         - constraints: `DataAttributeConstraintEntry`
           - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
         - displayProperties: `DisplayPropertyEntry`
@@ -5262,7 +5262,7 @@
         - identity, classification, lifecyclePolicy, relationshipSummary
         - attributes: `DataAttributeEntry`
           - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
-            derivation, securityClassification, migrationLineage
+            fileReferenceOptions, derivation, securityClassification, migrationLineage
           - constraints: `DataAttributeConstraintEntry`
             - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
           - displayProperties: `DisplayPropertyEntry`

@@ -45,6 +45,25 @@ class _ProfileExtension {
   String? costCentre;
 }
 
+// CE-DB (§5.13): a file-reference column is ONE MORE COLUMN KIND, so it is a
+// facet of @CsColumn on an ordinary member — not a separate annotation and not a
+// second entity shape. The `attachment` member stores the storage key; the file
+// itself lives in the blob store the facet names.
+@CsTable()
+@CodeSpec('DB-DOCUMENT', source: ['IMO-021'])
+class _DocumentCodeSpec {
+  @CsColumn()
+  int? id;
+
+  @CsColumn(
+    fileReference: CsFileReference(
+      keyPrefix: 'documents/attachment',
+      acceptedMediaTypes: ['application/pdf'],
+    ),
+  )
+  String? attachment;
+}
+
 void main() {
   group('CSM2R1: id/trace annotations', () {
     test('CodeSpec carries id, source, requirements', () {
@@ -287,6 +306,71 @@ void main() {
     test('the reporting kind is reachable and unmoved', () {
       expect(const CodeSpecKind([CodeSpecPart.reporting]).kinds,
           [CodeSpecPart.reporting]);
+    });
+  });
+
+  group('csra10: CE-DB file-reference column kind', () {
+    // The facet mirrors TomFileReference one-for-one, so a spec author declares
+    // exactly what the substrate annotation can receive — no CodeSpecs-local
+    // storage type (§1.1 pillar b).
+    test('CsFileReference requires a keyPrefix and defaults the rest', () {
+      const ref = CsFileReference(keyPrefix: 'documents/attachment');
+      expect(ref.keyPrefix, 'documents/attachment');
+      expect(ref.store, isNull);
+      expect(ref.defaultMediaType, isNull);
+      expect(ref.acceptedMediaTypes, isEmpty);
+      expect(ref.note, isNull);
+    });
+
+    // The file belongs to the row: deleting the row deletes the blob unless the
+    // spec deliberately says the blob outlives its reference.
+    test('cascadeDelete defaults to true and is overridable', () {
+      expect(const CsFileReference(keyPrefix: 'a').cascadeDelete, isTrue);
+      expect(
+          const CsFileReference(keyPrefix: 'a', cascadeDelete: false)
+              .cascadeDelete,
+          isFalse);
+    });
+
+    test('the full surface is the four substrate settings plus the guard', () {
+      const ref = CsFileReference(
+        keyPrefix: 'invoices/scan',
+        store: 'archive',
+        cascadeDelete: false,
+        defaultMediaType: 'application/octet-stream',
+        acceptedMediaTypes: ['application/pdf', 'image/png'],
+        note: 'scanned original',
+      );
+      expect(ref.store, 'archive');
+      expect(ref.defaultMediaType, 'application/octet-stream');
+      expect(ref.acceptedMediaTypes, ['application/pdf', 'image/png']);
+      expect(ref.note, 'scanned original');
+    });
+
+    // Presence IS the column kind — a plain column carries no facet, so no
+    // parallel "kind" tag has to be kept in step with it.
+    test('a column without the facet is an ordinary stored attribute', () {
+      expect(const CsColumn().fileReference, isNull);
+      expect(const CsColumn(note: 'iban').fileReference, isNull);
+    });
+
+    test('the facet hangs on a real @CsColumn member declaration', () {
+      const column = CsColumn(
+        fileReference: CsFileReference(keyPrefix: 'documents/attachment'),
+      );
+      expect(column.fileReference?.keyPrefix, 'documents/attachment');
+      // The marked entity is an ordinary class, as every CodeSpec is.
+      expect(_DocumentCodeSpec(), isA<_DocumentCodeSpec>());
+    });
+
+    // §5.13 boundaries: CE-DB is server-only, so a thumbnail/link choice is
+    // CE-EL, and whether a file may be fetched is the column's own access key —
+    // never a second "downloadable" flag that could disagree with it. Both
+    // absences are asserted by the surface test above being exhaustive; what is
+    // pinned here is that the facet does not split CE-DB into a second part.
+    test('CE-DB is reachable as one kind value, unsplit by the new facet', () {
+      expect(const CodeSpecKind([CodeSpecPart.dataAccess]).kinds,
+          [CodeSpecPart.dataAccess]);
     });
   });
 

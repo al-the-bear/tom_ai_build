@@ -92,7 +92,8 @@ Pillar (c) is only enforceable if the neutral vocabulary is a **closed set**. Th
 per-part attribute surfaces in §5 draw their author-facing terms from this
 glossary, and nothing else:
 
-> **Data entity · Data attribute · Identity attribute · Scope rule ·
+> **Data entity · Data attribute · File reference · Storage group · File store ·
+> Content kind · Identity attribute · Scope rule ·
 > Query/Filter · Sort · Domain enum · Enum value · Operation · Operation name ·
 > Request shape · Response shape · Service unit · Authorization requirement ·
 > Error result · Error code · Field-level error · Field · Field kind · Form ·
@@ -105,6 +106,18 @@ glossary, and nothing else:
 The last ten are CE-RP's (§5.28). **Report column** is deliberately the
 output-side peer of **Field**, not a use of it: a field is an input a user
 edits, a report column an output projection carrying an aggregate and a format.
+
+**File reference** and its three supporting terms are CE-DB's (§5.13). A **file
+reference** is a data attribute whose value is the *address* of a stored file
+rather than the file's content — the one attribute kind that is not fully
+described by its value type. It is a peer of **Data attribute**, not a use of
+it, because the three things it must additionally declare have no counterpart on
+an ordinary attribute: a **storage group** (the naming group files are filed
+under, which sets their retention and access partition), a **file store** (the
+named store holding them, defaulting to the deployment's), and the **content
+kinds** it accepts. All four are storage-*neutral* by construction — "blob",
+"bucket", "S3" and every other storage-technology name stay out of DocSpecs and
+live only in the deployment configuration that selects a store backend.
 
 Every term maps onto a `tom_specs_model` section (§8). Adding a term is a
 deliberate act: a new neutral term means a new author-facing concept, so it must
@@ -1864,7 +1877,8 @@ attribute set for CE-DB:
   attribute + identity column, row-scope rule.
 - **Attribute level** (per persistent field) — attribute name, storage column,
   value type, column (storage) type, read-only, not-loaded, json-encoded,
-  **column-access key** (field-level authorization, → CE-AZ), value converters.
+  **column-access key** (field-level authorization, → CE-AZ), value converters,
+  and — for a file reference only — the **file-reference facet** below.
 - **Access-object (repository)** — entity type + key type, named query, query
   predicate (`eq`/`like`/`between`/`isIn`/`and`/`or`/…), sort, row cap, distinct,
   transaction scope (unit of work).
@@ -1872,6 +1886,68 @@ attribute set for CE-DB:
 Framework-internal plumbing (SQL dialect, prepared-statement placeholders,
 `TomTransactionParticipant` lifecycle, `TomColumnInformation`, …) is **not** spec
 input, per that inventory.
+
+#### 5.13.1 File-reference columns
+
+**Decision.** A column whose value is the **address of a stored file** rather
+than a value is *one more column kind*, carried by an optional
+`CsFileReference` facet on `@CsColumn` — not a second annotation and not a
+`ColumnKind` tag. **The facet's presence is the kind.** A kind tag with no
+payload would push the facet's four settings onto `@CsColumn` itself, where they
+are meaningless for every other column; a second annotation would be the
+parallel branch every other part avoids.
+
+It is a distinct kind because a file-reference column is the one column not fully
+described by its value type: rendering it means knowing where the file lives,
+and specifying it means naming the group it is filed under and what may be put
+there. Nothing in the ordinary attribute surface above answers any of that.
+
+The substrate is `tom_core_server`'s file-storage module — `TomFileReference`
+(the persistence-side column annotation), `TomFileReferenceKeys` (key generation
+and store resolution) and `TomBlobStore` (the four-method streaming contract with
+database / directory / S3 / memory backends selected from configuration). Per
+§1.1 pillar (b) there is **no `tom_core_codespecs` gap class**: the facet mirrors
+`TomFileReference` one-for-one, so a CodeSpec builds on the substrate class
+directly. The repository resolves `saveFile` / `openFile` / `describeFile` /
+`clearFile` plus cascade-on-delete under the same C-4 column grade as any other
+column. See `tom_core_server/doc/file_storage.md`.
+
+| Attribute | `tom_core` source | Req? | Neutral DocSpecs term |
+|-----------|-------------------|------|------------------------|
+| Storage group | `TomFileReference.keyPrefix` | Y | Storage group |
+| File store | `TomFileReference.store` | N | File store |
+| Delete with record | `TomFileReference.cascadeDelete` (default `true`) | N | File reference |
+| Default content kind | `TomFileReference.mediaType` | N | Content kind |
+| Accepted content kinds | *(none — enforced at the CE-API upload operation)* | N | Content kind |
+| Stored address | `TomFileReferenceKeys` — generated `<group>/<yyyy>/<mm>/<uuid>` | D | File reference |
+
+The address is **derived, never authored**: it is generated when the file is
+stored and never taken from the client, so a specification chooses only the
+group it is filed under.
+
+**Boundaries drawn.** Three decisions that look like they belong on the facet are
+elsewhere, each for a reason that would otherwise produce a duplicate rule:
+
+- **Whether a file may be fetched** is the column's own authorization. The
+  address is an ordinary column, so `@TomDbScope` (C-3) and the column's access
+  key (C-4) already gate it, and `openFile` resolves through `findById` — a
+  principal who cannot see the row cannot see its file *by construction*. A
+  `downloadable` flag would be a second authorization rule that could disagree
+  with the first.
+- **Whether the cell shows a thumbnail, a link or a download** is presentation,
+  therefore CE-EL. CE-DB is server-only (above), so a rendering attribute
+  declared here would be unreachable by the client that has to honour it.
+- **How a file is uploaded and served** is CE-API: `saveFile` / `describeFile` /
+  `openFile` are called from an endpoint, which is where the accepted content
+  kinds are enforced and where the transport-level refusals are raised.
+
+**SOM feed.** `DataAttributeKind.fileReference` on `DataAttributeEntry` (D03 IMO
+via the SBP information-and-data model), with the promoted `@OneOf` case
+`fileReferenceOptions` (`DAATT-DTFR`) carrying the storage group, file store,
+delete-with-record, accepted and default content kinds, and max file size. It is
+a **kind of its own, not a storage mode of `binary`**: `binary` means the record
+holds the bytes, so its options constrain their stored size, and a mode field
+would restate the logical type and could then disagree with it.
 
 **Placement — server-only.** CE-DB is
 **server-only** (`<app>_codespec_server`, §4.2): the persisted entity and its
@@ -3629,14 +3705,15 @@ a specification.
 | Todo | Open work |
 |------|-----------|
 | `csra6` | Implement the `Cs*Ref` typed cross-part reference const family designed in §5.23 — currently designed, zero implementation. |
-| `csra10` | CE-DB **file-reference column kind** — a `@CsColumn` extension for a column holding a *storage key*, with the framework resolving upload/download. **Unblocked**: `tom_core_server`'s `file_storage` module ships the capability — `TomFileReference` is the server-side column annotation (key prefix, target store, cascade), `TomBlobStore` the streaming four-method contract with database / directory / S3 / memory backends selected from configuration, and the repository resolves `saveFile` / `openFile` / `describeFile` / `clearFile` plus cascade-on-delete under the same C-4 column grade as any other column. What remains here is the `@CsColumn` extension that derives it. See `tom_core_server/doc/file_storage.md`. |
 | `csra11` | Re-run the SOM coverage cross-check for all 26 active parts — every part must have a SOM home that can actually express its attribute surface. |
 | `csra12` | Produce the full **per-`Cs*`-annotation derivation contract** (SOM class/field → generated annotated Dart) — the last piece before Phase-4 generation can be implemented. |
 | `csrb1` | Confirm the **CE-JB four-part scope** (§5.29) end to end against the landed `tom_core_kernel` scheduling module — each of schedule, body, failure policy and deployment envelope must resolve to exactly one owning class before the reuse verdict is final. |
 | `csrb2` | Retire or justify `TomClientConfiguration` (`tom_core_codespecs`) — §4.1/§5.16 now record CE-CC as a **reuse** verdict over the landed `TomBaseClientConfiguration`, so the part currently has two holders. Exactly one must be authoritative. |
-| `csrb4` | Give the `Cs*` family its **attribute surfaces**. 37 of the 39 annotations take a single optional `note`, so every per-part attribute surface specified in §5 is designed but not expressible in code. `csra12`'s derivation contract decides the constructor shape; this todo authors it. |
+| `csrb4` | Give the `Cs*` family its **attribute surfaces**. 36 of the 39 part markers take a single optional `note` — only `CsIdentityAttribute` (placement), `CsTrigger` (kind) and `CsColumn` (the `CsFileReference` facet, §5.13.1) carry a real attribute — so every per-part attribute surface specified in §5 is designed but not expressible in code. `csra12`'s derivation contract decides the constructor shape; this todo authors it. |
 | `csrb5` | Split the mixed `AuditAndLogging` (SAS) SOM subtree — the CE-LG authorable band, the CE-CF sink settings and the `ComplianceReporting` follow-up — so the promoted CE-LG part gets a `D13CodeSpecsProjection` field at the server locus (§4.3.2). |
 | `csrb6` | Split the mixed `PrintAndExportLayout` (XDS) SOM subtree — the CE-CF renderer/export settings band and the CE-RP report band — so the promoted CE-RP part gets a `D13CodeSpecsProjection` field at the server locus (§5.28). The same defect as `csrb5`, in a different document. |
+| `csrb7` | Resolve the domain-enum contradiction: §4.1 records a domain enum as "realised as a plain Dart `enum` — no `tom_core_codespecs` class", yet `TomDomainEnum` / `TomDomainEnumValue` ship as live gap classes. Exactly one arm must stand; either way it is API-breaking. |
+| `csrb8` | Add a **file / upload semantic kind** to the CE-EL closed catalogue (§5.18). The catalogue's ten kinds have no file arm, while the SOM already offers `ScreenElementFieldKind.file` and `ScreenFieldKind.file` — so a file input can be specified but not realised. Pairs with §5.13.1: CE-DB now stores the reference, CE-EL still cannot present it. |
 
 ## 11. Configuration & settings — the four-scope owner-key split
 
