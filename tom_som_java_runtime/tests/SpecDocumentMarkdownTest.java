@@ -13,7 +13,7 @@ import tom_som_runtime.SpecModel;
 
 /**
  * Tests for the DocSpecs-conform Markdown codec ({@code SpecDocumentMarkdown},
- * DR6 / DR1 §1 — DR23) — a port of
+ * SOM §11) — a port of
  * {@code tom_som_go_runtime/tests/spec_document_markdown_test.go} (itself a
  * port of the TypeScript/Python/Dart reference suite).
  *
@@ -23,7 +23,7 @@ import tom_som_runtime.SpecModel;
  * content sections are normal markdown text (no fences), {@code @Form}
  * sections use the plain-text {@code FieldName: value} format, and a list emits
  * its {@code -LST} container heading at the owner's child level, wrapping the
- * numbered item headings one level deeper (DR1 §1.2).
+ * numbered item headings one level deeper (SOM §11.2).
  *
  * <p>JUnit is unavailable on the build host, so this is a plain {@code main()}
  * that exits 0 on success and 1 on failure (same shape as SomFacadeTest).
@@ -190,7 +190,7 @@ public final class SpecDocumentMarkdownTest {
     return s == null ? "" : s;
   }
 
-  // --- export — DocSpecs format (DR1 §1) --------------------------------------
+  // --- export — DocSpecs format (SOM §11) -------------------------------------
 
   private static void testExportFormat() {
     String md = mdExport(populatedDemoDoc());
@@ -219,7 +219,7 @@ public final class SpecDocumentMarkdownTest {
     check("export.form.sparse.author", md.contains("Author: Ada Lovelace"));
     check("export.form.sparse.noReviewer", !md.contains("Reviewer"));
 
-    // The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+    // The list container heads (SOM §11.2): `D00-ITM` at the owner's child
     // level, its numbered items one level below it, item fields one deeper.
     check("export.item.container", md.contains("## <!--[D00-ITM]--> Items"));
     check("export.item.1", md.contains("### <!--[items-1]--> Demo Item 1"));
@@ -234,7 +234,7 @@ public final class SpecDocumentMarkdownTest {
     String item = doc.addListItem("D00/D00-ITM", "D01-CUSTOM");
     doc.setContent(item + "/D01-LBL", "Custom-id item");
     String md = mdExport(doc);
-    // YRD3 (supersedes DRC5): the stored id IS the md heading id; only
+    // YRD3: the stored id IS the md heading id; only
     // anonymous items fall back to the positional derivation.
     check("export.storedId.container",
         md.contains("## <!--[D00-ITM]--> Items"), md);
@@ -366,7 +366,7 @@ public final class SpecDocumentMarkdownTest {
     String item = doc.addListItem("D00/D00-ITM", "D01-CUSTOM");
     doc.setContent(item + "/D01-LBL", "Custom-id item");
     String md1 = mdExport(doc);
-    // YRD3 (supersedes DRC5): the stored id IS the md heading id and is
+    // YRD3: the stored id IS the md heading id and is
     // recovered on parse.
     check("storedId.inMd", md1.contains("<!--[D01-CUSTOM]-->"), md1);
     Object[] pair = mdReload(md1);
@@ -404,7 +404,7 @@ public final class SpecDocumentMarkdownTest {
     check("formCont.byteStable", mdExport(reloaded).equals(md1));
   }
 
-  // --- parse-rejection protocol (DR1 §1.7) --------------------------------------
+  // --- parse-rejection protocol (SOM §11.7) -------------------------------------
 
   private static void testRejectUnknownSection() {
     // The bogus heading is nested under `meta` (which has no list children);

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""DR8/DR12 agreement suite for the generated Python metadata module
-(``tom_som_python_v0_meta``, DR1 §3.2/§4) — the Python port of the Dart
+"""Agreement suite for the generated Python metadata module
+(``tom_som_python_v0_meta``, SOM §7.2/§8) — the Python port of the Dart
 facade's ``test/generated_meta_test.dart``. Two guarantees over the *real*
 committed model:
 

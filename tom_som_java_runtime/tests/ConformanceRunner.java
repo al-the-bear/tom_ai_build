@@ -164,7 +164,7 @@ public final class ConformanceRunner {
         byteDiff("yaml.decode.reencode", actual, expected));
   }
 
-  // --- markdown conformance (DR6/DR20) ------------------------------------
+  // --- markdown conformance (SOM §11) -------------------------------------
 
   private static void testMarkdownExport(SpecModel model) throws IOException {
     SpecDocument doc = documentFromState(readJsonObject("state.json"));
@@ -208,7 +208,7 @@ public final class ConformanceRunner {
   /**
    * Plan item #9: parsing {@code expected.md} and applying it must reproduce
    * {@code state.json} (the YAML-route memory) exactly, proving both formats
-   * converge on one in-memory document (§4.1).
+   * converge on one in-memory document (SOM §8).
    */
   private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
     String golden = read("expected.md");

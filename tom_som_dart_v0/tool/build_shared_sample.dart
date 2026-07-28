@@ -245,10 +245,10 @@ parallel-run gate passes.''');
   _authorScreens(sbp);
   _authorTypedFormValues(sbp);
 
-  // DR9: renumber every patterned list item to the deterministic anonymous
+  // Renumber every patterned list item to the deterministic anonymous
   // 1-based id form (`FRE-REQU-1`, …) before serialising. The AA1-generated
   // ids embed the *creation date* (two-letter-date component), which would
-  // churn on every regeneration of this committed sample. Since YRD3 the DR3
+  // churn on every regeneration of this committed sample. Since YRD3 the schema
   // schema's `pattern-check-id` is a `.+` stem check, so date-lettered ids
   // would be *schema-valid* — the normalization is kept purely for
   // regeneration determinism. Explicit ids are a sanctioned AA1 criterion-5
@@ -288,8 +288,8 @@ parallel-run gate passes.''');
   final mdFile = File('${samplesDir.path}/meridian_order_management.md');
   mdFile.writeAsStringSync(markdown);
 
-  // DR9 gate: the emitted markdown must validate cleanly against the
-  // DR3-generated Solution Blueprint DocSpecs schema (via the DR7 API).
+  // Gate: the emitted markdown must validate cleanly against the
+  // generated Solution Blueprint DocSpecs schema (via the embedded validator API , SOM §14).
   final schema = DocSpecsSchema.fromYamlText(File.fromUri(Platform.script
           .resolve('../schemas/solution-blueprint/'
               'solution-blueprint.1.0.docspecs-schema.yaml'))
@@ -317,13 +317,13 @@ String _p(String raw) =>
 
 /// Preserves the authored line structure. Used for the narrative `content`
 /// sections, which are real multi-line markdown (paragraphs and lists) per
-/// DR9 — never single-line blobs.
+/// Never single-line blobs.
 String _md(String raw) => raw.trim();
 
 /// Renumbers every patterned list item's stored section id to the anonymous
 /// 1-based form (`<PATTERN with xxx→pos>`), making the committed sample
 /// deterministic (independent of the build date) and schema-valid against
-/// the DR3 `pattern-check-id` regexes.
+/// the generated `pattern-check-id` regexes.
 void _normalizeListItemIds(SpecDocument doc, SomMetaTree tree) {
   for (final listPath in doc.listPaths) {
     final node = tree.byPath(listPath);
@@ -374,7 +374,7 @@ every downstream artifact traces back to a requirement.''');
   sbp.doc.setCodeSpec(
       fr1.path, 'CsOrder,CsOrder.captureFromEdi,CsOrderRepository');
   // YRD6 (reversed): the entry's id is its stored section id — kept on the
-  // @SectionIdPattern `FRE-REQU-` stem so it stays DR3-schema-valid — and its
+  // @SectionIdPattern `FRE-REQU-` stem so it stays schema-valid — and its
   // human FR-nn title is the stored item headline. Neither is a form field any
   // more (the content form carries only `status`), so both are authored through
   // the generic `$sectionId`/`$headline` stores.

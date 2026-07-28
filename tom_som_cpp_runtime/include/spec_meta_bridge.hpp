@@ -1,8 +1,8 @@
 /* spec_meta_bridge — bridge from the meta-JSON class graph (SpecModel) to the
- * canonical metadata tree (SomMetaTree, DR1 §3.1), an idiomatic-C++ port of the
+ * canonical metadata tree (SomMetaTree, SOM §7.1), an idiomatic-C++ port of the
  * C `spec_meta_bridge.c` (which itself ports the Go / Dart / TS references).
  *
- * The generated facades (DR8) emit populated SomMetaTrees directly; every
+ * The generated facades (SOM §8) emit populated SomMetaTrees directly; every
  * consumer that only has the exported spec-model meta-data (the conformance
  * harness, tooling) builds its tree here. The expansion follows the same walk
  * spec_reflection performs — crucially, a node's `sectionId` is the
@@ -29,7 +29,7 @@ namespace som {
  * is looked up by type (writing that lookup's error for an unknown type).
  * Children are ordered by @SerializationOrder (annotated members first, then
  * declaration order), which is the sibling emission order of the hierarchical
- * YAML format (DR1 §2.3).
+ * YAML format (SOM §12.3).
  *
  * The tree borrows the model's annotation-argument JSON (SomMetaExtra.args
  * keep a shared reference into the model source), so it is safe past the

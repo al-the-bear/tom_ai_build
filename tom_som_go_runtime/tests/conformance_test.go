@@ -266,7 +266,7 @@ func testYamlDecodeRoundTrip(c *checker, t *testing.T, tree *som.SomMetaTree) {
 	c.check("yaml.decode.reencode", actual == expected, byteDiff("yaml.decode.reencode", actual, expected))
 }
 
-// --- markdown conformance (DR6/DR20) ----------------------------------------
+// --- markdown conformance (SOM §11) -----------------------------------------
 
 func testMarkdownExport(c *checker, t *testing.T, model *som.SpecModel) {
 	var state som.DocumentJson
@@ -312,7 +312,7 @@ func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
 
 // Plan item #9: parsing `expected.md` and applying it must reproduce
 // `state.json` (the YAML-route memory) exactly, proving both formats converge
-// on one in-memory document (§4.1).
+// on one in-memory document (SOM §8).
 func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
 	golden := readCorpus(t, "expected.md")
 	var canonical som.DocumentJson

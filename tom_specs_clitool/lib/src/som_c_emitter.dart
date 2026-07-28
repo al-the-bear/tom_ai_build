@@ -293,7 +293,7 @@ class SomCEmitter {
       ..writeln('#define $_headerGuard')
       ..writeln()
       ..writeln('#include "tom_som_c_runtime.h"')
-      // The generated metadata surface (DR1 §4: the dot-notation / ID-tree
+      // The generated metadata surface (SOM §8: the dot-notation / ID-tree
       // access trees and the per-root `<root>_meta_tree()` entry points) is
       // part of this facade's public API, so a single facade include exposes
       // both the typed editing structs and the structural navigation surface.

@@ -1,17 +1,17 @@
 //! `spec_meta_bridge` — bridge from the meta-JSON class graph ([`SpecModel`])
-//! to the canonical metadata tree ([`SomMetaTree`], DR1 §3.1), a faithful port
+//! to the canonical metadata tree ([`SomMetaTree`], SOM §7.1), a faithful port
 //! of the Go `spec_meta_bridge.go` (itself a port of
 //! `tom_som_dart_runtime/lib/src/spec_meta_bridge.dart`).
 //!
-//! The generated facades (DR8) emit populated `SomMetaTree`s directly; every
+//! The generated facades (SOM §8) emit populated `SomMetaTree`s directly; every
 //! consumer that only has the exported spec-model meta-data (the conformance
 //! harness, tooling) builds its tree here. The expansion follows the same walk
 //! `SpecReflection.resolve` performs — crucially, a node's
 //! [`SomMetaNode::section_id`] is the **field-level** id exactly as exported
 //! (`field.section_id`), so the tree's path grammar stays byte-compatible with
-//! the paths a `SpecDocument` is keyed by. (DR1 §2.2's "field id, else
+//! the paths a `SpecDocument` is keyed by. (SOM §12.2's "field id, else
 //! target-class id" resolution is applied at *export* time by the model
-//! exporter / DR8 generator, not re-derived here.)
+//! exporter / SOM generator, not re-derived here.)
 //!
 //! Recursive class references become terminal re-entry nodes
 //! ([`SomMetaNode::recursive`]), mirroring how the generated chains terminate.
@@ -56,7 +56,7 @@ fn is_slotted_annotation(name: &str) -> bool {
 /// is looked up via [`SpecModel::root_by_type`] (returning its error for an
 /// unknown type). Children are ordered by `@SerializationOrder` (annotated
 /// members first, then declaration order), which is the sibling emission order
-/// of the hierarchical YAML format (DR1 §2.3).
+/// of the hierarchical YAML format (SOM §12.3).
 pub fn build_som_meta_tree(model: &SpecModel, root_type: &str) -> Result<SomMetaTree, String> {
     let root = if root_type.is_empty() {
         match model.roots.first() {

@@ -3,7 +3,7 @@
 
 /**
  * Tests for the DocSpecs-conform Markdown codec (`spec_document_markdown.js`,
- * DR6 / DR1 §1) — a port of
+ * SOM §11) — a port of
  * `tom_som_python_runtime/tests/spec_document_markdown_test.py` (itself a port
  * of the Dart reference suite).
  *
@@ -188,7 +188,7 @@ function _shallowEqual(a, b) {
   return ka.length === kb.length && ka.every((k) => a[k] === b[k]);
 }
 
-// --- export — DocSpecs format (DR1 §1) --------------------------------------
+// --- export — DocSpecs format (SOM §11) -------------------------------------
 
 function testExportFormat() {
   const md = _export(_populated());
@@ -214,7 +214,7 @@ function testExportFormat() {
   _check('export.form.sparse.author', md.includes('Author: Ada Lovelace'));
   _check('export.form.sparse.noReviewer', !md.includes('Reviewer'));
 
-  // The list container heads (DR1 §1.2): `D00-ITM` at the owner's child level,
+  // The list container heads (SOM §11.2): `D00-ITM` at the owner's child level,
   // its numbered items one level below it, item fields one deeper.
   _check('export.item.container', md.includes('## <!--[D00-ITM]--> Items'));
   _check('export.item.1', md.includes('### <!--[items-1]--> Demo Item 1'));
@@ -379,7 +379,7 @@ function testRoundTripLabelShapedContinuation() {
   _check('formCont.byteStable', _export(reloaded) === md1);
 }
 
-// --- parse-rejection protocol (DR1 §1.7) --------------------------------------
+// --- parse-rejection protocol (SOM §11.7) -------------------------------------
 
 function testRejectUnknownSection() {
   // The bogus heading is nested under `meta` (which has no list children);

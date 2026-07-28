@@ -1,5 +1,5 @@
 // Tests for the DocSpecs-conform Markdown codec (`spec_document_markdown.go`,
-// DR6 / DR1 §1 — DR20) — a port of
+// SOM §11) — a port of
 // `tom_som_typescript_runtime/tests/spec_document_markdown_test.ts` (itself a
 // port of the Python/Dart reference suite).
 //
@@ -9,7 +9,7 @@
 // sections are normal markdown text (no fences), `@Form` sections use the
 // plain-text `FieldName: value` format, and a list emits its `-LST` container
 // heading at the owner's child level, wrapping the numbered item headings one
-// level deeper (DR1 §1.2).
+// level deeper (SOM §11.2).
 //
 // The model fixture (demoModelJSON) and populated document
 // (populatedDemoDoc) are shared with item12_test.go.
@@ -110,7 +110,7 @@ func mdShallowEqual(a, b map[string]string) bool {
 	return true
 }
 
-// --- export — DocSpecs format (DR1 §1) --------------------------------------
+// --- export — DocSpecs format (SOM §11) -------------------------------------
 
 func TestMarkdownExportFormat(t *testing.T) {
 	md := mdExport(t, populatedDemoDoc())
@@ -139,7 +139,7 @@ func TestMarkdownExportFormat(t *testing.T) {
 	mdCheck(t, "export.form.sparse.author", strings.Contains(md, "Author: Ada Lovelace"))
 	mdCheck(t, "export.form.sparse.noReviewer", !strings.Contains(md, "Reviewer"))
 
-	// The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+	// The list container heads (SOM §11.2): `D00-ITM` at the owner's child
 	// level, its numbered items one level below it, item fields one deeper.
 	mdCheck(t, "export.item.container", strings.Contains(md, "## <!--[D00-ITM]--> Items"))
 	mdCheck(t, "export.item.1", strings.Contains(md, "### <!--[items-1]--> Demo Item 1"))
@@ -157,7 +157,7 @@ func TestMarkdownExportStoredItemId(t *testing.T) {
 	}
 	doc.SetContent(item+"/D01-LBL", "Custom-id item")
 	md := mdExport(t, doc)
-	// YRD3 (supersedes DRC5): the stored id IS the md heading id; only
+	// YRD3: the stored id IS the md heading id; only
 	// anonymous items fall back to the positional derivation.
 	mdCheck(t, "export.storedId.container", strings.Contains(md, "## <!--[D00-ITM]--> Items"), md)
 	mdCheck(t, "export.storedId.heading", strings.Contains(md, "### <!--[D01-CUSTOM]--> Demo Item 1"), md)
@@ -284,7 +284,7 @@ func TestMarkdownRoundTripStoredItemId(t *testing.T) {
 	}
 	doc.SetContent(item+"/D01-LBL", "Custom-id item")
 	md1 := mdExport(t, doc)
-	// YRD3 (supersedes DRC5): the stored id IS the md heading id and is
+	// YRD3: the stored id IS the md heading id and is
 	// recovered on parse.
 	mdCheck(t, "storedId.inMd", strings.Contains(md1, "<!--[D01-CUSTOM]-->"), md1)
 	reloaded, report := mdReload(t, md1)
@@ -317,7 +317,7 @@ func TestMarkdownRoundTripLabelShapedContinuation(t *testing.T) {
 	mdCheck(t, "formCont.byteStable", mdExport(t, reloaded) == md1)
 }
 
-// --- parse-rejection protocol (DR1 §1.7) --------------------------------------
+// --- parse-rejection protocol (SOM §11.7) -------------------------------------
 
 func TestMarkdownRejectUnknownSection(t *testing.T) {
 	// The bogus heading is nested under `meta` (which has no list children);

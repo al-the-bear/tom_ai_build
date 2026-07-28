@@ -202,7 +202,7 @@ public final class MetaCheck {
     }
 
     // (b) recursion: `.path` chains stay valid past the re-entry, `.meta()`
-    // resolves at the re-entry itself and throws beyond it (DR1 §4.1).
+    // resolves at the re-entry itself and throws beyond it (SOM §8).
     TomSomV0Meta.RiskNav mitigation = nav.risks().item(0).mitigation();
     expectEq(mitigation.path, "PD00/risks-0/mitigation", "recursive path");
     if (!mustMeta(mitigation, "mitigation .meta()").recursive) {
@@ -333,7 +333,7 @@ void main() {
               '      super(tree, path);\n'
               '    }\n'
               '\n'
-              '    // The metadata children of `Risk` (DR1 §3.2), '
+              '    // The metadata children of `Risk` (SOM §7.2), '
               'bridge-identical.\n'
               '    static List<SomMetaNode> metaChildren(Set<String> s) {'));
     });

@@ -1,11 +1,11 @@
 /**
  * Generic YAML codec for the native `*.docspecs.yaml` document format —
- * **hierarchical format v2** (DR1 §2); a faithful port of
+ * **hierarchical format v2** (SOM §12); a faithful port of
  * `tom_som_dart_runtime/lib/src/spec_document_yaml.dart` (and the JavaScript
  * `spec_document_yaml.js`).
  *
  * One nested YAML tree whose indentation mirrors the document structure: every
- * model node becomes a mapping key (`<section-id> <member-name>`, DR1 §2.2),
+ * model node becomes a mapping key (`<section-id> <member-name>`, SOM §12.2),
  * sections nest their children, list items appear under their container keyed
  * by their stored section id (or an anonymous positional `<member>-<n>` key), a
  * node's own body text uses the literal key `content`, a node's **stored
@@ -16,7 +16,7 @@
  * (`document: {content: {"A/b": …}}`) is **retired**; readers reject
  * `version: 1` files with a clear error (no compatibility path).
  *
- * Text values are written as literal block scalars (`|2-`), with the DR1 §2.4
+ * Text values are written as literal block scalars (`|2-`), with the SOM §12.4
  * escaping rules: the emitter is **self-verifying** (it re-parses each scalar
  * it produces via the hand-rolled {@link yaml} — the runtime ships no external
  * YAML library — and falls back to a double-quoted JSON-escaped flow scalar
@@ -24,7 +24,7 @@
  * collapsed to one** before serialization (a deliberate, documented lossy
  * normalization — round-trip guarantees are stated "modulo empty-line dedup").
  * Non-text values (`int`/`double`/`bool`, enum member names) are plain scalars
- * when they self-verify (§2.5).
+ * when they self-verify (SOM §12.5).
  *
  * Both {@link encode} and {@link decode} walk the {@link SomMetaTree} of the
  * document root: the file carries **no paths** — the runtime reconstructs them
@@ -101,13 +101,13 @@ export class SpecYamlContents {
 // --- Shared scalar machinery (public for the editor's review writer) ---------
 
 /**
- * The mapping key a metadata node writes (DR1 §2.2): its effective section id,
+ * The mapping key a metadata node writes (SOM §12.2): its effective section id,
  * one space, then the exact member name (class name on the document root);
  * just the name when the node carries no id.
  *
  * The id is the field-level {@link SomMetaNode.sectionId} when present; for a
  * section/complex node whose field carries none, the target **class**'s id
- * ({@link SomMetaNode.classSectionId}) — the id its DR3 schema type is keyed
+ * ({@link SomMetaNode.classSectionId}) — the id its generated schema type is keyed
  * by. This mirrors the markdown codec's heading rule exactly. Content, scalar,
  * enum, form and list keys keep only their field-level id (no class fallback),
  * and the path {@link SomMetaNode.segment} is unaffected in every case.
@@ -146,7 +146,7 @@ const _BLANK_RUNS = /\n{3,}/g;
 
 /**
  * Collapses runs of two or more consecutive empty lines to a single empty line
- * (DR1 §2.4.3 — the deliberate lossy normalization applied to every text value
+ * (SOM §12.4 — the deliberate lossy normalization applied to every text value
  * before serialization).
  */
 export function dedupEmptyLines(value: string): string {
@@ -237,7 +237,7 @@ const _YAML11_SEXAGESIMAL_FLOAT = /^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$/;
 
 /**
  * Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
- * to a non-string, so it must never be emitted as a plain scalar (DR1 §2.5).
+ * to a non-string, so it must never be emitted as a plain scalar (SOM §12.5).
  * Covers the 1.1-only boolean words and sexagesimal int/float literals.
  * Mirrors the Dart reference rule so every emitter's plain-scalar decision is
  * identical regardless of the local YAML library's schema.
@@ -252,7 +252,7 @@ function _isYaml11Special(value: string): boolean {
 
 /**
  * A plain one-line scalar for a non-text value (int/double/bool/enum member
- * name, §2.5) when writing it plainly re-parses to exactly `value` (string
+ * name, SOM §12.5) when writing it plainly re-parses to exactly `value` (string
  * compare, matching the document's string-typed stores); `null` otherwise.
  * Values whose text is a YAML 1.1 special are forced to the quoted/block path
  * so cross-language round-trips stay identical.
@@ -463,7 +463,7 @@ class _Encoder {
       this._writeText(b, indent, 'codeSpec', ownCodeSpec);
     }
 
-    // The node's own body text — the literal `content` key (DR1 §2.2).
+    // The node's own body text — the literal `content` key (SOM §12.2).
     if (this._content.has(path)) {
       const own = this._content.get(path) as string;
       this._content.delete(path);
@@ -709,7 +709,7 @@ class _Encoder {
     _writeRendered(b, indent, plainKey(key), _scalar(dedupEmptyLines(value)));
   }
 
-  /** Non-text value (§2.5): plain when it self-verifies, else the text path. */
+  /** Non-text value (SOM §12.5): plain when it self-verifies, else the text path. */
   private _writeValue(b: _Buffer, indent: number, key: string, value: string): void {
     const plain = _plainScalar(value);
     if (plain !== null) {

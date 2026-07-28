@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * The canonical SOM **metadata tree** — the runtime's DR1 §3.1 node types; a
+ * The canonical SOM **metadata tree** — the runtime's SOM §7.1 node types; a
  * faithful port of `tom_som_dart_runtime/lib/src/spec_meta.dart` (and
  * `spec_meta.py`).
  *
@@ -10,17 +10,17 @@
  * and member names, so the tree is the single language-neutral description of a
  * document's structure:
  *
- *   * {@link SomMetaNode} — one node per navigable model position (§3.1), with
+ *   * {@link SomMetaNode} — one node per navigable model position (SOM §7.1), with
  *     section id / pattern, kind, serialization order, `@Min`, content type,
  *     help/comment/doc texts, form metadata, traceability links
  *     (`@MapsTo` / `@DetailedIn`) and the lossless
  *     `extra` annotation list;
- *   * {@link SomMetaTree} — wires parent links and absolute paths (the §4 path
+ *   * {@link SomMetaTree} — wires parent links and absolute paths (the SOM §8 path
  *     grammar shared with `spec_paths`) and provides the two dynamic lookups
  *     every runtime keeps: {@link SomMetaTree#byId} and
  *     {@link SomMetaTree#byPath}.
  *
- * The runtime only *defines* these types; the generated facades (DR8) emit the
+ * The runtime only *defines* these types; the generated facades (SOM §8) emit the
  * populated tree as statically initialized objects, and tests build small
  * fixture trees by hand.
  */
@@ -33,7 +33,7 @@ const {
 } = require('./spec_paths');
 
 /**
- * The structural kind of a metadata node, mirroring DR1 §3.1
+ * The structural kind of a metadata node, mirroring SOM §7.1
  * (`list | form | section | content | enum | complex | scalar`).
  */
 const SomMetaKind = Object.freeze({
@@ -65,7 +65,7 @@ class SomContentTypeMeta {
   }
 }
 
-/** One field of a `@Form` section (DR1 §3.1 `FormMeta.fields`). */
+/** One field of a `@Form` section (SOM §7.1 `FormMeta.fields`). */
 class SomFormFieldMeta {
   constructor({
     name,
@@ -98,7 +98,7 @@ class SomFormFieldMeta {
   }
 }
 
-/** The form metadata of a `@Form` node (DR1 §3.1 `FormMeta`). */
+/** The form metadata of a `@Form` node (SOM §7.1 `FormMeta`). */
 class SomFormMeta {
   constructor(fields) {
     /** The form's fields in declaration order. */
@@ -111,7 +111,7 @@ class SomFormMeta {
   }
 }
 
-/** The `@Document` metadata carried by a document root (DR1 §3.1 `DocMeta`). */
+/** The `@Document` metadata carried by a document root (SOM §7.1 `DocMeta`). */
 class SomDocMeta {
   constructor({ name, description, basedOn = null }) {
     /** The document's display name (`Solution Blueprint`). */
@@ -126,7 +126,7 @@ class SomDocMeta {
 
 /**
  * One annotation captured losslessly into the generic `extra` list —
- * annotations the tree defines no dedicated slot for (DR1 §3.1 note), e.g.
+ * annotations the tree defines no dedicated slot for (SOM §7.1 note), e.g.
  * `@Max`, `@MinLength`, `@PatternCheck`, `@TextRequired`.
  */
 class SomMetaExtra {
@@ -139,7 +139,7 @@ class SomMetaExtra {
 }
 
 /**
- * One node of the SOM metadata tree (DR1 §3.1 `MetaNode`).
+ * One node of the SOM metadata tree (SOM §7.1 `MetaNode`).
  *
  * A node describes one navigable position of a document root's structure: the
  * document root itself, a field, or a list's element subtree. Class-level
@@ -187,8 +187,8 @@ class SomMetaNode {
     this.memberName = memberName;
     /** The effective `@SectionId` (field-level wins over class-level). */
     this.sectionId = sectionId;
-    /** The target class's own `@SectionId` (DR1 §2.2 fallback): the id its
-     *  DR3 schema type is keyed by, used only to build the mapping key of a
+    /** The target class's own `@SectionId` (SOM §12.2 fallback): the id its
+     *  generated schema type is keyed by, used only to build the mapping key of a
      *  section/complex node whose field carries no id. Never enters
      *  {@link segment} — the path stays field-level. */
     this.classSectionId = classSectionId;
@@ -278,7 +278,7 @@ class SomMetaNode {
   }
 
   /**
-   * The node's absolute document path per the §4 path grammar
+   * The node's absolute document path per the SOM §8 path grammar
    * (`<rootSegment>/<segment>/…`), or `null` for nodes inside a list element
    * subtree — their concrete paths depend on the item sequence (see
    * {@link itemPath} on the list node and {@link SomMetaTree#byPath}).
@@ -351,7 +351,7 @@ function _matchesPattern(pattern, id) {
 
 /**
  * The metadata tree of one document root: parent/path wiring plus the two
- * dynamic lookups ({@link byId}, {@link byPath}) DR1 §4.3 requires every
+ * dynamic lookups ({@link byId}, {@link byPath}) SOM §10 requires every
  * runtime to keep.
  */
 class SomMetaTree {
@@ -430,7 +430,7 @@ class SomMetaTree {
   /**
    * All nodes whose effective section id equals `sectionId`, in document
    * order. A shared class instantiated at several positions yields several
-   * nodes (ids resolve within their parent chain, DR1 §1.2).
+   * nodes (ids resolve within their parent chain, SOM §11.2).
    */
   allById(sectionId) {
     return this._byId.get(sectionId) || [];
@@ -464,7 +464,7 @@ class SomMetaTree {
   // --- lookup by path ------------------------------------------------------
 
   /**
-   * Resolves a document `path` (the §4 grammar: segments joined by `/`, list
+   * Resolves a document `path` (the SOM §8 grammar: segments joined by `/`, list
    * items as `-<seq>` suffixes) to the metadata node it addresses, or `null`
    * when the path does not describe a reachable position.
    *
@@ -519,10 +519,10 @@ class SomMetaTree {
 
 /**
  * One position of the generated **dot-notation / ID-tree access surfaces**
- * (DR1 §4): an absolute document {@link path} bound to the {@link tree} it
+ * (SOM §8): an absolute document {@link path} bound to the {@link tree} it
  * belongs to.
  *
- * The generated facades (DR8) emit one accessor class per model class whose
+ * The generated facades (SOM §8) emit one accessor class per model class whose
  * getters return further {@link SomMetaRef}s. Every accessor exposes at least
  * {@link path} and {@link meta} (the {@link SomMetaNode} at that position).
  * This base class is the leaf accessor itself (content/scalar/enum/form
@@ -532,7 +532,7 @@ class SomMetaRef {
   constructor(tree, path) {
     /** The metadata tree of the document root this position belongs to. */
     this.tree = tree;
-    /** The absolute document path of this position (§4 path grammar). */
+    /** The absolute document path of this position (SOM §8 path grammar). */
     this.path = path;
   }
 
@@ -541,7 +541,7 @@ class SomMetaRef {
    *
    * Throws an {@link Error} when the path resolves to no node — only possible
    * past a recursive re-entry, where the generated chain has ended and the
-   * metadata tree carries no further nodes (DR1 §4.1 cycle rule).
+   * metadata tree carries no further nodes (SOM §8 cycle rule).
    */
   get meta() {
     const node = this.tree.byPath(this.path);
@@ -556,7 +556,7 @@ class SomMetaRef {
 }
 
 /**
- * The generated accessor for a **list** position (DR1 §4.1): {@link path} is
+ * The generated accessor for a **list** position (SOM §8): {@link path} is
  * the list container path; {@link item} returns the accessor for the `seq`-th
  * item position (`<path>-<seq>`), whose children are the element class's
  * accessors.

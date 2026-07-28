@@ -510,8 +510,8 @@ void main() {
               'MigrationRisksGovernanceContentForm_2;'));
     });
 
-    test('the flat path-constant holders are gone (DR33 item 3)', () {
-      // DR30 retired the per-root `<CODE>_PATHS_*` path `#define`s in favour of
+    test('the flat path-constant holders are gone (SOM §8)', () {
+      // The generated metadata module retired the per-root `<CODE>_PATHS_*` path `#define`s in favour of
       // the generated metadata module's populated trees + dot-notation / ID-tree
       // access surfaces. No holder comment or path constant may leak into the
       // facade header any more.
@@ -523,7 +523,7 @@ void main() {
     });
 
     test('the facade threads the metadata module into its load functions '
-        '(DR33 items 1–2)', () {
+        '(SOM §8)', () {
       final emitter = SomCEmitter(_fixtureModel());
       final source = emitter.generateSource();
       // The source pulls in the generated metadata module …

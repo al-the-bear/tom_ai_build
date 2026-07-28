@@ -2,13 +2,13 @@
 'use strict';
 
 /**
- * Tests for the consolidated DocSpecs parsing + validation module (DR1 §6) —
+ * Tests for the consolidated DocSpecs parsing + validation module (SOM §14) —
  * a port of `tom_som_python_runtime/tests/docspecs_validator_test.py` (itself a
  * port of `tom_som_dart_runtime/test/docspecs_validator_test.dart`): the
  * generic schema-free parse, schema loading (with warnings for unsupported
- * features), the structured violation list, and the DR7 acceptance criterion —
- * the DR6-emitted Solution Blueprint sample validates cleanly against the
- * DR3-generated `solution-blueprint` schema.
+ * features), the structured violation list, and the acceptance criterion —
+ * the markdown-codec-emitted Solution Blueprint sample validates cleanly against the
+ * generated `solution-blueprint` schema.
  *
  * Run with: `node tests/docspecs_validator_test.js`. Exit code 0 == green.
  */
@@ -43,7 +43,7 @@ function _check(name, condition, detail = '') {
 }
 
 // ---------------------------------------------------------------------------
-// Fixture schema (hand-written in the exact DR3 generator output shape).
+// Fixture schema (hand-written in the exact schema-generator output shape , SOM §13).
 // ---------------------------------------------------------------------------
 
 const _SCHEMA_YAML = `title-format: "# <!--[D00]--> Demo Document"
@@ -432,14 +432,14 @@ function testBindDocspecsMarkdown() {
   _check('bind.appliedCount', result.appliedCount > 0, String(result.appliedCount));
 }
 
-// --- DR7 acceptance: DR6 sample vs DR3 schema ----------------------------------
+// --- acceptance: emitted sample vs generated schema ----------------------------
 
-// The Solution Blueprint sample emitted by the DR6 codec validates cleanly
+// The Solution Blueprint sample emitted by the markdown codec (SOM §11) validates cleanly
 // against the generated `solution-blueprint` schema.
 function testDr7Acceptance() {
   const metaPath = path.join(_SIBLINGS, 'tom_som_dart_v0', 'meta', 'spec_model.meta.json');
   const model = SpecModel.fromJson(JSON.parse(fs.readFileSync(metaPath, 'utf8')));
-  // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9): decode it
+  // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
   // against the metadata tree bridged from the exported model.
   const samplePath = path.join(
     _SIBLINGS,

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * One node of the SOM metadata tree (DR1 §3.1 MetaNode) — a faithful port of
+ * One node of the SOM metadata tree (SOM §7.1 MetaNode) — a faithful port of
  * {@code spec_meta.dart} / {@code spec_meta.ts}.
  *
  * <p>A node describes one navigable position of a document root's structure:
@@ -39,8 +39,8 @@ public final class SomMetaNode {
   public String sectionId;
 
   /**
-   * The target class's own {@code @SectionId} (DR1 §2.2 fallback): the id its
-   * DR3 schema type is keyed by, used only to build the mapping key of a
+   * The target class's own {@code @SectionId} (SOM §12.2 fallback): the id its
+   * generated schema type is keyed by, used only to build the mapping key of a
    * section/complex node whose field carries no id. Never enters
    * {@link #segment} — the path stays field-level. {@code null} when none.
    */
@@ -162,7 +162,7 @@ public final class SomMetaNode {
   }
 
   /**
-   * The node's absolute document path per the §4 path grammar
+   * The node's absolute document path per the SOM §8 path grammar
    * ({@code <rootSegment>/<segment>/…}), or {@code null} for nodes inside a
    * list element subtree — their concrete paths depend on the item sequence
    * (see {@link #itemPath} on the list node and {@link SomMetaTree#byPath}).

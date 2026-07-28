@@ -1,6 +1,6 @@
 /* docspecs_validator — DocSpecs markdown validation, a faithful C port of the
  * Go `tom_som_go_runtime/docspecs_validator.go` (itself a port of the
- * TypeScript / JavaScript / Python / Dart chain, DR7/DR14/DR17 parity, DR29).
+ * TypeScript / JavaScript / Python / Dart parity chain, SOM §14).
  *
  * Three cooperating pieces:
  *
@@ -241,7 +241,7 @@ void docspecs_validator_validate(const DocSpecsValidator *val,
 /* ---- bind ---------------------------------------------------------------- */
 
 /* Lands a DocSpecs markdown text in staged values + a rejection report via the
- * SOM markdown codec — the DR7 "bind" entry point. Writes `*out` (init by the
+ * SOM markdown codec — the "bind" entry point (SOM §14). Writes `*out` (init by the
  * callee; free with spec_markdown_result_free). */
 void docspecs_bind_markdown(const SpecModel *model, const char *text,
                             SpecMarkdownResult *out);

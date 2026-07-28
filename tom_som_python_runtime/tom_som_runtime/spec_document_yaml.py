@@ -1,9 +1,9 @@
 """Generic YAML codec for the native ``*.docspecs.yaml`` document format —
-**hierarchical format v2** (DR1 §2); a faithful port of
+**hierarchical format v2** (SOM §12); a faithful port of
 `tom_som_dart_runtime/lib/src/spec_document_yaml.dart`.
 
 One nested YAML tree whose indentation mirrors the document structure: every
-model node becomes a mapping key (``<section-id> <member-name>``, DR1 §2.2),
+model node becomes a mapping key (``<section-id> <member-name>``, SOM §12.2),
 sections nest their children, list items appear under their container keyed by
 their stored section id (or an anonymous positional ``<member>-<n>`` key), a
 node's own body text uses the literal key ``content``, a node's **stored
@@ -15,14 +15,14 @@ flat two-level path-map format
 (``document: {content: {"A/b": …}}``) is **retired**; readers reject
 ``version: 1`` files with a clear error (no compatibility path).
 
-Text values are written as literal block scalars (``|2-``), with the DR1 §2.4
+Text values are written as literal block scalars (``|2-``), with the SOM §12.4
 escaping rules: the emitter is **self-verifying** (it re-parses each scalar it
 produces and falls back to a double-quoted JSON-escaped flow scalar when the
 parse differs), and **runs of 2+ consecutive empty lines are collapsed to
 one** before serialization (a deliberate, documented lossy normalization —
 round-trip guarantees are stated "modulo empty-line dedup"). Non-text values
 (``int``/``double``/``bool``, enum member names) are plain scalars when they
-self-verify (§2.5).
+self-verify (SOM §12.5).
 
 Both :func:`encode` and :func:`decode` walk the :class:`SomMetaTree` of the
 document root: the file carries **no paths** — the runtime reconstructs them
@@ -112,7 +112,7 @@ class SpecYamlContents:
 
 
 def node_key(node: SomMetaNode) -> str:
-    """The mapping key a metadata node writes (DR1 §2.2): its section id, one
+    """The mapping key a metadata node writes (SOM §12.2): its section id, one
     space, then the exact member name (class name on the document root); just
     the name when the node carries no id.
 
@@ -152,7 +152,7 @@ _BLANK_RUNS = re.compile(r"\n{3,}")
 
 def dedup_empty_lines(value: str) -> str:
     """Collapses runs of two or more consecutive empty lines to a single empty
-    line (DR1 §2.4.3 — the deliberate lossy normalization applied to every
+    line (SOM §12.4 — the deliberate lossy normalization applied to every
     text value before serialization)."""
     return _BLANK_RUNS.sub("\n\n", value)
 
@@ -223,7 +223,7 @@ _YAML11_SEXAGESIMAL_FLOAT = re.compile(r"^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9
 def _is_yaml11_special(value: str) -> bool:
     """Whether *value*'s text is a YAML **1.1** special that a 1.1 parser would
     resolve to a non-string, so it must never be emitted as a plain scalar
-    (DR1 §2.5). Covers the 1.1-only boolean words and sexagesimal int/float
+    (SOM §12.5). Covers the 1.1-only boolean words and sexagesimal int/float
     literals. Mirrors the Dart reference rule so every emitter's plain-scalar
     decision is identical regardless of the local YAML library's schema."""
     return bool(
@@ -235,7 +235,7 @@ def _is_yaml11_special(value: str) -> bool:
 
 def _plain_scalar(value: str) -> Optional[str]:
     """A plain one-line scalar for a non-text value (int/double/bool/enum
-    member name, §2.5) when writing it plainly re-parses to exactly *value*
+    member name, SOM §12.5) when writing it plainly re-parses to exactly *value*
     (string compare, matching the document's string-typed stores); ``None``
     otherwise. Values whose text is a YAML 1.1 special are forced to the
     quoted/block path so cross-language round-trips stay identical."""
@@ -386,7 +386,7 @@ class _Encoder:
                 )
             self._write_text(b, indent, "codeSpec", own_code_spec)
 
-        # The node's own body text — the literal `content` key (DR1 §2.2).
+        # The node's own body text — the literal `content` key (SOM §12.2).
         own = self._content.pop(path, None)
         if own is not None:
             if any(node_key(c) == "content" for c in node.children):
@@ -567,7 +567,7 @@ class _Encoder:
     def _write_value(
         self, b: _Buffer, indent: int, key: str, value: str
     ) -> None:
-        """Non-text value (§2.5): plain when it self-verifies, else the text
+        """Non-text value (SOM §12.5): plain when it self-verifies, else the text
         path."""
         plain = _plain_scalar(value)
         if plain is not None:

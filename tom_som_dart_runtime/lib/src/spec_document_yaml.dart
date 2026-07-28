@@ -1,11 +1,11 @@
 /// Generic YAML codec for the native `*.docspecs.yaml` document format —
-/// **hierarchical format v2** (DR1 §2).
+/// **hierarchical format v2** (SOM §12).
 ///
 /// One nested YAML tree whose indentation mirrors the document structure:
-/// every model node becomes a mapping key (`<section-id> <member-name>`, DR1
-/// §2.2). The section id is the field-level `@SectionId` when present; for a
+/// every model node becomes a mapping key (`<section-id> <member-name>`, SOM
+/// §12.2). The section id is the field-level `@SectionId` when present; for a
 /// section/complex node whose field carries none, it is the target **class**'s
-/// `@SectionId` (the id its DR3 schema type is keyed by — the same "field id,
+/// `@SectionId` (the id its generated schema type is keyed by — the same "field id,
 /// else target-class id" fallback the markdown codec's headings use). Sections
 /// nest their children, list items appear under their container keyed by their
 /// stored section id (or an anonymous positional `<member>-<n>` key), a node's
@@ -22,14 +22,14 @@
 /// **retired**; readers reject `version: 1` files with a clear error (no
 /// compatibility path).
 ///
-/// Text values are written as literal block scalars (`|2-`), with the DR1
-/// §2.4 escaping rules: the emitter is **self-verifying** (it re-parses each
+/// Text values are written as literal block scalars (`|2-`), with the SOM
+/// §12.4 escaping rules: the emitter is **self-verifying** (it re-parses each
 /// scalar it produces and falls back to a double-quoted JSON-escaped flow
 /// scalar when the parse differs), and **runs of 2+ consecutive empty lines
 /// are collapsed to one before serialization** (a deliberate, documented
 /// lossy normalization — round-trip guarantees are stated "modulo empty-line
 /// dedup"). Non-text values (`int`/`double`/`bool`, enum member names) are
-/// plain scalars when they self-verify (§2.5).
+/// plain scalars when they self-verify (SOM §12.5).
 ///
 /// Both [SpecDocumentYaml.encode] and [SpecDocumentYaml.decode] walk the
 /// [SomMetaTree] of the document root: the file carries **no paths** — the
@@ -129,13 +129,13 @@ class SpecDocumentYaml {
     }
   }
 
-  /// The mapping key a metadata node writes (DR1 §2.2): its effective section
+  /// The mapping key a metadata node writes (SOM §12.2): its effective section
   /// id, one space, then the exact member name (class name on the document
   /// root); just the name when the node carries no id.
   ///
   /// The id is the field-level [SomMetaNode.sectionId] when present; for a
   /// section/complex node whose field carries none, the target **class**'s id
-  /// ([SomMetaNode.classSectionId]) — the id its DR3 schema type is keyed by.
+  /// ([SomMetaNode.classSectionId]) — the id its generated schema type is keyed by.
   /// This mirrors the markdown codec's heading rule exactly. Content, scalar,
   /// enum, form and list keys keep only their field-level id (no class
   /// fallback), and the path [SomMetaNode.segment] is unaffected in every case.
@@ -185,7 +185,7 @@ class SpecDocumentYaml {
       RegExp(r'^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$');
 
   /// Collapses runs of two or more consecutive empty lines to a single empty
-  /// line (DR1 §2.4.3 — the deliberate lossy normalization applied to every
+  /// line (SOM §12.4 — the deliberate lossy normalization applied to every
   /// text value before serialization).
   static String dedupEmptyLines(String value) =>
       value.replaceAll(_blankRuns, '\n\n');
@@ -201,7 +201,7 @@ class SpecDocumentYaml {
   }
 
   /// A plain one-line scalar for a non-text value (int/double/bool/enum member
-  /// name, §2.5) when writing it plainly re-parses to exactly [value] (string
+  /// name, SOM §12.5) when writing it plainly re-parses to exactly [value] (string
   /// compare, matching the document's string-typed stores); `null` otherwise.
   ///
   /// The self-verification uses package:yaml, which is a **YAML 1.2** parser
@@ -211,7 +211,7 @@ class SpecDocumentYaml {
   /// as a plain string here yet would be mis-read as a bool/number by a 1.1
   /// parser (e.g. PyYAML). Emitting it plainly would break cross-language
   /// round-trips, so such values are forced to the quoted/block path
-  /// (returns `null`). Reference rule for DR1 §2.5; mirrored by every port.
+  /// (returns `null`). Reference rule for SOM §12.5; mirrored by every port.
   static String? _plainScalar(String value) {
     if (value.isEmpty || value.contains('\n')) return null;
     if (_isYaml11Special(value)) return null;
@@ -228,7 +228,7 @@ class SpecDocumentYaml {
 
   /// Whether [value]'s text is a YAML **1.1** special that a 1.1 parser would
   /// resolve to a non-string (so it must never be emitted as a plain scalar,
-  /// DR1 §2.5). Covers the 1.1-only boolean words (`y`/`yes`/`n`/`no`/`on`/
+  /// SOM §12.5). Covers the 1.1-only boolean words (`y`/`yes`/`n`/`no`/`on`/
   /// `off` and their case variants — lowercase `true`/`false` are consistent
   /// across 1.1/1.2 and handled by the normal self-verify) and sexagesimal
   /// int/float literals.
@@ -427,7 +427,7 @@ class _Encoder {
       _writeText(b, indent, 'codeSpec', ownCodeSpec);
     }
 
-    // The node's own body text — the literal `content` key (DR1 §2.2).
+    // The node's own body text — the literal `content` key (SOM §12.2).
     final own = _content.remove(path);
     if (own != null) {
       if (node.children.any((c) => SpecDocumentYaml.nodeKey(c) == 'content')) {
@@ -599,7 +599,7 @@ class _Encoder {
         SpecDocumentYaml._scalar(SpecDocumentYaml.dedupEmptyLines(value)));
   }
 
-  /// Non-text value (§2.5): plain when it self-verifies, else the text path.
+  /// Non-text value (SOM §12.5): plain when it self-verifies, else the text path.
   void _writeValue(StringBuffer b, int indent, String key, String value) {
     final plain = SpecDocumentYaml._plainScalar(value);
     if (plain != null) {

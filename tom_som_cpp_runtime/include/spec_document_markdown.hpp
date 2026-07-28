@@ -1,5 +1,5 @@
 /* spec_document_markdown — DocSpecs-conform Markdown codec for a TomSpecs
- * document (DR1 §1), an idiomatic-C++ port of the C `spec_document_markdown`
+ * document (SOM §11), an idiomatic-C++ port of the C `spec_document_markdown`
  * module (a faithful port of the Go / Dart references).
  *
  * The generated/authored `*.md` **is a genuine DocSpecs document**: line 1 is
@@ -9,7 +9,7 @@
  * human-readable Title-Case member name. Content values are **normal markdown
  * text** under their heading (no fences, no anchors); `@Form` sections use the
  * DocSpecs plain-text `FieldName: value` format; a `List<T>` field heads a
- * `<!--[FOO-LST]-->` container section (DR1 §1.2/§1.5) at the owner's child
+ * `<!--[FOO-LST]-->` container section (SOM §11.2/§11.5) at the owner's child
  * level, its numbered item sub-headings one level deeper and their item-element
  * children one level deeper again — the container itself carries no body.
  * Id-less members are **transparent**: a
@@ -18,13 +18,13 @@
  * section/complex member never heads — its id-bearing descendants hoist to the
  * owner's child level (paths keep the transparent segments).
  *
- * Escaping (DR1 §1.3): a content line starting with `#` at column 0 is emitted
+ * Escaping (SOM §11.3): a content line starting with `#` at column 0 is emitted
  * as `\#`, except inside fenced code blocks, which shield their lines verbatim.
  * Consecutive blank lines are collapsed to one on emit; parse trims each value
  * of leading/trailing blank lines and does not re-collapse.
  *
  * `markdownParse` does not mutate the document — it returns staged values keyed
- * exactly like DocumentJson plus a rejection report (DR1 §1.7); the caller
+ * exactly like DocumentJson plus a rejection report (SOM §11.7); the caller
  * applies them as a full overwrite.
  */
 #ifndef SPEC_DOCUMENT_MARKDOWN_HPP
@@ -40,7 +40,7 @@
 
 namespace som {
 
-/* Why an imported Markdown block was rejected (DR1 §1.7 rejection protocol). */
+/* Why an imported Markdown block was rejected (SOM §11.7 rejection protocol). */
 /* The heading's section id does not resolve against the schema tree at its
  * nesting position. */
 inline constexpr const char* kSpecMarkdownRejectUnknownSection =
@@ -57,7 +57,7 @@ inline constexpr const char* kSpecMarkdownRejectMissingValue = "missingValue";
 inline constexpr const char* kSpecMarkdownRejectMalformedHeading =
     "malformedHeading";
 
-/* One rejected block in a Markdown import (DR1 §1.7). Reported, never silently
+/* One rejected block in a Markdown import (SOM §11.7). Reported, never silently
  * dropped: each carries the source line, the offending anchor (section path or
  * id, "" when none), the reason, and a human-readable message. */
 struct SpecMarkdownRejection {
@@ -71,7 +71,7 @@ struct SpecMarkdownRejection {
   std::string display() const;
 };
 
-/* The outcome of parsing a Markdown document (DR1 §1.7): the staged values plus
+/* The outcome of parsing a Markdown document (SOM §11.7): the staged values plus
  * every rejected block. The values are keyed exactly like DocumentJson so a
  * caller can merge them into a live document as a full overwrite. */
 struct SpecMarkdownResult {
@@ -109,23 +109,23 @@ class SpecMarkdownFenceTracker {
   std::size_t size_ = 0;  // the opening run length
 };
 
-/* ---- naming helpers (DR1 §1.2 / §1.5) ------------------------------------ */
+/* ---- naming helpers (SOM §11.2 / §11.5) ---------------------------------- */
 
 /* Expands a camel/Pascal-case identifier into Title Case:
  * `introductionAndScope` / `DemoItem` → `Introduction And Scope` / `Demo
  * Item`. */
 std::string titleCase(const std::string& name);
 
-/* Derives the DocSpecs schema id of a `@Document` name (DR1 §1.1): `Demo
+/* Derives the DocSpecs schema id of a `@Document` name (SOM §11.1): `Demo
  * Document` → `demo-document`. */
 std::string kebabCase(const std::string& title);
 
 /* The item heading title stem: Title-Case element class name with a trailing
- * `Entry` dropped (DR1 §1.5, normative). */
+ * `Entry` dropped (SOM §11.5, normative). */
 std::string itemTitleStem(const std::string& elementClassName);
 
 /* The `FieldName` label written for a form field: the model field name with the
- * first letter upper-cased (DR1 §1.4.1). */
+ * first letter upper-cased (SOM §11.4). */
 std::string formLabel(const std::string& fieldName);
 
 /* ---- export / import ----------------------------------------------------- */

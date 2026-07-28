@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * A loaded {@code *.docspecs-schema.yaml} schema — a faithful port of the Go
- * {@code DocSpecsSchema} (DR7/DR14/DR17 parity chain). Unsupported keys are
+ * {@code DocSpecsSchema} (Dart / JavaScript / TypeScript parity chain). Unsupported keys are
  * collected as §7 warnings; loading never fails on extra keys.
  *
  * <p>Java conventions: {@code null} stands in for Go's {@code ""} on the

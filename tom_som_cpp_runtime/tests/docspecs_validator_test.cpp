@@ -1,10 +1,10 @@
-/* Tests for the consolidated DocSpecs parsing + validation module (DR1 §6,
- * DR7 / DR20) — an idiomatic-C++ port of
+/* Tests for the consolidated DocSpecs parsing + validation module (SOM §14,
+ * SOM §14) — an idiomatic-C++ port of
  * `tom_som_c_runtime/tests/docspecs_validator_test.c` (itself a 1:1 port of the
  * Go / TypeScript / Python / Dart reference suites): the generic schema-free
  * parse, schema loading (with warnings for unsupported features), the
- * structured violation list, and the DR7 acceptance criterion — the DR6-emitted
- * Solution Blueprint sample validates cleanly against the DR3-generated
+ * structured violation list, and the acceptance criterion — the markdown-codec-emitted
+ * Solution Blueprint sample validates cleanly against the generated
  * `solution-blueprint` schema.
  *
  * Check names byte-match the reference suites. Exit status is the number of
@@ -87,7 +87,7 @@ std::string readFile(const std::string& path) {
 
 /* ---- fixtures ------------------------------------------------------------ */
 
-/* Fixture schema (hand-written in the exact DR3 generator output shape). */
+/* Fixture schema (hand-written in the exact schema-generator output shape , SOM §13). */
 const char* dvSchemaYaml =
     "title-format: \"# <!--[D00]--> Demo Document\"\n"
     "section-types:\n"
@@ -586,7 +586,7 @@ void TestDocspecsBindDocspecsMarkdown() {
           std::to_string(result.appliedCount()));
 }
 
-/* --- DR7 acceptance: DR6 sample vs DR3 schema ------------------------------ */
+/* --- acceptance: emitted sample vs generated schema ------------------------ */
 
 void TestDocspecsDr7Acceptance() {
   std::string metaText = readFile(std::string(DV_SIBLINGS) +

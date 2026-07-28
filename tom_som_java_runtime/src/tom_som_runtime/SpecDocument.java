@@ -86,27 +86,27 @@ public final class SpecDocument {
   }
 
   /**
-   * @deprecated The flat v1 format is gone (DR22); loading requires the
+   * @deprecated The flat v1 format is gone; loading requires the
    *     metadata tree. Use {@link #fromYaml(String, SomMetaTree)}. The
-   *     generated facade regains a tree-threading overload in DR24.
+   *     generated facade regains a tree-threading overload.
    */
   @Deprecated
   public static SpecDocument fromYaml(String yaml) {
     throw new UnsupportedOperationException(
         "fromYaml(String) is gone with the flat v1 format; use "
-            + "fromYaml(String, SomMetaTree) (facade regeneration: DR24)");
+            + "fromYaml(String, SomMetaTree) (facade regeneration)");
   }
 
   /**
-   * @deprecated The flat v1 format is gone (DR22); loading requires the
+   * @deprecated The flat v1 format is gone; loading requires the
    *     metadata tree. Use {@link #fromFile(String, SomMetaTree)}. The
-   *     generated facade regains a tree-threading overload in DR24.
+   *     generated facade regains a tree-threading overload.
    */
   @Deprecated
   public static SpecDocument fromFile(String path) {
     throw new UnsupportedOperationException(
         "fromFile(String) is gone with the flat v1 format; use "
-            + "fromFile(String, SomMetaTree) (facade regeneration: DR24)");
+            + "fromFile(String, SomMetaTree) (facade regeneration)");
   }
 
   // --- markdown export ----------------------------------------------------

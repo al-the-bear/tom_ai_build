@@ -7446,7 +7446,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D00SolutionBlueprint loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D00SolutionBlueprintMetaTree);
@@ -7581,7 +7581,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D01CurrentLandscapeAssessment loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D01CurrentLandscapeAssessmentMetaTree);
@@ -7691,7 +7691,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D02TargetOperatingModel loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D02TargetOperatingModelMetaTree);
@@ -7812,7 +7812,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D03InformationModel loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D03InformationModelMetaTree);
@@ -7971,7 +7971,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D04RequirementsSpecification loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D04RequirementsSpecificationMetaTree);
@@ -8085,7 +8085,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D05InteractionScenarios loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D05InteractionScenariosMetaTree);
@@ -8191,7 +8191,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D06ArchitectureTechnologySpecification loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D06ArchitectureTechnologySpecificationMetaTree);
@@ -8321,7 +8321,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D07IntegrationInterfaceSpecification loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D07IntegrationInterfaceSpecificationMetaTree);
@@ -8442,7 +8442,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D08SecurityAccessSpecification loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D08SecurityAccessSpecificationMetaTree);
@@ -8553,7 +8553,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D09ExperienceDesignSpecification loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D09ExperienceDesignSpecificationMetaTree);
@@ -8684,7 +8684,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D10QualityAcceptancePlan loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D10QualityAcceptancePlanMetaTree);
@@ -8850,7 +8850,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D11DeliveryRoadmap loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D11DeliveryRoadmapMetaTree);
@@ -8966,7 +8966,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D12TransitionRolloutPlan loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D12TransitionRolloutPlanMetaTree);
@@ -9107,7 +9107,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static D13CodeSpecsProjection loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.D13CodeSpecsProjectionMetaTree);

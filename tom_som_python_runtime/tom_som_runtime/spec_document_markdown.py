@@ -1,4 +1,4 @@
-"""DocSpecs-conform Markdown codec for a TomSpecs document (DR1 §1) — a
+"""DocSpecs-conform Markdown codec for a TomSpecs document (SOM §11) — a
 faithful port of ``tom_som_dart_runtime/lib/src/spec_document_markdown.dart``.
 
 The generated/authored ``*.md`` **is a genuine DocSpecs document**: line 1 is
@@ -9,7 +9,7 @@ headline comment ``<!--[SECTION-ID]-->`` and whose text is the section's
 name (YRD3: md is a full-fidelity format — stored headlines round-trip).
 Content values are **normal markdown text** under their heading (no fences, no
 anchors); ``@Form`` sections use the DocSpecs plain-text ``FieldName: value``
-format; a list emits its ``-LST`` **container heading** (the id the DR3 schema
+format; a list emits its ``-LST`` **container heading** (the id the generated schema
 keys its container type by), with the numbered items one level deeper, each
 carrying the item's **stored section id** when one exists (an AA1 date-lettered
 generated id or a criterion-5 override), else the anonymous positional id — the
@@ -18,7 +18,7 @@ generated id or a criterion-5 override), else the anonymous positional id — th
 carries no content of its own. On parse, anonymous positional ids recover list
 membership and order from position; stored ids are kept as stored ids
 (``som_multiplatform_spec_model.md`` §11.5).
-Id-less members are **transparent** (mirroring the DR3 schema generator):
+Id-less members are **transparent** (mirroring the schema generator , SOM §13):
 a transparent value member's text or form block is the owner's body region,
 emitted without a heading and bound at its own path; a transparent
 section/complex member never heads — its id-bearing descendants hoist to the
@@ -26,7 +26,7 @@ owner's child level (paths keep the transparent segments). Section/complex
 headings without a field-level ``@SectionId`` carry the target class's
 ``@SectionId``.
 
-Escaping (DR1 §1.3): a content line starting with ``#`` at column 0 is emitted
+Escaping (SOM §11.3): a content line starting with ``#`` at column 0 is emitted
 as ``\\#`` (and a leading ``\\#``… run gains one more backslash), except inside
 fenced code blocks, which shield their lines verbatim. Consecutive blank lines
 are collapsed to one on emit; parse trims each value of leading/trailing blank
@@ -39,7 +39,7 @@ the document — it returns staged values keyed exactly like
 :meth:`SpecDocument.to_json` plus a rejection report; the caller applies them.
 Anything that cannot be mapped — an unknown section id, a child heading under a
 value leaf, orphaned text — is collected into
-:attr:`SpecMarkdownResult.rejections` rather than dropped (DR1 §1.7).
+:attr:`SpecMarkdownResult.rejections` rather than dropped (SOM §11.7).
 """
 
 from __future__ import annotations
@@ -56,7 +56,7 @@ from .spec_model import SpecModel, SpecRoot
 
 
 class SpecMarkdownRejectReason(Enum):
-    """Why an imported Markdown block was rejected (DR1 §1.7 rejection
+    """Why an imported Markdown block was rejected (SOM §11.7 rejection
     protocol)."""
 
     #: The heading's section id does not resolve against the schema tree at
@@ -76,7 +76,7 @@ class SpecMarkdownRejectReason(Enum):
 
 @dataclass
 class SpecMarkdownRejection:
-    """One rejected block in a Markdown import (DR1 §1.7). Reported, never
+    """One rejected block in a Markdown import (SOM §11.7). Reported, never
     silently dropped: each carries the source :attr:`line`, the offending
     :attr:`anchor` (section path or id), the :attr:`reason`, and a
     human-readable :attr:`message`."""
@@ -93,7 +93,7 @@ class SpecMarkdownRejection:
 
 @dataclass
 class SpecMarkdownResult:
-    """The outcome of parsing a Markdown document (DR1 §1.7): the staged values
+    """The outcome of parsing a Markdown document (SOM §11.7): the staged values
     plus every rejected block. The values are keyed exactly like
     :meth:`SpecDocument.to_json` so a caller can merge them into a live
     document as a full overwrite of the covered scope."""
@@ -185,7 +185,7 @@ class _Buffer:
 
 class SpecDocumentMarkdown:
     """Codec binding a :class:`SpecModel` and a concrete :class:`SpecDocument`
-    to the DocSpecs Markdown import/export format (DR1 §1)."""
+    to the DocSpecs Markdown import/export format (SOM §11)."""
 
     # Shared with the parser and the DocSpecs validator.
     heading_line = re.compile(r"^(#+)\s+(.*)$")
@@ -214,7 +214,7 @@ class SpecDocumentMarkdown:
     def __init__(self, model: SpecModel, document: SpecDocument) -> None:
         self.model = model
         self.document = document
-        # Metadata trees per root type, built lazily (DR8's generated facades
+        # Metadata trees per root type, built lazily (the generated facades
         # will hand these in directly; until then the bridge derives them).
         self._trees: dict[str, SomMetaTree] = {}
 
@@ -225,7 +225,7 @@ class SpecDocumentMarkdown:
             self._trees[root_type] = tree
         return tree
 
-    # --- Naming helpers (DR1 §1.2 / §1.5) ------------------------------------
+    # --- Naming helpers (SOM §11.2 / §11.5) ------------------------------------
 
     @staticmethod
     def title_case(name: str) -> str:
@@ -249,7 +249,7 @@ class SpecDocumentMarkdown:
     @staticmethod
     def kebab_case(title: str) -> str:
         """``Demo Document`` → ``demo-document``: the DocSpecs schema id of a
-        ``@Document`` name (DR1 §1.1)."""
+        ``@Document`` name (SOM §11.1)."""
         out = re.sub(r"[\s_]+", "-", title.strip())
         out = re.sub(r"[^A-Za-z0-9\-]", "", out)
         return out.lower()
@@ -257,7 +257,7 @@ class SpecDocumentMarkdown:
     @staticmethod
     def item_title_stem(element_class_name: str) -> str:
         """The item heading title stem: Title-Case element class name with a
-        trailing ``Entry`` dropped (DR1 §1.5, normative)."""
+        trailing ``Entry`` dropped (SOM §11.5, normative)."""
         stem = element_class_name
         if len(stem) > 5 and stem.endswith("Entry"):
             stem = stem[:-5]
@@ -266,7 +266,7 @@ class SpecDocumentMarkdown:
     @staticmethod
     def form_label(field_name: str) -> str:
         """The ``FieldName`` label written for a form field: the model field
-        name with the first letter upper-cased (DR1 §1.4.1)."""
+        name with the first letter upper-cased (SOM §11.4)."""
         if not field_name:
             return field_name
         return field_name[0].upper() + field_name[1:]
@@ -281,13 +281,13 @@ class SpecDocumentMarkdown:
             return ""
         return (m.group(1) or m.group(2) or m.group(3) or "").strip()
 
-    # --- Export (DR1 §1.1–§1.6) ----------------------------------------------
+    # --- Export (SOM §11.1–§11.8) ----------------------------------------------
 
     def _heading_id_of(self, node: SomMetaNode) -> str:
         """The section id written into (and matched from) a heading for *node*
-        (DR1 §1.2/§1.6): the field-level ``@SectionId`` when present; for
+        (SOM §11.2/§11.8): the field-level ``@SectionId`` when present; for
         section/complex nodes whose field carries none, the target **class**'s
-        ``@SectionId`` (the id the DR3 schema types are keyed by); else the
+        ``@SectionId`` (the id the generated schema types are keyed by); else the
         path segment (the member name)."""
         if node.section_id is not None:
             return node.section_id
@@ -297,9 +297,9 @@ class SpecDocumentMarkdown:
                 return cls.section_id
         return node.segment
 
-    # --- Transparency (DR1 §1.2, mirroring the DR3 schema generator) ---------
+    # --- Transparency (SOM §11.2, mirroring the schema generator , SOM §13) ---------
     #
-    # The DR3 `docspecs-schema` generator is normative: only **section-bearing**
+    # The `docspecs-schema` generator (SOM §13) is normative: only **section-bearing**
     # nodes (those with a real `@SectionId`, field- or class-level) become
     # section types; id-less members are *transparent* — they are not sections
     # of their own. The markdown format mirrors that exactly:
@@ -368,7 +368,7 @@ class SpecDocumentMarkdown:
     ) -> list[tuple[SomMetaNode, str]]:
         """The ordered *effective children* of *node*: every section-bearing
         child and every list, hoisted through transparent sections — exactly
-        the headings (and item-heading owners) the DR3 schema knows at this
+        the headings (and item-heading owners) the generated schema knows at this
         position. Each entry carries the relative path from *node* (which runs
         through the transparent segments)."""
         out: list[tuple[SomMetaNode, str]] = []
@@ -480,9 +480,9 @@ class SpecDocumentMarkdown:
     def _write_list_items(
         self, b: _Buffer, node: SomMetaNode, list_path: str, depth: int
     ) -> None:
-        """Emits list *node* as its ``-LST`` container heading (DR1 §1.2/§1.5)
+        """Emits list *node* as its ``-LST`` container heading (SOM §11.2/§11.5)
         at *depth*, wrapping the numbered item headings one level deeper. The
-        container is a real section — the id the DR3 schema keys its container
+        container is a real section — the id the generated schema keys its container
         type by — but carries **no content of its own** (schema content
         min/max-text-length 0). Item identity is the stored id when one
         exists, else positional (YRD3)."""
@@ -500,7 +500,7 @@ class SpecDocumentMarkdown:
             code_spec=self.document.code_spec(list_path),
         )
         # Item heading stem. Complex lists derive it from the element class name
-        # (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element
+        # (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no element
         # class - its element ``type_name`` is literally ``String``, which would
         # render "String 1", "String 2". Derive the stem from the list FIELD
         # instead (its member name, Title-Cased like the container heading) so a
@@ -512,7 +512,7 @@ class SpecDocumentMarkdown:
         )
         for i, item_path in enumerate(items):
             pos = i + 1
-            # YRD3 (superseding DRC5): the heading id is the item's STORED
+            # YRD3: the heading id is the item's STORED
             # section id when one exists (an AA1 generated id or a criterion-5
             # override); only anonymous items fall back to the positional id —
             # the `@SectionIdPattern` resolved with the 1-based position
@@ -561,7 +561,7 @@ class SpecDocumentMarkdown:
             lines = self._prepare_value(value, path).split("\n")
             b.writeln(f"{self.form_label(f.name)}: {lines[0]}")
             for line in lines[1:]:
-                # §1.4.3 generalised: any continuation line that could be
+                # SOM §11.4 generalised: any continuation line that could be
                 # mistaken for a field-label line gains one leading space;
                 # parse strips it.
                 b.writeln(
@@ -573,7 +573,7 @@ class SpecDocumentMarkdown:
     def _write_heading(
         b: _Buffer, depth: int, id: str, title: str, code_spec: Optional[str] = None
     ) -> None:
-        """``## <!--[ID]--> Title`` at *depth*. DR1 §1.2 is normative —
+        """``## <!--[ID]--> Title`` at *depth*. SOM §11.2 is normative —
         heading level = 1 + section depth, **uncapped**: deep models (the
         Solution Blueprint nests past markdown's native 6 levels) keep their
         structure; the parse grammar accepts ``#{7,}`` accordingly. Capping
@@ -601,7 +601,7 @@ class SpecDocumentMarkdown:
         b.writeln()
 
     def _prepare_value(self, value: str, path: str) -> str:
-        """Emit-side value normalisation (DR1 §1.3): collapse 2+ blank lines
+        """Emit-side value normalisation (SOM §11.3): collapse 2+ blank lines
         to one, trim leading/trailing blank lines, escape heading-like lines
         outside fences. Raises :class:`ValueError` for an unterminated
         fence."""
@@ -612,7 +612,7 @@ class SpecDocumentMarkdown:
         out: list[str] = []
         for line in collapsed.split("\n"):
             if fence.in_fence:
-                out.append(line)  # §1.3.4: fences shield their lines.
+                out.append(line)  # SOM §11.3: fences shield their lines.
             elif self._escapable.match(line):
                 out.append(f"\\{line}")
             else:
@@ -638,8 +638,7 @@ class SpecDocumentMarkdown:
     @staticmethod
     def _item_stem_of(node: SomMetaNode) -> str:
         """The effective default item-title stem of list *node* (YRD4): the
-        element class's ``@Headline`` default when authored, else the DR1
-        §1.5 derivation (element class name with ``Entry`` dropped; member
+        element class's ``@Headline`` default when authored, else the SOM §11.5 derivation (element class name with ``Entry`` dropped; member
         name for scalar lists)."""
         element = node.element_node
         if element is not None:
@@ -650,7 +649,7 @@ class SpecDocumentMarkdown:
             node.member_name or node.segment
         )
 
-    # --- Import (DR1 §1.7) ----------------------------------------------------
+    # --- Import (SOM §11.7) ----------------------------------------------------
 
     def parse(self, text: str) -> SpecMarkdownResult:
         """Parses *text* into staged values + a rejection report, **without**
@@ -733,7 +732,7 @@ class _Parser:
                 if not self._stack and SpecDocumentMarkdown.docspec_comment.match(
                     trimmed
                 ):
-                    continue  # §1.1 header — informational.
+                    continue  # SOM §11.1 header — informational.
                 h = SpecDocumentMarkdown.heading_line.match(trimmed)
                 if h is not None:
                     self._close_to(len(h.group(1)))
@@ -817,7 +816,7 @@ class _Parser:
             )
             return
 
-        # 1. Under a `-LST` container frame (DR1 §1.2), every child heading is
+        # 1. Under a `-LST` container frame (SOM §11.2), every child heading is
         #    one of that list's items — resolved positionally, not by the
         #    schema tree.
         if p_node.kind == SomMetaKind.LIST:
@@ -875,7 +874,7 @@ class _Parser:
         code_spec: str,
         line_no: int,
     ) -> None:
-        """Opens a list-item frame under a ``-LST`` container frame (DR1 §1.2).
+        """Opens a list-item frame under a ``-LST`` container frame (SOM §11.2).
         The heading *id* is matched positionally against the container's list:
         the ``<member>-<n>`` fallback id, the ``@SectionIdPattern`` resolved
         with a number (``GOAL-ITEM-3``, parses back as item ``<n>``), a
@@ -1070,7 +1069,7 @@ class _Parser:
         self, frame: _Frame, slots: list[tuple[SomMetaNode, str]]
     ) -> None:
         """Binds a heading's body region against the owner's transparent body
-        slots (DR1 §1.2 transparency): ``FieldName:`` lines matching a
+        slots (SOM §11.2 transparency): ``FieldName:`` lines matching a
         transparent form's fields route to that form (nearest form in slot
         order, wrapping); all other text binds to the first non-form slot — or
         to the owner's own path when no such slot exists."""
@@ -1203,7 +1202,7 @@ class _Parser:
 
     @staticmethod
     def _restore_value(body: list[str]) -> str:
-        """Parse-side value restoration (DR1 §1.3): trim leading/trailing
+        """Parse-side value restoration (SOM §11.3): trim leading/trailing
         blank lines and unescape ``\\#``-escaped heading lines outside
         fences."""
         fence = MarkdownFenceTracker()

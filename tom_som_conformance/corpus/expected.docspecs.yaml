@@ -44,7 +44,7 @@ document:
         headline: |2-
           Reference to the Spec
         content: spec §1.2
-      refs-2: DR1
+      refs-2: ADR7
     CARD-LST cards:
       CARD-ALPHA:
         headline: |2-

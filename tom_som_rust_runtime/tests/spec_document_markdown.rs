@@ -1,5 +1,5 @@
 //! Tests for the DocSpecs-conform Markdown codec (`spec_document_markdown.rs`,
-//! DR6 / DR1 §1 — DR26) — a port of
+//! SOM §11) — a port of
 //! `tom_som_go_runtime/tests/spec_document_markdown_test.go` (itself a port of
 //! the TypeScript/Python/Dart reference suite).
 //!
@@ -9,7 +9,7 @@
 //! sections are normal markdown text (no fences), `@Form` sections use the
 //! plain-text `FieldName: value` format, and a list emits its `-LST` container
 //! heading at the owner's child level, wrapping the numbered item headings one
-//! level deeper (DR1 §1.2).
+//! level deeper (SOM §11.2).
 //!
 //! The model fixture (`demo_model`) and populated document
 //! (`populated_demo_doc`) mirror the Go suite's `item12_test.go` fixtures
@@ -175,7 +175,7 @@ fn md_shallow_equal(a: Option<&BTreeMap<String, String>>, b: &[(&str, &str)]) ->
     }
 }
 
-// --- export — DocSpecs format (DR1 §1) ---------------------------------------
+// --- export — DocSpecs format (SOM §11) --------------------------------------
 
 fn test_markdown_export_format(c: &mut Checker) {
     let md = md_export(&populated_demo_doc());
@@ -240,7 +240,7 @@ fn test_markdown_export_format(c: &mut Checker) {
     );
     c.check("export.form.sparse.noReviewer", !md.contains("Reviewer"), "");
 
-    // The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+    // The list container heads (SOM §11.2): `D00-ITM` at the owner's child
     // level, its numbered items one level below it, item fields one deeper.
     c.check(
         "export.item.container",
@@ -277,7 +277,7 @@ fn test_markdown_export_stored_item_id(c: &mut Checker) {
         .expect("add_list_item_with_section_id");
     doc.set_content(&format!("{}/D01-LBL", item), "Custom-id item");
     let md = md_export(&doc);
-    // YRD3 (supersedes DRC5): the stored id IS the md heading id; only
+    // YRD3: the stored id IS the md heading id; only
     // anonymous items fall back to the positional derivation.
     c.check(
         "export.storedId.container",
@@ -446,7 +446,7 @@ fn test_markdown_round_trip_stored_item_id(c: &mut Checker) {
         .expect("add_list_item_with_section_id");
     doc.set_content(&format!("{}/D01-LBL", item), "Custom-id item");
     let md1 = md_export(&doc);
-    // YRD3 (supersedes DRC5): the stored id IS the md heading id and is
+    // YRD3: the stored id IS the md heading id and is
     // recovered on parse.
     c.check("storedId.inMd", md1.contains("<!--[D01-CUSTOM]-->"), &md1);
     let (reloaded, report) = md_reload(&md1);
@@ -494,7 +494,7 @@ fn test_markdown_round_trip_label_shaped_continuation(c: &mut Checker) {
     c.check("formCont.byteStable", md_export(&reloaded) == md1, "");
 }
 
-// --- parse-rejection protocol (DR1 §1.7) ----------------------------------------
+// --- parse-rejection protocol (SOM §11.7) ---------------------------------------
 
 fn test_markdown_reject_unknown_section(c: &mut Checker) {
     // The bogus heading is nested under `meta` (which has no list children);

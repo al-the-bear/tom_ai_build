@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * DR5 hierarchical `*.docspecs.yaml` v2 codec tests — a port of
+ * Hierarchical `*.docspecs.yaml` v2 codec tests — a port of
  * `tom_som_javascript_runtime/tests/spec_document_yaml_test.js` (itself a port
  * of `tom_som_python_runtime/tests/spec_document_yaml_test.py` /
  * `tom_som_dart_runtime/test/spec_document_yaml_test.dart`).
@@ -9,7 +9,7 @@
  * `<section-id> <member-name>`, list items key by stored section id (or an
  * anonymous positional `<member>-<n>`), body text uses the literal `content`
  * key, and form fields use their bare names. Round-trip is lossless modulo
- * the DR1 §2.4.3 empty-line dedup; version-1 files and unmatched keys are
+ * the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
  * structured load errors.
  *
  * Build with `tsc`, then run `node dist/tests/spec_document_yaml_test.js`.
@@ -119,8 +119,8 @@ function _model(): SpecModel {
           },
           {
             // Class-level-only @SectionId: the field carries no id, so its key
-            // resolves to the target class's id (`CTRL control:`) — the DR1
-            // §2.2 fallback.
+            // resolves to the target class's id (`CTRL control:`) — the SOM
+            // §12.2 fallback.
             name: 'control',
             kind: 'complex',
             type: 'Control',
@@ -173,7 +173,7 @@ function _roundTrip(d: SpecDocument): SpecDocument {
   return _dec(_enc(d)).document;
 }
 
-/** A populated document touching every store and the §2.4 edge cases. */
+/** A populated document touching every store and the SOM §12.4 edge cases. */
 function _populated(): SpecDocument {
   const doc = new SpecDocument();
   doc.setContent('D00', 'Preamble body text.');
@@ -235,13 +235,13 @@ function testEncode(): void {
   );
   _check('encode.sparse', !sparse.includes('D00-SCO'));
 
-  // non-text values are plain scalars (§2.5)
+  // non-text values are plain scalars (SOM §12.5)
   const yaml2 = _enc(_populated());
   _check('encode.plainEnum', yaml2.includes('\n    D00-PRI priority: high\n'));
   _check('encode.plainInt', yaml2.includes('\n    count: 3\n'));
   _check('encode.plainFormInt', yaml2.includes('\n      revision: 7\n'));
 
-  // YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+  // YAML 1.1-special values are quoted, not plain (SOM §12.5). `on`/`no` are
   // 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
   // YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
   // every runtime reads back the exact string; an ordinary token stays plain.
@@ -362,7 +362,7 @@ function testRoundTrip(): void {
     );
   }
 
-  // runs of 2+ empty lines collapse to one on write (§2.4.3)
+  // runs of 2+ empty lines collapse to one on write (SOM §12.4)
   const doc = new SpecDocument();
   doc.setContent('D00/D00-OVR', 'a\n\n\n\nb\n\n\nc');
   _check(
@@ -425,7 +425,7 @@ function testStrictDecode(): void {
 
 function testClassLevelOnlyKey(): void {
   // A section whose @SectionId lives only on the target class keys by that
-  // class id (DR1 §2.2 field-id-else-class-id). The `control` field carries no
+  // class id (SOM §12.2 field-id-else-class-id). The `control` field carries no
   // id; its target class `Control` carries `CTRL`, so the key is `CTRL
   // control:`. The leaves keep their own content keys: `CTRL-SUM summary:`
   // (field id) and bare `owner:` (no id).

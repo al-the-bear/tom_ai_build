@@ -12,13 +12,13 @@ import tom_som_runtime.SomMetaNode;
 import tom_som_runtime.SomMetaTree;
 
 /**
- * DR4 metadata-core tests — a port of
+ * Metadata-core tests — a port of
  * {@code tom_som_go_runtime/tests/spec_meta_test.go} (itself a port of
  * {@code spec_meta_test.ts} / {@code spec_meta_test.js} /
  * {@code spec_meta_test.py} / {@code spec_meta_test.dart}).
  *
- * <p>Hand-built DR1 §3.1 fixture tree mirroring the design doc's demo document
- * (DR4 acceptance: "the runtime compiles with a hand-built fixture tree").
+ * <p>Hand-built SOM §7.1 fixture tree mirroring the design doc's demo document
+ * (acceptance: "the runtime compiles with a hand-built fixture tree").
  *
  * <pre>
  * DEMO D99DemoDocument                      (@Document)
@@ -217,7 +217,7 @@ public final class SpecMetaTest {
         listEq(tree.root.document.basedOn, List.of("D00SolutionBlueprint")),
         "");
 
-    // child paths follow the §4 grammar (sectionId ?? memberName)
+    // child paths follow the SOM §8 grammar (sectionId ?? memberName)
     SomMetaNode insc = tree.root.childByMember("introductionAndScope");
     check("wiring.insc.path", "DEMO/INSC".equals(insc.path()), str(insc.path()));
     check(
@@ -456,7 +456,7 @@ public final class SpecMetaTest {
         tree.byPath("DEMO/INSC/GOAL/GOAL-ITEM-LST-2/missing") == null,
         "");
 
-    // byId and byPath agree on the node they address (DR1 §4.2)
+    // byId and byPath agree on the node they address (SOM §8)
     check("agree.insc", tree.byId("INSC") == tree.byPath("DEMO/INSC"), "");
     check(
         "agree.list",

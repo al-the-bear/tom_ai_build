@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Tests for the DocSpecs-conform Markdown codec (``spec_document_markdown.py``,
-DR6 / DR1 §1) — a port of the Dart reference suite
+SOM §11) — a port of the Dart reference suite
 ``tom_som_dart_runtime/test/spec_document_markdown_test.dart``.
 
 The generated ``*.md`` is a genuine DocSpecs document: line 1 is the
@@ -187,7 +187,7 @@ def _raises(fn, exc_type, contains: str = "") -> bool:
         return False
 
 
-# --- export — DocSpecs format (DR1 §1) --------------------------------------
+# --- export — DocSpecs format (SOM §11) -------------------------------------
 
 
 def test_export_format() -> None:
@@ -214,7 +214,7 @@ def test_export_format() -> None:
     _check("export.form.sparse.author", "Author: Ada Lovelace" in md)
     _check("export.form.sparse.noReviewer", "Reviewer" not in md)
 
-    # The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+    # The list container heads (SOM §11.2): `D00-ITM` at the owner's child
     # level, its numbered items one level below it, item fields one deeper.
     _check("export.item.container", "## <!--[D00-ITM]--> Items" in md)
     _check("export.item.1", "### <!--[items-1]--> Demo Item 1" in md)
@@ -354,7 +354,7 @@ def test_round_trip_stored_item_id() -> None:
     item = doc.add_list_item("D00/D00-ITM", section_id="D01-CUSTOM")
     doc.set_content(f"{item}/D01-LBL", "Custom-id item")
     md1 = _export(doc)
-    # YRD3 (superseding DR1 §1.2.1 loss 3 / DRC5): the stored id IS surfaced
+    # YRD3 (SOM §11.6): the stored id IS surfaced
     # in the item heading and round-trips through md.
     _check("storedId.surfaced", "<!--[D01-CUSTOM]-->" in md1, md1)
     reloaded, report = _reload(md1)
@@ -392,7 +392,7 @@ def test_round_trip_label_shaped_continuation() -> None:
     _check("formCont.byteStable", _export(reloaded) == md1)
 
 
-# --- parse-rejection protocol (DR1 §1.7) --------------------------------------
+# --- parse-rejection protocol (SOM §11.7) -------------------------------------
 
 
 def test_reject_unknown_section() -> None:

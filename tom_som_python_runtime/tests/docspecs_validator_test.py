@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Tests for the consolidated DocSpecs parsing + validation module (DR1 §6) —
+"""Tests for the consolidated DocSpecs parsing + validation module (SOM §14) —
 a port of ``tom_som_dart_runtime/test/docspecs_validator_test.dart``: the
 generic schema-free parse, schema loading (with warnings for unsupported
-features), the structured violation list, and the DR7 acceptance criterion —
-the DR6-emitted Solution Blueprint sample validates cleanly against the
-DR3-generated ``solution-blueprint`` schema.
+features), the structured violation list, and the acceptance criterion —
+the markdown-codec-emitted Solution Blueprint sample validates cleanly against the
+generated ``solution-blueprint`` schema.
 
 Run with: ``python3 tests/docspecs_validator_test.py``. Exit code 0 == green.
 """
@@ -46,7 +46,7 @@ def _check(name: str, condition: bool, detail: str = "") -> None:
 
 
 # ---------------------------------------------------------------------------
-# Fixture schema (hand-written in the exact DR3 generator output shape).
+# Fixture schema (hand-written in the exact schema-generator output shape , SOM §13).
 # ---------------------------------------------------------------------------
 
 _SCHEMA_YAML = '''\
@@ -443,18 +443,18 @@ def test_bind_docspecs_markdown() -> None:
            str(result.applied_count))
 
 
-# --- DR7 acceptance: DR6 sample vs DR3 schema ----------------------------------
+# --- acceptance: emitted sample vs generated schema ----------------------------
 
 
 def test_dr7_acceptance() -> None:
-    """The Solution Blueprint sample emitted by the DR6 codec validates
+    """The Solution Blueprint sample emitted by the markdown codec (SOM §11) validates
     cleanly against the generated ``solution-blueprint`` schema."""
     meta_path = os.path.join(
         _SIBLINGS, "tom_som_dart_v0", "meta", "spec_model.meta.json"
     )
     with open(meta_path, encoding="utf-8") as fh:
         model = SpecModel.from_json(json.load(fh))
-    # The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9): decode
+    # The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode
     # it against the metadata tree bridged from the exported model.
     sample_path = os.path.join(
         _SIBLINGS, "tom_som_conformance", "samples",

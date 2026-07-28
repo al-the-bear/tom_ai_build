@@ -95,7 +95,7 @@ public final class TomSomV0 {
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
-    // root's generated metadata tree is threaded into the runtime (DR22),
+    // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static SolutionBlueprint loadYaml(String yaml) {
       SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.SolutionBlueprintMetaTree);

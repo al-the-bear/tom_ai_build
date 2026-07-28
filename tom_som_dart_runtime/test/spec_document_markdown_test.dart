@@ -1,5 +1,5 @@
 // Tests for the DocSpecs-conform Markdown codec (`spec_document_markdown.dart`,
-// DR6 / DR1 §1).
+// SOM §11).
 //
 // The generated `*.md` is a genuine DocSpecs document: line 1 is the
 // `<!-- docspec: <schema-id>/<version> -->` declaration, every populated
@@ -9,7 +9,7 @@
 // sections use the plain-text `FieldName: value` format, and a list emits its
 // `-LST` container heading with the numbered items one level below it.
 //
-// DR6 done-when: emit + parse round-trip is lossless per DR1 §1, id comment
+// Emit + parse round-trip is lossless per SOM §11, id comment
 // placement and form rendering follow the spec, and content with embedded
 // markdown formatting (including fenced code blocks) survives.
 
@@ -156,7 +156,7 @@ String _export(SpecDocument doc) =>
 }
 
 void main() {
-  group('export — DocSpecs format (DR1 §1)', () {
+  group('export — DocSpecs format (SOM §11)', () {
     test('line 1 is the docspec declaration with the kebab-cased title', () {
       final md = _export(_populated());
       expect(md.split('\n').first, startsWith('<!-- docspec: demo-document/'));
@@ -196,7 +196,7 @@ void main() {
     test('a list emits its -LST container heading with items one level deeper',
         () {
       final md = _export(_populated());
-      // The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+      // The list container heads (SOM §11.2): `D00-ITM` at the owner's child
       // level, its numbered items one level below it, item fields one deeper.
       expect(md, contains('## <!--[D00-ITM]--> Items'));
       expect(md, contains('### <!--[items-1]--> Demo Item 1'));
@@ -227,7 +227,7 @@ void main() {
     });
 
     test('a stored item section id IS surfaced in the item heading '
-        '(YRD3, superseding DRC5 — som_multiplatform_spec_model.md §11.5)', () {
+        '(YRD3 — som_multiplatform_spec_model.md §11.5)', () {
       final doc = SpecDocument();
       final item = doc.addListItem('D00/D00-ITM', sectionId: 'D01-CUSTOM');
       doc.setContent('$item/D01-LBL', 'Custom-id item');
@@ -356,7 +356,7 @@ void main() {
     });
 
     test('a stored item section id round-trips through md '
-        '(YRD3, superseding DR1 §1.2.1 loss 3 / DRC5)', () {
+        '(YRD3 — SOM §11.6)', () {
       final doc = SpecDocument();
       final item = doc.addListItem('D00/D00-ITM', sectionId: 'D01-CUSTOM');
       doc.setContent('$item/D01-LBL', 'Custom-id item');
@@ -389,7 +389,7 @@ void main() {
     });
   });
 
-  group('parse-rejection protocol (DR1 §1.7)', () {
+  group('parse-rejection protocol (SOM §11.7)', () {
     test('an unknown section id is reported; valid siblings still parsed', () {
       // The bogus heading is nested under `meta` (which has no list children);
       // directly under the root any unresolved id would be absorbed by the
@@ -508,15 +508,15 @@ void main() {
     });
   });
 
-  // YRD3 (supersedes DRC5): stored list-item ids — AA1 date-lettered ids
+  // YRD3: stored list-item ids — AA1 date-lettered ids
   // (`GOAL-ITEM-GN1`) or explicit overrides — ARE surfaced in the md item
-  // heading and round-trip. The DR3 schema's `pattern-check-id` compiles
+  // heading and round-trip. The generated schema's `pattern-check-id` compiles
   // `@SectionIdPattern xxx` to `.+` (a STEM check, not a numbering check), so
   // a facade-authored document with generated ids exports to md that validates
   // cleanly against its own schema (som_multiplatform_spec_model.md §11.5, §13).
   group('YRD3 — AA1 generated ids export to schema-valid md', () {
     // A minimal document root whose only content is a patterned list, mirroring
-    // the DR3 `goals` → `goal-item` structure the validator fixtures use.
+    // the generated `goals` → `goal-item` structure the validator fixtures use.
     Map<String, dynamic> goalsJson() => {
           'roots': [
             {'type': 'GoalDoc', 'title': 'Goal Document', 'sectionId': 'D00'},
@@ -551,9 +551,9 @@ void main() {
           },
         };
 
-    // The DR3-generated schema shape: `pattern-check-id` compiles `xxx` to
+    // The generated schema shape: `pattern-check-id` compiles `xxx` to
     // `.+` — a stem check (YRD3); numbering/uniqueness is runtime-owned. The
-    // `-LST` container is a real section type (DR1 §1.2/§5) with no content
+    // `-LST` container is a real section type (SOM §11.2/§13) with no content
     // (min/max-text-length 0) wrapping the element pattern type; section-types
     // are ordered longest-prefix-first so `GOAL_ITEM_LST` resolves to the
     // container and `GOAL_ITEM_1` to the item. Prefixes are in the DocSpecs
@@ -621,7 +621,7 @@ document:
       expect(md, isNot(contains('GOAL-ITEM-2]')));
     });
 
-    test('the exported md validates cleanly against the .+ stem-check DR3 '
+    test('the exported md validates cleanly against the .+ stem-check generated '
         'schema (YRD3 done-condition)', () {
       final m = model();
       final md = SpecDocumentMarkdown(m, authorWithAa1Ids()).exportRoot(

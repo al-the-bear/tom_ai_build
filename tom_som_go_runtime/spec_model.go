@@ -171,7 +171,7 @@ func (m *SpecModel) ClassNamed(name string) *SpecClass {
 }
 
 // ModelVersionString is the `major.minor` version string used in the DocSpecs
-// markdown declaration (DR6/DR11 parity — mirrors Python's
+// markdown declaration (Dart / Python parity — mirrors Python's
 // `SpecModel.model_version_string`).
 func (m *SpecModel) ModelVersionString() string {
 	return SomModelVersionString(m.ModelVersion, m.ModelVersionLabel)

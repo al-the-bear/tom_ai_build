@@ -12,20 +12,20 @@ at once.
 
 ## Formats
 
-- **`*.docspecs.yaml`** — the **hierarchical v2** wire format (DR5): a single
+- **`*.docspecs.yaml`** — the **hierarchical v2** wire format (SOM §12): a single
   document-root key (`SBP D00SolutionBlueprint`) holding the nested section
   tree; `version: 2`, `modelVersion: "1.0"`. Loaded with the one-call loaders
   (`D00SolutionBlueprint.loadFile(path)` typed, or
   `SpecDocument.fromFile(path, tree)` generic).
-- **`*.md`** — the **DocSpecs markdown** format (DR6): every populated section
+- **`*.md`** — the **DocSpecs markdown** format (SOM §11): every populated section
   is a heading carrying its section id as a headline comment
   (`## <!--[INSC]--> …`); narrative content is real multi-line markdown,
   `@Form` sections are `FieldName: value` blocks, list items are numbered
   sub-headings (`FRE-REQU-1`, …).
 
-The build tool validates the emitted markdown against the DR3-generated schema
+The build tool validates the emitted markdown against the generated schema
 (`tom_som_dart_v0/schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml`)
-via the embedded DR7 validator API and fails on any violation, so the committed
+via the embedded validator API (SOM §14) and fails on any violation, so the committed
 sample always validates cleanly.
 
 ## Regenerating

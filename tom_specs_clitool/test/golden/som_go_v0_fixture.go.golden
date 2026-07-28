@@ -6,7 +6,7 @@
 // generator wires local resolution by writing a `go.mod` with a `require` + local
 // `replace` directive, so this module builds both standalone (`go get`) and in-repo.
 //
-// The generated metadata module (DR8/DR21) — the populated SomMetaTrees plus the
+// The generated metadata module (SOM §8) — the populated SomMetaTrees plus the
 // dot-notation and ID-tree access surfaces — lives in the sibling `_meta.go` file
 // of this same package, so one import surfaces both access styles.
 package somv0
@@ -116,7 +116,7 @@ func (x *SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEditab
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated SolutionBlueprintMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlSolutionBlueprint(yaml string) (*SolutionBlueprint, error) {
 	doc, err := som.FromYaml(yaml, SolutionBlueprintMetaTree)
 	if err != nil {

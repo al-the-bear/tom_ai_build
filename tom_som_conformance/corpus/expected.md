@@ -56,7 +56,7 @@ spec §1.2
 
 ### <!--[REF-2]--> Refs 2
 
-DR1
+ADR7
 
 ## <!--[CARD-LST]--> Cards
 

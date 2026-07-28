@@ -3,8 +3,8 @@
 //! `tom_som_dart_runtime/lib/src/spec_meta_diff.dart` and the TypeScript /
 //! Python / JavaScript siblings).
 //!
-//! [`som_meta_node_diff`] is the agreement oracle for DR8: the generated
-//! facades embed populated metadata trees as static code (DR1 §3.2), while
+//! [`som_meta_node_diff`] is the agreement oracle: the generated
+//! facades embed populated metadata trees as static code (SOM §7.2), while
 //! [`crate::build_som_meta_tree`] derives the same tree from the exported
 //! meta-JSON at runtime — the two must be field-for-field identical for every
 //! node. Tests compare them with this function, which returns a human-readable

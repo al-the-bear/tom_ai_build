@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""DR4 metadata-core tests — a port of
+"""Metadata-core tests — a port of
 ``tom_som_dart_runtime/test/spec_meta_test.dart``.
 
-Hand-built DR1 §3.1 fixture tree mirroring the design doc's demo document
-(DR4 acceptance: "the runtime compiles with a hand-built fixture tree").
+Hand-built SOM §7.1 fixture tree mirroring the design doc's demo document
+(acceptance: "the runtime compiles with a hand-built fixture tree").
 
 Structure::
 
@@ -268,7 +268,7 @@ def test_wiring() -> None:
         tree.root.document.based_on == ["D00SolutionBlueprint"],
     )
 
-    # child paths follow the §4 grammar (sectionId ?? memberName)
+    # child paths follow the SOM §8 grammar (sectionId ?? memberName)
     insc = tree.root.child_by_member("introductionAndScope")
     _check("wiring.insc.path", insc.path == "DEMO/INSC", str(insc.path))
     _check(
@@ -530,7 +530,7 @@ def test_by_path() -> None:
         tree.by_path("DEMO/INSC/GOAL/GOAL-ITEM-LST-2/missing") is None,
     )
 
-    # byId and byPath agree on the node they address (DR1 §4.2)
+    # byId and byPath agree on the node they address (SOM §8)
     _check("agree.insc", tree.by_id("INSC") is tree.by_path("DEMO/INSC"))
     _check(
         "agree.list",

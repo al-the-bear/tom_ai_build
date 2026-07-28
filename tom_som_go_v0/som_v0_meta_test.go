@@ -1,5 +1,5 @@
-// DR8/DR21 agreement suite for the generated Go metadata module
-// (`tom_som_go_v0_meta.go`, DR1 §3.2/§4) — the Go port of the Dart facade's
+// Agreement suite for the generated Go metadata module
+// (`tom_som_go_v0_meta.go`, SOM §7.2/§8) — the Go port of the Dart facade's
 // `test/generated_meta_test.dart` (and the TypeScript `som_v0_meta_test.ts`).
 // Two guarantees over the *real* committed model:
 //
@@ -97,7 +97,7 @@ func TestGeneratedTreesAgreeWithBridge(t *testing.T) {
 	}
 }
 
-// TestDotNotationSurface proves the dot-notation entry points (DR1 §4.1)
+// TestDotNotationSurface proves the dot-notation entry points (SOM §8)
 // resolve representative positions to the expected paths and to the same
 // SomMetaNode instances the dynamic ByPath lookups find.
 func TestDotNotationSurface(t *testing.T) {
@@ -147,7 +147,7 @@ func TestDotNotationSurface(t *testing.T) {
 	}
 }
 
-// TestIdTreeSurface proves the ID-tree entry points (DR1 §4.2) agree with the
+// TestIdTreeSurface proves the ID-tree entry points (SOM §8) agree with the
 // dot-notation positions and that every root's ID entry point sits at its own
 // section-id segment over the same tree root node.
 func TestIdTreeSurface(t *testing.T) {

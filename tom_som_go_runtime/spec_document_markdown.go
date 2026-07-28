@@ -1,7 +1,7 @@
 package somruntime
 
 // spec_document_markdown.go — DocSpecs-conform Markdown codec for a TomSpecs
-// document (DR1 §1), a faithful port of
+// document (SOM §11), a faithful port of
 // `tom_som_dart_runtime/lib/src/spec_document_markdown.dart` (and the
 // TypeScript `spec_document_markdown.ts`).
 //
@@ -17,14 +17,14 @@ package somruntime
 // deeper — each item carrying the `@SectionIdPattern` resolved with the 1-based
 // position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`, else `<member>-<pos>`). The
 // container itself carries no body. Id-less members are **transparent** (mirroring
-// the DR3 schema generator): a transparent value member's text or form block
+// the schema generator , SOM §13): a transparent value member's text or form block
 // is the owner's body region, emitted without a heading and bound at its own
 // path; a transparent section/complex member never heads — its id-bearing
 // descendants hoist to the owner's child level (paths keep the transparent
 // segments). Section/complex headings without a field-level `@SectionId`
 // carry the target class's `@SectionId`.
 //
-// Escaping (DR1 §1.3): a content line starting with `#` at column 0 is
+// Escaping (SOM §11.3): a content line starting with `#` at column 0 is
 // emitted as `\#` (and a leading `\#`… run gains one more backslash), except
 // inside fenced code blocks, which shield their lines verbatim. Consecutive
 // blank lines are collapsed to one on emit; parse trims each value of
@@ -36,9 +36,9 @@ package somruntime
 // SpecDocument.ToJSON plus a rejection report; the caller applies them.
 // Anything that cannot be mapped — an unknown section id, a child heading
 // under a value leaf, orphaned text — is collected into
-// SpecMarkdownResult.Rejections rather than dropped (DR1 §1.7).
+// SpecMarkdownResult.Rejections rather than dropped (SOM §11.7).
 //
-// Go conventions (DR19): where the other ports throw, ExportRoot returns an
+// Go conventions: where the other ports throw, ExportRoot returns an
 // error (the unterminated-fence case); the empty string stands in for a null
 // Anchor.
 
@@ -48,7 +48,7 @@ import (
 	"unicode"
 )
 
-// Why an imported Markdown block was rejected (DR1 §1.7 rejection protocol).
+// Why an imported Markdown block was rejected (SOM §11.7 rejection protocol).
 const (
 	// SpecMarkdownRejectUnknownSection — the heading's section id does not
 	// resolve against the schema tree at its nesting position.
@@ -68,7 +68,7 @@ const (
 	SpecMarkdownRejectMalformedHeading = "malformedHeading"
 )
 
-// SpecMarkdownRejection is one rejected block in a Markdown import (DR1 §1.7).
+// SpecMarkdownRejection is one rejected block in a Markdown import (SOM §11.7).
 // Reported, never silently dropped: each carries the source Line, the
 // offending Anchor (section path or id, "" when none), the Reason, and a
 // human-readable Message.
@@ -87,7 +87,7 @@ func (r *SpecMarkdownRejection) String() string {
 	return "line " + itoa(r.Line) + ": " + r.Reason + anchor + " — " + r.Message
 }
 
-// SpecMarkdownResult is the outcome of parsing a Markdown document (DR1 §1.7):
+// SpecMarkdownResult is the outcome of parsing a Markdown document (SOM §11.7):
 // the staged values plus every rejected block. The values are keyed exactly
 // like SpecDocument.ToJSON so a caller can merge them into a live document as
 // a full overwrite of the covered scope.
@@ -229,11 +229,11 @@ type mdNodeRel struct {
 }
 
 // SpecDocumentMarkdown is the codec binding a SpecModel and a concrete
-// SpecDocument to the DocSpecs Markdown import/export format (DR1 §1).
+// SpecDocument to the DocSpecs Markdown import/export format (SOM §11).
 type SpecDocumentMarkdown struct {
 	Model    *SpecModel
 	Document *SpecDocument
-	// Metadata trees per root type, built lazily (DR8's generated facades
+	// Metadata trees per root type, built lazily (the generated facades
 	// will hand these in directly; until then the bridge derives them).
 	trees map[string]*SomMetaTree
 }
@@ -259,7 +259,7 @@ func (c *SpecDocumentMarkdown) treeFor(rootType string) (*SomMetaTree, error) {
 	return tree, nil
 }
 
-// --- Naming helpers (DR1 §1.2 / §1.5) ----------------------------------------
+// --- Naming helpers (SOM §11.2 / §11.5) --------------------------------------
 
 // SpecMarkdownTitleCase expands a camel/Pascal-case identifier into Title
 // Case: `introductionAndScope` / `DemoItem` → `Introduction And Scope` /
@@ -295,7 +295,7 @@ var (
 )
 
 // SpecMarkdownKebabCase derives the DocSpecs schema id of a `@Document` name
-// (DR1 §1.1): `Demo Document` → `demo-document`.
+// (SOM §11.1): `Demo Document` → `demo-document`.
 func SpecMarkdownKebabCase(title string) string {
 	s := strings.TrimSpace(title)
 	s = mdKebabSpaceRE.ReplaceAllString(s, "-")
@@ -304,7 +304,7 @@ func SpecMarkdownKebabCase(title string) string {
 }
 
 // SpecMarkdownItemTitleStem is the item heading title stem: Title-Case element
-// class name with a trailing `Entry` dropped (DR1 §1.5, normative).
+// class name with a trailing `Entry` dropped (SOM §11.5, normative).
 func SpecMarkdownItemTitleStem(elementClassName string) string {
 	stem := elementClassName
 	if len(stem) > 5 && strings.HasSuffix(stem, "Entry") {
@@ -330,7 +330,7 @@ func mdCodeSpecOf(region string) string {
 }
 
 // SpecMarkdownFormLabel is the `FieldName` label written for a form field:
-// the model field name with the first letter upper-cased (DR1 §1.4.1).
+// the model field name with the first letter upper-cased (SOM §11.4).
 func SpecMarkdownFormLabel(fieldName string) string {
 	if fieldName == "" {
 		return fieldName
@@ -339,12 +339,12 @@ func SpecMarkdownFormLabel(fieldName string) string {
 	return strings.ToUpper(string(rs[0])) + string(rs[1:])
 }
 
-// --- Export (DR1 §1.1–§1.6) --------------------------------------------------
+// --- Export (SOM §11.1–§11.8) ------------------------------------------------
 
 // headingIdOf is the section id written into (and matched from) a heading for
-// node (DR1 §1.2/§1.6): the field-level `@SectionId` when present; for
+// node (SOM §11.2/§11.8): the field-level `@SectionId` when present; for
 // section/complex nodes whose field carries none, the target **class**'s
-// `@SectionId` (the id the DR3 schema types are keyed by); else the path
+// `@SectionId` (the id the generated schema types are keyed by); else the path
 // segment (the member name).
 func (c *SpecDocumentMarkdown) headingIdOf(node *SomMetaNode) string {
 	if node.SectionID != "" {
@@ -358,9 +358,9 @@ func (c *SpecDocumentMarkdown) headingIdOf(node *SomMetaNode) string {
 	return node.Segment()
 }
 
-// --- Transparency (DR1 §1.2, mirroring the DR3 schema generator) -------------
+// --- Transparency (SOM §11.2, mirroring the schema generator , SOM §13) ------
 //
-// The DR3 `docspecs-schema` generator is normative: only **section-bearing**
+// The `docspecs-schema` generator (SOM §13) is normative: only **section-bearing**
 // nodes (those with a real `@SectionId`, field- or class-level) become
 // section types; id-less members are *transparent* — they are not sections
 // of their own. The markdown format mirrors that exactly:
@@ -372,8 +372,8 @@ func (c *SpecDocumentMarkdown) headingIdOf(node *SomMetaNode) string {
 //     descendants surface as the owner's direct child headings (the
 //     schema's "nearest section-bearing descendant" hoisting), with document
 //     paths still running through the transparent segments;
-//   - lists are never transparent — the `-LST` container always heads (DR1
-//     §1.2) at the owner's child level and the items sit one level below it
+//   - lists are never transparent — the `-LST` container always heads (SOM
+//     §11.2) at the owner's child level and the items sit one level below it
 //     (`@SectionIdPattern` / `<member>-<pos>`).
 //
 // Principled canonicalisation losses (documented, accepted): multiple
@@ -435,7 +435,7 @@ func (c *SpecDocumentMarkdown) bodySlots(node *SomMetaNode) []mdNodeRel {
 
 // effectiveChildren returns the ordered *effective children* of node: every
 // section-bearing child and every list, hoisted through transparent sections
-// — exactly the headings (and item-heading owners) the DR3 schema knows at
+// — exactly the headings (and item-heading owners) the generated schema knows at
 // this position. Each entry carries the relative path from node (which runs
 // through the transparent segments).
 func (c *SpecDocumentMarkdown) effectiveChildren(node *SomMetaNode) []mdNodeRel {
@@ -568,9 +568,9 @@ func (c *SpecDocumentMarkdown) writeChildren(
 	return nil
 }
 
-// writeListItems emits list node as its `-LST` container heading (DR1
-// §1.2/§1.5) at depth, wrapping the numbered item headings one level deeper.
-// The container is a real section — the id the DR3 schema keys its container
+// writeListItems emits list node as its `-LST` container heading (SOM
+// §11.2/§11.5) at depth, wrapping the numbered item headings one level deeper.
+// The container is a real section — the id the generated schema keys its container
 // type by — but carries **no content of its own** (schema content
 // min/max-text-length 0). Item identity is purely positional.
 func (c *SpecDocumentMarkdown) writeListItems(
@@ -584,7 +584,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	// member segment for a pattern-less list); its title is the member name.
 	mdWriteHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node), c.Document.CodeSpecOr(listPath))
 	// Item heading stem. Complex lists derive it from the element class name
-	// (DR1 §1.5, `Entry` dropped). A scalar list (`[]string`, shape 6) has no
+	// (SOM §11.5, `Entry` dropped). A scalar list (`[]string`, shape 6) has no
 	// element class — its element type name is literally `String`, which would
 	// render "String 1", "String 2". Derive the stem from the list FIELD
 	// instead (its member name, Title-Cased like the container heading) so a
@@ -597,7 +597,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	}
 	for i, itemPath := range items {
 		pos := i + 1
-		// YRD3 (supersedes DRC5): an item's STORED section id IS its md heading
+		// YRD3: an item's STORED section id IS its md heading
 		// id — stored ids round-trip through Markdown too. Only anonymous items
 		// fall back to the positional derivation: the `@SectionIdPattern`
 		// resolved with the 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`),
@@ -670,7 +670,7 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 		lines := strings.Split(prepared, "\n")
 		b.writeln(SpecMarkdownFormLabel(f.Name) + ": " + lines[0])
 		for _, line := range lines[1:] {
-			// §1.4.3 generalised: any continuation line that could be mistaken
+			// SOM §11.4 generalised: any continuation line that could be mistaken
 			// for a field-label line gains one leading space; parse strips it.
 			if mdLabelShapedRE.MatchString(line) {
 				b.writeln(" " + line)
@@ -683,7 +683,7 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 	return nil
 }
 
-// mdWriteHeading writes `## <!--[ID]--> Title` at depth. DR1 §1.2 is
+// mdWriteHeading writes `## <!--[ID]--> Title` at depth. SOM §11.2 is
 // normative — heading level = 1 + section depth, **uncapped**: deep models
 // (the Solution Blueprint nests past markdown's native 6 levels) keep their
 // structure; the parse grammar accepts `#{7,}` accordingly. Capping would
@@ -717,7 +717,7 @@ func (c *SpecDocumentMarkdown) writeBody(b *mdBuffer, value, path string) error 
 	return nil
 }
 
-// prepareValue is the emit-side value normalisation (DR1 §1.3): collapse 2+
+// prepareValue is the emit-side value normalisation (SOM §11.3): collapse 2+
 // blank lines to one, trim leading/trailing blank lines, escape heading-like
 // lines outside fences. Returns an error for an unterminated fence.
 func (c *SpecDocumentMarkdown) prepareValue(value, path string) (string, error) {
@@ -728,7 +728,7 @@ func (c *SpecDocumentMarkdown) prepareValue(value, path string) (string, error) 
 	var out []string
 	for _, line := range strings.Split(collapsed, "\n") {
 		if fence.InFence() {
-			out = append(out, line) // §1.3.4: fences shield their lines.
+			out = append(out, line) // SOM §11.3: fences shield their lines.
 		} else if mdEscapableRE.MatchString(line) {
 			out = append(out, "\\"+line)
 		} else {
@@ -766,7 +766,7 @@ func mdTitleOf(node *SomMetaNode) string {
 }
 
 // mdItemStemOf is the effective default item-title stem of list node (YRD4):
-// the element class's `@Headline` default when authored, else the DR1 §1.5
+// the element class's `@Headline` default when authored, else the SOM §11.5
 // derivation (element class name with `Entry` dropped; member name for scalar
 // lists).
 func mdItemStemOf(node *SomMetaNode) string {
@@ -792,7 +792,7 @@ func (c *SpecDocumentMarkdown) headingTitle(path string, node *SomMetaNode) stri
 	return mdTitleOf(node)
 }
 
-// --- Import (DR1 §1.7) --------------------------------------------------------
+// --- Import (SOM §11.7) -------------------------------------------------------
 
 // Parse parses text into staged values + a rejection report, **without**
 // mutating the document. The caller applies the result as a full overwrite.
@@ -875,7 +875,7 @@ func (p *mdParser) run(lines []string) {
 
 		if !p.fence.InFence() {
 			if len(p.stack) == 0 && mdDocspecCommentRE.MatchString(trimmed) {
-				continue // §1.1 header — informational.
+				continue // SOM §11.1 header — informational.
 			}
 			if h := mdHeadingLineRE.FindStringSubmatch(trimmed); h != nil {
 				p.closeTo(len(h[1]))
@@ -958,7 +958,7 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 		return
 	}
 
-	// 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
+	// 1. Under a `-LST` container frame (SOM §11.2), every child heading is one
 	//    of that list's items — resolved positionally, not by the schema tree.
 	if pNode.Kind == SomMetaKindList {
 		p.openItemHeading(level, parent, pNode, id, title, codeSpec, lineNo)
@@ -1003,8 +1003,8 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	p.stack = append(p.stack, &mdFrame{level: level, line: lineNo, ignored: true})
 }
 
-// openItemHeading opens a list-item frame under a `-LST` container frame (DR1
-// §1.2). The heading id is matched positionally against the container's list:
+// openItemHeading opens a list-item frame under a `-LST` container frame (SOM
+// §11.2). The heading id is matched positionally against the container's list:
 // the `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a
 // number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored
 // id, or — for any other id — an anonymous next item carrying the stored id.
@@ -1030,7 +1030,7 @@ func (p *mdParser) openItemHeading(
 	}
 	if pattern != "" {
 		// Canonical anonymous id: the pattern with `xxx` as a number — parses
-		// back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+		// back as item <n>, NOT as a stored id (SOM §11.2 round-trip).
 		parts := strings.Split(pattern, "xxx")
 		if len(parts) == 2 {
 			numberedRE, err := regexp.Compile("^" + regexp.QuoteMeta(parts[0]) +
@@ -1202,7 +1202,7 @@ func (p *mdParser) finalize(frame *mdFrame) {
 }
 
 // finalizeBodySlots binds a heading's body region against the owner's
-// transparent body slots (DR1 §1.2 transparency): `FieldName:` lines matching
+// transparent body slots (SOM §11.2 transparency): `FieldName:` lines matching
 // a transparent form's fields route to that form (nearest form in slot order,
 // wrapping); all other text binds to the first non-form slot — or to the
 // owner's own path when no such slot exists.
@@ -1363,7 +1363,7 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 	flush(frame.line + len(frame.body))
 }
 
-// mdRestoreValue is the parse-side value restoration (DR1 §1.3): trim
+// mdRestoreValue is the parse-side value restoration (SOM §11.3): trim
 // leading/trailing blank lines and unescape `\#`-escaped heading lines
 // outside fences.
 func mdRestoreValue(body []string) string {

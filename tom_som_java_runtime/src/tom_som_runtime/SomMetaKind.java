@@ -1,7 +1,7 @@
 package tom_som_runtime;
 
 /**
- * The structural kind of a metadata node, mirroring DR1 §3.1
+ * The structural kind of a metadata node, mirroring SOM §7.1
  * ({@code list | form | section | content | enum | complex | scalar}) — a
  * faithful port of {@code spec_meta.dart} / {@code spec_meta.ts}.
  *

@@ -1,5 +1,5 @@
 /* docspecs_validator — implementation. See docspecs_validator.h; a faithful
- * 1:1 port of the Go `docspecs_validator.go` (DR7/DR29). */
+ * 1:1 port of the Go `docspecs_validator.go` (SOM §14). */
 #include "docspecs_validator.h"
 
 #include <stdarg.h>

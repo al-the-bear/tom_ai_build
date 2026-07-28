@@ -1,12 +1,12 @@
 package somruntime
 
 // spec_document_yaml.go — generic YAML codec for the native `*.docspecs.yaml`
-// document format — **hierarchical format v2** (DR1 §2); a faithful port of
+// document format — **hierarchical format v2** (SOM §12); a faithful port of
 // `tom_som_dart_runtime/lib/src/spec_document_yaml.dart` (and the TypeScript
 // `spec_document_yaml.ts`).
 //
 // One nested YAML tree whose indentation mirrors the document structure: every
-// model node becomes a mapping key (`<section-id> <member-name>`, DR1 §2.2),
+// model node becomes a mapping key (`<section-id> <member-name>`, SOM §12.2),
 // sections nest their children, list items appear under their container keyed
 // by their stored section id (or an anonymous positional `<member>-<n>` key), a
 // node's own body text uses the literal key `content`, a node's own stored
@@ -17,7 +17,7 @@ package somruntime
 // (`document: {content: {"A/b": …}}`) is **retired**; readers reject
 // `version: 1` files with a clear error (no compatibility path).
 //
-// Text values are written as literal block scalars (`|2-`), with the DR1 §2.4
+// Text values are written as literal block scalars (`|2-`), with the SOM §12.4
 // escaping rules: the emitter is **self-verifying** (it re-parses each scalar
 // it produces via the hand-rolled yaml.go reader — the runtime ships no
 // external YAML library — and falls back to a double-quoted JSON-escaped flow
@@ -25,7 +25,7 @@ package somruntime
 // collapsed to one** before serialization (a deliberate, documented lossy
 // normalization — round-trip guarantees are stated "modulo empty-line dedup").
 // Non-text values (`int`/`double`/`bool`, enum member names) are plain scalars
-// when they self-verify (§2.5). The JSON quoting is byte-for-byte identical to
+// when they self-verify (SOM §12.5). The JSON quoting is byte-for-byte identical to
 // JavaScript's JSON.stringify (see jsJSONString) so output is stable across
 // every language port — NOT Go's encoding/json, which HTML-escapes < > & and
 // U+2028/U+2029.
@@ -93,13 +93,13 @@ type SpecYamlContents struct {
 
 // --- Shared scalar machinery (public for the editor's review writer) ---------
 
-// NodeKey returns the mapping key a metadata node writes (DR1 §2.2): its
+// NodeKey returns the mapping key a metadata node writes (SOM §12.2): its
 // effective section id, one space, then the exact member name (class name on
 // the document root); just the name when the node carries no id.
 //
 // The id is the field-level SectionID when present; for a section/complex node
 // whose field carries none, the target class's id (ClassSectionID) — the id
-// its DR3 schema type is keyed by. This mirrors the markdown codec's heading
+// its generated schema type is keyed by. This mirrors the markdown codec's heading
 // rule exactly. Content, scalar, enum, form and list keys keep only their
 // field-level id (no class fallback), and the path Segment is unaffected in
 // every case.
@@ -179,7 +179,7 @@ func PlainKey(key string) string {
 var blankRuns = regexp.MustCompile(`\n{3,}`)
 
 // DedupEmptyLines collapses runs of two or more consecutive empty lines to a
-// single empty line (DR1 §2.4.3 — the deliberate lossy normalization applied
+// single empty line (SOM §12.4 — the deliberate lossy normalization applied
 // to every text value before serialization).
 func DedupEmptyLines(value string) string {
 	return blankRuns.ReplaceAllString(value, "\n\n")
@@ -269,7 +269,7 @@ var yaml11SexagesimalFloat = regexp.MustCompile(
 
 // isYaml11Special reports whether value's text is a YAML 1.1 special that a
 // 1.1 parser would resolve to a non-string, so it must never be emitted as a
-// plain scalar (DR1 §2.5). Covers the 1.1-only boolean words and sexagesimal
+// plain scalar (SOM §12.5). Covers the 1.1-only boolean words and sexagesimal
 // int/float literals. Mirrors the Dart reference rule so every emitter's
 // plain-scalar decision is identical regardless of the local YAML library.
 func isYaml11Special(value string) bool {
@@ -279,7 +279,7 @@ func isYaml11Special(value string) bool {
 }
 
 // plainScalar returns a plain one-line scalar for a non-text value
-// (int/double/bool/enum member name, §2.5) when writing it plainly re-parses
+// (int/double/bool/enum member name, SOM §12.5) when writing it plainly re-parses
 // to exactly value (string compare, matching the document's string-typed
 // stores); ok=false otherwise. Values whose text is a YAML 1.1 special are
 // forced to the quoted/block path so cross-language round-trips stay identical.
@@ -475,7 +475,7 @@ func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (s
 		e.writeText(b, indent, "codeSpec", ownCodeSpec)
 	}
 
-	// The node's own body text — the literal `content` key (DR1 §2.2).
+	// The node's own body text — the literal `content` key (SOM §12.2).
 	if own, ok := e.content[path]; ok {
 		delete(e.content, path)
 		for _, c := range node.Children {
@@ -697,7 +697,7 @@ func (e *yamlEncoder) writeText(b *yamlBuffer, indent int, key, value string) {
 	writeRendered(b, indent, PlainKey(key), scalarRepr(DedupEmptyLines(value)))
 }
 
-// writeValue writes a non-text value (§2.5): plain when it self-verifies, else
+// writeValue writes a non-text value (SOM §12.5): plain when it self-verifies, else
 // the text path.
 func (e *yamlEncoder) writeValue(b *yamlBuffer, indent int, key, value string) {
 	if plain, ok := plainScalar(value); ok {

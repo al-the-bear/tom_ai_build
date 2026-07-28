@@ -1,6 +1,6 @@
 /* docspecs_validator — implementation. See docspecs_validator.hpp; a faithful
  * idiomatic-C++ port of the C `docspecs_validator.c` (itself a 1:1 port of the
- * Go `docspecs_validator.go`, DR7/DR29). */
+ * Go `docspecs_validator.go`, SOM §14). */
 #include "docspecs_validator.hpp"
 
 #include <cstddef>

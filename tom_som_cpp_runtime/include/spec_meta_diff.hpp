@@ -2,8 +2,8 @@
  * idiomatic-C++ port of the C `spec_meta_diff` module (which itself ports the
  * Go / Dart / TS references).
  *
- * somMetaNodeDiff is the agreement oracle for DR8: the generated facades embed
- * populated metadata trees as static code (DR1 §3.2), while somBuildMetaTree
+ * somMetaNodeDiff is the agreement oracle: the generated facades embed
+ * populated metadata trees as static code (SOM §7.2), while somBuildMetaTree
  * derives the same tree from the exported meta-JSON at runtime — the two must be
  * field-for-field identical for every node. Tests compare them with this
  * function, which returns a human-readable description of the **first**

@@ -1,5 +1,5 @@
-// DR8/DR21/DR24 agreement suite for the generated Java metadata module
-// (`src/tom_som_java_v0/TomSomV0Meta.java`, DR1 §3.2/§4) — the Java port of
+// Agreement suite for the generated Java metadata module
+// (`src/tom_som_java_v0/TomSomV0Meta.java`, SOM §7.2/§8) — the Java port of
 // the Go facade's `som_v0_meta_test.go` (and the Dart facade's
 // `test/generated_meta_test.dart`). Two guarantees over the *real* committed
 // model:
@@ -122,7 +122,7 @@ public final class MetaAgreementTest {
   }
 
   /**
-   * Proves the dot-notation entry points (DR1 §4.1) resolve representative
+   * Proves the dot-notation entry points (SOM §8) resolve representative
    * positions to the expected paths and to the same SomMetaNode instances the
    * dynamic byPath lookups find.
    */
@@ -178,7 +178,7 @@ public final class MetaAgreementTest {
   }
 
   /**
-   * Proves the ID-tree entry points (DR1 §4.2) agree with the dot-notation
+   * Proves the ID-tree entry points (SOM §8) agree with the dot-notation
    * positions and that every root's ID entry point sits at its own section-id
    * segment over the same tree root node.
    */

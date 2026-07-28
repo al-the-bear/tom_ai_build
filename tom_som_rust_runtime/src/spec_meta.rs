@@ -1,4 +1,4 @@
-//! `spec_meta` — the canonical SOM **metadata tree**: the runtime's DR1 §3.1
+//! `spec_meta` — the canonical SOM **metadata tree**: the runtime's SOM §7.1
 //! node types, a faithful port of the Go `spec_meta.go` (itself a port of
 //! `tom_som_dart_runtime/lib/src/spec_meta.dart`).
 //!
@@ -7,16 +7,16 @@
 //! and member names, so the tree is the single language-neutral description of
 //! a document's structure:
 //!
-//!   - [`SomMetaNode`] — one node per navigable model position (§3.1), with
+//!   - [`SomMetaNode`] — one node per navigable model position (SOM §7.1), with
 //!     section id / pattern, kind, serialization order, `@Min`, content type,
 //!     help/comment/doc texts, form metadata, traceability links
 //!     (`@MapsTo` / `@DetailedIn`) and the lossless
 //!     `extra` annotation list;
-//!   - [`SomMetaTree`] — wires parent links and absolute paths (the §4 path
+//!   - [`SomMetaTree`] — wires parent links and absolute paths (the SOM §8 path
 //!     grammar shared with `spec_paths`) and provides the two dynamic lookups
 //!     every runtime keeps: `by_id` and `by_path`.
 //!
-//! The runtime only *defines* these types; the generated facades (DR8) emit
+//! The runtime only *defines* these types; the generated facades (SOM §8) emit
 //! the populated tree as statically initialized values, and tests build small
 //! fixture trees by hand.
 //!
@@ -61,7 +61,7 @@ pub struct SomContentTypeMeta {
     pub description: String,
 }
 
-/// One field of a `@Form` section (DR1 §3.1 FormMeta.fields).
+/// One field of a `@Form` section (SOM §7.1 FormMeta.fields).
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SomFormFieldMeta {
     /// The exact model field name (`"approvedBy"`).
@@ -83,7 +83,7 @@ pub struct SomFormFieldMeta {
     pub enum_values: Vec<String>,
 }
 
-/// The form metadata of a `@Form` node (DR1 §3.1 FormMeta).
+/// The form metadata of a `@Form` node (SOM §7.1 FormMeta).
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SomFormMeta {
     /// The form's fields in declaration order.
@@ -97,7 +97,7 @@ impl SomFormMeta {
     }
 }
 
-/// The `@Document` metadata carried by a document root (DR1 §3.1 DocMeta).
+/// The `@Document` metadata carried by a document root (SOM §7.1 DocMeta).
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SomDocMeta {
     /// The document's display name (`"Solution Blueprint"`).
@@ -109,7 +109,7 @@ pub struct SomDocMeta {
 }
 
 /// One annotation captured losslessly into the generic `extra` list —
-/// annotations the tree defines no dedicated slot for (DR1 §3.1 note), e.g.
+/// annotations the tree defines no dedicated slot for (SOM §7.1 note), e.g.
 /// `@Max`, `@MinLength`, `@PatternCheck`, `@TextRequired`.
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SomMetaExtra {
@@ -126,7 +126,7 @@ impl SomMetaExtra {
     }
 }
 
-/// One node of the SOM metadata tree (DR1 §3.1 MetaNode).
+/// One node of the SOM metadata tree (SOM §7.1 MetaNode).
 ///
 /// A node describes one navigable position of a document root's structure: the
 /// document root itself, a field, or a list's element subtree. Class-level
@@ -149,7 +149,7 @@ pub struct SomMetaNode {
     /// The effective `@SectionId` (field-level wins over class-level), `""`
     /// when none.
     pub section_id: String,
-    /// The target class's own `@SectionId` (DR1 §2.2 fallback): the id its DR3
+    /// The target class's own `@SectionId` (SOM §12.2 fallback): the id its generated
     /// schema type is keyed by, used only to build the mapping key of a
     /// section/complex node whose field carries no id. Never enters
     /// [`SomMetaNode::segment`] — the path stays field-level. `""` when none.
@@ -250,7 +250,7 @@ impl SomMetaNode {
         Ok(self.wiring.parent.borrow().upgrade())
     }
 
-    /// Returns the node's absolute document path per the §4 path grammar
+    /// Returns the node's absolute document path per the SOM §8 path grammar
     /// (`<rootSegment>/<segment>/…`), or `""` for nodes inside a list element
     /// subtree — their concrete paths depend on the item sequence (see
     /// [`SomMetaNode::item_path`] on the list node and
@@ -341,7 +341,7 @@ fn match_pattern_parts(parts: &[&str], id: &str) -> bool {
 }
 
 /// The metadata tree of one document root: parent/path wiring plus the two
-/// dynamic lookups (`by_id`, `by_path`) DR1 §4.3 requires every runtime to
+/// dynamic lookups (`by_id`, `by_path`) SOM §10 requires every runtime to
 /// keep.
 #[derive(Debug)]
 pub struct SomMetaTree {
@@ -428,7 +428,7 @@ impl SomMetaTree {
 
     /// Returns all nodes whose effective section id equals `section_id`, in
     /// document order. A shared class instantiated at several positions yields
-    /// several nodes (ids resolve within their parent chain, DR1 §1.2).
+    /// several nodes (ids resolve within their parent chain, SOM §11.2).
     pub fn all_by_id(&self, section_id: &str) -> &[Rc<SomMetaNode>] {
         self.by_id.get(section_id).map(|v| v.as_slice()).unwrap_or(&[])
     }
@@ -459,7 +459,7 @@ impl SomMetaTree {
 
     // --- lookup by path -------------------------------------------------------
 
-    /// Resolves a document path (the §4 grammar: segments joined by `"/"`,
+    /// Resolves a document path (the SOM §8 grammar: segments joined by `"/"`,
     /// list items as `-<seq>` suffixes) to the metadata node it addresses, or
     /// `None` when the path does not describe a reachable position.
     ///
@@ -517,9 +517,9 @@ impl SomMetaTree {
 }
 
 /// One position of the generated **dot-notation / ID-tree access surfaces**
-/// (DR1 §4): an absolute document `path` bound to the `tree` it belongs to.
+/// (SOM §8): an absolute document `path` bound to the `tree` it belongs to.
 ///
-/// The generated facades (DR8) emit one accessor type per model class whose
+/// The generated facades (SOM §8) emit one accessor type per model class whose
 /// getters return further `SomMetaRef`s. Every accessor exposes at least
 /// `path` and `meta` (the [`SomMetaNode`] at that position). This base type is
 /// the leaf accessor itself (content/scalar/enum/form positions).
@@ -527,7 +527,7 @@ impl SomMetaTree {
 pub struct SomMetaRef<'a> {
     /// The metadata tree of the document root this position belongs to.
     pub tree: &'a SomMetaTree,
-    /// The absolute document path of this position (§4 path grammar).
+    /// The absolute document path of this position (SOM §8 path grammar).
     pub path: String,
 }
 
@@ -541,7 +541,7 @@ impl<'a> SomMetaRef<'a> {
     ///
     /// Returns an error when the path resolves to no node — only possible past
     /// a recursive re-entry, where the generated chain has ended and the
-    /// metadata tree carries no further nodes (DR1 §4.1 cycle rule).
+    /// metadata tree carries no further nodes (SOM §8 cycle rule).
     pub fn meta(&self) -> Result<Rc<SomMetaNode>, String> {
         self.tree.by_path(&self.path).ok_or_else(|| {
             format!(
@@ -552,7 +552,7 @@ impl<'a> SomMetaRef<'a> {
     }
 }
 
-/// The generated accessor for a **list** position (DR1 §4.1): `meta_ref.path`
+/// The generated accessor for a **list** position (SOM §8): `meta_ref.path`
 /// is the list container path; [`item`](SomListMetaRef::item) returns the
 /// accessor for the `seq`-th item position (`<path>-<seq>`), whose children
 /// are the element class's accessors.

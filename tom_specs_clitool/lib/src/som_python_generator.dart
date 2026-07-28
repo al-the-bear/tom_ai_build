@@ -144,8 +144,8 @@ SomPythonGenerationResult writeSomPythonProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
-  // ── generated metadata module (DR8/DR12): populated SomMetaTrees (DR1 §3.2)
-  //    plus the dot-notation and ID-tree access surfaces (DR1 §4), re-exported
+  // ── generated metadata module (SOM §8): populated SomMetaTrees (SOM §7.2)
+  //    plus the dot-notation and ID-tree access surfaces (SOM §8), re-exported
   //    from the main facade module ─────────────────────────────────────────────
   final metaSource = SomPythonMetaEmitter(
     model,

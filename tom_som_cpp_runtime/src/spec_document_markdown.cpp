@@ -4,7 +4,7 @@
  * stays dependency-free.
  *
  * Every `List<T>` field maps to a two-level md hierarchy: a `<!--[FOO-LST]-->`
- * container heading (DR1 §1.2/§1.5) at the owner's child level, holding the
+ * container heading (SOM §11.2/§11.5) at the owner's child level, holding the
  * numbered item headings one level deeper, with item-element children one level
  * deeper again. The container carries no body of its own; item identity is
  * purely positional. */
@@ -402,7 +402,7 @@ void SpecMarkdownFenceTracker::feed(const std::string& line) {
 }
 
 /* ======================================================================== */
-/* Naming helpers (DR1 §1.2 / §1.5)                                          */
+/* Naming helpers (SOM §11.2 / §11.5)                                          */
 /* ======================================================================== */
 
 std::string titleCase(const std::string& name) {
@@ -631,7 +631,7 @@ std::string mdTitleOf(const SomMetaNode& node) {
 }
 
 /* The effective default item-title stem of list `node` (YRD4): the element
- * class's `@Headline` default when authored, else the DR1 §1.5 derivation
+ * class's `@Headline` default when authored, else the SOM §11.5 derivation
  * (element class name with `Entry` dropped; member name for scalar lists). */
 std::string mdItemStemOf(const SomMetaNode& node) {
   const SomMetaNode* element = node.elementNode.get();
@@ -802,10 +802,10 @@ void writeSectionBody(MdCodec& c, std::string& b, const SomMetaNode& node,
   }
 }
 
-// Emits list `node` as its `-LST` container heading (DR1 §1.2/§1.5) at `depth`,
+// Emits list `node` as its `-LST` container heading (SOM §11.2/§11.5) at `depth`,
 // wrapping the numbered item headings one level deeper and their item-element
 // children one level deeper again. The container is a real section — the id the
-// DR3 schema keys its container type by — but carries no content of its own
+// generated schema keys its container type by — but carries no content of its own
 // (schema content min/max-text-length 0). Item identity is purely positional.
 void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
                     const std::string& listPath, int depth) {
@@ -820,7 +820,7 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   mdWriteHeading(b, depth, headingIdOf(c, node),
                  headingTitle(c, listPath, node), doc.codeSpec(listPath));
   // Item heading stem. Complex lists derive it from the element class name
-  // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class —
+  // (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no element class —
   // its element typeName is literally `String`, which would render "String 1",
   // "String 2". Derive the stem from the list FIELD instead (its member name,
   // Title-Cased like the container heading) so a populated scalar list gets
@@ -836,7 +836,7 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
     const std::string& itemPath = (*items)[i];
     long long pos = (long long)i + 1;
     std::string itemId;
-    // YRD3 (supersedes DRC5): an item's STORED section id IS its md heading
+    // YRD3: an item's STORED section id IS its md heading
     // id — stored ids round-trip through Markdown too. Only anonymous items
     // fall back to the positional derivation: the `@SectionIdPattern`
     // resolved with the 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`),
@@ -1452,7 +1452,7 @@ bool numberedPatternMatch(const std::string& pattern, const std::string& id,
   return true;
 }
 
-// Opens a list-item frame under a `-LST` container frame (DR1 §1.2). The
+// Opens a list-item frame under a `-LST` container frame (SOM §11.2). The
 // heading [id] is matched positionally against the container's list: the
 // `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a number
 // (`GOAL-ITEM-3`, parses back as item <n>), a pattern-shaped stored id, or —
@@ -1527,7 +1527,7 @@ void MdParser::openHeading(int level, const std::string& rest,
 
   std::string parentPath = stack_.back().path;  // stable across pushes
 
-  // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one of
+  // 1. Under a `-LST` container frame (SOM §11.2), every child heading is one of
   //    that list's items — resolved positionally, not by the schema tree.
   if (kindEq(pNode->kind, kSomMetaKindList)) {
     openItemHeading(level, parentPath, *pNode, id, title, codeSpec, line);
@@ -1650,7 +1650,7 @@ void MdParser::run(const std::string& text, SpecMarkdownResult& out) {
 
     if (!fence.inFence()) {
       if (stack_.empty() && isDocspecComment(trimmed)) {
-        continue;  // §1.1 header
+        continue;  // SOM §11.1 header
       }
       int level = 0;
       std::string rest;

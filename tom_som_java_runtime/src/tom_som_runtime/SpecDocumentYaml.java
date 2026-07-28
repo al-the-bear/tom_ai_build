@@ -11,12 +11,12 @@ import java.util.regex.Pattern;
 
 /**
  * Generic YAML codec for the native {@code *.docspecs.yaml} document format —
- * <b>hierarchical format v2</b> (DR1 §2); a faithful port of
+ * <b>hierarchical format v2</b> (SOM §12); a faithful port of
  * {@code spec_document_yaml.dart} / {@code spec_document_yaml.ts}.
  *
  * <p>One nested YAML tree whose indentation mirrors the document structure:
  * every model node becomes a mapping key ({@code <section-id> <member-name>},
- * DR1 §2.2), sections nest their children, list items appear under their
+ * SOM §12.2), sections nest their children, list items appear under their
  * container keyed by their stored section id (or an anonymous positional
  * {@code <member>-<n>} key), a node's own body text uses the literal key
  * {@code content}, a node's own <b>stored headline</b> (YRD3) uses the literal
@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * (no compatibility path).
  *
  * <p>Text values are written as literal block scalars ({@code |2-}), with the
- * DR1 §2.4 escaping rules: the emitter is <b>self-verifying</b> (it re-parses
+ * SOM §12.4 escaping rules: the emitter is <b>self-verifying</b> (it re-parses
  * each scalar it produces via the hand-rolled {@link Yaml} reader — the runtime
  * ships no external YAML library — and falls back to a double-quoted
  * JSON-escaped flow scalar when the parse differs), and <b>runs of 2+
@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
  * deliberate, documented lossy normalization — round-trip guarantees are
  * stated "modulo empty-line dedup"). Non-text values ({@code int}/{@code
  * double}/{@code bool}, enum member names) are plain scalars when they
- * self-verify (§2.5). The JSON quoting ({@link Json#encodeString}) is
+ * self-verify (SOM §12.5). The JSON quoting ({@link Json#encodeString}) is
  * byte-for-byte identical to JavaScript's {@code JSON.stringify} so output is
  * stable across every language port.
  *
@@ -70,13 +70,13 @@ public final class SpecDocumentYaml {
   // --- Shared scalar machinery (public for the editor's review writer) -----
 
   /**
-   * The mapping key a metadata node writes (DR1 §2.2): its effective section
+   * The mapping key a metadata node writes (SOM §12.2): its effective section
    * id, one space, then the exact member name (class name on the document
    * root); just the name when the node carries no id.
    *
    * <p>The id is the field-level {@link SomMetaNode#sectionId} when present;
    * for a section/complex node whose field carries none, the target
-   * <b>class</b>'s id ({@link SomMetaNode#classSectionId}) — the id its DR3
+   * <b>class</b>'s id ({@link SomMetaNode#classSectionId}) — the id its generated
    * schema type is keyed by. This mirrors the markdown codec's heading rule
    * exactly. Content, scalar, enum, form and list keys keep only their
    * field-level id (no class fallback), and the path
@@ -125,7 +125,7 @@ public final class SpecDocumentYaml {
 
   /**
    * Collapses runs of two or more consecutive empty lines to a single empty
-   * line (DR1 §2.4.3 — the deliberate lossy normalization applied to every
+   * line (SOM §12.4 — the deliberate lossy normalization applied to every
    * text value before serialization).
    */
   public static String dedupEmptyLines(String value) {
@@ -227,7 +227,7 @@ public final class SpecDocumentYaml {
   /**
    * Whether {@code value}'s text is a YAML 1.1 special that a 1.1 parser would
    * resolve to a non-string, so it must never be emitted as a plain scalar
-   * (DR1 §2.5). Covers the 1.1-only boolean words and sexagesimal int/float
+   * (SOM §12.5). Covers the 1.1-only boolean words and sexagesimal int/float
    * literals. Mirrors the Dart reference rule so every emitter's plain-scalar
    * decision is identical regardless of the local YAML library's schema.
    */
@@ -239,7 +239,7 @@ public final class SpecDocumentYaml {
 
   /**
    * A plain one-line scalar for a non-text value (int/double/bool/enum member
-   * name, §2.5) when writing it plainly re-parses to exactly {@code value}
+   * name, SOM §12.5) when writing it plainly re-parses to exactly {@code value}
    * (string compare, matching the document's string-typed stores);
    * {@code null} otherwise. Values whose text is a YAML 1.1 special are forced
    * to the quoted/block path so cross-language round-trips stay identical.
@@ -444,7 +444,7 @@ public final class SpecDocumentYaml {
         writeText(b, indent, "codeSpec", ownCodeSpec);
       }
 
-      // The node's own body text — the literal `content` key (DR1 §2.2).
+      // The node's own body text — the literal `content` key (SOM §12.2).
       if (content.containsKey(path)) {
         String own = content.remove(path);
         for (SomMetaNode c : node.children) {
@@ -665,7 +665,7 @@ public final class SpecDocumentYaml {
       writeRendered(b, indent, plainKey(key), scalarRepr(dedupEmptyLines(value)));
     }
 
-    /** Writes a non-text value (§2.5): plain when it self-verifies, else the text path. */
+    /** Writes a non-text value (SOM §12.5): plain when it self-verifies, else the text path. */
     private void writeValue(StringBuilder b, int indent, String key, String value) {
       String plain = plainScalar(value);
       if (plain != null) {

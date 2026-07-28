@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * One annotation captured losslessly into the generic extra list — annotations
- * the tree defines no dedicated slot for (DR1 §3.1 note), e.g. {@code @Max},
+ * the tree defines no dedicated slot for (SOM §7.1 note), e.g. {@code @Max},
  * {@code @MinLength}, {@code @PatternCheck}, {@code @TextRequired}. A faithful
  * port of {@code spec_meta.dart} / {@code spec_meta.ts}.
  */

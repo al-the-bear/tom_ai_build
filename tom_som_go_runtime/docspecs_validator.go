@@ -2,7 +2,7 @@ package somruntime
 
 // docspecs_validator.go — DocSpecs markdown validation, a faithful port of
 // `tom_som_typescript_runtime/src/docspecs_validator.ts` (itself a port of the
-// JavaScript/Python/Dart chain, DR7/DR14/DR17 parity).
+// JavaScript / Python / Dart parity chain).
 //
 // Three cooperating pieces:
 //
@@ -17,7 +17,7 @@ package somruntime
 // Plus BindDocspecsMarkdown, which lands a DocSpecs markdown text in a typed
 // SpecDocument via the SOM markdown codec.
 //
-// Go conventions (DR19): "" stands in for the other ports' null strings
+// Go conventions: "" stands in for the other ports' null strings
 // (DocSpecsViolation.SectionID/Path, DocSpecsSection.ID, …); optional ints are
 // *int; the one throwing entry point (fromYamlText's "must be a YAML map")
 // returns an error instead.
@@ -836,7 +836,7 @@ func (val *DocSpecsValidator) validateForm(
 }
 
 // BindDocspecsMarkdown lands a DocSpecs markdown text in a typed SpecDocument
-// via the SOM markdown codec — the DR7 "bind" entry point.
+// via the SOM markdown codec — the "bind" entry point (SOM §14).
 func BindDocspecsMarkdown(
 	model *SpecModel, document *SpecDocument, text string,
 ) *SpecMarkdownResult {

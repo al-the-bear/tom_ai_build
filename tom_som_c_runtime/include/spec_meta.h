@@ -1,4 +1,4 @@
-/* spec_meta — the canonical SOM **metadata tree**: the runtime's DR1 §3.1 node
+/* spec_meta — the canonical SOM **metadata tree**: the runtime's SOM §7.1 node
  * types, a faithful port of the Go `spec_meta.go` (which itself ports the Dart
  * reference `spec_meta.dart` / TypeScript `spec_meta.ts`).
  *
@@ -7,16 +7,16 @@
  * and member names, so the tree is the single language-neutral description of
  * a document's structure:
  *
- *   - SomMetaNode — one node per navigable model position (§3.1), with section
+ *   - SomMetaNode — one node per navigable model position (SOM §7.1), with section
  *     id / pattern, kind, serialization order, @Min, content type,
  *     help/comment/doc texts, form metadata, traceability links
  *     (@MapsTo / @DetailedIn) and the lossless extra
  *     annotation list;
- *   - SomMetaTree — wires parent links and absolute paths (the §4 path grammar
+ *   - SomMetaTree — wires parent links and absolute paths (the SOM §8 path grammar
  *     shared with spec_paths) and provides the two dynamic lookups every
  *     runtime keeps: by-id and by-path.
  *
- * The runtime only *defines* these types; the generated facades (DR8) emit the
+ * The runtime only *defines* these types; the generated facades (SOM §8) emit the
  * populated tree, `som_build_meta_tree` (spec_meta_bridge) expands one from a
  * SpecModel, and tests build small fixture trees by hand.
  *
@@ -40,7 +40,7 @@
 #include "som_json.h"
 #include "som_util.h"
 
-/* The structural kind of a metadata node, mirroring DR1 §3.1
+/* The structural kind of a metadata node, mirroring SOM §7.1
  * (`list | form | section | content | enum | complex | scalar`). The values
  * are identical to the SPEC_FIELD_KIND_* constants, so the bridge maps them
  * 1:1. */
@@ -62,7 +62,7 @@ typedef struct {
   char *description; /* human/AI-facing description of the expected content */
 } SomContentTypeMeta;
 
-/* SomFormFieldMeta is one field of a @Form section (DR1 §3.1
+/* SomFormFieldMeta is one field of a @Form section (SOM §7.1
  * FormMeta.fields). */
 typedef struct {
   char *name;        /* exact model field name ("approvedBy") */
@@ -79,7 +79,7 @@ typedef struct {
   size_t enum_values_len; /* number of entries in enum_values */
 } SomFormFieldMeta;
 
-/* SomFormMeta is the form metadata of a @Form node (DR1 §3.1 FormMeta). */
+/* SomFormMeta is the form metadata of a @Form node (SOM §7.1 FormMeta). */
 typedef struct {
   SomFormFieldMeta *fields; /* in declaration order */
   size_t fields_len;
@@ -89,7 +89,7 @@ typedef struct {
 const SomFormFieldMeta *som_form_meta_field_named(const SomFormMeta *f,
                                                   const char *name);
 
-/* SomDocMeta is the @Document metadata carried by a document root (DR1 §3.1
+/* SomDocMeta is the @Document metadata carried by a document root (SOM §7.1
  * DocMeta). */
 typedef struct {
   char *name;         /* the document's display name ("Solution Blueprint") */
@@ -98,7 +98,7 @@ typedef struct {
 } SomDocMeta;
 
 /* SomMetaExtra is one annotation captured losslessly into the generic extra
- * list — annotations the tree defines no dedicated slot for (DR1 §3.1 note),
+ * list — annotations the tree defines no dedicated slot for (SOM §7.1 note),
  * e.g. @Max, @MinLength, @PatternCheck, @TextRequired. */
 typedef struct {
   char *annotation;   /* the annotation's class name ("Max", …), owned */
@@ -106,7 +106,7 @@ typedef struct {
                         * node (NULL = no arguments) */
 } SomMetaExtra;
 
-/* SomMetaNode is one node of the SOM metadata tree (DR1 §3.1 MetaNode).
+/* SomMetaNode is one node of the SOM metadata tree (SOM §7.1 MetaNode).
  *
  * A node describes one navigable position of a document root's structure: the
  * document root itself, a field, or a list's element subtree. Class-level
@@ -123,7 +123,7 @@ struct SomMetaNode {
   char *member_name; /* exact field name in the parent class, "" on the
                       * document root and on list element subtrees */
   char *section_id;  /* effective @SectionId (field wins over class), "" none */
-  char *class_section_id; /* target class's own @SectionId (DR1 §2.2 fallback):
+  char *class_section_id; /* target class's own @SectionId (SOM §12.2 fallback):
                            * used only for a section/complex node's mapping key
                            * when its field carries no id; never enters the path
                            * segment. "" when none */
@@ -184,7 +184,7 @@ SomMetaTree *som_meta_node_tree(const SomMetaNode *n, char **err);
  * node is unattached returns 0 and writes `*err`. */
 int som_meta_node_parent(const SomMetaNode *n, SomMetaNode **out, char **err);
 
-/* Writes the node's absolute document path per the §4 path grammar (borrowed;
+/* Writes the node's absolute document path per the SOM §8 path grammar (borrowed;
  * "" for nodes inside a list element subtree) to `*out` and returns 1. When
  * the node is unattached returns 0 and writes `*err`. */
 int som_meta_node_path(const SomMetaNode *n, const char **out, char **err);
@@ -212,7 +212,7 @@ SomMetaNode *som_meta_node_child_by_segment(const SomMetaNode *n,
 char *som_meta_node_debug_name(const SomMetaNode *n);
 
 /* SomMetaTree is the metadata tree of one document root: parent/path wiring
- * plus the two dynamic lookups (by-id, by-path) DR1 §4.3 requires every
+ * plus the two dynamic lookups (by-id, by-path) SOM §10 requires every
  * runtime to keep. */
 struct SomMetaTree {
   SomMetaNode *root; /* the document root node (carries `document`), owned */
@@ -245,11 +245,11 @@ SomMetaNode *som_meta_tree_by_id(const SomMetaTree *t, const char *section_id);
  * document order, as a malloc'd array the caller frees with `free` (NULL when
  * none; `*len` always written). A shared class instantiated at several
  * positions yields several nodes (ids resolve within their parent chain,
- * DR1 §1.2). */
+ * SOM §11.2). */
 SomMetaNode **som_meta_tree_all_by_id(const SomMetaTree *t,
                                       const char *section_id, size_t *len);
 
-/* Resolves a document path (the §4 grammar: segments joined by "/", list
+/* Resolves a document path (the SOM §8 grammar: segments joined by "/", list
  * items as "-<seq>" suffixes) to the metadata node it addresses, or NULL when
  * the path does not describe a reachable position.
  *
@@ -263,16 +263,16 @@ SomMetaNode *som_meta_tree_by_path(const SomMetaTree *t, const char *path);
  * standing for one-or-more digits. */
 int som_matches_section_id_pattern(const char *pattern, const char *id);
 
-/* ---- generated accessor support (DR1 §4) -------------------------------- */
+/* ---- generated accessor support (SOM §8) -------------------------------- */
 
 /* SomMetaRef is one position of the generated dot-notation / ID-tree access
- * surfaces (DR1 §4): an absolute document path bound to the tree it belongs
- * to. The generated facades (DR8) emit one accessor type per model class
+ * surfaces (SOM §8): an absolute document path bound to the tree it belongs
+ * to. The generated facades (SOM §8) emit one accessor type per model class
  * whose getters return further refs; this base type is the leaf accessor
  * itself (content/scalar/enum/form positions). */
 typedef struct {
   const SomMetaTree *tree; /* borrowed */
-  char *path;              /* owned (§4 path grammar) */
+  char *path;              /* owned (SOM §8 path grammar) */
 } SomMetaRef;
 
 void som_meta_ref_init(SomMetaRef *r, const SomMetaTree *tree,
@@ -283,7 +283,7 @@ void som_meta_ref_free(SomMetaRef *r);
  *
  * Returns NULL and writes `*err` when the path resolves to no node — only
  * possible past a recursive re-entry, where the generated chain has ended and
- * the metadata tree carries no further nodes (DR1 §4.1 cycle rule). */
+ * the metadata tree carries no further nodes (SOM §8 cycle rule). */
 const SomMetaNode *som_meta_ref_meta(const SomMetaRef *r, char **err);
 
 /* SomMetaRefFactory is the factory a SomListMetaRef uses to build the
@@ -292,8 +292,8 @@ const SomMetaNode *som_meta_ref_meta(const SomMetaRef *r, char **err);
  * knows). */
 typedef void *(*SomMetaRefFactory)(const SomMetaTree *tree, const char *path);
 
-/* SomListMetaRef is the generated accessor for a **list** position (DR1
- * §4.1): `ref.path` is the list container path; `som_list_meta_ref_item`
+/* SomListMetaRef is the generated accessor for a **list** position (SOM
+ * §8): `ref.path` is the list container path; `som_list_meta_ref_item`
  * returns the accessor for the seq-th item position (`<path>-<seq>`), whose
  * children are the element class's accessors. */
 typedef struct {

@@ -67,7 +67,7 @@ class SomCGenerationResult {
   final String sourcePath;
 
   /// The generated metadata module header/source pair (`tom_som_c_v0_meta.h` /
-  /// `.c`, DR30): the populated SomMetaTrees plus the dot-notation and ID-tree
+  /// `.c`): the populated SomMetaTrees plus the dot-notation and ID-tree
   /// access surfaces.
   final String metaModuleHeaderPath;
   final String metaModuleSourcePath;
@@ -175,7 +175,7 @@ SomCGenerationResult writeSomCProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(emitter.generateSource());
 
-  // ── generated metadata module (DR30): populated SomMetaTrees plus the
+  // ── generated metadata module (SOM §8): populated SomMetaTrees plus the
   //    dot-notation and ID-tree access surfaces, required by the facade's load
   //    functions (which thread the per-root tree into the runtime decoder) ────
   final metaEmitter = SomCMetaEmitter(

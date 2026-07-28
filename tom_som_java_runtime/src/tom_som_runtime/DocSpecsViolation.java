@@ -2,7 +2,7 @@ package tom_som_runtime;
 
 /**
  * One DocSpecs validation finding — a faithful port of the Go
- * {@code DocSpecsViolation} (itself Dart-parity, DR7/DR14/DR17).
+ * {@code DocSpecsViolation} (itself Dart-parity).
  *
  * <p>Java conventions (mirroring the rest of this runtime): {@code null} stands
  * in for Go's {@code ""} on the optional {@link #sectionId} / {@link #path};

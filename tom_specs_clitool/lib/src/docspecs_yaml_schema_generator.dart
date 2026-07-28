@@ -10,7 +10,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 /// [DocSpecsSchemaGenerator] and describe the section grammar of one document
 /// root). This schema describes the **generic file shape** every
 /// `*.docspecs.yaml` shares regardless of which model root it carries — the
-/// hierarchical v2 envelope written by `SpecDocumentYaml.encode` (DR1 §2):
+/// hierarchical v2 envelope written by `SpecDocumentYaml.encode` (SOM §12):
 ///
 /// ```yaml
 /// version: 2                 # on-disk format version (required)

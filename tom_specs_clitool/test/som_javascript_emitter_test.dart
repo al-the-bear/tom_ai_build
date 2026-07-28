@@ -219,7 +219,7 @@ void main() {
   group('SomJavaScriptEmitter', () {
     test('emitted output matches the committed golden files', () {
       final source = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
-      // The facade requires its sibling meta module (DR8/DR15), so the meta
+      // The facade requires its sibling meta module (SOM §8), so the meta
       // golden is pinned alongside — the runtime facade test loads both.
       final metaSource =
           SomJavaScriptMetaEmitter(_fixtureModel()).generateLibrary();
@@ -263,7 +263,7 @@ void main() {
       try {
         const moduleName = 'tom_som_javascript_v0';
         File(p.join(dir.path, '$moduleName.js')).writeAsStringSync(source);
-        // The facade requires its sibling meta module (DR8/DR15).
+        // The facade requires its sibling meta module (SOM §8).
         File(p.join(dir.path, '${moduleName}_meta.js'))
             .writeAsStringSync(metaSource);
         // The module resolves the runtime via tomSom.runtimePath in this
@@ -404,9 +404,9 @@ process.stdout.write('OK');
     });
 
     test('path-constant holders are retired; the meta module is re-exported '
-        '(DR8/DR15, DR1 §4)', () {
+        '(SOM §8)', () {
       final source = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
-      // DR8/DR15: the former per-root `<Code>Paths` holders are gone from the
+      // SOM §8: the former per-root `<Code>Paths` holders are gone from the
       // main facade module …
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('vision: "PD00/vision"')));

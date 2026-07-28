@@ -1,5 +1,5 @@
 /* spec_document_markdown — DocSpecs-conform Markdown codec for a TomSpecs
- * document (DR1 §1), a faithful port of the Go `spec_document_markdown.go`
+ * document (SOM §11), a faithful port of the Go `spec_document_markdown.go`
  * (which itself ports the Dart reference `spec_document_markdown.dart`).
  *
  * The generated/authored `*.md` **is a genuine DocSpecs document**: line 1 is
@@ -9,17 +9,17 @@
  * human-readable Title-Case member name. Content values are **normal markdown
  * text** under their heading (no fences, no anchors); `@Form` sections use the
  * DocSpecs plain-text `FieldName: value` format; a `List<T>` field heads a
- * `<!--[FOO-LST]-->` container section (DR1 §1.2/§1.5) at the owner's child
+ * `<!--[FOO-LST]-->` container section (SOM §11.2/§11.5) at the owner's child
  * level, its numbered item sub-headings one level deeper and their item-element
  * children one level deeper again — the container itself carries no body.
  * Id-less members are **transparent**
- * (mirroring the DR3 schema generator): a transparent value member's text or
+ * (mirroring the schema generator , SOM §13): a transparent value member's text or
  * form block is the owner's body region, emitted without a heading and bound
  * at its own path; a transparent section/complex member never heads — its
  * id-bearing descendants hoist to the owner's child level (paths keep the
  * transparent segments).
  *
- * Escaping (DR1 §1.3): a content line starting with `#` at column 0 is
+ * Escaping (SOM §11.3): a content line starting with `#` at column 0 is
  * emitted as `\#` (and a leading `\#`… run gains one more backslash), except
  * inside fenced code blocks, which shield their lines verbatim. Consecutive
  * blank lines are collapsed to one on emit; parse trims each value of
@@ -27,7 +27,7 @@
  *
  * `spec_markdown_parse` does not mutate any document — it returns staged
  * values keyed exactly like `spec_document_to_json` plus a rejection report
- * (DR1 §1.7); the caller applies them as a full overwrite.
+ * (SOM §11.7); the caller applies them as a full overwrite.
  *
  * C conventions (shared with the rest of the runtime): "" = absent strings;
  * owned `char *` results are freed with `free`; `char **err` out-parameters
@@ -39,7 +39,7 @@
 #include "spec_document.h"
 #include "spec_model.h"
 
-/* Why an imported Markdown block was rejected (DR1 §1.7 rejection protocol). */
+/* Why an imported Markdown block was rejected (SOM §11.7 rejection protocol). */
 /* The heading's section id does not resolve against the schema tree at its
  * nesting position. */
 #define SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION "unknownSection"
@@ -54,7 +54,7 @@
 /* A heading line without a parseable `<!--[id]-->` headline comment. */
 #define SPEC_MARKDOWN_REJECT_MALFORMED_HEADING "malformedHeading"
 
-/* One rejected block in a Markdown import (DR1 §1.7). Reported, never
+/* One rejected block in a Markdown import (SOM §11.7). Reported, never
  * silently dropped: each carries the source line, the offending anchor
  * (section path or id, "" when none), the reason, and a human-readable
  * message. */
@@ -65,7 +65,7 @@ typedef struct {
   char *anchor;  /* owned, "" when none */
 } SpecMarkdownRejection;
 
-/* The outcome of parsing a Markdown document (DR1 §1.7): the staged values
+/* The outcome of parsing a Markdown document (SOM §11.7): the staged values
  * plus every rejected block. The values are keyed exactly like
  * `spec_document_to_json` so a caller can merge them into a live document as
  * a full overwrite of the covered scope. */
@@ -115,23 +115,23 @@ int spec_markdown_fence_in_fence(const SpecMarkdownFenceTracker *t);
 /* Advances the state machine by one line (`line` has no trailing '\n'). */
 void spec_markdown_fence_feed(SpecMarkdownFenceTracker *t, const char *line);
 
-/* ---- naming helpers (DR1 §1.2 / §1.5) ------------------------------------ */
+/* ---- naming helpers (SOM §11.2 / §11.5) ---------------------------------- */
 
 /* Expands a camel/Pascal-case identifier into Title Case:
  * `introductionAndScope` / `DemoItem` → `Introduction And Scope` /
  * `Demo Item`. Owned result. */
 char *spec_markdown_title_case(const char *name);
 
-/* Derives the DocSpecs schema id of a `@Document` name (DR1 §1.1):
+/* Derives the DocSpecs schema id of a `@Document` name (SOM §11.1):
  * `Demo Document` → `demo-document`. Owned result. */
 char *spec_markdown_kebab_case(const char *title);
 
 /* The item heading title stem: Title-Case element class name with a trailing
- * `Entry` dropped (DR1 §1.5, normative). Owned result. */
+ * `Entry` dropped (SOM §11.5, normative). Owned result. */
 char *spec_markdown_item_title_stem(const char *element_class_name);
 
 /* The `FieldName` label written for a form field: the model field name with
- * the first letter upper-cased (DR1 §1.4.1). Owned result. */
+ * the first letter upper-cased (SOM §11.4). Owned result. */
 char *spec_markdown_form_label(const char *field_name);
 
 /* ---- export / import ----------------------------------------------------- */
@@ -164,7 +164,7 @@ char *spec_document_to_markdown(const SpecDocument *document,
 /* Parses `text` into staged values + a rejection report, writing `*out`
  * (initialised by the callee; free with spec_markdown_result_free). The
  * parse never mutates a document — the caller applies the result as a full
- * overwrite (DR1 §1.7). */
+ * overwrite (SOM §11.7). */
 void spec_markdown_parse(const SpecModel *model, const char *text,
                          SpecMarkdownResult *out);
 

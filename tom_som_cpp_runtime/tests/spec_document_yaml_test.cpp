@@ -1,4 +1,4 @@
-/* DR5 hierarchical `*.docspecs.yaml` v2 codec tests — an idiomatic-C++ port of
+/* Hierarchical `*.docspecs.yaml` v2 codec tests — an idiomatic-C++ port of
  * the C `tom_som_c_runtime/tests/spec_document_yaml_test.c` (itself a port of
  * the Go / TS / JS / Python / Dart suites).
  *
@@ -6,7 +6,7 @@
  * `<section-id> <member-name>`, list items key by stored section id (or an
  * anonymous positional `<member>-<n>`), body text uses the literal `content`
  * key, and form fields use their bare names. Round-trip is lossless modulo the
- * DR1 §2.4.3 empty-line dedup; version-1 files and unmatched keys are
+ * SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
  * structured load errors. Check names byte-match the Go/C suite.
  */
 #include <cstdio>
@@ -149,7 +149,7 @@ bool contains(const std::string& hay, const std::string& needle) {
   return hay.find(needle) != std::string::npos;
 }
 
-/* Builds a document touching every store and the §2.4 edge cases. */
+/* Builds a document touching every store and the SOM §12.4 edge cases. */
 som::SpecDocument yamlPopulated() {
   som::SpecDocument doc;
   doc.setContent("D00", "Preamble body text.");
@@ -209,7 +209,7 @@ void yamlTestEncode() {
     check("encode.sparse", !contains(sparse, "D00-SCO"));
   }
 
-  /* non-text values are plain scalars (§2.5) */
+  /* non-text values are plain scalars (SOM §12.5) */
   {
     som::SpecDocument doc2 = yamlPopulated();
     std::string yaml2 = yamlEnc(doc2, "");
@@ -218,7 +218,7 @@ void yamlTestEncode() {
     check("encode.plainFormInt", contains(yaml2, "\n      revision: 7\n"));
   }
 
-  /* YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+  /* YAML 1.1-special values are quoted, not plain (SOM §12.5). `on`/`no` are
    * 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
    * YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
    * every runtime reads back the exact string; an ordinary token stays plain. */
@@ -272,7 +272,7 @@ void yamlTestEncode() {
 }
 
 /* A complex field with no field-level @SectionId keys on its target class's
- * own @SectionId (DR1 §2.2 class fallback); its id-less leaf keeps a bare key
+ * own @SectionId (SOM §12.2 class fallback); its id-less leaf keeps a bare key
  * while its own document path segment stays field-level (`control`). */
 void yamlTestClassLevelOnlyKey() {
   som::SpecDocument doc;
@@ -372,7 +372,7 @@ void yamlTestRoundTrip() {
     }
   }
 
-  /* runs of 2+ empty lines collapse to one on write (§2.4.3) */
+  /* runs of 2+ empty lines collapse to one on write (SOM §12.4) */
   {
     som::SpecDocument doc;
     doc.setContent("D00/D00-OVR", "a\n\n\n\nb\n\n\nc");

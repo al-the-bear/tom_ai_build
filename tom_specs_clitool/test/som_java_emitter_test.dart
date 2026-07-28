@@ -248,7 +248,7 @@ void main() {
         return;
       }
       final source = SomJavaEmitter(_fixtureModel()).generateLibrary();
-      // The facade's loaders reference the sibling metadata module (DR24), so
+      // The facade's loaders reference the sibling metadata module (SOM §8), so
       // the two compile together — exactly how the generator lays them out.
       final metaSource =
           SomJavaMetaEmitter(_fixtureModel()).generateLibrary();
@@ -366,13 +366,13 @@ void main() {
 
     test(
         'the flat path-constant holders are retired; the loaders thread the '
-        'generated metadata trees (DR24)', () {
+        'generated metadata trees', () {
       final source = SomJavaEmitter(_fixtureModel()).generateLibrary();
       // The former § item 11 `Pd00Paths` holder is gone — the dot-notation /
       // ID-tree surfaces of the sibling meta module supersede it.
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('public static final String vision')));
-      // The root loaders thread the root's generated SomMetaTree (DR22/DR24).
+      // The root loaders thread the root's generated SomMetaTree .
       expect(
           source,
           contains('SpecDocument.fromYaml(yaml, '

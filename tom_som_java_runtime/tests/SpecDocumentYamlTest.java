@@ -11,7 +11,7 @@ import tom_som_runtime.SpecYamlContents;
 import tom_som_runtime.SpecYamlFormatException;
 
 /**
- * DR5 hierarchical {@code *.docspecs.yaml} v2 codec tests — a port of
+ * Hierarchical {@code *.docspecs.yaml} v2 codec tests — a port of
  * {@code tom_som_go_runtime/tests/spec_document_yaml_test.go} (itself a port
  * of {@code spec_document_yaml_test.ts} / {@code spec_document_yaml_test.js} /
  * {@code spec_document_yaml_test.py} / {@code spec_document_yaml_test.dart}).
@@ -20,7 +20,7 @@ import tom_som_runtime.SpecYamlFormatException;
  * {@code <section-id> <member-name>}, list items key by stored section id (or
  * an anonymous positional {@code <member>-<n>}), body text uses the literal
  * {@code content} key, and form fields use their bare names. Round-trip is
- * lossless modulo the DR1 §2.4.3 empty-line dedup; version-1 files and
+ * lossless modulo the SOM §12.4 empty-line dedup; version-1 files and
  * unmatched keys are structured load errors.
  *
  * <p>JUnit is unavailable on the build host, so this is a plain {@code main()}
@@ -127,7 +127,7 @@ public final class SpecDocumentYamlTest {
     return SpecDocumentYaml.decode(SpecDocumentYaml.encode(doc, tree, null), tree).document;
   }
 
-  /** Builds a document touching every store and the §2.4 edge cases. */
+  /** Builds a document touching every store and the SOM §12.4 edge cases. */
   private static SpecDocument populated() {
     SpecDocument doc = new SpecDocument();
     doc.setContent("D00", "Preamble body text.");
@@ -210,13 +210,13 @@ public final class SpecDocumentYamlTest {
         "");
     check("encode.sparse", !sparse.contains("D00-SCO"), "");
 
-    // non-text values are plain scalars (§2.5)
+    // non-text values are plain scalars (SOM §12.5)
     String yaml2 = SpecDocumentYaml.encode(populated(), tree, null);
     check("encode.plainEnum", yaml2.contains("\n    D00-PRI priority: high\n"), "");
     check("encode.plainInt", yaml2.contains("\n    count: 3\n"), "");
     check("encode.plainFormInt", yaml2.contains("\n      revision: 7\n"), "");
 
-    // YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+    // YAML 1.1-special values are quoted, not plain (SOM §12.5). `on`/`no` are
     // 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
     // YAML 1.2 but bool/number under YAML 1.1 (SnakeYAML). They must emit as
     // block scalars so every runtime reads back the exact string; an ordinary
@@ -350,7 +350,7 @@ public final class SpecDocumentYamlTest {
           "got " + quote(got) + " want " + quote(edge));
     }
 
-    // runs of 2+ empty lines collapse to one on write (§2.4.3)
+    // runs of 2+ empty lines collapse to one on write (SOM §12.4)
     SpecDocument doc = new SpecDocument();
     doc.setContent("D00/D00-OVR", "a\n\n\n\nb\n\n\nc");
     check(
@@ -433,7 +433,7 @@ public final class SpecDocumentYamlTest {
 
   /**
    * A section/complex node whose field carries no {@code @SectionId} takes its
-   * target class's id for the mapping key (DR1 §2.2 class fallback), while its
+   * target class's id for the mapping key (SOM §12.2 class fallback), while its
    * path segment stays field-level. {@code control} (id-less field) → {@code
    * Control} (class id {@code CTRL}) emits {@code CTRL control:}; its id-less
    * leaf {@code owner} stays a bare key; the path is field-level throughout.

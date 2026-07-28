@@ -42,7 +42,7 @@ walker) still needs section paths — but hard-coding raw literals like
 are two compiler-checked ways to obtain a path without a literal, both shown in
 (f):
 
-1. **Generated metadata refs (DR1 §4).** Every document root gets a
+1. **Generated metadata refs (SOM §8).** Every document root gets a
    dot-notation entry point (`d00SolutionBlueprint`) whose member chain mirrors
    the model; each position exposes `.path` (and `.meta` for the full metadata
    node), so generic code writes

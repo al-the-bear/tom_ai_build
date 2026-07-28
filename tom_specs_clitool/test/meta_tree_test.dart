@@ -1,4 +1,4 @@
-/// DR2 — canonical language-neutral metadata tree extraction.
+/// Canonical language-neutral metadata tree extraction (SOM §7).
 ///
 /// Unit tests exercise the slot mapping on a synthetic model (a known class's
 /// full annotation set round-trips); end-to-end tests build the tree for all
@@ -32,7 +32,7 @@ ModelClass _cls(
 
 void main() {
   group('MetaTreeBuilder unit (synthetic model)', () {
-    test('DR2-U1: full annotation set of a known class round-trips into slots '
+    test('META-U1: full annotation set of a known class round-trips into slots '
         '[2026-07-07]', () {
       final classes = <String, ModelClass>{
         'Root': _cls(
@@ -130,7 +130,7 @@ void main() {
       expect(summary.extra.map((e) => e.name), ['TextRequired']);
     });
 
-    test('DR2-U2: form fields round-trip with hints and order [2026-07-07]',
+    test('META-U2: form fields round-trip with hints and order [2026-07-07]',
         () {
       final classes = <String, ModelClass>{
         'Root': _cls('Root', fields: [
@@ -159,7 +159,7 @@ void main() {
       expect(fields[2].typeName, 'int');
     });
 
-    test('DR2-U3: list fields carry @SectionIdPattern/@Min and expand the '
+    test('META-U3: list fields carry @SectionIdPattern/@Min and expand the '
         'element subtree [2026-07-07]', () {
       final classes = <String, ModelClass>{
         'Root': _cls('Root', fields: [
@@ -190,7 +190,7 @@ void main() {
       expect(node.elementNode!.children.single.kind, MetaNodeKind.content);
     });
 
-    test('DR2-U4: children follow @SerializationOrder, declaration order as '
+    test('META-U4: children follow @SerializationOrder, declaration order as '
         'fallback [2026-07-07]', () {
       final classes = <String, ModelClass>{
         'Root': _cls('Root', fields: [
@@ -208,7 +208,7 @@ void main() {
       expect(root.children.map((c) => c.memberName), ['a', 'b', 'c']);
     });
 
-    test('DR2-U5: recursion is cut with a reference node [2026-07-07]', () {
+    test('META-U5: recursion is cut with a reference node [2026-07-07]', () {
       final classes = <String, ModelClass>{
         'Node': _cls(
           'Node',
@@ -231,7 +231,7 @@ void main() {
     });
   });
 
-  group('end-to-end: real tom_specs_model DR2 metadata completeness', () {
+  group('end-to-end: real tom_specs_model metadata completeness', () {
     final modelPath = p.normalize(
       p.join(Directory.current.path, '..', 'tom_specs_model'),
     );
@@ -248,7 +248,7 @@ void main() {
           .buildAllDocumentRoots();
     });
 
-    test('DR2-E1: all 14 document roots build a tree [2026-07-07]', () {
+    test('META-E1: all 14 document roots build a tree [2026-07-07]', () {
       expect(roots, hasLength(14));
       expect(roots.keys, contains('D00SolutionBlueprint'));
       final sbp = roots['D00SolutionBlueprint']!;
@@ -259,7 +259,7 @@ void main() {
     });
 
     test(
-        'DR2-E2: every annotation on every reachable class/field is '
+        'META-E2: every annotation on every reachable class/field is '
         'represented on its node (all 14 roots) [2026-07-07]', () {
       final problems = <String>[];
 
@@ -313,7 +313,7 @@ void main() {
     });
 
     test(
-        'DR2-E3: doc comments and member names round-trip on a known node '
+        'META-E3: doc comments and member names round-trip on a known node '
         '[2026-07-07]', () {
       final sbp = roots['D00SolutionBlueprint']!;
       // Every child of the SBP root corresponds to a declared field name.

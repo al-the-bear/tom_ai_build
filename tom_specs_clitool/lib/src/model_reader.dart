@@ -125,7 +125,7 @@ class ModelField {
   /// The type name this member contributes to the exported meta tree.
   ///
   /// `DocSpecsSection` members report `String`/`String?` — the meta contract
-  /// (DR1 §3.1) models a simple section by its String content, and the YRD5
+  /// (SOM §7.1) models a simple section by its String content, and the YRD5
   /// refactor must keep the exported tree byte-identical. All other members
   /// report their declared [typeName].
   String get metaTypeName => isContentSection

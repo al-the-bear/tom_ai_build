@@ -68,7 +68,7 @@ char *spec_yaml_node_key(const SomMetaNode *node) {
   const char *name =
       node->member_name[0] != '\0' ? node->member_name : node->class_name;
   /* A section/complex node's key carries the full section id: the field-level
-   * id if present, else the target class's own id (DR1 §2.2 class fallback),
+   * id if present, else the target class's own id (SOM §12.2 class fallback),
    * mirroring the markdown codec's heading rule. Content/scalar/enum/form and
    * list-item keys keep only their field-level id; the path segment is never
    * affected (see the node's segment()). */
@@ -276,7 +276,7 @@ static int is_yaml11_sexagesimal(const char *value, int is_float) {
 }
 
 /* Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
- * to a non-string, so it must never be emitted as a plain scalar (DR1 §2.5).
+ * to a non-string, so it must never be emitted as a plain scalar (SOM §12.5).
  * Mirrors the Dart reference rule so every emitter agrees regardless of the
  * local YAML parser's schema. */
 static int is_yaml11_special(const char *value) {
@@ -284,7 +284,7 @@ static int is_yaml11_special(const char *value) {
          is_yaml11_sexagesimal(value, 1);
 }
 
-/* plainScalar: a plain one-line scalar for a non-text value (§2.5) when
+/* plainScalar: a plain one-line scalar for a non-text value (SOM §12.5) when
  * writing it plainly re-parses to exactly `value` (string compare, matching
  * the document's string-typed stores). Values whose text is a YAML 1.1 special
  * are forced to the quoted/block path so cross-language round-trips match. */
@@ -484,7 +484,7 @@ static void encoder_write_text(SomBuf *b, size_t indent, const char *key,
   free(deduped);
 }
 
-/* writeValue: a non-text value (§2.5) — plain when it self-verifies, else the
+/* writeValue: a non-text value (SOM §12.5) — plain when it self-verifies, else the
  * text path. */
 static void encoder_write_value(SomBuf *b, size_t indent, const char *key,
                                 const char *value) {
@@ -780,7 +780,7 @@ static int encoder_mapping_body(YamlEncoder *e, const SomMetaNode *node,
     free(own_code_spec);
   }
 
-  /* The node's own body text — the literal `content` key (DR1 §2.2). */
+  /* The node's own body text — the literal `content` key (SOM §12.2). */
   char *own = NULL;
   if (encoder_take_content(e, path, &own)) {
     for (size_t i = 0; i < node->children_len; i++) {

@@ -462,7 +462,7 @@ void main() {
       expect(justRoot, contains('pub struct CurrentLandscapeAssessment {'));
     });
 
-    test('the flat path-constant holders are retired (DR27)', () {
+    test('the flat path-constant holders are retired (SOM §8)', () {
       final source = SomRustEmitter(_fixtureModel()).generateLibrary();
       // The `Pd00Paths` holder is replaced by the meta module's navigation
       // surfaces (dot-notation + ID-tree) in `src/meta.rs`.
@@ -471,7 +471,7 @@ void main() {
     });
 
     test('the one-call loaders thread the generated metadata tree through the '
-        'tree-based codec (DR25/DR27)', () {
+        'tree-based codec', () {
       final source = SomRustEmitter(_fixtureModel()).generateLibrary();
       expect(source,
           contains('let tree = meta::solution_blueprint_meta_tree();'));

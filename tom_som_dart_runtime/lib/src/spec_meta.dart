@@ -1,31 +1,31 @@
-/// The canonical SOM **metadata tree** — the runtime's DR1 §3.1 node types.
+/// The canonical SOM **metadata tree** — the runtime's SOM §7.1 node types.
 ///
 /// One [SomMetaTree] exists per document root. Its nodes carry *every*
 /// `tom_specs_core` annotation the model source declares, plus the exact
 /// class and member names, so the tree is the single language-neutral
 /// description of a document's structure:
 ///
-///   * [SomMetaNode] — one node per navigable model position (§3.1), with
+///   * [SomMetaNode] — one node per navigable model position (SOM §7.1), with
 ///     section id / pattern, kind, serialization order, `@Min`, content type,
 ///     help/comment/doc texts, form metadata, traceability links
 ///     (`@MapsTo` / `@DetailedIn`) and the lossless
 ///     `extra` annotation list;
-///   * [SomMetaTree] — wires parent links and absolute paths (the §4 path
+///   * [SomMetaTree] — wires parent links and absolute paths (the SOM §8 path
 ///     grammar shared with `spec_paths.dart`) and provides the two dynamic
 ///     lookups every runtime keeps: [SomMetaTree.byId] and
 ///     [SomMetaTree.byPath].
 ///
-/// The runtime only *defines* these types; the generated facades (DR8) emit
+/// The runtime only *defines* these types; the generated facades (SOM §8) emit
 /// the populated tree as statically initialized objects, and tests build
 /// small fixture trees by hand. This tree supersedes the meta-JSON class
 /// graph ([SpecModel]/[SpecReflection]) as the metadata access core; the
 /// class graph remains only as the engine of the legacy document layer until
-/// DR5–DR8 rewrite its consumers.
+/// its consumers are rewritten.
 library;
 
 import 'spec_paths.dart';
 
-/// The structural kind of a metadata node, mirroring DR1 §3.1
+/// The structural kind of a metadata node, mirroring SOM §7.1
 /// (`list | form | section | content | enum | complex | scalar`).
 enum SomMetaKind {
   /// A `List<T>` field; items are addressed by `-<seq>` path suffixes and
@@ -63,7 +63,7 @@ class SomContentTypeMeta {
   const SomContentTypeMeta({required this.type, required this.description});
 }
 
-/// One field of a `@Form` section (DR1 §3.1 `FormMeta.fields`).
+/// One field of a `@Form` section (SOM §7.1 `FormMeta.fields`).
 class SomFormFieldMeta {
   /// The exact model field name (`approvedBy`).
   final String name;
@@ -100,7 +100,7 @@ class SomFormFieldMeta {
   });
 }
 
-/// The form metadata of a `@Form` node (DR1 §3.1 `FormMeta`).
+/// The form metadata of a `@Form` node (SOM §7.1 `FormMeta`).
 class SomFormMeta {
   /// The form's fields in declaration order.
   final List<SomFormFieldMeta> fields;
@@ -116,7 +116,7 @@ class SomFormMeta {
   }
 }
 
-/// The `@Document` metadata carried by a document root (DR1 §3.1 `DocMeta`).
+/// The `@Document` metadata carried by a document root (SOM §7.1 `DocMeta`).
 class SomDocMeta {
   /// The document's display name (`Solution Blueprint`).
   final String name;
@@ -135,7 +135,7 @@ class SomDocMeta {
 }
 
 /// One annotation captured losslessly into the generic `extra` list —
-/// annotations the tree defines no dedicated slot for (DR1 §3.1 note),
+/// annotations the tree defines no dedicated slot for (SOM §7.1 note),
 /// e.g. `@Max`, `@MinLength`, `@PatternCheck`, `@TextRequired`.
 class SomMetaExtra {
   /// The annotation's class name (`Max`, `PatternCheck`, …).
@@ -147,7 +147,7 @@ class SomMetaExtra {
   const SomMetaExtra({required this.annotation, this.args = const {}});
 }
 
-/// One node of the SOM metadata tree (DR1 §3.1 `MetaNode`).
+/// One node of the SOM metadata tree (SOM §7.1 `MetaNode`).
 ///
 /// A node describes one navigable position of a document root's structure:
 /// the document root itself, a field, or a list's element subtree. Class-level
@@ -180,7 +180,7 @@ class SomMetaNode {
   /// carries no field-level [sectionId] (else `null`).
   ///
   /// Codecs resolve a section/complex node's key as `sectionId ?? classSectionId`
-  /// (DR1 §1.2 / §2.2 "field id, else target-class id"). It never enters
+  /// (SOM §11.2 / §12.2 "field id, else target-class id"). It never enters
   /// [segment], so it does not affect paths.
   final String? classSectionId;
 
@@ -238,7 +238,7 @@ class SomMetaNode {
   /// `@DetailedIn` target class name, when annotated.
   final String? detailedIn;
 
-  /// Annotations without a dedicated slot, captured losslessly (§3.1 note).
+  /// Annotations without a dedicated slot, captured losslessly (SOM §7.1 note).
   final List<SomMetaExtra> extra;
 
   /// Whether this node is a recursive re-entry reference (a class already on
@@ -308,7 +308,7 @@ class SomMetaNode {
     return _parent;
   }
 
-  /// The node's absolute document path per the §4 path grammar
+  /// The node's absolute document path per the SOM §8 path grammar
   /// (`<rootSegment>/<segment>/…`), or `null` for nodes inside a list element
   /// subtree — their concrete paths depend on the item sequence (see
   /// [itemPath] on the list node and [SomMetaTree.byPath]).
@@ -359,7 +359,7 @@ class SomMetaNode {
 }
 
 /// The metadata tree of one document root: parent/path wiring plus the two
-/// dynamic lookups ([byId], [byPath]) DR1 §4.3 requires every runtime to keep.
+/// dynamic lookups ([byId], [byPath]) SOM §10 requires every runtime to keep.
 class SomMetaTree {
   /// The document root node (must carry [SomMetaNode.document]).
   final SomMetaNode root;
@@ -414,7 +414,7 @@ class SomMetaTree {
 
   /// All nodes whose effective section id equals [sectionId], in document
   /// order. A shared class instantiated at several positions yields several
-  /// nodes (ids resolve within their parent chain, DR1 §1.2).
+  /// nodes (ids resolve within their parent chain, SOM §11.2).
   List<SomMetaNode> allById(String sectionId) =>
       _byId[sectionId] ?? const [];
 
@@ -443,7 +443,7 @@ class SomMetaTree {
 
   // --- lookup by path ------------------------------------------------------
 
-  /// Resolves a document [path] (the §4 grammar: segments joined by `/`,
+  /// Resolves a document [path] (the SOM §8 grammar: segments joined by `/`,
   /// list items as `-<seq>` suffixes) to the metadata node it addresses, or
   /// `null` when the path does not describe a reachable position.
   ///
@@ -490,9 +490,9 @@ class SomMetaTree {
 }
 
 /// One position of the generated **dot-notation / ID-tree access surfaces**
-/// (DR1 §4): an absolute document [path] bound to the [tree] it belongs to.
+/// (SOM §8): an absolute document [path] bound to the [tree] it belongs to.
 ///
-/// The generated facades (DR8) emit one accessor class per model class whose
+/// The generated facades (SOM §8) emit one accessor class per model class whose
 /// getters return further [SomMetaRef]s — `d00SolutionBlueprint
 /// .introductionAndScope.path` / `SBP.INSC.path`. Every accessor exposes at
 /// least [path] (identical to the retired flat path constant's value) and
@@ -502,7 +502,7 @@ class SomMetaRef {
   /// The metadata tree of the document root this position belongs to.
   final SomMetaTree tree;
 
-  /// The absolute document path of this position (§4 path grammar).
+  /// The absolute document path of this position (SOM §8 path grammar).
   final String path;
 
   SomMetaRef(this.tree, this.path);
@@ -511,14 +511,14 @@ class SomMetaRef {
   ///
   /// Throws [StateError] when the path resolves to no node — only possible
   /// past a recursive re-entry, where the generated chain has ended and the
-  /// metadata tree carries no further nodes (DR1 §4.1 cycle rule).
+  /// metadata tree carries no further nodes (SOM §8 cycle rule).
   SomMetaNode get meta =>
       tree.byPath(path) ??
       (throw StateError('no metadata node at "$path" — the position lies '
           'beyond a recursive re-entry; use the dynamic tree lookups instead'));
 }
 
-/// The generated accessor for a **list** position (DR1 §4.1): [path] is the
+/// The generated accessor for a **list** position (SOM §8): [path] is the
 /// list container path; [item] returns the accessor for the `seq`-th item
 /// position (`<path>-<seq>`), whose children are the element class's
 /// accessors.

@@ -9,18 +9,18 @@ import java.util.Set;
 
 /**
  * Bridge from the meta-JSON class graph ({@link SpecModel}) to the canonical
- * metadata tree ({@link SomMetaTree}, DR1 §3.1) — a faithful port of
+ * metadata tree ({@link SomMetaTree}, SOM §7.1) — a faithful port of
  * {@code spec_meta_bridge.dart} / {@code spec_meta_bridge.ts}.
  *
- * <p>The generated facades (DR8) emit populated {@code SomMetaTree}s directly;
+ * <p>The generated facades (SOM §8) emit populated {@code SomMetaTree}s directly;
  * every consumer that only has the exported spec-model meta-data (the
  * conformance harness, tooling) builds its tree here. The expansion follows
  * the same walk {@link SpecReflection#resolve} performs — crucially, a node's
  * {@link SomMetaNode#sectionId} is the <b>field-level</b> id exactly as
  * exported ({@code field.sectionId}), so the tree's path grammar stays
- * byte-compatible with the paths a {@link SpecDocument} is keyed by. (DR1
- * §2.2's "field id, else target-class id" resolution is applied at
- * <i>export</i> time by the model exporter / DR8 generator, not re-derived
+ * byte-compatible with the paths a {@link SpecDocument} is keyed by. (SOM
+ * §12.2's "field id, else target-class id" resolution is applied at
+ * <i>export</i> time by the model exporter / SOM generator, not re-derived
  * here.)
  *
  * <p>Recursive class references become terminal re-entry nodes
@@ -60,7 +60,7 @@ public final class SomMetaBridge {
    * (throwing its {@link IllegalArgumentException} for an unknown type).
    * Children are ordered by {@code @SerializationOrder} (annotated members
    * first, then declaration order), which is the sibling emission order of the
-   * hierarchical YAML format (DR1 §2.3).
+   * hierarchical YAML format (SOM §12.3).
    */
   public static SomMetaTree buildSomMetaTree(SpecModel model, String rootType) {
     SpecRoot root;

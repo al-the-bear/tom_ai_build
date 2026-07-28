@@ -1,10 +1,10 @@
-// Tests for the hierarchical `*.docspecs.yaml` v2 codec (DR5).
+// Tests for the hierarchical `*.docspecs.yaml` v2 codec (SOM §12).
 //
 // The codec walks the document root's SomMetaTree: sections nest, keys are
 // `<section-id> <member-name>`, list items key by stored section id (or an
 // anonymous positional `<member>-<n>`), body text uses the literal `content`
 // key, and form fields use their bare names. Round-trip is lossless modulo
-// the DR1 §2.4.3 empty-line dedup; version-1 files and unmatched keys are
+// the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
 // structured load errors.
 
 import 'package:test/test.dart';
@@ -97,7 +97,7 @@ SpecModel _model() => SpecModel.fromJson({
             {
               // A section whose @SectionId lives on the TARGET CLASS only
               // (the SBP pattern): the field carries no id, so its key must
-              // fall back to Control's `CTRL` (DR1 §2.2 field-id-else-class-id).
+              // fall back to Control's `CTRL` (SOM §12.2 field-id-else-class-id).
               'name': 'control',
               'kind': 'complex',
               'type': 'Control',
@@ -138,7 +138,7 @@ SpecModel _model() => SpecModel.fromJson({
 /// A REALISTIC fixture mirroring the conventions of the real `tom_specs_model`.
 ///
 /// Unlike [_model] (a synthetic codec-exerciser), every shape here follows the
-/// canonical DR1 §6.1a conventions so it can serve as a convention reference:
+/// canonical SOM §14 conventions so it can serve as a convention reference:
 ///   * exactly one `content` body leaf per class, and it carries a field-level
 ///     `@SectionId`;
 ///   * every non-content field carries a field-level `@SectionId`;
@@ -233,7 +233,7 @@ SpecModel _realisticModel() => SpecModel.fromJson({
 
 SomMetaTree _tree() => buildSomMetaTree(_model());
 
-/// A populated document touching every store and the §2.4 edge cases.
+/// A populated document touching every store and the SOM §12.4 edge cases.
 SpecDocument _populated() {
   final doc = SpecDocument()
     ..setContent('D00', 'Preamble body text.')
@@ -293,14 +293,14 @@ void main() {
       expect(yaml, isNot(contains('D00-SCO'))); // unpopulated → absent
     });
 
-    test('non-text values are plain scalars (§2.5)', () {
+    test('non-text values are plain scalars (SOM §12.5)', () {
       final yaml = enc(_populated());
       expect(yaml, contains('\n    D00-PRI priority: high\n'));
       expect(yaml, contains('\n    count: 3\n'));
       expect(yaml, contains('\n      revision: 7\n'));
     });
 
-    test('YAML 1.1-special values are quoted, not plain (§2.5, DRC6)', () {
+    test('YAML 1.1-special values are quoted, not plain (SOM §12.5)', () {
       // `on`/`no` are YAML 1.1-only booleans and `1:30` is a 1.1 sexagesimal
       // int: all three parse as plain strings under YAML 1.2 (Dart) but as
       // bool/number under YAML 1.1 (e.g. PyYAML). They must be emitted as
@@ -324,7 +324,7 @@ void main() {
     });
 
     test('a section whose id is class-level renders the class id as its key '
-        '(DR1 §2.2 field-id-else-class-id)', () {
+        '(SOM §12.2 field-id-else-class-id)', () {
       final doc = SpecDocument()
         ..setContent('D00/control/CTRL-SUM', 'controlled summary')
         ..setContent('D00/control/owner', 'the owner');
@@ -421,7 +421,7 @@ void main() {
       }
     });
 
-    test('runs of 2+ empty lines collapse to one on write (§2.4.3)', () {
+    test('runs of 2+ empty lines collapse to one on write (SOM §12.4)', () {
       final doc = SpecDocument()
         ..setContent('D00/D00-OVR', 'a\n\n\n\nb\n\n\nc');
       expect(roundTrip(doc).content('D00/D00-OVR'), 'a\n\nb\n\nc');

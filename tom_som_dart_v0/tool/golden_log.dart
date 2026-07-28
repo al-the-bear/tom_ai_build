@@ -48,7 +48,7 @@ void main(List<String> args) {
   final samplePath = args.isNotEmpty ? args[0] : _defaultSample;
   final outputPath = args.length > 1 ? args[1] : _defaultOutput;
 
-  // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9); the
+  // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12); the
   // one-call loader decodes it against the SBP metadata tree and retains the
   // modelVersion stamp on the document.
   final doc = SpecDocument.fromFile(samplePath, d00SolutionBlueprintMetaTree);

@@ -156,7 +156,7 @@ class SomRustEmitter {
       ..writeln('// relative `path` entry in `Cargo.toml`, so the emitted source '
           'carries no on-disk')
       ..writeln('// path of its own. The metadata tree + navigation surfaces '
-          '(§3.2/§4) live in the')
+          '(SOM §7.2/§8) live in the')
       ..writeln('// sibling `src/meta.rs` module (SomRustMetaEmitter).')
       ..writeln('#![allow(dead_code)]')
       ..writeln()
@@ -380,7 +380,7 @@ class SomRustEmitter {
             '— one call for')
         ..writeln('\t/// the former decode → load_json → thread-'
             '`document_version` sequence.')
-        ..writeln('\t/// Decoding is metadata-driven (§3.2): the generated tree '
+        ..writeln('\t/// Decoding is metadata-driven (SOM §7.2): the generated tree '
             'from `meta` guides')
         ..writeln('\t/// the tree-based codec.')
         ..writeln('\tpub fn load_yaml(yaml: &str) '
@@ -699,7 +699,7 @@ class SomRustEmitter {
     }
   }
 
-  /// Emits the generated loader error enum: the tree-based codec (DR25) fails
+  /// Emits the generated loader error enum: the tree-based codec fails
   /// with a `som::SpecYamlError` while the §2.2 version check fails with a
   /// `som::SomVersionError`, so the one-call loaders surface both through a
   /// single crate-level sum type.

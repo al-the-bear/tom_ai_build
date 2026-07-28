@@ -75,7 +75,7 @@ void main() {
     expect(source, contains("from 'tom_som_typescript_runtime';"));
     expect(result.modulePath, endsWith('tom_som_typescript_v0.ts'));
 
-    // The generated metadata module (DR8/DR18) is written alongside the
+    // The generated metadata module (SOM §8) is written alongside the
     // facade and carries the populated trees + access surfaces.
     final metaModule = File(p.join(
         p.dirname(result.modulePath), 'tom_som_typescript_v0_meta.ts'));

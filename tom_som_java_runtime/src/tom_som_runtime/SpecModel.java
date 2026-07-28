@@ -29,7 +29,7 @@ public final class SpecModel {
 
   /**
    * The {@code major.minor} version string used in the DocSpecs markdown
-   * declaration (DR6/DR11 parity — mirrors Python's
+   * declaration (Dart / Python parity — mirrors Python's
    * {@code SpecModel.model_version_string}).
    */
   public String modelVersionString() {

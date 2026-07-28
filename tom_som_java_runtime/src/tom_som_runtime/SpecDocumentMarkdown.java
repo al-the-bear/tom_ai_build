@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * SpecDocumentMarkdown — DocSpecs-conform Markdown codec for a TomSpecs
- * document (DR1 §1), a faithful port of
+ * document (SOM §11), a faithful port of
  * {@code tom_som_go_runtime/spec_document_markdown.go} (itself a port of the
  * Dart/TypeScript reference codec).
  *
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  * {@code @SectionIdPattern} resolved with the 1-based position
  * ({@code GOAL-ITEM-xxx} → {@code GOAL-ITEM-1}, else {@code <member>-<pos>}).
  * The container itself carries no body. Id-less members are <b>transparent</b>
- * (mirroring the DR3 schema
+ * (mirroring the generated schema
  * generator): a transparent value member's text or form block is the owner's
  * body region, emitted without a heading and bound at its own path; a
  * transparent section/complex member never heads — its id-bearing descendants
@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  * Section/complex headings without a field-level {@code @SectionId} carry the
  * target class's {@code @SectionId}.
  *
- * <p>Escaping (DR1 §1.3): a content line starting with {@code #} at column 0
+ * <p>Escaping (SOM §11.3): a content line starting with {@code #} at column 0
  * is emitted as {@code \#} (and a leading {@code \#}… run gains one more
  * backslash), except inside fenced code blocks, which shield their lines
  * verbatim. Consecutive blank lines are collapsed to one on emit; parse trims
@@ -48,9 +48,9 @@ import java.util.regex.Pattern;
  * {@link SpecDocument#toJson} plus a rejection report; the caller applies
  * them. Anything that cannot be mapped — an unknown section id, a child
  * heading under a value leaf, orphaned text — is collected into
- * {@link SpecMarkdownResult#rejections} rather than dropped (DR1 §1.7).
+ * {@link SpecMarkdownResult#rejections} rather than dropped (SOM §11.7).
  *
- * <p>Java conventions (DR22): where Go returns an error, {@link #exportRoot}
+ * <p>Java conventions: where Go returns an error, {@link #exportRoot}
  * throws {@link IllegalStateException} (the unterminated-fence case); a null
  * anchor stands in for Go's empty string.
  */
@@ -108,7 +108,7 @@ public final class SpecDocumentMarkdown {
 
   public final SpecModel model;
   public final SpecDocument document;
-  // Metadata trees per root type, built lazily (DR8's generated facades will
+  // Metadata trees per root type, built lazily (the generated facades will
   // hand these in directly; until then the bridge derives them).
   private final Map<String, SomMetaTree> trees = new LinkedHashMap<>();
 
@@ -127,7 +127,7 @@ public final class SpecDocumentMarkdown {
     return tree;
   }
 
-  // --- Naming helpers (DR1 §1.2 / §1.5) --------------------------------------
+  // --- Naming helpers (SOM §11.2 / §11.5) ------------------------------------
 
   /**
    * Expands a camel/Pascal-case identifier into Title Case:
@@ -163,7 +163,7 @@ public final class SpecDocumentMarkdown {
   private static final Pattern KEBAB_DROP = Pattern.compile("[^A-Za-z0-9-]");
 
   /**
-   * Derives the DocSpecs schema id of a {@code @Document} name (DR1 §1.1):
+   * Derives the DocSpecs schema id of a {@code @Document} name (SOM §11.1):
    * {@code Demo Document} → {@code demo-document}.
    */
   public static String kebabCase(String title) {
@@ -175,7 +175,7 @@ public final class SpecDocumentMarkdown {
 
   /**
    * The item heading title stem: Title-Case element class name with a trailing
-   * {@code Entry} dropped (DR1 §1.5, normative).
+   * {@code Entry} dropped (SOM §11.5, normative).
    */
   public static String itemTitleStem(String elementClassName) {
     String stem = elementClassName;
@@ -187,7 +187,7 @@ public final class SpecDocumentMarkdown {
 
   /**
    * The {@code FieldName} label written for a form field: the model field name
-   * with the first letter upper-cased (DR1 §1.4.1).
+   * with the first letter upper-cased (SOM §11.4).
    */
   public static String formLabel(String fieldName) {
     if (fieldName.isEmpty()) {
@@ -196,13 +196,13 @@ public final class SpecDocumentMarkdown {
     return Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
   }
 
-  // --- Export (DR1 §1.1–§1.6) -------------------------------------------------
+  // --- Export (SOM §11.1–§11.8) -----------------------------------------------
 
   /**
    * The section id written into (and matched from) a heading for {@code node}
-   * (DR1 §1.2/§1.6): the field-level {@code @SectionId} when present; for
+   * (SOM §11.2/§11.8): the field-level {@code @SectionId} when present; for
    * section/complex nodes whose field carries none, the target <b>class</b>'s
-   * {@code @SectionId} (the id the DR3 schema types are keyed by); else the
+   * {@code @SectionId} (the id the generated schema types are keyed by); else the
    * path segment (the member name).
    */
   private String headingIdOf(SomMetaNode node) {
@@ -218,9 +218,9 @@ public final class SpecDocumentMarkdown {
     return node.segment();
   }
 
-  // --- Transparency (DR1 §1.2, mirroring the DR3 schema generator) -------------
+  // --- Transparency (SOM §11.2, mirroring the schema generator , SOM §13) ------
   //
-  // The DR3 `docspecs-schema` generator is normative: only **section-bearing**
+  // The `docspecs-schema` generator (SOM §13) is normative: only **section-bearing**
   // nodes (those with a real `@SectionId`, field- or class-level) become
   // section types; id-less members are *transparent* — they are not sections
   // of their own. The markdown format mirrors that exactly:
@@ -232,8 +232,8 @@ public final class SpecDocumentMarkdown {
   //     descendants surface as the owner's direct child headings (the
   //     schema's "nearest section-bearing descendant" hoisting), with document
   //     paths still running through the transparent segments;
-  //   - lists are never transparent — the `-LST` container always heads (DR1
-  //     §1.2) at the owner's child level and the items sit one level below it
+  //   - lists are never transparent — the `-LST` container always heads (SOM
+  //     §11.2) at the owner's child level and the items sit one level below it
   //     (`@SectionIdPattern` / `<member>-<pos>`).
   //
   // Principled canonicalisation losses (documented, accepted): multiple
@@ -311,7 +311,7 @@ public final class SpecDocumentMarkdown {
   /**
    * The ordered <i>effective children</i> of {@code node}: every
    * section-bearing child and every list, hoisted through transparent sections
-   * — exactly the headings (and item-heading owners) the DR3 schema knows at
+   * — exactly the headings (and item-heading owners) the generated schema knows at
    * this position. Each entry carries the relative path from {@code node}
    * (which runs through the transparent segments).
    */
@@ -429,9 +429,9 @@ public final class SpecDocumentMarkdown {
   }
 
   /**
-   * Emits list {@code node} as its {@code -LST} container heading (DR1
-   * §1.2/§1.5) at {@code depth}, wrapping the numbered item headings one level
-   * deeper. The container is a real section — the id the DR3 schema keys its
+   * Emits list {@code node} as its {@code -LST} container heading (SOM
+   * §11.2/§11.5) at {@code depth}, wrapping the numbered item headings one level
+   * deeper. The container is a real section — the id the generated schema keys its
    * container type by — but carries <b>no content of its own</b> (schema
    * content min/max-text-length 0). Item identity is purely positional.
    */
@@ -446,7 +446,7 @@ public final class SpecDocumentMarkdown {
     writeHeading(b, depth, headingIdOf(node), headingTitle(listPath, node),
         document.codeSpec(listPath));
     // Item heading stem. Complex lists derive it from the element class name
-    // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class
+    // (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no element class
     // — its element typeName is literally `String`, which would render
     // "String 1", "String 2". Derive the stem from the list FIELD instead (its
     // member name, Title-Cased like the container heading) so a populated
@@ -460,7 +460,7 @@ public final class SpecDocumentMarkdown {
     for (int i = 0; i < items.size(); i++) {
       String itemPath = items.get(i);
       int pos = i + 1;
-      // YRD3 (supersedes DRC5): a list item's STORED section id is the md
+      // YRD3: a list item's STORED section id is the md
       // heading id when present; the `@SectionIdPattern` resolved with the
       // 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`) and the
       // `<member>-<pos>` fallback are positional derivations for id-less items.
@@ -522,7 +522,7 @@ public final class SpecDocumentMarkdown {
       writeln(b, formLabel(f.name) + ": " + lines[0]);
       for (int i = 1; i < lines.length; i++) {
         String line = lines[i];
-        // §1.4.3 generalised: any continuation line that could be mistaken
+        // SOM §11.4 generalised: any continuation line that could be mistaken
         // for a field-label line gains one leading space; parse strips it.
         if (LABEL_SHAPED.matcher(line).find()) {
           writeln(b, " " + line);
@@ -535,7 +535,7 @@ public final class SpecDocumentMarkdown {
   }
 
   /**
-   * Writes {@code ## <!--[ID]--> Title} at {@code depth}. DR1 §1.2 is
+   * Writes {@code ## <!--[ID]--> Title} at {@code depth}. SOM §11.2 is
    * normative — heading level = 1 + section depth, <b>uncapped</b>: deep
    * models (the Solution Blueprint nests past markdown's native 6 levels) keep
    * their structure; the parse grammar accepts {@code #{7,}} accordingly.
@@ -567,7 +567,7 @@ public final class SpecDocumentMarkdown {
   }
 
   /**
-   * The emit-side value normalisation (DR1 §1.3): collapse 2+ blank lines to
+   * The emit-side value normalisation (SOM §11.3): collapse 2+ blank lines to
    * one, trim leading/trailing blank lines, escape heading-like lines outside
    * fences. Throws {@link IllegalStateException} for an unterminated fence.
    */
@@ -579,7 +579,7 @@ public final class SpecDocumentMarkdown {
     List<String> out = new ArrayList<>();
     for (String line : splitLines(collapsed)) {
       if (fence.inFence()) {
-        out.add(line); // §1.3.4: fences shield their lines.
+        out.add(line); // SOM §11.3: fences shield their lines.
       } else if (ESCAPABLE.matcher(line).find()) {
         out.add("\\" + line);
       } else {
@@ -625,7 +625,7 @@ public final class SpecDocumentMarkdown {
 
   /**
    * The effective default item-title stem of list {@code node} (YRD4): the
-   * element class's {@code @Headline} default when authored, else the DR1 §1.5
+   * element class's {@code @Headline} default when authored, else the SOM §11.5
    * derivation (element class name with {@code Entry} dropped; member name for
    * scalar lists).
    */
@@ -658,7 +658,7 @@ public final class SpecDocumentMarkdown {
     return value.split(Pattern.quote(sep), -1);
   }
 
-  // --- Import (DR1 §1.7) --------------------------------------------------------
+  // --- Import (SOM §11.7) -------------------------------------------------------
 
   /**
    * Parses {@code text} into staged values + a rejection report,
@@ -746,7 +746,7 @@ public final class SpecDocumentMarkdown {
 
         if (!fence.inFence()) {
           if (stack.isEmpty() && DOCSPEC_COMMENT.matcher(trimmed).matches()) {
-            continue; // §1.1 header — informational.
+            continue; // SOM §11.1 header — informational.
           }
           Matcher h = HEADING_LINE.matcher(trimmed);
           if (h.matches()) {
@@ -824,7 +824,7 @@ public final class SpecDocumentMarkdown {
         return;
       }
 
-      // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
+      // 1. Under a `-LST` container frame (SOM §11.2), every child heading is one
       //    of that list's items — resolved positionally, not by the schema tree.
       if (SomMetaKind.LIST.equals(pNode.kind)) {
         openItemHeading(level, parent, pNode, id, title, codeSpec, lineNo);
@@ -865,7 +865,7 @@ public final class SpecDocumentMarkdown {
     }
 
     /**
-     * Opens a list-item frame under a {@code -LST} container frame (DR1 §1.2).
+     * Opens a list-item frame under a {@code -LST} container frame (SOM §11.2).
      * The heading {@code id} is matched positionally against the container's
      * list: the {@code <member>-<n>} fallback id, the {@code @SectionIdPattern}
      * resolved with a number ({@code GOAL-ITEM-3}, parses back as item
@@ -894,7 +894,7 @@ public final class SpecDocumentMarkdown {
       }
       if (pattern != null && !pattern.isEmpty()) {
         // Canonical anonymous id: the pattern with `xxx` as a number — parses
-        // back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+        // back as item <n>, NOT as a stored id (SOM §11.2 round-trip).
         String[] parts = splitAll(pattern, "xxx");
         if (parts.length == 2) {
           Matcher numbered = Pattern
@@ -1051,7 +1051,7 @@ public final class SpecDocumentMarkdown {
 
     /**
      * Binds a heading's body region against the owner's transparent body
-     * slots (DR1 §1.2 transparency): {@code FieldName:} lines matching a
+     * slots (SOM §11.2 transparency): {@code FieldName:} lines matching a
      * transparent form's fields route to that form (nearest form in slot
      * order, wrapping); all other text binds to the first non-form slot — or
      * to the owner's own path when no such slot exists.
@@ -1218,7 +1218,7 @@ public final class SpecDocumentMarkdown {
     }
 
     /**
-     * The parse-side value restoration (DR1 §1.3): trim leading/trailing
+     * The parse-side value restoration (SOM §11.3): trim leading/trailing
      * blank lines and unescape {@code \#}-escaped heading lines outside
      * fences.
      */

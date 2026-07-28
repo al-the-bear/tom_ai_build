@@ -4,8 +4,8 @@ package somruntime
 // faithful port of `tom_som_dart_runtime/lib/src/spec_meta_diff.dart` (and the
 // TypeScript `spec_meta_diff.ts` / Python / JavaScript ports).
 //
-// SomMetaNodeDiff is the agreement oracle for DR8: the generated facades embed
-// populated metadata trees as static code (DR1 §3.2), while BuildSomMetaTree
+// SomMetaNodeDiff is the agreement oracle: the generated facades embed
+// populated metadata trees as static code (SOM §7.2), while BuildSomMetaTree
 // derives the same tree from the exported meta-JSON at runtime — the two must
 // be field-for-field identical for every node. Tests compare them with this
 // function, which returns a human-readable description of the **first**

@@ -39,8 +39,8 @@ The package `tom_som_runtime` mirrors the eight portable runtime modules:
 | `spec_document.js` | A sparse in-memory document — values keyed by section path. |
 | `spec_validator.js` | Validates a document's values against the model. |
 | `spec_document_yaml.js` | Byte-stable `*.docspecs.yaml` codec. |
-| `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (DR6). |
-| `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (DR7). |
+| `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (SOM §11). |
+| `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (SOM §14). |
 | `som_facade.js` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_javascript_v0`. |
 
 It holds **no document values of its own** and contains **no generated typed

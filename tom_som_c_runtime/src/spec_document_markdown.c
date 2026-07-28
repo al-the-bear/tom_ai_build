@@ -4,7 +4,7 @@
  * runtime stays zero-dependency C11.
  *
  * Every `List<T>` field maps to a two-level md hierarchy: a `<!--[FOO-LST]-->`
- * container heading (DR1 §1.2/§1.5) at the owner's child level, holding the
+ * container heading (SOM §11.2/§11.5) at the owner's child level, holding the
  * numbered item headings one level deeper, with item-element children one level
  * deeper again. The container carries no body of its own; item identity is
  * purely positional. */
@@ -501,7 +501,7 @@ void spec_markdown_fence_feed(SpecMarkdownFenceTracker *t, const char *line) {
 }
 
 /* ======================================================================== */
-/* Naming helpers (DR1 §1.2 / §1.5)                                          */
+/* Naming helpers (SOM §11.2 / §11.5)                                          */
 /* ======================================================================== */
 
 char *spec_markdown_title_case(const char *name) {
@@ -804,7 +804,7 @@ static char *md_title_of(const SomMetaNode *node) {
 }
 
 /* The effective default item-title stem of list `node` (YRD4): the element
-   class's `@Headline` default when authored, else the DR1 §1.5 derivation
+   class's `@Headline` default when authored, else the SOM §11.5 derivation
    (element class name with `Entry` dropped; member name for scalar lists).
    Owned result. */
 static char *md_item_stem_of(const SomMetaNode *node) {
@@ -1010,9 +1010,9 @@ static int write_section_body(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   return 1;
 }
 
-/* Emits list `node` as its `-LST` container heading (DR1 §1.2/§1.5) at `depth`,
+/* Emits list `node` as its `-LST` container heading (SOM §11.2/§11.5) at `depth`,
    wrapping the numbered item headings one level deeper. The container is a real
-   section — the id the DR3 schema keys its container type by — but carries no
+   section — the id the generated schema keys its container type by — but carries no
    content of its own (schema content min/max-text-length 0). Item identity is
    purely positional. */
 static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
@@ -1034,7 +1034,7 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     free(ctitle);
   }
   /* Item heading stem. Complex lists derive it from the element class name
-     (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class —
+     (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no element class —
      its element type_name is literally `String`, which would render
      "String 1", "String 2". Derive the stem from the list FIELD instead (its
      member name, Title-Cased like the container heading) so a populated scalar
@@ -1050,7 +1050,7 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     const char *item_path = items->items[i];
     long long pos = (long long)i + 1;
     char *item_id = NULL;
-    /* YRD3 (supersedes DRC5): a stored @SectionId IS the item's md heading
+    /* YRD3: a stored @SectionId IS the item's md heading
        id; the positional derivation is only the fallback. */
     const char *stored_id = spec_document_item_section_id(c->document,
                                                           item_path);
@@ -1891,7 +1891,7 @@ static void parser_open_root(MdParser *p, int level, const char *id,
                              const char *title, const char *code_spec,
                              size_t line);
 
-/* Opens a list-item frame under a `-LST` container frame (DR1 §1.2). The
+/* Opens a list-item frame under a `-LST` container frame (SOM §11.2). The
    heading `id` is matched positionally against the container's list: the
    `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a number
    (`GOAL-ITEM-3`, parses back as item <n>), a pattern-shaped stored id, or —
@@ -1929,7 +1929,7 @@ static void parser_open_item_heading(MdParser *p, int level,
     }
   }
   /* Any other id under the container is an anonymous next item; a genuine
-     stored id is kept (it survives only through the yaml format, DR1 §2). */
+     stored id is kept (it survives only through the yaml format, SOM §12). */
   parser_open_item(p, level, list_path, list_node, 0, id, 0, title, code_spec,
                    line);
 }
@@ -1987,7 +1987,7 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
 
   char *parent_path = som_strdup(parent->path); /* stable across pushes */
 
-  /* 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one of
+  /* 1. Under a `-LST` container frame (SOM §11.2), every child heading is one of
      that list's items — resolved positionally, not by the schema tree. */
   if (strcmp(p_node->kind, SOM_META_KIND_LIST) == 0) {
     parser_open_item_heading(p, level, parent_path, p_node, id, title,
@@ -2165,7 +2165,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
     if (!spec_markdown_fence_in_fence(&p.fence)) {
       if (p.stack_len == 0 && is_docspec_comment(trimmed)) {
         free(trimmed);
-        continue; /* §1.1 header */
+        continue; /* SOM §11.1 header */
       }
       int level = 0;
       char *rest = NULL;

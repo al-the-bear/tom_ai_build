@@ -1,8 +1,8 @@
-/// The canonical language-neutral metadata tree (DR1 §3.1 / DR2).
+/// The canonical language-neutral metadata tree (SOM §7.1).
 ///
 /// [MetaTreeBuilder] projects the resolved [ModelClass] graph into one
 /// fully-expanded [MetaNode] tree per document root. This tree is the single
-/// source that the nine facade emitters and the DR3 schema generator consume —
+/// source that the nine facade emitters and the schema generator (SOM §13) consume —
 /// no emitter re-reads the Dart model. It carries *every* `tom_specs_core`
 /// annotation: the ones this spec defines dedicated slots for, plus a lossless
 /// [MetaNode.extra] catch-all for the rest.
@@ -10,7 +10,7 @@ library;
 
 import 'model_reader.dart';
 
-/// Field/section render kind (DR1 §3.1: list | form | section | content |
+/// Field/section render kind (SOM §7.1: list | form | section | content |
 /// enum | complex | scalar). `enum` is a Dart keyword, hence [enumValue].
 enum MetaNodeKind { list, form, section, content, enumValue, complex, scalar }
 
@@ -77,7 +77,7 @@ class MetaDocumentInfo {
   });
 }
 
-/// A captured annotation without a dedicated slot (DR1 §3.1: `extra`), kept
+/// A captured annotation without a dedicated slot (SOM §7.1: `extra`), kept
 /// losslessly as its name plus the analyzer-resolved constant arguments.
 class MetaExtraAnnotation {
   final String name;
@@ -86,7 +86,7 @@ class MetaExtraAnnotation {
   const MetaExtraAnnotation(this.name, [this.arguments = const {}]);
 }
 
-/// One node of the canonical metadata tree (DR1 §3.1).
+/// One node of the canonical metadata tree (SOM §7.1).
 ///
 /// Class-level annotations attach to the node where the class is
 /// instantiated; field-level annotations attach to the node directly and win
@@ -138,7 +138,7 @@ class MetaNode {
   final String? docComment;
 
   /// The class doc comment, carried additionally when it exists and differs
-  /// from [docComment] (DR1 §3.1 note).
+  /// from [docComment] (SOM §7.1 note).
   final String? classDocComment;
 
   /// Present for `kind == form`.
@@ -210,7 +210,7 @@ class MetaNode {
 
   /// Deterministic JSON-ready projection (stable key order, sparse: absent
   /// slots are omitted). Useful for tooling and golden tests; the facades
-  /// embed the tree as generated code, not via this JSON (DR1 §3.2).
+  /// embed the tree as generated code, not via this JSON (SOM §7.2).
   Map<String, Object?> toJson() => {
         'className': className,
         if (memberName != null) 'memberName': memberName,
@@ -269,7 +269,7 @@ class MetaNode {
         if (elementNode != null) 'elementNode': elementNode!.toJson(),
       };
 
-  /// The DR1 §3.1 kind label (`enum`, not `enumValue`).
+  /// The SOM §7.1 kind label (`enum`, not `enumValue`).
   String get kindLabel =>
       kind == MetaNodeKind.enumValue ? 'enum' : kind.name;
 }
@@ -475,7 +475,7 @@ class MetaTreeBuilder {
     return null;
   }
 
-  /// Classifies a field into its DR1 §3.1 kind. Mirrors the JSON exporter's
+  /// Classifies a field into its SOM §7.1 kind. Mirrors the JSON exporter's
   /// render-kind rules (including the primitive guard before `isComplex`).
   static MetaNodeKind classifyField(ModelField f) {
     if (f.isList) return MetaNodeKind.list;
@@ -524,7 +524,7 @@ class MetaTreeBuilder {
   }
 }
 
-/// Merges field- and class-level annotations into the DR1 §3.1 slots with
+/// Merges field- and class-level annotations into the SOM §7.1 slots with
 /// field-first precedence, routing everything unslotted into `extra`.
 class _SlotCollector {
   final List<AnnotationData> fieldAnnotations;
@@ -615,7 +615,7 @@ class _SlotCollector {
   }
 
   /// Every annotation without a dedicated slot, field-level first, in source
-  /// declaration order — the lossless completeness guarantee (DR1 §3.1).
+  /// declaration order — the lossless completeness guarantee (SOM §7.1).
   List<MetaExtraAnnotation> get extra => [
         for (final a in [...fieldAnnotations, ...classAnnotations])
           if (!MetaTreeBuilder.slottedAnnotationNames.contains(a.name))

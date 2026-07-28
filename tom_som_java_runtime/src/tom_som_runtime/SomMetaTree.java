@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  * The metadata tree of one document root: parent/path wiring plus the two
- * dynamic lookups ({@link #byId}, {@link #byPath}) DR1 §4.3 requires every
+ * dynamic lookups ({@link #byId}, {@link #byPath}) SOM §10 requires every
  * runtime to keep — a faithful port of {@code spec_meta.dart} /
  * {@code spec_meta.ts}.
  */
@@ -76,7 +76,7 @@ public final class SomMetaTree {
   /**
    * All nodes whose effective section id equals {@code sectionId}, in document
    * order. A shared class instantiated at several positions yields several
-   * nodes (ids resolve within their parent chain, DR1 §1.2).
+   * nodes (ids resolve within their parent chain, SOM §11.2).
    */
   public List<SomMetaNode> allById(String sectionId) {
     List<SomMetaNode> nodes = byIdIndex.get(sectionId);
@@ -126,7 +126,7 @@ public final class SomMetaTree {
   // --- lookup by path -------------------------------------------------------
 
   /**
-   * Resolves a document path (the §4 grammar: segments joined by {@code "/"},
+   * Resolves a document path (the SOM §8 grammar: segments joined by {@code "/"},
    * list items as {@code "-<seq>"} suffixes) to the metadata node it
    * addresses, or {@code null} when the path does not describe a reachable
    * position.

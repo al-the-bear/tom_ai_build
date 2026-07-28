@@ -31,7 +31,7 @@ echo "== behavioural test =="
   -o build/generated_test
 ./build/generated_test
 
-# 3) Compile + run the metadata agreement test (DR33 §4): the generated static
+# 3) Compile + run the metadata agreement test (SOM §8): the generated static
 #    trees / dot-notation / ID-tree surfaces agree with the bridge-built trees.
 echo "== metadata agreement test =="
 # shellcheck disable=SC2086

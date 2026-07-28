@@ -167,7 +167,7 @@ void main() {
   expectEq(solutionBlueprint.owner.meta.form!.fields.length, 2, 'form fields');
 
   // (b) recursion: `.path` chains stay valid past the re-entry, `.meta`
-  // resolves at the re-entry itself and throws beyond it (DR1 §4.1 cycle
+  // resolves at the re-entry itself and throws beyond it (SOM §8 cycle
   // rule).
   final mitigation = solutionBlueprint.risks.item(0).mitigation;
   expectEq(mitigation.path, 'PD00/risks-0/mitigation', 'recursive path');

@@ -1,4 +1,4 @@
-/* spec_meta — the canonical SOM **metadata tree** (DR1 §3.1), an idiomatic-C++
+/* spec_meta — the canonical SOM **metadata tree** (SOM §7.1), an idiomatic-C++
  * port of the C `spec_meta` module (which itself ports the Go / Dart / TS
  * references).
  *
@@ -7,12 +7,12 @@
  * and member names, so the tree is the single language-neutral description of a
  * document's structure:
  *
- *   - SomMetaNode — one node per navigable model position (§3.1), with section
+ *   - SomMetaNode — one node per navigable model position (SOM §7.1), with section
  *     id / pattern, kind, serialization order, @Min, content type,
  *     help/comment/doc texts, form metadata, traceability links
  *     (@MapsTo / @DetailedIn) and the lossless extra
  *     annotation list;
- *   - SomMetaTree — wires parent links and absolute paths (the §4 path grammar
+ *   - SomMetaTree — wires parent links and absolute paths (the SOM §8 path grammar
  *     shared with spec_paths) and provides the two dynamic lookups every runtime
  *     keeps: by-id and by-path.
  *
@@ -36,7 +36,7 @@
 
 namespace som {
 
-/* The structural kind of a metadata node, mirroring DR1 §3.1
+/* The structural kind of a metadata node, mirroring SOM §7.1
  * (`list | form | section | content | enum | complex | scalar`). The values are
  * identical to the kSpecFieldKind* constants, so the bridge maps them 1:1. */
 inline constexpr const char* kSomMetaKindList = "list";
@@ -55,7 +55,7 @@ struct SomContentTypeMeta {
   std::string description;  // description of the expected content
 };
 
-/* One field of a @Form section (DR1 §3.1 FormMeta.fields). */
+/* One field of a @Form section (SOM §7.1 FormMeta.fields). */
 struct SomFormFieldMeta {
   std::string name;         // exact model field name ("approvedBy")
   std::string typeName;     // Dart type name ("String", "int", …)
@@ -71,7 +71,7 @@ struct SomFormFieldMeta {
                             // without generated code.
 };
 
-/* The form metadata of a @Form node (DR1 §3.1 FormMeta). */
+/* The form metadata of a @Form node (SOM §7.1 FormMeta). */
 struct SomFormMeta {
   std::vector<SomFormFieldMeta> fields;  // in declaration order
 
@@ -79,7 +79,7 @@ struct SomFormMeta {
   const SomFormFieldMeta* fieldNamed(const std::string& name) const;
 };
 
-/* @Document metadata carried by a document root (DR1 §3.1 DocMeta). */
+/* @Document metadata carried by a document root (SOM §7.1 DocMeta). */
 struct SomDocMeta {
   std::string name;                  // display name ("Solution Blueprint")
   std::string description;           // the document's description
@@ -94,7 +94,7 @@ struct SomMetaExtra {
   JsonRef args;            // resolved constructor arguments (object node or null)
 };
 
-/* One node of the SOM metadata tree (DR1 §3.1 MetaNode).
+/* One node of the SOM metadata tree (SOM §7.1 MetaNode).
  *
  * A node describes one navigable position of a document root's structure: the
  * root itself, a field, or a list's element subtree. Class-level annotations
@@ -151,7 +151,7 @@ class SomMetaNode {
   /* A short identification for error messages ("Class" or "Class.member"). */
   std::string debugName() const;
 
-  /* The node's absolute document path (§4 path grammar; "" inside a list element
+  /* The node's absolute document path (SOM §8 path grammar; "" inside a list element
    * subtree). Throws std::logic_error when the node is unattached. */
   const std::string& nodePath() const;
 
@@ -172,7 +172,7 @@ class SomMetaNode {
 };
 
 /* The metadata tree of one document root: parent/path wiring plus the two
- * dynamic lookups (by-id, by-path) DR1 §4.3 requires. */
+ * dynamic lookups (by-id, by-path) SOM §10 requires. */
 class SomMetaTree {
  public:
   /* Wires `root`'s subtree: sets parent links, computes static paths, and
@@ -194,7 +194,7 @@ class SomMetaTree {
    * A shared class instantiated at several positions yields several nodes. */
   std::vector<SomMetaNode*> allById(const std::string& sectionId) const;
 
-  /* Resolves a document path (§4 grammar: segments joined by "/", list items as
+  /* Resolves a document path (SOM §8 grammar: segments joined by "/", list items as
    * "-<seq>" suffixes) to the node it addresses, or nullptr. A list-item segment
    * resolves to the list's element subtree; a list container path is only valid
    * as the final segment. */
@@ -212,21 +212,21 @@ class SomMetaTree {
  * for one-or-more digits. */
 bool matchesSectionIdPattern(const std::string& pattern, const std::string& id);
 
-/* ---- generated accessor support (DR1 §4) -------------------------------- */
+/* ---- generated accessor support (SOM §8) -------------------------------- */
 
-/* One position of the generated dot-notation / ID-tree access surfaces (DR1
- * §4): an absolute document path bound to the tree it belongs to. */
+/* One position of the generated dot-notation / ID-tree access surfaces (SOM
+ * §8): an absolute document path bound to the tree it belongs to. */
 class SomMetaRef {
  public:
   const SomMetaTree* tree = nullptr;  // borrowed
-  std::string path;                   // §4 path grammar
+  std::string path;                   // SOM §8 path grammar
 
   SomMetaRef() = default;
   SomMetaRef(const SomMetaTree* t, std::string p)
       : tree(t), path(std::move(p)) {}
 
   /* The metadata node at the ref's path. Throws std::runtime_error when the path
-   * resolves to no node — only possible past a recursive re-entry (DR1 §4.1
+   * resolves to no node — only possible past a recursive re-entry (SOM §8
    * cycle rule). */
   const SomMetaNode* meta() const;
 };
@@ -236,7 +236,7 @@ class SomMetaRef {
 using SomMetaRefFactory =
     std::function<void*(const SomMetaTree*, const std::string&)>;
 
-/* The generated accessor for a **list** position (DR1 §4.1): `ref.path` is the
+/* The generated accessor for a **list** position (SOM §8): `ref.path` is the
  * list container path; `item(seq)` returns the accessor for the seq-th item
  * position (`<path>-<seq>`). */
 class SomListMetaRef {

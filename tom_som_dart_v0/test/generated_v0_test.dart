@@ -122,7 +122,7 @@ void main() {
     late D00SolutionBlueprint sbp;
 
     setUp(() {
-      // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9): load
+      // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): load
       // it with the generated one-call loader, which decodes against the SBP
       // metadata tree and applies the yaml's modelVersion stamp.
       sbp = D00SolutionBlueprint.loadFile(
@@ -280,10 +280,10 @@ void main() {
     });
   });
 
-  group('one-call loading (§ item 4)', () {
-    // The shared conformance sample is still in the retired flat v1 format
-    // (DR9 re-emits it hierarchically), so the round-trip fixtures here are
-    // built in-memory and encoded to the canonical v2 wire format.
+  group('one-call loading (SOM §21)', () {
+    // The round-trip fixtures are built in-memory and encoded to the canonical
+    // v2 wire format, so the suite stays independent of the shared conformance
+    // sample.
     String buildV2Yaml({String? modelVersion = '1.0'}) {
       final doc = SpecDocument();
       final sbp = D00SolutionBlueprint(doc);

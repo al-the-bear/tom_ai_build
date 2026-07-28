@@ -1,4 +1,4 @@
-"""Consolidated DocSpecs parsing + validation (DR1 §6) — a faithful port of
+"""Consolidated DocSpecs parsing + validation (SOM §14) — a faithful port of
 ``tom_som_dart_runtime/lib/src/docspecs_validator.dart``. The Dart violation
 messages are the golden reference; this port produces the same
 ``rule`` / ``section_id`` / ``line`` triples.
@@ -16,8 +16,8 @@ Three capabilities, one module:
  3. **Bind** — :func:`bind_docspecs_markdown` maps the same markdown onto the
     SOM metadata tree, delegating to :meth:`SpecDocumentMarkdown.parse`.
 
-Anything outside the DR1 §6 schema scope is ignored on load and named in
-:attr:`DocSpecsSchema.warnings` — nothing is silently dropped (DR1 §7).
+Anything outside the SOM §14 schema scope is ignored on load and named in
+:attr:`DocSpecsSchema.warnings` — nothing is silently dropped.
 """
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ from .spec_model import SpecModel
 
 
 class DocSpecsViolationRule(Enum):
-    """The DR1 §6 violation rule vocabulary — identical across all nine
+    """The SOM §14 violation rule vocabulary — identical across all nine
     runtimes (values are the Dart enum names)."""
 
     UNKNOWN_SECTION = "unknownSection"
@@ -55,7 +55,7 @@ class DocSpecsViolationRule(Enum):
 
 
 class DocSpecsViolation:
-    """One structured violation (DR1 §6): the rule, the offending section id
+    """One structured violation (SOM §14): the rule, the offending section id
     (when one exists), the bound runtime path (when resolvable), the 1-based
     source line, and a human-readable message."""
 
@@ -265,7 +265,7 @@ class DocSpecsSectionType:
         self.min_text_length = min_text_length
         self.max_text_length = max_text_length
         self.description = description
-        #: Carried as data (DR1 §6) — not interpreted by this validator.
+        #: Carried as data (SOM §14) — not interpreted by this validator.
         self.validation_prompt = validation_prompt
 
 
@@ -309,11 +309,11 @@ def _is_int(value: Any) -> bool:
 
 
 class DocSpecsSchema:
-    """A loaded ``*.docspecs-schema.yaml`` (the DR3 output format): the
+    """A loaded ``*.docspecs-schema.yaml`` (the schema-generator output format , SOM §13): the
     ``title-format``, the ordered section-types (file order — descending
     prefix length in generated schemas, so first-startsWith-match is
     longest-prefix resolution), the form-types, and the document sections.
-    Schema features outside the DR1 §6 scope are ignored on load and named in
+    Schema features outside the SOM §14 scope are ignored on load and named in
     :attr:`warnings`."""
 
     _SECTION_TYPE_KEYS = {
@@ -337,7 +337,7 @@ class DocSpecsSchema:
         self.form_types: dict[str, DocSpecsFormType] = {}
         self.document_sections: dict[str, DocSpecsDocumentSection] = {}
         #: Every schema feature encountered but not interpreted, named
-        #: (DR1 §7: nothing is silently dropped).
+        #: (nothing is silently dropped).
         self.warnings: list[str] = []
 
     @property
@@ -516,7 +516,7 @@ class DocSpecsSchema:
 
 class DocSpecsValidator:
     """Validates a schema-free :class:`DocSpecsDocument` against a
-    :class:`DocSpecsSchema` (DR1 §6). Stateless per document;
+    :class:`DocSpecsSchema` (SOM §14). Stateless per document;
     :meth:`validate` always returns the complete violation list (never
     fail-fast); a document is valid iff it is empty."""
 
@@ -869,7 +869,7 @@ class DocSpecsValidator:
 
 
 # ---------------------------------------------------------------------------
-# 4. Binding onto the SOM metadata tree (DR1 §6 capability 3)
+# 4. Binding onto the SOM metadata tree (SOM §14 capability 3)
 # ---------------------------------------------------------------------------
 
 
@@ -877,6 +877,6 @@ def bind_docspecs_markdown(
     model: SpecModel, document: SpecDocument, text: str
 ) -> SpecMarkdownResult:
     """Binds a DocSpecs markdown *text* onto the SOM metadata tree of
-    *model*, staging values against *document*'s path grammar — the §1.7
+    *model*, staging values against *document*'s path grammar — the SOM §11.7
     entry point, delegated to :meth:`SpecDocumentMarkdown.parse`."""
     return SpecDocumentMarkdown(model, document).parse(text)

@@ -14,7 +14,7 @@
  */
 
 import { SpecDocument, yamlEncode } from 'tom_som_typescript_runtime';
-// The generated module also re-exports the per-root metadata trees (DR8/DR18);
+// The generated module also re-exports the per-root metadata trees (SOM §8);
 // the generic YAML codec needs the document's tree to render hierarchy.
 import { d00SolutionBlueprintMetaTree } from '../tom_som_typescript_v0';
 
@@ -68,7 +68,7 @@ function main(): number {
   console.log(JSON.stringify(doc.toJson(), _sortedKeysReplacer, 2));
 
   // … and to the canonical hierarchical YAML wire format (stamped with the
-  // model version). The v2 codec is meta-driven (DR8/DR18): it takes the
+  // model version). The v2 codec is meta-driven (SOM §8): it takes the
   // document's SomMetaTree, obtained here from the generated facade.
   console.log('\nDocument YAML:');
   console.log(yamlEncode(doc, d00SolutionBlueprintMetaTree, '1.0'));

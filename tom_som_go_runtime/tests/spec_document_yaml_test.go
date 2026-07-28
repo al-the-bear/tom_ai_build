@@ -1,4 +1,4 @@
-// DR5 hierarchical `*.docspecs.yaml` v2 codec tests — a port of
+// Hierarchical `*.docspecs.yaml` v2 codec tests — a port of
 // `tom_som_typescript_runtime/tests/spec_document_yaml_test.ts` (itself a port
 // of `tom_som_javascript_runtime/tests/spec_document_yaml_test.js` /
 // `tom_som_python_runtime/tests/spec_document_yaml_test.py` /
@@ -8,7 +8,7 @@
 // `<section-id> <member-name>`, list items key by stored section id (or an
 // anonymous positional `<member>-<n>`), body text uses the literal `content`
 // key, and form fields use their bare names. Round-trip is lossless modulo
-// the DR1 §2.4.3 empty-line dedup; version-1 files and unmatched keys are
+// the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
 // structured load errors.
 package tests
 
@@ -127,7 +127,7 @@ func yamlRoundTrip(t *testing.T, tree *som.SomMetaTree, d *som.SpecDocument) *so
 	return yamlDec(t, tree, yamlEnc(t, tree, d, "")).Document
 }
 
-// yamlPopulated builds a document touching every store and the §2.4 edge
+// yamlPopulated builds a document touching every store and the SOM §12.4 edge
 // cases.
 func yamlPopulated(t *testing.T) *som.SpecDocument {
 	doc := som.NewSpecDocument()
@@ -187,7 +187,7 @@ func yamlTestEncode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 			strings.Index(sparse, "D00-PRI priority:"), "")
 	c.check("encode.sparse", !strings.Contains(sparse, "D00-SCO"), "")
 
-	// non-text values are plain scalars (§2.5)
+	// non-text values are plain scalars (SOM §12.5)
 	yaml2 := yamlEnc(t, tree, yamlPopulated(t), "")
 	c.check("encode.plainEnum",
 		strings.Contains(yaml2, "\n    D00-PRI priority: high\n"), "")
@@ -195,7 +195,7 @@ func yamlTestEncode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 	c.check("encode.plainFormInt",
 		strings.Contains(yaml2, "\n      revision: 7\n"), "")
 
-	// YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+	// YAML 1.1-special values are quoted, not plain (SOM §12.5). `on`/`no` are
 	// 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
 	// YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
 	// every runtime reads back the exact string; an ordinary token stays plain.
@@ -307,7 +307,7 @@ func yamlTestRoundTrip(c *checker, t *testing.T, tree *som.SomMetaTree) {
 			"got "+quote(got)+" want "+quote(edge))
 	}
 
-	// runs of 2+ empty lines collapse to one on write (§2.4.3)
+	// runs of 2+ empty lines collapse to one on write (SOM §12.4)
 	doc := som.NewSpecDocument()
 	doc.SetContent("D00/D00-OVR", "a\n\n\n\nb\n\n\nc")
 	c.check("rt.emptyLineDedup",
@@ -365,7 +365,7 @@ func yamlTestStrictDecode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 	c.check("decode.review", contents.Review.Has("D00/a"), "")
 }
 
-// TestSpecDocumentYaml runs the shared DR5 hierarchical-codec suite
+// TestSpecDocumentYaml runs the shared Hierarchical-codec suite
 // (58 checks).
 func TestSpecDocumentYaml(t *testing.T) {
 	c := &checker{t: t}
@@ -378,7 +378,7 @@ func TestSpecDocumentYaml(t *testing.T) {
 }
 
 // yamlTestClassLevelOnlyKey verifies a section whose @SectionId lives only on
-// the target class keys by that class id (DR1 §2.2 field-id-else-class-id). The
+// the target class keys by that class id (SOM §12.2 field-id-else-class-id). The
 // `control` field carries no id; its target class `Control` carries `CTRL`, so
 // the key is `CTRL control:`. The leaves keep their own content keys:
 // `CTRL-SUM summary:` (field id) and bare `owner:` (no id).

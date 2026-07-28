@@ -3,7 +3,7 @@
 /// The language-independent, hand-written runtime shared by every generated
 /// typed `tom_som_dart_v0` facade and the TomSpecs editor:
 ///
-///   * [SomMetaNode] / [SomMetaTree] — the canonical DR1 §3.1 metadata tree
+///   * [SomMetaNode] / [SomMetaTree] — the canonical SOM §7.1 metadata tree
 ///     (every annotation, exact class/member names) with the dynamic lookups
 ///     [SomMetaTree.byId] and [SomMetaTree.byPath]; generated facades emit
 ///     the populated tree, this runtime defines the types;
@@ -30,8 +30,8 @@
 ///     `@MapsTo`/`@DetailedIn`, state) with lazy, edit-stable cursor iteration;
 ///   * [validateDocument] — checks a document's values against the model;
 ///   * [DocSpecsDocument] / [DocSpecsSchema] / [DocSpecsValidator] — the
-///     consolidated DR1 §6 DocSpecs module: schema-free markdown parse,
-///     validation against a DR3-generated `*.docspecs-schema.yaml` with a
+///     consolidated SOM §14 DocSpecs module: schema-free markdown parse,
+///     validation against a generated `*.docspecs-schema.yaml` with a
 ///     structured [DocSpecsViolation] list, and [bindDocSpecsMarkdown] onto
 ///     the SOM metadata tree;
 ///   * [SpecNodeCreator] / [checkAddNode] — the meta-model-validated node

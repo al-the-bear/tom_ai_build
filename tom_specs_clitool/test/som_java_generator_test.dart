@@ -75,7 +75,7 @@ void main() {
     expect(source, contains('class D00SolutionBlueprint extends SomNode'));
     expect(result.sourcePath, endsWith(p.join('tom_som_java_v0', 'TomSomV0.java')));
 
-    // The metadata module (DR24) exists as the facade's package sibling and
+    // The metadata module (SOM §8) exists as the facade's package sibling and
     // carries the per-root trees + access-surface entry points; the facade's
     // loaders thread the generated tree into the runtime.
     final metaModule = File(result.metaModulePath);

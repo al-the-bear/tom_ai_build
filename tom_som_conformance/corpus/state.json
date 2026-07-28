@@ -8,7 +8,7 @@
     "DEMO/META/tags-4": "plain",
     "DEMO/PRI": "high",
     "DEMO/REF-LST-1": "spec §1.2",
-    "DEMO/REF-LST-2": "DR1",
+    "DEMO/REF-LST-2": "ADR7",
     "DEMO/SUM": "Line one\nLine two\n\nLine four",
     "DEMO/TTL": "Hello",
     "DEMO/control/CTRL-SUM": "Controlled summary",

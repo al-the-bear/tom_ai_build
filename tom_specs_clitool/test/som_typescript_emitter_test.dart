@@ -215,7 +215,7 @@ void main() {
   group('SomTypeScriptEmitter', () {
     test('emitted output matches the committed golden files', () {
       final source = SomTypeScriptEmitter(_fixtureModel()).generateLibrary();
-      // The facade imports its sibling meta module (DR8/DR18), so the meta
+      // The facade imports its sibling meta module (SOM §8), so the meta
       // golden is pinned alongside — the compile test type-checks both.
       final metaSource =
           SomTypeScriptMetaEmitter(_fixtureModel()).generateLibrary();
@@ -254,7 +254,7 @@ void main() {
       try {
         File(p.join(dir.path, 'tom_som_typescript_v0.ts'))
             .writeAsStringSync(source);
-        // The facade imports its sibling meta module (DR8/DR18).
+        // The facade imports its sibling meta module (SOM §8).
         File(p.join(dir.path, 'tom_som_typescript_v0_meta.ts'))
             .writeAsStringSync(metaSource);
         // Resolve the bare `tom_som_typescript_runtime` specifier to the runtime
@@ -413,9 +413,9 @@ void main() {
     });
 
     test('path-constant holders are retired; the meta module is re-exported '
-        '(DR8/DR18, DR1 §4)', () {
+        '(SOM §8)', () {
       final source = SomTypeScriptEmitter(_fixtureModel()).generateLibrary();
-      // DR8/DR18: the former per-root `<Code>Paths` holders are gone from the
+      // SOM §8: the former per-root `<Code>Paths` holders are gone from the
       // main facade module …
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('vision: "PD00/vision"')));

@@ -16,10 +16,10 @@
 /// a `public static` nested type; siblings reference each other by simple name.
 ///
 /// The facade is generated together with its **metadata module sibling**
-/// (`TomSomV0Meta.java`, emitted by [SomJavaMetaEmitter], DR24): the root
+/// (`TomSomV0Meta.java`, emitted by [SomJavaMetaEmitter]): the root
 /// loaders thread the root's generated `SomMetaTree` into the runtime
 /// (`SpecDocument.fromYaml(yaml, tree)` / `fromFile(path, tree)`), and the
-/// dot-notation / ID-tree access surfaces of DR1 §4 replace the retired flat
+/// dot-notation / ID-tree access surfaces of SOM §8 replace the retired flat
 /// path-constant holders.
 library;
 
@@ -132,7 +132,7 @@ class SomJavaEmitter {
     }
     // The flat path-constant holders (former § item 11) are retired: the
     // generated dot-notation / ID-tree access surfaces in the sibling
-    // `TomSomV0Meta` module (DR24) supersede them.
+    // `TomSomV0Meta` module (SOM §8) supersede them.
     buffer.writeln('}');
     return buffer.toString();
   }
@@ -264,7 +264,7 @@ class SomJavaEmitter {
         ..writeln('$_i2// the former decode → loadJson → thread-documentVersion '
             'sequence. The')
         ..writeln("$_i2// root's generated metadata tree is threaded into the "
-            'runtime (DR22),')
+            'runtime,')
         ..writeln('$_i2// keying the YAML mapping off SomMetaTree instead of '
             'the meta-JSON model.')
         ..writeln('${_i2}public static ${cls.name} loadYaml(String yaml) {')

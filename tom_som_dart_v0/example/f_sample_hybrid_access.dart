@@ -1,8 +1,8 @@
 // Sample (f) — HYBRID access: the typed→path bridge over the shared document.
 //
 // Reads the same shared sample as (d) and (e) and prints identical output, but
-// addresses sections through the *bridge* between the two access paths (DR1
-// §4). Generic code that must stay dynamic — an editor, a cross-version
+// addresses sections through the *bridge* between the two access paths (SOM
+// §8). Generic code that must stay dynamic — an editor, a cross-version
 // reader, a batch walker — should never hard-code raw path literals like
 // `'SBP/currentLandscape/CUOPME-OPER-LST'`; they are undiscoverable and
 // typo-prone. There are two safe ways to obtain a path:

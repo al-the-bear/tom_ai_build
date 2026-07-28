@@ -17,7 +17,7 @@
 // DocumentJson) — nothing to free by hand.
 #include "tom_som_cpp_runtime.hpp"
 // The generated metadata module: encodeYaml walks the document root's metadata
-// tree (DR33). The generic store is edited with raw paths above; only the wire
+// tree (SOM §8). The generic store is edited with raw paths above; only the wire
 // serialization needs the root's tree, threaded from the generated module.
 #include "tom_som_cpp_v0_meta.hpp"
 

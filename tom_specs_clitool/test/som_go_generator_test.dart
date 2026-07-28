@@ -14,7 +14,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// deterministic write step is exercised and the committed-artefact contract is
 /// asserted — a valid meta-data file (which is **byte-identical to the Dart
 /// path**, since meta-data is language-agnostic), the typed Go facade module,
-/// the generated metadata module (DR8/DR21), the 13 DocSpecs schemas, a
+/// the generated metadata module (SOM §8), the 13 DocSpecs schemas, a
 /// portable (relative runtime `replace`) `go.mod`, and byte-stable idempotency.
 ///
 /// One Go-specific check beyond the Dart suite: the emitted module must
@@ -82,7 +82,7 @@ void main() {
             '"github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"'));
     expect(result.modulePath, endsWith('tom_som_go_v0.go'));
 
-    // The generated metadata module (DR8/DR21) is written alongside the
+    // The generated metadata module (SOM §8) is written alongside the
     // facade and carries the populated trees + access surfaces; the facade's
     // one-call loaders thread the trees into the codec.
     final metaModule = File(result.metaModulePath);

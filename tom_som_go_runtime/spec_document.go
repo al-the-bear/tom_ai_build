@@ -92,7 +92,7 @@ func NewSpecDocument() *SpecDocument {
 }
 
 // FromYaml loads a hierarchical `*.docspecs.yaml` document in one call: decode
-// the YAML against the document's metadata tree (DR5) and retain the parsed
+// the YAML against the document's metadata tree (SOM §12) and retain the parsed
 // ModelVersion on the document. Collapses the former DecodeYaml →
 // thread-documentVersion incantation (§ item 4). Format problems surface as a
 // *SpecYamlFormatException.

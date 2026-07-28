@@ -1,4 +1,4 @@
-//! DR5 hierarchical `*.docspecs.yaml` v2 codec tests — a port of
+//! Hierarchical `*.docspecs.yaml` v2 codec tests — a port of
 //! `tom_som_go_runtime/tests/spec_document_yaml_test.go` (itself a port of
 //! `tom_som_typescript_runtime/tests/spec_document_yaml_test.ts` /
 //! `tom_som_javascript_runtime/tests/spec_document_yaml_test.js` /
@@ -9,7 +9,7 @@
 //! `<section-id> <member-name>`, list items key by stored section id (or an
 //! anonymous positional `<member>-<n>`), body text uses the literal `content`
 //! key, and form fields use their bare names. Round-trip is lossless modulo
-//! the DR1 §2.4.3 empty-line dedup; version-1 files and unmatched keys are
+//! the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
 //! structured load errors.
 
 use tom_som_rust_runtime::spec_document::SpecDocument;
@@ -144,7 +144,7 @@ fn yaml_round_trip(tree: &SomMetaTree, d: &SpecDocument) -> SpecDocument {
     yaml_dec(tree, &yaml_enc(tree, d, "")).document
 }
 
-/// Builds a document touching every store and the §2.4 edge cases.
+/// Builds a document touching every store and the SOM §12.4 edge cases.
 fn yaml_populated() -> SpecDocument {
     let mut doc = SpecDocument::new();
     doc.set_content("D00", "Preamble body text.");
@@ -214,7 +214,7 @@ fn yaml_test_encode(c: &mut Checker, tree: &SomMetaTree) {
     );
     c.check("encode.sparse", !sparse.contains("D00-SCO"), "");
 
-    // non-text values are plain scalars (§2.5)
+    // non-text values are plain scalars (SOM §12.5)
     let yaml2 = yaml_enc(tree, &yaml_populated(), "");
     c.check(
         "encode.plainEnum",
@@ -228,7 +228,7 @@ fn yaml_test_encode(c: &mut Checker, tree: &SomMetaTree) {
         "",
     );
 
-    // YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+    // YAML 1.1-special values are quoted, not plain (SOM §12.5). `on`/`no` are
     // 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
     // YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
     // every runtime reads back the exact string; an ordinary token stays plain.
@@ -417,7 +417,7 @@ fn yaml_test_round_trip(c: &mut Checker, tree: &SomMetaTree) {
         );
     }
 
-    // runs of 2+ empty lines collapse to one on write (§2.4.3)
+    // runs of 2+ empty lines collapse to one on write (SOM §12.4)
     let mut doc = SpecDocument::new();
     doc.set_content("D00/D00-OVR", "a\n\n\n\nb\n\n\nc");
     c.check(
@@ -499,7 +499,7 @@ fn yaml_test_strict_decode(c: &mut Checker, tree: &SomMetaTree) {
 }
 
 /// A section/complex node whose field carries no `@SectionId` takes its target
-/// class's id for the mapping key (DR1 §2.2 class fallback), while its path
+/// class's id for the mapping key (SOM §12.2 class fallback), while its path
 /// segment stays field-level. `control` (id-less field) → `Control` (class id
 /// `CTRL`) emits `CTRL control:`; its id-less leaf `owner` stays a bare key;
 /// the path is field-level throughout.
@@ -562,7 +562,7 @@ fn yaml_test_code_spec_byte_stable(c: &mut Checker, tree: &SomMetaTree) {
     c.check("codeSpec.yaml.byteStable", yaml2 == yaml1, &yaml2);
 }
 
-/// Runs the shared DR5 hierarchical-codec suite.
+/// Runs the shared Hierarchical-codec suite.
 #[test]
 fn spec_document_yaml() {
     let mut c = Checker::new();

@@ -1,5 +1,5 @@
 /* Unit tests for the DocSpecs-conform Markdown codec
- * (`spec_document_markdown.c`, DR6 / DR1 §1 — DR29) — a 1:1 C port of
+ * (`spec_document_markdown.c`, SOM §11) — a 1:1 C port of
  * `tom_som_go_runtime/tests/spec_document_markdown_test.go` (itself a port of
  * the TypeScript/Python/Dart reference suites). The check *names* match the Go
  * suite byte-for-byte.
@@ -272,7 +272,7 @@ static void md_reload(SpecModel *model, const char *md, SpecDocument *target,
   spec_document_load_json(target, &report->staged);
 }
 
-/* ---- export — DocSpecs format (DR1 §1) ----------------------------------- */
+/* ---- export — DocSpecs format (SOM §11) ---------------------------------- */
 
 static void test_markdown_export_format(void) {
   SpecModel *m = demo_model();
@@ -354,7 +354,7 @@ static void test_markdown_export_stored_item_id(void) {
   free(item);
 
   char *md = md_export(m, &doc);
-  /* YRD3 (supersedes DRC5): the stored id IS the md heading id; only
+  /* YRD3: the stored id IS the md heading id; only
      anonymous items fall back to the positional derivation. */
   md_check("export.storedId.container",
            contains(md, "## <!--[D00-ITM]--> Items"), md);
@@ -581,7 +581,7 @@ static void test_markdown_round_trip_stored_item_id(void) {
   free(lbl);
   free(item);
   char *md1 = md_export(m, &doc);
-  /* YRD3 (supersedes DRC5): the stored id IS the md heading id and is
+  /* YRD3: the stored id IS the md heading id and is
      recovered on parse. */
   md_check("storedId.inMd", contains(md1, "<!--[D01-CUSTOM]-->"), md1);
 
@@ -649,7 +649,7 @@ static void test_markdown_round_trip_label_shaped_continuation(void) {
   spec_model_free(m);
 }
 
-/* ---- parse-rejection protocol (DR1 §1.7) --------------------------------- */
+/* ---- parse-rejection protocol (SOM §11.7) -------------------------------- */
 
 /* Reports whether any rejection matches (reason [+ anchor when non-NULL]). */
 static int has_rejection(const SpecMarkdownResult *r, const char *reason,

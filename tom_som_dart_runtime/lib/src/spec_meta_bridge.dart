@@ -1,13 +1,13 @@
 /// Bridge from the meta-JSON class graph ([SpecModel]) to the canonical
-/// metadata tree ([SomMetaTree], DR1 §3.1).
+/// metadata tree ([SomMetaTree], SOM §7.1).
 ///
-/// The generated facades (DR8) will emit populated [SomMetaTree]s directly;
+/// The generated facades (SOM §8) will emit populated [SomMetaTree]s directly;
 /// until then, every consumer that only has the exported spec-model meta-data
 /// (the conformance harness, the clitool, the editor) builds its tree here.
 /// The expansion follows the same walk [SpecReflection.resolve] performs —
 /// crucially, a node's [SomMetaNode.sectionId] is the **field-level** id
 /// exactly as exported (`field.sectionId`), so the tree's path grammar stays
-/// byte-compatible with the paths a [SpecDocument] is keyed by. DR1 §2.2's
+/// byte-compatible with the paths a [SpecDocument] is keyed by. SOM §12.2's
 /// "field id, else target-class id" resolution for a section/complex node's
 /// display *key* is carried alongside it in [SomMetaNode.classSectionId] (the
 /// target class's own id) — a codec renders `sectionId ?? classSectionId`
@@ -44,7 +44,7 @@ const Set<String> _slottedAnnotations = {
 /// root is looked up via [SpecModel.rootByType] (throwing [ArgumentError] for
 /// an unknown type). Children are ordered by `@SerializationOrder` (annotated
 /// members first, then declaration order), which is the sibling emission order
-/// of the hierarchical YAML format (DR1 §2.3).
+/// of the hierarchical YAML format (SOM §12.3).
 SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType}) {
   final root = rootType == null && model.roots.isNotEmpty
       ? model.roots.first

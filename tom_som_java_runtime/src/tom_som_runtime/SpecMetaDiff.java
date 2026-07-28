@@ -11,8 +11,8 @@ import java.util.Objects;
  * of {@code spec_meta_diff.dart} / {@code spec_meta_diff.ts} /
  * {@code spec_meta_diff.go}.
  *
- * <p>{@link #somMetaNodeDiff} is the agreement oracle for DR8/DR24: the
- * generated facades embed populated metadata trees as static code (DR1 §3.2),
+ * <p>{@link #somMetaNodeDiff} is the agreement oracle: the
+ * generated facades embed populated metadata trees as static code (SOM §7.2),
  * while {@link SomMetaBridge#buildSomMetaTree} derives the same tree from the
  * exported meta-JSON at runtime — the two must be field-for-field identical
  * for every node. Tests compare them with this method, which returns a

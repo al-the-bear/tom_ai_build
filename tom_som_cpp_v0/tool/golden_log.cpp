@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
   const std::string output =
       argc > 2 ? argv[2] : "../tom_som_conformance/golden/cpp.log";
 
-  // Generic view — decode against the D00 root's metadata tree (DR33).
+  // Generic view — decode against the D00 root's metadata tree (SOM §8).
   std::string genErr;
   std::optional<som::SpecDocument> genDoc = som::SpecDocument::fromFile(
       sample, tom_som_v0_meta::d00SolutionBlueprintMetaTree(), &genErr);

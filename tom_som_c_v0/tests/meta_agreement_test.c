@@ -1,5 +1,5 @@
-/* DR30 agreement suite for the generated C metadata module
- * (`tom_som_c_v0_meta.c`, DR1 §3.2/§4) — the C port of the Go facade's
+/* Agreement suite for the generated C metadata module
+ * (`tom_som_c_v0_meta.c`, SOM §7.2/§8) — the C port of the Go facade's
  * `som_v0_meta_test.go` (and the Dart `generated_meta_test.dart`). Two
  * guarantees over the *real* committed model:
  *
@@ -9,8 +9,8 @@
  *     committed `meta/spec_model.meta.json` at runtime. Because the emitter
  *     writes the dot-notation / ID-tree accessor paths from the same node
  *     walk, this anchors every path the accessors can produce.
- *  2. SURFACE AGREEMENT — the dot-notation entry points (§4.1), the ID-tree
- *     entry points (§4.2), and the dynamic by-path lookups all resolve to the
+ *  2. SURFACE AGREEMENT — the dot-notation entry points (SOM §8), the ID-tree
+ *     entry points (SOM §8), and the dynamic by-path lookups all resolve to the
  *     *same* SomMetaNode instances for representative positions (root, nested
  *     section, content leaf, list, list element, hoisted id).
  *

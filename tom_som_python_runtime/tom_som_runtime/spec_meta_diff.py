@@ -1,8 +1,8 @@
 """Structural comparison of two :class:`SomMetaNode` subtrees; a faithful
 port of ``tom_som_dart_runtime/lib/src/spec_meta_diff.dart``.
 
-:func:`som_meta_node_diff` is the agreement oracle for DR8: the generated
-facades embed populated metadata trees as static code (DR1 §3.2), while
+:func:`som_meta_node_diff` is the agreement oracle: the generated
+facades embed populated metadata trees as static code (SOM §7.2), while
 :func:`~tom_som_runtime.spec_meta_bridge.build_som_meta_tree` derives the same
 tree from the exported meta-JSON at runtime — the two must be field-for-field
 identical for every node. Tests compare them with this function, which returns

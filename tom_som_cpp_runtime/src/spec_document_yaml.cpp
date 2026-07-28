@@ -45,7 +45,7 @@ std::string specYamlNodeKey(const SomMetaNode& node) {
       !node.memberName.empty() ? node.memberName : node.className;
   // Section/complex keys carry the full section id: the field-level @SectionId
   // when present, else the target class's own @SectionId (classSectionId, the
-  // DR1 §2.2 class fallback), mirroring the markdown codec's heading rule.
+  // SOM §12.2 class fallback), mirroring the markdown codec's heading rule.
   // Content/scalar/enum/form/list-item keys keep only their field-level id; the
   // path segment is never affected (see SomMetaNode::segment).
   const std::string& id =
@@ -232,7 +232,7 @@ static bool isYaml11Sexagesimal(const std::string& value, bool isFloat) {
 }
 
 /* Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
- * to a non-string, so it must never be emitted as a plain scalar (DR1 §2.5).
+ * to a non-string, so it must never be emitted as a plain scalar (SOM §12.5).
  * Mirrors the Dart reference rule so every emitter agrees regardless of the
  * local YAML parser's schema. */
 static bool isYaml11Special(const std::string& value) {
@@ -240,7 +240,7 @@ static bool isYaml11Special(const std::string& value) {
          isYaml11Sexagesimal(value, true);
 }
 
-/* A plain one-line scalar for a non-text value (§2.5) when writing it plainly
+/* A plain one-line scalar for a non-text value (SOM §12.5) when writing it plainly
  * re-parses to exactly `value`. Values whose text is a YAML 1.1 special are
  * forced to the quoted/block path so cross-language round-trips match. */
 static bool plainScalarOk(const std::string& value) {
@@ -612,7 +612,7 @@ class YamlEncoder {
       writeText(b, indent, "codeSpec", ownCodeSpec);
     }
 
-    // The node's own body text — the literal `content` key (DR1 §2.2).
+    // The node's own body text — the literal `content` key (SOM §12.2).
     std::string own;
     if (takeContent(path, &own)) {
       for (const auto& child : node.children) {

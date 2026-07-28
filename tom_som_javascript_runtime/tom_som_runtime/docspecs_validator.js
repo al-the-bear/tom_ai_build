@@ -3,7 +3,7 @@
 /**
  * DocSpecs markdown validation — a faithful port of
  * `tom_som_python_runtime/tom_som_runtime/docspecs_validator.py` (itself a port
- * of the Dart `docspecs_validator.dart`, DR7/DR14 parity).
+ * of the Dart `docspecs_validator.dart`, Dart / JavaScript parity).
  *
  * Three cooperating pieces:
  *
@@ -777,7 +777,7 @@ class DocSpecsValidator {
 
 /**
  * Lands a DocSpecs markdown text in a typed SpecDocument via the SOM markdown
- * codec — the DR7 "bind" entry point.
+ * codec — the "bind" entry point (SOM §14).
  *
  * @param {import('./spec_model').SpecModel} model
  * @param {import('./spec_document').SpecDocument} document

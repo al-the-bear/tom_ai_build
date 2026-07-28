@@ -1,9 +1,9 @@
-/// Emits the generated **metadata module** of the C `v0` facade (DR30, the C
+/// Emits the generated **metadata module** of the C `v0` facade (the C
 /// counterpart of `som_go_meta_emitter.dart` / `som_dart_meta_emitter.dart` /
 /// the other language meta emitters): the populated `SomMetaTree`s built as
-/// generated data (DR1 §3.2) plus the two discoverable access surfaces of DR1
-/// §4 — the **dot-notation tree** (model member names, §4.1) and the **ID-tree**
-/// (section ids, §4.2). This module replaces the retired flat path-constant
+/// generated data (SOM §7.2) plus the two discoverable access surfaces of SOM
+/// §8 — the **dot-notation tree** (model member names) and the **ID-tree**
+/// (section ids, SOM §8). This module replaces the retired flat path-constant
 /// `#define` holders (`SBP_PATHS_…`) of the C facade.
 ///
 /// The emitted node values mirror `tom_som_c_runtime`'s `som_build_meta_tree`
@@ -22,7 +22,7 @@
 ///     functions that allocate nodes with `som_meta_node_new()` and populate the
 ///     owned fields with `som_strdup`, then wired by a `must_meta_tree` helper.
 ///     Each root exposes a lazily-cached `const SomMetaTree *<root>_meta_tree(void)`.
-///   * the two access surfaces are structs-over-`SomMetaRef` (DR1 §4 generated
+///   * the two access surfaces are structs-over-`SomMetaRef` (SOM §8 generated
 ///     accessor support): `som_nav_<Class>` / `som_id_<Class>` each wrap one
 ///     `SomMetaRef` (tree + absolute path). Every navigable position is one
 ///     accessor **function** `<class>_nav_<member>(x)` (dot-notation) /
@@ -169,8 +169,8 @@ class SomCMetaEmitter {
     // Access-surface struct typedefs. Each wraps one SomMetaRef; accessors take
     // it by value and return the next surface struct / ref by value.
     b
-      ..writeln('/* ── dot-notation access surface structs (DR1 §4.1) '
-          '─────────────────────── */')
+      ..writeln('/* ── dot-notation access surface structs (SOM §8) '
+          '───────────────────────── */')
       ..writeln('/* Each wraps one SomMetaRef (tree + absolute path). Accessors '
           'return the next */')
       ..writeln('/* navigable position by value; `.ref.path` is the absolute '
@@ -181,8 +181,8 @@ class SomCMetaEmitter {
     }
     b.writeln();
     b
-      ..writeln('/* ── ID-tree access surface structs (DR1 §4.2) '
-          '───────────────────────────── */')
+      ..writeln('/* ── ID-tree access surface structs (SOM §8) '
+          '─────────────────────────────── */')
       ..writeln('/* The same tree keyed by section id (`-` → `_`). `.ref.path` '
           'and the metadata */')
       ..writeln('/* node agree with the dot-notation surface for every '
@@ -193,8 +193,8 @@ class SomCMetaEmitter {
     b.writeln();
 
     // Dot-notation accessor declarations.
-    b.writeln('/* ── dot-notation accessors (DR1 §4.1) '
-        '───────────────────────────────────── */');
+    b.writeln('/* ── dot-notation accessors (SOM §8) '
+        '─────────────────────────────────────── */');
     for (final n in navClasses) {
       final cls = model.classNamed(n)!;
       final used = <String>{};
@@ -206,8 +206,8 @@ class SomCMetaEmitter {
     b.writeln();
 
     // ID-tree accessor declarations.
-    b.writeln('/* ── ID-tree accessors (DR1 §4.2) '
-        '────────────────────────────────────────── */');
+    b.writeln('/* ── ID-tree accessors (SOM §8) '
+        '──────────────────────────────────────────── */');
     for (final n in idClasses) {
       final cls = model.classNamed(n)!;
       for (final child in _idChildren(cls)) {
@@ -223,15 +223,15 @@ class SomCMetaEmitter {
     for (final root in _roots) {
       final treeFn = _treeFn(root.type);
       b
-        ..writeln('/* The populated `${root.type}` metadata tree (DR1 §3.2), '
+        ..writeln('/* The populated `${root.type}` metadata tree (SOM §7.2), '
             'built + cached on first')
         ..writeln(' * call and owned by this module. */')
         ..writeln('const SomMetaTree *$treeFn(void);')
-        ..writeln('/* The dot-notation access root of `${root.type}` (DR1 §4.1): '
+        ..writeln('/* The dot-notation access root of `${root.type}` (SOM §8): '
             '`<root>_nav_<Member>`. */')
         ..writeln('${_navType(root.type)} ${_rootNavFn(root)}('
             'const SomMetaTree *tree);')
-        ..writeln('/* The ID-tree access root of `${root.type}` (DR1 §4.2): '
+        ..writeln('/* The ID-tree access root of `${root.type}` (SOM §8): '
             '`<root>_id_<SECTION_ID>`. */')
         ..writeln('${_idType(root.type)} ${_rootIdFn(root)}('
             'const SomMetaTree *tree);');
@@ -281,7 +281,7 @@ class SomCMetaEmitter {
 
     // Forward declarations of every child builder and node build function
     // (mutual recursion, any emission order).
-    b.writeln('/* ── metadata tree builders (DR1 §3.2) — forward decls '
+    b.writeln('/* ── metadata tree builders (SOM §7.2) — forward decls '
         '──────────────────── */');
     for (final n in _navClasses) {
       b.writeln('static SomMetaNode **${_childrenFn(n)}('
@@ -307,7 +307,7 @@ class SomCMetaEmitter {
     b.writeln();
 
     // Children builders.
-    b.writeln('/* ── metadata tree builders (DR1 §3.2) '
+    b.writeln('/* ── metadata tree builders (SOM §7.2) '
         '───────────────────────────────────── */');
     b.write(buildersBuf.toString());
 
@@ -319,13 +319,13 @@ class SomCMetaEmitter {
     }
 
     // Dot-notation accessor definitions.
-    b.writeln('/* ── dot-notation accessors (DR1 §4.1) '
-        '───────────────────────────────────── */');
+    b.writeln('/* ── dot-notation accessors (SOM §8) '
+        '─────────────────────────────────────── */');
     b.write(navBuf.toString());
 
     // ID-tree accessor definitions.
-    b.writeln('/* ── ID-tree accessors (DR1 §4.2) '
-        '────────────────────────────────────────── */');
+    b.writeln('/* ── ID-tree accessors (SOM §8) '
+        '──────────────────────────────────────────── */');
     b.write(idBuf.toString());
 
     return b.toString().replaceAll('\t', '  ');
@@ -830,7 +830,7 @@ class SomCMetaEmitter {
     return const [];
   }
 
-  // ── dot-notation accessors (§4.1) ───────────────────────────────────────────
+  // ── dot-notation accessors (SOM §8) ─────────────────────────────────────────
 
   void _emitNavAccessors(StringBuffer b, SpecClass cls) {
     final used = <String>{};
@@ -950,7 +950,7 @@ class SomCMetaEmitter {
   }
 
 
-  // ── §4.2 ID-tree children ───────────────────────────────────────────────────
+  // ── SOM §8 ID-tree children ─────────────────────────────────────────────────
 
   List<_IdChild> _idChildren(SpecClass cls) {
     final children = <_IdChild>[];
@@ -1063,9 +1063,9 @@ class SomCMetaEmitter {
     b
       ..writeln('/* GENERATED by tom_specs_clitool SomCMetaEmitter '
           '($versionLabel) — do not edit by hand. */')
-      ..writeln('/* The populated SOM metadata trees (DR1 §3.2) and the two '
+      ..writeln('/* The populated SOM metadata trees (SOM §7.2) and the two '
           'access surfaces of */')
-      ..writeln('/* DR1 §4: the dot-notation tree (member names) and the '
+      ..writeln('/* SOM §8: the dot-notation tree (member names) and the '
           'ID-tree (section ids). */')
       ..writeln('/* ($which) */')
       ..writeln();

@@ -201,7 +201,7 @@ func main() {
 	}
 
 	// (b) recursion: `.Path` chains stay valid past the re-entry, `.Meta()`
-	// resolves at the re-entry itself and errors beyond it (DR1 §4.1).
+	// resolves at the re-entry itself and errors beyond it (SOM §8).
 	mitigation := SolutionBlueprintMeta.Risks().Item(0).Mitigation()
 	expectEq(mitigation.Path, "PD00/risks-0/mitigation", "recursive path")
 	if !mustMeta(mitigation, "mitigation .Meta()").Recursive {

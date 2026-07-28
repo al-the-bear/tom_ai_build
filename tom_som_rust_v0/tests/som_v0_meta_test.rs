@@ -1,5 +1,5 @@
-// DR8/DR27 agreement suite for the generated Rust metadata module
-// (`src/meta.rs`, DR1 §3.2/§4) — the Rust port of the Go facade's
+// Agreement suite for the generated Rust metadata module
+// (`src/meta.rs`, SOM §7.2/§8) — the Rust port of the Go facade's
 // `som_v0_meta_test.go` (itself a port of the Dart facade's
 // `test/generated_meta_test.dart`). Two guarantees over the *real* committed
 // model:
@@ -126,7 +126,7 @@ fn generated_trees_agree_with_bridge() {
     }
 }
 
-/// Proves the dot-notation entry points (DR1 §4.1) resolve representative
+/// Proves the dot-notation entry points (SOM §8) resolve representative
 /// positions to the expected paths and to the same SomMetaNode instances the
 /// dynamic by_path lookups find.
 #[test]
@@ -213,7 +213,7 @@ fn assert_id_root(
     );
 }
 
-/// Proves the ID-tree entry points (DR1 §4.2) agree with the dot-notation
+/// Proves the ID-tree entry points (SOM §8) agree with the dot-notation
 /// positions and that every root's ID entry point sits at its own section-id
 /// segment over the same tree root node.
 #[test]

@@ -75,7 +75,7 @@ void main() {
     expect(source, contains('use tom_som_rust_runtime as som;'));
     expect(result.libPath, endsWith(p.join('src', 'lib.rs')));
 
-    // The metadata module (DR27) sits alongside the facade and is declared by
+    // The metadata module (SOM §8) sits alongside the facade and is declared by
     // it; the loaders thread the generated tree through the tree-based codec.
     expect(result.metaModulePath, endsWith(p.join('src', 'meta.rs')));
     final metaSource = File(result.metaModulePath).readAsStringSync();

@@ -310,7 +310,7 @@ String? _runtimeDir() {
 /// `tom_som_go_v0` module against the local runtime via a `replace` directive,
 /// asserting `go build` + `go vet` both succeed. The facade's root load
 /// functions reference the per-root `<Root>MetaTree` vars from the meta module
-/// (DR8/DR21), so both files always compile together. A no-op (with a skip
+/// (SOM §8), so both files always compile together. A no-op (with a skip
 /// note) when the toolchain or runtime cannot be located.
 void _expectGoBuilds(String source, String metaSource) {
   final go = _go();
@@ -326,7 +326,7 @@ void _expectGoBuilds(String source, String metaSource) {
   final dir = Directory.systemTemp.createTempSync('som_go_emit_');
   try {
     File(p.join(dir.path, 'tom_som_go_v0.go')).writeAsStringSync(source);
-    // The facade references the meta module's `<Root>MetaTree` vars (DR8/DR21).
+    // The facade references the meta module's `<Root>MetaTree` vars (SOM §8).
     File(p.join(dir.path, 'tom_som_go_v0_meta.go'))
         .writeAsStringSync(metaSource);
     final replaceTarget = runtimeDir.replaceAll('\\', '/');
@@ -359,7 +359,7 @@ void main() {
   group('SomGoEmitter', () {
     test('emitted output matches the committed golden files', () {
       final source = SomGoEmitter(_fixtureModel()).generateLibrary();
-      // The facade references its sibling meta module (DR8/DR21), so the meta
+      // The facade references its sibling meta module (SOM §8), so the meta
       // golden is pinned alongside — the compile test builds both.
       final metaSource = SomGoMetaEmitter(_fixtureModel()).generateLibrary();
       final golden = File(goldenPath);
@@ -572,9 +572,9 @@ void main() {
     });
 
     test('path-constant holders are retired; the meta trees are threaded '
-        '(DR8/DR21, DR1 §4)', () {
+        '(SOM §8)', () {
       final source = SomGoEmitter(_fixtureModel()).generateLibrary();
-      // DR8/DR21: the former per-root `<Code>Paths` holders are gone from the
+      // SOM §8: the former per-root `<Code>Paths` holders are gone from the
       // main facade module …
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('Vision: "PD00/vision"')));

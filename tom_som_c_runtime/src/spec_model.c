@@ -334,7 +334,7 @@ void spec_model_free(SpecModel *m) {
   free(m);
 }
 
-/* ---- model version string (DR6/DR11 parity) ------------------------------ */
+/* ---- model version string (Dart / Python parity) ------------------------- */
 
 /* Reports whether `s` (the first `n` bytes) matches /^[+-]?[0-9]+$/. */
 static int version_is_signed_digits(const char *s, size_t n) {

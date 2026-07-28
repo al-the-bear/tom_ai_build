@@ -1,6 +1,6 @@
 /**
- * DR8/DR18 agreement suite for the generated TypeScript metadata module
- * (`tom_som_typescript_v0_meta.ts`, DR1 §3.2/§4) — the TS port of the Dart
+ * Agreement suite for the generated TypeScript metadata module
+ * (`tom_som_typescript_v0_meta.ts`, SOM §7.2/§8) — the TS port of the Dart
  * facade's `test/generated_meta_test.dart` (and the JavaScript
  * `som_v0_meta_test.js`). Two guarantees over the *real* committed model:
  *

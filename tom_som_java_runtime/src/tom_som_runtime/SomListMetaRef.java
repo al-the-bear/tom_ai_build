@@ -1,7 +1,7 @@
 package tom_som_runtime;
 
 /**
- * The generated accessor for a <b>list</b> position (DR1 §4.1): {@link #path}
+ * The generated accessor for a <b>list</b> position (SOM §8): {@link #path}
  * is the list container path; {@link #item} returns the accessor for the
  * {@code seq}-th item position ({@code <path>-<seq>}), whose children are the
  * element class's accessors — a faithful port of {@code spec_meta.dart} /

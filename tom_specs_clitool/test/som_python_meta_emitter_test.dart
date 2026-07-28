@@ -190,7 +190,7 @@ expect_eq(
 expect_eq(len(solutionBlueprint.owner.meta.form.fields), 2, "form fields")
 
 # (b) recursion: `.path` chains stay valid past the re-entry, `.meta`
-# resolves at the re-entry itself and raises beyond it (DR1 §4.1 cycle rule).
+# resolves at the re-entry itself and raises beyond it (SOM §8 cycle rule).
 mitigation = solutionBlueprint.risks.item(0).mitigation
 expect_eq(mitigation.path, "PD00/risks-0/mitigation", "recursive path")
 if not mitigation.meta.recursive:

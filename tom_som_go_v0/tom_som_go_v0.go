@@ -6,7 +6,7 @@
 // generator wires local resolution by writing a `go.mod` with a `require` + local
 // `replace` directive, so this module builds both standalone (`go get`) and in-repo.
 //
-// The generated metadata module (DR8/DR21) — the populated SomMetaTrees plus the
+// The generated metadata module (SOM §8) — the populated SomMetaTrees plus the
 // dot-notation and ID-tree access surfaces — lives in the sibling `_meta.go` file
 // of this same package, so one import surfaces both access styles.
 package somv0
@@ -8406,7 +8406,7 @@ func (x *D00SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEdi
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D00SolutionBlueprintMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD00SolutionBlueprint(yaml string) (*D00SolutionBlueprint, error) {
 	doc, err := som.FromYaml(yaml, D00SolutionBlueprintMetaTree)
 	if err != nil {
@@ -8553,7 +8553,7 @@ func (x *D01CurrentLandscapeAssessment) EditabilityFor(documentVersion string) s
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D01CurrentLandscapeAssessmentMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD01CurrentLandscapeAssessment(yaml string) (*D01CurrentLandscapeAssessment, error) {
 	doc, err := som.FromYaml(yaml, D01CurrentLandscapeAssessmentMetaTree)
 	if err != nil {
@@ -8677,7 +8677,7 @@ func (x *D02TargetOperatingModel) EditabilityFor(documentVersion string) som.Som
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D02TargetOperatingModelMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD02TargetOperatingModel(yaml string) (*D02TargetOperatingModel, error) {
 	doc, err := som.FromYaml(yaml, D02TargetOperatingModelMetaTree)
 	if err != nil {
@@ -8814,7 +8814,7 @@ func (x *D03InformationModel) EditabilityFor(documentVersion string) som.SomEdit
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D03InformationModelMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD03InformationModel(yaml string) (*D03InformationModel, error) {
 	doc, err := som.FromYaml(yaml, D03InformationModelMetaTree)
 	if err != nil {
@@ -8995,7 +8995,7 @@ func (x *D04RequirementsSpecification) EditabilityFor(documentVersion string) so
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D04RequirementsSpecificationMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD04RequirementsSpecification(yaml string) (*D04RequirementsSpecification, error) {
 	doc, err := som.FromYaml(yaml, D04RequirementsSpecificationMetaTree)
 	if err != nil {
@@ -9122,7 +9122,7 @@ func (x *D05InteractionScenarios) EditabilityFor(documentVersion string) som.Som
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D05InteractionScenariosMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD05InteractionScenarios(yaml string) (*D05InteractionScenarios, error) {
 	doc, err := som.FromYaml(yaml, D05InteractionScenariosMetaTree)
 	if err != nil {
@@ -9242,7 +9242,7 @@ func (x *D06ArchitectureTechnologySpecification) EditabilityFor(documentVersion 
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D06ArchitectureTechnologySpecificationMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD06ArchitectureTechnologySpecification(yaml string) (*D06ArchitectureTechnologySpecification, error) {
 	doc, err := som.FromYaml(yaml, D06ArchitectureTechnologySpecificationMetaTree)
 	if err != nil {
@@ -9384,7 +9384,7 @@ func (x *D07IntegrationInterfaceSpecification) EditabilityFor(documentVersion st
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D07IntegrationInterfaceSpecificationMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD07IntegrationInterfaceSpecification(yaml string) (*D07IntegrationInterfaceSpecification, error) {
 	doc, err := som.FromYaml(yaml, D07IntegrationInterfaceSpecificationMetaTree)
 	if err != nil {
@@ -9523,7 +9523,7 @@ func (x *D08SecurityAccessSpecification) EditabilityFor(documentVersion string) 
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D08SecurityAccessSpecificationMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD08SecurityAccessSpecification(yaml string) (*D08SecurityAccessSpecification, error) {
 	doc, err := som.FromYaml(yaml, D08SecurityAccessSpecificationMetaTree)
 	if err != nil {
@@ -9646,7 +9646,7 @@ func (x *D09ExperienceDesignSpecification) EditabilityFor(documentVersion string
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D09ExperienceDesignSpecificationMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD09ExperienceDesignSpecification(yaml string) (*D09ExperienceDesignSpecification, error) {
 	doc, err := som.FromYaml(yaml, D09ExperienceDesignSpecificationMetaTree)
 	if err != nil {
@@ -9789,7 +9789,7 @@ func (x *D10QualityAcceptancePlan) EditabilityFor(documentVersion string) som.So
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D10QualityAcceptancePlanMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD10QualityAcceptancePlan(yaml string) (*D10QualityAcceptancePlan, error) {
 	doc, err := som.FromYaml(yaml, D10QualityAcceptancePlanMetaTree)
 	if err != nil {
@@ -9967,7 +9967,7 @@ func (x *D11DeliveryRoadmap) EditabilityFor(documentVersion string) som.SomEdita
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D11DeliveryRoadmapMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD11DeliveryRoadmap(yaml string) (*D11DeliveryRoadmap, error) {
 	doc, err := som.FromYaml(yaml, D11DeliveryRoadmapMetaTree)
 	if err != nil {
@@ -10097,7 +10097,7 @@ func (x *D12TransitionRolloutPlan) EditabilityFor(documentVersion string) som.So
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D12TransitionRolloutPlanMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD12TransitionRolloutPlan(yaml string) (*D12TransitionRolloutPlan, error) {
 	doc, err := som.FromYaml(yaml, D12TransitionRolloutPlanMetaTree)
 	if err != nil {
@@ -10250,7 +10250,7 @@ func (x *D13CodeSpecsProjection) EditabilityFor(documentVersion string) som.SomE
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
 // *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
 // against the generated D13CodeSpecsProjectionMetaTree, so v2 hierarchical documents
-// resolve their section paths through the metadata tree (DR8/DR21).
+// resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlD13CodeSpecsProjection(yaml string) (*D13CodeSpecsProjection, error) {
 	doc, err := som.FromYaml(yaml, D13CodeSpecsProjectionMetaTree)
 	if err != nil {

@@ -1,9 +1,9 @@
-/* DR4 metadata-core tests — a port of the Go
+/* Metadata-core tests — a port of the Go
  * `tom_som_go_runtime/tests/spec_meta_test.go` (itself a port of the
  * TypeScript / JavaScript / Python / Dart suites).
  *
- * Hand-built DR1 §3.1 fixture tree mirroring the design doc's demo document
- * (DR4 acceptance: "the runtime compiles with a hand-built fixture tree").
+ * Hand-built SOM §7.1 fixture tree mirroring the design doc's demo document
+ * (acceptance: "the runtime compiles with a hand-built fixture tree").
  *
  * Structure:
  *
@@ -271,7 +271,7 @@ static void meta_test_wiring(void) {
                    "D00SolutionBlueprint"),
         "");
 
-  /* child paths follow the §4 grammar (sectionId ?? memberName) */
+  /* child paths follow the SOM §8 grammar (sectionId ?? memberName) */
   SomMetaNode *insc =
       som_meta_node_child_by_member(tree->root, "introductionAndScope");
   check("wiring.insc.path", str_eq(meta_path_of(insc), "DEMO/INSC"),
@@ -596,7 +596,7 @@ static void meta_test_by_path(void) {
             NULL,
         "");
 
-  /* byId and byPath agree on the node they address (DR1 §4.2) */
+  /* byId and byPath agree on the node they address (SOM §8) */
   check("agree.insc",
         som_meta_tree_by_id(tree, "INSC") ==
             som_meta_tree_by_path(tree, "DEMO/INSC"),

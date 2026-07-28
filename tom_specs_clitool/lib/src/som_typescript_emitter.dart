@@ -111,7 +111,7 @@ class SomTypeScriptEmitter {
       ..writeln('  somEditabilityFor,')
       ..writeln("} from 'tom_som_typescript_runtime';")
       ..writeln()
-      ..writeln('// The generated metadata module (DR8/DR18): the populated '
+      ..writeln('// The generated metadata module (SOM §8): the populated '
           'SomMetaTrees plus')
       ..writeln('// the dot-notation and ID-tree access surfaces. Its exports '
           'are re-exported')
@@ -137,7 +137,7 @@ class SomTypeScriptEmitter {
         ..write(fc.source)
         ..writeln();
     }
-    // The flat path-constant holders (§ item 11) are retired (DR8/DR18): the
+    // The flat path-constant holders (§ item 11) are retired (SOM §8): the
     // metadata module's dot-notation and ID-tree surfaces own path access.
     return buffer.toString();
   }

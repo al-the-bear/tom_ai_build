@@ -39,7 +39,7 @@ sys.path.insert(0, _PROJECT)
 from tom_som_runtime import SpecDocument, yaml_encode  # noqa: E402
 
 # The generated metadata module: the codec walks the document against the
-# root's populated metadata tree (DR8/DR12).
+# root's populated metadata tree (SOM §8).
 from tom_som_python_v0_meta import d00SolutionBlueprintMetaTree  # noqa: E402
 
 

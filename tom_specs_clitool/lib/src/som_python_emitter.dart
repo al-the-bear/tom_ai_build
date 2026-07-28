@@ -104,7 +104,7 @@ class SomPythonEmitter {
       ..writeln('    som_editability_for,')
       ..writeln(')')
       ..writeln()
-      // DR8/DR12: the generated metadata module (populated SomMetaTrees + the
+      // SOM §8: the generated metadata module (populated SomMetaTrees + the
       // dot-notation and ID-tree access surfaces) replaces the retired flat
       // path-constant holders. Imported here too — the root `load_yaml` /
       // `load_file` classmethods pass the root's populated tree to the codec.
@@ -128,7 +128,7 @@ class SomPythonEmitter {
         ..write(fc.source)
         ..writeln();
     }
-    // DR8/DR12: the flat `<Code>Paths` constant holders are retired — the
+    // SOM §8: the flat `<Code>Paths` constant holders are retired — the
     // generated metadata module (`tom_som_python_<label>_meta`) supplies the
     // dot-notation and ID-tree access surfaces instead.
     return buffer.toString();

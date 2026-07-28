@@ -412,7 +412,7 @@ static void test_one_call_loading(void) {
     ok(yaml != NULL, "sample yaml read");
     if (yaml != NULL) {
       /* The former two-step incantation. `decode_yaml` walks the root's
-       * generated metadata tree (DR30 §4) to place every key, and now returns
+       * generated metadata tree (SOM §8) to place every key, and now returns
        * the `document:` pass already populated as a SpecDocument (with its
        * model_version stamped) — so the manual path just wraps that document in
        * the typed root, no separate load_json step. */

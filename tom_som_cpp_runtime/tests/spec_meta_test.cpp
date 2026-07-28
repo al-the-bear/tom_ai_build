@@ -1,9 +1,9 @@
-/* DR4 metadata-core tests — an idiomatic-C++ port of the C
+/* Metadata-core tests — an idiomatic-C++ port of the C
  * `tom_som_c_runtime/tests/spec_meta_test.c` (itself a port of the Go / TS / JS
  * / Python / Dart suites).
  *
- * Hand-built DR1 §3.1 fixture tree mirroring the design doc's demo document
- * (DR4 acceptance: "the runtime compiles with a hand-built fixture tree").
+ * Hand-built SOM §7.1 fixture tree mirroring the design doc's demo document
+ * (acceptance: "the runtime compiles with a hand-built fixture tree").
  *
  * The C port's err-out accessors are throwing accessors here, so the three
  * negative wiring checks assert exceptions instead of NULL-out:

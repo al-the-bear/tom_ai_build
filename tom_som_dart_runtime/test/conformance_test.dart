@@ -124,7 +124,7 @@ void main() {
   // canonical state — not merely re-export
   // byte-stably. Parsing `expected.md` and applying it must reproduce
   // `state.json` (the YAML-route memory) exactly, proving both formats converge
-  // on one in-memory document (§4.1 "both routes land in the same memory
+  // on one in-memory document (SOM §8 "both routes land in the same memory
   // representation"). Every language port asserts the same against this corpus.
   test('Markdown route lands in the shared memory representation', () {
     final golden = read('expected.md');
@@ -142,13 +142,13 @@ void main() {
         reason: 'Markdown→memory must equal the canonical state.json memory');
   });
 
-  // DR1 §1.2 list-container contract (DRA1/DRA2): every list heads its own
+  // SOM §11.2 list-container contract (DRA1/DRA2): every list heads its own
   // container section — a real `*-LST` `@SectionId` when the list carries one
   // (`REF-LST`), else the member-name fallback (`items`, `tags`) — with an
   // empty body region and its numbered items exactly one level deeper. Pinned
   // against the committed golden so every language port reproduces the identical
   // container structure.
-  group('list-container structure (DR1 §1.2)', () {
+  group('list-container structure (SOM §11.2)', () {
     final md = read('expected.md');
     final lines = md.split('\n');
 
@@ -219,7 +219,7 @@ void main() {
       expect(reDoc.headline('DEMO/REF-LST-1'), 'Reference to the Spec',
           reason: 'a stored item headline round-trips through md (YRD3)');
       expect(reDoc.content('DEMO/REF-LST-1'), 'spec §1.2');
-      expect(reDoc.content('DEMO/REF-LST-2'), 'DR1');
+      expect(reDoc.content('DEMO/REF-LST-2'), 'ADR7');
       expect(reDoc.content('DEMO/REF-LST'), isNull,
           reason: 'the container carries no body content of its own');
     });
@@ -458,7 +458,7 @@ void main() {
 /// complex section, and a (declared-but-unpopulated) scalar list for resolution
 /// coverage.
 ///
-/// Both flavours of the DR1 §1.2 `-LST` container rule are pinned: the `refs`
+/// Both flavours of the SOM §11.2 `-LST` container rule are pinned: the `refs`
 /// scalar list carries a real `@SectionId`/`@SectionIdPattern`, so its container
 /// heads under `<!--[REF-LST]-->` with pattern items `<!--[REF-1]-->`; the
 /// id-less `items`/`Meta.tags` lists head under the member-name fallback
@@ -467,7 +467,7 @@ void main() {
 /// min/max-text-length 0).
 ///
 /// All members carry field-level `@SectionId`s (so the Markdown golden heads
-/// every section per the DR3 transparency rule) **except** `Item.label`, which
+/// every section per the schema generator's transparency rule) **except** `Item.label`, which
 /// is deliberately id-less: it pins the transparent-member semantics — its text
 /// is the item heading's body region, bound at `<item>/label` without a
 /// heading of its own.
@@ -600,8 +600,8 @@ Map<String, dynamic> _buildMeta() => {
             },
             {
               // A class-level-only `@SectionId`: the `control` field itself has
-              // NO id, so its key resolves to the TARGET CLASS's id — the DR1
-              // §2.2 field-id-else-class-id fallback (YR01). Pins that a
+              // NO id, so its key resolves to the TARGET CLASS's id — the SOM
+              // §12.2 field-id-else-class-id fallback (YR01). Pins that a
               // section/complex node heads under `CTRL control:` (yaml) /
               // `<!--[CTRL]-->` (markdown) even without a field id, while its
               // leaves keep field-level (or bare) content keys.
@@ -698,7 +698,7 @@ SpecDocument _buildDocument() {
   d.setContent('$i2/STS', 'done');
   // A genuine `*-LST` list (id `REF-LST`, pattern `REF-xxx`): its container
   // heads under `<!--[REF-LST]-->` with `<!--[REF-1]-->` items one level below.
-  for (final ref in ['spec §1.2', 'DR1']) {
+  for (final ref in ['spec §1.2', 'ADR7']) {
     final r = d.addListItem('DEMO/REF-LST');
     d.setContent(r, ref);
   }
@@ -725,7 +725,7 @@ SpecDocument _buildDocument() {
   final c2 = d.addListItem('DEMO/CARD-LST');
   d.setFormField('$c2/content', 'note', 'second card');
   d.setContent('DEMO/META/OWNR', 'alice');
-  // Scalar list exercising the YAML 1.1-special quoting rule (DR1 §2.5, DRC6):
+  // Scalar list exercising the YAML 1.1-special quoting rule (SOM §12.5):
   // `on`/`no` are 1.1-only booleans and `1:30` is a 1.1 sexagesimal int — all
   // three parse as plain strings under YAML 1.2 (Dart) but as bool/number under
   // YAML 1.1 (PyYAML). The emitter must quote them so every runtime reads back

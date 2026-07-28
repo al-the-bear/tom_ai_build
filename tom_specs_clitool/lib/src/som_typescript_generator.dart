@@ -160,7 +160,7 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
-  // ── generated metadata module (DR8/DR18): populated SomMetaTrees plus the
+  // ── generated metadata module (SOM §8): populated SomMetaTrees plus the
   //    dot-notation and ID-tree access surfaces, required by the facade ───────
   final metaModuleSource = SomTypeScriptMetaEmitter(
     model,

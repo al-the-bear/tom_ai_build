@@ -184,7 +184,7 @@ void main() {
   group('SomPythonEmitter', () {
     test('emitted output matches the committed golden files', () {
       final source = SomPythonEmitter(_fixtureModel()).generateLibrary();
-      // The facade wildcard-imports its sibling meta module (DR8/DR12), so the
+      // The facade wildcard-imports its sibling meta module (SOM §8), so the
       // meta golden is pinned alongside — the runtime facade test loads both.
       final metaSource = SomPythonMetaEmitter(_fixtureModel()).generateLibrary();
       final golden = File(goldenPath);
@@ -301,9 +301,9 @@ void main() {
     });
 
     test('path-constant holders are retired; the meta module is re-exported '
-        '(DR8/DR12, DR1 §4)', () {
+        '(SOM §8)', () {
       final source = SomPythonEmitter(_fixtureModel()).generateLibrary();
-      // DR8/DR12: the former per-root `<Code>Paths` holders are gone from the
+      // SOM §8: the former per-root `<Code>Paths` holders are gone from the
       // main facade module …
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('vision = "PD00/vision"')));

@@ -90,7 +90,7 @@ class SomDartEmitter {
       ..writeln(
           "import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';")
       ..writeln()
-      // DR8: the generated metadata library (populated SomMetaTrees + the
+      // SOM §8: the generated metadata library (populated SomMetaTrees + the
       // dot-notation and ID-tree access surfaces) replaces the retired flat
       // path-constant holders. Imported here too — the root `loadYaml` /
       // `loadFile` statics pass the root's populated tree to the codec.
@@ -113,8 +113,8 @@ class SomDartEmitter {
         ..write(fc.source)
         ..writeln();
     }
-    // DR8: the former per-root `<Code>Paths` constant holders are retired
-    // (DR1 §4) — the dot-notation and ID-tree surfaces in the exported meta
+    // SOM §8: the former per-root `<Code>Paths` constant holders are retired
+    // (SOM §8) — the dot-notation and ID-tree surfaces in the exported meta
     // library carry the same paths as discoverable symbols.
     return buffer.toString();
   }

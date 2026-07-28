@@ -234,7 +234,7 @@ fn test_yaml_decode_round_trip(c: &mut Checker, tree: &SomMetaTree) {
     }
 }
 
-// --- markdown conformance (DR6/DR20) ----------------------------------------
+// --- markdown conformance (SOM §11) -----------------------------------------
 
 fn test_markdown_export(c: &mut Checker, model: &SpecModel) {
     let state = DocumentJson::from_json(&read_json("state.json"));
@@ -281,7 +281,7 @@ fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
 
 // Plan item #9: parsing `expected.md` and applying it must reproduce
 // `state.json` (the YAML-route memory) exactly, proving both formats converge
-// on one in-memory document (§4.1).
+// on one in-memory document (SOM §8).
 fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
     let golden = read_corpus("expected.md");
     let canonical = DocumentJson::from_json(&read_json("state.json"));

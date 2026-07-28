@@ -1,8 +1,8 @@
-/// Tests for the consolidated DocSpecs parsing + validation module (DR1 §6):
+/// Tests for the consolidated DocSpecs parsing + validation module (SOM §14):
 /// the generic schema-free parse, schema loading (with warnings for
-/// unsupported features), the structured violation list, and the DR7
-/// acceptance criterion — the DR6-emitted Solution Blueprint sample validates
-/// cleanly against the DR3-generated `solution-blueprint` schema.
+/// unsupported features), the structured violation list, and the
+/// acceptance criterion — the markdown-codec-emitted Solution Blueprint sample validates
+/// cleanly against the generated `solution-blueprint` schema.
 library;
 
 import 'dart:convert';
@@ -12,9 +12,9 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 // ---------------------------------------------------------------------------
-// Fixture schema (hand-written in the DR3 generator output shape). The
+// Fixture schema (hand-written in the schema-generator output shape , SOM §13). The
 // `pattern-check-id` here deliberately uses `[0-9]+` — a stricter regex than
-// the `.+` stem check the DR3 generator emits since YRD3 — because these
+// the `.+` stem check the schema generator emits since YRD3 — because these
 // tests exercise the regex *mechanism* (the validator is regex-agnostic; any
 // authored pattern is legal in a schema).
 // ---------------------------------------------------------------------------
@@ -312,7 +312,7 @@ document:
   });
 
   group('bindDocSpecsMarkdown', () {
-    test('binds the markdown onto the SOM tree via the DR1 §1.7 parse', () {
+    test('binds the markdown onto the SOM tree via the SOM §11.7 parse', () {
       final model = SpecModel.fromJson(jsonDecode(
               File('../tom_som_conformance/corpus/model.meta.json')
                   .readAsStringSync())
@@ -325,15 +325,15 @@ document:
     });
   });
 
-  group('DR7 acceptance: DR6 sample vs DR3 schema', () {
+  group('acceptance: emitted sample vs generated schema', () {
     test(
-        'the Solution Blueprint sample emitted by the DR6 codec validates '
+        'the Solution Blueprint sample emitted by the markdown codec (SOM §11) validates '
         'cleanly against the generated solution-blueprint schema', () {
       final model = SpecModel.fromJson(jsonDecode(
               File('../tom_som_dart_v0/meta/spec_model.meta.json')
                   .readAsStringSync())
           as Map<String, dynamic>);
-      // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9):
+      // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12):
       // decode it against the metadata tree bridged from the exported model.
       final document = SpecDocument.fromFile(
           '../tom_som_conformance/samples/meridian_order_management'

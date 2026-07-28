@@ -2,8 +2,8 @@
 'use strict';
 
 /**
- * DR8/DR15 agreement suite for the generated JavaScript metadata module
- * (`tom_som_javascript_v0_meta.js`, DR1 §3.2/§4) — the JS port of the Dart
+ * Agreement suite for the generated JavaScript metadata module
+ * (`tom_som_javascript_v0_meta.js`, SOM §7.2/§8) — the JS port of the Dart
  * facade's `test/generated_meta_test.dart`. Two guarantees over the *real*
  * committed model:
  *

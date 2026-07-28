@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 /**
  * A never-fail-fast validator of a parsed DocSpecs document against a schema —
- * a faithful port of the Go {@code DocSpecsValidator} (DR7/DR14/DR17 parity
+ * a faithful port of the Go {@code DocSpecsValidator} (Dart / JavaScript / TypeScript parity
  * chain). Violation messages are byte-identical to the Dart implementation.
  */
 public final class DocSpecsValidator {
@@ -338,7 +338,7 @@ public final class DocSpecsValidator {
 
   /**
    * Lands a DocSpecs markdown text in a typed {@link SpecDocument} via the SOM
-   * markdown codec — the DR7 "bind" entry point.
+   * markdown codec — the "bind" entry point (SOM §14).
    */
   public static SpecMarkdownResult bindDocspecsMarkdown(
       SpecModel model, SpecDocument document, String text) {

@@ -25,14 +25,14 @@ import tom_som_runtime.SpecMarkdownResult;
 import tom_som_runtime.SpecModel;
 
 /**
- * Tests for the consolidated DocSpecs parsing + validation module (DR1 §6,
- * DR7 / DR20) — a port of
+ * Tests for the consolidated DocSpecs parsing + validation module (SOM §14,
+ * SOM §14) — a port of
  * {@code tom_som_go_runtime/tests/docspecs_validator_test.go} (itself a port
  * of the TypeScript/Python/Dart reference suite): the generic schema-free
  * parse, schema loading (with warnings for unsupported features), the
- * structured violation list, and the DR7 acceptance criterion — the
- * DR6-emitted Solution Blueprint sample validates cleanly against the
- * DR3-generated {@code solution-blueprint} schema.
+ * structured violation list, and the acceptance criterion — the
+ * markdown-codec-emitted Solution Blueprint sample validates cleanly against the
+ * generated {@code solution-blueprint} schema.
  *
  * <p>JUnit is unavailable on the build host, so this is a plain {@code main()}
  * that exits 0 on success and 1 on failure (same shape as
@@ -58,7 +58,7 @@ public final class DocSpecsValidatorTest {
   }
 
   // ---------------------------------------------------------------------------
-  // Fixture schema (hand-written in the exact DR3 generator output shape).
+  // Fixture schema (hand-written in the exact schema-generator output shape , SOM §13).
   // ---------------------------------------------------------------------------
 
   private static final String SCHEMA_YAML = ""
@@ -533,16 +533,16 @@ public final class DocSpecsValidatorTest {
     return String.join("; ", parts);
   }
 
-  // --- DR7 acceptance: DR6 sample vs DR3 schema ----------------------------------
+  // --- acceptance: emitted sample vs generated schema ----------------------------
 
   /**
-   * The Solution Blueprint sample emitted by the DR6 codec validates cleanly
+   * The Solution Blueprint sample emitted by the markdown codec (SOM §11) validates cleanly
    * against the generated {@code solution-blueprint} schema.
    */
   private static void testDr7Acceptance() throws IOException {
     String metaPath = SIBLINGS + "/tom_som_dart_v0/meta/spec_model.meta.json";
     SpecModel model = modelFromFile(metaPath);
-    // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9): decode it
+    // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
     // against the metadata tree bridged from the exported model.
     String samplePath =
         SIBLINGS + "/tom_som_conformance/samples/meridian_order_management.docspecs.yaml";

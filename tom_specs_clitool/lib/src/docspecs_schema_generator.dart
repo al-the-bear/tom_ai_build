@@ -10,13 +10,13 @@ import 'meta_tree.dart';
 import 'model_reader.dart';
 
 /// Generates DocSpecs schemas (`*.docspecs-schema.yaml`) from the canonical
-/// DR2 metadata tree ([MetaTreeBuilder]/[MetaNode]), applying the DR1 §5
-/// generation rules (DR3).
+/// The metadata tree ([MetaTreeBuilder]/[MetaNode]), applying the SOM §13
+/// generation rules (SOM §13).
 ///
 /// One [DocSpecSchema] is produced per `@Document` root — the global Solution
 /// Blueprint plus the twelve Phase-3 projection roots, 13 in all (S1). The
-/// §5 rules, with the exact spelling fixed against the `tom_doc_specs`
-/// parser as §5 delegates:
+/// SOM §13 rules, with the exact spelling fixed against the `tom_doc_specs`
+/// parser as SOM §13 delegates:
 ///
 /// - every section-bearing node (`@SectionId`, non-root) becomes a
 ///   `section-types` entry **named by its section id lower-cased**
@@ -27,7 +27,7 @@ import 'model_reader.dart';
 ///   dashes TomSpecs ids use (case is preserved);
 /// - `pattern-check-id:` (list-element types only) is the exact
 ///   `@SectionIdPattern` with `xxx` compiled to `.+` (`^DAENT-ENTI-.+$`) —
-///   a stem check, since YRD3 renders stored item ids in md; §5 keeps the
+///   a stem check, since YRD3 renders stored item ids in md; SOM §13 keeps the
 ///   untransformed id here;
 /// - `subsection-types:` lists the nearest section-bearing descendants with
 ///   `min-count` from the child's `@Min` and `max-count` `1` for singleton
@@ -45,7 +45,7 @@ import 'model_reader.dart';
 ///   `validation-prompt:` from `@ValidationPrompt`;
 /// - `@Unused` nodes are omitted entirely, subtree included;
 /// - the `document:` structure lists the root's top-level sections with
-///   `optional: true` unless the child carries `@Min` ≥ 1; the §5 title
+///   `optional: true` unless the child carries `@Min` ≥ 1; the SOM §13 title
 ///   format rides as the top-level custom tag `title-format:` (the
 ///   `tom_doc_specs` [DocumentStructure] has no such property, but custom
 ///   tags round-trip through [DocSpecSchema.customTags]).
@@ -128,7 +128,7 @@ class DocSpecsSchemaGenerator {
     }
 
     // Document structure: the root's nearest section-bearing children become
-    // its top-level sections; @Min >= 1 makes a slot required (§5 rule 4).
+    // its top-level sections; @Min >= 1 makes a slot required (SOM §13 rule 4).
     final sections = <String, SectionDef>{};
     for (final ref in topLevel) {
       final required = (ref.minCount ?? 0) >= 1;
@@ -141,7 +141,7 @@ class DocSpecsSchemaGenerator {
       );
     }
 
-    // §5 rule 4 title format: `# <!--[<ROOT-ID>]--> <name>`, carried as a
+    // SOM §13 rule 4 title format: `# <!--[<ROOT-ID>]--> <name>`, carried as a
     // custom tag because DocumentStructure has no title property.
     final rootId =
         rootClass.getAnnotation('SectionId')?.arguments['id'] as String?;
@@ -293,7 +293,7 @@ class _ChildRef {
   const _ChildRef(this.typeName, {this.minCount, this.maxCount});
 }
 
-/// Walks one root's [MetaNode] tree, accumulating §5 section-types and
+/// Walks one root's [MetaNode] tree, accumulating SOM §13 section-types and
 /// form-types with unique, DocSpecs-legal prefixes.
 class _SchemaBuilder {
   /// section-type name (lower-cased section id / pattern stem) → definition.
@@ -333,9 +333,9 @@ class _SchemaBuilder {
     return [_ChildRef(typeName, minCount: node.min, maxCount: 1)];
   }
 
-  /// A list field: two nesting levels (DR1 §1.2, §5). The element class is the
+  /// A list field: two nesting levels (SOM §11.2, §13). The element class is the
   /// item section type, named by the `@SectionIdPattern` stem with a
-  /// numbered-id pattern check (§5 rule 2); its `*-LST` container is a real
+  /// numbered-id pattern check (SOM §13 rule 2); its `*-LST` container is a real
   /// section type with no content (min/max-text-length 0) wrapping the item
   /// type. The parent references the container; the container references the
   /// item.
@@ -357,7 +357,7 @@ class _SchemaBuilder {
       exactId: exactId,
       node: element,
       listNode: node,
-      // §5: the exact @SectionIdPattern with `xxx` compiled to `.+` (YRD3).
+      // SOM §13: the exact @SectionIdPattern with `xxx` compiled to `.+` (YRD3).
       patternCheckId: pattern == null
           ? null
           : PatternCheckDef(
@@ -394,7 +394,7 @@ class _SchemaBuilder {
   }
 
   /// Registers the synthetic `*-LST` list container section type: content is
-  /// forbidden (min/max-text-length 0, DR1 §1.2/§5) and its single subsection
+  /// forbidden (min/max-text-length 0, SOM §11.2/§13) and its single subsection
   /// is the item type. Merges (union) if the container id recurs.
   void _registerListContainerType({
     required String typeName,
@@ -428,7 +428,7 @@ class _SchemaBuilder {
   }
 
   /// The subsection-types map contributed by [children] (nearest
-  /// section-bearing descendants, §5 rule 2).
+  /// section-bearing descendants, SOM §13 rule 2).
   Map<String, SubsectionConstraint> _collectSubsections(
     List<MetaNode> children,
   ) {
@@ -509,7 +509,7 @@ class _SchemaBuilder {
   }
 
   /// Registers the `form-types` entry for a `@Form` node and returns its name
-  /// (`<type-name>-form`). Fieldnames keep the model field names (§5 rule 3;
+  /// (`<type-name>-form`). Fieldnames keep the model field names (SOM §13 rule 3;
   /// camelCase satisfies the parser's `^[a-zA-Z0-9-]+$` grammar); `required`
   /// comes from `Field.required`, `description` from the field hint, and
   /// `pattern-check` from a field-level `@PatternCheck` on the backing member.

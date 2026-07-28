@@ -147,7 +147,7 @@ class SomGoEmitter {
       ..writeln('// `replace` directive, so this module builds both standalone '
           '(`go get`) and in-repo.')
       ..writeln('//')
-      ..writeln('// The generated metadata module (DR8/DR21) — the populated '
+      ..writeln('// The generated metadata module (SOM §8) — the populated '
           'SomMetaTrees plus the')
       ..writeln('// dot-notation and ID-tree access surfaces — lives in the '
           'sibling `_meta.go` file')
@@ -412,7 +412,7 @@ class SomGoEmitter {
         ..writeln('// against the generated ${cls.name}MetaTree, so v2 '
             'hierarchical documents')
         ..writeln('// resolve their section paths through the metadata tree '
-            '(DR8/DR21).')
+            '(SOM §8).')
         ..writeln('func LoadYaml${cls.name}(yaml string) (*${cls.name}, error) '
             '{')
         ..writeln('\tdoc, err := som.FromYaml(yaml, ${cls.name}MetaTree)')

@@ -1,10 +1,10 @@
 /* spec_document_yaml — generic YAML codec for the native `*.docspecs.yaml`
- * document format — **hierarchical format v2** (DR1 §2); a faithful port of
+ * document format — **hierarchical format v2** (SOM §12); a faithful port of
  * the Go `spec_document_yaml.go` (which itself ports `spec_document_yaml.dart`
  * / `spec_document_yaml.ts`).
  *
  * One nested YAML tree whose indentation mirrors the document structure: every
- * model node becomes a mapping key (`<section-id> <member-name>`, DR1 §2.2),
+ * model node becomes a mapping key (`<section-id> <member-name>`, SOM §12.2),
  * sections nest their children, list items appear under their container keyed
  * by their stored section id (or an anonymous positional `<member>-<n>` key),
  * a node's own body text uses the literal key `content`, and form fields use
@@ -12,14 +12,14 @@
  * (`document: {content: {"A/b": …}}`) is **retired**; readers reject
  * `version: 1` files with a clear error (no compatibility path).
  *
- * Text values are written as literal block scalars (`|2-`), with the DR1 §2.4
+ * Text values are written as literal block scalars (`|2-`), with the SOM §12.4
  * escaping rules: the emitter is **self-verifying** (it re-parses each scalar
  * it produces via the hand-rolled yaml reader and falls back to a
  * double-quoted JSON-escaped flow scalar when the parse differs), and runs of
  * 2+ consecutive empty lines are collapsed to one before serialization (a
  * deliberate, documented lossy normalization). Non-text values (`int` /
  * `double` / `bool`, enum member names) are plain scalars when they
- * self-verify (§2.5). The JSON quoting is byte-for-byte identical to
+ * self-verify (SOM §12.5). The JSON quoting is byte-for-byte identical to
  * JavaScript's JSON.stringify (`som_json_encode_str`) so output is stable
  * across every language port.
  *
@@ -90,7 +90,7 @@ int decode_yaml(const char *yaml_text, const SomMetaTree *tree,
 
 /* ---- shared scalar machinery (public for the editor's review writer) ---- */
 
-/* Returns the mapping key a metadata node writes (DR1 §2.2): its effective
+/* Returns the mapping key a metadata node writes (SOM §12.2): its effective
  * section id, one space, then the exact member name (class name on the
  * document root); just the name when the node carries no id. Owned result. */
 char *spec_yaml_node_key(const SomMetaNode *node);
@@ -100,7 +100,7 @@ char *spec_yaml_node_key(const SomMetaNode *node);
 char *spec_yaml_plain_key(const char *key);
 
 /* Collapses runs of two or more consecutive empty lines to a single empty
- * line (DR1 §2.4.3 — the deliberate lossy normalization applied to every text
+ * line (SOM §12.4 — the deliberate lossy normalization applied to every text
  * value before serialization). Owned result. */
 char *spec_yaml_dedup_empty_lines(const char *value);
 

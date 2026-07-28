@@ -153,10 +153,10 @@ nine language APIs green, and cross-language golden byte-identity unaffected (th
 `regenerate_golden.sh` run above). A green sweep proves the 18 packages are
 internally consistent, versioned to the model, and independently buildable.
 
-## Discoverable path access — metadata tree, nav, and ID-tree (DR8)
+## Discoverable path access — metadata tree, nav, and ID-tree (SOM §8)
 
-The former per-root `<Root>Paths` flat constant holders are **retired** (DR1 §4,
-DR8). In their place every generated `tom_som_<lang>_v0` facade emits a
+The former per-root `<Root>Paths` flat constant holders are **retired** (SOM §8,
+SOM §8). In their place every generated `tom_som_<lang>_v0` facade emits a
 **metadata library** carrying, per document root, three discoverable surfaces
 over the same section paths — so generic consumers (and the golden generators
 above) reference a compiler-checked symbol instead of a raw path literal:
@@ -164,8 +164,8 @@ above) reference a compiler-checked symbol instead of a raw path literal:
 | Surface | Entry point | What it gives |
 | ------- | ----------- | ------------- |
 | Metadata tree | `<camelRoot>MetaTree` (a `SomMetaTree`) | Resolve any node by path — `metaTree.byPath('SBP/currentLandscape/CUOPME-OPER-LST')` — then read `kind` / `sectionId` / `contentHelp` / `comment` / `docComment`. |
-| Dot-notation nav (DR1 §4.1) | `d00SolutionBlueprint` (a `<Root>$Nav`) | Member-named accessors — `d00SolutionBlueprint.currentLandscape.operationalMetrics` — resolving to a `SomMetaRef`. |
-| ID-tree (DR1 §4.2) | `SBP` (a `<Root>$Id`) | Section-id-named accessors that hoist through id-less members — `SBP.RVHST_REVS_LST.item(0)` — resolving to the *same* `SomMetaRef` instance the nav position finds. |
+| Dot-notation nav (SOM §8) | `d00SolutionBlueprint` (a `<Root>$Nav`) | Member-named accessors — `d00SolutionBlueprint.currentLandscape.operationalMetrics` — resolving to a `SomMetaRef`. |
+| ID-tree (SOM §8) | `SBP` (a `<Root>$Id`) | Section-id-named accessors that hoist through id-less members — `SBP.RVHST_REVS_LST.item(0)` — resolving to the *same* `SomMetaRef` instance the nav position finds. |
 
 Each nav / id accessor is a `SomMetaRef` exposing `.path` (the absolute generic
 path string) and `.meta` (its metadata node), so navigating to a symbol and

@@ -1,6 +1,6 @@
 package somruntime
 
-// spec_meta.go — the canonical SOM **metadata tree**: the runtime's DR1 §3.1
+// spec_meta.go — the canonical SOM **metadata tree**: the runtime's SOM §7.1
 // node types, a faithful port of `tom_som_dart_runtime/lib/src/spec_meta.dart`
 // (and the TypeScript `spec_meta.ts`).
 //
@@ -9,16 +9,16 @@ package somruntime
 // and member names, so the tree is the single language-neutral description of a
 // document's structure:
 //
-//   - SomMetaNode — one node per navigable model position (§3.1), with section
+//   - SomMetaNode — one node per navigable model position (SOM §7.1), with section
 //     id / pattern, kind, serialization order, @Min, content type,
 //     help/comment/doc texts, form metadata, traceability links
 //     (@MapsTo / @DetailedIn) and the lossless Extra
 //     annotation list;
-//   - SomMetaTree — wires parent links and absolute paths (the §4 path grammar
+//   - SomMetaTree — wires parent links and absolute paths (the SOM §8 path grammar
 //     shared with spec_paths.go) and provides the two dynamic lookups every
 //     runtime keeps: ByID and ByPath.
 //
-// The runtime only *defines* these types; the generated facades (DR8) emit the
+// The runtime only *defines* these types; the generated facades (SOM §8) emit the
 // populated tree as statically initialized values, and tests build small
 // fixture trees by hand.
 //
@@ -33,7 +33,7 @@ import (
 	"strings"
 )
 
-// The structural kind of a metadata node, mirroring DR1 §3.1
+// The structural kind of a metadata node, mirroring SOM §7.1
 // (`list | form | section | content | enum | complex | scalar`). The values are
 // identical to the SpecFieldKind* constants, so the bridge maps them 1:1.
 const (
@@ -65,7 +65,7 @@ type SomContentTypeMeta struct {
 	Description string
 }
 
-// SomFormFieldMeta is one field of a @Form section (DR1 §3.1 FormMeta.fields).
+// SomFormFieldMeta is one field of a @Form section (SOM §7.1 FormMeta.fields).
 type SomFormFieldMeta struct {
 	// Name is the exact model field name ("approvedBy").
 	Name string
@@ -87,7 +87,7 @@ type SomFormFieldMeta struct {
 	EnumValues []string
 }
 
-// SomFormMeta is the form metadata of a @Form node (DR1 §3.1 FormMeta).
+// SomFormMeta is the form metadata of a @Form node (SOM §7.1 FormMeta).
 type SomFormMeta struct {
 	// Fields holds the form's fields in declaration order.
 	Fields []*SomFormFieldMeta
@@ -103,7 +103,7 @@ func (f *SomFormMeta) FieldNamed(name string) *SomFormFieldMeta {
 	return nil
 }
 
-// SomDocMeta is the @Document metadata carried by a document root (DR1 §3.1
+// SomDocMeta is the @Document metadata carried by a document root (SOM §7.1
 // DocMeta).
 type SomDocMeta struct {
 	// Name is the document's display name ("Solution Blueprint").
@@ -116,7 +116,7 @@ type SomDocMeta struct {
 }
 
 // SomMetaExtra is one annotation captured losslessly into the generic Extra
-// list — annotations the tree defines no dedicated slot for (DR1 §3.1 note),
+// list — annotations the tree defines no dedicated slot for (SOM §7.1 note),
 // e.g. @Max, @MinLength, @PatternCheck, @TextRequired.
 type SomMetaExtra struct {
 	// Annotation is the annotation's class name ("Max", "PatternCheck", …).
@@ -125,7 +125,7 @@ type SomMetaExtra struct {
 	Args map[string]interface{}
 }
 
-// SomMetaNode is one node of the SOM metadata tree (DR1 §3.1 MetaNode).
+// SomMetaNode is one node of the SOM metadata tree (SOM §7.1 MetaNode).
 //
 // A node describes one navigable position of a document root's structure: the
 // document root itself, a field, or a list's element subtree. Class-level
@@ -147,8 +147,8 @@ type SomMetaNode struct {
 	// SectionID is the effective @SectionId (field-level wins over
 	// class-level), "" when none.
 	SectionID string
-	// ClassSectionID is the target class's own @SectionId (DR1 §2.2
-	// fallback): the id its DR3 schema type is keyed by, used only to build
+	// ClassSectionID is the target class's own @SectionId (SOM §12.2
+	// fallback): the id its generated schema type is keyed by, used only to build
 	// the mapping key of a section/complex node whose field carries no id.
 	// Never enters Segment — the path stays field-level. "" when none.
 	ClassSectionID string
@@ -235,7 +235,7 @@ func (n *SomMetaNode) Parent() (*SomMetaNode, error) {
 	return n.parent, nil
 }
 
-// Path returns the node's absolute document path per the §4 path grammar
+// Path returns the node's absolute document path per the SOM §8 path grammar
 // (`<rootSegment>/<segment>/…`), or "" for nodes inside a list element subtree
 // — their concrete paths depend on the item sequence (see ItemPath on the list
 // node and SomMetaTree.ByPath). Returns an error when the node is unattached.
@@ -323,7 +323,7 @@ func matchesSectionIDPattern(pattern, id string) bool {
 }
 
 // SomMetaTree is the metadata tree of one document root: parent/path wiring
-// plus the two dynamic lookups (ByID, ByPath) DR1 §4.3 requires every runtime
+// plus the two dynamic lookups (ByID, ByPath) SOM §10 requires every runtime
 // to keep.
 type SomMetaTree struct {
 	// Root is the document root node (carries SomMetaNode.Document).
@@ -394,7 +394,7 @@ func (t *SomMetaTree) AllNodes() []*SomMetaNode {
 
 // AllByID returns all nodes whose effective section id equals sectionID, in
 // document order. A shared class instantiated at several positions yields
-// several nodes (ids resolve within their parent chain, DR1 §1.2).
+// several nodes (ids resolve within their parent chain, SOM §11.2).
 func (t *SomMetaTree) AllByID(sectionID string) []*SomMetaNode {
 	return t.byID[sectionID]
 }
@@ -422,7 +422,7 @@ func (t *SomMetaTree) ByID(sectionID string) *SomMetaNode {
 
 // --- lookup by path -----------------------------------------------------------
 
-// ByPath resolves a document path (the §4 grammar: segments joined by "/",
+// ByPath resolves a document path (the SOM §8 grammar: segments joined by "/",
 // list items as "-<seq>" suffixes) to the metadata node it addresses, or nil
 // when the path does not describe a reachable position.
 //
@@ -476,17 +476,17 @@ func (t *SomMetaTree) ByPath(path string) *SomMetaNode {
 }
 
 // SomMetaRef is one position of the generated **dot-notation / ID-tree access
-// surfaces** (DR1 §4): an absolute document Path bound to the Tree it belongs
+// surfaces** (SOM §8): an absolute document Path bound to the Tree it belongs
 // to.
 //
-// The generated facades (DR8) emit one accessor type per model class whose
+// The generated facades (SOM §8) emit one accessor type per model class whose
 // getters return further SomMetaRefs. Every accessor exposes at least Path and
 // Meta (the SomMetaNode at that position). This base type is the leaf accessor
 // itself (content/scalar/enum/form positions).
 type SomMetaRef struct {
 	// Tree is the metadata tree of the document root this position belongs to.
 	Tree *SomMetaTree
-	// Path is the absolute document path of this position (§4 path grammar).
+	// Path is the absolute document path of this position (SOM §8 path grammar).
 	Path string
 }
 
@@ -494,7 +494,7 @@ type SomMetaRef struct {
 //
 // Returns an error when the path resolves to no node — only possible past a
 // recursive re-entry, where the generated chain has ended and the metadata
-// tree carries no further nodes (DR1 §4.1 cycle rule).
+// tree carries no further nodes (SOM §8 cycle rule).
 func (r *SomMetaRef) Meta() (*SomMetaNode, error) {
 	node := r.Tree.ByPath(r.Path)
 	if node == nil {
@@ -510,7 +510,7 @@ func (r *SomMetaRef) Meta() (*SomMetaNode, error) {
 // generated accessor.
 type SomMetaRefFactory[T any] func(tree *SomMetaTree, path string) T
 
-// SomListMetaRef is the generated accessor for a **list** position (DR1 §4.1):
+// SomListMetaRef is the generated accessor for a **list** position (SOM §8):
 // Path is the list container path; Item returns the accessor for the seq-th
 // item position (`<path>-<seq>`), whose children are the element class's
 // accessors.

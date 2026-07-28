@@ -4,7 +4,7 @@
 //
 // This file is the crate root; the generator wires the runtime dependency through a
 // relative `path` entry in `Cargo.toml`, so the emitted source carries no on-disk
-// path of its own. The metadata tree + navigation surfaces (§3.2/§4) live in the
+// path of its own. The metadata tree + navigation surfaces (SOM §7.2/§8) live in the
 // sibling `src/meta.rs` module (SomRustMetaEmitter).
 #![allow(dead_code)]
 
@@ -10538,7 +10538,7 @@ impl D00SolutionBlueprint {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D00SolutionBlueprint, SomLoadError> {
         let tree = meta::d00_solution_blueprint_meta_tree();
@@ -10680,7 +10680,7 @@ impl D01CurrentLandscapeAssessment {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D01CurrentLandscapeAssessment, SomLoadError> {
         let tree = meta::d01_current_landscape_assessment_meta_tree();
@@ -10802,7 +10802,7 @@ impl D02TargetOperatingModel {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D02TargetOperatingModel, SomLoadError> {
         let tree = meta::d02_target_operating_model_meta_tree();
@@ -10940,7 +10940,7 @@ impl D03InformationModel {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D03InformationModel, SomLoadError> {
         let tree = meta::d03_information_model_meta_tree();
@@ -11131,7 +11131,7 @@ impl D04RequirementsSpecification {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D04RequirementsSpecification, SomLoadError> {
         let tree = meta::d04_requirements_specification_meta_tree();
@@ -11257,7 +11257,7 @@ impl D05InteractionScenarios {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D05InteractionScenarios, SomLoadError> {
         let tree = meta::d05_interaction_scenarios_meta_tree();
@@ -11375,7 +11375,7 @@ impl D06ArchitectureTechnologySpecification {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D06ArchitectureTechnologySpecification, SomLoadError> {
         let tree = meta::d06_architecture_technology_specification_meta_tree();
@@ -11512,7 +11512,7 @@ impl D07IntegrationInterfaceSpecification {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D07IntegrationInterfaceSpecification, SomLoadError> {
         let tree = meta::d07_integration_interface_specification_meta_tree();
@@ -11655,7 +11655,7 @@ impl D08SecurityAccessSpecification {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D08SecurityAccessSpecification, SomLoadError> {
         let tree = meta::d08_security_access_specification_meta_tree();
@@ -11773,7 +11773,7 @@ impl D09ExperienceDesignSpecification {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D09ExperienceDesignSpecification, SomLoadError> {
         let tree = meta::d09_experience_design_specification_meta_tree();
@@ -11911,7 +11911,7 @@ impl D10QualityAcceptancePlan {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D10QualityAcceptancePlan, SomLoadError> {
         let tree = meta::d10_quality_acceptance_plan_meta_tree();
@@ -12084,7 +12084,7 @@ impl D11DeliveryRoadmap {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D11DeliveryRoadmap, SomLoadError> {
         let tree = meta::d11_delivery_roadmap_meta_tree();
@@ -12212,7 +12212,7 @@ impl D12TransitionRolloutPlan {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D12TransitionRolloutPlan, SomLoadError> {
         let tree = meta::d12_transition_rollout_plan_meta_tree();
@@ -12360,7 +12360,7 @@ impl D13CodeSpecsProjection {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
     pub fn load_yaml(yaml: &str) -> Result<D13CodeSpecsProjection, SomLoadError> {
         let tree = meta::d13_code_specs_projection_meta_tree();

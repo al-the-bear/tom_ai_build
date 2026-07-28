@@ -55,7 +55,7 @@ class SomJavaGenerationResult {
   final String buildScriptPath;
   final String sourcePath;
 
-  /// The generated metadata module (`TomSomV0Meta.java`, DR24): populated
+  /// The generated metadata module (`TomSomV0Meta.java`): populated
   /// `SomMetaTree`s plus the dot-notation / ID-tree access surfaces.
   final String metaModulePath;
   final String metaJsonPath;
@@ -159,9 +159,9 @@ SomJavaGenerationResult writeSomJavaProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
-  // ── generated metadata module (DR24) ───────────────────────────────────────
-  // The populated SomMetaTrees (DR1 §3.2) plus the dot-notation / ID-tree
-  // access surfaces (DR1 §4), a package sibling of the facade — build_jar.sh's
+  // ── generated metadata module (SOM §8) ─────────────────────────────────────
+  // The populated SomMetaTrees (SOM §7.2) plus the dot-notation / ID-tree
+  // access surfaces (SOM §8), a package sibling of the facade — build_jar.sh's
   // `src/tom_som_java_v0/*.java` glob picks it up without a script change.
   final metaSource = SomJavaMetaEmitter(
     model,

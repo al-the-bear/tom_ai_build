@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Tests for [SomRustMetaEmitter] (DR27) — the Rust counterpart of
+/// Tests for [SomRustMetaEmitter] (SOM §8) — the Rust counterpart of
 /// `som_go_meta_emitter_test.dart`: textual shape assertions, a committed
 /// golden, and a **functional** check that compiles the generated meta module
 /// against the real `tom_som_rust_runtime` and runs a Rust program asserting
@@ -19,7 +19,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// (terminal re-entry) behaves like the bridge.
 ///
 /// The fixture extends the shared emitter fixture with an id-less `details`
-/// section (exercising §4.2 hoisting) and a recursive `Risk.mitigation`
+/// section (exercising SOM §8 hoisting) and a recursive `Risk.mitigation`
 /// complex (exercising the cycle rule).
 Map<String, dynamic> _fixtureJson() => {
       'modelVersion': 0,
@@ -77,7 +77,7 @@ Map<String, dynamic> _fixtureJson() => {
             },
             {
               // Id-less section — its target's ids hoist onto the root's
-              // ID-tree accessor (§4.2).
+              // ID-tree accessor (SOM §8).
               'name': 'details',
               'kind': 'section',
               'type': 'CurrentLandscapeAssessment',
@@ -178,7 +178,7 @@ String? _runtimeDir() {
 
 /// The Rust program that functionally verifies the generated meta module: it
 /// builds the bridge tree from the fixture model JSON, compares it against the
-/// generated tree with `som_meta_node_diff`, and asserts the §4 access
+/// generated tree with `som_meta_node_diff`, and asserts the SOM §8 access
 /// surfaces (paths, node identity, annotations, recursion, hoisting). Prints
 /// `OK` on success — the Rust analogue of the Go test's `check.go`.
 const String _checkMain = r'''
@@ -197,7 +197,7 @@ fn main() {
     let d = som::som_meta_node_diff(&generated.root, &bridge.root);
     assert!(d.is_empty(), "generated tree != bridge tree: {}", d);
 
-    // (b) dot-notation paths (§4.1) — byte-identical to the other ports.
+    // (b) dot-notation paths (SOM §8) — byte-identical to the other ports.
     let nav = meta::solution_blueprint_meta(&generated);
     assert_eq!(nav.path(), "PD00");
     assert_eq!(nav.vision().path, "PD00/vision");
@@ -228,7 +228,7 @@ fn main() {
     assert_eq!(deeper.path(), "PD00/risks-0/mitigation/mitigation");
     assert!(deeper.meta().is_err(), "meta past a re-entry must error");
 
-    // ID-tree (§4.2) agrees with the dot-notation surface, incl. hoisting
+    // ID-tree (SOM §8) agrees with the dot-notation surface, incl. hoisting
     // through the id-less `details` member.
     let id = meta::PD00(&generated);
     assert_eq!(id.path(), "PD00");
@@ -281,7 +281,7 @@ void main() {
       expect(source, contains('#![allow(dead_code)]'));
     });
 
-    test('emits Nav structs with typed member accessors (§4.1)', () {
+    test('emits Nav structs with typed member accessors (SOM §8)', () {
       final source = SomRustMetaEmitter(_fixtureModel()).generateLibrary();
       expect(source, contains('pub struct SolutionBlueprintNav<\'a> {'));
       expect(source, contains('pub struct RiskNav<\'a> {'));
@@ -305,7 +305,7 @@ void main() {
       expect(source, contains('"vision"'));
     });
 
-    test('emits Id structs with hoisted section-id accessors (§4.2)', () {
+    test('emits Id structs with hoisted section-id accessors (SOM §8)', () {
       final source = SomRustMetaEmitter(_fixtureModel()).generateLibrary();
       expect(source, contains('pub struct SolutionBlueprintId<\'a> {'));
       expect(source, contains('pub struct RiskId<\'a> {'));

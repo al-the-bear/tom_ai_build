@@ -1,6 +1,6 @@
 /* docspecs_validator — DocSpecs markdown validation, an idiomatic-C++ port of
  * the C `docspecs_validator` module (itself a faithful port of the Go
- * `docspecs_validator.go`, DR7/DR14/DR17 parity, DR29).
+ * `docspecs_validator.go`, Dart / JavaScript / TypeScript parity).
  *
  * Three cooperating pieces:
  *
@@ -210,7 +210,7 @@ class DocSpecsValidator {
 /* ---- bind ---------------------------------------------------------------- */
 
 /* Lands a DocSpecs markdown text in staged values + a rejection report via the
- * SOM markdown codec — the DR7 "bind" entry point. */
+ * SOM markdown codec — the "bind" entry point (SOM §14). */
 SpecMarkdownResult docspecsBindMarkdown(const SpecModel& model,
                                         const std::string& text);
 

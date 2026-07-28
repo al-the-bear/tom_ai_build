@@ -41,7 +41,7 @@ _GOLDEN = os.path.normpath(
         "som_python_v0_fixture.py.golden",
     )
 )
-# The facade wildcard-imports its sibling generated metadata module (DR8/DR12)
+# The facade wildcard-imports its sibling generated metadata module (SOM §8)
 # by the committed name `tom_som_python_v0_meta`, so the meta golden is
 # preloaded under exactly that module name before the facade executes.
 _META_GOLDEN = os.path.normpath(

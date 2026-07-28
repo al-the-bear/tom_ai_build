@@ -201,7 +201,7 @@ dependencies:
     path: $runtimePath
 ''');
         final libDir = Directory(p.join(dir.path, 'lib'))..createSync();
-        // The facade exports its sibling meta library (DR8), so write both —
+        // The facade exports its sibling meta library (SOM §8), so write both —
         // the export in the facade is by the committed package file name.
         File(p.join(libDir.path, 'tom_som_dart_v0.dart'))
             .writeAsStringSync(source);
@@ -311,9 +311,9 @@ dependencies:
     });
 
     test('path-constant holders are retired; the meta library is exported '
-        '(DR8, DR1 §4)', () {
+        '(SOM §8)', () {
       final source = SomDartEmitter(_fixtureModel()).generateLibrary();
-      // DR8: the former per-root `<Code>Paths` holders are gone from the main
+      // SOM §8: the former per-root `<Code>Paths` holders are gone from the main
       // facade library …
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('static const String vision =')));

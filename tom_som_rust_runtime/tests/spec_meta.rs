@@ -1,12 +1,12 @@
-//! DR4 metadata-core tests — a port of
+//! Metadata-core tests — a port of
 //! `tom_som_go_runtime/tests/spec_meta_test.go` (itself a port of
 //! `tom_som_typescript_runtime/tests/spec_meta_test.ts` /
 //! `tom_som_javascript_runtime/tests/spec_meta_test.js` /
 //! `tom_som_python_runtime/tests/spec_meta_test.py` /
 //! `tom_som_dart_runtime/test/spec_meta_test.dart`).
 //!
-//! Hand-built DR1 §3.1 fixture tree mirroring the design doc's demo document
-//! (DR4 acceptance: "the runtime compiles with a hand-built fixture tree").
+//! Hand-built SOM §7.1 fixture tree mirroring the design doc's demo document
+//! (acceptance: "the runtime compiles with a hand-built fixture tree").
 //!
 //! Structure:
 //!
@@ -310,7 +310,7 @@ fn meta_test_wiring(c: &mut Checker) {
         "",
     );
 
-    // child paths follow the §4 grammar (sectionId ?? memberName)
+    // child paths follow the SOM §8 grammar (sectionId ?? memberName)
     let insc = tree
         .root
         .child_by_member("introductionAndScope")
@@ -675,7 +675,7 @@ fn meta_test_by_path(c: &mut Checker) {
         "",
     );
 
-    // byId and byPath agree on the node they address (DR1 §4.2)
+    // byId and byPath agree on the node they address (SOM §8)
     c.check(
         "agree.insc",
         same(
@@ -743,7 +743,7 @@ fn meta_test_item_path(c: &mut Checker) {
     c.check("itemPath.nestedList", nested_sub_tasks.item_path(1).is_err(), "");
 }
 
-/// Runs the shared DR4 metadata-core suite (87 checks).
+/// Runs the shared metadata-core suite (SOM §7) (87 checks).
 #[test]
 fn spec_meta() {
     let mut c = Checker::new();

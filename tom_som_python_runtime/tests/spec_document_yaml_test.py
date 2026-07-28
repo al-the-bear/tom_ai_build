@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""DR5 hierarchical ``*.docspecs.yaml`` v2 codec tests — a port of
+"""Hierarchical ``*.docspecs.yaml`` v2 codec tests — a port of
 ``tom_som_dart_runtime/test/spec_document_yaml_test.dart``.
 
 The codec walks the document root's SomMetaTree: sections nest, keys are
 ``<section-id> <member-name>``, list items key by stored section id (or an
 anonymous positional ``<member>-<n>``), body text uses the literal ``content``
 key, and form fields use their bare names. Round-trip is lossless modulo
-the DR1 §2.4.3 empty-line dedup; version-1 files and unmatched keys are
+the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
 structured load errors.
 
 Run with: ``python3 tests/spec_document_yaml_test.py``. Exit code 0 == green.
@@ -126,7 +126,7 @@ def _model() -> SpecModel:
                         {
                             # Class-level-only @SectionId: the field carries no
                             # id, so its key resolves to the target class's id
-                            # (`CTRL control:`) — the DR1 §2.2 fallback.
+                            # (`CTRL control:`) — the SOM §12.2 fallback.
                             "name": "control",
                             "kind": "complex",
                             "type": "Control",
@@ -182,7 +182,7 @@ def _round_trip(d: SpecDocument) -> SpecDocument:
 
 
 def _populated() -> SpecDocument:
-    """A populated document touching every store and the §2.4 edge cases."""
+    """A populated document touching every store and the SOM §12.4 edge cases."""
     doc = SpecDocument()
     doc.set_content("D00", "Preamble body text.")
     doc.set_content("D00/D00-OVR", "line one\nline two\nline three")
@@ -243,13 +243,13 @@ def test_encode() -> None:
     )
     _check("encode.sparse", "D00-SCO" not in sparse)
 
-    # non-text values are plain scalars (§2.5)
+    # non-text values are plain scalars (SOM §12.5)
     yaml2 = _enc(_populated())
     _check("encode.plainEnum", "\n    D00-PRI priority: high\n" in yaml2)
     _check("encode.plainInt", "\n    count: 3\n" in yaml2)
     _check("encode.plainFormInt", "\n      revision: 7\n" in yaml2)
 
-    # YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no`
+    # YAML 1.1-special values are quoted, not plain (SOM §12.5). `on`/`no`
     # are 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings
     # under YAML 1.2 but bool/number under YAML 1.1 (PyYAML). They must emit as
     # block scalars so every runtime reads back the exact string; an ordinary
@@ -361,7 +361,7 @@ def test_round_trip() -> None:
         got = _round_trip(doc).content("D00/D00-OVR")
         _check(f"rt.edge[{i}]", got == case, f"got {got!r} want {case!r}")
 
-    # runs of 2+ empty lines collapse to one on write (§2.4.3)
+    # runs of 2+ empty lines collapse to one on write (SOM §12.4)
     doc = SpecDocument()
     doc.set_content("D00/D00-OVR", "a\n\n\n\nb\n\n\nc")
     _check(
@@ -438,7 +438,7 @@ def test_strict_decode() -> None:
 
 def test_class_level_only_key() -> None:
     # A section whose id is class-level renders the class id as its key
-    # (DR1 §2.2 field-id-else-class-id). The `control` field carries no id;
+    # (SOM §12.2 field-id-else-class-id). The `control` field carries no id;
     # its target class `Control` carries `CTRL`, so the key is `CTRL control:`.
     # The leaves keep their own content keys: `CTRL-SUM summary:` (field id)
     # and bare `owner:` (id-less content).

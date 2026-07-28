@@ -1,5 +1,5 @@
 /* Unit tests for the DocSpecs-conform Markdown codec
- * (`spec_document_markdown.cpp`, DR6 / DR1 §1 — DR29) — an idiomatic-C++ port
+ * (`spec_document_markdown.cpp`, SOM §11) — an idiomatic-C++ port
  * of the C `tom_som_c_runtime/tests/spec_document_markdown_test.c` (itself a
  * port of the Go / TypeScript / Python / Dart reference suites). The check
  * *names* match the reference suites byte-for-byte.
@@ -230,7 +230,7 @@ som::SpecDocument mdReload(const som::SpecModel& model, const std::string& md,
   return target;
 }
 
-/* ---- export — DocSpecs format (DR1 §1) ----------------------------------- */
+/* ---- export — DocSpecs format (SOM §11) ---------------------------------- */
 
 void testMarkdownExportFormat() {
   auto m = demoModel();
@@ -293,7 +293,7 @@ void testMarkdownExportStoredItemId() {
 
   std::string md = mdExport(*m, doc);
   // YRD3: the STORED id is the item's md heading id; the positional id is only
-  // the fallback for an item without one (supersedes DRC5).
+  // the fallback for an item without one.
   mdCheck("export.storedId.container",
           contains(md, "## <!--[D00-ITM]--> Items"), md);
   mdCheck("export.storedId.heading",
@@ -456,7 +456,7 @@ void testMarkdownRoundTripStoredItemId() {
       doc.addListItemWithSectionId("D00/D00-ITM", "D01-CUSTOM");
   doc.setContent(item + "/D01-LBL", "Custom-id item");
   std::string md1 = mdExport(*m, doc);
-  // YRD3: the stored id IS the md heading id and round-trips (supersedes DRC5).
+  // YRD3: the stored id IS the md heading id and round-trips.
   mdCheck("storedId.inMd", contains(md1, "<!--[D01-CUSTOM]-->"), md1);
 
   som::SpecMarkdownResult report;
@@ -497,7 +497,7 @@ void testMarkdownRoundTripLabelShapedContinuation() {
   mdCheck("formCont.byteStable", md2 == md1);
 }
 
-/* ---- parse-rejection protocol (DR1 §1.7) --------------------------------- */
+/* ---- parse-rejection protocol (SOM §11.7) -------------------------------- */
 
 /* Reports whether any rejection matches (reason [+ anchor when non-null]). */
 bool hasRejection(const som::SpecMarkdownResult& r, const std::string& reason,

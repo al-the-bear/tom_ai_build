@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code @Document} metadata carried by a document root (DR1 §3.1 DocMeta)
+ * The {@code @Document} metadata carried by a document root (SOM §7.1 DocMeta)
  * — a faithful port of {@code spec_meta.dart} / {@code spec_meta.ts}.
  */
 public final class SomDocMeta {

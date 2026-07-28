@@ -323,7 +323,7 @@ export class SpecModel {
 
   /**
    * The `major.minor` version string used in the DocSpecs markdown declaration
-   * (DR6/DR11 parity — mirrors Python's `SpecModel.model_version_string`).
+   * (Dart / Python parity — mirrors Python's `SpecModel.model_version_string`).
    */
   get modelVersionString(): string {
     return somModelVersionString(this.modelVersion, this.modelVersionLabel);

@@ -1,8 +1,8 @@
 import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-/// Hand-built DR1 §3.1 fixture tree mirroring the design doc's demo document
-/// (DR4 acceptance: "the runtime compiles with a hand-built fixture tree").
+/// Hand-built SOM §7.1 fixture tree mirroring the design doc's demo document
+/// (acceptance: "the runtime compiles with a hand-built fixture tree").
 ///
 /// Structure:
 ///
@@ -215,7 +215,7 @@ void main() {
       expect(tree.root.document!.basedOn, ['D00SolutionBlueprint']);
     });
 
-    test('child paths follow the §4 grammar (sectionId ?? memberName)', () {
+    test('child paths follow the SOM §8 grammar (sectionId ?? memberName)', () {
       final insc = tree.root.childByMember('introductionAndScope')!;
       expect(insc.path, 'DEMO/INSC');
       expect(insc.childByMember('summary')!.path, 'DEMO/INSC/summary');
@@ -274,7 +274,7 @@ void main() {
     });
   });
 
-  group('metadata slots (DR1 §3.1)', () {
+  group('metadata slots (SOM §7.1)', () {
     test('section node carries help, comment and traceability links', () {
       final insc = tree.byId('INSC')!;
       expect(insc.contentHelp, 'Describe why the system exists.');
@@ -412,7 +412,7 @@ void main() {
       expect(tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST-2/missing'), isNull);
     });
 
-    test('byId and byPath agree on the node they address (DR1 §4.2)', () {
+    test('byId and byPath agree on the node they address (SOM §8)', () {
       expect(tree.byId('INSC'), same(tree.byPath('DEMO/INSC')));
       expect(tree.byId('GOAL-ITEM-LST'),
           same(tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST')));

@@ -24,7 +24,7 @@ const _runtimePath = path.resolve(
   require(path.join(_PROJECT, 'package.json')).tomSom.runtimePath,
 );
 const { SpecDocument, yamlEncode } = require(_runtimePath);
-// The generated module also re-exports the per-root metadata trees (DR8/DR15);
+// The generated module also re-exports the per-root metadata trees (SOM §8);
 // the generic YAML codec needs the document's tree to render hierarchy.
 const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
 
@@ -77,7 +77,7 @@ function main() {
   console.log(JSON.stringify(doc.toJson(), _sortedKeysReplacer, 2));
 
   // … and to the canonical hierarchical YAML wire format (stamped with the
-  // model version). The v2 codec is meta-driven (DR8/DR15): it takes the
+  // model version). The v2 codec is meta-driven (SOM §8): it takes the
   // document's SomMetaTree, obtained here from the generated facade.
   console.log('\nDocument YAML:');
   console.log(yamlEncode(doc, m.d00SolutionBlueprintMetaTree, '1.0'));

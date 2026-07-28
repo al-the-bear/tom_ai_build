@@ -1,10 +1,10 @@
-//! Tests for the consolidated DocSpecs parsing + validation module (DR1 §6,
-//! DR7 / DR20 — DR26) — a port of
+//! Tests for the consolidated DocSpecs parsing + validation module (SOM §14,
+//! SOM §14) — a port of
 //! `tom_som_go_runtime/tests/docspecs_validator_test.go` (itself a port of the
 //! TypeScript/Python/Dart reference suite): the generic schema-free parse,
 //! schema loading (with warnings for unsupported features), the structured
-//! violation list, and the DR7 acceptance criterion — the DR6-emitted Solution
-//! Blueprint sample validates cleanly against the DR3-generated
+//! violation list, and the acceptance criterion — the markdown-codec-emitted Solution
+//! Blueprint sample validates cleanly against the generated
 //! `solution-blueprint` schema.
 
 use std::path::PathBuf;
@@ -65,7 +65,7 @@ fn dv_siblings() -> PathBuf {
 }
 
 // ---------------------------------------------------------------------------
-// Fixture schema (hand-written in the exact DR3 generator output shape).
+// Fixture schema (hand-written in the exact schema-generator output shape , SOM §13).
 // ---------------------------------------------------------------------------
 
 const DV_SCHEMA_YAML: &str = r##"title-format: "# <!--[D00]--> Demo Document"
@@ -615,9 +615,9 @@ fn test_docspecs_bind_docspecs_markdown(c: &mut Checker) {
     );
 }
 
-// --- DR7 acceptance: DR6 sample vs DR3 schema ----------------------------------
+// --- acceptance: emitted sample vs generated schema ----------------------------
 
-/// The Solution Blueprint sample emitted by the DR6 codec validates cleanly
+/// The Solution Blueprint sample emitted by the markdown codec (SOM §11) validates cleanly
 /// against the generated `solution-blueprint` schema.
 fn test_docspecs_dr7_acceptance(c: &mut Checker) {
     let meta_path = dv_siblings()
@@ -627,7 +627,7 @@ fn test_docspecs_dr7_acceptance(c: &mut Checker) {
     let meta_text = std::fs::read_to_string(&meta_path)
         .unwrap_or_else(|e| panic!("read {}: {}", meta_path.display(), e));
     let model = SpecModel::from_json(&Json::parse(&meta_text).expect("parse spec_model.meta.json"));
-    // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9): decode it
+    // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
     // against the metadata tree bridged from the exported model.
     let sample_path = dv_siblings()
         .join("tom_som_conformance")

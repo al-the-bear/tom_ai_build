@@ -1,18 +1,18 @@
 package somruntime
 
 // spec_meta_bridge.go — bridge from the meta-JSON class graph (SpecModel) to
-// the canonical metadata tree (SomMetaTree, DR1 §3.1), a faithful port of
+// the canonical metadata tree (SomMetaTree, SOM §7.1), a faithful port of
 // `tom_som_dart_runtime/lib/src/spec_meta_bridge.dart` (and the TypeScript
 // `spec_meta_bridge.ts`).
 //
-// The generated facades (DR8) emit populated SomMetaTrees directly; every
+// The generated facades (SOM §8) emit populated SomMetaTrees directly; every
 // consumer that only has the exported spec-model meta-data (the conformance
 // harness, tooling) builds its tree here. The expansion follows the same walk
 // SpecReflection.Resolve performs — crucially, a node's SomMetaNode.SectionID
 // is the **field-level** id exactly as exported (field.sectionId), so the
 // tree's path grammar stays byte-compatible with the paths a SpecDocument is
-// keyed by. (DR1 §2.2's "field id, else target-class id" resolution is applied
-// at *export* time by the model exporter / DR8 generator, not re-derived
+// keyed by. (SOM §12.2's "field id, else target-class id" resolution is applied
+// at *export* time by the model exporter / SOM generator, not re-derived
 // here.)
 //
 // Recursive class references become terminal re-entry nodes
@@ -45,7 +45,7 @@ var slottedAnnotations = map[string]bool{
 // looked up via SpecModel.RootByType (returning its error for an unknown
 // type). Children are ordered by @SerializationOrder (annotated members first,
 // then declaration order), which is the sibling emission order of the
-// hierarchical YAML format (DR1 §2.3).
+// hierarchical YAML format (SOM §12.3).
 func BuildSomMetaTree(model *SpecModel, rootType string) (*SomMetaTree, error) {
 	var root *SpecRoot
 	if rootType == "" {

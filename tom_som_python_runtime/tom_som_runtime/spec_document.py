@@ -66,7 +66,7 @@ class SpecDocument:
         """Loads a hierarchical ``*.docspecs.yaml`` (v2) document in one call:
         decode the YAML against the :class:`SomMetaTree` *tree*, populate the
         sparse stores, and retain the parsed :attr:`model_version` (§ item 4;
-        DR5's tree-based signature — mirrors Dart's
+        The tree-based signature — mirrors Dart's
         ``SpecDocument.fromYaml(yaml, tree)``)."""
         from .spec_document_yaml import decode
 

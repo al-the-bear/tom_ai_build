@@ -54,7 +54,7 @@ class SomGoGenerationResult {
   final String goModPath;
   final String modulePath;
 
-  /// The generated metadata module (`tom_som_go_<label>_meta.go`, DR8/DR21).
+  /// The generated metadata module (`tom_som_go_<label>_meta.go`).
   final String metaModulePath;
   final String metaJsonPath;
   final List<String> schemaPaths;
@@ -160,7 +160,7 @@ SomGoGenerationResult writeSomGoProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
-  // ── generated metadata module (DR8/DR21): populated SomMetaTrees plus the
+  // ── generated metadata module (SOM §8): populated SomMetaTrees plus the
   //    dot-notation and ID-tree access surfaces, required by the facade ───────
   final metaModuleSource = SomGoMetaEmitter(
     model,

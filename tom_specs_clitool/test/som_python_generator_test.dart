@@ -72,7 +72,7 @@ void main() {
     expect(module, contains('class D00SolutionBlueprint'));
     expect(result.modulePath, endsWith('tom_som_python_v0.py'));
 
-    // The generated metadata module (DR8/DR12) is written alongside the
+    // The generated metadata module (SOM §8) is written alongside the
     // facade and carries the populated trees + access surfaces.
     final metaModule = File(
         p.join(p.dirname(result.modulePath), 'tom_som_python_v0_meta.py'));

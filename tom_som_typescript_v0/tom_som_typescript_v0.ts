@@ -15,7 +15,7 @@ import {
   somEditabilityFor,
 } from 'tom_som_typescript_runtime';
 
-// The generated metadata module (DR8/DR18): the populated SomMetaTrees plus
+// The generated metadata module (SOM §8): the populated SomMetaTrees plus
 // the dot-notation and ID-tree access surfaces. Its exports are re-exported
 // below, so one import of this facade surfaces both access styles.
 import * as _meta from './tom_som_typescript_v0_meta';

@@ -1,6 +1,6 @@
 //! `docspecs_validator` — DocSpecs markdown validation, a faithful port of the
 //! Go `docspecs_validator.go` (itself a port of the
-//! TypeScript/JavaScript/Python/Dart chain, DR7/DR14/DR17 parity).
+//! TypeScript/JavaScript / Python / Dart parity chain).
 //!
 //! Three cooperating pieces:
 //!
@@ -15,7 +15,7 @@
 //! Plus [`bind_docspecs_markdown`], which lands a DocSpecs markdown text in a
 //! typed [`SpecDocument`] via the SOM markdown codec.
 //!
-//! Rust conventions (DR25/DR26): `""` stands in for the other ports' null
+//! Rust conventions: `""` stands in for the other ports' null
 //! strings (`DocSpecsViolation::section_id`/`path`, `DocSpecsSection::id`, …);
 //! optional ints are `Option<i64>`; the one throwing entry point
 //! (`from_yaml_text`'s "must be a YAML map") returns `Err(String)`. The Go
@@ -1029,7 +1029,7 @@ impl DocSpecsValidator {
 }
 
 /// Lands a DocSpecs markdown text in a typed [`SpecDocument`] via the SOM
-/// markdown codec — the DR7 "bind" entry point.
+/// markdown codec — the "bind" entry point (SOM §14).
 pub fn bind_docspecs_markdown(
     model: &SpecModel,
     document: &SpecDocument,

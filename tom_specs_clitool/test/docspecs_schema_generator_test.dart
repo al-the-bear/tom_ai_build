@@ -14,7 +14,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 AnnotationData _a(String name, [Map<String, Object?> args = const {}]) =>
     AnnotationData(name, args);
 
-/// A DR1 §5-exercising model: a @Document root with a required prose section
+/// A SOM §13-exercising model: a @Document root with a required prose section
 /// (@Min(1)), an optional prose section with text-length bounds, a class-based
 /// @Form section (with a @PatternCheck member), a patterned list of complex
 /// rows, a container with a nested content child, and an @Unused section.
@@ -140,7 +140,7 @@ Map<String, ModelClass> _demoModel() {
 /// DocSpecs loader — proving the emitted file is well-formed, its prefixes
 /// satisfy the DocSpecs grammar (`^[a-zA-Z0-9_]+$`), and every construct the
 /// generator emits (subsection-types, pattern checks, forms, custom tags)
-/// parses (DR1 §5 rule 7 — DR3's acceptance criterion).
+/// parses (SOM §13 rule 7 — the schema generator's acceptance criterion).
 DocSpecSchema _writeAndReload(Directory dir, DocSpecSchema schema) {
   final fileName = DocSpecsSchemaGenerator.fileNameFor(schema);
   final file = File(p.join(dir.path, schema.id, fileName))
@@ -150,7 +150,7 @@ DocSpecSchema _writeAndReload(Directory dir, DocSpecSchema schema) {
 }
 
 void main() {
-  group('DocSpecsSchemaGenerator — synthetic model (DR1 §5)', () {
+  group('DocSpecsSchemaGenerator — synthetic model (SOM §13)', () {
     late Map<String, ModelClass> classes;
     late DocSpecsSchemaGenerator gen;
     late Directory dir;
@@ -292,7 +292,7 @@ void main() {
       expect(schema.document.sections['d00-hdr']!.optional, isTrue);
       // The id-less Notes container bubbles its section-bearing self up.
       expect(schema.document.sections['d00-note']!.sectionType, 'd00-note');
-      // §5 rule 4 title format rides as a custom tag.
+      // SOM §13 rule 4 title format rides as a custom tag.
       expect(schema.customTags['title-format'], '# <!--[D00]--> Demo Doc');
     });
 
@@ -434,7 +434,7 @@ void main() {
       expect(schemas.keys, contains('solution-blueprint'));
     });
 
-    test('DR3: the generated SBP schema is §5-structured — lower-cased type '
+    test('schema-gen: the generated SBP schema is SOM §13-structured — lower-cased type '
         'names, legal prefixes, subsection-types, title-format', () {
       final schema =
           DocSpecsSchemaGenerator(classes).generateFor('D00SolutionBlueprint');
@@ -462,7 +462,7 @@ void main() {
         expect(check.pattern, startsWith('^'));
         expect(check.pattern, endsWith(r'$'));
       }
-      // §5 rule 4 title format.
+      // SOM §13 rule 4 title format.
       expect(schema.customTags['title-format'], startsWith('# <!--['));
       // The document lists top-level slots referencing existing types.
       expect(schema.document.sections, isNotEmpty);

@@ -1,4 +1,4 @@
-/* DR5 hierarchical `*.docspecs.yaml` v2 codec tests — a port of the Go
+/* Hierarchical `*.docspecs.yaml` v2 codec tests — a port of the Go
  * `tom_som_go_runtime/tests/spec_document_yaml_test.go` (itself a port of the
  * TypeScript / JavaScript / Python / Dart suites).
  *
@@ -6,7 +6,7 @@
  * `<section-id> <member-name>`, list items key by stored section id (or an
  * anonymous positional `<member>-<n>`), body text uses the literal `content`
  * key, and form fields use their bare names. Round-trip is lossless modulo
- * the DR1 §2.4.3 empty-line dedup; version-1 files and unmatched keys are
+ * the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
  * structured load errors.
  *
  * 58 checks; check names byte-match the Go suite. Exit status is the number
@@ -174,7 +174,7 @@ static const char *form_field_or(const SpecDocument *d, const char *path,
   return v != NULL ? v : "";
 }
 
-/* Builds a document touching every store and the §2.4 edge cases. */
+/* Builds a document touching every store and the SOM §12.4 edge cases. */
 static void yaml_populated(SpecDocument *doc) {
   spec_document_init(doc);
   spec_document_set_content(doc, "D00", "Preamble body text.");
@@ -263,7 +263,7 @@ static void yaml_test_encode(void) {
     spec_document_free(&doc);
   }
 
-  /* non-text values are plain scalars (§2.5) */
+  /* non-text values are plain scalars (SOM §12.5) */
   {
     SpecDocument doc2;
     yaml_populated(&doc2);
@@ -277,7 +277,7 @@ static void yaml_test_encode(void) {
     spec_document_free(&doc2);
   }
 
-  /* YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+  /* YAML 1.1-special values are quoted, not plain (SOM §12.5). `on`/`no` are
    * 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
    * YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
    * every runtime reads back the exact string; an ordinary token stays plain. */
@@ -480,7 +480,7 @@ static void yaml_test_round_trip(void) {
     }
   }
 
-  /* runs of 2+ empty lines collapse to one on write (§2.4.3) */
+  /* runs of 2+ empty lines collapse to one on write (SOM §12.4) */
   {
     SpecDocument doc;
     spec_document_init(&doc);
@@ -582,7 +582,7 @@ static void yaml_test_strict_decode(void) {
 }
 
 /* A section/complex node whose field carries no @SectionId takes its target
- * class's id for the mapping key (DR1 §2.2 class fallback), while its path
+ * class's id for the mapping key (SOM §12.2 class fallback), while its path
  * segment stays field-level. `control` (id-less field) → `Control` (class id
  * `CTRL`) emits `CTRL control:`; its id-less leaf `owner` stays a bare key; the
  * path is field-level throughout. */

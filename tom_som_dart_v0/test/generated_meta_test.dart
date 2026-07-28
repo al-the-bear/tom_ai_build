@@ -1,8 +1,8 @@
 // HAND-AUTHORED — not generated. Preserved across `generate_som` runs (the
 // generator only rewrites lib/, meta/, schemas/ and pubspec.yaml).
 //
-// DR8 agreement suite for the generated metadata library
-// (`tom_som_dart_v0_meta.dart`, DR1 §3.2/§4). Two guarantees over the *real*
+// Agreement suite for the generated metadata library
+// (`tom_som_dart_v0_meta.dart`, SOM §7.2/§8). Two guarantees over the *real*
 // committed model:
 //
 //   1. EXHAUSTIVE TREE AGREEMENT — for every one of the 14 document roots the
@@ -67,7 +67,7 @@ void main() {
     }
   });
 
-  group('dot-notation surface (DR1 §4.1)', () {
+  group('dot-notation surface (SOM §8)', () {
     test('root, nested-section and leaf paths', () {
       expect(d00SolutionBlueprint.path, 'SBP');
       expect(d00SolutionBlueprint.introductionAndScope.path,
@@ -104,7 +104,7 @@ void main() {
     });
   });
 
-  group('ID-tree surface (DR1 §4.2)', () {
+  group('ID-tree surface (SOM §8)', () {
     test('the Id root shares the dot root position', () {
       expect(SBP.path, d00SolutionBlueprint.path);
       expect(identical(SBP.meta, d00SolutionBlueprint.meta), isTrue);

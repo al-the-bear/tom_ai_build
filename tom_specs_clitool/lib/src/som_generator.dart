@@ -144,8 +144,8 @@ SomGenerationResult writeSomDartProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
-  // ── generated metadata library (DR8): populated SomMetaTrees (DR1 §3.2)
-  //    plus the dot-notation and ID-tree access surfaces (DR1 §4), exported
+  // ── generated metadata library (SOM §8): populated SomMetaTrees (SOM §7.2)
+  //    plus the dot-notation and ID-tree access surfaces (SOM §8), exported
   //    from the main facade library ───────────────────────────────────────────
   final metaSource = SomDartMetaEmitter(
     model,
@@ -215,10 +215,6 @@ dev_dependencies:
   # generator only rewrites lib/, meta/, schemas/ and this pubspec) resolves
   # under `dart test`. The typed facade itself carries no test-time code.
   test: ^1.25.6
-  # The hand-authored examples read the shared conformance sample, which is
-  # still in the retired flat v1 format until DR9 re-emits it; they parse it
-  # with package:yaml + SpecDocument.loadJson in the interim.
-  yaml: ^3.1.2
 ''';
 
 /// The local-development override: resolves the co-developed runtime by path so

@@ -2,7 +2,7 @@ package tom_som_runtime;
 
 /**
  * The {@code @ContentType(type, description)} annotation captured on a node
- * (DR1 §3.1) — a faithful port of {@code spec_meta.dart} / {@code spec_meta.ts}.
+ * (SOM §7.1) — a faithful port of {@code spec_meta.dart} / {@code spec_meta.ts}.
  */
 public final class SomContentTypeMeta {
   /** The declared content type (e.g. {@code "code"}, {@code "diagram"}). */

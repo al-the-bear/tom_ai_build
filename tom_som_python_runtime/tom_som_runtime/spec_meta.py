@@ -1,4 +1,4 @@
-"""The canonical SOM **metadata tree** — the runtime's DR1 §3.1 node types; a
+"""The canonical SOM **metadata tree** — the runtime's SOM §7.1 node types; a
 faithful port of `tom_som_dart_runtime/lib/src/spec_meta.dart`.
 
 One :class:`SomMetaTree` exists per document root. Its nodes carry *every*
@@ -6,17 +6,17 @@ One :class:`SomMetaTree` exists per document root. Its nodes carry *every*
 member names, so the tree is the single language-neutral description of a
 document's structure:
 
-  * :class:`SomMetaNode` — one node per navigable model position (§3.1), with
+  * :class:`SomMetaNode` — one node per navigable model position (SOM §7.1), with
     section id / pattern, kind, serialization order, ``@Min``, content type,
     help/comment/doc texts, form metadata, traceability links
     (``@MapsTo`` / ``@DetailedIn``) and the lossless
     ``extra`` annotation list;
-  * :class:`SomMetaTree` — wires parent links and absolute paths (the §4 path
+  * :class:`SomMetaTree` — wires parent links and absolute paths (the SOM §8 path
     grammar shared with ``spec_paths``) and provides the two dynamic lookups
     every runtime keeps: :meth:`SomMetaTree.by_id` and
     :meth:`SomMetaTree.by_path`.
 
-The runtime only *defines* these types; the generated facades (DR8) emit the
+The runtime only *defines* these types; the generated facades (SOM §8) emit the
 populated tree as statically initialized objects, and tests build small
 fixture trees by hand.
 """
@@ -36,7 +36,7 @@ from .spec_paths import (
 
 
 class SomMetaKind(Enum):
-    """The structural kind of a metadata node, mirroring DR1 §3.1
+    """The structural kind of a metadata node, mirroring SOM §7.1
     (``list | form | section | content | enum | complex | scalar``)."""
 
     #: A ``List[T]`` field; items are addressed by ``-<seq>`` path suffixes and
@@ -68,7 +68,7 @@ class SomContentTypeMeta:
 
 
 class SomFormFieldMeta:
-    """One field of a ``@Form`` section (DR1 §3.1 ``FormMeta.fields``)."""
+    """One field of a ``@Form`` section (SOM §7.1 ``FormMeta.fields``)."""
 
     def __init__(
         self,
@@ -100,7 +100,7 @@ class SomFormFieldMeta:
 
 
 class SomFormMeta:
-    """The form metadata of a ``@Form`` node (DR1 §3.1 ``FormMeta``)."""
+    """The form metadata of a ``@Form`` node (SOM §7.1 ``FormMeta``)."""
 
     def __init__(self, fields: list[SomFormFieldMeta]) -> None:
         #: The form's fields in declaration order.
@@ -115,7 +115,7 @@ class SomFormMeta:
 
 
 class SomDocMeta:
-    """The ``@Document`` metadata carried by a document root (DR1 §3.1
+    """The ``@Document`` metadata carried by a document root (SOM §7.1
     ``DocMeta``)."""
 
     def __init__(
@@ -135,7 +135,7 @@ class SomDocMeta:
 
 class SomMetaExtra:
     """One annotation captured losslessly into the generic ``extra`` list —
-    annotations the tree defines no dedicated slot for (DR1 §3.1 note), e.g.
+    annotations the tree defines no dedicated slot for (SOM §7.1 note), e.g.
     ``@Max``, ``@MinLength``, ``@PatternCheck``, ``@TextRequired``."""
 
     def __init__(self, annotation: str, args: Optional[dict] = None) -> None:
@@ -146,7 +146,7 @@ class SomMetaExtra:
 
 
 class SomMetaNode:
-    """One node of the SOM metadata tree (DR1 §3.1 ``MetaNode``).
+    """One node of the SOM metadata tree (SOM §7.1 ``MetaNode``).
 
     A node describes one navigable position of a document root's structure:
     the document root itself, a field, or a list's element subtree. Class-level
@@ -200,7 +200,7 @@ class SomMetaNode:
         #: :attr:`class_section_id`.
         self.section_id = section_id
         #: The target class's own ``@SectionId`` (root/section/complex nodes),
-        #: the DR1 §2.2 fallback for a display/mapping key when
+        #: the SOM §12.2 fallback for a display/mapping key when
         #: :attr:`section_id` is ``None``. Never enters :attr:`segment`.
         self.class_section_id = class_section_id
         #: The ``@SectionIdPattern`` on a list field (item ids), when any.
@@ -283,7 +283,7 @@ class SomMetaNode:
 
     @property
     def path(self) -> Optional[str]:
-        """The node's absolute document path per the §4 path grammar
+        """The node's absolute document path per the SOM §8 path grammar
         (``<rootSegment>/<segment>/…``), or ``None`` for nodes inside a list
         element subtree — their concrete paths depend on the item sequence
         (see :meth:`item_path` on the list node and
@@ -341,7 +341,7 @@ class SomMetaNode:
 
 class SomMetaTree:
     """The metadata tree of one document root: parent/path wiring plus the two
-    dynamic lookups (:meth:`by_id`, :meth:`by_path`) DR1 §4.3 requires every
+    dynamic lookups (:meth:`by_id`, :meth:`by_path`) SOM §10 requires every
     runtime to keep."""
 
     def __init__(self, root: SomMetaNode) -> None:
@@ -407,8 +407,7 @@ class SomMetaTree:
     def all_by_id(self, section_id: str) -> list[SomMetaNode]:
         """All nodes whose effective section id equals *section_id*, in
         document order. A shared class instantiated at several positions
-        yields several nodes (ids resolve within their parent chain, DR1
-        §1.2)."""
+        yields several nodes (ids resolve within their parent chain, SOM §11.2)."""
         return self._by_id.get(section_id, [])
 
     def by_id(self, section_id: str) -> Optional[SomMetaNode]:
@@ -430,7 +429,7 @@ class SomMetaTree:
     # --- lookup by path ------------------------------------------------------
 
     def by_path(self, path: str) -> Optional[SomMetaNode]:
-        """Resolves a document *path* (the §4 grammar: segments joined by
+        """Resolves a document *path* (the SOM §8 grammar: segments joined by
         ``/``, list items as ``-<seq>`` suffixes) to the metadata node it
         addresses, or ``None`` when the path does not describe a reachable
         position.
@@ -483,10 +482,10 @@ def _matches_pattern(pattern: str, id: str) -> bool:
 
 class SomMetaRef:
     """One position of the generated **dot-notation / ID-tree access
-    surfaces** (DR1 §4): an absolute document :attr:`path` bound to the
+    surfaces** (SOM §8): an absolute document :attr:`path` bound to the
     :attr:`tree` it belongs to.
 
-    The generated facades (DR8) emit one accessor class per model class whose
+    The generated facades (SOM §8) emit one accessor class per model class whose
     getters return further :class:`SomMetaRef` s. Every accessor exposes at
     least :attr:`path` and :attr:`meta` (the :class:`SomMetaNode` at that
     position). This base class is the leaf accessor itself
@@ -495,7 +494,7 @@ class SomMetaRef:
     def __init__(self, tree: SomMetaTree, path: str) -> None:
         #: The metadata tree of the document root this position belongs to.
         self.tree = tree
-        #: The absolute document path of this position (§4 path grammar).
+        #: The absolute document path of this position (SOM §8 path grammar).
         self.path = path
 
     @property
@@ -504,7 +503,7 @@ class SomMetaRef:
 
         Raises :class:`RuntimeError` when the path resolves to no node — only
         possible past a recursive re-entry, where the generated chain has
-        ended and the metadata tree carries no further nodes (DR1 §4.1 cycle
+        ended and the metadata tree carries no further nodes (SOM §8 cycle
         rule)."""
         node = self.tree.by_path(self.path)
         if node is None:
@@ -520,7 +519,7 @@ E = TypeVar("E")
 
 
 class SomListMetaRef(SomMetaRef, Generic[E]):
-    """The generated accessor for a **list** position (DR1 §4.1):
+    """The generated accessor for a **list** position (SOM §8):
     :attr:`path` is the list container path; :meth:`item` returns the accessor
     for the *seq*-th item position (``<path>-<seq>``), whose children are the
     element class's accessors."""

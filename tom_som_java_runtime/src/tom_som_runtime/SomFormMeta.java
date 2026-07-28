@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The form metadata of a {@code @Form} node (DR1 §3.1 FormMeta) — a faithful
+ * The form metadata of a {@code @Form} node (SOM §7.1 FormMeta) — a faithful
  * port of {@code spec_meta.dart} / {@code spec_meta.ts}.
  */
 public final class SomFormMeta {

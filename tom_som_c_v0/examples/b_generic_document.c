@@ -16,7 +16,7 @@
  * Ownership: `spec_document_to_json` / `document_json_to_canonical_json` and
  * `encode_yaml` return owned buffers the caller frees.
  *
- * The canonical YAML encoder walks the document root's metadata tree (DR30 §4)
+ * The canonical YAML encoder walks the document root's metadata tree (SOM §8)
  * to place every value, so the sole generated symbol this otherwise-generic
  * sample reaches for is `d00_solution_blueprint_meta_tree()` — mirroring the Go
  * `b_generic_document` sample, which passes `D00SolutionBlueprintMetaTree`.

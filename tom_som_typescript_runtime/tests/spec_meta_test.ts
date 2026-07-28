@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * DR4 metadata-core tests — a port of
+ * Metadata-core tests — a port of
  * `tom_som_javascript_runtime/tests/spec_meta_test.js` (itself a port of
  * `tom_som_python_runtime/tests/spec_meta_test.py` /
  * `tom_som_dart_runtime/test/spec_meta_test.dart`).
  *
- * Hand-built DR1 §3.1 fixture tree mirroring the design doc's demo document
- * (DR4 acceptance: "the runtime compiles with a hand-built fixture tree").
+ * Hand-built SOM §7.1 fixture tree mirroring the design doc's demo document
+ * (acceptance: "the runtime compiles with a hand-built fixture tree").
  *
  * Structure:
  *
@@ -262,7 +262,7 @@ function testWiring(): void {
       JSON.stringify(['D00SolutionBlueprint']),
   );
 
-  // child paths follow the §4 grammar (sectionId ?? memberName)
+  // child paths follow the SOM §8 grammar (sectionId ?? memberName)
   const insc = tree.root.childByMember('introductionAndScope')!;
   _check('wiring.insc.path', insc.path === 'DEMO/INSC', String(insc.path));
   _check(
@@ -508,7 +508,7 @@ function testByPath(): void {
     tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST-2/missing') === null,
   );
 
-  // byId and byPath agree on the node they address (DR1 §4.2)
+  // byId and byPath agree on the node they address (SOM §8)
   _check('agree.insc', tree.byId('INSC') === tree.byPath('DEMO/INSC'));
   _check(
     'agree.list',
