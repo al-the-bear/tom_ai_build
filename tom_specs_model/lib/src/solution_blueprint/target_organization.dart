@@ -3094,12 +3094,6 @@ class CompetencyEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'category',
-      String,
-      'Category — Core, Technical, Leadership, Behavioral',
-      hint: 'Core / Technical / Leadership / Behavioral',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -4266,12 +4260,6 @@ class ResponsibilityChangeEntry extends DocSpecsSection {
       'Responsibility',
       required: true,
       hint: 'The responsibility affected by this change',
-    ),
-    Field(
-      'changeType',
-      String,
-      'Change Type — add, remove, modify',
-      hint: 'Whether this responsibility is added, removed, or modified',
     ),
     Field(
       'currentState',

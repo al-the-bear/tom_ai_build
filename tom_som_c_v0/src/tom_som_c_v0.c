@@ -64717,13 +64717,6 @@ char *competency_entry_content_form_competency_name(const CompetencyEntryContent
 void competency_entry_content_form_set_competency_name(CompetencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "competencyName", value);
 }
-char *competency_entry_content_form_category(const CompetencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
-  return som_strdup(v != NULL ? v : "");
-}
-void competency_entry_content_form_set_category(CompetencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "category", value);
-}
 char *competency_entry_content_form_description(const CompetencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -121411,13 +121404,6 @@ char *process_scope_entry_content_form_process_name(const ProcessScopeEntryConte
 void process_scope_entry_content_form_set_process_name(ProcessScopeEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "processName", value);
 }
-char *process_scope_entry_content_form_scope_status(const ProcessScopeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scopeStatus");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_scope_entry_content_form_set_scope_status(ProcessScopeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scopeStatus", value);
-}
 char *process_scope_entry_content_form_rationale(const ProcessScopeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "rationale");
   return som_strdup(v != NULL ? v : "");
@@ -130133,13 +130119,6 @@ char *responsibility_change_entry_content_form_responsibility(const Responsibili
 }
 void responsibility_change_entry_content_form_set_responsibility(ResponsibilityChangeEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "responsibility", value);
-}
-char *responsibility_change_entry_content_form_change_type(const ResponsibilityChangeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "changeType");
-  return som_strdup(v != NULL ? v : "");
-}
-void responsibility_change_entry_content_form_set_change_type(ResponsibilityChangeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "changeType", value);
 }
 char *responsibility_change_entry_content_form_current_state(const ResponsibilityChangeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "currentState");

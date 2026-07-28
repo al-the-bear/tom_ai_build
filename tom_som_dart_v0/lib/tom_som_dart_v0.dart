@@ -34071,9 +34071,6 @@ class CompetencyEntryContentForm extends SomNode {
   String get competencyName => doc.formField(path, 'competencyName') ?? '';
   set competencyName(String value) => doc.setFormField(path, 'competencyName', value);
 
-  String get category => doc.formField(path, 'category') ?? '';
-  set category(String value) => doc.setFormField(path, 'category', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -67431,9 +67428,6 @@ class ProcessScopeEntryContentForm extends SomNode {
   String get processName => doc.formField(path, 'processName') ?? '';
   set processName(String value) => doc.setFormField(path, 'processName', value);
 
-  String get scopeStatus => doc.formField(path, 'scopeStatus') ?? '';
-  set scopeStatus(String value) => doc.setFormField(path, 'scopeStatus', value);
-
   String get rationale => doc.formField(path, 'rationale') ?? '';
   set rationale(String value) => doc.setFormField(path, 'rationale', value);
 
@@ -72512,9 +72506,6 @@ class ResponsibilityChangeEntryContentForm extends SomNode {
 
   String get responsibility => doc.formField(path, 'responsibility') ?? '';
   set responsibility(String value) => doc.setFormField(path, 'responsibility', value);
-
-  String get changeType => doc.formField(path, 'changeType') ?? '';
-  set changeType(String value) => doc.setFormField(path, 'changeType', value);
 
   String get currentState => doc.formField(path, 'currentState') ?? '';
   set currentState(String value) => doc.setFormField(path, 'currentState', value);

@@ -43,6 +43,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per component in the family.
+  fmscas-form-lst:
+    prefix: FMSCAS_FORM_LST
+    subsection-types:
+      fmscas-form:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per form placed on a route.
   ftrtur-feat-lst:
     prefix: FTRTUR_FEAT_LST
     subsection-types:
@@ -171,6 +179,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per screen with distinct responsive rules.
+  scrten-rout-lst:
+    prefix: SCRTEN_ROUT_LST
+    subsection-types:
+      scrten-rout:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per addressable route.
   scrusc-user-lst:
     prefix: SCRUSC_USER_LST
     subsection-types:
@@ -179,6 +195,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per user category.
+  sctren-tran-lst:
+    prefix: SCTREN_TRAN_LST
+    subsection-types:
+      sctren-tran:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
   taiten-tabs-lst:
     prefix: TAITEN_TABS_LST
     subsection-types:
@@ -592,6 +616,12 @@ section-types:
       pattern: ^FAMREF-COMP-.+$
       error-message: IDs of this section must match FAMREF-COMP-xxx
     description: Add one entry per component in the family.
+  fmscas-form:
+    prefix: FMSCAS_FORM_
+    pattern-check-id:
+      pattern: ^FMSCAS-FORM-.+$
+      error-message: IDs of this section must match FMSCAS-FORM-xxx
+    description: Add one entry per form placed on a route.
   ftrtur-feat:
     prefix: FTRTUR_FEAT_
     subsection-types:
@@ -803,12 +833,24 @@ section-types:
       pattern: ^RESPSR-SCRE-.+$
       error-message: IDs of this section must match RESPSR-SCRE-xxx
     description: Add one entry per screen with distinct responsive rules.
+  scrten-rout:
+    prefix: SCRTEN_ROUT_
+    pattern-check-id:
+      pattern: ^SCRTEN-ROUT-.+$
+      error-message: IDs of this section must match SCRTEN-ROUT-xxx
+    description: Add one entry per addressable route.
   scrusc-user:
     prefix: SCRUSC_USER_
     pattern-check-id:
       pattern: ^SCRUSC-USER-.+$
       error-message: IDs of this section must match SCRUSC-USER-xxx
     description: Add one entry per user category.
+  sctren-tran:
+    prefix: SCTREN_TRAN_
+    pattern-check-id:
+      pattern: ^SCTREN-TRAN-.+$
+      error-message: IDs of this section must match SCTREN-TRAN-xxx
+    description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
   taiten-tabs:
     prefix: TAITEN_TABS_
     pattern-check-id:
@@ -1728,6 +1770,8 @@ section-types:
     subsection-types:
       namo:
         max-count: 1
+      scrtmp:
+        max-count: 1
     description: Screen flow structure.
   scrinv:
     prefix: SCRINV
@@ -1736,6 +1780,16 @@ section-types:
         max-count: 1
         min-count: 1
     description: 10.2.1. Screen Inventory.
+  scrtmp:
+    prefix: SCRTMP
+    subsection-types:
+      scrten-rout-lst:
+        max-count: 1
+      fmscas-form-lst:
+        max-count: 1
+      sctren-tran-lst:
+        max-count: 1
+    description: 10.3.3. Screen Route Map.
   suacti:
     prefix: SUACTI
     format: suacti-form
@@ -2214,7 +2268,7 @@ section-types:
   lcsp:
     prefix: LCSP
     format: lcsp-form
-    description: Persistence rules.
+    description: "Retention rules — how a chosen preference survives, without naming a store."
   lcsu:
     prefix: LCSU
     format: lcsu-form
@@ -2788,7 +2842,7 @@ form-types:
       - fieldname: parentScreenId
         description: Parent screen if this is a sub-screen or drill-down
       - fieldname: routePattern
-        description: "Navigation route path, e.g., /orders/:id/edit"
+        description: Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
   sceac-form:
     fields:
       - fieldname: accessLevel
@@ -3002,7 +3056,7 @@ form-types:
       - fieldname: keyboardShortcut
         description: "Shortcut binding, e.g., Ctrl+N"
       - fieldname: navigateTo
-        description: Target screen after action
+        description: "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead"
       - fieldname: successMessageResource
         description: Message key (MSGKR registry) for success notification
   nged-form:
@@ -3135,7 +3189,7 @@ form-types:
     fields:
       - fieldname: displayOrder
         description: Sort position
-      - fieldname: widgetType
+      - fieldname: displayKind
         description: Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon
       - fieldname: visibilityCondition
         description: When shown
@@ -4541,8 +4595,8 @@ form-types:
         description: "Semantic version of the design system (e.g., \"2.1.0\")"
       - fieldname: basedOnFramework
         description: "Material Design 3, Cupertino, Custom"
-      - fieldname: tomFlutterUiIntegration
-        description: Uses tom_flutter_ui component library
+      - fieldname: sharedLibraryIntegration
+        description: Builds on the organisation-wide shared component library rather than bespoke components
   ucvl-form:
     fields:
       - fieldname: visualLanguage
@@ -4629,8 +4683,8 @@ form-types:
         description: Human-readable name
       - fieldname: componentFamily
         description: "Button, Input, Table, Navigation, etc."
-      - fieldname: flutterWidgetBase
-        description: "Base Flutter widget (DataTable, TextField)"
+      - fieldname: baseComponent
+        description: "Base component of the shared library this one specialises (Data Table, Text Input)"
   ucep-form:
     fields:
       - fieldname: tomWrapperClass
@@ -4853,8 +4907,8 @@ form-types:
         description: When to use this variant
       - fieldname: implementationNote
         description: How variant is implemented
-      - fieldname: flutterVariant
-        description: Corresponding Flutter variant
+      - fieldname: libraryVariant
+        description: "Corresponding variant in the shared component library, if one exists"
   caeg-form:
     fields:
       - fieldname: actionResult
@@ -4897,12 +4951,12 @@ form-types:
         description: "Browser, OS, geo-IP detection"
   lcsp-form:
     fields:
-      - fieldname: persistenceMethod
-        description: "Cookie, localStorage, user profile"
-      - fieldname: crossDeviceSync
-        description: Sync preference across devices
-      - fieldname: anonymousPersistence
-        description: How preference persists for guests
+      - fieldname: guestRetention
+        description: Whether and for how long a preference chosen before sign-in is retained
+      - fieldname: signInCarryOver
+        description: What happens to a guest-chosen locale when the user signs in and a stored preference applies
+      - fieldname: reselectionPrompt
+        description: When the user is asked to confirm or re-pick the retained preference
   lcsf-form:
     fields:
       - fieldname: localeFallbackBehavior

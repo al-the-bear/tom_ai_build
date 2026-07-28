@@ -49,9 +49,9 @@
     - scopeSummary: `ProcessScopeSummary` ← (Defines which processes are in/out of scope)
       - content @Form(totalProcessesIdentified, processesInScope, processesOutOfScope, scopeRationale, deferredProcesses)
       - inScopeProcesses: `ProcessScopeEntry`
-        - content @Form(processName, scopeStatus, rationale, impactIfExcluded, phase)
+        - content @Form(processName, rationale, impactIfExcluded, phase)
       - outOfScopeProcesses: `ProcessScopeEntry`
-        - content @Form(processName, scopeStatus, rationale, impactIfExcluded, phase)
+        - content @Form(processName, rationale, impactIfExcluded, phase)
     - interdependencyMatrix: `ProcessInterdependencyMatrix` ← (How processes depend on and interact with each other)
       - content, dependencyDiagram
       - dependencies: `ProcessDependencyEntry`

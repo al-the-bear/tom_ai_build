@@ -179,6 +179,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per component in the family.
+  fmscas-form-lst:
+    prefix: FMSCAS_FORM_LST
+    subsection-types:
+      fmscas-form:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per form placed on a route.
   ftrmod-feat-lst:
     prefix: FTRMOD_FEAT_LST
     subsection-types:
@@ -411,6 +419,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per UI component.
+  scrten-rout-lst:
+    prefix: SCRTEN_ROUT_LST
+    subsection-types:
+      scrten-rout:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per addressable route.
   scrusc-user-lst:
     prefix: SCRUSC_USER_LST
     subsection-types:
@@ -419,6 +435,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per user category.
+  sctren-tran-lst:
+    prefix: SCTREN_TRAN_LST
+    subsection-types:
+      sctren-tran:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
   seauen-audi-lst:
     prefix: SEAUEN_AUDI_LST
     subsection-types:
@@ -797,6 +821,23 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per non-default locale.
+  ntfch-chan-lst:
+    prefix: NTFCH_CHAN_LST
+    subsection-types:
+      ntfch-chan:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Define each notification channel.
+  ntfty-noti-lst:
+    prefix: NTFTY_NOTI_LST
+    subsection-types:
+      ntfty-noti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Define each notification type.
   parti-part-lst:
     prefix: PARTI_PART_LST
     subsection-types:
@@ -1615,6 +1656,12 @@ section-types:
       pattern: ^FAMREF-COMP-.+$
       error-message: IDs of this section must match FAMREF-COMP-xxx
     description: Add one entry per component in the family.
+  fmscas-form:
+    prefix: FMSCAS_FORM_
+    pattern-check-id:
+      pattern: ^FMSCAS-FORM-.+$
+      error-message: IDs of this section must match FMSCAS-FORM-xxx
+    description: Add one entry per form placed on a route.
   ftrmod-feat:
     prefix: FTRMOD_FEAT_
     subsection-types:
@@ -1944,12 +1991,24 @@ section-types:
       pattern: ^RUICMP-UICO-.+$
       error-message: IDs of this section must match RUICMP-UICO-xxx
     description: Add one entry per UI component.
+  scrten-rout:
+    prefix: SCRTEN_ROUT_
+    pattern-check-id:
+      pattern: ^SCRTEN-ROUT-.+$
+      error-message: IDs of this section must match SCRTEN-ROUT-xxx
+    description: Add one entry per addressable route.
   scrusc-user:
     prefix: SCRUSC_USER_
     pattern-check-id:
       pattern: ^SCRUSC-USER-.+$
       error-message: IDs of this section must match SCRUSC-USER-xxx
     description: Add one entry per user category.
+  sctren-tran:
+    prefix: SCTREN_TRAN_
+    pattern-check-id:
+      pattern: ^SCTREN-TRAN-.+$
+      error-message: IDs of this section must match SCTREN-TRAN-xxx
+    description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
   seauen-audi:
     prefix: SEAUEN_AUDI_
     subsection-types:
@@ -2105,6 +2164,14 @@ section-types:
       pattern: ^UICOEN-COMP-.+$
       error-message: IDs of this section must match UICOEN-COMP-xxx
     description: Add one entry per catalog component.
+  unp-pref-lst:
+    prefix: UNP_PREF_LST
+    subsection-types:
+      unp-pref:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user notification-preference profile.
   vamete-mess:
     prefix: VAMETE_MESS_
     pattern-check-id:
@@ -2165,6 +2232,8 @@ section-types:
       daatt-dttm:
         max-count: 1
       daatt-dtbi:
+        max-count: 1
+      daatt-dtfr:
         max-count: 1
       dataa-cons-lst:
         max-count: 1
@@ -2510,6 +2579,18 @@ section-types:
       pattern: ^MSGLV-LOCV-.+$
       error-message: IDs of this section must match MSGLV-LOCV-xxx
     description: Add one entry per non-default locale.
+  ntfch-chan:
+    prefix: NTFCH_CHAN_
+    pattern-check-id:
+      pattern: ^NTFCH-CHAN-.+$
+      error-message: IDs of this section must match NTFCH-CHAN-xxx
+    description: Define each notification channel.
+  ntfty-noti:
+    prefix: NTFTY_NOTI_
+    pattern-check-id:
+      pattern: ^NTFTY-NOTI-.+$
+      error-message: IDs of this section must match NTFTY-NOTI-xxx
+    description: Define each notification type.
   parti-part:
     prefix: PARTI_PART_
     pattern-check-id:
@@ -3004,6 +3085,10 @@ section-types:
     prefix: DAATT_DTBI
     format: daatt-dtbi-form
     description: "Binary-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dtfr:
+    prefix: DAATT_DTFR
+    format: daatt-dtfr-form
+    description: "File-reference type options — a promoted `@OneOf` case (csra10)."
   daatt-dtnu:
     prefix: DAATT_DTNU
     format: daatt-dtnu-form
@@ -3420,6 +3505,13 @@ section-types:
   uico-comp:
     prefix: UICO_COMP
     format: uico-comp-form
+  unp-pref:
+    prefix: UNP_PREF_
+    pattern-check-id:
+      pattern: ^UNP-PREF-.+$
+      error-message: IDs of this section must match UNP-PREF-xxx
+    format: unp-pref-form
+    description: Add one entry per user notification-preference profile.
   vafe-vali:
     prefix: VAFE_VALI
     format: vafe-vali-form
@@ -5598,6 +5690,8 @@ section-types:
     subsection-types:
       namo:
         max-count: 1
+      scrtmp:
+        max-count: 1
     description: 10.1.2. Screen Flow Structure. Seeds → XDS.
   scmapo:
     prefix: SCMAPO
@@ -5630,6 +5724,16 @@ section-types:
         max-count: 1
         min-count: 1
     description: 10.2.1. Screen Inventory.
+  scrtmp:
+    prefix: SCRTMP
+    subsection-types:
+      scrten-rout-lst:
+        max-count: 1
+      fmscas-form-lst:
+        max-count: 1
+      sctren-tran-lst:
+        max-count: 1
+    description: 10.3.3. Screen Route Map.
   secere:
     prefix: SECERE
     subsection-types:
@@ -6109,7 +6213,7 @@ section-types:
     subsection-types:
       dmene-enum-lst:
         max-count: 1
-    description: "Domain enum registry — CE-EN closed value sets, shared by client & server."
+    description: "Domain enum registry — the closed value sets, shared by client & server."
   dorer:
     prefix: DORER
     format: dorer-form
@@ -11341,6 +11445,17 @@ section-types:
         max-count: 1
     format: mc-form
     description: Multi-Factor Authentication Configuration.
+  nm:
+    prefix: NM
+    subsection-types:
+      ntfch-chan-lst:
+        max-count: 1
+        min-count: 1
+      ntfty-noti-lst:
+        max-count: 1
+      unp-pref-lst:
+        max-count: 1
+    description: "Define notification strategy: channels, triggers, preferences, and delivery mechanisms."
   rp:
     prefix: RP
     subsection-types:
@@ -11405,6 +11520,20 @@ section-types:
         max-count: 1
     description: Testing standards and requirements.
 form-types:
+  unp-pref-form:
+    fields:
+      - fieldname: globalOptOut
+        description: Can users opt out of all non-essential notifications
+      - fieldname: perTypeControl
+        description: Can users control individual notification types
+      - fieldname: channelPreferences
+        description: Can users choose preferred channels
+      - fieldname: frequencyControl
+        description: Can users control notification frequency
+      - fieldname: quietHours
+        description: Can users set do-not-disturb hours
+      - fieldname: digestOption
+        description: Can users opt for daily/weekly digests
   daent-iden-form:
     fields:
       - fieldname: entityName
@@ -11501,8 +11630,21 @@ form-types:
     fields:
       - fieldname: maxSizeBytes
         description: Maximum stored size in bytes
-      - fieldname: storageMode
-        description: "Inline | External-Reference | Blob-Store"
+  daatt-dtfr-form:
+    fields:
+      - fieldname: storageGroup
+        required: true
+        description: Naming group the files are filed under — sets their retention and access partition (e.g. documents/attachment)
+      - fieldname: fileStore
+        description: Name of the configured file store holding the files; empty means the deployment default store
+      - fieldname: deleteWithRecord
+        description: "Yes | No — whether deleting the record also deletes the file (Yes unless the file outlives its reference by design)"
+      - fieldname: acceptedContentKinds
+        description: "Comma-separated content kinds accepted on upload (e.g. PDF, PNG); empty means unrestricted"
+      - fieldname: defaultContentKind
+        description: Content kind recorded when an upload declares none
+      - fieldname: maxFileSizeBytes
+        description: Maximum accepted file size in bytes
   daatt-deri-form:
     fields:
       - fieldname: isComputed
@@ -21083,7 +21225,7 @@ form-types:
       - fieldname: parentScreenId
         description: Parent screen if this is a sub-screen or drill-down
       - fieldname: routePattern
-        description: "Navigation route path, e.g., /orders/:id/edit"
+        description: Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
   sceac-form:
     fields:
       - fieldname: accessLevel
@@ -21297,7 +21439,7 @@ form-types:
       - fieldname: keyboardShortcut
         description: "Shortcut binding, e.g., Ctrl+N"
       - fieldname: navigateTo
-        description: Target screen after action
+        description: "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead"
       - fieldname: successMessageResource
         description: Message key (MSGKR registry) for success notification
   nged-form:
@@ -21430,7 +21572,7 @@ form-types:
     fields:
       - fieldname: displayOrder
         description: Sort position
-      - fieldname: widgetType
+      - fieldname: displayKind
         description: Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon
       - fieldname: visibilityCondition
         description: When shown
@@ -21828,8 +21970,8 @@ form-types:
         description: "Semantic version of the design system (e.g., \"2.1.0\")"
       - fieldname: basedOnFramework
         description: "Material Design 3, Cupertino, Custom"
-      - fieldname: tomFlutterUiIntegration
-        description: Uses tom_flutter_ui component library
+      - fieldname: sharedLibraryIntegration
+        description: Builds on the organisation-wide shared component library rather than bespoke components
   ucvl-form:
     fields:
       - fieldname: visualLanguage
@@ -21916,8 +22058,8 @@ form-types:
         description: Human-readable name
       - fieldname: componentFamily
         description: "Button, Input, Table, Navigation, etc."
-      - fieldname: flutterWidgetBase
-        description: "Base Flutter widget (DataTable, TextField)"
+      - fieldname: baseComponent
+        description: "Base component of the shared library this one specialises (Data Table, Text Input)"
   ucep-form:
     fields:
       - fieldname: tomWrapperClass
@@ -22140,8 +22282,8 @@ form-types:
         description: When to use this variant
       - fieldname: implementationNote
         description: How variant is implemented
-      - fieldname: flutterVariant
-        description: Corresponding Flutter variant
+      - fieldname: libraryVariant
+        description: "Corresponding variant in the shared component library, if one exists"
   caeg-form:
     fields:
       - fieldname: actionResult
@@ -22178,6 +22320,9 @@ document:
       optional: true
     msgkr:
       section-type: msgkr
+      optional: true
+    nm:
+      section-type: nm
       optional: true
     datmd:
       section-type: datmd

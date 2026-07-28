@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T06:13:30.114552Z",
+  "generatedAt": "2026-07-28T15:43:42.555953Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -14038,7 +14038,7 @@
             "kinds": [
               "CodeSpecPart.auditLog"
             ],
-            "note": "CE-LG — logging & audit trail (who did what, when) as a cross-cutting effect. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-LG — logging & audit trail (who did what, when) as a cross-cutting effect. Active part (§4.1): realised as @CsAudited alongside the framework @TomAudited declaration, server locus. The declared half only — retention and log format are CE-CF."
           }
         }
       ],
@@ -40197,13 +40197,6 @@
               "required": true
             },
             {
-              "name": "category",
-              "label": "Category — Core, Technical, Leadership, Behavioral",
-              "hint": "Core / Technical / Leadership / Behavioral",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What this competency means in practice",
@@ -47629,9 +47622,9 @@
               "required": false
             },
             {
-              "name": "flutterVariant",
-              "label": "Flutter Variant",
-              "hint": "Corresponding Flutter variant",
+              "name": "libraryVariant",
+              "label": "Library Variant",
+              "hint": "Corresponding variant in the shared component library, if one exists",
               "type": "String",
               "required": false
             }
@@ -56099,7 +56092,7 @@
         {
           "name": "domainEnumRegistry",
           "kind": "complex",
-          "doc": "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).",
+          "doc": "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).",
           "serializationOrder": 14,
           "annotations": [
             {
@@ -56144,7 +56137,7 @@
         {
           "name": "messageKeyRegistry",
           "kind": "complex",
-          "doc": "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).",
+          "doc": "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).",
           "serializationOrder": 17,
           "annotations": [
             {
@@ -58489,13 +58482,13 @@
         {
           "name": "domainEnumRegistry",
           "kind": "complex",
-          "doc": "Domain enum registry — CE-EN closed value sets, shared by client & server.",
+          "doc": "Domain enum registry — the closed value sets, shared by client & server.\n\n`domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`\n§4.1): each enum is authored once here and realised as a plain Dart `enum`\nmarked `@CsEnum`, placed in the shared project iff a shared contract type\nreferences it — which is what this registry's shared locus assumes —\notherwise in the project of the part that introduces it.",
           "serializationOrder": 2,
           "annotations": [
             {
               "name": "Comment",
               "arguments": {
-                "text": "locus: shared — CE-EN"
+                "text": "locus: shared — domainEnum (member kind)"
               }
             },
             {
@@ -58571,10 +58564,31 @@
           "type": "MessageKeyRegistry"
         },
         {
+          "name": "notificationModel",
+          "kind": "complex",
+          "doc": "Notification model — CE-NT type / channel / preference declarations.\n\nThe declarations are **shared**: the client renders the preference UI\nagainst the same catalogue the server dispatches from. Delivery is\nserver-only, but it is not authored here — it rides the reused\n`tom_core_server` messaging transport.",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: shared — CE-NT"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "type": "NotificationModel"
+        },
+        {
           "name": "dataModel",
           "kind": "complex",
           "doc": "Data model — CE-DB persistence + CE-VA server-side rules.",
-          "serializationOrder": 6,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "Comment",
@@ -58585,7 +58599,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 7
               }
             }
           ],
@@ -58595,7 +58609,7 @@
           "name": "technicalFramework",
           "kind": "complex",
           "doc": "Technical framework — CE-CF platform/config foundation.",
-          "serializationOrder": 7,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "Comment",
@@ -58606,7 +58620,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 8
               }
             }
           ],
@@ -58616,7 +58630,7 @@
           "name": "accessControl",
           "kind": "complex",
           "doc": "Access control model — CE-AZ authorization/identity seed.",
-          "serializationOrder": 8,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "Comment",
@@ -58627,7 +58641,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 9
               }
             }
           ],
@@ -58637,7 +58651,7 @@
           "name": "processStepsAndActorInteractions",
           "kind": "complex",
           "doc": "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
-          "serializationOrder": 9,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "Comment",
@@ -58648,7 +58662,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 10
               }
             }
           ],
@@ -58658,7 +58672,7 @@
           "name": "experienceCodeSpecs",
           "kind": "complex",
           "doc": "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
-          "serializationOrder": 10,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "Comment",
@@ -58669,7 +58683,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 11
               }
             }
           ],
@@ -60129,7 +60143,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
-            "note": "Attribute data-type closed choice (csra4): the logical type selects its promoted options subsection (text / numeric / temporal / binary); boolean, uuid and json carry only the common type and constraint subsections."
+            "note": "Attribute data-type closed choice (csra4): the logical type selects its promoted options subsection (text / numeric / temporal / binary / file reference); boolean, uuid and json carry only the common type and constraint subsections."
           }
         },
         {
@@ -60138,7 +60152,7 @@
             "kinds": [
               "CodeSpecPart.dataAccess"
             ],
-            "note": "A persisted attribute becomes a table column; display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry."
+            "note": "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry."
           }
         }
       ],
@@ -60245,6 +60259,7 @@
                 "date",
                 "dateTime",
                 "binary",
+                "fileReference",
                 "boolean",
                 "uuid",
                 "json",
@@ -60473,7 +60488,7 @@
         {
           "name": "binaryTypeOptions",
           "kind": "form",
-          "doc": "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.",
+          "doc": "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type — the record holds the **bytes\nthemselves** — so it carries only the stored size. Separated from the text\n`length` because a byte size and a character length are different\nconstraints on different types. An attribute that holds a file's *address*\ninstead is `DataAttributeKind.fileReference` (csra10), not a storage mode\nof this one: a mode field would restate the logical type and could then\ndisagree with it.",
           "sectionId": "DAATT-DTBI",
           "standardReferences": {
             "standards": [
@@ -60524,11 +60539,98 @@
               "hint": "Maximum stored size in bytes",
               "type": "String",
               "required": false
+            }
+          ]
+        },
+        {
+          "name": "fileReferenceOptions",
+          "kind": "form",
+          "doc": "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.",
+          "sectionId": "DAATT-DTFR",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — permissible value and representation of a data element",
+              "RFC 6838 — media type specifications and registration procedures"
+            ],
+            "connotation": "Where a referenced file is stored, how long it lives and what may be uploaded into it."
+          },
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-DTFR"
+              }
             },
             {
-              "name": "storageMode",
-              "label": "Storage Mode",
-              "hint": "Inline | External-Reference | Blob-Store",
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — permissible value and representation of a data element",
+                  "RFC 6838 — media type specifications and registration procedures"
+                ],
+                "connotation": "Where a referenced file is stored, how long it lives and what may be uploaded into it."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "DataAttributeKind.fileReference"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "storageGroup",
+              "label": "Storage Group",
+              "hint": "Naming group the files are filed under — sets their retention and access partition (e.g. documents/attachment)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "fileStore",
+              "label": "File Store",
+              "hint": "Name of the configured file store holding the files; empty means the deployment default store",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "deleteWithRecord",
+              "label": "Delete With Record",
+              "hint": "Yes | No — whether deleting the record also deletes the file (Yes unless the file outlives its reference by design)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "acceptedContentKinds",
+              "label": "Accepted Content Kinds",
+              "hint": "Comma-separated content kinds accepted on upload (e.g. PDF, PNG); empty means unrestricted",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "defaultContentKind",
+              "label": "Default Content Kind",
+              "hint": "Content kind recorded when an upload declares none",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maxFileSizeBytes",
+              "label": "Max File Size (Bytes)",
+              "hint": "Maximum accepted file size in bytes",
               "type": "String",
               "required": false
             }
@@ -60547,7 +60649,7 @@
             ],
             "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."
           },
-          "serializationOrder": 6,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -60580,7 +60682,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 7
               }
             }
           ],
@@ -60591,7 +60693,7 @@
           "name": "derivation",
           "kind": "form",
           "sectionId": "DAATT-DERI",
-          "serializationOrder": 7,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -60608,7 +60710,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 8
               }
             }
           ],
@@ -60647,7 +60749,7 @@
           "name": "securityClassification",
           "kind": "form",
           "sectionId": "DAATT-SECU",
-          "serializationOrder": 8,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -60664,7 +60766,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 9
               }
             }
           ],
@@ -60710,7 +60812,7 @@
           "name": "migrationLineage",
           "kind": "form",
           "sectionId": "DAATT-MIGR",
-          "serializationOrder": 9,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SectionId",
@@ -60727,7 +60829,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 10
               }
             }
           ],
@@ -60781,7 +60883,7 @@
             ],
             "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."
           },
-          "serializationOrder": 10,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -60813,7 +60915,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 11
               }
             }
           ],
@@ -80990,7 +81092,7 @@
             "kinds": [
               "CodeSpecPart.workflow"
             ],
-            "note": "CE-WF — multi-step process / workflow orchestration (state machines, long-running processes). Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-WF — multi-step process / workflow orchestration (state machines, long-running processes). Deferred PERMANENTLY (§4.3.1, §4.3.2): this section is free text, so there is no machine-readable input a generator could read. Mapping-only; the realistic cases are served by CE-JB jobs, CE-AC actions and CE-DB state."
           }
         }
       ],
@@ -87979,7 +88081,7 @@
     "DomainEnumEntry": {
       "name": "DomainEnumEntry",
       "sectionId": "DMENE",
-      "doc": "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.",
+      "doc": "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / value-domain enumerations",
@@ -88010,7 +88112,7 @@
             "kinds": [
               "CodeSpecPart.domainEnum"
             ],
-            "note": "CE-EN — a closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
+            "note": "A closed value set becomes a domain enum / value type: the enum name is the generated type, each value id + backing value a constant, and each member copy resolves via CE-TX. The enum also serves as the closed-choice (@OneOf) discriminator source (csm-7-4)."
           }
         }
       ],
@@ -88128,13 +88230,13 @@
     "DomainEnumRegistry": {
       "name": "DomainEnumRegistry",
       "sectionId": "DOMEN",
-      "doc": "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+      "doc": "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / value-domain enumerations",
           "Domain-Driven Design — value objects / enumerations"
         ],
-        "connotation": "The registry of domain enums (closed value sets): each enum with its named, backed values — the CE-EN home and the closed-choice discriminator source."
+        "connotation": "The registry of domain enums (closed value sets): each enum with its named, backed values — the `domainEnum` home and the closed-choice discriminator source."
       },
       "annotations": [
         {
@@ -88144,7 +88246,7 @@
               "ISO/IEC 11179 — metadata registries / value-domain enumerations",
               "Domain-Driven Design — value objects / enumerations"
             ],
-            "connotation": "The registry of domain enums (closed value sets): each enum with its named, backed values — the CE-EN home and the closed-choice discriminator source."
+            "connotation": "The registry of domain enums (closed value sets): each enum with its named, backed values — the `domainEnum` home and the closed-choice discriminator source."
           }
         },
         {
@@ -88158,13 +88260,13 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n",
+          "help": "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- `domainEnum` code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n",
           "serializationOrder": 0,
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n"
+                "guidance": "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- `domainEnum` code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n"
               }
             },
             {
@@ -98868,7 +98970,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -99573,9 +99675,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.reporting"
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
           }
         }
       ],
@@ -100296,9 +100398,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.reporting"
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
           }
         }
       ],
@@ -100379,9 +100481,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.reporting"
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
           }
         }
       ],
@@ -132695,14 +132797,14 @@
         {
           "name": "persistence",
           "kind": "form",
-          "doc": "Persistence rules.",
+          "doc": "Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.",
           "sectionId": "LCSP",
           "standardReferences": {
             "standards": [
-              "BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag",
-              "ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices"
+              "BCP 47 (W3C Internationalization) — the retained preference is expressed as a language tag",
+              "ISO/IEC 25010:2023 — usability requires the chosen locale to survive across sessions"
             ],
-            "connotation": "How the chosen language and country preference is stored and synchronized across sessions and devices."
+            "connotation": "How a chosen language and country preference is retained across sessions, before and after the user is identified."
           },
           "serializationOrder": 2,
           "annotations": [
@@ -132716,10 +132818,10 @@
               "name": "StandardReferences",
               "arguments": {
                 "standards": [
-                  "BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag",
-                  "ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices"
+                  "BCP 47 (W3C Internationalization) — the retained preference is expressed as a language tag",
+                  "ISO/IEC 25010:2023 — usability requires the chosen locale to survive across sessions"
                 ],
-                "connotation": "How the chosen language and country preference is stored and synchronized across sessions and devices."
+                "connotation": "How a chosen language and country preference is retained across sessions, before and after the user is identified."
               }
             },
             {
@@ -132737,23 +132839,23 @@
           ],
           "formFields": [
             {
-              "name": "persistenceMethod",
-              "label": "Persistence Method",
-              "hint": "Cookie, localStorage, user profile",
+              "name": "guestRetention",
+              "label": "Guest Retention",
+              "hint": "Whether and for how long a preference chosen before sign-in is retained",
               "type": "String",
               "required": false
             },
             {
-              "name": "crossDeviceSync",
-              "label": "Cross-Device Sync",
-              "hint": "Sync preference across devices",
-              "type": "bool",
+              "name": "signInCarryOver",
+              "label": "Sign-In Carry-Over",
+              "hint": "What happens to a guest-chosen locale when the user signs in and a stored preference applies",
+              "type": "String",
               "required": false
             },
             {
-              "name": "anonymousPersistence",
-              "label": "Anonymous Persistence",
-              "hint": "How preference persists for guests",
+              "name": "reselectionPrompt",
+              "label": "Re-Selection Prompt",
+              "hint": "When the user is asked to confirm or re-pick the retained preference",
               "type": "String",
               "required": false
             }
@@ -140535,7 +140637,7 @@
             "kinds": [
               "CodeSpecPart.text"
             ],
-            "note": "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, CE-EN value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
+            "note": "CE-TX — the author-once copy string every consumer references. The key is the join token: CE-EL/CE-AC labels, domainEnum value copy (DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) and CE-VA messages all resolve here. The default copy plus locale variants become the generated message catalogue."
           }
         }
       ],
@@ -140646,14 +140748,14 @@
     "MessageKeyRegistry": {
       "name": "MessageKeyRegistry",
       "sectionId": "MSGKR",
-      "doc": "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+      "doc": "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / data element definitions",
           "W3C Internationalization (i18n) — message catalogues / externalised strings",
           "Unicode CLDR / BCP 47 — locale identification and localized message data"
         ],
-        "connotation": "The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes."
+        "connotation": "The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes."
       },
       "annotations": [
         {
@@ -140664,7 +140766,7 @@
               "W3C Internationalization (i18n) — message catalogues / externalised strings",
               "Unicode CLDR / BCP 47 — locale identification and localized message data"
             ],
-            "connotation": "The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes."
+            "connotation": "The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes."
           }
         },
         {
@@ -140678,13 +140780,13 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n",
+          "help": "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- `domainEnum` value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n",
           "serializationOrder": 0,
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n"
+                "guidance": "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- `domainEnum` value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n"
               }
             },
             {
@@ -155976,7 +156078,7 @@
             "kinds": [
               "CodeSpecPart.notification"
             ],
-            "note": "CE-NT — outbound communications (email/push/SMS/webhooks) as a first-class effect. Deferred (§4.3), mapping-only until §4.1."
+            "note": "CE-NT — outbound communications (email/push/SMS/webhooks) as a first-class effect. Active part (§4.1): the type/channel/preference declarations are realised as @CsNotification and @CsNotificationChannel over the tom_core_codespecs notification model (shared locus); delivery rides the tom_core_server messaging transport (server locus)."
           }
         }
       ],
@@ -170395,9 +170497,10 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
+              "CodeSpecPart.serverConfiguration",
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "A mixed subtree, hence two kinds. This section own fields — print strategy, paper size, orientation, page setup, branding, watermark, header/footer, archive — are CE-CF renderer settings; its child lists are CE-RP report definitions. §8.3 requires an isolated subtree before a D13CodeSpecsProjection field can reach the CE-RP band, so the reporting half is annotated but not yet projected (§5.28)."
           }
         }
       ],
@@ -176415,6 +176518,7 @@
             {
               "name": "metricCategory",
               "label": "Category (e.g., Efficiency, Quality, Volume, Cost)",
+              "hint": "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty",
               "type": "String",
               "required": false
             },
@@ -178514,15 +178618,9 @@
               "required": true
             },
             {
-              "name": "scopeStatus",
-              "label": "Scope Status",
-              "hint": "In-Scope / Out-of-Scope / Deferred / Partial",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "rationale",
               "label": "Rationale - why this scope decision",
+              "hint": "Why the process is in or out of scope, and to what extent — record here if it is only partially included",
               "type": "String",
               "required": false
             },
@@ -191231,7 +191329,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -191370,7 +191468,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -191799,7 +191897,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -192581,7 +192679,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -192921,7 +193019,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-models / analytics projections over the domain model. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -194096,7 +194194,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -194875,7 +194973,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -195180,7 +195278,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -195578,7 +195676,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, server (definition + execution) + shared (tabular result envelope, parameter DTOs); delivery channel named abstractly (apiResponse | email | fileExport — email transport is tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
           }
         }
       ],
@@ -199556,13 +199654,6 @@
               "hint": "The responsibility affected by this change",
               "type": "String",
               "required": true
-            },
-            {
-              "name": "changeType",
-              "label": "Change Type — add, remove, modify",
-              "hint": "Whether this responsibility is added, removed, or modified",
-              "type": "String",
-              "required": false
             },
             {
               "name": "currentState",
@@ -269760,9 +269851,9 @@
               "required": false
             },
             {
-              "name": "flutterWidgetBase",
-              "label": "Flutter Widget Base",
-              "hint": "Base Flutter widget (DataTable, TextField)",
+              "name": "baseComponent",
+              "label": "Base Component",
+              "hint": "Base component of the shared library this one specialises (Data Table, Text Input)",
               "type": "String",
               "required": false
             }
@@ -271287,9 +271378,9 @@
               "required": false
             },
             {
-              "name": "tomFlutterUiIntegration",
-              "label": "Tom Flutter UI Integration",
-              "hint": "Uses tom_flutter_ui component library",
+              "name": "sharedLibraryIntegration",
+              "label": "Shared Library Integration",
+              "hint": "Builds on the organisation-wide shared component library rather than bespoke components",
               "type": "bool",
               "required": false
             }
@@ -279093,7 +279184,7 @@
               "ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options",
               "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"
             ],
-            "connotation": "The display order, widget rendering, and access rules governing a utility navigation item."
+            "connotation": "The display order, presentation kind, and access rules governing a utility navigation item."
           },
           "serializationOrder": 1,
           "annotations": [
@@ -279110,7 +279201,7 @@
                   "ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options",
                   "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"
                 ],
-                "connotation": "The display order, widget rendering, and access rules governing a utility navigation item."
+                "connotation": "The display order, presentation kind, and access rules governing a utility navigation item."
               }
             },
             {
@@ -279135,8 +279226,8 @@
               "required": false
             },
             {
-              "name": "widgetType",
-              "label": "Widget Type",
+              "name": "displayKind",
+              "label": "Display Kind",
               "hint": "Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon",
               "type": "String",
               "required": false
@@ -284050,6 +284141,7 @@
             {
               "name": "isManual",
               "label": "Is Manual (requires human intervention)",
+              "hint": "Whether carrying the step out needs a person; an automated step runs without human intervention",
               "type": "bool",
               "required": false
             },

@@ -67627,14 +67627,6 @@ func (x *CompetencyEntryContentForm) SetCompetencyName(value string) {
 	x.Doc().SetFormField(x.Path(), "competencyName", value)
 }
 
-func (x *CompetencyEntryContentForm) Category() string {
-	return x.Doc().FormFieldOr(x.Path(), "category")
-}
-
-func (x *CompetencyEntryContentForm) SetCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "category", value)
-}
-
 func (x *CompetencyEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -149770,14 +149762,6 @@ func (x *ProcessScopeEntryContentForm) SetProcessName(value string) {
 	x.Doc().SetFormField(x.Path(), "processName", value)
 }
 
-func (x *ProcessScopeEntryContentForm) ScopeStatus() string {
-	return x.Doc().FormFieldOr(x.Path(), "scopeStatus")
-}
-
-func (x *ProcessScopeEntryContentForm) SetScopeStatus(value string) {
-	x.Doc().SetFormField(x.Path(), "scopeStatus", value)
-}
-
 func (x *ProcessScopeEntryContentForm) Rationale() string {
 	return x.Doc().FormFieldOr(x.Path(), "rationale")
 }
@@ -162216,14 +162200,6 @@ func (x *ResponsibilityChangeEntryContentForm) Responsibility() string {
 
 func (x *ResponsibilityChangeEntryContentForm) SetResponsibility(value string) {
 	x.Doc().SetFormField(x.Path(), "responsibility", value)
-}
-
-func (x *ResponsibilityChangeEntryContentForm) ChangeType() string {
-	return x.Doc().FormFieldOr(x.Path(), "changeType")
-}
-
-func (x *ResponsibilityChangeEntryContentForm) SetChangeType(value string) {
-	x.Doc().SetFormField(x.Path(), "changeType", value)
 }
 
 func (x *ResponsibilityChangeEntryContentForm) CurrentState() string {

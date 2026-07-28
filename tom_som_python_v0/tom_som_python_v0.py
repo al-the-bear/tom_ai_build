@@ -55461,14 +55461,6 @@ class CompetencyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "competencyName", value)
 
     @property
-    def category(self) -> str:
-        return self.doc.form_field(self.path, "category") or ""
-
-    @category.setter
-    def category(self, value):
-        self.doc.set_form_field(self.path, "category", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -122214,14 +122206,6 @@ class ProcessScopeEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "processName", value)
 
     @property
-    def scopeStatus(self) -> str:
-        return self.doc.form_field(self.path, "scopeStatus") or ""
-
-    @scopeStatus.setter
-    def scopeStatus(self, value):
-        self.doc.set_form_field(self.path, "scopeStatus", value)
-
-    @property
     def rationale(self) -> str:
         return self.doc.form_field(self.path, "rationale") or ""
 
@@ -132491,14 +132475,6 @@ class ResponsibilityChangeEntryContentForm(SomNode):
     @responsibility.setter
     def responsibility(self, value):
         self.doc.set_form_field(self.path, "responsibility", value)
-
-    @property
-    def changeType(self) -> str:
-        return self.doc.form_field(self.path, "changeType") or ""
-
-    @changeType.setter
-    def changeType(self, value):
-        self.doc.set_form_field(self.path, "changeType", value)
 
     @property
     def currentState(self) -> str:

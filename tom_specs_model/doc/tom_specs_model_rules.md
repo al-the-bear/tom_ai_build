@@ -689,8 +689,26 @@ legitimate, supported construct: the differing field suffixes give them distinct
 container ids, and nothing further is required — no wrapper class, no
 discriminator field, no renamed element type. Where a class holds same-type
 sibling lists *and* the element type also carries a field naming which list it
-belongs to, that field is redundant with its container id and should be dropped
-in favour of the list membership.
+belongs to, that field is redundant with its container id and is dropped in
+favour of the list membership.
+
+Two conditions decide it, and both must hold before the field goes:
+
+- **The lists must partition their elements.** A group of *highlight* lists that
+  re-lists entries already held by a full-sequence list (`steps` plus
+  `manualSteps` / `errorProneSteps`) is not a partition — an element sits in two
+  of them at once, so membership does not determine the property. There the flag
+  is an intrinsic property of the element and is kept.
+- **The field must add no state that is not otherwise expressible** — neither by
+  the lists themselves nor by another field of the same element. A scope field
+  offering "Deferred" alongside In-/Out-of-Scope adds nothing where the element
+  already carries a target-phase field.
+
+A field that survives both tests is kept, and its hint is rewritten to describe
+the state **intrinsically** rather than by restating which list the element is
+in. The same applies where an element type is used by both a grouped and an
+ungrouped list: the field carries the grouping only for the ungrouped entries,
+and the hint says so.
 
 ### 7.5 Lists — the `*-LST` container is a real section
 

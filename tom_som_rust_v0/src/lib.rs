@@ -80001,15 +80001,6 @@ impl CompetencyEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "competencyName", value);
     }
 
-    pub fn category(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "category")
-    }
-
-    pub fn set_category(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "category", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -169021,15 +169012,6 @@ impl ProcessScopeEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "processName", value);
     }
 
-    pub fn scope_status(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scopeStatus")
-    }
-
-    pub fn set_scope_status(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scopeStatus", value);
-    }
-
     pub fn rationale(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "rationale")
     }
@@ -182604,15 +182586,6 @@ impl ResponsibilityChangeEntryContentForm {
     pub fn set_responsibility(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "responsibility", value);
-    }
-
-    pub fn change_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "changeType")
-    }
-
-    pub fn set_change_type(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "changeType", value);
     }
 
     pub fn current_state(&self) -> String {

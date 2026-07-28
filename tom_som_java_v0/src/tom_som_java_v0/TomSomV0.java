@@ -60923,15 +60923,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "competencyName", value);
     }
 
-    public String category() {
-      String v = doc.formField(path, "category");
-      return v == null ? "" : v;
-    }
-
-    public void category(String value) {
-      doc.setFormField(path, "category", value);
-    }
-
     public String description() {
       String v = doc.formField(path, "description");
       return v == null ? "" : v;
@@ -139123,15 +139114,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "processName", value);
     }
 
-    public String scopeStatus() {
-      String v = doc.formField(path, "scopeStatus");
-      return v == null ? "" : v;
-    }
-
-    public void scopeStatus(String value) {
-      doc.setFormField(path, "scopeStatus", value);
-    }
-
     public String rationale() {
       String v = doc.formField(path, "rationale");
       return v == null ? "" : v;
@@ -151099,15 +151081,6 @@ public final class TomSomV0 {
 
     public void responsibility(String value) {
       doc.setFormField(path, "responsibility", value);
-    }
-
-    public String changeType() {
-      String v = doc.formField(path, "changeType");
-      return v == null ? "" : v;
-    }
-
-    public void changeType(String value) {
-      doc.setFormField(path, "changeType", value);
     }
 
     public String currentState() {

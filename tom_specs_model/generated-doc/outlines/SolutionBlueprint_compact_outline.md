@@ -541,11 +541,11 @@
             - responsibilities: `ChangedRoleResponsibilities`
               - impactSummary
               - addedResponsibilities: `ResponsibilityChangeEntry`
-                - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
+                - content @Form(responsibility, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
               - removedResponsibilities: `ResponsibilityChangeEntry`
-                - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
+                - content @Form(responsibility, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
               - modifiedResponsibilities: `ResponsibilityChangeEntry`
-                - content @Form(responsibility, changeType, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
+                - content @Form(responsibility, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
             - competencies: `ChangedRoleCompetencies`
               - gapAssessment
               - newCompetencies: `RoleCompetencyEntry`
@@ -568,11 +568,11 @@
           - `CompetencyFramework`
             - overview
             - coreCompetencies: `CompetencyEntry`
-              - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+              - content @Form(competencyId, competencyName, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
             - technicalCompetencies: `CompetencyEntry`
-              - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+              - content @Form(competencyId, competencyName, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
             - leadershipCompetencies: `CompetencyEntry`
-              - content @Form(competencyId, competencyName, category, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+              - content @Form(competencyId, competencyName, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
         - [1,] workplaceDescriptions: `WorkplaceDescriptionEntry` ← (per user category)
           - userCategory
           - physicalRequirements: `PhysicalWorkplaceRequirements`

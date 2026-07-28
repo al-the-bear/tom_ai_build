@@ -32205,12 +32205,6 @@ std::string CompetencyEntryContentForm::competencyName() const {
 void CompetencyEntryContentForm::setCompetencyName(const std::string& value) {
   doc().setFormField(path(), "competencyName", value);
 }
-std::string CompetencyEntryContentForm::category() const {
-  return doc().formField(path(), "category");
-}
-void CompetencyEntryContentForm::setCategory(const std::string& value) {
-  doc().setFormField(path(), "category", value);
-}
 std::string CompetencyEntryContentForm::description() const {
   return doc().formField(path(), "description");
 }
@@ -77401,12 +77395,6 @@ std::string ProcessScopeEntryContentForm::processName() const {
 void ProcessScopeEntryContentForm::setProcessName(const std::string& value) {
   doc().setFormField(path(), "processName", value);
 }
-std::string ProcessScopeEntryContentForm::scopeStatus() const {
-  return doc().formField(path(), "scopeStatus");
-}
-void ProcessScopeEntryContentForm::setScopeStatus(const std::string& value) {
-  doc().setFormField(path(), "scopeStatus", value);
-}
 std::string ProcessScopeEntryContentForm::rationale() const {
   return doc().formField(path(), "rationale");
 }
@@ -84343,12 +84331,6 @@ std::string ResponsibilityChangeEntryContentForm::responsibility() const {
 }
 void ResponsibilityChangeEntryContentForm::setResponsibility(const std::string& value) {
   doc().setFormField(path(), "responsibility", value);
-}
-std::string ResponsibilityChangeEntryContentForm::changeType() const {
-  return doc().formField(path(), "changeType");
-}
-void ResponsibilityChangeEntryContentForm::setChangeType(const std::string& value) {
-  doc().setFormField(path(), "changeType", value);
 }
 std::string ResponsibilityChangeEntryContentForm::currentState() const {
   return doc().formField(path(), "currentState");

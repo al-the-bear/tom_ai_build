@@ -58023,14 +58023,6 @@ class CompetencyEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "competencyName", value);
   }
 
-  get category() {
-    return this.doc.formField(this.path, "category") || '';
-  }
-
-  set category(value) {
-    this.doc.setFormField(this.path, "category", value);
-  }
-
   get description() {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -126847,14 +126839,6 @@ class ProcessScopeEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "processName", value);
   }
 
-  get scopeStatus() {
-    return this.doc.formField(this.path, "scopeStatus") || '';
-  }
-
-  set scopeStatus(value) {
-    this.doc.setFormField(this.path, "scopeStatus", value);
-  }
-
   get rationale() {
     return this.doc.formField(this.path, "rationale") || '';
   }
@@ -137389,14 +137373,6 @@ class ResponsibilityChangeEntryContentForm extends SomNode {
 
   set responsibility(value) {
     this.doc.setFormField(this.path, "responsibility", value);
-  }
-
-  get changeType() {
-    return this.doc.formField(this.path, "changeType") || '';
-  }
-
-  set changeType(value) {
-    this.doc.setFormField(this.path, "changeType", value);
   }
 
   get currentState() {

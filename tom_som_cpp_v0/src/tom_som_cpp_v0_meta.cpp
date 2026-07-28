@@ -14011,14 +14011,13 @@ void buildCompetencyEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"competencyId", "String", "Competency ID", true, "Unique identifier for this competency", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"competencyName", "String", "Competency Name", true, "Short name of the competency", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — Core, Technical, Leadership, Behavioral", false, "Core / Technical / Leadership / Behavioral", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this competency means in practice", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 4, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"proficiencyLevels", "String", "Proficiency Levels — what each level looks like", false, "What each proficiency level looks like", 5, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"applicableRoles", "String", "Applicable Roles — which roles need this competency", false, "Which roles require this competency", 6, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredLevel", "String", "Required Level — minimum proficiency for the role", false, "Minimum proficiency level required for the role", 7, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"developmentResources", "String", "Development Resources — training, coaching, experiences", false, "Training, coaching, or experiences that build it", 8, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"assessmentTools", "String", "Assessment Tools — tests, interviews, simulations", false, "Tests, interviews, or simulations used to assess it", 9, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this competency means in practice", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"proficiencyLevels", "String", "Proficiency Levels — what each level looks like", false, "What each proficiency level looks like", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"applicableRoles", "String", "Applicable Roles — which roles need this competency", false, "Which roles require this competency", 5, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredLevel", "String", "Required Level — minimum proficiency for the role", false, "Minimum proficiency level required for the role", 6, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"developmentResources", "String", "Development Resources — training, coaching, experiences", false, "Training, coaching, or experiences that build it", 7, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"assessmentTools", "String", "Assessment Tools — tests, interviews, simulations", false, "Tests, interviews, or simulations used to assess it", 8, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -57264,7 +57263,7 @@ void buildProcessMetricEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"metricName", "String", "Metric Name", true, "", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"metricId", "String", "Metric ID", false, "", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 2, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"currentValue", "String", "Current Value", false, "", 3, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"unit", "String", "Unit", false, "", 4, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -57951,10 +57950,9 @@ void buildProcessScopeEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"processName", "String", "Process Name", true, "", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scopeStatus", "String", "Scope Status", false, "In-Scope / Out-of-Scope / Deferred / Partial", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale - why this scope decision", false, "", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impactIfExcluded", "String", "Impact If Excluded", false, "", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"phase", "String", "Target Phase if deferred", false, "", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale - why this scope decision", false, "Why the process is in or out of scope, and to what extent — record here if it is only partially included", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impactIfExcluded", "String", "Impact If Excluded", false, "", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"phase", "String", "Target Phase if deferred", false, "", 3, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -64102,14 +64100,13 @@ void buildResponsibilityChangeEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"responsibility", "String", "Responsibility", true, "The responsibility affected by this change", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeType", "String", "Change Type — add, remove, modify", false, "Whether this responsibility is added, removed, or modified", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentState", "String", "Current State — how done today", false, "How this responsibility is handled before the change", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"futureState", "String", "Future State — how done after change", false, "How this responsibility will be handled after the change", 3, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"reason", "String", "Reason — why this change", false, "The reason this responsibility is changing", 4, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impactLevel", "String", "Impact Level — high, medium, low", false, "How significant the impact of this change is", 5, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"trainingNeeded", "String", "Training Needed", false, "Training required to perform the changed responsibility", 6, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"toolsAffected", "String", "Tools Affected — systems involved", false, "Systems or tools impacted by this change", 7, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"transitionApproach", "String", "Transition Approach — how responsibility is handed over", false, "How the responsibility is transferred or phased in", 8, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentState", "String", "Current State — how done today", false, "How this responsibility is handled before the change", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"futureState", "String", "Future State — how done after change", false, "How this responsibility will be handled after the change", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reason", "String", "Reason — why this change", false, "The reason this responsibility is changing", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impactLevel", "String", "Impact Level — high, medium, low", false, "How significant the impact of this change is", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"trainingNeeded", "String", "Training Needed", false, "Training required to perform the changed responsibility", 5, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"toolsAffected", "String", "Tools Affected — systems involved", false, "Systems or tools impacted by this change", 6, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"transitionApproach", "String", "Transition Approach — how responsibility is handed over", false, "How the responsibility is transferred or phased in", 7, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -89888,7 +89885,7 @@ void buildWorkflowStepEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "", 2, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"responsibleActor", "String", "Responsible Actor", false, "", 3, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stepType", "String", "Step Type (e.g., Task, Decision, Wait, Subprocess)", false, "", 4, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"isManual", "bool", "Is Manual (requires human intervention)", false, "", 5, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"isManual", "bool", "Is Manual (requires human intervention)", false, "Whether carrying the step out needs a person; an automated step runs without human intervention", 5, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isAutomatable", "bool", "Is Automatable", false, "", 6, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"averageDuration", "String", "Average Duration", false, "", 7, std::vector<std::string>{}});
     parent.addChild(std::move(n));

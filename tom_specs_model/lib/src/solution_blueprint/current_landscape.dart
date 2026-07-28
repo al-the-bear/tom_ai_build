@@ -1952,12 +1952,12 @@ class ProcessScopeEntry extends DocSpecsSection {
   @Form([
     Field('processName', String, 'Process Name', required: true),
     Field(
-      'scopeStatus',
+      'rationale',
       String,
-      'Scope Status',
-      hint: 'In-Scope / Out-of-Scope / Deferred / Partial',
+      'Rationale - why this scope decision',
+      hint: 'Why the process is in or out of scope, and to what extent — '
+          'record here if it is only partially included',
     ),
-    Field('rationale', String, 'Rationale - why this scope decision'),
     Field('impactIfExcluded', String, 'Impact If Excluded'),
     Field('phase', String, 'Target Phase if deferred'),
   ])
@@ -2672,7 +2672,13 @@ class WorkflowStepEntry extends DocSpecsSection {
       String,
       'Step Type (e.g., Task, Decision, Wait, Subprocess)',
     ),
-    Field('isManual', bool, 'Is Manual (requires human intervention)'),
+    Field(
+      'isManual',
+      bool,
+      'Is Manual (requires human intervention)',
+      hint: 'Whether carrying the step out needs a person; an automated step '
+          'runs without human intervention',
+    ),
     Field('isAutomatable', bool, 'Is Automatable'),
     Field('averageDuration', String, 'Average Duration'),
   ])
@@ -3250,6 +3256,8 @@ class ProcessMetricEntry extends DocSpecsSection {
       'metricCategory',
       String,
       'Category (e.g., Efficiency, Quality, Volume, Cost)',
+      hint: 'Only for metrics listed on their own — a metric listed inside a '
+          'metric category takes that category and leaves this empty',
     ),
     Field('currentValue', String, 'Current Value'),
     Field('unit', String, 'Unit'),

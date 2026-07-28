@@ -14946,14 +14946,13 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("competencyId", "String", "Competency ID", true, "Unique identifier for this competency", 0),
             new SomFormFieldMeta("competencyName", "String", "Competency Name", true, "Short name of the competency", 1),
-            new SomFormFieldMeta("category", "String", "Category — Core, Technical, Leadership, Behavioral", false, "Core / Technical / Leadership / Behavioral", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this competency means in practice", 3),
-            new SomFormFieldMeta("behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 4),
-            new SomFormFieldMeta("proficiencyLevels", "String", "Proficiency Levels — what each level looks like", false, "What each proficiency level looks like", 5),
-            new SomFormFieldMeta("applicableRoles", "String", "Applicable Roles — which roles need this competency", false, "Which roles require this competency", 6),
-            new SomFormFieldMeta("requiredLevel", "String", "Required Level — minimum proficiency for the role", false, "Minimum proficiency level required for the role", 7),
-            new SomFormFieldMeta("developmentResources", "String", "Development Resources — training, coaching, experiences", false, "Training, coaching, or experiences that build it", 8),
-            new SomFormFieldMeta("assessmentTools", "String", "Assessment Tools — tests, interviews, simulations", false, "Tests, interviews, or simulations used to assess it", 9)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this competency means in practice", 2),
+            new SomFormFieldMeta("behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 3),
+            new SomFormFieldMeta("proficiencyLevels", "String", "Proficiency Levels — what each level looks like", false, "What each proficiency level looks like", 4),
+            new SomFormFieldMeta("applicableRoles", "String", "Applicable Roles — which roles need this competency", false, "Which roles require this competency", 5),
+            new SomFormFieldMeta("requiredLevel", "String", "Required Level — minimum proficiency for the role", false, "Minimum proficiency level required for the role", 6),
+            new SomFormFieldMeta("developmentResources", "String", "Development Resources — training, coaching, experiences", false, "Training, coaching, or experiences that build it", 7),
+            new SomFormFieldMeta("assessmentTools", "String", "Assessment Tools — tests, interviews, simulations", false, "Tests, interviews, or simulations used to assess it", 8)));
         out.add(n);
       }
       return out;
@@ -65550,7 +65549,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("metricName", "String", "Metric Name", true, null, 0),
             new SomFormFieldMeta("metricId", "String", "Metric ID", false, null, 1),
-            new SomFormFieldMeta("metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, null, 2),
+            new SomFormFieldMeta("metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 2),
             new SomFormFieldMeta("currentValue", "String", "Current Value", false, null, 3),
             new SomFormFieldMeta("unit", "String", "Unit", false, null, 4)));
         out.add(n);
@@ -66371,10 +66370,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processName", "String", "Process Name", true, null, 0),
-            new SomFormFieldMeta("scopeStatus", "String", "Scope Status", false, "In-Scope / Out-of-Scope / Deferred / Partial", 1),
-            new SomFormFieldMeta("rationale", "String", "Rationale - why this scope decision", false, null, 2),
-            new SomFormFieldMeta("impactIfExcluded", "String", "Impact If Excluded", false, null, 3),
-            new SomFormFieldMeta("phase", "String", "Target Phase if deferred", false, null, 4)));
+            new SomFormFieldMeta("rationale", "String", "Rationale - why this scope decision", false, "Why the process is in or out of scope, and to what extent — record here if it is only partially included", 1),
+            new SomFormFieldMeta("impactIfExcluded", "String", "Impact If Excluded", false, null, 2),
+            new SomFormFieldMeta("phase", "String", "Target Phase if deferred", false, null, 3)));
         out.add(n);
       }
       return out;
@@ -73805,14 +73803,13 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("responsibility", "String", "Responsibility", true, "The responsibility affected by this change", 0),
-            new SomFormFieldMeta("changeType", "String", "Change Type — add, remove, modify", false, "Whether this responsibility is added, removed, or modified", 1),
-            new SomFormFieldMeta("currentState", "String", "Current State — how done today", false, "How this responsibility is handled before the change", 2),
-            new SomFormFieldMeta("futureState", "String", "Future State — how done after change", false, "How this responsibility will be handled after the change", 3),
-            new SomFormFieldMeta("reason", "String", "Reason — why this change", false, "The reason this responsibility is changing", 4),
-            new SomFormFieldMeta("impactLevel", "String", "Impact Level — high, medium, low", false, "How significant the impact of this change is", 5),
-            new SomFormFieldMeta("trainingNeeded", "String", "Training Needed", false, "Training required to perform the changed responsibility", 6),
-            new SomFormFieldMeta("toolsAffected", "String", "Tools Affected — systems involved", false, "Systems or tools impacted by this change", 7),
-            new SomFormFieldMeta("transitionApproach", "String", "Transition Approach — how responsibility is handed over", false, "How the responsibility is transferred or phased in", 8)));
+            new SomFormFieldMeta("currentState", "String", "Current State — how done today", false, "How this responsibility is handled before the change", 1),
+            new SomFormFieldMeta("futureState", "String", "Future State — how done after change", false, "How this responsibility will be handled after the change", 2),
+            new SomFormFieldMeta("reason", "String", "Reason — why this change", false, "The reason this responsibility is changing", 3),
+            new SomFormFieldMeta("impactLevel", "String", "Impact Level — high, medium, low", false, "How significant the impact of this change is", 4),
+            new SomFormFieldMeta("trainingNeeded", "String", "Training Needed", false, "Training required to perform the changed responsibility", 5),
+            new SomFormFieldMeta("toolsAffected", "String", "Tools Affected — systems involved", false, "Systems or tools impacted by this change", 6),
+            new SomFormFieldMeta("transitionApproach", "String", "Transition Approach — how responsibility is handed over", false, "How the responsibility is transferred or phased in", 7)));
         out.add(n);
       }
       return out;
@@ -104143,7 +104140,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("description", "String", "Description", false, null, 2),
             new SomFormFieldMeta("responsibleActor", "String", "Responsible Actor", false, null, 3),
             new SomFormFieldMeta("stepType", "String", "Step Type (e.g., Task, Decision, Wait, Subprocess)", false, null, 4),
-            new SomFormFieldMeta("isManual", "bool", "Is Manual (requires human intervention)", false, null, 5),
+            new SomFormFieldMeta("isManual", "bool", "Is Manual (requires human intervention)", false, "Whether carrying the step out needs a person; an automated step runs without human intervention", 5),
             new SomFormFieldMeta("isAutomatable", "bool", "Is Automatable", false, null, 6),
             new SomFormFieldMeta("averageDuration", "String", "Average Duration", false, null, 7)));
         out.add(n);

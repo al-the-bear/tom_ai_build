@@ -32172,8 +32172,6 @@ class CompetencyEntryContentForm : public som::SomNode {
   void setCompetencyId(const std::string& value);
   std::string competencyName() const;
   void setCompetencyName(const std::string& value);
-  std::string category() const;
-  void setCategory(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string behavioralIndicators() const;
@@ -56156,8 +56154,6 @@ class ProcessScopeEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string processName() const;
   void setProcessName(const std::string& value);
-  std::string scopeStatus() const;
-  void setScopeStatus(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
   std::string impactIfExcluded() const;
@@ -59804,8 +59800,6 @@ class ResponsibilityChangeEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string responsibility() const;
   void setResponsibility(const std::string& value);
-  std::string changeType() const;
-  void setChangeType(const std::string& value);
   std::string currentState() const;
   void setCurrentState(const std::string& value);
   std::string futureState() const;

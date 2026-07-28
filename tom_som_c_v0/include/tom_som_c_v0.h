@@ -30781,8 +30781,6 @@ char *competency_entry_content_form_competency_id(const CompetencyEntryContentFo
 void competency_entry_content_form_set_competency_id(CompetencyEntryContentForm *self, const char *value);
 char *competency_entry_content_form_competency_name(const CompetencyEntryContentForm *self);
 void competency_entry_content_form_set_competency_name(CompetencyEntryContentForm *self, const char *value);
-char *competency_entry_content_form_category(const CompetencyEntryContentForm *self);
-void competency_entry_content_form_set_category(CompetencyEntryContentForm *self, const char *value);
 char *competency_entry_content_form_description(const CompetencyEntryContentForm *self);
 void competency_entry_content_form_set_description(CompetencyEntryContentForm *self, const char *value);
 char *competency_entry_content_form_behavioral_indicators(const CompetencyEntryContentForm *self);
@@ -50841,8 +50839,6 @@ char *process_scope_entry_content_form_content(const ProcessScopeEntryContentFor
 void process_scope_entry_content_form_set_content(ProcessScopeEntryContentForm *self, const char *value);
 char *process_scope_entry_content_form_process_name(const ProcessScopeEntryContentForm *self);
 void process_scope_entry_content_form_set_process_name(ProcessScopeEntryContentForm *self, const char *value);
-char *process_scope_entry_content_form_scope_status(const ProcessScopeEntryContentForm *self);
-void process_scope_entry_content_form_set_scope_status(ProcessScopeEntryContentForm *self, const char *value);
 char *process_scope_entry_content_form_rationale(const ProcessScopeEntryContentForm *self);
 void process_scope_entry_content_form_set_rationale(ProcessScopeEntryContentForm *self, const char *value);
 char *process_scope_entry_content_form_impact_if_excluded(const ProcessScopeEntryContentForm *self);
@@ -53904,8 +53900,6 @@ char *responsibility_change_entry_content_form_content(const ResponsibilityChang
 void responsibility_change_entry_content_form_set_content(ResponsibilityChangeEntryContentForm *self, const char *value);
 char *responsibility_change_entry_content_form_responsibility(const ResponsibilityChangeEntryContentForm *self);
 void responsibility_change_entry_content_form_set_responsibility(ResponsibilityChangeEntryContentForm *self, const char *value);
-char *responsibility_change_entry_content_form_change_type(const ResponsibilityChangeEntryContentForm *self);
-void responsibility_change_entry_content_form_set_change_type(ResponsibilityChangeEntryContentForm *self, const char *value);
 char *responsibility_change_entry_content_form_current_state(const ResponsibilityChangeEntryContentForm *self);
 void responsibility_change_entry_content_form_set_current_state(ResponsibilityChangeEntryContentForm *self, const char *value);
 char *responsibility_change_entry_content_form_future_state(const ResponsibilityChangeEntryContentForm *self);

@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-07-28T05:35:46.193448Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 9,
+  "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
   "classCount": 1247,
   "rootCount": 14,
@@ -40195,13 +40195,6 @@
               "hint": "Short name of the competency",
               "type": "String",
               "required": true
-            },
-            {
-              "name": "category",
-              "label": "Category — Core, Technical, Leadership, Behavioral",
-              "hint": "Core / Technical / Leadership / Behavioral",
-              "type": "String",
-              "required": false
             },
             {
               "name": "description",
@@ -176525,6 +176518,7 @@
             {
               "name": "metricCategory",
               "label": "Category (e.g., Efficiency, Quality, Volume, Cost)",
+              "hint": "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty",
               "type": "String",
               "required": false
             },
@@ -178624,15 +178618,9 @@
               "required": true
             },
             {
-              "name": "scopeStatus",
-              "label": "Scope Status",
-              "hint": "In-Scope / Out-of-Scope / Deferred / Partial",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "rationale",
               "label": "Rationale - why this scope decision",
+              "hint": "Why the process is in or out of scope, and to what extent — record here if it is only partially included",
               "type": "String",
               "required": false
             },
@@ -199666,13 +199654,6 @@
               "hint": "The responsibility affected by this change",
               "type": "String",
               "required": true
-            },
-            {
-              "name": "changeType",
-              "label": "Change Type — add, remove, modify",
-              "hint": "Whether this responsibility is added, removed, or modified",
-              "type": "String",
-              "required": false
             },
             {
               "name": "currentState",
@@ -284160,6 +284141,7 @@
             {
               "name": "isManual",
               "label": "Is Manual (requires human intervention)",
+              "hint": "Whether carrying the step out needs a person; an automated step runs without human intervention",
               "type": "bool",
               "required": false
             },
