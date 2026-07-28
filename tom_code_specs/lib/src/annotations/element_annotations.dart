@@ -13,7 +13,7 @@
 /// [CsElement] + [CsWidget], CE-AC by [CsAction] + [CsTrigger], CE-NV by
 /// [CsRoute] + [CsScreenFlow]).
 ///
-/// This file covers the twelve client/UI part markers. Server-side markers live
+/// This file covers the fourteen client/UI part markers. Server-side markers live
 /// in `service_annotations.dart`; shared markers in `contract_annotations.dart`.
 library;
 

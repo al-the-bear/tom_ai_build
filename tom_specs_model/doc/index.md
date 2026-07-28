@@ -7,7 +7,7 @@ on them. Documentation for tools that live in other projects
 (`tom_specs_clitool`, `tom_spec_engine`, `tom_som_conformance`, …) is here too;
 only per-project `README.md` files stay with their projects.
 
-**Eleven documents plus this index.** Each holds exactly one authority and is
+**Twelve documents plus this index.** Each holds exactly one authority and is
 listed exactly once below — if two documents could answer the same question, one
 of them is wrong. Read the *Authority for* column, not the title: the title says
 what a document is about, the authority says what it decides.
@@ -28,7 +28,7 @@ full at least once per file where it reads naturally, then use the short form.
 Every other document is cited by **file name plus section** —
 `codespecs_mapping.md §9.2`, `tom_specs_model_rules.md §6.1`. A bare `§N` with
 no document in front of it is unresolvable and is always a defect: the reader
-cannot tell which of twelve documents it means.
+cannot tell which of thirteen documents it means.
 
 Cite by **subject, not by number**. Section numbers move when a document is
 restructured, so a number carried mechanically from one document to another
@@ -54,7 +54,8 @@ generated language runtimes and two file formats.
 
 | Document | Authority for |
 |----------|---------------|
-| [codespecs_mapping.md](codespecs_mapping.md) | **Everything CodeSpecs.** The four pillars and the `tom_core`-family basis (§1.1), the neutral vocabulary (§1.2), the parts catalogue and the three generated projects (§4), the per-part gap analysis and spec-authorable attribute surfaces (§5), the server contract (§7), the SOM→CodeSpecs derivation and the CodeSpecs/follow-up split (§8), the bidirectional DocSpecs↔CodeSpecs link (§9), the config/settings scope split and the `code_spec` architecture principles (§11–§12). |
+| [codespecs_mapping.md](codespecs_mapping.md) | **Everything CodeSpecs *except* what code comes out.** The four pillars and the `tom_core`-family basis (§1.1), the neutral vocabulary (§1.2), the parts catalogue and the three generated projects (§4), the per-part gap analysis and spec-authorable attribute surfaces (§5), the server contract (§7), the SOM→CodeSpecs derivation *map* and the CodeSpecs/follow-up split (§8), the bidirectional DocSpecs↔CodeSpecs link (§9), the config/settings scope split and the `code_spec` architecture principles (§11–§12). |
+| [codespecs_derivation_contract.md](codespecs_derivation_contract.md) | **What code comes out.** The per-`Cs*`-annotation derivation contract: for every active marker, which SOM class and fields feed it, the exact Dart emitted and its `tom_core`-family superclass, how each annotation argument is derived, the deterministic naming rules (N1–N9), the locus project, the typed cross-references and the `@CodeSpec`/`@DocSpec` back-links — plus the constructor shapes `csrb4` authors and the validator checks that enforce them. |
 
 ## The creation process
 

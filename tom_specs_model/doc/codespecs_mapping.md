@@ -169,10 +169,18 @@ being closed, and they constrain the whole design:
 | `tom_ai/ai_build/tom_specs_model/` | The **SOM**: 12 Phase 3 document roots `D01…D12` under the `D00SolutionBlueprint` master, plus the `D13CodeSpecsProjection` generation projection. The derivation *inputs*. |
 | `tom_core_kernel` / `_server` / `_flutter` / `_d4rt` / `tom_flutter_ui` | Direct source survey of the five core-family packages — the exact constructor/field/annotation signatures behind every §5 attribute-surface row. |
 
-**This document is self-contained.** It is the single CodeSpecs document: the
-per-part code basis, attribute surfaces, section→part coverage, closed-choice
-inventory, follow-up split and review decisions are all sections of this file.
-Remaining work is tracked as `csra*` quest todos (§10), not in prose.
+**This document is the CodeSpecs *grounding* document.** The per-part code
+basis, attribute surfaces, section→part coverage, closed-choice inventory,
+follow-up split and review decisions are all sections of this file. Remaining
+work is tracked as `csra*` quest todos (§10), not in prose.
+
+Exactly one CodeSpecs subject lives elsewhere: **what code comes out**. The
+per-`Cs*`-annotation derivation contract — the exact Dart the generator emits,
+the deterministic naming rules, each annotation's argument shape and the
+validator checks — is
+[codespecs_derivation_contract.md](codespecs_derivation_contract.md), which is
+the authority for all of it. This document says *which SOM section feeds which
+part*; that one says *what the generator writes*.
 
 ## 3. CodeSpecs in one paragraph
 
@@ -378,24 +386,30 @@ code needs **additional annotations** so the code carries the specification
 details *completely* — beyond what simple code can express (element kinds,
 maximum lengths, format restrictions, placement, schedules, grades, …).
 
-**Annotation authoring state.** 35 annotations exist in `tom_code_specs` today —
-one per part, plus the several markers a part may own (CE-EL, CE-AC, CE-NV,
-CE-DB, CE-VA, CE-NT). The §4.3 deferred candidates deliberately have **no**
-annotation: a deferred part's `CodeSpecPart` value is reserved so a SOM section
-can already carry `@CodeSpecKind`, but the marker is authored only on promotion.
+**Annotation authoring state.** 39 part markers exist in `tom_code_specs` today
+(40 classes, counting the `CsFileReference` facet value class) — one per part,
+plus the several markers a part may own (CE-EL, CE-AC, CE-NV, CE-DB, CE-VA,
+CE-NT). The §4.3 deferred candidates deliberately have **no** annotation: a
+deferred part's `CodeSpecPart` value is reserved so a SOM section can already
+carry `@CodeSpecKind`, but the marker is authored only on promotion.
 
-**The family is a marker set, not an attribute surface.** 33 of the 35
-annotations take a single optional `note`; only `@CsIdentityAttribute`
-(`placement`) and `@CsTrigger` (`kind`) carry a real attribute, and both do so
-because §5.16's fail-safe rule forbids choosing their arm by omission. The
+**The family is a marker set, not an attribute surface.** 36 of the 39 markers
+take a single optional `note`; only `@CsIdentityAttribute` (`placement`),
+`@CsTrigger` (`kind`) and `@CsColumn` (the `CsFileReference` facet, §5.13.1)
+carry a real attribute — the first two because §5.16's fail-safe rule forbids
+choosing their arm by omission. The
 per-part attribute surfaces this document specifies in §5 are therefore
 **designed but not yet expressible in code**: an example such as
 `@CsValidation('required, maxLength:80')` or `@CsTable('customer')` states the
-intent, not a constructor that exists. Closing that gap — deciding per
-annotation which attributes become constructor parameters and which stay
-carried by the annotated class's own members — is what the per-annotation
-derivation contract (`csra12`, §10) produces. The §5.23 `Cs*Ref` typed-reference
-family is likewise designed but unimplemented (`csra6`, §10). The gap columns
+intent, not a constructor that exists. Which attributes become constructor
+parameters and which stay carried by the annotated class's own members is
+**already decided** — by
+[codespecs_derivation_contract.md](codespecs_derivation_contract.md) §2.3 and
+§5, whose §5.1–§5.3 give the constructor shape of every marker that gains one,
+the 15 that stay note-only, and the 13 new enums/value classes `tom_code_specs`
+must add. Authoring those constructors is `csrb4` (§10). The §5.23 `Cs*Ref`
+typed-reference family is likewise specified but unimplemented (`csra6`, §10).
+The gap columns
 cite the owning open-work todos: `csra*` in `todos.tom_specs.todo.yaml` (§10)
 and `csex*` in `_ai/quests/tom_core/todos.tom_core.todo.yaml` — the `tom_core`
 quest's framework-readiness series, which owns the core-side roadmap items.
@@ -3784,10 +3798,9 @@ per-part verdict, and each gap it records appears below as its own todo.
 | Todo | Open work |
 |------|-----------|
 | `csra6` | Implement the `Cs*Ref` typed cross-part reference const family designed in §5.23 — currently designed, zero implementation. |
-| `csra12` | Produce the full **per-`Cs*`-annotation derivation contract** (SOM class/field → generated annotated Dart) — the last piece before Phase-4 generation can be implemented. |
 | `csrb1` | Confirm the **CE-JB four-part scope** (§5.29) end to end against the landed `tom_core_kernel` scheduling module — each of schedule, body, failure policy and deployment envelope must resolve to exactly one owning class before the reuse verdict is final. |
 | `csrb2` | Retire or justify `TomClientConfiguration` (`tom_core_codespecs`) — §4.1/§5.16 now record CE-CC as a **reuse** verdict over the landed `TomBaseClientConfiguration`, so the part currently has two holders. Exactly one must be authoritative. |
-| `csrb4` | Give the `Cs*` family its **attribute surfaces**. 36 of the 39 part markers take a single optional `note` — only `CsIdentityAttribute` (placement), `CsTrigger` (kind) and `CsColumn` (the `CsFileReference` facet, §5.13.1) carry a real attribute — so every per-part attribute surface specified in §5 is designed but not expressible in code. `csra12`'s derivation contract decides the constructor shape; this todo authors it. |
+| `csrb4` | Give the `Cs*` family its **attribute surfaces**. 36 of the 39 part markers take a single optional `note` — only `CsIdentityAttribute` (placement), `CsTrigger` (kind) and `CsColumn` (the `CsFileReference` facet, §5.13.1) carry a real attribute — so every per-part attribute surface specified in §5 is designed but not expressible in code. [codespecs_derivation_contract.md](codespecs_derivation_contract.md) §5 already decides the constructor shape of all 39 markers and names the 13 new enums/value classes `tom_code_specs` must add; this todo authors them. |
 | `csrb5` | Split the mixed `AuditAndLogging` (SAS) SOM subtree — the CE-LG authorable band, the CE-CF sink settings and the `ComplianceReporting` follow-up — so the promoted CE-LG part gets a `D13CodeSpecsProjection` field at the server locus (§4.3.2). |
 | `csrb6` | Split the mixed `PrintAndExportLayout` (XDS) SOM subtree — the CE-CF renderer/export settings band and the CE-RP report band — so the promoted CE-RP part gets a `D13CodeSpecsProjection` field at the server locus (§5.28). The same defect as `csrb5`, in a different document. |
 | `csrb7` | Resolve the domain-enum contradiction: §4.1 records a domain enum as "realised as a plain Dart `enum` — no `tom_core_codespecs` class", yet `TomDomainEnum` / `TomDomainEnumValue` ship as live gap classes. Exactly one arm must stand; either way it is API-breaking. |
@@ -3797,6 +3810,8 @@ per-part verdict, and each gap it records appears below as its own todo.
 | `csrb11` | Route **CE-MG** into a Phase-3 document and the generation projection, and complete its §5.27 surface (environment tag, datasource/schema placement, seed-data artifact kind). `SCHMG` is currently reachable only from `D00SolutionBlueprint`. |
 | `csrb12` | Give **CE-JB** a per-job declaration list (§5.29 surface: trigger, work definition, target references, retry/timeout/alerting, enabled/environments/service unit). `BatchJobManagement` is system-wide policy only. |
 | `csrb13` | Give **CE-CL** an enumeration of the system's **client applications** (§4.1.1: platform targets, entry route, included flows/forms). `ClientRequirementsSection` states minimum platform requirements, which is a different thing. |
+| `csrb14` | Place **CE-LG, CE-NT and CE-RP in the §4.4.3 slice table.** §4.2 puts all three in the server project, but no generation slice claims them, so the seven-slice execution order does not cover them. Raised by `csra12`. |
+| `csrb15` | Add **`CsElementRef` and `CsFormRef`** to the §5.23 typed-reference family. §5.10/§5.20 require a trigger's endpoints (a CE-EL element, a CE-FM form) to be typed references, "never id strings", but §5.23's eleven ref types can express neither. Raised by `csra12`. |
 
 ## 11. Configuration & settings — the four-scope owner-key split
 
@@ -3866,5 +3881,10 @@ are integral to it:
   `tom_code_specs`.
 
 > The full per-`Cs*`-annotation derivation contract (SOM class/field →
-> generated annotated Dart) is the planned follow-up to this grounding doc —
-> tracked as quest todo `csra12` (§10).
+> generated annotated Dart) lives in its own document,
+> [codespecs_derivation_contract.md](codespecs_derivation_contract.md), which is
+> **the authority for what code comes out**. This document is the derivation
+> *map* — which SOM section feeds which part; that one is the derivation
+> *contract* — the exact Dart the generator emits, the deterministic naming
+> rules, each annotation's argument shape, and the validator checks. Where the
+> two appear to disagree about emitted code, the derivation contract wins.
