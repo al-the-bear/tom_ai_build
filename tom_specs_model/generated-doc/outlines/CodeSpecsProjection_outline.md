@@ -23,6 +23,14 @@
       - content @Form(key, defaultCopy, placeholders, description)
       - localeVariants: `MessageLocaleVariantEntry`
         - content @Form(locale, copy)
+  - `NotificationModel` ← (locus: shared — CE-NT)
+    - content @description
+    - [1,] channels: `NotificationChannelEntry`
+      - content @Form(channelName, channelId, description, deliveryMethod, retryPolicy, fallbackChannel, quietHoursSupport, urgencyLevels)
+    - notificationTypes: `NotificationTypeEntry`
+      - content @Form(notificationType, typeId, category, urgency, defaultChannels, userConfigurable, mandatoryChannels, triggerEvent, contentTemplate, localized)
+    - preferences: `UserNotificationPreferences`
+      - content @form
   - `DataModel` ← (locus: server — CE-DB/CE-VA)
     - content
     - [1,] entities: `DataEntityEntry`

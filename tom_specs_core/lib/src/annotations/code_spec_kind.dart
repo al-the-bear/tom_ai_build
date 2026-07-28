@@ -70,8 +70,8 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **28 values**: the **24 active parts** (§4.1), the **member
-/// kind [domainEnum]**, and the **3 deferred candidates** (§4.3). A
+/// The enum holds **28 values**: the **25 active parts** (§4.1), the **member
+/// kind [domainEnum]**, and the **2 deferred candidates** (§4.3). A
 /// deferred value is *mapping-only* — a SOM section may carry
 /// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
 /// annotation, no built-on `tom_core` class and no generated code until
@@ -190,26 +190,37 @@ enum CodeSpecPart {
   // ---------------------------------------------------------------------------
   // Deferred candidates — MAPPING-ONLY (§4.3, csm2r8).
   //
-  // Three values here — [workflow], [notification], [auditLog] — are RESERVED so
-  // a SOM section can carry `@CodeSpecKind` now, but they are NOT active parts:
-  // each has NO `@Cs<Id>` annotation, NO built-on `tom_core` class and NO
-  // generated code until promoted into §4.1 (the promotion criterion: a concrete
+  // Two values here — [workflow] and [reporting] — are RESERVED so a SOM section
+  // can carry `@CodeSpecKind` now, but they are NOT active parts: each has NO
+  // `@Cs<Id>` annotation, NO built-on `tom_core` class and NO generated code
+  // until promoted into §4.1 (the promotion criterion: a concrete
   // `tom_core`-family built-on class — or a decided `tom_core_codespecs` gap —
   // plus a `Cs*` annotation are chosen). They are distinct and collision-free
-  // against the 24 active values, keeping the enum at 28 kind values.
+  // against the 25 active values, keeping the enum at 28 kind values.
   //
-  // [backgroundJob] and [reporting] below are ALREADY PROMOTED (active §4.1)
-  // but physically stay in their original enum position — kind values keep their
-  // enum position for enum-order stability (never reordered on promotion). Their
-  // doc comments carry the active mapping.
+  // [workflow] is deferred **permanently**, not pending — the substrate survey
+  // in §4.3.1 recommends against ever building a process runtime, and §4.3.1 §7
+  // fixes the three conditions that would reopen it.
+  //
+  // [notification], [backgroundJob] and [auditLog] below are ALREADY PROMOTED
+  // (active §4.1) but physically stay in their original enum position — kind
+  // values keep their enum position for enum-order stability (never reordered on
+  // promotion). Their doc comments carry the active mapping.
   // ---------------------------------------------------------------------------
 
   /// CE-WF — multi-step process / workflow orchestration (state machines,
-  /// long-running processes). Deferred (§4.3).
+  /// long-running processes). Deferred **permanently** (§4.3, §4.3.1).
   workflow,
 
-  /// CE-NT — outbound communications (email / push / SMS / webhooks) as a
-  /// first-class effect. Deferred (§4.3).
+  /// CE-NT — notifications: outbound communications as a first-class effect —
+  /// `@CsNotification` names a type (category, urgency, default and mandatory
+  /// channels, trigger event, a [text] template key) and `@CsNotificationChannel`
+  /// a delivery route (fallback, quiet hours, urgency ceiling), built on
+  /// `TomNotificationType` / `TomNotificationChannelDeclaration`
+  /// (`tom_core_codespecs`) over the `tom_core_server` `messaging` transport
+  /// (`TomMessage` / `TomMessageRouter` / `TomMessageOutbox`). Shared
+  /// (declarations, so the preference UI and the dispatcher read one catalogue)
+  /// + server (delivery) (§4.3).
   notification,
 
   /// CE-JB — background jobs: scheduled / background / queued work over the
@@ -222,8 +233,14 @@ enum CodeSpecPart {
   /// job queue / multi-node locking are framework roadmap (§5.29).
   backgroundJob,
 
-  /// CE-LG — logging & audit trail: who did what, when (a cross-cutting effect on
-  /// operations). Deferred (§4.3).
+  /// CE-LG — audit trail: who did what, when — `@CsAudited` marks the entity or
+  /// endpoint whose access is recorded, built on `tom_core_server`'s `audit`
+  /// module (`TomAuditTrail` + the `TomAudited` declaration it carries). Pure
+  /// reuse, no gap: the trail records automatically at the endpoint and
+  /// repository chokepoints, so the spec authors only the *declared* half —
+  /// which invocations are auditable, whether reads count, which fields are
+  /// redacted. Retention and log format are [serverConfiguration], not CE-LG.
+  /// Server-only (§4.3).
   auditLog,
 
   /// CE-RP — reporting: report definitions over the domain model — `@CsReport`
@@ -234,5 +251,9 @@ enum CodeSpecPart {
   /// (apiResponse | email | fileExport) and an optional schedule; delivered
   /// via ordinary [serverApi] operations. Server (definition + execution) +
   /// shared (tabular result envelope, parameter DTOs) (§5.28).
+  ///
+  /// Deferred (§4.3) — the sketch above is the intended shape, not a live
+  /// mapping: reporting is worked out in a specification of its own before it
+  /// is promoted, so it has no `Cs*` annotation and no generated code yet.
   reporting,
 }

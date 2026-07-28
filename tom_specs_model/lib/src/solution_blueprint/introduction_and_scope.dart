@@ -4316,7 +4316,11 @@ class SessionModel extends DocSpecsSection {
   [CodeSpecPart.notification],
   note:
       'CE-NT — outbound communications (email/push/SMS/webhooks) as a '
-      'first-class effect. Deferred (§4.3), mapping-only until §4.1.',
+      'first-class effect. Active part (§4.1): the type/channel/preference '
+      'declarations are realised as @CsNotification and '
+      '@CsNotificationChannel over the tom_core_codespecs notification model '
+      '(shared locus); delivery rides the tom_core_server messaging transport '
+      '(server locus).',
 )
 class NotificationModel extends DocSpecsSection {
   @ContentType('description', 'Overview of notification strategy.')

@@ -33,6 +33,16 @@
 /// subtree is consumed by CodeSpecs as *requirements* (a generation seed /
 /// acceptance source), not emitted as generated code, so it is not part of the
 /// generation projection (`codespecs_mapping.md` §8.3).
+///
+/// **CE-LG is promoted but not yet projected.** Its SOM home `AuditAndLogging`
+/// (SAS) mixes the CodeSpecs-authorable half (`SecurityEventsDefinition`'s
+/// policy forms, which map onto `@TomAudited`) with CE-CF sink settings
+/// (`AuditLogFormat`'s storage / retention / protection) and an ops follow-up
+/// (`ComplianceReporting`). Referencing the subtree wholesale would pull
+/// follow-up content into generation, so the section needs a Band-F-style split
+/// first — until it lands, CE-LG is an active part whose declarations reach
+/// generation through the endpoints and repositories they annotate rather than
+/// through a projection field of their own.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -97,21 +107,31 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   @SerializationOrder(5)
   MessageKeyRegistry messageKeyRegistry = MessageKeyRegistry();
 
+  /// Notification model — CE-NT type / channel / preference declarations.
+  ///
+  /// The declarations are **shared**: the client renders the preference UI
+  /// against the same catalogue the server dispatches from. Delivery is
+  /// server-only, but it is not authored here — it rides the reused
+  /// `tom_core_server` messaging transport.
+  @Comment('locus: shared — CE-NT')
+  @SerializationOrder(6)
+  NotificationModel notificationModel = NotificationModel();
+
   // ─── Locus: SERVER (<app>_codespec_server) ───────────────────────────────
 
   /// Data model — CE-DB persistence + CE-VA server-side rules.
   @Comment('locus: server — CE-DB/CE-VA')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DataModel dataModel = DataModel();
 
   /// Technical framework — CE-CF platform/config foundation.
   @Comment('locus: server — CE-CF')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   TechnicalFrameworkConcept technicalFramework = TechnicalFrameworkConcept();
 
   /// Access control model — CE-AZ authorization/identity seed.
   @Comment('locus: server — CE-AZ')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   AccessControlModel accessControl = AccessControlModel();
 
   // ─── Locus: SERVER + CLIENT span ─────────────────────────────────────────
@@ -119,7 +139,7 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   /// interaction; a single subtree whose parts split across both loci.
   @Comment('locus: server(CE-SU)+client(CE-SC)')
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 
@@ -127,6 +147,6 @@ class D13CodeSpecsProjection extends DocSpecsSection {
 
   /// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
   @Comment('locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER')
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   ExperienceCodeSpecs experienceCodeSpecs = ExperienceCodeSpecs();
 }

@@ -8,9 +8,10 @@
 ///
 /// The `CE-*` code named by each doc comment is the part's **stable registry
 /// key** (§4.1: never reused, never renamed); CE-DB is carried by three markers
-/// ([CsTable], [CsColumn], [CsRepository]).
+/// ([CsTable], [CsColumn], [CsRepository]) and CE-NT by two ([CsNotification],
+/// [CsNotificationChannel]).
 ///
-/// This file covers the nine server-side part markers. Client/UI markers live
+/// This file covers the twelve server-side part markers. Client/UI markers live
 /// in `element_annotations.dart`; shared markers in `contract_annotations.dart`.
 library;
 
@@ -125,4 +126,64 @@ class CsJob {
   final String? note;
 
   const CsJob({this.note});
+}
+
+/// CE-LG — an audited element: an entity or endpoint whose access is recorded
+/// in the audit trail (`codespecs_mapping.md` §4.3).
+///
+/// Pure reuse of `tom_core_server`'s `audit` module — no gap class. The trail
+/// records **automatically** at two chokepoints no handler can opt out of
+/// (`TomEndpointHandler.handleMethodCall` and `TomSqlDatasourceRepository`'s
+/// write path), so what a specification authors is the *declared* half only:
+/// which endpoint invocations are auditable, whether reads count, and which
+/// fields must never appear in a record. Those three decisions are exactly
+/// `@TomAudited(enabled:, includeReads:, redact:)`, which the CodeSpec carries
+/// alongside this marker — the same shape CE-SU uses, where the CodeSpec is an
+/// ordinary class carrying the framework's own `@tomService` and [CsServiceUnit]
+/// marks it as the part.
+///
+/// Retention, log format and the compliance report are **not** CE-LG: they are
+/// deployment settings on the sink, and belong to [CsServerConfig].
+class CsAudited {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsAudited({this.note});
+}
+
+/// CE-NT — a notification type: an outbound communication a system event emits
+/// (`codespecs_mapping.md` §4.3).
+///
+/// Built on `TomNotificationType` (`tom_core_codespecs`) for the declaration and
+/// `TomMessage` / `TomMessageRouter` / `TomMessageOutbox` (`tom_core_server`
+/// `messaging`) for delivery. The transport is pure reuse; the gap it leaves —
+/// which types exist, which channels each goes out on, and how a user's
+/// preferences narrow that set — is what this marker names.
+///
+/// The declaration is **shared** (the client renders the preference UI against
+/// the same catalogue the server dispatches from); delivery is server-only.
+/// The body copy is a `CsText` message key, never inline text.
+class CsNotification {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsNotification({this.note});
+}
+
+/// CE-NT — a notification channel: a declared delivery route
+/// (`codespecs_mapping.md` §4.3).
+///
+/// Built on `TomNotificationChannelDeclaration` (`tom_core_codespecs`), whose
+/// `channelId` is the name of a `TomMessageChannel` — an **open** named value,
+/// so a deployment can declare a channel the framework never anticipated.
+///
+/// Separate from [CsNotification] because the two are authored independently:
+/// the channel catalogue is a property of the deployment, the type catalogue a
+/// property of the domain, and a type references channels by id rather than
+/// containing them.
+class CsNotificationChannel {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsNotificationChannel({this.note});
 }

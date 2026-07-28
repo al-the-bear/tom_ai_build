@@ -13486,7 +13486,9 @@ class KeyCompromiseRecoveryPolicy extends DocSpecsSection {
 @DetailedIn(D08SecurityAccessSpecification)
 @CodeSpecKind([CodeSpecPart.auditLog],
     note: 'CE-LG — logging & audit trail (who did what, when) as a '
-        'cross-cutting effect. Deferred (§4.3), mapping-only until §4.1.')
+        'cross-cutting effect. Active part (§4.1): realised as @CsAudited '
+        'alongside the framework @TomAudited declaration, server locus. The '
+        'declared half only — retention and log format are CE-CF.')
 class AuditAndLogging extends DocSpecsSection {
   @ContentHelp('''
 Define security audit and logging requirements. Comprehensive logging enables

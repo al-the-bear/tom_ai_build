@@ -23,7 +23,7 @@ whose every element carries traceability annotations back to its source spec.
 | `@CodeSpec(id, {source, requirements})` | Identity + forward doc → code trace (CE-TR) on a CodeSpec class | `codespecs_mapping.md` §9 |
 | `@DocSpec([DocRef(sectionId, description), …])` | Code → doc back-trace on a CodeSpec class/member | §9.3 |
 | `DocRef(sectionId, description)` | One back-trace entry | §9.3 |
-| `Cs*` annotation family (no base classes) — 30 markers | The catalogue's part markers, in four files — see the table below | §4.1 |
+| `Cs*` annotation family (no base classes) — 35 markers | The catalogue's part markers, in four files — see the table below | §4.1 |
 
 ### The `Cs*` family
 
@@ -33,16 +33,19 @@ have more than one).
 
 | File | Markers | Parts |
 |------|---------|-------|
-| `element_annotations.dart` | `@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsAction`, `@CsTrigger` *(with `TriggerKind`)*, `@CsServerCall`, `@CsViewModel`, `@CsRoute`, `@CsScreenFlow` | Client / UI — CE-EL, CE-FM, CE-LO, CE-TX, CE-VA, CE-AC, CE-SC, CE-ST, CE-NV |
-| `service_annotations.dart` | `@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn`, `@CsRepository`, `@CsAuthorize`, `@CsServerConfig`, `@CsMigration`, `@CsJob` | Server — CE-API, CE-SU, CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB |
+| `element_annotations.dart` | `@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsFieldRule`, `@CsFormRule`, `@CsAction`, `@CsTrigger` *(with `TriggerKind`)*, `@CsServerCall`, `@CsViewModel`, `@CsRoute`, `@CsScreenFlow` | Client / UI — CE-EL, CE-FM, CE-LO, CE-TX, CE-VA, CE-AC, CE-SC, CE-ST, CE-NV |
+| `service_annotations.dart` | `@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn`, `@CsRepository`, `@CsAuthorize`, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel` | Server — CE-API, CE-SU, CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server) |
 | `contract_annotations.dart` | `@CsError`, `@CsEnum` | Shared — CE-ER, plus the `domainEnum` **member** kind |
 | `client_settings_annotations.dart` | `@CsClient`, `@CsClientConfig`, `@CsDeviceSetting`, `@CsUserSetting`, `@CsIdentity`, `@CsIdentityAttribute` *(with `IdentityAttributePlacement`)*, `@CsAuth` | Client app, the four owner-keyed config/settings scopes, identity and auth — CE-CL, CE-CC, CE-DS, CE-UP, CE-ID, CE-AU |
 
-The §4.3 **deferred** candidates (CE-RP, CE-WF, CE-NT, CE-LG) deliberately have
-**no marker**: a deferred part is mapping-only — its `CodeSpecPart` value is
-reserved so a SOM section can already carry `@CodeSpecKind`, but there is no
-annotation, no built-on `tom_core` class and no generated code until it is
-promoted into §4.1.
+The §4.3 **deferred** candidates (CE-RP, CE-WF) deliberately have **no marker**:
+a deferred part is mapping-only — its `CodeSpecPart` value is reserved so a SOM
+section can already carry `@CodeSpecKind`, but there is no annotation, no
+built-on `tom_core` class and no generated code until it is promoted into §4.1.
+The two are deferred for different reasons: **CE-RP is waiting** on one
+substrate blocker, while **CE-WF is deferred permanently** — its SOM section is
+free text, so there is no machine-readable input a generator could read
+(§4.3.2).
 
 ## What lives in `tom_specs_core` instead
 
@@ -53,8 +56,10 @@ depends on — keeping the model → core dependency direction):
 - `@CodeSpecKind(List<CodeSpecPart> kinds, {String? note})` — the type-level "this
   section type realises these CodeSpecs kind(s)" link; **list-valued** since a
   section/field may map to several kinds (§9.1).
-- `CodeSpecPart` — the enum of the catalogue's kind vocabulary (§4.1): the 23
-  active parts, the `domainEnum` member kind and the 4 deferred candidates.
+- `CodeSpecPart` — the enum of the catalogue's kind vocabulary (§4.1): the 25
+  active parts, the `domainEnum` member kind and the 2 deferred candidates.
+  Promotion never moves a value — a reserved kind keeps its declared position,
+  so the enum stays at 28 whichever readiness class a part is in.
 
 Both are re-exported from `package:tom_code_specs/tom_code_specs.dart` so a
 CodeSpecs author has a single import.

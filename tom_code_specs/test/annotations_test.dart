@@ -232,6 +232,38 @@ void main() {
     });
   });
 
+  group('csra7: the two parts promoted out of §4.3', () {
+    // CE-LG is pure reuse — @CsAudited marks the framework's own @TomAudited
+    // declaration, exactly as @CsServiceUnit marks a @tomService (§4.3.2).
+    test('CsAudited (CE-LG) constructs with optional note', () {
+      expect(const CsAudited().note, isNull);
+      expect(const CsAudited(note: 'redacts iban').note, 'redacts iban');
+    });
+
+    test('CsNotification (CE-NT) constructs with optional note', () {
+      expect(const CsNotification().note, isNull);
+      expect(const CsNotification(note: 'order shipped').note, 'order shipped');
+    });
+
+    test('CsNotificationChannel (CE-NT) constructs with optional note', () {
+      expect(const CsNotificationChannel().note, isNull);
+      expect(const CsNotificationChannel(note: 'sms, critical only').note,
+          'sms, critical only');
+    });
+
+    // The promoted parts keep the enum positions they held while reserved —
+    // promotion is a readiness change, never a renumbering (§4.1).
+    test('their kind values are reachable and distinct', () {
+      const kinds = <CodeSpecPart>[
+        CodeSpecPart.notification,
+        CodeSpecPart.auditLog,
+      ];
+      expect(kinds.toSet().length, kinds.length);
+      expect(const CodeSpecKind([CodeSpecPart.auditLog]).kinds,
+          [CodeSpecPart.auditLog]);
+    });
+  });
+
   group('CSM2R1: kind vocabulary re-exported', () {
     test('CodeSpecKind and CodeSpecPart are reachable via one import', () {
       const kind = CodeSpecKind([CodeSpecPart.form]);

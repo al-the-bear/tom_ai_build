@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.7.0
+
+- csra7: add the three markers for the two parts promoted out of §4.3 —
+  `@CsAudited` (CE-LG) and `@CsNotification` + `@CsNotificationChannel`
+  (CE-NT). Both parts pass the §8.1 authored-input test: their SOM sections are
+  structured `@Form` blocks and entry lists, not free text, so a generator has
+  something to read. CE-WF, whose section is a single free-text field plus a
+  diagram, is deferred **permanently** for the same reason (§4.3.2).
+- `@CsAudited` is deliberately thin: like `@CsServiceUnit` over `@tomService`,
+  it marks the framework's own `@TomAudited` declaration rather than
+  re-modelling it. Retention, log format and compliance reporting are **not**
+  CE-LG — they are CE-CF settings on the sink.
+- The deferred set is down to CE-RP (waiting on one substrate blocker) and
+  CE-WF (decided). `CodeSpecPart` is unchanged at 28 values: promotion never
+  moves a reserved kind out of its declared position.
+
 ## 0.6.0
 
 - csra3: drop the `SettingsPersistence` enum and the `persistence` argument on

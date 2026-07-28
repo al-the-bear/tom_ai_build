@@ -2981,8 +2981,10 @@ class ActorRelationshipDiagram extends DocSpecsSection {
   [CodeSpecPart.workflow],
   note:
       'CE-WF — multi-step process / workflow orchestration (state '
-      'machines, long-running processes). Deferred (§4.3), mapping-only '
-      'until §4.1.',
+      'machines, long-running processes). Deferred PERMANENTLY (§4.3.1, '
+      '§4.3.2): this section is free text, so there is no machine-readable '
+      'input a generator could read. Mapping-only; the realistic cases are '
+      'served by CE-JB jobs, CE-AC actions and CE-DB state.',
 )
 class DetailedProcessWorkflow extends DocSpecsSection {
   @ContentHelp('''
