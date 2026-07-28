@@ -973,7 +973,7 @@ therefore classified:
 | **3** | Server persistence & configuration | — (CE-DB and CE-MG are READY: the aggregation grammar and the schema-diff engine both ship) | — | — |
 | **4** | Server behaviour | CE-SU (`CsServiceUnitRef`) — CE-AU is READY, the two-pass 2FA flow is complete | **E** | `csrb4` |
 | **5** | Client interaction core | CE-SC/CE-AC/CE-FM ref parameters (CE-EL is READY — `csexb1` carried its last three per-kind attributes) | **E** | `csrb4` (the `CsRouteRef` / `CsCallRef` / `CsActionRef` parameters) |
-| **6** | Client presentation & shell | CE-CC (two holders standing) — CE-LO is unblocked, `csexb2` reconciled the container-kind set with the ACL substrate | — | `csrb2` (retire or justify `TomClientConfiguration`) |
+| **6** | Client presentation & shell | — (CE-CC is **READY**: one holder, `tom_core_flutter`'s `TomBaseClientConfiguration`; CE-LO is unblocked, `csexb2` reconciled the container-kind set with the ACL substrate) | — | — |
 | **7** | Server operational | CE-JB is **READY** on the code side — the declaration envelope, scheduler runtime, job queue, multi-node lease and declarative registration have all landed, and §5.29 names the owning class for each of the four scope parts | — | `csrc1` (type `TomJobDeclaration.targetRefs`); `csrb12` supplies the SOM-side per-job list |
 
 **Critical-path consequence.** The `Cs*` annotation family, the §5.23 `Cs*Ref`
@@ -3848,7 +3848,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrb2` | Retire or justify `TomClientConfiguration` (`tom_core_codespecs`) — §4.1/§5.16 now record CE-CC as a **reuse** verdict over the landed `TomBaseClientConfiguration`, so the part currently has two holders. Exactly one must be authoritative. |
 | `csrb4` | Give the `Cs*` family its **attribute surfaces**. 36 of the 39 part markers take a single optional `note` — only `CsIdentityAttribute` (placement), `CsTrigger` (kind) and `CsColumn` (the `CsFileReference` facet, §5.13.1) carry a real attribute — so every per-part attribute surface specified in §5 is designed but not expressible in code. [codespecs_derivation_contract.md](codespecs_derivation_contract.md) §5 already decides the constructor shape of all 39 markers and names the 13 new enums/value classes `tom_code_specs` must add; this todo authors them. |
 | `csrb5` | Split the mixed `AuditAndLogging` (SAS) SOM subtree — the CE-LG authorable band, the CE-CF sink settings and the `ComplianceReporting` follow-up — so the promoted CE-LG part gets a `D13CodeSpecsProjection` field at the server locus (§4.3.2). |
 | `csrb6` | Split the mixed `PrintAndExportLayout` (XDS) SOM subtree — the CE-CF renderer/export settings band and the CE-RP report band — so the promoted CE-RP part gets a `D13CodeSpecsProjection` field at the server locus (§5.28). The same defect as `csrb5`, in a different document. |
